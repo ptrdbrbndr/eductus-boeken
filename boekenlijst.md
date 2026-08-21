@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 21
-augustus 2026: 551 titels in 18 rubrieken.
+augustus 2026: 571 titels in 19 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -13,23 +13,24 @@ bij de volgende build verloren.
 | Rubriek | Waar de rubriek over gaat | Titels |
 | --- | --- | --- |
 | Vakmanschap en aandacht | werken met je handen, en wat kwaliteit dan is | 1, 6, 320, 346, 376, 462, 517, 535, 553 |
-| Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9, 71, 72, 77, 91, 95, 105, 107, 109, 111, 134, 135, 141, 145, 149, 150, 160, 167, 169, 187, 199, 201, 204, 205, 216, 227, 228, 230, 232, 242, 255, 263, 292, 299, 334, 335, 341, 377, 379, 390, 391, 394, 405, 416, 435, 442, 449, 459, 461, 473, 515, 516, 518, 519, 520, 524, 525, 526, 527, 528, 546, 547, 556, 561 |
+| Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9, 71, 72, 77, 91, 95, 105, 107, 109, 111, 134, 135, 141, 145, 149, 150, 160, 167, 169, 187, 199, 201, 204, 205, 216, 227, 228, 230, 232, 242, 255, 263, 292, 299, 334, 335, 341, 377, 379, 390, 391, 394, 405, 416, 435, 442, 449, 459, 461, 473, 515, 516, 518, 519, 520, 524, 525, 526, 527, 528, 546, 547, 556, 561, 569, 579, 586 |
 | Mannen, vriendschap, verbinding | mannenrollen en het onderhouden van vriendschap | 3, 7, 406, 407, 408 |
 | Roman en memoir | verhalend werk, autobiografisch of fictie | 4, 5, 10, 61, 100, 101, 110, 113, 114, 115, 173, 178, 180, 191, 192, 202, 203, 226, 235, 254, 261, 284, 287, 295, 325, 358, 385, 402, 431, 505, 522, 529, 530, 531, 532, 533, 534, 554, 558 |
 | Maken en scheppen | aan het werk komen en blijven als maker | 11, 12, 13, 14, 15, 16, 17, 41, 206, 241, 312, 445, 471, 550 |
 | Werk en aandacht | concentratie, aantekeningen en het inrichten van je eigen werk | 70, 78, 81, 151, 170, 197, 200, 207, 249, 256, 276, 278, 288, 290, 311, 400, 420, 448, 472, 512, 552 |
 | Schrijfambacht | schrijven als vak, door schrijvers zelf uitgelegd | 18, 19 |
 | Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153, 157, 158, 161, 168, 176, 177, 181, 193, 209, 211, 224, 238, 244, 252, 268, 274, 282, 283, 291, 296, 310, 349, 382, 392, 396, 397, 411, 422, 423, 424, 425, 426, 436, 439, 450, 451, 452, 469, 475, 487, 488, 509, 510, 514, 538, 540, 542 |
-| Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275, 303, 313, 314, 315, 316, 317, 318, 326, 329, 330, 331, 332, 333, 339, 357, 359, 360, 361, 386, 387, 401, 404, 409, 410, 412, 414, 415, 417, 418, 419, 432, 441, 458, 541, 557 |
+| Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275, 303, 313, 314, 315, 316, 317, 318, 326, 329, 330, 331, 332, 333, 339, 357, 359, 360, 361, 386, 387, 401, 404, 409, 410, 412, 414, 415, 417, 418, 419, 432, 441, 458, 541, 557, 575, 583, 585 |
 | Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63, 123, 124, 125, 126, 212, 213, 215, 250, 258, 280, 381, 384, 388, 429, 440, 562, 563, 564, 565, 566 |
-| Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144, 159, 163, 172, 183, 185, 198, 210, 222, 231, 233, 243, 245, 246, 257, 260, 264, 265, 266, 270, 277, 279, 293, 294, 306, 307, 308, 309, 344, 348, 350, 351, 353, 365, 369, 370, 395, 427, 434, 443, 446, 463, 464, 465, 474, 476, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 491, 492, 494, 496, 499, 501, 502, 503, 544 |
+| Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144, 159, 163, 172, 183, 185, 198, 210, 222, 231, 233, 243, 245, 246, 257, 260, 264, 265, 266, 270, 277, 279, 293, 294, 306, 307, 308, 309, 344, 348, 350, 351, 353, 365, 369, 370, 395, 427, 434, 443, 446, 463, 464, 465, 474, 476, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 491, 492, 494, 496, 499, 501, 502, 503, 544, 567, 570 |
 | Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156, 162, 182, 186, 253, 271, 273, 302, 304, 305, 338, 356, 364, 367, 398, 399, 438, 444, 466, 468, 508, 511, 551 |
 | Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140, 174, 189, 194, 229, 247, 248, 286, 289, 323, 324, 372, 373, 374, 375, 389, 457, 460, 467, 470, 513, 545 |
 | Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49, 285, 447 |
-| Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537 |
+| Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537, 568 |
 | Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347, 383, 413, 539, 555 |
 | Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102, 108, 117, 127, 128, 129, 130, 131, 132, 136, 139, 179, 184, 188, 190, 196, 259, 340, 362, 378, 380, 403, 433, 543, 548, 549, 559, 560 |
 | Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122, 327, 421, 437, 456, 477, 478, 493, 495, 497, 498, 500, 504, 506, 507 |
+| Filosofie en mystiek | wijsgerige hoofdwerken en mystieke teksten over wat werkelijk is en hoe te leven | 572, 573, 574, 576, 577, 578, 580, 581, 582, 584, 587 |
 
 Een titel kan in één rubriek staan en toch tags uit een andere dragen. De tags
 zijn het fijnmazige zoekmiddel, de rubriek is de plek in de kast.
@@ -110436,188 +110437,4254 @@ toegepast op politiek.
 - 384. The Rape of the Mind. Meerloo behandelt de psychologie van propaganda
 en hersenspoeling, waar Herman en Chomsky de economie ervan behandelen.
 
+## 567. Incorruptible
+
+Eric Ries, 2026. *Incorruptible: Why Good Companies Go Bad... and How Great
+Companies Stay Great* (Authors Equity, New York, 2026, 432 blz., ISBN
+9798893311860; Britse editie: Penguin Business, Londen, 2026, ISBN
+9780241692028). Er bestaat geen Nederlandse vertaling; de samenvatting is op
+de Engelse editie gebaseerd. Rubriek: geld en ondernemen.
+Tags: `ondernemerschap`, `bedrijfsbestuur`, `missie`, `aandeelhouders`
+
+Vijftien jaar na *The Lean Startup* onderzoekt Eric Ries waarom bedrijven die
+met een oprechte missie beginnen na hun doorbraak zo vaak van die missie
+losraken. Zijn antwoord zoekt de oorzaak in de constructie van de onderneming
+in plaats van in de moraal van de leiding. Eigendom, prikkels, statuten en
+bestuursgewoonten staan standaard afgesteld op winstmaximalisatie voor
+aandeelhouders, en die afstelling, door Ries financiële zwaartekracht genoemd,
+buigt het gedrag van ook principiële oprichters langzaam richting extractie.
+
+Tegenover die diagnose zet Ries een blauwdruk met vier pijlers: purpose,
+compliance, coherence en integrity. Wie de missie juridisch verankert, zoals
+de stichtingsbedrijven Novo Nordisk en Grundfos, of vertrouwen tot
+verdienmodel maakt zoals Costco, kan volgens hem generaties lang koers houden
+en er zakelijk beter van worden. Het boek verscheen in mei 2026, stond direct
+op de bestsellerlijst van de New York Times en leunt op twintig jaar
+advieswerk en op Ries' eigen Long-Term Stock Exchange.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Dat succesvolle bedrijven hun missie verraden is volgens Ries
+geen kwestie van slechte mensen aan de top; het is een voorspelbare uitkomst
+van hoe ondernemingen standaard zijn ingericht. Zolang eigendom, zeggenschap
+en beloning op kortetermijnwinst voor aandeelhouders zijn afgesteld, trekt een
+stille kracht die hij financiële zwaartekracht noemt elke organisatie richting
+extractie, wat de leiding ook belooft. De remedie is bouwkundig: wie de
+bestaansreden juridisch vastlegt, het verdienmodel met de missie laat
+samenvallen en de zeggenschap tegen vijandige druk beschermt, kan winst en
+missie decennialang verenigen. De bedrijven die dat doen behoren volgens Ries
+tot de waardevolste en langstlevende ter wereld.
+
+#### De gang van het boek
+
+**Missiecorruptie als constructiefout**
+
+Het eerste deel documenteert hoe bedrijven met een sterke bestaansreden na
+succes ontsporen. Ries noemt dat missiecorruptie: geen omkoping of fraude,
+maar volstrekt legale mechanismen zoals inkoop van eigen aandelen,
+doorgeschoten kostensnijden en verkoop aan de hoogste bieder, die waarde
+vernietigen terwijl niemand de wet overtreedt. Als voorbeelden van
+winstgevende bedrijven die desondanks werden leeggehaald of ontmanteld voert
+hij onder meer FedMart, Polaroid, Cadbury en Whole Foods op.
+
+De schuldvraag verschuift daarbij van personen naar systemen. Oprichters die
+hun bedrijf zien afglijden zijn zelden cynischer geworden; de omgeving van
+durfkapitaal, beursanalisten en bestuursadviseurs duwt hen een gebaand pad op
+waarin extractie de logische volgende stap lijkt.
+
+**De wetten van de financiële zwaartekracht**
+
+Financiële zwaartekracht werkt volgens Ries langs drie wetten. Zij is sterker
+dan formele zeggenschap: hij haalt de bekende enquête onder Amerikaanse
+financieel directeuren aan waarin 78 procent zegt bereid te zijn rendabele
+projecten te schrappen om een kwartaaldoel te halen. Zij werkt via perceptie:
+managers doen wat zij denken dat beleggers eisen, ook wanneer geen belegger
+erom gevraagd heeft. En zij groeit met het verschil in middelen tussen
+partijen: hoe afhankelijker een bedrijf van kapitaal, hoe harder de
+trekkracht.
+
+**De blauwdruk: vier pijlers**
+
+Het tweede deel bevat het ontwerpkader dat Ries de incorruptible blueprint
+noemt. Compliance is de ondergrens: geen crimineel bedrijf zijn. Purpose is
+een juridisch bindende vastlegging van waartoe de onderneming bestaat, in
+statuten in plaats van in een missieposter. Coherence eist dat verdienmodel en
+missie samenvallen, zodat het goede voor de klant ook het winstgevende voor
+het bedrijf is. Integrity omvat de structurele verdediging tegen krachten van
+buiten die de missie willen ombuigen, van vijandige overnames tot
+activistische aandeelhouders.
+
+**Missiegestuurd eigendom**
+
+De hardste vorm van verankering is eigendom. Novo Nordisk, in 1923 begonnen
+rond de insulineproductie, is via een stichting missiegestuurd gebleven en
+groeide uit tot een van de waardevolste bedrijven van Europa; het Deense
+pompenconcern Grundfos werd in 1975 aan een stichting overgedragen. Daarnaast
+bespreekt Ries trusts, gouden aandelen, benefit corporations en zijn eigen
+Long-Term Stock Exchange, een Amerikaanse beurs met noteringseisen voor
+langetermijnbestuur.
+
+De meest uitgewerkte constructie noemt Ries de spiritual holding company: een
+winstgevend bedrijf dat als dochter opereert van een stichting of vereniging
+zonder winstoogmerk, die over de missie waakt terwijl het bedrijf gewoon op de
+markt concurreert. Hij haalt onderzoek aan waaruit blijkt dat missiegestuurde
+bedrijven ongeveer zes keer zo vaak hun vijftigste verjaardag halen als
+conventioneel bestuurde ondernemingen. Het pleidooi is uitdrukkelijk niet
+tegen winst gericht: de constructie moet de winst juist dienstbaar maken aan
+het doel.
+
+**Vertrouwen verdient zich terug**
+
+Een reeks hoofdstukken werkt uit waarom vertrouwen zakelijk loont. Costco
+houdt de hotdog in het bedrijfsrestaurant al sinds 1985 op anderhalve dollar
+en betaalt boven de markt, en dankt daaraan loyaliteit die zich in beurswaarde
+laat aflezen. Cloudflare stelde in 2014 versleuteling gratis beschikbaar en
+zag het versleutelde deel van het web in korte tijd verdubbelen, met het eigen
+klantenbestand mee.
+
+Ries vat dit samen in de formule dat de moeilijke weg de makkelijke is: wie
+marges aftopt en beloften nakomt, bespaart op werving, toezicht en juridische
+wrijving meer dan de aftopping kost. De meeste bedrijven behandelen vertrouwen
+niettemin als kostenpost zonder rendement.
+
+**Van uitzondering naar norm**
+
+Het slotdeel vraagt waarom de uitzonderingen uitzondering blijven. De markt
+selecteert volgens Ries niet op waardecreatie zolang er genoeg winstgevende
+manieren bestaan om waarde te vernietigen, en de adviseursindustrie schrijft
+vrijwel elke oprichter hetzelfde bestuursmodel voor als beste praktijk. Dat
+model beschermt de oprichters zelf overigens slecht: rond tachtig procent van
+de oprichter-directeuren is binnen drie jaar na de beursgang vervangen.
+
+Het boek eindigt bij het individu. Klanten en werknemers vormen samen de vraag
+waar bedrijfsalgoritmen en doelstellingen op sturen; elke keuze telt mee in
+wat de markt beloont. Winst definieert Ries daarbij ruimer dan financiële
+extractie: een onderneming maakt pas werkelijk winst wanneer de wereld er per
+saldo beter van wordt, en de bestaande boekhouding maakt dat verschil
+onzichtbaar.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| missiecorruptie | Het proces waarbij een onderneming binnen de wet haar bestaansreden kwijtraakt doordat de prikkels extractie belonen. |
+| financiële zwaartekracht | De stille, structurele druk van vermeende aandeelhoudersverwachtingen die gedrag richting kortetermijnwinst buigt. |
+| aandeelhoudersprimaat | De leer dat een onderneming er allereerst is om aandeelhouderswaarde te maximaliseren; door Ries behandeld als ontwerpkeuze die anders kan. |
+| incorruptible blueprint | Ries' ontwerpkader van vier pijlers (compliance, purpose, coherence, integrity) om een missie structureel te beschermen. |
+| purpose | Juridisch bindende vastlegging van waartoe de onderneming bestaat, verankerd in statuten of eigendomsstructuur. |
+| coherence | De eis dat verdienmodel en missie samenvallen, zodat het goede voor de klant ook het winstgevende voor het bedrijf is. |
+| integrity | De structurele verdediging van de missie tegen externe druk, van vijandige overnames tot activistische aandeelhouders. |
+| missiegestuurde onderneming | Bedrijf waarvan de zeggenschap bij een stichting, trust of vergelijkbare constructie ligt die de missie boven verkoop stelt. |
+| spiritual holding company | Constructie waarin een winstgevend bedrijf als dochter opereert van een stichting zonder winstoogmerk die over de missie waakt. |
+| Long-Term Stock Exchange | Door Ries opgerichte Amerikaanse effectenbeurs met noteringseisen die besturen op de lange termijn afdwingen. |
+
+#### Waar het argument op rust
+
+Het boek is geen wetenschappelijke studie maar een betoog op basis van
+gevalsbeschrijvingen, twintig jaar advieswerk en aangehaald onderzoek van
+derden. De sterkste onderdelen steunen op serieus materiaal: de enquête onder
+financieel directeuren over het schrappen van rendabele projecten is een veel
+geciteerde studie van Graham, Harvey en Rajgopal, en naar stichtingseigendom
+bestaat vooral in Denemarken degelijk onderzoek dat laat zien dat zulke
+bedrijven minstens even goed presteren en langer bestaan.
+
+De overlevingscijfers en de becijferde voordelen van vertrouwen komen uit
+bronnen die Ries selecteerde bij een conclusie die al vaststond; een
+systematische toets van de blauwdruk zelf ontbreekt, al is dat bij een pas
+verschenen ontwerpkader ook nauwelijks mogelijk. De ontvangst was groot:
+bestsellerlijst van de New York Times en een vermelding bij de
+managementboeken van Thinkers50.
+
+#### Wat er tegen in te brengen valt
+
+De bewijsvoering selecteert op succes. Novo Nordisk, Costco en Cloudflare
+overleefden en bloeiden, maar missiegedreven bedrijven die met dezelfde
+constructies vastliepen komen nauwelijks in beeld, waardoor onduidelijk blijft
+hoeveel van het resultaat aan de structuur toe te schrijven valt. Verankerde
+zeggenschap beschermt bovendien ook tegen terechte correctie: een stichting of
+oprichter met gouden aandeel kan even goed een vergissing verschansen als een
+missie.
+
+Ries is zelf belanghebbende: als oprichter van de Long-Term Stock Exchange
+beveelt hij structuren aan waarin zijn eigen beurs een rol speelt. En wat het
+boek als nieuw ontwerp presenteert, bestaat in Denemarken en Duitsland al een
+eeuw; de Amerikaanse blik maakt het verhaal frisser dan de feiten zijn. De
+stelling dat vertrouwen loont berust ten slotte grotendeels op correlaties bij
+bedrijven die het zich konden veroorloven.
+
+#### Wat er concreet mee te doen is
+
+- Leg de bestaansreden van een onderneming vast in statuten of
+eigendomsstructuur in plaats van in een missiedocument.
+- Regel zeggenschap (aandelenklassen, stichting, trust) vóór de eerste
+financieringsronde, wanneer de onderhandelingspositie het sterkst is.
+- Ontwerp het verdienmodel zo dat het goede voor de klant ook het winstgevende
+voor het bedrijf is; waar dat niet lukt, is missieverval een kwestie van tijd.
+- Toets bij elke bezuiniging wie de rekening betaalt en wat zij aan vertrouwen
+kost, en reken dat mee als bedrijfsmiddel.
+- Vraag bij elk extern advies over bestuur en financiering welke belangen de
+adviseur zelf heeft bij het standaardmodel.
+
+#### Wat je hierna leest
+
+- 265. The Lean Startup. Ries' eerdere boek levert de methode om te beginnen;
+Incorruptible het ontwerp om het begonnene trouw te blijven.
+- 353. Good to Great. Collins zoekt duurzame grootheid in leiderschap en
+discipline; Ries verplaatst dezelfde vraag naar eigendom en statuten.
+- 306. Zero to One. Thiel redeneert vanuit het belang van de oprichter en het
+monopolie; naast Ries gelezen toont dat twee tegengestelde ontwerpfilosofieën.
+- 221. The Dictator's Handbook. Bueno de Mesquita en Smith passen dezelfde
+stelregel, gedrag volgt prikkels en niet idealen, toe op politieke macht.
+
+## 568. Shooting Up
+
+Łukasz Kamieński, 2016. *Shooting Up: A Short History of Drugs and War*
+(Oxford University Press, New York, 2016, 416 blz., ISBN 9780190263478; Britse
+editie als *Shooting Up: A History of Drugs in Warfare*, Hurst, Londen, 2016,
+392 blz., ISBN 9781849045513; oorspronkelijk in het Pools verschenen als
+*Farmakologizacja wojny*, Wydawnictwo Uniwersytetu Jagiellońskiego, Kraków,
+2012). Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse
+editie gebaseerd. Rubriek: geschiedenis en samenleving.
+Tags: `oorlog`, `drugs`, `militaire geschiedenis`, `verslaving`
+
+De Poolse politicoloog Łukasz Kamieński (Jagiellonen-universiteit, Krakau)
+schreef de eerste brede geschiedenis van roesmiddelen in de oorlogvoering.
+Legers verstrekken drugs met twee vaste doelen: beter presteren in het gevecht
+en het verdragen van angst, uitputting en de nasleep van het doden. Naast dat
+officiële circuit loopt overal een tweede spoor, dat van de soldaat die
+zichzelf medicineert.
+
+Het verhaal reikt van paddenstoelen etende krijgers en cocakauwende
+Inca-boodschappers via de opiumoorlogen en morfine in de Amerikaanse
+Burgeroorlog naar Pervitin bij de Wehrmacht, heroïne in Vietnam en gedrogeerde
+kindsoldaten in West-Afrika. Het boek sluit af bij de toekomst: de
+farmacologisch verbeterde soldaat. Britse recensenten noemden het
+gedetailleerd en opvallend nuchter; de methodologische beperking is dat
+Kamieński vrijwel geheel op secundaire bronnen bouwt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Oorlog is zelden nuchter gevoerd. Kamieński stelt dat
+psychoactieve middelen geen randverschijnsel van de krijgsgeschiedenis zijn
+maar een vast instrument ervan: staten en legers hebben van de oudheid tot nu
+middelen verstrekt om soldaten harder, wakkerder en onverschrokkener te maken
+en om de schade van het gevecht te dempen, terwijl soldaten daarnaast altijd
+zelf naar verdoving zochten. Die farmacologisering van de oorlog neemt eerder
+toe dan af: van staatswege verstrekte amfetamine in de twintigste eeuw tot het
+onderzoek naar de chemisch verbeterde soldaat van de eenentwintigste. Wie
+oorlog wil begrijpen moet volgens hem ook de apotheek erachter kennen.
+
+#### De gang van het boek
+
+**Twee doelen, twee circuits**
+
+De proloog zet het kader neer. Krijgsmachten zetten middelen in voor
+prestatieverhoging (uithoudingsvermogen, waakzaamheid, vechtlust) en voor
+demping (angst, slapeloosheid, trauma). Daarnaast onderscheidt Kamieński het
+voorgeschreven circuit van de zelfmedicatie die soldaten buiten elk bevel om
+zoeken.
+
+Alcohol is in beide circuits de oudste militaire drug: van de rumrantsoenen in
+de Britse loopgraven van de Eerste Wereldoorlog tot de dagelijkse honderd gram
+wodka voor de soldaten van het Rode Leger.
+
+**Van paddenstoel tot papaver**
+
+Het eerste deel bestrijkt de premoderne tijd tot en met de negentiende eeuw.
+Siberische krijgers en mogelijk de Noorse berserkers gebruikten
+vliegenzwammen, al merkt de vakliteratuur die berserkerthese als omstreden
+aan; Inca-lopers en later Andes-soldaten kauwden coca; Napoleons troepen
+ontdekten in Egypte de hasj, die met hen mee terug naar Europa reisde.
+
+China verloor twee opiumoorlogen aan een Brits rijk dat de drug met
+kanonneerboten aan de markt hield, waarna het Chinese leger zelf aan de pijp
+raakte. In de Amerikaanse Burgeroorlog werd morfine zo ruim toegediend dat de
+verslaving onder veteranen bekend kwam te staan als soldier's disease.
+
+De Eerste Wereldoorlog draaide naast rum en wijn op cocaïne. Britse apothekers
+verkochten preparaten met namen als Forced March, en Londense warenhuizen
+adverteerden met pakketjes cocaïne en heroïne als cadeau voor de jongens aan
+het front, totdat de wetgever ingreep.
+
+**De Tweede Wereldoorlog op amfetamine**
+
+Speed was de oorlogsdrug van de twintigste eeuw. Voor de veldtocht tegen
+Frankrijk in 1940 bestelde de Wehrmacht rond de 35 miljoen tabletten Pervitin
+(methamfetamine), het chemische fundament onder dag en nacht doorrollende
+colonnes. De Britse en Amerikaanse luchtmachten verstrekten Benzedrine tegen
+de uitputting van lange missies, en Japan gaf zijn militairen en
+fabrieksarbeiders philopon, ook aan kamikazepiloten.
+
+De rekening kwam na de vrede: Japan beleefde in de jaren veertig en vijftig de
+eerste grote methamfetamine-epidemie, gevoed door vrijgekomen legervoorraden.
+
+**De Koude Oorlog en de psychochemische droom**
+
+Het deel over de Koude Oorlog, door recensenten als het sterkste beoordeeld,
+behandelt de droom van een wapen dat de geest uitschakelt in plaats van het
+lichaam. Amerikaanse militairen en de CIA experimenteerden met LSD en het
+incapaciterende middel BZ, onder meer in het beruchte MKUltra-programma, met
+proefpersonen die vaak van niets wisten.
+
+Het psychochemische wapen werd verkocht als humaan, een oorlog zonder doden;
+het leverde vooral geschonden proefpersonen en een onwerkbaar slagveldconcept
+op. Op onderzoekslocaties als Edgewood Arsenal dienden duizenden Amerikaanse
+militairen als proefpersoon, vaak zonder te weten wat hun was toegediend, een
+geschiedenis waarvoor pas decennia later excuses en rechtszaken volgden.
+
+**Vietnam, de eerste farmacologische oorlog**
+
+Vietnam noemt Kamieński de eerste echte farmacologische oorlog. Het leger
+verstrekte op grote schaal dextroamfetamine als pep pills en
+kalmeringsmiddelen tegen gevechtsstress; daarnaast medicineerden militairen
+zichzelf massaal met marihuana en, vanaf 1970, goedkope zuivere heroïne. De
+verslavingscijfers joegen Washington zoveel angst aan dat Nixon in 1971 de
+drugsbestrijding tot nationale prioriteit uitriep.
+
+Het vervolgonderzoek van psychiater Lee Robins ondergroef vervolgens het
+gangbare verslavingsbeeld. Van de teruggekeerde dienstplichtigen die zij
+volgde zei ongeveer een op de vijf in Vietnam aan heroïne verslaafd te zijn
+geweest, maar thuis viel slechts een klein deel terug: verreweg de meesten
+stopten zonder behandeling, zodra omgeving en aanbod veranderd waren. Die
+uitkomst weegt tot op vandaag mee in het wetenschappelijke debat over wat
+verslaving eigenlijk is.
+
+**Kindsoldaten, khat en go pills**
+
+Het slotdeel behandelt het heden. In de West-Afrikaanse burgeroorlogen van de
+jaren negentig maakten rebellenmilities kinderen met drugs gevechtsklaar en
+gehoorzaam, het hoofdstuk dat de auteur naar eigen zeggen het zwaarst viel.
+Somalische strijders kauwen khat, en in latere conflicten dook amfetamine in
+nieuwe vormen weer op.
+
+Ook reguliere legers gingen door: Amerikaanse piloten vliegen lange missies op
+voorgeschreven go pills. Na het Tarnak Farm-incident van 2002, waarbij een
+Amerikaanse F-16-piloot vier Canadese militairen doodde, voerde de verdediging
+de amfetamine als factor op. Kamieński eindigt bij modafinil en het militaire
+onderzoek naar de verbeterde soldaat, met de open vraag wat een leger mag
+aanrichten in het brein van zijn eigen mensen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| farmacologisering van de oorlog | De toenemende verwevenheid van krijgsmacht en psychoactieve middelen, van rantsoen en recept tot toekomstige prestatieverbetering. |
+| voorgeschreven versus zelf gezocht | Het onderscheid tussen middelen die de legerleiding verstrekt en de zelfmedicatie waarmee soldaten angst en verveling te lijf gaan. |
+| soldier's disease | Negentiende-eeuwse benaming voor de morfineverslaving onder veteranen van de Amerikaanse Burgeroorlog. |
+| Pervitin | Duits methamfetaminepreparaat dat de Wehrmacht in de eerste oorlogsjaren op miljoenenschaal verstrekte. |
+| psychochemische oorlogvoering | Koude-Oorlogsconcept van wapens als LSD en BZ die de tegenstander verwarren of uitschakelen zonder te doden. |
+| de eerste farmacologische oorlog | Kamieńskis typering van Vietnam, waar verstrekt en zelf gezocht druggebruik beide een nooit eerder vertoonde omvang bereikten. |
+| go pills | Door luchtmachten voorgeschreven stimulantia (dextroamfetamine, later modafinil) tegen vermoeidheid op lange missies. |
+
+#### Waar het argument op rust
+
+Kamieński is politicoloog en geen archiefhistoricus; het boek is een synthese
+van bestaande studies, memoires en journalistiek, met notenapparaat. De
+kerncases zijn stevig gedocumenteerd: de Pervitin-bestellingen van 1940 komen
+uit Duits archiefonderzoek van anderen, en het Vietnam-hoofdstuk steunt op het
+epidemiologische werk van Lee Robins, een van de best gedocumenteerde studies
+uit de verslavingsliteratuur.
+
+De academische ontvangst was overwegend positief: vakrecensenten prezen het
+overzicht en de nuchtere toon, de Sunday Times noemde het verrassend sober.
+Dezelfde recensenten merkten op dat de bewijskracht per episode wisselt en dat
+de vroegste hoofdstukken op dun en soms speculatief materiaal rusten.
+
+#### Wat er tegen in te brengen valt
+
+De breedte gaat ten koste van de diepte. Twee millennia en alle continenten in
+één band betekent dat veel episodes aanstippen blijft; de H-Net-recensent vond
+het eerste deel een aaneenschakeling van losse taferelen en pas het
+Koude-Oorlogsdeel echt dwingend. Eigen archiefwerk ontbreekt, zodat het boek
+staat of valt met de kwaliteit van de gebruikte secundaire bronnen, en de
+kleurrijkste verhalen, zoals de paddenstoelen van de berserkers, zijn in de
+vakliteratuur juist het minst zeker.
+
+Daarnaast dreigt overbelichting: wie oorlog door de bril van de apotheek
+bekijkt, gaat drugs al snel meer verklarende kracht toedichten dan zij hebben.
+De blitzkrieg won het niet door Pervitin en Vietnam werd niet door heroïne
+verloren; Kamieński zegt dat zelf ook, maar de opzet van het boek trekt de
+lezer de andere kant op. Voor een boek met 'short history' in de titel is het
+met ruim vierhonderd bladzijden bovendien een flinke zit.
+
+#### Wat er concreet mee te doen is
+
+- Lees berichtgeving over drugs in oorlogsgebieden (captagon, khat) met het
+onderscheid tussen prestatieverhoging en demping in het achterhoofd.
+- Wees wantrouwig bij verhalen die een leger of aanslag volledig uit een drug
+verklaren; de geschiedenis laat vooral wisselwerking zien.
+- Gebruik het Robins-onderzoek als correctie op het beeld dat verslaving
+altijd een chronische hersenziekte is: context en aanbod wegen zwaar.
+- Volg het debat over militaire prestatieverbetering (stimulantia, modafinil)
+als voorbode van dezelfde vragen in de burgermaatschappij.
+
+#### Wat je hierna leest
+
+- 275. How to Change Your Mind. Pollan behandelt de psychedelica die hier als
+mislukt wapen figureren, maar dan als therapie; samen tonen zij beide
+gezichten van dezelfde stoffen.
+- 314. Dopamine Nation. Lembke legt de neurobiologie van verslaving en
+zelfmedicatie bloot die onder Kamieńskis geschiedenis ligt.
+- 218. Napoleon's Maxims of War. Napoleons eigen krijgsregels; zijn Egyptische
+veldtocht bracht volgens Kamieński de hasj naar Europa.
+
+## 569. The Gita for Gen Z
+
+Rania Sen, 2025. *The Gita for Gen Z: Clarity in Chaos. Timeless Wisdom from
+the Bhagavad Gita* (India Penguin Tattva / Penguin Random House India, New
+Delhi, 2026, 272 blz., ISBN 9780143482383; eerste uitgave in eigen beheer,
+december 2025). Er bestaat geen Nederlandse vertaling; de samenvatting is op
+de Engelse editie gebaseerd. Rubriek: levenskunst.
+Tags: `bhagavad gita`, `hindoeïsme`, `jongvolwassenen`, `zelfhulp`
+
+Rania Sen, roepnaam Gitika, is een twintigjarige uit Bhusawar in Rajasthan die
+als kind de volledige Bhagavad Gita uit het hoofd leerde en daarvoor in 2016
+op het eerste Internationale Gita Mahotsav in Kurukshetra werd onderscheiden.
+In dit boek kiest zij uit elk van de achttien hoofdstukken van de Gita drie
+shloka's, 54 verzen in totaal, en legt die uit aan de hand van
+liefdesverdriet, examendruk, keuzestress, piekeren en de sociale media waar
+haar generatie mee opgroeit.
+
+De toon is die van een gesprek onder leeftijdgenoten, met Hindi-spreekwoorden,
+Bollywood-verwijzingen en alledaagse voorbeelden; de Gita wordt gepresenteerd
+als praktische gids voor onbevreesd leven; de religieuze leerstof blijft op de
+achtergrond. Het boek verscheen eind 2025 in eigen beheer en werd in maart
+2026 opnieuw uitgebracht door Penguin India onder het spirituele imprint
+Tattva. Het is nadrukkelijk een kennismaking: wie de hele Gita of filosofische
+diepgang zoekt, moet elders zijn.
+
+### Uitgebreide samenvatting
+
+**De stelling.** De Bhagavad Gita is volgens Sen een gebruiksaanwijzing voor
+het dagelijks leven van haar eigen generatie, eerder dan een religieus
+monument voor de boekenkast. Arjuna's inzinking op het slagveld staat model
+voor keuzestress, faalangst en liefdesverdriet, en Krishna's antwoorden,
+plicht doen zonder krampachtige greep op de uitkomst, gelijkmoedig blijven
+onder winst en verlies, de eigen geest tot bondgenoot maken, zijn direct
+toepasbaar op tentamens, banen en relaties. Wie 54 goed gekozen verzen
+werkelijk tot zich laat doordringen, heeft volgens haar meer houvast dan aan
+een plank zelfhulpboeken.
+
+#### De gang van het boek
+
+**Arjuna's crisis als spiegel**
+
+Het boek volgt de achttien hoofdstukken van de Gita en opent waar de brontekst
+opent: bij een jonge man die op het beslissende moment verlamd raakt. Arjuna
+ziet op het slagveld van Kurukshetra familie en leermeesters tegenover zich
+staan, laat zijn boog zakken en wil niet meer. Sen zet die inzinking naast de
+verlamming van haar eigen generatie, de keuzestress en de angst om te falen
+voor de ogen van iedereen, en laat Krishna's eerste antwoord daarop
+aansluiten: wie handelen moet, kan niet wegduiken in wanhoop.
+
+De vorm van de brontekst, een gesprek tussen een radeloze strijder en zijn
+wagenmenner, bepaalt ook de vorm van dit boek. Het slagveld leest Sen als
+binnenwereld: de strijd speelt zich af in collegezalen en groepsapps, en
+Krishna klinkt als een vriend die op het goede moment de goede vraag stelt.
+
+**Handelen zonder greep op de uitkomst**
+
+De kern van het boek ligt bij karma yoga, de weg van het handelen. Het
+beroemdste vers van de Gita, over het recht op de handeling en niet op de
+vruchten ervan, vertaalt Sen naar examens, sollicitaties en sociale media: de
+inzet behoort de handelende toe, het resultaat nooit helemaal, en wie de
+eigenwaarde aan uitkomsten hangt, levert zich uit aan cijfers en likes.
+
+Daaromheen groepeert zij verzen over plicht (dharma) en over het loslaten van
+vergelijking met anderen: beter het eigen pad gebrekkig gelopen dan dat van
+een ander foutloos nagedaan. Voor een generatie die het eigen leven dagelijks
+naast dat van vreemden op een scherm legt, ligt de toepassing van dat vers
+voor de hand.
+
+**De geest als vriend of vijand**
+
+Een tweede lijn betreft de omgang met de eigen geest. Uit de hoofdstukken over
+meditatie en zelfbeheersing kiest Sen verzen over de geest die voor wie hem
+beheerst een vriend is en voor wie hem laat waaien een vijand, en over
+gelijkmoedigheid onder lof en hoon. Zij koppelt die aan piekeren, slaapritme
+en de dopamine van de eindeloze tijdlijn, met kleine oefeningen in aandacht
+als tegenwicht.
+
+Ook angst en zelftwijfel hebben een eigen plaats. Recensenten noemen het
+omgaan met angst, besluiten nemen en zelfkennis als terugkerende thema's,
+steeds volgens hetzelfde stramien: eerst het vers, dan een situatie waarin een
+leeftijdgenoot zich herkent, dan de vraag wat het vers daar te zeggen heeft.
+
+**Vertrouwen en overgave**
+
+De latere hoofdstukken van de Gita gaan over toewijding, en daar wordt het
+boek persoonlijker. Overgave betekent bij Sen niet passiviteit; het is het
+neerleggen van wat toch niet te dragen valt, na gedane inzet. Liefdesverdriet
+en het verlies van vriendschappen dienen als voorbeelden van situaties waarin
+vasthouden meer kost dan loslaten.
+
+**De vorm: chai met een vriendin**
+
+Elke behandeling volgt hetzelfde stramien: het vers in het Sanskriet, een
+vlotte parafrase en een uitwerking in spreektaal, doorspekt met
+Hindi-uitdrukkingen, filmdialogen en anekdotes. Recensenten omschrijven de
+leeservaring als een gesprek bij een kop chai, direct en zonder omhaal; de
+hoofdstukken zijn los van elkaar leesbaar en het boek mikt uitdrukkelijk op
+lezers die de Gita nooit eerder opensloegen.
+
+Die opzet verklaart ook de plaats van het boek in de markt. Penguin India
+bracht het onder in Tattva, het imprint voor toegankelijke spiritualiteit, en
+positioneert het naast de golf van hindoeïstische hervertellingen voor jonge
+lezers die de Indiase boekhandel de laatste jaren overspoelt. Binnen die golf
+onderscheidt Sen zich vooral door haar gememoriseerde beheersing van de
+brontekst.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| shloka | Sanskriet versvorm waarin de Bhagavad Gita is gesteld; het boek behandelt er 54 van de ongeveer 700. |
+| dharma | De eigen plicht of levensopdracht, in het boek vertaald als het pad dat bij iemand past in studie, werk en relaties. |
+| karma | Handeling en het gevolg dat eraan vastzit; geen kosmisch strafregister maar de optelsom van wat iemand doet. |
+| karma yoga | De weg van het handelen: doen wat gedaan moet worden zonder de eigenwaarde aan de uitkomst te hangen. |
+| gelijkmoedigheid | De door Krishna geleerde evenwichtigheid onder winst en verlies, lof en hoon; in het boek het antwoord op prestatiedruk. |
+| Arjuna's vishada | De wanhoop van Arjuna in het openingshoofdstuk, door Sen gelezen als de keuzestress en faalangst van haar generatie. |
+| bhakti | Toewijding en overgave uit de latere hoofdstukken van de Gita, bij Sen het neerleggen van wat na gedane inzet niet te dragen valt. |
+
+#### Waar het argument op rust
+
+De onderbouwing is die van de brontekst zelf plus de vertrouwdheid van de
+auteur ermee: Sen memoriseerde de Gita als kind, werd daarvoor door de
+deelstaatregeringen van Haryana en Rajasthan onderscheiden, en studeert er aan
+de IGNOU op af, naast een rechtenstudie. Het boek doet geen wetenschappelijke
+claims en verwijst niet naar onderzoek; de werkzaamheid van de adviezen moet
+de lezer op gezag van tekst en traditie aannemen.
+
+Onafhankelijke toetsing is er nauwelijks. Bij verschijning waren er
+lezersbeoordelingen (hoog gemiddelde, klein aantal) en enkele blogrecensies
+die de toegankelijkheid prijzen en de diepgang beperkt noemen; besprekingen in
+grote media of door kenners van de Sanskriettraditie ontbreken vooralsnog.
+
+#### Wat er tegen in te brengen valt
+
+De titel belooft meer dan het boek levert: 54 van de ongeveer 700 verzen is
+een smalle selectie, en de keuze wordt niet verantwoord. Vertaalkeuzes en
+interpretatie steunen op één jonge stem zonder wetenschappelijke scholing in
+de tekstgeschiedenis; wie wil weten wat een vers in context betekent, heeft er
+een commentaar naast nodig. Vroege lezers signaleren bovendien herhaling en
+mechanische overgangen in de eerste hoofdstukken.
+
+Principiëler: het boek presenteert een hindoeïstische heilstekst als levensles
+voor iedereen en laat de spanningen daarbinnen liggen. Dat Krishna Arjuna nu
+juist tot vechten aanspoort, en wat plicht betekent in een tekst die kaste
+veronderstelt, blijft buiten beeld. Als kennismaking is dat verdedigbaar; als
+levensgids vraagt het meer kritische begeleiding dan de chai-toon biedt.
+
+#### Wat er concreet mee te doen is
+
+- Scheid bij elke taak de inzet van de uitkomst en beoordeel de dag op wat
+gedaan is, niet op wat het opleverde.
+- Behandel piekeren als teken dat de geest de leiding heeft genomen; een vaste
+aandachtsoefening zet de verhouding recht.
+- Vergelijk het eigen pad niet met dat van anderen op sociale media; gebrekkig
+eigen werk weegt zwaarder dan foutloos nagedaan werk.
+- Leg na gedane inzet neer wat niet te dragen valt; overgave na inspanning is
+geen opgeven.
+- Lees bij interesse in de bron zelf een volledige vertaling met commentaar
+naast deze selectie, en toets wat de 54 gekozen verzen weglaten.
+
+#### Wat je hierna leest
+
+- 199. The Four Purusharthas. García en Miralles behandelen de vier
+levensdoelen uit dezelfde hindoetraditie, eveneens voor een westers publiek.
+- 230. Think Like a Monk. Shetty verpakt verwante vedische levenslessen in het
+format van de westerse zelfhulp; leerzaam als vergelijking in toon en
+pretentie.
+- 520. Vivekachudamani. Shankara's klassieke leerdicht toont hoe dezelfde
+traditie klinkt zonder vereenvoudiging, als maat voor wat hier is weggelaten.
+
+## 570. Redneckonomics
+
+Aaron B. Chapman, 2026. *Redneckonomics: Unconventional Success by Takin' the
+Beatin' Path* (Amplify Publishing, Herndon (Virginia), 2026, 192 blz., ISBN
+9798891383609), met een voorwoord van Robert G. Allen en ruim vijftig
+illustraties van Eric J. Chapman. Er bestaat geen Nederlandse vertaling; de
+samenvatting is op de Engelse editie gebaseerd. Rubriek: geld en ondernemen.
+Tags: `ondernemerschap`, `zelfhulp`, `tegenslag`, `vastgoed`
+
+Aaron Chapman (1974) werkte in de veehouderij, de olievelden, de mijnbouw en
+het vrachtvervoer voordat hij in de vastgoedfinanciering belandde, waar hij
+ruim 25 jaar later tot de bekendere hypotheekverstrekkers voor
+vastgoedbeleggers in de Verenigde Staten behoort. In dit dunne, bewust platte
+boek, geschreven in cowboytaal en met hoofdstukken die 'Ass Beatin's' heten,
+destilleert hij uit dat werkzame leven lessen over ondernemen en overeind
+blijven.
+
+De kern is dat het pak slaag de leerschool is: tegenslag, letterlijk en
+figuurlijk, vormt karakter en onderscheidt wie doorgaat van wie afhaakt.
+Daaromheen staan lessen over eigen rekenschap, betrouwbaarheid, plannen en
+geloof. Kirkus Reviews beoordeelde het welwillend als grappig en meelevend,
+met de kanttekening dat de zelfhulpkost bekend is; buiten zulke aangevraagde
+recensies is er nauwelijks onafhankelijke ontvangst.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Succes komt volgens Chapman voort uit wat hij het beatin'
+path noemt: de bereidheid om klappen op te lopen en er sterker van terug te
+komen. Talent en diploma's leggen daarbij minder gewicht in de schaal dan
+doorzettingsvermogen. Wie ophoudt met uitvluchten, zijn woord houdt, zich
+rekenschap geeft van elke eigen keuze en zijn geluk niet door anderen laat
+definiëren, bouwt iets op dat tegen een stootje kan; de rest is versiering.
+Hij presenteert dat als boerenverstand dat in de zakenwereld zeldzamer is dan
+kapitaal, en gunt de lezer uitdrukkelijk de ruimte om het ermee oneens te zijn
+en het boek weg te leggen.
+
+#### De gang van het boek
+
+**Het beatin' path**
+
+De rode draad is Chapmans eigen loopbaan: opgroeien in het ruwe westen van de
+Verenigde Staten, werken met vee, op boorlocaties, in mijnen en op trucks, en
+de overstap naar de financiële wereld, waar de klappen figuurlijker maar niet
+zachter bleken. Een zwaar motorongeluk en zakelijke terugslagen dienen als
+bewijsstukken voor de kernles dat herstel een keuze is en dat littekens
+leermateriaal zijn.
+
+De titelvraag van het boek luidt waarom sommige mensen vooruitkomen terwijl
+zij op papier minder gekwalificeerd ogen dan anderen. Chapmans antwoord: zij
+nemen het pad dat de meeste mensen over het hoofd zien omdat het pijn doet.
+Het gebaande pad (beaten path) is vol; het beatin' path, de weg van het
+incasseren, is dat niet.
+
+**Quit jerkin' off**
+
+Het bekendste hoofdstuk, dat ook de titel van Chapmans lijfspreuk draagt, gaat
+over ophouden met aanrommelen: tijd verlummelen, beslissingen uitstellen en de
+schuld buiten de deur leggen. Rekenschap is bij hem geen managementterm; wie
+een afspraak niet nakomt heeft gefaald, ongeacht de omstandigheden, en wie
+zijn dagen niet richt, heeft de uitkomst niet aan de markt te wijten.
+
+Bij het boek hoort begeleidend materiaal waarin Chapman dankbaarheid als
+praktisch voordeel presenteert in plaats van als vroom gebaar: wie telt wat er
+wel is, houdt energie over voor het werk dat voorligt.
+
+**Put your ass on the line**
+
+Ondernemen vraagt volgens Chapman inzet met eigen huid: plannen op papier,
+beloften nakomen en betrouwbaarheid als handelsmerk. Vertrouwen en reputatie
+zijn in zijn wereld de enige valuta die crisis overleeft. De adviezen zelf,
+doelen opschrijven, toezeggingen nakomen, mensen goed behandelen, zijn
+klassieke zelfhulpkost; de verpakking in ranch-idioom en de bewuste herhaling,
+omdat een les pas beklijft als hij vaker langskomt, zijn het eigene van het
+boek.
+
+**Geloof, gezin en nalatenschap**
+
+Het slot verankert de lessen in Chapmans christelijke geloof en zijn gezin;
+sinds 1996 getrouwd, vier kinderen. Hij vraagt de lezer niet hetzelfde te
+geloven, wel om ergens voor te staan. Wat geluk is, kan volgens hem alleen de
+lezer zelf bepalen, en de maat van een leven is wat er voor anderen
+overblijft. De ruim vijftig tekeningen van zijn broer Eric zetten de toon:
+zelfspot eerst, preek daarna.
+
+Chapman herhaalt zijn boodschappen met opzet, in de overtuiging dat een les
+pas beklijft als hij vaker langskomt, en nodigt de lezer nadrukkelijk uit het
+oneens te zijn: wie zich aan de toon stoort, mag het boek wegleggen. Die
+houding is zelf onderdeel van de leer, want wie het iedereen naar de zin wil
+maken, bouwt volgens hem niets op.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| redneckonomics | Chapmans naam voor zijn leer: economisch boerenverstand van iemand die het werk met de handen kent. |
+| beatin' path | Woordspeling op het gebaande pad: de weg vol klappen die volgens Chapman de enige echte leerschool is. |
+| ass beatin' | De benaming van de hoofdstukken; elke les is geframed als een pak slaag waar de lezer iets van opsteekt. |
+| quit jerkin' off | Chapmans lijfspreuk voor ophouden met aanrommelen, uitstellen en de schuld buiten de deur zoeken. |
+| put your ass on the line | De eis om met eigen huid in het spel te ondernemen: beloften nakomen en zelf het risico dragen. |
+
+#### Waar het argument op rust
+
+Het boek bewijst niets en pretendeert dat ook niet: er staat geen onderzoek
+in, de onderbouwing bestaat uit Chapmans eigen levensloop en de anekdotes
+daaruit. Zijn staat van dienst in de Amerikaanse vastgoedfinanciering is
+reëel, maar het boek verschijnt bij Amplify, een uitgeverij waar auteurs de
+uitgave zelf bekostigen, en de beschikbare recensies (Kirkus, Foreword) lopen
+via kanalen waar uitgever of auteur de bespreking aanvraagt.
+
+Binnen die beperking is het oordeel van die recensies consistent: Kirkus gaf
+het predicaat 'Get It' en noemde het geestig, zelfrelativerend en meelevend;
+Foreword las het als door het geloof gedragen praktijkwijsheid. Beide merken
+op dat de inhoud vertrouwd terrein is en de verpakking het onderscheid maakt.
+De aanbevelingen op het omslag komen uit Chapmans eigen netwerk van sport-,
+marine- en vastgoedmensen, met het voorwoord van bestsellerauteur Robert G.
+Allen als bekendste naam.
+
+#### Wat er tegen in te brengen valt
+
+Wie het redneck-jasje uittrekt, houdt standaard zelfhulp over: doelen stellen,
+doorzetten, betrouwbaar zijn, dankbaar zijn. Dat is eerder en beter onderbouwd
+opgeschreven, en Chapman levert geen enkele reden waarom zijn versie meer zou
+zijn dan smaak. De bewust volgehouden platte taal en de herhaling, door de
+auteur als leermethode verdedigd, zullen buiten de doelgroep eerder vermoeien
+dan overtuigen.
+
+De zwaarste kanttekening betreft de bewijspositie: een zelfbekostigde uitgave
+zonder onafhankelijke ontvangst, waarin de auteur zijn eigen succes als bewijs
+voor zijn methode voert. Overlevingsvertekening ligt op de loer; de vele
+mensen die hard werkten, klappen incasseerden en toch strandden, komen in dit
+genre nooit aan het woord. Ook blijft buiten beeld hoeveel van Chapmans eigen
+succes aan gunstige omstandigheden toe te schrijven valt: de Amerikaanse
+vastgoedmarkt van de afgelopen decennia was voor een volhardende financier een
+gunstig speelveld. Als opsteker voor wie in tegenslag zit is het boek
+bruikbaar, als methode is het niet te toetsen.
+
+#### Wat er concreet mee te doen is
+
+- Behandel een opgelopen klap als leermateriaal: schrijf op wat er gebeurde,
+wat eraan te wijten was en wat de volgende keer anders moet.
+- Schrap één vorm van aanrommelen per week en vervang die door een afspraak
+met jezelf die telt als belofte aan een ander.
+- Maak betrouwbaarheid meetbaar: elke toezegging nagekomen of tijdig
+heronderhandeld, zonder uitzondering.
+- Bepaal zelf wat geluk is voordat een werkgever, bank of tijdlijn dat doet.
+- Tel dagelijks wat er wel is; dankbaarheid houdt energie over voor het werk
+dat voorligt.
+
+#### Wat je hierna leest
+
+- 544. Man Up: How to Cut the Bullshit and Kick Ass in Business (and in Life).
+Keuilian brengt vrijwel dezelfde boodschap van eigen rekenschap en hard
+werken, eveneens uit de praktijk van een selfmade ondernemer.
+- 229. Can't Hurt Me. Goggins is de extreme variant van hetzelfde leerstuk:
+tegenslag als grondstof voor karakter, maar dan gememoriseerd in bloed.
+- 158. No Excuses!. Tracy's klassieker over zelfdiscipline levert de nette,
+systematische versie van wat Chapman in ranch-taal vertelt.
+
+## 572. Ik en Jij
+
+Martin Buber, 1923. *Ich und Du* (Insel-Verlag, Leipzig, 1923). Nederlandse
+vertaling: *Ik en Jij*, vertaald door Marianne Storm (Bijleveld, Utrecht,
+2023, 175 blz., ISBN 9789061315230; eerste Nederlandse uitgave 1959, sindsdien
+vele drukken). Engelse vertalingen als *I and Thou* door Ronald Gregor Smith
+(1937) en Walter Kaufmann (1970). De samenvatting is op de Nederlandse editie
+gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `dialoog`, `joodse filosofie`, `ontmoeting`, `religie`
+
+Martin Buber, in Wenen geboren joods denker en kenner van het chassidisme,
+publiceerde *Ich und Du* in 1923 als grondslag van wat later dialogische
+filosofie is gaan heten. Het dunne boek onderscheidt twee grondwoorden waarmee
+de mens zich tot de wereld verhoudt. Wie Het zegt, neemt waar, meet en
+gebruikt; de ander is dan een ding tussen dingen. Wie Jij zegt, staat met heel
+zijn wezen in een betrekking waarin niets wordt beoogd en niets wordt
+uitgewisseld dan de tegenwoordigheid zelf. Volgens Buber ontstaat het ik pas
+in die betrekking: alle werkelijke leven is ontmoeting.
+
+Het tweede deel beschrijft hoe instellingen, economie en staat de Het-wereld
+laten uitdijen, het derde hoe in ieder afzonderlijk Jij het eeuwige Jij wordt
+aangesproken dat nooit tot een Het kan worden. Het boek is geschreven in een
+verdichte, bijna hymnische stijl en geldt als moeilijk. Het werd niettemin een
+van de invloedrijkste religieus-filosofische teksten van de twintigste eeuw,
+met doorwerking in theologie, pedagogiek, psychotherapie en zorg.
+
+### Uitgebreide samenvatting
+
+**De stelling.** De mens kent geen op zichzelf staand ik dat naderhand
+relaties aanknoopt; het ik bestaat alleen binnen een van twee grondwoorden. In
+het grondwoord Ik-Het verhoudt de mens zich tot de wereld als waarnemer en
+gebruiker: hij ervaart eigenschappen, ordent, vergelijkt en beschikt. In het
+grondwoord Ik-Jij treedt hij met heel zijn wezen in betrekking tot een
+tegenover dat geen optelsom van eigenschappen is. Die betrekking is
+wederkerig, kent geen doel buiten zichzelf en speelt zich af in het heden.
+Beide houdingen zijn nodig, en toch beslist de verhouding ertussen over het
+mens-zijn: zonder Het kan de mens niet leven, maar wie alleen met Het leeft,
+is de mens niet. Achter ieder afzonderlijk Jij licht bovendien het eeuwige Jij
+op, Bubers naam voor God, dat als enige nooit tot een Het kan worden.
+
+#### De gang van het boek
+
+**Twee grondwoorden**
+
+Het boek opent met de stelling dat de wereld voor de mens tweevoudig is, naar
+zijn tweevoudige houding. Die houding ligt vast in grondwoorden, en dat zijn
+woordparen: Ik-Jij en Ik-Het. Er bestaat geen Ik op zichzelf; wie Ik zegt,
+zegt een van beide paren, en het Ik van Ik-Jij is een ander Ik dan dat van
+Ik-Het. Ervaren, in de zin van kennis over iets verzamelen, hoort geheel bij
+de Het-wereld. De betrekking tot een Jij is van andere aard: zij is
+onmiddellijk, zonder tussenkomst van begrippen, doeleinden of voorafgaande
+kennis.
+
+Buber licht dit toe aan een boom. Een boom valt te bekijken als beeld, te
+meten als exemplaar van een soort, te ontleden in getal en wet. Het kan ook
+gebeuren, schrijft hij, dat de beschouwer in de betrekking tot de boom wordt
+opgenomen en de boom geen ding meer is. Wat daar tegenover staat is geen ziel
+of geest die in de boom zou huizen; het is de boom zelf, als geheel, als
+tegenover.
+
+**Drie sferen en de weemoed van het Het**
+
+De betrekking voltrekt zich in drie sferen: het leven met de natuur, waar zij
+op de drempel van de taal blijft, het leven met de mensen, waar zij in de taal
+gestalte krijgt, en het leven met wat Buber geestelijke wezenheden noemt,
+vormen als kunst en kennis die zich laten aanschouwen zonder terug te spreken.
+In de sfeer tussen mensen is de betrekking het meest volledig, want alleen
+daar kan het Jij ook antwoorden.
+
+Op de betrekking rust wat Buber een verheven weemoed noemt: ieder Jij in de
+wereld moet een Het worden. Zodra de ontmoeting beschreven, gemeten of benut
+wordt, is het Jij een ding onder dingen geworden, hoogstens met de herinnering
+aan wat het was. Liefde is bij Buber dan ook geen gevoel dat iemand heeft;
+gevoelens heeft de mens, zijn liefde geschiedt. Liefde is verantwoordelijkheid
+van een Ik voor een Jij.
+
+**De uitdijende Het-wereld**
+
+Het tweede deel verlegt de blik naar cultuur en samenleving. De geschiedenis
+vertoont volgens Buber een voortgaande toename van de Het-wereld: iedere
+generatie erft meer opgeslagen kennis, meer instellingen, meer techniek. Dat
+is op zichzelf geen verval; de Het-wereld is de ruimte waarin de mens werkt,
+plant en overleeft. Bedreigend wordt het wanneer instellingen en gevoelens
+uiteenvallen in een buiten waarin zaken worden afgehandeld en een binnen
+waarin iets wordt beleefd, terwijl geen van beide nog betrekking is.
+
+Economie en staat zijn volgens Buber niet te vermenselijken door er gevoel aan
+toe te voegen, alleen doordat er mensen in aanwezig blijven die Jij kunnen
+zeggen. De causaliteit van de Het-wereld, waarin alles verklaarbaar en
+voorspelbaar is, wordt pas drukkend voor wie er niet meer uit kan terugkeren
+naar de betrekking. Wie de betrekking kent, ervaart het lot niet als dwang,
+schrijft Buber, maar als de andere zijde van zijn vrijheid.
+
+**Het eeuwige Jij**
+
+Het derde deel trekt de lijnen door naar God. De verlengden van alle
+betrekkingen snijden elkaar in het eeuwige Jij; in ieder afzonderlijk Jij
+spreekt de mens het eeuwige aan. God is voor Buber geen voorwerp van
+leerstellingen en valt uit ervaring of redenering niet af te leiden: wie over
+God spreekt in de derde persoon, heeft het over een Het. Aangesproken kan hij
+wel worden. Religie die stolt tot leer, instituut en zekerheid, verplaatst God
+naar de Het-wereld.
+
+De betrekking tot het eeuwige Jij vraagt geen wereldverzaking. Buber wijst de
+mystieke opgang die de wereld achterlaat af: wie de wereld werkelijk
+aanspreekt, treft daarin God. Het boek eindigt met de ommekeer, het zich
+telkens opnieuw toewenden dat nodig is omdat elke openbaring in de
+geschiedenis stolt tot vorm. In 1957 voegde Buber een nawoord toe waarin hij
+lezersvragen beantwoordt, onder meer over de grenzen van wederkerigheid in de
+verhouding tussen arts en patiënt en tussen leraar en leerling.
+
+**Doorwerking**
+
+Het boek maakte Buber tot de bekendste vertegenwoordiger van het dialogische
+denken, dat hij deelde met tijdgenoten als Franz Rosenzweig en Ferdinand
+Ebner. De invloed reikt tot ver buiten de filosofie: protestantse en
+katholieke theologie, pedagogiek, pastoraat en psychotherapie namen het
+onderscheid tussen ontmoeting en objectivering over. Carl Rogers, grondlegger
+van de persoonsgerichte therapie, ging in 1957 publiekelijk met Buber in
+gesprek over de vraag of een therapeutische relatie een echte
+Ik-Jij-betrekking kan zijn; Buber betwijfelde dat vanwege de ongelijkheid van
+de rollen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| grondwoord | Woordpaar dat geen ding aanduidt maar een verhouding sticht; wie het uitspreekt, treedt erin en wordt erdoor bepaald. |
+| Ik-Jij | De betrekking waarin de mens met heel zijn wezen een tegenover aanspreekt dat niet tot eigenschappen te herleiden valt. |
+| Ik-Het | De houding van ervaren en gebruiken, waarin de wereld verschijnt als voorraad van dingen met kenmerken. |
+| betrekking | Het onmiddellijke tussen Ik en Jij, wederkerig en zonder doel buiten zichzelf; voor Buber ouder dan de losse polen: in den beginne is de betrekking. |
+| tegenwoordigheid | Het heden dat alleen in de betrekking bestaat; de Het-wereld kent volgens Buber alleen verleden, want het gekende is altijd al voorbij. |
+| het eeuwige Jij | Bubers aanduiding van God als het enige Jij dat naar zijn wezen nooit een Het kan worden en dat in ieder afzonderlijk Jij wordt aangesproken. |
+| ommekeer | Het zich weer toewenden naar de betrekking nadat het leven in de Het-wereld is vastgelopen; Bubers weergave van het Hebreeuwse tesjoeva. |
+| Het-wereld | Het geordende geheel van kennis, instellingen en techniek; nodig om te leven, maar wie er uitsluitend in leeft, verliest volgens Buber zijn mens-zijn. |
+
+#### Waar het argument op rust
+
+Het boek argumenteert niet in de gangbare zin; het beschrijft en roept op.
+Buber geeft geen definities die zich laten toetsen, geen empirie en nauwelijks
+verwijzingen naar andere denkers. De zeggingsmacht rust op herkenning: wie het
+verschil kent tussen een gesprek waarin iemand werkelijk aanwezig was en een
+afhandeling, herkent waarover het gaat. Daarnaast put het boek uit bronnen die
+Buber elders ontsloot: het chassidisme met zijn heiliging van het alledaagse
+en de bijbelse aansprekingsvorm.
+
+Wie die herkenning niet meebrengt, krijgt weinig aangereikt. De passages over
+de vroegste ontwikkeling van het kind en over zogenoemde natuurvolken steunen
+op de etnologie en psychologie van omstreeks 1920, die grotendeels achterhaald
+is, en de these dat de geschiedenis een voortdurende aanwas van de Het-wereld
+vertoont, wordt gesteld en niet aangetoond. Het boek staat of valt met de
+beschrijving van de ontmoeting zelf, en juist die wordt tot op vandaag door
+lezers uit uiteenlopende tradities herkend.
+
+#### Wat er tegen in te brengen valt
+
+Het eerste bezwaar is de stijl. Buber schrijft verdicht, ritmisch en
+profetisch, met eigen woordvormingen die ook in het Duits duister zijn. Walter
+Kaufmann, die het boek in 1970 in het Engels vertaalde, noemde de tekst in
+zijn inleiding gekunsteld en op veel plaatsen onnodig duister, en hield als
+vertaler tegelijk vol dat de roem van het boek de helderheid ervan ver vooruit
+was. Het boek vraagt langzaam lezen en verdraagt geen samenvatting zonder
+verlies.
+
+Inhoudelijk is de hoofdvraag of de tweedeling houdbaar is. Veel menselijke
+verhoudingen bewegen zich tussen de polen, en over dat middengebied zegt Buber
+weinig. Emmanuel Levinas, die veel aan Buber dankt, verweet hem dat de
+Ik-Jij-betrekking als wederkerig en daarmee als verhouding van gelijken is
+gedacht, wat volgens hem aan de ernst van de verantwoordelijkheid voor de
+ander tekortdoet; bovendien kan een betrekking die alleen als vluchtig moment
+bestaat geen instellingen dragen. Ook blijft onduidelijk wat een betrekking
+tot een boom of een kunstwerk inhoudt wanneer daar geen antwoord mogelijk is.
+
+Ten slotte biedt het boek geen uitgewerkte ethiek en geen politiek. De
+cultuurkritiek op de uitdijende Het-wereld deelt de toon van het interbellum
+en blijft onbewezen. Wie er een handelingsaanwijzing in zoekt, vindt een
+grondhouding, geen methode.
+
+#### Wat er concreet mee te doen is
+
+- Merk in gesprekken het omslagpunt op waarop de ander een geval, een functie
+of een dossier wordt, en keer terug naar de aanspreekvorm.
+- Reserveer ontmoetingen zonder doel; een gesprek dat nergens toe hoeft te
+dienen laat zich niet plannen als resultaat, wel als gelegenheid.
+- Beoordeel instellingen, van zorg tot onderwijs, mede op de ruimte die zij
+laten voor werkelijke aanspreekbaarheid en niet alleen op meetbare uitkomsten.
+
+#### Wat je hierna leest
+
+- 48. Man's Search for Meaning. Frankl beschrijft vanuit de kampen hoe zin
+ontstaat in het antwoord op wat en wie zich aandient; zijn logotherapie staat
+dicht bij Bubers aansprekingsdenken.
+- 35. Nonviolent Communication. Rosenbergs gespreksmethode is een poging het
+objectiveren van de ander in verwijt en diagnose praktisch af te leren.
+- 390. Simone Weil: An Anthology. Weil noemt aandacht de zeldzaamste en
+zuiverste vorm van edelmoedigheid; haar denken over de ander grenst direct aan
+dat van Buber.
+
+## 573. De innerlijke burcht
+
+Teresa van Ávila, 1577. *El Castillo Interior*, ook bekend als *Las Moradas*
+(geschreven 1577; voor het eerst gedrukt in *Los libros de la Madre Teresa de
+Jesús*, bezorgd door Fray Luis de León, Guillermo Foquel, Salamanca, 1588).
+Nederlandse vertaling: *De innerlijke burcht*, vertaald door Carlos Noyen
+(Carmelitana, Gent, 1974, 239 blz.); heruitgegeven als *Innerlijke burcht en
+gewetensbrieven* (Carmelitana, Gent, 2007, ISBN 9789070092986). Engelse
+vertaling: *The Interior Castle*. De samenvatting is op de Nederlandse editie
+gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `mystiek`, `gebed`, `karmel`, `zestiende eeuw`
+
+Teresa van Ávila, karmelietes en hervormster van haar orde, schreef *El
+Castillo Interior* in 1577 op last van haar biechtvader, terwijl haar
+autobiografie bij de Inquisitie lag. Zij beschrijft de ziel als een burcht van
+kristal met zeven groepen verblijven; God woont in het binnenste, en gebed is
+de poort waardoor de ziel haar eigen inwendige kan betreden. De eerste drie
+verblijven beschrijven wat een mens zelf vermag: zelfkennis, nederigheid,
+volharding in gebed en een geordend leven.
+
+Vanaf het vierde verblijf ontvangt de ziel wat zij niet zelf bewerken kan.
+Teresa onderscheidt het gebed van rust, de vereniging, de geestelijke
+verloving met haar visioenen en beproevingen, en ten slotte het geestelijk
+huwelijk, een blijvende vereniging die zich uit in vrede en in daden van
+naastenliefde. Het boek verscheen postuum in 1588 en geldt als een hoofdwerk
+van de westerse mystiek; in 1970 werd Teresa als eerste vrouw tot kerklerares
+uitgeroepen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** De ziel is een burcht van zeer helder kristal met vele
+verblijven, en in het binnenste woont God zelf. Het geestelijk leven is daarom
+geen klim naar iets buiten de mens; het is een tocht naar binnen, waarvan het
+gebed de poort is en zelfkennis de kamer die op elke verdieping betreden
+blijft. Teresa houdt vol dat de mens de eerste verblijven zelf kan binnengaan
+door gebed, nederigheid en volharding, en dat alles daarna gave is die zich
+niet laat afdwingen. Tegelijk geeft zij een toetssteen die het hele boek
+draagt: echte mystieke ervaring herkent men niet aan verrukkingen of
+visioenen, maar aan de vruchten ervan, groeiende nederigheid, vrede en
+concrete werken van naastenliefde. Wie het spektakel zoekt, is verder van het
+centrum verwijderd dan wie stil zijn plicht doet.
+
+#### De gang van het boek
+
+**Een boek op bevel geschreven**
+
+Teresa begon het boek in juni 1577 in Toledo, op last van haar overste en
+biechtvader Jerónimo Gracián, en voltooide het op 29 november van dat jaar in
+Ávila, onderbroken door ziekte en door de conflicten rond haar
+kloosterhervorming. Haar autobiografie lag op dat moment bij de Inquisitie,
+zodat zij haar gebedsleer opnieuw moest opschrijven, nu onpersoonlijk; waar
+zij eigen ervaringen aanhaalt, voert zij een persoon op die zij zou kennen.
+Zij opent met het beeld dat het hele werk ordent: de ziel als een burcht van
+diamant of zeer helder kristal, met vele woningen zoals er in het huis van de
+Vader vele woningen zijn, en in het midden de woning van de Koning.
+
+Buiten de burcht krioelt het ongedierte van zonden en beslommeringen; veel
+zielen leven in de buitenhof van hun eigen kasteel zonder te weten wat
+daarbinnen is. De poort om binnen te komen is het gebed, en dan vooral het
+inwendig gebed, het bewuste verwijlen bij God, waar het mondgebed zonder
+aandacht buiten blijft.
+
+**De eerste drie verblijven: wat een mens zelf vermag**
+
+In het eerste verblijf is de ziel nog omringd door wat zij meesleept:
+gehechtheden, bezigheden, eigenliefde. Teresa dringt aan op zelfkennis, die
+zij uitdrukkelijk aan de blik op God koppelt, want wie alleen naar zichzelf
+kijkt wordt kleinmoedig of blind, en wie naast eigen armoede Gods grootheid
+ziet, wordt nederig. In het tweede verblijf hoort de ziel de roep van God door
+preken, boeken, goede gesprekken en tegenslag heen; het gevecht met de
+gewoonten is hier het hevigst en volharding het enige antwoord.
+
+Het derde verblijf herbergt de ordentelijke gelovigen: mensen die de zonde
+mijden, hun plichten vervullen en aan boetedoening doen. Juist hen waarschuwt
+Teresa, met het evangelieverhaal van de rijke jongeling, voor
+zelfgenoegzaamheid. De dorheid die hen treft wanneer de vertroosting
+uitblijft, legt bloot hoezeer hun dienst nog ruil is; gevraagd wordt overgave,
+niet boekhouding.
+
+**Het vierde verblijf: de twee waterbekkens**
+
+Hier begint wat Teresa het bovennatuurlijke noemt: gebed dat de mens niet zelf
+kan opwekken. Zij onderscheidt contentos, de vertroostingen die eigen
+meditatie oplevert en die bij de menselijke natuur beginnen, van gustos,
+genietingen die in God beginnen en de ziel overstromen. Het verschil verbeeldt
+zij met twee waterbekkens: het ene wordt van ver gevuld door kunstige
+waterleidingen, het andere ligt bij de bron zelf en vult zich geluidloos van
+binnenuit.
+
+In het gebed van rust dat hier ontstaat, verstilt de wil terwijl verstand en
+verbeelding nog kunnen rondzwerven. Teresa raadt aan die zwervers niet met
+geweld terug te jagen: het gaat er in dit huis niet om veel te denken,
+schrijft zij, maar om veel lief te hebben. Omdat hier ook zwakte, verbeelding
+en bedrog kunnen meespelen, wordt de onderscheiding belangrijker naarmate de
+gaven groter worden.
+
+**Het vijfde verblijf: de zijderups**
+
+In het gebed van vereniging zijn alle vermogens korte tijd in God verzonken;
+achteraf blijft een zekerheid die volgens Teresa het echte kenmerk is: de ziel
+weet dat God er was, ook al kan zij niet zeggen hoe. Zij verbeeldt de
+omvorming met de zijderups die zich in haar cocon insluit en sterft, waarna
+een witte vlinder tevoorschijn komt die het oude kruipen niet meer kent; de
+cocon is voor haar Christus, waarin de ziel zich door gebed en versterving
+laat insluiten.
+
+Voor wie deze gebedsvorm niet ontvangt, houdt Teresa de deur nadrukkelijk
+open: de vereniging met Gods wil, zichtbaar in de liefde tot de naaste, is
+voor iedereen bereikbaar en is de maat waaraan al het overige wordt afgemeten.
+De vlinder vindt geen rust meer in wat haar eerst behaagde; dat onrustige
+verlangen bereidt het volgende verblijf voor.
+
+**Het zesde verblijf: verloving en beproeving**
+
+Het zesde verblijf, verreweg het langste deel van het boek, beschrijft de
+geestelijke verloving en de prijs ervan: laster en lof die allebei kwellen,
+ziekten, onbegrijpende biechtvaders en een innerlijke duisternis waarin de
+ziel zich door God verlaten waant. Daarbinnen plaatst Teresa de buitengewone
+verschijnselen waarom het boek bekendstaat: vervoeringen, de vlucht van de
+geest, inwendige woorden, verstandelijke en verbeeldingsvisioenen, en de wond
+van liefde die pijn en vreugde tegelijk is.
+
+Opvallend is hoe nuchter zij ermee omgaat. Elk verschijnsel krijgt criteria
+mee: wat van God komt laat vrede, nederigheid en daadkracht na, stemt met de
+Schrift overeen en houdt stand onder het oordeel van geleerde biechtvaders;
+wat uit de verbeelding of van de duivel komt, laat onrust en eigenwaan na. Zij
+verbiedt het verlangen naar zulke ervaringen en herinnert eraan dat de
+heiligheid niet in de verschijnselen zit maar in de deugden.
+
+**Het zevende verblijf: het geestelijk huwelijk**
+
+In het binnenste verblijf voltrekt zich het geestelijk huwelijk. De ziel
+ontvangt een verstandelijk visioen van de Drie-eenheid die in haar woont, en
+de vereniging is niet langer een voorbijgaande ontmoeting: als regen die in
+een rivier valt, zijn de wateren niet meer te scheiden. Anders dan velen
+verwachten wordt het leven daar niet stil; Marta en Maria dienen samen, en in
+het centrum blijft vrede terwijl aan de buitenkant beproeving en arbeid
+doorgaan.
+
+Het slot keert terug naar het begin: dit alles is er niet om te genieten maar
+om kracht te geven tot dienen. Werken, werken, houdt Teresa haar zusters voor;
+gebed dat niet uitmondt in daden van liefde is verdacht. Met een
+verontschuldiging voor haar gebrekkige schrijverij en een verzoek om gebed
+sluit zij het boek af.
+
+**Doorwerking**
+
+Fray Luis de León nam het werk in 1588 op in de eerste uitgave van Teresa's
+geschriften, elf jaar na ontstaan en zes jaar na haar dood. Samen met het werk
+van haar medestander Johannes van het Kruis vormt het het hoogtepunt van de
+Spaanse mystiek van de Gouden Eeuw. In 1970 riep Paulus VI haar als eerste
+vrouw uit tot kerklerares. De zeven verblijven zijn sindsdien het klassieke
+kader voor de beschrijving van het inwendige gebed, tot ver buiten de karmel.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| verblijven (moradas) | De zeven groepen woningen in de burcht; geen strakke trap maar gebieden waar de ziel korter of langer verblijft en tussen kan bewegen. |
+| inwendig gebed | Het bewuste verwijlen bij God, door Teresa elders omschreven als vriendschappelijke omgang met Hem van wie wij weten dat Hij ons liefheeft; de poort van de burcht. |
+| zelfkennis | Kennis van eigen armoede die, gekoppeld aan de blik op God, nederigheid oplevert; een kamer die in geen enkel verblijf wordt afgesloten. |
+| gebed van rust | Begin van het passieve gebed in het vierde verblijf, waarin de wil verstilt terwijl verstand en verbeelding nog rondzwerven. |
+| contentos en gustos | Haar onderscheid tussen vertroostingen die eigen meditatie oplevert en genietingen die God rechtstreeks ingiet, verbeeld in de twee waterbekkens. |
+| gebed van vereniging | Het gebed van het vijfde verblijf, waarin alle vermogens korte tijd in God verzonken zijn en een zekerheid achterblijft dat Hij er was. |
+| geestelijke verloving | De verhouding van het zesde verblijf, met vervoeringen, inwendige woorden en visioenen, en met de zwaarste beproevingen van de hele weg. |
+| geestelijk huwelijk | De blijvende vereniging in het zevende verblijf, als regen die in een rivier valt; vrede in het centrum die tot werken aanzet. |
+
+#### Waar het argument op rust
+
+Teresa beroept zich op eigen ervaring en op wat zij bij medezusters waarnam,
+niet op geleerdheid; zij herhaalt dat geleerden het beter kunnen zeggen en dat
+zij slechts uit gehoorzaamheid schrijft. Het boek is daarmee getuigenis, geen
+betoog. Binnen dat genre is zij opvallend voorzichtig: elke ervaring moet
+worden getoetst aan de Schrift, aan het oordeel van geleerde biechtvaders en
+vooral aan de uitwerking, want aan de vruchten kent men de boom, en de duivel
+kan volgens haar veel nabootsen behalve blijvende vrede en nederigheid.
+
+Die toetsingsleer is het stevigste deel van het boek en stemt overeen met wat
+zij eerder in haar autobiografie en in *Camino de perfección* schreef, wat
+voor de innerlijke samenhang van haar werk pleit. Voor de metafysische kern,
+dat God in het binnenste van de ziel woont en daar op deze wijze werkt,
+bestaat vanzelfsprekend geen bewijs buiten traditie en ervaring; het boek doet
+ook geen poging dat te leveren en richt zich tot lezers die het geloofskader
+al delen.
+
+#### Wat er tegen in te brengen valt
+
+Het boek is minder toegankelijk dan de bekendheid doet vermoeden. Teresa
+schreef het in een half jaar tussen bestuurswerk en ziekte door, grotendeels
+zonder herlezen, in lange sprekende zinnen vol uitweidingen; zij
+verontschuldigt zich zelf herhaaldelijk voor het gedraal en voor het lawaai in
+haar hoofd. De ordening in zeven verblijven is bovendien losser dan schema's
+suggereren: zij zegt uitdrukkelijk dat de ziel niet volgordelijk door de
+kamers trekt, wat lezers die er een methode in zoeken nogal eens overslaan.
+
+Wetenschappelijke lezers plaatsen kanttekeningen bij de ervaringen zelf. Voor
+vervoeringen en visioenen zijn lichamelijke en psychologische verklaringen
+voorgesteld, van migraine tot temporale epilepsie; op vier eeuwen afstand valt
+daarover niets te beslissen, maar de vanzelfsprekendheid waarmee het boek
+bovennatuurlijke en duivelse oorzaken aanwijst, hoort bij de zestiende eeuw.
+Historici als Alison Weber lezen de aanhoudende zelfverkleining bovendien als
+retorische strategie van een vrouw die onder het oog van de Inquisitie
+schreef; dat maakt de tekst rijker, en tegelijk minder rechtstreeks als
+zielsverslag te nemen.
+
+Wie buiten het katholieke kader staat, moet ten slotte veel meebrengen:
+genadeleer, duivel, biecht en kloosterleven zijn geen decor maar dragende
+delen. Zonder eigen gebeds- of meditatiepraktijk blijven vooral de latere
+verblijven beschrijvingen van andermans land.
+
+#### Wat er concreet mee te doen is
+
+- Toets innerlijke ervaringen aan hun vruchten: wat vrede, bescheidenheid en
+concrete dienstbaarheid nalaat, verdient vertrouwen; wat opwinding en
+zelfverheffing nalaat niet.
+- Houd zelfkennis en stilte bijeen: vaste tijden van inkeer naast eerlijk
+zicht op eigen motieven.
+- Wantrouw het spektakel: buitengewone ervaringen zijn in dit boek nooit het
+doel en nooit de maatstaf.
+
+#### Wat je hierna leest
+
+- 524. The Conference of the Birds. Attars vogelepos beschrijft dezelfde reis
+naar binnen in soefistische gedaante: de gezochte koning blijkt in de zoekers
+zelf te wonen.
+- 526. The Alchemy of Happiness. Al-Ghazali beschrijft vier eeuwen eerder
+binnen de islam de weg van zelfkennis naar godskennis, met dezelfde nadruk op
+het hart.
+- 390. Simone Weil: An Anthology. Weil is een twintigste-eeuwse mystica zonder
+kloostermuren; haar stukken over aandacht en ongeluk sluiten direct op
+Teresa's toetssteen aan.
+
+## 574. Totaliteit en oneindigheid
+
+Emmanuel Levinas, 1961. *Totalité et Infini. Essai sur l'extériorité*
+(Martinus Nijhoff, Den Haag, 1961, reeks Phaenomenologica). Nederlandse
+vertaling: *Totaliteit en oneindigheid. Essay over de exterioriteit*, vertaald
+en geannoteerd door Theo de Boer en Chris Bremmers (Boom, Amsterdam, tweede
+druk 2021, 408 blz., ISBN 9789024442850); een eerdere Nederlandse vertaling
+verscheen als *De totaliteit en het Oneindige* (Ambo, Baarn, 1987). Engelse
+vertaling: *Totality and Infinity* door Alphonso Lingis (Duquesne University
+Press, 1969). De samenvatting is op de Nederlandse editie gebaseerd. Rubriek:
+filosofie en mystiek.
+Tags: `fenomenologie`, `ethiek`, `de ander`, `joodse filosofie`
+
+Emmanuel Levinas, in Litouwen geboren joods-Franse filosoof die Husserl en
+Heidegger in Frankrijk introduceerde en in de oorlog vrijwel zijn hele familie
+verloor, publiceerde *Totalité et Infini* in 1961 als staatsproefschrift. Het
+boek keert zich tegen de westerse wijsbegeerte voor zover die al het andere
+herleidt tot begrip en systeem, tot wat Levinas totaliteit noemt.
+Daartegenover plaatst hij de ontmoeting met het gelaat van de ander, dat zich
+aan elk begrip onttrekt en het ik ter verantwoording roept; het eerste woord
+van het gelaat is het verbod te doden.
+
+Ethiek is bij Levinas daarom geen toepassing van eerdere kennis; zij is eerste
+filosofie, want de verhouding tot de ander gaat aan alle kennis vooraf. Het
+boek beschrijft hoe het ik zich vormt in genieting en wonen, hoe het gelaat
+die huishouding openbreekt en hoe in eros en vruchtbaarheid een tijd ontstaat
+die het eigen bestaan te buiten gaat. De tekst geldt als een van de
+moeilijkste van de naoorlogse filosofie en werkte breed door in zorgethiek,
+pedagogiek en theologie.
+
+### Uitgebreide samenvatting
+
+**De stelling.** De westerse filosofie is volgens Levinas overwegend ontologie
+geweest: denken dat al het vreemde herleidt tot het eigen begrip en daarmee
+tot het Zelfde. Wat zich zo laat ordenen vormt een totaliteit, en in een
+totaliteit is de oorlog de waarheid: personen tellen er als functies van het
+geheel. Eén verschijning onttrekt zich echter aan elke totaliteit: het gelaat
+van de andere mens. Het gelaat is geen verschijnsel dat het ik waarneemt en
+duidt; het spreekt het ik aan, weerloos en gebiedend tegelijk, en zijn eerste
+woord luidt: gij zult niet doden. In die aanspraak ontspringt de ethiek, vóór
+alle kennis en vóór elke vrije keuze; de verantwoordelijkheid voor de ander is
+asymmetrisch en valt niet af te kopen. Daarom is de ethiek eerste filosofie,
+en draagt de idee van het oneindige, de gedachte die meer bevat dan het denken
+kan omvatten, meer waarheid dan welk systeem ook.
+
+#### De gang van het boek
+
+**Oorlog, vrede en het voorwoord**
+
+Het boek opent met de zin dat het van het hoogste belang is te weten of de
+moraal ons niet bedriegt. De oorlog, schrijft Levinas, schort de moraal op en
+toont het zijn als totaliteit: in de mobilisatie van alles en iedereen blijft
+geen buitenkant over. De filosofie die het zijn als totaliteit denkt, van
+Parmenides tot Hegel en Heidegger, is daarmee verwant aan de oorlog. Tegenover
+de totaliteit stelt het voorwoord de eschatologie van de messiaanse vrede,
+geen kennis van een einde der tijden, maar de mogelijkheid dat een wezen zich
+aan het oordeel van de geschiedenis onttrekt en zelf spreekt.
+
+Levinas kondigt aan dat het boek een verdediging van de subjectiviteit wordt,
+niet vanuit haar zelfbewustzijn maar vanuit de idee van het oneindige, en
+noemt twee schuldeisers: Descartes, van wie die idee stamt, en Franz
+Rosenzweig, wiens *Stern der Erlösung* naar zijn zeggen te veel in het boek
+aanwezig is om geciteerd te worden.
+
+**Hetzelfde en de Ander**
+
+Het eerste hoofddeel zet de begrippen uiteen. Kennen is voor Levinas
+toe-eigenen: wat gekend wordt, verliest zijn vreemdheid en wordt deel van het
+Zelfde. Tegen die beweging in staat het metafysisch verlangen, dat zich van
+behoefte onderscheidt doordat het niet uit gemis voortkomt en door geen
+vervulling dooft; het richt zich op het volstrekt andere. De formele structuur
+daarvan vindt Levinas bij Descartes: in mij ligt de idee van het oneindige,
+een gedachte waarvan het gedachte de gedachte zelf overschrijdt.
+
+Belangrijk is dat de verhouding tot de Ander geen versmelting is. Levinas
+verdedigt de scheiding: het ik moet werkelijk apart bestaan, in zijn eigen
+huishouding en desnoods als atheïst, want alleen tussen gescheiden wezens is
+een verhouding mogelijk die de een niet in de ander laat opgaan. Totaliteit en
+vereniging zijn twee manieren om de afstand af te schaffen; het boek zoekt een
+derde weg, de nabijheid die afstand laat.
+
+**Interioriteit en economie**
+
+Het tweede hoofddeel beschrijft hoe dat aparte ik zich vormt, en het doet dat
+met alledaagse verschijnselen. Leven is leven van iets: van goede soep, lucht,
+licht, arbeid en slaap. Deze genieting is het eerste egoïsme, en Levinas
+beschrijft haar zonder afkeuring; wie niet eerst bij zichzelf thuis is, heeft
+niets om weg te geven. Boven de genieting hangt wel de onzekerheid van morgen:
+de elementen waarvan het ik leeft, zijn niemands bezit en kunnen tegenzitten.
+
+Daarom woont de mens. De woning is inkeer en uitvalsbasis tegelijk: van
+daaruit wordt de wereld door arbeid tot bezit gemaakt en op voorraad gelegd,
+en daarbinnen heerst een onthaal dat Levinas, tot ergernis van latere lezers,
+het vrouwelijke noemt. De huishouding, door hem economie genoemd, is geen laag
+bedrijf maar de voorwaarde van gastvrijheid: alleen wie een huis en brood
+heeft, kan de deur openen en delen.
+
+**Het gelaat en de exterioriteit**
+
+Dan het hart van het boek. De Ander verschijnt niet zoals dingen verschijnen;
+hij drukt zich uit, uit zichzelf, en dat noemt Levinas het gelaat. Het gelaat
+is niet de som van waarneembare trekken; het is naaktheid en armoede,
+kwetsbaar als geen ding, en tegelijk hoogte die gebiedt. De moord is de enige
+poging het gelaat volledig te ontkennen, en juist daar toont zich de ethische
+orde: doden kan feitelijk wel, maar de weerstand van het gelaat is van een
+andere aard, en het gebod gij zult niet doden is de eerste betekenis ervan.
+
+Uit het gelaat komt de taal voort. Spreken is antwoorden op een aanspraak die
+er al ligt; onderricht is geen vroedvrouwskunst die ophaalt wat het ik al
+wist, zoals bij Socrates, maar de komst van wat het ik niet uit zichzelf kan
+halen. Ook rede en objectiviteit wortelen hier: dat er een gedeelde,
+betwistbare wereld is, veronderstelt dat er een ander is aan wie de wereld
+gegeven en verantwoord wordt. In de ogen van de Ander kijkt bovendien de derde
+mee, alle anderen; daarmee kondigt zich de rechtvaardigheid aan, al werkt het
+boek dat nauwelijks uit.
+
+**Voorbij het gelaat: eros, vruchtbaarheid en tijd**
+
+Het slotdeel zoekt een verhouding die nog verder gaat dan het spreken van
+aangezicht tot aangezicht. In de eros is de ander bemind als tastbaar en
+tegelijk als wat zich terugtrekt; de liefkozing zoekt iets dat er nog niet is.
+Zo komt Levinas bij de vruchtbaarheid: in het kind bestaat het ik voort als
+een ander, want het kind is een vreemde die toch ik is, zonder bezit te zijn.
+
+Daarmee breekt hij met de gedachte dat het zijn één is: in het vaderschap
+vermenigvuldigt het zijn zich zonder totaliteit te worden. De tijd krijgt hier
+zijn zin: geen aftellen naar de dood, zoals bij Heidegger, maar onderbreking
+en nieuw begin, de mogelijkheid van vergeving en van een toekomst die het
+eigen ontwerp te buiten gaat. Het boek besluit dat het zijn zich voltrekt als
+goedheid en als vrede tussen gescheiden wezens, en dat de waarheid niet aan
+het einde van de geschiedenis wordt uitgesproken over de doden, maar telkens
+in het gesprek met de levenden.
+
+**Doorwerking**
+
+Het boek maakte Levinas op slag tot een hoofdfiguur van de Franse filosofie en
+werkte door in theologie, zorgethiek, pedagogiek en de continentale
+wijsbegeerte in brede zin. In Nederland droeg vooral Theo de Boer de gedachte
+van de ethiek als eerste filosofie uit, en de zorgsector nam het gelaat over
+als naam voor wat in protocollen verloren gaat. Levinas zelf schreef met
+*Autrement qu'être* (1974) een tweede hoofdwerk dat de taal van het eerste
+ingrijpend herziet.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| totaliteit | Elk geheel waarin personen en dingen alleen betekenis hebben als delen van het systeem; voor Levinas de grondvorm van de oorlog en van de westerse ontologie. |
+| het Zelfde | Het ik en al wat het zich eigen maakt; de beweging die al het vreemde herleidt tot begrip en bezit. |
+| de Ander | De andere mens voor zover die zich nooit tot mijn begrip laat herleiden; geen tweede ik, maar werkelijk buiten. |
+| het gelaat | De wijze waarop de Ander zich uit zichzelf uitdrukt, voorbij zijn waarneembare trekken; weerloosheid en gebod tegelijk. |
+| idee van het oneindige | Aan Descartes ontleende figuur: een gedachte waarvan het gedachte de gedachte overschrijdt; de vorm van de verhouding tot de Ander. |
+| metafysisch verlangen | Verlangen naar het volstrekt andere dat niet uit gemis voortkomt en door vervulling niet dooft, anders dan behoefte. |
+| scheiding | De zelfstandigheid van het ik in genieting en huishouding; voorwaarde voor een echte verhouding, want alleen wie apart staat kan gastvrij zijn. |
+| genieting | Het leven van de elementen, van voedsel tot licht; het eerste, onverholen egoïsme waarin het ik zich vormt. |
+| het wonen | De woning als inkeer en uitvalsbasis, die de elementen door arbeid tot bezit maakt en het onthaal van de Ander mogelijk maakt. |
+| vruchtbaarheid | De verhouding tot het kind, waarin het ik voortbestaat als een ander; Levinas' model voor een tijd die het eigen bestaan te buiten gaat. |
+
+#### Waar het argument op rust
+
+Levinas bewijst niet, hij beschrijft. Het boek is fenomenologie: nauwgezette
+beschrijvingen van eten, wonen, arbeiden, spreken, het aangezicht en de
+liefkozing, met de bedoeling dat de lezer er iets in herkent dat theorieën
+overslaan. De twee uitgesproken ankers buiten de eigen beschrijving zijn
+Descartes' idee van het oneindige, als formele figuur, en Rosenzweigs kritiek
+op de totaliteit, in het voorwoord als alomtegenwoordige bron erkend.
+
+Dat maakt de status van de beweringen lastig. Dat het gelaat verplicht vóór
+elke overweging, is geen vaststelling die zich empirisch laat toetsen;
+psychologisch onderzoek naar feitelijk moreel gedrag staat er los van, en
+Levinas zou dat geen bezwaar vinden, omdat het hem om de zin van het ethische
+gaat en niet om de feitelijke werking ervan. Wie de beschrijvingen niet
+herkent, heeft geen argument in handen gekregen; wie ze wel herkent, heeft
+geen bewijs, wel een taal die elders ontbreekt.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste filosofische bezwaar formuleerde Jacques Derrida al in 1964 in
+het opstel 'Violence et métaphysique': wie tegen de Griekse begrippentaal wil
+ingaan, kan dat alleen in die taal doen, zodat het boek de totaliteit die het
+bestrijdt in iedere zin opnieuw binnenhaalt. Levinas nam dat bezwaar serieus;
+zijn tweede hoofdwerk, *Autrement qu'être*, verandert mede daarom radicaal van
+schrijfwijze.
+
+Feministische lezers, in het spoor van een voetnoot van Simone de Beauvoir bij
+eerder werk van Levinas, wijzen op de rol van het vrouwelijke in dit boek: de
+vrouw verschijnt als zwijgzaam onthaal in de woning, de vruchtbaarheid wordt
+als vaderschap gedacht, en de Ander van het betoog lijkt stilzwijgend
+mannelijk. Anderen vinden de asymmetrie overspannen: een verantwoordelijkheid
+die aan elke keuze voorafgaat en nooit is af te lossen, laat zich moeilijk
+verbinden met gewone moraal, met de rechten van het zelf of met politiek; de
+derde en de rechtvaardigheid komen er in dit boek bekaaid af. Weer anderen
+lezen verkapte theologie: het oneindige, de hoogte, het spoor van de Ander
+verbergen hun religieuze herkomst nauwelijks.
+
+Daarnaast is er de toegankelijkheid. Het boek is berucht moeilijk: een eigen
+vocabulaire, lange bezwerende herhalingen, formuleringen die op elkaar lijken
+en telkens net verschuiven. Voor de meeste lezers is het zonder inleiding of
+begeleiding geen begin- maar een eindpunt; de geannoteerde Nederlandse editie
+van De Boer en Bremmers bestaat om die reden.
+
+#### Wat er concreet mee te doen is
+
+- Let in werk en zorg op het moment waarop een mens dossier, geval of
+doelgroep wordt; het boek geeft taal om dat verlies te benoemen.
+- Neem de asymmetrie als toets: verantwoordelijkheid begint vóór wat is
+afgesproken en houdt niet op waar de wederdienst ophoudt.
+- Stel bij stelsels en beleid de vraag wat zij met gezichten doen als eerste
+vraag, niet als sluitpost.
+
+#### Wat je hierna leest
+
+- 263. Beyond Good and Evil. Nietzsche is de tegenstem: moraal als uiting van
+macht en zwakte, tegenover Levinas' moraal als eerste waarheid.
+- 48. Man's Search for Meaning. Frankl schrijft vanuit dezelfde catastrofe die
+Levinas' familie trof over verantwoordelijkheid als bron van zin.
+- 390. Simone Weil: An Anthology. Weil staat dicht bij Levinas met haar
+aandacht voor de ongelukkige als de zeldzaamste menselijke bekwaamheid.
+
+## 575. Neurosis and Human Growth
+
+Karen Horney, 1950. *Neurosis and Human Growth: The Struggle Toward
+Self-Realization* (W.W. Norton, New York, 1950, 391 blz.). Gangbare moderne
+editie: paperback bij W.W. Norton, 1991, 400 blz., ISBN 9780393307757. Van dit
+boek bestaat geen Nederlandse vertaling; van Horney zijn wel andere titels
+vertaald, waaronder *De neurotische persoonlijkheid van deze tijd* en
+*Zelfanalyse*. De samenvatting is op de Engelse editie gebaseerd. Rubriek:
+brein en lichaam.
+Tags: `psychoanalyse`, `neurose`, `zelfbeeld`, `perfectionisme`, `zelfhaat`
+
+Karen Horney (1885-1952), in Duitsland opgeleid als psychoanalytica en in 1932
+naar de Verenigde Staten geëmigreerd, brak in 1941 met de orthodoxe freudianen
+en richtte het American Institute for Psychoanalysis op. *Neurosis and Human
+Growth* uit 1950 is haar laatste en meest uitgewerkte boek. Neurose beschrijft
+zij er als groei die de verkeerde kant op is gegaan: een kind dat zich
+onveilig voelt, bouwt een geïdealiseerd zelfbeeld op, een grandioos beeld van
+wie het hoort te zijn, en besteedt daarna zijn leven aan het waarmaken van dat
+denkbeeldige zelf.
+
+Rond die jacht op glorie beschrijft Horney een samenhangend systeem:
+aanspraken op de omgeving, een innerlijke dictatuur van geboden die zij de
+tirannie van het moeten noemt, neurotische trots en de zelfhaat die opspeelt
+zodra het werkelijke functioneren bij het ideaalbeeld achterblijft. Zij
+onderscheidt drie hoofdrichtingen waarin mensen met dit conflict leven:
+expansief, zelfwegcijferend en berustend. Het boek berust op klinische
+observatie, geen gecontroleerd onderzoek, en heeft aantoonbaar doorgewerkt in
+de cognitieve gedragstherapie; Albert Ellis noemde Horneys tirannie van het
+moeten als directe voorloper van zijn eigen werk.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Horney stelt dat neurose in de kern verstoorde groei is.
+Ieder mens beschikt over een werkelijk zelf, de levende kern van eigen
+gevoelens en vermogens, dat zich onder goede omstandigheden vanzelf
+ontwikkelt, zoals een eikel uitgroeit tot een eik. Een kind dat zich onveilig
+en ongewenst voelt, ontwikkelt basisangst en bouwt ter compensatie een
+geïdealiseerd zelfbeeld op. Vanaf dat moment richt de energie die voor groei
+bedoeld was zich op het waarmaken van dat denkbeeldige zelf. Rond dat streven
+groeit een systeem van aanspraken, innerlijke geboden, trots en zelfhaat dat
+de persoon steeds verder van het werkelijke zelf vervreemdt. Genezing vraagt
+volgens Horney dat iemand het geïdealiseerde beeld doorziet en opgeeft, zodat
+de eigen werkelijke gevoelens en oordelen weer toegankelijk worden.
+
+#### De gang van het boek
+
+**Van basisangst naar de jacht op glorie**
+
+Het openingshoofdstuk zet de theorie neer. Onder gunstige omstandigheden
+ontwikkelt een kind zijn werkelijke zelf: het geheel van eigen gevoelens,
+wensen en vermogens waaruit het kan putten. Voelt het kind zich aan
+onverschillige of vijandige opvoeders overgeleverd, dan ontstaat basisangst,
+het gevoel er alleen voor te staan in een wereld die niet te vertrouwen is.
+Het kind gaat zijn spontane gevoelens wantrouwen en zoekt houvast in de
+verbeelding: het geïdealiseerde zelf, een figuur die alles is wat het kind
+meent te moeten zijn.
+
+Uit dat beeld groeit wat Horney de jacht op glorie noemt, de
+allesoverheersende drang om het geïdealiseerde zelf werkelijkheid te maken.
+Zij onderscheidt daarin de behoefte aan perfectie, neurotische eerzucht en de
+drang naar wraakzuchtige triomf, het verlangen anderen te overtreffen en te
+vernederen. Horney vergelijkt deze ontwikkeling met het oude motief van het
+duivelspact: in ruil voor een droom van grootsheid levert de mens zijn ziel
+in, dat wil zeggen zijn werkelijke zelf.
+
+**Aanspraken en de tirannie van het moeten**
+
+Wie innerlijk een verheven figuur is, vindt dat de wereld zich daarnaar heeft
+te gedragen. Horney noemt dat neurotische aanspraken: de stilzwijgende eis dat
+anderen voorrang verlenen, dat kritiek uitblijft en dat het leven
+uitzonderingen maakt. Voor de betrokkene voelen deze aanspraken als rechten;
+blijft de wereld in gebreke, dan voelt dat als onrecht en volgt
+verontwaardiging.
+
+Naar binnen gericht heersen de geboden die Horney de tirannie van het moeten
+noemt, in gewoon Nederlands een innerlijke dictatuur van eisen als altijd
+sterk zijn, nooit fouten maken, door iedereen gewaardeerd worden. De geboden
+trekken zich niets aan van wat haalbaar of zelfs mogelijk is; zij verlangen
+dat gevoelens op afroep veranderen. Wie eraan voldoet voelt hooguit
+kortstondige opluchting, wie tekortschiet krijgt met zelfverachting te maken.
+
+**Trots en zelfhaat**
+
+Het geïdealiseerde zelf brengt een eigen soort trots mee. Neurotische trots
+geldt de denkbeeldige eigenschappen van het beeld, en juist daarom is hij zo
+kwetsbaar: elke aanraking met de werkelijkheid kan hem krenken. Op krenking
+volgen schaamte en de behoefte de eigen waarde te herstellen, vaak door wraak
+of door de ander omlaag te halen.
+
+De keerzijde van de trots is zelfhaat. Gemeten aan het ideaalbeeld schiet de
+werkelijke persoon voortdurend tekort, en die tekortschietende persoon wordt
+gehaat. Horney onderscheidt zes vormen: meedogenloze eisen aan zichzelf,
+zelfbeschuldiging, zelfverachting, het dwarsbomen van eigen wensen,
+zelfkwelling en zelfdestructief gedrag. Trots en zelfhaat vormen samen wat zij
+het trotssysteem noemt; het werkt als één geheel en houdt zichzelf in stand.
+
+**Zelfvervreemding**
+
+Het gevolg van dit alles is zelfvervreemding: de persoon weet steeds minder
+wat hij zelf voelt, wil of vindt. Energie gaat op aan het bewaken van het
+beeld; spontaniteit wordt gevaarlijk, want elke echte reactie kan het beeld
+weerspreken. Zo ontstaat wat Horney het centrale innerlijke conflict noemt, de
+strijd tussen het trotssysteem en de resten van het werkelijke zelf. Dat
+conflict speelt grotendeels buiten het bewustzijn, en juist daarom houdt het
+zo lang stand.
+
+**Drie oplossingen**
+
+Omdat het conflict onleefbaar is, kiest ieder onbewust een hoofdrichting. De
+expansieve oplossing zoekt de glorie in meesterschap; Horney onderscheidt
+daarbinnen een narcistische variant die op charme en bewondering drijft, een
+perfectionistische die op onberispelijkheid drijft, en een
+arrogant-wraakzuchtige die op triomf over anderen drijft. De zelfwegcijferende
+oplossing zoekt de redding in liefde: eigen wensen worden onderdrukt, de ander
+wordt verheven, met als uiterste de ziekelijke afhankelijkheid waarin iemand
+zichzelf in een partner verliest.
+
+De derde richting is berusting: het opgeven van de strijd door niets meer echt
+te willen. De berustende persoon houdt afstand, ervaart vrijheid als hoogste
+goed en betaalt daarvoor met vlakheid en toeschouwerschap. Alle drie de
+richtingen zijn in Horneys ogen oplossingen van hetzelfde probleem, en geen
+ervan werkt: het geïdealiseerde beeld blijft de maat, alleen de strategie
+verschilt.
+
+**Relaties, werk en de weg terug**
+
+De slothoofdstukken passen het model toe. In relaties maakt het trotssysteem
+van andere mensen vooral middelen: getuigen van de eigen grootsheid, bronnen
+van bevestiging of bedreigingen. In het werk verschilt de verstoring per
+richting: de expansieve overschat zich en verdraagt geen kritiek, de
+zelfwegcijferende durft niet te claimen wat hij kan, de berustende houdt zijn
+inzet klein.
+
+Het hoofdstuk over therapie beschrijft de weg terug als een
+ontnuchteringsproces: de patiënt moet de aanspraken, geboden en trots als
+zodanig leren herkennen en de illusies opgeven waaraan hij zijn houvast
+ontleende. Horney rekent daarbij op de opbouwende krachten die in ieder mens
+aanwezig blijven. In de theoretische afsluiting zet zij haar mensbeeld
+tegenover dat van Freud: waar hij destructieve driften als gegeven beschouwde,
+ziet zij destructiviteit als gevolg van geblokkeerde groei.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| het werkelijke zelf | De levende kern van eigen gevoelens, wensen en vermogens waaruit gezonde groei voortkomt. |
+| basisangst | Het gevoel van een kind er alleen voor te staan in een wereld die als vijandig wordt ervaren. |
+| het geïdealiseerde zelf | Het grandioze zelfbeeld dat de plaats van het werkelijke zelf inneemt en de maatstaf voor alles wordt. |
+| de jacht op glorie | De drang het geïdealiseerde zelf te verwezenlijken, zichtbaar in perfectiedrang, eerzucht en wraakzuchtige triomf. |
+| neurotische aanspraken | Als rechten gevoelde eisen aan anderen en aan het leven, ontleend aan het ideaalbeeld. |
+| de tirannie van het moeten | De innerlijke dictatuur van onhaalbare geboden over wat iemand hoort te voelen, te kunnen en te zijn. |
+| neurotische trots | Trots op de denkbeeldige eigenschappen van het ideaalbeeld, die de persoon uiterst krenkbaar maakt. |
+| zelfhaat | De woede van het geïdealiseerde zelf op de werkelijke persoon die bij het beeld achterblijft. |
+| zelfvervreemding | Het verlies van toegang tot eigen gevoelens, wensen en oordelen. |
+
+#### Waar het argument op rust
+
+Het bewijsmateriaal bestaat uit klinische observatie: wat Horney in ruim
+dertig jaar praktijk als psychoanalytica bij patiënten en bij zichzelf
+waarnam. Het boek bevat geen tellingen, geen controlegroepen en geen toetsbare
+voorspellingen; casusmateriaal blijft anoniem en geanonimiseerd, en waar zij
+illustreert, put zij ook uit literatuur, zoals het duivelspactmotief. Wie het
+boek leest als verzameling waarnemingen van een ervaren clinicus, krijgt
+precies dat, en niets met de status van experimenteel onderzoek.
+
+De doorwerking is wel aanwijsbaar. Albert Ellis, grondlegger van de
+rationeel-emotieve therapie, noemde Horneys tirannie van het moeten
+uitdrukkelijk als voorloper van zijn eigen aanpak van dwingende gedachten. De
+zelfdiscrepantietheorie van E. Tory Higgins (1987), die neerslachtigheid en
+spanning verklaart uit de afstand tussen feitelijk zelfbeeld, ideaalbeeld en
+behoren-beeld, onderzoekt met vragenlijsten een onderscheid dat sterk op het
+hare lijkt. Ook het latere perfectionismeonderzoek werkt met eisen die iemand
+aan zichzelf stelt en eisen die hij als opgelegd ervaart.
+
+#### Wat er tegen in te brengen valt
+
+De wetenschappelijke status van de psychoanalytische traditie geldt onverkort
+voor dit boek: de theorie is opgebouwd uit klinische indrukken, de selectie
+van gevallen is voor de lezer niet controleerbaar, en de begrippen zijn zo
+ruim dat vrijwel elk gedrag erin onder te brengen valt. Een expansieve reactie
+bevestigt de theorie, een zelfwegcijferende ook; wat de theorie zou
+weerleggen, blijft onbenoemd. De werkzaamheid van de beschreven therapie is
+nooit systematisch gemeten.
+
+Ook het fundament is een aanname. Dat er een werkelijk zelf bestaat dat, als
+een eikel, uit zichzelf goed groeit zolang niets in de weg zit, is een
+mensbeeld en geen bevinding; de metafoor doet het werk dat bewijs zou moeten
+doen. Critici wijzen er verder op dat het materiaal uit een smalle groep komt:
+patiënten uit de New Yorkse praktijk van het midden van de twintigste eeuw.
+
+Daar staat tegenover dat de beschrijvingen zelf nauwkeurig en herkenbaar zijn
+en in helder Engels gesteld, zonder het jargon dat veel psychoanalytische
+literatuur ontoegankelijk maakt. Het boek wordt na driekwart eeuw nog gelezen
+en herdrukt, vooral om die beschrijvende kwaliteit.
+
+#### Wat er concreet mee te doen is
+
+- Noteer een week lang de eigen zinnen die met moeten beginnen en ga per zin
+na wiens gebod het eigenlijk is.
+- Onderscheid bij een krenking of er een belang is geschaad of alleen trots.
+- Zoek bij een besluit eerst op wat er daadwerkelijk gevoeld wordt, en pas
+daarna wat er gevoeld hoort te worden.
+- Herken de drie richtingen, heersen, behagen en terugtrekken, als vaste
+reactiepatronen onder druk.
+
+#### Wat je hierna leest
+
+- 223. The Anatomy of Human Destructiveness. Fromm, net als Horney
+neofreudiaan, verklaart destructiviteit eveneens uit levensomstandigheden en
+geblokkeerde groei.
+- 335. The Courage to Be Disliked. De Adleriaanse dialoog over zelfacceptatie
+sluit aan bij Horneys afscheid van het ideaalbeeld.
+- 405. The Denial of Death. Becker bouwt voort op de psychoanalytische
+traditie en beschrijft heldendom als afweer, verwant aan de jacht op glorie.
+- 406. No More Mr. Nice Guy. Glovers aardige-mannenpatroon is in de praktijk
+een uitwerking van Horneys zelfwegcijferende oplossing.
+
+## 576. An Inquiry into the Good
+
+Kitarō Nishida, 1911. *Zen no kenkyū* (Kōdōkan, Tokio, 1911). Engelse
+vertaling: *An Inquiry into the Good*, vertaald door Masao Abe en Christopher
+Ives (Yale University Press, New Haven, 1990, 184 blz., ISBN 9780300040944;
+paperback 1992, ISBN 9780300052336); een eerdere Engelse vertaling verscheen
+als *A Study of Good* door V.H. Viglielmo (1960). Een Nederlandse vertaling
+bestaat niet; het boek is hier onder de gangbare Engelse titel opgenomen en de
+samenvatting is op de Yale-editie gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `zen`, `japanse filosofie`, `kyotoschool`, `zuivere ervaring`
+
+Kitarō Nishida, de eerste Japanse denker die met westerse filosofische
+middelen een eigen stelsel bouwde en de grondlegger van wat later de
+Kyotoschool ging heten, publiceerde *Zen no kenkyū* in 1911, na ruim tien jaar
+zenmeditatie naast zijn leraarschap. Het boek zet één begrip in het midden:
+zuivere ervaring, het directe ervaren voordat er een onderscheid is tussen een
+ik dat ervaart en een ding dat ervaren wordt. Niet het individu heeft de
+ervaring; er is een individu omdat er ervaring is.
+
+Vanuit dat ene beginsel behandelt het boek achtereenvolgens het denken, de
+werkelijkheid, de ethiek en de religie. Het goede is de verwerkelijking van de
+persoonlijkheid, de vereniging van het bewustzijn met zichzelf en uiteindelijk
+met de werkelijkheid; religie noemt Nishida de voltooiing daarvan. Het boek
+maakte hem beroemd in Japan en geldt als het beginpunt van de moderne Japanse
+filosofie. Een Nederlandse vertaling bestaat niet; de Engelse vertaling van
+Masao Abe en Christopher Ives verscheen in 1990 bij Yale.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Aan het begin staat geen ik dat tegenover een wereld staat,
+maar zuivere ervaring: het directe ervaren van de feiten zoals ze zijn,
+voordat het denken er een subject en een object van maakt. Wie in muziek
+opgaat of geheel in werk verzinkt, kent die toestand; het onderscheid tussen
+binnen en buiten komt later, als verarmende nabewerking. Nishida maakt dit tot
+maatstaf voor alles. De werkelijkheid is de zelfontplooiing van zulke ervaring
+als één samenhangend systeem van bewustzijn; het goede is het gedrag waarin de
+persoonlijkheid zich verwerkelijkt en het bewustzijn zijn eenheid vindt;
+religie is de voltooiing daarvan, waarin het zelf zijn eenheid met de grond
+van de werkelijkheid, door Nishida God genoemd, kent en liefheeft. Kennen en
+liefhebben zijn daar uiteindelijk één en dezelfde geestesactiviteit.
+
+#### De gang van het boek
+
+**Zen en westerse filosofie in één boek**
+
+Nishida schreef de delen van het boek als leraar aan de Vierde Hogere School
+in Kanazawa, in de jaren waarin hij intensief zenmeditatie beoefende; zijn
+studievriend was de latere zenvertolker D.T. Suzuki. Het boek dat er in 1911
+uit groeide, noemt zen nauwelijks bij naam. Het wil met de begrippen van de
+westerse filosofie, van William James en Wundt tot Hegel en T.H. Green,
+verantwoorden wat in de meditatie-ervaring gegeven is: dat de scheiding tussen
+ik en wereld niet het begin is maar een afgeleide. Het boek maakte hem
+beroemd; generaties Japanse studenten lazen het, en de school die zich rond
+zijn latere leerstoel in Kyoto vormde, kreeg de naam Kyotoschool.
+
+**Deel een: zuivere ervaring**
+
+Ervaren betekent voor Nishida de feiten kennen zoals ze zijn, met prijsgave
+van eigen toevoegsels. Zuiver is de ervaring zolang er nog geen oordeel bij is
+gekomen: de kleur gezien en de klank gehoord, vóór de gedachte dat het de
+kleur van iets is of dat iemand haar waarneemt. In het voorwoord staat de
+omkering die het hele boek draagt: niet omdat er een individu is, is er
+ervaring, maar omdat er ervaring is, is er een individu.
+
+Denken, willen en intellectuele intuïtie behandelt Nishida vervolgens als
+vormen van dezelfde ervaring. Betekenissen en oordelen ontstaan waar de
+eenheid van de ervaring breekt en het huidige tegen ander bewustzijn wordt
+afgezet; het denken is dus geen tegenstander van de ervaring, het is de
+beweging waarmee een gebroken eenheid zich op een groter verband herstelt. De
+wil noemt hij de diepste vorm van die eenheid, en intellectuele intuïtie het
+schouwen waarin denken en willen weer samenvallen, zoals bij de musicus die
+geoefend speelt of de religieuze mens in gebed.
+
+**Deel twee: de werkelijkheid**
+
+Het tweede deel bouwt op deze grondslag een metafysica. De enige werkelijkheid
+die zich rechtstreeks meldt, is het verschijnsel van bewustzijn; materie en
+geest zijn beide constructies daaruit, standpunten die één werkelijkheid van
+twee kanten bekijken. De werkelijkheid is activiteit: zij ontwikkelt zich
+doordat een eenheid zich splitst in tegenstellingen en die op een hoger niveau
+weer verenigt, zoals een melodie uit spanning en oplossing bestaat.
+
+De uiterste eenheid die al deze ontwikkeling draagt, noemt Nishida God: geen
+schepper buiten het heelal die het van buitenaf bestuurt, maar de
+eenheidsgrond van al wat is, die in de bodem van het eigen bewustzijn wordt
+aangetroffen. Wie deze hoofdstukken leest, merkt hoe dicht dit bij het Duitse
+idealisme staat en hoe ver van elk theïsme met een persoonlijke wetgever.
+
+**Deel drie: het goede**
+
+Het derde deel, dat het boek zijn titel gaf, loopt de gangbare ethische
+stelsels na en wijst ze af: gezagsethiek maakt het goede willekeurig,
+lustethiek verwart het goede met het aangename, en de zuivere plichtrede
+levert geen inhoud. Nishida sluit zich aan bij wat hij energetisme noemt, de
+op Aristoteles teruggaande lijn waarin het goede bestaat in de verwerkelijking
+van wat in de mens is aangelegd.
+
+Goed is het gedrag waarin het bewustzijn zijn grootste eenheid bereikt:
+handelen uit het diepste van het zelf, met motieven die één zijn met wat men
+doet. Dat noemt hij de verwerkelijking van de persoonlijkheid, waarbij
+persoonlijkheid niet het maatschappelijke masker is, maar de verenigende
+activiteit van het bewustzijn zelf. Omdat het zelf geen eiland is, wijdt hij
+aparte hoofdstukken aan het goede van de gemeenschap, en het hoogste goed
+noemt hij het punt waar zelfverwerkelijking en eenwording met de werkelijkheid
+samenvallen: het goede kennen en de werkelijkheid kennen zijn dan hetzelfde.
+
+**Deel vier: de religie**
+
+Religie definieert Nishida als de verhouding tussen het zelf en het heelal, en
+daarmee als de voltooiing van wat in kennis en zedelijkheid al werkzaam was.
+Godsdienst uit angst of om beloning wijst hij af als bijgeloof; de religieuze
+eis komt uit het zelf, dat zijn eigen betrekkelijkheid ervaart en de eenheid
+zoekt waaruit het leeft. God kennen is hier niet een stelling aanvaarden, maar
+in de eigen bewustzijnsgrond de eenheid van alles ondervinden; kennen en
+liefhebben vallen daar samen. De toon van dit slotdeel is onmiskenbaar
+mystiek, met instemmende verwijzingen naar christelijke mystici naast
+boeddhistische bronnen.
+
+**Terugblik en doorwerking**
+
+Nishida zelf werd de strengste lezer van zijn debuut. In het voorwoord bij de
+heruitgave van 1936 schreef hij dat het standpunt van het boek dat van het
+bewustzijn is en als psychologisme gezien kan worden; zijn latere werk, met de
+logica van de plaats en het absolute niets, is één lange poging om dezelfde
+inzichten steviger te funderen. Het boek bleef niettemin het toegankelijkste
+deel van zijn oeuvre en het beginpunt van de moderne Japanse filosofie; via de
+vertaling van Abe en Ives uit 1990 kreeg het ook in het Westen een vaste
+plaats in het gesprek tussen boeddhistisch en westers denken.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| zuivere ervaring | Ervaren voordat subject en object zijn onderscheiden: de kleur gezien, de klank gehoord, zonder oordeel erover; voor Nishida de enige werkelijkheid. |
+| eenheid van bewustzijn | De samenhang die alle ervaring draagt; oordelen ontstaan waar die eenheid breekt en herstellen haar op een groter verband. |
+| intellectuele intuïtie | Het schouwen van eenheid voorbij het redenerende denken, zoals bij de geoefende musicus; verdiepte en verrijkte zuivere ervaring. |
+| de wil | Voor Nishida de diepste vorm van bewustzijnseenheid; willen en kennen liggen in elkaars verlengde en vallen in de intuïtie samen. |
+| energetisme | De op Aristoteles teruggaande opvatting dat het goede bestaat in de verwerkelijking van wat in de mens is aangelegd, tegenover lust- en plichtethiek. |
+| persoonlijkheid | De verenigende activiteit van het bewustzijn als geheel, geen maatschappelijk masker; haar verwerkelijking is het goede. |
+| God | Bij Nishida geen schepper buiten de wereld, maar de eenheidsgrond van het heelal, die in de bodem van het eigen bewustzijn wordt aangetroffen. |
+
+#### Waar het argument op rust
+
+Het boek steunt op introspectie en op een brede maar selectieve lezing van
+westerse filosofie en psychologie: William James' radicale empirisme en
+bewustzijnsstroom, de experimentele psychologie van Wundt, Hegels dialectiek
+en de zelfverwerkelijkingsethiek van T.H. Green zijn hoorbaar aanwezig.
+Empirisch onderzoek in moderne zin biedt het niet, en de psychologie waarop
+het leunt is die van omstreeks 1900. De zenpraktijk waaruit het voortkwam
+blijft vrijwel onbenoemd, maar draagt herkenbaar de beschrijving van ervaring
+zonder subject en object.
+
+De betoogtrant is stellig: veel wordt geponeerd en aan de samenhang van het
+stelsel opgehangen, weinig wordt tegen bezwaren verdedigd. De
+overtuigingskracht ligt, net als bij James, in beschrijvingen die de lezer
+zelf kan nagaan: het opgaan in muziek, de klim langs een rotswand, het moment
+voordat een oordeel valt. Wie zulke momenten herkent, heeft daarmee nog niet
+aanvaard dat zij de grond van alle werkelijkheid vormen; die stap blijft een
+metafysische keuze.
+
+#### Wat er tegen in te brengen valt
+
+Het gewichtigste bezwaar gaf Nishida zelf. In het voorwoord van 1936 noemde
+hij het standpunt van het boek dat van het bewustzijn, en daarmee vatbaar voor
+het verwijt van psychologisme: wat als grond van alle werkelijkheid moest
+dienen, blijft beschreven in de taal van de individuele psyche. Al in 1912
+wees de filosoof Satomi Takahashi op de spanning dat zuivere ervaring zowel
+het onmiddellijke moment als het complete stelsel moet dragen; Nishida
+waardeerde die kritiek als de eerste die het boek serieus nam, en zijn hele
+latere ontwikkeling valt te lezen als antwoord erop.
+
+Voor lezers is het boek zwaarder dan de omvang doet vermoeden. Het groeide uit
+collegestof, is gedrongen geschreven, met termen die gaandeweg van betekenis
+verschuiven en met weinig voorbeelden; de delen over ethiek en religie
+herhalen de grondgedachte vaker dan dat zij haar toetsen. Wie de westerse
+filosofiegeschiedenis niet meebrengt, mist de helft van de gesprekspartners;
+wie geen contemplatieve praktijk kent, mist de ervaring waarnaar verwezen
+wordt.
+
+Ten slotte kleurt de geschiedenis de receptie. De Kyotoschool die op Nishida
+volgde, raakte in de jaren dertig en veertig verstrikt in de rechtvaardiging
+van het Japanse nationalisme; dit boek uit 1911 staat daarbuiten, maar wie de
+school leest, leest door die discussie heen. En de vraag of zuivere ervaring
+het metafysische gewicht kan dragen dat Nishida erop legt, of dat hier een
+meditatie-ervaring tot wereldverklaring is verheven, blijft ook onder
+welwillende uitleggers open.
+
+#### Wat er concreet mee te doen is
+
+- Merk momenten op waarin handelen en aandacht samenvallen, van muziek tot
+geconcentreerd werk; dat is het ervaringsmateriaal waarop het hele boek is
+gebouwd.
+- Behandel het onderscheid tussen ik en wereld als werkhypothese en niet als
+vanzelfsprekend gegeven; die omkering is de kern van het boek.
+- Lees het samen met een inleiding in de Kyotoschool; zonder die context
+blijft de tekst hermetisch.
+
+#### Wat je hierna leest
+
+- 528. An Introduction to Zen Buddhism. Suzuki, Nishida's studievriend, maakte
+het zenboeddhisme dat achter dit boek staat voor westerse lezers toegankelijk.
+- 200. Flow. Csikszentmihalyi's flow beschrijft met psychologische middelen
+een toestand die dicht bij Nishida's zuivere ervaring ligt.
+- 527. Who Am I?. Ramana's zelfonderzoek stelt vanuit de advaita-traditie
+dezelfde vraag naar wat er vóór het ik is.
+
+## 577. Zum Problem der Einfühlung
+
+Edith Stein, 1917. *Zum Problem der Einfühlung* (proefschrift Freiburg 1916,
+in druk verschenen te Halle, 1917). Moderne Duitse editie: Edith Stein
+Gesamtausgabe, deel 5 (Herder, Freiburg, ISBN 9783451273759). Engelse
+vertaling: *On the Problem of Empathy*, vertaald door Waltraut Stein, The
+Collected Works of Edith Stein deel 3 (ICS Publications, Washington D.C.,
+derde herziene editie 1989, 135 blz., ISBN 9780935216110). Een Nederlandse
+vertaling van het volledige werk is niet in de handel; de oorspronkelijke
+Duitse titel is hier aangehouden. Rubriek: filosofie en mystiek.
+Tags: `fenomenologie`, `empathie`, `invoeling`, `husserl`
+
+Edith Stein promoveerde in augustus 1916 bij Edmund Husserl in Freiburg, summa
+cum laude, en werd aansluitend zijn assistente. Een jaar later verscheen de
+kern van haar proefschrift in druk als *Zum Problem der Einfühlung*. Invoeling
+(Einfühlung) is bij Stein de ervaring waarin de beleving van een ander persoon
+rechtstreeks gegeven is: verdriet wordt in een gezicht waargenomen, zonder
+redenering naar analogie en zonder versmelting met de ander. De act van het
+invoelen voltrekt zich hier en nu; de ingevoelde beleving blijft die van de
+ander.
+
+Het boek stond lang in de schaduw van Steins latere leven: bekering tot het
+katholicisme in 1922, intrede in de Karmel in 1933, deportatie en dood in
+Auschwitz in 1942, heiligverklaring in 1998. Sinds de jaren tachtig is het
+proefschrift herontdekt; in het hedendaagse debat over hoe mensen elkaars
+binnenkant kennen wordt Steins beschrijving aangevoerd als alternatief voor
+theorieën die de ander tot voorwerp van gissing maken.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Invoeling is volgens Stein een eigensoortige bewustzijnsact
+waarin de beleving van een andere persoon als beleving van die ander gegeven
+is. De act voltrekt zich oorspronkelijk, hier en nu, terwijl de ingevoelde
+beleving niet-oorspronkelijk gegeven blijft: het waargenomen verdriet blijft
+dat van de ander. Daarmee is invoeling volgens haar niet herleidbaar tot
+nabootsing, associatie of een redenering naar analogie, en evenmin een
+versmelting met de ander. Op deze onderscheiding bouwt Stein een programma:
+invoeling is de grondervaring waarop kennis van vreemde personen rust, en
+langs de omweg van de ander ook kennis van het eigen zelf en de opbouw van één
+gemeenschappelijke, objectieve wereld.
+
+#### De gang van het boek
+
+**Een proefschrift zonder eerste hoofdstuk**
+
+Stein schreef het werk als dissertatie bij Husserl, wiens *Ideen* uit 1913 het
+kader leveren. Voor de druk van 1917 verviel het eerste, historische hoofdstuk
+over eerdere behandelingen van het invoelingsprobleem; het manuscript daarvan
+is verloren gegaan. Het gepubliceerde boek begint daardoor midden in de zaak,
+bij de wezensanalyse van de invoelingsact.
+
+De methode is fenomenologisch: het bestaan van de buitenwereld en de
+resultaten van de empirische psychologie worden tussen haakjes gezet, en
+beschreven wordt wat in de ervaring zelf gegeven is. Het boek doet dus geen
+verslag van experimenten; het wil de begrippen verhelderen die aan elk
+experiment over dit onderwerp voorafgaan.
+
+**Het wezen van de invoelingsact**
+
+Invoeling verloopt volgens Stein in drie graden. Eerst duikt de vreemde
+beleving op: het verdriet staat er, in gezicht en houding. Vervolgens kan de
+invoeler die beleving explicerend van binnenuit volgen: meegaan met wat het
+verlies voor de ander betekent. Ten slotte wordt het gevolgde weer
+geobjectiveerd als beleving van die ander. In alle drie de graden blijft het
+onderscheid tussen ik en ander bewaard.
+
+De ingevoelde beleving is nooit oorspronkelijk gegeven. Stein vergelijkt met
+herinnering, verwachting en fantasie: zoals het eigen verleden alleen
+niet-oorspronkelijk toegankelijk is, zo ook het heden van de ander. Hiermee
+wijst zij de gangbare verklaringen af: de nabootsingstheorie, de
+associatietheorie en de analogieredenering die op Mill teruggaat beschrijven
+hooguit hoe invoeling tot stand kan komen, en missen wat invoeling zelf is.
+Tegen Theodor Lipps keert zij zich het scherpst: diens eenvoeling, het opgaan
+in de ander, doet zich hooguit als grensgeval voor. Wie innerlijk meegaat met
+een acrobaat op het koord, blijft toeschouwer bij andermans act.
+
+**Het psychofysieke individu**
+
+Het eigen lichaam is dubbel gegeven: als levend lichaam (Leib), veld van
+gewaarwordingen en nulpunt van waaruit alle ruimte geordend is, en als ding
+onder de dingen (Körper). Invoeling draagt die dubbelheid over: het vreemde
+lichaam daar verschijnt als een tweede nulpunt met een eigen 'hier', en
+daarmee als lichaam van een ander ik.
+
+Op deze grondslag behandelt Stein vergissing en correctie: invoeling kan
+mislukken en wordt bijgesteld door verdere uitdrukking en samenhang. Via
+herhaalde invoeling, het invoelen van andermans blik op mij, krijgt de mens
+zichzelf te zien als verschijning voor anderen; zo ontstaan het zelfbeeld en
+de ene wereld die vanuit meerdere nulpunten dezelfde is.
+
+**De geestelijke persoon**
+
+Het slothoofdstuk verlaat het psychofysieke en behandelt de ander als
+geestelijke persoon: een subject dat in waardeverbanden leeft en waarvan de
+akten door motivatie samenhangen. Personen worden begrepen via hun uitdrukking
+en de waarden waarop zij gericht zijn; causale verklaring, zoals de
+natuurwetenschappelijk opgezette psychologie die zoekt, schiet hier volgens
+Stein principieel tekort. Zij sluit aan bij Diltheys onderscheid tussen
+verklaren en verstaan.
+
+In de slotpassages komt kort de religieuze ervaring ter sprake, met de
+aantekening dat de gegeven analyse daarvoor nog niet toereikend is. Achteraf
+is dat als voorteken van Steins eigen weg gelezen, maar in het boek blijft het
+een zijopmerking.
+
+**Doorwerking**
+
+Het proefschrift bleef decennialang vrijwel ongelezen. Stein kreeg als vrouw
+geen habilitatie, werd lerares, trad in 1933 in de Karmel van Keulen in en
+werd in 1942 in Auschwitz vermoord. In 1998 werd zij heilig verklaard, in 1999
+uitgeroepen tot copatrones van Europa. De wetenschappelijke uitgave van haar
+verzameld werk maakte de filosofe weer zichtbaar naast de heilige.
+
+In het huidige debat over sociale cognitie, met theorie-theorie en
+simulatietheorie als hoofdstromen, voeren fenomenologen als Dan Zahavi Steins
+analyse aan als derde mogelijkheid: de ander wordt waargenomen, en dus niet
+beredeneerd of innerlijk nagespeeld. Ook in zorgethiek en psychiatrie wordt
+het werk weer gelezen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| invoeling (Einfühlung) | De act waarin de beleving van een ander als beleving van die ander gegeven is. |
+| oorspronkelijkheid | Wijze van gegeven-zijn waarin een beleving lijfelijk aanwezig voltrokken wordt; ingevoelde belevingen missen die en blijven van de ander. |
+| eenvoeling (Einsfühlung) | Lipps' opvatting dat invoeler en ander in de beleving samenvallen; volgens Stein hooguit een grensgeval, geen wezenskenmerk. |
+| levend lichaam (Leib) | Het eigen lichaam als gevoeld en bewoond, tegenover het lichaam als fysiek ding (Körper). |
+| nulpunt van de oriëntatie | De plaats van het levende lichaam als het 'hier' van waaruit alle ruimte geordend is. |
+| explicatie | De tweede graad van invoeling, waarin de vreemde beleving van binnenuit gevolgd wordt. |
+| herhaalde invoeling | Het invoelen van andermans invoeling van mijzelf, bron van zelfbeeld en zelfcorrectie. |
+| geestelijke persoon | De mens als subject dat in waardeverbanden leeft en via motivatie en uitdrukking begrepen wordt. |
+
+#### Waar het argument op rust
+
+De onderbouwing is beschrijvend, naar de methode van de vroege fenomenologie:
+onderscheidingen die de lezer aan de eigen ervaring kan toetsen, zonder
+laboratorium. Binnen dat genre is het werk gedisciplineerd: elke stap wordt
+aan voorbeelden gedemonstreerd en tegen alternatieven afgezet.
+
+Stein kende de toenmalige literatuur en meet zich met naam en toenaam met
+Lipps, Scheler en de analogieredenering uit de school van Mill; haar
+tegenwerpingen zijn concreet en na te rekenen. Empirisch bewijs in
+wetenschappelijke zin bevat het boek niet en het claimt dat ook nergens; wie
+de fenomenologische methode afwijst, houdt een reeks scherpe
+begripsonderscheidingen over, geen bewezen theorie.
+
+Indirecte steun kwam laat: hedendaagse fenomenologen en een deel van het
+onderzoek naar sociale cognitie behandelen de rechtstreekse waarneming van
+andermans gemoed als serieus alternatief voor gissen en naspelen, en verwijzen
+daarbij geregeld naar Stein.
+
+#### Wat er tegen in te brengen valt
+
+Het boek is een technisch proefschrift dat Husserls begrippenapparaat
+veronderstelt; zonder enige kennis van fenomenologie is het taaie lectuur, ook
+al telt het maar ruim honderd bladzijden. Het wegvallen van het historische
+openingshoofdstuk maakt de entree abrupt.
+
+Wie bij empathie aan meeleven, zorg of compassie denkt, treft hier iets
+anders: een kennisleer van de toegang tot de ander. Sympathie en medegevoel
+behandelt Stein slechts zijdelings. Het probleem van andere geesten wordt
+bovendien eerder beschreven dan opgelost: dat de ander in de invoeling gegeven
+is, is uitgangspunt van de analyse; een scepticus die daaraan twijfelt krijgt
+geen antwoord.
+
+De receptie kent een omgekeerd risico: sinds de heiligverklaring wordt het
+werk soms als voorstadium van Steins religieuze weg gelezen, wat de
+filosofische inhoud vertekent. Het proefschrift staat op eigen benen, met de
+beperkingen van een eersteling: vooral de delen over de geestelijke persoon
+zijn programmatisch en schetsen meer dan zij uitwerken.
+
+#### Wat er concreet mee te doen is
+
+- Onderscheid in gesprekken het waarnemen van andermans gevoel van het
+projecteren van eigen gevoel; de toets is of de uitdrukking van de ander het
+beeld nog corrigeren kan.
+- Behandel een inschatting van wat een ander voelt als een waarneming:
+feilbaar en bij te stellen op grond van verdere uitdrukking en context.
+- Gebruik het onderscheid tussen levend lichaam en ding-lichaam in zorg en
+begeleiding: wie alleen het ding-lichaam ziet, mist het eigen 'hier' van de
+ander.
+- Let bij zelfbeoordeling op de rol van herhaalde invoeling: het beeld van hoe
+anderen iemand zien is zelf een ingevoeld beeld, geen rechtstreekse waarheid.
+
+#### Wat je hierna leest
+
+- 35. Nonviolent Communication. Rosenberg maakt van het volgen van andermans
+beleving een gesprekspraktijk; Steins analyse beschrijft wat daar in de
+waarneming aan voorafgaat.
+- 303. Why We Click: The Emerging Science of Interpersonal Synchrony. Murphy
+behandelt het lichamelijke meebewegen tussen mensen langs empirische weg, het
+spoor dat Stein bewust tussen haakjes zette.
+- 390. Simone Weil: An Anthology. Weil stelt net als Stein de aandacht voor de
+ander centraal en verbond filosofie met mystiek; een verwante stem uit
+dezelfde halve eeuw.
+- 67. Suicidal Empathy. Saad bestrijdt empathie als politieke drijfveer; naast
+Steins strakke begrip wordt zichtbaar hoeveel verschillends onder dat ene
+woord geschoven wordt.
+
+## 578. Het heilige
+
+Rudolf Otto, 1917. *Das Heilige. Über das Irrationale in der Idee des
+Göttlichen und sein Verhältnis zum Rationalen* (Trewendt & Granier, Breslau,
+1917). Nederlandse vertaling: *Het heilige*, vertaald door J.W. Dippel,
+bezorgd door Daniël Mok (Uitgeverij Abraxas, Amsterdam, 2002, 256 blz., ISBN
+9789080730014); de eerste Nederlandse uitgave verscheen in 1928 bij Seyffardt,
+Amsterdam. Engelse vertaling: *The Idea of the Holy*, vertaald door John W.
+Harvey (Oxford University Press, 1923). Rubriek: filosofie en mystiek.
+Tags: `godsdienstwetenschap`, `numineus`, `mystiek`, `theologie`
+
+Rudolf Otto, luthers theoloog en hoogleraar in Breslau en daarna Marburg,
+publiceerde *Das Heilige* in 1917. Het boek wijst in alle religie een kern aan
+die aan begrip en moraal voorafgaat: het numineuze, Otto's woord (naar het
+Latijnse numen, godheid) voor wat in religieuze ervaring als overweldigend
+mysterie tegenover de mens staat, huiveringwekkend en aantrekkend tegelijk,
+het mysterium tremendum et fascinans. Religie die tot leerstellingen of ethiek
+wordt herleid, mist volgens Otto haar eigenlijke voorwerp.
+
+Het werd een van de meest gelezen godsdienstwetenschappelijke boeken van de
+twintigste eeuw en werd in vele talen vertaald; de Nederlandse vertaling *Het
+heilige* verscheen in 1928 en wordt nog steeds herdrukt. Het woord numineus
+ging tot de vaste woordenschat behoren van theologie, psychologie (Jung) en
+literatuur (C.S. Lewis); Mircea Eliade bouwde er zijn godsdienstwetenschap op
+voort. Even oud als het boek is het bezwaar dat een beroep op onherleidbare
+ervaring zich aan iedere toetsing onttrekt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** In de kern van religie ligt volgens Otto een
+ervaringscategorie die uit niets anders is af te leiden: het numineuze, de
+ervaring van een mysterie dat doet huiveren en tegelijk aantrekt. Rationele
+predicaten als goed, almachtig en redelijk, en ook de morele geboden, zijn
+latere bewerkingen van deze niet-rationele kern; wie religie herleidt tot
+metafysica of ethiek houdt een schil zonder inhoud over. Het heilige in volle
+zin is voor Otto de numineuze kern mét die rationele en morele bewerking, en
+de godsdienstgeschiedenis is de geschiedenis van die bewerking. De aanleg om
+het numineuze te herkennen acht hij aangeboren: het heilige is een categorie a
+priori van de menselijke geest.
+
+#### De gang van het boek
+
+**Het rationele en zijn grens**
+
+Otto opent met een verwijt aan de theologie van zijn tijd: zij behandelt God
+als optelsom van redelijke eigenschappen en vergeet dat 'heilig'
+oorspronkelijk iets anders aanwees dan moreel volmaakt. Voor die
+overschietende rest munt hij het woord numineus. Vroeg in het boek staat de
+beruchte leesinstructie: wie zich geen moment van diepe religieuze ontroering
+kan herinneren, wordt verzocht niet verder te lezen. Daarmee is de methode
+aangekondigd: beschrijving van een ervaring, gericht aan wie haar kent.
+
+**Creatuurgevoel en tremendum**
+
+Tegen Schleiermacher, die religie op een gevoel van volstrekte afhankelijkheid
+terugvoerde, betoogt Otto dat dit creatuurgevoel, het besef stof en as te
+zijn, een schaduw is van iets dat eerst tegenover de mens staat. De ervaring
+begint bij het overmachtige voorwerp, hoe ongrijpbaar ook; het eigen wegzinken
+volgt daarop.
+
+Het tremendum ontleedt hij in drie momenten: de huiver, verwant aan gewone
+vrees en er toch wezenlijk van verschillend; de majestas, de overmacht
+waarvoor het schepsel niets is; en het energische, het dringende en
+wilsachtige dat in beelden als de levende God en de toorn Gods spreekt.
+
+**Mysterium en fascinans**
+
+Het mysterium is het gans andere: geen raadsel dat met meer kennis oplosbaar
+wordt; het valt buiten de categorieën van het gewone en slaat met stomheid.
+
+Tegelijk stoot het niet alleen af; het trekt aan. Dit fascinans, het element
+van zaligheid, genade en verlokking, vormt met het tremendum een
+contrastharmonie: dezelfde ervaring jaagt weg en houdt vast. Otto illustreert
+dat aan mystici als Eckhart, aan hymnen en liturgische teksten, en aan de
+geschiedenis van offer en sacrament.
+
+Aan de rand van het veld plaatst hij het spookachtige: de griezel van het
+spookverhaal is voor Otto een verbleekte nazaat van de numineuze huiver. Die
+verwantschap verklaart volgens hem waarom griezelen vermaak kan zijn en toch
+nooit religie wordt: de huiver is er nog, het mysterie is verdwenen.
+
+**Uitdrukking en geschiedenis**
+
+Een eigen hoofdstuk behandelt de middelen waarmee het numineuze wordt
+uitgedrukt: het verhevene, de duisternis, de stilte en, in oosterse kunst, de
+lege ruimte; de gotische kathedraal en de schemerige tempel zijn voor Otto
+geen willekeurige vormen. In de taal doen archaïsmen en vreemde woorden
+hetzelfde werk: zij houden afstand.
+
+De godsdiensthistorische lijn loopt van vroege, daemonische huiver naar de
+profeten en psalmen van Israël en het evangelie. Het Hebreeuwse qadosj
+betekende volgens Otto oorspronkelijk numineus, nog zonder morele lading;
+Jesaja's tempelvisioen met het driemaal heilig en Gods antwoord aan Job uit
+het onweer, dat overtuigt zonder argument, zijn zijn kroongetuigen. Ook
+Luthers verborgen God krijgt een plaats.
+
+**A priori en schematisering**
+
+Het wijsgerige sluitstuk staat in het spoor van Kant zoals de filosoof Jakob
+Friedrich Fries dat had omgebogen. Het heilige is een categorie a priori: de
+rationele én de niet-rationele bestanddelen komen uit de geest zelf voort en
+worden door de ervaring wakker geroepen, zonder eruit afgeleid te zijn.
+
+Schematisering noemt Otto de wetmatige verbinding van de numineuze kern met
+rationele en morele begrippen: de toorn als schema van het tremendum, de
+genade als schema van het fascinans. Divinatie, een begrip van Fries, is het
+vermogen het heilige in verschijningen te herkennen. In het christendom acht
+Otto de schematisering het volledigst; dat oordeel verraadt zijn lutherse
+standpunt en kan als uitkomst van een neutrale vergelijking niet gelden.
+
+**Doorwerking**
+
+Otto was ook indoloog: hij vertaalde teksten uit het Sanskriet en schreef
+later vergelijkende studies over oosterse en westerse mystiek. Zijn eigen
+sleutelervaring dateerde van een reis in 1911: in een synagoge in het
+Marokkaanse Mogador hoorde hij het driemaal heilig uit Jesaja's visioen
+zingen, en in een reisbrief beschreef hij de huiver die dat opriep. *Das
+Heilige* beleefde tijdens zijn leven tientallen drukken en groeide daarbij met
+bijlagen over onder meer numineuze hymnen en teksten uit verschillende
+tradities. Eliade nam de tegenstelling tussen het heilige en het profane als
+grondslag van zijn godsdienstwetenschap, Jung gebruikte numinositeit als
+kenmerk van archetypische ervaring, en C.S. Lewis opent *The Problem of Pain*
+met Otto's begrip.
+
+In de latere godsdienstwetenschap raakte de benadering uit de gratie: het idee
+van een zuivere, aan taal en traditie voorafgaande religieuze ervaring geldt
+sinds de jaren tachtig als onhoudbaar. Het woord numineus overleefde die
+kritiek; het benoemt nog altijd wat anders onbenoemd blijft.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| het numineuze | De niet-rationele kern van het heilige, de ervaring van een overweldigend mysterie; kunstwoord naar het Latijnse numen. |
+| mysterium tremendum | Het mysterie voor zover het doet huiveren; door Otto ontleed in huiver, majestas en het energische. |
+| fascinans | Het mysterie voor zover het aantrekt: zaligheid, genade, verlokking. |
+| het gans andere | Het numineuze als wat buiten alle gewone categorieën valt; geen raadsel maar een grens. |
+| creatuurgevoel | Het besef van eigen nietigheid tegenover het numineuze; volgens Otto gevolg van de ervaring, geen bron ervan. |
+| majestas | Het moment van volstrekte overmacht binnen het tremendum. |
+| schematisering | De wetmatige verbinding van de numineuze kern met rationele en morele begrippen. |
+| divinatie | Het vermogen het heilige in verschijningen te herkennen; door Otto aan Fries ontleend. |
+| contrastharmonie | Otto's benaming voor het samengaan van afstoting en aantrekking in één numineuze ervaring. |
+
+#### Waar het argument op rust
+
+Het materiaal is breed en uit de eerste hand: Otto las het Oude en Nieuwe
+Testament, Luther, de mystici en zijn Sanskrietbronnen in de grondtalen, en
+put daarnaast uit hymnen, liturgie, architectuur en muziek. Als staalkaart van
+hoe religies het overweldigende onder woorden en vormen brengen is het boek
+nog altijd bruikbaar.
+
+De bewijslast voor de hoofdthese ligt elders: bij de ervaring van de lezer.
+Otto zegt dat zelf onomwonden met zijn verzoek aan wie de ervaring mist het
+boek weg te leggen. Dat is een eerlijke afbakening en tegelijk de zwakste
+plek: gedeelde ervaring is hier het enige fundament, en psychologisch of
+historisch onderzoek dat de these zou kunnen dragen ontbreekt.
+
+Dat het woord numineus in theologie, psychologie en literatuur gemeengoed
+werd, laat zien dat de beschrijving iets herkenbaars treft. Herkenbaarheid
+bewijst de a-priorileer echter niet; zij bewijst hooguit dat Otto goed
+beschreven heeft. Het toetsbaarst zijn nog de hoofdstukken over
+uitdrukkingsvormen: of duisternis, stilte en leegte in sacrale kunst werkelijk
+zo verbreid zijn als Otto stelt, valt na te gaan.
+
+#### Wat er tegen in te brengen valt
+
+Het methodische bezwaar is fundamenteel: een betoog dat begint met het
+buitensluiten van lezers zonder de vereiste ervaring kan niet meer weerlegd
+worden. Wayne Proudfoot betoogde in *Religious Experience* (1985) dat vermeend
+onmiddellijke ervaring altijd al door taal en traditie gevormd is; daarmee
+vervalt de claim van een zuivere, onherleidbare kern. Die kritiek geldt in de
+vakliteratuur als raak.
+
+Otto's rangorde, met het christendom als volledigste schematisering, is een
+geloofsoordeel in wetenschappelijke verpakking. Het Kant-Friesiaanse kader
+waarop de a-priorileer rust heeft buiten zijn school geen aanhang meer. De
+ontwikkelingsgang van 'primitieve' huiver naar hogere religie volgt bovendien
+een negentiende-eeuws vooruitgangsschema dat de volkenkunde allang heeft
+losgelaten. En het begrip is rekbaar: wat van vroege huiver tot Eckharts
+mystiek alles dekt, onderscheidt weinig.
+
+Als leeservaring valt het boek mee: het is korter en helderder dan zijn
+reputatie. Wel staan citaten in het Latijn, Grieks en Duits in de
+oorspronkelijke tekst doorgaans onvertaald; moderne edities vangen dat met
+aantekeningen op. Wie het leest als beschrijving in plaats van als bewijs,
+houdt er het meeste aan over.
+
+#### Wat er concreet mee te doen is
+
+- Zoek bij het lezen van religieuze teksten de dubbelstructuur van huiver en
+aantrekking; waar alleen moraal overblijft is, in Otto's termen, de kern al
+verdampt.
+- Onderscheid in discussies over godsdienst de rationele godsbegrippen van de
+ervaringskern; debatten over godsbewijzen raken volgens Otto de kern niet.
+- Let in sacrale architectuur en muziek op duisternis, stilte en leegte als
+bewust ingezette middelen.
+- Gebruik numineus als beschrijvend woord voor ervaringen van ontzag; de
+a-priorileer hoeft daarvoor niet aanvaard te worden.
+
+#### Wat je hierna leest
+
+- 524. The Conference of the Birds. Attars vogelallegorie toont de
+fascinanskant: het mysterie als wat de hele reis draagt en aan het einde het
+zelf oplost.
+- 526. The Alchemy of Happiness. Al-Ghazali beschrijft vanuit de soefitraditie
+hoe ervaring boven leerstellige kennis gaat, de beweging die Otto in alle
+religies aanwijst.
+- 275. How to Change Your Mind. Pollan doet verslag van ervaringen met
+tremendum- en fascinanstrekken onder begeleiding en meetapparatuur; het
+hedendaagse, empirische vervolg op Otto's vraag.
+
+## 579. A Life of One's Own
+
+Marion Milner, 1934. *A Life of One's Own* (Chatto & Windus, Londen, 1934,
+verschenen onder het pseudoniem Joanna Field). Gangbare moderne editie:
+Routledge, 2011, in de reeks The Collected Works of Marion Milner, met een
+inleiding van Rachel Bowlby, 224 blz., ISBN 9780415550659; in 2024 verscheen
+bij Routledge een nieuwe heruitgave (ISBN 9781032757551). Een Nederlandse
+vertaling bestaat niet; de samenvatting is op de Engelse editie gebaseerd.
+Rubriek: levenskunst.
+Tags: `dagboek`, `aandacht`, `geluk`, `zelfonderzoek`, `introspectie`
+
+Marion Milner (1900-1998) werkte als psychologe in Londen toen zij in 1926,
+zesentwintig jaar oud, besloot een vraag op zichzelf uit te proberen: waar
+wordt zij eigenlijk gelukkig van, los van wat zij geacht wordt te willen?
+Zeven jaar lang hield zij een dagboek bij van momenten waarop het leven de
+moeite waard leek, en onderzocht zij wat die momenten gemeen hadden. Het
+verslag verscheen in 1934 onder het pseudoniem Joanna Field; pas later werd
+Milner psychoanalytica bij de British Psychoanalytical Society.
+
+De oogst verraste haar. De dingen die zij dacht na te streven bleken weinig te
+maken te hebben met wat haar dagboek als goede momenten aanwees. Beslissend
+bleek de manier van waarnemen: naast de enge, automatische aandacht die alleen
+ziet wat het eigenbelang dient, ontdekte zij een wijde aandacht die zich met
+een klein innerlijk gebaar laat oproepen en die de waarneming van karakter
+doet veranderen. W.H. Auden noemde het boek bij verschijning zo spannend als
+een detective; het is negentig jaar later nog in druk.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Milner stelt dat het denken een onbetrouwbare gids is voor de
+vraag wat iemand werkelijk wil. De doelen die iemand zichzelf toeschrijft
+komen grotendeels van buiten, uit opvoeding en omgeving, en het najagen ervan
+levert geen geluk op. Wat wel voldoening geeft, valt alleen te achterhalen
+door de eigen ervaring stelselmatig vast te leggen en achteraf te onderzoeken,
+als feitenmateriaal. Wie dat doet, ontdekt volgens haar dat geluk minder
+afhangt van omstandigheden dan van de manier van waarnemen: de gebruikelijke
+enge, zelfzuchtige aandacht houdt de wereld op afstand, terwijl een
+opzettelijk verruimde aandacht dezelfde omstandigheden een andere lading
+geeft. Een eigen leven begint dus bij een leerbare innerlijke vaardigheid.
+
+#### De gang van het boek
+
+**Een vraag en een methode**
+
+Het boek opent met de verlegenheid van een jonge vrouw die naar buiten toe
+slaagt, een opleiding, een baan, een sociaal leven, en toch het gevoel heeft
+langs haar eigen leven heen te leven. Milner besluit de adviezen van anderen
+en de gangbare theorieën te wantrouwen en het probleem aan te pakken zoals een
+onderzoeker dat zou doen: feiten verzamelen voordat er een oordeel valt. Haar
+instrument is een dagboek waarin zij vastlegt wat haar dagen de moeite waard
+maakte en wat haar bezighield.
+
+**De kloof tussen willen en verlangen**
+
+De eerste terugblik op het dagboek levert een ontnuchterende ontdekking op. De
+momenten die als goed genoteerd staan, hebben nauwelijks iets te maken met de
+doelen die zij dacht na te streven: succes, waardering, gezelschap op de
+juiste feestjes. Goede momenten blijken vaak klein en onaangekondigd, een
+lichtval, een gesprek, iets dat zij zag op straat.
+
+Daaruit groeit een omkering die het hele boek draagt. Zij gaat haar leven niet
+langer zien als het uitvoeren van vooraf gekozen plannen, en gaat het opvatten
+als het geleidelijk ontdekken van een bedoeling die zij nog niet kende. Het
+dagboek is daarbij geen geheugensteun; het is het meetinstrument dat de kloof
+tussen vermeende en werkelijke wensen zichtbaar maakt.
+
+**Blind denken**
+
+Om te begrijpen waarom haar oordelen zo vaak naast de werkelijkheid zaten,
+probeert Milner vrij schrijven: opschrijven wat er komt, zonder te sturen.
+Onder het redelijke oppervlak treft zij een gedachtestroom aan die zij blind
+denken noemt: kinderlijk, angstig, gericht op vergelijken en veroordelen, en
+voortdurend bezig met wat anderen wel niet zullen vinden. Dit denken loopt
+ongemerkt mee en kleurt stemmingen en beslissingen. Alleen al het opschrijven
+ervan verandert de verhouding: wat zichtbaar is gemaakt, regeert minder.
+
+**Twee soorten aandacht**
+
+De belangrijkste ontdekking betreft de aandacht zelf. De gewone toestand noemt
+zij enge aandacht: een automatische, doelgerichte blik die de omgeving afzoekt
+op wat nuttig of bedreigend is en de rest overslaat. Daarnaast blijkt er een
+wijde aandacht te bestaan, waarin de waarnemer ophoudt met zoeken en het hele
+veld binnenlaat. In die toestand veranderen doodgewone dingen van karakter:
+muziek die eerst langs haar heen ging wordt hoorbaar, een uitzicht krijgt
+diepte, verveling verdwijnt.
+
+De overgang blijkt geen kwestie van wilskracht. Milner beschrijft kleine
+innerlijke gebaren waarmee de omslag zich laat maken: spanning loslaten, de
+aandacht naar buiten leggen in plaats van bij het eigen commentaar houden,
+waarnemen met meer dan het hoofd alleen. Het zijn aanwijsbare handelingen, en
+ze zijn te oefenen.
+
+**De angst zichzelf te verliezen**
+
+Waarom staat de geest dan standaard op eng? Milner stuit op een angst die de
+verruiming tegenhoudt: het gevoel dat wie de greep loslaat, zichzelf verliest.
+Het enge, bezige zelf beleeft overgave als bedreiging en houdt daarom alles op
+afstand, ook wat goed doet. In de praktijk blijkt het omgekeerde: de
+waarneming wordt rijker en het zelfgevoel blijft heel. De hoofdstukken
+hierover raken aan wat zij zelf als mystiek getinte ervaring beschrijft, en
+zij noteert die met dezelfde nuchterheid als de rest.
+
+**Wat zeven jaar opleverde**
+
+Het slot maakt de balans op, nadrukkelijk als persoonlijk verslag en zonder de
+pretentie van een leer. Geluk blijkt geen doel dat zich rechtstreeks laat
+najagen; het komt als bijproduct van een manier van omgaan met ervaring. De
+vaardigheid die daarvoor nodig is, aandacht verwijden, blind denken zichtbaar
+maken, de eigen feiten raadplegen, vergt jarenlange oefening en geen
+bijzondere middelen. Het boek eindigt waar het begon, bij het dagboek: de
+lezer krijgt geen systeem aangeboden, wel een gedocumenteerd voorbeeld van hoe
+zelfonderzoek eruit kan zien.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| enge aandacht | De automatische, doelgerichte aandacht die de omgeving alleen afzoekt op wat het eigenbelang dient. |
+| wijde aandacht | De opzettelijk verruimde aandacht die ophoudt met zoeken, het hele veld binnenlaat en de waarneming verdiept. |
+| blind denken | De ongemerkte, kinderlijk-angstige gedachtestroom die onder het redelijke denken meeloopt en oordelen kleurt. |
+| innerlijk gebaar | Een kleine, aanwijsbare mentale handeling waarmee de aandacht wordt verzet, zoals het loslaten van spanning. |
+| vrij schrijven | Opschrijven wat er komt zonder te sturen, als middel om het blinde denken zichtbaar te maken. |
+| dagboekmethode | Het dagelijks vastleggen van wat de moeite waard was, om achteraf de eigen werkelijke wensen uit de feiten af te lezen. |
+
+#### Waar het argument op rust
+
+Het boek is een zelfonderzoek met één proefpersoon. De gegevens zijn
+dagboekfragmenten die Milner letterlijk citeert, inclusief mislukte
+experimenten en perioden waarin de methode niets opleverde; die eerlijkheid is
+de sterkste kant van het verslag. Zij presenteert haar conclusies
+uitdrukkelijk als bevindingen over zichzelf en laat open of ze voor anderen
+gelden.
+
+Steun van buitenaf bestond in 1934 niet en is er later gedeeltelijk gekomen.
+Het onderscheid tussen gerichte en open aandacht keert terug in het latere
+onderzoek naar meditatie en aandachtstraining, en de bevinding dat
+rechtstreeks najagen van geluk averechts werkt, is in de hedendaagse
+psychologie herhaaldelijk beschreven. Dat is verwantschap achteraf, geen
+toetsing van dit boek; Milners eigen bewijs blijft haar dagboek.
+
+#### Wat er tegen in te brengen valt
+
+Als kenbron is het boek zo smal als het maar kan: één ontwikkelde, financieel
+comfortabele Londense vrouw die zichzelf observeert. Introspectie is bovendien
+juist in deze periode als wetenschappelijke methode verlaten, omdat waarnemers
+van hun eigen geest stelselmatig onbetrouwbaar bleken. Of de
+aandachtstechnieken haar welbevinden veroorzaakten of ermee samenvielen, valt
+uit een dagboek niet op te maken.
+
+De mystiek getinte passages vragen om dezelfde nuchterheid die Milner zelf
+betracht: zij beschrijft ervaringen, geen bewezen werkelijkheden. Het boek
+ontstond voor haar psychoanalytische opleiding; latere lezers die er een
+analytische theorie in zien, lezen terug wat er nog niet in zat. Wie het neemt
+voor wat het is, een uitzonderlijk goed gedocumenteerd verslag van
+zelfonderzoek, wordt niet bedrogen; wie er een beproefde methode voor iedereen
+in zoekt, vindt daarvoor geen onderbouwing.
+
+#### Wat er concreet mee te doen is
+
+- Houd een maand lang bij welke momenten de dag de moeite waard maakten en
+lees de lijst pas daarna terug.
+- Oefen wijde aandacht op iets alledaags: laat de blik rusten zonder ergens
+naar te zoeken.
+- Schrijf bij onrust tien minuten op wat er komt, zonder te sturen, en lees
+het terug als materiaal in plaats van als waarheid.
+
+#### Wat je hierna leest
+
+- 200. Flow. Csikszentmihalyi onderzoekt met vragenlijsten en steekproeven
+dezelfde ervaring van opgaan in aandacht die Milner bij zichzelf beschreef.
+- 390. Simone Weil: An Anthology. Simone Weil, tijdgenote, maakt aandacht tot
+de kern van denken en geloof.
+- 516. The Antidote. Burkeman documenteert de omweg naar geluk die Milner op
+eigen houtje ontdekte: rechtstreeks najagen werkt averechts.
+
+## 580. Ursprung und Gegenwart
+
+Jean Gebser, 1949-1953. *Ursprung und Gegenwart*, twee delen: *Die Fundamente
+der aperspektivischen Welt* (Deutsche Verlags-Anstalt, Stuttgart, 1949, 541
+blz.) en *Die Manifestation der aperspektivischen Welt* (Deutsche
+Verlags-Anstalt, Stuttgart, 1953). Engelse vertaling: *The Ever-Present
+Origin*, vertaald door Noel Barstad met Algis Mickunas (Ohio University Press,
+Athens, Ohio, 1985, 647 blz., ISBN 9780821407691). Een Nederlandse vertaling
+bestaat niet; de oorspronkelijke Duitse titel is hier aangehouden. Rubriek:
+filosofie en mystiek.
+Tags: `bewustzijn`, `cultuurfilosofie`, `integraal bewustzijn`, `perspectief`
+
+Jean Gebser, dichter en cultuurfilosoof, vertrok in 1929 uit Duitsland, werkte
+in Spanje en Parijs en belandde in 1939 in Zwitserland. Daar schreef hij zijn
+hoofdwerk in twee delen (1949 en 1953): een geschiedenis van het menselijk
+bewustzijn. Dat bewustzijn heeft zich volgens Gebser in sprongen ontvouwd,
+mutaties, waaruit vijf structuren zijn voortgekomen: de archaïsche, de
+magische, de mythische, de mentale en de integrale, elk met een eigen beleving
+van ruimte en tijd.
+
+De mentale structuur, sinds de Renaissance perspectivisch geworden, is volgens
+Gebser in haar deficiënte eindfase beland: rationalisme, versplintering,
+kwantificering. Tegelijk leest hij in relativiteitstheorie en kwantumfysica,
+in Cézanne en Picasso, in Rilke en in de dieptepsychologie de manifestaties
+van een nieuwe, integrale structuur, aperspectivisch en vrij tegenover de
+tijd. De oorsprong waaruit de mutaties komen is geen ver verleden; hij is,
+zoals de titel zegt, altijd tegenwoordig.
+
+Het boek bleef buiten de academische hoofdstroom en werd tegelijk een
+grondtekst voor het latere integrale denken; de Engelse vertaling *The
+Ever-Present Origin* verscheen in 1985. Het is erudiet, zwaar en niet
+toetsbaar; als diagnose van de crisis van het rationalisme wordt het nog
+steeds gelezen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Het menselijk bewustzijn heeft zich volgens Gebser in
+onherleidbare sprongen ontvouwd: mutaties die telkens een structuur toevoegen
+zonder de eerdere op te heffen. Na de archaïsche, magische, mythische en
+mentale structuur voltrekt zich sinds ongeveer 1900 een vijfde mutatie, naar
+een integrale structuur die aperspectivisch is: vrij van de binding aan één
+standpunt, en vrij tegenover de tijd, die als intensiteit beleefd wordt in
+plaats van als meetbare lijn. De crisis van de twintigste eeuw is de
+deficiënte eindfase van de mentale structuur; de omwentelingen in fysica,
+kunst en psychologie sinds 1900 zijn de eerste manifestaties van de nieuwe. De
+oorsprong zelf is daarbij geen beginpunt in de tijd: hij is altijd
+tegenwoordig, en elke mutatie put eruit.
+
+#### De gang van het boek
+
+**Opzet van een dubbelwerk**
+
+Het inzicht dat aan het werk ten grondslag ligt kwam naar eigen zeggen begin
+jaren dertig; de uitwerking duurde twee decennia. Deel één, *Die Fundamente
+der aperspektivischen Welt* (1949), legt het begrippenkader en de
+bewustzijnsgeschiedenis; deel twee, over de manifestatie van de
+aperspectivische wereld (1953), toetst dat kader aan de wetenschappen en
+kunsten van de eigen tijd. Gebser presenteert het geheel nadrukkelijk als
+beschrijving van wat zich al voltrekt, geen prognose en geen program.
+
+**Vijf structuren**
+
+De archaïsche structuur is de nauwelijks documenteerbare begintoestand van
+volledige eenheid met de oorsprong. De magische structuur kent geen ik en geen
+afstand: mens en wereld vormen een puntsgewijze eenheid waarin het deel voor
+het geheel staat (pars pro toto); jachtmagie, bezwering en ritueel werken op
+die vooronderstelling, en Gebser wijst op grotschilderingen waarin het
+geschilderde dier de jachtbuit zelf vervangt. De mythische structuur brengt
+polariteit en het beeld: ziel en wereld spiegelen elkaar in mythen, de tijd is
+kringloop, het woord is verhaal.
+
+De mentale structuur breekt in de Griekse oudheid door: gericht, begrippelijk
+denken, het ik dat zich tegenover de wereld stelt, de tijd als lijn. Elke
+structuur kent een efficiënte en een deficiënte fase: werkzaam zolang zij
+draagt, ontaard wanneer zij alleenheerschappij claimt. Deficiënte magie keert
+terug als massasuggestie, deficiënte mythe als ideologisch beeld, deficiënt
+mentaal denken als rationalisme.
+
+**Perspectief en zijn prijs**
+
+De perspectivische fase van het mentale begint voor Gebser in de Renaissance,
+toen de schilderkunst het centraalperspectief ontwikkelde en de ruimte daarmee
+bewust werd. Petrarca's beklimming van de Mont Ventoux in 1336, beschreven in
+een beroemde brief, geldt hem als vroeg teken van de nieuwe blik: landschap
+wordt ruimte tegenover een kijkend ik.
+
+Diezelfde verworvenheid heeft een prijs: het perspectief legt de kijker vast
+op één standpunt en snijdt de wereld toe op wat vanuit dat punt zichtbaar is.
+In de deficiënte fase, die Gebser vanaf de negentiende eeuw ziet,
+verabsoluteert de ratio zich: meten wordt weten, de samenhang versplintert, en
+de teruggedrongen magische en mythische lagen wreken zich in massabewegingen
+en propaganda. Ook de gejaagdheid van de twintigste eeuw, de voortdurende
+tijdnood, leest Gebser als symptoom van dezelfde klem: een tijd die zich niet
+meer in de lijn laat persen en daarom als angst gevoeld wordt.
+
+**De integrale structuur**
+
+De nieuwe mutatie herkent Gebser aan de doorbraak van de tijd rond 1900. Waar
+de mentale structuur de tijd tot meetbare lijn had gemaakt, dringt tijd nu in
+alle domeinen als eigen dimensie binnen: als vierde dimensie in de fysica, als
+duur in de filosofie, als het onbewuste in de psychologie. Integraal
+bewustzijn is voor hem het vermogen alle structuren tegelijk aanwezig te
+hebben, doorzichtig voor elkaar; hij noemt dat diafaniteit, het doorschijnen
+van de oorsprong in het concrete.
+
+Aperspectivisch betekent daarbij vrij van de binding aan één standpunt; het is
+uitdrukkelijk geen terugval in standpuntloosheid en geen afwijzing van de
+rede. Voor deze denkvorm munt Gebser eigen woorden, zoals synairese, het
+samennemen van alle structuren waar de synthese er slechts twee verzoent, en
+tijdvrijheid voor de tijdsbeleving die niet aan klok en lijn gebonden is.
+
+**Deel twee: de manifestaties**
+
+Het tweede deel loopt de gebieden langs. In de natuurwetenschap ziet Gebser de
+aperspectivische wending in het opgeven van absolute ruimte en tijd door de
+relativiteitstheorie en in de kwantumfysica, waar de waarnemer niet langer
+buiten het waargenomene staat. In de schilderkunst laat Cézanne het vaste
+gezichtspunt los en toont Picasso meerdere aanzichten tegelijk op één vlak; in
+de literatuur werken Proust, Joyce en Rilke met een tijd die geen lijn meer
+is.
+
+Vergelijkbare lezingen geeft hij van muziek, architectuur, biologie,
+psychologie en rechtswetenschap. De optelsom moet aannemelijk maken dat het om
+één samenhangende mutatie gaat en niet om losse vernieuwingen per vak. Gebser
+houdt daarbij twee uitkomsten open: doorbraak van het integrale of ondergang
+in de deficiënte vormen; een garantie geeft de geschiedenis volgens hem niet.
+
+**Status en doorwerking**
+
+Gebser doceerde later als honorair hoogleraar in Salzburg en stierf in 1973.
+In 1966 verscheen een herziene uitgave in één band, de grondslag van de
+Engelse vertaling van 1985. Die vertaling bezorgde het werk een tweede leven;
+Ken Wilber nam de structurenreeks over als onderbouw van zijn integrale model,
+waardoor Gebser vooral via anderen bekend werd. In de vakwetenschappen is het
+werk nooit een onderzoeksprogramma geworden.
+
+Wie het leest moet twee versimpelingen weerstaan die de receptie aankleven:
+het boek belooft geen nieuw tijdperk van verlichte mensen, en het beveelt geen
+terugkeer naar mythe of magie aan. Gebser waarschuwt uitdrukkelijk tegen
+beide.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| bewustzijnsstructuur | Een samenhangende wijze waarop wereld, ruimte en tijd gegeven zijn; Gebser onderscheidt er vijf. |
+| mutatie | Een onherleidbare sprong waarin een nieuwe structuur uit de oorsprong doorbreekt; geen geleidelijke ontwikkeling. |
+| oorsprong (Ursprung) | Geen beginpunt in het verleden maar het altijd tegenwoordige waaruit alle structuren voortkomen. |
+| magische structuur | De egoloze punt-eenheid van mens en wereld, waarin het deel voor het geheel staat en bezwering werkt. |
+| mythische structuur | De polaire structuur van beeld en ziel, met de tijd als kringloop. |
+| mentale structuur | De structuur van het gerichte, begrippelijke denken en het ik tegenover de wereld, met de tijd als lijn. |
+| integrale structuur | De aperspectivische structuur die alle eerdere structuren doorzichtig samenneemt. |
+| deficiënte fase | De ontaarding van een structuur wanneer zij alleenheerschappij claimt; rationalisme is de deficiënte vorm van het mentale. |
+| tijdvrijheid | De beleving van tijd als intensiteit, vrij van de binding aan klok en lijn. |
+| diafaniteit | Het doorschijnend worden van de oorsprong in het concrete; kenmerk van integraal waarnemen. |
+
+#### Waar het argument op rust
+
+Het feitenmateriaal is echt en veelal controleerbaar: Petrarca's brief over de
+Mont Ventoux bestaat, het centraalperspectief is aantoonbaar een verworvenheid
+van de Renaissance, de omwenteling in de fysica is gedocumenteerd, en Gebser
+las zijn bronnen, van etymologische woordenboeken tot natuurwetenschappelijke
+literatuur, in meerdere talen. Deel één bevat daarnaast uitvoerige
+vergelijkingen van woordwortels in Indo-Europese talen, waarmee hij
+bewustzijnslagen in de taal zelf wil aanwijzen. De breedte van het materiaal
+is zeldzaam.
+
+De duiding van dat materiaal als reeks bewustzijnsmutaties volgt echter niet
+uit het materiaal zelf; het is een kader dat eroverheen gelegd wordt.
+Tegenvoorbeelden worden niet systematisch gezocht, dateringen blijven los, en
+de vele etymologieën dragen soms meer gewicht dan de taalkunde toestaat.
+
+Gebser wijst zelf op de verwantschap met Sri Aurobindo, die langs andere weg
+tot een vergelijkbare bewustzijnsevolutie kwam; ook Teilhard de Chardin hoort
+in die rij. Dat meerdere denkers in dezelfde jaren iets dergelijks zagen,
+maakt de denkfiguur historisch interessant; bewijs voor haar juistheid is het
+niet.
+
+#### Wat er tegen in te brengen valt
+
+Het schema is niet empirisch toetsbaar en kan het ook niet worden: wat nieuw
+is geldt als integraal, wat vastloopt als deficiënt-mentaal, en zo past elke
+waarneming erin. Psychologie, geschiedwetenschap en archeologie hebben de
+bewustzijnsstructuren dan ook nooit als onderzoekshypothese overgenomen.
+
+De geschiedenis wordt naar een uitkomst toe gelezen, met selectie van wat
+past. Ondanks serieuze aandacht voor Aziatische bronnen blijft de maat
+Europees: het mentale breekt door bij de Grieken, het integrale in de westerse
+fysica en kunst. En de toon wordt bezwerend waar het betoog het meest
+speculatief is.
+
+Daar komt de moeilijkheidsgraad bij: ruim zeshonderd dichte bladzijden vol
+eigen neologismen en lange excursies. De New Age-receptie heeft het werk
+bovendien versimpeld tot ontwikkelingsoptimisme, wat het uitdrukkelijk niet
+is. Wie het als wijsgerige duiding leest, als vroege poging om fysica, kunst
+en psychologie in één beeld te vatten, houdt het meest over; wie er wetenschap
+in zoekt, vindt die niet.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik de structuren als leesbril: herken in reclame en propaganda
+deficiënt-magische bezwering, in politieke beeldvorming deficiënt-mythische
+beelden, in doorgeschoten kwantificering deficiënt-mentaal denken.
+- Toets bij een tekst of kunstwerk welke tijdsopvatting eronder ligt:
+kringloop, lijn, of vrijheid tegenover de lijn.
+- Behandel het schema als duidingshypothese en noteer wat ertegen pleit; het
+is geen vaststaand feit.
+- Wantrouw iedere claim dat een persoon of groep het integrale bewustzijn
+bereikt heeft; bij Gebser is de mutatie geen prestatie en geen bezit.
+
+#### Wat je hierna leest
+
+- 518. The Life Divine. Aurobindo's bewustzijnsevolutie is de parallel die
+Gebser zelf aanwijst, vanuit de yogatraditie in plaats van de Europese
+cultuurgeschiedenis.
+- 410. the hero with a thousand faces. Campbell brengt het mythische
+bewustzijn in kaart via de heldenreis; leesbare toegang tot de laag die bij
+Gebser de mythische structuur heet.
+- 357. De mens en zijn symbolen. Jung en zijn medewerkers tonen de
+magisch-mythische lagen in dromen en symbolen van moderne mensen; de
+dieptepsychologische pendant.
+- 56. Sapiens. Harari vertelt de bewustzijnsgeschiedenis empirisch en
+materialistisch; de tegenpool die zichtbaar maakt wat Gebsers benadering wint
+en verliest.
+
+## 581. De soevereiniteit van het goede
+
+Iris Murdoch, 1970. *The Sovereignty of Good* (Routledge & Kegan Paul, Londen,
+1970; heruitgave in de reeks Routledge Classics, 2001, ISBN 9780415253994).
+Nederlandse vertaling: *De soevereiniteit van het goede*, vertaald door Thomas
+Crombez, met een nawoord van Katrien Schaubroeck (Letterwerk, Borgerhout,
+2021, 147 blz., ISBN 9789464075229). Eerdere Nederlandse vertaling: *Over God
+en het goede* (Boom, Amsterdam, 2003). Rubriek: filosofie en mystiek.
+Tags: `moraalfilosofie`, `aandacht`, `plato`, `deugd`
+
+Iris Murdoch, Oxfords filosofe en romanschrijfster, bundelde in 1970 drie
+lezingen uit de jaren zestig. Zij keert zich tegen het toen heersende beeld
+van de moraal als reeks keuzen van een lege wil in publiek waarneembaar
+gedrag. Het morele leven speelt zich volgens haar grotendeels eerder af: in de
+kwaliteit van de aandacht waarmee iemand andere mensen en de werkelijkheid
+ziet. Tegen de tijd dat er gekozen wordt, is het meeste morele werk al gedaan
+of nagelaten.
+
+In plaats van God zet Murdoch Plato's idee van het Goede: een transcendent
+richtpunt dat, als de zon, het zien mogelijk maakt. De grote hindernis is het
+ego met zijn zelfzuchtige fantasie; schoonheid, kunst en het leren van iets
+echts werken als unselfing, het tijdelijk wegvallen van het zelf. Het dunne
+boek werd een grondtekst voor de heropleving van deugdethiek en moreel
+realisme; Nederlandse vertalingen verschenen in 2003 en 2021.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Moraal huist volgens Murdoch allereerst in het kijken: in de
+kwaliteit van de aandacht waarmee iemand andere mensen en de werkelijkheid
+waarneemt. Kiezen kan alleen binnen de wereld die iemand ziet, en dat zien is
+zelf al moreel werk of moreel falen. De grote hindernis is het ego, dat de
+waarneming met zelfzuchtige fantasie vertroebelt. Tegenover het beeld van de
+mens als lege, kiezende wil stelt zij een platoons beeld: het Goede als
+transcendent richtpunt dat als de zon het zien mogelijk maakt, en deugd als
+het langzame, nooit voltooide zuiveren van de blik. Godsdienst had daarvoor
+technieken; na de dood van God moeten die een seculiere vorm krijgen.
+
+#### De gang van het boek
+
+**Drie lezingen tegen één mensbeeld**
+
+De drie essays verschenen eerder afzonderlijk als lezingen en
+tijdschriftbijdragen in de jaren zestig. Het doelwit is steeds hetzelfde
+mensbeeld, dat Murdoch bij Stuart Hampshire, R.M. Hare en het existentialisme
+van Sartre aanwijst: de mens als wil die in publiek waarneembare keuzen
+bestaat, met een binnenleven dat filosofisch niet meetelt. Dat beeld acht zij
+onwaar aan de ervaring en moreel verarmend: het maakt van de moraal een reeks
+sprongen in het luchtledige.
+
+**De idee van volmaaktheid**
+
+Het eerste essay draait om een gedachte-experiment. Een schoonmoeder, M, vindt
+haar schoondochter D onbehouwen en kinderachtig, en gedraagt zich intussen
+onberispelijk. M besluit opnieuw te kijken, eerlijk en rechtvaardig, en gaat D
+anders zien: fris in plaats van kinderachtig, spontaan in plaats van
+onbehouwen. Uiterlijk verandert er niets; D kan zelfs overleden of geëmigreerd
+zijn. Toch is er volgens Murdoch iets moreel wezenlijks gebeurd, en het
+gangbare mensbeeld kan dat niet eens beschrijven.
+
+Aandacht, een woord dat Murdoch uitdrukkelijk aan Simone Weil ontleent, is die
+rechtvaardige en liefdevolle blik op een individuele werkelijkheid. Zij is een
+taak zonder eindpunt: de idee van volmaaktheid werkt in gewone begrippen als
+richtpunt. Wie een taal leert, haar voorbeeld is Russisch, staat tegenover een
+gezaghebbende werkelijkheid die zich van wensen niets aantrekt; zulk leren is
+een oefening in realisme en daarmee in deugd.
+
+**Over 'God' en 'Goed'**
+
+Het tweede essay vraagt wat er na het wegvallen van God bewaard moet blijven:
+een voorwerp van aandacht buiten het zelf, en technieken om die aandacht te
+richten; het gebed keert terug als aandacht voor het Goede. Freud neemt zij
+serieus als realist over de psyche: het ego is een machine van zelfzuchtige
+dagdromen. In het morele leven, schrijft zij, is de vijand het vette,
+meedogenloze ego.
+
+Tegenover de fantasie staat de ervaring waarin het zelf even wegvalt. Haar
+voorbeeld: wie gekrenkt en piekerend uit het raam staart en dan een biddende
+torenvalk ziet, is het gekwetste zelf een ogenblik kwijt. Dit unselfing
+(ont-zelving) is voor Murdoch de kern van wat schoonheid en grote kunst doen;
+kunst is de meest toegankelijke oefening in onzelfzuchtig zien.
+
+**De soevereiniteit van het Goede**
+
+Het slotessay zet Plato's beeldspraak in: de grot, de zon. Het Goede zelf
+wordt nooit rechtstreeks gezien; het is de lichtbron waarin al het andere
+gezien wordt, en het verenigt de deugden: wie werkelijk rechtvaardig wil zien,
+heeft moed, nederigheid en eerlijkheid tegelijk nodig. Nederigheid,
+onzelfzuchtig respect voor de werkelijkheid, noemt zij de zeldzaamste deugd.
+
+Vrijheid wordt zo herijkt: geen ongebonden wil, maar gehoorzaamheid aan de
+werkelijkheid zoals die na zuivering van de blik verschijnt; wie goed gekeken
+heeft, ervaart de keuze vaak als vanzelfsprekend. Liefde is kennis van het
+individuele; en de aanvaarding van toeval en sterfelijkheid, zonder
+troostverhaal, hoort bij het zicht op hoe de dingen zijn.
+
+**Doorwerking**
+
+In 1970 stond het boek dwars op de heersende taalfilosofische ethiek.
+Sindsdien is het een grondtekst geworden voor moreel realisme, deugdethiek en
+het denken over morele waarneming; filosofen als Charles Taylor en Martha
+Nussbaum bouwen erop voort. Murdochs zesentwintig romans verkennen hetzelfde
+terrein verhalend. Het Nederlands kreeg twee vertalingen: *Over God en het
+goede* (2003) en *De soevereiniteit van het goede* (2021).
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| aandacht | De rechtvaardige en liefdevolle blik op een individuele werkelijkheid; door Murdoch aan Simone Weil ontleend. |
+| unselfing | Het tijdelijk wegvallen van het zelf in de waarneming van iets werkelijks, zoals natuur of kunst. |
+| het vette, meedogenloze ego | Murdochs benaming voor de psyche als machine van zelfzuchtige dagdromen die het zicht vertroebelt. |
+| fantasie | Het zelfzuchtige dagdromen dat de werkelijkheid toedekt; de tegenpool van aandacht. |
+| morele visie | Het geheel van wat iemand zien kan; kiezen kan alleen binnen die geziene wereld. |
+| de idee van volmaaktheid | Het nooit bereikte richtpunt dat in gewone begrippen als 'goed' werkzaam is. |
+| nederigheid | Onzelfzuchtig respect voor de werkelijkheid; volgens Murdoch de zeldzaamste deugd. |
+| het Goede | Het transcendente richtpunt dat als de zon het morele zien mogelijk maakt; zelf geen ding in de wereld. |
+
+#### Waar het argument op rust
+
+Het boek bevat geen empirie en pretendeert die nergens. De onderbouwing
+bestaat uit voorbeelden die aan de eigen ervaring te toetsen zijn (M en D, de
+torenvalk, het leren van Russisch) en uit de aanval op het rivaliserende
+mensbeeld, dat aan diezelfde ervaring onwaar wordt getoond.
+
+Haar bronnen noemt zij open: Plato voor het Goede, Weil voor de aandacht,
+Freud voor het realisme over de psyche. Voor de werkelijkheid van het Goede
+levert zij geen bewijs en zij erkent dat; het beeld moet zich bewijzen in wat
+het zichtbaar maakt. Dat maakt het betoog eerlijk over de eigen status, en
+tegelijk onbeslisbaar voor wie het beeld niet overneemt.
+
+#### Wat er tegen in te brengen valt
+
+De metafysica blijft schetsmatig: dat het Goede transcendent en werkelijk is,
+wordt beleden en verbeeld, nauwelijks beargumenteerd. Critici uit de
+analytische traditie wierpen bovendien tegen dat Murdoch het aangevallen
+mensbeeld grover samenvat dan Hare of Hampshire het verdedigden.
+
+De nadruk op het innerlijke zien laat de vraag naar handeling, instituties en
+politiek onderbelicht. Een moraal van de gezuiverde blik kan quiëtistisch
+uitpakken; het boek zegt weinig over wat er na het zien gebeuren moet. En het
+religieuze vocabulaire zonder God bevredigt gelovige noch seculiere lezer
+helemaal.
+
+Het is bovendien dichter en trager dan de omvang doet vermoeden: drie
+overlappende lezingen vol toespelingen op debatten van de jaren zestig. De
+invloed van het boek staat buiten kijf; een uitgewerkte ethiek biedt het niet,
+eerder een correctie van de blikrichting.
+
+#### Wat er concreet mee te doen is
+
+- Richt bij een vastzittend oordeel over iemand de aandacht opnieuw op die
+persoon zelf, met de vraag wat er werkelijk te zien valt; herzie de
+beschrijving voordat het oordeel herzien wordt.
+- Gebruik natuur en kunst gericht als oefening in ont-zelving; het gaat om
+kijken naar iets dat met het eigen belang niets te maken heeft.
+- Wantrouw innerlijke scenario's waarin het zelf de gekrenkte hoofdrol speelt;
+dat is bij Murdoch fantasie, de tegenpool van aandacht.
+- Meet morele vooruitgang af aan veranderd zien: of mensen en situaties
+preciezer en rechtvaardiger beschreven worden dan voorheen.
+
+#### Wat je hierna leest
+
+- 390. Simone Weil: An Anthology. Weil is de bron van het aandachtsbegrip; bij
+haar staat het in een religieuze en politieke samenhang die Murdoch
+seculariseert.
+- 263. Beyond Good and Evil. Nietzsche geeft het tegengestelde antwoord op de
+dood van God: waar Murdoch het Goede overeind houdt, herleidt hij moraal tot
+wil en herkomst.
+- 2. Overpeinzingen. Marcus Aurelius oefent dagelijks de blik en het oordeel;
+de praktische voorloper van wat Murdoch wijsgerig onderbouwt.
+
+## 582. The Primary World of Senses
+
+Erwin Straus, 1935. *Vom Sinn der Sinne: Ein Beitrag zur Grundlegung der
+Psychologie* (Julius Springer, Berlijn, 1935; tweede, vermeerderde druk 1956,
+425 blz.; herdruk Springer, 1978, ISBN 9783540088042). Engelse vertaling: *The
+Primary World of Senses: A Vindication of Sensory Experience*, vertaald door
+Jacob Needleman (Free Press of Glencoe, New York, 1963, 428 blz., verschenen
+vóór de invoering van het ISBN). Een Nederlandse vertaling bestaat niet; de
+samenvatting volgt de Engelse editie en houdt daarom de Engelse titel aan.
+Rubriek: filosofie en mystiek.
+Tags: `fenomenologie`, `waarneming`, `zintuigen`, `psychologie`
+
+Erwin Straus (1891-1975), Duits-Amerikaans neuroloog, psychiater en filosoof,
+verdedigt in dit hoofdwerk uit 1935 (Engels 1963) de zintuiglijke ervaring
+tegen twee overheersende beelden: het cartesiaanse beeld waarin
+gewaarwordingen binnenwereldse effecten van hersenprocessen zijn, en Pavlovs
+reflexleer waarin gedrag uit koppelingen van prikkel en reactie bestaat. Zijn
+nauwgezette lezing van Pavlovs eigen experimenten laat zien dat de reflexleer
+overal stilzwijgend het levende, zich oriënterende dier veronderstelt dat zij
+wegverklaart.
+
+Daartegenover beschrijft Straus het gewaarworden als levende communicatie
+tussen een bewegend wezen en zijn omgeving, met een eigen, ondergane wijze van
+ervaren die aan het vaststellende kennen voorafgaat. Beroemd werden het
+onderscheid tussen het landschap van de geleefde ervaring en de geografische
+kaartruimte, en de zin dat de mens denkt, niet het brein. Het boek werd een
+grondtekst van de fenomenologische psychologie en psychiatrie en beïnvloedde
+onder anderen Merleau-Ponty en de Utrechtse school.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Straus verdedigt dat het zintuiglijke ervaren een eigen,
+oorspronkelijke wijze van in-de-wereld-zijn is die aan alle kennen voorafgaat.
+Gewaarworden is geen aanlevering van ruwe prikkels die het brein tot
+waarneming verwerkt, en evenmin een keten van reflexen: het is levende
+communicatie tussen een bewegend subject en zijn omgeving, waarin mens en dier
+de wereld ondergaan voordat zij haar kennen. De psychologie die op Descartes'
+scheiding van lichaam en bewustzijn en op Pavlovs reflexleer bouwt, kan
+volgens Straus haar eigen experimenten niet eens beschrijven zonder
+stilzwijgend te lenen van de alledaagse ervaring die zij wegverklaart. Vandaar
+zijn bekendste zin: de mens denkt, niet het brein.
+
+#### De gang van het boek
+
+**Een eerherstel voor het gewaarworden**
+
+Straus, neuroloog en psychiater in Berlijn en later in de Verenigde Staten,
+publiceerde *Vom Sinn der Sinne* in 1935, breidde het in 1956 sterk uit en zag
+in 1963 de Engelse vertaling verschijnen waarmee het boek buiten het Duitse
+taalgebied bekend werd. De ondertitel van die vertaling, een eerherstel voor
+de zintuiglijke ervaring, vat het programma samen. Sinds de Griekse filosofie
+geldt het zintuiglijke als de onbetrouwbare onderkant van het kennen, ruw
+materiaal dat pas door begrip en oordeel waarde krijgt. De moderne fysiologie
+nam die rangorde over en goot haar in een causale keten: prikkel, zenuwbaan,
+hersenproces, gewaarwording. Straus wil laten zien dat beide beelden het
+verschijnsel zelf mislopen: gewaarworden is een wijze van leven, ouder dan
+alle kennis en tot geen hersenproces te herleiden.
+
+**De afrekening met de reflexleer**
+
+Het polemische hart van het boek is een lange analyse van Pavlovs leer van de
+geconditioneerde reflex, in de jaren dertig het paradepaard van een
+psychologie zonder subject. Straus leest Pavlovs eigen verslagen nauwkeurig en
+wijst aan hoeveel die stilzwijgend veronderstellen. De hond moet hongerig
+zijn, vastgebonden staan, de proefkamer kennen en het voer als voer nemen; de
+bel werkt alleen voor een dier dat hoort, verwacht en zich in zijn situatie
+oriënteert.
+
+De prikkel is dus geen fysische eenheid maar iets dat voor het levende dier
+betekenis heeft, en het experiment ontleent zijn hele beschrijving aan de
+alledaagse ervaring die de theorie juist wilde vervangen. De reflexleer
+verklaart het gedrag volgens Straus dan ook niet; zij herbeschrijft het in een
+taal die haar eigen voorwaarden verzwijgt.
+
+**De cartesiaanse erfenis**
+
+Achter de fysiologie ontwaart Straus Descartes. Diens scheiding tussen
+uitgebreide materie en denkend bewustzijn maakte van het gewaarworden een
+duister binnengebeuren dat door hersenprocessen wordt veroorzaakt en hoogstens
+verwarde kennis oplevert. Wie zo begint, moet de wereld naderhand uit
+indrukken reconstrueren en komt vanzelf bij het brein uit als de plaats waar
+alles gebeurt. Tegen de formule dat het brein waarneemt en denkt zet Straus
+zijn beroemde zin: de mens denkt, niet het brein. Denken, waarnemen en voelen
+zijn verrichtingen van een levend wezen dat zich in een wereld beweegt; het
+brein is daarvoor een voorwaarde, zoals benen een voorwaarde zijn om te lopen
+zonder dat iemand beweert dat de benen wandelen.
+
+**Gewaarworden en kennen**
+
+Het opbouwende deel begint met het onderscheid tussen gewaarworden (in het
+Duits *Empfinden*) en waarnemen of kennen. Kennen richt zich op vaststelbare
+eigenschappen van dingen die er ook zonder waarnemer zijn; het is meetbaar,
+herhaalbaar en mededeelbaar. Gewaarworden gaat daaraan vooraf: het is het
+ondergaan van de wereld zoals zij iemand hier en nu aangaat, lokkend,
+dreigend, koud, dichtbij.
+
+Straus noemt het eerste moment pathisch, het ondervindende, en het tweede
+gnostisch, het vaststellende. Beide momenten zitten in elke ervaring, maar de
+wetenschap kent alleen het gnostische en houdt het pathische voor subjectieve
+bijkleuring. Daarmee verdwijnt precies het vlak waarop mens en dier met de
+wereld in verbinding staan, het vlak waarop ook muziek, dans en paniek zich
+afspelen.
+
+**Gewaarworden en bewegen**
+
+Gewaarworden en zich bewegen vormen voor Straus één geheel. Alleen een wezen
+dat kan naderen en terugwijken heeft afstand, en alleen voor zo'n wezen
+bestaat er een hier en een daar, een lokken en een dreigen. Afstand is daarom
+geen meetkundig gegeven dat het oog registreert; zij is de vorm van het
+levende betrokken-zijn op de omgeving. Straus beschrijft verder hoe elke
+zintuiglijke wijze haar eigen ruimtelijkheid heeft: kleur staat op een plaats
+tegenover de waarnemer, geluid vult de ruimte en dringt zich op. Zulke
+beschrijvingen zijn zijn methode: het verschijnsel nemen zoals het zich toont,
+voordat de theorie het opdeelt in prikkels en reacties.
+
+**Landschap en geografie**
+
+Beroemd geworden is de tegenstelling tussen landschap en geografie. Het
+landschap is de wereld van het gewaarworden: het heeft een horizon die met de
+wandelaar meetrekt, plaatsen die dichtbij of ver zijn vanuit waar iemand
+staat, en het is nooit af. De geografische ruimte is de wereld van de kaart:
+een gesloten stelsel van coördinaten waarin het eigen standpunt een punt
+tussen de punten is. Wie verdwaalt, valt van de kaart terug in het landschap.
+
+Met dit soort onderscheidingen leverde het boek gereedschap voor de
+fenomenologische psychiatrie, die stoornissen als depressie en waan ging
+beschrijven als veranderingen van de geleefde ruimte en tijd, en voor de
+wijsgerige kritiek op elke psychologie die de ervaring tot
+informatieverwerking terugbrengt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| gewaarworden (Empfinden) | Het ondergane, lijfelijke contact met de wereld dat aan elk vaststellend kennen voorafgaat. |
+| pathisch | Het ondervindende moment van de ervaring, waarin iets iemand raakt voordat het herkend of benoemd is. |
+| gnostisch | Het vaststellende moment van de ervaring, gericht op eigenschappen van dingen die voor iedereen gelden. |
+| communicatie | Straus' woord voor de levende verstandhouding tussen subject en omgeving waarin het gewaarworden bestaat. |
+| geconditioneerde reflex | De door Straus bekritiseerde leer van Pavlov dat gedrag bestaat uit aangeleerde koppelingen van prikkel en reactie. |
+| afstand | De door beweging ontsloten verhouding van naderen en wijken, die aan de meetbare ruimte voorafgaat. |
+| landschap | De geleefde ruimte van het gewaarworden, met horizon en hier, tegenover de gesloten kaartruimte van de geografie. |
+
+#### Waar het argument op rust
+
+Het boek bewijst niet met experimenten maar met beschrijving en immanente
+kritiek. Straus neemt de gepubliceerde verslagen van Pavlovs laboratorium en
+toont dat de beschrijving van elk experiment begrippen gebruikt (dier,
+situatie, voer, verwachting) die in de theorie zelf niet voorkomen. Die
+kritiek staat of valt met de nauwkeurigheid van zijn lezing, en die is ook
+door tegenstanders zelden aangevochten.
+
+De opbouwende leer steunt op fenomenologische beschrijving: de lezer moet de
+analyses van afstand, horizon en het pathische aan de eigen ervaring kunnen
+toetsen. Meetbare voorspellingen levert dat niet op; het boek biedt een
+begrippenkader en geen toetsbaar model.
+
+De doorwerking is wel aanwijsbaar. Merleau-Ponty gebruikte *Vom Sinn der
+Sinne* in zijn *Phénoménologie de la perception* (1945), en de Utrechtse
+school rond Buytendijk en Van den Berg bouwde erop voort in de Nederlandse
+fenomenologische psychologie en psychiatrie. Recente stromingen als de
+belichaamde en enactieve cognitiewetenschap verdedigen verwante stellingen,
+meestal zonder Straus te noemen.
+
+#### Wat er tegen in te brengen valt
+
+Het boek is zwaar. Straus schrijft in het idioom van de Duitse fenomenologie,
+de Engelse vertaling neemt die dichtheid mee, en de lezer moet Descartes, Kant
+en de psychologie van het interbellum enigszins kennen om de polemiek te
+volgen. Ruim vierhonderd bladzijden lang wisselen scherpe observaties met
+lange begripsanalyses; wie het opslaat als inleiding in de
+waarnemingspsychologie komt bedrogen uit.
+
+Het voornaamste doelwit bestaat bovendien niet meer: de reflexologie en het
+behaviorisme van de jaren dertig zijn ook binnen de psychologie zelf verlaten.
+De hedendaagse neurowetenschap werkt met voorspellende modellen en
+terugkoppeling, en het is een open vraag hoeveel van Straus' kritiek haar nog
+raakt. Zijn weigering om causale verklaring als aanvulling naast de
+beschrijving te laten staan maakt het gesprek met het laboratorium er niet
+gemakkelijker op.
+
+Daar komt bij dat het boek veel onderscheidt en weinig verklaart. Een
+alternatief onderzoeksprogramma ontbreekt, kernbegrippen als het pathische
+zijn nooit scherp geoperationaliseerd, en buiten de fenomenologische
+psychiatrie bleef de receptie smal. Wie wil weten hoe zien of horen werkt,
+vindt hier alleen wat er aan die vraag voorafgaat.
+
+#### Wat er concreet mee te doen is
+
+- Beschrijf bij een vraag over ervaring eerst het verschijnsel zoals het zich
+voordoet, voordat er een verklaringsmodel overheen gaat.
+- Wantrouw formuleringen waarin het brein denkt, beslist of waarneemt; benoem
+het levende wezen als drager van die verrichtingen.
+- Neem bij gedragsexperimenten de situatie van mens of dier (honger, fixatie,
+vertrouwdheid met de ruimte) op in de beschrijving van de uitkomst.
+- Gebruik het onderscheid tussen landschap en geografie om geleefde ervaring
+en kaartkennis uit elkaar te houden, bijvoorbeeld bij het inrichten van
+zorgomgevingen of navigatie.
+
+#### Wat je hierna leest
+
+- 322. An Immense World. Yong brengt de zintuigwerelden van dieren empirisch
+in kaart; een hedendaagse tegenhanger van Straus' stelling dat elk wezen zijn
+eigen wereld gewaarwordt.
+- 541. Behavior: The Control of Perception. Powers zet het
+prikkel-reactiemodel eveneens aan de kant, met een regeltechnisch alternatief:
+gedrag als beheersing van waarneming.
+- 441. The Inner Game of Tennis. Gallwey beschrijft in de tennispraktijk hoe
+het vaststellende zelf het bewegende lichaam in de weg zit; een alledaagse
+pendant van het onderscheid tussen pathisch en gnostisch.
+- 6. Shop Class as Soulcraft. Crawford verdedigt het kennen dat in handen en
+gereedschap huist tegen de heerschappij van het abstracte; een verwant
+eerherstel, drie generaties later.
+
+## 583. The Thirst for Wholeness
+
+Christina Grof, 1993. *The Thirst for Wholeness: Attachment, Addiction, and
+the Spiritual Path* (HarperSanFrancisco, San Francisco, 1993, 314 blz., ISBN
+9780062503145; paperback 1994, ISBN 9780062503152). Nederlandse vertaling:
+*Dorst naar heelheid: gehechtheid, verslaving en het spirituele pad*, vertaald
+door Vivian Franken (Ankh-Hermes, Deventer, 1996, 285 blz., ISBN
+9789020264760). Rubriek: brein en lichaam.
+Tags: `verslaving`, `spiritualiteit`, `transpersoonlijke psychologie`,
+`herstel`
+
+Christina Grof, medeontwikkelaar van holotroop ademwerk en oprichter van het
+Spiritual Emergency Network, leest verslaving als een verkeerd gerichte uiting
+van een echt verlangen: de dorst naar heelheid, naar contact met een dieper
+zelf dat achter het aangeleerde ego schuilgaat. De titel komt uit een brief
+van Carl Jung aan AA-medeoprichter Bill Wilson uit 1961, waarin Jung de drang
+naar alcohol beschreef als de spirituele dorst naar heelheid op een laag
+niveau, met als slotformule spiritus contra spiritum.
+
+Het boek leunt zwaar op haar eigen geschiedenis: een overweldigende spirituele
+ontwaking tijdens de bevalling van haar eerste kind, twaalf jaar onbegrepen
+klachten, alcohol als zelfmedicatie en herstel via een twaalfstappenprogramma
+halverwege de jaren tachtig. Grof leest de twaalf stappen als een mystieke weg
+in alledaagse taal: machteloosheid toegeven, overgave aan een zelfgekozen
+hogere macht, zelfonderzoek en dienstbaarheid. Herstel dat alleen het middel
+wegneemt laat volgens haar de dorst zelf onaangeroerd.
+
+De onderbouwing bestaat uit persoonlijke ervaring, verhalen uit workshops en
+beroep op Jung, William James en mystieke tradities; systematisch onderzoek
+ontbreekt en het metafysische fundament, een goddelijk dieper zelf en
+kundalini-energie, valt niet te toetsen. Dat de twaalfstappenaanpak werkt is
+later wel stevig onderbouwd, al verklaart dat onderzoek de werking eerder uit
+gemeenschap en gedrag dan uit het spirituele kader dat Grof eromheen bouwt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Verslaving komt volgens Grof voort uit een echt en universeel
+verlangen: de dorst naar heelheid, het heimwee naar een dieper zelf dat
+tijdens opvoeding en aanpassing overwoekerd raakt door het ego. Alcohol,
+drugs, eten, werk of relaties geven kortstondig een voorproefje van die
+eenheid en laten de gebruiker daarna leger achter, waardoor de zoektocht zich
+herhaalt met steeds hogere inzet. Herstel vraagt daarom meer dan ontgiften en
+gedragsverandering: het vraagt een spirituele weg waarop de verslaafde de
+hunkering leert herkennen als verlangen naar het diepere zelf en haar lest bij
+de bron in plaats van bij het surrogaat. De twaalf stappen van Anonieme
+Alcoholisten vormen volgens Grof zo'n weg: een mystiek pad in gewone taal, met
+overgave aan een zelfgekozen hogere macht als scharnier.
+
+#### De gang van het boek
+
+**Een brief van Jung als vertrekpunt**
+
+Het boek opent bij de briefwisseling die aan de wieg van Anonieme Alcoholisten
+stond. In januari 1961 schreef Carl Jung aan AA-medeoprichter Bill Wilson over
+de alcoholist Roland H., die hij decennia eerder had behandeld: diens
+hunkering naar alcohol was het equivalent, op een laag niveau, van de
+spirituele dorst van ons wezen naar heelheid, in middeleeuwse taal de
+vereniging met God. Jung besloot met de woordspeling spiritus contra spiritum:
+tegen de geest uit de fles helpt alleen de geest in religieuze zin.
+
+Grof zet die gedachte in de traditie van William James, die in *The Varieties
+of Religious Experience* de macht van drank verklaarde uit haar vermogen de
+mystieke vermogens van de mens te prikkelen. Daarmee staat het kader: de
+hunkering van de verslaafde en het verlangen van de mysticus zijn volgens Grof
+dezelfde dorst, alleen zoekt de een de bron en de ander een surrogaat.
+
+**Het diepere zelf en het ego**
+
+Grof onderscheidt twee lagen in de mens. Het diepere zelf is de kern die
+volgens haar deel heeft aan het goddelijke; zij put daarvoor uit
+hindoeïstische bronnen en uit Jung. Daaroverheen groeit het ego: het
+aangeleerde, afgescheiden ik dat kinderen ontwikkelen onder druk van gezin,
+school en kerk. Vroege krenking en trauma versnellen die vervreemding. Wat
+overblijft is een innerlijke leegte, door haar gesprekpartners vaak beschreven
+als een gat dat gevuld moet worden.
+
+Gehechtheid is in dit kader het vastklampen aan alles waarvan vulling wordt
+verwacht: middelen, mensen, bezit, prestaties. Grof gebruikt het woord
+nadrukkelijk in de boeddhistische zin. De verslaving is dan de meest zichtbare
+en meest destructieve vorm van een gehechtheid die vrijwel iedereen kent.
+
+**Een eigen geschiedenis van dorst**
+
+Het persoonlijke deel draagt het boek. Tijdens de bevalling van haar eerste
+kind overviel Grof een storm van energie, beven en veranderde waarneming, die
+zij pas jaren later leerde duiden als een kundalini-ontwaking. Er volgden
+ongeveer twaalf jaar met onverklaarde pijnen, hoofdpijn, episoden van
+tijdelijke blindheid en doodsangst. Omdat niemand in haar omgeving er raad mee
+wist, ging zij het proces dempen met alcohol, wat overging in jarenlange
+verslaving.
+
+De yogaleraar Swami Muktananda gaf haar ervaringen later een kader, en in 1980
+richtte zij aan het Esalen-instituut het Spiritual Emergency Network op, een
+verwijsnetwerk voor mensen in een spirituele crisis. Halverwege de jaren
+tachtig liet zij zich voor haar drankverslaving behandelen en werd zij
+blijvend nuchter. Opmerkelijk is haar observatie dat de chaotische energie
+juist in de nuchterheid tot rust kwam en beschikbaar werd voor werk en
+creativiteit. Met haar man Stanislav Grof ontwikkelde zij holotroop ademwerk
+en redigeerde zij eerder *Spiritual Emergency* (1989); dit is haar eerste
+eigen boek.
+
+**De vele gezichten van verslaving**
+
+Grof rekt het begrip verslaving vervolgens ver op. Naast alcohol en drugs
+behandelt zij eten, werk, geld, seks, relaties en zelfs religieuze ijver als
+manieren om de leegte te vullen. Ook medeafhankelijkheid, het zorgend opgaan
+in de verslaving van een ander, leest zij als dezelfde dorst in een andere
+vorm. De consumptiecultuur als geheel krijgt de diagnose van een verslaafde
+samenleving.
+
+Het gemeenschappelijke patroon: het surrogaat werkt eerst echt. De roes lijkt
+op de eenheidservaring waarnaar het diepere zelf verlangt, en juist die
+gelijkenis maakt hem zo bindend. Maar het effect slijt, de dosis stijgt en de
+leegte groeit, tot de zoektocht het leven zelf verwoest.
+
+**Bodem, overgave en de twaalf stappen**
+
+Het dieptepunt van de verslaafde beschrijft Grof als een ego-dood: het moment
+waarop de illusie van controle breekt. Wat in de mystiek de donkere nacht
+heet, heet in herstelkringen de bodem. Beslissend is wat daarna komt:
+overgave. De eerste drie stappen van AA, machteloosheid erkennen en het leven
+toevertrouwen aan een macht groter dan het eigen ik, vormen volgens haar
+precies die beweging.
+
+De overige stappen leest zij als een klassiek oefenpad: zelfonderzoek en het
+rechtzetten van schade (stap vier tot en met tien), gebed en meditatie (stap
+elf), dienstbaarheid aan andere verslaafden (stap twaalf). Dat de hogere macht
+vrij ingevuld mag worden, van God tot de herstelgroep zelf, maakt het pad
+volgens Grof begaanbaar voor gelovigen en ongelovigen. De gemeenschap van
+lotgenoten vervult de rol die in oude tradities de kloosterorde of de sangha
+had.
+
+**Herstel als spiritueel pad, met valkuilen**
+
+Het slot trekt de lijnen samen tot wat Grof een welzijnsmodel noemt:
+verslavingszorg zou naast het medische en psychologische spoor de spirituele
+dimensie moeten opnemen, en spirituele crises zouden herkend moeten worden
+voordat ze als psychose worden weggezet of met middelen worden gedempt. Wie
+nuchter wordt kan alsnog een spirituele noodsituatie doormaken, omdat de drank
+het onderliggende proces jarenlang heeft toegedekt.
+
+Zij waarschuwt ook voor nieuwe gehechtheden binnen het herstel: meditatie,
+ademwerk of de herstelgroep zelf kunnen de functie van het middel overnemen.
+Praktisch adviseert zij rust, lichaamswerk, natuur, creativiteit en
+begeleiding, en terughoudendheid met intensieve technieken in de eerste
+nuchtere jaren.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| dorst naar heelheid | Het onderliggende verlangen naar eenheid met het diepere zelf, dat zich vermomt als hunkering naar middelen, mensen of gedrag. |
+| dieper zelf | De kern van de persoon die volgens Grof deel heeft aan het goddelijke en door opvoeding en aanpassing uit het zicht raakt. |
+| ego | Het aangeleerde, afgescheiden ik dat de plaats van het diepere zelf inneemt en de leegte produceert waar de dorst uit voortkomt. |
+| gehechtheid | Het vastklampen aan alles waarvan vulling van de innerlijke leegte wordt verwacht, door Grof in de boeddhistische zin gebruikt. |
+| spirituele noodsituatie | Een ontwaking die zo snel en heftig verloopt dat zij het dagelijks functioneren ontwricht; Grofs vertaling van spiritual emergency. |
+| spirituele ontluiking | Dezelfde ontwikkeling in een geleidelijk en hanteerbaar tempo, door Grof spiritual emergence genoemd. |
+| overgave | Het loslaten van de illusie van controle, voor Grof het gedeelde scharnier van mystiek en herstel. |
+| hogere macht | De vrij in te vullen aanduiding uit de twaalf stappen voor wat groter is dan het eigen ik. |
+| holotroop ademwerk | Door Christina en Stanislav Grof ontwikkelde methode waarbij versnelde ademhaling en muziek niet-alledaagse bewustzijnstoestanden oproepen. |
+
+#### Waar het argument op rust
+
+Het betoog rust op drie pijlers: Grofs eigen geschiedenis, verhalen van
+deelnemers aan haar workshops en het gezag van bronnen als Jung, James en de
+mystieke tradities. Systematisch onderzoek ontbreekt; de recensent van Kirkus
+merkte al bij verschijning op dat het boek weinig casuïstiek bevat naast het
+eigen verhaal. De brief van Jung aan Wilson uit 1961 is authentiek en
+gedocumenteerd, maar een brief is een interpretatie en geen bewijs dat
+verslaving spiritueel van aard is.
+
+Voor het praktische deel staat het bewijs er beter voor dan voor het
+metafysische. Een Cochrane-overzicht uit 2020 vond dat Anonieme Alcoholisten
+en twaalfstappenbegeleiding voor blijvende abstinentie minstens zo goed werken
+als andere behandelingen. Datzelfde onderzoek verklaart de werking echter uit
+toetsbare factoren als netwerkverandering en onderlinge steun, niet uit
+contact met een dieper zelf. Het model werkt dus mogelijk om andere redenen
+dan Grof aanvoert.
+
+#### Wat er tegen in te brengen valt
+
+Het fundament valt niet te toetsen. Een goddelijk dieper zelf,
+kundalini-energie en de gelijkstelling van roes en mystieke ervaring zijn
+geloofsuitspraken; wie het kader niet deelt, houdt een boek over waarin de
+conclusie al in de premisse zit. De neurobiologie van tolerantie, onthouding
+en conditionering verklaart intussen veel van het verslavingsgedrag zonder
+spiritueel surplus, en die literatuur blijft hier vrijwel onbesproken.
+
+Grof veralgemeniseert bovendien vanuit een uitzonderlijk eigen traject. De
+meeste verslaafden hebben geen kundalini-ontwaking doorgemaakt, en de duiding
+van psychiatrische crises als spirituele noodsituaties draagt het risico dat
+een behandelbare psychose te laat zorg krijgt; op dat punt is het gedachtegoed
+van het Spiritual Emergency Network vanuit de psychiatrie bekritiseerd. Daar
+staat tegenover dat zij nergens oproept om behandeling te mijden, medische
+zorg uitdrukkelijk naast het spirituele spoor zet en eerlijk is over haar
+eigen jaren van zelfbedrog. Als getuigenis is het boek sterker dan als
+theorie.
+
+#### Wat er concreet mee te doen is
+
+- Onderzoek bij een hardnekkige gewoonte welk verlangen zij bedient; de vraag
+wat het middel even geeft, wijst naar wat er ontbreekt.
+- Neem in herstel de vraag naar zin en verbondenheid serieus naast het
+medische spoor; alleen stoppen laat de leegte staan.
+- Kies binnen een twaalfstappenprogramma een eigen invulling van de hogere
+macht; de methode dwingt geen geloofsbelijdenis af.
+- Wees de eerste nuchtere jaren terughoudend met intensieve spirituele
+technieken en zoek begeleiding als ervaringen overweldigend worden.
+- Let op vervanging: ook werk, sport, de herstelgroep of meditatie kan de
+functie van het middel overnemen.
+
+#### Wat je hierna leest
+
+- 314. Dopamine Nation. Lembke beschrijft dezelfde hunkering vanuit de
+neurobiologie van dopamine; samen laten de boeken zien hoe ver een klinische
+en een spirituele lezing van verslaving uiteenlopen.
+- 275. How to Change Your Mind. Pollan volgt de terugkeer van psychedelica in
+de verslavingszorg en biedt een beter onderzochte route naar de
+eenheidservaringen die Grof centraal stelt.
+- 324. Finding Ultra. Rich Roll vertelt een herstelverhaal waarin de leegte na
+het stoppen met sport en discipline wordt gevuld, een wereldser antwoord op
+dezelfde dorst.
+- 333. Altered Traits. Goleman en Davidson zeven het meditatieonderzoek op
+houdbare bevindingen, precies de toets die aan Grofs praktijkdeel ontbreekt.
+
+## 584. Die Stellung des Menschen im Kosmos
+
+Max Scheler, 1928. *Die Stellung des Menschen im Kosmos* (Otto Reichl Verlag,
+Darmstadt, 1928, 114 blz.); moderne studie-editie bezorgd door Wolfhart
+Henckmann (Felix Meiner Verlag, Hamburg, Philosophische Bibliothek 672, 2018,
+ISBN 9783787327638). Engelse vertaling: *The Human Place in the Cosmos*,
+vertaald door Manfred S. Frings (Northwestern University Press, Evanston,
+2009, 79 blz., ISBN 9780810125292). Een gevestigde Nederlandse vertaling is er
+niet; de Duitse titel is ook in het Nederlandse taalgebied de gangbare
+aanduiding. Rubriek: filosofie en mystiek.
+Tags: `filosofische antropologie`, `geest`, `mens en dier`, `metafysica`
+
+Dit is de uitgewerkte tekst van een voordracht die Max Scheler in april 1927
+in Darmstadt hield. Het boekje van ruim honderd bladzijden geldt als het
+stichtingsgeschrift van de filosofische antropologie, de wijsgerige leer van
+de mens. Scheler bouwt het psychische leven op in trappen die mens en dier
+delen: de gevoelsdrang die al in de plant werkt, het instinct, het
+associatieve geheugen en de praktische intelligentie, waarover blijkens de
+chimpanseeproeven van Köhler ook mensapen beschikken. De bijzondere positie
+van de mens ligt buiten deze reeks: de mens heeft deel aan de geest, het
+vermogen zich van de eigen omgeving los te maken, de wereld als wereld te zien
+en nee te zeggen tegen de eigen driften.
+
+Tegelijk is die geest volgens Scheler van zichzelf machteloos: hij krijgt
+alleen werkelijkheid doordat hij de energie van de driften leent en omleidt.
+Het slot trekt een metafysische conclusie: drang en geest zijn twee attributen
+van de wereldgrond, die elkaar in de mens en zijn geschiedenis doordringen.
+Scheler stierf in mei 1928; het grote werk over de mens dat hij aankondigde is
+er nooit gekomen, en dit geschrift bleef het kortste en meest gelezen
+overzicht van zijn late denken.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Het verschil tussen mens en dier is voor Scheler een
+wezensverschil. Alle trappen van het psychische leven, van de gevoelsdrang van
+de plant tot de praktische intelligentie van de chimpansee, vindt hij ook bij
+de mens terug; een intelligent dier is de mens dus zeker. Daarnaast heeft de
+mens echter deel aan een principe dat tegenover al het leven staat en dat
+Scheler geest noemt: het vermogen zich van omgeving en driften los te maken,
+de wereld tot voorwerp te nemen en nee te zeggen tegen wat het leven
+aandrijft. Die geest is verheven en tegelijk machteloos: hij bezit geen eigen
+energie en verwerkelijkt zich alleen door de driften voor zijn doeleinden te
+winnen. Wie de mens wil begrijpen moet daarom beide richtingen denken: de
+vergeestelijking van het leven en de verlevendiging van de geest.
+
+#### De gang van het boek
+
+**Drie mensbeelden zonder eenheid**
+
+Scheler opent met de vaststelling dat de ontwikkelde Europeaan rond 1928 drie
+onverenigbare mensbeelden naast elkaar heeft: het joods-christelijke
+scheppingsverhaal, het Grieks-antieke beeld van de mens als redelijk wezen en
+het natuurwetenschappelijke beeld van de mens als laat product van de
+evolutie. Een eenheid vormen die drie niet, en juist daardoor is de mens
+zichzelf problematischer geworden dan ooit. De filosofische antropologie moet
+die eenheid opnieuw denken. Dit geschrift geeft er in kort bestek de
+grondlijnen van; het uitvoerige werk dat Scheler aankondigt is door zijn dood
+in mei 1928 nooit verschenen.
+
+**De trappen van het psychische leven**
+
+De opbouw begint onderaan. De gevoelsdrang is een richtingloos streven zonder
+voorstelling of voorwerp, dat al in de plant werkt. Daarboven staat het
+instinct: aangeboren, soortdienstige gedragslijnen. De derde trap is het
+associatieve geheugen, het vermogen om gedrag door herhaling en beloning te
+wijzigen, waarvoor Scheler naar Pavlovs conditioneringsonderzoek verwijst.
+
+De vierde trap, de praktische intelligentie, is het plotselinge, van
+proefgedrag onafhankelijke kiezen van een omweg naar een doel. Op grond van
+Wolfgang Köhlers proeven met chimpansees op Tenerife kent Scheler die
+intelligentie ruimhartig aan het dier toe. Wie het verschil tussen mens en
+dier op slimheid bouwt, heeft daarmee volgens hem alleen een gradueel verschil
+in handen.
+
+**Geest: wereldopenheid, ideatie, persoon**
+
+Het nieuwe principe dat de mens kenmerkt noemt Scheler geest. Het dier leeft
+gebonden in zijn omgeving, de soortgebonden merk- en werkwereld die Jakob von
+Uexküll Umwelt noemde. De mens kan zich daarvan losmaken: hij is wereldopen,
+kan zijn omgeving tot voorwerp maken, en zelfs de eigen lichamelijke en
+psychische toestanden objectiveren. Tot de geest hoort ook de ideatie, het
+vermogen om aan één voorbeeld het wezenlijke af te lezen, zoals iemand aan één
+pijn het wezen van pijn vat, zonder inductie over vele gevallen.
+
+De geest is geen ding en geen substantie; hij bestaat alleen in de voltrekking
+van zijn akten, en het centrum van die voltrekking noemt Scheler persoon.
+Daarom kan de persoon zelf nooit voorwerp van kennis worden. Het scherpst vat
+Scheler het menselijke vermogen samen in het nee: de mens is de asceet van het
+leven, het wezen dat de eigen driftimpulsen kan opschorten en de werkelijkheid
+kan weigeren.
+
+**De machteloosheid van de geest**
+
+Tegen de klassieke leer, van de Grieken tot in het christendom, dat de geest
+ook macht en werkzaamheid bezit, stelt Scheler dat de geest oorspronkelijk
+machteloos is. Een zuivere gedachte verzet niets. Tegen de naturalistische
+omkering, die de geest tot bijproduct van drift en verdringing maakt, houdt
+hij vol dat de geest een eigen, onherleidbaar principe is dat richting en maat
+geeft.
+
+De verzoening ligt in de sublimering: driftenergie wordt in geestelijke banen
+geleid, en alleen zo komt een idee tot werkelijkheid. Ideeën die geen
+belangen, hartstochten en driften achter zich krijgen, blijven zonder gevolg;
+de geschiedenis wordt aangedreven door de drift en hoogstens geleid en geremd
+door de geest. Leiden en sturen zijn hier de sleutelwoorden: de geest beschikt
+niet over eigen paardenkrachten.
+
+**Wereldgrond en wordende God**
+
+Het slot wordt metafysisch. Drang en geest zijn voor Scheler twee attributen
+van de grond van het zijn, die elkaar in de geschiedenis stapsgewijs
+doordringen. De mens is de plaats waar dat gebeurt: medewerker aan de
+verwerkelijking van het goddelijke, dat niet als voltooide almacht boven de
+wereld staat maar in haar wordt. Een theïstische God die klaar is en van
+buitenaf beschermt, wijst Scheler uitdrukkelijk af; houvast zoekt de mens
+volgens hem in de eigen inzet voor die wording.
+
+Het geschrift verscheen in 1928, hetzelfde jaar als Helmuth Plessners *Die
+Stufen des Organischen und der Mensch*; samen gelden beide boeken als het
+begin van de filosofische antropologie, met Arnold Gehlen als derde
+grondlegger in 1940.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| filosofische antropologie | De wijsgerige leer die vraagt wat de mens is, als eenheid achter de biologische, psychologische en historische deelkennis. |
+| gevoelsdrang | De onderste trap van het psychische: een richtingloos streven zonder voorstelling of voorwerp, al in de plant aanwezig. |
+| Umwelt | De soortgebonden omgeving waarin het dier gebonden leeft en waarbuiten niets voor het bestaat; Scheler neemt de term van Uexküll over. |
+| wereldopenheid | Het menselijke vermogen zich van de omgeving los te maken en een wereld te hebben in plaats van een omgeving. |
+| geest (Geist) | Het principe dat de mens boven het leven uittilt: objectivering, ideatie, zelfbewustzijn en het nee tegen de drift. |
+| ideatie | Het aflezen van het wezenlijke aan één enkel voorbeeld, zonder inductie over vele gevallen. |
+| persoon | Het actcentrum waarin de geest zich voltrekt en dat zelf nooit voorwerp van kennis kan worden. |
+| sublimering | Het omleiden van driftenergie naar geestelijke doelen; voor Scheler de enige weg waarlangs de geest macht krijgt. |
+| asceet van het leven | Schelers naam voor de mens als het wezen dat tegen de werkelijkheid en de eigen driften nee kan zeggen. |
+
+#### Waar het argument op rust
+
+Scheler onderbouwt de trappenleer met de biologie en psychologie van zijn
+tijd: Uexkülls omgevingsleer, Pavlovs conditioneringsonderzoek en vooral
+Köhlers chimpanseeproeven op Tenerife. Dat hij de praktische intelligentie
+ruimhartig aan het dier toekent, geeft de these haar scherpte: het
+wezensverschil hangt niet op een onderschatting van het dier.
+
+Voor de kern van de these, de geest als eigen principe, is het bewijs
+wijsgerig van aard. Scheler beroept zich op akten die geen dier vertoont,
+zoals het objectiveren van de eigen toestanden, de ideatie en het opschorten
+van de drift. Empirisch toetsbaar is dat maar ten dele, en latere onderzoekers
+van dierlijke cognitie lezen dezelfde verschijnselen dikwijls anders.
+
+Het metafysische slot over drang en geest als attributen van de wereldgrond
+biedt geen bewijs en pretendeert dat ook niet. Het is speculatie, door Scheler
+zelf gepresenteerd als schets, in afwachting van een hoofdwerk dat er niet
+meer kwam.
+
+#### Wat er tegen in te brengen valt
+
+Het geschrift is een programma, geen uitwerking. Vrijwel elke paragraaf doet
+beweringen die om een boek vragen; het aangekondigde hoofdwerk ontbreekt, en
+de lezer moet het stellen met stellingen waarvan de onderbouwing elders in
+Schelers werk verspreid ligt of nergens staat. Kort is het boekje wel, licht
+allerminst: zonder enige kennis van het debat van de jaren twintig (Uexküll,
+Köhler, Freud) blijft veel duister, en de dichtheid van de tekst vraagt
+langzaam lezen en herlezen.
+
+De scherpe tweedeling tussen geest en leven is binnen de eigen school
+aangevochten. Plessner, wiens hoofdwerk in hetzelfde jaar verscheen, zag er
+een nieuw dualisme in dat de mens opnieuw in tweeën breekt, en ontwikkelde met
+zijn excentrische positionaliteit een alternatief; Gehlen zette de
+antropologie later zonder Schelers metafysica voort. Heidegger bestreed in
+diezelfde jaren het hele project van een filosofische antropologie als
+wijsgerig onvoldoende doordacht.
+
+De metafysica van de wordende God onttrekt zich aan elke toetsing en vond
+buiten kringen van Scheler-kenners weinig navolging. Wie het boek nu leest
+moet bovendien verdisconteren dat gedragsbiologie en primatologie sinds Köhler
+bijna een eeuw verder zijn; over werktuiggebruik, cultuur en zelfherkenning
+bij dieren is veel bekend dat Scheler niet kon weten, en een deel van de
+bewijslast is daarmee verschoven.
+
+#### Wat er concreet mee te doen is
+
+- Houd in discussies over mens en dier de vraag zuiver: gaat het om een
+gradueel verschil in vermogens of om een ander soort verhouding tot de wereld.
+- Gebruik wereldopenheid als toetssteen in het debat over kunstmatige
+intelligentie: kan een systeem de eigen omgeving en aandrijving tot voorwerp
+maken.
+- Herken de machteloosheid van de geest in organisaties: een idee zonder
+gekoppelde belangen en drijfveren verandert niets; zoek er dragende belangen
+bij.
+- Lees het boekje samen met een moderne studie over dierlijke cognitie, zodat
+beide kanten van de bewijslast zichtbaar worden.
+
+#### Wat je hierna leest
+
+- 48. Man's Search for Meaning. Frankl, die zich uitdrukkelijk op Scheler
+beriep, bouwde zijn logotherapie op dezelfde geestelijke dimensie van de mens
+en beproefde haar in het kamp.
+- 322. An Immense World. Yong laat zien hoe ver de soortgebonden
+zintuigwerelden uiteenlopen; Uexkülls omgevingsbegrip, dat Scheler gebruikt,
+in hedendaagse empirische uitvoering.
+- 383. If Nietzsche Were a Narwhal. Gregg verdedigt de tegenpositie:
+menselijke uitzonderlijkheid als overschat en soms schadelijk vermogen. Een
+nuttige tegenstem bij Schelers wezensverschil.
+- 405. The Denial of Death. Becker beschrijft de mens als het dier dat weet
+dat het sterft; een andere uitwerking van de spanning tussen drift en geest.
+
+## 585. Dying to Live
+
+Susan Blackmore, 1993. *Dying to Live: Near-Death Experiences* (Prometheus
+Books, Amherst, 1993, 294 blz., ISBN 9780879758707; Britse paperback: Grafton,
+Londen, 1993, ISBN 9780586092125). Er bestaat geen Nederlandse vertaling; de
+samenvatting is op de Engelse editie gebaseerd. Rubriek: brein en lichaam.
+Tags: `bijna-doodervaring`, `bewustzijn`, `neurowetenschap`, `scepsis`
+
+De Britse psycholoog Susan Blackmore, opgeleid als parapsycholoog en zelf
+ervaringsdeskundige na een urenlange uittreding als studente in 1970, zet in
+dit boek twee verklaringen voor de bijna-doodervaring tegenover elkaar: de
+hiernamaals-hypothese, waarin de ziel werkelijk het lichaam verlaat, en de
+stervende-brein-hypothese, waarin tunnel, licht, uittreding, levensfilm en
+vrede voortkomen uit bekende hersenprocessen bij zuurstofgebrek en doodsangst.
+
+Per onderdeel bouwt zij een fysiologische verklaring op: willekeurig vurende
+cellen in de visuele schors produceren een tunnel met licht (met Tom
+Troscianko simuleerde zij dat beeld op de computer), endorfinen verklaren de
+vrede, aanvalsachtige activiteit in slaapkwab en limbisch systeem de
+levensfilm, en het uiteenvallen van het zelfmodel de mystieke eenheid en de
+blijvende verandering daarna. Paranormale claims, zoals controleerbare
+waarnemingen tijdens uittredingen, houden bij toetsing geen stand.
+
+Het *Journal of Near-Death Studies* noemde het boek een van de wezenlijke
+bijdragen aan het vakgebied en *Skeptical Inquirer* doopte het een sceptische
+klassieker; onderzoekers uit de BDE-hoek bleven bezwaar maken tegen de
+heldere, geordende ervaring bij een falend brein. Latere studies met
+hartstilstandpatiënten hebben de discussie verscherpt zonder haar te
+beslechten.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Bijna-doodervaringen zijn echte en diep ingrijpende
+ervaringen, en juist daarom verdienen ze een echte verklaring. Blackmore stelt
+dat alle vaste onderdelen, de vrede, de tunnel, het licht, het zweven boven
+het eigen lichaam, de levensfilm en de blijvende verandering daarna,
+voortkomen uit bekende processen in een brein in doodsnood: zuurstofgebrek dat
+de remming in de visuele schors opheft, endorfinen die angst dempen,
+aanvalsachtige activiteit in de slaapkwab die herinneringen losmaakt, en het
+uiteenvallen van het model van het zelf dat het brein gewoonlijk in stand
+houdt. De hiernamaals-hypothese voegt daar niets controleerbaars aan toe en
+faalt op elk punt waar zij toetsbaar wordt gemaakt. Wie de ervaring serieus
+neemt hoeft geen ziel aan te nemen; er is uiteindelijk niemand die sterft,
+omdat het zelf een constructie van het brein is.
+
+#### De gang van het boek
+
+**Twee hypothesen voor een hardnekkig verschijnsel**
+
+Raymond Moody muntte de term near-death experience in *Life After Life* (1975)
+en stelde uit verslagen van gereanimeerde patiënten een samengesteld verloop
+samen: een geluid, een donkere tunnel, het eigen lichaam van buitenaf zien,
+overleden verwanten, een wezen van licht, een levensoverzicht, een grens en de
+terugkeer. Kenneth Ring bracht er in 1980 cijfers bij: in zijn onderzoeksgroep
+meldde ongeveer zestig procent vrede, ruim een derde een uittreding en een
+tiende het binnengaan van het licht.
+
+Blackmore toetst eerst het argument dat de ervaring overal en altijd hetzelfde
+zou zijn. De oogst uit Plato's mythe van Er, het Tibetaanse dodenboek,
+middeleeuwse visioenen en hedendaags onderzoek is consistentie zonder
+uniformiteit: Amerikanen zien overleden familieleden, Indiase stervenden in
+het onderzoek van Osis en Haraldsson zien hindoegoden, en in Indiase gevallen
+beschreven door Pasricha en Stevenson wordt de verkeerde persoon opgehaald en
+teruggestuurd, een motief dat in het Westen ontbreekt. Volgens haar levert het
+brein overal dezelfde vorm en vult de cultuur het beeldmateriaal in.
+
+**De tunnel en het licht**
+
+Het hart van het boek is de fysiologie van de tunnel. In de visuele schors
+zijn veel meer cellen gewijd aan het centrum van het gezichtsveld dan aan de
+rand. Valt door zuurstofgebrek de remming weg, dan gaan cellen willekeurig
+vuren, en dat willekeurige vuren oogt als een fel licht in het midden dat naar
+de randen verzwakt: een tunnel met licht aan het einde, dat groeit naarmate de
+ontremming toeneemt. Samen met Tom Troscianko simuleerde Blackmore dit op de
+computer; het beeld dijt uit alsof de waarnemer door de tunnel naar het licht
+beweegt.
+
+Dezelfde tunnels duiken op waar dezelfde fysiologie speelt: bij
+hyperventilatie, bij epilepsie, bij piloten die door g-krachten het bewustzijn
+verliezen en bij de kooldioxide-experimenten van psychiater Ladislas Meduna in
+de jaren vijftig, wiens patiënten lichten, tunnels en gevoelens van kosmische
+eenheid rapporteerden. Voor de hiernamaals-hypothese is de tunnel een
+doorgang; voor Blackmore is hij een kaart van de visuele schors.
+
+**Uittreding en de proef op de som**
+
+De uittreding verklaart Blackmore met haar theorie van mentale modellen,
+uitgewerkt in haar eerdere *Beyond the Body* (1992). Het brein onderhoudt
+doorlopend een model van de werkelijkheid en kiest het stabielste model als
+echt. Valt de zintuiglijke invoer weg, dan neemt een uit geheugen opgebouwd
+model het over, en herinneringen zijn opvallend vaak in vogelvlucht
+opgeslagen: wie een scène terughaalt, ziet zichzelf nogal eens van bovenaf.
+Dat gereconstrueerde model voelt volledig echt, omdat het op dat moment het
+beste model is dat het brein heeft.
+
+Deze verklaring doet een voorspelling: de waarnemingen tijdens een uittreding
+kloppen waar kennis en verwachting kloppen, en falen daarbuiten. De beroemde
+anekdote van de gymschoen die de patiënte Maria op een richel buiten het
+ziekenhuis zou hebben gezien, blijkt niet controleerbaar; proeven met
+verborgen doelwitten boven ziekenhuisbedden leverden niets op; en de
+nauwkeurige reanimatiebeschrijvingen bij cardioloog Michael Sabom laten zich
+verklaren uit voorkennis, gehoor en gissing. Precies wat het model voorspelt,
+aldus Blackmore.
+
+**Endorfinen, de levensfilm en de vrede**
+
+Dat mensen in doodsnood vrede en zelfs vreugde voelen, past bij wat er
+chemisch gebeurt: onder extreme stress komen endorfinen vrij, lichaamseigen
+opiaten die pijn en angst dempen. Diezelfde stoffen verlagen de aanvalsdrempel
+in de slaapkwab en het limbisch systeem, de gebieden waar het geheugen
+georganiseerd is. Wilder Penfield riep al in de jaren vijftig met elektrische
+prikkeling van de slaapkwab levendige herinneringsflitsen op bij wakkere
+patiënten.
+
+De levensfilm is in deze lezing een ontlading: aanvalsachtige activiteit in
+geheugengebieden die beelden losmaakt, door het brein tot een verhaal
+geordend. Zo verklaart één mechanisme waarom een klinische catastrofe van
+binnen kan aanvoelen als de mooiste ervaring van een leven.
+
+**Wat de toetsing niet oplevert**
+
+Blackmore is geen scepticus van de leunstoel: zij deed jaren parapsychologisch
+onderzoek en behandelt de paranormale claims als toetsbare beweringen. De
+oogst valt tegen. Er is geen gedocumenteerd geval waarin iemand tijdens een
+bijna-doodervaring controleerbare informatie verwierf die niet via gewone
+kanalen te verklaren valt, voorspellende visioenen uit de ervaring komen niet
+uit, en de sterkste verhalen blijken bij navraag steeds anekdotes uit de
+tweede hand.
+
+Haar conclusie is voorzichtig geformuleerd: de hiernamaals-hypothese is niet
+weerlegd, zij is overbodig. Alles wat verklaard moet worden, kan verklaard
+worden zonder ziel; wat alleen een ziel zou kunnen verklaren, is nooit
+aangetoond.
+
+**Niemand om te sterven**
+
+Het slot maakt van de fysiologie filosofie. Het zelf is volgens Blackmore net
+zo goed een model als de tunnel: een constructie waarmee het brein zijn eigen
+doen en laten samenvat. In de doodsnood valt ook dat model uiteen, en wat
+overblijft is ervaring zonder ervaarder, de eenheid die mystici in alle
+tradities beschrijven. Dat verklaart volgens haar de blijvende verandering na
+een bijna-doodervaring: wie het zelf als illusie heeft doorzien, vreest de
+dood minder en leeft anders.
+
+Voorbereiden op de dood kan dan zonder stervensnood, langs de weg van
+meditatie en zelfonderzoek die het boeddhisme al eeuwen wijst. Het boek
+eindigt zo dicht bij de contemplatieve tradities waarvan het de metafysica
+afwijst.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| bijna-doodervaring | Het samenhangende geheel van vrede, tunnel, licht, uittreding en levensfilm dat mensen rapporteren die de dood nabij waren; term van Moody uit 1975. |
+| stervende-brein-hypothese | De stelling dat alle onderdelen van de bijna-doodervaring voortkomen uit bekende hersenprocessen bij zuurstofgebrek en extreme stress. |
+| hiernamaals-hypothese | De stelling dat tijdens de ervaring werkelijk iets, ziel of bewustzijn, het lichaam verlaat en een andere wereld waarneemt. |
+| desinhibitie | Het wegvallen van remmende signalen in de hersenschors, waardoor cellen willekeurig gaan vuren; bij de visuele schors oogt dat als licht. |
+| mentaal model | Een door het brein opgebouwde voorstelling van de werkelijkheid; het stabielste model van dit moment wordt als echt ervaren. |
+| uittreding | De ervaring het eigen lichaam van buitenaf te zien, door Blackmore verklaard als een uit geheugen opgebouwd model in vogelvluchtperspectief. |
+| levensfilm | De stroom herinneringsbeelden tijdens de ervaring, in het boek herleid tot aanvalsachtige activiteit in slaapkwab en limbisch systeem. |
+| endorfinen | Lichaamseigen opiaten die bij grote stress vrijkomen en de vrede en pijnloosheid van de ervaring verklaren. |
+| zelfmodel | De constructie waarmee het brein een blijvend ik voorstelt; het uiteenvallen ervan levert de mystieke eenheid van de ervaring. |
+
+#### Waar het argument op rust
+
+De kracht van het boek zit in de bouwstenen die elk afzonderlijk
+gedocumenteerd zijn: de organisatie van de visuele schors, de tunnelsimulatie
+van Blackmore en Troscianko uit 1989, de kooldioxide-verslagen van Meduna,
+Penfields prikkelexperimenten en het endorfine-onderzoek. Ook het
+vergelijkende materiaal, van Osis en Haraldsson tot de Indiase gevallen van
+Pasricha en Stevenson, is echt onderzoek en geen bloemlezing. De verklaring
+per onderdeel is daarmee plausibel gemaakt, maar niet bewezen: niemand heeft
+in 1993 een stervend brein tijdens de ervaring gemeten, en het moment waarop
+de ervaring precies optreedt is onbekend.
+
+Later onderzoek heeft beide kanten munitie gegeven. De AWARE-studie onder
+hartstilstandpatiënten (2014) vond geen enkele geverifieerde waarneming van
+verborgen doelwitten, in lijn met Blackmores voorspelling. Daartegenover
+berekende Van Lommel in *The Lancet* (2001) dat maar achttien procent van 344
+hartstilstandpatiënten een bijna-doodervaring meldde, terwijl zuurstofgebrek
+bij allen optrad; als anoxie de oorzaak is, vraagt dat om een verklaring
+waarom de meesten niets ervaren. Het debat dat dit boek ordende, loopt dus
+nog.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar richt zich op de helderheid van de ervaring.
+Zuurstofgebrek geeft in de regel verwarring en geheugenverlies, terwijl
+bijna-doodervaringen juist als uitzonderlijk helder en geordend worden
+herinnerd, soms met een betrouwbaar gerapporteerd verloop. Onderzoekers rond
+het *Journal of Near-Death Studies* verweten Blackmore dat zij dit verschil
+wegverklaart, en dat zij anekdotes streng toetst wanneer ze paranormaal zijn
+en soepel aanvaardt wanneer ze fysiologisch passen.
+
+Ook de theorie zelf kent zwakke plekken. Het zelfmodel-kader is zo rekbaar dat
+vrijwel elke uitkomst erin past, waarmee het risico van onweerlegbaarheid van
+de hiernamaals-hypothese naar de eigen theorie verhuist. En de losse
+mechanismen vormen samen nog geen bewezen keten: dat endorfinen vrede geven en
+ontremming tunnels, betekent niet dat dit bij deze patiënten op dat moment zo
+verliep. Daar staat tegenover dat Blackmore haar onzekerheden zelf benoemt en
+toetsbare voorspellingen doet; dat het veld haar boek ondanks de conclusie als
+standaardwerk erkende, zegt iets over de zorgvuldigheid ervan.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij een buitengewone claim eerst welk controleerbaar verschil zij
+maakt; een verklaring die niets verbiedt, verklaart niets.
+- Neem verslagen van bijna-doodervaringen serieus als ervaring zonder de
+interpretatie mee te kopen; erkenning en scepsis kunnen samengaan.
+- Zoek bij twee rivaliserende verklaringen de voorspelling waarop ze
+uiteenlopen, zoals de verborgen doelwitten bij uittredingen, en oordeel
+daarop.
+- Wie angst voor de dood wil temperen kan volgens Blackmore terecht bij
+meditatie en zelfonderzoek; inzicht in de opbouw van het zelf doet hetzelfde
+werk als de ervaring.
+
+#### Wat je hierna leest
+
+- 63. The Demon-Haunted World. Sagan levert het algemene gereedschap voor het
+wegen van buitengewone claims dat Blackmore hier op één verschijnsel toepast.
+- 340. The Holographic Universe. Talbot leest dezelfde ervaringen als bewijs
+voor een holografische werkelijkheid, de tegenpool van het
+stervende-brein-model.
+- 275. How to Change Your Mind. Pollan beschrijft hoe psychedelica het
+zelfmodel tijdelijk ontmantelen, hetzelfde mechanisme dat Blackmore achter de
+bijna-doodervaring zoekt.
+- 405. The Denial of Death. Becker verklaart waarom mensen aan een hiernamaals
+hechten; Blackmore laat zien wat er overblijft als die behoefte geen bewijs
+oplevert.
+
+## 586. Oefeningen van de geest
+
+Pierre Hadot, 1981. *Exercices spirituels et philosophie antique* (Études
+Augustiniennes, Parijs, 1981; uitgebreide editie Albin Michel, Parijs, 2002).
+Engelse, door Arnold I. Davidson samengestelde en ingeleide bundel:
+*Philosophy as a Way of Life: Spiritual Exercises from Socrates to Foucault*,
+vertaald door Michael Chase (Blackwell, Oxford, 1995, 309 blz., ISBN
+9780631180333). Nederlandse vertaling: *Oefeningen van de geest: het antieke
+denken en de kunst van het leven*, vertaald door Peter Klinkenberg (Ambo,
+Amsterdam, 2005, 290 blz., ISBN 9789026319266). Rubriek: levenskunst.
+Tags: `antieke filosofie`, `geestelijke oefeningen`, `stoïcisme`,
+`levenskunst`
+
+Pierre Hadot (1922-2010), filoloog en historicus van de antieke filosofie aan
+het Collège de France, betoogt in deze essaybundel dat filosofie in de oudheid
+in de eerste plaats een levensvorm was. Wie zich bij de Stoa, de tuin van
+Epicurus of de Academie aansloot, koos een manier van leven en onderhield die
+met geestelijke oefeningen: aandacht voor het ogenblik, het vooraf doordenken
+van tegenslag, gewetensonderzoek, meditatie op kernspreuken en de blik van
+boven. De bewaarde geschriften, van Marcus Aurelius' aantekeningen tot de
+brieven van Seneca, moeten volgens Hadot als oefenmateriaal gelezen worden;
+als systeembouw beoordeeld lijken zij zwak, als oefening gelezen kloppen zij.
+
+De bundel volgt die draad door de geschiedenis: het vroege christendom nam de
+oefeningen over en noemde zichzelf filosofie, de middeleeuwse universiteit
+maakte van filosofie een theorievak in dienst van de theologie, en denkers als
+Montaigne, Goethe, Nietzsche, Thoreau en Wittgenstein hielden de oude
+opvatting levend. De Engelse editie uit 1995, samengesteld door Arnold
+Davidson, maakte Hadot buiten Frankrijk beroemd; Michel Foucault had zich al
+eerder door deze essays laten inspireren.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Filosofie was in de oudheid een existentiële keuze voor een
+levensvorm, onderhouden door geestelijke oefeningen; het filosofische
+discours, de leerstukken en argumenten, stond in dienst van die praktijk. De
+moderne opvatting van filosofie als zuiver theoretisch vak is volgens Hadot
+historisch verklaarbaar uit de middeleeuwse onderschikking aan de theologie en
+de latere academisering, en dus geen noodzakelijkheid. Wie de antieke teksten
+als gebrekkige theorie leest, mist hun aard: hun herhalingen en schijnbare
+tegenspraken horen bij teksten die iets met de lezer of leerling wilden doen.
+En wie filosofie weer als oefening opvat, wint een traditie van levenskunst
+terug die van Socrates tot Marcus Aurelius reikt en die na de oudheid nooit
+helemaal verdwenen is.
+
+#### De gang van het boek
+
+**Wat een geestelijke oefening is**
+
+Het kernessay omschrijft geestelijke oefeningen als vrijwillige, persoonlijke
+praktijken waarmee iemand de eigen wijze van zien en leven verandert. Hadot
+kiest het woord geestelijk bij gebrek aan beter: de oefeningen betreffen de
+hele persoon, voorstelling en gevoel inbegrepen. Tot het antieke repertoire
+horen de prosochè of voortdurende aandacht, het memoriseren van leerstellingen
+in korte, altijd beschikbare formules, meditatie, het vooraf doordenken van
+tegenslag (premeditatio malorum), het gewetensonderzoek aan het einde van de
+dag en de verbeelde blik van boven op het eigen bestaan.
+
+Het doel is telkens hetzelfde: loskomen van het benauwde eigen standpunt en
+gaan zien vanuit de rede of de kosmos. Filosoferen is in Plato's woorden
+oefenen in sterven: het standpunt van het begerende ik prijsgeven.
+
+**Socrates en Marcus Aurelius**
+
+Twee figuren dragen de bundel. Socrates, gelezen via het *Symposium*, is het
+oermodel: geen leerstelsel, wel een leven dat anderen dwingt zich rekenschap
+te geven, met de ironie als werktuig. Marcus Aurelius levert het duidelijkste
+oefenschrift. Zijn *Overpeinzingen* zijn volgens Hadot geen dagboek van
+stemmingen; het zijn telkens herhaalde toepassingen van stoïcijnse kernregels
+op de eigen dag, geschreven om het eigen zien te hernieuwen. De schijnbare
+wanorde van het boekje is de orde van de oefening: wat vandaag geoefend moet
+worden, wordt vandaag opgeschreven.
+
+**Fysica als oefening en de blik van boven**
+
+Verrassend is Hadots stelling dat ook de antieke natuurleer een oefening was.
+Epicurus onderwees zijn fysica om de angst voor goden en dood weg te nemen; de
+stoïcijnen beschouwden de natuur om het eigen lot als deel van het geheel te
+aanvaarden. De blik van boven, het zich verheffen in de verbeelding tot de
+sterren om steden, oorlogen en eerzucht op hun ware maat te zien, komt bij
+dichters en filosofen van alle scholen terug. Wetenschap bedrijven kon zelf
+een manier zijn om vrij te worden.
+
+**Christendom en de grote versmalling**
+
+Het vroege christendom presenteerde zichzelf als filosofie, dat wil zeggen als
+levensvorm, en nam de antieke oefeningen in het kloosterleven op; de
+*Geestelijke oefeningen* van Ignatius van Loyola zijn een late erfgenaam van
+die traditie. In de middeleeuwse universiteit voltrok zich vervolgens de
+versmalling die Hadot wil begrijpen: filosofie werd dienstmaagd van de
+theologie, de oefeningen verhuisden naar de spiritualiteit, en over bleef een
+theoretisch discours voor vakgenoten. De moderne universitaire filosofie heeft
+die vorm geërfd: professoren die professoren opleiden.
+
+**Moderne getuigen**
+
+De oude opvatting verdween nooit helemaal. Hadot wijst op Montaigne, wiens
+*Essais* oefeningen in leven en sterven zijn, op Goethe, op Thoreau in zijn
+hut bij Walden, op Nietzsche en Schopenhauer, en op Wittgenstein, over wie hij
+in Frankrijk als een van de eersten schreef en die filosofie als werk aan
+zichzelf opvatte. Deze lijn dient als bewijs dat filosofie als levensvorm geen
+antiquarische curiositeit is; zij is een blijvende mogelijkheid die telkens
+buiten of tegen de universiteit om terugkeert.
+
+**Het gesprek met Foucault en de figuur van de wijze**
+
+Foucault ontleende zijn late werk over de zorg voor zichzelf mede aan Hadot en
+erkende dat ruiterlijk. Hadot geeft de waardering terug en formuleert een
+bezwaar: bij de Ouden richtte de oefening zich op het overstijgen van het ik
+naar rede, natuur en gemeenschap, terwijl Foucaults esthetiek van het bestaan
+blijft hangen in het vormgeven van het eigen zelf, een nieuwe vorm van
+dandyisme. Het slot voert de figuur van de wijze op als onbereikbaar richtpunt
+van alle scholen: de filosoof is wie naar wijsheid onderweg blijft, en de
+eerste oefening is leven in het enige dat iemand toebehoort, het heden.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| geestelijke oefening | Vrijwillige, persoonlijke praktijk die de wijze van zien en leven moet veranderen; het grondwoord van de bundel. |
+| prosochè | De stoïcijnse aandacht voor het ogenblik: waakzaamheid over het eigen oordelen, begeren en handelen. |
+| premeditatio malorum | Het vooraf doordenken van tegenslag, verlies en dood, om er bij voorbaat vrij tegenover te staan. |
+| blik van boven | De verbeeldingsoefening die het eigen bestaan vanaf de hoogte van de kosmos bekijkt om het op ware grootte te zien. |
+| oefening in sterven | Plato's omschrijving van het filosoferen: het loslaten van het standpunt van het begerende ik, zodat de dood zijn schrik verliest. |
+| filosofisch discours | Het samenstel van leer en argument, dat in de oudheid volgens Hadot in dienst van de levensvorm stond. |
+| de wijze | Het onbereikbare richtpunt van de antieke scholen; de filosoof is wie naar wijsheid onderweg blijft. |
+| zorg voor zichzelf | Foucaults hernemen van de antieke zelfpraktijken, door Hadot gewaardeerd en tegelijk bekritiseerd. |
+
+#### Waar het argument op rust
+
+Hadots bewijs is filologisch: nauwkeurige lezing van Marcus Aurelius, Seneca,
+Epictetus, Epicurus en Plato, en het aanwijzen van vaste oefenvormen achter de
+bewaarde tekstsoorten. Zijn gezag op dit terrein stond buiten kijf; hij
+bekleedde vanaf 1982 de leerstoel voor hellenistisch en Romeins denken aan het
+Collège de France.
+
+De historische lijn, van filosofie als levensvorm naar dienstmaagd van de
+theologie naar vakdiscipline, steunt op bronnen uit patristiek en middeleeuwen
+die Hadot als kenner van Plotinus en Marius Victorinus uit de eerste hand
+kende. Dat de Ignatiaanse oefeningen op antieke praktijken teruggaan,
+documenteert hij langs de lijn van het vroege monnikendom.
+
+De invloed van de these is aanwijsbaar: Foucault noemde Hadot uitdrukkelijk in
+*L'usage des plaisirs*, en de hedendaagse golf van populair stoïcisme drijft,
+meestal zonder bronvermelding, op het beeld van filosofie als oefening dat
+hier is uitgewerkt. Onder vakgenoten is de kern breed aanvaard; de discussie
+gaat over de reikwijdte.
+
+#### Wat er tegen in te brengen valt
+
+Dit is een essaybundel, samengesteld uit stukken van verschillende decennia,
+en dat is te merken: thema's en citaten keren terug, en een doorlopend betoog
+ontbreekt. Wie één geordend boek wil, kan beter Hadots *Qu'est-ce que la
+philosophie antique?* (1995) lezen. Verwarrend genoeg heet juist dat boek in
+het Nederlands *Filosofie als een manier van leven* (Ambo, 2007), terwijl de
+Engelse titel *Philosophy as a Way of Life* deze essaybundel aanduidt; wie een
+van beide zoekt, moet op de ondertitel letten.
+
+Vakinhoudelijk is de sterkste tegenwerping die van John Cooper (*Pursuits of
+Wisdom*, 2012): de antieke filosofie grondde haar levensvorm op redelijke
+argumentatie, en wie de oefening vooropzet, onderschat het aandeel van het
+argument. De these past bovendien het best op de hellenistische scholen; voor
+Aristoteles, bij wie het beschouwende leven zelf het doel is, wringt het
+schema.
+
+Ten slotte draagt het woord spiritueel lading die Hadot zelf ongelukkig
+noemde, en blijft de sociale werkelijkheid buiten beeld: de beschreven
+oefenpraktijk was er een van een geletterde mannelijke elite, met slavernij
+als achtergrond. Of de oefeningen los van de antieke kosmologie hun werk nog
+doen, is een vraag die de bundel opwerpt en niet beantwoordt.
+
+#### Wat er concreet mee te doen is
+
+- Sluit de dag af met het gewetensonderzoek van Seneca: wat is gedaan, wat
+ging mis, wat kan morgen anders.
+- Doorloop bij een gevreesde gebeurtenis de premeditatio malorum: stel het
+ergste concreet voor en formuleer wat er dan nog te doen staat.
+- Gebruik de blik van boven wanneer zorgen het hele blikveld vullen: bekijk de
+eigen situatie vanaf de hoogte van stad, aarde en sterren.
+- Leer enkele kernzinnen uit een gekozen school van buiten, zodat zij op het
+moment zelf beschikbaar zijn.
+- Lees een filosofische tekst eens als oefenmateriaal, met als leesvraag welke
+verandering in het kijken de bladzijde teweeg wil brengen.
+
+#### Wat je hierna leest
+
+- 2. Overpeinzingen. Marcus Aurelius' Overpeinzingen zijn het belangrijkste
+voorwerp van Hadots lezing; na deze bundel leest dat oefenschrift anders.
+- 292. Letters from a Stoic. Seneca's brieven tonen de oefeningen in bedrijf,
+van gewetensonderzoek tot doodsmeditatie.
+- 30. The Obstacle Is the Way. Holiday maakt van de stoïcijnse oefenstof een
+handboek voor tegenslag; de populaire uitloper van wat Hadot historisch
+beschrijft.
+- 516. The Antidote. Burkeman onderzoekt het negatieve pad naar geluk en
+betrekt daarbij premeditatio en doodsbesef; een journalistieke pendant.
+
+## 587. Insight: A Study of Human Understanding
+
+Bernard Lonergan, 1957. *Insight: A Study of Human Understanding* (Longmans,
+Green & Co, Londen, 1957, 785 blz.). Kritische editie: Collected Works of
+Bernard Lonergan, deel 3, bezorgd door Frederick E. Crowe en Robert M. Doran
+(University of Toronto Press, Toronto, 1992, 876 blz., ISBN 9780802034557).
+Een Nederlandse vertaling bestaat niet. Rubriek: filosofie en mystiek.
+Tags: `kennisleer`, `inzicht`, `metafysica`, `theologie`
+
+Bernard Lonergan (1904-1984), Canadees jezuïet en filosoof-theoloog, schreef
+met *Insight* een van de omvangrijkste kentheoretische werken van de
+twintigste eeuw. Het boek opent met Archimedes die naakt uit het badhuis rent
+en vraagt wat er in zo'n moment van begrijpen gebeurt. Van daaruit bouwt
+Lonergan een leer van het kennen op: kennis komt tot stand in een terugkerende
+structuur van ervaren, verstaan en oordelen, en wie die structuur in zichzelf
+leert betrappen, de zelftoe-eigening die het boek van de lezer vraagt, heeft
+een vast uitgangspunt voor wetenschapsleer, metafysica, ethiek en godsleer.
+
+De eerste helft volgt de inzichtsact door wiskunde, natuurwetenschap en gezond
+verstand, met veel aandacht voor statistiek en voor de vertekeningen van het
+alledaagse denken. De tweede helft bevestigt de kenner in zijn eigen kennen en
+bouwt daarop een metafysica en een godsargument. Het boek verscheen in 1957,
+telt in de kritische editie van 1992 bijna negenhonderd bladzijden en geldt
+als notoir veeleisend; er bestaat een hele hulpliteratuur om erdoorheen te
+komen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Lonergans these staat in zijn eigen inleiding: wie grondig
+begrijpt wat het is om te begrijpen, begrijpt in grote lijnen alles wat er te
+begrijpen valt, en bezit bovendien een vast uitgangspunt, een onveranderlijk
+patroon, dat voor alle verdere ontwikkeling van kennis openstaat. Kennen is
+volgens hem geen kwestie van goed kijken; het is een samengestelde activiteit
+op drie niveaus: ervaren levert de gegevens, verstaan grijpt daarin met een
+inzichtsact een mogelijke samenhang, en oordelen weegt af of die samenhang er
+werkelijk is. Deze structuur laat zich zonder zelfweerlegging niet ontkennen:
+wie haar bestrijdt, ervaart, verstaat en oordeelt daarbij zelf. Op dit ene
+fundament trekt Lonergan achtereenvolgens een wetenschapsleer, een metafysica,
+een ethiek en een natuurlijke godskennis op.
+
+#### De gang van het boek
+
+**Het inzicht op heterdaad**
+
+Het boek opent met Archimedes, die in het bad de oplossing voor het probleem
+van de gouden kroon ziet, en ontleedt aan dat voorbeeld de inzichtsact: zij
+komt als ontlading van de spanning van het onderzoek, plotseling en
+onverwacht, zij hangt af van innerlijke voorwaarden en niet van uiterlijke
+omstandigheden, zij bemiddelt tussen het concrete en het abstracte, en zij
+gaat over in het blijvende weefsel van de geest. Wie eenmaal begrepen heeft,
+kan zich de vroegere domheid nauwelijks meer voorstellen.
+
+Daarnaast staat het omgekeerde inzicht: het begrijpen dat er in een bepaalde
+richting niets te begrijpen valt, zoals bij de irrationale getallen of het
+traagheidsbeginsel. Juist die figuur speelt verderop een grote rol.
+
+**Heuristische structuren van de wetenschap**
+
+De wetenschap werkt volgens Lonergan met heuristische structuren: zij grijpt
+op het nog onbekende vooruit door de vorm van het antwoord vast te leggen,
+zoals een vergelijking de onbekende alvast een plaats geeft. De klassieke
+methode, met Galilei als voorbeeld, zoekt wetmatige functieverbanden; de
+statistische methode zoekt frequenties en kansen. Beide zijn volwaardig en
+vullen elkaar aan.
+
+Uit hun samenspel ontwikkelt Lonergan een wereldbeeld dat hij emergente
+waarschijnlijkheid noemt: de werkelijkheid bestaat uit terugkeerschema's,
+kringlopen van gebeurtenissen die elkaar mogelijk maken, en de wereldorde is
+de gestaffelde kans waarmee zulke schema's opkomen en standhouden.
+Determinisme is daarmee van tafel zonder dat alles toeval wordt.
+
+**Gezond verstand en zijn vertekeningen**
+
+Het gezond verstand is een eigen, volwaardige specialisatie van het verstaan,
+gericht op het concrete en praktische. Het heeft echter ingebouwde blinde
+vlekken, die Lonergan bias noemt. De dramatische bias of scotosis weert
+onwelkome inzichten uit iemands zelfbeeld; de individuele bias stelt het eigen
+voordeel voorop; de groepsbias laat een klasse of natie alleen zien wat haar
+uitkomt; en de algemene bias is de neiging van het gezond verstand om zichzelf
+allesbevoegd te achten en theorie en lange termijn te verwaarlozen.
+
+Uit die vertekeningen verklaart Lonergan maatschappelijk verval als een
+spiraal van steeds onintelligentere situaties. Als tegenwicht schetst hij wat
+hij cosmopolis noemt: een culturele instantie, geen staat en geen partij, die
+het langere zicht bewaakt.
+
+**Het oordeel en de zelfbevestiging van de kenner**
+
+Een inzicht kan briljant zijn en toch onwaar. Het derde niveau, het oordeel,
+weegt daarom of een begrepen samenhang werkelijk bestaat. Lonergans maatstaf
+is het virtueel onvoorwaardelijke: een stelling heeft voorwaarden, en wanneer
+die voorwaarden vervuld blijken, is het redelijk haar te bevestigen. Kennis is
+dus geen sprong en geen gevoel; zij is de vrucht van vervulde voorwaarden.
+
+Het scharnier van het boek is hoofdstuk elf, de zelfbevestiging van de kenner.
+De stelling ik ben een kenner is zelf een oordeel waarvan de voorwaarden in
+het eigen bewustzijn vervuld zijn: er zijn ervaringen, er is verstaan, er
+wordt geoordeeld. Elke poging tot herziening gebruikt dezelfde structuur en
+bevestigt haar daarmee opnieuw. Dit is het onherroepelijke uitgangspunt dat
+Lonergan zocht.
+
+**Zijn, objectiviteit en metafysica**
+
+Zijn is voor Lonergan alles wat door het geheel van ware oordelen gekend zou
+worden; het kennen en het gekende zijn structureel op elkaar afgestemd.
+Objectiviteit is dan geen kwestie van naar buiten kijken; zij heeft een
+ervaringscomponent, een normatieve component (trouw aan de eigen vragen) en
+een absolute component (het virtueel onvoorwaardelijke).
+
+Op deze grondslag bouwt Lonergan een metafysica als integrale heuristische
+structuur van het kenbare: aan ervaren, verstaan en oordelen beantwoorden
+potentie, vorm en act als elementen van al het proportionele zijnde.
+Metafysica is hier dus geen aparte bovenwereld; zij is de kaart die de
+kenstructuur over de werkelijkheid legt.
+
+**Ethiek, God en het kwaad**
+
+De structuur loopt door in het handelen: op het redelijke oordeel volgt de
+vraag wat te doen, en het goede is wat de redelijke reflectie verkiest.
+Lonergan onderscheidt wezenlijke en effectieve vrijheid en beschrijft morele
+onmacht: het redelijk gekende wordt lang niet altijd gedaan.
+
+Hoofdstuk negentien betoogt dat het werkelijke volledig intelligibel is en dat
+die volledige intelligibiliteit het bestaan van God insluit, gedacht als
+onbeperkte act van verstaan. Het slothoofdstuk behandelt het kwaad als het
+onherleidbare tegenredelijke feit en schetst de vorm van een oplossing die de
+mens niet zelf kan leveren; daarmee slaat het boek de brug naar de theologie.
+In 1972 volgde *Method in Theology*, dat aan de drie niveaus een vierde
+toevoegde, het beslissen, en rond het werk groeide een eigen
+onderzoekstraditie met instituten en tijdschriften.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| inzichtsact | Het plotselinge begrijpen dat in gegevens een mogelijke samenhang grijpt; het laat zich voorbereiden maar niet afdwingen. |
+| zelftoe-eigening | Het bij zichzelf betrappen en bevestigen van de eigen kenstructuur; het eigenlijke doel dat het boek de lezer stelt. |
+| ervaren, verstaan, oordelen | De drie samenhangende niveaus waaruit menselijk kennen volgens Lonergan bestaat. |
+| omgekeerd inzicht | Het begrijpen dat er in een bepaalde richting niets te begrijpen valt, zoals bij toeval of traagheid. |
+| heuristische structuur | Het vooruitgrijpen op het nog onbekende door de vorm van het antwoord vast te leggen, zoals een vergelijking de onbekende een plaats geeft. |
+| emergente waarschijnlijkheid | Lonergans wereldbeeld: terugkeerschema's van gebeurtenissen komen met gestaffelde kansen op en houden stand. |
+| scotosis | De blinde vlek die ontstaat doordat onwelkome inzichten stelselmatig uit het bewustzijn worden geweerd. |
+| algemene bias | De neiging van het gezond verstand zichzelf allesbevoegd te achten en theorie en lange termijn te verwaarlozen. |
+| virtueel onvoorwaardelijke | Een stelling waarvan de voorwaarden vervuld blijken; voor Lonergan de grond waarop een oordeel verantwoord is. |
+
+#### Waar het argument op rust
+
+Het boek voert geen empirie aan maar een performatief argument: de lezer moet
+de beschreven acts in de eigen ervaring aanwijzen, en wie de kenstructuur
+ontkent, gebruikt haar in die ontkenning. Dit argument draagt het hele
+bouwwerk; de honderden bladzijden wiskunde, natuurkunde en alledaagse
+voorbeelden dienen om de act van het verstaan telkens opnieuw op heterdaad te
+laten betrappen.
+
+De wetenschappelijke stof was voor 1957 zorgvuldig gekozen: Lonergan verwerkte
+relativiteitstheorie, kwantumstatistiek en waarschijnlijkheidsrekening, en hij
+had zijn kenleer voorbereid in jarenlange studies over Thomas van Aquino, de
+zogeheten Verbum-artikelen uit 1946-1949.
+
+De toets blijft subjectgebonden: of het fundament houdt, hangt ervan af of de
+lezer de zelftoe-eigening werkelijk voltrekt. Aanhangers zien daarin de
+sterkte, ieder kan het bij zichzelf nagaan; critici zien een cirkel die het
+eigen bewustzijn nooit verlaat.
+
+#### Wat er tegen in te brengen valt
+
+Eerst de omvang en de eis. Bijna achthonderd dichte bladzijden in de
+oorspronkelijke editie, geopend met vijf hoofdstukken wiskunde en
+natuurwetenschap waar menige lezer nooit doorheen komt. Lonergan schreef voor
+lezers die maandenlang willen meewerken, en juist omdat het origineel zoveel
+vraagt bestaan er leesgidsen zoals Terry Tekippes *What Is Lonergan Up To in
+Insight?*. Die moeilijkheid is geen opsmuk: het boek wil een oefening zijn, en
+de stof is werkelijk zo lastig als zij eruitziet.
+
+Buiten het katholieke denken is het boek nauwelijks opgenomen. De analytische
+kenleer heeft er weinig mee gedaan, en binnen het thomisme verweten critici
+uit de school van Gilson de transcendentale aanpak dat zij bij het subject
+begint en daarmee aan Kant meer toegeeft dan een realist kan verantwoorden. De
+Lonergan-studies vormen zo een eigen wereld met eigen congressen en
+tijdschriften, en wie daarbuiten staat kan de betekenis van het werk moeilijk
+aan onafhankelijke receptie afmeten.
+
+Het negentiende hoofdstuk, waarin uit de volledige intelligibiliteit van het
+werkelijke het bestaan van God wordt afgeleid, geldt ook onder welwillende
+lezers als de zwakste schakel: wie de premisse niet al aanvaardt, krijgt geen
+onafhankelijke reden haar te aanvaarden. Daarnaast is de natuurwetenschap in
+het boek die van de jaren vijftig; de hoofdlijn van de methodeleer overleeft
+dat, de voorbeelden verouderen.
+
+#### Wat er concreet mee te doen is
+
+- Onderscheid bij een vraagstuk de drie niveaus: welke gegevens zijn er, welke
+mogelijke verklaring dient zich aan, en is aan de voorwaarden voldaan om haar
+waar te noemen.
+- Stel voor elk stellig oordeel de vraag naar het virtueel onvoorwaardelijke:
+welke voorwaarden moeten vervuld zijn, en blijken zij vervuld.
+- Zoek bij hardnekkige meningsverschillen naar scotosis en groepsbias: welke
+inzichten worden geweerd omdat zij onwelkom zijn.
+- Noteer eigen inzichtsmomenten en de vragen die eraan voorafgingen; de
+spanning van het onderzoek laat zich aankweken, de flits zelf niet afdwingen.
+
+#### Wat je hierna leest
+
+- 55. Thinking, Fast and Slow. Kahneman brengt empirisch in kaart waar
+verstaan en oordelen falen; een proefondervindelijke tegenhanger van Lonergans
+normatieve structuur.
+- 93. Toeval. Hopster behandelt het toeval wijsgerig; naast Lonergans
+emergente waarschijnlijkheid en omgekeerde inzichten een toegankelijke ingang
+in hetzelfde vraagstuk.
+- 420. How to Read a Book. Adler en Van Doren leren lezen op niveaus van
+begrijpen en beoordelen; een praktische voorschool voor wie ooit aan dit boek
+wil beginnen.
+- 509. The 5 Elements of Effective Thinking. Burger en Starbird maken van het
+uitlokken van inzicht een leermethode; de didactische kleine broer van
+Lonergans grote analyse.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
 
 `1906` 127 · `1908` 378 · `1937` 76 · `1938` 58 · `1952` 83 ·
 `19e-eeuws-Duitsland` 391 · `aanbod` 307 · `aandacht` 17, 34, 54, 70, 71, 78,
-141, 205, 209, 248, 288, 326, 333, 341, 390, 441, 461, 517 · `aandelen` 474,
-481 · `aannames` 27 · `aanpassingsvermogen` 157, 252 · `aantekeningen` 81 ·
-`aantekeningen maken` 420 · `aanwezigheid` 149, 435 · `aarde` 92 · `abonnees`
-369 · `absurdisme` 173 · `academisch` 143 · `acausaliteit` 362 · `acceptance
-and commitment therapy` 457, 460 · `achttiende eeuw` 321 · `acteren` 385 ·
-`actie` 427 · `actualiteit` 237 · `actueel` 67 · `adel` 235 · `ademhaling` 87,
-118, 318, 332, 432 · `adleriaanse-psychologie` 335 · `advaita` 527 · `advaita
-vedanta` 520 · `adverteren` 308 · `advies` 473 · `adviespraktijk` 151 ·
-`adviseren` 511 · `affirmaties` 117, 184, 188, 190, 380, 403, 439, 560 ·
-`afhankelijkheid` 167 · `afleiding` 290 · `aforismen` 2, 17, 179, 216, 218,
-228, 391, 394, 462, 473, 535 · `afscheid nemen` 285 · `afschrikking` 217 ·
-`afvallen` 557 · `afwezige-vader` 4 · `agenda` 512 · `agressie` 223, 339 ·
-`alcohol` 4 · `algoritmen` 476, 477, 479 · `alledaags` 89 · `allegorie` 222,
-524 · `allocatie` 507 · `amazon` 257 · `ambacht` 6, 12, 13, 17, 18 · `ambitie`
-75 · `Amerika` 114, 431 · `amerikaans` 117, 118, 120, 132, 133, 134, 136, 158
-· `amerikaanse droom` 284 · `Amerikaanse geschiedenis` 402 · `amerikaanse
+141, 205, 209, 248, 288, 326, 333, 341, 390, 441, 461, 517, 579, 581 ·
+`aandeelhouders` 567 · `aandelen` 474, 481 · `aannames` 27 ·
+`aanpassingsvermogen` 157, 252 · `aantekeningen` 81 · `aantekeningen maken`
+420 · `aanwezigheid` 149, 435 · `aarde` 92 · `abonnees` 369 · `absurdisme` 173
+· `academisch` 143 · `acausaliteit` 362 · `acceptance and commitment therapy`
+457, 460 · `achttiende eeuw` 321 · `acteren` 385 · `actie` 427 · `actualiteit`
+237 · `actueel` 67 · `adel` 235 · `ademhaling` 87, 118, 318, 332, 432 ·
+`adleriaanse-psychologie` 335 · `advaita` 527 · `advaita vedanta` 520 ·
+`adverteren` 308 · `advies` 473 · `adviespraktijk` 151 · `adviseren` 511 ·
+`affirmaties` 117, 184, 188, 190, 380, 403, 439, 560 · `afhankelijkheid` 167 ·
+`afleiding` 290 · `aforismen` 2, 17, 179, 216, 218, 228, 391, 394, 462, 473,
+535 · `afscheid nemen` 285 · `afschrikking` 217 · `afvallen` 557 ·
+`afwezige-vader` 4 · `agenda` 512 · `agressie` 223, 339 · `alcohol` 4 ·
+`algoritmen` 476, 477, 479 · `alledaags` 89 · `allegorie` 222, 524 ·
+`allocatie` 507 · `amazon` 257 · `ambacht` 6, 12, 13, 17, 18 · `ambitie` 75 ·
+`Amerika` 114, 431 · `amerikaans` 117, 118, 120, 132, 133, 134, 136, 158 ·
+`amerikaanse droom` 284 · `Amerikaanse geschiedenis` 402 · `amerikaanse
 revolutie` 243 · `Amsterdam` 295 · `anatomie` 241, 412 · `Andalusië` 8 ·
 `Andes` 521 · `angst` 53, 58, 107, 119, 131, 136, 140, 181, 214, 252, 341,
 401, 440, 548 · `angst voor de dood` 377 · `animatie` 41 · `Antarctica` 36 ·
-`anthologie` 189 · `antropologie` 223, 410 · `antwerpen` 113 · `apartheid` 26,
-523 · `Apple` 46, 231 · `apps` 294 · `arbeid` 6, 173, 297, 390 ·
-`arbeidsethos` 266 · `archetype` 360 · `archetypen` 357, 404, 407, 409, 410 ·
-`Argentinië` 521 · `argumentatie` 421, 437, 511 · `argumenten` 63 ·
-`argumenteren` 438 · `Aristoteles` 438 · `armoede` 26, 234, 254 ·
-`Arthashastra` 370 · `assertiviteit` 162 · `asymmetrie` 282 · `atletiek` 31 ·
-`atomisme` 281 · `Auschwitz` 48 · `Australië` 447 · `autobiografie` 358, 440 ·
-`automatisering` 297, 539 · `autonomie` 6, 50 · `autoriteit` 215 · `autotelie`
-200 · `backtesten` 482, 502 · `banken en verzekeraars` 497 · `barok` 216 ·
-`basisbehoeften` 107 · `bbc` 82 · `bedrijfscultuur` 170, 257, 270 ·
-`bedrijfsgroei` 350 · `bedrijfsleven` 209, 293 · `bedrijfsonderzoek` 353 ·
-`bedrijfssystemen` 264 · `beeldcultuur` 563 · `beeldverhaal` 561 · `beginners`
-112 · `behoeften` 35 · `beinvloeding` 123, 126 · `beïnvloeding` 399 ·
-`bekentenis` 60 · `belangenverstrengeling` 138 · `beleggen` 21, 64, 144, 233,
-277, 351, 474, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 489,
-490, 492, 496, 498, 499, 500, 501, 502, 503, 504, 505 · `beleid` 65 ·
-`beloningssysteem` 418 · `bemiddeling` 35 · `beroemdheden` 128 · `beroemdheid`
-563 · `beschadigd-bestand` 115, 130 · `beschaving` 57 · `beslissen` 55 ·
+`anthologie` 189 · `antieke filosofie` 586 · `antropologie` 223, 410 ·
+`antwerpen` 113 · `apartheid` 26, 523 · `Apple` 46, 231 · `apps` 294 ·
+`arbeid` 6, 173, 297, 390 · `arbeidsethos` 266 · `archetype` 360 ·
+`archetypen` 357, 404, 407, 409, 410 · `Argentinië` 521 · `argumentatie` 421,
+437, 511 · `argumenten` 63 · `argumenteren` 438 · `Aristoteles` 438 ·
+`armoede` 26, 234, 254 · `Arthashastra` 370 · `assertiviteit` 162 ·
+`asymmetrie` 282 · `atletiek` 31 · `atomisme` 281 · `Auschwitz` 48 ·
+`Australië` 447 · `autobiografie` 358, 440 · `automatisering` 297, 539 ·
+`autonomie` 6, 50 · `autoriteit` 215 · `autotelie` 200 · `backtesten` 482, 502
+· `banken en verzekeraars` 497 · `barok` 216 · `basisbehoeften` 107 · `bbc` 82
+· `bedrijfsbestuur` 567 · `bedrijfscultuur` 170, 257, 270 · `bedrijfsgroei`
+350 · `bedrijfsleven` 209, 293 · `bedrijfsonderzoek` 353 · `bedrijfssystemen`
+264 · `beeldcultuur` 563 · `beeldverhaal` 561 · `beginners` 112 · `behoeften`
+35 · `beinvloeding` 123, 126 · `beïnvloeding` 399 · `bekentenis` 60 ·
+`belangenverstrengeling` 138 · `beleggen` 21, 64, 144, 233, 277, 351, 474,
+476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 492, 496,
+498, 499, 500, 501, 502, 503, 504, 505 · `beleid` 65 · `beloningssysteem` 418
+· `bemiddeling` 35 · `beroemdheden` 128 · `beroemdheid` 563 ·
+`beschadigd-bestand` 115, 130 · `beschaving` 57 · `beslissen` 55 ·
 `beslissingen` 197 · `besluiten` 47, 59, 69, 137 · `besluitvorming` 151, 166,
 170, 174, 209, 270, 282, 283, 293, 299, 364, 396, 423, 424, 426, 450, 451,
 468, 475, 510 · `bestseller` 8, 37, 250 · `betekenis` 143 · `bethel` 559 ·
 `betrokkenheid` 472 · `beurs` 80, 488 · `beurshandel` 487 · `beursrendement`
 353 · `beweging` 77, 84 · `bewijs` 63 · `bewustwording` 103 · `bewustzijn`
-148, 169, 200, 275, 340, 377, 518 · `bewustzijnsniveaus` 449 · `bezit` 37 ·
-`bias` 209 · `bijeenkomsten` 304 · `bijgeloof` 63 · `biografie` 31, 46, 189,
-231, 240, 241, 243, 247, 266, 267, 269, 320, 328, 402, 454, 514, 537, 558 ·
-`biohacking` 316 · `biologie` 66, 88, 89, 90, 91, 322 · `biologie van gedrag`
-273 · `biologische klok` 326, 329, 552 · `biotechnologie` 236, 413 ·
-`blackjack` 505 · `bloedvaten` 86 · `bloedwaarden` 313 · `blokkade` 14 ·
-`boeddhisme` 111, 287, 333, 341, 401, 528 · `bootstrapping` 369 ·
-`brainstormen` 33 · `branding` 443 · `brein` 414 · `brieven` 292, 517 ·
-`broers` 10 · `budgetteren` 159, 233, 464 · `buitenlandse hulp` 221 ·
-`burgerschap` 243 · `burn-out` 135, 207, 400, 551, 552 · `bushido` 535 ·
-`cafeïne` 52 · `Californië` 10 · `carl jung` 258 · `carrière` 146, 158, 388 ·
-`cases` 40 · `cashflow` 37 · `celbiologie` 419 · `chakra's` 432 · `challenger`
-62 · `Chanakya` 370 · `channeling` 549 · `chaos` 74, 347 · `chapbook` 100 ·
-`charismatisch christendom` 559 · `China` 348 · `Chinese filosofie` 389, 394 ·
-`Chinese geschiedenis` 219 · `chiropractie` 432 · `christendom` 162, 201, 391
-· `chronobiologie` 326, 329 · `cijfers` 39, 65 · `civilisatiekritiek` 298 ·
-`coaching` 161, 291, 441 · `cognitieve gedragstherapie` 147, 153, 373 ·
-`cognitieve herstructurering` 177 · `cognitieve vertekening` 234 · `cognitieve
-wetenschap` 467 · `cognitieve-bias` 59 · `collectief bewustzijn` 435 ·
-`collectief onbewuste` 357, 360, 362 · `columns` 89, 90 · `comfortzone` 187 ·
-`commando` 97 · `communicatie` 34, 35, 122, 145, 152, 156, 162, 164, 183, 186,
-193, 213, 305, 338, 356, 398, 399, 444, 466, 475, 539, 555 · `complexiteit`
-170, 268, 300, 347, 423 · `complimenten geven` 356 · `concentratie` 70, 441 ·
-`concurrentie` 293 · `conditionering` 61, 519 · `conflict` 35, 42, 43, 212,
-305 · `conflictbemiddeling` 304 · `conflicthantering` 271 · `conformisme` 211
-· `consistentie` 553 · `consumptie` 463 · `consumptiekeuzes` 299 ·
+148, 169, 200, 275, 340, 377, 518, 580, 585 · `bewustzijnsniveaus` 449 ·
+`bezit` 37 · `bhagavad gita` 569 · `bias` 209 · `bijeenkomsten` 304 ·
+`bijgeloof` 63 · `bijna-doodervaring` 585 · `biografie` 31, 46, 189, 231, 240,
+241, 243, 247, 266, 267, 269, 320, 328, 402, 454, 514, 537, 558 · `biohacking`
+316 · `biologie` 66, 88, 89, 90, 91, 322 · `biologie van gedrag` 273 ·
+`biologische klok` 326, 329, 552 · `biotechnologie` 236, 413 · `blackjack` 505
+· `bloedvaten` 86 · `bloedwaarden` 313 · `blokkade` 14 · `boeddhisme` 111,
+287, 333, 341, 401, 528 · `bootstrapping` 369 · `brainstormen` 33 · `branding`
+443 · `brein` 414 · `brieven` 292, 517 · `broers` 10 · `budgetteren` 159, 233,
+464 · `buitenlandse hulp` 221 · `burgerschap` 243 · `burn-out` 135, 207, 400,
+551, 552 · `bushido` 535 · `cafeïne` 52 · `Californië` 10 · `carl jung` 258 ·
+`carrière` 146, 158, 388 · `cases` 40 · `cashflow` 37 · `celbiologie` 419 ·
+`chakra's` 432 · `challenger` 62 · `Chanakya` 370 · `channeling` 549 · `chaos`
+74, 347 · `chapbook` 100 · `charismatisch christendom` 559 · `China` 348 ·
+`Chinese filosofie` 389, 394 · `Chinese geschiedenis` 219 · `chiropractie` 432
+· `christendom` 162, 201, 391 · `chronobiologie` 326, 329 · `cijfers` 39, 65 ·
+`civilisatiekritiek` 298 · `coaching` 161, 291, 441 · `cognitieve
+gedragstherapie` 147, 153, 373 · `cognitieve herstructurering` 177 ·
+`cognitieve vertekening` 234 · `cognitieve wetenschap` 467 · `cognitieve-bias`
+59 · `collectief bewustzijn` 435 · `collectief onbewuste` 357, 360, 362 ·
+`columns` 89, 90 · `comfortzone` 187 · `commando` 97 · `communicatie` 34, 35,
+122, 145, 152, 156, 162, 164, 183, 186, 193, 213, 305, 338, 356, 398, 399,
+444, 466, 475, 539, 555 · `complexiteit` 170, 268, 300, 347, 423 ·
+`complimenten geven` 356 · `concentratie` 70, 441 · `concurrentie` 293 ·
+`conditionering` 61, 519 · `conflict` 35, 42, 43, 212, 305 ·
+`conflictbemiddeling` 304 · `conflicthantering` 271 · `conformisme` 211 ·
+`consistentie` 553 · `consumptie` 463 · `consumptiekeuzes` 299 ·
 `consumptiemaatschappij` 564 · `content` 308 · `content creatie` 365 ·
 `content marketing` 369 · `corruptie` 221 · `creativiteit` 11, 12, 13, 14, 15,
 16, 17, 74, 206, 312, 349, 418, 445, 471, 472, 475, 550 · `cricket` 174 ·
-`crisis` 47 · `CRISPR` 413 · `cultuur` 68, 274 · `cultuurkritiek` 54, 405 ·
-`cursus` 108, 130, 201 · `cursus-in-wonderen` 102, 131, 548 · `cybernetica`
-411, 539, 540, 541 · `cynisme` 250, 319 · `Cyrus de Grote` 536 · `dagboek` 2,
-109, 224, 286 · `dagboekaantekeningen` 226 · `dagboekmethode` 78 ·
-`dagboekonderzoek` 472 · `dagelijkse gewoontes` 205 · `dagelijkse praktijk`
-442 · `dankbaarheid` 129, 433 · `darmbacteriën` 417 · `dataïsme` 236 · `daten`
-166 · `debat` 28 · `debuutboek` 226 · `degrowth` 298 · `dekoloniaal denken`
-521 · `delegeren` 434 · `deliberate practice` 376 · `dementie` 84, 85, 225 ·
-`democratie` 98, 562 · `denken` 310, 509 · `denkfouten` 55, 59, 142, 396, 437,
-510, 514 · `denkmethode` 471 · `denkmodellen` 426 · `depressie` 403 ·
-`derivaten` 494, 495 · `design thinking` 150 · `destructiviteit` 223 · `deugd`
-247, 459 · `diagnose` 104 · `dialoog` 335 · `dichotomie van controle` 194 ·
-`dichtwerk` 524 · `dictatuur` 221 · `dienstbaarheid` 230, 245, 535 ·
-`diepe-tijd` 239 · `dieren` 555 · `dierenzintuigen` 322 · `dierlijke-cognitie`
-383 · `dierproeven` 330 · `differentiatie` 165 · `digitaal` 81 · `diplomatie`
-243 · `direct response` 350 · `DISC` 156, 429 · `discipline` 12, 13, 22, 30,
-106, 133, 137, 146, 445, 462, 480, 481, 482, 487, 488, 545 · `disruptie` 293 ·
-`DNA` 419 · `docenten` 116 · `doelen` 58, 136, 158, 542 · `doelen stellen`
-367, 427, 448 · `doelgericht-oefenen` 50 · `doelgroep` 446 · `doelstellingen`
-256 · `donkere-triade` 124 · `dood` 98, 169, 292, 535 · `doodsangst` 405 ·
+`crisis` 47 · `CRISPR` 413 · `cultuur` 68, 274 · `cultuurfilosofie` 580 ·
+`cultuurkritiek` 54, 405 · `cursus` 108, 130, 201 · `cursus-in-wonderen` 102,
+131, 548 · `cybernetica` 411, 539, 540, 541 · `cynisme` 250, 319 · `Cyrus de
+Grote` 536 · `dagboek` 2, 109, 224, 286, 579 · `dagboekaantekeningen` 226 ·
+`dagboekmethode` 78 · `dagboekonderzoek` 472 · `dagelijkse gewoontes` 205 ·
+`dagelijkse praktijk` 442 · `dankbaarheid` 129, 433 · `darmbacteriën` 417 ·
+`dataïsme` 236 · `daten` 166 · `de ander` 574 · `debat` 28 · `debuutboek` 226
+· `degrowth` 298 · `dekoloniaal denken` 521 · `delegeren` 434 · `deliberate
+practice` 376 · `dementie` 84, 85, 225 · `democratie` 98, 562 · `denken` 310,
+509 · `denkfouten` 55, 59, 142, 396, 437, 510, 514 · `denkmethode` 471 ·
+`denkmodellen` 426 · `depressie` 403 · `derivaten` 494, 495 · `design
+thinking` 150 · `destructiviteit` 223 · `deugd` 247, 459, 581 · `diagnose` 104
+· `dialoog` 335, 572 · `dichotomie van controle` 194 · `dichtwerk` 524 ·
+`dictatuur` 221 · `dienstbaarheid` 230, 245, 535 · `diepe-tijd` 239 · `dieren`
+555 · `dierenzintuigen` 322 · `dierlijke-cognitie` 383 · `dierproeven` 330 ·
+`differentiatie` 165 · `digitaal` 81 · `diplomatie` 243 · `direct response`
+350 · `DISC` 156, 429 · `discipline` 12, 13, 22, 30, 106, 133, 137, 146, 445,
+462, 480, 481, 482, 487, 488, 545 · `disruptie` 293 · `DNA` 419 · `docenten`
+116 · `doelen` 58, 136, 158, 542 · `doelen stellen` 367, 427, 448 ·
+`doelgericht-oefenen` 50 · `doelgroep` 446 · `doelstellingen` 256 ·
+`donkere-triade` 124 · `dood` 98, 169, 292, 535 · `doodsangst` 405 ·
 `doorzetten` 20 · `doorzettingsvermogen` 185, 249, 289, 324 · `dopamine` 314,
-418 · `drogredenen` 421 · `dromen` 52, 357, 358, 359, 360 · `dummies` 112 ·
-`durfkapitaal` 47 · `duurzaamheid` 92 · `dystopie` 61 · `e-commerce` 257 ·
-`e-mail` 70, 512 · `e-mailmarketing` 309 · `ecologie` 298 · `economie` 65, 98,
-217, 251, 297, 347, 423, 450, 452, 478 · `economische geschiedenis` 155 ·
-`educatief` 327 · `eenvoud` 170, 205, 379 · `eenzaamheid` 7, 96, 98, 111, 288,
-302 · `eer` 530, 534 · `eerlijk` 47 · `eerlijkheid` 62 · `eerste-versie` 19 ·
-`ego` 75, 102, 149, 435 · `ego en zelf` 409 · `ego-depletie` 382 · `eigen
-bedrijf` 210 · `eigen-beheer` 107, 140, 142 · `eigen-oordeel` 58, 546 ·
-`eigenaarschap` 97 · `eindigheid` 442 · `einstein` 94 · `elektriciteit` 267 ·
-`elektrische auto's` 266 · `EMDR` 386 · `emigratie` 240 · `emotie-eten` 557 ·
-`emoties` 3, 43, 137, 142, 147, 153, 177, 330, 331, 449, 457, 470, 488, 542 ·
-`empathie` 35, 67, 303 · `energetisch werk` 560 · `energie` 92, 195, 291, 377
-· `energiewerk` 432 · `entropie` 539 · `epigenetica` 208, 415 · `epos` 5, 530,
-531, 532 · `erfelijkheid` 419 · `erfenis` 39 · `erkenningszucht` 406 ·
-`erotiek` 113, 164 · `esoterie` 378 · `essay` 3, 9, 21, 57, 59, 63, 64, 68,
-96, 197, 232 · `essaybundel` 390, 425 · `essays` 523 · `eten` 103 · `ethiek`
-282, 299, 413 · `evangelisatie` 201 · `evolutie` 56, 66, 89, 90, 91, 239, 318,
-322, 323, 332, 339, 347, 383, 518 · `evolutiebiologie` 452, 453 ·
-`evolutionaire-psychologie` 67 · `excellentie` 553 · `executives` 344 ·
-`existentialisme` 405 · `expeditie` 36 · `experiment` 79, 215 · `experimenten`
-280, 424 · `experimenteren` 265 · `expertise` 283, 320, 376 · `extraversie`
-361 · `fabel` 8, 42, 135, 167, 252 · `facilitatie` 304 · `falen` 23, 72, 75,
-312, 422 · `familie` 45, 325, 466 · `familieconflict` 178 ·
-`familiegeschiedenis` 114, 235 · `familieroman` 10 · `fantasy` 192, 203 ·
-`FBI` 154, 271 · `FBI-onderzoek` 431 · `feedback` 41, 296, 541, 542 · `feiten`
-43 · `feminisme` 3 · `fictie` 100, 115 · `film` 41 · `filosofie` 1, 6, 71, 93,
-199, 211, 216, 224, 247, 255, 263, 292, 299, 383, 390, 391, 392, 393, 421,
-436, 442, 521 · `filosofiegeschiedenis` 269 · `financiële geletterdheid` 163 ·
-`financiële markten` 268, 351, 480, 481, 483, 499, 501 · `financiële
-onafhankelijkheid` 264 · `financiele vrijheid` 277 · `financiële wiskunde`
-497, 507 · `financiële-discipline` 464 · `financiën` 334, 395, 425 ·
+418 · `drogredenen` 421 · `dromen` 52, 357, 358, 359, 360 · `drugs` 568 ·
+`dummies` 112 · `durfkapitaal` 47 · `duurzaamheid` 92 · `dystopie` 61 ·
+`e-commerce` 257 · `e-mail` 70, 512 · `e-mailmarketing` 309 · `ecologie` 298 ·
+`economie` 65, 98, 217, 251, 297, 347, 423, 450, 452, 478 · `economische
+geschiedenis` 155 · `educatief` 327 · `eenvoud` 170, 205, 379 · `eenzaamheid`
+7, 96, 98, 111, 288, 302 · `eer` 530, 534 · `eerlijk` 47 · `eerlijkheid` 62 ·
+`eerste-versie` 19 · `ego` 75, 102, 149, 435 · `ego en zelf` 409 ·
+`ego-depletie` 382 · `eigen bedrijf` 210 · `eigen-beheer` 107, 140, 142 ·
+`eigen-oordeel` 58, 546 · `eigenaarschap` 97 · `eindigheid` 442 · `einstein`
+94 · `elektriciteit` 267 · `elektrische auto's` 266 · `EMDR` 386 · `emigratie`
+240 · `emotie-eten` 557 · `emoties` 3, 43, 137, 142, 147, 153, 177, 330, 331,
+449, 457, 470, 488, 542 · `empathie` 35, 67, 303, 577 · `energetisch werk` 560
+· `energie` 92, 195, 291, 377 · `energiewerk` 432 · `entropie` 539 ·
+`epigenetica` 208, 415 · `epos` 5, 530, 531, 532 · `erfelijkheid` 419 ·
+`erfenis` 39 · `erkenningszucht` 406 · `erotiek` 113, 164 · `esoterie` 378 ·
+`essay` 3, 9, 21, 57, 59, 63, 64, 68, 96, 197, 232 · `essaybundel` 390, 425 ·
+`essays` 523 · `eten` 103 · `ethiek` 282, 299, 413, 574 · `evangelisatie` 201
+· `evolutie` 56, 66, 89, 90, 91, 239, 318, 322, 323, 332, 339, 347, 383, 518 ·
+`evolutiebiologie` 452, 453 · `evolutionaire-psychologie` 67 · `excellentie`
+553 · `executives` 344 · `existentialisme` 405 · `expeditie` 36 · `experiment`
+79, 215 · `experimenten` 280, 424 · `experimenteren` 265 · `expertise` 283,
+320, 376 · `extraversie` 361 · `fabel` 8, 42, 135, 167, 252 · `facilitatie`
+304 · `falen` 23, 72, 75, 312, 422 · `familie` 45, 325, 466 ·
+`familieconflict` 178 · `familiegeschiedenis` 114, 235 · `familieroman` 10 ·
+`fantasy` 192, 203 · `FBI` 154, 271 · `FBI-onderzoek` 431 · `feedback` 41,
+296, 541, 542 · `feiten` 43 · `feminisme` 3 · `fenomenologie` 574, 577, 582 ·
+`fictie` 100, 115 · `film` 41 · `filosofie` 1, 6, 71, 93, 199, 211, 216, 224,
+247, 255, 263, 292, 299, 383, 390, 391, 392, 393, 421, 436, 442, 521 ·
+`filosofiegeschiedenis` 269 · `filosofische antropologie` 584 · `financiële
+geletterdheid` 163 · `financiële markten` 268, 351, 480, 481, 483, 499, 501 ·
+`financiële onafhankelijkheid` 264 · `financiele vrijheid` 277 · `financiële
+wiskunde` 497, 507 · `financiële-discipline` 464 · `financiën` 334, 395, 425 ·
 `financiering` 172 · `fitnessbranche` 307, 544 · `flitshandel` 499 · `flow`
 78, 187, 200 · `focus` 175, 197, 448, 513 · `fotoboek` 189 · `foutcultuur` 422
 · `fouten maken` 509 · `franchise` 544 · `frankrijk` 115 · `Franse-Weerstand`
 390 · `freelance` 515 · `Fulani` 522 · `fysieke uitdaging` 323 · `fysiologie`
 318, 412, 458 · `Galenus` 328 · `gaslighting` 123 · `gastheerschap` 304 ·
-`gastvrijheid` 531 · `gebed` 83, 259 · `gebruikersgedrag` 294 · `gedachten`
-148, 177 · `gedachtenjournal` 176 · `gedrag` 21, 22, 89, 90, 138, 154, 280,
-330, 383, 425 · `gedragsbiologie` 322, 339 · `gedragseconomie` 424, 426, 514 ·
-`gedragsonderzoek` 302, 382 · `gedragspatronen` 161 · `gedragspsychologie` 294
-· `gedragstypen` 156 · `gedragsverandering` 238, 290, 457, 469 ·
-`gedragswetenschap` 166, 209, 305, 468, 469, 510 · `geduld` 21, 351 ·
-`geestelijke gezondheid` 193 · `gegevensanalyse` 486 · `gehechtheid` 166 ·
-`geheim genootschap` 202 · `geheugen` 66, 85, 175, 414 · `gehoorzaamheid` 215
-· `geïllustreerd boek` 176 · `geld` 21, 37, 38, 56, 76, 121, 132, 133, 158,
-159, 433, 463, 464 · `geldmanagement` 492, 493 · `geldmindset` 395 ·
-`geldpsychologie` 233, 264 · `geloof` 45, 83, 201, 554 · `geluk` 79, 93, 160,
-228, 335, 516, 526 · `gemeenschap` 9, 96, 304, 461 · `geneeskunde` 49, 328 ·
-`generaties` 114 · `generatieve drift` 315 · `genetica` 413, 419 · `genezing`
-340 · `genot en pijn` 314 · `gentechnologie` 413 · `geologie` 239 ·
-`geopolitiek` 220 · `geschiedenis` 30, 36, 56, 57, 68, 93, 94, 212, 218, 250,
-258, 298, 328, 381, 425, 440 · `geschiedenis van de geneeskunde` 412 ·
-`geschiedfilosofie` 235 · `gesprek` 43, 95, 302, 444 · `gesprekstechniek` 182,
-186, 438 · `gevangenendilemma` 453 · `gevolgen` 67 · `gewaarzijn` 519 ·
-`geweld` 45, 90, 214 · `gewicht` 138 · `gewoontelus` 238 · `gewoonten` 187,
-373 · `gewoontes` 7, 11, 13, 22, 25, 58, 70, 76, 77, 79, 88, 97, 103, 133,
-134, 135, 138, 147, 157, 158, 181, 207, 208, 224, 230, 290, 334, 382, 439,
-442, 445, 513, 557 · `gewoontevorming` 146, 161, 168, 188, 244, 291, 294, 396,
-397, 411, 540 · `gezag` 62 · `gezin` 547 · `gezinnen` 327 · `gezondheid` 52,
-88, 171, 181, 318, 323, 329, 332, 412, 414, 415 · `gezondheidspsychologie` 458
-· `gezondheidszorg` 313, 317, 422 · `ggz` 104 · `giftige relaties` 429 ·
-`gijzelingsonderhandelaar` 271 · `godsdienstkritiek` 341 · `goeroe` 242 ·
-`Google` 512 · `Graallegende` 408 · `grandiositeit` 404 · `gratie` 374 ·
-`grenzen` 72, 105, 109, 120, 122, 187, 466 · `grenzen stellen` 151, 204, 406,
-429 · `Griekenland` 537 · `Griekse literatuur` 536 · `griekse mythologie` 261
-· `Griekse oudheid` 530, 531 · `groei` 222 · `groeiaandelen` 474 ·
-`groeimentaliteit` 116 · `groepsdenken` 339 · `groepsgedrag` 303 ·
-`grondstoffen` 92 · `groot-verhaal` 56 · `grootouders` 91 · `handboek` 493,
-495 · `handel` 80, 251 · `handelen` 30, 476, 477, 478, 479, 501 ·
-`handelspsychologie` 488, 489 · `handelssysteem` 489, 491 · `handelssystemen`
-484, 486, 500, 502 · `handleiding` 112 · `hart` 86, 128 · `Harvard` 457 · `Hay
-House` 380 · `hechting` 145, 152, 317, 386 · `hedendaags India` 202 ·
-`hedgefondsen` 505 · `heelal` 99, 262 · `heldendom` 532 · `heldenreis` 410 ·
-`helderheid` 82, 436 · `herhaling` 125, 134 · `herkomst` 127 · `hermetische
-filosofie` 378 · `heroverwegen` 28 · `hersenen` 51, 84, 85, 86, 327 ·
-`hersenonderzoek` 330, 333 · `hersenspoeling` 384 · `herstel` 87, 552 · `het
-gesprek` 416 · `Himalaya` 191 · `hindoeïsme` 169, 199, 527 · `Hindoeïstische
-mythologie` 192, 202 · `hindoemythologie` 203 · `Hinge` 166 · `hiphop` 440 ·
-`historische portretten` 248 · `historische roman` 529 · `hofcultuur` 216 ·
-`hollywood` 555 · `Hollywood` 178 · `Holocaust` 48 · `holografie` 340 ·
-`homoseksualiteit` 325 · `hoop` 255, 319 · `hormonen` 80, 339 · `hospice` 416
-· `houding` 117 · `huisvesting` 65 · `humanisme` 236 · `humor` 16, 19, 26,
-105, 227, 561 · `huwelijk` 9, 34, 165 · `Huxley` 54 · `hybride werken` 512 ·
-`hyperrealiteit` 565 · `hypnose` 123, 124, 125 · `Idaho` 45 · `ideeën` 206 ·
+`gastvrijheid` 531 · `gebed` 83, 259, 573 · `gebruikersgedrag` 294 ·
+`gedachten` 148, 177 · `gedachtenjournal` 176 · `gedrag` 21, 22, 89, 90, 138,
+154, 280, 330, 383, 425 · `gedragsbiologie` 322, 339 · `gedragseconomie` 424,
+426, 514 · `gedragsonderzoek` 302, 382 · `gedragspatronen` 161 ·
+`gedragspsychologie` 294 · `gedragstypen` 156 · `gedragsverandering` 238, 290,
+457, 469 · `gedragswetenschap` 166, 209, 305, 468, 469, 510 · `geduld` 21, 351
+· `geest` 584 · `geestelijke gezondheid` 193 · `geestelijke oefeningen` 586 ·
+`gegevensanalyse` 486 · `gehechtheid` 166 · `geheim genootschap` 202 ·
+`geheugen` 66, 85, 175, 414 · `gehoorzaamheid` 215 · `geïllustreerd boek` 176
+· `geld` 21, 37, 38, 56, 76, 121, 132, 133, 158, 159, 433, 463, 464 ·
+`geldmanagement` 492, 493 · `geldmindset` 395 · `geldpsychologie` 233, 264 ·
+`geloof` 45, 83, 201, 554 · `geluk` 79, 93, 160, 228, 335, 516, 526, 579 ·
+`gemeenschap` 9, 96, 304, 461 · `geneeskunde` 49, 328 · `generaties` 114 ·
+`generatieve drift` 315 · `genetica` 413, 419 · `genezing` 340 · `genot en
+pijn` 314 · `gentechnologie` 413 · `geologie` 239 · `geopolitiek` 220 ·
+`geschiedenis` 30, 36, 56, 57, 68, 93, 94, 212, 218, 250, 258, 298, 328, 381,
+425, 440 · `geschiedenis van de geneeskunde` 412 · `geschiedfilosofie` 235 ·
+`gesprek` 43, 95, 302, 444 · `gesprekstechniek` 182, 186, 438 ·
+`gevangenendilemma` 453 · `gevolgen` 67 · `gewaarzijn` 519 · `geweld` 45, 90,
+214 · `gewicht` 138 · `gewoontelus` 238 · `gewoonten` 187, 373 · `gewoontes`
+7, 11, 13, 22, 25, 58, 70, 76, 77, 79, 88, 97, 103, 133, 134, 135, 138, 147,
+157, 158, 181, 207, 208, 224, 230, 290, 334, 382, 439, 442, 445, 513, 557 ·
+`gewoontevorming` 146, 161, 168, 188, 244, 291, 294, 396, 397, 411, 540 ·
+`gezag` 62 · `gezin` 547 · `gezinnen` 327 · `gezondheid` 52, 88, 171, 181,
+318, 323, 329, 332, 412, 414, 415 · `gezondheidspsychologie` 458 ·
+`gezondheidszorg` 313, 317, 422 · `ggz` 104 · `giftige relaties` 429 ·
+`gijzelingsonderhandelaar` 271 · `godsdienstkritiek` 341 ·
+`godsdienstwetenschap` 578 · `goeroe` 242 · `Google` 512 · `Graallegende` 408
+· `grandiositeit` 404 · `gratie` 374 · `grenzen` 72, 105, 109, 120, 122, 187,
+466 · `grenzen stellen` 151, 204, 406, 429 · `Griekenland` 537 · `Griekse
+literatuur` 536 · `griekse mythologie` 261 · `Griekse oudheid` 530, 531 ·
+`groei` 222 · `groeiaandelen` 474 · `groeimentaliteit` 116 · `groepsdenken`
+339 · `groepsgedrag` 303 · `grondstoffen` 92 · `groot-verhaal` 56 ·
+`grootouders` 91 · `handboek` 493, 495 · `handel` 80, 251 · `handelen` 30,
+476, 477, 478, 479, 501 · `handelspsychologie` 488, 489 · `handelssysteem`
+489, 491 · `handelssystemen` 484, 486, 500, 502 · `handleiding` 112 · `hart`
+86, 128 · `Harvard` 457 · `Hay House` 380 · `hechting` 145, 152, 317, 386 ·
+`hedendaags India` 202 · `hedgefondsen` 505 · `heelal` 99, 262 · `heldendom`
+532 · `heldenreis` 410 · `helderheid` 82, 436 · `herhaling` 125, 134 ·
+`herkomst` 127 · `hermetische filosofie` 378 · `heroverwegen` 28 · `hersenen`
+51, 84, 85, 86, 327 · `hersenonderzoek` 330, 333 · `hersenspoeling` 384 ·
+`herstel` 87, 552, 583 · `het gesprek` 416 · `Himalaya` 191 · `hindoeïsme`
+169, 199, 527, 569 · `Hindoeïstische mythologie` 192, 202 · `hindoemythologie`
+203 · `Hinge` 166 · `hiphop` 440 · `historische portretten` 248 · `historische
+roman` 529 · `hofcultuur` 216 · `hollywood` 555 · `Hollywood` 178 ·
+`Holocaust` 48 · `holografie` 340 · `homoseksualiteit` 325 · `hoop` 255, 319 ·
+`hormonen` 80, 339 · `hospice` 416 · `houding` 117 · `huisvesting` 65 ·
+`humanisme` 236 · `humor` 16, 19, 26, 105, 227, 561 · `husserl` 577 ·
+`huwelijk` 9, 34, 165 · `Huxley` 54 · `hybride werken` 512 · `hyperrealiteit`
+565 · `hypnose` 123, 124, 125 · `Idaho` 45 · `ideeën` 206 ·
 `ideeëngeschiedenis` 269 · `identiteit` 22, 115, 192, 261, 374, 375, 467, 559
 · `identiteitskapitaal` 51 · `ierland` 110 · `IJsland` 185, 533 · `ik-vorm`
 113 · `illustraties` 109, 327 · `imitatie` 11 · `imperfectionisme` 442 ·
@@ -110627,28 +114694,30 @@ mythologie` 192, 202 · `hindoemythologie` 203 · `Hinge` 166 · `hiphop` 440 ·
 `industrie` 348 · `inheems denken` 521 · `initiatie` 407, 408, 522 ·
 `inleiding` 452, 456 · `innerlijk-kind` 109 · `innerlijk-werkleven` 472 ·
 `innerlijke stem` 377 · `innerlijke vrede` 548 · `innovatie` 206, 251, 293,
-306, 471 · `instagram` 129 · `instituties` 392 · `integriteit` 547 ·
-`intelligentie` 383 · `internationale betrekkingen` 455 · `internet` 60, 198 ·
-`interviews` 58, 277, 289 · `intimiteit` 122, 145, 164, 165 · `introversie`
-33, 361 · `intuitie` 128 · `intuïtie` 214, 283, 320 · `investeren` 270, 348 ·
-`invloed` 11 · `irrationaliteit` 424 · `islam` 526 · `islamitische filosofie`
+306, 471 · `instagram` 129 · `instituties` 392 · `integraal bewustzijn` 580 ·
+`integriteit` 547 · `intelligentie` 383 · `internationale betrekkingen` 455 ·
+`internet` 60, 198 · `interviews` 58, 277, 289 · `intimiteit` 122, 145, 164,
+165 · `introspectie` 579 · `introversie` 33, 361 · `intuitie` 128 · `intuïtie`
+214, 283, 320 · `investeren` 270, 348 · `invloed` 11 · `invoeling` 577 ·
+`inzicht` 587 · `irrationaliteit` 424 · `islam` 526 · `islamitische filosofie`
 525 · `Israël` 514 · `Italiaanse non-fictie` 211 · `Italië` 155 · `jaloezie`
-19 · `Japan` 77, 205, 261, 335, 346, 379, 462, 517, 528, 535 · `jaren
-negentig` 348 · `jaren-tachtig` 139 · `jaren-twintig` 94 · `jazztijdperk` 284
-· `jeff bezos` 257 · `jeugd` 53, 104, 115 · `John Harrison` 321 · `joint
-ventures` 348 · `jonge liefde` 180 · `jongeren` 25 · `jongvolwassenenroman`
-295 · `journaling` 147 · `journalistiek` 4, 7, 46, 82, 238, 257, 285, 401,
+19 · `Japan` 77, 205, 261, 335, 346, 379, 462, 517, 528, 535 · `japanse
+filosofie` 576 · `jaren negentig` 348 · `jaren-tachtig` 139 · `jaren-twintig`
+94 · `jazztijdperk` 284 · `jeff bezos` 257 · `jeugd` 53, 104, 115 · `John
+Harrison` 321 · `joint ventures` 348 · `jonge liefde` 180 · `jongeren` 25 ·
+`jongvolwassenen` 569 · `jongvolwassenenroman` 295 · `joodse filosofie` 572,
+574 · `journaling` 147 · `journalistiek` 4, 7, 46, 82, 238, 257, 285, 401,
 499, 566 · `Jung` 143, 358, 359 · `Jungiaanse psychologie` 404, 407, 408, 409,
 410 · `kaakontwikkeling` 332 · `Kabul` 184 · `Kaïn-en-Abel` 10 · `kalmte` 248,
 389 · `kameraadschap` 529 · `kanker` 419 · `kans` 64 · `kansdenken` 487 ·
 `kansen` 137 · `kansrekening` 282, 456, 484, 490, 496, 504, 505 ·
 `kapitalisme` 298 · `karakter` 97, 537 · `Karel de Grote` 534 · `karma` 184 ·
-`Kasjmir` 180 · `keegan` 110 · `Kelly-criterium` 504 · `kennis` 81, 508 ·
-`kennisleer` 525 · `kenniswerk` 6, 50, 400, 472 · `kernwaarden` 245 ·
-`kernwapens` 454 · `keuzes` 51, 71, 72, 510 · `Kierkegaard` 405 · `kinderboek`
-167 · `kinderjaren` 152 · `kinesiologie` 449 · `klantcontact` 182, 186 ·
-`klantpsychologie` 367 · `klantrelaties` 246 · `klantvalidatie` 265 ·
-`klantwaarde` 309 · `klassenverschil` 284 · `klassieke bronnen` 286 ·
+`karmel` 573 · `Kasjmir` 180 · `keegan` 110 · `Kelly-criterium` 504 · `kennis`
+81, 508 · `kennisleer` 525, 587 · `kenniswerk` 6, 50, 400, 472 · `kernwaarden`
+245 · `kernwapens` 454 · `keuzes` 51, 71, 72, 510 · `Kierkegaard` 405 ·
+`kinderboek` 167 · `kinderjaren` 152 · `kinesiologie` 449 · `klantcontact`
+182, 186 · `klantpsychologie` 367 · `klantrelaties` 246 · `klantvalidatie` 265
+· `klantwaarde` 309 · `klassenverschil` 284 · `klassieke bronnen` 286 ·
 `klassieke tekst` 219, 394 · `klassieker` 10, 24, 38, 48, 61, 83, 127, 135,
 144, 173, 213, 254, 351, 420, 520, 537 · `klein-beginnen` 40 ·
 `kleine-bedrijven` 172 · `kleine-stappen` 22, 133 · `kleurboek` 327 ·
@@ -110664,22 +114733,23 @@ geven` 356 · `kritisch denken` 420, 421 · `kroeg` 4 · `kruistochtgeest` 534 �
 404 · `kwaliteit` 1, 400 · `kwantificering` 392 · `kwantitatief handelen` 506
 · `kwantitatieve analyse` 498 · `kwantitatieve financiën` 485, 503 ·
 `kwantumfysica` 208, 340, 432, 433 · `kwantummechanica` 362 ·
-`kwantumzwaartekracht` 281 · `kwetsbaarheid` 32, 44, 470 · `landbouw` 56, 98 ·
-`landmark forum` 344 · `leadgeneratie` 308 · `lean manufacturing` 265 ·
-`leefstijl` 86, 103, 138, 171 · `leertijd` 320 · `leger` 106, 180, 222 ·
-`leiderschap` 36, 41, 44, 46, 97, 106, 157, 170, 183, 218, 222, 231, 260, 273,
-344, 353, 364, 370, 389, 434, 465, 468, 475, 536, 544, 551 · `leidinggeven`
-156 · `leren` 175, 296, 349, 397, 422, 441, 509, 538 · `lesmateriaal` 116 ·
-`leugendetectie` 154, 338 · `levensinrichting` 334 · `levenskeuzes` 150, 546 ·
-`levenskunst` 27, 199, 216, 227 · `levenslessen` 285, 447 · `levensloop` 91 ·
-`levensverhaal` 385 · `levenswijsheid` 473 · `lezen` 18, 420 · `lezing` 436 ·
-`lezingen` 169 · `libertarisme` 546 · `lichaam` 80 · `lichaamsgericht werken`
-386 · `lichaamstaal` 125, 126, 154, 303, 338, 399 · `lichaamswerk` 432 ·
-`licht` 525 · `liefde` 3, 131, 160, 295 · `liefdesroman` 180 · `lifestyle` 278
-· `lijden` 48, 73, 160, 310, 390 · `list` 531 · `literair` 110 · `literatuur`
-49 · `logica` 421, 437 · `logotherapie` 48 · `Long-Island` 4 · `longevity` 415
-· `loopbaan` 50, 51, 150, 349, 515, 547 · `loslaten` 377, 449 · `losmaken` 45
-· `lotsbestemming` 261 · `luchtvaart` 422 · `luisteren` 24, 35, 305, 444 ·
+`kwantumzwaartekracht` 281 · `kwetsbaarheid` 32, 44, 470 · `kyotoschool` 576 ·
+`landbouw` 56, 98 · `landmark forum` 344 · `leadgeneratie` 308 · `lean
+manufacturing` 265 · `leefstijl` 86, 103, 138, 171 · `leertijd` 320 · `leger`
+106, 180, 222 · `leiderschap` 36, 41, 44, 46, 97, 106, 157, 170, 183, 218,
+222, 231, 260, 273, 344, 353, 364, 370, 389, 434, 465, 468, 475, 536, 544, 551
+· `leidinggeven` 156 · `leren` 175, 296, 349, 397, 422, 441, 509, 538 ·
+`lesmateriaal` 116 · `leugendetectie` 154, 338 · `levensinrichting` 334 ·
+`levenskeuzes` 150, 546 · `levenskunst` 27, 199, 216, 227, 586 ·
+`levenslessen` 285, 447 · `levensloop` 91 · `levensverhaal` 385 ·
+`levenswijsheid` 473 · `lezen` 18, 420 · `lezing` 436 · `lezingen` 169 ·
+`libertarisme` 546 · `lichaam` 80 · `lichaamsgericht werken` 386 ·
+`lichaamstaal` 125, 126, 154, 303, 338, 399 · `lichaamswerk` 432 · `licht` 525
+· `liefde` 3, 131, 160, 295 · `liefdesroman` 180 · `lifestyle` 278 · `lijden`
+48, 73, 160, 310, 390 · `list` 531 · `literair` 110 · `literatuur` 49 ·
+`logica` 421, 437 · `logotherapie` 48 · `Long-Island` 4 · `longevity` 415 ·
+`loopbaan` 50, 51, 150, 349, 515, 547 · `loslaten` 377, 449 · `losmaken` 45 ·
+`lotsbestemming` 261 · `luchtvaart` 422 · `luisteren` 24, 35, 305, 444 ·
 `machinaal leren` 484, 485, 486, 503 · `macht` 212, 250, 263, 381, 388, 440 ·
 `machtspolitiek` 220 · `machtstheorie` 221 · `machtsverhoudingen` 155 ·
 `magisch realisme` 261 · `management` 42, 47, 170, 183, 256, 350, 353, 364,
@@ -110693,60 +114763,63 @@ geven` 356 · `kritisch denken` 420, 421 · `kroeg` 4 · `kruistochtgeest` 534 �
 228, 230, 237, 242, 333, 377, 401, 431, 527, 528 · `meesterschap` 296, 320,
 553 · `meetsystemen` 392 · `memento mori` 286 · `memoir` 4, 7, 18, 20, 26, 45,
 49, 62, 95, 106, 178, 185, 191, 226, 229, 242, 289, 324, 325, 348, 385, 402,
-403, 431, 447, 505 · `menselijk gedrag` 155 · `mensenkennis` 126, 356 ·
-`mentale gezondheid` 315 · `mentale helderheid` 148 · `mentale weerbaarheid`
-229, 323, 372, 373, 374, 545 · `mentalisme` 378, 399 · `mentorschap` 4, 285,
-289, 320, 402 · `merken` 279 · `metabolisme` 313 · `metafysica` 102, 518 ·
-`meten` 69, 133 · `methode` 81 · `microbedrijf` 40, 172 · `microbioom` 417 ·
-`middelbare-leeftijd` 7 · `middeleeuwen` 534 · `midlife` 324 · `militaire
+403, 431, 447, 505 · `mens en dier` 584 · `menselijk gedrag` 155 ·
+`mensenkennis` 126, 356 · `mentale gezondheid` 315 · `mentale helderheid` 148
+· `mentale weerbaarheid` 229, 323, 372, 373, 374, 545 · `mentalisme` 378, 399
+· `mentorschap` 4, 285, 289, 320, 402 · `merken` 279 · `metabolisme` 313 ·
+`metafysica` 102, 518, 584, 587 · `meten` 69, 133 · `methode` 81 ·
+`microbedrijf` 40, 172 · `microbioom` 417 · `middelbare-leeftijd` 7 ·
+`middeleeuwen` 534 · `midlife` 324 · `militaire geschiedenis` 568 · `militaire
 strategie` 220 · `millennials` 159 · `minderheden` 68 · `mindful` 103 ·
 `mindfulness` 141, 147, 149, 177, 333, 401 · `mindset` 146, 181, 188, 387, 458
 · `minimalisme` 181 · `misdaad` 254 · `misleiding` 219, 272 · `mislukking` 516
-· `mitochondriën` 313 · `modellen` 300 · `modelleren` 139 · `modellering` 455
-· `moed` 44, 529 · `moeder-en-zoon` 26 · `momentum` 481 · `monniksleven` 230 ·
-`monomythe` 410 · `monopolie` 306 · `monsters` 532 · `Monty-Python` 16 ·
-`moraal` 9, 57, 67, 263 · `moraalkritiek` 391 · `moreel` 36 · `mormonisme` 560
-· `motivatie` 117, 139, 146, 183, 200, 207, 315, 427, 468, 469, 472 · `Motley
-Fool` 474 · `motoren` 6 · `motorfietsen` 325 · `muziek` 17, 85 · `mystiek`
-340, 390, 524, 525 · `mythologie` 73, 143, 357, 360, 407, 408, 409 ·
-`mythologische fantasy` 202 · `mythologische fictie` 203 · `NAD+` 415 ·
-`nalatenschap` 178 · `napoleontische oorlogen` 235 · `narcisme` 258, 404 ·
-`naslag` 99, 112 · `naslagwerk` 59, 225, 426, 477, 478, 486, 491, 500, 504 ·
-`nationalisme` 237 · `natuur` 191, 323 · `natuurkunde` 62, 94, 240, 262, 281,
-300, 326 · `navigatie` 321 · `navy seals` 229, 364 · `nazisme` 223 ·
-`necrofilie` 223 · `nederland` 96 · `nederlands` 93, 97, 100, 101, 102, 103,
-104, 105, 106, 107, 108, 128, 130, 131, 141 · `nederlands-auteur` 140 ·
-`nederlandstalig` 113 · `negatieve emoties` 176 · `negentig dagen` 188 ·
-`nepnieuws` 237 · `netwerken` 24, 246, 300, 388, 508 · `neurobiologie` 119 ·
-`neurochirurgie` 49, 414 · `neurologie` 325 · `neuroplasticiteit` 175, 208,
-414 · `neurowetenschap` 52, 208, 238, 275, 314, 326, 330, 331, 333, 339, 340,
-386, 418, 513 · `neurowetenschap-voor-kinderen` 327 · `neusademing` 318 · `new
+· `missie` 567 · `mitochondriën` 313 · `modellen` 300 · `modelleren` 139 ·
+`modellering` 455 · `moed` 44, 529 · `moeder-en-zoon` 26 · `momentum` 481 ·
+`monniksleven` 230 · `monomythe` 410 · `monopolie` 306 · `monsters` 532 ·
+`Monty-Python` 16 · `moraal` 9, 57, 67, 263 · `moraalfilosofie` 581 ·
+`moraalkritiek` 391 · `moreel` 36 · `mormonisme` 560 · `motivatie` 117, 139,
+146, 183, 200, 207, 315, 427, 468, 469, 472 · `Motley Fool` 474 · `motoren` 6
+· `motorfietsen` 325 · `muziek` 17, 85 · `mystiek` 340, 390, 524, 525, 573,
+578 · `mythologie` 73, 143, 357, 360, 407, 408, 409 · `mythologische fantasy`
+202 · `mythologische fictie` 203 · `NAD+` 415 · `nalatenschap` 178 ·
+`napoleontische oorlogen` 235 · `narcisme` 258, 404 · `naslag` 99, 112 ·
+`naslagwerk` 59, 225, 426, 477, 478, 486, 491, 500, 504 · `nationalisme` 237 ·
+`natuur` 191, 323 · `natuurkunde` 62, 94, 240, 262, 281, 300, 326 ·
+`navigatie` 321 · `navy seals` 229, 364 · `nazisme` 223 · `necrofilie` 223 ·
+`nederland` 96 · `nederlands` 93, 97, 100, 101, 102, 103, 104, 105, 106, 107,
+108, 128, 130, 131, 141 · `nederlands-auteur` 140 · `nederlandstalig` 113 ·
+`negatieve emoties` 176 · `negentig dagen` 188 · `nepnieuws` 237 · `netwerken`
+24, 246, 300, 388, 508 · `neurobiologie` 119 · `neurochirurgie` 49, 414 ·
+`neurologie` 325 · `neuroplasticiteit` 175, 208, 414 · `neurose` 575 ·
+`neurowetenschap` 52, 208, 238, 275, 314, 326, 330, 331, 333, 339, 340, 386,
+418, 513, 585 · `neurowetenschap-voor-kinderen` 327 · `neusademing` 318 · `new
 age` 149, 435, 449, 549 · `new thought` 259, 380, 555 · `NeXT` 46 ·
 `Nietzsche` 391 · `nieuwe gedachte` 127, 378 · `nieuws` 60, 90 ·
 `nieuwsgierigheid` 15, 28, 62, 241, 550 · `Nike` 20 · `nlp` 123, 125, 139 ·
 `Nobelprijs` 55 · `non-dualiteit` 520 · `non-fictie` 420 · `non-verbaal` 399 ·
 `non-verbale communicatie` 154 · `noodlot` 533 · `Noordse mythologie` 533 ·
-`notitieboeken` 241 · `novelle` 173 · `obesitas` 417 · `observeren` 15 ·
-`obsessieve liefde` 284 · `occultisme` 378 · `ochtendroutine` 14, 134, 244 ·
-`oefenen` 29, 397 · `oefening` 141, 296 · `oefeningen` 15, 35, 87, 103, 109,
-118, 120, 122, 130, 549 · `okinawa` 77 · `okr` 256 · `omgangsvormen` 24, 398 ·
-`omkering` 105 · `omstreden` 37, 73, 76, 83 · `onbegrepen-klachten` 104 ·
-`onbetrouwbaar` 123, 124, 125, 126 · `onbetrouwbare verteller` 284 ·
-`onbewezen` 127, 128, 129, 130, 131, 132, 139 · `onbewuste` 16, 283, 358, 359
-· `onderbewuste` 124 · `onderbewustzijn` 259 · `onderbouwing` 87, 108, 117,
-134, 135, 136 · `onderhandelen` 159, 186, 217, 260, 271, 272, 305, 444, 450,
-455 · `ondernemen` 20, 39, 40, 47, 172, 446, 476 · `ondernemers` 174 ·
-`ondernemerschap` 157, 163, 185, 197, 198, 210, 222, 228, 231, 245, 249, 276,
-278, 289, 306, 307, 308, 312, 350, 365, 369, 370, 395, 403, 427, 431, 434,
-465, 544 · `onderwijs` 6, 23, 33, 45, 63, 65, 68, 116, 237, 349, 509 ·
-`onderwijskritiek` 37 · `onderzoek` 23, 28, 29, 32, 33, 39, 44, 55, 62, 78,
-79, 80, 84, 85, 86, 88, 152, 305 · `onderzoeksdebat` 53 · `onderzoeksethiek`
-215 · `onderzoekskritiek` 52, 415 · `ongemak` 323 · `ongeneeslijke ziekte` 285
-· `online ondernemen` 309 · `onsterfelijkheid` 236, 405 · `onthechting` 462 ·
-`ontmoeten` 304 · `ontologie` 344 · `ontslagen` 47 · `ontwerp` 550 ·
+`notitieboeken` 241 · `novelle` 173 · `numineus` 578 · `obesitas` 417 ·
+`observeren` 15 · `obsessieve liefde` 284 · `occultisme` 378 ·
+`ochtendroutine` 14, 134, 244 · `oefenen` 29, 397 · `oefening` 141, 296 ·
+`oefeningen` 15, 35, 87, 103, 109, 118, 120, 122, 130, 549 · `okinawa` 77 ·
+`okr` 256 · `omgangsvormen` 24, 398 · `omkering` 105 · `omstreden` 37, 73, 76,
+83 · `onbegrepen-klachten` 104 · `onbetrouwbaar` 123, 124, 125, 126 ·
+`onbetrouwbare verteller` 284 · `onbewezen` 127, 128, 129, 130, 131, 132, 139
+· `onbewuste` 16, 283, 358, 359 · `onderbewuste` 124 · `onderbewustzijn` 259 ·
+`onderbouwing` 87, 108, 117, 134, 135, 136 · `onderhandelen` 159, 186, 217,
+260, 271, 272, 305, 444, 450, 455 · `ondernemen` 20, 39, 40, 47, 172, 446, 476
+· `ondernemers` 174 · `ondernemerschap` 157, 163, 185, 197, 198, 210, 222,
+228, 231, 245, 249, 276, 278, 289, 306, 307, 308, 312, 350, 365, 369, 370,
+395, 403, 427, 431, 434, 465, 544, 567, 570 · `onderwijs` 6, 23, 33, 45, 63,
+65, 68, 116, 237, 349, 509 · `onderwijskritiek` 37 · `onderzoek` 23, 28, 29,
+32, 33, 39, 44, 55, 62, 78, 79, 80, 84, 85, 86, 88, 152, 305 ·
+`onderzoeksdebat` 53 · `onderzoeksethiek` 215 · `onderzoekskritiek` 52, 415 ·
+`ongemak` 323 · `ongeneeslijke ziekte` 285 · `online ondernemen` 309 ·
+`onsterfelijkheid` 236, 405 · `onthechting` 462 · `ontmoeten` 304 ·
+`ontmoeting` 572 · `ontologie` 344 · `ontslagen` 47 · `ontwerp` 550 ·
 `ontwikkeling` 46, 85 · `ontwikkelingslanden` 234 · `onvolmaaktheid` 379 ·
 `onzekerheid` 268, 341, 375, 423, 515, 516 · `oordeel` 59, 69 · `oorlog` 31,
-57, 66, 364 · `oorlogvoering` 218 · `opdrachten` 116 · `opgetekend` 97 ·
+57, 66, 364, 568 · `oorlogvoering` 218 · `opdrachten` 116 · `opgetekend` 97 ·
 `opgeven` 249 · `opgroeien` 4, 295 · `opoffering` 554 · `opties` 494, 495, 506
 · `optimisme` 251 · `optogenetica` 331 · `opvoeding` 3, 23, 29, 44, 53, 73,
 162, 193, 290 · `opwekking` 558 · `orale traditie` 522 · `orde` 73, 74 ·
@@ -110762,64 +114835,65 @@ age` 149, 435, 449, 549 · `new thought` 259, 380, 555 · `NeXT` 46 ·
 `parabel` 38, 244, 246 · `paradigma` 543 · `paranormaal` 340, 362 · `passie`
 50, 198 · `pastoraat` 34 · `patiëntenverhalen` 331 · `patiëntverhalen` 414 ·
 `patriarchaat` 3 · `pelgrimage` 8 · `pensioen` 277 · `perceptie` 30 ·
-`perfectionisme` 19, 32, 44 · `persoonlijk merk` 198, 365 · `persoonlijke
+`perfectionisme` 19, 32, 44, 575 · `persoonlijk merk` 198, 365 · `persoonlijke
 financiën` 163, 233, 395 · `persoonlijke ontwikkeling` 161, 465, 467 ·
-`persoonlijkheid` 33, 338, 538 · `persoonlijkheidstypen` 361 · `Perzië` 524,
-525, 526, 536 · `piekeren` 105, 176 · `pijn` 85, 255 · `pijnlichaam` 435 ·
-`Pixar` 41, 46 · `placebo` 387, 469 · `planeten` 99 · `planning` 70, 276 ·
-`plantaardig-dieet` 324 · `plastische chirurgie` 411 · `plicht` 2 · `podcast`
-136, 465, 513 · `poëzie` 204 · `poker` 137 · `polarisatie` 305 · `polemiek` 67
-· `politicologie` 220, 221, 453, 455 · `politiek` 54, 219, 438 · `politieke
-economie` 566 · `politieke filosofie` 394 · `populair` 77, 129, 133 ·
-`populair-wetenschappelijk` 88, 239, 326, 418, 451 · `populaire filosofie` 194
-· `populaire psychologie` 156, 429 · `portefeuille` 474 · `portefeuillebeheer`
-507 · `portefeuilletheorie` 503 · `portretten` 75, 94 · `positief denken` 83,
-179, 516 · `positiegrootte` 489, 490, 491, 493, 504, 506 ·
-`positieve-psychologie` 207 · `positionering` 443 · `postmodernisme` 565 ·
-`postuum` 49 · `Praag` 173 · `praktijk` 459 · `praktisch` 118, 121, 140, 159,
-172 · `prentenboek` 167 · `presenteren` 82, 253 · `prestatie` 168, 291, 372,
-397, 488, 545 · `prestatiebeoordeling` 256 · `prestatiecultuur` 461 ·
-`prestatieonderzoek` 376 · `prestige` 515 · `preventie` 86, 313 ·
-`prijsstelling` 307 · `prijzen` 23, 424 · `prikkels` 60, 65 · `prioriteiten`
-25, 196 · `prioriteren` 151, 311, 448 · `privacy` 393 · `proactief` 25 ·
-`producer` 17 · `product` 446 · `productiviteit` 151, 175, 197, 207, 244, 276,
-278, 290, 311, 400, 434, 442, 448, 512, 552 · `productontwerp` 231, 294 ·
-`productontwikkeling` 265, 471 · `proeven` 112 · `programmering` 439 ·
-`projecten` 81 · `projectie` 107, 108 · `propaganda` 60, 384, 562, 566 ·
-`propositielogica` 437 · `protocol` 69 · `pseudokennis` 126 · `pseudoniem` 378
-· `psychedelica` 275 · `psychiatrie` 1, 48, 95, 96, 104, 213, 314, 315, 317,
-331 · `psychoanalyse` 223, 360, 361, 405, 409 · `psychologie` 23, 28, 29, 55,
-73, 78, 79, 105, 138, 143, 147, 152, 154, 162, 200, 211, 213, 214, 250, 254,
-258, 296, 310, 338, 357, 358, 375, 381, 382, 384, 387, 424, 444, 457, 463,
-467, 468, 469, 487, 501, 514, 538, 541, 542 · `psychologische flexibiliteit`
-460 · `psychologische functies` 361 · `psychopathie` 429 · `psychotherapie`
-164, 227, 386, 406 · `PTSS` 386 · `publiceren` 13 · `publiek opbouwen` 369 ·
-`publieksfilosofie` 269 · `Pulitzer` 5 · `puzzels` 451 · `Python` 486 ·
-`quantum` 94 · `queeste` 522 · `quilten` 114 · `quotes` 179 · `radicale
-transparantie` 270 · `RAND` 454, 456 · `Rat-Pack` 178 · `rationaliteit` 454 ·
-`rationele keuze` 455 · `recht` 393 · `rechtspraak` 69 · `reclame` 206, 279,
-443, 446, 563 · `reeks` 114, 192 · `regimeverandering` 220 · `reïncarnatie`
-202 · `reïnventie` 344 · `reisverhaal` 1 · `reizen` 278 · `relaties` 34, 51,
-101, 120, 122, 145, 152, 162, 164, 166, 167, 195, 213, 334, 335, 381, 398,
-406, 466 · `relatietherapie` 165 · `relativiteitstheorie` 240, 281 · `religie`
-56 · `religieuze symboliek` 409 · `REM` 52 · `remarkable` 446 · `Renaissance`
-15, 241 · `rente` 38 · `replicatie` 79 · `reputatie` 388 · `retorica` 253, 438
-· `revisie` 18 · `ridderepos` 534 · `rijkdom` 57, 228 · `risico` 64, 80, 144,
-268, 282, 351, 423, 425, 480, 481, 482, 487, 496, 500, 501 · `risicobeheer`
-479, 489, 490, 491, 492, 493, 494, 497, 498, 504, 506 · `ritueel` 404 ·
-`rituelen` 304 · `rivier als symbool` 287 · `roem-en-eenzaamheid` 178 ·
-`roeping` 8, 9, 12, 160 · `roman` 61, 113, 114, 115, 254, 554 · `Rome` 537 ·
-`romeinse oudheid` 232 · `rouw` 95, 467 · `rouwverwerking` 204 · `ruimte en
-tijd` 281 · `ruimtevaart` 266 · `russische literatuur` 235 · `rust` 32 ·
-`SaaS` 434 · `sadisme` 223 · `saga` 533 · `Salinas` 10 · `samenleving` 90, 98,
-319 · `samenwerken` 25 · `samenwerking` 453 · `samoerai` 346, 462, 517, 535 ·
-`Sanskriet` 520 · `Santa Fe Institute` 347 · `satire` 155 · `satori` 528 ·
-`scepsis` 63 · `schaalgroei` 434 · `schaalvergroting` 350 · `schaamte` 32, 44,
-317, 470 · `schaarste` 92, 249 · `schaduw` 404 · `scheiding` 556 ·
-`scheikunde` 92 · `school` 53, 84 · `schrijven` 11, 12, 14, 18, 19, 81, 436,
-511 · `schrijverschap` 191, 325 · `schuld` 254 · `schulden` 20, 38, 121, 159,
-464 · `seksualiteit` 100, 145, 164, 165, 316 · `selectoraattheorie` 221 ·
-`seminar` 139, 543 · `Shaolin` 389 · `Silicon Valley` 306 · `simulatie` 565 ·
+`persoonlijkheid` 33, 338, 538 · `persoonlijkheidstypen` 361 · `perspectief`
+580 · `Perzië` 524, 525, 526, 536 · `piekeren` 105, 176 · `pijn` 85, 255 ·
+`pijnlichaam` 435 · `Pixar` 41, 46 · `placebo` 387, 469 · `planeten` 99 ·
+`planning` 70, 276 · `plantaardig-dieet` 324 · `plastische chirurgie` 411 ·
+`plato` 581 · `plicht` 2 · `podcast` 136, 465, 513 · `poëzie` 204 · `poker`
+137 · `polarisatie` 305 · `polemiek` 67 · `politicologie` 220, 221, 453, 455 ·
+`politiek` 54, 219, 438 · `politieke economie` 566 · `politieke filosofie` 394
+· `populair` 77, 129, 133 · `populair-wetenschappelijk` 88, 239, 326, 418, 451
+· `populaire filosofie` 194 · `populaire psychologie` 156, 429 ·
+`portefeuille` 474 · `portefeuillebeheer` 507 · `portefeuilletheorie` 503 ·
+`portretten` 75, 94 · `positief denken` 83, 179, 516 · `positiegrootte` 489,
+490, 491, 493, 504, 506 · `positieve-psychologie` 207 · `positionering` 443 ·
+`postmodernisme` 565 · `postuum` 49 · `Praag` 173 · `praktijk` 459 ·
+`praktisch` 118, 121, 140, 159, 172 · `prentenboek` 167 · `presenteren` 82,
+253 · `prestatie` 168, 291, 372, 397, 488, 545 · `prestatiebeoordeling` 256 ·
+`prestatiecultuur` 461 · `prestatieonderzoek` 376 · `prestige` 515 ·
+`preventie` 86, 313 · `prijsstelling` 307 · `prijzen` 23, 424 · `prikkels` 60,
+65 · `prioriteiten` 25, 196 · `prioriteren` 151, 311, 448 · `privacy` 393 ·
+`proactief` 25 · `producer` 17 · `product` 446 · `productiviteit` 151, 175,
+197, 207, 244, 276, 278, 290, 311, 400, 434, 442, 448, 512, 552 ·
+`productontwerp` 231, 294 · `productontwikkeling` 265, 471 · `proeven` 112 ·
+`programmering` 439 · `projecten` 81 · `projectie` 107, 108 · `propaganda` 60,
+384, 562, 566 · `propositielogica` 437 · `protocol` 69 · `pseudokennis` 126 ·
+`pseudoniem` 378 · `psychedelica` 275 · `psychiatrie` 1, 48, 95, 96, 104, 213,
+314, 315, 317, 331 · `psychoanalyse` 223, 360, 361, 405, 409, 575 ·
+`psychologie` 23, 28, 29, 55, 73, 78, 79, 105, 138, 143, 147, 152, 154, 162,
+200, 211, 213, 214, 250, 254, 258, 296, 310, 338, 357, 358, 375, 381, 382,
+384, 387, 424, 444, 457, 463, 467, 468, 469, 487, 501, 514, 538, 541, 542, 582
+· `psychologische flexibiliteit` 460 · `psychologische functies` 361 ·
+`psychopathie` 429 · `psychotherapie` 164, 227, 386, 406 · `PTSS` 386 ·
+`publiceren` 13 · `publiek opbouwen` 369 · `publieksfilosofie` 269 ·
+`Pulitzer` 5 · `puzzels` 451 · `Python` 486 · `quantum` 94 · `queeste` 522 ·
+`quilten` 114 · `quotes` 179 · `radicale transparantie` 270 · `RAND` 454, 456
+· `Rat-Pack` 178 · `rationaliteit` 454 · `rationele keuze` 455 · `recht` 393 ·
+`rechtspraak` 69 · `reclame` 206, 279, 443, 446, 563 · `reeks` 114, 192 ·
+`regimeverandering` 220 · `reïncarnatie` 202 · `reïnventie` 344 ·
+`reisverhaal` 1 · `reizen` 278 · `relaties` 34, 51, 101, 120, 122, 145, 152,
+162, 164, 166, 167, 195, 213, 334, 335, 381, 398, 406, 466 · `relatietherapie`
+165 · `relativiteitstheorie` 240, 281 · `religie` 56, 572 · `religieuze
+symboliek` 409 · `REM` 52 · `remarkable` 446 · `Renaissance` 15, 241 · `rente`
+38 · `replicatie` 79 · `reputatie` 388 · `retorica` 253, 438 · `revisie` 18 ·
+`ridderepos` 534 · `rijkdom` 57, 228 · `risico` 64, 80, 144, 268, 282, 351,
+423, 425, 480, 481, 482, 487, 496, 500, 501 · `risicobeheer` 479, 489, 490,
+491, 492, 493, 494, 497, 498, 504, 506 · `ritueel` 404 · `rituelen` 304 ·
+`rivier als symbool` 287 · `roem-en-eenzaamheid` 178 · `roeping` 8, 9, 12, 160
+· `roman` 61, 113, 114, 115, 254, 554 · `Rome` 537 · `romeinse oudheid` 232 ·
+`rouw` 95, 467 · `rouwverwerking` 204 · `ruimte en tijd` 281 · `ruimtevaart`
+266 · `russische literatuur` 235 · `rust` 32 · `SaaS` 434 · `sadisme` 223 ·
+`saga` 533 · `Salinas` 10 · `samenleving` 90, 98, 319 · `samenwerken` 25 ·
+`samenwerking` 453 · `samoerai` 346, 462, 517, 535 · `Sanskriet` 520 · `Santa
+Fe Institute` 347 · `satire` 155 · `satori` 528 · `scepsis` 63, 585 ·
+`schaalgroei` 434 · `schaalvergroting` 350 · `schaamte` 32, 44, 317, 470 ·
+`schaarste` 92, 249 · `schaduw` 404 · `scheiding` 556 · `scheikunde` 92 ·
+`school` 53, 84 · `schrijven` 11, 12, 14, 18, 19, 81, 436, 511 ·
+`schrijverschap` 191, 325 · `schuld` 254 · `schulden` 20, 38, 121, 159, 464 ·
+`seksualiteit` 100, 145, 164, 165, 316 · `selectoraattheorie` 221 · `seminar`
+139, 543 · `Shaolin` 389 · `Silicon Valley` 306 · `simulatie` 565 ·
 `sirtuïnen` 415 · `situationisme` 564 · `slaap` 52, 87, 88, 171, 181, 316,
 329, 414 · `slaapapneu` 332 · `slavernij` 68 · `smartphone` 53, 288 · `sociale
 besmetting` 303 · `sociale media` 53, 70, 194, 198, 204, 288, 365 · `sociale
@@ -110831,7 +114905,7 @@ psychologie` 215, 280, 302, 319 · `sociale-vaardigheden` 398 · `sociologie`
 `spiegelneuronen` 303 · `spiegeloefening` 380 · `spiegelogie` 108 ·
 `spieropbouw` 316 · `spijt` 447 · `spiritualiteit` 8, 14, 27, 102, 108, 141,
 149, 160, 169, 184, 190, 195, 196, 199, 242, 310, 358, 377, 431, 435, 449,
-519, 526, 556 · `spirituele zoektocht` 287, 524 · `sport` 20, 349 ·
+519, 526, 556, 583 · `spirituele zoektocht` 287, 524 · `sport` 20, 349 ·
 `sportpsychologie` 372, 374, 441 · `sportwetenschap` 461 · `spreekangst` 253 ·
 `spreker` 117, 134 · `staartrisico` 494, 496 · `staatsgreep` 220 · `stalking`
 214 · `standaarden` 396 · `Stanford` 150, 388, 458 · `start-ups` 306 ·
@@ -110841,8 +114915,8 @@ psychologie` 215, 280, 302, 319 · `sociale-vaardigheden` 398 · `sociologie`
 416, 516 · `sterrenkunde` 99 · `sterven` 49, 95, 275, 447 · `stijl` 18, 436 ·
 `stoicijns` 75, 140, 142 · `stoïcijnse filosofie` 153, 228, 232, 286, 423, 459
 · `stoïcijnse levenshouding` 402 · `stoïcijnse-houding` 462 · `stoïcisme` 2,
-30, 194, 247, 248, 292, 516 · `stommiteit` 155 · `storytelling` 253, 279 ·
-`strategie` 212, 217, 218, 219, 249, 250, 260, 272, 293, 306, 346, 353, 370,
+30, 194, 247, 248, 292, 516, 586 · `stommiteit` 155 · `storytelling` 253, 279
+· `strategie` 212, 217, 218, 219, 249, 250, 260, 272, 293, 306, 346, 353, 370,
 426, 440, 443, 450, 451, 456 · `streken` 112 · `stress` 80, 87, 106, 118, 187,
 387, 458 · `stressmanagement` 153 · `stressregulatie` 372 · `strip` 452 ·
 `structuur` 82, 511 · `studieboek` 421, 437, 497, 498, 507 · `studietechniek`
@@ -110856,99 +114930,101 @@ psychologie` 215, 280, 302, 319 · `sociale-vaardigheden` 398 · `sociologie`
 `technische analyse` 483, 500 · `technologie` 160, 288, 294, 306, 393, 499 ·
 `technologiebedrijven` 293 · `technologiegeschiedenis` 231, 267 ·
 `technologiekritiek` 297, 539 · `tegen-productiviteit` 71 · `tegenslag` 30,
-111, 174 · `tekenen` 15 · `tekstkwaliteit` 124 · `televisie` 54 ·
+111, 174, 570 · `tekenen` 15 · `tekstkwaliteit` 124 · `televisie` 54 ·
 `temperament` 33 · `tempo` 552 · `termijnmarkten` 480, 482 · `testament` 462 ·
 `tevredenheid` 463 · `Texas` 5, 385 · `The Secret` 433 · `theeceremonie` 379 ·
-`therapie` 51, 107, 118, 119, 120, 121, 122, 145, 466 · `Thermopylae` 529 ·
-`thriller` 101, 202 · `thuiskomst` 531 · `thuiszorg` 225 · `tieners` 193 ·
-`tijd` 71, 232, 262, 292, 334, 442 · `tijdmanagement` 434 · `tijdsbeleving`
-326 · `timemanagement` 311, 448 · `toekomst` 236 · `toeval` 21, 64, 93, 137,
-274, 362, 483 · `Tolteeks` 27 · `toon` 72, 118, 119, 121, 132, 145 ·
-`topprestatie` 374 · `topsport` 422, 460, 545 · `totalitarisme` 384 ·
-`trading` 492, 493, 495 · `training` 376 · `trauma` 104, 119, 195, 229, 317,
-386 · `trendvolgen` 480, 501 · `trilling` 127 · `trilogie` 202, 203, 248 ·
-`TRIZ` 471 · `Troje` 530 · `tuinontwerp` 205 · `tumoronderdrukker` 419 ·
-`twaalf-weken` 14 · `twaalfde eeuw` 525 · `tweede-wereldoorlog` 115 ·
-`tweelingonderzoek` 417 · `twintigers` 51 · `typologie` 361 ·
-`uitdaging-vaardigheid` 200 · `uitgeven` 463 · `uitleg` 99, 102 · `uitleggen`
-82 · `uitstel` 71, 140 · `uitstelgedrag` 12, 311, 513 · `uitstellen` 16 ·
-`uitvinding` 267 · `ultra-triatlon` 324 · `ultralopen` 229 · `umwelt` 322 ·
-`Upanishaden` 169 · `vaardigheden` 40, 50, 349, 397 · `vaardigheid` 64, 296 ·
-`vader-en-dochter` 178, 226 · `vader-en-zoon` 1, 173, 287 · `vaderschap` 49,
-226, 324, 385 · `vakbonden` 297 · `vakmanschap` 1, 206, 320, 346, 376, 553 ·
-`variantie` 137 · `vastgoed` 37, 448 · `vechtkunst` 389 · `vedanta` 518 ·
-`vedische filosofie` 230 · `veedrift` 5 · `veerkracht` 106, 153, 174, 177,
-189, 317, 375, 459, 460, 461, 467, 470 · `veiligheid` 43, 214 ·
-`veiligheidsmarge` 144 · `veldwerk` 521 · `verandering` 170, 252, 375, 467 ·
-`verantwoordelijkheid` 42, 72, 73, 74, 93, 184, 282, 335, 364 · `verbinding`
-302, 550 · `verdriet` 111, 227 · `Verenigde-Staten` 464 · `vergaderen` 42 ·
-`vergaderingen` 276 · `vergankelijkheid` 379, 532 · `vergelijkende mythologie`
-410 · `vergeving` 31, 102, 120, 548, 556 · `verhaal` 74 · `verhaalstructuur`
-410 · `verhaalvorm` 135 · `verhalen` 56, 101, 110, 136, 196, 470 ·
-`verhalenbundel` 206 · `verhouding` 113 · `verhoudingen` 110 · `verkeer` 300 ·
-`verklaringen` 68 · `verkoop` 132, 182, 185, 186, 188, 246, 280, 307, 308,
-350, 367, 427 · `verkooptrechters` 309 · `verkopen` 210 · `verlangen` 76, 100,
-113, 130, 164, 418 · `verleiding` 381 · `verlichting` 243, 287 · `verlies` 95,
-373 · `vermaak` 61 · `vermogen` 39, 463 · `vermogen opbouwen` 395 ·
-`vermogensbeheer` 498 · `vermogensopbouw` 163, 264, 277 · `veroudering` 171,
-387, 415 · `verpleeghuis` 416 · `verpleegkunde` 225 · `verplichting` 9 ·
-`verraad` 534 · `verslaving` 18, 238, 275, 294, 314, 324, 325, 418, 554 ·
-`vertrouwen` 42, 273, 279, 319 · `vervloekt goud` 533 · `vervolg` 74, 131 ·
-`vervreemding` 173 · `verwachting` 387 · `verwachtingen` 425 ·
-`verwachtingswaarde` 492 · `verwondering` 227 · `verzekeren` 496 · `verzet`
-523 · `vier deugden` 194 · `visioenen` 359 · `visualisatie` 259, 411, 540 ·
-`visualiseren` 116 · `vlaams` 89, 91, 98, 109 · `voeding` 86, 88, 171, 313,
-316, 329, 332, 417 · `voedingswetenschap` 417 · `volatiliteit` 494, 495, 506 ·
-`volharding` 29 · `volledigheid` 167 · `voorbede` 558 · `voorbeelden` 128 ·
-`voorbereiding` 82 · `voordrachten` 519 · `voorkeuren` 89 · `vooroordelen` 55,
-283 · `voorspellen` 455 · `voorspellingen` 268 · `vooruitgang` 251 ·
-`vooruitgangsdenken` 298 · `voorzichtigheid` 216 · `vorming` 224 ·
-`vorstenspiegel` 536 · `vragen stellen` 509 · `vragen-stellen` 475 ·
-`vreemden` 302 · `vreugde` 549 · `vriendelijkheid` 551 · `vriendschap` 5, 7,
-114, 292, 295, 319, 514 · `vrije tijd` 78, 288 · `vrije wil` 10, 236, 339 ·
-`vrijheid` 61, 546 · `vroeg pensioen` 264 · `vrouwenhaat` 110 ·
-`waardebeleggen` 144, 351 · `waardecreatie` 246, 508 · `waarden` 72, 142, 392,
-457, 461, 553 · `waardering` 24, 34 · `waarheid` 263 · `waarneming` 154, 283,
-322, 541 · `wabi-sabi` 379 · `wales` 558 · `Wall Street` 144, 351, 499 ·
-`weerbaarheid` 194 · `weerstand` 12, 538 · `welvaart` 251, 334 ·
-`welvaartsbewustzijn` 433 · `wereldbeeld` 234 · `wereldbouw` 192 · `werk` 70,
-78, 151, 252, 466 · `werk en rust` 512 · `werkboek` 14, 122, 150 ·
-`werkcultuur` 551 · `werkdruk` 400 · `werkplek` 33, 43 · `werktempo` 400 ·
-`werkwijze` 16 · `West-Afrika` 522 · `West-Point` 29 · `westen` 67 · `western`
-5 · `westerse filosofie` 269, 341 · `wet van aantrekking` 127, 190, 433, 543 ·
-`wetenschap` 63, 66, 93, 94, 328, 485 · `wetenschappers` 239 ·
-`wetenschapsfilosofie` 483 · `wetenschapsgeschiedenis` 239, 240, 321, 347,
-413, 419 · `wetenschapsjournalistiek` 387, 412 · `wijn` 112 · `wilskracht` 238
-· `Wired` 473 · `wiskunde` 116, 454, 456, 490, 505, 509 · `wisselstroom` 267 ·
-`woede` 119, 120 · `woestijn` 8 · `Wolfgang Pauli` 362 · `wraak` 101, 533 ·
-`WRAP` 510 · `wrok` 530 · `wu wei` 394 · `Yale` 215 · `yin-yang` 394 · `yoga`
-195, 242, 518 · `young adult` 192 · `youtube` 245 · `zakelijk` 307 ·
-`zakelijke communicatie` 182 · `zakendoen` 348, 367, 465, 508 · `zeereis` 36 ·
-`zeevaart` 321 · `zeldzaam` 144 · `zelfacceptatie` 176, 335, 561 ·
-`zelfbedrog` 66 · `zelfbeeld` 25, 27, 105, 107, 108, 129, 138, 197, 367, 372,
-411, 439, 538, 540, 559 · `zelfbeheersing` 75, 148, 212, 248, 286, 314, 382,
-389, 396 · `zelfbescherming` 214 · `zelfcompassie` 32, 551 · `zelfdiscipline`
-2, 158, 229, 244, 311, 544 · `zelfevaluatie` 270 · `zelfexperiment` 316, 318,
-417 · `zelfhulp` 15, 22, 25, 34, 58, 72, 76, 79, 83, 117, 134, 135, 136, 146,
-147, 148, 149, 150, 151, 152, 153, 156, 157, 158, 161, 162, 166, 168, 174,
-175, 176, 177, 179, 181, 184, 187, 188, 190, 193, 194, 195, 196, 199, 204,
-207, 208, 209, 210, 211, 213, 222, 224, 230, 255, 259, 291, 310, 334, 338,
-356, 373, 380, 389, 395, 398, 401, 403, 406, 411, 427, 429, 432, 435, 439,
-449, 459, 465, 513, 540, 543, 546, 548, 556, 557, 561 · `zelfkennis` 258, 260,
-361, 519, 526 · `zelfliefde` 190, 195, 204, 380, 403, 549 · `zelfonderzoek`
-315, 470, 520, 527 · `zelfontplooiing` 393 · `zelfontwikkeling` 179 ·
-`zelfpraat` 161 · `zelfpromotie` 388 · `zelfpublicatie` 174 · `zelfregulatie`
-153, 165, 177, 541, 542 · `zelfsabotage` 161, 344 · `zelfspot` 19 ·
-`zelfspraak` 439 · `zelfstandig` 40, 515 · `zelfstandig denken` 211 ·
-`zelfstandig ondernemen` 198 · `zelfstandig starten` 210 · `zelfsturing` 142,
-168 · `zelfuitgegeven` 123, 124, 125, 126 · `zelfverbetering` 243 ·
-`zelfvertrouwen` 157, 187, 312, 365, 440, 441 · `zelfwaarde` 168 ·
-`zelfwaardering` 121 · `zelfzorg` 109, 225, 466 · `zen` 141, 346, 441, 517,
-528 · `zenboeddhisme` 205, 379 · `zenuwstelsel` 87 · `zeven-stappen` 129 ·
-`ziekte` 74, 180, 295 · `zingeving` 9, 48, 77, 91, 160, 183, 200, 201, 237,
-245, 255, 515, 547 · `zitten` 84 · `zorg` 96 · `Zuid-Afrika` 26, 266, 523 ·
-`zuinigheid` 39 · `zwaar` 143 · `zwaardvechten` 346, 517 · `zwart bewustzijn`
-523 · `zwarte gaten` 99, 262
+`theologie` 578, 587 · `therapie` 51, 107, 118, 119, 120, 121, 122, 145, 466 ·
+`Thermopylae` 529 · `thriller` 101, 202 · `thuiskomst` 531 · `thuiszorg` 225 ·
+`tieners` 193 · `tijd` 71, 232, 262, 292, 334, 442 · `tijdmanagement` 434 ·
+`tijdsbeleving` 326 · `timemanagement` 311, 448 · `toekomst` 236 · `toeval`
+21, 64, 93, 137, 274, 362, 483 · `Tolteeks` 27 · `toon` 72, 118, 119, 121,
+132, 145 · `topprestatie` 374 · `topsport` 422, 460, 545 · `totalitarisme` 384
+· `trading` 492, 493, 495 · `training` 376 · `transpersoonlijke psychologie`
+583 · `trauma` 104, 119, 195, 229, 317, 386 · `trendvolgen` 480, 501 ·
+`trilling` 127 · `trilogie` 202, 203, 248 · `TRIZ` 471 · `Troje` 530 ·
+`tuinontwerp` 205 · `tumoronderdrukker` 419 · `twaalf-weken` 14 · `twaalfde
+eeuw` 525 · `tweede-wereldoorlog` 115 · `tweelingonderzoek` 417 · `twintigers`
+51 · `typologie` 361 · `uitdaging-vaardigheid` 200 · `uitgeven` 463 · `uitleg`
+99, 102 · `uitleggen` 82 · `uitstel` 71, 140 · `uitstelgedrag` 12, 311, 513 ·
+`uitstellen` 16 · `uitvinding` 267 · `ultra-triatlon` 324 · `ultralopen` 229 ·
+`umwelt` 322 · `Upanishaden` 169 · `vaardigheden` 40, 50, 349, 397 ·
+`vaardigheid` 64, 296 · `vader-en-dochter` 178, 226 · `vader-en-zoon` 1, 173,
+287 · `vaderschap` 49, 226, 324, 385 · `vakbonden` 297 · `vakmanschap` 1, 206,
+320, 346, 376, 553 · `variantie` 137 · `vastgoed` 37, 448, 570 · `vechtkunst`
+389 · `vedanta` 518 · `vedische filosofie` 230 · `veedrift` 5 · `veerkracht`
+106, 153, 174, 177, 189, 317, 375, 459, 460, 461, 467, 470 · `veiligheid` 43,
+214 · `veiligheidsmarge` 144 · `veldwerk` 521 · `verandering` 170, 252, 375,
+467 · `verantwoordelijkheid` 42, 72, 73, 74, 93, 184, 282, 335, 364 ·
+`verbinding` 302, 550 · `verdriet` 111, 227 · `Verenigde-Staten` 464 ·
+`vergaderen` 42 · `vergaderingen` 276 · `vergankelijkheid` 379, 532 ·
+`vergelijkende mythologie` 410 · `vergeving` 31, 102, 120, 548, 556 ·
+`verhaal` 74 · `verhaalstructuur` 410 · `verhaalvorm` 135 · `verhalen` 56,
+101, 110, 136, 196, 470 · `verhalenbundel` 206 · `verhouding` 113 ·
+`verhoudingen` 110 · `verkeer` 300 · `verklaringen` 68 · `verkoop` 132, 182,
+185, 186, 188, 246, 280, 307, 308, 350, 367, 427 · `verkooptrechters` 309 ·
+`verkopen` 210 · `verlangen` 76, 100, 113, 130, 164, 418 · `verleiding` 381 ·
+`verlichting` 243, 287 · `verlies` 95, 373 · `vermaak` 61 · `vermogen` 39, 463
+· `vermogen opbouwen` 395 · `vermogensbeheer` 498 · `vermogensopbouw` 163,
+264, 277 · `veroudering` 171, 387, 415 · `verpleeghuis` 416 · `verpleegkunde`
+225 · `verplichting` 9 · `verraad` 534 · `verslaving` 18, 238, 275, 294, 314,
+324, 325, 418, 554, 568, 583 · `vertrouwen` 42, 273, 279, 319 · `vervloekt
+goud` 533 · `vervolg` 74, 131 · `vervreemding` 173 · `verwachting` 387 ·
+`verwachtingen` 425 · `verwachtingswaarde` 492 · `verwondering` 227 ·
+`verzekeren` 496 · `verzet` 523 · `vier deugden` 194 · `visioenen` 359 ·
+`visualisatie` 259, 411, 540 · `visualiseren` 116 · `vlaams` 89, 91, 98, 109 ·
+`voeding` 86, 88, 171, 313, 316, 329, 332, 417 · `voedingswetenschap` 417 ·
+`volatiliteit` 494, 495, 506 · `volharding` 29 · `volledigheid` 167 ·
+`voorbede` 558 · `voorbeelden` 128 · `voorbereiding` 82 · `voordrachten` 519 ·
+`voorkeuren` 89 · `vooroordelen` 55, 283 · `voorspellen` 455 ·
+`voorspellingen` 268 · `vooruitgang` 251 · `vooruitgangsdenken` 298 ·
+`voorzichtigheid` 216 · `vorming` 224 · `vorstenspiegel` 536 · `vragen
+stellen` 509 · `vragen-stellen` 475 · `vreemden` 302 · `vreugde` 549 ·
+`vriendelijkheid` 551 · `vriendschap` 5, 7, 114, 292, 295, 319, 514 · `vrije
+tijd` 78, 288 · `vrije wil` 10, 236, 339 · `vrijheid` 61, 546 · `vroeg
+pensioen` 264 · `vrouwenhaat` 110 · `waardebeleggen` 144, 351 ·
+`waardecreatie` 246, 508 · `waarden` 72, 142, 392, 457, 461, 553 ·
+`waardering` 24, 34 · `waarheid` 263 · `waarneming` 154, 283, 322, 541, 582 ·
+`wabi-sabi` 379 · `wales` 558 · `Wall Street` 144, 351, 499 · `weerbaarheid`
+194 · `weerstand` 12, 538 · `welvaart` 251, 334 · `welvaartsbewustzijn` 433 ·
+`wereldbeeld` 234 · `wereldbouw` 192 · `werk` 70, 78, 151, 252, 466 · `werk en
+rust` 512 · `werkboek` 14, 122, 150 · `werkcultuur` 551 · `werkdruk` 400 ·
+`werkplek` 33, 43 · `werktempo` 400 · `werkwijze` 16 · `West-Afrika` 522 ·
+`West-Point` 29 · `westen` 67 · `western` 5 · `westerse filosofie` 269, 341 ·
+`wet van aantrekking` 127, 190, 433, 543 · `wetenschap` 63, 66, 93, 94, 328,
+485 · `wetenschappers` 239 · `wetenschapsfilosofie` 483 ·
+`wetenschapsgeschiedenis` 239, 240, 321, 347, 413, 419 ·
+`wetenschapsjournalistiek` 387, 412 · `wijn` 112 · `wilskracht` 238 · `Wired`
+473 · `wiskunde` 116, 454, 456, 490, 505, 509 · `wisselstroom` 267 · `woede`
+119, 120 · `woestijn` 8 · `Wolfgang Pauli` 362 · `wraak` 101, 533 · `WRAP` 510
+· `wrok` 530 · `wu wei` 394 · `Yale` 215 · `yin-yang` 394 · `yoga` 195, 242,
+518 · `young adult` 192 · `youtube` 245 · `zakelijk` 307 · `zakelijke
+communicatie` 182 · `zakendoen` 348, 367, 465, 508 · `zeereis` 36 · `zeevaart`
+321 · `zeldzaam` 144 · `zelfacceptatie` 176, 335, 561 · `zelfbedrog` 66 ·
+`zelfbeeld` 25, 27, 105, 107, 108, 129, 138, 197, 367, 372, 411, 439, 538,
+540, 559, 575 · `zelfbeheersing` 75, 148, 212, 248, 286, 314, 382, 389, 396 ·
+`zelfbescherming` 214 · `zelfcompassie` 32, 551 · `zelfdiscipline` 2, 158,
+229, 244, 311, 544 · `zelfevaluatie` 270 · `zelfexperiment` 316, 318, 417 ·
+`zelfhaat` 575 · `zelfhulp` 15, 22, 25, 34, 58, 72, 76, 79, 83, 117, 134, 135,
+136, 146, 147, 148, 149, 150, 151, 152, 153, 156, 157, 158, 161, 162, 166,
+168, 174, 175, 176, 177, 179, 181, 184, 187, 188, 190, 193, 194, 195, 196,
+199, 204, 207, 208, 209, 210, 211, 213, 222, 224, 230, 255, 259, 291, 310,
+334, 338, 356, 373, 380, 389, 395, 398, 401, 403, 406, 411, 427, 429, 432,
+435, 439, 449, 459, 465, 513, 540, 543, 546, 548, 556, 557, 561, 569, 570 ·
+`zelfkennis` 258, 260, 361, 519, 526 · `zelfliefde` 190, 195, 204, 380, 403,
+549 · `zelfonderzoek` 315, 470, 520, 527, 579 · `zelfontplooiing` 393 ·
+`zelfontwikkeling` 179 · `zelfpraat` 161 · `zelfpromotie` 388 ·
+`zelfpublicatie` 174 · `zelfregulatie` 153, 165, 177, 541, 542 ·
+`zelfsabotage` 161, 344 · `zelfspot` 19 · `zelfspraak` 439 · `zelfstandig` 40,
+515 · `zelfstandig denken` 211 · `zelfstandig ondernemen` 198 · `zelfstandig
+starten` 210 · `zelfsturing` 142, 168 · `zelfuitgegeven` 123, 124, 125, 126 ·
+`zelfverbetering` 243 · `zelfvertrouwen` 157, 187, 312, 365, 440, 441 ·
+`zelfwaarde` 168 · `zelfwaardering` 121 · `zelfzorg` 109, 225, 466 · `zen`
+141, 346, 441, 517, 528, 576 · `zenboeddhisme` 205, 379 · `zenuwstelsel` 87 ·
+`zestiende eeuw` 573 · `zeven-stappen` 129 · `ziekte` 74, 180, 295 ·
+`zingeving` 9, 48, 77, 91, 160, 183, 200, 201, 237, 245, 255, 515, 547 ·
+`zintuigen` 582 · `zitten` 84 · `zorg` 96 · `Zuid-Afrika` 26, 266, 523 ·
+`zuinigheid` 39 · `zuivere ervaring` 576 · `zwaar` 143 · `zwaardvechten` 346,
+517 · `zwart bewustzijn` 523 · `zwarte gaten` 99, 262
 
 ## Leesroutes
 

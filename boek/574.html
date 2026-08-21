@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Totaliteit en oneindigheid &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De westerse filosofie is volgens Levinas overwegend ontologie geweest: denken dat al het vreemde herleidt tot het eigen begrip en daarmee tot het Zelfde.…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-574">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">574 &middot; Filosofie en mystiek</p>
+    <h1>Totaliteit en oneindigheid</h1>
+    <p class="lede">Emmanuel Levinas, 1961</p>
+    <p class="stats">
+      <span><b>1762</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="574"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De westerse filosofie is volgens Levinas overwegend ontologie geweest: denken dat al het vreemde herleidt tot het eigen begrip en daarmee tot het Zelfde. Wat zich zo laat ordenen vormt een totaliteit, en in een totaliteit is de oorlog de waarheid: personen tellen er als functies van het geheel. Eén verschijning onttrekt zich echter aan elke totaliteit: het gelaat van de andere mens. Het gelaat is geen verschijnsel dat het ik waarneemt en duidt; het spreekt het ik aan, weerloos en gebiedend tegelijk, en zijn eerste woord luidt: gij zult niet doden. In die aanspraak ontspringt de ethiek, vóór alle kennis en vóór elke vrije keuze; de verantwoordelijkheid voor de ander is asymmetrisch en valt niet af te kopen. Daarom is de ethiek eerste filosofie, en draagt de idee van het oneindige, de gedachte die meer bevat dan het denken kan omvatten, meer waarheid dan welk systeem ook.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Oorlog, vrede en het voorwoord</h3>
+      <p>Het boek opent met de zin dat het van het hoogste belang is te weten of de moraal ons niet bedriegt. De oorlog, schrijft Levinas, schort de moraal op en toont het zijn als totaliteit: in de mobilisatie van alles en iedereen blijft geen buitenkant over. De filosofie die het zijn als totaliteit denkt, van Parmenides tot Hegel en Heidegger, is daarmee verwant aan de oorlog. Tegenover de totaliteit stelt het voorwoord de eschatologie van de messiaanse vrede, geen kennis van een einde der tijden, maar de mogelijkheid dat een wezen zich aan het oordeel van de geschiedenis onttrekt en zelf spreekt.</p>
+      <p>Levinas kondigt aan dat het boek een verdediging van de subjectiviteit wordt, niet vanuit haar zelfbewustzijn maar vanuit de idee van het oneindige, en noemt twee schuldeisers: Descartes, van wie die idee stamt, en Franz Rosenzweig, wiens <i>Stern der Erlösung</i> naar zijn zeggen te veel in het boek aanwezig is om geciteerd te worden.</p>
+      <h3>Hetzelfde en de Ander</h3>
+      <p>Het eerste hoofddeel zet de begrippen uiteen. Kennen is voor Levinas toe-eigenen: wat gekend wordt, verliest zijn vreemdheid en wordt deel van het Zelfde. Tegen die beweging in staat het metafysisch verlangen, dat zich van behoefte onderscheidt doordat het niet uit gemis voortkomt en door geen vervulling dooft; het richt zich op het volstrekt andere. De formele structuur daarvan vindt Levinas bij Descartes: in mij ligt de idee van het oneindige, een gedachte waarvan het gedachte de gedachte zelf overschrijdt.</p>
+      <p>Belangrijk is dat de verhouding tot de Ander geen versmelting is. Levinas verdedigt de scheiding: het ik moet werkelijk apart bestaan, in zijn eigen huishouding en desnoods als atheïst, want alleen tussen gescheiden wezens is een verhouding mogelijk die de een niet in de ander laat opgaan. Totaliteit en vereniging zijn twee manieren om de afstand af te schaffen; het boek zoekt een derde weg, de nabijheid die afstand laat.</p>
+      <h3>Interioriteit en economie</h3>
+      <p>Het tweede hoofddeel beschrijft hoe dat aparte ik zich vormt, en het doet dat met alledaagse verschijnselen. Leven is leven van iets: van goede soep, lucht, licht, arbeid en slaap. Deze genieting is het eerste egoïsme, en Levinas beschrijft haar zonder afkeuring; wie niet eerst bij zichzelf thuis is, heeft niets om weg te geven. Boven de genieting hangt wel de onzekerheid van morgen: de elementen waarvan het ik leeft, zijn niemands bezit en kunnen tegenzitten.</p>
+      <p>Daarom woont de mens. De woning is inkeer en uitvalsbasis tegelijk: van daaruit wordt de wereld door arbeid tot bezit gemaakt en op voorraad gelegd, en daarbinnen heerst een onthaal dat Levinas, tot ergernis van latere lezers, het vrouwelijke noemt. De huishouding, door hem economie genoemd, is geen laag bedrijf maar de voorwaarde van gastvrijheid: alleen wie een huis en brood heeft, kan de deur openen en delen.</p>
+      <h3>Het gelaat en de exterioriteit</h3>
+      <p>Dan het hart van het boek. De Ander verschijnt niet zoals dingen verschijnen; hij drukt zich uit, uit zichzelf, en dat noemt Levinas het gelaat. Het gelaat is niet de som van waarneembare trekken; het is naaktheid en armoede, kwetsbaar als geen ding, en tegelijk hoogte die gebiedt. De moord is de enige poging het gelaat volledig te ontkennen, en juist daar toont zich de ethische orde: doden kan feitelijk wel, maar de weerstand van het gelaat is van een andere aard, en het gebod gij zult niet doden is de eerste betekenis ervan.</p>
+      <p>Uit het gelaat komt de taal voort. Spreken is antwoorden op een aanspraak die er al ligt; onderricht is geen vroedvrouwskunst die ophaalt wat het ik al wist, zoals bij Socrates, maar de komst van wat het ik niet uit zichzelf kan halen. Ook rede en objectiviteit wortelen hier: dat er een gedeelde, betwistbare wereld is, veronderstelt dat er een ander is aan wie de wereld gegeven en verantwoord wordt. In de ogen van de Ander kijkt bovendien de derde mee, alle anderen; daarmee kondigt zich de rechtvaardigheid aan, al werkt het boek dat nauwelijks uit.</p>
+      <h3>Voorbij het gelaat: eros, vruchtbaarheid en tijd</h3>
+      <p>Het slotdeel zoekt een verhouding die nog verder gaat dan het spreken van aangezicht tot aangezicht. In de eros is de ander bemind als tastbaar en tegelijk als wat zich terugtrekt; de liefkozing zoekt iets dat er nog niet is. Zo komt Levinas bij de vruchtbaarheid: in het kind bestaat het ik voort als een ander, want het kind is een vreemde die toch ik is, zonder bezit te zijn.</p>
+      <p>Daarmee breekt hij met de gedachte dat het zijn één is: in het vaderschap vermenigvuldigt het zijn zich zonder totaliteit te worden. De tijd krijgt hier zijn zin: geen aftellen naar de dood, zoals bij Heidegger, maar onderbreking en nieuw begin, de mogelijkheid van vergeving en van een toekomst die het eigen ontwerp te buiten gaat. Het boek besluit dat het zijn zich voltrekt als goedheid en als vrede tussen gescheiden wezens, en dat de waarheid niet aan het einde van de geschiedenis wordt uitgesproken over de doden, maar telkens in het gesprek met de levenden.</p>
+      <h3>Doorwerking</h3>
+      <p>Het boek maakte Levinas op slag tot een hoofdfiguur van de Franse filosofie en werkte door in theologie, zorgethiek, pedagogiek en de continentale wijsbegeerte in brede zin. In Nederland droeg vooral Theo de Boer de gedachte van de ethiek als eerste filosofie uit, en de zorgsector nam het gelaat over als naam voor wat in protocollen verloren gaat. Levinas zelf schreef met <i>Autrement qu'être</i> (1974) een tweede hoofdwerk dat de taal van het eerste ingrijpend herziet.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">totaliteit</td><td>Elk geheel waarin personen en dingen alleen betekenis hebben als delen van het systeem; voor Levinas de grondvorm van de oorlog en van de westerse ontologie.</td></tr>
+          <tr><td class="term">het Zelfde</td><td>Het ik en al wat het zich eigen maakt; de beweging die al het vreemde herleidt tot begrip en bezit.</td></tr>
+          <tr><td class="term">de Ander</td><td>De andere mens voor zover die zich nooit tot mijn begrip laat herleiden; geen tweede ik, maar werkelijk buiten.</td></tr>
+          <tr><td class="term">het gelaat</td><td>De wijze waarop de Ander zich uit zichzelf uitdrukt, voorbij zijn waarneembare trekken; weerloosheid en gebod tegelijk.</td></tr>
+          <tr><td class="term">idee van het oneindige</td><td>Aan Descartes ontleende figuur: een gedachte waarvan het gedachte de gedachte overschrijdt; de vorm van de verhouding tot de Ander.</td></tr>
+          <tr><td class="term">metafysisch verlangen</td><td>Verlangen naar het volstrekt andere dat niet uit gemis voortkomt en door vervulling niet dooft, anders dan behoefte.</td></tr>
+          <tr><td class="term">scheiding</td><td>De zelfstandigheid van het ik in genieting en huishouding; voorwaarde voor een echte verhouding, want alleen wie apart staat kan gastvrij zijn.</td></tr>
+          <tr><td class="term">genieting</td><td>Het leven van de elementen, van voedsel tot licht; het eerste, onverholen egoïsme waarin het ik zich vormt.</td></tr>
+          <tr><td class="term">het wonen</td><td>De woning als inkeer en uitvalsbasis, die de elementen door arbeid tot bezit maakt en het onthaal van de Ander mogelijk maakt.</td></tr>
+          <tr><td class="term">vruchtbaarheid</td><td>De verhouding tot het kind, waarin het ik voortbestaat als een ander; Levinas' model voor een tijd die het eigen bestaan te buiten gaat.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Levinas bewijst niet, hij beschrijft. Het boek is fenomenologie: nauwgezette beschrijvingen van eten, wonen, arbeiden, spreken, het aangezicht en de liefkozing, met de bedoeling dat de lezer er iets in herkent dat theorieën overslaan. De twee uitgesproken ankers buiten de eigen beschrijving zijn Descartes' idee van het oneindige, als formele figuur, en Rosenzweigs kritiek op de totaliteit, in het voorwoord als alomtegenwoordige bron erkend.</p>
+      <p>Dat maakt de status van de beweringen lastig. Dat het gelaat verplicht vóór elke overweging, is geen vaststelling die zich empirisch laat toetsen; psychologisch onderzoek naar feitelijk moreel gedrag staat er los van, en Levinas zou dat geen bezwaar vinden, omdat het hem om de zin van het ethische gaat en niet om de feitelijke werking ervan. Wie de beschrijvingen niet herkent, heeft geen argument in handen gekregen; wie ze wel herkent, heeft geen bewijs, wel een taal die elders ontbreekt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste filosofische bezwaar formuleerde Jacques Derrida al in 1964 in het opstel 'Violence et métaphysique': wie tegen de Griekse begrippentaal wil ingaan, kan dat alleen in die taal doen, zodat het boek de totaliteit die het bestrijdt in iedere zin opnieuw binnenhaalt. Levinas nam dat bezwaar serieus; zijn tweede hoofdwerk, <i>Autrement qu'être</i>, verandert mede daarom radicaal van schrijfwijze.</p>
+      <p>Feministische lezers, in het spoor van een voetnoot van Simone de Beauvoir bij eerder werk van Levinas, wijzen op de rol van het vrouwelijke in dit boek: de vrouw verschijnt als zwijgzaam onthaal in de woning, de vruchtbaarheid wordt als vaderschap gedacht, en de Ander van het betoog lijkt stilzwijgend mannelijk. Anderen vinden de asymmetrie overspannen: een verantwoordelijkheid die aan elke keuze voorafgaat en nooit is af te lossen, laat zich moeilijk verbinden met gewone moraal, met de rechten van het zelf of met politiek; de derde en de rechtvaardigheid komen er in dit boek bekaaid af. Weer anderen lezen verkapte theologie: het oneindige, de hoogte, het spoor van de Ander verbergen hun religieuze herkomst nauwelijks.</p>
+      <p>Daarnaast is er de toegankelijkheid. Het boek is berucht moeilijk: een eigen vocabulaire, lange bezwerende herhalingen, formuleringen die op elkaar lijken en telkens net verschuiven. Voor de meeste lezers is het zonder inleiding of begeleiding geen begin- maar een eindpunt; de geannoteerde Nederlandse editie van De Boer en Bremmers bestaat om die reden.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Let in werk en zorg op het moment waarop een mens dossier, geval of doelgroep wordt; het boek geeft taal om dat verlies te benoemen.</li>
+        <li>Neem de asymmetrie als toets: verantwoordelijkheid begint vóór wat is afgesproken en houdt niet op waar de wederdienst ophoudt.</li>
+        <li>Stel bij stelsels en beleid de vraag wat zij met gezichten doen als eerste vraag, niet als sluitpost.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Totalité et Infini. Essai sur l'extériorité</i> (Martinus Nijhoff, Den Haag, 1961, reeks Phaenomenologica). Nederlandse vertaling: <i>Totaliteit en oneindigheid. Essay over de exterioriteit</i>, vertaald en geannoteerd door Theo de Boer en Chris Bremmers (Boom, Amsterdam, tweede druk 2021, 408 blz., ISBN 9789024442850); een eerdere Nederlandse vertaling verscheen als <i>De totaliteit en het Oneindige</i> (Ambo, Baarn, 1987). Engelse vertaling: <i>Totality and Infinity</i> door Alphonso Lingis (Duquesne University Press, 1969). De samenvatting is op de Nederlandse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Emmanuel Levinas, in Litouwen geboren joods-Franse filosoof die Husserl en Heidegger in Frankrijk introduceerde en in de oorlog vrijwel zijn hele familie verloor, publiceerde <i>Totalité et Infini</i> in 1961 als staatsproefschrift. Het boek keert zich tegen de westerse wijsbegeerte voor zover die al het andere herleidt tot begrip en systeem, tot wat Levinas totaliteit noemt. Daartegenover plaatst hij de ontmoeting met het gelaat van de ander, dat zich aan elk begrip onttrekt en het ik ter verantwoording roept; het eerste woord van het gelaat is het verbod te doden.</p><p>Ethiek is bij Levinas daarom geen toepassing van eerdere kennis; zij is eerste filosofie, want de verhouding tot de ander gaat aan alle kennis vooraf. Het boek beschrijft hoe het ik zich vormt in genieting en wonen, hoe het gelaat die huishouding openbreekt en hoe in eros en vruchtbaarheid een tijd ontstaat die het eigen bestaan te buiten gaat. De tekst geldt als een van de moeilijkste van de naoorlogse filosofie en werkte breed door in zorgethiek, pedagogiek en theologie.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>fenomenologie</li><li>ethiek</li><li>de ander</li><li>joodse filosofie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="263"><a href="263.html">Beyond Good and Evil</a>. Nietzsche is de tegenstem: moraal als uiting van macht en zwakte, tegenover Levinas' moraal als eerste waarheid.</li>
+          <li value="48"><a href="48.html">Man's Search for Meaning</a>. Frankl schrijft vanuit dezelfde catastrofe die Levinas' familie trof over verantwoordelijkheid als bron van zin.</li>
+          <li value="390"><a href="390.html">Simone Weil: An Anthology</a>. Weil staat dicht bij Levinas met haar aandacht voor de ongelukkige als de zeldzaamste menselijke bekwaamheid.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

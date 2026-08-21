@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neurosis and Human Growth &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Horney stelt dat neurose in de kern verstoorde groei is. Ieder mens beschikt over een werkelijk zelf, de levende kern van eigen gevoelens en vermogens,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-575">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">575 &middot; Brein en lichaam</p>
+    <h1>Neurosis and Human Growth</h1>
+    <p class="lede">Karen Horney, 1950</p>
+    <p class="stats">
+      <span><b>1487</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="575"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Horney stelt dat neurose in de kern verstoorde groei is. Ieder mens beschikt over een werkelijk zelf, de levende kern van eigen gevoelens en vermogens, dat zich onder goede omstandigheden vanzelf ontwikkelt, zoals een eikel uitgroeit tot een eik. Een kind dat zich onveilig en ongewenst voelt, ontwikkelt basisangst en bouwt ter compensatie een geïdealiseerd zelfbeeld op. Vanaf dat moment richt de energie die voor groei bedoeld was zich op het waarmaken van dat denkbeeldige zelf. Rond dat streven groeit een systeem van aanspraken, innerlijke geboden, trots en zelfhaat dat de persoon steeds verder van het werkelijke zelf vervreemdt. Genezing vraagt volgens Horney dat iemand het geïdealiseerde beeld doorziet en opgeeft, zodat de eigen werkelijke gevoelens en oordelen weer toegankelijk worden.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Van basisangst naar de jacht op glorie</h3>
+      <p>Het openingshoofdstuk zet de theorie neer. Onder gunstige omstandigheden ontwikkelt een kind zijn werkelijke zelf: het geheel van eigen gevoelens, wensen en vermogens waaruit het kan putten. Voelt het kind zich aan onverschillige of vijandige opvoeders overgeleverd, dan ontstaat basisangst, het gevoel er alleen voor te staan in een wereld die niet te vertrouwen is. Het kind gaat zijn spontane gevoelens wantrouwen en zoekt houvast in de verbeelding: het geïdealiseerde zelf, een figuur die alles is wat het kind meent te moeten zijn.</p>
+      <p>Uit dat beeld groeit wat Horney de jacht op glorie noemt, de allesoverheersende drang om het geïdealiseerde zelf werkelijkheid te maken. Zij onderscheidt daarin de behoefte aan perfectie, neurotische eerzucht en de drang naar wraakzuchtige triomf, het verlangen anderen te overtreffen en te vernederen. Horney vergelijkt deze ontwikkeling met het oude motief van het duivelspact: in ruil voor een droom van grootsheid levert de mens zijn ziel in, dat wil zeggen zijn werkelijke zelf.</p>
+      <h3>Aanspraken en de tirannie van het moeten</h3>
+      <p>Wie innerlijk een verheven figuur is, vindt dat de wereld zich daarnaar heeft te gedragen. Horney noemt dat neurotische aanspraken: de stilzwijgende eis dat anderen voorrang verlenen, dat kritiek uitblijft en dat het leven uitzonderingen maakt. Voor de betrokkene voelen deze aanspraken als rechten; blijft de wereld in gebreke, dan voelt dat als onrecht en volgt verontwaardiging.</p>
+      <p>Naar binnen gericht heersen de geboden die Horney de tirannie van het moeten noemt, in gewoon Nederlands een innerlijke dictatuur van eisen als altijd sterk zijn, nooit fouten maken, door iedereen gewaardeerd worden. De geboden trekken zich niets aan van wat haalbaar of zelfs mogelijk is; zij verlangen dat gevoelens op afroep veranderen. Wie eraan voldoet voelt hooguit kortstondige opluchting, wie tekortschiet krijgt met zelfverachting te maken.</p>
+      <h3>Trots en zelfhaat</h3>
+      <p>Het geïdealiseerde zelf brengt een eigen soort trots mee. Neurotische trots geldt de denkbeeldige eigenschappen van het beeld, en juist daarom is hij zo kwetsbaar: elke aanraking met de werkelijkheid kan hem krenken. Op krenking volgen schaamte en de behoefte de eigen waarde te herstellen, vaak door wraak of door de ander omlaag te halen.</p>
+      <p>De keerzijde van de trots is zelfhaat. Gemeten aan het ideaalbeeld schiet de werkelijke persoon voortdurend tekort, en die tekortschietende persoon wordt gehaat. Horney onderscheidt zes vormen: meedogenloze eisen aan zichzelf, zelfbeschuldiging, zelfverachting, het dwarsbomen van eigen wensen, zelfkwelling en zelfdestructief gedrag. Trots en zelfhaat vormen samen wat zij het trotssysteem noemt; het werkt als één geheel en houdt zichzelf in stand.</p>
+      <h3>Zelfvervreemding</h3>
+      <p>Het gevolg van dit alles is zelfvervreemding: de persoon weet steeds minder wat hij zelf voelt, wil of vindt. Energie gaat op aan het bewaken van het beeld; spontaniteit wordt gevaarlijk, want elke echte reactie kan het beeld weerspreken. Zo ontstaat wat Horney het centrale innerlijke conflict noemt, de strijd tussen het trotssysteem en de resten van het werkelijke zelf. Dat conflict speelt grotendeels buiten het bewustzijn, en juist daarom houdt het zo lang stand.</p>
+      <h3>Drie oplossingen</h3>
+      <p>Omdat het conflict onleefbaar is, kiest ieder onbewust een hoofdrichting. De expansieve oplossing zoekt de glorie in meesterschap; Horney onderscheidt daarbinnen een narcistische variant die op charme en bewondering drijft, een perfectionistische die op onberispelijkheid drijft, en een arrogant-wraakzuchtige die op triomf over anderen drijft. De zelfwegcijferende oplossing zoekt de redding in liefde: eigen wensen worden onderdrukt, de ander wordt verheven, met als uiterste de ziekelijke afhankelijkheid waarin iemand zichzelf in een partner verliest.</p>
+      <p>De derde richting is berusting: het opgeven van de strijd door niets meer echt te willen. De berustende persoon houdt afstand, ervaart vrijheid als hoogste goed en betaalt daarvoor met vlakheid en toeschouwerschap. Alle drie de richtingen zijn in Horneys ogen oplossingen van hetzelfde probleem, en geen ervan werkt: het geïdealiseerde beeld blijft de maat, alleen de strategie verschilt.</p>
+      <h3>Relaties, werk en de weg terug</h3>
+      <p>De slothoofdstukken passen het model toe. In relaties maakt het trotssysteem van andere mensen vooral middelen: getuigen van de eigen grootsheid, bronnen van bevestiging of bedreigingen. In het werk verschilt de verstoring per richting: de expansieve overschat zich en verdraagt geen kritiek, de zelfwegcijferende durft niet te claimen wat hij kan, de berustende houdt zijn inzet klein.</p>
+      <p>Het hoofdstuk over therapie beschrijft de weg terug als een ontnuchteringsproces: de patiënt moet de aanspraken, geboden en trots als zodanig leren herkennen en de illusies opgeven waaraan hij zijn houvast ontleende. Horney rekent daarbij op de opbouwende krachten die in ieder mens aanwezig blijven. In de theoretische afsluiting zet zij haar mensbeeld tegenover dat van Freud: waar hij destructieve driften als gegeven beschouwde, ziet zij destructiviteit als gevolg van geblokkeerde groei.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">het werkelijke zelf</td><td>De levende kern van eigen gevoelens, wensen en vermogens waaruit gezonde groei voortkomt.</td></tr>
+          <tr><td class="term">basisangst</td><td>Het gevoel van een kind er alleen voor te staan in een wereld die als vijandig wordt ervaren.</td></tr>
+          <tr><td class="term">het geïdealiseerde zelf</td><td>Het grandioze zelfbeeld dat de plaats van het werkelijke zelf inneemt en de maatstaf voor alles wordt.</td></tr>
+          <tr><td class="term">de jacht op glorie</td><td>De drang het geïdealiseerde zelf te verwezenlijken, zichtbaar in perfectiedrang, eerzucht en wraakzuchtige triomf.</td></tr>
+          <tr><td class="term">neurotische aanspraken</td><td>Als rechten gevoelde eisen aan anderen en aan het leven, ontleend aan het ideaalbeeld.</td></tr>
+          <tr><td class="term">de tirannie van het moeten</td><td>De innerlijke dictatuur van onhaalbare geboden over wat iemand hoort te voelen, te kunnen en te zijn.</td></tr>
+          <tr><td class="term">neurotische trots</td><td>Trots op de denkbeeldige eigenschappen van het ideaalbeeld, die de persoon uiterst krenkbaar maakt.</td></tr>
+          <tr><td class="term">zelfhaat</td><td>De woede van het geïdealiseerde zelf op de werkelijke persoon die bij het beeld achterblijft.</td></tr>
+          <tr><td class="term">zelfvervreemding</td><td>Het verlies van toegang tot eigen gevoelens, wensen en oordelen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het bewijsmateriaal bestaat uit klinische observatie: wat Horney in ruim dertig jaar praktijk als psychoanalytica bij patiënten en bij zichzelf waarnam. Het boek bevat geen tellingen, geen controlegroepen en geen toetsbare voorspellingen; casusmateriaal blijft anoniem en geanonimiseerd, en waar zij illustreert, put zij ook uit literatuur, zoals het duivelspactmotief. Wie het boek leest als verzameling waarnemingen van een ervaren clinicus, krijgt precies dat, en niets met de status van experimenteel onderzoek.</p>
+      <p>De doorwerking is wel aanwijsbaar. Albert Ellis, grondlegger van de rationeel-emotieve therapie, noemde Horneys tirannie van het moeten uitdrukkelijk als voorloper van zijn eigen aanpak van dwingende gedachten. De zelfdiscrepantietheorie van E. Tory Higgins (1987), die neerslachtigheid en spanning verklaart uit de afstand tussen feitelijk zelfbeeld, ideaalbeeld en behoren-beeld, onderzoekt met vragenlijsten een onderscheid dat sterk op het hare lijkt. Ook het latere perfectionismeonderzoek werkt met eisen die iemand aan zichzelf stelt en eisen die hij als opgelegd ervaart.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De wetenschappelijke status van de psychoanalytische traditie geldt onverkort voor dit boek: de theorie is opgebouwd uit klinische indrukken, de selectie van gevallen is voor de lezer niet controleerbaar, en de begrippen zijn zo ruim dat vrijwel elk gedrag erin onder te brengen valt. Een expansieve reactie bevestigt de theorie, een zelfwegcijferende ook; wat de theorie zou weerleggen, blijft onbenoemd. De werkzaamheid van de beschreven therapie is nooit systematisch gemeten.</p>
+      <p>Ook het fundament is een aanname. Dat er een werkelijk zelf bestaat dat, als een eikel, uit zichzelf goed groeit zolang niets in de weg zit, is een mensbeeld en geen bevinding; de metafoor doet het werk dat bewijs zou moeten doen. Critici wijzen er verder op dat het materiaal uit een smalle groep komt: patiënten uit de New Yorkse praktijk van het midden van de twintigste eeuw.</p>
+      <p>Daar staat tegenover dat de beschrijvingen zelf nauwkeurig en herkenbaar zijn en in helder Engels gesteld, zonder het jargon dat veel psychoanalytische literatuur ontoegankelijk maakt. Het boek wordt na driekwart eeuw nog gelezen en herdrukt, vooral om die beschrijvende kwaliteit.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Noteer een week lang de eigen zinnen die met moeten beginnen en ga per zin na wiens gebod het eigenlijk is.</li>
+        <li>Onderscheid bij een krenking of er een belang is geschaad of alleen trots.</li>
+        <li>Zoek bij een besluit eerst op wat er daadwerkelijk gevoeld wordt, en pas daarna wat er gevoeld hoort te worden.</li>
+        <li>Herken de drie richtingen, heersen, behagen en terugtrekken, als vaste reactiepatronen onder druk.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Neurosis and Human Growth: The Struggle Toward Self-Realization</i> (W.W. Norton, New York, 1950, 391 blz.). Gangbare moderne editie: paperback bij W.W. Norton, 1991, 400 blz., ISBN 9780393307757. Van dit boek bestaat geen Nederlandse vertaling; van Horney zijn wel andere titels vertaald, waaronder <i>De neurotische persoonlijkheid van deze tijd</i> en <i>Zelfanalyse</i>. De samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Karen Horney (1885-1952), in Duitsland opgeleid als psychoanalytica en in 1932 naar de Verenigde Staten geëmigreerd, brak in 1941 met de orthodoxe freudianen en richtte het American Institute for Psychoanalysis op. <i>Neurosis and Human Growth</i> uit 1950 is haar laatste en meest uitgewerkte boek. Neurose beschrijft zij er als groei die de verkeerde kant op is gegaan: een kind dat zich onveilig voelt, bouwt een geïdealiseerd zelfbeeld op, een grandioos beeld van wie het hoort te zijn, en besteedt daarna zijn leven aan het waarmaken van dat denkbeeldige zelf.</p><p>Rond die jacht op glorie beschrijft Horney een samenhangend systeem: aanspraken op de omgeving, een innerlijke dictatuur van geboden die zij de tirannie van het moeten noemt, neurotische trots en de zelfhaat die opspeelt zodra het werkelijke functioneren bij het ideaalbeeld achterblijft. Zij onderscheidt drie hoofdrichtingen waarin mensen met dit conflict leven: expansief, zelfwegcijferend en berustend. Het boek berust op klinische observatie, geen gecontroleerd onderzoek, en heeft aantoonbaar doorgewerkt in de cognitieve gedragstherapie; Albert Ellis noemde Horneys tirannie van het moeten als directe voorloper van zijn eigen werk.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>psychoanalyse</li><li>neurose</li><li>zelfbeeld</li><li>perfectionisme</li><li>zelfhaat</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="223"><a href="223.html">The Anatomy of Human Destructiveness</a>. Fromm, net als Horney neofreudiaan, verklaart destructiviteit eveneens uit levensomstandigheden en geblokkeerde groei.</li>
+          <li value="335"><a href="335.html">The Courage to Be Disliked</a>. De Adleriaanse dialoog over zelfacceptatie sluit aan bij Horneys afscheid van het ideaalbeeld.</li>
+          <li value="405"><a href="405.html">The Denial of Death</a>. Becker bouwt voort op de psychoanalytische traditie en beschrijft heldendom als afweer, verwant aan de jacht op glorie.</li>
+          <li value="406"><a href="406.html">No More Mr. Nice Guy</a>. Glovers aardige-mannenpatroon is in de praktijk een uitwerking van Horneys zelfwegcijferende oplossing.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

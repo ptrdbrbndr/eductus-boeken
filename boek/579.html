@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Life of One's Own &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Milner stelt dat het denken een onbetrouwbare gids is voor de vraag wat iemand werkelijk wil. De doelen die iemand zichzelf toeschrijft komen grotendeels…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-579">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">579 &middot; Levenskunst</p>
+    <h1>A Life of One's Own</h1>
+    <p class="lede">Marion Milner, 1934</p>
+    <p class="stats">
+      <span><b>1153</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="579"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Milner stelt dat het denken een onbetrouwbare gids is voor de vraag wat iemand werkelijk wil. De doelen die iemand zichzelf toeschrijft komen grotendeels van buiten, uit opvoeding en omgeving, en het najagen ervan levert geen geluk op. Wat wel voldoening geeft, valt alleen te achterhalen door de eigen ervaring stelselmatig vast te leggen en achteraf te onderzoeken, als feitenmateriaal. Wie dat doet, ontdekt volgens haar dat geluk minder afhangt van omstandigheden dan van de manier van waarnemen: de gebruikelijke enge, zelfzuchtige aandacht houdt de wereld op afstand, terwijl een opzettelijk verruimde aandacht dezelfde omstandigheden een andere lading geeft. Een eigen leven begint dus bij een leerbare innerlijke vaardigheid.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een vraag en een methode</h3>
+      <p>Het boek opent met de verlegenheid van een jonge vrouw die naar buiten toe slaagt, een opleiding, een baan, een sociaal leven, en toch het gevoel heeft langs haar eigen leven heen te leven. Milner besluit de adviezen van anderen en de gangbare theorieën te wantrouwen en het probleem aan te pakken zoals een onderzoeker dat zou doen: feiten verzamelen voordat er een oordeel valt. Haar instrument is een dagboek waarin zij vastlegt wat haar dagen de moeite waard maakte en wat haar bezighield.</p>
+      <h3>De kloof tussen willen en verlangen</h3>
+      <p>De eerste terugblik op het dagboek levert een ontnuchterende ontdekking op. De momenten die als goed genoteerd staan, hebben nauwelijks iets te maken met de doelen die zij dacht na te streven: succes, waardering, gezelschap op de juiste feestjes. Goede momenten blijken vaak klein en onaangekondigd, een lichtval, een gesprek, iets dat zij zag op straat.</p>
+      <p>Daaruit groeit een omkering die het hele boek draagt. Zij gaat haar leven niet langer zien als het uitvoeren van vooraf gekozen plannen, en gaat het opvatten als het geleidelijk ontdekken van een bedoeling die zij nog niet kende. Het dagboek is daarbij geen geheugensteun; het is het meetinstrument dat de kloof tussen vermeende en werkelijke wensen zichtbaar maakt.</p>
+      <h3>Blind denken</h3>
+      <p>Om te begrijpen waarom haar oordelen zo vaak naast de werkelijkheid zaten, probeert Milner vrij schrijven: opschrijven wat er komt, zonder te sturen. Onder het redelijke oppervlak treft zij een gedachtestroom aan die zij blind denken noemt: kinderlijk, angstig, gericht op vergelijken en veroordelen, en voortdurend bezig met wat anderen wel niet zullen vinden. Dit denken loopt ongemerkt mee en kleurt stemmingen en beslissingen. Alleen al het opschrijven ervan verandert de verhouding: wat zichtbaar is gemaakt, regeert minder.</p>
+      <h3>Twee soorten aandacht</h3>
+      <p>De belangrijkste ontdekking betreft de aandacht zelf. De gewone toestand noemt zij enge aandacht: een automatische, doelgerichte blik die de omgeving afzoekt op wat nuttig of bedreigend is en de rest overslaat. Daarnaast blijkt er een wijde aandacht te bestaan, waarin de waarnemer ophoudt met zoeken en het hele veld binnenlaat. In die toestand veranderen doodgewone dingen van karakter: muziek die eerst langs haar heen ging wordt hoorbaar, een uitzicht krijgt diepte, verveling verdwijnt.</p>
+      <p>De overgang blijkt geen kwestie van wilskracht. Milner beschrijft kleine innerlijke gebaren waarmee de omslag zich laat maken: spanning loslaten, de aandacht naar buiten leggen in plaats van bij het eigen commentaar houden, waarnemen met meer dan het hoofd alleen. Het zijn aanwijsbare handelingen, en ze zijn te oefenen.</p>
+      <h3>De angst zichzelf te verliezen</h3>
+      <p>Waarom staat de geest dan standaard op eng? Milner stuit op een angst die de verruiming tegenhoudt: het gevoel dat wie de greep loslaat, zichzelf verliest. Het enge, bezige zelf beleeft overgave als bedreiging en houdt daarom alles op afstand, ook wat goed doet. In de praktijk blijkt het omgekeerde: de waarneming wordt rijker en het zelfgevoel blijft heel. De hoofdstukken hierover raken aan wat zij zelf als mystiek getinte ervaring beschrijft, en zij noteert die met dezelfde nuchterheid als de rest.</p>
+      <h3>Wat zeven jaar opleverde</h3>
+      <p>Het slot maakt de balans op, nadrukkelijk als persoonlijk verslag en zonder de pretentie van een leer. Geluk blijkt geen doel dat zich rechtstreeks laat najagen; het komt als bijproduct van een manier van omgaan met ervaring. De vaardigheid die daarvoor nodig is, aandacht verwijden, blind denken zichtbaar maken, de eigen feiten raadplegen, vergt jarenlange oefening en geen bijzondere middelen. Het boek eindigt waar het begon, bij het dagboek: de lezer krijgt geen systeem aangeboden, wel een gedocumenteerd voorbeeld van hoe zelfonderzoek eruit kan zien.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">enge aandacht</td><td>De automatische, doelgerichte aandacht die de omgeving alleen afzoekt op wat het eigenbelang dient.</td></tr>
+          <tr><td class="term">wijde aandacht</td><td>De opzettelijk verruimde aandacht die ophoudt met zoeken, het hele veld binnenlaat en de waarneming verdiept.</td></tr>
+          <tr><td class="term">blind denken</td><td>De ongemerkte, kinderlijk-angstige gedachtestroom die onder het redelijke denken meeloopt en oordelen kleurt.</td></tr>
+          <tr><td class="term">innerlijk gebaar</td><td>Een kleine, aanwijsbare mentale handeling waarmee de aandacht wordt verzet, zoals het loslaten van spanning.</td></tr>
+          <tr><td class="term">vrij schrijven</td><td>Opschrijven wat er komt zonder te sturen, als middel om het blinde denken zichtbaar te maken.</td></tr>
+          <tr><td class="term">dagboekmethode</td><td>Het dagelijks vastleggen van wat de moeite waard was, om achteraf de eigen werkelijke wensen uit de feiten af te lezen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een zelfonderzoek met één proefpersoon. De gegevens zijn dagboekfragmenten die Milner letterlijk citeert, inclusief mislukte experimenten en perioden waarin de methode niets opleverde; die eerlijkheid is de sterkste kant van het verslag. Zij presenteert haar conclusies uitdrukkelijk als bevindingen over zichzelf en laat open of ze voor anderen gelden.</p>
+      <p>Steun van buitenaf bestond in 1934 niet en is er later gedeeltelijk gekomen. Het onderscheid tussen gerichte en open aandacht keert terug in het latere onderzoek naar meditatie en aandachtstraining, en de bevinding dat rechtstreeks najagen van geluk averechts werkt, is in de hedendaagse psychologie herhaaldelijk beschreven. Dat is verwantschap achteraf, geen toetsing van dit boek; Milners eigen bewijs blijft haar dagboek.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Als kenbron is het boek zo smal als het maar kan: één ontwikkelde, financieel comfortabele Londense vrouw die zichzelf observeert. Introspectie is bovendien juist in deze periode als wetenschappelijke methode verlaten, omdat waarnemers van hun eigen geest stelselmatig onbetrouwbaar bleken. Of de aandachtstechnieken haar welbevinden veroorzaakten of ermee samenvielen, valt uit een dagboek niet op te maken.</p>
+      <p>De mystiek getinte passages vragen om dezelfde nuchterheid die Milner zelf betracht: zij beschrijft ervaringen, geen bewezen werkelijkheden. Het boek ontstond voor haar psychoanalytische opleiding; latere lezers die er een analytische theorie in zien, lezen terug wat er nog niet in zat. Wie het neemt voor wat het is, een uitzonderlijk goed gedocumenteerd verslag van zelfonderzoek, wordt niet bedrogen; wie er een beproefde methode voor iedereen in zoekt, vindt daarvoor geen onderbouwing.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Houd een maand lang bij welke momenten de dag de moeite waard maakten en lees de lijst pas daarna terug.</li>
+        <li>Oefen wijde aandacht op iets alledaags: laat de blik rusten zonder ergens naar te zoeken.</li>
+        <li>Schrijf bij onrust tien minuten op wat er komt, zonder te sturen, en lees het terug als materiaal in plaats van als waarheid.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>A Life of One's Own</i> (Chatto &amp; Windus, Londen, 1934, verschenen onder het pseudoniem Joanna Field). Gangbare moderne editie: Routledge, 2011, in de reeks The Collected Works of Marion Milner, met een inleiding van Rachel Bowlby, 224 blz., ISBN 9780415550659; in 2024 verscheen bij Routledge een nieuwe heruitgave (ISBN 9781032757551). Een Nederlandse vertaling bestaat niet; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Marion Milner (1900-1998) werkte als psychologe in Londen toen zij in 1926, zesentwintig jaar oud, besloot een vraag op zichzelf uit te proberen: waar wordt zij eigenlijk gelukkig van, los van wat zij geacht wordt te willen? Zeven jaar lang hield zij een dagboek bij van momenten waarop het leven de moeite waard leek, en onderzocht zij wat die momenten gemeen hadden. Het verslag verscheen in 1934 onder het pseudoniem Joanna Field; pas later werd Milner psychoanalytica bij de British Psychoanalytical Society.</p><p>De oogst verraste haar. De dingen die zij dacht na te streven bleken weinig te maken te hebben met wat haar dagboek als goede momenten aanwees. Beslissend bleek de manier van waarnemen: naast de enge, automatische aandacht die alleen ziet wat het eigenbelang dient, ontdekte zij een wijde aandacht die zich met een klein innerlijk gebaar laat oproepen en die de waarneming van karakter doet veranderen. W.H. Auden noemde het boek bij verschijning zo spannend als een detective; het is negentig jaar later nog in druk.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>dagboek</li><li>aandacht</li><li>geluk</li><li>zelfonderzoek</li><li>introspectie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="200"><a href="200.html">Flow</a>. Csikszentmihalyi onderzoekt met vragenlijsten en steekproeven dezelfde ervaring van opgaan in aandacht die Milner bij zichzelf beschreef.</li>
+          <li value="390"><a href="390.html">Simone Weil: An Anthology</a>. Simone Weil, tijdgenote, maakt aandacht tot de kern van denken en geloof.</li>
+          <li value="516"><a href="516.html">The Antidote</a>. Burkeman documenteert de omweg naar geluk die Milner op eigen houtje ontdekte: rechtstreeks najagen werkt averechts.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

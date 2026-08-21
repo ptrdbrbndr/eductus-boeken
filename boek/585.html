@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dying to Live &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Bijna-doodervaringen zijn echte en diep ingrijpende ervaringen, en juist daarom verdienen ze een echte verklaring. Blackmore stelt dat alle vaste…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-585">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">585 &middot; Brein en lichaam</p>
+    <h1>Dying to Live</h1>
+    <p class="lede">Susan Blackmore, 1993</p>
+    <p class="stats">
+      <span><b>1611</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="585"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Bijna-doodervaringen zijn echte en diep ingrijpende ervaringen, en juist daarom verdienen ze een echte verklaring. Blackmore stelt dat alle vaste onderdelen, de vrede, de tunnel, het licht, het zweven boven het eigen lichaam, de levensfilm en de blijvende verandering daarna, voortkomen uit bekende processen in een brein in doodsnood: zuurstofgebrek dat de remming in de visuele schors opheft, endorfinen die angst dempen, aanvalsachtige activiteit in de slaapkwab die herinneringen losmaakt, en het uiteenvallen van het model van het zelf dat het brein gewoonlijk in stand houdt. De hiernamaals-hypothese voegt daar niets controleerbaars aan toe en faalt op elk punt waar zij toetsbaar wordt gemaakt. Wie de ervaring serieus neemt hoeft geen ziel aan te nemen; er is uiteindelijk niemand die sterft, omdat het zelf een constructie van het brein is.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Twee hypothesen voor een hardnekkig verschijnsel</h3>
+      <p>Raymond Moody muntte de term near-death experience in <i>Life After Life</i> (1975) en stelde uit verslagen van gereanimeerde patiënten een samengesteld verloop samen: een geluid, een donkere tunnel, het eigen lichaam van buitenaf zien, overleden verwanten, een wezen van licht, een levensoverzicht, een grens en de terugkeer. Kenneth Ring bracht er in 1980 cijfers bij: in zijn onderzoeksgroep meldde ongeveer zestig procent vrede, ruim een derde een uittreding en een tiende het binnengaan van het licht.</p>
+      <p>Blackmore toetst eerst het argument dat de ervaring overal en altijd hetzelfde zou zijn. De oogst uit Plato's mythe van Er, het Tibetaanse dodenboek, middeleeuwse visioenen en hedendaags onderzoek is consistentie zonder uniformiteit: Amerikanen zien overleden familieleden, Indiase stervenden in het onderzoek van Osis en Haraldsson zien hindoegoden, en in Indiase gevallen beschreven door Pasricha en Stevenson wordt de verkeerde persoon opgehaald en teruggestuurd, een motief dat in het Westen ontbreekt. Volgens haar levert het brein overal dezelfde vorm en vult de cultuur het beeldmateriaal in.</p>
+      <h3>De tunnel en het licht</h3>
+      <p>Het hart van het boek is de fysiologie van de tunnel. In de visuele schors zijn veel meer cellen gewijd aan het centrum van het gezichtsveld dan aan de rand. Valt door zuurstofgebrek de remming weg, dan gaan cellen willekeurig vuren, en dat willekeurige vuren oogt als een fel licht in het midden dat naar de randen verzwakt: een tunnel met licht aan het einde, dat groeit naarmate de ontremming toeneemt. Samen met Tom Troscianko simuleerde Blackmore dit op de computer; het beeld dijt uit alsof de waarnemer door de tunnel naar het licht beweegt.</p>
+      <p>Dezelfde tunnels duiken op waar dezelfde fysiologie speelt: bij hyperventilatie, bij epilepsie, bij piloten die door g-krachten het bewustzijn verliezen en bij de kooldioxide-experimenten van psychiater Ladislas Meduna in de jaren vijftig, wiens patiënten lichten, tunnels en gevoelens van kosmische eenheid rapporteerden. Voor de hiernamaals-hypothese is de tunnel een doorgang; voor Blackmore is hij een kaart van de visuele schors.</p>
+      <h3>Uittreding en de proef op de som</h3>
+      <p>De uittreding verklaart Blackmore met haar theorie van mentale modellen, uitgewerkt in haar eerdere <i>Beyond the Body</i> (1992). Het brein onderhoudt doorlopend een model van de werkelijkheid en kiest het stabielste model als echt. Valt de zintuiglijke invoer weg, dan neemt een uit geheugen opgebouwd model het over, en herinneringen zijn opvallend vaak in vogelvlucht opgeslagen: wie een scène terughaalt, ziet zichzelf nogal eens van bovenaf. Dat gereconstrueerde model voelt volledig echt, omdat het op dat moment het beste model is dat het brein heeft.</p>
+      <p>Deze verklaring doet een voorspelling: de waarnemingen tijdens een uittreding kloppen waar kennis en verwachting kloppen, en falen daarbuiten. De beroemde anekdote van de gymschoen die de patiënte Maria op een richel buiten het ziekenhuis zou hebben gezien, blijkt niet controleerbaar; proeven met verborgen doelwitten boven ziekenhuisbedden leverden niets op; en de nauwkeurige reanimatiebeschrijvingen bij cardioloog Michael Sabom laten zich verklaren uit voorkennis, gehoor en gissing. Precies wat het model voorspelt, aldus Blackmore.</p>
+      <h3>Endorfinen, de levensfilm en de vrede</h3>
+      <p>Dat mensen in doodsnood vrede en zelfs vreugde voelen, past bij wat er chemisch gebeurt: onder extreme stress komen endorfinen vrij, lichaamseigen opiaten die pijn en angst dempen. Diezelfde stoffen verlagen de aanvalsdrempel in de slaapkwab en het limbisch systeem, de gebieden waar het geheugen georganiseerd is. Wilder Penfield riep al in de jaren vijftig met elektrische prikkeling van de slaapkwab levendige herinneringsflitsen op bij wakkere patiënten.</p>
+      <p>De levensfilm is in deze lezing een ontlading: aanvalsachtige activiteit in geheugengebieden die beelden losmaakt, door het brein tot een verhaal geordend. Zo verklaart één mechanisme waarom een klinische catastrofe van binnen kan aanvoelen als de mooiste ervaring van een leven.</p>
+      <h3>Wat de toetsing niet oplevert</h3>
+      <p>Blackmore is geen scepticus van de leunstoel: zij deed jaren parapsychologisch onderzoek en behandelt de paranormale claims als toetsbare beweringen. De oogst valt tegen. Er is geen gedocumenteerd geval waarin iemand tijdens een bijna-doodervaring controleerbare informatie verwierf die niet via gewone kanalen te verklaren valt, voorspellende visioenen uit de ervaring komen niet uit, en de sterkste verhalen blijken bij navraag steeds anekdotes uit de tweede hand.</p>
+      <p>Haar conclusie is voorzichtig geformuleerd: de hiernamaals-hypothese is niet weerlegd, zij is overbodig. Alles wat verklaard moet worden, kan verklaard worden zonder ziel; wat alleen een ziel zou kunnen verklaren, is nooit aangetoond.</p>
+      <h3>Niemand om te sterven</h3>
+      <p>Het slot maakt van de fysiologie filosofie. Het zelf is volgens Blackmore net zo goed een model als de tunnel: een constructie waarmee het brein zijn eigen doen en laten samenvat. In de doodsnood valt ook dat model uiteen, en wat overblijft is ervaring zonder ervaarder, de eenheid die mystici in alle tradities beschrijven. Dat verklaart volgens haar de blijvende verandering na een bijna-doodervaring: wie het zelf als illusie heeft doorzien, vreest de dood minder en leeft anders.</p>
+      <p>Voorbereiden op de dood kan dan zonder stervensnood, langs de weg van meditatie en zelfonderzoek die het boeddhisme al eeuwen wijst. Het boek eindigt zo dicht bij de contemplatieve tradities waarvan het de metafysica afwijst.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">bijna-doodervaring</td><td>Het samenhangende geheel van vrede, tunnel, licht, uittreding en levensfilm dat mensen rapporteren die de dood nabij waren; term van Moody uit 1975.</td></tr>
+          <tr><td class="term">stervende-brein-hypothese</td><td>De stelling dat alle onderdelen van de bijna-doodervaring voortkomen uit bekende hersenprocessen bij zuurstofgebrek en extreme stress.</td></tr>
+          <tr><td class="term">hiernamaals-hypothese</td><td>De stelling dat tijdens de ervaring werkelijk iets, ziel of bewustzijn, het lichaam verlaat en een andere wereld waarneemt.</td></tr>
+          <tr><td class="term">desinhibitie</td><td>Het wegvallen van remmende signalen in de hersenschors, waardoor cellen willekeurig gaan vuren; bij de visuele schors oogt dat als licht.</td></tr>
+          <tr><td class="term">mentaal model</td><td>Een door het brein opgebouwde voorstelling van de werkelijkheid; het stabielste model van dit moment wordt als echt ervaren.</td></tr>
+          <tr><td class="term">uittreding</td><td>De ervaring het eigen lichaam van buitenaf te zien, door Blackmore verklaard als een uit geheugen opgebouwd model in vogelvluchtperspectief.</td></tr>
+          <tr><td class="term">levensfilm</td><td>De stroom herinneringsbeelden tijdens de ervaring, in het boek herleid tot aanvalsachtige activiteit in slaapkwab en limbisch systeem.</td></tr>
+          <tr><td class="term">endorfinen</td><td>Lichaamseigen opiaten die bij grote stress vrijkomen en de vrede en pijnloosheid van de ervaring verklaren.</td></tr>
+          <tr><td class="term">zelfmodel</td><td>De constructie waarmee het brein een blijvend ik voorstelt; het uiteenvallen ervan levert de mystieke eenheid van de ervaring.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De kracht van het boek zit in de bouwstenen die elk afzonderlijk gedocumenteerd zijn: de organisatie van de visuele schors, de tunnelsimulatie van Blackmore en Troscianko uit 1989, de kooldioxide-verslagen van Meduna, Penfields prikkelexperimenten en het endorfine-onderzoek. Ook het vergelijkende materiaal, van Osis en Haraldsson tot de Indiase gevallen van Pasricha en Stevenson, is echt onderzoek en geen bloemlezing. De verklaring per onderdeel is daarmee plausibel gemaakt, maar niet bewezen: niemand heeft in 1993 een stervend brein tijdens de ervaring gemeten, en het moment waarop de ervaring precies optreedt is onbekend.</p>
+      <p>Later onderzoek heeft beide kanten munitie gegeven. De AWARE-studie onder hartstilstandpatiënten (2014) vond geen enkele geverifieerde waarneming van verborgen doelwitten, in lijn met Blackmores voorspelling. Daartegenover berekende Van Lommel in <i>The Lancet</i> (2001) dat maar achttien procent van 344 hartstilstandpatiënten een bijna-doodervaring meldde, terwijl zuurstofgebrek bij allen optrad; als anoxie de oorzaak is, vraagt dat om een verklaring waarom de meesten niets ervaren. Het debat dat dit boek ordende, loopt dus nog.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar richt zich op de helderheid van de ervaring. Zuurstofgebrek geeft in de regel verwarring en geheugenverlies, terwijl bijna-doodervaringen juist als uitzonderlijk helder en geordend worden herinnerd, soms met een betrouwbaar gerapporteerd verloop. Onderzoekers rond het <i>Journal of Near-Death Studies</i> verweten Blackmore dat zij dit verschil wegverklaart, en dat zij anekdotes streng toetst wanneer ze paranormaal zijn en soepel aanvaardt wanneer ze fysiologisch passen.</p>
+      <p>Ook de theorie zelf kent zwakke plekken. Het zelfmodel-kader is zo rekbaar dat vrijwel elke uitkomst erin past, waarmee het risico van onweerlegbaarheid van de hiernamaals-hypothese naar de eigen theorie verhuist. En de losse mechanismen vormen samen nog geen bewezen keten: dat endorfinen vrede geven en ontremming tunnels, betekent niet dat dit bij deze patiënten op dat moment zo verliep. Daar staat tegenover dat Blackmore haar onzekerheden zelf benoemt en toetsbare voorspellingen doet; dat het veld haar boek ondanks de conclusie als standaardwerk erkende, zegt iets over de zorgvuldigheid ervan.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij een buitengewone claim eerst welk controleerbaar verschil zij maakt; een verklaring die niets verbiedt, verklaart niets.</li>
+        <li>Neem verslagen van bijna-doodervaringen serieus als ervaring zonder de interpretatie mee te kopen; erkenning en scepsis kunnen samengaan.</li>
+        <li>Zoek bij twee rivaliserende verklaringen de voorspelling waarop ze uiteenlopen, zoals de verborgen doelwitten bij uittredingen, en oordeel daarop.</li>
+        <li>Wie angst voor de dood wil temperen kan volgens Blackmore terecht bij meditatie en zelfonderzoek; inzicht in de opbouw van het zelf doet hetzelfde werk als de ervaring.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Dying to Live: Near-Death Experiences</i> (Prometheus Books, Amherst, 1993, 294 blz., ISBN 9780879758707; Britse paperback: Grafton, Londen, 1993, ISBN 9780586092125). Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De Britse psycholoog Susan Blackmore, opgeleid als parapsycholoog en zelf ervaringsdeskundige na een urenlange uittreding als studente in 1970, zet in dit boek twee verklaringen voor de bijna-doodervaring tegenover elkaar: de hiernamaals-hypothese, waarin de ziel werkelijk het lichaam verlaat, en de stervende-brein-hypothese, waarin tunnel, licht, uittreding, levensfilm en vrede voortkomen uit bekende hersenprocessen bij zuurstofgebrek en doodsangst.</p><p>Per onderdeel bouwt zij een fysiologische verklaring op: willekeurig vurende cellen in de visuele schors produceren een tunnel met licht (met Tom Troscianko simuleerde zij dat beeld op de computer), endorfinen verklaren de vrede, aanvalsachtige activiteit in slaapkwab en limbisch systeem de levensfilm, en het uiteenvallen van het zelfmodel de mystieke eenheid en de blijvende verandering daarna. Paranormale claims, zoals controleerbare waarnemingen tijdens uittredingen, houden bij toetsing geen stand.</p><p>Het <i>Journal of Near-Death Studies</i> noemde het boek een van de wezenlijke bijdragen aan het vakgebied en <i>Skeptical Inquirer</i> doopte het een sceptische klassieker; onderzoekers uit de BDE-hoek bleven bezwaar maken tegen de heldere, geordende ervaring bij een falend brein. Latere studies met hartstilstandpatiënten hebben de discussie verscherpt zonder haar te beslechten.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>bijna-doodervaring</li><li>bewustzijn</li><li>neurowetenschap</li><li>scepsis</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. Sagan levert het algemene gereedschap voor het wegen van buitengewone claims dat Blackmore hier op één verschijnsel toepast.</li>
+          <li value="340"><a href="340.html">The Holographic Universe</a>. Talbot leest dezelfde ervaringen als bewijs voor een holografische werkelijkheid, de tegenpool van het stervende-brein-model.</li>
+          <li value="275"><a href="275.html">How to Change Your Mind</a>. Pollan beschrijft hoe psychedelica het zelfmodel tijdelijk ontmantelen, hetzelfde mechanisme dat Blackmore achter de bijna-doodervaring zoekt.</li>
+          <li value="405"><a href="405.html">The Denial of Death</a>. Becker verklaart waarom mensen aan een hiernamaals hechten; Blackmore laat zien wat er overblijft als die behoefte geen bewijs oplevert.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

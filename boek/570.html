@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Redneckonomics &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Succes komt volgens Chapman voort uit wat hij het beatin' path noemt: de bereidheid om klappen op te lopen en er sterker van terug te komen. Talent en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-570">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">570 &middot; Geld en ondernemen</p>
+    <h1>Redneckonomics</h1>
+    <p class="lede">Aaron B. Chapman, 2026</p>
+    <p class="stats">
+      <span><b>1051</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="570"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Succes komt volgens Chapman voort uit wat hij het beatin' path noemt: de bereidheid om klappen op te lopen en er sterker van terug te komen. Talent en diploma's leggen daarbij minder gewicht in de schaal dan doorzettingsvermogen. Wie ophoudt met uitvluchten, zijn woord houdt, zich rekenschap geeft van elke eigen keuze en zijn geluk niet door anderen laat definiëren, bouwt iets op dat tegen een stootje kan; de rest is versiering. Hij presenteert dat als boerenverstand dat in de zakenwereld zeldzamer is dan kapitaal, en gunt de lezer uitdrukkelijk de ruimte om het ermee oneens te zijn en het boek weg te leggen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het beatin' path</h3>
+      <p>De rode draad is Chapmans eigen loopbaan: opgroeien in het ruwe westen van de Verenigde Staten, werken met vee, op boorlocaties, in mijnen en op trucks, en de overstap naar de financiële wereld, waar de klappen figuurlijker maar niet zachter bleken. Een zwaar motorongeluk en zakelijke terugslagen dienen als bewijsstukken voor de kernles dat herstel een keuze is en dat littekens leermateriaal zijn.</p>
+      <p>De titelvraag van het boek luidt waarom sommige mensen vooruitkomen terwijl zij op papier minder gekwalificeerd ogen dan anderen. Chapmans antwoord: zij nemen het pad dat de meeste mensen over het hoofd zien omdat het pijn doet. Het gebaande pad (beaten path) is vol; het beatin' path, de weg van het incasseren, is dat niet.</p>
+      <h3>Quit jerkin' off</h3>
+      <p>Het bekendste hoofdstuk, dat ook de titel van Chapmans lijfspreuk draagt, gaat over ophouden met aanrommelen: tijd verlummelen, beslissingen uitstellen en de schuld buiten de deur leggen. Rekenschap is bij hem geen managementterm; wie een afspraak niet nakomt heeft gefaald, ongeacht de omstandigheden, en wie zijn dagen niet richt, heeft de uitkomst niet aan de markt te wijten.</p>
+      <p>Bij het boek hoort begeleidend materiaal waarin Chapman dankbaarheid als praktisch voordeel presenteert in plaats van als vroom gebaar: wie telt wat er wel is, houdt energie over voor het werk dat voorligt.</p>
+      <h3>Put your ass on the line</h3>
+      <p>Ondernemen vraagt volgens Chapman inzet met eigen huid: plannen op papier, beloften nakomen en betrouwbaarheid als handelsmerk. Vertrouwen en reputatie zijn in zijn wereld de enige valuta die crisis overleeft. De adviezen zelf, doelen opschrijven, toezeggingen nakomen, mensen goed behandelen, zijn klassieke zelfhulpkost; de verpakking in ranch-idioom en de bewuste herhaling, omdat een les pas beklijft als hij vaker langskomt, zijn het eigene van het boek.</p>
+      <h3>Geloof, gezin en nalatenschap</h3>
+      <p>Het slot verankert de lessen in Chapmans christelijke geloof en zijn gezin; sinds 1996 getrouwd, vier kinderen. Hij vraagt de lezer niet hetzelfde te geloven, wel om ergens voor te staan. Wat geluk is, kan volgens hem alleen de lezer zelf bepalen, en de maat van een leven is wat er voor anderen overblijft. De ruim vijftig tekeningen van zijn broer Eric zetten de toon: zelfspot eerst, preek daarna.</p>
+      <p>Chapman herhaalt zijn boodschappen met opzet, in de overtuiging dat een les pas beklijft als hij vaker langskomt, en nodigt de lezer nadrukkelijk uit het oneens te zijn: wie zich aan de toon stoort, mag het boek wegleggen. Die houding is zelf onderdeel van de leer, want wie het iedereen naar de zin wil maken, bouwt volgens hem niets op.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">redneckonomics</td><td>Chapmans naam voor zijn leer: economisch boerenverstand van iemand die het werk met de handen kent.</td></tr>
+          <tr><td class="term">beatin' path</td><td>Woordspeling op het gebaande pad: de weg vol klappen die volgens Chapman de enige echte leerschool is.</td></tr>
+          <tr><td class="term">ass beatin'</td><td>De benaming van de hoofdstukken; elke les is geframed als een pak slaag waar de lezer iets van opsteekt.</td></tr>
+          <tr><td class="term">quit jerkin' off</td><td>Chapmans lijfspreuk voor ophouden met aanrommelen, uitstellen en de schuld buiten de deur zoeken.</td></tr>
+          <tr><td class="term">put your ass on the line</td><td>De eis om met eigen huid in het spel te ondernemen: beloften nakomen en zelf het risico dragen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek bewijst niets en pretendeert dat ook niet: er staat geen onderzoek in, de onderbouwing bestaat uit Chapmans eigen levensloop en de anekdotes daaruit. Zijn staat van dienst in de Amerikaanse vastgoedfinanciering is reëel, maar het boek verschijnt bij Amplify, een uitgeverij waar auteurs de uitgave zelf bekostigen, en de beschikbare recensies (Kirkus, Foreword) lopen via kanalen waar uitgever of auteur de bespreking aanvraagt.</p>
+      <p>Binnen die beperking is het oordeel van die recensies consistent: Kirkus gaf het predicaat 'Get It' en noemde het geestig, zelfrelativerend en meelevend; Foreword las het als door het geloof gedragen praktijkwijsheid. Beide merken op dat de inhoud vertrouwd terrein is en de verpakking het onderscheid maakt. De aanbevelingen op het omslag komen uit Chapmans eigen netwerk van sport-, marine- en vastgoedmensen, met het voorwoord van bestsellerauteur Robert G. Allen als bekendste naam.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Wie het redneck-jasje uittrekt, houdt standaard zelfhulp over: doelen stellen, doorzetten, betrouwbaar zijn, dankbaar zijn. Dat is eerder en beter onderbouwd opgeschreven, en Chapman levert geen enkele reden waarom zijn versie meer zou zijn dan smaak. De bewust volgehouden platte taal en de herhaling, door de auteur als leermethode verdedigd, zullen buiten de doelgroep eerder vermoeien dan overtuigen.</p>
+      <p>De zwaarste kanttekening betreft de bewijspositie: een zelfbekostigde uitgave zonder onafhankelijke ontvangst, waarin de auteur zijn eigen succes als bewijs voor zijn methode voert. Overlevingsvertekening ligt op de loer; de vele mensen die hard werkten, klappen incasseerden en toch strandden, komen in dit genre nooit aan het woord. Ook blijft buiten beeld hoeveel van Chapmans eigen succes aan gunstige omstandigheden toe te schrijven valt: de Amerikaanse vastgoedmarkt van de afgelopen decennia was voor een volhardende financier een gunstig speelveld. Als opsteker voor wie in tegenslag zit is het boek bruikbaar, als methode is het niet te toetsen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Behandel een opgelopen klap als leermateriaal: schrijf op wat er gebeurde, wat eraan te wijten was en wat de volgende keer anders moet.</li>
+        <li>Schrap één vorm van aanrommelen per week en vervang die door een afspraak met jezelf die telt als belofte aan een ander.</li>
+        <li>Maak betrouwbaarheid meetbaar: elke toezegging nagekomen of tijdig heronderhandeld, zonder uitzondering.</li>
+        <li>Bepaal zelf wat geluk is voordat een werkgever, bank of tijdlijn dat doet.</li>
+        <li>Tel dagelijks wat er wel is; dankbaarheid houdt energie over voor het werk dat voorligt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Redneckonomics: Unconventional Success by Takin' the Beatin' Path</i> (Amplify Publishing, Herndon (Virginia), 2026, 192 blz., ISBN 9798891383609), met een voorwoord van Robert G. Allen en ruim vijftig illustraties van Eric J. Chapman. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Aaron Chapman (1974) werkte in de veehouderij, de olievelden, de mijnbouw en het vrachtvervoer voordat hij in de vastgoedfinanciering belandde, waar hij ruim 25 jaar later tot de bekendere hypotheekverstrekkers voor vastgoedbeleggers in de Verenigde Staten behoort. In dit dunne, bewust platte boek, geschreven in cowboytaal en met hoofdstukken die 'Ass Beatin's' heten, destilleert hij uit dat werkzame leven lessen over ondernemen en overeind blijven.</p><p>De kern is dat het pak slaag de leerschool is: tegenslag, letterlijk en figuurlijk, vormt karakter en onderscheidt wie doorgaat van wie afhaakt. Daaromheen staan lessen over eigen rekenschap, betrouwbaarheid, plannen en geloof. Kirkus Reviews beoordeelde het welwillend als grappig en meelevend, met de kanttekening dat de zelfhulpkost bekend is; buiten zulke aangevraagde recensies is er nauwelijks onafhankelijke ontvangst.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ondernemerschap</li><li>zelfhulp</li><li>tegenslag</li><li>vastgoed</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="544"><a href="544.html">Man Up: How to Cut the Bullshit and Kick Ass in Business (and in Life)</a>. Keuilian brengt vrijwel dezelfde boodschap van eigen rekenschap en hard werken, eveneens uit de praktijk van een selfmade ondernemer.</li>
+          <li value="229"><a href="229.html">Can't Hurt Me</a>. Goggins is de extreme variant van hetzelfde leerstuk: tegenslag als grondstof voor karakter, maar dan gememoriseerd in bloed.</li>
+          <li value="158"><a href="158.html">No Excuses!</a>. Tracy's klassieker over zelfdiscipline levert de nette, systematische versie van wat Chapman in ranch-taal vertelt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Gita for Gen Z &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De Bhagavad Gita is volgens Sen een gebruiksaanwijzing voor het dagelijks leven van haar eigen generatie, eerder dan een religieus monument voor de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-569">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">569 &middot; Levenskunst</p>
+    <h1>The Gita for Gen Z</h1>
+    <p class="lede">Rania Sen, 2025</p>
+    <p class="stats">
+      <span><b>1165</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="569"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De Bhagavad Gita is volgens Sen een gebruiksaanwijzing voor het dagelijks leven van haar eigen generatie, eerder dan een religieus monument voor de boekenkast. Arjuna's inzinking op het slagveld staat model voor keuzestress, faalangst en liefdesverdriet, en Krishna's antwoorden, plicht doen zonder krampachtige greep op de uitkomst, gelijkmoedig blijven onder winst en verlies, de eigen geest tot bondgenoot maken, zijn direct toepasbaar op tentamens, banen en relaties. Wie 54 goed gekozen verzen werkelijk tot zich laat doordringen, heeft volgens haar meer houvast dan aan een plank zelfhulpboeken.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Arjuna's crisis als spiegel</h3>
+      <p>Het boek volgt de achttien hoofdstukken van de Gita en opent waar de brontekst opent: bij een jonge man die op het beslissende moment verlamd raakt. Arjuna ziet op het slagveld van Kurukshetra familie en leermeesters tegenover zich staan, laat zijn boog zakken en wil niet meer. Sen zet die inzinking naast de verlamming van haar eigen generatie, de keuzestress en de angst om te falen voor de ogen van iedereen, en laat Krishna's eerste antwoord daarop aansluiten: wie handelen moet, kan niet wegduiken in wanhoop.</p>
+      <p>De vorm van de brontekst, een gesprek tussen een radeloze strijder en zijn wagenmenner, bepaalt ook de vorm van dit boek. Het slagveld leest Sen als binnenwereld: de strijd speelt zich af in collegezalen en groepsapps, en Krishna klinkt als een vriend die op het goede moment de goede vraag stelt.</p>
+      <h3>Handelen zonder greep op de uitkomst</h3>
+      <p>De kern van het boek ligt bij karma yoga, de weg van het handelen. Het beroemdste vers van de Gita, over het recht op de handeling en niet op de vruchten ervan, vertaalt Sen naar examens, sollicitaties en sociale media: de inzet behoort de handelende toe, het resultaat nooit helemaal, en wie de eigenwaarde aan uitkomsten hangt, levert zich uit aan cijfers en likes.</p>
+      <p>Daaromheen groepeert zij verzen over plicht (dharma) en over het loslaten van vergelijking met anderen: beter het eigen pad gebrekkig gelopen dan dat van een ander foutloos nagedaan. Voor een generatie die het eigen leven dagelijks naast dat van vreemden op een scherm legt, ligt de toepassing van dat vers voor de hand.</p>
+      <h3>De geest als vriend of vijand</h3>
+      <p>Een tweede lijn betreft de omgang met de eigen geest. Uit de hoofdstukken over meditatie en zelfbeheersing kiest Sen verzen over de geest die voor wie hem beheerst een vriend is en voor wie hem laat waaien een vijand, en over gelijkmoedigheid onder lof en hoon. Zij koppelt die aan piekeren, slaapritme en de dopamine van de eindeloze tijdlijn, met kleine oefeningen in aandacht als tegenwicht.</p>
+      <p>Ook angst en zelftwijfel hebben een eigen plaats. Recensenten noemen het omgaan met angst, besluiten nemen en zelfkennis als terugkerende thema's, steeds volgens hetzelfde stramien: eerst het vers, dan een situatie waarin een leeftijdgenoot zich herkent, dan de vraag wat het vers daar te zeggen heeft.</p>
+      <h3>Vertrouwen en overgave</h3>
+      <p>De latere hoofdstukken van de Gita gaan over toewijding, en daar wordt het boek persoonlijker. Overgave betekent bij Sen niet passiviteit; het is het neerleggen van wat toch niet te dragen valt, na gedane inzet. Liefdesverdriet en het verlies van vriendschappen dienen als voorbeelden van situaties waarin vasthouden meer kost dan loslaten.</p>
+      <h3>De vorm: chai met een vriendin</h3>
+      <p>Elke behandeling volgt hetzelfde stramien: het vers in het Sanskriet, een vlotte parafrase en een uitwerking in spreektaal, doorspekt met Hindi-uitdrukkingen, filmdialogen en anekdotes. Recensenten omschrijven de leeservaring als een gesprek bij een kop chai, direct en zonder omhaal; de hoofdstukken zijn los van elkaar leesbaar en het boek mikt uitdrukkelijk op lezers die de Gita nooit eerder opensloegen.</p>
+      <p>Die opzet verklaart ook de plaats van het boek in de markt. Penguin India bracht het onder in Tattva, het imprint voor toegankelijke spiritualiteit, en positioneert het naast de golf van hindoeïstische hervertellingen voor jonge lezers die de Indiase boekhandel de laatste jaren overspoelt. Binnen die golf onderscheidt Sen zich vooral door haar gememoriseerde beheersing van de brontekst.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">shloka</td><td>Sanskriet versvorm waarin de Bhagavad Gita is gesteld; het boek behandelt er 54 van de ongeveer 700.</td></tr>
+          <tr><td class="term">dharma</td><td>De eigen plicht of levensopdracht, in het boek vertaald als het pad dat bij iemand past in studie, werk en relaties.</td></tr>
+          <tr><td class="term">karma</td><td>Handeling en het gevolg dat eraan vastzit; geen kosmisch strafregister maar de optelsom van wat iemand doet.</td></tr>
+          <tr><td class="term">karma yoga</td><td>De weg van het handelen: doen wat gedaan moet worden zonder de eigenwaarde aan de uitkomst te hangen.</td></tr>
+          <tr><td class="term">gelijkmoedigheid</td><td>De door Krishna geleerde evenwichtigheid onder winst en verlies, lof en hoon; in het boek het antwoord op prestatiedruk.</td></tr>
+          <tr><td class="term">Arjuna's vishada</td><td>De wanhoop van Arjuna in het openingshoofdstuk, door Sen gelezen als de keuzestress en faalangst van haar generatie.</td></tr>
+          <tr><td class="term">bhakti</td><td>Toewijding en overgave uit de latere hoofdstukken van de Gita, bij Sen het neerleggen van wat na gedane inzet niet te dragen valt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing is die van de brontekst zelf plus de vertrouwdheid van de auteur ermee: Sen memoriseerde de Gita als kind, werd daarvoor door de deelstaatregeringen van Haryana en Rajasthan onderscheiden, en studeert er aan de IGNOU op af, naast een rechtenstudie. Het boek doet geen wetenschappelijke claims en verwijst niet naar onderzoek; de werkzaamheid van de adviezen moet de lezer op gezag van tekst en traditie aannemen.</p>
+      <p>Onafhankelijke toetsing is er nauwelijks. Bij verschijning waren er lezersbeoordelingen (hoog gemiddelde, klein aantal) en enkele blogrecensies die de toegankelijkheid prijzen en de diepgang beperkt noemen; besprekingen in grote media of door kenners van de Sanskriettraditie ontbreken vooralsnog.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De titel belooft meer dan het boek levert: 54 van de ongeveer 700 verzen is een smalle selectie, en de keuze wordt niet verantwoord. Vertaalkeuzes en interpretatie steunen op één jonge stem zonder wetenschappelijke scholing in de tekstgeschiedenis; wie wil weten wat een vers in context betekent, heeft er een commentaar naast nodig. Vroege lezers signaleren bovendien herhaling en mechanische overgangen in de eerste hoofdstukken.</p>
+      <p>Principiëler: het boek presenteert een hindoeïstische heilstekst als levensles voor iedereen en laat de spanningen daarbinnen liggen. Dat Krishna Arjuna nu juist tot vechten aanspoort, en wat plicht betekent in een tekst die kaste veronderstelt, blijft buiten beeld. Als kennismaking is dat verdedigbaar; als levensgids vraagt het meer kritische begeleiding dan de chai-toon biedt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Scheid bij elke taak de inzet van de uitkomst en beoordeel de dag op wat gedaan is, niet op wat het opleverde.</li>
+        <li>Behandel piekeren als teken dat de geest de leiding heeft genomen; een vaste aandachtsoefening zet de verhouding recht.</li>
+        <li>Vergelijk het eigen pad niet met dat van anderen op sociale media; gebrekkig eigen werk weegt zwaarder dan foutloos nagedaan werk.</li>
+        <li>Leg na gedane inzet neer wat niet te dragen valt; overgave na inspanning is geen opgeven.</li>
+        <li>Lees bij interesse in de bron zelf een volledige vertaling met commentaar naast deze selectie, en toets wat de 54 gekozen verzen weglaten.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Gita for Gen Z: Clarity in Chaos. Timeless Wisdom from the Bhagavad Gita</i> (India Penguin Tattva / Penguin Random House India, New Delhi, 2026, 272 blz., ISBN 9780143482383; eerste uitgave in eigen beheer, december 2025). Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Rania Sen, roepnaam Gitika, is een twintigjarige uit Bhusawar in Rajasthan die als kind de volledige Bhagavad Gita uit het hoofd leerde en daarvoor in 2016 op het eerste Internationale Gita Mahotsav in Kurukshetra werd onderscheiden. In dit boek kiest zij uit elk van de achttien hoofdstukken van de Gita drie shloka's, 54 verzen in totaal, en legt die uit aan de hand van liefdesverdriet, examendruk, keuzestress, piekeren en de sociale media waar haar generatie mee opgroeit.</p><p>De toon is die van een gesprek onder leeftijdgenoten, met Hindi-spreekwoorden, Bollywood-verwijzingen en alledaagse voorbeelden; de Gita wordt gepresenteerd als praktische gids voor onbevreesd leven; de religieuze leerstof blijft op de achtergrond. Het boek verscheen eind 2025 in eigen beheer en werd in maart 2026 opnieuw uitgebracht door Penguin India onder het spirituele imprint Tattva. Het is nadrukkelijk een kennismaking: wie de hele Gita of filosofische diepgang zoekt, moet elders zijn.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>bhagavad gita</li><li>hindoeïsme</li><li>jongvolwassenen</li><li>zelfhulp</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="199"><a href="199.html">The Four Purusharthas</a>. García en Miralles behandelen de vier levensdoelen uit dezelfde hindoetraditie, eveneens voor een westers publiek.</li>
+          <li value="230"><a href="230.html">Think Like a Monk</a>. Shetty verpakt verwante vedische levenslessen in het format van de westerse zelfhulp; leerzaam als vergelijking in toon en pretentie.</li>
+          <li value="520"><a href="520.html">Vivekachudamani</a>. Shankara's klassieke leerdicht toont hoe dezelfde traditie klinkt zonder vereenvoudiging, als maat voor wat hier is weggelaten.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

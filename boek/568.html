@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shooting Up &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Oorlog is zelden nuchter gevoerd. Kamieński stelt dat psychoactieve middelen geen randverschijnsel van de krijgsgeschiedenis zijn maar een vast instrument…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-568">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">568 &middot; Geschiedenis en samenleving</p>
+    <h1>Shooting Up</h1>
+    <p class="lede">Łukasz Kamieński, 2016</p>
+    <p class="stats">
+      <span><b>1240</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="568"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Oorlog is zelden nuchter gevoerd. Kamieński stelt dat psychoactieve middelen geen randverschijnsel van de krijgsgeschiedenis zijn maar een vast instrument ervan: staten en legers hebben van de oudheid tot nu middelen verstrekt om soldaten harder, wakkerder en onverschrokkener te maken en om de schade van het gevecht te dempen, terwijl soldaten daarnaast altijd zelf naar verdoving zochten. Die farmacologisering van de oorlog neemt eerder toe dan af: van staatswege verstrekte amfetamine in de twintigste eeuw tot het onderzoek naar de chemisch verbeterde soldaat van de eenentwintigste. Wie oorlog wil begrijpen moet volgens hem ook de apotheek erachter kennen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Twee doelen, twee circuits</h3>
+      <p>De proloog zet het kader neer. Krijgsmachten zetten middelen in voor prestatieverhoging (uithoudingsvermogen, waakzaamheid, vechtlust) en voor demping (angst, slapeloosheid, trauma). Daarnaast onderscheidt Kamieński het voorgeschreven circuit van de zelfmedicatie die soldaten buiten elk bevel om zoeken.</p>
+      <p>Alcohol is in beide circuits de oudste militaire drug: van de rumrantsoenen in de Britse loopgraven van de Eerste Wereldoorlog tot de dagelijkse honderd gram wodka voor de soldaten van het Rode Leger.</p>
+      <h3>Van paddenstoel tot papaver</h3>
+      <p>Het eerste deel bestrijkt de premoderne tijd tot en met de negentiende eeuw. Siberische krijgers en mogelijk de Noorse berserkers gebruikten vliegenzwammen, al merkt de vakliteratuur die berserkerthese als omstreden aan; Inca-lopers en later Andes-soldaten kauwden coca; Napoleons troepen ontdekten in Egypte de hasj, die met hen mee terug naar Europa reisde.</p>
+      <p>China verloor twee opiumoorlogen aan een Brits rijk dat de drug met kanonneerboten aan de markt hield, waarna het Chinese leger zelf aan de pijp raakte. In de Amerikaanse Burgeroorlog werd morfine zo ruim toegediend dat de verslaving onder veteranen bekend kwam te staan als soldier's disease.</p>
+      <p>De Eerste Wereldoorlog draaide naast rum en wijn op cocaïne. Britse apothekers verkochten preparaten met namen als Forced March, en Londense warenhuizen adverteerden met pakketjes cocaïne en heroïne als cadeau voor de jongens aan het front, totdat de wetgever ingreep.</p>
+      <h3>De Tweede Wereldoorlog op amfetamine</h3>
+      <p>Speed was de oorlogsdrug van de twintigste eeuw. Voor de veldtocht tegen Frankrijk in 1940 bestelde de Wehrmacht rond de 35 miljoen tabletten Pervitin (methamfetamine), het chemische fundament onder dag en nacht doorrollende colonnes. De Britse en Amerikaanse luchtmachten verstrekten Benzedrine tegen de uitputting van lange missies, en Japan gaf zijn militairen en fabrieksarbeiders philopon, ook aan kamikazepiloten.</p>
+      <p>De rekening kwam na de vrede: Japan beleefde in de jaren veertig en vijftig de eerste grote methamfetamine-epidemie, gevoed door vrijgekomen legervoorraden.</p>
+      <h3>De Koude Oorlog en de psychochemische droom</h3>
+      <p>Het deel over de Koude Oorlog, door recensenten als het sterkste beoordeeld, behandelt de droom van een wapen dat de geest uitschakelt in plaats van het lichaam. Amerikaanse militairen en de CIA experimenteerden met LSD en het incapaciterende middel BZ, onder meer in het beruchte MKUltra-programma, met proefpersonen die vaak van niets wisten.</p>
+      <p>Het psychochemische wapen werd verkocht als humaan, een oorlog zonder doden; het leverde vooral geschonden proefpersonen en een onwerkbaar slagveldconcept op. Op onderzoekslocaties als Edgewood Arsenal dienden duizenden Amerikaanse militairen als proefpersoon, vaak zonder te weten wat hun was toegediend, een geschiedenis waarvoor pas decennia later excuses en rechtszaken volgden.</p>
+      <h3>Vietnam, de eerste farmacologische oorlog</h3>
+      <p>Vietnam noemt Kamieński de eerste echte farmacologische oorlog. Het leger verstrekte op grote schaal dextroamfetamine als pep pills en kalmeringsmiddelen tegen gevechtsstress; daarnaast medicineerden militairen zichzelf massaal met marihuana en, vanaf 1970, goedkope zuivere heroïne. De verslavingscijfers joegen Washington zoveel angst aan dat Nixon in 1971 de drugsbestrijding tot nationale prioriteit uitriep.</p>
+      <p>Het vervolgonderzoek van psychiater Lee Robins ondergroef vervolgens het gangbare verslavingsbeeld. Van de teruggekeerde dienstplichtigen die zij volgde zei ongeveer een op de vijf in Vietnam aan heroïne verslaafd te zijn geweest, maar thuis viel slechts een klein deel terug: verreweg de meesten stopten zonder behandeling, zodra omgeving en aanbod veranderd waren. Die uitkomst weegt tot op vandaag mee in het wetenschappelijke debat over wat verslaving eigenlijk is.</p>
+      <h3>Kindsoldaten, khat en go pills</h3>
+      <p>Het slotdeel behandelt het heden. In de West-Afrikaanse burgeroorlogen van de jaren negentig maakten rebellenmilities kinderen met drugs gevechtsklaar en gehoorzaam, het hoofdstuk dat de auteur naar eigen zeggen het zwaarst viel. Somalische strijders kauwen khat, en in latere conflicten dook amfetamine in nieuwe vormen weer op.</p>
+      <p>Ook reguliere legers gingen door: Amerikaanse piloten vliegen lange missies op voorgeschreven go pills. Na het Tarnak Farm-incident van 2002, waarbij een Amerikaanse F-16-piloot vier Canadese militairen doodde, voerde de verdediging de amfetamine als factor op. Kamieński eindigt bij modafinil en het militaire onderzoek naar de verbeterde soldaat, met de open vraag wat een leger mag aanrichten in het brein van zijn eigen mensen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">farmacologisering van de oorlog</td><td>De toenemende verwevenheid van krijgsmacht en psychoactieve middelen, van rantsoen en recept tot toekomstige prestatieverbetering.</td></tr>
+          <tr><td class="term">voorgeschreven versus zelf gezocht</td><td>Het onderscheid tussen middelen die de legerleiding verstrekt en de zelfmedicatie waarmee soldaten angst en verveling te lijf gaan.</td></tr>
+          <tr><td class="term">soldier's disease</td><td>Negentiende-eeuwse benaming voor de morfineverslaving onder veteranen van de Amerikaanse Burgeroorlog.</td></tr>
+          <tr><td class="term">Pervitin</td><td>Duits methamfetaminepreparaat dat de Wehrmacht in de eerste oorlogsjaren op miljoenenschaal verstrekte.</td></tr>
+          <tr><td class="term">psychochemische oorlogvoering</td><td>Koude-Oorlogsconcept van wapens als LSD en BZ die de tegenstander verwarren of uitschakelen zonder te doden.</td></tr>
+          <tr><td class="term">de eerste farmacologische oorlog</td><td>Kamieńskis typering van Vietnam, waar verstrekt en zelf gezocht druggebruik beide een nooit eerder vertoonde omvang bereikten.</td></tr>
+          <tr><td class="term">go pills</td><td>Door luchtmachten voorgeschreven stimulantia (dextroamfetamine, later modafinil) tegen vermoeidheid op lange missies.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Kamieński is politicoloog en geen archiefhistoricus; het boek is een synthese van bestaande studies, memoires en journalistiek, met notenapparaat. De kerncases zijn stevig gedocumenteerd: de Pervitin-bestellingen van 1940 komen uit Duits archiefonderzoek van anderen, en het Vietnam-hoofdstuk steunt op het epidemiologische werk van Lee Robins, een van de best gedocumenteerde studies uit de verslavingsliteratuur.</p>
+      <p>De academische ontvangst was overwegend positief: vakrecensenten prezen het overzicht en de nuchtere toon, de Sunday Times noemde het verrassend sober. Dezelfde recensenten merkten op dat de bewijskracht per episode wisselt en dat de vroegste hoofdstukken op dun en soms speculatief materiaal rusten.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De breedte gaat ten koste van de diepte. Twee millennia en alle continenten in één band betekent dat veel episodes aanstippen blijft; de H-Net-recensent vond het eerste deel een aaneenschakeling van losse taferelen en pas het Koude-Oorlogsdeel echt dwingend. Eigen archiefwerk ontbreekt, zodat het boek staat of valt met de kwaliteit van de gebruikte secundaire bronnen, en de kleurrijkste verhalen, zoals de paddenstoelen van de berserkers, zijn in de vakliteratuur juist het minst zeker.</p>
+      <p>Daarnaast dreigt overbelichting: wie oorlog door de bril van de apotheek bekijkt, gaat drugs al snel meer verklarende kracht toedichten dan zij hebben. De blitzkrieg won het niet door Pervitin en Vietnam werd niet door heroïne verloren; Kamieński zegt dat zelf ook, maar de opzet van het boek trekt de lezer de andere kant op. Voor een boek met 'short history' in de titel is het met ruim vierhonderd bladzijden bovendien een flinke zit.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees berichtgeving over drugs in oorlogsgebieden (captagon, khat) met het onderscheid tussen prestatieverhoging en demping in het achterhoofd.</li>
+        <li>Wees wantrouwig bij verhalen die een leger of aanslag volledig uit een drug verklaren; de geschiedenis laat vooral wisselwerking zien.</li>
+        <li>Gebruik het Robins-onderzoek als correctie op het beeld dat verslaving altijd een chronische hersenziekte is: context en aanbod wegen zwaar.</li>
+        <li>Volg het debat over militaire prestatieverbetering (stimulantia, modafinil) als voorbode van dezelfde vragen in de burgermaatschappij.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Shooting Up: A Short History of Drugs and War</i> (Oxford University Press, New York, 2016, 416 blz., ISBN 9780190263478; Britse editie als <i>Shooting Up: A History of Drugs in Warfare</i>, Hurst, Londen, 2016, 392 blz., ISBN 9781849045513; oorspronkelijk in het Pools verschenen als <i>Farmakologizacja wojny</i>, Wydawnictwo Uniwersytetu Jagiellońskiego, Kraków, 2012). Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De Poolse politicoloog Łukasz Kamieński (Jagiellonen-universiteit, Krakau) schreef de eerste brede geschiedenis van roesmiddelen in de oorlogvoering. Legers verstrekken drugs met twee vaste doelen: beter presteren in het gevecht en het verdragen van angst, uitputting en de nasleep van het doden. Naast dat officiële circuit loopt overal een tweede spoor, dat van de soldaat die zichzelf medicineert.</p><p>Het verhaal reikt van paddenstoelen etende krijgers en cocakauwende Inca-boodschappers via de opiumoorlogen en morfine in de Amerikaanse Burgeroorlog naar Pervitin bij de Wehrmacht, heroïne in Vietnam en gedrogeerde kindsoldaten in West-Afrika. Het boek sluit af bij de toekomst: de farmacologisch verbeterde soldaat. Britse recensenten noemden het gedetailleerd en opvallend nuchter; de methodologische beperking is dat Kamieński vrijwel geheel op secundaire bronnen bouwt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>oorlog</li><li>drugs</li><li>militaire geschiedenis</li><li>verslaving</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="275"><a href="275.html">How to Change Your Mind</a>. Pollan behandelt de psychedelica die hier als mislukt wapen figureren, maar dan als therapie; samen tonen zij beide gezichten van dezelfde stoffen.</li>
+          <li value="314"><a href="314.html">Dopamine Nation</a>. Lembke legt de neurobiologie van verslaving en zelfmedicatie bloot die onder Kamieńskis geschiedenis ligt.</li>
+          <li value="218"><a href="218.html">Napoleon's Maxims of War</a>. Napoleons eigen krijgsregels; zijn Egyptische veldtocht bracht volgens Kamieński de hasj naar Europa.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

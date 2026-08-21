@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oefeningen van de geest &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Filosofie was in de oudheid een existentiële keuze voor een levensvorm, onderhouden door geestelijke oefeningen; het filosofische discours, de leerstukken…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-586">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">586 &middot; Levenskunst</p>
+    <h1>Oefeningen van de geest</h1>
+    <p class="lede">Pierre Hadot, 1981</p>
+    <p class="stats">
+      <span><b>1353</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="586"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Filosofie was in de oudheid een existentiële keuze voor een levensvorm, onderhouden door geestelijke oefeningen; het filosofische discours, de leerstukken en argumenten, stond in dienst van die praktijk. De moderne opvatting van filosofie als zuiver theoretisch vak is volgens Hadot historisch verklaarbaar uit de middeleeuwse onderschikking aan de theologie en de latere academisering, en dus geen noodzakelijkheid. Wie de antieke teksten als gebrekkige theorie leest, mist hun aard: hun herhalingen en schijnbare tegenspraken horen bij teksten die iets met de lezer of leerling wilden doen. En wie filosofie weer als oefening opvat, wint een traditie van levenskunst terug die van Socrates tot Marcus Aurelius reikt en die na de oudheid nooit helemaal verdwenen is.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat een geestelijke oefening is</h3>
+      <p>Het kernessay omschrijft geestelijke oefeningen als vrijwillige, persoonlijke praktijken waarmee iemand de eigen wijze van zien en leven verandert. Hadot kiest het woord geestelijk bij gebrek aan beter: de oefeningen betreffen de hele persoon, voorstelling en gevoel inbegrepen. Tot het antieke repertoire horen de prosochè of voortdurende aandacht, het memoriseren van leerstellingen in korte, altijd beschikbare formules, meditatie, het vooraf doordenken van tegenslag (premeditatio malorum), het gewetensonderzoek aan het einde van de dag en de verbeelde blik van boven op het eigen bestaan.</p>
+      <p>Het doel is telkens hetzelfde: loskomen van het benauwde eigen standpunt en gaan zien vanuit de rede of de kosmos. Filosoferen is in Plato's woorden oefenen in sterven: het standpunt van het begerende ik prijsgeven.</p>
+      <h3>Socrates en Marcus Aurelius</h3>
+      <p>Twee figuren dragen de bundel. Socrates, gelezen via het <i>Symposium</i>, is het oermodel: geen leerstelsel, wel een leven dat anderen dwingt zich rekenschap te geven, met de ironie als werktuig. Marcus Aurelius levert het duidelijkste oefenschrift. Zijn <i>Overpeinzingen</i> zijn volgens Hadot geen dagboek van stemmingen; het zijn telkens herhaalde toepassingen van stoïcijnse kernregels op de eigen dag, geschreven om het eigen zien te hernieuwen. De schijnbare wanorde van het boekje is de orde van de oefening: wat vandaag geoefend moet worden, wordt vandaag opgeschreven.</p>
+      <h3>Fysica als oefening en de blik van boven</h3>
+      <p>Verrassend is Hadots stelling dat ook de antieke natuurleer een oefening was. Epicurus onderwees zijn fysica om de angst voor goden en dood weg te nemen; de stoïcijnen beschouwden de natuur om het eigen lot als deel van het geheel te aanvaarden. De blik van boven, het zich verheffen in de verbeelding tot de sterren om steden, oorlogen en eerzucht op hun ware maat te zien, komt bij dichters en filosofen van alle scholen terug. Wetenschap bedrijven kon zelf een manier zijn om vrij te worden.</p>
+      <h3>Christendom en de grote versmalling</h3>
+      <p>Het vroege christendom presenteerde zichzelf als filosofie, dat wil zeggen als levensvorm, en nam de antieke oefeningen in het kloosterleven op; de <i>Geestelijke oefeningen</i> van Ignatius van Loyola zijn een late erfgenaam van die traditie. In de middeleeuwse universiteit voltrok zich vervolgens de versmalling die Hadot wil begrijpen: filosofie werd dienstmaagd van de theologie, de oefeningen verhuisden naar de spiritualiteit, en over bleef een theoretisch discours voor vakgenoten. De moderne universitaire filosofie heeft die vorm geërfd: professoren die professoren opleiden.</p>
+      <h3>Moderne getuigen</h3>
+      <p>De oude opvatting verdween nooit helemaal. Hadot wijst op Montaigne, wiens <i>Essais</i> oefeningen in leven en sterven zijn, op Goethe, op Thoreau in zijn hut bij Walden, op Nietzsche en Schopenhauer, en op Wittgenstein, over wie hij in Frankrijk als een van de eersten schreef en die filosofie als werk aan zichzelf opvatte. Deze lijn dient als bewijs dat filosofie als levensvorm geen antiquarische curiositeit is; zij is een blijvende mogelijkheid die telkens buiten of tegen de universiteit om terugkeert.</p>
+      <h3>Het gesprek met Foucault en de figuur van de wijze</h3>
+      <p>Foucault ontleende zijn late werk over de zorg voor zichzelf mede aan Hadot en erkende dat ruiterlijk. Hadot geeft de waardering terug en formuleert een bezwaar: bij de Ouden richtte de oefening zich op het overstijgen van het ik naar rede, natuur en gemeenschap, terwijl Foucaults esthetiek van het bestaan blijft hangen in het vormgeven van het eigen zelf, een nieuwe vorm van dandyisme. Het slot voert de figuur van de wijze op als onbereikbaar richtpunt van alle scholen: de filosoof is wie naar wijsheid onderweg blijft, en de eerste oefening is leven in het enige dat iemand toebehoort, het heden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">geestelijke oefening</td><td>Vrijwillige, persoonlijke praktijk die de wijze van zien en leven moet veranderen; het grondwoord van de bundel.</td></tr>
+          <tr><td class="term">prosochè</td><td>De stoïcijnse aandacht voor het ogenblik: waakzaamheid over het eigen oordelen, begeren en handelen.</td></tr>
+          <tr><td class="term">premeditatio malorum</td><td>Het vooraf doordenken van tegenslag, verlies en dood, om er bij voorbaat vrij tegenover te staan.</td></tr>
+          <tr><td class="term">blik van boven</td><td>De verbeeldingsoefening die het eigen bestaan vanaf de hoogte van de kosmos bekijkt om het op ware grootte te zien.</td></tr>
+          <tr><td class="term">oefening in sterven</td><td>Plato's omschrijving van het filosoferen: het loslaten van het standpunt van het begerende ik, zodat de dood zijn schrik verliest.</td></tr>
+          <tr><td class="term">filosofisch discours</td><td>Het samenstel van leer en argument, dat in de oudheid volgens Hadot in dienst van de levensvorm stond.</td></tr>
+          <tr><td class="term">de wijze</td><td>Het onbereikbare richtpunt van de antieke scholen; de filosoof is wie naar wijsheid onderweg blijft.</td></tr>
+          <tr><td class="term">zorg voor zichzelf</td><td>Foucaults hernemen van de antieke zelfpraktijken, door Hadot gewaardeerd en tegelijk bekritiseerd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Hadots bewijs is filologisch: nauwkeurige lezing van Marcus Aurelius, Seneca, Epictetus, Epicurus en Plato, en het aanwijzen van vaste oefenvormen achter de bewaarde tekstsoorten. Zijn gezag op dit terrein stond buiten kijf; hij bekleedde vanaf 1982 de leerstoel voor hellenistisch en Romeins denken aan het Collège de France.</p>
+      <p>De historische lijn, van filosofie als levensvorm naar dienstmaagd van de theologie naar vakdiscipline, steunt op bronnen uit patristiek en middeleeuwen die Hadot als kenner van Plotinus en Marius Victorinus uit de eerste hand kende. Dat de Ignatiaanse oefeningen op antieke praktijken teruggaan, documenteert hij langs de lijn van het vroege monnikendom.</p>
+      <p>De invloed van de these is aanwijsbaar: Foucault noemde Hadot uitdrukkelijk in <i>L'usage des plaisirs</i>, en de hedendaagse golf van populair stoïcisme drijft, meestal zonder bronvermelding, op het beeld van filosofie als oefening dat hier is uitgewerkt. Onder vakgenoten is de kern breed aanvaard; de discussie gaat over de reikwijdte.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Dit is een essaybundel, samengesteld uit stukken van verschillende decennia, en dat is te merken: thema's en citaten keren terug, en een doorlopend betoog ontbreekt. Wie één geordend boek wil, kan beter Hadots <i>Qu'est-ce que la philosophie antique?</i> (1995) lezen. Verwarrend genoeg heet juist dat boek in het Nederlands <i>Filosofie als een manier van leven</i> (Ambo, 2007), terwijl de Engelse titel <i>Philosophy as a Way of Life</i> deze essaybundel aanduidt; wie een van beide zoekt, moet op de ondertitel letten.</p>
+      <p>Vakinhoudelijk is de sterkste tegenwerping die van John Cooper (<i>Pursuits of Wisdom</i>, 2012): de antieke filosofie grondde haar levensvorm op redelijke argumentatie, en wie de oefening vooropzet, onderschat het aandeel van het argument. De these past bovendien het best op de hellenistische scholen; voor Aristoteles, bij wie het beschouwende leven zelf het doel is, wringt het schema.</p>
+      <p>Ten slotte draagt het woord spiritueel lading die Hadot zelf ongelukkig noemde, en blijft de sociale werkelijkheid buiten beeld: de beschreven oefenpraktijk was er een van een geletterde mannelijke elite, met slavernij als achtergrond. Of de oefeningen los van de antieke kosmologie hun werk nog doen, is een vraag die de bundel opwerpt en niet beantwoordt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Sluit de dag af met het gewetensonderzoek van Seneca: wat is gedaan, wat ging mis, wat kan morgen anders.</li>
+        <li>Doorloop bij een gevreesde gebeurtenis de premeditatio malorum: stel het ergste concreet voor en formuleer wat er dan nog te doen staat.</li>
+        <li>Gebruik de blik van boven wanneer zorgen het hele blikveld vullen: bekijk de eigen situatie vanaf de hoogte van stad, aarde en sterren.</li>
+        <li>Leer enkele kernzinnen uit een gekozen school van buiten, zodat zij op het moment zelf beschikbaar zijn.</li>
+        <li>Lees een filosofische tekst eens als oefenmateriaal, met als leesvraag welke verandering in het kijken de bladzijde teweeg wil brengen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Exercices spirituels et philosophie antique</i> (Études Augustiniennes, Parijs, 1981; uitgebreide editie Albin Michel, Parijs, 2002). Engelse, door Arnold I. Davidson samengestelde en ingeleide bundel: <i>Philosophy as a Way of Life: Spiritual Exercises from Socrates to Foucault</i>, vertaald door Michael Chase (Blackwell, Oxford, 1995, 309 blz., ISBN 9780631180333). Nederlandse vertaling: <i>Oefeningen van de geest: het antieke denken en de kunst van het leven</i>, vertaald door Peter Klinkenberg (Ambo, Amsterdam, 2005, 290 blz., ISBN 9789026319266).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Pierre Hadot (1922-2010), filoloog en historicus van de antieke filosofie aan het Collège de France, betoogt in deze essaybundel dat filosofie in de oudheid in de eerste plaats een levensvorm was. Wie zich bij de Stoa, de tuin van Epicurus of de Academie aansloot, koos een manier van leven en onderhield die met geestelijke oefeningen: aandacht voor het ogenblik, het vooraf doordenken van tegenslag, gewetensonderzoek, meditatie op kernspreuken en de blik van boven. De bewaarde geschriften, van Marcus Aurelius' aantekeningen tot de brieven van Seneca, moeten volgens Hadot als oefenmateriaal gelezen worden; als systeembouw beoordeeld lijken zij zwak, als oefening gelezen kloppen zij.</p><p>De bundel volgt die draad door de geschiedenis: het vroege christendom nam de oefeningen over en noemde zichzelf filosofie, de middeleeuwse universiteit maakte van filosofie een theorievak in dienst van de theologie, en denkers als Montaigne, Goethe, Nietzsche, Thoreau en Wittgenstein hielden de oude opvatting levend. De Engelse editie uit 1995, samengesteld door Arnold Davidson, maakte Hadot buiten Frankrijk beroemd; Michel Foucault had zich al eerder door deze essays laten inspireren.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>antieke filosofie</li><li>geestelijke oefeningen</li><li>stoïcisme</li><li>levenskunst</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2"><a href="02.html">Overpeinzingen</a>. Marcus Aurelius' Overpeinzingen zijn het belangrijkste voorwerp van Hadots lezing; na deze bundel leest dat oefenschrift anders.</li>
+          <li value="292"><a href="292.html">Letters from a Stoic</a>. Seneca's brieven tonen de oefeningen in bedrijf, van gewetensonderzoek tot doodsmeditatie.</li>
+          <li value="30"><a href="30.html">The Obstacle Is the Way</a>. Holiday maakt van de stoïcijnse oefenstof een handboek voor tegenslag; de populaire uitloper van wat Hadot historisch beschrijft.</li>
+          <li value="516"><a href="516.html">The Antidote</a>. Burkeman onderzoekt het negatieve pad naar geluk en betrekt daarbij premeditatio en doodsbesef; een journalistieke pendant.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

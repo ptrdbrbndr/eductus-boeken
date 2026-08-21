@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ik en Jij &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De mens kent geen op zichzelf staand ik dat naderhand relaties aanknoopt; het ik bestaat alleen binnen een van twee grondwoorden. In het grondwoord Ik-Het…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-572">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">572 &middot; Filosofie en mystiek</p>
+    <h1>Ik en Jij</h1>
+    <p class="lede">Martin Buber, 1923</p>
+    <p class="stats">
+      <span><b>1516</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="572"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De mens kent geen op zichzelf staand ik dat naderhand relaties aanknoopt; het ik bestaat alleen binnen een van twee grondwoorden. In het grondwoord Ik-Het verhoudt de mens zich tot de wereld als waarnemer en gebruiker: hij ervaart eigenschappen, ordent, vergelijkt en beschikt. In het grondwoord Ik-Jij treedt hij met heel zijn wezen in betrekking tot een tegenover dat geen optelsom van eigenschappen is. Die betrekking is wederkerig, kent geen doel buiten zichzelf en speelt zich af in het heden. Beide houdingen zijn nodig, en toch beslist de verhouding ertussen over het mens-zijn: zonder Het kan de mens niet leven, maar wie alleen met Het leeft, is de mens niet. Achter ieder afzonderlijk Jij licht bovendien het eeuwige Jij op, Bubers naam voor God, dat als enige nooit tot een Het kan worden.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Twee grondwoorden</h3>
+      <p>Het boek opent met de stelling dat de wereld voor de mens tweevoudig is, naar zijn tweevoudige houding. Die houding ligt vast in grondwoorden, en dat zijn woordparen: Ik-Jij en Ik-Het. Er bestaat geen Ik op zichzelf; wie Ik zegt, zegt een van beide paren, en het Ik van Ik-Jij is een ander Ik dan dat van Ik-Het. Ervaren, in de zin van kennis over iets verzamelen, hoort geheel bij de Het-wereld. De betrekking tot een Jij is van andere aard: zij is onmiddellijk, zonder tussenkomst van begrippen, doeleinden of voorafgaande kennis.</p>
+      <p>Buber licht dit toe aan een boom. Een boom valt te bekijken als beeld, te meten als exemplaar van een soort, te ontleden in getal en wet. Het kan ook gebeuren, schrijft hij, dat de beschouwer in de betrekking tot de boom wordt opgenomen en de boom geen ding meer is. Wat daar tegenover staat is geen ziel of geest die in de boom zou huizen; het is de boom zelf, als geheel, als tegenover.</p>
+      <h3>Drie sferen en de weemoed van het Het</h3>
+      <p>De betrekking voltrekt zich in drie sferen: het leven met de natuur, waar zij op de drempel van de taal blijft, het leven met de mensen, waar zij in de taal gestalte krijgt, en het leven met wat Buber geestelijke wezenheden noemt, vormen als kunst en kennis die zich laten aanschouwen zonder terug te spreken. In de sfeer tussen mensen is de betrekking het meest volledig, want alleen daar kan het Jij ook antwoorden.</p>
+      <p>Op de betrekking rust wat Buber een verheven weemoed noemt: ieder Jij in de wereld moet een Het worden. Zodra de ontmoeting beschreven, gemeten of benut wordt, is het Jij een ding onder dingen geworden, hoogstens met de herinnering aan wat het was. Liefde is bij Buber dan ook geen gevoel dat iemand heeft; gevoelens heeft de mens, zijn liefde geschiedt. Liefde is verantwoordelijkheid van een Ik voor een Jij.</p>
+      <h3>De uitdijende Het-wereld</h3>
+      <p>Het tweede deel verlegt de blik naar cultuur en samenleving. De geschiedenis vertoont volgens Buber een voortgaande toename van de Het-wereld: iedere generatie erft meer opgeslagen kennis, meer instellingen, meer techniek. Dat is op zichzelf geen verval; de Het-wereld is de ruimte waarin de mens werkt, plant en overleeft. Bedreigend wordt het wanneer instellingen en gevoelens uiteenvallen in een buiten waarin zaken worden afgehandeld en een binnen waarin iets wordt beleefd, terwijl geen van beide nog betrekking is.</p>
+      <p>Economie en staat zijn volgens Buber niet te vermenselijken door er gevoel aan toe te voegen, alleen doordat er mensen in aanwezig blijven die Jij kunnen zeggen. De causaliteit van de Het-wereld, waarin alles verklaarbaar en voorspelbaar is, wordt pas drukkend voor wie er niet meer uit kan terugkeren naar de betrekking. Wie de betrekking kent, ervaart het lot niet als dwang, schrijft Buber, maar als de andere zijde van zijn vrijheid.</p>
+      <h3>Het eeuwige Jij</h3>
+      <p>Het derde deel trekt de lijnen door naar God. De verlengden van alle betrekkingen snijden elkaar in het eeuwige Jij; in ieder afzonderlijk Jij spreekt de mens het eeuwige aan. God is voor Buber geen voorwerp van leerstellingen en valt uit ervaring of redenering niet af te leiden: wie over God spreekt in de derde persoon, heeft het over een Het. Aangesproken kan hij wel worden. Religie die stolt tot leer, instituut en zekerheid, verplaatst God naar de Het-wereld.</p>
+      <p>De betrekking tot het eeuwige Jij vraagt geen wereldverzaking. Buber wijst de mystieke opgang die de wereld achterlaat af: wie de wereld werkelijk aanspreekt, treft daarin God. Het boek eindigt met de ommekeer, het zich telkens opnieuw toewenden dat nodig is omdat elke openbaring in de geschiedenis stolt tot vorm. In 1957 voegde Buber een nawoord toe waarin hij lezersvragen beantwoordt, onder meer over de grenzen van wederkerigheid in de verhouding tussen arts en patiënt en tussen leraar en leerling.</p>
+      <h3>Doorwerking</h3>
+      <p>Het boek maakte Buber tot de bekendste vertegenwoordiger van het dialogische denken, dat hij deelde met tijdgenoten als Franz Rosenzweig en Ferdinand Ebner. De invloed reikt tot ver buiten de filosofie: protestantse en katholieke theologie, pedagogiek, pastoraat en psychotherapie namen het onderscheid tussen ontmoeting en objectivering over. Carl Rogers, grondlegger van de persoonsgerichte therapie, ging in 1957 publiekelijk met Buber in gesprek over de vraag of een therapeutische relatie een echte Ik-Jij-betrekking kan zijn; Buber betwijfelde dat vanwege de ongelijkheid van de rollen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">grondwoord</td><td>Woordpaar dat geen ding aanduidt maar een verhouding sticht; wie het uitspreekt, treedt erin en wordt erdoor bepaald.</td></tr>
+          <tr><td class="term">Ik-Jij</td><td>De betrekking waarin de mens met heel zijn wezen een tegenover aanspreekt dat niet tot eigenschappen te herleiden valt.</td></tr>
+          <tr><td class="term">Ik-Het</td><td>De houding van ervaren en gebruiken, waarin de wereld verschijnt als voorraad van dingen met kenmerken.</td></tr>
+          <tr><td class="term">betrekking</td><td>Het onmiddellijke tussen Ik en Jij, wederkerig en zonder doel buiten zichzelf; voor Buber ouder dan de losse polen: in den beginne is de betrekking.</td></tr>
+          <tr><td class="term">tegenwoordigheid</td><td>Het heden dat alleen in de betrekking bestaat; de Het-wereld kent volgens Buber alleen verleden, want het gekende is altijd al voorbij.</td></tr>
+          <tr><td class="term">het eeuwige Jij</td><td>Bubers aanduiding van God als het enige Jij dat naar zijn wezen nooit een Het kan worden en dat in ieder afzonderlijk Jij wordt aangesproken.</td></tr>
+          <tr><td class="term">ommekeer</td><td>Het zich weer toewenden naar de betrekking nadat het leven in de Het-wereld is vastgelopen; Bubers weergave van het Hebreeuwse tesjoeva.</td></tr>
+          <tr><td class="term">Het-wereld</td><td>Het geordende geheel van kennis, instellingen en techniek; nodig om te leven, maar wie er uitsluitend in leeft, verliest volgens Buber zijn mens-zijn.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek argumenteert niet in de gangbare zin; het beschrijft en roept op. Buber geeft geen definities die zich laten toetsen, geen empirie en nauwelijks verwijzingen naar andere denkers. De zeggingsmacht rust op herkenning: wie het verschil kent tussen een gesprek waarin iemand werkelijk aanwezig was en een afhandeling, herkent waarover het gaat. Daarnaast put het boek uit bronnen die Buber elders ontsloot: het chassidisme met zijn heiliging van het alledaagse en de bijbelse aansprekingsvorm.</p>
+      <p>Wie die herkenning niet meebrengt, krijgt weinig aangereikt. De passages over de vroegste ontwikkeling van het kind en over zogenoemde natuurvolken steunen op de etnologie en psychologie van omstreeks 1920, die grotendeels achterhaald is, en de these dat de geschiedenis een voortdurende aanwas van de Het-wereld vertoont, wordt gesteld en niet aangetoond. Het boek staat of valt met de beschrijving van de ontmoeting zelf, en juist die wordt tot op vandaag door lezers uit uiteenlopende tradities herkend.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het eerste bezwaar is de stijl. Buber schrijft verdicht, ritmisch en profetisch, met eigen woordvormingen die ook in het Duits duister zijn. Walter Kaufmann, die het boek in 1970 in het Engels vertaalde, noemde de tekst in zijn inleiding gekunsteld en op veel plaatsen onnodig duister, en hield als vertaler tegelijk vol dat de roem van het boek de helderheid ervan ver vooruit was. Het boek vraagt langzaam lezen en verdraagt geen samenvatting zonder verlies.</p>
+      <p>Inhoudelijk is de hoofdvraag of de tweedeling houdbaar is. Veel menselijke verhoudingen bewegen zich tussen de polen, en over dat middengebied zegt Buber weinig. Emmanuel Levinas, die veel aan Buber dankt, verweet hem dat de Ik-Jij-betrekking als wederkerig en daarmee als verhouding van gelijken is gedacht, wat volgens hem aan de ernst van de verantwoordelijkheid voor de ander tekortdoet; bovendien kan een betrekking die alleen als vluchtig moment bestaat geen instellingen dragen. Ook blijft onduidelijk wat een betrekking tot een boom of een kunstwerk inhoudt wanneer daar geen antwoord mogelijk is.</p>
+      <p>Ten slotte biedt het boek geen uitgewerkte ethiek en geen politiek. De cultuurkritiek op de uitdijende Het-wereld deelt de toon van het interbellum en blijft onbewezen. Wie er een handelingsaanwijzing in zoekt, vindt een grondhouding, geen methode.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Merk in gesprekken het omslagpunt op waarop de ander een geval, een functie of een dossier wordt, en keer terug naar de aanspreekvorm.</li>
+        <li>Reserveer ontmoetingen zonder doel; een gesprek dat nergens toe hoeft te dienen laat zich niet plannen als resultaat, wel als gelegenheid.</li>
+        <li>Beoordeel instellingen, van zorg tot onderwijs, mede op de ruimte die zij laten voor werkelijke aanspreekbaarheid en niet alleen op meetbare uitkomsten.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Ich und Du</i> (Insel-Verlag, Leipzig, 1923). Nederlandse vertaling: <i>Ik en Jij</i>, vertaald door Marianne Storm (Bijleveld, Utrecht, 2023, 175 blz., ISBN 9789061315230; eerste Nederlandse uitgave 1959, sindsdien vele drukken). Engelse vertalingen als <i>I and Thou</i> door Ronald Gregor Smith (1937) en Walter Kaufmann (1970). De samenvatting is op de Nederlandse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Martin Buber, in Wenen geboren joods denker en kenner van het chassidisme, publiceerde <i>Ich und Du</i> in 1923 als grondslag van wat later dialogische filosofie is gaan heten. Het dunne boek onderscheidt twee grondwoorden waarmee de mens zich tot de wereld verhoudt. Wie Het zegt, neemt waar, meet en gebruikt; de ander is dan een ding tussen dingen. Wie Jij zegt, staat met heel zijn wezen in een betrekking waarin niets wordt beoogd en niets wordt uitgewisseld dan de tegenwoordigheid zelf. Volgens Buber ontstaat het ik pas in die betrekking: alle werkelijke leven is ontmoeting.</p><p>Het tweede deel beschrijft hoe instellingen, economie en staat de Het-wereld laten uitdijen, het derde hoe in ieder afzonderlijk Jij het eeuwige Jij wordt aangesproken dat nooit tot een Het kan worden. Het boek is geschreven in een verdichte, bijna hymnische stijl en geldt als moeilijk. Het werd niettemin een van de invloedrijkste religieus-filosofische teksten van de twintigste eeuw, met doorwerking in theologie, pedagogiek, psychotherapie en zorg.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>dialoog</li><li>joodse filosofie</li><li>ontmoeting</li><li>religie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="48"><a href="48.html">Man's Search for Meaning</a>. Frankl beschrijft vanuit de kampen hoe zin ontstaat in het antwoord op wat en wie zich aandient; zijn logotherapie staat dicht bij Bubers aansprekingsdenken.</li>
+          <li value="35"><a href="35.html">Nonviolent Communication</a>. Rosenbergs gespreksmethode is een poging het objectiveren van de ander in verwijt en diagnose praktisch af te leren.</li>
+          <li value="390"><a href="390.html">Simone Weil: An Anthology</a>. Weil noemt aandacht de zeldzaamste en zuiverste vorm van edelmoedigheid; haar denken over de ander grenst direct aan dat van Buber.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

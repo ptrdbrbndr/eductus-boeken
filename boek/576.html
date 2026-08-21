@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>An Inquiry into the Good &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Aan het begin staat geen ik dat tegenover een wereld staat, maar zuivere ervaring: het directe ervaren van de feiten zoals ze zijn, voordat het denken er…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-576">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">576 &middot; Filosofie en mystiek</p>
+    <h1>An Inquiry into the Good</h1>
+    <p class="lede">Kitarō Nishida, 1911</p>
+    <p class="stats">
+      <span><b>1559</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="576"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Aan het begin staat geen ik dat tegenover een wereld staat, maar zuivere ervaring: het directe ervaren van de feiten zoals ze zijn, voordat het denken er een subject en een object van maakt. Wie in muziek opgaat of geheel in werk verzinkt, kent die toestand; het onderscheid tussen binnen en buiten komt later, als verarmende nabewerking. Nishida maakt dit tot maatstaf voor alles. De werkelijkheid is de zelfontplooiing van zulke ervaring als één samenhangend systeem van bewustzijn; het goede is het gedrag waarin de persoonlijkheid zich verwerkelijkt en het bewustzijn zijn eenheid vindt; religie is de voltooiing daarvan, waarin het zelf zijn eenheid met de grond van de werkelijkheid, door Nishida God genoemd, kent en liefheeft. Kennen en liefhebben zijn daar uiteindelijk één en dezelfde geestesactiviteit.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Zen en westerse filosofie in één boek</h3>
+      <p>Nishida schreef de delen van het boek als leraar aan de Vierde Hogere School in Kanazawa, in de jaren waarin hij intensief zenmeditatie beoefende; zijn studievriend was de latere zenvertolker D.T. Suzuki. Het boek dat er in 1911 uit groeide, noemt zen nauwelijks bij naam. Het wil met de begrippen van de westerse filosofie, van William James en Wundt tot Hegel en T.H. Green, verantwoorden wat in de meditatie-ervaring gegeven is: dat de scheiding tussen ik en wereld niet het begin is maar een afgeleide. Het boek maakte hem beroemd; generaties Japanse studenten lazen het, en de school die zich rond zijn latere leerstoel in Kyoto vormde, kreeg de naam Kyotoschool.</p>
+      <h3>Deel een: zuivere ervaring</h3>
+      <p>Ervaren betekent voor Nishida de feiten kennen zoals ze zijn, met prijsgave van eigen toevoegsels. Zuiver is de ervaring zolang er nog geen oordeel bij is gekomen: de kleur gezien en de klank gehoord, vóór de gedachte dat het de kleur van iets is of dat iemand haar waarneemt. In het voorwoord staat de omkering die het hele boek draagt: niet omdat er een individu is, is er ervaring, maar omdat er ervaring is, is er een individu.</p>
+      <p>Denken, willen en intellectuele intuïtie behandelt Nishida vervolgens als vormen van dezelfde ervaring. Betekenissen en oordelen ontstaan waar de eenheid van de ervaring breekt en het huidige tegen ander bewustzijn wordt afgezet; het denken is dus geen tegenstander van de ervaring, het is de beweging waarmee een gebroken eenheid zich op een groter verband herstelt. De wil noemt hij de diepste vorm van die eenheid, en intellectuele intuïtie het schouwen waarin denken en willen weer samenvallen, zoals bij de musicus die geoefend speelt of de religieuze mens in gebed.</p>
+      <h3>Deel twee: de werkelijkheid</h3>
+      <p>Het tweede deel bouwt op deze grondslag een metafysica. De enige werkelijkheid die zich rechtstreeks meldt, is het verschijnsel van bewustzijn; materie en geest zijn beide constructies daaruit, standpunten die één werkelijkheid van twee kanten bekijken. De werkelijkheid is activiteit: zij ontwikkelt zich doordat een eenheid zich splitst in tegenstellingen en die op een hoger niveau weer verenigt, zoals een melodie uit spanning en oplossing bestaat.</p>
+      <p>De uiterste eenheid die al deze ontwikkeling draagt, noemt Nishida God: geen schepper buiten het heelal die het van buitenaf bestuurt, maar de eenheidsgrond van al wat is, die in de bodem van het eigen bewustzijn wordt aangetroffen. Wie deze hoofdstukken leest, merkt hoe dicht dit bij het Duitse idealisme staat en hoe ver van elk theïsme met een persoonlijke wetgever.</p>
+      <h3>Deel drie: het goede</h3>
+      <p>Het derde deel, dat het boek zijn titel gaf, loopt de gangbare ethische stelsels na en wijst ze af: gezagsethiek maakt het goede willekeurig, lustethiek verwart het goede met het aangename, en de zuivere plichtrede levert geen inhoud. Nishida sluit zich aan bij wat hij energetisme noemt, de op Aristoteles teruggaande lijn waarin het goede bestaat in de verwerkelijking van wat in de mens is aangelegd.</p>
+      <p>Goed is het gedrag waarin het bewustzijn zijn grootste eenheid bereikt: handelen uit het diepste van het zelf, met motieven die één zijn met wat men doet. Dat noemt hij de verwerkelijking van de persoonlijkheid, waarbij persoonlijkheid niet het maatschappelijke masker is, maar de verenigende activiteit van het bewustzijn zelf. Omdat het zelf geen eiland is, wijdt hij aparte hoofdstukken aan het goede van de gemeenschap, en het hoogste goed noemt hij het punt waar zelfverwerkelijking en eenwording met de werkelijkheid samenvallen: het goede kennen en de werkelijkheid kennen zijn dan hetzelfde.</p>
+      <h3>Deel vier: de religie</h3>
+      <p>Religie definieert Nishida als de verhouding tussen het zelf en het heelal, en daarmee als de voltooiing van wat in kennis en zedelijkheid al werkzaam was. Godsdienst uit angst of om beloning wijst hij af als bijgeloof; de religieuze eis komt uit het zelf, dat zijn eigen betrekkelijkheid ervaart en de eenheid zoekt waaruit het leeft. God kennen is hier niet een stelling aanvaarden, maar in de eigen bewustzijnsgrond de eenheid van alles ondervinden; kennen en liefhebben vallen daar samen. De toon van dit slotdeel is onmiskenbaar mystiek, met instemmende verwijzingen naar christelijke mystici naast boeddhistische bronnen.</p>
+      <h3>Terugblik en doorwerking</h3>
+      <p>Nishida zelf werd de strengste lezer van zijn debuut. In het voorwoord bij de heruitgave van 1936 schreef hij dat het standpunt van het boek dat van het bewustzijn is en als psychologisme gezien kan worden; zijn latere werk, met de logica van de plaats en het absolute niets, is één lange poging om dezelfde inzichten steviger te funderen. Het boek bleef niettemin het toegankelijkste deel van zijn oeuvre en het beginpunt van de moderne Japanse filosofie; via de vertaling van Abe en Ives uit 1990 kreeg het ook in het Westen een vaste plaats in het gesprek tussen boeddhistisch en westers denken.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">zuivere ervaring</td><td>Ervaren voordat subject en object zijn onderscheiden: de kleur gezien, de klank gehoord, zonder oordeel erover; voor Nishida de enige werkelijkheid.</td></tr>
+          <tr><td class="term">eenheid van bewustzijn</td><td>De samenhang die alle ervaring draagt; oordelen ontstaan waar die eenheid breekt en herstellen haar op een groter verband.</td></tr>
+          <tr><td class="term">intellectuele intuïtie</td><td>Het schouwen van eenheid voorbij het redenerende denken, zoals bij de geoefende musicus; verdiepte en verrijkte zuivere ervaring.</td></tr>
+          <tr><td class="term">de wil</td><td>Voor Nishida de diepste vorm van bewustzijnseenheid; willen en kennen liggen in elkaars verlengde en vallen in de intuïtie samen.</td></tr>
+          <tr><td class="term">energetisme</td><td>De op Aristoteles teruggaande opvatting dat het goede bestaat in de verwerkelijking van wat in de mens is aangelegd, tegenover lust- en plichtethiek.</td></tr>
+          <tr><td class="term">persoonlijkheid</td><td>De verenigende activiteit van het bewustzijn als geheel, geen maatschappelijk masker; haar verwerkelijking is het goede.</td></tr>
+          <tr><td class="term">God</td><td>Bij Nishida geen schepper buiten de wereld, maar de eenheidsgrond van het heelal, die in de bodem van het eigen bewustzijn wordt aangetroffen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek steunt op introspectie en op een brede maar selectieve lezing van westerse filosofie en psychologie: William James' radicale empirisme en bewustzijnsstroom, de experimentele psychologie van Wundt, Hegels dialectiek en de zelfverwerkelijkingsethiek van T.H. Green zijn hoorbaar aanwezig. Empirisch onderzoek in moderne zin biedt het niet, en de psychologie waarop het leunt is die van omstreeks 1900. De zenpraktijk waaruit het voortkwam blijft vrijwel onbenoemd, maar draagt herkenbaar de beschrijving van ervaring zonder subject en object.</p>
+      <p>De betoogtrant is stellig: veel wordt geponeerd en aan de samenhang van het stelsel opgehangen, weinig wordt tegen bezwaren verdedigd. De overtuigingskracht ligt, net als bij James, in beschrijvingen die de lezer zelf kan nagaan: het opgaan in muziek, de klim langs een rotswand, het moment voordat een oordeel valt. Wie zulke momenten herkent, heeft daarmee nog niet aanvaard dat zij de grond van alle werkelijkheid vormen; die stap blijft een metafysische keuze.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het gewichtigste bezwaar gaf Nishida zelf. In het voorwoord van 1936 noemde hij het standpunt van het boek dat van het bewustzijn, en daarmee vatbaar voor het verwijt van psychologisme: wat als grond van alle werkelijkheid moest dienen, blijft beschreven in de taal van de individuele psyche. Al in 1912 wees de filosoof Satomi Takahashi op de spanning dat zuivere ervaring zowel het onmiddellijke moment als het complete stelsel moet dragen; Nishida waardeerde die kritiek als de eerste die het boek serieus nam, en zijn hele latere ontwikkeling valt te lezen als antwoord erop.</p>
+      <p>Voor lezers is het boek zwaarder dan de omvang doet vermoeden. Het groeide uit collegestof, is gedrongen geschreven, met termen die gaandeweg van betekenis verschuiven en met weinig voorbeelden; de delen over ethiek en religie herhalen de grondgedachte vaker dan dat zij haar toetsen. Wie de westerse filosofiegeschiedenis niet meebrengt, mist de helft van de gesprekspartners; wie geen contemplatieve praktijk kent, mist de ervaring waarnaar verwezen wordt.</p>
+      <p>Ten slotte kleurt de geschiedenis de receptie. De Kyotoschool die op Nishida volgde, raakte in de jaren dertig en veertig verstrikt in de rechtvaardiging van het Japanse nationalisme; dit boek uit 1911 staat daarbuiten, maar wie de school leest, leest door die discussie heen. En de vraag of zuivere ervaring het metafysische gewicht kan dragen dat Nishida erop legt, of dat hier een meditatie-ervaring tot wereldverklaring is verheven, blijft ook onder welwillende uitleggers open.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Merk momenten op waarin handelen en aandacht samenvallen, van muziek tot geconcentreerd werk; dat is het ervaringsmateriaal waarop het hele boek is gebouwd.</li>
+        <li>Behandel het onderscheid tussen ik en wereld als werkhypothese en niet als vanzelfsprekend gegeven; die omkering is de kern van het boek.</li>
+        <li>Lees het samen met een inleiding in de Kyotoschool; zonder die context blijft de tekst hermetisch.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Zen no kenkyū</i> (Kōdōkan, Tokio, 1911). Engelse vertaling: <i>An Inquiry into the Good</i>, vertaald door Masao Abe en Christopher Ives (Yale University Press, New Haven, 1990, 184 blz., ISBN 9780300040944; paperback 1992, ISBN 9780300052336); een eerdere Engelse vertaling verscheen als <i>A Study of Good</i> door V.H. Viglielmo (1960). Een Nederlandse vertaling bestaat niet; het boek is hier onder de gangbare Engelse titel opgenomen en de samenvatting is op de Yale-editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Kitarō Nishida, de eerste Japanse denker die met westerse filosofische middelen een eigen stelsel bouwde en de grondlegger van wat later de Kyotoschool ging heten, publiceerde <i>Zen no kenkyū</i> in 1911, na ruim tien jaar zenmeditatie naast zijn leraarschap. Het boek zet één begrip in het midden: zuivere ervaring, het directe ervaren voordat er een onderscheid is tussen een ik dat ervaart en een ding dat ervaren wordt. Niet het individu heeft de ervaring; er is een individu omdat er ervaring is.</p><p>Vanuit dat ene beginsel behandelt het boek achtereenvolgens het denken, de werkelijkheid, de ethiek en de religie. Het goede is de verwerkelijking van de persoonlijkheid, de vereniging van het bewustzijn met zichzelf en uiteindelijk met de werkelijkheid; religie noemt Nishida de voltooiing daarvan. Het boek maakte hem beroemd in Japan en geldt als het beginpunt van de moderne Japanse filosofie. Een Nederlandse vertaling bestaat niet; de Engelse vertaling van Masao Abe en Christopher Ives verscheen in 1990 bij Yale.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zen</li><li>japanse filosofie</li><li>kyotoschool</li><li>zuivere ervaring</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="528"><a href="528.html">An Introduction to Zen Buddhism</a>. Suzuki, Nishida's studievriend, maakte het zenboeddhisme dat achter dit boek staat voor westerse lezers toegankelijk.</li>
+          <li value="200"><a href="200.html">Flow</a>. Csikszentmihalyi's flow beschrijft met psychologische middelen een toestand die dicht bij Nishida's zuivere ervaring ligt.</li>
+          <li value="527"><a href="527.html">Who Am I?</a>. Ramana's zelfonderzoek stelt vanuit de advaita-traditie dezelfde vraag naar wat er vóór het ik is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
