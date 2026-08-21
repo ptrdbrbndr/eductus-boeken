@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Public Opinion &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Lippmann stelt dat de moderne wereld te groot en te veranderlijk is om rechtstreeks gekend te worden. Tussen mens en werkelijkheid schuift zich een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-562">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">562 &middot; Vrij denken en manipulatie</p>
+    <h1>Public Opinion</h1>
+    <p class="lede">Walter Lippmann, 1922</p>
+    <p class="stats">
+      <span><b>1410</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="562"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Lippmann stelt dat de moderne wereld te groot en te veranderlijk is om rechtstreeks gekend te worden. Tussen mens en werkelijkheid schuift zich een pseudo-omgeving: het geheel van beelden in het hoofd, gevormd door gebrekkige berichtgeving, censuur, beperkte tijd en aandacht, en vooral door stereotypen, de vooraf gegeven denkbeelden die sturen wat iemand waarneemt voordat hij kijkt. Daarmee valt de bodem weg onder het democratische ideaal van de burger die over alle publieke zaken een eigen, gefundeerd oordeel vormt. Omdat de pers dat gat naar zijn aard niet kan dichten, moet de democratie volgens Lippmann worden aangevuld met georganiseerde kennis: onafhankelijke bureaus van deskundigen die feiten verzamelen en toetsen voordat er besloten wordt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De wereld buiten en de beelden in ons hoofd</h3>
+      <p>Het boek opent met een anekdote uit 1914: op een afgelegen eiland leven Engelsen, Fransen en Duitsers na het uitbreken van de oorlog nog zes weken in vrede door, omdat de postboot met het nieuws nog niet is aangekomen. Voor Lippmann is dat ieders situatie. Mensen reageren op een verslag van de wereld; de gevolgen van hun handelen vallen in de wereld zelf. Het tussengebied noemt hij de pseudo-omgeving.</p>
+      <p>Wat een mens over politiek weet, is vrijwel altijd uit de tweede hand. De vraag van het boek is hoe dat tweedehands beeld tot stand komt, waar het vervormt en wat dat betekent voor een staatsvorm die op het oordeel van burgers rust.</p>
+      <h3>Waarom het beeld gebrekkig is</h3>
+      <p>Lippmann loopt de filters langs die tussen gebeurtenis en burger staan. Censuur en geheimhouding beperken wat naar buiten komt; hij haalt legerberichten uit de oorlog aan die verliezen in vage formules verpakten. Sociale kring en inkomen bepalen met wie iemand spreekt en wat hij te horen krijgt. De aandacht is klein: uit leesonderzoeken dat mensen per dag maar enkele minuten aan hun krant besteden, leidt hij af hoe dun de feitenbasis van de gemiddelde mening is. En taal zelf perst ingewikkelde zaken in korte formules die ieder anders invult.</p>
+      <h3>Stereotypen</h3>
+      <p>Het bekendste deel van het boek. Voor het grootste deel, schrijft Lippmann, definiëren mensen eerst en kijken ze daarna. Het stereotype, een woord dat hij uit de drukkerij haalde, waar het een gietvorm aanduidt, is bij hem een neutraal mechanisme: een vast voorbeeld in het hoofd waarmee nieuwe indrukken worden geordend. Stereotypen besparen tijd en verdedigen de eigen positie in de samenleving; wie zijn stereotypen opgeeft, moet zijn wereld opnieuw inrichten.</p>
+      <p>Het probleem is dus niet dat stereotypen bestaan; het probleem is dat ze ongemerkt voor waarneming doorgaan. Elk stereotype heeft een blinde vlek: het deel van de werkelijkheid dat er niet in past, wordt eenvoudigweg niet gezien of als uitzondering weggezet.</p>
+      <h3>Belangen, symbolen en de gemaakte gemeenschappelijke wil</h3>
+      <p>Hoe wordt uit miljoenen verschillende privébeelden één publieke koers? Via symbolen, woorden en beelden waarin uiteenlopende groepen elk hun eigen verlangen kunnen leggen. Lippmann analyseert de Veertien Punten van Wilson als zo'n symbool: elk land las er het zijne in, en juist die vaagheid bond de coalitie.</p>
+      <p>Wie de symbolen beheert, beheert de instemming. De fabricage van instemming is volgens Lippmann zo oud als de politiek, maar door de moderne psychologie en de massamedia van techniek tot industrie geworden. Hij schrijft dat feitelijk vast, zonder verontwaardiging; het boek wil eerst begrijpen hoe het werkt.</p>
+      <h3>Het democratische ideaal en de grenzen van de pers</h3>
+      <p>De klassieke democratietheorie veronderstelt wat Lippmann de omnicompetente burger noemt: iemand die in zijn eigen dorp alle publieke zaken kan overzien. In een verweven wereld van wereldhandel en wereldoorlog bestaat die burger niet meer, en heeft hij ook nooit bestaan.</p>
+      <p>De gangbare hoop dat de vrije pers dit oplost, acht hij misplaatst. Nieuws en waarheid vallen niet samen: nieuws signaleert dat zich iets voordoet, waarheid vraagt onderzoek naar verborgen feiten en hun samenhang. Lippmann laat zien dat nieuws ontstaat op de plekken waar gebeurtenissen worden geregistreerd: het politiebureau, de rechtbank, de beurs, het geboorteregister. Wat nergens wordt vastgelegd, wordt geen nieuws, hoe belangrijk het ook is; een sluimerend maatschappelijk probleem haalt de krant pas als het ergens tot een geregistreerd feit stolt.</p>
+      <p>Daar komt de economie van het bedrijf bij. De lezer betaalt vrijwel niets voor zijn krant en voelt zich toch de klant; het verschil leggen adverteerders bij, die een publiek kopen. Een krant werkt bovendien op de deadline en kan geen onderzoeksinstituut zijn. De pers belasten met de verwachting dat zij de waarheid levert die instituties zelf niet vastleggen, noemt Lippmann oneerlijk tegenover de journalistiek.</p>
+      <h3>Georganiseerde kennis als remedie</h3>
+      <p>Het slot bepleit politieke wetenschap vóór het besluit in plaats van erna. Bij bestuursorganen horen onafhankelijke kennisbureaus: vaste staven met toegang tot de stukken, beschermd tegen de waan van de dag, die het beeld van de beslissers toetsen en corrigeren voordat er wordt gekozen. De deskundige stelt de feiten vast, de politiek weegt en beslist.</p>
+      <p>Lippmann geeft toe dat dit bescheiden klinkt tegenover de omvang van de diagnose. Het is in zijn ogen de enige uitweg die niet rekent op een wonder van burgerlijke alwetendheid.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">pseudo-omgeving</td><td>Het beeld van de wereld in iemands hoofd waarop hij reageert alsof het de wereld zelf is.</td></tr>
+          <tr><td class="term">stereotype</td><td>Vooraf gegeven denkbeeld dat nieuwe indrukken ordent; bij Lippmann een neutraal mechanisme van denk-economie en zelfverdediging, geen scheldwoord.</td></tr>
+          <tr><td class="term">blinde vlek</td><td>Het deel van de werkelijkheid dat een stereotype onzichtbaar maakt of tot uitzondering verklaart.</td></tr>
+          <tr><td class="term">fabricage van instemming</td><td>Het bewust vormgeven van publieke steun met psychologische kennis en massamedia; Lippmanns term manufacture of consent.</td></tr>
+          <tr><td class="term">omnicompetente burger</td><td>De fictieve burger uit de klassieke democratietheorie die over alle publieke zaken een eigen oordeel zou kunnen vormen.</td></tr>
+          <tr><td class="term">symbool</td><td>Woord of beeld waarin uiteenlopende groepen elk hun eigen verlangen leggen, zodat eenheid ontstaat zonder werkelijke overeenstemming.</td></tr>
+          <tr><td class="term">nieuws tegenover waarheid</td><td>Nieuws signaleert dat zich iets voordoet; waarheid vraagt onderzoek naar de verborgen feiten en hun samenhang.</td></tr>
+          <tr><td class="term">kennisbureau</td><td>Onafhankelijke staf van deskundigen die voor een bestuursorgaan feiten verzamelt en toetst voordat er besloten wordt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een essay en geen onderzoeksverslag. De onderbouwing bestaat uit voorbeelden: de eiland-anekdote, de gecensureerde frontberichten, leesonderzoeken naar de minuten die lezers aan hun krant besteden, de ontvangst van de Veertien Punten, en Lippmanns eigen ervaring met de Amerikaanse oorlogspropaganda van 1917-1918, waar hij van binnenuit zag hoe meningen worden gemaakt. Systematische toetsing ontbreekt; de begrippen worden scherp gedefinieerd maar niet gemeten.</p>
+      <p>De kern is later wel stevig komen te staan. Het woord stereotype werd via dit boek een vakterm in de sociale psychologie, en decennia onderzoek naar selectieve waarneming en naar agenda-setting, te beginnen met de studie van McCombs en Shaw uit 1972, bevestigde de intuïtie dat media in hoge mate bepalen waarover mensen zich een mening vormen. Het remedievoorstel is daarentegen nooit onderbouwd of in de voorgestelde vorm beproefd.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar kwam van John Dewey, die in <i>The Public and Its Problems</i> (1927) de diagnose grotendeels aanvaardde en de remedie verwierp. Democratie is bij Dewey ook een leerproces: een publiek dat wordt bediend door deskundigen zonder er zelf in gesprek bij betrokken te zijn, verleert het oordelen, en een klasse van deskundigen zonder democratische voeding wordt een gesloten kaste met eigen belangen. Lippmann levert bovendien geen mechanisme dat de correctors corrigeert: ook experts kijken door stereotypen.</p>
+      <p>Herman en Chomsky namen in <i>Manufacturing Consent</i> (1988) zijn term over als aanklacht: wat Lippmann als onvermijdelijke techniek beschreef, analyseren zij als stelselmatige machtsuitoefening, en zij rekenen hem tot de traditie die het publiek als te sturen massa ziet. Praktischer bezwaar: de kennisbureaus zijn er in zijn vorm nooit gekomen, en waar overheden feitenstaven kregen, bleek hun onafhankelijkheid het eerste dat onder druk sneuvelt. Het boek beschrijft ten slotte de krantenwereld van 1922; de analyse van filters en aandacht laat zich goed naar latere media vertalen, maar dat vertaalwerk moet de lezer zelf doen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga bij een stellig oordeel na waar het beeld vandaan komt: eigen waarneming, een verslag, of een stereotype dat vooraf al klaarlag.</li>
+        <li>Behandel nieuws als signaal; zoek voor besluiten die ertoe doen de onderliggende stukken en cijfers op.</li>
+        <li>Reken bij elk politiek symbool na wie er wat in legt; hoe breder de instemming, hoe vager meestal de inhoud.</li>
+        <li>Organiseer in eigen werk een vaste plek voor feitenonderzoek vóór de besluitvorming, met afstand tot degene die het besluit wil.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Public Opinion</i> (Harcourt, Brace and Company, New York, 1922, 427 blz., verschenen vóór de invoering van het ISBN; gangbare heruitgave: Free Press, 1997, ISBN 9780684833279). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Walter Lippmann, journalist en adviseur van president Wilson, schreef <i>Public Opinion</i> na zijn ervaring met oorlogspropaganda in de Eerste Wereldoorlog. Zijn uitgangspunt: de wereld waarover burgers moeten oordelen is te groot en te veranderlijk om rechtstreeks te kennen. Mensen handelen op grond van de beelden in hun hoofd, een pseudo-omgeving die wordt gevormd door berichtgeving, censuur, beperkte aandacht en vooral door stereotypen: vooraf gegeven denkbeelden die bepalen wat iemand ziet voordat hij kijkt.</p><p>Uit die analyse trekt Lippmann een conclusie die nog altijd schuurt: het democratische ideaal van de burger die over alles een gefundeerd eigen oordeel heeft, is een fictie, en de pers kan dat gat niet dichten omdat nieuws iets anders is dan waarheid. Hij pleit voor onafhankelijke kennisbureaus die bestuurders van gecontroleerde feiten voorzien. Het boek muntte de uitdrukking <i>manufacture of consent</i> en gaf het woord stereotype zijn moderne betekenis; John Dewey schreef er in 1927 een boek tegen en het debat tussen beiden loopt in de mediawetenschap nog door.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>media</li><li>democratie</li><li>propaganda</li><li>stereotypen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="54"><a href="54.html">Amusing Ourselves to Death</a>. <i>Amusing Ourselves to Death</i> zet dezelfde vraag voort voor het televisietijdperk, met het medium zelf als vormgever van het publieke gesprek.</li>
+          <li value="60"><a href="60.html">Trust Me, I'm Lying</a>. <i>Trust Me, I'm Lying</i> toont van binnenuit hoe de fabricage van instemming er in de blogeconomie uitziet.</li>
+          <li value="234"><a href="234.html">Factfulness</a>. <i>Factfulness</i> behandelt hetzelfde gat tussen wereldbeeld en werkelijkheid, met statistiek en tien benoemde denkfouten als gereedschap.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

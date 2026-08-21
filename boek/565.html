@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulacres et simulation &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Baudrillard stelt dat de verhouding tussen teken en werkelijkheid in de naoorlogse mediacultuur is omgeslagen. Beelden weerspiegelen geen buitenwereld…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-565">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">565 &middot; Vrij denken en manipulatie</p>
+    <h1>Simulacres et simulation</h1>
+    <p class="lede">Jean Baudrillard, 1981</p>
+    <p class="stats">
+      <span><b>1559</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="565"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Baudrillard stelt dat de verhouding tussen teken en werkelijkheid in de naoorlogse mediacultuur is omgeslagen. Beelden weerspiegelen geen buitenwereld meer; modellen, codes en media gaan aan de feiten vooraf en brengen die voort. Dit noemt hij de precessie van de simulacra: de kaart komt vóór het gebied. Het resultaat is hyperrealiteit, een werkelijkheid die uit haar eigen kopieën is samengesteld en echter aanvoelt dan echt. Instituties reageren daarop met de simulatie van het echte: schandalen, pretparken en afschrikking moeten bewijzen dat er nog een werkelijkheid bestaat. Wie de tekens wil ontmaskeren komt volgens Baudrillard te laat; er zit geen origineel meer achter.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De precessie van de simulacra</h3>
+      <p>Het openingsessay, goed voor een derde van het boek, zet het hele apparaat neer. Baudrillard begint met de fabel van Borges over kartografen die een kaart tekenen die het rijk volledig bedekt. Die fabel is volgens hem onbruikbaar geworden: tegenwoordig gaat de kaart aan het gebied vooraf en brengt zij het voort. Het motto boven het essay, een spreuk over het simulacrum die aan Prediker wordt toegeschreven, heeft Baudrillard zelf verzonnen; het boek opent dus met een simulacrum van een citaat.</p>
+      <p>Hij onderscheidt vier opeenvolgende fasen van het beeld: het weerspiegelt een diepe werkelijkheid, het vervormt die werkelijkheid, het maskeert de afwezigheid ervan, en ten slotte verwijst het nergens meer naar en is het zijn eigen zuivere simulacrum. Simuleren is iets anders dan veinzen: wie ziekte veinst blijft gezond, wie ziekte simuleert vertoont de symptomen. Daarmee vervaagt het onderscheid tussen waar en onwaar waarop diagnose, rechtspraak en wetenschap steunen.</p>
+      <h3>Disneyland, Watergate en de Tasaday</h3>
+      <p>De beroemdste voorbeelden staan in datzelfde essay. Disneyland wordt als verbeelding gepresenteerd om te verhullen dat heel Amerika inmiddels Disneyland is; het park laat bezoekers geloven dat buiten de hekken het echte begint. Watergate is volgens Baudrillard geen schandaal: door één affaire luidruchtig te ontmaskeren herstelt het systeem het geloof dat er daarbuiten een gezonde politieke moraal bestaat.</p>
+      <p>Ook de Tasaday komen voorbij, een Filipijnse groep die in 1971 als onbedorven steentijdstam wereldnieuws werd en daarna werd afgeschermd om haar ongerept te houden. De etnologie, schrijft hij, kan haar object alleen redden door het niet meer aan te raken; wat zij zo bewaart is een gefabriceerd object. Dat de stam in de jaren tachtig middelpunt van een echtheidscontroverse werd, gaf dit voorbeeld achteraf een extra laag.</p>
+      <h3>Afschrikking en het vooruitgefilmde ongeluk</h3>
+      <p>De nucleaire afschrikking is voor Baudrillard de zuiverste simulatie: een bom die nooit mag ontploffen en juist daardoor de hele planeet reguleert. Oorlog wordt vervangen door het model van oorlog. Hetzelfde patroon ziet hij in de verhouding tussen film en gebeurtenis: de kernramp in de film <i>The China Syndrome</i> ging in 1979 enkele weken aan het echte ongeluk in de centrale bij Harrisburg vooraf.</p>
+      <p>Televisie krijgt een eigen behandeling. De Amerikaanse familie Loud, in 1971 maandenlang gefilmd voor de documentaireserie <i>An American Family</i>, viel tijdens het project uiteen; volgens Baudrillard bracht de camera het gezin eerder voort dan dat zij het registreerde. In essays over de tv-serie <i>Holocaust</i> en over <i>Apocalypse Now</i> betoogt hij dat het medium de gebeurtenis afkoelt: de uitroeiing wordt nog eens uitgewist, ditmaal als beeld.</p>
+      <h3>Implosie: media, massa en betekenis</h3>
+      <p>In het middendeel keert Baudrillard de richting van de klassieke mediakritiek om. Informatie brengt volgens hem geen betekenis over; zij verslindt haar eigen inhoud. Hoe meer informatie circuleert, hoe minder betekenis overblijft, en met de betekenis implodeert ook het sociale: de bevolking wordt een zwijgende massa die peilingen en oproepen absorbeert zonder te antwoorden.</p>
+      <p>Het Centre Pompidou in Parijs dient als monument van die implosie: een cultuurmachine die de massa naar binnen zuigt, waarna de toeloop zelf het gebouw en de cultuur sloopt. Kortere stukken over de hypermarkt en over reclame trekken dezelfde lijn door: reclame heeft haar oorspronkelijke doel overleefd en onderhoudt nog slechts het decor van het sociale.</p>
+      <h3>Klonen, Crash en sciencefiction</h3>
+      <p>De tweede helft bestaat uit korte essays die het begrip op nieuwe terreinen beproeven. De kloon maakt van het lichaam een serieproduct zonder origineel; het hologram belooft een verdubbeling waarin de illusie verdwijnt omdat er geen afstand meer is tussen beeld en ding. In een bespreking van de roman <i>Crash</i> van J.G. Ballard ziet Baudrillard een wereld waarin techniek, lichaam en ongeluk zonder moraal in elkaar schuiven.</p>
+      <p>In het essay over sciencefiction herneemt hij het schema uit zijn eerdere werk <i>L'échange symbolique et la mort</i>: drie orden van simulacra, de namaak uit het klassieke tijdperk, de industriële serieproductie en de huidige simulatie op basis van modellen en code. Klassieke sciencefiction hoorde bij de tweede orde; in de derde valt er weinig meer te verzinnen omdat de werkelijkheid de fictie heeft ingehaald.</p>
+      <h3>Restanten en nihilisme</h3>
+      <p>De slotessays zijn de somberste. De universiteit beschrijft Baudrillard als een vervallen instituut dat diploma's zonder waarde blijft uitreiken; wie er werkt beheert een dode vorm. Het essay over het restant vraagt wat er overblijft wanneer alles in het systeem is opgenomen, en houdt het erop dat juist dat restant telkens opnieuw verschijnt.</p>
+      <p>Het slotstuk over het nihilisme benoemt de eigen positie: de echte nihilist is in zijn ogen het systeem zelf, dat alle betekenis neutraliseert. De theoreticus rest de uitdaging en de provocatie. Een program voor verzet of verbetering levert het boek nergens; dat is een bewuste keuze en tegelijk de grens van het werk.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">simulacrum</td><td>Kopie zonder origineel; een teken dat nergens meer naar verwijst en toch voor werkelijkheid doorgaat.</td></tr>
+          <tr><td class="term">simulatie</td><td>Het voortbrengen van iets echts uit modellen en tekens, te onderscheiden van veinzen, waarbij de werkelijkheid intact blijft.</td></tr>
+          <tr><td class="term">hyperrealiteit</td><td>Toestand waarin de kopie echter aanvoelt dan het origineel, omdat de werkelijkheid uit modellen wordt opgebouwd.</td></tr>
+          <tr><td class="term">precessie van de simulacra</td><td>De omkering waarbij het model of de kaart aan de werkelijkheid voorafgaat en haar vormgeeft.</td></tr>
+          <tr><td class="term">de vier fasen van het beeld</td><td>Reeks waarin het beeld achtereenvolgens de werkelijkheid weerspiegelt, haar vervormt, haar afwezigheid maskeert en ten slotte zuiver simulacrum wordt.</td></tr>
+          <tr><td class="term">implosie</td><td>Het in elkaar klappen van onderscheidingen, zoals die tussen medium en werkelijkheid of tussen informatie en betekenis.</td></tr>
+          <tr><td class="term">afschrikking (dissuasion)</td><td>Regulering door het model van een catastrofe die nooit mag plaatsvinden, zoals de kernoorlog.</td></tr>
+          <tr><td class="term">drie orden van simulacra</td><td>Historische reeks van namaak, industriële serieproductie en simulatie op basis van code, ontleend aan Baudrillards eerdere werk.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek bevat geen onderzoek in de gangbare zin: geen data, geen methode, geen toetsbare voorspelling. Het bewijs bestaat uit cultuurvoorbeelden, van Disneyland tot Harrisburg, die Baudrillard vrij interpreteert en nergens tegen alternatieve verklaringen afweegt. Wie een voorbeeld anders leest, bijvoorbeeld Watergate als gewoon schandaal met echte gevolgen, vindt in het boek geen weerlegging.</p>
+      <p>De waarde ligt in de begripsvorming. Termen als hyperrealiteit en simulacrum bleken hanteerbaar voor verschijnselen die pas na 1981 opkwamen: reality-tv, bewerkte beelden, virtuele werelden en kunstmatig gegenereerde media. Dat de woordenschat het boek overleefde is de sterkste aanwijzing dat Baudrillard iets werkelijks te pakken had.</p>
+      <p>Het verzonnen Prediker-motto laat zien hoe het boek zichzelf opvat: eerder als demonstratie van simulatie dan als verhandeling erover. Dat maakt het werk consequent en tegelijk onweerlegbaar in de slechte zin: het onttrekt zich aan elke maatstaf die het zelf niet stelt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De zwaarste kritiek betreft de wetenschappelijke status. Alan Sokal en Jean Bricmont namen Baudrillard in 1997 op in <i>Impostures intellectuelles</i> wegens het gebruik van natuurkundige en wiskundige termen zonder aanwijsbare betekenis. Christopher Norris verweet hem in <i>Uncritical Theory</i> (1992), naar aanleiding van diens stukken over de Golfoorlog, een redeneertrant waarin ook massaal lijden tot beeld wordt verklaard. Douglas Kellner, verder een welwillende lezer, wijst op de gewoonte om een tendens meteen tot voltooide toestand uit te roepen.</p>
+      <p>Empirisch mediaonderzoek spreekt de sterkste beweringen tegen: publieken blijken fictie en werkelijkheid in de praktijk goed te onderscheiden en gaan actief met beelden om. Ook alledaags klopt er iets niet: wie door een hyperreëel Disneyland loopt kan nog altijd struikelen, honger krijgen en de uitgang zoeken. Baudrillard dekt zich hiertegen in doordat elk bezwaar als onderdeel van de simulatie te duiden valt, en juist dat maakt de these ontoetsbaar.</p>
+      <p>Tegelijk verdient het boek geen afserveren als modieuze onzin. Toen <i>The Matrix</i> het in 1999 als rekwisiet opvoerde, nam Baudrillard zelf afstand: de film stelde simulatie weer voor als een leugen met een echte wereld erachter, precies wat het boek bestrijdt. Dat het begrippenkader bij deepfakes en gegenereerde beelden nog steeds als eerste wordt gepakt, vraagt om een verklaring van wie het werk geheel wil afschrijven.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij een beeld of bericht in welke van de vier fasen het zit: weerspiegelt het iets, vervormt het iets, verbergt het een gemis, of verwijst het alleen nog naar andere beelden.</li>
+        <li>Herken het Disneyland-mechanisme: een plek of programma dat nadrukkelijk als nep is gemarkeerd, laat de omgeving echter lijken dan zij is.</li>
+        <li>Wees op je hoede wanneer een ontmaskering het systeem opknapt; een schandaal kan als reiniging dienen die het geloof in het geheel herstelt.</li>
+        <li>Stel bij reality-tv en kunstmatig gegenereerde media de vraag naar het origineel: bestaat er iets buiten de productie waaraan het beeld te toetsen valt.</li>
+        <li>Gebruik het boek als begrippenapparaat; empirische onderbouwing moet elders vandaan komen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Simulacres et simulation</i> (Éditions Galilée, Parijs, 1981, 235 blz., ISBN 9782718602103). Engelse vertaling: <i>Simulacra and Simulation</i>, vertaald door Sheila Faria Glaser (University of Michigan Press, 1994, 164 blz., ISBN 9780472065219). De catalogus van bibliotheek.nl bevat wel ander werk van Baudrillard in Nederlandse vertaling, van dit boek alleen de Engelse editie; er bestaat geen gevestigde Nederlandse vertaling, dus de oorspronkelijke titel is aangehouden en de samenvatting is op de Franse editie en de Engelse vertaling gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De Franse socioloog Jean Baudrillard bundelde in 1981 achttien essays over een cultuur waarin tekens en beelden hun verwijzing naar de werkelijkheid kwijt zijn. Een simulacrum is bij hem een kopie zonder origineel: een beeld dat nergens meer naar verwijst en toch als werkelijkheid wordt beleefd. Waar zulke beelden de dienst uitmaken ontstaat wat hij hyperrealiteit noemt, een toestand waarin modellen aan de feiten voorafgaan. Disneyland, Watergate, de tv-serie <i>Holocaust</i> en de nucleaire afschrikking dienen als voorbeelden van simulatie die het geloof in een echte wereld op de been moet houden.</p><p>Het boek werd een sleuteltekst van het postmodernisme en haalde via de film <i>The Matrix</i> de populaire cultuur, al vond Baudrillard dat die film zijn begrip verkeerd gebruikte. Wetenschappelijke toetsing verdraagt het werk niet: het bewijs bestaat uit vrij geïnterpreteerde voorbeelden en de stijl is apodictisch. Als woordenschat om reclame, medialogica en kunstmatig gegenereerde beelden te beschrijven blijkt het boek ruim vier decennia later nog altijd bruikbaar.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>media</li><li>hyperrealiteit</li><li>postmodernisme</li><li>simulatie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="54"><a href="54.html">Amusing Ourselves to Death</a>. Postman beschrijft nuchterder en met meer bewijs hoe televisie het publieke debat in amusement omzet; een goede tegenhanger van Baudrillards essay over de Holocaust-serie.</li>
+          <li value="61"><a href="61.html">Brave New World</a>. Huxleys roman toont een samenleving die via genot en conditionering wordt bestuurd, het scenario dat aansluit bij Baudrillards implosie van betekenis.</li>
+          <li value="60"><a href="60.html">Trust Me, I'm Lying</a>. Holiday laat van binnenuit zien hoe verzonnen gebeurtenissen het nieuws halen; een praktijkverslag bij wat Baudrillard theoretisch beweert.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

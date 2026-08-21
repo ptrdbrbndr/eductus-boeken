@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manufacturing Consent &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Herman en Chomsky stellen dat de Amerikaanse massamedia zich gedragen als een propagandasysteem voor de belangen van staat en bedrijfsleven, zonder dat er…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-566">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">566 &middot; Vrij denken en manipulatie</p>
+    <h1>Manufacturing Consent</h1>
+    <p class="lede">Edward S. Herman en Noam Chomsky, 1988</p>
+    <p class="stats">
+      <span><b>1564</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="566"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Herman en Chomsky stellen dat de Amerikaanse massamedia zich gedragen als een propagandasysteem voor de belangen van staat en bedrijfsleven, zonder dat er een censor aan te pas komt. De marktstructuur zelf doet het werk: vijf filters, eigendom, advertentie-inkomsten, bronafhankelijkheid, flak en de heersende vijandideologie, bepalen welke feiten nieuws worden en welk kader zij meekrijgen. Binnen de grenzen van de elite-consensus is debat mogelijk en zelfs welkom, want het houdt de schijn van onafhankelijkheid in stand; wat buiten die grenzen valt wordt verdund, versnipperd of genegeerd. Het model voorspelt daarmee een meetbaar patroon: slachtoffers van vijanden krijgen aandacht en verontwaardiging, slachtoffers van de eigen staat en zijn bondgenoten krijgen die niet.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een propagandamodel</h3>
+      <p>Het openingshoofdstuk zet de vijf filters uiteen. Het eerste filter is de omvang en het geconcentreerde eigendom van mediabedrijven: wie een krant of zender wil beginnen heeft groot kapitaal nodig, en de winstoriëntatie van de eigenaren begrenst wat de redactie zich kan veroorloven. Het tweede filter is reclame: omdat adverteerders het grootste deel van de inkomsten leveren, is de kijker het product en de adverteerder de klant; programma's die een publiek met bestedingsruimte wegjagen sneuvelen.</p>
+      <p>Het derde filter is de afhankelijkheid van goedkope, gezaghebbende bronnen: ministeries, het leger en bedrijfswoordvoerders leveren een gestage stroom kant-en-klaar nieuws, en wie kritisch schrijft riskeert zijn toegang. Het vierde filter, flak, omvat georganiseerde klachten, boycots en juridische druk waarmee belangengroepen redacties disciplineren. Het vijfde filter was in 1988 het anticommunisme, een vijandideologie waarmee vrijwel elk binnenlands of buitenlands onderwerp geordend kon worden.</p>
+      <h3>Waardige en onwaardige slachtoffers</h3>
+      <p>De eerste toets is een vergelijking van moordzaken. De Poolse priester Jerzy Popiełuszko, in 1984 vermoord door officieren van de communistische veiligheidsdienst, kreeg in de Amerikaanse media meer aandacht dan honderd vermoorde geestelijken in Latijns-Amerika bij elkaar, onder wie aartsbisschop Óscar Romero, in 1980 doodgeschoten in San Salvador, en vier Amerikaanse kerkvrouwen die datzelfde jaar door leden van de Salvadoraanse Nationale Garde werden verkracht en vermoord.</p>
+      <p>De auteurs tellen artikelen, voorpagina's en verontwaardigde bewoordingen en zien een vast patroon: slachtoffers van een vijandstaat zijn waardig, krijgen naam, gezicht en vervolgverhalen; slachtoffers van bevriende regimes blijven anoniem en de vraag naar verantwoordelijkheid blijft achterwege. Het verschil valt volgens hen alleen te verklaren uit de politieke bruikbaarheid van de doden.</p>
+      <h3>Verkiezingen: legitimeren en diskwalificeren</h3>
+      <p>Hetzelfde meetinstrument gaat over verkiezingen in de derde wereld. De stembusgangen in El Salvador (1982 en 1984) en Guatemala (1984 en 1985), gehouden onder staatsterreur en zonder vrije pers, werden in de Amerikaanse media als triomf van de democratie gebracht, in lijn met het beleid van de regering-Reagan. De Nicaraguaanse verkiezing van 1984, door internationale waarnemers als betrekkelijk ordelijk beoordeeld, werd afgedaan als schijnvertoning omdat de uitslag Washington niet uitkwam.</p>
+      <p>Herman had voor zulke gevallen eerder de term demonstratieverkiezingen gemunt: verkiezingen die vooral worden georganiseerd om een buitenlands publiek gerust te stellen. De media, zo laten de auteurs met citaten en tellingen zien, namen per land vrijwel exact het vragenlijstje van het State Department over: opkomst en rijen bij de stembus in bevriende landen, dwang en oppositieklachten in vijandige.</p>
+      <h3>Het Bulgaarse complot tegen de paus</h3>
+      <p>De aanslag van de Turk Mehmet Ali Ağca op paus Johannes Paulus II in 1981 levert de derde casus. Amerikaanse media omarmden de these van journaliste Claire Sterling dat de KGB en de Bulgaarse geheime dienst achter de aanslag zaten, een verhaal dat vooral leunde op de redenering dat de Sovjet-Unie er baat bij zou hebben. Tegenstrijdigheden, waaronder het gegeven dat Ağca pas na lange afzondering over Bulgaren begon te verklaren, kregen weinig ruimte.</p>
+      <p>Toen een rechtbank in Rome de Bulgaarse verdachten in 1986 wegens gebrek aan bewijs vrijsprak, was de belangstelling geluwd. Voor de auteurs toont de affaire het derde en het vijfde filter in werking: een bron met het passende vijandbeeld krijgt een podium zonder de toetsing die een afwijkende bron wel moet doorstaan.</p>
+      <h3>Indochina: de mythe van de vijandige pers</h3>
+      <p>De langste hoofdstukken behandelen Vietnam, Laos en Cambodja. Tegen het gangbare beeld dat de pers de Vietnamoorlog thuis verloren zou hebben, betogen de auteurs dat de media het uitgangspunt van de interventie nooit ter discussie stelden; de kritiek bleef beperkt tot de vraag of de oorlog te winnen was, en kwam pas op toen het establishment zelf verdeeld raakte.</p>
+      <p>De geheime bombardementen op Laos bleven jarenlang vrijwel onvermeld, net als het Amerikaanse aandeel in de verwoesting van Cambodja vóór 1975, terwijl de misdaden van de Rode Khmer daarna breed werden uitgemeten. In een appendix nemen de auteurs de Freedom House-studie over het Tet-offensief door, het geijkte bewijsstuk voor de these van de vijandige pers, en documenteren zij fouten en dubbele maatstaven in dat onderzoek.</p>
+      <h3>De herziene editie en de balans</h3>
+      <p>De editie van 2002 bevat een lange nieuwe inleiding waarin de auteurs het model bijstellen. De mediaconcentratie was verder toegenomen, het advertentiefilter sterker geworden, en het weggevallen anticommunisme bleek vervangbaar door andere ordenende ideologieën, waaronder het geloof in de vrije markt en later de terreurbestrijding. Als nieuwe voorbeelden dienen onder meer de berichtgeving over het handelsverdrag NAFTA en over de andersglobaliseringsprotesten.</p>
+      <p>De naamvolgorde op het omslag zegt iets over het maken van het boek: Chomsky heeft meermaals aangegeven dat Herman de hoofdauteur was. Sinds februari 2025 bestaat er een Nederlandse vertaling bij uitgeverij EPO. Het boek wordt wereldwijd in mediastudies gelezen, vaker als klassieke referentie dan als lopend onderzoeksprogramma.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">propagandamodel</td><td>Structurele verklaring waarin marktmechanismen, zonder censuur of complot, het nieuws in lijn brengen met elitebelangen.</td></tr>
+          <tr><td class="term">filter</td><td>Voorwaarde waar nieuws doorheen moet voordat het publiek het bereikt; de vijf filters zijn eigendom, reclame, bronnen, flak en vijandideologie.</td></tr>
+          <tr><td class="term">flak</td><td>Georganiseerde negatieve reacties op berichtgeving, van boze brieven tot rechtszaken en adverteerdersboycots, die redacties voorzichtig maken.</td></tr>
+          <tr><td class="term">waardige en onwaardige slachtoffers</td><td>Slachtoffers van vijandstaten die uitvoerige, verontwaardigde aandacht krijgen, tegenover slachtoffers van de eigen staat en zijn bondgenoten die genegeerd worden.</td></tr>
+          <tr><td class="term">dichotomisering</td><td>Het stelselmatig verschillend behandelen van vergelijkbare gebeurtenissen naargelang hun politieke bruikbaarheid.</td></tr>
+          <tr><td class="term">demonstratieverkiezingen</td><td>Verkiezingen in een cliëntstaat die vooral zijn bedoeld om het thuisfront van de buitenlandse sponsor gerust te stellen.</td></tr>
+          <tr><td class="term">fabricage van instemming</td><td>Lippmanns term uit 1922 voor het doelbewust vormen van de publieke opinie door elites; de bron van de boektitel.</td></tr>
+          <tr><td class="term">anticommunisme als vijandideologie</td><td>Het vijfde filter uit 1988: een gedeeld vijandbeeld dat afwijkende stemmen verdacht maakt en meningsverschillen ordent.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek onderscheidt zich van veel mediakritiek door kwantificering. De auteurs tellen artikelen, kolomruimte, voorpaginaplaatsing en redactionele bewoordingen bij gepaarde gebeurtenissen en leggen de uitkomsten in tabellen vast. De voorspelling van het model, een stelselmatig verschil in behandeling naar politieke bruikbaarheid, is daarmee toetsbaar geformuleerd, en binnen de gekozen casussen zijn de gemeten verschillen groot en consistent.</p>
+      <p>De casussen steunen op openbare bronnen: krantenarchieven, congresverslagen en rapporten van waarnemersmissies en mensenrechtenorganisaties. Latere onderzoekers hebben het model op nieuwe gevallen toegepast, onder meer op de aanloop naar de Irakoorlog van 2003, en vonden vergelijkbare patronen van bronafhankelijkheid en zelfbeperking. Herman verdedigde het model in 2000 in een terugblik in het vakblad <i>Journalism Studies</i>.</p>
+      <p>Opvallende steun kwam achteraf uit de media zelf: <i>The New York Times</i> erkende in 2004 in een redactionele verklaring dat haar berichtgeving over Iraakse massavernietigingswapens te zwaar op regeringsbronnen en overlopers had geleund, het patroon dat het derde filter voorspelt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De methodologische bezwaren richten zich op de casusselectie: de gepaarde voorbeelden zijn door de auteurs zelf gekozen, en critici houden vol dat andere paren ook andere uitkomsten hadden opgeleverd. Het boek bevat bovendien geen onderzoek op redacties; hoe de filters op de werkvloer doorwerken blijft een aanname, terwijl onderzoekers als Herbert Gans en W. Lance Bennett journalistieke routines van binnenuit beschreven en tot genuanceerdere verklaringen kwamen.</p>
+      <p>Het bekendste verwijt luidt dat het model een complottheorie is. De auteurs wijzen dat af: het gaat om marktuitkomsten, net zoals er geen samenzwering nodig is om te verklaren dat kranten winst nastreven. Lastiger is het verwijt van moeilijke weerlegbaarheid: tegenvoorbeelden zoals Watergate, de Pentagon Papers en My Lai verklaren de auteurs als conflicten binnen de elite, waarmee vrijwel elke uitkomst in het model past.</p>
+      <p>Verder is het boek op punten gedateerd die de inleiding van 2002 maar ten dele repareert: het vijfde filter moest worden herschreven en het internet, laat staan het platformtijdperk, komt nauwelijks voor. Aanhangers merken op dat de eerste twee filters in de advertentie-economie van Google en Facebook eerder sterker dan zwakker zijn geworden. In de academische communicatiewetenschap bleef het model lang marginaal, wat aanhangers als bevestiging van de these lezen en critici als vakinhoudelijk oordeel.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga bij een groot nieuwsverhaal na wie de oorspronkelijke bron is; drijft het verhaal vooral op officiële woordvoerders, houd dan rekening met het derde filter.</li>
+        <li>Vergelijk de berichtgeving over vergelijkbare slachtoffers aan twee kanten van een conflict: hoeveelheid, naamgeving, voorpagina's en de vraag wie verantwoordelijk wordt gesteld.</li>
+        <li>Zoek bij buitenlandse verkiezingen de rapporten van onafhankelijke waarnemers op voordat het oordeel van een ministerie wordt overgenomen.</li>
+        <li>Volg het eigendom: wie bezit het medium, wie adverteert er, en welke onderwerpen raken die belangen.</li>
+        <li>Let op flak in zijn huidige vorm: georganiseerde verontwaardigingscampagnes en juridische druk verklaren soms waarom een redactie een onderwerp laat liggen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Manufacturing Consent: The Political Economy of the Mass Media</i> (Pantheon Books, New York, 1988, 412 blz., ISBN 9780394549262; herziene editie met nieuwe inleiding, Pantheon, 2002, 480 blz., ISBN 9780375714498). Nederlandse vertaling: <i>Manufacturing Consent: de politieke economie van de massamedia</i>, vertaald door Jan Reyniers (EPO, Berchem, 2025, 440 blz., ISBN 9789462674820). De samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Edward Herman, econoom aan Wharton, en taalkundige Noam Chomsky ontleenden hun titel aan Walter Lippmann, die in 1922 over de fabricage van instemming schreef. Hun propagandamodel stelt dat nieuws in commerciële media door vijf filters gaat voordat het publiek het ziet: geconcentreerd eigendom, afhankelijkheid van advertenties, afhankelijkheid van officiële bronnen, flak (georganiseerde druk op redacties) en anticommunisme als heersende vijandideologie. Wat door de filters komt dient doorgaans de belangen van staat en bedrijfsleven, zonder dat daar censuur of samenzwering voor nodig is.</p><p>De auteurs toetsen het model aan gepaarde voorbeelden uit de jaren zeventig en tachtig: de moord op de Poolse priester Popiełuszko tegenover vermoorde geestelijken in Latijns-Amerika, verkiezingen in El Salvador en Nicaragua, de aanslag op de paus en de oorlogen in Indochina. Het boek werd bij verschijning in de grote media afgewezen of genegeerd en groeide daarna uit tot een klassieker van de mediakritiek, met een herziene editie in 2002 en sinds 2025 een Nederlandse vertaling. De methodologische kritiek, vooral op de selectie van voorbeelden, is nooit verstomd.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>media</li><li>propaganda</li><li>journalistiek</li><li>politieke economie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="60"><a href="60.html">Trust Me, I'm Lying</a>. Holiday beschrijft van binnenuit hoe blogs en redacties zich laten bespelen; een hedendaagse, praktische aanvulling op het filtermodel.</li>
+          <li value="54"><a href="54.html">Amusing Ourselves to Death</a>. Postman zoekt de vertekening in het medium televisie zelf; samen met het propagandamodel dekt dat twee soorten mediakritiek.</li>
+          <li value="221"><a href="221.html">The Dictator's Handbook</a>. Bueno de Mesquita en Smith verklaren machtsgedrag uit prikkels in plaats van complotten, dezelfde redeneerstijl toegepast op politiek.</li>
+          <li value="384"><a href="384.html">The Rape of the Mind</a>. Meerloo behandelt de psychologie van propaganda en hersenspoeling, waar Herman en Chomsky de economie ervan behandelen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

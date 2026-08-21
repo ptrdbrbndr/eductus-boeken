@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 21
-augustus 2026: 545 titels in 18 rubrieken.
+augustus 2026: 551 titels in 18 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -13,7 +13,7 @@ bij de volgende build verloren.
 | Rubriek | Waar de rubriek over gaat | Titels |
 | --- | --- | --- |
 | Vakmanschap en aandacht | werken met je handen, en wat kwaliteit dan is | 1, 6, 320, 346, 376, 462, 517, 535, 553 |
-| Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9, 71, 72, 77, 91, 95, 105, 107, 109, 111, 134, 135, 141, 145, 149, 150, 160, 167, 169, 187, 199, 201, 204, 205, 216, 227, 228, 230, 232, 242, 255, 263, 292, 299, 334, 335, 341, 377, 379, 390, 391, 394, 405, 416, 435, 442, 449, 459, 461, 473, 515, 516, 518, 519, 520, 524, 525, 526, 527, 528, 546, 547, 556 |
+| Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9, 71, 72, 77, 91, 95, 105, 107, 109, 111, 134, 135, 141, 145, 149, 150, 160, 167, 169, 187, 199, 201, 204, 205, 216, 227, 228, 230, 232, 242, 255, 263, 292, 299, 334, 335, 341, 377, 379, 390, 391, 394, 405, 416, 435, 442, 449, 459, 461, 473, 515, 516, 518, 519, 520, 524, 525, 526, 527, 528, 546, 547, 556, 561 |
 | Mannen, vriendschap, verbinding | mannenrollen en het onderhouden van vriendschap | 3, 7, 406, 407, 408 |
 | Roman en memoir | verhalend werk, autobiografisch of fictie | 4, 5, 10, 61, 100, 101, 110, 113, 114, 115, 173, 178, 180, 191, 192, 202, 203, 226, 235, 254, 261, 284, 287, 295, 325, 358, 385, 402, 431, 505, 522, 529, 530, 531, 532, 533, 534, 554, 558 |
 | Maken en scheppen | aan het werk komen en blijven als maker | 11, 12, 13, 14, 15, 16, 17, 41, 206, 241, 312, 445, 471, 550 |
@@ -21,7 +21,7 @@ bij de volgende build verloren.
 | Schrijfambacht | schrijven als vak, door schrijvers zelf uitgelegd | 18, 19 |
 | Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153, 157, 158, 161, 168, 176, 177, 181, 193, 209, 211, 224, 238, 244, 252, 268, 274, 282, 283, 291, 296, 310, 349, 382, 392, 396, 397, 411, 422, 423, 424, 425, 426, 436, 439, 450, 451, 452, 469, 475, 487, 488, 509, 510, 514, 538, 540, 542 |
 | Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275, 303, 313, 314, 315, 316, 317, 318, 326, 329, 330, 331, 332, 333, 339, 357, 359, 360, 361, 386, 387, 401, 404, 409, 410, 412, 414, 415, 417, 418, 419, 432, 441, 458, 541, 557 |
-| Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63, 123, 124, 125, 126, 212, 213, 215, 250, 258, 280, 381, 384, 388, 429, 440 |
+| Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63, 123, 124, 125, 126, 212, 213, 215, 250, 258, 280, 381, 384, 388, 429, 440, 562, 563, 564, 565, 566 |
 | Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144, 159, 163, 172, 183, 185, 198, 210, 222, 231, 233, 243, 245, 246, 257, 260, 264, 265, 266, 270, 277, 279, 293, 294, 306, 307, 308, 309, 344, 348, 350, 351, 353, 365, 369, 370, 395, 427, 434, 443, 446, 463, 464, 465, 474, 476, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 491, 492, 494, 496, 499, 501, 502, 503, 544 |
 | Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156, 162, 182, 186, 253, 271, 273, 302, 304, 305, 338, 356, 364, 367, 398, 399, 438, 444, 466, 468, 508, 511, 551 |
 | Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140, 174, 189, 194, 229, 247, 248, 286, 289, 323, 324, 372, 373, 374, 375, 389, 457, 460, 467, 470, 513, 545 |
@@ -109209,6 +109209,1233 @@ new-thought-taal.
 - 432. The Energy Codes. The Energy Codes bouwt een vergelijkbaar energetisch
 stelsel rond chakra's en ademwerk, met dezelfde onderbouwingsproblemen.
 
+## 561. The Glam Reaper's Guide to Slaying
+
+Bill Crisafi, 2026. *The Glam Reaper's Guide to Slaying: Life Lessons for
+Rebellious Souls* (William Morrow/HarperCollins, 2026, 128 blz., ISBN
+9780063480797; Britse editie bij Ebury/Penguin Random House, ISBN
+9781529956443). Geen Nederlandse vertaling gevonden in de catalogus van
+bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd. Rubriek:
+levenskunst.
+Tags: `zelfacceptatie`, `humor`, `beeldverhaal`, `zelfhulp`
+
+Geïllustreerd zelfhulpboek van de Amerikaanse kunstenaar en modeontwerper Bill
+Crisafi, afkomstig uit Salem, Massachusetts, en op Instagram bekend om werk
+dat occulte motieven, dragcultuur en folklore mengt met campy humor. De Glam
+Reaper, een glamoureuze uitvoering van Magere Hein, treedt op als raadgever
+voor een stoet bovennatuurlijke vrienden die met heel gewone problemen zitten:
+de demon Miss Phillip vecht tegen negatieve zelfspraak, Orange Frog mist
+zelfvertrouwen, Miss Rotten durft geen afwijzing aan, Sexy Ghost wordt
+achtervolgd door schaamte over het verleden en Babushka Toad moet leren
+rusten. Per hoofdstuk volgt op de worsteling een nuchter advies, aangevuld met
+opbeurende bezweringen en rituelen.
+
+Crisafi maakte het boek, zijn debuut, tijdens de rouw om zijn moeder en noemt
+haar no-nonsense-houding als inspiratiebron. Het resultaat is een dun
+cadeauboek in de lijn van *Strange Planet* en *The Sad Ghosts Club*: veel
+tekeningen, korte teksten, herkenbare thema's. Onderzoek of methode bevat het
+niet, en de eerste onafhankelijke recensent vond het vooral te kort. Wie
+herkenning en een grijns zoekt bij sombere gedachten heeft er meer aan dan wie
+uitwerking verwacht.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Crisafi stelt dat de stemmen in het eigen hoofd, de twijfel,
+de schaamte en de angst voor afwijzing, dezelfde behandeling verdienen als elk
+ander monster: aankijken, benoemen en wegsturen. De titel gebruikt slaying
+dubbelzinnig, als het verslaan van innerlijke demonen en als glansrijk voor de
+dag komen, en dat is precies de belofte van het boek: wie zijn duistere kanten
+aanvaardt in plaats van wegstopt, kan ermee pronken. Zelfacceptatie krijgt
+hier de vorm van een bevel aan de negatieve gedachten om dood neer te vallen,
+uitgesproken door een dood die er zelf fabelachtig uitziet.
+
+#### De gang van het boek
+
+**Een gids met een zeis**
+
+Het boek is opgezet als een reeks korte, getekende hoofdstukken rond de Glam
+Reaper, een glamoureuze verschijning van de dood die haar bovennatuurlijke
+vrienden bijstaat. Elk hoofdstuk volgt hetzelfde patroon: een figuur zit met
+een herkenbaar probleem, de Glam Reaper luistert, geeft praktisch advies en
+sluit af met een opbeurende bezwering of een ritueel om in de eigen macht op
+te staan. De vorm ligt dicht bij een stripboek; de tekst is beperkt en de
+tekeningen dragen het verhaal.
+
+**Miss Phillip en de stemmen in het hoofd**
+
+De demon Miss Phillip worstelt met negatieve zelfspraak, en juist bij dit
+personage plaatst Crisafi zijn bekendste advies: geef de stemmen in het hoofd
+de opdracht om dood neer te vallen. De omkering is de grap en tegelijk de les.
+Een demon die door innerlijke demonen wordt geplaagd laat zien dat zelftwijfel
+iedereen treft, ook wezens die als onverschrokken te boek staan.
+
+**Orange Frog en Miss Rotten**
+
+Orange Frog kampt met een gebrek aan zelfvertrouwen, Miss Rotten durft zich
+niet te laten zien uit angst voor afwijzing. In beide hoofdstukken bestaat de
+raad van de Glam Reaper uit kleine, concrete stappen en een flinke dosis
+branie: de eigen vreemdheid als sieraad dragen in plaats van verbergen. De
+toon blijft licht, maar het onderliggende thema, dat afwijzing vooraf
+ingecalculeerd mag worden, is serieus genoeg.
+
+**Sexy Ghost en het verleden**
+
+Sexy Ghost wordt letterlijk achtervolgd door schaamte over vroegere blunders.
+Dit hoofdstuk gaat over de vraag wat oude fouten zeggen over wie iemand nu is,
+en het antwoord van de Glam Reaper luidt: weinig. Moeilijke gevoelens over het
+verleden verminderen de eigen waarde niet. De eerste recensent van het boek
+noemde juist dit hoofdstuk het sterkst, vanwege die geruststelling zonder
+zoetsappigheid.
+
+**Babushka Toad en het rusten**
+
+Babushka Toad staat model voor uitputting: altijd zorgen, nooit bijtanken. Het
+slotthema is zelfzorg, door Crisafi gebracht als iets dat verdiend noch
+uitgesteld hoeft te worden. Ook hier eindigt het hoofdstuk met een bezwering
+die de lezer kan overnemen. Daarmee is de cirkel rond: elk personage kreeg één
+worsteling, één advies en één spreuk mee.
+
+**Herkomst en toon**
+
+Crisafi, opgeleid in modeontwerp en beeldende kunst en afkomstig uit Salem,
+Massachusetts, maakte dit debuut tijdens de rouw om zijn moeder; haar nuchtere
+New England-houding klinkt door in de adviezen. Zijn stijl mengt occulte
+motieven, dragcultuur en folklore met campy humor en strakke lijnvoering. De
+uitgever plaatst het boek naast *Strange Planet*, *Dinosaur Therapy* en *The
+Sad Ghosts Club*: geïllustreerde troostboeken die een groot publiek bereiken
+via sociale media.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Glam Reaper | De glamoureuze uitvoering van Magere Hein die in het boek als raadgever van de andere figuren optreedt. |
+| slayen | Dubbelzinnig gebruikt: innerlijke monsters verslaan en tegelijk glansrijk voor de dag komen. |
+| innerlijke demonen | Verzamelnaam voor zelftwijfel, schaamte en angst, in het boek letterlijk verbeeld als wezens met dezelfde klachten. |
+| drop dead | Het bevel waarmee negatieve gedachten worden weggestuurd: de stemmen in het hoofd mogen dood neervallen. |
+| incantatie | Korte opbeurende bezwering die elk hoofdstuk meegeeft, de gotische variant van een affirmatie. |
+| ritueel | Kleine oefening om, in de woorden van de uitgave, in de eigen macht op te staan. |
+| ghouls gone wild | Crisafi's aanduiding voor zijn doelgroep: buitenbeentjes die hun vreemdheid willen omarmen in plaats van verbergen. |
+
+#### Waar het argument op rust
+
+Het boek voert geen onderzoek, bronnen of methode aan en pretendeert dat ook
+niet; het presenteert zichzelf als humoristische gids. De adviezen sluiten aan
+bij gangbare zelfhulpthema's, negatieve zelfspraak onderbreken, afwijzing
+verdragen, rust nemen, maar de onderbouwing bestaat uit herkenbaarheid en de
+persoonlijke ervaring van de maker, die het boek tijdens een rouwperiode
+schreef. Wat vaststaat is bescheiden: dat zelftwijfel wijdverbreid is en dat
+humor en normalisering veel mensen helpen om erover te beginnen.
+
+De feitelijke basis van deze samenvatting is dun maar controleerbaar: de
+uitgeversbeschrijvingen van William Morrow en Ebury, een voorpublicatie met
+achtergrond over de maker, en één vroege onafhankelijke recensie. Het boek
+verscheen op 18 augustus 2026 en heeft nog geen bredere ontvangst in de pers.
+
+#### Wat er tegen in te brengen valt
+
+Het voornaamste bezwaar is de dunheid, letterlijk en figuurlijk. Op 128
+grotendeels getekende bladzijden blijft elk thema steken bij één advies en één
+spreuk; wie wil weten hoe negatieve zelfspraak werkt of wat er tegen te doen
+valt, vindt hier geen uitwerking, geen oefeningen van betekenis en geen
+verwijzing naar wie er verstand van heeft. De eerste onafhankelijke recensent
+gaf een 6 op 10 en noemde als grootste minpunt dat het boek te kort is voor
+wat het wil doen.
+
+Daar komt bij dat het boek pas enkele dagen voor het schrijven van deze
+samenvatting verscheen, zodat een oordeel over de ontvangst nog niet te geven
+is. Het genre kent bovendien een bekende valkuil: bezweringen en peptaal
+kunnen ernstige klachten kleiner doen lijken dan ze zijn. Crisafi belooft
+nergens genezing, maar wie meer nodig heeft dan aanmoediging, heeft aan een
+cadeauboek niet genoeg.
+
+#### Wat er concreet mee te doen is
+
+- Geef terugkerende negatieve gedachten een naam en een gezicht; wat benoemd
+is, laat zich makkelijker wegsturen.
+- Reken afwijzing vooraf in als normale prijs van zichtbaar zijn, in plaats
+van als oordeel over de eigen waarde.
+- Behandel rust als onderhoud dat niet eerst verdiend hoeft te worden.
+- Gebruik het boek als opstapje of cadeau, en zoek bij aanhoudende sombere
+klachten hulp die verder gaat dan een spreuk.
+
+#### Wat je hierna leest
+
+- 32. The Gifts of Imperfection. The Gifts of Imperfection behandelt hetzelfde
+thema, zelfacceptatie en schaamte, met onderzoeksmateriaal in plaats van
+tekeningen.
+- 439. What to Say When You Talk to Yourself. What to Say When You Talk to
+Yourself werkt het onderbreken van negatieve zelfspraak uit tot een volledig
+programma.
+- 167. The Missing Piece. The Missing Piece laat zien hoe ver een dun
+geïllustreerd boekje kan komen met één beeld en weinig woorden.
+
+## 562. Public Opinion
+
+Walter Lippmann, 1922. *Public Opinion* (Harcourt, Brace and Company, New
+York, 1922, 427 blz., verschenen vóór de invoering van het ISBN; gangbare
+heruitgave: Free Press, 1997, ISBN 9780684833279). Geen Nederlandse vertaling
+gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse
+editie gebaseerd. Rubriek: vrij denken en manipulatie.
+Tags: `media`, `democratie`, `propaganda`, `stereotypen`
+
+Walter Lippmann, journalist en adviseur van president Wilson, schreef *Public
+Opinion* na zijn ervaring met oorlogspropaganda in de Eerste Wereldoorlog.
+Zijn uitgangspunt: de wereld waarover burgers moeten oordelen is te groot en
+te veranderlijk om rechtstreeks te kennen. Mensen handelen op grond van de
+beelden in hun hoofd, een pseudo-omgeving die wordt gevormd door
+berichtgeving, censuur, beperkte aandacht en vooral door stereotypen: vooraf
+gegeven denkbeelden die bepalen wat iemand ziet voordat hij kijkt.
+
+Uit die analyse trekt Lippmann een conclusie die nog altijd schuurt: het
+democratische ideaal van de burger die over alles een gefundeerd eigen oordeel
+heeft, is een fictie, en de pers kan dat gat niet dichten omdat nieuws iets
+anders is dan waarheid. Hij pleit voor onafhankelijke kennisbureaus die
+bestuurders van gecontroleerde feiten voorzien. Het boek muntte de uitdrukking
+*manufacture of consent* en gaf het woord stereotype zijn moderne betekenis;
+John Dewey schreef er in 1927 een boek tegen en het debat tussen beiden loopt
+in de mediawetenschap nog door.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Lippmann stelt dat de moderne wereld te groot en te
+veranderlijk is om rechtstreeks gekend te worden. Tussen mens en werkelijkheid
+schuift zich een pseudo-omgeving: het geheel van beelden in het hoofd, gevormd
+door gebrekkige berichtgeving, censuur, beperkte tijd en aandacht, en vooral
+door stereotypen, de vooraf gegeven denkbeelden die sturen wat iemand
+waarneemt voordat hij kijkt. Daarmee valt de bodem weg onder het democratische
+ideaal van de burger die over alle publieke zaken een eigen, gefundeerd
+oordeel vormt. Omdat de pers dat gat naar zijn aard niet kan dichten, moet de
+democratie volgens Lippmann worden aangevuld met georganiseerde kennis:
+onafhankelijke bureaus van deskundigen die feiten verzamelen en toetsen
+voordat er besloten wordt.
+
+#### De gang van het boek
+
+**De wereld buiten en de beelden in ons hoofd**
+
+Het boek opent met een anekdote uit 1914: op een afgelegen eiland leven
+Engelsen, Fransen en Duitsers na het uitbreken van de oorlog nog zes weken in
+vrede door, omdat de postboot met het nieuws nog niet is aangekomen. Voor
+Lippmann is dat ieders situatie. Mensen reageren op een verslag van de wereld;
+de gevolgen van hun handelen vallen in de wereld zelf. Het tussengebied noemt
+hij de pseudo-omgeving.
+
+Wat een mens over politiek weet, is vrijwel altijd uit de tweede hand. De
+vraag van het boek is hoe dat tweedehands beeld tot stand komt, waar het
+vervormt en wat dat betekent voor een staatsvorm die op het oordeel van
+burgers rust.
+
+**Waarom het beeld gebrekkig is**
+
+Lippmann loopt de filters langs die tussen gebeurtenis en burger staan.
+Censuur en geheimhouding beperken wat naar buiten komt; hij haalt
+legerberichten uit de oorlog aan die verliezen in vage formules verpakten.
+Sociale kring en inkomen bepalen met wie iemand spreekt en wat hij te horen
+krijgt. De aandacht is klein: uit leesonderzoeken dat mensen per dag maar
+enkele minuten aan hun krant besteden, leidt hij af hoe dun de feitenbasis van
+de gemiddelde mening is. En taal zelf perst ingewikkelde zaken in korte
+formules die ieder anders invult.
+
+**Stereotypen**
+
+Het bekendste deel van het boek. Voor het grootste deel, schrijft Lippmann,
+definiëren mensen eerst en kijken ze daarna. Het stereotype, een woord dat hij
+uit de drukkerij haalde, waar het een gietvorm aanduidt, is bij hem een
+neutraal mechanisme: een vast voorbeeld in het hoofd waarmee nieuwe indrukken
+worden geordend. Stereotypen besparen tijd en verdedigen de eigen positie in
+de samenleving; wie zijn stereotypen opgeeft, moet zijn wereld opnieuw
+inrichten.
+
+Het probleem is dus niet dat stereotypen bestaan; het probleem is dat ze
+ongemerkt voor waarneming doorgaan. Elk stereotype heeft een blinde vlek: het
+deel van de werkelijkheid dat er niet in past, wordt eenvoudigweg niet gezien
+of als uitzondering weggezet.
+
+**Belangen, symbolen en de gemaakte gemeenschappelijke wil**
+
+Hoe wordt uit miljoenen verschillende privébeelden één publieke koers? Via
+symbolen, woorden en beelden waarin uiteenlopende groepen elk hun eigen
+verlangen kunnen leggen. Lippmann analyseert de Veertien Punten van Wilson als
+zo'n symbool: elk land las er het zijne in, en juist die vaagheid bond de
+coalitie.
+
+Wie de symbolen beheert, beheert de instemming. De fabricage van instemming is
+volgens Lippmann zo oud als de politiek, maar door de moderne psychologie en
+de massamedia van techniek tot industrie geworden. Hij schrijft dat feitelijk
+vast, zonder verontwaardiging; het boek wil eerst begrijpen hoe het werkt.
+
+**Het democratische ideaal en de grenzen van de pers**
+
+De klassieke democratietheorie veronderstelt wat Lippmann de omnicompetente
+burger noemt: iemand die in zijn eigen dorp alle publieke zaken kan overzien.
+In een verweven wereld van wereldhandel en wereldoorlog bestaat die burger
+niet meer, en heeft hij ook nooit bestaan.
+
+De gangbare hoop dat de vrije pers dit oplost, acht hij misplaatst. Nieuws en
+waarheid vallen niet samen: nieuws signaleert dat zich iets voordoet, waarheid
+vraagt onderzoek naar verborgen feiten en hun samenhang. Lippmann laat zien
+dat nieuws ontstaat op de plekken waar gebeurtenissen worden geregistreerd:
+het politiebureau, de rechtbank, de beurs, het geboorteregister. Wat nergens
+wordt vastgelegd, wordt geen nieuws, hoe belangrijk het ook is; een sluimerend
+maatschappelijk probleem haalt de krant pas als het ergens tot een
+geregistreerd feit stolt.
+
+Daar komt de economie van het bedrijf bij. De lezer betaalt vrijwel niets voor
+zijn krant en voelt zich toch de klant; het verschil leggen adverteerders bij,
+die een publiek kopen. Een krant werkt bovendien op de deadline en kan geen
+onderzoeksinstituut zijn. De pers belasten met de verwachting dat zij de
+waarheid levert die instituties zelf niet vastleggen, noemt Lippmann oneerlijk
+tegenover de journalistiek.
+
+**Georganiseerde kennis als remedie**
+
+Het slot bepleit politieke wetenschap vóór het besluit in plaats van erna. Bij
+bestuursorganen horen onafhankelijke kennisbureaus: vaste staven met toegang
+tot de stukken, beschermd tegen de waan van de dag, die het beeld van de
+beslissers toetsen en corrigeren voordat er wordt gekozen. De deskundige stelt
+de feiten vast, de politiek weegt en beslist.
+
+Lippmann geeft toe dat dit bescheiden klinkt tegenover de omvang van de
+diagnose. Het is in zijn ogen de enige uitweg die niet rekent op een wonder
+van burgerlijke alwetendheid.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| pseudo-omgeving | Het beeld van de wereld in iemands hoofd waarop hij reageert alsof het de wereld zelf is. |
+| stereotype | Vooraf gegeven denkbeeld dat nieuwe indrukken ordent; bij Lippmann een neutraal mechanisme van denk-economie en zelfverdediging, geen scheldwoord. |
+| blinde vlek | Het deel van de werkelijkheid dat een stereotype onzichtbaar maakt of tot uitzondering verklaart. |
+| fabricage van instemming | Het bewust vormgeven van publieke steun met psychologische kennis en massamedia; Lippmanns term manufacture of consent. |
+| omnicompetente burger | De fictieve burger uit de klassieke democratietheorie die over alle publieke zaken een eigen oordeel zou kunnen vormen. |
+| symbool | Woord of beeld waarin uiteenlopende groepen elk hun eigen verlangen leggen, zodat eenheid ontstaat zonder werkelijke overeenstemming. |
+| nieuws tegenover waarheid | Nieuws signaleert dat zich iets voordoet; waarheid vraagt onderzoek naar de verborgen feiten en hun samenhang. |
+| kennisbureau | Onafhankelijke staf van deskundigen die voor een bestuursorgaan feiten verzamelt en toetst voordat er besloten wordt. |
+
+#### Waar het argument op rust
+
+Het boek is een essay en geen onderzoeksverslag. De onderbouwing bestaat uit
+voorbeelden: de eiland-anekdote, de gecensureerde frontberichten,
+leesonderzoeken naar de minuten die lezers aan hun krant besteden, de
+ontvangst van de Veertien Punten, en Lippmanns eigen ervaring met de
+Amerikaanse oorlogspropaganda van 1917-1918, waar hij van binnenuit zag hoe
+meningen worden gemaakt. Systematische toetsing ontbreekt; de begrippen worden
+scherp gedefinieerd maar niet gemeten.
+
+De kern is later wel stevig komen te staan. Het woord stereotype werd via dit
+boek een vakterm in de sociale psychologie, en decennia onderzoek naar
+selectieve waarneming en naar agenda-setting, te beginnen met de studie van
+McCombs en Shaw uit 1972, bevestigde de intuïtie dat media in hoge mate
+bepalen waarover mensen zich een mening vormen. Het remedievoorstel is
+daarentegen nooit onderbouwd of in de voorgestelde vorm beproefd.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar kwam van John Dewey, die in *The Public and Its Problems*
+(1927) de diagnose grotendeels aanvaardde en de remedie verwierp. Democratie
+is bij Dewey ook een leerproces: een publiek dat wordt bediend door
+deskundigen zonder er zelf in gesprek bij betrokken te zijn, verleert het
+oordelen, en een klasse van deskundigen zonder democratische voeding wordt een
+gesloten kaste met eigen belangen. Lippmann levert bovendien geen mechanisme
+dat de correctors corrigeert: ook experts kijken door stereotypen.
+
+Herman en Chomsky namen in *Manufacturing Consent* (1988) zijn term over als
+aanklacht: wat Lippmann als onvermijdelijke techniek beschreef, analyseren zij
+als stelselmatige machtsuitoefening, en zij rekenen hem tot de traditie die
+het publiek als te sturen massa ziet. Praktischer bezwaar: de kennisbureaus
+zijn er in zijn vorm nooit gekomen, en waar overheden feitenstaven kregen,
+bleek hun onafhankelijkheid het eerste dat onder druk sneuvelt. Het boek
+beschrijft ten slotte de krantenwereld van 1922; de analyse van filters en
+aandacht laat zich goed naar latere media vertalen, maar dat vertaalwerk moet
+de lezer zelf doen.
+
+#### Wat er concreet mee te doen is
+
+- Ga bij een stellig oordeel na waar het beeld vandaan komt: eigen waarneming,
+een verslag, of een stereotype dat vooraf al klaarlag.
+- Behandel nieuws als signaal; zoek voor besluiten die ertoe doen de
+onderliggende stukken en cijfers op.
+- Reken bij elk politiek symbool na wie er wat in legt; hoe breder de
+instemming, hoe vager meestal de inhoud.
+- Organiseer in eigen werk een vaste plek voor feitenonderzoek vóór de
+besluitvorming, met afstand tot degene die het besluit wil.
+
+#### Wat je hierna leest
+
+- 54. Amusing Ourselves to Death. *Amusing Ourselves to Death* zet dezelfde
+vraag voort voor het televisietijdperk, met het medium zelf als vormgever van
+het publieke gesprek.
+- 60. Trust Me, I'm Lying. *Trust Me, I'm Lying* toont van binnenuit hoe de
+fabricage van instemming er in de blogeconomie uitziet.
+- 234. Factfulness. *Factfulness* behandelt hetzelfde gat tussen wereldbeeld
+en werkelijkheid, met statistiek en tien benoemde denkfouten als gereedschap.
+
+## 563. The Image: A Guide to Pseudo-Events in America
+
+Daniel J. Boorstin, 1962. *The Image: A Guide to Pseudo-Events in America*
+(oorspronkelijk verschenen als *The Image: or, What Happened to the American
+Dream*, Atheneum, New York, 1962, 315 blz., vóór de invoering van het ISBN;
+gangbare paperback: Vintage Books, 1992, 319 blz., ISBN 9780679741800). Geen
+Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de
+samenvatting is op de Engelse editie gebaseerd. Rubriek: vrij denken en
+manipulatie.
+Tags: `media`, `beeldcultuur`, `beroemdheid`, `reclame`
+
+Historicus Daniel Boorstin, later bibliothecaris van het Amerikaanse Congres,
+beschrijft hoe de Amerikaanse cultuur zich vulde met gebeurtenissen die alleen
+bestaan om verslagen te worden. Hij noemt ze pseudo-events: het hoteljubileum
+dat wordt gevierd om het hotel in het nieuws te brengen, de persconferentie,
+het geplande lek, het televisiedebat. Aanleiding was onder meer het eerste
+Kennedy-Nixon-debat van 1960, waarin kijkers een president kozen op zijn
+schermoptreden.
+
+De motor is volgens Boorstin de grafische revolutie, het vermogen om beelden
+en berichten massaal te vermenigvuldigen, gekoppeld aan buitensporige
+verwachtingen van een publiek dat elke dag meer nieuws eist dan de wereld
+levert. Dat gat wordt gevuld met gemaakte gebeurtenissen en gemaakte mensen:
+de celebrity, bekend om zijn bekendheid, verdringt de held, die aan zijn daden
+werd gemeten. Het boek leverde begrippen die in het media-onderzoek gangbaar
+werden en wordt vaak gelezen als vooruitblik op reality-televisie en sociale
+media, al biedt het zelf geen remedie.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Boorstin stelt dat Amerika sinds de grafische revolutie wordt
+overspoeld door pseudo-events: gebeurtenissen die worden georganiseerd om
+verslagen te worden en waarvan het succes wordt afgemeten aan de aandacht die
+ze krijgen. Omdat het publiek dagelijks meer nieuws verwacht dan de
+werkelijkheid aan gebeurtenissen oplevert, wordt het verschil bijgemaakt: door
+redacties, persvoorlichters, reclamemakers en politici. Zo verdringt de
+celebrity de held, de toerist de reiziger en het imago het ideaal, en wordt
+geloofwaardigheid de maatstaf in plaats van waarheid. Het gevaar zit volgens
+Boorstin minder in bedrog van bovenaf dan in zelfmisleiding: een volk dat zijn
+eigen illusies voor de wereld aanziet en dat oprechter wordt bedrogen naarmate
+het beter wordt bediend.
+
+#### De gang van het boek
+
+**Van nieuwsgaring naar nieuwsproductie**
+
+Boorstin opent met de definitie. Een pseudo-event heeft vier kenmerken: het
+ontstaat niet spontaan maar is gepland; het is opgezet om verslagen te worden,
+met de timing afgestemd op de media; zijn verhouding tot de onderliggende
+werkelijkheid is dubbelzinnig; en het is bedoeld als voorspelling die zichzelf
+waarmaakt. Zijn voorbeeld komt uit een handboek public relations: een hotel
+dat aan aanzien wil winnen, viert zijn dertigjarig jubileum met comité en
+fotografen, en het gevierde aanzien ontstaat door de viering.
+
+Daarna volgt de geschiedenis van de productie van nieuws: het interview als
+journalistieke uitvinding van de negentiende eeuw, het persbericht, de
+presidentiële persconferentie, het proefballonnetje en het geplande lek.
+Pseudo-events winnen het van echte gebeurtenissen omdat ze helderder zijn,
+herhaalbaar, vooraf aangekondigd en op de deadline gemaakt; hun
+dubbelzinnigheid maakt ze bovendien bespreekbaar, want over de vraag wat er
+werkelijk achter zat, valt eindeloos te berichten. Ze planten zich ook voort:
+op de verklaring volgt de ontkenning, op de ontkenning het weerwoord, en elk
+van die zetten is opnieuw een pseudo-event. Het debat Kennedy-Nixon van 1960
+dient als sluitstuk: een geënsceneerde krachtmeting die vooral het vermogen
+mat om een geënsceneerde krachtmeting te winnen.
+
+**Van held naar celebrity**
+
+De held werd gekend om zijn daden, groeide langzaam in aanzien en werd vaak
+pas na zijn dood groot. De celebrity is het menselijke pseudo-event: gemaakt
+door publiciteit, gekend om zijn bekendheid, en daarom ook snel weer
+vervangbaar. Boorstins formule werd spreekwoordelijk: de celebrity is iemand
+die bekend is om zijn bekendheid.
+
+Charles Lindbergh dient als scharnierfiguur: zijn solovlucht over de oceaan in
+1927 was een daad, maar de mediamachine maakte van de vlieger een beroemdheid
+wiens roem vooral over die roem ging. Waar de held een voorbeeld gaf, biedt de
+celebrity herkenbaarheid; hij is, schrijft Boorstin, het menselijk evenbeeld
+van de merkartikelen die hij aanprijst.
+
+Het verschil zit ook in de tijd. De naam van een held groeide over generaties,
+en dood maakte hem groter. De roem van een celebrity slijt in maanden; de
+machine die hem maakte, moet hem doorlopend vervangen, en een vergeten
+celebrity laat niets na dat aan een daad herinnert.
+
+**Van reiziger naar toerist**
+
+Reizen was ooit inspanning en risico; Boorstin wijst op de verwantschap van
+het Engelse travel met travail, zwoegen. De toerist koopt een verpakte
+ervaring: de reis is vooraf geregeld, de bezienswaardigheden worden voor hem
+opgevoerd en de folkloreshow is een pseudo-event dat alleen voor bezoekers
+bestaat. De ervaring wordt vervolgens getoetst aan het beeld uit de reisgids,
+en geslaagd heet de reis die op haar afbeelding lijkt.
+
+Ook het museum hoort in deze keten: het tilt voorwerpen uit hun verband en
+toont ze als bezienswaardigheid, netjes geordend voor de bezoeker die het
+echte leven van een land juist misloopt. Boorstin merkt op dat landen hun
+attracties gaan inrichten naar het beeld dat de toerist al meebrengt.
+
+**Van vormen naar schaduwen**
+
+Ook kunstvormen lossen op in hun afgeleiden. Boorstin beschrijft de keten van
+bewerkingen: de roman wordt film, de film wordt trailer, het boek wordt
+uittreksel en het uittreksel wordt samengevat. *Reader's Digest* is zijn
+hoofdvoorbeeld: het blad begon met samenvatten en ging er later toe over
+artikelen zelf te bestellen om ze te kunnen samenvatten; de afgeleide ging aan
+het origineel voorafgaan.
+
+Het patroon is steeds hetzelfde: de vorm die ergens voor stond, verdwijnt
+achter versies die makkelijker te consumeren zijn, en de vraag wat het
+origineel nog betekent, raakt buiten beeld.
+
+**Van ideaal naar imago**
+
+In reclame en public relations wordt het imago het richtpunt: een bewust
+gebouwd beeld dat synthetisch is, geloofwaardig, passief, levendig en
+versimpeld. Organisaties en politici richten hun gedrag vervolgens naar hun
+eigen beeld; het imago gaat het handelen sturen in plaats van andersom. Een
+ideaal was iets om naar te streven en schoot per definitie tekort; een imago
+is iets om aan te voldoen.
+
+Daarmee verschuift ook de maatstaf van het publieke spreken. De toets wordt of
+iets geloofwaardig overkomt, los van de vraag of het waar is; Boorstin spreekt
+van een cultuur waarin de leugen niet eens meer nodig is, omdat de plausibele
+versie volstaat.
+
+**De Amerikaanse droom als illusie**
+
+Het slothoofdstuk trekt de lijn door naar de natie zelf. Amerika verkoopt de
+wereld zijn imago, verwart prestige met grootheid en gelooft zijn eigen
+reclame; dat noemt Boorstin gevaarlijker dan vijandige propaganda, omdat
+zelfmisleiding geen tegenstander heeft. Een program biedt hij niet: illusies
+verdrijf je niet met een tegenillusie. Het enige dat hij aanreikt is de
+opdracht de eigen illusies te leren zien, in het besef dat de wereld
+daarbuiten weerbarstig blijft en zich uiteindelijk niet naar het beeld voegt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| pseudo-event | Geplande gebeurtenis die bestaat om verslagen te worden en waarvan het succes wordt afgemeten aan de media-aandacht die ze krijgt. |
+| grafische revolutie | Het sinds de negentiende eeuw gegroeide vermogen om beelden en berichten massaal te vermenigvuldigen en te verspreiden. |
+| buitensporige verwachtingen | De eis van het publiek dat de wereld dagelijks meer nieuws en belevenis levert dan er werkelijk gebeurt. |
+| celebrity | Het menselijke pseudo-event: iemand die bekend is om zijn bekendheid, gemaakt door publiciteit en daardoor vervangbaar. |
+| held | Figuur die aan zijn daden wordt gemeten en langzaam in aanzien groeit, bij Boorstin de verdrongen voorganger van de celebrity. |
+| imago | Bewust gebouwd, versimpeld en geloofwaardig beeld waarnaar een persoon of organisatie zich vervolgens zelf gaat richten. |
+| geloofwaardigheid | De maatstaf die in een beeldcultuur de plaats van waarheid inneemt: niet of iets klopt, maar of het aannemelijk overkomt. |
+| zichzelf waarmakende voorspelling | Kenmerk van het pseudo-event: de aankondiging schept de werkelijkheid die zij aankondigt, zoals het jubileum dat het gevierde aanzien zelf voortbrengt. |
+
+#### Waar het argument op rust
+
+Het boek is cultuurgeschiedenis in essayvorm, zonder kwantitatieve
+onderbouwing. De bewijsvoering bestaat uit gedocumenteerde voorbeelden: de
+opkomst van interview en persbericht in de negentiende-eeuwse journalistiek,
+de werkwijze van *Reader's Digest*, de hotelcasus uit de pr-literatuur, de
+verslaggeving rond Lindbergh en de debatten van 1960. Boorstin was historicus
+en zijn voorbeelden zijn controleerbaar; zijn generalisaties daaroverheen zijn
+dat niet.
+
+De houdbaarheid bleek vooral achteraf. Pseudo-event werd een vakterm in
+journalistiek en communicatiewetenschap, en de ontwikkeling naar
+reality-televisie, influencers en beroepsmatige bekendheid wordt geregeld als
+bevestiging aangevoerd; Boorstin beschreef het mechanisme voordat de zwaarste
+voorbeelden bestonden. Daar staat tegenover dat de theorie geen scherpe grens
+biedt tussen gemaakte en echte gebeurtenis, en dus moeilijk te weerleggen
+valt.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar richt zich op de nostalgische onderlaag. Het boek
+veronderstelt een vroeger van echte helden, echte reizigers en onbemiddelde
+ervaring dat historisch niet zuiverder was: vorsten organiseerden hun roem al
+eeuwen en ook de kroning en de triomftocht waren ensceneringen. Het
+onderscheid tussen echt en gemaakt, waar de hele redenering op rust, vervaagt
+bij doorvragen, en Boorstin erkent dat maar gedeeltelijk.
+
+Daarnaast ontbreekt een machtsanalyse. Boorstin beschrijft de beeldcultuur als
+collectieve zelfmisleiding waar vraag en aanbod elkaar vinden, en vraagt
+nauwelijks wie aan de productie van pseudo-events verdient of wie de middelen
+ervoor bezit; latere media-kritiek, van politieke economie tot
+platformonderzoek, vult juist dat gat. De toon is bovendien die van de
+gestudeerde waarnemer die het publiek zijn illusies verwijt, en een uitweg
+biedt het boek niet: het eindigt bij bewustwording, zonder aanwijzing wat een
+redactie, school of lezer vervolgens anders moet doen.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij elk nieuwsbericht of de gebeurtenis ook zonder camera's had
+plaatsgevonden; zo niet, lees het als de boodschap van een belanghebbende.
+- Houd in eigen communicatie prestatie en publiciteit uit elkaar; zorg dat er
+iets gepresteerd is voordat de viering wordt georganiseerd.
+- Toets een reis of aankoop aan wat er te ervaren valt, los van het beeld dat
+er vooraf van is verkocht.
+- Wantrouw de vraag hoe iets overkomt zodra zij de vraag verdringt of het
+klopt.
+
+#### Wat je hierna leest
+
+- 54. Amusing Ourselves to Death. *Amusing Ourselves to Death* bouwt op
+dezelfde diagnose voort en verlegt het accent van de gemaakte gebeurtenis naar
+het medium televisie zelf.
+- 60. Trust Me, I'm Lying. *Trust Me, I'm Lying* beschrijft hoe pseudo-events
+in de blogeconomie industrieel worden geproduceerd, met Boorstin als
+aangehaalde bron.
+- 279. All Marketers Are Liars. *All Marketers Are Liars* toont de makerskant:
+marketing als het leveren van verhalen die klanten zichzelf willen vertellen.
+
+## 564. De spektakelmaatschappij
+
+Guy Debord, 1967. *De spektakelmaatschappij & Commentaar op de
+spektakelmaatschappij* (vertaald door Rokus Hofstede, Jaap Kloosterman en René
+van de Kraats, Uitgeverij IJzer, Utrecht, 2015, 271 blz., ISBN 9789086841141).
+Oorspronkelijk verschenen als *La Société du spectacle* (Buchet/Chastel,
+Parijs, 1967, vóór de invoering van het ISBN); het *Commentaar* volgde in
+1988. Eerdere Nederlandse vertalingen verschenen bij Het Wereldvenster (1976)
+en De Dolle Hond (2001). Rubriek: vrij denken en manipulatie.
+Tags: `media`, `consumptiemaatschappij`, `situationisme`, `marxisme`
+
+Guy Debord, spil van de Situationistische Internationale, vatte zijn kritiek
+op de naoorlogse consumptiemaatschappij samen in 221 genummerde stellingen. De
+opening is een parodie op Marx: het hele leven van samenlevingen met moderne
+productieverhoudingen dient zich aan als een onmetelijke opeenstapeling van
+spektakels; wat direct werd geleefd, is verdwenen in een voorstelling. Het
+spektakel is bij Debord geen verzameling beelden; het is een maatschappelijke
+verhouding tussen personen die door beelden wordt bemiddeld: de warenvorm die
+het hele bestaan heeft doordrongen, van werk en politiek tot vrije tijd.
+
+Het boek werd een referentiepunt in de Parijse opstand van mei 1968 en geldt
+als de kerntekst van het situationisme. In 1988 voegde Debord er het
+*Commentaar* aan toe, waarin hij de twee spektakelvormen van 1967 opgevolgd
+zag door een geïntegreerd spektakel dat de hele werkelijkheid doordringt. De
+Nederlandse uitgave van IJzer bundelt beide teksten. De stijl is hegeliaans en
+aforistisch: het boek beweert veel en bewijst weinig, en juist de totaalclaim
+maakte het invloedrijk en omstreden.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Debord stelt dat in samenlevingen met moderne
+productieverhoudingen het leven zelf is teruggeweken in een voorstelling: wat
+direct werd geleefd, verschijnt nog slechts als representatie. Het spektakel
+is daarbij geen verzameling beelden; het is een maatschappelijke verhouding
+tussen personen die door beelden wordt bemiddeld, de voltooide gedaante van de
+warenvorm. Na de degradatie van zijn naar hebben verschuift het bestaan verder
+van hebben naar verschijnen. Het spektakel is tegelijk resultaat en program
+van de bestaande orde: het is haar ononderbroken zelfrechtvaardiging, en het
+organiseert passiviteit door mensen tot toeschouwers van hun eigen leven te
+maken. Bevrijding kan volgens Debord alleen komen van arbeidersraden die de
+scheiding tussen leven en representatie in de praktijk opheffen.
+
+#### De gang van het boek
+
+**De voltooide scheiding**
+
+De eerste 34 stellingen zetten het begrip neer. Het spektakel is de omkering
+van het leven: de beweging waarin het geleefde zich van de mens afscheidt en
+hem als zelfstandig beeld tegemoet treedt. Stelling 9 vat de omkering samen:
+in de werkelijk omgekeerde wereld is het ware een moment van het onware. De
+toeschouwer herkent zijn eigen verlangens in de getoonde beelden, en hoe meer
+hij aanschouwt, hoe minder hij leeft.
+
+Scheiding is het grondwoord: arbeid gescheiden van haar product, macht
+gescheiden van de gemeenschap, het beeld gescheiden van het geleefde. Het
+spektakel voegt die scheidingen samen tot één schijnbare eenheid, die in
+werkelijkheid de taal van de heersende orde spreekt.
+
+**De waar als spektakel**
+
+Het tweede hoofdstuk trekt Marx' begrip warenfetisjisme door: de waar die een
+eigen leven lijkt te leiden, heeft in de overvloedseconomie het hele zichtbare
+leven bezet. De arbeider wordt buiten werktijd met beleefdheid omringd, omdat
+hij daar consument moet zijn; de economie die de mens eerst onderwierp om te
+produceren, onderwerpt hem nu ook in zijn zogenaamde vrije uren. Het spektakel
+is het moment waarop de waar de volledige bezetting van het maatschappelijk
+leven heeft bereikt.
+
+De overvloed lost het overlevingsprobleem niet op maar rekt het op: Debord
+spreekt van vergrote overleving. De economie produceert voorbij de behoefte en
+moet daarom pseudo-behoeften scheppen die naar haar eigen producten verwijzen;
+bevrediging schuift steeds door naar de volgende aanschaf, en de
+teleurstelling over elk product wordt gedekt door de belofte van het volgende.
+
+**Schijnbare eenheid, werkelijke verdeling**
+
+Debord onderscheidt twee gedaanten. Het geconcentreerde spektakel hoort bij
+bureaucratische dictaturen en balt zich samen in de cultus van één leider. Het
+diffuse spektakel hoort bij de warenovervloed van het Westen en verspreidt
+zich over sterren en merkartikelen. De ster is de spectaculaire
+vertegenwoordiging van de levende mens: zij belichaamt schijnbare
+levensstijlen als vergoeding voor de versplinterde arbeid van de kijkers.
+Beide gedaanten verdedigen volgens Debord dezelfde orde en presenteren die als
+onontkoombaar.
+
+**Het proletariaat en de tijd**
+
+Het historische deel behandelt de arbeidersbeweging als geschiedenis van
+onteigende vertegenwoordiging: sociaaldemocratie en bolsjewisme namen de
+plaats van de arbeiders in en de bureaucratie voltooide die onteigening;
+tegenover partij en staat stelt Debord de arbeidersraden, met de Spaanse
+revolutie van 1936 als aangehaald moment.
+
+De hoofdstukken over tijd behoren tot de meest uitgewerkte. Op de cyclische
+tijd van agrarische samenlevingen en de onomkeerbare historische tijd van de
+burgerlijke maatschappij volgt de pseudo-cyclische tijd van het spektakel:
+weekend, vakantie en vrijetijdsindustrie als consumeerbare herhalingen die als
+natuurlijk worden verpakt. Ook de ruimte wordt ingericht op scheiding: het
+urbanisme isoleert mensen in voorsteden en verkeer, ieder voor zijn eigen
+scherm.
+
+**Cultuur en ideologie**
+
+Cultuur die zich als aparte sector verzelfstandigt, wordt waar tussen de
+waren; kritiek wordt opgenomen en als product terugverkocht. Daartegenover
+plaatst Debord het détournement: het omleiden van bestaande beelden, teksten
+en citaten tegen hun oorspronkelijke functie in, een techniek die hij in het
+boek zelf toepast door Hegel en Marx onaangekondigd om te buigen. Het
+slothoofdstuk keert de klassieke ideologiekritiek om: ideologie hoeft niet
+langer geloofd te worden, zij is in het spektakel materieel geworden en toont
+zich als de werkelijkheid zelf.
+
+**Het Commentaar van 1988: het geïntegreerde spektakel**
+
+Eenentwintig jaar later stelt Debord vast dat de twee gedaanten zijn
+versmolten tot een geïntegreerd spektakel, met Frankrijk en Italië als
+proeftuin. Hij noemt vijf hoofdtrekken: onophoudelijke technologische
+vernieuwing, samensmelting van staat en economie, veralgemeende geheimhouding,
+de onweerlegbare leugen en een eeuwig heden. De mediamaatschappij schaft in
+zijn ogen het geheugen af: wie de geschiedenis niet meer kan raadplegen, kan
+de leugen van vandaag niet meer weerleggen. Desinformatie is daarbij volgens
+Debord geen storing van het systeem; zij dient het, omdat het bestaan van
+erkende desinformatie elke lastige waarheid als desinformatie verdacht laat
+maken. Het *Commentaar* is somberder dan het boek van 1967; van radenmacht is
+nauwelijks nog sprake.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| spektakel | De maatschappelijke verhouding tussen personen die door beelden wordt bemiddeld; het geheel van representaties dat de plaats van het direct geleefde leven inneemt. |
+| scheiding | Het grondbeginsel van het spektakel: de afsplitsing van arbeid, macht en beeld van het geleefde leven, waardoor de mens toeschouwer van zijn eigen bestaan wordt. |
+| warenfetisjisme | Marx' begrip voor de waar die een eigen leven lijkt te leiden; bij Debord de kiem van een wereld die als beeld verschijnt. |
+| geconcentreerd spektakel | De spektakelvorm van bureaucratische dictaturen, samengebald in de cultus van één leider. |
+| diffuus spektakel | De spektakelvorm van de warenovervloed, verspreid over sterren, merken en consumptiegoederen. |
+| geïntegreerd spektakel | De in het Commentaar van 1988 beschreven versmelting van beide vormen, waarin het spektakel de hele werkelijkheid doordringt. |
+| pseudo-cyclische tijd | De als natuurlijke kringloop verpakte herhaling van consumptietijd, zoals weekend en vakantie. |
+| ster | De spectaculaire vertegenwoordiging van de levende mens, die schijnbare levensstijlen belichaamt als vergoeding voor versplinterde arbeid. |
+| détournement | Het omleiden van bestaande beelden, teksten en citaten tegen hun oorspronkelijke functie in, als wapen tegen het spektakel. |
+| recuperatie | Het mechanisme waarmee het spektakel kritiek en rebellie opneemt en als product terugverkoopt. |
+| pseudo-behoefte | Door de economie zelf geschapen behoefte die naar haar producten verwijst en de bevrediging steeds naar de volgende aanschaf doorschuift. |
+
+#### Waar het argument op rust
+
+Empirie ontbreekt geheel. De bewijsvoering bestaat uit begripsontwikkeling in
+de traditie van Hegel en Marx, met Lukács' analyse van de verdinglijking als
+schakel, en uit een historische duiding van de arbeidersbeweging, van de
+Russische revolutie tot de Spaanse raden van 1936. Citaten worden volgens het
+eigen procedé van het détournement onaangekondigd verwerkt en omgebogen, wat
+controle van de bronnen bemoeilijkt; het boek wil uitdrukkelijk geen
+wetenschap zijn maar kritiek.
+
+Veel lezers voeren de latere ontwikkeling als bevestiging aan: beeldpolitiek,
+merkbeleving, reality-televisie en sociale media laten zich goed in Debords
+termen beschrijven, en het Commentaar van 1988 benoemde het samengaan van
+staat, economie en media voordat dat gemeengoed werd. Die voorspellende indruk
+heeft een keerzijde: de stellingen zijn zo algemeen geformuleerd dat vrijwel
+elke ontwikkeling erin past, en een waarneming die de theorie zou kunnen
+weerleggen, is niet aan te wijzen.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is de totaalclaim. Een begrip dat alles verklaart, van
+dictatuur tot warenhuis, sluit weerlegging uit; wie het spektakel ontkent,
+bewijst binnen de theorie slechts hoe diep hij erin gevangen zit, en daarmee
+heeft het stelsel de structuur van een gesloten leer. Het aangeboden
+alternatief, de arbeidersraden, wordt nauwelijks uitgewerkt, had zijn
+historische nederlagen al geleden toen het boek verscheen, en het Commentaar
+van 1988 laat het stilzwijgend vallen.
+
+De hegeliaanse stijl sluit lezers buiten; Debord verdedigde dat als noodzaak
+omdat heldere taal de taal van de heersende orde zou zijn, critici zien er
+maniërisme in. De tegenstelling tussen direct geleefd leven en representatie
+veronderstelt bovendien een onbemiddeld bestaan dat er nooit is geweest: elke
+cultuur bemiddelt haar leven door symbolen en verhalen. En het boek is zelf
+gerecupereerd, precies volgens het eigen begrip: het werd cultobject en
+modewoord, en Debord stelde in 1988 vast dat de spektakelmaatschappij zijn
+kritiek zonder merkbare schade had opgenomen.
+
+#### Wat er concreet mee te doen is
+
+- Reken bij een aankoop of abonnement na wat er wordt gekocht: het product, of
+het beeld van een leven dat erbij hoort.
+- Gebruik het boek als bril: zoek in werk, politiek en vrije tijd de plekken
+waar vertegenwoordiging de plaats van deelname heeft ingenomen, en wat directe
+deelname daar zou vragen.
+- Toets rebelse marketing aan het begrip recuperatie: kritiek die te koop
+wordt aangeboden, bevestigt wat zij zegt aan te vallen.
+- Lees de stellingen als scherpstelling en niet als bewezen theorie; de waarde
+zit in de vragen die ze losmaken, de bewijslast blijft bij de lezer.
+
+#### Wat je hierna leest
+
+- 54. Amusing Ourselves to Death. *Amusing Ourselves to Death* stelt een
+verwante diagnose zonder marxistisch kader en legt de oorzaak bij het medium
+in plaats van bij de warenvorm.
+- 61. Brave New World. *Brave New World* is de romanversie van beheersing door
+genot en verstrooiing, het diffuse spektakel als fictie.
+- 288. Digital Minimalism. *Digital Minimalism* is de praktische, onpolitieke
+tegenhanger: aandacht terugwinnen uit de beeldeneconomie zonder de
+maatschappijkritiek.
+
+## 565. Simulacres et simulation
+
+Jean Baudrillard, 1981. *Simulacres et simulation* (Éditions Galilée, Parijs,
+1981, 235 blz., ISBN 9782718602103). Engelse vertaling: *Simulacra and
+Simulation*, vertaald door Sheila Faria Glaser (University of Michigan Press,
+1994, 164 blz., ISBN 9780472065219). De catalogus van bibliotheek.nl bevat wel
+ander werk van Baudrillard in Nederlandse vertaling, van dit boek alleen de
+Engelse editie; er bestaat geen gevestigde Nederlandse vertaling, dus de
+oorspronkelijke titel is aangehouden en de samenvatting is op de Franse editie
+en de Engelse vertaling gebaseerd. Rubriek: vrij denken en manipulatie.
+Tags: `media`, `hyperrealiteit`, `postmodernisme`, `simulatie`
+
+De Franse socioloog Jean Baudrillard bundelde in 1981 achttien essays over een
+cultuur waarin tekens en beelden hun verwijzing naar de werkelijkheid kwijt
+zijn. Een simulacrum is bij hem een kopie zonder origineel: een beeld dat
+nergens meer naar verwijst en toch als werkelijkheid wordt beleefd. Waar zulke
+beelden de dienst uitmaken ontstaat wat hij hyperrealiteit noemt, een toestand
+waarin modellen aan de feiten voorafgaan. Disneyland, Watergate, de tv-serie
+*Holocaust* en de nucleaire afschrikking dienen als voorbeelden van simulatie
+die het geloof in een echte wereld op de been moet houden.
+
+Het boek werd een sleuteltekst van het postmodernisme en haalde via de film
+*The Matrix* de populaire cultuur, al vond Baudrillard dat die film zijn
+begrip verkeerd gebruikte. Wetenschappelijke toetsing verdraagt het werk niet:
+het bewijs bestaat uit vrij geïnterpreteerde voorbeelden en de stijl is
+apodictisch. Als woordenschat om reclame, medialogica en kunstmatig
+gegenereerde beelden te beschrijven blijkt het boek ruim vier decennia later
+nog altijd bruikbaar.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Baudrillard stelt dat de verhouding tussen teken en
+werkelijkheid in de naoorlogse mediacultuur is omgeslagen. Beelden
+weerspiegelen geen buitenwereld meer; modellen, codes en media gaan aan de
+feiten vooraf en brengen die voort. Dit noemt hij de precessie van de
+simulacra: de kaart komt vóór het gebied. Het resultaat is hyperrealiteit, een
+werkelijkheid die uit haar eigen kopieën is samengesteld en echter aanvoelt
+dan echt. Instituties reageren daarop met de simulatie van het echte:
+schandalen, pretparken en afschrikking moeten bewijzen dat er nog een
+werkelijkheid bestaat. Wie de tekens wil ontmaskeren komt volgens Baudrillard
+te laat; er zit geen origineel meer achter.
+
+#### De gang van het boek
+
+**De precessie van de simulacra**
+
+Het openingsessay, goed voor een derde van het boek, zet het hele apparaat
+neer. Baudrillard begint met de fabel van Borges over kartografen die een
+kaart tekenen die het rijk volledig bedekt. Die fabel is volgens hem
+onbruikbaar geworden: tegenwoordig gaat de kaart aan het gebied vooraf en
+brengt zij het voort. Het motto boven het essay, een spreuk over het
+simulacrum die aan Prediker wordt toegeschreven, heeft Baudrillard zelf
+verzonnen; het boek opent dus met een simulacrum van een citaat.
+
+Hij onderscheidt vier opeenvolgende fasen van het beeld: het weerspiegelt een
+diepe werkelijkheid, het vervormt die werkelijkheid, het maskeert de
+afwezigheid ervan, en ten slotte verwijst het nergens meer naar en is het zijn
+eigen zuivere simulacrum. Simuleren is iets anders dan veinzen: wie ziekte
+veinst blijft gezond, wie ziekte simuleert vertoont de symptomen. Daarmee
+vervaagt het onderscheid tussen waar en onwaar waarop diagnose, rechtspraak en
+wetenschap steunen.
+
+**Disneyland, Watergate en de Tasaday**
+
+De beroemdste voorbeelden staan in datzelfde essay. Disneyland wordt als
+verbeelding gepresenteerd om te verhullen dat heel Amerika inmiddels
+Disneyland is; het park laat bezoekers geloven dat buiten de hekken het echte
+begint. Watergate is volgens Baudrillard geen schandaal: door één affaire
+luidruchtig te ontmaskeren herstelt het systeem het geloof dat er daarbuiten
+een gezonde politieke moraal bestaat.
+
+Ook de Tasaday komen voorbij, een Filipijnse groep die in 1971 als onbedorven
+steentijdstam wereldnieuws werd en daarna werd afgeschermd om haar ongerept te
+houden. De etnologie, schrijft hij, kan haar object alleen redden door het
+niet meer aan te raken; wat zij zo bewaart is een gefabriceerd object. Dat de
+stam in de jaren tachtig middelpunt van een echtheidscontroverse werd, gaf dit
+voorbeeld achteraf een extra laag.
+
+**Afschrikking en het vooruitgefilmde ongeluk**
+
+De nucleaire afschrikking is voor Baudrillard de zuiverste simulatie: een bom
+die nooit mag ontploffen en juist daardoor de hele planeet reguleert. Oorlog
+wordt vervangen door het model van oorlog. Hetzelfde patroon ziet hij in de
+verhouding tussen film en gebeurtenis: de kernramp in de film *The China
+Syndrome* ging in 1979 enkele weken aan het echte ongeluk in de centrale bij
+Harrisburg vooraf.
+
+Televisie krijgt een eigen behandeling. De Amerikaanse familie Loud, in 1971
+maandenlang gefilmd voor de documentaireserie *An American Family*, viel
+tijdens het project uiteen; volgens Baudrillard bracht de camera het gezin
+eerder voort dan dat zij het registreerde. In essays over de tv-serie
+*Holocaust* en over *Apocalypse Now* betoogt hij dat het medium de gebeurtenis
+afkoelt: de uitroeiing wordt nog eens uitgewist, ditmaal als beeld.
+
+**Implosie: media, massa en betekenis**
+
+In het middendeel keert Baudrillard de richting van de klassieke mediakritiek
+om. Informatie brengt volgens hem geen betekenis over; zij verslindt haar
+eigen inhoud. Hoe meer informatie circuleert, hoe minder betekenis overblijft,
+en met de betekenis implodeert ook het sociale: de bevolking wordt een
+zwijgende massa die peilingen en oproepen absorbeert zonder te antwoorden.
+
+Het Centre Pompidou in Parijs dient als monument van die implosie: een
+cultuurmachine die de massa naar binnen zuigt, waarna de toeloop zelf het
+gebouw en de cultuur sloopt. Kortere stukken over de hypermarkt en over
+reclame trekken dezelfde lijn door: reclame heeft haar oorspronkelijke doel
+overleefd en onderhoudt nog slechts het decor van het sociale.
+
+**Klonen, Crash en sciencefiction**
+
+De tweede helft bestaat uit korte essays die het begrip op nieuwe terreinen
+beproeven. De kloon maakt van het lichaam een serieproduct zonder origineel;
+het hologram belooft een verdubbeling waarin de illusie verdwijnt omdat er
+geen afstand meer is tussen beeld en ding. In een bespreking van de roman
+*Crash* van J.G. Ballard ziet Baudrillard een wereld waarin techniek, lichaam
+en ongeluk zonder moraal in elkaar schuiven.
+
+In het essay over sciencefiction herneemt hij het schema uit zijn eerdere werk
+*L'échange symbolique et la mort*: drie orden van simulacra, de namaak uit het
+klassieke tijdperk, de industriële serieproductie en de huidige simulatie op
+basis van modellen en code. Klassieke sciencefiction hoorde bij de tweede
+orde; in de derde valt er weinig meer te verzinnen omdat de werkelijkheid de
+fictie heeft ingehaald.
+
+**Restanten en nihilisme**
+
+De slotessays zijn de somberste. De universiteit beschrijft Baudrillard als
+een vervallen instituut dat diploma's zonder waarde blijft uitreiken; wie er
+werkt beheert een dode vorm. Het essay over het restant vraagt wat er
+overblijft wanneer alles in het systeem is opgenomen, en houdt het erop dat
+juist dat restant telkens opnieuw verschijnt.
+
+Het slotstuk over het nihilisme benoemt de eigen positie: de echte nihilist is
+in zijn ogen het systeem zelf, dat alle betekenis neutraliseert. De
+theoreticus rest de uitdaging en de provocatie. Een program voor verzet of
+verbetering levert het boek nergens; dat is een bewuste keuze en tegelijk de
+grens van het werk.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| simulacrum | Kopie zonder origineel; een teken dat nergens meer naar verwijst en toch voor werkelijkheid doorgaat. |
+| simulatie | Het voortbrengen van iets echts uit modellen en tekens, te onderscheiden van veinzen, waarbij de werkelijkheid intact blijft. |
+| hyperrealiteit | Toestand waarin de kopie echter aanvoelt dan het origineel, omdat de werkelijkheid uit modellen wordt opgebouwd. |
+| precessie van de simulacra | De omkering waarbij het model of de kaart aan de werkelijkheid voorafgaat en haar vormgeeft. |
+| de vier fasen van het beeld | Reeks waarin het beeld achtereenvolgens de werkelijkheid weerspiegelt, haar vervormt, haar afwezigheid maskeert en ten slotte zuiver simulacrum wordt. |
+| implosie | Het in elkaar klappen van onderscheidingen, zoals die tussen medium en werkelijkheid of tussen informatie en betekenis. |
+| afschrikking (dissuasion) | Regulering door het model van een catastrofe die nooit mag plaatsvinden, zoals de kernoorlog. |
+| drie orden van simulacra | Historische reeks van namaak, industriële serieproductie en simulatie op basis van code, ontleend aan Baudrillards eerdere werk. |
+
+#### Waar het argument op rust
+
+Het boek bevat geen onderzoek in de gangbare zin: geen data, geen methode,
+geen toetsbare voorspelling. Het bewijs bestaat uit cultuurvoorbeelden, van
+Disneyland tot Harrisburg, die Baudrillard vrij interpreteert en nergens tegen
+alternatieve verklaringen afweegt. Wie een voorbeeld anders leest,
+bijvoorbeeld Watergate als gewoon schandaal met echte gevolgen, vindt in het
+boek geen weerlegging.
+
+De waarde ligt in de begripsvorming. Termen als hyperrealiteit en simulacrum
+bleken hanteerbaar voor verschijnselen die pas na 1981 opkwamen: reality-tv,
+bewerkte beelden, virtuele werelden en kunstmatig gegenereerde media. Dat de
+woordenschat het boek overleefde is de sterkste aanwijzing dat Baudrillard
+iets werkelijks te pakken had.
+
+Het verzonnen Prediker-motto laat zien hoe het boek zichzelf opvat: eerder als
+demonstratie van simulatie dan als verhandeling erover. Dat maakt het werk
+consequent en tegelijk onweerlegbaar in de slechte zin: het onttrekt zich aan
+elke maatstaf die het zelf niet stelt.
+
+#### Wat er tegen in te brengen valt
+
+De zwaarste kritiek betreft de wetenschappelijke status. Alan Sokal en Jean
+Bricmont namen Baudrillard in 1997 op in *Impostures intellectuelles* wegens
+het gebruik van natuurkundige en wiskundige termen zonder aanwijsbare
+betekenis. Christopher Norris verweet hem in *Uncritical Theory* (1992), naar
+aanleiding van diens stukken over de Golfoorlog, een redeneertrant waarin ook
+massaal lijden tot beeld wordt verklaard. Douglas Kellner, verder een
+welwillende lezer, wijst op de gewoonte om een tendens meteen tot voltooide
+toestand uit te roepen.
+
+Empirisch mediaonderzoek spreekt de sterkste beweringen tegen: publieken
+blijken fictie en werkelijkheid in de praktijk goed te onderscheiden en gaan
+actief met beelden om. Ook alledaags klopt er iets niet: wie door een
+hyperreëel Disneyland loopt kan nog altijd struikelen, honger krijgen en de
+uitgang zoeken. Baudrillard dekt zich hiertegen in doordat elk bezwaar als
+onderdeel van de simulatie te duiden valt, en juist dat maakt de these
+ontoetsbaar.
+
+Tegelijk verdient het boek geen afserveren als modieuze onzin. Toen *The
+Matrix* het in 1999 als rekwisiet opvoerde, nam Baudrillard zelf afstand: de
+film stelde simulatie weer voor als een leugen met een echte wereld erachter,
+precies wat het boek bestrijdt. Dat het begrippenkader bij deepfakes en
+gegenereerde beelden nog steeds als eerste wordt gepakt, vraagt om een
+verklaring van wie het werk geheel wil afschrijven.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij een beeld of bericht in welke van de vier fasen het zit:
+weerspiegelt het iets, vervormt het iets, verbergt het een gemis, of verwijst
+het alleen nog naar andere beelden.
+- Herken het Disneyland-mechanisme: een plek of programma dat nadrukkelijk als
+nep is gemarkeerd, laat de omgeving echter lijken dan zij is.
+- Wees op je hoede wanneer een ontmaskering het systeem opknapt; een schandaal
+kan als reiniging dienen die het geloof in het geheel herstelt.
+- Stel bij reality-tv en kunstmatig gegenereerde media de vraag naar het
+origineel: bestaat er iets buiten de productie waaraan het beeld te toetsen
+valt.
+- Gebruik het boek als begrippenapparaat; empirische onderbouwing moet elders
+vandaan komen.
+
+#### Wat je hierna leest
+
+- 54. Amusing Ourselves to Death. Postman beschrijft nuchterder en met meer
+bewijs hoe televisie het publieke debat in amusement omzet; een goede
+tegenhanger van Baudrillards essay over de Holocaust-serie.
+- 61. Brave New World. Huxleys roman toont een samenleving die via genot en
+conditionering wordt bestuurd, het scenario dat aansluit bij Baudrillards
+implosie van betekenis.
+- 60. Trust Me, I'm Lying. Holiday laat van binnenuit zien hoe verzonnen
+gebeurtenissen het nieuws halen; een praktijkverslag bij wat Baudrillard
+theoretisch beweert.
+
+## 566. Manufacturing Consent
+
+Edward S. Herman en Noam Chomsky, 1988. *Manufacturing Consent: The Political
+Economy of the Mass Media* (Pantheon Books, New York, 1988, 412 blz., ISBN
+9780394549262; herziene editie met nieuwe inleiding, Pantheon, 2002, 480 blz.,
+ISBN 9780375714498). Nederlandse vertaling: *Manufacturing Consent: de
+politieke economie van de massamedia*, vertaald door Jan Reyniers (EPO,
+Berchem, 2025, 440 blz., ISBN 9789462674820). De samenvatting is op de Engelse
+editie gebaseerd. Rubriek: vrij denken en manipulatie.
+Tags: `media`, `propaganda`, `journalistiek`, `politieke economie`
+
+Edward Herman, econoom aan Wharton, en taalkundige Noam Chomsky ontleenden hun
+titel aan Walter Lippmann, die in 1922 over de fabricage van instemming
+schreef. Hun propagandamodel stelt dat nieuws in commerciële media door vijf
+filters gaat voordat het publiek het ziet: geconcentreerd eigendom,
+afhankelijkheid van advertenties, afhankelijkheid van officiële bronnen, flak
+(georganiseerde druk op redacties) en anticommunisme als heersende
+vijandideologie. Wat door de filters komt dient doorgaans de belangen van
+staat en bedrijfsleven, zonder dat daar censuur of samenzwering voor nodig is.
+
+De auteurs toetsen het model aan gepaarde voorbeelden uit de jaren zeventig en
+tachtig: de moord op de Poolse priester Popiełuszko tegenover vermoorde
+geestelijken in Latijns-Amerika, verkiezingen in El Salvador en Nicaragua, de
+aanslag op de paus en de oorlogen in Indochina. Het boek werd bij verschijning
+in de grote media afgewezen of genegeerd en groeide daarna uit tot een
+klassieker van de mediakritiek, met een herziene editie in 2002 en sinds 2025
+een Nederlandse vertaling. De methodologische kritiek, vooral op de selectie
+van voorbeelden, is nooit verstomd.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Herman en Chomsky stellen dat de Amerikaanse massamedia zich
+gedragen als een propagandasysteem voor de belangen van staat en
+bedrijfsleven, zonder dat er een censor aan te pas komt. De marktstructuur
+zelf doet het werk: vijf filters, eigendom, advertentie-inkomsten,
+bronafhankelijkheid, flak en de heersende vijandideologie, bepalen welke
+feiten nieuws worden en welk kader zij meekrijgen. Binnen de grenzen van de
+elite-consensus is debat mogelijk en zelfs welkom, want het houdt de schijn
+van onafhankelijkheid in stand; wat buiten die grenzen valt wordt verdund,
+versnipperd of genegeerd. Het model voorspelt daarmee een meetbaar patroon:
+slachtoffers van vijanden krijgen aandacht en verontwaardiging, slachtoffers
+van de eigen staat en zijn bondgenoten krijgen die niet.
+
+#### De gang van het boek
+
+**Een propagandamodel**
+
+Het openingshoofdstuk zet de vijf filters uiteen. Het eerste filter is de
+omvang en het geconcentreerde eigendom van mediabedrijven: wie een krant of
+zender wil beginnen heeft groot kapitaal nodig, en de winstoriëntatie van de
+eigenaren begrenst wat de redactie zich kan veroorloven. Het tweede filter is
+reclame: omdat adverteerders het grootste deel van de inkomsten leveren, is de
+kijker het product en de adverteerder de klant; programma's die een publiek
+met bestedingsruimte wegjagen sneuvelen.
+
+Het derde filter is de afhankelijkheid van goedkope, gezaghebbende bronnen:
+ministeries, het leger en bedrijfswoordvoerders leveren een gestage stroom
+kant-en-klaar nieuws, en wie kritisch schrijft riskeert zijn toegang. Het
+vierde filter, flak, omvat georganiseerde klachten, boycots en juridische druk
+waarmee belangengroepen redacties disciplineren. Het vijfde filter was in 1988
+het anticommunisme, een vijandideologie waarmee vrijwel elk binnenlands of
+buitenlands onderwerp geordend kon worden.
+
+**Waardige en onwaardige slachtoffers**
+
+De eerste toets is een vergelijking van moordzaken. De Poolse priester Jerzy
+Popiełuszko, in 1984 vermoord door officieren van de communistische
+veiligheidsdienst, kreeg in de Amerikaanse media meer aandacht dan honderd
+vermoorde geestelijken in Latijns-Amerika bij elkaar, onder wie aartsbisschop
+Óscar Romero, in 1980 doodgeschoten in San Salvador, en vier Amerikaanse
+kerkvrouwen die datzelfde jaar door leden van de Salvadoraanse Nationale Garde
+werden verkracht en vermoord.
+
+De auteurs tellen artikelen, voorpagina's en verontwaardigde bewoordingen en
+zien een vast patroon: slachtoffers van een vijandstaat zijn waardig, krijgen
+naam, gezicht en vervolgverhalen; slachtoffers van bevriende regimes blijven
+anoniem en de vraag naar verantwoordelijkheid blijft achterwege. Het verschil
+valt volgens hen alleen te verklaren uit de politieke bruikbaarheid van de
+doden.
+
+**Verkiezingen: legitimeren en diskwalificeren**
+
+Hetzelfde meetinstrument gaat over verkiezingen in de derde wereld. De
+stembusgangen in El Salvador (1982 en 1984) en Guatemala (1984 en 1985),
+gehouden onder staatsterreur en zonder vrije pers, werden in de Amerikaanse
+media als triomf van de democratie gebracht, in lijn met het beleid van de
+regering-Reagan. De Nicaraguaanse verkiezing van 1984, door internationale
+waarnemers als betrekkelijk ordelijk beoordeeld, werd afgedaan als
+schijnvertoning omdat de uitslag Washington niet uitkwam.
+
+Herman had voor zulke gevallen eerder de term demonstratieverkiezingen gemunt:
+verkiezingen die vooral worden georganiseerd om een buitenlands publiek gerust
+te stellen. De media, zo laten de auteurs met citaten en tellingen zien, namen
+per land vrijwel exact het vragenlijstje van het State Department over:
+opkomst en rijen bij de stembus in bevriende landen, dwang en
+oppositieklachten in vijandige.
+
+**Het Bulgaarse complot tegen de paus**
+
+De aanslag van de Turk Mehmet Ali Ağca op paus Johannes Paulus II in 1981
+levert de derde casus. Amerikaanse media omarmden de these van journaliste
+Claire Sterling dat de KGB en de Bulgaarse geheime dienst achter de aanslag
+zaten, een verhaal dat vooral leunde op de redenering dat de Sovjet-Unie er
+baat bij zou hebben. Tegenstrijdigheden, waaronder het gegeven dat Ağca pas na
+lange afzondering over Bulgaren begon te verklaren, kregen weinig ruimte.
+
+Toen een rechtbank in Rome de Bulgaarse verdachten in 1986 wegens gebrek aan
+bewijs vrijsprak, was de belangstelling geluwd. Voor de auteurs toont de
+affaire het derde en het vijfde filter in werking: een bron met het passende
+vijandbeeld krijgt een podium zonder de toetsing die een afwijkende bron wel
+moet doorstaan.
+
+**Indochina: de mythe van de vijandige pers**
+
+De langste hoofdstukken behandelen Vietnam, Laos en Cambodja. Tegen het
+gangbare beeld dat de pers de Vietnamoorlog thuis verloren zou hebben, betogen
+de auteurs dat de media het uitgangspunt van de interventie nooit ter
+discussie stelden; de kritiek bleef beperkt tot de vraag of de oorlog te
+winnen was, en kwam pas op toen het establishment zelf verdeeld raakte.
+
+De geheime bombardementen op Laos bleven jarenlang vrijwel onvermeld, net als
+het Amerikaanse aandeel in de verwoesting van Cambodja vóór 1975, terwijl de
+misdaden van de Rode Khmer daarna breed werden uitgemeten. In een appendix
+nemen de auteurs de Freedom House-studie over het Tet-offensief door, het
+geijkte bewijsstuk voor de these van de vijandige pers, en documenteren zij
+fouten en dubbele maatstaven in dat onderzoek.
+
+**De herziene editie en de balans**
+
+De editie van 2002 bevat een lange nieuwe inleiding waarin de auteurs het
+model bijstellen. De mediaconcentratie was verder toegenomen, het
+advertentiefilter sterker geworden, en het weggevallen anticommunisme bleek
+vervangbaar door andere ordenende ideologieën, waaronder het geloof in de
+vrije markt en later de terreurbestrijding. Als nieuwe voorbeelden dienen
+onder meer de berichtgeving over het handelsverdrag NAFTA en over de
+andersglobaliseringsprotesten.
+
+De naamvolgorde op het omslag zegt iets over het maken van het boek: Chomsky
+heeft meermaals aangegeven dat Herman de hoofdauteur was. Sinds februari 2025
+bestaat er een Nederlandse vertaling bij uitgeverij EPO. Het boek wordt
+wereldwijd in mediastudies gelezen, vaker als klassieke referentie dan als
+lopend onderzoeksprogramma.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| propagandamodel | Structurele verklaring waarin marktmechanismen, zonder censuur of complot, het nieuws in lijn brengen met elitebelangen. |
+| filter | Voorwaarde waar nieuws doorheen moet voordat het publiek het bereikt; de vijf filters zijn eigendom, reclame, bronnen, flak en vijandideologie. |
+| flak | Georganiseerde negatieve reacties op berichtgeving, van boze brieven tot rechtszaken en adverteerdersboycots, die redacties voorzichtig maken. |
+| waardige en onwaardige slachtoffers | Slachtoffers van vijandstaten die uitvoerige, verontwaardigde aandacht krijgen, tegenover slachtoffers van de eigen staat en zijn bondgenoten die genegeerd worden. |
+| dichotomisering | Het stelselmatig verschillend behandelen van vergelijkbare gebeurtenissen naargelang hun politieke bruikbaarheid. |
+| demonstratieverkiezingen | Verkiezingen in een cliëntstaat die vooral zijn bedoeld om het thuisfront van de buitenlandse sponsor gerust te stellen. |
+| fabricage van instemming | Lippmanns term uit 1922 voor het doelbewust vormen van de publieke opinie door elites; de bron van de boektitel. |
+| anticommunisme als vijandideologie | Het vijfde filter uit 1988: een gedeeld vijandbeeld dat afwijkende stemmen verdacht maakt en meningsverschillen ordent. |
+
+#### Waar het argument op rust
+
+Het boek onderscheidt zich van veel mediakritiek door kwantificering. De
+auteurs tellen artikelen, kolomruimte, voorpaginaplaatsing en redactionele
+bewoordingen bij gepaarde gebeurtenissen en leggen de uitkomsten in tabellen
+vast. De voorspelling van het model, een stelselmatig verschil in behandeling
+naar politieke bruikbaarheid, is daarmee toetsbaar geformuleerd, en binnen de
+gekozen casussen zijn de gemeten verschillen groot en consistent.
+
+De casussen steunen op openbare bronnen: krantenarchieven, congresverslagen en
+rapporten van waarnemersmissies en mensenrechtenorganisaties. Latere
+onderzoekers hebben het model op nieuwe gevallen toegepast, onder meer op de
+aanloop naar de Irakoorlog van 2003, en vonden vergelijkbare patronen van
+bronafhankelijkheid en zelfbeperking. Herman verdedigde het model in 2000 in
+een terugblik in het vakblad *Journalism Studies*.
+
+Opvallende steun kwam achteraf uit de media zelf: *The New York Times* erkende
+in 2004 in een redactionele verklaring dat haar berichtgeving over Iraakse
+massavernietigingswapens te zwaar op regeringsbronnen en overlopers had
+geleund, het patroon dat het derde filter voorspelt.
+
+#### Wat er tegen in te brengen valt
+
+De methodologische bezwaren richten zich op de casusselectie: de gepaarde
+voorbeelden zijn door de auteurs zelf gekozen, en critici houden vol dat
+andere paren ook andere uitkomsten hadden opgeleverd. Het boek bevat bovendien
+geen onderzoek op redacties; hoe de filters op de werkvloer doorwerken blijft
+een aanname, terwijl onderzoekers als Herbert Gans en W. Lance Bennett
+journalistieke routines van binnenuit beschreven en tot genuanceerdere
+verklaringen kwamen.
+
+Het bekendste verwijt luidt dat het model een complottheorie is. De auteurs
+wijzen dat af: het gaat om marktuitkomsten, net zoals er geen samenzwering
+nodig is om te verklaren dat kranten winst nastreven. Lastiger is het verwijt
+van moeilijke weerlegbaarheid: tegenvoorbeelden zoals Watergate, de Pentagon
+Papers en My Lai verklaren de auteurs als conflicten binnen de elite, waarmee
+vrijwel elke uitkomst in het model past.
+
+Verder is het boek op punten gedateerd die de inleiding van 2002 maar ten dele
+repareert: het vijfde filter moest worden herschreven en het internet, laat
+staan het platformtijdperk, komt nauwelijks voor. Aanhangers merken op dat de
+eerste twee filters in de advertentie-economie van Google en Facebook eerder
+sterker dan zwakker zijn geworden. In de academische communicatiewetenschap
+bleef het model lang marginaal, wat aanhangers als bevestiging van de these
+lezen en critici als vakinhoudelijk oordeel.
+
+#### Wat er concreet mee te doen is
+
+- Ga bij een groot nieuwsverhaal na wie de oorspronkelijke bron is; drijft het
+verhaal vooral op officiële woordvoerders, houd dan rekening met het derde
+filter.
+- Vergelijk de berichtgeving over vergelijkbare slachtoffers aan twee kanten
+van een conflict: hoeveelheid, naamgeving, voorpagina's en de vraag wie
+verantwoordelijk wordt gesteld.
+- Zoek bij buitenlandse verkiezingen de rapporten van onafhankelijke
+waarnemers op voordat het oordeel van een ministerie wordt overgenomen.
+- Volg het eigendom: wie bezit het medium, wie adverteert er, en welke
+onderwerpen raken die belangen.
+- Let op flak in zijn huidige vorm: georganiseerde verontwaardigingscampagnes
+en juridische druk verklaren soms waarom een redactie een onderwerp laat
+liggen.
+
+#### Wat je hierna leest
+
+- 60. Trust Me, I'm Lying. Holiday beschrijft van binnenuit hoe blogs en
+redacties zich laten bespelen; een hedendaagse, praktische aanvulling op het
+filtermodel.
+- 54. Amusing Ourselves to Death. Postman zoekt de vertekening in het medium
+televisie zelf; samen met het propagandamodel dekt dat twee soorten
+mediakritiek.
+- 221. The Dictator's Handbook. Bueno de Mesquita en Smith verklaren
+machtsgedrag uit prikkels in plaats van complotten, dezelfde redeneerstijl
+toegepast op politiek.
+- 384. The Rape of the Mind. Meerloo behandelt de psychologie van propaganda
+en hersenspoeling, waar Herman en Chomsky de economie ervan behandelen.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
@@ -109245,23 +110472,24 @@ revolutie` 243 · `Amsterdam` 295 · `anatomie` 241, 412 · `Andalusië` 8 ·
 200 · `backtesten` 482, 502 · `banken en verzekeraars` 497 · `barok` 216 ·
 `basisbehoeften` 107 · `bbc` 82 · `bedrijfscultuur` 170, 257, 270 ·
 `bedrijfsgroei` 350 · `bedrijfsleven` 209, 293 · `bedrijfsonderzoek` 353 ·
-`bedrijfssystemen` 264 · `beginners` 112 · `behoeften` 35 · `beinvloeding`
-123, 126 · `beïnvloeding` 399 · `bekentenis` 60 · `belangenverstrengeling` 138
-· `beleggen` 21, 64, 144, 233, 277, 351, 474, 476, 477, 478, 479, 480, 481,
-482, 483, 484, 485, 486, 489, 490, 492, 496, 498, 499, 500, 501, 502, 503,
-504, 505 · `beleid` 65 · `beloningssysteem` 418 · `bemiddeling` 35 ·
-`beroemdheden` 128 · `beschadigd-bestand` 115, 130 · `beschaving` 57 ·
-`beslissen` 55 · `beslissingen` 197 · `besluiten` 47, 59, 69, 137 ·
-`besluitvorming` 151, 166, 170, 174, 209, 270, 282, 283, 293, 299, 364, 396,
-423, 424, 426, 450, 451, 468, 475, 510 · `bestseller` 8, 37, 250 · `betekenis`
-143 · `bethel` 559 · `betrokkenheid` 472 · `beurs` 80, 488 · `beurshandel` 487
-· `beursrendement` 353 · `beweging` 77, 84 · `bewijs` 63 · `bewustwording` 103
-· `bewustzijn` 148, 169, 200, 275, 340, 377, 518 · `bewustzijnsniveaus` 449 ·
-`bezit` 37 · `bias` 209 · `bijeenkomsten` 304 · `bijgeloof` 63 · `biografie`
-31, 46, 189, 231, 240, 241, 243, 247, 266, 267, 269, 320, 328, 402, 454, 514,
-537, 558 · `biohacking` 316 · `biologie` 66, 88, 89, 90, 91, 322 · `biologie
-van gedrag` 273 · `biologische klok` 326, 329, 552 · `biotechnologie` 236, 413
-· `blackjack` 505 · `bloedvaten` 86 · `bloedwaarden` 313 · `blokkade` 14 ·
+`bedrijfssystemen` 264 · `beeldcultuur` 563 · `beeldverhaal` 561 · `beginners`
+112 · `behoeften` 35 · `beinvloeding` 123, 126 · `beïnvloeding` 399 ·
+`bekentenis` 60 · `belangenverstrengeling` 138 · `beleggen` 21, 64, 144, 233,
+277, 351, 474, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 489,
+490, 492, 496, 498, 499, 500, 501, 502, 503, 504, 505 · `beleid` 65 ·
+`beloningssysteem` 418 · `bemiddeling` 35 · `beroemdheden` 128 · `beroemdheid`
+563 · `beschadigd-bestand` 115, 130 · `beschaving` 57 · `beslissen` 55 ·
+`beslissingen` 197 · `besluiten` 47, 59, 69, 137 · `besluitvorming` 151, 166,
+170, 174, 209, 270, 282, 283, 293, 299, 364, 396, 423, 424, 426, 450, 451,
+468, 475, 510 · `bestseller` 8, 37, 250 · `betekenis` 143 · `bethel` 559 ·
+`betrokkenheid` 472 · `beurs` 80, 488 · `beurshandel` 487 · `beursrendement`
+353 · `beweging` 77, 84 · `bewijs` 63 · `bewustwording` 103 · `bewustzijn`
+148, 169, 200, 275, 340, 377, 518 · `bewustzijnsniveaus` 449 · `bezit` 37 ·
+`bias` 209 · `bijeenkomsten` 304 · `bijgeloof` 63 · `biografie` 31, 46, 189,
+231, 240, 241, 243, 247, 266, 267, 269, 320, 328, 402, 454, 514, 537, 558 ·
+`biohacking` 316 · `biologie` 66, 88, 89, 90, 91, 322 · `biologie van gedrag`
+273 · `biologische klok` 326, 329, 552 · `biotechnologie` 236, 413 ·
+`blackjack` 505 · `bloedvaten` 86 · `bloedwaarden` 313 · `blokkade` 14 ·
 `boeddhisme` 111, 287, 333, 341, 401, 528 · `bootstrapping` 369 ·
 `brainstormen` 33 · `branding` 443 · `brein` 414 · `brieven` 292, 517 ·
 `broers` 10 · `budgetteren` 159, 233, 464 · `buitenlandse hulp` 221 ·
@@ -109281,30 +110509,30 @@ wetenschap` 467 · `cognitieve-bias` 59 · `collectief bewustzijn` 435 ·
 170, 268, 300, 347, 423 · `complimenten geven` 356 · `concentratie` 70, 441 ·
 `concurrentie` 293 · `conditionering` 61, 519 · `conflict` 35, 42, 43, 212,
 305 · `conflictbemiddeling` 304 · `conflicthantering` 271 · `conformisme` 211
-· `consistentie` 553 · `consumptie` 463 · `consumptiekeuzes` 299 · `content`
-308 · `content creatie` 365 · `content marketing` 369 · `corruptie` 221 ·
-`creativiteit` 11, 12, 13, 14, 15, 16, 17, 74, 206, 312, 349, 418, 445, 471,
-472, 475, 550 · `cricket` 174 · `crisis` 47 · `CRISPR` 413 · `cultuur` 68, 274
-· `cultuurkritiek` 54, 405 · `cursus` 108, 130, 201 · `cursus-in-wonderen`
-102, 131, 548 · `cybernetica` 411, 539, 540, 541 · `cynisme` 250, 319 · `Cyrus
-de Grote` 536 · `dagboek` 2, 109, 224, 286 · `dagboekaantekeningen` 226 ·
-`dagboekmethode` 78 · `dagboekonderzoek` 472 · `dagelijkse gewoontes` 205 ·
-`dagelijkse praktijk` 442 · `dankbaarheid` 129, 433 · `darmbacteriën` 417 ·
-`dataïsme` 236 · `daten` 166 · `debat` 28 · `debuutboek` 226 · `degrowth` 298
-· `dekoloniaal denken` 521 · `delegeren` 434 · `deliberate practice` 376 ·
-`dementie` 84, 85, 225 · `democratie` 98 · `denken` 310, 509 · `denkfouten`
-55, 59, 142, 396, 437, 510, 514 · `denkmethode` 471 · `denkmodellen` 426 ·
-`depressie` 403 · `derivaten` 494, 495 · `design thinking` 150 ·
-`destructiviteit` 223 · `deugd` 247, 459 · `diagnose` 104 · `dialoog` 335 ·
-`dichotomie van controle` 194 · `dichtwerk` 524 · `dictatuur` 221 ·
-`dienstbaarheid` 230, 245, 535 · `diepe-tijd` 239 · `dieren` 555 ·
-`dierenzintuigen` 322 · `dierlijke-cognitie` 383 · `dierproeven` 330 ·
-`differentiatie` 165 · `digitaal` 81 · `diplomatie` 243 · `direct response`
-350 · `DISC` 156, 429 · `discipline` 12, 13, 22, 30, 106, 133, 137, 146, 445,
-462, 480, 481, 482, 487, 488, 545 · `disruptie` 293 · `DNA` 419 · `docenten`
-116 · `doelen` 58, 136, 158, 542 · `doelen stellen` 367, 427, 448 ·
-`doelgericht-oefenen` 50 · `doelgroep` 446 · `doelstellingen` 256 ·
-`donkere-triade` 124 · `dood` 98, 169, 292, 535 · `doodsangst` 405 ·
+· `consistentie` 553 · `consumptie` 463 · `consumptiekeuzes` 299 ·
+`consumptiemaatschappij` 564 · `content` 308 · `content creatie` 365 ·
+`content marketing` 369 · `corruptie` 221 · `creativiteit` 11, 12, 13, 14, 15,
+16, 17, 74, 206, 312, 349, 418, 445, 471, 472, 475, 550 · `cricket` 174 ·
+`crisis` 47 · `CRISPR` 413 · `cultuur` 68, 274 · `cultuurkritiek` 54, 405 ·
+`cursus` 108, 130, 201 · `cursus-in-wonderen` 102, 131, 548 · `cybernetica`
+411, 539, 540, 541 · `cynisme` 250, 319 · `Cyrus de Grote` 536 · `dagboek` 2,
+109, 224, 286 · `dagboekaantekeningen` 226 · `dagboekmethode` 78 ·
+`dagboekonderzoek` 472 · `dagelijkse gewoontes` 205 · `dagelijkse praktijk`
+442 · `dankbaarheid` 129, 433 · `darmbacteriën` 417 · `dataïsme` 236 · `daten`
+166 · `debat` 28 · `debuutboek` 226 · `degrowth` 298 · `dekoloniaal denken`
+521 · `delegeren` 434 · `deliberate practice` 376 · `dementie` 84, 85, 225 ·
+`democratie` 98, 562 · `denken` 310, 509 · `denkfouten` 55, 59, 142, 396, 437,
+510, 514 · `denkmethode` 471 · `denkmodellen` 426 · `depressie` 403 ·
+`derivaten` 494, 495 · `design thinking` 150 · `destructiviteit` 223 · `deugd`
+247, 459 · `diagnose` 104 · `dialoog` 335 · `dichotomie van controle` 194 ·
+`dichtwerk` 524 · `dictatuur` 221 · `dienstbaarheid` 230, 245, 535 ·
+`diepe-tijd` 239 · `dieren` 555 · `dierenzintuigen` 322 · `dierlijke-cognitie`
+383 · `dierproeven` 330 · `differentiatie` 165 · `digitaal` 81 · `diplomatie`
+243 · `direct response` 350 · `DISC` 156, 429 · `discipline` 12, 13, 22, 30,
+106, 133, 137, 146, 445, 462, 480, 481, 482, 487, 488, 545 · `disruptie` 293 ·
+`DNA` 419 · `docenten` 116 · `doelen` 58, 136, 158, 542 · `doelen stellen`
+367, 427, 448 · `doelgericht-oefenen` 50 · `doelgroep` 446 · `doelstellingen`
+256 · `donkere-triade` 124 · `dood` 98, 169, 292, 535 · `doodsangst` 405 ·
 `doorzetten` 20 · `doorzettingsvermogen` 185, 249, 289, 324 · `dopamine` 314,
 418 · `drogredenen` 421 · `dromen` 52, 357, 358, 359, 360 · `dummies` 112 ·
 `durfkapitaal` 47 · `duurzaamheid` 92 · `dystopie` 61 · `e-commerce` 257 ·
@@ -109388,79 +110616,80 @@ mythologie` 192, 202 · `hindoemythologie` 203 · `Hinge` 166 · `hiphop` 440 ·
 `hollywood` 555 · `Hollywood` 178 · `Holocaust` 48 · `holografie` 340 ·
 `homoseksualiteit` 325 · `hoop` 255, 319 · `hormonen` 80, 339 · `hospice` 416
 · `houding` 117 · `huisvesting` 65 · `humanisme` 236 · `humor` 16, 19, 26,
-105, 227 · `huwelijk` 9, 34, 165 · `Huxley` 54 · `hybride werken` 512 ·
-`hypnose` 123, 124, 125 · `Idaho` 45 · `ideeën` 206 · `ideeëngeschiedenis` 269
-· `identiteit` 22, 115, 192, 261, 374, 375, 467, 559 · `identiteitskapitaal`
-51 · `ierland` 110 · `IJsland` 185, 533 · `ik-vorm` 113 · `illustraties` 109,
-327 · `imitatie` 11 · `imperfectionisme` 442 · `import` 20 · `India` 163, 171,
-172, 180, 189, 191, 196, 199, 203, 226, 242, 365, 370, 518, 520, 527 ·
-`individualisme` 9, 96 · `individualiteit` 263 · `individuatie` 359, 360, 408,
-409 · `individuele-verantwoordelijkheid` 299 · `industrie` 348 · `inheems
-denken` 521 · `initiatie` 407, 408, 522 · `inleiding` 452, 456 ·
-`innerlijk-kind` 109 · `innerlijk-werkleven` 472 · `innerlijke stem` 377 ·
-`innerlijke vrede` 548 · `innovatie` 206, 251, 293, 306, 471 · `instagram` 129
-· `instituties` 392 · `integriteit` 547 · `intelligentie` 383 ·
-`internationale betrekkingen` 455 · `internet` 60, 198 · `interviews` 58, 277,
-289 · `intimiteit` 122, 145, 164, 165 · `introversie` 33, 361 · `intuitie` 128
-· `intuïtie` 214, 283, 320 · `investeren` 270, 348 · `invloed` 11 ·
-`irrationaliteit` 424 · `islam` 526 · `islamitische filosofie` 525 · `Israël`
-514 · `Italiaanse non-fictie` 211 · `Italië` 155 · `jaloezie` 19 · `Japan` 77,
-205, 261, 335, 346, 379, 462, 517, 528, 535 · `jaren negentig` 348 ·
-`jaren-tachtig` 139 · `jaren-twintig` 94 · `jazztijdperk` 284 · `jeff bezos`
-257 · `jeugd` 53, 104, 115 · `John Harrison` 321 · `joint ventures` 348 ·
-`jonge liefde` 180 · `jongeren` 25 · `jongvolwassenenroman` 295 · `journaling`
-147 · `journalistiek` 4, 7, 46, 82, 238, 257, 285, 401, 499 · `Jung` 143, 358,
-359 · `Jungiaanse psychologie` 404, 407, 408, 409, 410 · `kaakontwikkeling`
-332 · `Kabul` 184 · `Kaïn-en-Abel` 10 · `kalmte` 248, 389 · `kameraadschap`
-529 · `kanker` 419 · `kans` 64 · `kansdenken` 487 · `kansen` 137 ·
-`kansrekening` 282, 456, 484, 490, 496, 504, 505 · `kapitalisme` 298 ·
-`karakter` 97, 537 · `Karel de Grote` 534 · `karma` 184 · `Kasjmir` 180 ·
-`keegan` 110 · `Kelly-criterium` 504 · `kennis` 81, 508 · `kennisleer` 525 ·
-`kenniswerk` 6, 50, 400, 472 · `kernwaarden` 245 · `kernwapens` 454 · `keuzes`
-51, 71, 72, 510 · `Kierkegaard` 405 · `kinderboek` 167 · `kinderjaren` 152 ·
-`kinesiologie` 449 · `klantcontact` 182, 186 · `klantpsychologie` 367 ·
-`klantrelaties` 246 · `klantvalidatie` 265 · `klantwaarde` 309 ·
-`klassenverschil` 284 · `klassieke bronnen` 286 · `klassieke tekst` 219, 394 ·
-`klassieker` 10, 24, 38, 48, 61, 83, 127, 135, 144, 173, 213, 254, 351, 420,
-520, 537 · `klein-beginnen` 40 · `kleine-bedrijven` 172 · `kleine-stappen` 22,
-133 · `kleurboek` 327 · `klimaatfictie` 203 · `klimaatverandering` 299 ·
-`klinische psychologie` 460 · `klokkenmakerij` 321 · `kolonialisme` 298 ·
-`korea` 111 · `kort` 59, 99, 100, 101, 110, 140 · `kort-boek` 11, 13, 16, 27,
-38, 57, 445 · `kort-stuk` 19, 30 · `korte-teksten` 111 · `korte-vorm` 473 ·
-`kosmologie` 239, 262, 281 · `koude oorlog` 217, 220, 384, 454, 456 ·
-`krijgsgevangenschap` 31 · `krijgskunde` 212, 218, 219, 272 · `krijgskunst`
-346 · `kritiek` 24, 41, 50 · `kritiek geven` 356 · `kritisch denken` 420, 421
-· `kroeg` 4 · `kruistochtgeest` 534 · `kunst` 11, 445 · `kunstenaars` 312 ·
-`kunstgeschiedenis` 241, 312 · `kunstmatig leven` 347 · `kunstmatige
-intelligentie` 236, 237, 297 · `kwaad` 404 · `kwaliteit` 1, 400 ·
-`kwantificering` 392 · `kwantitatief handelen` 506 · `kwantitatieve analyse`
-498 · `kwantitatieve financiën` 485, 503 · `kwantumfysica` 208, 340, 432, 433
-· `kwantummechanica` 362 · `kwantumzwaartekracht` 281 · `kwetsbaarheid` 32,
-44, 470 · `landbouw` 56, 98 · `landmark forum` 344 · `leadgeneratie` 308 ·
-`lean manufacturing` 265 · `leefstijl` 86, 103, 138, 171 · `leertijd` 320 ·
-`leger` 106, 180, 222 · `leiderschap` 36, 41, 44, 46, 97, 106, 157, 170, 183,
-218, 222, 231, 260, 273, 344, 353, 364, 370, 389, 434, 465, 468, 475, 536,
-544, 551 · `leidinggeven` 156 · `leren` 175, 296, 349, 397, 422, 441, 509, 538
-· `lesmateriaal` 116 · `leugendetectie` 154, 338 · `levensinrichting` 334 ·
-`levenskeuzes` 150, 546 · `levenskunst` 27, 199, 216, 227 · `levenslessen`
-285, 447 · `levensloop` 91 · `levensverhaal` 385 · `levenswijsheid` 473 ·
-`lezen` 18, 420 · `lezing` 436 · `lezingen` 169 · `libertarisme` 546 ·
-`lichaam` 80 · `lichaamsgericht werken` 386 · `lichaamstaal` 125, 126, 154,
-303, 338, 399 · `lichaamswerk` 432 · `licht` 525 · `liefde` 3, 131, 160, 295 ·
-`liefdesroman` 180 · `lifestyle` 278 · `lijden` 48, 73, 160, 310, 390 · `list`
-531 · `literair` 110 · `literatuur` 49 · `logica` 421, 437 · `logotherapie` 48
-· `Long-Island` 4 · `longevity` 415 · `loopbaan` 50, 51, 150, 349, 515, 547 ·
-`loslaten` 377, 449 · `losmaken` 45 · `lotsbestemming` 261 · `luchtvaart` 422
-· `luisteren` 24, 35, 305, 444 · `machinaal leren` 484, 485, 486, 503 ·
-`macht` 212, 250, 263, 381, 388, 440 · `machtspolitiek` 220 · `machtstheorie`
-221 · `machtsverhoudingen` 155 · `magisch realisme` 261 · `management` 42, 47,
-170, 183, 256, 350, 353, 364, 472 · `managementtheorie` 547 · `manifesteren`
-128, 129, 130, 131, 132, 190, 196, 433, 543, 560 · `manipulatie` 123, 124,
-125, 126, 212, 213, 381, 384, 429 · `mannelijkheid` 3, 406, 407, 408 ·
-`mannen` 7 · `mannenbeweging` 407 · `mantelzorg` 225 · `mantra` 403 ·
-`manuscript` 359 · `marketing` 13, 40, 60, 172, 183, 279, 280, 307, 308, 309,
-350, 443, 446 · `marktmicrostructuur` 477, 478 · `McKinsey` 511 · `media` 54,
-60, 100 · `medische ethiek` 416 · `meditatie` 111, 141, 149, 169, 205, 208,
+105, 227, 561 · `huwelijk` 9, 34, 165 · `Huxley` 54 · `hybride werken` 512 ·
+`hyperrealiteit` 565 · `hypnose` 123, 124, 125 · `Idaho` 45 · `ideeën` 206 ·
+`ideeëngeschiedenis` 269 · `identiteit` 22, 115, 192, 261, 374, 375, 467, 559
+· `identiteitskapitaal` 51 · `ierland` 110 · `IJsland` 185, 533 · `ik-vorm`
+113 · `illustraties` 109, 327 · `imitatie` 11 · `imperfectionisme` 442 ·
+`import` 20 · `India` 163, 171, 172, 180, 189, 191, 196, 199, 203, 226, 242,
+365, 370, 518, 520, 527 · `individualisme` 9, 96 · `individualiteit` 263 ·
+`individuatie` 359, 360, 408, 409 · `individuele-verantwoordelijkheid` 299 ·
+`industrie` 348 · `inheems denken` 521 · `initiatie` 407, 408, 522 ·
+`inleiding` 452, 456 · `innerlijk-kind` 109 · `innerlijk-werkleven` 472 ·
+`innerlijke stem` 377 · `innerlijke vrede` 548 · `innovatie` 206, 251, 293,
+306, 471 · `instagram` 129 · `instituties` 392 · `integriteit` 547 ·
+`intelligentie` 383 · `internationale betrekkingen` 455 · `internet` 60, 198 ·
+`interviews` 58, 277, 289 · `intimiteit` 122, 145, 164, 165 · `introversie`
+33, 361 · `intuitie` 128 · `intuïtie` 214, 283, 320 · `investeren` 270, 348 ·
+`invloed` 11 · `irrationaliteit` 424 · `islam` 526 · `islamitische filosofie`
+525 · `Israël` 514 · `Italiaanse non-fictie` 211 · `Italië` 155 · `jaloezie`
+19 · `Japan` 77, 205, 261, 335, 346, 379, 462, 517, 528, 535 · `jaren
+negentig` 348 · `jaren-tachtig` 139 · `jaren-twintig` 94 · `jazztijdperk` 284
+· `jeff bezos` 257 · `jeugd` 53, 104, 115 · `John Harrison` 321 · `joint
+ventures` 348 · `jonge liefde` 180 · `jongeren` 25 · `jongvolwassenenroman`
+295 · `journaling` 147 · `journalistiek` 4, 7, 46, 82, 238, 257, 285, 401,
+499, 566 · `Jung` 143, 358, 359 · `Jungiaanse psychologie` 404, 407, 408, 409,
+410 · `kaakontwikkeling` 332 · `Kabul` 184 · `Kaïn-en-Abel` 10 · `kalmte` 248,
+389 · `kameraadschap` 529 · `kanker` 419 · `kans` 64 · `kansdenken` 487 ·
+`kansen` 137 · `kansrekening` 282, 456, 484, 490, 496, 504, 505 ·
+`kapitalisme` 298 · `karakter` 97, 537 · `Karel de Grote` 534 · `karma` 184 ·
+`Kasjmir` 180 · `keegan` 110 · `Kelly-criterium` 504 · `kennis` 81, 508 ·
+`kennisleer` 525 · `kenniswerk` 6, 50, 400, 472 · `kernwaarden` 245 ·
+`kernwapens` 454 · `keuzes` 51, 71, 72, 510 · `Kierkegaard` 405 · `kinderboek`
+167 · `kinderjaren` 152 · `kinesiologie` 449 · `klantcontact` 182, 186 ·
+`klantpsychologie` 367 · `klantrelaties` 246 · `klantvalidatie` 265 ·
+`klantwaarde` 309 · `klassenverschil` 284 · `klassieke bronnen` 286 ·
+`klassieke tekst` 219, 394 · `klassieker` 10, 24, 38, 48, 61, 83, 127, 135,
+144, 173, 213, 254, 351, 420, 520, 537 · `klein-beginnen` 40 ·
+`kleine-bedrijven` 172 · `kleine-stappen` 22, 133 · `kleurboek` 327 ·
+`klimaatfictie` 203 · `klimaatverandering` 299 · `klinische psychologie` 460 ·
+`klokkenmakerij` 321 · `kolonialisme` 298 · `korea` 111 · `kort` 59, 99, 100,
+101, 110, 140 · `kort-boek` 11, 13, 16, 27, 38, 57, 445 · `kort-stuk` 19, 30 ·
+`korte-teksten` 111 · `korte-vorm` 473 · `kosmologie` 239, 262, 281 · `koude
+oorlog` 217, 220, 384, 454, 456 · `krijgsgevangenschap` 31 · `krijgskunde`
+212, 218, 219, 272 · `krijgskunst` 346 · `kritiek` 24, 41, 50 · `kritiek
+geven` 356 · `kritisch denken` 420, 421 · `kroeg` 4 · `kruistochtgeest` 534 ·
+`kunst` 11, 445 · `kunstenaars` 312 · `kunstgeschiedenis` 241, 312 ·
+`kunstmatig leven` 347 · `kunstmatige intelligentie` 236, 237, 297 · `kwaad`
+404 · `kwaliteit` 1, 400 · `kwantificering` 392 · `kwantitatief handelen` 506
+· `kwantitatieve analyse` 498 · `kwantitatieve financiën` 485, 503 ·
+`kwantumfysica` 208, 340, 432, 433 · `kwantummechanica` 362 ·
+`kwantumzwaartekracht` 281 · `kwetsbaarheid` 32, 44, 470 · `landbouw` 56, 98 ·
+`landmark forum` 344 · `leadgeneratie` 308 · `lean manufacturing` 265 ·
+`leefstijl` 86, 103, 138, 171 · `leertijd` 320 · `leger` 106, 180, 222 ·
+`leiderschap` 36, 41, 44, 46, 97, 106, 157, 170, 183, 218, 222, 231, 260, 273,
+344, 353, 364, 370, 389, 434, 465, 468, 475, 536, 544, 551 · `leidinggeven`
+156 · `leren` 175, 296, 349, 397, 422, 441, 509, 538 · `lesmateriaal` 116 ·
+`leugendetectie` 154, 338 · `levensinrichting` 334 · `levenskeuzes` 150, 546 ·
+`levenskunst` 27, 199, 216, 227 · `levenslessen` 285, 447 · `levensloop` 91 ·
+`levensverhaal` 385 · `levenswijsheid` 473 · `lezen` 18, 420 · `lezing` 436 ·
+`lezingen` 169 · `libertarisme` 546 · `lichaam` 80 · `lichaamsgericht werken`
+386 · `lichaamstaal` 125, 126, 154, 303, 338, 399 · `lichaamswerk` 432 ·
+`licht` 525 · `liefde` 3, 131, 160, 295 · `liefdesroman` 180 · `lifestyle` 278
+· `lijden` 48, 73, 160, 310, 390 · `list` 531 · `literair` 110 · `literatuur`
+49 · `logica` 421, 437 · `logotherapie` 48 · `Long-Island` 4 · `longevity` 415
+· `loopbaan` 50, 51, 150, 349, 515, 547 · `loslaten` 377, 449 · `losmaken` 45
+· `lotsbestemming` 261 · `luchtvaart` 422 · `luisteren` 24, 35, 305, 444 ·
+`machinaal leren` 484, 485, 486, 503 · `macht` 212, 250, 263, 381, 388, 440 ·
+`machtspolitiek` 220 · `machtstheorie` 221 · `machtsverhoudingen` 155 ·
+`magisch realisme` 261 · `management` 42, 47, 170, 183, 256, 350, 353, 364,
+472 · `managementtheorie` 547 · `manifesteren` 128, 129, 130, 131, 132, 190,
+196, 433, 543, 560 · `manipulatie` 123, 124, 125, 126, 212, 213, 381, 384, 429
+· `mannelijkheid` 3, 406, 407, 408 · `mannen` 7 · `mannenbeweging` 407 ·
+`mantelzorg` 225 · `mantra` 403 · `manuscript` 359 · `marketing` 13, 40, 60,
+172, 183, 279, 280, 307, 308, 309, 350, 443, 446 · `marktmicrostructuur` 477,
+478 · `marxisme` 564 · `McKinsey` 511 · `media` 54, 60, 100, 562, 563, 564,
+565, 566 · `medische ethiek` 416 · `meditatie` 111, 141, 149, 169, 205, 208,
 228, 230, 237, 242, 333, 377, 401, 431, 527, 528 · `meesterschap` 296, 320,
 553 · `meetsystemen` 392 · `memento mori` 286 · `memoir` 4, 7, 18, 20, 26, 45,
 49, 62, 95, 106, 178, 185, 191, 226, 229, 242, 289, 324, 325, 348, 385, 402,
@@ -109541,21 +110770,22 @@ financiën` 163, 233, 395 · `persoonlijke ontwikkeling` 161, 465, 467 ·
 `plantaardig-dieet` 324 · `plastische chirurgie` 411 · `plicht` 2 · `podcast`
 136, 465, 513 · `poëzie` 204 · `poker` 137 · `polarisatie` 305 · `polemiek` 67
 · `politicologie` 220, 221, 453, 455 · `politiek` 54, 219, 438 · `politieke
-filosofie` 394 · `populair` 77, 129, 133 · `populair-wetenschappelijk` 88,
-239, 326, 418, 451 · `populaire filosofie` 194 · `populaire psychologie` 156,
-429 · `portefeuille` 474 · `portefeuillebeheer` 507 · `portefeuilletheorie`
-503 · `portretten` 75, 94 · `positief denken` 83, 179, 516 · `positiegrootte`
-489, 490, 491, 493, 504, 506 · `positieve-psychologie` 207 · `positionering`
-443 · `postuum` 49 · `Praag` 173 · `praktijk` 459 · `praktisch` 118, 121, 140,
-159, 172 · `prentenboek` 167 · `presenteren` 82, 253 · `prestatie` 168, 291,
-372, 397, 488, 545 · `prestatiebeoordeling` 256 · `prestatiecultuur` 461 ·
+economie` 566 · `politieke filosofie` 394 · `populair` 77, 129, 133 ·
+`populair-wetenschappelijk` 88, 239, 326, 418, 451 · `populaire filosofie` 194
+· `populaire psychologie` 156, 429 · `portefeuille` 474 · `portefeuillebeheer`
+507 · `portefeuilletheorie` 503 · `portretten` 75, 94 · `positief denken` 83,
+179, 516 · `positiegrootte` 489, 490, 491, 493, 504, 506 ·
+`positieve-psychologie` 207 · `positionering` 443 · `postmodernisme` 565 ·
+`postuum` 49 · `Praag` 173 · `praktijk` 459 · `praktisch` 118, 121, 140, 159,
+172 · `prentenboek` 167 · `presenteren` 82, 253 · `prestatie` 168, 291, 372,
+397, 488, 545 · `prestatiebeoordeling` 256 · `prestatiecultuur` 461 ·
 `prestatieonderzoek` 376 · `prestige` 515 · `preventie` 86, 313 ·
 `prijsstelling` 307 · `prijzen` 23, 424 · `prikkels` 60, 65 · `prioriteiten`
 25, 196 · `prioriteren` 151, 311, 448 · `privacy` 393 · `proactief` 25 ·
 `producer` 17 · `product` 446 · `productiviteit` 151, 175, 197, 207, 244, 276,
 278, 290, 311, 400, 434, 442, 448, 512, 552 · `productontwerp` 231, 294 ·
 `productontwikkeling` 265, 471 · `proeven` 112 · `programmering` 439 ·
-`projecten` 81 · `projectie` 107, 108 · `propaganda` 60, 384 ·
+`projecten` 81 · `projectie` 107, 108 · `propaganda` 60, 384, 562, 566 ·
 `propositielogica` 437 · `protocol` 69 · `pseudokennis` 126 · `pseudoniem` 378
 · `psychedelica` 275 · `psychiatrie` 1, 48, 95, 96, 104, 213, 314, 315, 317,
 331 · `psychoanalyse` 223, 360, 361, 405, 409 · `psychologie` 23, 28, 29, 55,
@@ -109568,13 +110798,13 @@ filosofie` 394 · `populair` 77, 129, 133 · `populair-wetenschappelijk` 88,
 `quantum` 94 · `queeste` 522 · `quilten` 114 · `quotes` 179 · `radicale
 transparantie` 270 · `RAND` 454, 456 · `Rat-Pack` 178 · `rationaliteit` 454 ·
 `rationele keuze` 455 · `recht` 393 · `rechtspraak` 69 · `reclame` 206, 279,
-443, 446 · `reeks` 114, 192 · `regimeverandering` 220 · `reïncarnatie` 202 ·
-`reïnventie` 344 · `reisverhaal` 1 · `reizen` 278 · `relaties` 34, 51, 101,
-120, 122, 145, 152, 162, 164, 166, 167, 195, 213, 334, 335, 381, 398, 406, 466
-· `relatietherapie` 165 · `relativiteitstheorie` 240, 281 · `religie` 56 ·
-`religieuze symboliek` 409 · `REM` 52 · `remarkable` 446 · `Renaissance` 15,
-241 · `rente` 38 · `replicatie` 79 · `reputatie` 388 · `retorica` 253, 438 ·
-`revisie` 18 · `ridderepos` 534 · `rijkdom` 57, 228 · `risico` 64, 80, 144,
+443, 446, 563 · `reeks` 114, 192 · `regimeverandering` 220 · `reïncarnatie`
+202 · `reïnventie` 344 · `reisverhaal` 1 · `reizen` 278 · `relaties` 34, 51,
+101, 120, 122, 145, 152, 162, 164, 166, 167, 195, 213, 334, 335, 381, 398,
+406, 466 · `relatietherapie` 165 · `relativiteitstheorie` 240, 281 · `religie`
+56 · `religieuze symboliek` 409 · `REM` 52 · `remarkable` 446 · `Renaissance`
+15, 241 · `rente` 38 · `replicatie` 79 · `reputatie` 388 · `retorica` 253, 438
+· `revisie` 18 · `ridderepos` 534 · `rijkdom` 57, 228 · `risico` 64, 80, 144,
 268, 282, 351, 423, 425, 480, 481, 482, 487, 496, 500, 501 · `risicobeheer`
 479, 489, 490, 491, 492, 493, 494, 497, 498, 504, 506 · `ritueel` 404 ·
 `rituelen` 304 · `rivier als symbool` 287 · `roem-en-eenzaamheid` 178 ·
@@ -109589,28 +110819,29 @@ tijd` 281 · `ruimtevaart` 266 · `russische literatuur` 235 · `rust` 32 ·
 `scheikunde` 92 · `school` 53, 84 · `schrijven` 11, 12, 14, 18, 19, 81, 436,
 511 · `schrijverschap` 191, 325 · `schuld` 254 · `schulden` 20, 38, 121, 159,
 464 · `seksualiteit` 100, 145, 164, 165, 316 · `selectoraattheorie` 221 ·
-`seminar` 139, 543 · `Shaolin` 389 · `Silicon Valley` 306 · `sirtuïnen` 415 ·
-`slaap` 52, 87, 88, 171, 181, 316, 329, 414 · `slaapapneu` 332 · `slavernij`
-68 · `smartphone` 53, 288 · `sociale besmetting` 303 · `sociale media` 53, 70,
-194, 198, 204, 288, 365 · `sociale psychologie` 215, 280, 302, 319 ·
-`sociale-vaardigheden` 398 · `sociologie` 300 · `soefisme` 524, 526 ·
-`software` 276, 484 · `somberheid` 119 · `spanning` 101 · `sparen` 21, 38,
-159, 233, 464 · `Sparta` 529 · `specialisatie` 349 · `speedreading` 175 ·
-`spel` 550 · `spelen` 32 · `spellen` 392 · `speltheorie` 217, 221, 450, 451,
-452, 453, 454, 455, 456 · `spiegelneuronen` 303 · `spiegeloefening` 380 ·
-`spiegelogie` 108 · `spieropbouw` 316 · `spijt` 447 · `spiritualiteit` 8, 14,
-27, 102, 108, 141, 149, 160, 169, 184, 190, 195, 196, 199, 242, 310, 358, 377,
-431, 435, 449, 519, 526, 556 · `spirituele zoektocht` 287, 524 · `sport` 20,
-349 · `sportpsychologie` 372, 374, 441 · `sportwetenschap` 461 · `spreekangst`
-253 · `spreker` 117, 134 · `staartrisico` 494, 496 · `staatsgreep` 220 ·
-`stalking` 214 · `standaarden` 396 · `Stanford` 150, 388, 458 · `start-ups`
-306 · `startups` 265 · `statistiek` 55, 65, 69, 234, 268, 300, 426, 476, 479,
-483, 484, 485, 497, 500, 502, 503, 507 · `statistiek van uitzonderingen` 274 ·
-`status` 39, 66, 463 · `sterfelijkheid` 2, 71, 232, 295, 416, 516 ·
-`sterrenkunde` 99 · `sterven` 49, 95, 275, 447 · `stijl` 18, 436 · `stoicijns`
-75, 140, 142 · `stoïcijnse filosofie` 153, 228, 232, 286, 423, 459 ·
-`stoïcijnse levenshouding` 402 · `stoïcijnse-houding` 462 · `stoïcisme` 2, 30,
-194, 247, 248, 292, 516 · `stommiteit` 155 · `storytelling` 253, 279 ·
+`seminar` 139, 543 · `Shaolin` 389 · `Silicon Valley` 306 · `simulatie` 565 ·
+`sirtuïnen` 415 · `situationisme` 564 · `slaap` 52, 87, 88, 171, 181, 316,
+329, 414 · `slaapapneu` 332 · `slavernij` 68 · `smartphone` 53, 288 · `sociale
+besmetting` 303 · `sociale media` 53, 70, 194, 198, 204, 288, 365 · `sociale
+psychologie` 215, 280, 302, 319 · `sociale-vaardigheden` 398 · `sociologie`
+300 · `soefisme` 524, 526 · `software` 276, 484 · `somberheid` 119 ·
+`spanning` 101 · `sparen` 21, 38, 159, 233, 464 · `Sparta` 529 ·
+`specialisatie` 349 · `speedreading` 175 · `spel` 550 · `spelen` 32 ·
+`spellen` 392 · `speltheorie` 217, 221, 450, 451, 452, 453, 454, 455, 456 ·
+`spiegelneuronen` 303 · `spiegeloefening` 380 · `spiegelogie` 108 ·
+`spieropbouw` 316 · `spijt` 447 · `spiritualiteit` 8, 14, 27, 102, 108, 141,
+149, 160, 169, 184, 190, 195, 196, 199, 242, 310, 358, 377, 431, 435, 449,
+519, 526, 556 · `spirituele zoektocht` 287, 524 · `sport` 20, 349 ·
+`sportpsychologie` 372, 374, 441 · `sportwetenschap` 461 · `spreekangst` 253 ·
+`spreker` 117, 134 · `staartrisico` 494, 496 · `staatsgreep` 220 · `stalking`
+214 · `standaarden` 396 · `Stanford` 150, 388, 458 · `start-ups` 306 ·
+`startups` 265 · `statistiek` 55, 65, 69, 234, 268, 300, 426, 476, 479, 483,
+484, 485, 497, 500, 502, 503, 507 · `statistiek van uitzonderingen` 274 ·
+`status` 39, 66, 463 · `stereotypen` 562 · `sterfelijkheid` 2, 71, 232, 295,
+416, 516 · `sterrenkunde` 99 · `sterven` 49, 95, 275, 447 · `stijl` 18, 436 ·
+`stoicijns` 75, 140, 142 · `stoïcijnse filosofie` 153, 228, 232, 286, 423, 459
+· `stoïcijnse levenshouding` 402 · `stoïcijnse-houding` 462 · `stoïcisme` 2,
+30, 194, 247, 248, 292, 516 · `stommiteit` 155 · `storytelling` 253, 279 ·
 `strategie` 212, 217, 218, 219, 249, 250, 260, 272, 293, 306, 346, 353, 370,
 426, 440, 443, 450, 451, 456 · `streken` 112 · `stress` 80, 87, 106, 118, 187,
 387, 458 · `stressmanagement` 153 · `stressregulatie` 372 · `strip` 452 ·
@@ -109693,30 +110924,31 @@ tijd` 281 · `ruimtevaart` 266 · `russische literatuur` 235 · `rust` 32 ·
 `WRAP` 510 · `wrok` 530 · `wu wei` 394 · `Yale` 215 · `yin-yang` 394 · `yoga`
 195, 242, 518 · `young adult` 192 · `youtube` 245 · `zakelijk` 307 ·
 `zakelijke communicatie` 182 · `zakendoen` 348, 367, 465, 508 · `zeereis` 36 ·
-`zeevaart` 321 · `zeldzaam` 144 · `zelfacceptatie` 176, 335 · `zelfbedrog` 66
-· `zelfbeeld` 25, 27, 105, 107, 108, 129, 138, 197, 367, 372, 411, 439, 538,
-540, 559 · `zelfbeheersing` 75, 148, 212, 248, 286, 314, 382, 389, 396 ·
-`zelfbescherming` 214 · `zelfcompassie` 32, 551 · `zelfdiscipline` 2, 158,
-229, 244, 311, 544 · `zelfevaluatie` 270 · `zelfexperiment` 316, 318, 417 ·
-`zelfhulp` 15, 22, 25, 34, 58, 72, 76, 79, 83, 117, 134, 135, 136, 146, 147,
-148, 149, 150, 151, 152, 153, 156, 157, 158, 161, 162, 166, 168, 174, 175,
-176, 177, 179, 181, 184, 187, 188, 190, 193, 194, 195, 196, 199, 204, 207,
-208, 209, 210, 211, 213, 222, 224, 230, 255, 259, 291, 310, 334, 338, 356,
-373, 380, 389, 395, 398, 401, 403, 406, 411, 427, 429, 432, 435, 439, 449,
-459, 465, 513, 540, 543, 546, 548, 556, 557 · `zelfkennis` 258, 260, 361, 519,
-526 · `zelfliefde` 190, 195, 204, 380, 403, 549 · `zelfonderzoek` 315, 470,
-520, 527 · `zelfontplooiing` 393 · `zelfontwikkeling` 179 · `zelfpraat` 161 ·
-`zelfpromotie` 388 · `zelfpublicatie` 174 · `zelfregulatie` 153, 165, 177,
-541, 542 · `zelfsabotage` 161, 344 · `zelfspot` 19 · `zelfspraak` 439 ·
-`zelfstandig` 40, 515 · `zelfstandig denken` 211 · `zelfstandig ondernemen`
-198 · `zelfstandig starten` 210 · `zelfsturing` 142, 168 · `zelfuitgegeven`
-123, 124, 125, 126 · `zelfverbetering` 243 · `zelfvertrouwen` 157, 187, 312,
-365, 440, 441 · `zelfwaarde` 168 · `zelfwaardering` 121 · `zelfzorg` 109, 225,
-466 · `zen` 141, 346, 441, 517, 528 · `zenboeddhisme` 205, 379 ·
-`zenuwstelsel` 87 · `zeven-stappen` 129 · `ziekte` 74, 180, 295 · `zingeving`
-9, 48, 77, 91, 160, 183, 200, 201, 237, 245, 255, 515, 547 · `zitten` 84 ·
-`zorg` 96 · `Zuid-Afrika` 26, 266, 523 · `zuinigheid` 39 · `zwaar` 143 ·
-`zwaardvechten` 346, 517 · `zwart bewustzijn` 523 · `zwarte gaten` 99, 262
+`zeevaart` 321 · `zeldzaam` 144 · `zelfacceptatie` 176, 335, 561 ·
+`zelfbedrog` 66 · `zelfbeeld` 25, 27, 105, 107, 108, 129, 138, 197, 367, 372,
+411, 439, 538, 540, 559 · `zelfbeheersing` 75, 148, 212, 248, 286, 314, 382,
+389, 396 · `zelfbescherming` 214 · `zelfcompassie` 32, 551 · `zelfdiscipline`
+2, 158, 229, 244, 311, 544 · `zelfevaluatie` 270 · `zelfexperiment` 316, 318,
+417 · `zelfhulp` 15, 22, 25, 34, 58, 72, 76, 79, 83, 117, 134, 135, 136, 146,
+147, 148, 149, 150, 151, 152, 153, 156, 157, 158, 161, 162, 166, 168, 174,
+175, 176, 177, 179, 181, 184, 187, 188, 190, 193, 194, 195, 196, 199, 204,
+207, 208, 209, 210, 211, 213, 222, 224, 230, 255, 259, 291, 310, 334, 338,
+356, 373, 380, 389, 395, 398, 401, 403, 406, 411, 427, 429, 432, 435, 439,
+449, 459, 465, 513, 540, 543, 546, 548, 556, 557, 561 · `zelfkennis` 258, 260,
+361, 519, 526 · `zelfliefde` 190, 195, 204, 380, 403, 549 · `zelfonderzoek`
+315, 470, 520, 527 · `zelfontplooiing` 393 · `zelfontwikkeling` 179 ·
+`zelfpraat` 161 · `zelfpromotie` 388 · `zelfpublicatie` 174 · `zelfregulatie`
+153, 165, 177, 541, 542 · `zelfsabotage` 161, 344 · `zelfspot` 19 ·
+`zelfspraak` 439 · `zelfstandig` 40, 515 · `zelfstandig denken` 211 ·
+`zelfstandig ondernemen` 198 · `zelfstandig starten` 210 · `zelfsturing` 142,
+168 · `zelfuitgegeven` 123, 124, 125, 126 · `zelfverbetering` 243 ·
+`zelfvertrouwen` 157, 187, 312, 365, 440, 441 · `zelfwaarde` 168 ·
+`zelfwaardering` 121 · `zelfzorg` 109, 225, 466 · `zen` 141, 346, 441, 517,
+528 · `zenboeddhisme` 205, 379 · `zenuwstelsel` 87 · `zeven-stappen` 129 ·
+`ziekte` 74, 180, 295 · `zingeving` 9, 48, 77, 91, 160, 183, 200, 201, 237,
+245, 255, 515, 547 · `zitten` 84 · `zorg` 96 · `Zuid-Afrika` 26, 266, 523 ·
+`zuinigheid` 39 · `zwaar` 143 · `zwaardvechten` 346, 517 · `zwart bewustzijn`
+523 · `zwarte gaten` 99, 262
 
 ## Leesroutes
 

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De spektakelmaatschappij &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Debord stelt dat in samenlevingen met moderne productieverhoudingen het leven zelf is teruggeweken in een voorstelling: wat direct werd geleefd,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-564">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">564 &middot; Vrij denken en manipulatie</p>
+    <h1>De spektakelmaatschappij</h1>
+    <p class="lede">Guy Debord, 1967</p>
+    <p class="stats">
+      <span><b>1409</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="564"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Debord stelt dat in samenlevingen met moderne productieverhoudingen het leven zelf is teruggeweken in een voorstelling: wat direct werd geleefd, verschijnt nog slechts als representatie. Het spektakel is daarbij geen verzameling beelden; het is een maatschappelijke verhouding tussen personen die door beelden wordt bemiddeld, de voltooide gedaante van de warenvorm. Na de degradatie van zijn naar hebben verschuift het bestaan verder van hebben naar verschijnen. Het spektakel is tegelijk resultaat en program van de bestaande orde: het is haar ononderbroken zelfrechtvaardiging, en het organiseert passiviteit door mensen tot toeschouwers van hun eigen leven te maken. Bevrijding kan volgens Debord alleen komen van arbeidersraden die de scheiding tussen leven en representatie in de praktijk opheffen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De voltooide scheiding</h3>
+      <p>De eerste 34 stellingen zetten het begrip neer. Het spektakel is de omkering van het leven: de beweging waarin het geleefde zich van de mens afscheidt en hem als zelfstandig beeld tegemoet treedt. Stelling 9 vat de omkering samen: in de werkelijk omgekeerde wereld is het ware een moment van het onware. De toeschouwer herkent zijn eigen verlangens in de getoonde beelden, en hoe meer hij aanschouwt, hoe minder hij leeft.</p>
+      <p>Scheiding is het grondwoord: arbeid gescheiden van haar product, macht gescheiden van de gemeenschap, het beeld gescheiden van het geleefde. Het spektakel voegt die scheidingen samen tot één schijnbare eenheid, die in werkelijkheid de taal van de heersende orde spreekt.</p>
+      <h3>De waar als spektakel</h3>
+      <p>Het tweede hoofdstuk trekt Marx' begrip warenfetisjisme door: de waar die een eigen leven lijkt te leiden, heeft in de overvloedseconomie het hele zichtbare leven bezet. De arbeider wordt buiten werktijd met beleefdheid omringd, omdat hij daar consument moet zijn; de economie die de mens eerst onderwierp om te produceren, onderwerpt hem nu ook in zijn zogenaamde vrije uren. Het spektakel is het moment waarop de waar de volledige bezetting van het maatschappelijk leven heeft bereikt.</p>
+      <p>De overvloed lost het overlevingsprobleem niet op maar rekt het op: Debord spreekt van vergrote overleving. De economie produceert voorbij de behoefte en moet daarom pseudo-behoeften scheppen die naar haar eigen producten verwijzen; bevrediging schuift steeds door naar de volgende aanschaf, en de teleurstelling over elk product wordt gedekt door de belofte van het volgende.</p>
+      <h3>Schijnbare eenheid, werkelijke verdeling</h3>
+      <p>Debord onderscheidt twee gedaanten. Het geconcentreerde spektakel hoort bij bureaucratische dictaturen en balt zich samen in de cultus van één leider. Het diffuse spektakel hoort bij de warenovervloed van het Westen en verspreidt zich over sterren en merkartikelen. De ster is de spectaculaire vertegenwoordiging van de levende mens: zij belichaamt schijnbare levensstijlen als vergoeding voor de versplinterde arbeid van de kijkers. Beide gedaanten verdedigen volgens Debord dezelfde orde en presenteren die als onontkoombaar.</p>
+      <h3>Het proletariaat en de tijd</h3>
+      <p>Het historische deel behandelt de arbeidersbeweging als geschiedenis van onteigende vertegenwoordiging: sociaaldemocratie en bolsjewisme namen de plaats van de arbeiders in en de bureaucratie voltooide die onteigening; tegenover partij en staat stelt Debord de arbeidersraden, met de Spaanse revolutie van 1936 als aangehaald moment.</p>
+      <p>De hoofdstukken over tijd behoren tot de meest uitgewerkte. Op de cyclische tijd van agrarische samenlevingen en de onomkeerbare historische tijd van de burgerlijke maatschappij volgt de pseudo-cyclische tijd van het spektakel: weekend, vakantie en vrijetijdsindustrie als consumeerbare herhalingen die als natuurlijk worden verpakt. Ook de ruimte wordt ingericht op scheiding: het urbanisme isoleert mensen in voorsteden en verkeer, ieder voor zijn eigen scherm.</p>
+      <h3>Cultuur en ideologie</h3>
+      <p>Cultuur die zich als aparte sector verzelfstandigt, wordt waar tussen de waren; kritiek wordt opgenomen en als product terugverkocht. Daartegenover plaatst Debord het détournement: het omleiden van bestaande beelden, teksten en citaten tegen hun oorspronkelijke functie in, een techniek die hij in het boek zelf toepast door Hegel en Marx onaangekondigd om te buigen. Het slothoofdstuk keert de klassieke ideologiekritiek om: ideologie hoeft niet langer geloofd te worden, zij is in het spektakel materieel geworden en toont zich als de werkelijkheid zelf.</p>
+      <h3>Het Commentaar van 1988: het geïntegreerde spektakel</h3>
+      <p>Eenentwintig jaar later stelt Debord vast dat de twee gedaanten zijn versmolten tot een geïntegreerd spektakel, met Frankrijk en Italië als proeftuin. Hij noemt vijf hoofdtrekken: onophoudelijke technologische vernieuwing, samensmelting van staat en economie, veralgemeende geheimhouding, de onweerlegbare leugen en een eeuwig heden. De mediamaatschappij schaft in zijn ogen het geheugen af: wie de geschiedenis niet meer kan raadplegen, kan de leugen van vandaag niet meer weerleggen. Desinformatie is daarbij volgens Debord geen storing van het systeem; zij dient het, omdat het bestaan van erkende desinformatie elke lastige waarheid als desinformatie verdacht laat maken. Het <i>Commentaar</i> is somberder dan het boek van 1967; van radenmacht is nauwelijks nog sprake.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">spektakel</td><td>De maatschappelijke verhouding tussen personen die door beelden wordt bemiddeld; het geheel van representaties dat de plaats van het direct geleefde leven inneemt.</td></tr>
+          <tr><td class="term">scheiding</td><td>Het grondbeginsel van het spektakel: de afsplitsing van arbeid, macht en beeld van het geleefde leven, waardoor de mens toeschouwer van zijn eigen bestaan wordt.</td></tr>
+          <tr><td class="term">warenfetisjisme</td><td>Marx' begrip voor de waar die een eigen leven lijkt te leiden; bij Debord de kiem van een wereld die als beeld verschijnt.</td></tr>
+          <tr><td class="term">geconcentreerd spektakel</td><td>De spektakelvorm van bureaucratische dictaturen, samengebald in de cultus van één leider.</td></tr>
+          <tr><td class="term">diffuus spektakel</td><td>De spektakelvorm van de warenovervloed, verspreid over sterren, merken en consumptiegoederen.</td></tr>
+          <tr><td class="term">geïntegreerd spektakel</td><td>De in het Commentaar van 1988 beschreven versmelting van beide vormen, waarin het spektakel de hele werkelijkheid doordringt.</td></tr>
+          <tr><td class="term">pseudo-cyclische tijd</td><td>De als natuurlijke kringloop verpakte herhaling van consumptietijd, zoals weekend en vakantie.</td></tr>
+          <tr><td class="term">ster</td><td>De spectaculaire vertegenwoordiging van de levende mens, die schijnbare levensstijlen belichaamt als vergoeding voor versplinterde arbeid.</td></tr>
+          <tr><td class="term">détournement</td><td>Het omleiden van bestaande beelden, teksten en citaten tegen hun oorspronkelijke functie in, als wapen tegen het spektakel.</td></tr>
+          <tr><td class="term">recuperatie</td><td>Het mechanisme waarmee het spektakel kritiek en rebellie opneemt en als product terugverkoopt.</td></tr>
+          <tr><td class="term">pseudo-behoefte</td><td>Door de economie zelf geschapen behoefte die naar haar producten verwijst en de bevrediging steeds naar de volgende aanschaf doorschuift.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Empirie ontbreekt geheel. De bewijsvoering bestaat uit begripsontwikkeling in de traditie van Hegel en Marx, met Lukács' analyse van de verdinglijking als schakel, en uit een historische duiding van de arbeidersbeweging, van de Russische revolutie tot de Spaanse raden van 1936. Citaten worden volgens het eigen procedé van het détournement onaangekondigd verwerkt en omgebogen, wat controle van de bronnen bemoeilijkt; het boek wil uitdrukkelijk geen wetenschap zijn maar kritiek.</p>
+      <p>Veel lezers voeren de latere ontwikkeling als bevestiging aan: beeldpolitiek, merkbeleving, reality-televisie en sociale media laten zich goed in Debords termen beschrijven, en het Commentaar van 1988 benoemde het samengaan van staat, economie en media voordat dat gemeengoed werd. Die voorspellende indruk heeft een keerzijde: de stellingen zijn zo algemeen geformuleerd dat vrijwel elke ontwikkeling erin past, en een waarneming die de theorie zou kunnen weerleggen, is niet aan te wijzen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is de totaalclaim. Een begrip dat alles verklaart, van dictatuur tot warenhuis, sluit weerlegging uit; wie het spektakel ontkent, bewijst binnen de theorie slechts hoe diep hij erin gevangen zit, en daarmee heeft het stelsel de structuur van een gesloten leer. Het aangeboden alternatief, de arbeidersraden, wordt nauwelijks uitgewerkt, had zijn historische nederlagen al geleden toen het boek verscheen, en het Commentaar van 1988 laat het stilzwijgend vallen.</p>
+      <p>De hegeliaanse stijl sluit lezers buiten; Debord verdedigde dat als noodzaak omdat heldere taal de taal van de heersende orde zou zijn, critici zien er maniërisme in. De tegenstelling tussen direct geleefd leven en representatie veronderstelt bovendien een onbemiddeld bestaan dat er nooit is geweest: elke cultuur bemiddelt haar leven door symbolen en verhalen. En het boek is zelf gerecupereerd, precies volgens het eigen begrip: het werd cultobject en modewoord, en Debord stelde in 1988 vast dat de spektakelmaatschappij zijn kritiek zonder merkbare schade had opgenomen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Reken bij een aankoop of abonnement na wat er wordt gekocht: het product, of het beeld van een leven dat erbij hoort.</li>
+        <li>Gebruik het boek als bril: zoek in werk, politiek en vrije tijd de plekken waar vertegenwoordiging de plaats van deelname heeft ingenomen, en wat directe deelname daar zou vragen.</li>
+        <li>Toets rebelse marketing aan het begrip recuperatie: kritiek die te koop wordt aangeboden, bevestigt wat zij zegt aan te vallen.</li>
+        <li>Lees de stellingen als scherpstelling en niet als bewezen theorie; de waarde zit in de vragen die ze losmaken, de bewijslast blijft bij de lezer.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>De spektakelmaatschappij &amp; Commentaar op de spektakelmaatschappij</i> (vertaald door Rokus Hofstede, Jaap Kloosterman en René van de Kraats, Uitgeverij IJzer, Utrecht, 2015, 271 blz., ISBN 9789086841141). Oorspronkelijk verschenen als <i>La Société du spectacle</i> (Buchet/Chastel, Parijs, 1967, vóór de invoering van het ISBN); het <i>Commentaar</i> volgde in 1988. Eerdere Nederlandse vertalingen verschenen bij Het Wereldvenster (1976) en De Dolle Hond (2001).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Guy Debord, spil van de Situationistische Internationale, vatte zijn kritiek op de naoorlogse consumptiemaatschappij samen in 221 genummerde stellingen. De opening is een parodie op Marx: het hele leven van samenlevingen met moderne productieverhoudingen dient zich aan als een onmetelijke opeenstapeling van spektakels; wat direct werd geleefd, is verdwenen in een voorstelling. Het spektakel is bij Debord geen verzameling beelden; het is een maatschappelijke verhouding tussen personen die door beelden wordt bemiddeld: de warenvorm die het hele bestaan heeft doordrongen, van werk en politiek tot vrije tijd.</p><p>Het boek werd een referentiepunt in de Parijse opstand van mei 1968 en geldt als de kerntekst van het situationisme. In 1988 voegde Debord er het <i>Commentaar</i> aan toe, waarin hij de twee spektakelvormen van 1967 opgevolgd zag door een geïntegreerd spektakel dat de hele werkelijkheid doordringt. De Nederlandse uitgave van IJzer bundelt beide teksten. De stijl is hegeliaans en aforistisch: het boek beweert veel en bewijst weinig, en juist de totaalclaim maakte het invloedrijk en omstreden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>media</li><li>consumptiemaatschappij</li><li>situationisme</li><li>marxisme</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="54"><a href="54.html">Amusing Ourselves to Death</a>. <i>Amusing Ourselves to Death</i> stelt een verwante diagnose zonder marxistisch kader en legt de oorzaak bij het medium in plaats van bij de warenvorm.</li>
+          <li value="61"><a href="61.html">Brave New World</a>. <i>Brave New World</i> is de romanversie van beheersing door genot en verstrooiing, het diffuse spektakel als fictie.</li>
+          <li value="288"><a href="288.html">Digital Minimalism</a>. <i>Digital Minimalism</i> is de praktische, onpolitieke tegenhanger: aandacht terugwinnen uit de beeldeneconomie zonder de maatschappijkritiek.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

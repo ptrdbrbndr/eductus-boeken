@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Image: A Guide to Pseudo-Events in America &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Boorstin stelt dat Amerika sinds de grafische revolutie wordt overspoeld door pseudo-events: gebeurtenissen die worden georganiseerd om verslagen te…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-563">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">563 &middot; Vrij denken en manipulatie</p>
+    <h1>The Image: A Guide to Pseudo-Events in America</h1>
+    <p class="lede">Daniel J. Boorstin, 1962</p>
+    <p class="stats">
+      <span><b>1433</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="563"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Boorstin stelt dat Amerika sinds de grafische revolutie wordt overspoeld door pseudo-events: gebeurtenissen die worden georganiseerd om verslagen te worden en waarvan het succes wordt afgemeten aan de aandacht die ze krijgen. Omdat het publiek dagelijks meer nieuws verwacht dan de werkelijkheid aan gebeurtenissen oplevert, wordt het verschil bijgemaakt: door redacties, persvoorlichters, reclamemakers en politici. Zo verdringt de celebrity de held, de toerist de reiziger en het imago het ideaal, en wordt geloofwaardigheid de maatstaf in plaats van waarheid. Het gevaar zit volgens Boorstin minder in bedrog van bovenaf dan in zelfmisleiding: een volk dat zijn eigen illusies voor de wereld aanziet en dat oprechter wordt bedrogen naarmate het beter wordt bediend.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Van nieuwsgaring naar nieuwsproductie</h3>
+      <p>Boorstin opent met de definitie. Een pseudo-event heeft vier kenmerken: het ontstaat niet spontaan maar is gepland; het is opgezet om verslagen te worden, met de timing afgestemd op de media; zijn verhouding tot de onderliggende werkelijkheid is dubbelzinnig; en het is bedoeld als voorspelling die zichzelf waarmaakt. Zijn voorbeeld komt uit een handboek public relations: een hotel dat aan aanzien wil winnen, viert zijn dertigjarig jubileum met comité en fotografen, en het gevierde aanzien ontstaat door de viering.</p>
+      <p>Daarna volgt de geschiedenis van de productie van nieuws: het interview als journalistieke uitvinding van de negentiende eeuw, het persbericht, de presidentiële persconferentie, het proefballonnetje en het geplande lek. Pseudo-events winnen het van echte gebeurtenissen omdat ze helderder zijn, herhaalbaar, vooraf aangekondigd en op de deadline gemaakt; hun dubbelzinnigheid maakt ze bovendien bespreekbaar, want over de vraag wat er werkelijk achter zat, valt eindeloos te berichten. Ze planten zich ook voort: op de verklaring volgt de ontkenning, op de ontkenning het weerwoord, en elk van die zetten is opnieuw een pseudo-event. Het debat Kennedy-Nixon van 1960 dient als sluitstuk: een geënsceneerde krachtmeting die vooral het vermogen mat om een geënsceneerde krachtmeting te winnen.</p>
+      <h3>Van held naar celebrity</h3>
+      <p>De held werd gekend om zijn daden, groeide langzaam in aanzien en werd vaak pas na zijn dood groot. De celebrity is het menselijke pseudo-event: gemaakt door publiciteit, gekend om zijn bekendheid, en daarom ook snel weer vervangbaar. Boorstins formule werd spreekwoordelijk: de celebrity is iemand die bekend is om zijn bekendheid.</p>
+      <p>Charles Lindbergh dient als scharnierfiguur: zijn solovlucht over de oceaan in 1927 was een daad, maar de mediamachine maakte van de vlieger een beroemdheid wiens roem vooral over die roem ging. Waar de held een voorbeeld gaf, biedt de celebrity herkenbaarheid; hij is, schrijft Boorstin, het menselijk evenbeeld van de merkartikelen die hij aanprijst.</p>
+      <p>Het verschil zit ook in de tijd. De naam van een held groeide over generaties, en dood maakte hem groter. De roem van een celebrity slijt in maanden; de machine die hem maakte, moet hem doorlopend vervangen, en een vergeten celebrity laat niets na dat aan een daad herinnert.</p>
+      <h3>Van reiziger naar toerist</h3>
+      <p>Reizen was ooit inspanning en risico; Boorstin wijst op de verwantschap van het Engelse travel met travail, zwoegen. De toerist koopt een verpakte ervaring: de reis is vooraf geregeld, de bezienswaardigheden worden voor hem opgevoerd en de folkloreshow is een pseudo-event dat alleen voor bezoekers bestaat. De ervaring wordt vervolgens getoetst aan het beeld uit de reisgids, en geslaagd heet de reis die op haar afbeelding lijkt.</p>
+      <p>Ook het museum hoort in deze keten: het tilt voorwerpen uit hun verband en toont ze als bezienswaardigheid, netjes geordend voor de bezoeker die het echte leven van een land juist misloopt. Boorstin merkt op dat landen hun attracties gaan inrichten naar het beeld dat de toerist al meebrengt.</p>
+      <h3>Van vormen naar schaduwen</h3>
+      <p>Ook kunstvormen lossen op in hun afgeleiden. Boorstin beschrijft de keten van bewerkingen: de roman wordt film, de film wordt trailer, het boek wordt uittreksel en het uittreksel wordt samengevat. <i>Reader's Digest</i> is zijn hoofdvoorbeeld: het blad begon met samenvatten en ging er later toe over artikelen zelf te bestellen om ze te kunnen samenvatten; de afgeleide ging aan het origineel voorafgaan.</p>
+      <p>Het patroon is steeds hetzelfde: de vorm die ergens voor stond, verdwijnt achter versies die makkelijker te consumeren zijn, en de vraag wat het origineel nog betekent, raakt buiten beeld.</p>
+      <h3>Van ideaal naar imago</h3>
+      <p>In reclame en public relations wordt het imago het richtpunt: een bewust gebouwd beeld dat synthetisch is, geloofwaardig, passief, levendig en versimpeld. Organisaties en politici richten hun gedrag vervolgens naar hun eigen beeld; het imago gaat het handelen sturen in plaats van andersom. Een ideaal was iets om naar te streven en schoot per definitie tekort; een imago is iets om aan te voldoen.</p>
+      <p>Daarmee verschuift ook de maatstaf van het publieke spreken. De toets wordt of iets geloofwaardig overkomt, los van de vraag of het waar is; Boorstin spreekt van een cultuur waarin de leugen niet eens meer nodig is, omdat de plausibele versie volstaat.</p>
+      <h3>De Amerikaanse droom als illusie</h3>
+      <p>Het slothoofdstuk trekt de lijn door naar de natie zelf. Amerika verkoopt de wereld zijn imago, verwart prestige met grootheid en gelooft zijn eigen reclame; dat noemt Boorstin gevaarlijker dan vijandige propaganda, omdat zelfmisleiding geen tegenstander heeft. Een program biedt hij niet: illusies verdrijf je niet met een tegenillusie. Het enige dat hij aanreikt is de opdracht de eigen illusies te leren zien, in het besef dat de wereld daarbuiten weerbarstig blijft en zich uiteindelijk niet naar het beeld voegt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">pseudo-event</td><td>Geplande gebeurtenis die bestaat om verslagen te worden en waarvan het succes wordt afgemeten aan de media-aandacht die ze krijgt.</td></tr>
+          <tr><td class="term">grafische revolutie</td><td>Het sinds de negentiende eeuw gegroeide vermogen om beelden en berichten massaal te vermenigvuldigen en te verspreiden.</td></tr>
+          <tr><td class="term">buitensporige verwachtingen</td><td>De eis van het publiek dat de wereld dagelijks meer nieuws en belevenis levert dan er werkelijk gebeurt.</td></tr>
+          <tr><td class="term">celebrity</td><td>Het menselijke pseudo-event: iemand die bekend is om zijn bekendheid, gemaakt door publiciteit en daardoor vervangbaar.</td></tr>
+          <tr><td class="term">held</td><td>Figuur die aan zijn daden wordt gemeten en langzaam in aanzien groeit, bij Boorstin de verdrongen voorganger van de celebrity.</td></tr>
+          <tr><td class="term">imago</td><td>Bewust gebouwd, versimpeld en geloofwaardig beeld waarnaar een persoon of organisatie zich vervolgens zelf gaat richten.</td></tr>
+          <tr><td class="term">geloofwaardigheid</td><td>De maatstaf die in een beeldcultuur de plaats van waarheid inneemt: niet of iets klopt, maar of het aannemelijk overkomt.</td></tr>
+          <tr><td class="term">zichzelf waarmakende voorspelling</td><td>Kenmerk van het pseudo-event: de aankondiging schept de werkelijkheid die zij aankondigt, zoals het jubileum dat het gevierde aanzien zelf voortbrengt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is cultuurgeschiedenis in essayvorm, zonder kwantitatieve onderbouwing. De bewijsvoering bestaat uit gedocumenteerde voorbeelden: de opkomst van interview en persbericht in de negentiende-eeuwse journalistiek, de werkwijze van <i>Reader's Digest</i>, de hotelcasus uit de pr-literatuur, de verslaggeving rond Lindbergh en de debatten van 1960. Boorstin was historicus en zijn voorbeelden zijn controleerbaar; zijn generalisaties daaroverheen zijn dat niet.</p>
+      <p>De houdbaarheid bleek vooral achteraf. Pseudo-event werd een vakterm in journalistiek en communicatiewetenschap, en de ontwikkeling naar reality-televisie, influencers en beroepsmatige bekendheid wordt geregeld als bevestiging aangevoerd; Boorstin beschreef het mechanisme voordat de zwaarste voorbeelden bestonden. Daar staat tegenover dat de theorie geen scherpe grens biedt tussen gemaakte en echte gebeurtenis, en dus moeilijk te weerleggen valt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar richt zich op de nostalgische onderlaag. Het boek veronderstelt een vroeger van echte helden, echte reizigers en onbemiddelde ervaring dat historisch niet zuiverder was: vorsten organiseerden hun roem al eeuwen en ook de kroning en de triomftocht waren ensceneringen. Het onderscheid tussen echt en gemaakt, waar de hele redenering op rust, vervaagt bij doorvragen, en Boorstin erkent dat maar gedeeltelijk.</p>
+      <p>Daarnaast ontbreekt een machtsanalyse. Boorstin beschrijft de beeldcultuur als collectieve zelfmisleiding waar vraag en aanbod elkaar vinden, en vraagt nauwelijks wie aan de productie van pseudo-events verdient of wie de middelen ervoor bezit; latere media-kritiek, van politieke economie tot platformonderzoek, vult juist dat gat. De toon is bovendien die van de gestudeerde waarnemer die het publiek zijn illusies verwijt, en een uitweg biedt het boek niet: het eindigt bij bewustwording, zonder aanwijzing wat een redactie, school of lezer vervolgens anders moet doen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij elk nieuwsbericht of de gebeurtenis ook zonder camera's had plaatsgevonden; zo niet, lees het als de boodschap van een belanghebbende.</li>
+        <li>Houd in eigen communicatie prestatie en publiciteit uit elkaar; zorg dat er iets gepresteerd is voordat de viering wordt georganiseerd.</li>
+        <li>Toets een reis of aankoop aan wat er te ervaren valt, los van het beeld dat er vooraf van is verkocht.</li>
+        <li>Wantrouw de vraag hoe iets overkomt zodra zij de vraag verdringt of het klopt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Image: A Guide to Pseudo-Events in America</i> (oorspronkelijk verschenen als <i>The Image: or, What Happened to the American Dream</i>, Atheneum, New York, 1962, 315 blz., vóór de invoering van het ISBN; gangbare paperback: Vintage Books, 1992, 319 blz., ISBN 9780679741800). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Historicus Daniel Boorstin, later bibliothecaris van het Amerikaanse Congres, beschrijft hoe de Amerikaanse cultuur zich vulde met gebeurtenissen die alleen bestaan om verslagen te worden. Hij noemt ze pseudo-events: het hoteljubileum dat wordt gevierd om het hotel in het nieuws te brengen, de persconferentie, het geplande lek, het televisiedebat. Aanleiding was onder meer het eerste Kennedy-Nixon-debat van 1960, waarin kijkers een president kozen op zijn schermoptreden.</p><p>De motor is volgens Boorstin de grafische revolutie, het vermogen om beelden en berichten massaal te vermenigvuldigen, gekoppeld aan buitensporige verwachtingen van een publiek dat elke dag meer nieuws eist dan de wereld levert. Dat gat wordt gevuld met gemaakte gebeurtenissen en gemaakte mensen: de celebrity, bekend om zijn bekendheid, verdringt de held, die aan zijn daden werd gemeten. Het boek leverde begrippen die in het media-onderzoek gangbaar werden en wordt vaak gelezen als vooruitblik op reality-televisie en sociale media, al biedt het zelf geen remedie.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>media</li><li>beeldcultuur</li><li>beroemdheid</li><li>reclame</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="54"><a href="54.html">Amusing Ourselves to Death</a>. <i>Amusing Ourselves to Death</i> bouwt op dezelfde diagnose voort en verlegt het accent van de gemaakte gebeurtenis naar het medium televisie zelf.</li>
+          <li value="60"><a href="60.html">Trust Me, I'm Lying</a>. <i>Trust Me, I'm Lying</i> beschrijft hoe pseudo-events in de blogeconomie industrieel worden geproduceerd, met Boorstin als aangehaalde bron.</li>
+          <li value="279"><a href="279.html">All Marketers Are Liars</a>. <i>All Marketers Are Liars</i> toont de makerskant: marketing als het leveren van verhalen die klanten zichzelf willen vertellen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
