@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 21
-augustus 2026: 677 titels in 20 rubrieken.
+augustus 2026: 682 titels in 20 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -20,14 +20,14 @@ bij de volgende build verloren.
 | Werk en aandacht | concentratie, aantekeningen en het inrichten van je eigen werk | 70, 78, 81, 151, 170, 197, 200, 207, 249, 256, 276, 278, 288, 290, 311, 400, 420, 448, 472, 512, 552 |
 | Schrijfambacht | schrijven als vak, door schrijvers zelf uitgelegd | 18, 19 |
 | Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153, 157, 158, 161, 168, 176, 177, 181, 193, 209, 211, 224, 238, 244, 252, 268, 274, 282, 283, 291, 296, 310, 349, 382, 392, 396, 397, 411, 422, 423, 424, 425, 426, 436, 439, 450, 451, 452, 469, 475, 487, 488, 509, 510, 514, 538, 540, 542 |
-| Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275, 303, 313, 314, 315, 316, 317, 318, 326, 329, 330, 331, 332, 333, 339, 357, 359, 360, 361, 386, 387, 401, 404, 409, 410, 412, 414, 415, 417, 418, 419, 432, 441, 458, 541, 557, 575, 583, 585, 671 |
+| Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275, 303, 313, 314, 315, 316, 317, 318, 326, 329, 330, 331, 332, 333, 339, 357, 359, 360, 361, 386, 387, 401, 404, 409, 410, 412, 414, 415, 417, 418, 419, 432, 441, 458, 541, 557, 575, 583, 585, 671, 713 |
 | Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63, 123, 124, 125, 126, 212, 213, 215, 250, 258, 280, 381, 384, 388, 429, 440, 562, 563, 564, 565, 566, 664, 667, 668, 672, 673, 674, 686 |
 | Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144, 159, 163, 172, 183, 185, 198, 210, 222, 231, 233, 243, 245, 246, 257, 260, 264, 265, 266, 270, 277, 279, 293, 294, 306, 307, 308, 309, 344, 348, 350, 351, 353, 365, 369, 370, 395, 427, 434, 443, 446, 463, 464, 465, 474, 476, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 491, 492, 494, 496, 499, 501, 502, 503, 544, 567, 570 |
 | Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156, 162, 182, 186, 253, 271, 273, 302, 304, 305, 338, 356, 364, 367, 398, 399, 438, 444, 466, 468, 508, 511, 551 |
 | Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140, 174, 189, 194, 229, 247, 248, 286, 289, 323, 324, 372, 373, 374, 375, 389, 457, 460, 467, 470, 513, 545 |
 | Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49, 285, 447 |
-| Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537, 568, 588, 589, 591, 592, 593, 594, 595, 597, 598, 599, 600, 601, 602, 665, 680, 681, 682, 683, 684, 685, 687, 688, 689, 690, 691, 692, 693, 694 |
-| Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347, 383, 413, 539, 555, 648, 649, 650, 651, 653, 654, 655, 656, 657, 658, 659, 660, 661, 662 |
+| Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537, 568, 588, 589, 591, 592, 593, 594, 595, 597, 598, 599, 600, 601, 602, 665, 680, 681, 682, 683, 684, 685, 687, 688, 689, 690, 691, 692, 693, 694, 714 |
+| Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347, 383, 413, 539, 555, 648, 649, 650, 651, 653, 654, 655, 656, 657, 658, 659, 660, 661, 662, 710, 711, 712 |
 | Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102, 108, 117, 127, 128, 129, 130, 131, 132, 136, 139, 179, 184, 188, 190, 196, 259, 340, 362, 378, 380, 403, 433, 543, 548, 549, 559, 560 |
 | Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122, 327, 421, 437, 456, 477, 478, 493, 495, 497, 498, 500, 504, 506, 507 |
 | Filosofie en mystiek | wijsgerige hoofdwerken en mystieke teksten over wat werkelijk is en hoe te leven | 572, 573, 574, 576, 577, 578, 580, 581, 582, 584, 587, 590, 596, 603, 604, 605, 606, 608, 609, 610, 611, 612, 613, 614, 615, 630, 631, 632, 633, 634, 635, 636, 637, 638, 639, 640, 641, 642, 643, 644, 645, 646, 647, 652, 663, 666, 669, 670, 675, 676, 677, 678, 679 |
@@ -134077,6 +134077,1221 @@ strategisch advies aan de macht, geschreven om gelezen te worden.
 van de spelers op Brzezinski's bord vanuit hun binnenlandse machtslogica,
 precies wat het schaakbordperspectief weglaat.
 
+## 710. Other Minds: The Octopus, the Sea, and the Deep Origins of Consciousness
+
+Peter Godfrey-Smith, 2016. *Other Minds: The Octopus, the Sea, and the Deep
+Origins of Consciousness* (Farrar, Straus and Giroux, New York, 2016, 272
+blz., ISBN 9780374227760; Britse editie bij William Collins, Londen, 2016).
+Nederlandse vertaling: *Buitengewoon bewustzijn: de octopus en de evolutie van
+de intelligentie* (Spectrum, Amsterdam, 2020, 296 blz., ISBN 9789000369881,
+e-boek ISBN 9789000369898). Rubriek: natuur en wetenschap.
+Tags: `octopus`, `bewustzijn`, `evolutie`, `dierkunde`, `filosofie van de
+biologie`
+
+Peter Godfrey-Smith is filosoof van de biologie, verbonden aan de Universiteit
+van Sydney en eerder aan Harvard en het City University of New York, en
+daarnaast duiker. In dit boek gebruikt hij de octopus als tweede geval in de
+natuur waarin een groot en ingewikkeld zenuwstelsel is ontstaan. De laatste
+gemeenschappelijke voorouder van mens en koppotige leefde ruim zeshonderd
+miljoen jaar geleden en had nauwelijks een zenuwstelsel, waardoor de octopus
+geldt als een aparte proef van de evolutie met dezelfde grondstof.
+
+Het boek wisselt duikverslagen af met evolutiebiologie, zenuwfysiologie en
+filosofie over subjectieve ervaring. Godfrey-Smith beschrijft het
+gedecentraliseerde lichaam van de octopus, het kleurenspel van een dier dat
+zelf kleurenblind is, en de plek in Jervis Bay die hij Octopolis noemt, waar
+octopussen tegen hun reputatie in samenleven. Het werk kreeg brede lof in de
+vakpers en bij algemene recensenten en werd gevolgd door *Metazoa* (2020).
+
+### Uitgebreide samenvatting
+
+**De stelling.** Godfrey-Smith stelt dat de geest in de evolutie minstens twee
+keer los van elkaar is ontstaan. De laatste gemeenschappelijke voorouder van
+mens en octopus leefde ruim zeshonderd miljoen jaar geleden en was een klein,
+plat organisme met hooguit een handvol zenuwcellen, zodat het omvangrijke
+zenuwstelsel van koppotigen een tweede, onafhankelijke poging van de natuur
+vertegenwoordigt. Daaruit trekt hij een filosofische conclusie die verder gaat
+dan de zeebiologie: subjectieve ervaring is geen late uitvinding die pas
+verschijnt bij taal, cultuur of een grote hersenschors, maar groeit
+geleidelijk uit het werk dat elk zenuwstelsel verricht, namelijk waarnemen en
+handelen in één lichaam bijeenbrengen dat zichzelf moet sturen. Wie de octopus
+serieus neemt, moet volgens hem aanvaarden dat er meer dan één manier bestaat
+om een geest te bouwen.
+
+#### De gang van het boek
+
+**Een ontmoeting dwars door de stamboom**
+
+Het boek opent met een duik en een blik: een octopus die de duiker aankijkt en
+vasthoudt met een arm. Godfrey-Smith gebruikt dat beeld om de afstand te
+schetsen. Om de octopus te ontmoeten moet de stamboom van het dierenrijk
+helemaal terug worden afgelegd tot ergens in het Ediacarium, ruim zeshonderd
+miljoen jaar geleden, bij een organisme dat vermoedelijk plat en wormachtig
+was en waarvan de gedragsmogelijkheden minimaal waren.
+
+Vanaf dat splitsingspunt liepen twee lijnen uiteen. De ene leidde via vissen,
+reptielen en zoogdieren naar de mens, de andere via weekdieren naar inktvissen
+en octopussen. Beide lijnen kwamen los van elkaar uit bij dieren met honderden
+miljoenen zenuwcellen en met gedrag dat op leren en experimenteren lijkt. Dat
+maakt de koppotigen tot het dichtstbijzijnde voorbeeld van wat een
+buitenaardse intelligentie zou kunnen zijn, zonder dat de aarde verlaten hoeft
+te worden.
+
+**Waar zenuwstelsels vandaan komen**
+
+Het tweede spoor van het boek is de vraag waarom zenuwstelsels ontstonden.
+Godfrey-Smith gaat terug naar de eerste veelcellige dieren en beschrijft
+zenuwen eerst als middel om het eigen lichaam te ordenen: samentrekkingen
+coördineren, delen op elkaar afstemmen. Pas daarna komt de tweede taak erbij,
+het koppelen van waarneming aan handeling.
+
+Een sleutelbegrip daarbij is reafferentie, het onderscheid tussen prikkels die
+het dier zelf veroorzaakt en prikkels die van buiten komen. Een dier dat
+beweegt verandert wat het waarneemt, en het moet die twee soorten verandering
+uit elkaar houden. In dat onderscheid ziet Godfrey-Smith het begin van een
+innerlijk gezichtspunt. Ervaring is dan geen extra laag boven op het lichaam,
+maar iets dat samen met de sturing van dat lichaam ontstaat en in kleine
+graden toeneemt.
+
+**Een lichaam zonder vaste vorm**
+
+De octopus heeft ongeveer vijfhonderd miljoen zenuwcellen, ruwweg evenveel als
+een hond, maar tweederde daarvan zit niet in het centrale brein maar in de
+armen. Elke arm bevat een eigen zenuwstreng en kan losgesneden nog gericht
+bewegen en voedsel naar de plek brengen waar de mond zou zitten. Onderzoek van
+onder anderen Binyamin Hochner in Jeruzalem liet zien hoeveel van de
+bewegingssturing lokaal in de arm gebeurt.
+
+Daarmee komt een filosofische vraag op tafel die Godfrey-Smith niet oplost
+maar wel scherp stelt: hoeveel eenheid heeft zo een dier? Is er één ervarend
+middelpunt, of een verbond van half zelfstandige delen? Het lichaam zelf heeft
+geen vaste vorm, geen skelet en nauwelijks lichaamsgrenzen die het
+zenuwstelsel kan gebruiken als vast referentiepunt. Voor een dier dat zich
+door een gat ter grootte van zijn oog kan wringen, is het eigen lichaamsbeeld
+een ander soort probleem dan voor een gewerveld dier.
+
+**Streken en spel**
+
+Een hoofdstuk verzamelt gedragswaarnemingen uit laboratoria. Octopussen die
+lampen kortsluiten door er water op te spuiten, dieren die ontsnappen en
+terugkeren, en een octopus die volgens de bioloog Jean Boal ontdooide garnaal
+weigerde, oogcontact maakte met de onderzoeker en het voedsel demonstratief in
+de afvoer duwde. Jennifer Mather en Roland Anderson beschreven dieren die lege
+pillenpotjes tegen de waterstroom in duwden en weer opvingen, gedrag dat zij
+als spel typeerden.
+
+Godfrey-Smith is over deze verhalen eerlijk. Veel ervan zijn losse
+waarnemingen zonder controlegroep, doorverteld in laboratoriumkringen. Wat ze
+volgens hem gezamenlijk laten zien is minder een bewezen vermogen dan een
+aanwijzing: dit zijn dieren die verkennen, die verschil maken tussen
+individuele verzorgers en die zich niet als een reflexmachine gedragen.
+
+**Kleuren maken zonder kleuren te zien**
+
+Koppotigen veranderen hun huid in fracties van een seconde met chromatoforen,
+kleine zakjes pigment die door spiertjes worden opengetrokken, en met
+reflecterende cellen daaronder. Tegelijk hebben octopussen maar één soort
+lichtgevoelig pigment in het oog, wat betekent dat zij naar alle
+waarschijnlijkheid kleurenblind zijn. Zij maken dus een kleurenvertoning die
+zij zelf niet in kleur kunnen waarnemen.
+
+Het boek bespreekt de veronderstelling dat de huid zelf licht opvangt: in het
+weefsel van *Octopus bimaculoides* zijn opsines aangetroffen, dezelfde
+eiwitfamilie die in het oog het licht opvangt. Of dat tot iets leidt wat lijkt
+op zien met de huid, staat niet vast. Godfrey-Smith gebruikt het geval om te
+laten zien hoe vreemd de verhouding tussen waarneming en vertoon bij dit dier
+ligt, en om te vragen voor wie het kleurenspel eigenlijk bedoeld is.
+
+**Octopolis**
+
+In Jervis Bay aan de Australische oostkust vond de duiker Matthew Lawrence een
+plek waar een ongewoon aantal octopussen bij elkaar leeft, op een bed van lege
+sint-jakobsschelpen rond een door mensen achtergelaten voorwerp. Godfrey-Smith
+en collega's legden er gedrag vast met camera's: dieren die elkaar wegjagen,
+kleursignalen die aan een dreiging voorafgaan, en aanhoudend contact tussen
+individuen.
+
+Dat is opmerkelijk omdat octopussen als solitaire dieren te boek staan. Het
+boek presenteert Octopolis met de nodige terughoudendheid, als een
+plaatselijke uitzondering die mogelijk voortkomt uit een schaars beschikbare
+schuilplaats en een overvloed aan voedsel, en niet als bewijs dat de soort in
+het algemeen sociaal is.
+
+**Een kort leven en het menselijke geval**
+
+De meeste octopussen leven één tot twee jaar en planten zich één keer voort,
+waarna ze snel aftakelen. Godfrey-Smith koppelt dat aan de evolutionaire
+theorie over veroudering: een dier dat zijn schelp heeft opgegeven en veel
+gegeten wordt, heeft weinig baat bij een lichaam dat lang meegaat. De
+wrangheid daarvan, een groot zenuwstelsel voor zo kort een bestaan, loopt door
+het slot van het boek heen.
+
+In het laatste deel keert de blik terug naar de mens. Godfrey-Smith bespreekt
+innerlijke spraak in de lijn van Lev Vygotski: taal die eerst tussen mensen
+bestaat en daarna naar binnen slaat en het denken zelf verbouwt. Menselijk
+bewustzijn heeft daardoor eigenschappen die de octopus mist. De grondlaag van
+ervaring, het aanvoelen van het eigen lichaam en van de wereld eromheen,
+plaatst hij ver daarvoor.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| subjectieve ervaring | Het feit dat het voor een organisme ergens op lijkt om te bestaan, in het boek behandeld als iets dat in graden voorkomt in plaats van als aan of uit. |
+| laatste gemeenschappelijke voorouder | Het organisme waarop twee afstammingslijnen samenkomen, hier een klein wormachtig dier van ruim zeshonderd miljoen jaar geleden. |
+| reafferentie | Het onderscheid tussen zintuiglijke prikkels die het dier door eigen beweging veroorzaakt en prikkels die van buiten komen. |
+| chromatoforen | Met spiertjes bediende pigmentzakjes in de huid waarmee koppotigen binnen een fractie van een seconde van kleur en patroon wisselen. |
+| opsines | De eiwitfamilie die licht opvangt, bij octopussen behalve in het oog ook in de huid aangetroffen. |
+| Octopolis | De door Godfrey-Smith zo genoemde plek in Jervis Bay waar meerdere octopussen dicht bij elkaar leven en op elkaar reageren. |
+| semelparie | Voortplantingspatroon waarbij een dier zich eenmalig voortplant en daarna snel aftakelt, kenmerkend voor de meeste octopussoorten. |
+| innerlijke spraak | Taal die naar binnen is geslagen en het denken structureert, door Godfrey-Smith gebruikt om het menselijke geval van het dierlijke te onderscheiden. |
+| gedecentraliseerd zenuwstelsel | Zenuwstelsel waarvan het grootste deel buiten het centrale brein ligt, bij de octopus voor tweederde in de armen. |
+
+#### Waar het argument op rust
+
+De evolutionaire kern van het betoog rust op stevige grond. De positie van
+weekdieren en gewervelden in de stamboom, de tijdsdiepte van de splitsing en
+de globale bouw van het octopuszenuwstelsel zijn vakgebied-brede kennis,
+ondersteund door moleculaire gegevens waaronder de publicatie van het
+octopusgenoom in *Nature* in 2015, die liet zien hoe sterk de genfamilies voor
+zenuwontwikkeling bij koppotigen zijn uitgebreid.
+
+Het gedragsdeel is zwakker onderbouwd en Godfrey-Smith zegt dat zelf. De
+laboratoriumverhalen over ontsnappen, lampen kortsluiten en voedsel weigeren
+zijn overwegend anekdotisch: kleine aantallen, geen controlecondities, vaak
+doorverteld voordat ze zijn opgeschreven. Het gecontroleerde werk dat er wel
+is, over herkenning van individuele verzorgers, over gewenning en over
+spelachtig omgaan met voorwerpen, dekt maar een deel van de indruk die de
+anekdotes wekken.
+
+De waarnemingen bij Octopolis komen uit vaste camera-opstellingen en zijn
+later in vakartikelen uitgewerkt, maar betreffen één locatie met een beperkt
+aantal dieren over een beperkte periode. Voor de filosofische hoofdstelling,
+dat ervaring meegroeit met het sturen van een lichaam, bestaat geen meetbaar
+bewijs; dat is een positie in een debat, aangeboden met argumenten en niet met
+gegevens.
+
+#### Wat er tegen in te brengen valt
+
+Het grootste bezwaar is de sprong van gedrag en zenuwcellen naar innerlijk
+beleven. Godfrey-Smith erkent dat het zogenoemde harde probleem, de vraag
+waarom fysieke processen gepaard gaan met beleving, hier niet wordt opgelost.
+Wie die vraag serieus neemt kan het boek lezen als een verzameling
+aanwijzingen die verenigbaar is met heel verschillende opvattingen over
+bewustzijn, waaronder de opvatting dat de octopus in het geheel niets beleeft.
+
+Verder is de anekdotische onderbouwing een risico, juist omdat de verhalen zo
+aanstekelijk zijn. De verleiding om gedrag te lezen als plan, humor of wrok is
+bij een dier met acht bewegende armen groot. Sommige gedragsclaims over
+koppotigen die na 2016 opgeld deden, zijn bij herhaling minder overtuigend
+gebleken, wat de terughoudendheid ondersteunt die Godfrey-Smith zelf aanhoudt
+maar zijn navolgers vaak laten varen.
+
+Ten slotte is Octopolis een enkele vindplaats waarvan het ontstaan mogelijk
+samenhangt met een door mensen achtergelaten voorwerp. Daar algemene
+conclusies over de sociale aanleg van octopussen aan verbinden gaat verder dan
+de gegevens toelaten. Het boek doet dat niet, maar de publieke ontvangst ervan
+wel, en dat is een bekend patroon bij populair geschreven wetenschap.
+
+Een kleiner punt van kritiek uit de vakfilosofie is dat de these van
+geleidelijk toenemende ervaring lastig te toetsen valt. Er wordt geen
+criterium gegeven waarmee vast te stellen is waar in de dierenwereld de
+ondergrens ligt. Dat maakt het idee bruikbaar als kader en moeilijk als
+hypothese.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik het onderscheid tussen wat gemeten is en wat verteld wordt bij het
+lezen van berichten over dierintelligentie.
+- Let bij gedragsclaims op het aantal dieren, de aanwezigheid van een
+controleconditie en de vraag of de waarneming vooraf was opgeschreven.
+- Neem de tijdsdiepte mee bij vergelijkingen tussen soorten: overeenkomst in
+gedrag zegt niets over gedeelde afkomst wanneer de lijnen honderden miljoenen
+jaren geleden uiteenliepen.
+- Voor discussies over dierenwelzijn biedt het boek de achtergrond bij
+regelgeving die koppotigen in laboratoria beschermt.
+
+#### Wat je hierna leest
+
+- 322. An Immense World. Ed Yong beschrijft in *An Immense World* de
+zintuiglijke werelden van tientallen diersoorten en behandelt daarbij ook de
+huid en het gezichtsvermogen van koppotigen.
+- 383. If Nietzsche Were a Narwhal. Justin Gregg zet in *If Nietzsche Were a
+Narwhal* vraagtekens bij de aanname dat menselijke vormen van denken de
+maatstaf zijn voor dierlijk verstand.
+- 339. Behave. Robert Sapolsky werkt in *Behave* de biologische lagen onder
+gedrag uit, van seconden voor een handeling tot evolutionaire tijdschalen.
+
+## 711. Mindful Universe: Quantum Mechanics and the Participating Observer
+
+Henry P. Stapp, 2007. *Mindful Universe: Quantum Mechanics and the
+Participating Observer* (Springer, Berlijn en Heidelberg, reeks The Frontiers
+Collection, 2007, ca. 210 blz., ISBN 9783540724131; tweede, herziene editie
+2011, ISBN 9783642180750). Geen Nederlandse vertaling gevonden in de catalogus
+van bibliotheek.nl, die geen enkele titel van Stapp bevat; de samenvatting is
+op de Engelse editie gebaseerd. Rubriek: natuur en wetenschap.
+Tags: `kwantummechanica`, `bewustzijn`, `vrije wil`, `wetenschapsfilosofie`,
+`minderheidsstandpunt`
+
+Henry P. Stapp, geboren in 1928, is theoretisch natuurkundige aan het Lawrence
+Berkeley National Laboratory, werkte samen met Wolfgang Pauli, Werner
+Heisenberg en John Wheeler, en is binnen de vakwereld vooral bekend om zijn
+werk aan de stelling van Bell en de niet-lokaliteit. In dit boek betoogt hij
+dat de kwantummechanica in de formulering van John von Neumann een plaats
+openlaat voor bewuste keuzes van de waarnemer, en dat mentale inspanning
+daardoor werkelijk invloed heeft op het brein.
+
+De opbouw loopt van de meetproblematiek via het kwantum-Zeno-effect naar
+gevolgen voor wilsvrijheid en morele verantwoordelijkheid. Stapp werkte deze
+lijn ook uit in een artikel met de psychiater Jeffrey Schwartz en de
+neurowetenschapper Mario Beauregard uit 2005. Onder natuurkundigen geldt zijn
+duiding als een speculatief minderheidsstandpunt: de wiskunde is niet
+omstreden, de bewustzijnsinterpretatie erbij wel.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Stapp betoogt dat het klassieke natuurbeeld, waarin de
+fysieke wereld causaal gesloten is en het bewustzijn hooguit een
+bijverschijnsel, door de kwantummechanica achterhaald is en dat de opvolger
+ervan wel ruimte laat voor mentale oorzakelijkheid. In de formulering van John
+von Neumann komt de theorie pas tot een uitkomst wanneer er een vraag aan de
+natuur wordt gesteld, en de theorie zegt zelf niet wat bepaalt welke vraag dat
+is. Precies in dat gat plaatst Stapp de bewuste keuze van de waarnemer. Door
+zo een vraag snel genoeg te herhalen kan een hersentoestand volgens hem worden
+vastgehouden, wat hij aanbiedt als natuurkundig aangrijpingspunt voor
+aandacht, wilsinspanning en verantwoordelijkheid.
+
+#### De gang van het boek
+
+**Twee soorten verandering**
+
+De kern van het boek is een oude opmerking van von Neumann uit 1932. De
+kwantummechanica beschrijft twee verschillende soorten verandering. De eerste
+is de gladde, volledig bepaalde ontwikkeling van de golffunctie volgens de
+vergelijking van Schrödinger, door Stapp Proces 2 genoemd. De tweede is de
+plotselinge overgang bij een meting, waarbij uit vele mogelijkheden er één
+werkelijkheid wordt.
+
+Stapp splitst die tweede soort in tweeën. Proces 1 is de keuze welke vraag aan
+de natuur wordt gesteld, welk meetapparaat wordt opgesteld, welke grootheid
+wordt bepaald. Proces 3 is wat Paul Dirac de keuze van de natuur noemde: welk
+antwoord er op die vraag komt, met de kansen die de theorie voorschrijft. Het
+punt waar het hele boek op steunt is dat de formule wel Proces 2 en Proces 3
+vastlegt, en Proces 1 niet.
+
+**De erfenis van het klassieke wereldbeeld**
+
+Voordat Stapp zijn eigen model uitwerkt, schetst hij de gevolgen van drie
+eeuwen mechanistische natuurkunde. Wanneer alle beweging van deeltjes volledig
+bepaald wordt door de toestand van diezelfde deeltjes, blijft er voor
+gedachten en beslissingen geen werk over. Stapp meent dat dit beeld ver buiten
+de natuurkunde is doorgesijpeld, tot in de psychologie, de rechtspraktijk en
+het dagelijkse spreken over verantwoordelijkheid.
+
+Zijn bezwaar daartegen is in de eerste plaats natuurkundig: het beeld berust
+op een theorie waarvan bekend is dat zij op microschaal niet klopt. Dat de
+klassieke mechanica op grote schaal bruikbaar blijft, betekent volgens hem
+niet dat de erbij horende metafysica ook overeind blijft. Deze
+argumentatielijn maakt duidelijk waar het boek naartoe wil, en tegelijk dat de
+motivatie deels buiten de natuurkunde ligt.
+
+**De waarnemer die meedoet**
+
+In de gangbare leerboekbehandeling wordt Proces 1 stilzwijgend afgehandeld: de
+onderzoeker stelt nu eenmaal een opstelling op, en dat wordt verder niet als
+natuurkundig probleem beschouwd. Stapp weigert dat. Als de theorie beweert
+alles te beschrijven, dan hoort de keuze van de vraag er ook bij, en als die
+keuze niet uit de vergelijkingen volgt, dan komt zij ergens anders vandaan.
+
+Hij noemt dit de Heisenberg-keuze en verbindt daaraan een uitgesproken
+standpunt: de keuze wordt gemaakt door het bewustzijn van de waarnemer, dat zo
+een ingang heeft in de fysieke gang van zaken. Deze positie ligt in het
+verlengde van wat de interpretatie van von Neumann en Eugene Wigner heet.
+Stapp is er open over dat hij een interpretatie kiest, en betoogt dat zijn
+keuze de enige is die de mentale kant van de zaak niet stilzwijgend
+wegdefinieert.
+
+**Het kwantum-Zeno-effect als hefboom**
+
+Het technische hart van het boek is het kwantum-Zeno-effect: wanneer aan een
+systeem snel genoeg herhaaldelijk dezelfde vraag wordt gesteld, blijft het in
+de toestand die het antwoord bevestigt. Het effect is in de
+laboratoriumnatuurkunde aangetoond, onder meer aan gevangen ionen, en is op
+zichzelf niet omstreden.
+
+Stapp past het toe op het brein. Een bewust volgehouden voornemen komt in zijn
+model neer op het steeds opnieuw stellen van dezelfde vraag aan de
+hersentoestand, waardoor een patroon van activiteit langer blijft bestaan dan
+het uit zichzelf zou doen. Zo krijgt aandacht een natuurkundige rol. Hij
+verbindt dit uitdrukkelijk met de beschrijving die William James in *The
+Principles of Psychology* gaf van wilsinspanning als het vasthouden van een
+gedachte tegen de neiging in om af te dwalen.
+
+**Aansluiting bij de hersenwetenschap**
+
+Om het model met het zenuwstelsel te verbinden wijst Stapp op de calciumionen
+die bij het vrijkomen van neurotransmitters door nauwe kanalen in het membraan
+gaan. De opening van zo een kanaal is klein genoeg, in de orde van een
+nanometer, dat volgens hem de onbepaaldheidsrelatie van Heisenberg de baan van
+het ion merkbaar uitsmeert. Op dat punt zou de hersentoestand een superpositie
+van mogelijkheden worden waarop Proces 1 kan aangrijpen.
+
+De klinische aanhaking zoekt hij bij het werk van Jeffrey Schwartz met
+patiënten met een dwangstoornis, die leren hun aandacht bewust weg te sturen
+van dwanggedachten en bij wie beeldvormend onderzoek veranderingen in
+hersenactiviteit liet zien. Stapp, Schwartz en Beauregard beschreven dat in
+2005 in een artikel in *Philosophical Transactions of the Royal Society B*. De
+therapie zelf staat los van de natuurkundige duiding; Stapp biedt de duiding
+aan als verklaring waarom mentale inspanning effect kan sorteren.
+
+**Waarden, wil en verantwoordelijkheid**
+
+De slothoofdstukken trekken de lijn door naar de ethiek. Als bewuste keuzes
+werkelijk meedoen in de fysieke gang van zaken, dan is verantwoordelijkheid
+geen nuttige illusie maar iets met een grondslag in de natuurbeschrijving.
+Stapp meent dat dit gevolgen heeft voor hoe over opvoeding, geestelijke
+gezondheid en morele oordelen wordt gesproken.
+
+Het boek eindigt met technische bijlagen waarin de formele kant wordt
+uitgeschreven, plus antwoorden op eerdere bezwaren van vakgenoten. Die opzet
+is kenmerkend voor het geheel: een betoog dat zich richt tot een breed publiek
+maar zijn verdediging in formules zoekt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Proces 1 | De keuze welke vraag aan de natuur wordt gesteld, in de indeling van von Neumann niet vastgelegd door de vergelijkingen; Stapp noemt dit ook de Heisenberg-keuze. |
+| Proces 2 | De gladde, volledig bepaalde ontwikkeling van de golffunctie volgens de vergelijking van Schrödinger, zolang er niet wordt gemeten. |
+| Proces 3 | Het antwoord dat de natuur op de gestelde vraag geeft, met de kansen die de theorie voorschrijft, door Dirac de keuze van de natuur genoemd. |
+| orthodoxe kwantummechanica | Stapps aanduiding voor de formulering van von Neumann, waarin het meetproces en de waarnemer uitdrukkelijk in de theorie worden opgenomen. |
+| kwantum-Zeno-effect | Het verschijnsel dat een systeem in dezelfde toestand blijft wanneer er snel genoeg herhaald dezelfde vraag aan wordt gesteld. |
+| deelnemende waarnemer | De waarnemer die in dit model niet buiten het beschreven systeem staat maar er door zijn vraagstelling deel van uitmaakt. |
+| causale geslotenheid van het fysieke | De klassieke aanname dat elke fysieke gebeurtenis volledig door fysieke oorzaken wordt bepaald, die Stapp bestrijdt. |
+| decoherentie | Het snelle verdwijnen van kwantuminterferentie door wisselwerking met de omgeving, het bezwaar waar Stapp uitvoerig op ingaat. |
+| zelfgestuurde neuroplasticiteit | De term van Schwartz voor blijvende veranderingen in hersenactiviteit die volgens hem het gevolg zijn van volgehouden gerichte aandacht. |
+
+#### Waar het argument op rust
+
+De natuurkundige bouwstenen zijn onomstreden. De indeling van von Neumann, het
+feit dat de theorie niet voorschrijft welke meting wordt uitgevoerd, en het
+kwantum-Zeno-effect in laboratoriumopstellingen zijn alle vakgebied-brede
+kennis. Stapps eigen reputatie in de vakwereld berust bovendien op serieus
+werk over de stelling van Bell en niet-lokaliteit, en dat werk staat los van
+dit boek.
+
+De stap die het boek daarna zet, van een gat in het formalisme naar bewustzijn
+als de invuller van dat gat, is een interpretatiekeuze en geen meetresultaat.
+Er bestaat geen waarneming die deze duiding onderscheidt van andere duidingen
+van hetzelfde formalisme. Stapp geeft dat in feite toe door zijn verdediging
+te richten op consistentie en op de bezwaren van collega's, en niet op
+voorspellingen.
+
+Voor het neurologische deel is de onderbouwing dun. Het argument over
+calciumionen in kanaalopeningen is een berekening van ordegroottes, geen
+meting aan levend weefsel. De klinische gegevens uit het werk van Schwartz
+laten zien dat gedragstherapie bij dwangstoornissen samengaat met veranderde
+hersenactiviteit, wat door de gangbare hersenwetenschap zonder enige
+kwantumaanname wordt verklaard. Het model voegt aan die bevindingen geen
+toetsbare voorspelling toe.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat van de decoherentie. Max Tegmark berekende in 2000
+in *Physical Review E* dat kwantumsuperposities in warm, nat hersenweefsel
+binnen ordegroottes van tienden van femtoseconden tot picoseconden
+uiteenvallen, ver onder de tijdschalen waarop zenuwcellen werken. De
+berekening was gericht tegen het microtubuli-model van Penrose en Hameroff,
+maar het probleem raakt elk voorstel dat kwantumsuperposities in het brein
+nodig heeft. Stapp antwoordt dat zijn model niet van fijne interferentie
+afhangt; vakgenoten vinden dat antwoord doorgaans niet overtuigend.
+
+Daarnaast ontbreekt enige aanwijzing dat kwantumeffecten functioneel meedoen
+in de informatieverwerking van het zenuwstelsel. Christof Koch en Klaus Hepp
+betoogden in 2006 in *Nature* dat het brein op de relevante schaal klassiek te
+beschrijven is en dat er geen reden is om anders aan te nemen. Dat is de
+heersende opvatting gebleven; wie Stapp leest, leest een minderheidspositie en
+geen vakconsensus.
+
+Een derde bezwaar is logisch van aard. Stapp lost het probleem van mentale
+oorzakelijkheid niet op maar verplaatst het: waar de klassieke natuurkunde
+geen plaats had voor de geest, plaatst hij die in Proces 1 en verklaart hem
+daar tot een gegeven. Waarom een bewuste keuze de vraagstelling bepaalt, en
+hoe dat zou werken, blijft buiten het model. De vrije keuze wordt met de hand
+ingevoerd.
+
+Praktisch bezwaar bij het Zeno-mechanisme is de vereiste snelheid. Het effect
+treedt pas op wanneer de metingen elkaar zeer snel opvolgen ten opzichte van
+de eigen ontwikkeling van het systeem. Voor hersentoestanden die op de schaal
+van tientallen milliseconden veranderen, is niet aangegeven welk fysiek proces
+zo een reeks metingen zou uitvoeren, of wat in het brein telt als meting.
+
+Ten slotte draagt de morele motivatie geen bewijslast. Dat een wereldbeeld
+zonder wilsvrijheid onaantrekkelijke gevolgen zou hebben, is geen argument
+voor de waarheid van een natuurkundige interpretatie. Het boek verweeft die
+twee lijnen zo sterk dat de lezer moet opletten waar de natuurkunde ophoudt en
+de wens begint.
+
+#### Wat er concreet mee te doen is
+
+- Houd bij elke claim over kwantummechanica en bewustzijn het onderscheid vast
+tussen het formalisme, dat vaststaat, en de interpretatie, waarover verschil
+van mening bestaat.
+- Vraag bij een voorgesteld mechanisme naar de tijdschaal en de temperatuur
+waarop het zou moeten werken, en vergelijk die met de decoherentietijden in
+weefsel.
+- Zoek in elke theorie over bewustzijn naar de voorspelling die haar zou
+kunnen weerleggen; ontbreekt die, noteer dat als beperking.
+- Scheid de klinische bevindingen over aandachttraining bij dwangstoornissen
+van de natuurkundige duiding die eraan wordt opgehangen; het eerste staat
+overeind zonder het tweede.
+
+#### Wat je hierna leest
+
+- 94. Het tijdperk van onzekerheid. Tobias Hürter beschrijft in *Het tijdperk
+van onzekerheid* hoe de kwantumtheorie tot stand kwam, met de
+meningsverschillen tussen Bohr, Einstein, Heisenberg en Pauli waar Stapps
+positie uit voortkomt.
+- 281. Reality Is Not What It Seems. Carlo Rovelli verdedigt in *Reality Is
+Not What It Seems* een andere duiding van dezelfde theorie, waarin
+verhoudingen tussen systemen centraal staan en er geen bijzondere rol voor
+bewustzijn is.
+- 340. The Holographic Universe. Michael Talbot laat in *The Holographic
+Universe* zien waar het spoor van kwantummetaforen zonder natuurkundige
+discipline eindigt, wat het verschil met Stapps aanpak zichtbaar maakt.
+
+## 712. The Singing Neanderthals: The Origins of Music, Language, Mind and Body
+
+Steven Mithen, 2005. *The Singing Neanderthals: The Origins of Music,
+Language, Mind and Body* (Weidenfeld & Nicolson, Londen, 2005, ix + 374 blz.,
+ISBN 9780297643173; Amerikaanse editie bij Harvard University Press,
+Cambridge, 2006). Geen Nederlandse vertaling gevonden in de catalogus van
+bibliotheek.nl, die alleen Engelse edities van Mithen bevat; de samenvatting
+is op de Engelse editie gebaseerd. Rubriek: natuur en wetenschap.
+Tags: `muziek`, `taaloorsprong`, `archeologie`, `neanderthaler`, `evolutie`
+
+Steven Mithen is hoogleraar archeologie in Reading en behoort tot de
+oprichters van de cognitieve archeologie, het vakgebied dat uit materiële
+resten probeert af te leiden hoe vroege mensen dachten. In dit boek verdedigt
+hij dat muziek en taal uit één voorloper zijn ontstaan: een
+communicatiesysteem van hele, ondeelbare uitingen met toonhoogte, ritme en
+gebaar, dat hij Hmmmmm noemt naar de kenmerken holistisch, manipulatief,
+multimodaal, muzikaal en mimetisch.
+
+Het betoog loopt van hedendaags hersenonderzoek naar het fossiele en
+archeologische materiaal. Neanderthalers zouden dat systeem tot grote hoogte
+hebben ontwikkeld zonder ooit de stap naar samengestelde taal te zetten. Het
+boek geldt als een serieuze en breed onderbouwde synthese; de kernthese zelf
+laat zich in het archeologische materiaal niet toetsen, omdat zang en spraak
+geen sporen nalaten.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Mithen bestrijdt de gedachte dat muziek een bijproduct van de
+menselijke geest is, een aangenaam restverschijnsel zonder eigen evolutionaire
+geschiedenis. Hij stelt dat muziek en taal beide afstammen van één ouder
+communicatiesysteem dat bij eerdere mensensoorten in gebruik was en dat werkte
+met hele uitingen: klanken die als geheel een boodschap droegen, gedragen door
+melodie, ritme, lichaamsbeweging en nabootsing, zonder woorden die los van
+elkaar betekenis hadden. Dat systeem, door hem Hmmmmm gedoopt, zou bij de
+neanderthaler tot een hoog ontwikkelde vorm zijn gekomen. Bij *Homo sapiens*
+viel het uiteen in twee takken: uitingen die in delen werden opgebroken werden
+taal, en wat overbleef aan toon, maat en gezamenlijk bewegen werd muziek.
+
+#### De gang van het boek
+
+**Het raadsel van de muziek**
+
+Het boek begint bij de vraag waarom mensen muziek maken. Steven Pinker noemde
+muziek in *How the Mind Works* gehoorbanket: aangenaam, maar zonder eigen
+functie, meeliftend op vermogens die voor andere doeleinden waren ontstaan.
+Mithen neemt die uitspraak als tegenstander en wijst erop dat muziek in elke
+bekende samenleving voorkomt, vroeg in de ontwikkeling van kinderen verschijnt
+en met sterke emoties en met groepsvorming samenhangt.
+
+Hij haalt ook Charles Darwin aan, die in *The Descent of Man* al opperde dat
+mensen zongen voordat zij spraken en daarbij aan seksuele selectie dacht.
+Mithen neemt die volgorde over en zoekt er onderbouwing bij die Darwin niet
+had: hersenonderzoek, ontwikkelingspsychologie en de archeologie van de
+laatste decennia.
+
+**Muziek en taal in het huidige brein**
+
+Het eerste deel van het boek verzamelt aanwijzingen dat muziek en taal in het
+brein deels apart en deels samen worden verwerkt. Er bestaan mensen met amusie
+die geen melodieën kunnen onderscheiden terwijl hun spraak ongestoord is, en
+er bestaan patiënten met afasie die geen zin meer kunnen vormen maar wel
+liedteksten kunnen zingen die zij vroeger leerden. Op die laatste waarneming
+berust melodische intonatietherapie, waarbij taal via zang wordt
+teruggewonnen.
+
+Mithen bespreekt verder het syndroom van Williams, waarbij een verstandelijke
+beperking samengaat met opvallende taligheid en muzikaliteit, en het absoluut
+gehoor. Zijn conclusie is dat de twee systemen elkaar overlappen zonder samen
+te vallen, wat past bij een gedeelde oorsprong gevolgd door scheiding.
+
+**De taal tegen baby's**
+
+Een van de sterkste onderdelen van het betoog gaat over kindgerichte spraak:
+de hogere toon, de overdreven melodie, de herhaling en het trage tempo waarmee
+volwassenen in vrijwel alle culturen tegen zuigelingen praten. Onderzoek van
+onder anderen Sandra Trehub liet zien dat baby's melodie en ritme al vroeg
+oppikken en dat zij op de klankvorm reageren voordat woorden iets voor hen
+betekenen.
+
+Mithen leest dat als een levend voorbeeld van hoe communicatie zonder
+woordbetekenis toch werkt: stemming overdragen, aandacht sturen, een band
+leggen. Samen met het werk van Ellen Dissanayake over de wisselwerking tussen
+moeder en kind vormt dit zijn model voor wat Hmmmmm ongeveer geweest zou zijn.
+
+**Wat Hmmmmm inhoudt**
+
+De kernthese krijgt haar naam uit vijf kenmerken. Holistisch: een uiting
+draagt als geheel een boodschap en is niet uit losse woorden opgebouwd.
+Manipulatief: uitingen dienen om het gedrag van anderen te sturen, niet om
+over de wereld te informeren. Multimodaal: klank gaat samen met gebaar,
+gezichtsuitdrukking en lichaamsbeweging. Muzikaal: toonhoogte, ritme en tempo
+dragen de betekenis. Mimetisch: nabootsing van geluiden en bewegingen speelt
+een rol.
+
+Het holistische deel leunt op het werk van de taalkundige Alison Wray, die
+voorstelde dat de eerste protottaal uit onverdeelde uitingen bestond. Wie zo
+een systeem wil laten uitgroeien tot taal, moet uitleggen hoe uitingen in
+delen uiteenvielen. Mithen volgt Wray daarin: wanneer verschillende hele
+uitingen toevallig eenzelfde klankstuk delen bij eenzelfde element van
+betekenis, kan dat stuk als bouwsteen worden herkend en opnieuw worden
+ingezet.
+
+**Rechtop lopen, ritme en de handbijl**
+
+Het tweede deel verbindt de these met de fossiele geschiedenis. Rechtop lopen
+levert een regelmatige maat op en maakt de handen vrij voor gebaar; Mithen
+ziet daarin een voorwaarde voor het gezamenlijk gelijk oplopen in tempo dat
+muziek kenmerkt. Bij *Homo ergaster* plaatst hij een uitgebreidere vorm van
+Hmmmmm, passend bij een groter brein en langere jeugd.
+
+Hier komt ook zijn eerdere voorstel met de bioloog Marek Kohn terug, dat de
+zorgvuldig symmetrische handbijlen van vroege mensen mede door seksuele
+selectie kunnen zijn gevormd: een gemaakt voorwerp dat vaardigheid en
+gezondheid toont. Dat idee is nooit algemeen aanvaard en Mithen presenteert
+het als mogelijkheid, maar het geeft aan hoe hij archeologisch materiaal leest
+als aanwijzing over de geest van de maker.
+
+**De neanderthaler**
+
+Het hoofdstuk waaraan het boek zijn titel dankt beschrijft de neanderthaler
+als bezitter van een sterk ontwikkeld Hmmmmm. De argumenten zijn indirect: een
+hersenvolume dat het onze evenaart, een tongbeen uit de grot Kebara in Israël
+dat vrijwel gelijk is aan het onze en dus geen belemmering voor stemgebruik
+aangeeft, een zwaar bovenlichaam en een sociaal leven met verzorging van
+gewonden.
+
+Daartegenover staat volgens Mithen het vrijwel ontbreken van onbetwiste
+symbolische voorwerpen bij neanderthalers, terwijl *Homo sapiens* in dezelfde
+periode figuratieve kunst en later fluiten van vogelbot en mammoetivoor
+achterliet. Hij leest dat verschil als het verschil tussen een systeem van
+hele uitingen en een systeem met samenstelbare woorden. Het bewerkte
+botfragment uit Divje Babe in Slovenië, door sommigen als neanderthaler-fluit
+gepresenteerd, behandelt hij met terughoudendheid; andere onderzoekers wijten
+de gaten aan het gebit van een roofdier.
+
+**De splitsing en wat muziek overhoudt**
+
+Het slot beschrijft hoe bij moderne mensen de holistische uitingen
+uiteenvielen in eenheden die opnieuw gecombineerd konden worden, waarmee taal
+ontstond die over afwezige dingen kan spreken. Muziek bleef daarnaast bestaan
+als apart systeem, met een eigen taak: stemmingen delen, groepen samenbinden,
+kinderen kalmeren, rituelen dragen.
+
+Mithen verbindt dat met de opvatting van Robin Dunbar dat stemgebruik het
+lichamelijke vlooien van primaten verving toen groepen te groot werden om
+iedereen aan te raken. Zingen bereikt meer individuen tegelijk. In deze lezing
+verdwijnt muziek niet met de komst van taal maar houdt zij de sociale taken
+die taal minder goed vervult.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Hmmmmm | Mithens naam voor het veronderstelde voorlopersysteem van muziek en taal, naar de kenmerken holistisch, manipulatief, multimodaal, muzikaal en mimetisch. |
+| holistische protottaal | Een communicatiesysteem waarin een uiting als geheel betekenis draagt zonder dat de delen ervan afzonderlijk iets betekenen. |
+| compositionele taal | Taal waarin de betekenis van een uiting volgt uit de betekenis van de losse woorden en de manier waarop zij zijn samengevoegd. |
+| kindgerichte spraak | De hoger getoonde, melodieuze en herhalende manier van praten tegen zuigelingen die in vrijwel alle culturen voorkomt. |
+| cognitieve fluïditeit | Mithens eerdere begrip voor het vermogen om kennis uit gescheiden denkdomeinen met elkaar te verbinden, dat hij aan moderne mensen toeschrijft. |
+| mimesis | Communicatie door nabootsing van geluiden, bewegingen en handelingen, in de zin die Merlin Donald aan het begrip gaf. |
+| amusie | Het onvermogen om melodieën waar te nemen of te herkennen bij een verder ongestoorde taalverwerking. |
+| melodische intonatietherapie | Behandeling waarbij patiënten met afasie via zingen weer toegang krijgen tot woorden. |
+| gelijk oplopen in tempo | Het vermogen van mensen om beweging op een gemeenschappelijke maat af te stemmen, door Mithen als bouwsteen van muzikaliteit behandeld. |
+
+#### Waar het argument op rust
+
+De neuropsychologische en ontwikkelingspsychologische hoofdstukken staan op de
+stevigste grond. Gevallen van amusie zonder taalstoornis, van afasie met
+behouden zang en de bevindingen over kindgerichte spraak en de muzikale
+gevoeligheid van zuigelingen zijn gepubliceerd, herhaald werk. Mithen geeft
+dat materiaal getrouw weer en overdrijft de conclusies niet.
+
+Het archeologische en fossiele deel levert aanwijzingen van een andere orde.
+Hersenvolume, het tongbeen uit Kebara en de bouw van de borstkas zeggen iets
+over wat lichamelijk mogelijk was, niets over wat werkelijk gebeurde. Het
+ontbreken van symbolische voorwerpen bij neanderthalers is een argument uit
+afwezigheid, dat sinds 2005 zwakker is geworden doordat later onderzoek onder
+meer bewerkte schelpen, pigmentgebruik en de grotstructuren van Bruniquel als
+mogelijke neanderthaleruitingen aandroeg.
+
+Voor de kernthese zelf bestaat geen rechtstreeks bewijs en dat kan ook niet.
+Zang, spraak en gebaar fossiliseren niet. Wat Mithen aanvoert is samenhang:
+het model verklaart een aantal losse waarnemingen tegelijk. Dat is een
+respectabele vorm van redeneren in de cognitieve archeologie en tegelijk de
+zwakste vorm van onderbouwing, omdat andere modellen dezelfde waarnemingen
+kunnen dekken.
+
+#### Wat er tegen in te brengen valt
+
+Het scherpste bezwaar richt zich op de aanname van een holistische protottaal.
+Taalkundigen als Maggie Tallerman en Derek Bickerton hebben betoogd dat een
+systeem van ondeelbare uitingen zich niet tot een samengestelde taal kan
+ontwikkelen: de kans dat toevallige klankovereenkomsten samenvallen met
+overeenkomsten in betekenis is klein, en het geheugen zou een onwerkbaar
+aantal losse uitingen moeten dragen. Zij verdedigen het omgekeerde beeld,
+waarin een protottaal juist met losse woorden begon. Valt dat deel weg, dan
+verliest Hmmmmm zijn scharnier.
+
+Een tweede bezwaar is de toetsbaarheid. De these voorspelt weinig dat in de
+grond kan worden aangetroffen. Mithen erkent dat en bouwt zijn betoog als een
+aannemelijk verhaal, maar dat betekent dat verschil van mening erover niet met
+nieuw materiaal te beslechten valt. Ook zijn eerdere kader van cognitieve
+fluïditeit uit *The Prehistory of the Mind* heeft dat karakter: bruikbaar als
+ordening, moeilijk als hypothese.
+
+Ten derde is een deel van het feitelijke materiaal inmiddels achterhaald of
+omstreden. Het botfragment van Divje Babe geldt bij de meeste specialisten als
+door een roofdier beschadigd bot. Over de spraakmogelijkheden van
+neanderthalers is sinds het boek veel bijgekomen: in 2007 bleek dat
+neanderthalers dezelfde twee menselijke varianten van het gen FOXP2 droegen,
+wat Mithen nog niet kon weten en wat de scherpe scheiding tussen hun systeem
+en het onze eerder verzwakt dan ondersteunt.
+
+Ten slotte blijft de vraag open of muziek een aanpassing is of een bijproduct.
+Mithen weerlegt de positie van Pinker niet zozeer als dat hij er een
+alternatief tegenover stelt. Wie zonder vooringenomenheid naar de gegevens
+kijkt, houdt twee verhalen over die beide met dezelfde waarnemingen te rijmen
+zijn, waarbij het bijproductverhaal minder aanvullende aannames nodig heeft.
+
+#### Wat er concreet mee te doen is
+
+- Voor wie met taalstoornissen werkt: het hoofdstuk over melodische
+intonatietherapie geeft de achtergrond bij het inzetten van zang bij afasie.
+- Voor onderwijs aan jonge kinderen: het materiaal over ritme, melodie en
+kindgerichte spraak onderbouwt waarom zingen en bewegen vroeg in de
+taalontwikkeling van waarde zijn.
+- Scheid bij elke uitspraak over prehistorische geesten de lichamelijke
+mogelijkheid van het aangetoonde gedrag; het eerste volgt uit botten, het
+tweede niet.
+- Let bij redeneringen die op afwezig materiaal steunen op wat er sinds de
+publicatie is opgegraven; argumenten uit afwezigheid verouderen sneller dan
+andere.
+
+#### Wat je hierna leest
+
+- 85. Singing in the brain. Erik Scherder behandelt in *Singing in the brain*
+wat er in het huidige brein gebeurt bij zingen en muziek maken, inclusief het
+gebruik ervan bij taal- en geheugenstoornissen.
+- 56. Sapiens. Yuval Noah Harari geeft in *Sapiens* een ander antwoord op
+dezelfde vraag naar wat moderne mensen van neanderthalers onderscheidde, met
+de nadruk op gedeelde verbeelding.
+- 339. Behave. Robert Sapolsky bespreekt in *Behave* de evolutionaire en
+neurologische achtergrond van sociaal gedrag, met de terughoudendheid bij
+evolutionaire verhalen die bij Mithens these van pas komt.
+
+## 713. Consciousness and the Brain: Deciphering How the Brain Codes Our Thoughts
+
+Stanislas Dehaene, 2014. *Consciousness and the Brain: Deciphering How the
+Brain Codes Our Thoughts* (Viking, New York, 2014, 336 blz., ISBN
+9780670025435; paperback bij Penguin, 2014, ISBN 9780143126263). Geen
+Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl, die van
+Dehaene alleen Engelse en Franse edities bevat; de samenvatting is op de
+Engelse editie gebaseerd. Rubriek: brein en lichaam.
+Tags: `bewustzijn`, `cognitieve neurowetenschap`, `hersenonderzoek`, `globale
+werkruimte`, `coma`
+
+Stanislas Dehaene is hoogleraar aan het Collège de France en leidt het
+onderzoekscentrum NeuroSpin bij Parijs. In 2014, het jaar van dit boek,
+ontving hij samen met Giacomo Rizzolatti en Trevor Robbins de Brain Prize voor
+werk aan hogere hersenfuncties. Zijn stelling is dat bewustzijn een gewoon
+onderzoeksobject is geworden: door bijna gelijke prikkels aan te bieden die de
+ene keer wel en de andere keer niet bewust worden waargenomen, laat zich meten
+wat er in het brein bij hoort.
+
+Het boek beschrijft vier meetbare kenmerken van bewuste waarneming en verbindt
+die met de theorie van de globale neuronale werkruimte, die Dehaene met
+Jean-Pierre Changeux ontwikkelde. Daarna volgt de klinische toepassing bij
+patiënten die niet kunnen reageren. Het geldt als een van de best onderbouwde
+populaire boeken over dit onderwerp; de theorie zelf blijft onderwerp van
+vakdebat.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Dehaene stelt dat bewustzijn geen filosofisch raadsel is dat
+buiten het laboratorium valt, maar een verschijnsel met vaste, meetbare
+hersenkenmerken. Zijn aanpak is het minimale contrast: dezelfde prikkel wordt
+zo aangeboden dat proefpersonen hem soms wel en soms niet bewust opmerken,
+waarna het verschil in hersenactiviteit overblijft als voorwerp van onderzoek.
+Wat hij daarbij vindt, noemt hij ontbranding: rond driehonderd milliseconden
+na de prikkel schiet activiteit door een netwerk van voorhoofds- en
+wandkwabben, blijft daar even hangen en wordt naar de rest van het brein
+verspreid. Bewustzijn is in die opvatting geen plek en geen substantie maar
+een gebeurtenis van beschikbaar maken: informatie die de werkruimte haalt, kan
+worden onthouden, gerapporteerd en in plannen gebruikt.
+
+#### De gang van het boek
+
+**Bewustzijn afbakenen tot iets meetbaars**
+
+Het boek begint met een begripsafbakening waar de rest op steunt. Dehaene
+onderscheidt waakzaamheid, het simpele wakker zijn, van aandacht, het
+selecteren van informatie, en van bewuste toegang, het feit dat een bepaalde
+inhoud beschikbaar komt om over te rapporteren en mee te werken. Alleen dat
+laatste onderzoekt hij, omdat alleen daar een proefopstelling voor te maken
+is.
+
+Het middel is maskering: een woord wordt zo kort getoond en zo omringd door
+andere beelden dat het bij een net iets kortere aanbieding onzichtbaar blijft
+en bij een net iets langere wel gezien wordt. Vergelijkbare technieken zijn de
+aandachtsknipper, waarbij een tweede doel wordt gemist doordat het eerste de
+aandacht bezet houdt, en binoculaire rivaliteit, waarbij twee beelden om de
+beurt het bewustzijn halen terwijl de prikkel gelijk blijft.
+
+**Hoe ver het onbewuste reikt**
+
+Voordat Dehaene beschrijft wat bewustzijn is, laat hij zien wat het niet nodig
+heeft. Onzichtbaar gemaakte woorden bereiken de betekenislaag: zij versnellen
+of vertragen het herkennen van verwante woorden erna. Getallen die niet bewust
+zijn waargenomen beïnvloeden een daaropvolgende grootteschatting. Onbewuste
+prikkels sturen zelfs beloningssystemen en emotionele reacties aan.
+
+Toch is de reikwijdte begrensd. Onbewuste informatie vervaagt binnen ongeveer
+een seconde, laat zich niet in het werkgeheugen vasthouden, kan geen lange
+keten van stappen dragen en kan niet aan een willekeurige nieuwe regel worden
+onderworpen. Dat is voor Dehaene geen bijzaak maar de functionele reden waarom
+bewustzijn bestaat: het maakt informatie stabiel en breed beschikbaar,
+waardoor bewerkingen mogelijk worden die anders niet gaan.
+
+**Vier kenmerken van een bewuste waarneming**
+
+Uit tientallen proeven met verschillende meetmethoden destilleert het boek
+vier kenmerken die samen optreden zodra een prikkel bewust wordt. Het eerste
+is een trage hersengolf in het elektro-encefalogram rond driehonderd tot
+vierhonderd milliseconden, de zogeheten P3-golf, die bij onbewuste prikkels
+uitblijft terwijl de vroege verwerking gelijk oploopt.
+
+De andere drie zijn een plotselinge toename van activiteit in voorhoofds- en
+wandkwabben, een late uitbarsting van hoogfrequente activiteit in het
+gammagebied, en een toename van uitwisseling over lange afstand tussen
+hersengebieden, meetbaar als synchronie tussen ver uiteenliggende plekken.
+Dehaene benadrukt dat het vier kenmerken van hetzelfde gebeuren zijn en geen
+vier onafhankelijke tests, en dat het samengaan ervan de waarde levert.
+
+**De globale neuronale werkruimte**
+
+De verklaring die hij aanbiedt bouwt voort op het werkruimtemodel van de
+psycholoog Bernard Baars uit 1988 en is met Jean-Pierre Changeux uitgewerkt
+tot een model met zenuwcellen erin. In de schors bevindt zich een netwerk van
+cellen met zeer lange uitlopers, geconcentreerd in bepaalde lagen van
+voorhoofds-, wand- en slaapkwabgebieden, dat gescheiden verwerkingseenheden
+met elkaar kan verbinden.
+
+Wanneer een prikkel sterk genoeg is en aandacht krijgt, wint hij de onderlinge
+concurrentie, ontsteekt dit netwerk en verspreidt de inhoud zich over het
+brein. Dehaene laat zien dat computersimulaties van zo een netwerk dezelfde
+alles-of-niets-drempel vertonen als proefpersonen: een geleidelijk sterkere
+prikkel geeft geen geleidelijk sterker bewustzijn maar een plotselinge omslag.
+
+**Meten bij wie niet kan antwoorden**
+
+Het klinische deel is de scherpste toetssteen van de theorie. Bij patiënten
+die na hersenletsel wakker lijken maar niet reageren, is de vraag of er nog
+iemand aanwezig is. Adrian Owen toonde in 2006 met een fMRI-scanner aan dat
+een patiënte in vegetatieve toestand op verzoek tennissen kon voorstellen, met
+dezelfde activatie als gezonde proefpersonen.
+
+Dehaene beschrijft zijn eigen goedkopere variant, de zogeheten
+lokaal-globaal-toets aan het bed: een reeks tonen met een regelmaat die alleen
+bij bewuste verwerking als geschonden wordt geregistreerd. Daarnaast bespreekt
+hij de aanpak van Massimini en collega's, waarbij met magnetische prikkeling
+van buitenaf een golf door de schors wordt gestuurd en de complexiteit van de
+weerkaatsing wordt gemeten. Deze methoden onderscheiden groepen patiënten met
+redelijke betrouwbaarheid en hebben voorspellende waarde voor herstel.
+
+**Baby's, dieren en machines**
+
+Een volgend hoofdstuk vraagt bij wie deze kenmerken nog meer te vinden zijn.
+Bij zuigelingen van enkele maanden vond het onderzoek van Sid Kouider en
+collega's een trage golf die op de P3 lijkt maar veel later valt, wat wijst op
+een langzamere vorm van hetzelfde verschijnsel. Bij apen zijn vergelijkbare
+ontbrandingspatronen gemeten, en er is gedragsonderzoek waaruit blijkt dat
+dieren kunnen aangeven hoe zeker zij van een antwoord zijn.
+
+Het slot kijkt vooruit naar machines. Dehaene houdt vol dat er niets buiten de
+natuurkunde nodig is: een systeem dat informatie op dezelfde manier globaal
+beschikbaar maakt en over zichzelf kan rapporteren, zou volgens hem de
+bouwstenen van bewustzijn hebben. Hij bespreekt de tegenwerping van David
+Chalmers over het zogeheten harde probleem en zet daar de verwachting
+tegenover dat die vraag zal wegslijten naarmate het meetwerk vordert, zoals
+eerder gebeurde met de vraag wat leven is.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| bewuste toegang | Het beschikbaar worden van een inhoud voor rapportage, geheugen en verdere bewerking, het enige aspect van bewustzijn dat Dehaene onderzoekt. |
+| minimaal contrast | Onderzoeksopzet waarbij dezelfde prikkel de ene keer wel en de andere keer niet bewust wordt waargenomen, zodat alleen het bewustzijnsverschil overblijft. |
+| maskering | Techniek waarbij een prikkel door omringende beelden onzichtbaar wordt gemaakt terwijl hij het brein wel bereikt. |
+| aandachtsknipper | Het verschijnsel dat een tweede doelprikkel wordt gemist wanneer die kort na een eerste verschijnt die de aandacht nog bezet houdt. |
+| ontbranding | De plotselinge, zichzelf versterkende toename van activiteit in een uitgebreid netwerk die volgens Dehaene met bewuste waarneming samenvalt. |
+| P3-golf | Trage hersengolf rond driehonderd tot vierhonderd milliseconden na de prikkel, in dit werk als eerste kenmerk van bewuste waarneming behandeld. |
+| globale neuronale werkruimte | Netwerk van cellen met lange uitlopers dat gescheiden hersengebieden verbindt en informatie voor het hele systeem beschikbaar maakt. |
+| voorbewust | Toestand van informatie die sterk genoeg is om bewust te kunnen worden maar door gebrek aan aandacht buiten het bewustzijn blijft. |
+| perturbatiecomplexiteit | Maat voor de rijkdom van de hersenreactie op een magnetische prikkel van buitenaf, gebruikt om bewustzijn bij niet-reagerende patiënten te schatten. |
+
+#### Waar het argument op rust
+
+De onderbouwing is voor dit onderwerp ongebruikelijk breed. Het boek steunt op
+honderden proeven met verschillende methoden: elektro-encefalografie,
+magneto-encefalografie, functionele scans en rechtstreekse metingen met
+elektroden bij patiënten met epilepsie die om medische redenen toch al werden
+geopereerd. Dat laatste materiaal is zeldzaam en levert tijdsresolutie en
+plaatsbepaling tegelijk.
+
+De verschillende methoden wijzen dezelfde kant op, en dat gewicht draagt het
+betoog. Het alles-of-niets-karakter van bewuste waarneming is in gedrag en in
+hersenmetingen teruggevonden, en de computersimulaties van het werkruimtemodel
+voorspellen die drempel zonder dat hij is ingebouwd. De klinische toepassing
+levert bovendien een externe toets: de metingen voorspellen tot op zekere
+hoogte welke patiënten herstellen.
+
+Dehaene is over de grenzen redelijk open. Hij erkent dat de theorie over
+toegang gaat en niet over de vraag waarom er beleving bij komt kijken, en dat
+de vier kenmerken statistische verbanden zijn met uitzonderingen. Wat hij
+minder benadrukt is dat het merendeel van de aangehaalde proeven uit zijn
+eigen laboratorium of uit nauw verwante groepen komt, en dat het boek weinig
+ruimte geeft aan bevindingen die de theorie tegenspreken.
+
+#### Wat er tegen in te brengen valt
+
+Het bekendste bezwaar betreft de rol van de rapportage. In vrijwel alle
+aangehaalde proeven moeten proefpersonen aangeven wat zij zagen, en die
+handeling brengt zelf beslissen, onthouden en antwoorden met zich mee.
+Onderzoekers als Jaan Aru, Talis Bachmann en Naotsugu Tsuchiya betoogden dat
+de gevonden kenmerken daardoor gevolgen van bewustzijn kunnen zijn in plaats
+van bewustzijn zelf. In opstellingen zonder rapportage verdwijnt een deel van
+de voorhoofdsactiviteit, wat dat bezwaar ondersteunt.
+
+Daarmee samen hangt het debat over de plaats. Christof Koch, Melanie Boly,
+Marcello Massimini en Giulio Tononi verdedigen dat de inhoud van bewustzijn in
+een achterste zone van de schors zit en dat de voorhoofdskwab vooral met
+rapporteren en handelen te maken heeft. Een grootschalige tegenproef waarin
+voorstanders van de werkruimtetheorie en van de theorie van geïntegreerde
+informatie hun voorspellingen vooraf vastlegden, leverde voor beide kampen
+ongunstige uitkomsten op: de langdurige voorhoofdsvertegenwoordiging die de
+werkruimtetheorie voorspelde werd niet gevonden zoals verwacht.
+
+Filosofisch blijft de scheiding tussen toegang en beleving liggen. Ned Block
+onderscheidde beide en betoogde dat een verklaring van het eerste het tweede
+onaangeroerd laat. Dehaene verwacht dat die vraag vanzelf oplost, maar dat is
+een verwachting en geen argument. Wie het harde probleem serieus neemt, houdt
+na dit boek dezelfde vraag over als ervoor.
+
+Ten slotte is de klinische belofte voorzichtiger te lezen dan het boek soms
+suggereert. De methoden werken op groepsniveau beter dan bij de afzonderlijke
+patiënt, een negatieve uitslag sluit bewustzijn niet uit, en de gevolgen van
+zo een uitslag voor beslissingen over behandeling zijn ethisch zwaar. Latere
+richtlijnen voor de praktijk vragen om meerdere metingen naast elkaar en om
+terughoudendheid bij het trekken van conclusies.
+
+#### Wat er concreet mee te doen is
+
+- Voor zorgverleners rond patiënten met bewustzijnsstoornissen: het boek geeft
+de achtergrond bij metingen die naast het klinisch onderzoek aan het bed
+worden ingezet.
+- Vraag bij elk bericht over een gemeten hersenkenmerk of proefpersonen
+moesten rapporteren, en of het gevonden signaal daarvan het gevolg kan zijn.
+- Gebruik het onderscheid tussen waakzaamheid, aandacht en bewuste toegang om
+verwarring in discussies over bewustzijn bij dieren en machines te
+verminderen.
+- Neem de grenzen van onbewuste verwerking mee bij het beoordelen van claims
+over onbewuste beïnvloeding: het effect is aantoonbaar en tegelijk kortdurend
+en klein.
+
+#### Wat je hierna leest
+
+- 55. Thinking, Fast and Slow. Daniel Kahneman beschrijft in *Thinking, Fast
+and Slow* dezelfde tweedeling tussen snelle onbewuste verwerking en traag
+bewust redeneren, vanuit de psychologie in plaats van de hersenmeting.
+- 339. Behave. Robert Sapolsky legt in *Behave* uit hoe de hersengebieden
+werken die bij Dehaene als netwerkknopen terugkomen, met veel aandacht voor de
+voorhoofdskwab.
+- 331. Projections. Karl Deisseroth laat in *Projections* zien wat
+hersenonderzoek met nieuwe technieken over ervaring kan zeggen, geschreven
+vanuit de psychiatrische praktijk.
+
+## 714. The Interpretation of Cultures
+
+Clifford Geertz, 1973. *The Interpretation of Cultures: Selected Essays*
+(Basic Books, New York, 1973, 470 blz., ISBN 9780465097197 voor de
+veelgebruikte heruitgave; Britse editie bij Hutchinson, Londen, 1975;
+jubileumuitgave met een voorwoord van Robert Darnton bij Basic Books, 2017).
+Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; van
+Geertz is daar alleen *De antropoloog als schrijver* (Kok Agora, Kampen, 1989)
+in het Nederlands beschikbaar, de vertaling van een ander boek. De
+samenvatting is op de Engelse editie gebaseerd. Rubriek: geschiedenis en
+samenleving.
+Tags: `antropologie`, `cultuur`, `methode`, `etnografie`, `interpretatie`
+
+Clifford Geertz (1926-2006) deed veldwerk op Java, op Bali en in Marokko en
+werkte vanaf 1970 aan het Institute for Advanced Study in Princeton. Deze
+bundel verzamelt vijftien opstellen uit de periode 1957 tot 1972, voorafgegaan
+door een nieuw geschreven openingsstuk waarin hij zijn methode uiteenzet.
+Cultuur is in zijn omschrijving een weefsel van betekenissen dat mensen zelf
+hebben gesponnen, en het werk van de onderzoeker is uitleggen, niet meten.
+
+Het middel daartoe noemt hij dichte beschrijving, een term die hij ontleent
+aan de filosoof Gilbert Ryle: niet vastleggen dat een ooglid beweegt, maar
+uitzoeken of het om een tic, een knipoog of het naspelen van een knipoog gaat.
+Het boek veranderde de koers van de culturele antropologie en werd later ook
+van binnenuit bekritiseerd, onder meer omdat het weinig zegt over macht,
+geschiedenis en de controleerbaarheid van interpretaties.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Geertz stelt dat cultuur geen kracht is die gedrag
+veroorzaakt, geen optelsom van gewoontes en geen verzameling in hoofden
+opgeslagen regels, maar een openbaar stelsel van betekenissen waarin
+handelingen leesbaar worden. Antropologie is daarom geen natuurwetenschap op
+zoek naar wetten, maar een uitleggende bezigheid op zoek naar betekenis,
+verwant aan het lezen van een tekst in een vreemde taal met ontbrekende
+bladzijden. Wie een handeling wil begrijpen, moet de laag beschrijven waarin
+die handeling voor de deelnemers iets betekent. Dat maakt etnografische kennis
+van nature betwistbaar: er is geen ruwe waarneming waaraan een uitleg kan
+worden afgemeten, alleen betere en slechtere uitleg.
+
+#### De gang van het boek
+
+**Dichte beschrijving**
+
+Het openingsopstel, in 1973 voor deze bundel geschreven, is het meest gelezen
+stuk uit het boek. Geertz leent van Gilbert Ryle het voorbeeld van de
+bewegende oogleden. Op het niveau van de spierbeweging zijn een tic, een
+knipoog, het nabootsen van een knipoog om iemand te bespotten en het oefenen
+van die bespotting niet van elkaar te onderscheiden. Toch zijn het volstrekt
+verschillende handelingen, en het verschil zit in een openbaar stelsel van
+afspraken.
+
+Dunne beschrijving legt de beweging vast, dichte beschrijving de
+betekenislagen eromheen. Etnografie is in deze opvatting het uitpluizen van
+een hiërarchie van betekenissen die de onderzoeker eerst niet ziet. Geertz
+voegt daar een ontnuchterende opmerking aan toe: wat de etnograaf uiteindelijk
+opschrijft is al een interpretatie van tweede en derde orde, een uitleg van de
+uitleg die de deelnemers zelf van hun leven geven.
+
+Daaruit volgt zijn beroemdste beperking. De maatstaf voor een etnografische
+verhandeling ligt niet in onbewerkte gegevens maar in de mate waarin zij
+toegang geeft tot het leven van vreemden. Culturele analyse is daarom van
+zichzelf onvolledig en betwistbaar, en Geertz beschouwt dat als eigen aan het
+vak en niet als tekort.
+
+**Cultuur en het beeld van de mens**
+
+In het tweede opstel bestrijdt Geertz wat hij de gelaagde opvatting van de
+mens noemt: eerst een biologisch wezen, daarop een psychologische laag, daarop
+een sociale en tenslotte een culturele. In die voorstelling zou het menselijke
+overblijven wanneer de bovenste lagen worden weggehaald, en cultuur zou
+versiering zijn.
+
+Hij keert dat om aan de hand van de fossiele geschiedenis zoals die in de
+jaren zestig bekend was: gereedschapsgebruik en sociale organisatie zijn ouder
+dan het huidige mensenbrein en hebben de bouw ervan mee bepaald. Mensen zijn
+onvoltooide dieren die zichzelf via cultuur voltooien. Cultuur is dan geen
+laklaag maar een besturingsprogramma, en zonder zo een programma zou er geen
+bruikbaar menselijk gedrag overblijven.
+
+**Religie als cultureel systeem**
+
+Het opstel over religie bevat de omschrijving die decennialang in studieboeken
+terechtkwam. Religie is een stelsel van symbolen dat sterke, doordringende en
+duurzame stemmingen en drijfveren opwekt, door voorstellingen te vormen van
+een algemene ordening van het bestaan en die voorstellingen zo met
+werkelijkheidszin te omkleden dat de stemmingen en drijfveren volstrekt echt
+lijken.
+
+Daarbij hoort zijn onderscheid tussen een model van en een model voor: een
+symbolisch stelsel beschrijft hoe de wereld in elkaar zit en schrijft tegelijk
+voor hoe erin gehandeld moet worden. Geertz werkt dat uit met voorbeelden uit
+Java en Bali, en met de vraag wat er gebeurt wanneer ervaringen van lijden,
+verwarring of onrecht de aangeboden ordening tegenspreken.
+
+**Wanneer het ritueel misgaat**
+
+Een van de scherpste stukken beschrijft een begrafenis in een Javaans stadje
+die vastloopt. De overledene was een jongen uit een gezin dat aan de moderne
+islamitische zuil verbonden was, in een buurt waar de oudere Javaanse mengvorm
+de omgang bepaalde. De godsdienstige functionaris weigerde de gebruikelijke
+rol te vervullen, waarna het ritueel urenlang stil viel en de rouw ontspoorde.
+
+Geertz gebruikt het geval om te laten zien dat cultuur en sociale ordening
+twee dingen zijn die uiteen kunnen lopen. In een dorp vielen betekenisstelsel
+en buurtverband samen; in een stad met politieke partijen en religieuze
+stromingen niet meer. Deze analyse laat een kant van zijn werk zien die in de
+latere kritiek vaak wordt overgeslagen: hier is de cultuur juist niet
+samenhangend en juist wel verweven met politiek.
+
+**Ideologie, natievorming en macht**
+
+Een reeks opstellen behandelt de nieuwe staten die na de dekolonisatie
+ontstonden. Geertz bestrijdt de gewoonte om ideologie af te doen als
+vervorming of als eigenbelang in vermomming, en behandelt haar als
+betekenissysteem dat het handelen begrijpelijk maakt in een situatie waarin
+oude oriëntaties zijn weggevallen.
+
+In het opstel over wat hij de integratieve omwenteling noemt, beschrijft hij
+de spanning in landen als Indonesië en India tussen gehechtheden die als
+vanzelfsprekend en oorspronkelijk worden ervaren, zoals taal, streek,
+verwantschap en geloof, en de eisen van een burgerlijke staatsorde. Die
+spanning verdwijnt volgens hem niet met modernisering, maar verandert van vorm
+doordat de staat er nieuwe inzetten aan toevoegt.
+
+**Bali: personen, tijd en het hanengevecht**
+
+De laatste opstellen gaan over Bali. In een studie over persoonsaanduiding en
+tijdsbeleving beschrijft Geertz hoe naamstelsels en kalenders individuen
+minder als levensloop en meer als vaste plek in een orde voorstellen, wat
+samenhangt met het gewicht dat aan houding en decorum wordt gehecht.
+
+Het bekendste stuk is de analyse van het hanengevecht. Het opent met een
+politie-inval in 1958 waarbij Geertz en zijn vrouw met de dorpelingen
+wegrennen, wat hun de toegang verschaft die zij eerder misten. Daarna volgt de
+uitleg: bij de grote gevechten gaat het niet om geld maar om status. Hij leent
+van Jeremy Bentham de term diep spel voor inzetten die rationeel gezien te
+hoog zijn, en betoogt dat de Balinees in het gevecht zijn eigen samenleving in
+versneld tempo naspeelt. Het hanengevecht is in zijn woorden een verhaal dat
+Balinezen zichzelf over zichzelf vertellen.
+
+**Wat de bundel als geheel deed**
+
+De vijftien opstellen zijn tussen 1957 en 1972 geschreven en niet als boek
+bedoeld; de samenhang komt van het openingsstuk dat er achteraf voor werd
+gemaakt. Toch werkte de bundel als programma. In de jaren zeventig en tachtig
+verschoof een groot deel van de culturele antropologie van het zoeken naar
+wetmatigheden naar het uitleggen van betekenis, en de term dichte beschrijving
+reisde naar de geschiedschrijving, de rechtswetenschap, de literatuurstudie en
+later het organisatieonderzoek.
+
+Geertz schreef bovendien een soort proza dat in het vak ongewoon was:
+verhalend, met beelden en zelfspot. Dat droeg bij aan het bereik en werd later
+onderdeel van de kritiek, toen collega's zijn eigen aandacht voor retoriek op
+zijn teksten toepasten.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| dichte beschrijving | Beschrijving die naast de waarneembare handeling ook de betekenislagen vastlegt waardoor die handeling voor de deelnemers iets betekent. |
+| dunne beschrijving | Beschrijving die zich beperkt tot de waarneembare beweging, zonder de afspraken die er betekenis aan geven. |
+| cultuur als betekenisweefsel | Geertz' omschrijving van cultuur als openbaar stelsel van betekenissen dat mensen zelf hebben gesponnen en waarin zij verstrikt zitten. |
+| model van en model voor | Het dubbele werk van symbolen: zij geven een voorstelling van hoe de werkelijkheid is en tegelijk een voorschrift voor hoe erin gehandeld wordt. |
+| ethos en wereldbeeld | De morele en esthetische toon van een leefwijze naast de opvatting over hoe de werkelijkheid in elkaar zit, in Geertz' analyse op elkaar afgestemd door rituelen. |
+| diep spel | Aan Bentham ontleende term voor spel met inzetten die zo hoog zijn dat deelname rationeel gezien onverstandig is, door Geertz toegepast op het Balinese hanengevecht. |
+| primordiale gehechtheid | Binding aan taal, verwantschap, streek of geloof die als vanzelfsprekend en oorspronkelijk wordt ervaren en botst met de eisen van een staatsorde. |
+| interpretatie van de tweede orde | De uitleg van de onderzoeker, die altijd volgt op de uitleg die de deelnemers zelf al van hun handelen geven. |
+| cultureel systeem | Samenhangend geheel van symbolen dat een bepaald levensgebied ordent, door Geertz gebruikt voor religie, ideologie, kunst en gezond verstand. |
+
+#### Waar het argument op rust
+
+De onderbouwing bestaat uit veldwerk en uit argumentatie, niet uit
+meetgegevens. Geertz werkte in de jaren vijftig ruim twee jaar in het Javaanse
+stadje dat hij Modjokuto noemt, verbleef in 1957 en 1958 op Bali en deed vanaf
+1963 met tussenpozen onderzoek in Sefrou in Marokko. Zijn opstellen putten uit
+dat materiaal, meestal in de vorm van één uitgewerkt geval waarin een algemeen
+punt zichtbaar wordt.
+
+De sterkte van die aanpak zit in de detaillering. De mislukte begrafenis en
+het hanengevecht zijn zo dicht opgeschreven dat de lezer kan nagaan waar de
+uitleg op steunt en op welke punten die uitleg kan worden betwist. Dat is een
+vorm van controleerbaarheid, zij het een andere dan die van cijfers.
+
+De zwakte zit in het ontbreken van een procedure om tussen rivaliserende
+interpretaties te kiezen. Geertz benoemt dat zelf en aanvaardt het: culturele
+analyse blijft naar zijn woorden van nature onvolledig, en vooruitgang in het
+vak bestaat niet uit betere overeenstemming maar uit scherper onenigheid. Wie
+dat als voldoende aanvaardt hangt af van wat men van een sociale wetenschap
+verwacht.
+
+#### Wat er tegen in te brengen valt
+
+De meest gehoorde methodologische kritiek is dat de interpretatie te weinig
+weerstand ondervindt. Paul Shankman betoogde in 1984 in *Current Anthropology*
+dat het programma van Geertz geen manier biedt om een uitleg te weerleggen,
+waardoor de overtuigingskracht bij de schrijfstijl komt te liggen. Wie het
+verhaal mooier vertelt, wint.
+
+Vincent Crapanzano nam in 1986 het opstel over het hanengevecht regel voor
+regel uit elkaar en liet zien hoe Geertz zonder verantwoording overgaat van
+waarnemingen naar uitspraken over wat de Balinees voelt en bedoelt. Nergens
+komen Balinezen zelf aan het woord om die uitspraak te bevestigen. Deze
+kritiek maakte deel uit van de reflexieve wending in de antropologie, die
+Geertz' eigen aandacht voor retoriek tegen zijn teksten keerde; hij antwoordde
+in *Works and Lives* uit 1988.
+
+Inhoudelijk is het zwaarste bezwaar dat cultuur bij Geertz te samenhangend en
+te gedeeld voorkomt, terwijl macht, klasse, koloniale geschiedenis en
+economische verhoudingen buiten beeld blijven. William Roseberry stelde in
+1982 dat de behandeling van cultuur als tekst de vraag verdringt wie die tekst
+schrijft en wie eraan onderworpen is. Talal Asad betoogde later dat de
+omschrijving van religie in de bundel zelf een product is van de Europese
+geschiedenis na de Reformatie en daarom slecht past op samenlevingen waarin
+geloof en gezag niet gescheiden zijn.
+
+Vanuit het veldwerk kwam kritiek van Unni Wikan, die na langdurig verblijf op
+Bali betoogde dat Geertz' nadruk op decorum en gelijkmoedigheid de emoties, de
+angst en het lijden achter die gevels miste. Dat raakt niet zijn methode maar
+de juistheid van zijn afzonderlijke lezing, wat gezien zijn eigen maatstaven
+het meest verontrustende soort tegenwerping is.
+
+Ten slotte is de bundel gedateerd op punten waar hij op de wetenschap van zijn
+tijd leunt, met name de hoofdstukken over de evolutie van de menselijke geest.
+De hoofdlijn daarvan, dat cultuur en het menselijke brein elkaar hebben
+gevormd, is overeind gebleven; de fossiele en genetische onderbouwing eronder
+is sindsdien geheel vernieuwd.
+
+#### Wat er concreet mee te doen is
+
+- Beschrijf bij het onderzoeken van een groep eerst wat een handeling voor de
+deelnemers betekent, en houd die beschrijving apart van de verklaring die
+daarna volgt.
+- Noteer bij een opvallend gebruik welke onderscheidingen de deelnemers zelf
+maken; het verschil tussen een tic en een knipoog is niet in de beweging te
+vinden.
+- Zoek bij organisatieonderzoek naar de gevallen waarin een gewoonte
+vastloopt; een mislukt ritueel legt de onderliggende verhoudingen sneller
+bloot dan een geslaagd ritueel.
+- Vraag bij elke uitleg wie er niet aan het woord komt en welke belangen
+buiten de tekst blijven; dat is de kern van de kritiek die op deze methode is
+geleverd.
+- Vermeld bij een interpretatie welke andere lezing van hetzelfde materiaal
+mogelijk is en waarom die minder aannemelijk lijkt.
+
+#### Wat je hierna leest
+
+- 56. Sapiens. Yuval Noah Harari behandelt in *Sapiens* gedeelde verhalen als
+grondslag van samenlevingen, met een breed penseel waar Geertz met een fijne
+pen werkt.
+- 521. Indigenous and Popular Thinking in América. Rodolfo Kusch beschrijft in
+*Indigenous and Popular Thinking in América* een denkwereld van binnenuit,
+precies de opgave waarvoor Geertz zijn methode ontwierp.
+- 562. Public Opinion. Walter Lippmann laat in *Public Opinion* zien hoe
+symbolen en beelden in het hoofd het publieke handelen sturen, een verwante
+vraag vanuit de politieke journalistiek.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
@@ -134108,32 +135323,33 @@ droom` 284 · `amerikaanse geschiedenis` 621, 691 · `Amerikaanse geschiedenis`
 `Andalusië` 8 · `Andes` 521 · `angst` 53, 58, 107, 119, 131, 136, 140, 181,
 214, 252, 341, 401, 440, 548 · `angst voor de dood` 377 · `animatie` 41 ·
 `Antarctica` 36 · `anthologie` 189 · `antieke filosofie` 586 · `antropologie`
-223, 410, 602 · `antwerpen` 113 · `apartheid` 26, 523 · `Apple` 46, 231 ·
+223, 410, 602, 714 · `antwerpen` 113 · `apartheid` 26, 523 · `Apple` 46, 231 ·
 `apps` 294 · `arbeid` 6, 173, 297, 390 · `arbeidsethos` 266 · `archeologie`
-600 · `archetype` 360 · `archetypen` 357, 404, 407, 409, 410 · `Argentinië`
-521 · `argumentatie` 421, 437, 511 · `argumenten` 63 · `argumenteren` 438 ·
-`Aristoteles` 438 · `armoede` 26, 234, 254 · `Arthashastra` 370 ·
-`assertiviteit` 162 · `astrologie` 632 · `asymmetrie` 282 · `atletiek` 31 ·
-`atomisme` 281 · `Auschwitz` 48 · `Australië` 447 · `autobiografie` 358, 440 ·
-`automatisering` 297, 539 · `autonomie` 6, 50 · `autoriteit` 215 · `autotelie`
-200 · `backtesten` 482, 502 · `banken en verzekeraars` 497 · `barok` 216 ·
-`basisbehoeften` 107 · `bbc` 82 · `bedrijfsbestuur` 567 · `bedrijfscultuur`
-170, 257, 270 · `bedrijfsgroei` 350 · `bedrijfsleven` 209, 293 ·
-`bedrijfsonderzoek` 353 · `bedrijfssystemen` 264 · `beeldcultuur` 563 ·
-`beeldverhaal` 561 · `beginners` 112 · `behoeften` 35 · `beinvloeding` 123,
-126 · `beïnvloeding` 399 · `bekentenis` 60 · `belangenverstrengeling` 138 ·
-`beleggen` 21, 64, 144, 233, 277, 351, 474, 476, 477, 478, 479, 480, 481, 482,
-483, 484, 485, 486, 489, 490, 492, 496, 498, 499, 500, 501, 502, 503, 504, 505
-· `beleid` 65 · `beloningssysteem` 418 · `bemiddeling` 35 · `beroemdheden` 128
-· `beroemdheid` 563 · `beschadigd-bestand` 115, 130 · `beschaving` 57, 593 ·
-`beslissen` 55 · `beslissingen` 197 · `besluiten` 47, 59, 69, 137 ·
-`besluitvorming` 151, 166, 170, 174, 209, 270, 282, 283, 293, 299, 364, 396,
-423, 424, 426, 450, 451, 468, 475, 510 · `bestseller` 8, 37, 250 · `betekenis`
-143 · `bethel` 559 · `betrokkenheid` 472 · `beurs` 80, 488 · `beurshandel` 487
-· `beursrendement` 353 · `beweging` 77, 84 · `bewijs` 63, 658, 660 ·
-`bewustwording` 103 · `bewustzijn` 148, 169, 200, 275, 340, 377, 518, 580,
-585, 652, 663 · `bewustzijnsniveaus` 449 · `bezit` 37 · `bhagavad gita` 569 ·
-`bias` 209 · `bijeenkomsten` 304 · `bijgeloof` 63 · `bijna-doodervaring` 585 ·
+600, 712 · `archetype` 360 · `archetypen` 357, 404, 407, 409, 410 ·
+`Argentinië` 521 · `argumentatie` 421, 437, 511 · `argumenten` 63 ·
+`argumenteren` 438 · `Aristoteles` 438 · `armoede` 26, 234, 254 ·
+`Arthashastra` 370 · `assertiviteit` 162 · `astrologie` 632 · `asymmetrie` 282
+· `atletiek` 31 · `atomisme` 281 · `Auschwitz` 48 · `Australië` 447 ·
+`autobiografie` 358, 440 · `automatisering` 297, 539 · `autonomie` 6, 50 ·
+`autoriteit` 215 · `autotelie` 200 · `backtesten` 482, 502 · `banken en
+verzekeraars` 497 · `barok` 216 · `basisbehoeften` 107 · `bbc` 82 ·
+`bedrijfsbestuur` 567 · `bedrijfscultuur` 170, 257, 270 · `bedrijfsgroei` 350
+· `bedrijfsleven` 209, 293 · `bedrijfsonderzoek` 353 · `bedrijfssystemen` 264
+· `beeldcultuur` 563 · `beeldverhaal` 561 · `beginners` 112 · `behoeften` 35 ·
+`beinvloeding` 123, 126 · `beïnvloeding` 399 · `bekentenis` 60 ·
+`belangenverstrengeling` 138 · `beleggen` 21, 64, 144, 233, 277, 351, 474,
+476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 492, 496,
+498, 499, 500, 501, 502, 503, 504, 505 · `beleid` 65 · `beloningssysteem` 418
+· `bemiddeling` 35 · `beroemdheden` 128 · `beroemdheid` 563 ·
+`beschadigd-bestand` 115, 130 · `beschaving` 57, 593 · `beslissen` 55 ·
+`beslissingen` 197 · `besluiten` 47, 59, 69, 137 · `besluitvorming` 151, 166,
+170, 174, 209, 270, 282, 283, 293, 299, 364, 396, 423, 424, 426, 450, 451,
+468, 475, 510 · `bestseller` 8, 37, 250 · `betekenis` 143 · `bethel` 559 ·
+`betrokkenheid` 472 · `beurs` 80, 488 · `beurshandel` 487 · `beursrendement`
+353 · `beweging` 77, 84 · `bewijs` 63, 658, 660 · `bewustwording` 103 ·
+`bewustzijn` 148, 169, 200, 275, 340, 377, 518, 580, 585, 652, 663, 710, 711,
+713 · `bewustzijnsniveaus` 449 · `bezit` 37 · `bhagavad gita` 569 · `bias` 209
+· `bijeenkomsten` 304 · `bijgeloof` 63 · `bijna-doodervaring` 585 ·
 `biografie` 31, 46, 189, 231, 240, 241, 243, 247, 266, 267, 269, 320, 328,
 402, 454, 514, 537, 558, 649, 658, 659, 689 · `biohacking` 316 · `biologie`
 66, 88, 89, 90, 91, 322, 663 · `biologie van gedrag` 273 · `biologische klok`
@@ -134152,36 +135368,37 @@ droom` 284 · `amerikaanse geschiedenis` 621, 691 · `Amerikaanse geschiedenis`
 `chronobiologie` 326, 329 · `cia` 693 · `cijfers` 39, 65 ·
 `civilisatiekritiek` 298 · `coaching` 161, 291, 441 · `cognitie` 656 ·
 `cognitieve gedragstherapie` 147, 153, 373 · `cognitieve herstructurering` 177
-· `cognitieve vertekening` 234 · `cognitieve wetenschap` 467 ·
-`cognitieve-bias` 59 · `collectief bewustzijn` 435 · `collectief onbewuste`
-357, 360, 362 · `columns` 89, 90 · `comfortzone` 187 · `commando` 97 ·
-`communicatie` 34, 35, 122, 145, 152, 156, 162, 164, 183, 186, 193, 213, 305,
-338, 356, 398, 399, 444, 466, 475, 539, 555 · `communisme` 625 ·
-`complexiteit` 170, 268, 300, 347, 423 · `complimenten geven` 356 ·
-`complotdenken` 667, 668, 672, 676, 683, 684, 688, 690 · `complottheorie` 680
-· `concentratie` 70, 441 · `concurrentie` 293 · `conditionering` 61, 519 ·
-`conflict` 35, 42, 43, 212, 305 · `conflictbemiddeling` 304 ·
-`conflicthantering` 271 · `conformisme` 211 · `consistentie` 553 ·
-`consumptie` 463 · `consumptiekeuzes` 299 · `consumptiemaatschappij` 564 ·
-`content` 308 · `content creatie` 365 · `content marketing` 369 · `corruptie`
-221 · `creativiteit` 11, 12, 13, 14, 15, 16, 17, 74, 206, 312, 349, 418, 445,
-471, 472, 475, 550 · `cricket` 174 · `crisis` 47 · `CRISPR` 413 · `cultuur`
-68, 274 · `cultuurfilosofie` 580 · `cultuurkritiek` 54, 405, 592, 672 ·
-`cursus` 108, 130, 201 · `cursus-in-wonderen` 102, 131, 548 · `cybernetica`
-411, 539, 540, 541 · `cynisme` 250, 319 · `Cyrus de Grote` 536 · `dagboek` 2,
-109, 224, 286, 579 · `dagboekaantekeningen` 226 · `dagboekmethode` 78 ·
-`dagboekonderzoek` 472 · `dagelijkse gewoontes` 205 · `dagelijkse praktijk`
-442 · `dankbaarheid` 129, 433 · `darmbacteriën` 417 · `dataïsme` 236 · `daten`
-166 · `de ander` 574 · `debat` 28 · `debuutboek` 226 · `deeltjesfysica` 648 ·
-`degrowth` 298 · `dekoloniaal denken` 521 · `delegeren` 434 · `deliberate
-practice` 376 · `dementie` 84, 85, 225 · `democratie` 98, 562, 619, 628 ·
-`denken` 310, 509, 664 · `denkfouten` 55, 59, 142, 396, 437, 510, 514 ·
-`denkmethode` 471 · `denkmodellen` 426 · `depressie` 403 · `derivaten` 494,
-495 · `design thinking` 150 · `destructiviteit` 223 · `deugd` 247, 459, 581 ·
-`diagnose` 104 · `dialoog` 335, 572 · `dichotomie van controle` 194 ·
-`dichtwerk` 524 · `dictatuur` 221 · `dienstbaarheid` 230, 245, 535 ·
-`diepe-tijd` 239 · `dieptepsychologie` 646 · `dieren` 555 · `dierenzintuigen`
-322 · `dierlijke-cognitie` 383 · `dierproeven` 330 · `differentiatie` 165 ·
+· `cognitieve neurowetenschap` 713 · `cognitieve vertekening` 234 ·
+`cognitieve wetenschap` 467 · `cognitieve-bias` 59 · `collectief bewustzijn`
+435 · `collectief onbewuste` 357, 360, 362 · `columns` 89, 90 · `coma` 713 ·
+`comfortzone` 187 · `commando` 97 · `communicatie` 34, 35, 122, 145, 152, 156,
+162, 164, 183, 186, 193, 213, 305, 338, 356, 398, 399, 444, 466, 475, 539, 555
+· `communisme` 625 · `complexiteit` 170, 268, 300, 347, 423 · `complimenten
+geven` 356 · `complotdenken` 667, 668, 672, 676, 683, 684, 688, 690 ·
+`complottheorie` 680 · `concentratie` 70, 441 · `concurrentie` 293 ·
+`conditionering` 61, 519 · `conflict` 35, 42, 43, 212, 305 ·
+`conflictbemiddeling` 304 · `conflicthantering` 271 · `conformisme` 211 ·
+`consistentie` 553 · `consumptie` 463 · `consumptiekeuzes` 299 ·
+`consumptiemaatschappij` 564 · `content` 308 · `content creatie` 365 ·
+`content marketing` 369 · `corruptie` 221 · `creativiteit` 11, 12, 13, 14, 15,
+16, 17, 74, 206, 312, 349, 418, 445, 471, 472, 475, 550 · `cricket` 174 ·
+`crisis` 47 · `CRISPR` 413 · `cultuur` 68, 274, 714 · `cultuurfilosofie` 580 ·
+`cultuurkritiek` 54, 405, 592, 672 · `cursus` 108, 130, 201 ·
+`cursus-in-wonderen` 102, 131, 548 · `cybernetica` 411, 539, 540, 541 ·
+`cynisme` 250, 319 · `Cyrus de Grote` 536 · `dagboek` 2, 109, 224, 286, 579 ·
+`dagboekaantekeningen` 226 · `dagboekmethode` 78 · `dagboekonderzoek` 472 ·
+`dagelijkse gewoontes` 205 · `dagelijkse praktijk` 442 · `dankbaarheid` 129,
+433 · `darmbacteriën` 417 · `dataïsme` 236 · `daten` 166 · `de ander` 574 ·
+`debat` 28 · `debuutboek` 226 · `deeltjesfysica` 648 · `degrowth` 298 ·
+`dekoloniaal denken` 521 · `delegeren` 434 · `deliberate practice` 376 ·
+`dementie` 84, 85, 225 · `democratie` 98, 562, 619, 628 · `denken` 310, 509,
+664 · `denkfouten` 55, 59, 142, 396, 437, 510, 514 · `denkmethode` 471 ·
+`denkmodellen` 426 · `depressie` 403 · `derivaten` 494, 495 · `design
+thinking` 150 · `destructiviteit` 223 · `deugd` 247, 459, 581 · `diagnose` 104
+· `dialoog` 335, 572 · `dichotomie van controle` 194 · `dichtwerk` 524 ·
+`dictatuur` 221 · `dienstbaarheid` 230, 245, 535 · `diepe-tijd` 239 ·
+`dieptepsychologie` 646 · `dieren` 555 · `dierenzintuigen` 322 · `dierkunde`
+710 · `dierlijke-cognitie` 383 · `dierproeven` 330 · `differentiatie` 165 ·
 `digitaal` 81 · `diplomatie` 243 · `direct response` 350 · `DISC` 156, 429 ·
 `discipline` 12, 13, 22, 30, 106, 133, 137, 146, 445, 462, 480, 481, 482, 487,
 488, 545 · `discours` 628 · `disruptie` 293 · `DNA` 419 · `docenten` 116 ·
@@ -134208,99 +135425,100 @@ zelf` 409 · `ego-depletie` 382 · `egypte` 591, 594, 595, 596, 597, 599, 602 ·
 · `esoterie` 378, 590, 603, 605, 606, 613, 630, 631, 632, 633, 634, 635, 642,
 643, 644, 645, 647, 670, 678, 679 · `essay` 3, 9, 21, 57, 59, 63, 64, 68, 96,
 197, 232 · `essaybundel` 390, 425, 620 · `essays` 523, 656 · `eten` 103 ·
-`ethiek` 282, 299, 413, 574, 612, 665 · `eurazië` 694 · `evangelisatie` 201 ·
-`evolutie` 56, 66, 89, 90, 91, 239, 318, 322, 323, 332, 339, 347, 383, 518,
-609 · `evolutiebiologie` 452, 453 · `evolutionaire-psychologie` 67 ·
-`excellentie` 553 · `executives` 344 · `existentialisme` 405 · `expeditie` 36
-· `experiment` 79, 215 · `experimenten` 280, 424 · `experimenteren` 265 ·
-`expertise` 283, 320, 376 · `extra dimensies` 648 · `extraversie` 361 ·
-`fabel` 8, 42, 135, 167, 252 · `facilitatie` 304 · `falen` 23, 72, 75, 312,
-422 · `familie` 45, 325, 466 · `familieconflict` 178 · `familiegeschiedenis`
-114, 235 · `familieroman` 10 · `fantasy` 192, 203 · `FBI` 154, 271 ·
-`FBI-onderzoek` 431 · `federalisme` 619 · `feedback` 41, 296, 541, 542 ·
-`feiten` 43 · `feminisme` 3, 620, 624 · `fenomenologie` 574, 577, 582 ·
-`fictie` 100, 115 · `film` 41 · `filologie` 641 · `filosofie` 1, 6, 71, 93,
-199, 211, 216, 224, 247, 255, 263, 292, 299, 383, 390, 391, 392, 393, 421,
-436, 442, 521, 588, 592, 594, 597, 604, 610, 652, 654 ·
-`filosofiegeschiedenis` 269, 639 · `filosofische antropologie` 584 ·
-`financiële geletterdheid` 163 · `financiële markten` 268, 351, 480, 481, 483,
-499, 501 · `financiële onafhankelijkheid` 264 · `financiele vrijheid` 277 ·
-`financiële wiskunde` 497, 507 · `financiële-discipline` 464 · `financiën`
-334, 395, 425 · `financiering` 172 · `fitnessbranche` 307, 544 · `flitshandel`
-499 · `flow` 78, 187, 200 · `focus` 175, 197, 448, 513 · `folklore` 615, 669 ·
-`fotoboek` 189 · `foutcultuur` 422 · `fouten maken` 509 · `franchise` 544 ·
-`frankrijk` 115 · `Franse-Weerstand` 390 · `freelance` 515 · `Fulani` 522 ·
-`fysieke uitdaging` 323 · `fysiologie` 318, 412, 458 · `Galenus` 328 ·
-`gaslighting` 123 · `gastheerschap` 304 · `gastvrijheid` 531 · `gebed` 83,
-259, 573 · `gebruikersgedrag` 294 · `gedachten` 148, 177 · `gedachtenjournal`
-176 · `gedrag` 21, 22, 89, 90, 138, 154, 280, 330, 383, 425 ·
-`gedragsbiologie` 322, 339 · `gedragseconomie` 424, 426, 514 ·
-`gedragsonderzoek` 302, 382 · `gedragspatronen` 161 · `gedragspsychologie` 294
-· `gedragstypen` 156 · `gedragsverandering` 238, 290, 457, 469 ·
-`gedragswetenschap` 166, 209, 305, 468, 469, 510 · `geduld` 21, 351 · `geest`
-584, 652 · `geestelijke gezondheid` 193 · `geestelijke oefeningen` 586 ·
-`gegevensanalyse` 486 · `gehechtheid` 166 · `geheim genootschap` 202 ·
-`geheime diensten` 665, 668, 684, 685 · `geheugen` 66, 85, 175, 414 ·
-`gehoorzaamheid` 215, 617 · `geïllustreerd boek` 176 · `geld` 21, 37, 38, 56,
-76, 121, 132, 133, 158, 159, 433, 463, 464 · `geldmanagement` 492, 493 ·
-`geldmindset` 395 · `geldpsychologie` 233, 264 · `geldstelsel` 680 · `geloof`
-45, 83, 201, 554 · `geluk` 79, 93, 160, 228, 335, 516, 526, 579 ·
-`gemeenschap` 9, 96, 304, 461 · `genealogie` 601 · `geneeskunde` 49, 328 ·
-`generaties` 114 · `generatieve drift` 315 · `genetica` 413, 419 · `genezing`
-340 · `genot en pijn` 314 · `gentechnologie` 413 · `geologie` 239 ·
-`geopolitiek` 220, 692, 694 · `geschiedenis` 30, 36, 56, 57, 68, 93, 94, 212,
-218, 250, 258, 298, 328, 381, 425, 440, 588, 589, 591, 593, 595, 597, 598,
-600, 619, 634, 665, 667, 681, 682, 683, 684, 685, 687, 689, 690, 693 ·
-`geschiedenis van de geneeskunde` 412 · `geschiedfilosofie` 235 ·
-`geschiedschrijving` 601, 602 · `gesprek` 43, 95, 302, 444 ·
-`gesprekstechniek` 182, 186, 438 · `getallen` 657 · `gevangenendilemma` 453 ·
-`gevolgen` 67 · `gewaarzijn` 519 · `geweld` 45, 90, 214 · `geweldloosheid` 612
-· `gewicht` 138 · `gewoontelus` 238 · `gewoonten` 187, 373 · `gewoontes` 7,
-11, 13, 22, 25, 58, 70, 76, 77, 79, 88, 97, 103, 133, 134, 135, 138, 147, 157,
-158, 181, 207, 208, 224, 230, 290, 334, 382, 439, 442, 445, 513, 557 ·
-`gewoontevorming` 146, 161, 168, 188, 244, 291, 294, 396, 397, 411, 540 ·
-`gezag` 62 · `gezin` 547 · `gezinnen` 327 · `gezondheid` 52, 88, 171, 181,
-318, 323, 329, 332, 412, 414, 415 · `gezondheidspsychologie` 458 ·
-`gezondheidszorg` 313, 317, 422 · `ggz` 104 · `giftige relaties` 429 ·
-`gijzelingsonderhandelaar` 271 · `gnostiek` 614, 666 · `godin` 611 ·
-`godsdienstkritiek` 341 · `godsdienstwetenschap` 578, 608, 640, 641 · `goeroe`
-242 · `Google` 512 · `Graallegende` 408 · `grandiositeit` 404 · `gratie` 374 ·
-`grenswetenschap` 615 · `grenzen` 72, 105, 109, 120, 122, 187, 466 · `grenzen
-stellen` 151, 204, 406, 429 · `Griekenland` 537 · `Griekse literatuur` 536 ·
-`griekse mythologie` 261 · `Griekse oudheid` 530, 531 · `groei` 222 ·
-`groeiaandelen` 474 · `groeimentaliteit` 116 · `groepsdenken` 339 ·
-`groepsgedrag` 303 · `grondstoffen` 92 · `grondwet` 616, 619 · `groot-verhaal`
-56 · `grootouders` 91 · `handboek` 493, 495 · `handel` 80, 251 · `handelen`
-30, 476, 477, 478, 479, 501 · `handelspsychologie` 488, 489 · `handelssysteem`
-489, 491 · `handelssystemen` 484, 486, 500, 502 · `handleiding` 112 · `hart`
-86, 128 · `Harvard` 457 · `Hay House` 380 · `hechting` 145, 152, 317, 386 ·
-`hedendaags India` 202 · `hedgefondsen` 505 · `heelal` 99, 262 · `heldendom`
-532 · `heldenreis` 410 · `helderheid` 82, 436 · `herhaling` 125, 134 ·
-`herkomst` 127 · `hermetische filosofie` 378 · `hermetisme` 613, 631, 632,
-633, 638, 639, 642, 647 · `heroverwegen` 28 · `hersenen` 51, 84, 85, 86, 327 ·
-`hersenonderzoek` 330, 333 · `hersenspoeling` 384, 668 · `herstel` 87, 552,
-583 · `het gesprek` 416 · `Himalaya` 191 · `hindoeïsme` 169, 199, 527, 569 ·
-`Hindoeïstische mythologie` 192, 202 · `hindoemythologie` 203 · `Hinge` 166 ·
-`hiphop` 440 · `historische portretten` 248 · `historische roman` 529 ·
-`hofcultuur` 216 · `hollywood` 555 · `Hollywood` 178 · `Holocaust` 48 ·
-`holografie` 340 · `homoseksualiteit` 325 · `hoop` 255, 319 · `hormonen` 80,
-339 · `hospice` 416 · `houding` 117 · `huisvesting` 65 · `humanisme` 236, 643
-· `humor` 16, 19, 26, 105, 227, 561 · `husserl` 577 · `huwelijk` 9, 34, 165 ·
-`Huxley` 54 · `hybride werken` 512 · `hyperrealiteit` 565 · `hypnose` 123,
-124, 125, 668 · `Idaho` 45 · `ideeën` 206 · `ideeëngeschiedenis` 269 ·
-`identiteit` 22, 115, 192, 261, 374, 375, 467, 559 · `identiteitskapitaal` 51
-· `ideologie` 628 · `ierland` 110 · `IJsland` 185, 533 · `ik-vorm` 113 ·
-`illustraties` 109, 327 · `imitatie` 11 · `imperfectionisme` 442 · `import` 20
-· `india` 649 · `India` 163, 171, 172, 180, 189, 191, 196, 199, 203, 226, 242,
-365, 370, 518, 520, 527 · `individualisme` 9, 96, 624 · `individualiteit` 263
-· `individuatie` 359, 360, 408, 409, 646 · `individuele-verantwoordelijkheid`
-299 · `indonesië` 692 · `industrie` 348 · `inheems denken` 521 · `initiatie`
-407, 408, 522 · `inleiding` 452, 456 · `inlichtingendiensten` 687, 688, 689 ·
-`innerlijk-kind` 109 · `innerlijk-werkleven` 472 · `innerlijke stem` 377 ·
-`innerlijke vrede` 548 · `innovatie` 206, 251, 293, 306, 471 · `instagram` 129
-· `instemming` 616 · `instituties` 392 · `integraal bewustzijn` 580 ·
-`integriteit` 547 · `intelligentie` 383 · `internationale betrekkingen` 455 ·
-`internet` 60, 198 · `internetcultuur` 666 · `interviews` 58, 277, 289 ·
+`ethiek` 282, 299, 413, 574, 612, 665 · `etnografie` 714 · `eurazië` 694 ·
+`evangelisatie` 201 · `evolutie` 56, 66, 89, 90, 91, 239, 318, 322, 323, 332,
+339, 347, 383, 518, 609, 710, 712 · `evolutiebiologie` 452, 453 ·
+`evolutionaire-psychologie` 67 · `excellentie` 553 · `executives` 344 ·
+`existentialisme` 405 · `expeditie` 36 · `experiment` 79, 215 · `experimenten`
+280, 424 · `experimenteren` 265 · `expertise` 283, 320, 376 · `extra
+dimensies` 648 · `extraversie` 361 · `fabel` 8, 42, 135, 167, 252 ·
+`facilitatie` 304 · `falen` 23, 72, 75, 312, 422 · `familie` 45, 325, 466 ·
+`familieconflict` 178 · `familiegeschiedenis` 114, 235 · `familieroman` 10 ·
+`fantasy` 192, 203 · `FBI` 154, 271 · `FBI-onderzoek` 431 · `federalisme` 619
+· `feedback` 41, 296, 541, 542 · `feiten` 43 · `feminisme` 3, 620, 624 ·
+`fenomenologie` 574, 577, 582 · `fictie` 100, 115 · `film` 41 · `filologie`
+641 · `filosofie` 1, 6, 71, 93, 199, 211, 216, 224, 247, 255, 263, 292, 299,
+383, 390, 391, 392, 393, 421, 436, 442, 521, 588, 592, 594, 597, 604, 610,
+652, 654 · `filosofie van de biologie` 710 · `filosofiegeschiedenis` 269, 639
+· `filosofische antropologie` 584 · `financiële geletterdheid` 163 ·
+`financiële markten` 268, 351, 480, 481, 483, 499, 501 · `financiële
+onafhankelijkheid` 264 · `financiele vrijheid` 277 · `financiële wiskunde`
+497, 507 · `financiële-discipline` 464 · `financiën` 334, 395, 425 ·
+`financiering` 172 · `fitnessbranche` 307, 544 · `flitshandel` 499 · `flow`
+78, 187, 200 · `focus` 175, 197, 448, 513 · `folklore` 615, 669 · `fotoboek`
+189 · `foutcultuur` 422 · `fouten maken` 509 · `franchise` 544 · `frankrijk`
+115 · `Franse-Weerstand` 390 · `freelance` 515 · `Fulani` 522 · `fysieke
+uitdaging` 323 · `fysiologie` 318, 412, 458 · `Galenus` 328 · `gaslighting`
+123 · `gastheerschap` 304 · `gastvrijheid` 531 · `gebed` 83, 259, 573 ·
+`gebruikersgedrag` 294 · `gedachten` 148, 177 · `gedachtenjournal` 176 ·
+`gedrag` 21, 22, 89, 90, 138, 154, 280, 330, 383, 425 · `gedragsbiologie` 322,
+339 · `gedragseconomie` 424, 426, 514 · `gedragsonderzoek` 302, 382 ·
+`gedragspatronen` 161 · `gedragspsychologie` 294 · `gedragstypen` 156 ·
+`gedragsverandering` 238, 290, 457, 469 · `gedragswetenschap` 166, 209, 305,
+468, 469, 510 · `geduld` 21, 351 · `geest` 584, 652 · `geestelijke gezondheid`
+193 · `geestelijke oefeningen` 586 · `gegevensanalyse` 486 · `gehechtheid` 166
+· `geheim genootschap` 202 · `geheime diensten` 665, 668, 684, 685 ·
+`geheugen` 66, 85, 175, 414 · `gehoorzaamheid` 215, 617 · `geïllustreerd boek`
+176 · `geld` 21, 37, 38, 56, 76, 121, 132, 133, 158, 159, 433, 463, 464 ·
+`geldmanagement` 492, 493 · `geldmindset` 395 · `geldpsychologie` 233, 264 ·
+`geldstelsel` 680 · `geloof` 45, 83, 201, 554 · `geluk` 79, 93, 160, 228, 335,
+516, 526, 579 · `gemeenschap` 9, 96, 304, 461 · `genealogie` 601 ·
+`geneeskunde` 49, 328 · `generaties` 114 · `generatieve drift` 315 ·
+`genetica` 413, 419 · `genezing` 340 · `genot en pijn` 314 · `gentechnologie`
+413 · `geologie` 239 · `geopolitiek` 220, 692, 694 · `geschiedenis` 30, 36,
+56, 57, 68, 93, 94, 212, 218, 250, 258, 298, 328, 381, 425, 440, 588, 589,
+591, 593, 595, 597, 598, 600, 619, 634, 665, 667, 681, 682, 683, 684, 685,
+687, 689, 690, 693 · `geschiedenis van de geneeskunde` 412 ·
+`geschiedfilosofie` 235 · `geschiedschrijving` 601, 602 · `gesprek` 43, 95,
+302, 444 · `gesprekstechniek` 182, 186, 438 · `getallen` 657 ·
+`gevangenendilemma` 453 · `gevolgen` 67 · `gewaarzijn` 519 · `geweld` 45, 90,
+214 · `geweldloosheid` 612 · `gewicht` 138 · `gewoontelus` 238 · `gewoonten`
+187, 373 · `gewoontes` 7, 11, 13, 22, 25, 58, 70, 76, 77, 79, 88, 97, 103,
+133, 134, 135, 138, 147, 157, 158, 181, 207, 208, 224, 230, 290, 334, 382,
+439, 442, 445, 513, 557 · `gewoontevorming` 146, 161, 168, 188, 244, 291, 294,
+396, 397, 411, 540 · `gezag` 62 · `gezin` 547 · `gezinnen` 327 · `gezondheid`
+52, 88, 171, 181, 318, 323, 329, 332, 412, 414, 415 · `gezondheidspsychologie`
+458 · `gezondheidszorg` 313, 317, 422 · `ggz` 104 · `giftige relaties` 429 ·
+`gijzelingsonderhandelaar` 271 · `globale werkruimte` 713 · `gnostiek` 614,
+666 · `godin` 611 · `godsdienstkritiek` 341 · `godsdienstwetenschap` 578, 608,
+640, 641 · `goeroe` 242 · `Google` 512 · `Graallegende` 408 · `grandiositeit`
+404 · `gratie` 374 · `grenswetenschap` 615 · `grenzen` 72, 105, 109, 120, 122,
+187, 466 · `grenzen stellen` 151, 204, 406, 429 · `Griekenland` 537 · `Griekse
+literatuur` 536 · `griekse mythologie` 261 · `Griekse oudheid` 530, 531 ·
+`groei` 222 · `groeiaandelen` 474 · `groeimentaliteit` 116 · `groepsdenken`
+339 · `groepsgedrag` 303 · `grondstoffen` 92 · `grondwet` 616, 619 ·
+`groot-verhaal` 56 · `grootouders` 91 · `handboek` 493, 495 · `handel` 80, 251
+· `handelen` 30, 476, 477, 478, 479, 501 · `handelspsychologie` 488, 489 ·
+`handelssysteem` 489, 491 · `handelssystemen` 484, 486, 500, 502 ·
+`handleiding` 112 · `hart` 86, 128 · `Harvard` 457 · `Hay House` 380 ·
+`hechting` 145, 152, 317, 386 · `hedendaags India` 202 · `hedgefondsen` 505 ·
+`heelal` 99, 262 · `heldendom` 532 · `heldenreis` 410 · `helderheid` 82, 436 ·
+`herhaling` 125, 134 · `herkomst` 127 · `hermetische filosofie` 378 ·
+`hermetisme` 613, 631, 632, 633, 638, 639, 642, 647 · `heroverwegen` 28 ·
+`hersenen` 51, 84, 85, 86, 327 · `hersenonderzoek` 330, 333, 713 ·
+`hersenspoeling` 384, 668 · `herstel` 87, 552, 583 · `het gesprek` 416 ·
+`Himalaya` 191 · `hindoeïsme` 169, 199, 527, 569 · `Hindoeïstische mythologie`
+192, 202 · `hindoemythologie` 203 · `Hinge` 166 · `hiphop` 440 · `historische
+portretten` 248 · `historische roman` 529 · `hofcultuur` 216 · `hollywood` 555
+· `Hollywood` 178 · `Holocaust` 48 · `holografie` 340 · `homoseksualiteit` 325
+· `hoop` 255, 319 · `hormonen` 80, 339 · `hospice` 416 · `houding` 117 ·
+`huisvesting` 65 · `humanisme` 236, 643 · `humor` 16, 19, 26, 105, 227, 561 ·
+`husserl` 577 · `huwelijk` 9, 34, 165 · `Huxley` 54 · `hybride werken` 512 ·
+`hyperrealiteit` 565 · `hypnose` 123, 124, 125, 668 · `Idaho` 45 · `ideeën`
+206 · `ideeëngeschiedenis` 269 · `identiteit` 22, 115, 192, 261, 374, 375,
+467, 559 · `identiteitskapitaal` 51 · `ideologie` 628 · `ierland` 110 ·
+`IJsland` 185, 533 · `ik-vorm` 113 · `illustraties` 109, 327 · `imitatie` 11 ·
+`imperfectionisme` 442 · `import` 20 · `india` 649 · `India` 163, 171, 172,
+180, 189, 191, 196, 199, 203, 226, 242, 365, 370, 518, 520, 527 ·
+`individualisme` 9, 96, 624 · `individualiteit` 263 · `individuatie` 359, 360,
+408, 409, 646 · `individuele-verantwoordelijkheid` 299 · `indonesië` 692 ·
+`industrie` 348 · `inheems denken` 521 · `initiatie` 407, 408, 522 ·
+`inleiding` 452, 456 · `inlichtingendiensten` 687, 688, 689 · `innerlijk-kind`
+109 · `innerlijk-werkleven` 472 · `innerlijke stem` 377 · `innerlijke vrede`
+548 · `innovatie` 206, 251, 293, 306, 471 · `instagram` 129 · `instemming` 616
+· `instituties` 392 · `integraal bewustzijn` 580 · `integriteit` 547 ·
+`intelligentie` 383 · `internationale betrekkingen` 455 · `internet` 60, 198 ·
+`internetcultuur` 666 · `interpretatie` 714 · `interviews` 58, 277, 289 ·
 `intimiteit` 122, 145, 164, 165 · `introspectie` 579 · `introversie` 33, 361 ·
 `intuitie` 128 · `intuïtie` 214, 283, 320 · `investeren` 270, 348 · `invloed`
 11 · `invoeling` 577 · `inwijding` 636 · `inzicht` 587 · `irrationaliteit` 424
@@ -134340,7 +135558,7 @@ geven` 356 · `kritisch denken` 420, 421 · `kroeg` 4 · `kruistochtgeest` 534 �
 `kunstmatig leven` 347 · `kunstmatige intelligentie` 236, 237, 297, 652 ·
 `kwaad` 404 · `kwaliteit` 1, 400 · `kwantificering` 392 · `kwantitatief
 handelen` 506 · `kwantitatieve analyse` 498 · `kwantitatieve financiën` 485,
-503 · `kwantumfysica` 208, 340, 432, 433 · `kwantummechanica` 362, 655 ·
+503 · `kwantumfysica` 208, 340, 432, 433 · `kwantummechanica` 362, 655, 711 ·
 `kwantumzwaartekracht` 281 · `kwetsbaarheid` 32, 44, 470 · `kyotoschool` 576 ·
 `landbouw` 56, 98 · `landmark forum` 344 · `leadgeneratie` 308 · `lean
 manufacturing` 265 · `leefstijl` 86, 103, 138, 171 · `leertijd` 320 · `leger`
@@ -134378,74 +135596,75 @@ manufacturing` 265 · `leefstijl` 86, 103, 138, 171 · `leertijd` 320 · `leger`
 `mensenkennis` 126, 356 · `mentale gezondheid` 315 · `mentale helderheid` 148
 · `mentale weerbaarheid` 229, 323, 372, 373, 374, 545 · `mentalisme` 378, 399
 · `mentorschap` 4, 285, 289, 320, 402 · `merken` 279 · `metabolisme` 313 ·
-`metafysica` 102, 518, 584, 587 · `meten` 69, 133 · `methode` 81 ·
+`metafysica` 102, 518, 584, 587 · `meten` 69, 133 · `methode` 81, 714 ·
 `microbedrijf` 40, 172 · `microbioom` 417 · `middelbare-leeftijd` 7 ·
 `middeleeuwen` 534, 632 · `midlife` 324 · `militaire geschiedenis` 568 ·
-`militaire strategie` 220 · `millennials` 159 · `minderheden` 68 · `mindful`
-103 · `mindfulness` 141, 147, 149, 177, 333, 401 · `mindset` 146, 181, 188,
-387, 458 · `minimalisme` 181 · `misdaad` 254 · `misleiding` 219, 272, 677 ·
-`mislukking` 516 · `missie` 567 · `mitochondriën` 313 · `modellen` 300 ·
-`modelleren` 139 · `modellering` 455 · `moed` 44, 529 · `moeder-en-zoon` 26 ·
-`momentum` 481 · `monniksleven` 230 · `monomythe` 410 · `monopolie` 306 ·
-`monsters` 532 · `Monty-Python` 16 · `moraal` 9, 57, 67, 263 ·
-`moraalfilosofie` 581 · `moraalkritiek` 391 · `moreel` 36 · `mormonisme` 560 ·
-`motivatie` 117, 139, 146, 183, 200, 207, 315, 427, 468, 469, 472 · `Motley
-Fool` 474 · `motoren` 6 · `motorfietsen` 325 · `muziek` 17, 85 · `mystiek`
-340, 390, 524, 525, 573, 578, 603, 604, 606, 610, 630, 636, 640, 666 · `mythe`
-608 · `mythevorming` 615 · `mythologie` 73, 143, 357, 360, 407, 408, 409, 599,
-611 · `mythologische fantasy` 202 · `mythologische fictie` 203 · `NAD+` 415 ·
-`nalatenschap` 178 · `napoleontische oorlogen` 235 · `narcisme` 258, 404 ·
-`naslag` 99, 112 · `naslagwerk` 59, 225, 426, 477, 478, 486, 491, 500, 504,
-640, 661, 662 · `nationalisme` 237 · `natuur` 191, 323, 609 · `natuurkunde`
-62, 94, 240, 262, 281, 300, 326, 648, 650, 651, 653, 655, 657 · `navigatie`
-321 · `navy seals` 229, 364 · `nazisme` 223 · `necrofilie` 223 · `nederland`
-96 · `nederlands` 93, 97, 100, 101, 102, 103, 104, 105, 106, 107, 108, 128,
-130, 131, 141 · `nederlands-auteur` 140 · `nederlandstalig` 113 · `negatieve
-emoties` 176 · `negentig dagen` 188 · `neopaganisme` 611, 637 · `nepnieuws`
-237 · `netwerken` 24, 246, 300, 388, 508 · `neurobiologie` 119 ·
-`neurochirurgie` 49, 414 · `neurologie` 325 · `neuroplasticiteit` 175, 208,
-414 · `neurose` 575 · `neurowetenschap` 52, 208, 238, 275, 314, 326, 330, 331,
-333, 339, 340, 386, 418, 513, 585 · `neurowetenschap-voor-kinderen` 327 ·
-`neusademing` 318 · `new age` 149, 435, 449, 549, 670, 678, 679 · `new
-thought` 259, 380, 555 · `NeXT` 46 · `Nietzsche` 391 · `nieuwe gedachte` 127,
-378 · `nieuws` 60, 90 · `nieuwsgierigheid` 15, 28, 62, 241, 550 · `Nike` 20 ·
-`nlp` 123, 125, 139 · `Nobelprijs` 55 · `non-dualiteit` 520 · `non-fictie` 420
-· `non-verbaal` 399 · `non-verbale communicatie` 154 · `noodlot` 533 ·
-`Noordse mythologie` 533 · `notitieboeken` 241 · `novelle` 173 · `numineus`
-578 · `obesitas` 417 · `observeren` 15 · `obsessieve liefde` 284 ·
-`occultisme` 378, 613, 634, 637, 638, 644, 676 · `ochtendroutine` 14, 134, 244
-· `oefenen` 29, 397 · `oefening` 141, 296 · `oefeningen` 15, 35, 87, 103, 109,
-118, 120, 122, 130, 549 · `okinawa` 77 · `okr` 256 · `oligarchie` 618 ·
-`omgangsvormen` 24, 398 · `omkering` 105 · `omstreden` 37, 73, 76, 83 ·
-`onbegrepen-klachten` 104 · `onbetrouwbaar` 123, 124, 125, 126 ·
-`onbetrouwbare verteller` 284 · `onbewezen` 127, 128, 129, 130, 131, 132, 139
-· `onbewuste` 16, 283, 358, 359 · `onderbewuste` 124 · `onderbewustzijn` 259 ·
-`onderbouwing` 87, 108, 117, 134, 135, 136 · `onderhandelen` 159, 186, 217,
-260, 271, 272, 305, 444, 450, 455 · `ondernemen` 20, 39, 40, 47, 172, 446, 476
-· `ondernemers` 174 · `ondernemerschap` 157, 163, 185, 197, 198, 210, 222,
-228, 231, 245, 249, 276, 278, 289, 306, 307, 308, 312, 350, 365, 369, 370,
-395, 403, 427, 431, 434, 465, 544, 567, 570 · `onderwijs` 6, 23, 33, 45, 63,
-65, 68, 116, 237, 349, 509, 598, 667 · `onderwijskritiek` 37 · `onderzoek` 23,
-28, 29, 32, 33, 39, 44, 55, 62, 78, 79, 80, 84, 85, 86, 88, 152, 305, 691 ·
-`onderzoeksdebat` 53 · `onderzoeksethiek` 215 · `onderzoeksjournalistiek` 665,
-687, 688, 692 · `onderzoekskritiek` 52, 415 · `ongemak` 323 · `ongeneeslijke
-ziekte` 285 · `online ondernemen` 309 · `onsterfelijkheid` 236, 405 ·
-`onthechting` 462 · `ontmoeten` 304 · `ontmoeting` 572 · `ontologie` 344 ·
-`ontslagen` 47 · `ontwerp` 550 · `ontwikkeling` 46, 85 · `ontwikkelingslanden`
-234 · `onvolmaaktheid` 379 · `onzekerheid` 268, 341, 375, 423, 515, 516 ·
-`oordeel` 59, 69 · `oorlog` 31, 57, 66, 364, 568 · `oorlogvoering` 218 ·
-`oorsprong` 599 · `opdrachten` 116 · `opgetekend` 97 · `opgeven` 249 ·
-`opgroeien` 4, 295 · `opoffering` 554 · `opties` 494, 495, 506 · `optimisme`
-251 · `optogenetica` 331 · `opvoeding` 3, 23, 29, 44, 53, 73, 162, 193, 290 ·
-`opwekking` 558 · `orale traditie` 522 · `orde` 73, 74 · `organisatie` 28, 41,
-69, 238, 388, 422, 468 · `organisatiecultuur` 183, 273, 353 · `orthodontie`
-332 · `Orwell` 54 · `Otto Rank` 405 · `oud china` 272 · `Oude Rome` 328 ·
-`Oudengels` 532 · `ouder-worden` 5 · `ouderdom` 77, 84, 91, 95, 191, 402, 416
-· `oudheid` 2, 247, 292, 536, 537, 588, 589, 641 · `outsourcen` 278 ·
-`overdenken` 148 · `overfitting` 484, 485, 502, 503 · `overgave` 431 ·
-`overleven` 31, 36 · `overlevingsvertekening` 64 · `overtuigen` 24, 182, 253,
-356, 367, 438 · `overtuiging` 280 · `overtuigingen` 28, 132, 139, 143, 469,
-487 · `overvloed` 17 · `oxytocine` 458 · `Pacific` 31 · `pacifisme` 240, 612 ·
+`militaire strategie` 220 · `millennials` 159 · `minderheden` 68 ·
+`minderheidsstandpunt` 711 · `mindful` 103 · `mindfulness` 141, 147, 149, 177,
+333, 401 · `mindset` 146, 181, 188, 387, 458 · `minimalisme` 181 · `misdaad`
+254 · `misleiding` 219, 272, 677 · `mislukking` 516 · `missie` 567 ·
+`mitochondriën` 313 · `modellen` 300 · `modelleren` 139 · `modellering` 455 ·
+`moed` 44, 529 · `moeder-en-zoon` 26 · `momentum` 481 · `monniksleven` 230 ·
+`monomythe` 410 · `monopolie` 306 · `monsters` 532 · `Monty-Python` 16 ·
+`moraal` 9, 57, 67, 263 · `moraalfilosofie` 581 · `moraalkritiek` 391 ·
+`moreel` 36 · `mormonisme` 560 · `motivatie` 117, 139, 146, 183, 200, 207,
+315, 427, 468, 469, 472 · `Motley Fool` 474 · `motoren` 6 · `motorfietsen` 325
+· `muziek` 17, 85, 712 · `mystiek` 340, 390, 524, 525, 573, 578, 603, 604,
+606, 610, 630, 636, 640, 666 · `mythe` 608 · `mythevorming` 615 · `mythologie`
+73, 143, 357, 360, 407, 408, 409, 599, 611 · `mythologische fantasy` 202 ·
+`mythologische fictie` 203 · `NAD+` 415 · `nalatenschap` 178 · `napoleontische
+oorlogen` 235 · `narcisme` 258, 404 · `naslag` 99, 112 · `naslagwerk` 59, 225,
+426, 477, 478, 486, 491, 500, 504, 640, 661, 662 · `nationalisme` 237 ·
+`natuur` 191, 323, 609 · `natuurkunde` 62, 94, 240, 262, 281, 300, 326, 648,
+650, 651, 653, 655, 657 · `navigatie` 321 · `navy seals` 229, 364 · `nazisme`
+223 · `neanderthaler` 712 · `necrofilie` 223 · `nederland` 96 · `nederlands`
+93, 97, 100, 101, 102, 103, 104, 105, 106, 107, 108, 128, 130, 131, 141 ·
+`nederlands-auteur` 140 · `nederlandstalig` 113 · `negatieve emoties` 176 ·
+`negentig dagen` 188 · `neopaganisme` 611, 637 · `nepnieuws` 237 · `netwerken`
+24, 246, 300, 388, 508 · `neurobiologie` 119 · `neurochirurgie` 49, 414 ·
+`neurologie` 325 · `neuroplasticiteit` 175, 208, 414 · `neurose` 575 ·
+`neurowetenschap` 52, 208, 238, 275, 314, 326, 330, 331, 333, 339, 340, 386,
+418, 513, 585 · `neurowetenschap-voor-kinderen` 327 · `neusademing` 318 · `new
+age` 149, 435, 449, 549, 670, 678, 679 · `new thought` 259, 380, 555 · `NeXT`
+46 · `Nietzsche` 391 · `nieuwe gedachte` 127, 378 · `nieuws` 60, 90 ·
+`nieuwsgierigheid` 15, 28, 62, 241, 550 · `Nike` 20 · `nlp` 123, 125, 139 ·
+`Nobelprijs` 55 · `non-dualiteit` 520 · `non-fictie` 420 · `non-verbaal` 399 ·
+`non-verbale communicatie` 154 · `noodlot` 533 · `Noordse mythologie` 533 ·
+`notitieboeken` 241 · `novelle` 173 · `numineus` 578 · `obesitas` 417 ·
+`observeren` 15 · `obsessieve liefde` 284 · `occultisme` 378, 613, 634, 637,
+638, 644, 676 · `ochtendroutine` 14, 134, 244 · `octopus` 710 · `oefenen` 29,
+397 · `oefening` 141, 296 · `oefeningen` 15, 35, 87, 103, 109, 118, 120, 122,
+130, 549 · `okinawa` 77 · `okr` 256 · `oligarchie` 618 · `omgangsvormen` 24,
+398 · `omkering` 105 · `omstreden` 37, 73, 76, 83 · `onbegrepen-klachten` 104
+· `onbetrouwbaar` 123, 124, 125, 126 · `onbetrouwbare verteller` 284 ·
+`onbewezen` 127, 128, 129, 130, 131, 132, 139 · `onbewuste` 16, 283, 358, 359
+· `onderbewuste` 124 · `onderbewustzijn` 259 · `onderbouwing` 87, 108, 117,
+134, 135, 136 · `onderhandelen` 159, 186, 217, 260, 271, 272, 305, 444, 450,
+455 · `ondernemen` 20, 39, 40, 47, 172, 446, 476 · `ondernemers` 174 ·
+`ondernemerschap` 157, 163, 185, 197, 198, 210, 222, 228, 231, 245, 249, 276,
+278, 289, 306, 307, 308, 312, 350, 365, 369, 370, 395, 403, 427, 431, 434,
+465, 544, 567, 570 · `onderwijs` 6, 23, 33, 45, 63, 65, 68, 116, 237, 349,
+509, 598, 667 · `onderwijskritiek` 37 · `onderzoek` 23, 28, 29, 32, 33, 39,
+44, 55, 62, 78, 79, 80, 84, 85, 86, 88, 152, 305, 691 · `onderzoeksdebat` 53 ·
+`onderzoeksethiek` 215 · `onderzoeksjournalistiek` 665, 687, 688, 692 ·
+`onderzoekskritiek` 52, 415 · `ongemak` 323 · `ongeneeslijke ziekte` 285 ·
+`online ondernemen` 309 · `onsterfelijkheid` 236, 405 · `onthechting` 462 ·
+`ontmoeten` 304 · `ontmoeting` 572 · `ontologie` 344 · `ontslagen` 47 ·
+`ontwerp` 550 · `ontwikkeling` 46, 85 · `ontwikkelingslanden` 234 ·
+`onvolmaaktheid` 379 · `onzekerheid` 268, 341, 375, 423, 515, 516 · `oordeel`
+59, 69 · `oorlog` 31, 57, 66, 364, 568 · `oorlogvoering` 218 · `oorsprong` 599
+· `opdrachten` 116 · `opgetekend` 97 · `opgeven` 249 · `opgroeien` 4, 295 ·
+`opoffering` 554 · `opties` 494, 495, 506 · `optimisme` 251 · `optogenetica`
+331 · `opvoeding` 3, 23, 29, 44, 53, 73, 162, 193, 290 · `opwekking` 558 ·
+`orale traditie` 522 · `orde` 73, 74 · `organisatie` 28, 41, 69, 238, 388,
+422, 468 · `organisatiecultuur` 183, 273, 353 · `orthodontie` 332 · `Orwell`
+54 · `Otto Rank` 405 · `oud china` 272 · `Oude Rome` 328 · `Oudengels` 532 ·
+`ouder-worden` 5 · `ouderdom` 77, 84, 91, 95, 191, 402, 416 · `oudheid` 2,
+247, 292, 536, 537, 588, 589, 641 · `outsourcen` 278 · `overdenken` 148 ·
+`overfitting` 484, 485, 502, 503 · `overgave` 431 · `overleven` 31, 36 ·
+`overlevingsvertekening` 64 · `overtuigen` 24, 182, 253, 356, 367, 438 ·
+`overtuiging` 280 · `overtuigingen` 28, 132, 139, 143, 469, 487 · `overvloed`
+17 · `oxytocine` 458 · `Pacific` 31 · `pacifisme` 240, 612 ·
 `Padma-onderscheiding` 189 · `palliatieve zorg` 416, 447 · `para` 81 ·
 `parabel` 38, 244, 246 · `paradigma` 543 · `paranormaal` 340, 362, 669, 677 ·
 `parapsychologie` 637 · `parawetenschap` 663 · `passie` 50, 198 · `pastoraat`
@@ -134548,11 +135767,11 @@ zoektocht` 287, 524 · `sport` 20, 349 · `sportpsychologie` 372, 374, 441 ·
 610, 633, 635, 636 · `symmetrie` 659 · `synchroniciteit` 362 ·
 `synchronisatie` 303 · `systeem` 22, 142 · `systeemtheorie` 165 ·
 `systematisch handelen` 482, 502 · `taal` 26, 27, 436, 594, 664 · `taal en
-macht` 344 · `tactische empathie` 271 · `talent` 23, 29, 274 · `taoïsme` 341,
-394 · `tarieven` 121 · `tarot` 644 · `teams` 42, 273, 364, 468 · `teamvorming`
-260 · `teamwork` 156, 256 · `techniek` 1, 6, 43, 61, 92 ·
-`techniekgeschiedenis` 666 · `technische analyse` 483, 500 · `technologie`
-160, 288, 294, 306, 393, 499 · `technologiebedrijven` 293 ·
+macht` 344 · `taaloorsprong` 712 · `tactische empathie` 271 · `talent` 23, 29,
+274 · `taoïsme` 341, 394 · `tarieven` 121 · `tarot` 644 · `teams` 42, 273,
+364, 468 · `teamvorming` 260 · `teamwork` 156, 256 · `techniek` 1, 6, 43, 61,
+92 · `techniekgeschiedenis` 666 · `technische analyse` 483, 500 ·
+`technologie` 160, 288, 294, 306, 393, 499 · `technologiebedrijven` 293 ·
 `technologiegeschiedenis` 231, 267 · `technologiekritiek` 297, 539, 674 ·
 `tegen-productiviteit` 71 · `tegenslag` 30, 111, 174, 570 · `tekenen` 15 ·
 `tekstkwaliteit` 124 · `televisie` 54, 674 · `temperament` 33 · `tempo` 552 ·
@@ -134608,9 +135827,9 @@ goud` 533 · `vervolg` 74, 131 · `vervreemding` 173 · `verwachting` 387 ·
 `voorzichtigheid` 216 · `vorming` 224 · `vorstenspiegel` 536 · `vragen
 stellen` 509 · `vragen-stellen` 475 · `vreemden` 302 · `vreugde` 549 ·
 `vriendelijkheid` 551 · `vriendschap` 5, 7, 114, 292, 295, 319, 514 · `vrije
-markt` 627 · `vrije tijd` 78, 288 · `vrije wil` 10, 236, 339 · `vrijheid` 61,
-546, 620, 621, 626 · `vrijmetselarij` 605, 635, 636 · `vroeg christendom` 614
-· `vroeg pensioen` 264 · `vrouwenhaat` 110 · `waardebeleggen` 144, 351 ·
+markt` 627 · `vrije tijd` 78, 288 · `vrije wil` 10, 236, 339, 711 · `vrijheid`
+61, 546, 620, 621, 626 · `vrijmetselarij` 605, 635, 636 · `vroeg christendom`
+614 · `vroeg pensioen` 264 · `vrouwenhaat` 110 · `waardebeleggen` 144, 351 ·
 `waardecreatie` 246, 508 · `waarden` 72, 142, 392, 457, 461, 553 ·
 `waardering` 24, 34 · `waarheid` 263 · `waarneming` 154, 283, 322, 541, 582 ·
 `wabi-sabi` 379 · `wales` 558 · `Wall Street` 144, 351, 499 · `weerbaarheid`
@@ -134621,19 +135840,19 @@ markt` 627 · `vrije tijd` 78, 288 · `vrije wil` 10, 236, 339 · `vrijheid` 61,
 `West-Afrika` 522 · `West-Point` 29 · `westen` 67 · `western` 5 · `westerse
 filosofie` 269, 341 · `wet van aantrekking` 127, 190, 433, 543 · `wetenschap`
 63, 66, 93, 94, 328, 485 · `wetenschap en religie` 609 · `wetenschappers` 239
-· `wetenschapsfilosofie` 483, 650, 653, 654, 664 · `wetenschapsgeschiedenis`
-239, 240, 321, 347, 413, 419, 633, 642, 647, 649, 651, 654, 657, 658, 659,
-660, 661, 662, 663 · `wetenschapsjournalistiek` 387, 412 · `wijn` 112 ·
-`wijsheid` 596 · `wilskracht` 238 · `Wired` 473 · `wiskunde` 116, 454, 456,
-490, 505, 509, 649, 656, 657, 658, 659, 660, 661, 662 · `wisselstroom` 267 ·
-`woede` 119, 120 · `woestijn` 8 · `Wolfgang Pauli` 362 · `wraak` 101, 533 ·
-`WRAP` 510 · `wrok` 530 · `wu wei` 394 · `Yale` 215 · `yin-yang` 394 · `yoga`
-195, 242, 518 · `young adult` 192 · `youtube` 245 · `zakelijk` 307 ·
-`zakelijke communicatie` 182 · `zakendoen` 348, 367, 465, 508 · `zeereis` 36 ·
-`zeevaart` 321 · `zeldzaam` 144 · `zelfacceptatie` 176, 335, 561 ·
-`zelfbedrog` 66 · `zelfbeeld` 25, 27, 105, 107, 108, 129, 138, 197, 367, 372,
-411, 439, 538, 540, 559, 575 · `zelfbeheersing` 75, 148, 212, 248, 286, 314,
-382, 389, 396 · `zelfbescherming` 214 · `zelfcompassie` 32, 551 ·
+· `wetenschapsfilosofie` 483, 650, 653, 654, 664, 711 ·
+`wetenschapsgeschiedenis` 239, 240, 321, 347, 413, 419, 633, 642, 647, 649,
+651, 654, 657, 658, 659, 660, 661, 662, 663 · `wetenschapsjournalistiek` 387,
+412 · `wijn` 112 · `wijsheid` 596 · `wilskracht` 238 · `Wired` 473 ·
+`wiskunde` 116, 454, 456, 490, 505, 509, 649, 656, 657, 658, 659, 660, 661,
+662 · `wisselstroom` 267 · `woede` 119, 120 · `woestijn` 8 · `Wolfgang Pauli`
+362 · `wraak` 101, 533 · `WRAP` 510 · `wrok` 530 · `wu wei` 394 · `Yale` 215 ·
+`yin-yang` 394 · `yoga` 195, 242, 518 · `young adult` 192 · `youtube` 245 ·
+`zakelijk` 307 · `zakelijke communicatie` 182 · `zakendoen` 348, 367, 465, 508
+· `zeereis` 36 · `zeevaart` 321 · `zeldzaam` 144 · `zelfacceptatie` 176, 335,
+561 · `zelfbedrog` 66 · `zelfbeeld` 25, 27, 105, 107, 108, 129, 138, 197, 367,
+372, 411, 439, 538, 540, 559, 575 · `zelfbeheersing` 75, 148, 212, 248, 286,
+314, 382, 389, 396 · `zelfbescherming` 214 · `zelfcompassie` 32, 551 ·
 `zelfdiscipline` 2, 158, 229, 244, 311, 544 · `zelfevaluatie` 270 ·
 `zelfexperiment` 316, 318, 417 · `zelfhaat` 575 · `zelfhulp` 15, 22, 25, 34,
 58, 72, 76, 79, 83, 117, 134, 135, 136, 146, 147, 148, 149, 150, 151, 152,
