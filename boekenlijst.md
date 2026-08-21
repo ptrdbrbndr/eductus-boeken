@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 21
-augustus 2026: 602 titels in 20 rubrieken.
+augustus 2026: 612 titels in 20 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -15,7 +15,7 @@ bij de volgende build verloren.
 | Vakmanschap en aandacht | werken met je handen, en wat kwaliteit dan is | 1, 6, 320, 346, 376, 462, 517, 535, 553 |
 | Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9, 71, 72, 77, 91, 95, 105, 107, 109, 111, 134, 135, 141, 145, 149, 150, 160, 167, 169, 187, 199, 201, 204, 205, 216, 227, 228, 230, 232, 242, 255, 263, 292, 299, 334, 335, 341, 377, 379, 390, 391, 394, 405, 416, 435, 442, 449, 459, 461, 473, 515, 516, 518, 519, 520, 524, 525, 526, 527, 528, 546, 547, 556, 561, 569, 579, 586 |
 | Mannen, vriendschap, verbinding | mannenrollen en het onderhouden van vriendschap | 3, 7, 406, 407, 408 |
-| Roman en memoir | verhalend werk, autobiografisch of fictie | 4, 5, 10, 61, 100, 101, 110, 113, 114, 115, 173, 178, 180, 191, 192, 202, 203, 226, 235, 254, 261, 284, 287, 295, 325, 358, 385, 402, 431, 505, 522, 529, 530, 531, 532, 533, 534, 554, 558 |
+| Roman en memoir | verhalend werk, autobiografisch of fictie | 4, 5, 10, 61, 100, 101, 110, 113, 114, 115, 173, 178, 180, 191, 192, 202, 203, 226, 235, 254, 261, 284, 287, 295, 325, 358, 385, 402, 431, 505, 522, 529, 530, 531, 532, 533, 534, 554, 558, 618 |
 | Maken en scheppen | aan het werk komen en blijven als maker | 11, 12, 13, 14, 15, 16, 17, 41, 206, 241, 312, 445, 471, 550 |
 | Werk en aandacht | concentratie, aantekeningen en het inrichten van je eigen werk | 70, 78, 81, 151, 170, 197, 200, 207, 249, 256, 276, 278, 288, 290, 311, 400, 420, 448, 472, 512, 552 |
 | Schrijfambacht | schrijven als vak, door schrijvers zelf uitgelegd | 18, 19 |
@@ -26,12 +26,12 @@ bij de volgende build verloren.
 | Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156, 162, 182, 186, 253, 271, 273, 302, 304, 305, 338, 356, 364, 367, 398, 399, 438, 444, 466, 468, 508, 511, 551 |
 | Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140, 174, 189, 194, 229, 247, 248, 286, 289, 323, 324, 372, 373, 374, 375, 389, 457, 460, 467, 470, 513, 545 |
 | Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49, 285, 447 |
-| Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537, 568, 588, 589, 597, 598, 599, 600, 601, 602 |
+| Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537, 568, 588, 589, 591, 592, 593, 594, 595, 597, 598, 599, 600, 601, 602 |
 | Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347, 383, 413, 539, 555 |
 | Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102, 108, 117, 127, 128, 129, 130, 131, 132, 136, 139, 179, 184, 188, 190, 196, 259, 340, 362, 378, 380, 403, 433, 543, 548, 549, 559, 560 |
 | Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122, 327, 421, 437, 456, 477, 478, 493, 495, 497, 498, 500, 504, 506, 507 |
 | Filosofie en mystiek | wijsgerige hoofdwerken en mystieke teksten over wat werkelijk is en hoe te leven | 572, 573, 574, 576, 577, 578, 580, 581, 582, 584, 587, 590, 596, 603, 604, 605, 606, 608, 609, 610, 611, 612, 613, 614, 615 |
-| Staat en vrijheid | politieke denkers over macht, gezag en het vrije individu | 621, 622, 623, 624, 625, 626, 627, 628, 629 |
+| Staat en vrijheid | politieke denkers over macht, gezag en het vrije individu | 616, 617, 619, 620, 621, 622, 623, 624, 625, 626, 627, 628, 629 |
 
 Een titel kan in één rubriek staan en toch tags uit een andere dragen. De tags
 zijn het fijnmazige zoekmiddel, de rubriek is de plek in de kast.
@@ -115059,6 +115059,972 @@ traditie waaruit veel van de meditatie- en energieleer hier afkomstig is.
 Mind brengt hetzelfde grondidee, de geest vormt de omstandigheden, zonder het
 Egyptische decor.
 
+## 591. Nile Valley Contributions to Civilization
+
+Anthony T. Browder, 1992. *Nile Valley Contributions to Civilization*, eerste
+deel van de reeks *Exploding the Myths* (Institute of Karmic Guidance,
+Washington D.C., 1992, 296 blz., ISBN 9780924944031; met apart werkboek uit
+1994). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl;
+de samenvatting is op de Engelse editie gebaseerd. Rubriek: geschiedenis en
+samenleving.
+Tags: `egypte`, `afrika`, `afrocentrisme`, `geschiedenis`
+
+Populair overzichtswerk van de Amerikaanse publicist Anthony T. Browder,
+uitgegeven bij zijn eigen Institute of Karmic Guidance. Browder betoogt dat de
+beschaving van het Nijldal, door hem consequent Kemet genoemd, een zwarte
+Afrikaanse beschaving was en de moeder van latere beschavingen. In rijk
+geïllustreerde hoofdstukken behandelt hij de bouwkunst van Imhotep, wiskunde,
+geneeskunde, landbouw en religie, en volgt hij Egyptische motieven tot in het
+christendom en de architectuur van Washington.
+
+Het boek is geschreven als correctie op wat Browder de miseducatie van
+Afro-Amerikanen noemt en werd in die gemeenschap decennialang een bestseller.
+De vakwereld gaat in belangrijke delen niet mee: de claims over Griekse
+ontlening en Afrikaanse invloed op de Olmeken steunen op weerlegde bronnen als
+*Stolen Legacy* en het werk van Van Sertima. Het kritiekdeel hieronder
+beschrijft wat overeind blijft en wat niet.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Browder stelt dat de beschaving van het Nijldal, door hem
+Kemet genoemd, de oudste hoogbeschaving van de wereld was en het werk van
+zwarte Afrikanen; dat wetenschap, bouwkunst, geneeskunde en religie daar
+eerder tot bloei kwamen dan waar ook, en dat Griekenland en Rome er hun kennis
+vandaan haalden. De westerse geschiedschrijving heeft die herkomst volgens hem
+stelselmatig weggeschreven, eerst door Egypte bij het Midden-Oosten in te
+delen en daarna door de Afrikaanse trekken van de bewoners weg te verklaren.
+Herstel van dat beeld is voor hem meer dan een academische kwestie: wie zijn
+herkomst kent, kijkt anders naar zichzelf. Het boek is daarom uitdrukkelijk
+als leerboek voor Afro-Amerikanen opgezet.
+
+#### De gang van het boek
+
+**Aanleiding: geschiedenis en zelfbeeld**
+
+Browder opent met de vaststelling dat Afro-Amerikanen op school een
+geschiedenis leren die pas bij de slavernij begint, en dat dit gat in de
+overlevering doorwerkt in het zelfbeeld van elke volgende generatie. Het boek
+presenteert zich als correctie daarop en kreeg een inleiding van John Henrik
+Clarke, een van de grondleggers van de Africana studies. Browder is geen
+academicus: hij richtte in 1981 het Institute of Karmic Guidance op, dat
+lezingen, studiereizen naar Egypte en uitgaven als deze verzorgt, en hij
+bracht het boek in eigen beheer uit.
+
+Het woord miseducatie plaatst het boek in een oudere lijn: Carter G. Woodson
+beschreef in *The Mis-Education of the Negro* (1933) al hoe onderwijs zwarte
+Amerikanen leerde zichzelf door andermans ogen te zien. Browder neemt die
+diagnose over en verbindt er de remedie aan die de Afrocentrische beweging van
+de jaren tachtig kenmerkte: het oude Nijldal als bron van herstel.
+
+**Kemet, het zwarte land**
+
+Het eerste inhoudelijke blok behandelt naam en herkomst. De bewoners noemden
+hun land Kemet; Browder vertaalt dat als het zwarte land en betrekt het op de
+huidskleur van de bevolking, waar egyptologen het doorgaans op de donkere
+Nijlslib betrekken. De beschaving ontstond volgens hem stroomopwaarts, in
+Nubië en het binnenland van Afrika, en trok met de rivier mee naar het
+noorden. Hij leunt daarbij op Cheikh Anta Diop en op de Nubische opgravingen
+die vanaf eind jaren zeventig het beeld van een oud koninkrijk Ta-Seti
+opleverden.
+
+**De catalogus van bijdragen**
+
+De kern van het boek is een geïllustreerde inventaris van prestaties: de
+trappiramide van Djoser en haar architect Imhotep, die Browder als eerste bij
+naam bekende geleerde van de wereldgeschiedenis voorstelt, de geneeskunde van
+de chirurgische papyri, wiskunde en landmeetkunde, de kalender van 365 dagen,
+landbouw, metallurgie en het schrift. Veel van dit materiaal is op zichzelf
+onomstreden en in elk handboek egyptologie terug te vinden. Browder voegt er
+de stelling aan toe dat deze prestaties in het westerse onderwijs van hun
+Afrikaanse context zijn losgemaakt, zodat leerlingen Egypte wel kennen, maar
+niet als Afrikaans land.
+
+De geneeskunde krijgt relatief veel ruimte. Browder wijst op de chirurgische
+papyrus Edwin Smith, met zijn nuchtere beschrijvingen van onderzoek, diagnose
+en behandeling, en op de verering van Imhotep als geneesheer, eeuwen voor de
+Griekse Asklepios. Ook de kalender gebruikt hij als voorbeeld: de indeling van
+het jaar in 365 dagen ontstond aan de Nijl uit de waarneming van de ster
+Sirius en de jaarlijkse overstroming.
+
+**Religie en symboliek**
+
+Een tweede blok volgt de religieuze voorstellingen van het Nijldal: de
+scheppingsverhalen, Maät als kosmische orde, de dodencultus en symbolen als de
+ankh, de scarabee en de obelisk. Browder betoogt dat centrale motieven van het
+christendom, waaronder de beeldtaal van moeder en kind en het idee van
+opstanding, rechtstreeks teruggaan op de verering van Isis en Osiris. Dat
+Egyptische motieven in de late oudheid doorwerkten in de beeldtaal rond het
+Middellandse Zeegebied is bekend; de rechtstreekse afleiding die Browder
+presenteert gaat aanzienlijk verder dan wat godsdiensthistorici voor hun
+rekening nemen.
+
+**Doorwerking tot in Washington**
+
+Het slot trekt de lijn naar het heden. Griekse denkers zouden hun filosofie in
+Egyptische mysteriescholen hebben gehaald, een claim die Browder aan *Stolen
+Legacy* van George G.M. James ontleent. Via Ivan van Sertima haalt hij de
+these binnen dat Afrikanen vóór Columbus Amerika bereikten en de Olmeekse
+beeldhouwkunst beïnvloedden. En hij wijst op Egyptische vormen in de
+Amerikaanse hoofdstad, met het Washington Monument, een obelisk, als bekendste
+voorbeeld. Deze hoofdstukken maakten het boek populair en vormen tegelijk het
+zwakste deel van het bouwwerk.
+
+**Leerboek en vervolg**
+
+Het boek is gemaakt om onderwezen te worden: er hoort een apart werkboek bij,
+de tekst is kort gehouden en foto's en tekeningen dragen het betoog. Het werd
+in Afro-Amerikaanse boekhandels een blijvende bestseller en wordt veel
+gebruikt in aanvullend onderwijs. Browder zelf verlegde zijn werk later naar
+de archeologie: sinds 2009 financiert en leidt hij in Luxor de opgraving en
+restauratie van de graven van Karakhamun en Karabasken uit de 25e, Nubische,
+dynastie, als eerste Afro-Amerikaan met een eigen concessie in Egypte.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Kemet | Egyptische eigennaam van het land, door Browder vertaald als het zwarte land en betrokken op de bevolking in plaats van op de Nijlslib. |
+| Nijldalbeschaving | Verzamelnaam voor Egypte en Nubië als één Afrikaanse cultuurstroom langs de rivier. |
+| Imhotep | Architect van de trappiramide en arts, bij Browder het toonbeeld van Afrikaans geleerdenschap. |
+| miseducatie | Het aanleren van een geschiedbeeld dat de eigen groep klein houdt, het kwaad dat het boek wil herstellen. |
+| Ta-Seti | Vroeg Nubisch koninkrijk stroomopwaarts van Egypte, voor Browder bewijs dat de beschaving uit het zuiden kwam. |
+| obelisk | Egyptisch zonnemonument waarvan Browder de vorm tot in de architectuur van Washington terugvindt. |
+| Stolen Legacy-these | Claim van George G.M. James dat de Griekse filosofie uit Egyptische mysteriescholen is overgenomen, door Browder onderschreven. |
+
+#### Waar het argument op rust
+
+Het boek steunt op secundaire literatuur uit de Afrocentrische traditie,
+vooral Cheikh Anta Diop, George G.M. James, Yosef Ben-Jochannan en Ivan van
+Sertima, aangevuld met eigen reizen en fotomateriaal. Een notenapparaat naar
+academische maatstaven ontbreekt en het werk is niet door vakgenoten
+beoordeeld; de uitgever is Browders eigen instituut. De bewijswaarde verschilt
+daardoor sterk per onderdeel.
+
+Stevig is wat ook de gangbare egyptologie zegt: het Nijldal bracht vroeg
+schrift, monumentale bouw, geneeskunde en bestuur voort, Egypte ligt in Afrika
+en de bevolking was inheems Noordoost-Afrikaans. Ook de herwaardering van
+Nubië, met vondsten als de wierookbrander van Qustul, is echte archeologie. De
+verdergaande claims steunen op de genoemde secundaire bronnen en delen in hun
+problemen; dat geldt voor de Griekse ontlening evengoed als voor de
+Olmeken-these en de afleiding van het christendom.
+
+#### Wat er tegen in te brengen valt
+
+De classica Mary Lefkowitz heeft in *Not Out of Africa* (1996) de Stolen
+Legacy-these uiteengerafeld: er bestond geen Egyptisch stelsel van
+mysteriescholen waarin Grieken konden studeren, de ontwikkeling van de Griekse
+filosofie is goed gedocumenteerd en de these gaat terug op
+vrijmetselaarsverhalen uit de achttiende eeuw. Wie Browders bladzijden over
+Griekenland leest, leest in feite James, met dezelfde gebreken.
+
+De Olmeken-these is door mesoamerikanisten grondig weerlegd; Haslip-Viera,
+Ortiz de Montellano en Barbour zetten in *Current Anthropology* (1997) uiteen
+dat er geen enkel Afrikaans artefact, gewas of skelet in precolumbiaans
+Amerika is gevonden en dat de these Amerikaanse volken hun eigen prestaties
+ontzegt. Het projecteren van moderne rasindelingen op het oude Egypte wijzen
+egyptologen eveneens af: de bevolking was Noordoost-Afrikaans en past niet in
+de zwart-witcategorieën van de Verenigde Staten.
+
+Het onderliggende probleem is werkwijze: deugdelijk en weerlegd materiaal
+staan zonder onderscheid naast elkaar, en vrijwel elke overeenkomst tussen
+culturen wordt als Egyptische invloed gelezen. Als toegang tot wat de
+Afrocentrische school beweert is het boek bruikbaar en helder geschreven; als
+geschiedenis van het Nijldal is een recent handboek betrouwbaarder.
+
+#### Wat er concreet mee te doen is
+
+- Lees het boek als toegang tot de Afrocentrische geschiedschrijving en haar
+motieven, en leg er een recent egyptologisch handboek naast voor de feiten.
+- Toets elke afzonderlijke claim; het boek mengt gangbare kennis met weerlegde
+theses zonder markering.
+- Gebruik de naamskwestie rond Kemet als oefening in bronkritiek: in een
+vertaling kan een programma schuilgaan.
+- Neem de onderliggende vraag serieus wiens perspectief een geschiedles
+bepaalt, ook waar Browders antwoorden niet houdbaar zijn.
+
+#### Wat je hierna leest
+
+- 523. I Write What I Like. I Write What I Like laat zien hoe de
+terugvordering van geschiedenis en zelfbeeld in Zuid-Afrika tot politiek
+program werd gemaakt.
+- 56. Sapiens. Sapiens vertelt het grote beschavingsverhaal volgens de
+gangbare wetenschap en vormt zo een toetssteen voor Browders versie.
+- 522. Kaïdara. Kaïdara toont een Afrikaanse denktraditie uit eigen, orale
+bron, zonder omweg langs Egypte.
+
+## 592. Yurugu
+
+Marimba Ani, 1994. *Yurugu: An African-Centered Critique of European Cultural
+Thought and Behavior* (Africa World Press, Trenton NJ, 1994, xxviii + 636
+blz., ISBN 9780865432499; gebonden editie ISBN 9780865432482). Geen
+Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de
+samenvatting is op de Engelse editie gebaseerd. Rubriek: geschiedenis en
+samenleving.
+Tags: `cultuurkritiek`, `afrocentrisme`, `kolonialisme`, `filosofie`
+
+Omvangrijke cultuurkritiek van de Amerikaanse antropologe Marimba Ani,
+jarenlang docent Africana studies aan Hunter College. De titel verwijst naar
+de Dogon-mythe van Yurugu, een wezen dat zonder zijn vrouwelijke helft
+geschapen werd en daardoor onvolledig bleef. Zo leest Ani de Europese cultuur:
+gedreven door een asili, een kiem, van afscheiding en beheersing, met een
+denkstijl (utamawazo) die de wereld in tegenstellingen opdeelt en een
+collectief temperament (utamaroho) dat op overheersing is gericht. De beleden
+moraal van universele waarden noemt zij een retorische ethiek voor de
+buitenwacht.
+
+Het boek, door de auteur zelf een opzettelijk agressieve polemiek genoemd,
+werd invloedrijk in Africana studies en activistische kringen. Academische
+critici, onder wie Stephen Howe, verwijten het essentialisme: tweeënhalf
+millennium Europese geschiedenis wordt tot één onveranderlijke kiem herleid,
+met een redeneervorm die spiegelbeeldig is aan het racisme dat het bestrijdt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Ani stelt dat elke cultuur een asili heeft, een kiem die al
+haar uitingen richt, en dat de asili van de Europese cultuur bestaat uit
+afscheiding en beheersing. Uit die kiem groeien een denkstijl, het utamawazo,
+die de wereld opdeelt in tegenstellingen en alles tot object maakt, en een
+collectief temperament, het utamaroho, dat zich voedt met macht over anderen.
+De beleden moraal van naastenliefde en universele waarden is in haar analyse
+een retorische ethiek: bedoeld om buitenstaanders te ontwapenen, zonder gezag
+over het feitelijke gedrag. Europa gedraagt zich daarmee als Yurugu uit de
+Dogon-mythe, het wezen dat zonder zijn vrouwelijke helft ter wereld kwam,
+onvolledig bleef en wanorde sticht.
+
+#### De gang van het boek
+
+**Drie werktuigen: asili, utamawazo, utamaroho**
+
+Het boek opent met een cultuurtheorie. Ani munt drie termen, ontleend aan het
+Kiswahili: de asili als kiem of grondpatroon van een cultuur, het utamawazo
+als de cultureel gevormde denkwijze en het utamaroho als de bezielende
+geestkracht of het collectieve temperament. Een cultuur is in haar ogen geen
+losse verzameling gebruiken; alle onderdelen voeren het program van de asili
+uit. Zij kondigt aan dat het boek een opzettelijk agressieve polemiek is,
+geschreven vanuit een Afrikaans gezichtspunt, en bouwt voort op de these van
+Cheikh Anta Diop dat Europa en Afrika uit verschillende culturele wiegen
+stammen.
+
+De titel geeft het oordeel vooraf mee. In de kosmologie van de Dogon in Mali
+is Yurugu de bleke vos: een wezen dat tegen de scheppingsorde in zonder zijn
+vrouwelijke tweelinghelft ontstond, daardoor onvolledig bleef en rusteloos
+wanorde zaait. Ani koos die figuur bewust uit een Afrikaanse overlevering; de
+maat waaraan Europa wordt gemeten is daarmee zelf Afrikaans, en de diagnose
+luidt onvolledigheid in plaats van kwaadaardigheid.
+
+**Utamawazo: denken volgens Plato**
+
+Het eerste hoofdstuk legt de wortel van het Europese denken bij Plato. Diens
+kentheorie scheidt de kenner van het gekende, stelt de abstractie boven de
+geleefde ervaring en zet rede tegenover gevoel en lichaam. Uit die scheidingen
+groeien volgens Ani de kenmerken van het utamawazo: dichotomisering,
+objectivering en wat zij scientisme noemt, het geloof dat alleen meetbare
+kennis telt. De lijn loopt door via Descartes en de Verlichting naar de
+moderne wetenschap, die de wereld tot materiaal voor beheersing maakt, de
+natuur inbegrepen.
+
+**Religie, ideologie en esthetiek**
+
+Twee hoofdstukken behandelen godsdienst en schoonheidsleer als dragers van
+hetzelfde patroon. Het Europese christendom is in Ani's lezing vroeg
+samengesmolten met staatsmacht en diende in de zending en de kolonisatie als
+ideologie die verovering tot beschavingswerk omdoopte. De esthetiek doet
+vergelijkbaar werk: normen voor schoonheid, kunst en zelfs lichaamsbouw worden
+als universeel gepresenteerd, waardoor al het andere als minder verschijnt.
+Symbolen zijn voor Ani machtsmiddelen, en wie de verbeelding van een volk
+bezet, hoeft het niet meer te bewaken.
+
+**Zelfbeeld en de culturele ander**
+
+De middenhoofdstukken beschrijven het Europese zelfbeeld als beschaver en
+wereldverbeteraar, en het spiegelbeeld daarvan: de culturele ander. Wie buiten
+de eigen cultuur valt, wordt als wild, heidens of achterlijk voorgesteld en
+daarmee tot geoorloofd object van verovering, bekering en uitbuiting. Ani
+betoogt dat dit beeldenpaar geen bijverschijnsel van de expansie was, maar er
+de voorwaarde voor vormde; de vernietiging van anderen kon zo worden beleefd
+als dienst aan de mensheid.
+
+**Gedrag en de retorische ethiek**
+
+Vervolgens verschuift de aandacht van denken naar doen. Ani onderscheidt het
+gedrag binnen de eigen cultuur van het gedrag tegenover buitenstaanders en
+constateert een dubbele standaard die volgens haar geen incident is; zij is
+stelselmatig. Hier introduceert zij de retorische ethiek: morele beginselen
+die met overtuiging worden uitgedragen, juist omdat zij tegenover de ander
+niet als gedragsnorm bedoeld zijn. Verdragen die gesloten en gebroken werden,
+zending die aan onderwerping voorafging en ontwikkelingshulp met voorwaarden
+dienen als illustraties.
+
+De retorische ethiek werkt in Ani's analyse naar twee kanten. Zij ontwapent de
+tegenpartij, die de beleden beginselen voor gedragsnormen aanziet en verdragen
+en beloften vertrouwt. En zij stelt de eigen groep gerust: wie de expansie als
+beschavingswerk en het eigen land als hoeder van vrijheid kan blijven zien,
+hoeft het feitelijke gedrag niet onder ogen te komen. Huichelarij is in deze
+lezing geen persoonlijke ondeugd van enkelingen; zij is een cultureel
+gewaardeerde vaardigheid.
+
+**Universalisme, vooruitgang en het slot**
+
+De slothoofdstukken behandelen de ideologie van de Europese
+wereldoverheersing. Vooruitgang en universalisme zijn daarin de
+sleutelwoorden: het eigen pad wordt tot maat van de mensheid verklaard, waarna
+gelijkschakeling van andere culturen als hulp kan gelden. Ani noemt dit de
+syntaxis van het culturele imperialisme, de grammatica waarin overheersing
+wordt uitgesproken als altruïsme. Het slot keert terug naar de mythe: Europa
+als Yurugu, onvolledig en rusteloos. Genezing zoekt zij in Afrikaanse
+zelfdefinitie, in herstel van het geestelijke naast het stoffelijke en in
+ritueel als hersteltechniek.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| asili | De kiem of het grondpatroon van een cultuur, dat al haar uitingen richting geeft; bij Europa volgens Ani afscheiding en beheersing. |
+| utamawazo | De cultureel gestructureerde denkwijze, bij Europa gekenmerkt door dichotomisering, objectivering en scientisme. |
+| utamaroho | De bezielende geestkracht of het collectieve temperament van een cultuur, de energie achter haar gedrag. |
+| retorische ethiek | Moraal die naar buiten toe wordt uitgedragen zonder als gedragsnorm bedoeld te zijn, en zo de medewerking van anderen wint. |
+| culturele ander | Degene die buiten de cultuur wordt geplaatst en daardoor als geoorloofd object van verovering en uitbuiting geldt. |
+| universalisme | Het uitroepen van de eigen waarden tot maat van de hele mensheid, door Ani de syntaxis van het culturele imperialisme genoemd. |
+| Maafa | Door Ani gemunte Kiswahili-term, grote ramp, voor slavenhandel en kolonisatie als één doorlopende catastrofe. |
+| Yurugu | Figuur uit de Dogon-mythologie, zonder vrouwelijke helft geschapen en daardoor onvolledig; Ani's beeld voor de Europese cultuur. |
+
+#### Waar het argument op rust
+
+Het boek is een studie van 636 bladzijden met een uitgebreid notenapparaat en
+een begrippenlijst, voortgekomen uit Ani's academische werk; zij promoveerde
+in de antropologie aan de New School for Social Research en doceerde
+tientallen jaren aan Hunter College in New York. Haar materiaal is de Europese
+canon zelf: Plato, kerkvaders, verlichtingsdenkers, antropologen en historici,
+gelezen als getuigen van één cultuurpatroon. Op de feiten van kolonisatie,
+slavenhandel en zending waarop zij wijst, valt weinig af te dingen.
+
+De bewijsvoering kent een aangekondigde beperking: Ani noemt het boek zelf een
+opzettelijk agressieve polemiek. Bronnen zijn geselecteerd op wat het patroon
+bevestigt en een toets waaraan de these zou kunnen sneuvelen ontbreekt.
+Aangetoond wordt dat de Europese traditie veel materiaal bevat dat in het
+patroon past; dat het patroon die traditie als geheel verklaart, volgt daar
+niet uit.
+
+#### Wat er tegen in te brengen valt
+
+Het hoofdbezwaar is essentialisme. Ani behandelt tweeënhalf millennium
+Europese geschiedenis, van Plato tot na de Koude Oorlog, als uitvloeisel van
+één onveranderlijke kiem, en moet daarvoor alle interne verschillen
+wegdrukken: tussen christendom en Verlichting, tussen kapitalisme en marxisme,
+tussen kolonisatoren en de Europese critici van kolonisatie. De historicus
+Stephen Howe, die het boek in *Afrocentrism: Mythical Pasts and Imagined
+Homes* (1998) uitvoerig bespreekt, rekent het tot de meest doorgevoerde vorm
+van cultuurnationalisme in de Afrocentrische literatuur en wijst erop dat de
+redeneervorm het spiegelbeeld is van het raciale denken dat het boek
+bestrijdt.
+
+Daar komt bij dat de asili als verklaring onweerlegbaar is ingericht: gedrag
+dat het patroon bevestigt telt als bewijs, en afwijkend gedrag telt via de
+retorische ethiek als bevestiging op een dieper niveau. Binnen de
+universitaire antropologie heeft het boek dan ook weinig weerklank gevonden.
+Zijn invloed ligt in Africana studies en in activistische en culturele
+kringen, waar het begrippenapparaat, tot en met de term Maafa in
+herdenkingspraktijken, gemeengoed werd. Wie het leest, krijgt een samenhangend
+en soms scherpzinnig instrumentarium, gemonteerd op een fundament dat de eigen
+toetsing uitsluit.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik asili, utamawazo en utamaroho als analysevragen voor willekeurig
+welke cultuur of organisatie; het instrument is los van de these bruikbaar.
+- Let bij instellingen op de afstand tussen beleden waarden en feitelijk
+gedrag; de retorische ethiek is als toets goed te hanteren.
+- Zoek bij elke geponeerde cultuurtegenstelling ten minste twee
+tegenvoorbeelden binnen de Europese traditie voordat het patroon geloofd
+wordt.
+- Lees het boek naast een postkoloniale klassieker om te zien waar
+cultuurkritiek in essentialisme overgaat.
+
+#### Wat je hierna leest
+
+- 521. Indigenous and Popular Thinking in América. Indigenous and Popular
+Thinking in América onderneemt vanuit Zuid-Amerika een verwante kritiek op
+Europese denkcategorieën, met meer veldwerk en minder systeem.
+- 523. I Write What I Like. I Write What I Like formuleert de psychologische
+kant van dekolonisatie waarop Ani haar cultuurtheorie laat aansluiten.
+- 269. The Story of Philosophy. The Story of Philosophy presenteert de canon
+van Plato tot in de moderne tijd die Ani als één cultuurpatroon leest; naast
+elkaar gelegd wordt het contrast zichtbaar.
+
+## 593. The Destruction of Black Civilization
+
+Chancellor Williams, 1971. *The Destruction of Black Civilization: Great
+Issues of a Race from 4500 B.C. to 2000 A.D.* (Third World Press, Chicago,
+1971; herziene en uitgebreide editie 1987, 384 blz., ISBN 9780883780305). Geen
+Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de
+samenvatting is op de Engelse editie gebaseerd. Rubriek: geschiedenis en
+samenleving.
+Tags: `afrika`, `geschiedenis`, `afrocentrisme`, `beschaving`
+
+Levenswerk van de Amerikaanse historicus en socioloog Chancellor Williams
+(1893-1992), hoogleraar aan Howard University en zoon van een tot slaaf
+gemaakte vader. Zestien jaar onderzoek, naar eigen zeggen met veldwerk in
+zesentwintig Afrikaanse landen, mondde uit in één groot verhaal: een zwarte
+beschaving die in het Nijldal ontstond, met Ethiopië als moederland en Egypte
+als noordelijke dochter, en die over zesduizend jaar door invasies, vermenging
+en slavenhandel is afgebroken. Het slot bevat een organisatieplan voor zwarte
+eenwording.
+
+Het boek kreeg in 1972 de prijs van de Black Academy of Arts and Letters en
+geldt sindsdien als hoeksteen van de Afrocentrische bibliotheek. Vakhistorici
+volgen de hoofdthese niet: de archeologie toont zelfstandige Afrikaanse
+ontwikkelingscentra zonder Egyptische stamboom, en Williams projecteert de
+Amerikaanse rasindeling van zijn eigen tijd op de oudheid. Als tijdsdocument
+van het zwarte geschieddenken rond 1970 blijft het een sleuteltekst.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Williams stelt dat de zwarte wereld ooit één grote beschaving
+vormde met haar bakermat in het Nijldal, met Ethiopië als moederland en Egypte
+als haar oudste dochter; dat die beschaving over een periode van zesduizend
+jaar is afgebroken door opeenvolgende invasies uit Azië en Europa en door
+vermenging die de heersende klasse van gezicht deed veranderen, en dat de
+slavenhandel het sluitstuk van die vernietiging vormde. Kennis van dat proces
+is voor hem geen doel op zichzelf: zwarte Amerikanen en Afrikanen kunnen
+volgens hem pas een toekomst bouwen wanneer zij weten hoe hun verleden is
+afgenomen en daaruit de organisatorische les trekken. Geschiedenis is bij
+Williams uitdrukkelijk grondstof voor een programma.
+
+#### De gang van het boek
+
+**Eén vraag als motor**
+
+Het boek opent met een parabel die de toon zet: een reiziger vraagt wat er van
+de zwarte mensen van Soemer geworden is, want de oude bronnen melden dat zij
+ooit heersten, en krijgt als antwoord dat zij door vermenging verdwenen.
+Daarmee ligt de vraag van het hele werk op tafel: hoe kon een volk dat aan het
+begin van de beschaving stond, wereldwijd onderaan belanden? Williams
+presenteert het boek als resultaat van zestien jaar studie en veldonderzoek,
+en als afrekening met een geschiedschrijving die zwarte mensen leert dat zij
+tot een volk van niemanden behoren.
+
+**Ethiopiës oudste dochter**
+
+De vroegste hoofdstukken zetten de hoofdthese neer. De beschaving ontstond
+stroomopwaarts, in het binnenland dat Williams Ethiopië noemt, en Egypte was
+daarvan de noordelijke voortzetting, de oudste dochter. De delta trok van meet
+af aan Aziatische migranten, en uit de vermenging groeide wat Williams het
+mulattenvraagstuk noemt: een gemengde klasse die zich in machtsstrijd en
+identiteit steeds vaker tegen het zwarte zuiden keerde. De verandering van
+gezichten op de monumenten leest hij als de afspiegeling van dit proces, en de
+eerste cataract werd uiteindelijk de nieuwe grens van de zwarte wereld.
+
+**De twee die doorgingen**
+
+Na de val van het faraonische Egypte volgt Williams de machten die het erfgoed
+voortzetten: Kush met de hoofdsteden Napata en Meroë, en het latere Ethiopië.
+Hier plaatst hij de 25e dynastie, waarin Nubische koningen Egypte heroverden,
+en de eeuwenlange bloei van Meroë als ijzer- en handelsstad. Het zijn de
+hoofdstukken waarin zijn verhaal het dichtst bij de archeologie blijft, die
+deze rijken sinds de jaren zestig inderdaad ernstiger is gaan nemen.
+
+**De Afrikaanse grondwet**
+
+In het hart van het boek reconstrueert Williams wat hij de Afrikaanse grondwet
+noemt: het ongeschreven staatsrecht van traditionele Afrikaanse samenlevingen.
+Grond behoorde aan de gemeenschap, leiders regeerden onder raden en konden
+worden afgezet, leeftijdsgroepen droegen taken en rechtspraak zocht herstel in
+plaats van wraak. Democratie is in deze lezing geen Griekse uitvinding; haar
+beginselen functioneerden al in Afrikaanse dorpen en koninkrijken. De
+reconstructie steunt op mondelinge overlevering en op terugredeneren vanuit
+gebruiken die Williams tijdens zijn veldwerk optekende.
+
+Dit deel is meer dan een uitweiding: het levert de maat waaraan Williams het
+verlies afmeet. Wat door verovering en slavenhandel verloren ging, was in zijn
+lezing een uitgewerkte staatkundige beschaving, waar de koloniale literatuur
+slechts ongeordende dorpen had willen zien. Latere onderzoekers van Afrikaans
+gewoonterecht herkennen veel van de elementen die hij noemt, al gaan zij niet
+mee in de eenvormigheid die hij aan het hele continent toeschrijft.
+
+**Verstrooiing en casestudy's**
+
+Vervolgens beschrijft het boek de lange afbraak. Verdroging van de Sahara en
+verlies van de Nijlvallei dreven bevolkingen uiteen langs routes die Williams
+wegen naar dood en vernietiging noemt. Casestudy's van afzonderlijke staten,
+van kleine rijken in Centraal-Afrika tot Songhai als laatste van de grote
+zwarte rijken, laten volgens hem steeds hetzelfde patroon zien: druk van
+buiten, verdeeldheid van binnen, en ten slotte de Arabische en Europese
+slavenhandel die samenlevingen leeghaalde. Het hoofdstuk over de westerse
+indringers draagt de veelzeggende titel White Devils from the West.
+
+**Kruispunt en masterplan**
+
+Het slotdeel verlaat de oudheid en richt zich op het heden van rond 1970.
+Williams analyseert de toestand van zwart Amerika en Afrika, bekritiseert
+integratiepolitiek zonder eigen economische basis en bepleit organisatie:
+onderwijs, coöperatieve economie en eenheid over de grenzen van staten en
+kerken heen, uitgewerkt in wat hij een masterplan noemt. Hij erkent openlijk
+dat zijn geschiedschrijving dienstbaar is aan dit doel en verdedigt die
+subjectiviteit als noodzakelijk tegenwicht tegen eeuwen geschiedschrijving in
+omgekeerde richting.
+
+De herziene editie van 1987 scherpte dit slotdeel aan. Williams, toen in de
+negentig, zag de toestand van zwart Amerika sinds de burgerrechtenwetten
+nauwelijks verbeterd en herhaalde zijn kernpunt: rechten op papier zonder
+eigen economische en organisatorische basis veranderen de machtsverhouding
+niet. Die naoorlogse Amerikaanse vraag stuurt merkbaar zijn hele lezing van de
+oudheid.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Ethiopiës oudste dochter | Williams' benaming voor Egypte als noordelijke voortzetting van een ouder zwart moederland in het zuiden. |
+| het mulattenvraagstuk | Zijn verklaring voor de gedaanteverandering van Egypte: een gemengde klasse die zich tegen het zwarte zuiden keerde. |
+| de eerste cataract | De stroomversnelling bij Aswan die na de val van Egypte de nieuwe noordgrens van de zwarte wereld werd. |
+| de Afrikaanse grondwet | Williams' reconstructie van het ongeschreven staatsrecht van traditionele Afrikaanse samenlevingen. |
+| verstrooiing | De eeuwenlange uiteendrijving van Afrikaanse volken door droogte, oorlog en slavenhandel. |
+| de laatste zwarte rijken | De grote Sahelrijken, met Songhai als laatste, waarvan de val voor Williams het einde van de zwarte staatkunde markeert. |
+| masterplan | Het slotprogramma voor zwarte eenwording, onderwijs en coöperatieve economie. |
+
+#### Waar het argument op rust
+
+Williams werkte zestien jaar aan het boek, naar eigen zeggen met veldonderzoek
+in zesentwintig Afrikaanse landen en onder ruim honderd taalgroepen, naast
+literatuur- en archiefstudie. Het notenapparaat is niettemin dun; veel
+reconstructies, vooral de Afrikaanse grondwet, steunen op mondelinge
+overlevering en op terugredeneren vanuit latere gebruiken. Williams erkent die
+subjectiviteit openlijk en verdedigt haar als noodzakelijk tegenwicht tegen
+een geschiedschrijving die Afrika stelselmatig kleineerde.
+
+Delen van het verhaal staan sterk: Kush, Napata, Meroë en Aksum waren echte,
+lang onderschatte machten, de 25e dynastie heeft echt bestaan en de
+verwoestende werking van zowel de Arabische als de trans-Atlantische
+slavenhandel is ruim gedocumenteerd. Het boek kreeg in 1972 de prijs van de
+Black Academy of Arts and Letters en werd het meest gelezen geschiedwerk van
+de zwarte boekenbeweging.
+
+#### Wat er tegen in te brengen valt
+
+Vakhistorici volgen de hoofdthese niet. Dat heel zwart Afrika ooit één
+beschaving vormde met het Nijldal als kern strookt niet met de archeologie,
+die zelfstandige ontwikkelingscentra laat zien, van de Nigerbocht tot
+Groot-Zimbabwe, zonder Egyptische stamboom. De richting van Williams'
+afleiding, Egypte als dochter van een omvattend zuidelijk moederrijk, gaat
+bovendien verder dan het bewijs draagt: over vroege zuidelijke invloed op
+Egypte wordt serieus gediscussieerd, over een Ethiopisch wereldrijk niet.
+
+Het zwaarste bezwaar betreft de raciale lens. Williams projecteert de
+Amerikaanse rasindeling, inclusief de gedachte dat één gemengde voorouder
+iemand van kamp doet wisselen, op het oude Nijldal; zijn mulattenvraagstuk
+zegt meer over het Amerika van Jim Crow waarin hij opgroeide dan over de
+farao's. Critici als Stephen Howe en Clarence Walker wijzen er verder op dat
+de morele inkleuring, tot in hoofdstuktitels als White Devils from the West,
+van het werk eerder een aanklacht met programma maakt dan een geschiedwerk.
+Wie het leest, leest een monument van de zwarte geschiedbeweging van rond
+1970, met de verdiensten en de vertekeningen die daarbij horen.
+
+#### Wat er concreet mee te doen is
+
+- Lees het boek samen met een recent overzicht van Afrikaanse geschiedenis en
+noteer waar de verhalen uiteenlopen.
+- Gebruik de Afrikaanse grondwet als startpunt om inheemse bestuursvormen te
+bestuderen, en zoek per element de etnografische bron.
+- Herken de projectie van hedendaagse rascategorieën op de oudheid; die fout
+is niet aan één kamp voorbehouden.
+- Neem het slotdeel serieus als tijdsdocument van zwart organisatiedenken rond
+1970.
+
+#### Wat je hierna leest
+
+- 56. Sapiens. Sapiens biedt het gangbare wetenschappelijke verhaal over de
+opkomst van beschavingen waartegen Williams' reconstructie kan worden afgezet.
+- 523. I Write What I Like. I Write What I Like staat in dezelfde traditie van
+geschiedenis als wapen voor zwart zelfbewustzijn, een generatie later en op
+een ander continent.
+- 57. The Lessons of History. The Lessons of History trekt eveneens grote
+lijnen door millennia en toont hoe hachelijk dat genre is.
+
+## 594. African Philosophy: The Pharaonic Period
+
+Théophile Obenga, 1990. *African Philosophy: The Pharaonic Period: 2780-330
+BC* (Per Ankh, Popenguine, Senegal, 2004, 671 blz., ISBN 9782911928086), door
+Ayi Kwei Armah vertaald uit het Frans: *La philosophie africaine de la période
+pharaonique* (L'Harmattan, Parijs, 1990). Geen Nederlandse vertaling gevonden
+in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie
+gebaseerd. Rubriek: geschiedenis en samenleving.
+Tags: `filosofie`, `egypte`, `afrika`, `taal`
+
+Studie van de Congolese egyptoloog en taalkundige Théophile Obenga (1936),
+medestander van Cheikh Anta Diop en medewerker aan de *General History of
+Africa* van UNESCO. Obenga betoogt dat het faraonische Egypte een volwaardige
+wijsgerige traditie bezat, met Maät als kernbegrip, en dat die traditie
+Afrikaans is: taalkundig en cultureel verwant aan zwart Afrika en ruim
+tweeduizend jaar ouder dan de Griekse filosofie. Hij presenteert de bronnen
+zelf, van de piramideteksten en de steen van Sjabaka tot de leer van
+Ptahhotep, in hiëroglyfen, transliteratie en vertaling met commentaar, gevolgd
+door hoofdstukken over sterrenkunde, geneeskunde en wiskunde.
+
+Het is het meest filologische werk uit de Afrocentrische bibliotheek en als
+bloemlezing van teksten waardevol. De grote claims blijven omstreden: de
+historische taalkunde verwerpt Obenga's négro-égyptien als taalfamilie, en of
+Egyptische wijsheidsleer filosofie in de argumentatieve zin is, blijft ook
+onder egyptologen een open vraag.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Obenga stelt dat het faraonische Egypte een volwaardige
+wijsgerige traditie bezat, met eigen begrippen voor zijn, waarheid,
+rechtvaardigheid en onsterfelijkheid, en dat die traditie Afrikaans is: de
+Egyptische taal en het Egyptische denken horen volgens hem bij zwart Afrika,
+met aantoonbare verwantschap tot hedendaagse talen en denkstelsels ten zuiden
+van de Sahara. De geschiedenis van de filosofie begint in zijn lezing aan de
+Nijl, ruim tweeduizend jaar voor Thales, en de Griekse wijsbegeerte stond bij
+die oudere traditie in de leer. Het boek wil dit aantonen met de teksten zelf,
+weergegeven in hiëroglyfen, transliteratie en vertaling, zodat de lezer de
+bewijsvoering kan navolgen.
+
+#### De gang van het boek
+
+**Methode: de teksten zelf**
+
+Obenga is een geschoold egyptoloog en historisch taalkundige; hij verdedigde
+in 1974 samen met Cheikh Anta Diop op het UNESCO-colloquium in Caïro de these
+van een zwart Egypte en leidde later de vakgroep Africana studies aan San
+Francisco State University. Zijn werkwijze onderscheidt dit boek van de meeste
+titels uit dezelfde stroming: sleutelteksten worden in hiëroglyfen afgedrukt,
+getranslitereerd, vertaald en van regel tot regel toegelicht. De Engelse
+editie verscheen bij Per Ankh, de panafrikaanse uitgeverscoöperatie in
+Senegal, in een vertaling van de Ghanese romancier Ayi Kwei Armah.
+
+Het Franse origineel verscheen in 1990 bij L'Harmattan, enkele jaren na Diops
+dood, en is nadrukkelijk als voortzetting van diens program bedoeld: de
+Egyptische oudheid teruggeven aan Afrika en daarmee de Afrikaanse
+geesteswetenschappen een eigen klassieke basis geven. De afbakening in de
+titel, 2780 tot 330 voor Christus, loopt van het Oude Rijk tot de komst van
+Alexander, de hele periode waarin het Nijldal zijn denken in eigen taal en
+schrift vastlegde.
+
+**Kosmos en schepping**
+
+De openingsdelen behandelen de vraag waar de wereld vandaan komt. Vóór het
+huidige heelal was er de Noen, het grenzeloze oerwater, waaruit de schepping
+tevoorschijn trad. Obenga leest de Heliopolitaanse kosmogonie en vooral de
+Memphitische theologie op de steen van Sjabaka als ontologie: de god Ptah
+schept door hart en tong, door denken en woord. Dat een tekst uit het Nijldal
+het scheppen als geestelijke daad voorstelt, eeuwen voor de Griekse
+logos-speculatie, geldt voor Obenga als bewijs dat abstract denken daar niet
+gewacht heeft op Griekenland.
+
+**Tijd, dood en onsterfelijkheid**
+
+Aparte delen gaan over tijd en hemel en over dood en onsterfelijkheid. Uit de
+piramideteksten, de oudste religieuze tekstverzameling van de wereld,
+reconstrueert Obenga een leer waarin de dood geen einde is; het bestaan zet
+zich voort in een gezuiverde staat, mits het leven aan de maat van de waarheid
+heeft voldaan. De cyclische tijd van de Nijl en de sterrenhemel, en de
+eeuwigheid als horizon van het handelen, behoren in zijn lezing tot de kern
+van dit denken.
+
+**Maät als ethiek**
+
+Het ethische deel draait om Maät: waarheid, rechtvaardigheid en kosmische orde
+ineen, tegelijk godin, norm en maat. Obenga behandelt de leer van Ptahhotep,
+een onderrichting van een vizier aan zijn zoon die tot de oudste morele
+traktaten van de wereld behoort, en het dodengericht waarin het hart tegen de
+veer van Maät wordt gewogen. Rechtvaardig spreken, maat houden, de zwakke
+ontzien: hier ligt volgens Obenga een uitgewerkte ethiek die in geen enkel
+opzicht onderdoet voor latere tradities.
+
+**Wetenschappen van het Nijldal**
+
+De tweede helft van het boek inventariseert de exacte kennis van Egypte:
+sterrenkunde en kalenderrekening, kaartenmakerij, textielchemie, geneeskunde
+en wiskunde. Obenga bespreekt onder meer de chirurgische papyrus Edwin Smith
+en de wiskundige papyrus Rhind en betoogt dat hier methodisch, op waarneming
+gebaseerd denken aan het werk is. De figuur van de schrijver-geleerde, met een
+eigen intellectuele roeping, bewijst voor hem dat het Nijldal een geleerde
+stand kende die kennis om haar eigen wil beoefende.
+
+De wiskundige hoofdstukken zijn het meest technisch. De papyrus Rhind laat
+rekenen met breuken, oppervlakteberekening en een benadering van de cirkel
+zien; de papyrus van Moskou bevat de berekening van het volume van een
+afgeknotte piramide. Obenga presenteert dit als toegepaste wetenschap van hoog
+niveau en verzet zich tegen de gewoonte om Egyptische wiskunde als louter
+receptenkennis af te doen tegenover Grieks bewijsdenken.
+
+**Egypte en zwart Afrika**
+
+Het sluitstuk is de continuïteitsthese. Obenga verwerpt de gangbare indeling
+van het Egyptisch bij de Afro-Aziatische taalfamilie en stelt er een eigen
+familie voor in de plaats, het négro-égyptien, die het Egyptisch met talen als
+het Wolof en het Yoruba zou verbinden. Denkstelsels van de Dogon in Mali, de
+Vai in West-Afrika en de Yoruba in Nigeria voert hij op als levende
+voortzettingen van hetzelfde erfgoed. Zo wordt de faraonische filosofie geen
+dood verleden; zwart Afrika kan er volgens Obenga zijn eigen klassieke oudheid
+in herkennen, zoals Europa dat in Griekenland doet.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Maät | Waarheid, rechtvaardigheid en kosmische orde ineen, het kernbegrip van de Egyptische ethiek. |
+| medoe netjer | De godswoorden, de Egyptische naam voor het hiëroglyfenschrift. |
+| Noen | Het grenzeloze oerwater dat aan het huidige heelal voorafging. |
+| Memphitische theologie | Scheppingsleer op de steen van Sjabaka waarin Ptah de wereld schept door hart en tong, denken en woord. |
+| sebayt | Onderrichting of levensleer, het genre waartoe de maximen van Ptahhotep behoren. |
+| négro-égyptien | De door Obenga voorgestelde taalfamilie die het Egyptisch met de talen van zwart Afrika verbindt. |
+| Kemet | De Egyptische eigennaam van het land, in deze traditie gelezen als het land van de zwarten. |
+
+#### Waar het argument op rust
+
+Anders dan veel titels uit dezelfde stroming is dit een filologisch werk. De
+behandelde bronnen bestaan echt en staan centraal in de egyptologie: de
+piramideteksten, de steen van Sjabaka, de leer van Ptahhotep, de medische en
+wiskundige papyri. Dat deze teksten reflectie op orde, rechtvaardigheid, dood
+en kennis bevatten, is onomstreden, en Obenga's vertalingen zijn uit de eerste
+hand. Zijn staat van dienst, van het UNESCO-geschiedwerk tot universitaire
+leerstoelen, is reëel.
+
+Omstreden is de duiding. Of wijsheidsleer en kosmogonie filosofie mogen heten
+in de zin van beargumenteerd, tegen kritiek verdedigd denken, daarover lopen
+de meningen binnen en buiten de egyptologie uiteen. De taalkundige
+onderbouwing van de Afrikaanse continuïteit, het négro-égyptien, is van Obenga
+zelf en heeft buiten de school van Diop geen aanhang verworven. Het boek
+bewijst dus veel over de rijkdom van het Egyptische denken en veel minder over
+de stambomen die het trekt.
+
+#### Wat er tegen in te brengen valt
+
+De historische taalkunde deelt het Egyptisch in bij de Afro-Aziatische
+familie, samen met onder meer Semitisch, Berbers en Koesjitisch. Obenga
+verwerpt die familie en stelt er het négro-égyptien voor in de plaats.
+Vaktaalkundigen wijzen dat af: zijn vergelijkingen leunen op losse
+woordgelijkenissen zonder regelmatige klankcorrespondenties en overspannen een
+tijdsdiepte waarop de vergelijkende methode niets meer kan zien. Op het
+UNESCO-colloquium van 1974 in Caïro tekende het verslag al aan dat de meeste
+deelnemers de conclusies van Diop en Obenga niet overnamen.
+
+Voor de wijsgerige kernclaim geldt iets soortgelijks. Egyptologen erkennen de
+diepte van Maät en van de Memphitische theologie, maar lezen die teksten
+doorgaans als theologie en levensleer; expliciete argumentatie en
+georganiseerde tegenspraak, kenmerken van de Griekse praktijk, ontbreken er
+grotendeels in. De stelling dat de Griekse filosofie bij Egypte in de leer
+ging, steunt vooral op late en anekdotische bronnen; classici als Mary
+Lefkowitz hebben laten zien hoe dun dat bewijs is. Ook de vroege datering van
+de Memphitische theologie, die Obenga volgt, is binnen de egyptologie
+omstreden; een aanzienlijk deel van het vak dateert de compositie veel later.
+Het boek is daarmee het sterkst waar het vertaalt en toelicht, en het zwakst
+waar het classificeert.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik het boek als bloemlezing: de vertalingen van Ptahhotep en de steen
+van Sjabaka zijn ook los van de these de moeite waard.
+- Vergelijk Obenga's lezing van Maät met een gangbaar egyptologisch handboek
+om te zien waar vertaling in interpretatie overgaat.
+- Toets taalvergelijkingen op regelmatige klankcorrespondenties; losse
+woordparen bewijzen geen verwantschap.
+- Betrek de vraag wat als filosofie telt ook op andere niet-Griekse tradities;
+de definitiekwestie is breder dan Egypte.
+
+#### Wat je hierna leest
+
+- 269. The Story of Philosophy. The Story of Philosophy laat de geschiedenis
+van het denken in Griekenland beginnen; precies het beeld dat Obenga wil
+corrigeren.
+- 522. Kaïdara. Kaïdara toont een levende Afrikaanse wijsheidstraditie, het
+soort materiaal waarmee Obenga continuïteit wil aantonen.
+- 520. Vivekachudamani. Vivekachudamani komt uit een andere oude traditie
+waarin wijsheidsleer en filosofie in elkaar overlopen, wat de definitievraag
+scherper stelt.
+
+## 595. Black Man of the Nile and His Family
+
+Yosef Ben-Jochannan, 1972. *Black Man of the Nile and His Family* (Alkebu-lan
+Books, New York, 1972; uitgebreide bewerking van *Black Man of the Nile* uit
+1970; heruitgave Black Classic Press, Baltimore, 1989, 381 blz., ISBN
+9780933121263). Geen Nederlandse vertaling gevonden in de catalogus van
+bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd. Rubriek:
+geschiedenis en samenleving.
+Tags: `egypte`, `afrika`, `afrocentrisme`, `geschiedenis`
+
+Bekendste werk van Yosef Ben-Jochannan (1918-2015), in Harlem vereerd als Dr.
+Ben, zelfbenoemd egyptoloog en decennialang docent en spreker in de zwarte
+gemeenschap. Het boek, uitgegeven bij zijn eigen imprint Alkebu-lan Books, is
+een strijdschrift tegen wat hij geëuropeaniseerde Afrikaanse geschiedenis
+noemt: het Nijldal was zwart-Afrikaans, de westerse godsdiensten wortelen in
+Afrikaanse religie en de egyptologie heeft Egypte met opzet van Afrika
+losgemaakt. Kaarten, koningslijsten, citaten en polemische tussenwerpingen
+wisselen elkaar af.
+
+De hoofdrichting, Egypte als Afrikaanse beschaving, is intussen gemeengoed in
+het vak; veel deelclaims zijn dat allerminst. Ben-Jochannans academische
+titels bleken onverifieerbaar en classica Mary Lefkowitz toonde in 1993 aan
+dat zijn verhaal over Aristoteles en de bibliotheek van Alexandrië
+chronologisch onmogelijk is. Het boek blijft daarmee vooral een invloedrijk
+tijdsdocument van de zwarte geschiedbeweging.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Ben-Jochannan stelt dat de beschaving van het Nijldal naar
+oorsprong en karakter zwart-Afrikaans was, dat de Europese egyptologie haar
+bij het Midden-Oosten heeft ingedeeld om Afrika als continent zonder
+geschiedenis te kunnen voorstellen, en dat ook jodendom, christendom en islam
+teruggaan op religieuze voorstellingen uit het Nijldal. Geschiedschrijving is
+in zijn ogen een machtsinstrument; het terugvorderen van de Afrikaanse oudheid
+is daarom een politieke daad die de rechtvaardiging van blanke overheersing
+ondergraaft. Het boek draagt daarvoor het materiaal aan, van koningslijsten en
+kaarten tot citaten van klassieke auteurs, gebracht in de toon van een
+aanklacht.
+
+#### De gang van het boek
+
+**Een strijdschrift uit Harlem**
+
+Het boek komt voort uit de traditie van de Harlemse straatgeleerden, die
+buiten de universiteit om zwarte geschiedenis doceerden in zaaltjes,
+boekhandels en op straathoeken. Ben-Jochannan breidde zijn *Black Man of the
+Nile* uit 1970 uit tot dit dikkere familieboek en gaf het uit bij zijn eigen
+imprint. De vorm is die van een collegemap: documenten, kaarten, chronologieën
+en lange citaten, aaneengeschreven met sarcastische tussenwerpingen aan het
+adres van de gevestigde wetenschap. Ordelijk is het nergens; de
+aanstekelijkheid van de docent is er op elke bladzijde.
+
+De schrijver zelf is nauwelijks van het boek te scheiden. Ben-Jochannan
+presenteerde zich als in Ethiopië geboren zoon van een Ethiopisch-joodse
+familie; later onderzoek wijst op een herkomst uit Puerto Rico. Hij werkte
+jarenlang als tekenaar, bouwde ondertussen een reusachtige eigen bibliotheek
+op en schreef naar eigen telling negenenveertig boeken, vrijwel alle in eigen
+beheer. De geleerde persona, met titels en al, hoorde bij het optreden; juist
+dat maakte de latere ontmaskering van die titels zo pijnlijk.
+
+**Alkebu-lan: Afrika hernoemd**
+
+Namen zijn voor Ben-Jochannan oorlogsbuit. Afrika en Egypte zijn etiketten van
+buitenstaanders; hij spreekt van Alkebu-lan, volgens hem de oudste inheemse
+naam van het continent, en gebruikt Egyptische landsnamen als Ta-Merry en
+Ta-Nehisi, en Ta-Seti voor Nubië. De hernoeming is programma: wie de eigen
+namen terugneemt, neemt de eigen geschiedenis terug. Latere taalhistorici
+plaatsen kanttekeningen bij de herkomst van Alkebu-lan, dat eerder Arabisch
+dan oer-Afrikaans lijkt, maar als geste is de hernoeming van het boek
+onlosmakelijk.
+
+**Het Nijldal van zuid naar noord**
+
+De historische kern volgt de beschaving stroomafwaarts: uit het Merengebied en
+Nubië naar Egypte, met dynastieënlijsten en vorstenportretten van Narmer tot
+de Nubische farao's van de 25e dynastie. Ben-Jochannan citeert Herodotus over
+het uiterlijk van de Egyptenaren en leest de monumenten als getuigen van een
+donkere bevolking. De zuid-noordrichting van de beschaving, in zijn tijd een
+buitenstaanderspositie, kreeg met de opwaardering van Nubië in de latere
+archeologie gedeeltelijk steun; zijn stelligheid over details ging ver boven
+het toenmalige en huidige bewijs uit.
+
+Kenmerkend is de omgang met tegenspraak binnen het eigen kamp niet minder dan
+daarbuiten: wie de zwartheid van een farao betwijfelde, kreeg de monumenten en
+Herodotus voorgehouden; wie op tegenstrijdige dateringen wees, werd naar de
+volgende kaart verwezen. Het boek redeneert cumulatief, door opeenstapeling
+van aanwijzingen, en kent geen weging van bewijs. Voor het beoogde publiek,
+lezers die nooit één Afrikaans hoofdstuk in hun schoolboeken hadden
+aangetroffen, deed die stapel zijn werk.
+
+**Godsdiensten uit Afrika**
+
+De familie uit de titel omvat ook de nakomelingen in geloof: Ben-Jochannan,
+die zichzelf als Ethiopische jood presenteerde, betoogt dat de oorspronkelijke
+joden Afrikanen waren en dat jodendom, christendom en islam hun
+kernvoorstellingen, van het ene godsbegrip van Achnaton tot het laatste
+oordeel, aan het Nijldal ontlenen. Deze lijn werkte hij elders uit in *African
+Origins of the Major Western Religions*. Godsdiensthistorici erkennen
+Egyptische invloeden op het oude Nabije Oosten; de rechtstreekse
+afstammingsketen die hier wordt getekend, achten zij niet houdbaar.
+
+**Tegen de gevestigde egyptologie**
+
+Door het hele boek loopt een aanval op de Europese egyptologie: op geleerden
+die de Egyptenaren tot donkergekleurde Kaukasiërs verklaarden, op musea vol
+weggehaalde schatten en op schoolboeken die Egypte behandelen alsof het buiten
+Afrika ligt. Veel van deze woede had een reëel doelwit; de raswetenschap van
+de negentiende en vroege twintigste eeuw heeft aantoonbaar zo gewerkt.
+Ben-Jochannans remedie, elke twijfel aan zijn eigen lezing als voortzetting
+van datzelfde racisme wegzetten, maakte het gesprek met het vak echter
+onmogelijk.
+
+**Leraar en erfenis**
+
+Ben-Jochannan doceerde van 1973 tot 1987 als gastdocent aan Cornell, leidde
+tientallen studiereizen naar Egypte en bleef tot op hoge leeftijd spreken.
+Zijn boeken, herdrukt door Black Classic Press, vormden voor een generatie
+zwarte Amerikanen de eerste kennismaking met de Afrikaanse oudheid; zijn
+invloed klinkt door tot in de hiphop. De heruitgave van 1989 voegde een
+bibliografie en een register toe aan een tekst die verder het karakter van het
+origineel behield, inclusief de losse omgang met bronnen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Alkebu-lan | De volgens Ben-Jochannan oudste inheemse naam van Afrika, door hem consequent gebruikt in plaats van het Latijnse Africa. |
+| Ta-Merry | Egyptische landsnaam die hij hanteert in plaats van het Griekse Egypte. |
+| Ta-Seti | Het land van de boog, naam voor Nubië, in zijn verhaal de bakermat van de Nijldalbeschaving. |
+| geëuropeaniseerde geschiedenis | Zijn term voor geschiedschrijving die Afrikaanse prestaties bij Europa of het Midden-Oosten onderbrengt. |
+| de familie van de Nijl | De Afrikanen van het Nijldal en al hun nakomelingen, in bloed en in geloof, uit de titel van het boek. |
+| African Origins-these | De claim dat jodendom, christendom en islam hun kernvoorstellingen aan de religie van het Nijldal ontlenen. |
+
+#### Waar het argument op rust
+
+Het boek reproduceert veel echt materiaal: passages uit Herodotus over het
+uiterlijk van de Egyptenaren, koningslijsten, kaarten, foto's van monumenten
+en oudere literatuur van Volney tot vroege zwarte historici. De hoofdrichting,
+het oude Egypte als Afrikaanse samenleving met een inheemse
+Noordoost-Afrikaanse bevolking, staat in de hedendaagse egyptologie niet meer
+ter discussie, al hanteert het vak andere termen dan het Amerikaanse
+rasdenken. De latere opwaardering van Nubië gaf de zuid-noordlijn van het boek
+gedeeltelijk gelijk.
+
+Daar staat tegenover dat de bewijsvoering chaotisch is: bronnen worden
+onvolledig of onherleidbaar geciteerd, dateringen wisselen per hoofdstuk en
+polemiek en documentatie lopen door elkaar. Het werk is nooit door een
+redactie of door vakgenoten gegaan; het verscheen bij de eigen imprint van de
+auteur en behield dat karakter ook in de heruitgaven.
+
+#### Wat er tegen in te brengen valt
+
+De persoon is onderdeel van het probleem. Ben-Jochannans academische titels
+zijn nooit geverifieerd; de universiteiten waar hij graden claimde, hebben
+geen inschrijving van hem kunnen vinden. Berucht werd de confrontatie van
+1993, waarin classica Mary Lefkowitz hem in een zaal voorhield dat Aristoteles
+de bibliotheek van Alexandrië onmogelijk kan hebben leeggeroofd, omdat die pas
+na diens dood werd gebouwd; een inhoudelijk antwoord bleef uit. De historicus
+Clarence Walker documenteerde vergelijkbare chronologische onmogelijkheden in
+zijn beweringen over Cleopatra.
+
+Vakhistorici rekenen het werk daarom tot de pseudogeschiedenis: een
+verdedigbare hoofdrichting, vervlochten met onhoudbare claims die met dezelfde
+stelligheid worden gebracht, zonder controleerbaar notenapparaat. Tegelijk is
+de receptie daarmee niet volledig beschreven. Voor een generatie zwarte
+Amerikanen was Dr. Ben degene die de deur naar de Afrikaanse oudheid opende,
+en zijn agitatie heeft musea, uitgevers en universiteiten aantoonbaar
+gedwongen de voorstelling van Egypte tegen het licht te houden. Wie het boek
+nu leest, doet er goed aan die twee gezichten allebei te zien.
+
+#### Wat er concreet mee te doen is
+
+- Lees het boek als document van de zwarte geschiedbeweging en haal de feiten
+uit een recent handboek over Egypte en Nubië.
+- Controleer bij elke claim bron en datering; het boek zelf biedt daarvoor te
+weinig houvast.
+- Gebruik de casus Lefkowitz-Ben-Jochannan als les in het toetsen van
+aansprekende verhalen aan simpele chronologie.
+- Onderscheid de terechte hoofdvraag, wie schrijft geschiedenis en waartoe,
+van de onhoudbare deelclaims.
+
+#### Wat je hierna leest
+
+- 523. I Write What I Like. I Write What I Like formuleert dezelfde inzet,
+geschiedenis en zelfbeeld terugveroveren, in de taal van de Zuid-Afrikaanse
+studentenbeweging.
+- 63. The Demon-Haunted World. The Demon-Haunted World levert het gereedschap
+om aansprekende claims te toetsen, ook wanneer de boodschapper sympathiek is.
+- 56. Sapiens. Sapiens laat zien hoe het gangbare grote verhaal over
+beschavingen luidt waartegen Ben-Jochannan zich afzet.
+
 ## 596. Selections from the Husia
 
 Maulana Karenga, 1984. *Selections from the Husia: Sacred Wisdom of Ancient
@@ -118535,6 +119501,895 @@ mechanisme waarop Vallée's parallellen kunnen berusten.
 speculatieve spoor eindigt wanneer grensverschijnselen tot totaalverklaring
 worden gebundeld.
 
+## 616. No Treason
+
+Lysander Spooner, 1867-1870. *No Treason: The Constitution of No Authority*
+(pamflettenreeks in eigen beheer, Boston, 1867-1870; het slotdeel nr. VI
+verscheen in 1870; herdruk Martino Fine Books, 2010, 54 blz., ISBN
+9781891396205; de tekst is vrij beschikbaar via de Online Library of Liberty).
+Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de
+samenvatting is op de Engelse tekst gebaseerd. Rubriek: staat en vrijheid.
+Tags: `anarchisme`, `staatsgezag`, `grondwet`, `instemming`, `klassieker`
+
+Pamflettenreeks van de Amerikaanse jurist en abolitionist Lysander Spooner
+(1808-1887), in eigen beheer uitgegeven tussen 1867 en 1870. Het slotdeel, met
+de ondertitel *The Constitution of No Authority*, is het bekendst geworden.
+Spooner past het gewone contractenrecht toe op de Amerikaanse grondwet en
+concludeert dat die niemand kan binden: een overeenkomst verplicht alleen wie
+haar daadwerkelijk sluit, en de generatie van 1787 kon haar nakomelingen niets
+opleggen. Stemmen en belasting betalen tellen volgens hem evenmin als
+instemming, omdat beide onder dwang of uit zelfverdediging gebeuren.
+
+De reeks is geschreven direct na de Amerikaanse Burgeroorlog, als antwoord op
+de leus dat afscheiding verraad zou zijn. De vergelijking van de
+belastingheffende staat met een struikrover werd een kerntekst van het
+Amerikaanse individualistische anarchisme; latere libertariërs, onder wie
+Murray Rothbard, bouwden er rechtstreeks op voort.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Spooner stelt dat de Amerikaanse grondwet geen enkel gezag
+bezit. Een grondwet is hooguit een contract, en een contract bindt alleen de
+personen die het vrijwillig en aanwijsbaar zijn aangegaan. Niemand die nu
+leeft heeft de grondwet ondertekend, stemmen en belasting betalen gelden niet
+als bewijs van instemming, en dus rust het bestaande gezag op dwang. Wie dat
+onder ogen ziet, moet volgens Spooner toegeven dat de overheid zich gedraagt
+als een roversbende met betere manieren, en dat het woord verraad geen
+betekenis heeft voor mensen die nooit trouw hebben beloofd.
+
+#### De gang van het boek
+
+**Drie pamfletten tegen één leus**
+
+De reeks bestaat uit de nummers I en II (beide 1867) en nummer VI (1870); de
+tussenliggende nummers zijn nooit verschenen. Aanleiding was de veelgehoorde
+stelling dat de Zuidelijke afscheiding verraad was geweest. Spooner, die in
+1845 met *The Unconstitutionality of Slavery* naam had gemaakt als
+abolitionist en die ooit met een eigen postbedrijf het staatsmonopolie op de
+post aanvocht, verafschuwde de slavernij en verwierp tegelijk het recht van de
+Unie om staten met geweld vast te houden. De oorlog had in zijn ogen vooral
+één ding bewezen: dat de regering op geweld rust en gehoorzaamheid afdwingt in
+plaats van verdient.
+
+De eerste twee nummers richten zich op de leus zelf. Als de oorlog iets heeft
+beslist, dan dat het beginsel van instemming van de bestuurden is opgegeven:
+wie volhoudt dat de Unie op vrijwillige aansluiting rust, moet uitleggen
+waarom uittreden met de wapens is verhinderd. Nummer VI bundelt en verdiept
+die lijn tot het eigenlijke betoog over de grondwet.
+
+**Een contract bindt alleen ondertekenaars**
+
+Het kernargument van nummer VI is juridisch. De grondwet opent met "We, the
+People", maar de mensen die in 1787 instemden zijn dood, en zij konden hun
+nageslacht rechtens niets opleggen. De preambule belooft de zegeningen van de
+vrijheid veilig te stellen voor het nageslacht; dat is een doelstelling, geen
+handtekening van dat nageslacht. De grondwet heeft, in Spooners formulering,
+geen enkel gezag behalve als contract tussen mens en mens, en zo'n contract
+bestaat alleen tussen aanwijsbare personen die het werkelijk zijn aangegaan.
+
+**Stemmen is geen instemming**
+
+Tegen de tegenwerping dat burgers via de stembus instemmen, voert Spooner twee
+argumenten aan. Ten eerste stemt een groot deel van de bevolking helemaal
+niet, en wordt toch geregeerd. Ten tweede is stemmen voor wie het wel doet een
+vorm van zelfverdediging: het stelsel wordt hoe dan ook opgelegd, dus wie
+stemt probeert hooguit te voorkomen dat anderen over hem heersen. Daar komt de
+geheime stembus bij: omdat niemand kan aanwijzen wie voor wat heeft gestemd,
+kan geen enkele kiezer aan zijn stem worden gehouden. Van een verbintenis is
+dan geen sprake.
+
+**Belasting en de struikrover**
+
+Ook belasting betalen bewijst geen instemming, want wie weigert wordt vervolgd
+en beroofd van zijn bezit. Hier staat de beroemdste passage: de vergelijking
+met de struikrover. Die is volgens Spooner eerlijker dan de staat, want hij
+beweert althans geen recht op het geld te hebben, doet niet alsof de beroving
+in het belang van het slachtoffer is, en volgt zijn slachtoffer daarna niet
+als zelfbenoemde beschermer. De staat doet dat alles wel, en noemt de
+opbrengst een bijdrage.
+
+**Geheime lastgevers**
+
+Bestuurders noemen zich agenten van het volk, maar een agent hoort een
+aanwijsbare lastgever te hebben die voor zijn daden aansprakelijk is. Bij een
+anonieme kiezersmassa bestaat die lastgever niet: geen individu heeft de
+opdracht gegeven en geen individu draagt de verantwoordelijkheid. Ambtseden
+worden daarmee gezworen aan niemand. Het resultaat is in Spooners woorden een
+regering van mensen die aan geen mens verantwoording schuldig zijn, een geheim
+genootschap dat zich op onvindbare opdrachtgevers beroept.
+
+**Onbevoegd of machteloos**
+
+Het pamflet sluit met een veelgeciteerde slotsom: wat de grondwet ook
+werkelijk behelst, vaststaat dat hij ofwel een regering als de bestaande heeft
+toegestaan, ofwel niet bij machte is geweest haar te verhinderen, en in beide
+gevallen ongeschikt is om te bestaan. Als grondslag voor gezag blijft voor
+Spooner alleen de natuurlijke gerechtigheid over, de vaste rechtsregels die
+geen wetgever kan maken of afschaffen; dat denkbeeld werkte hij later uit in
+*Natural Law* (1882).
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| instemming van de bestuurden | Het beginsel dat gezag alleen door werkelijke, individuele toestemming ontstaat, door Spooner letterlijk genomen in plaats van als beeldspraak. |
+| contract tussen mens en mens | Zijn maatstaf voor de grondwet: die telt hooguit als overeenkomst tussen aanwijsbare personen die haar daadwerkelijk sloten. |
+| struikrover | De vergelijking waarmee Spooner belastingheffing typeert; de rover is eerlijker omdat hij geen recht claimt en geen bescherming veinst. |
+| geheime stembus | Het anonieme stemmen, waardoor niemand op zijn stem kan worden aangesproken en stemmen dus geen verbintenis kan scheppen. |
+| lastgeving zonder lastgever | Bestuurders noemen zich agenten van het volk terwijl geen enkele opdrachtgever aanwijsbaar of aansprakelijk is. |
+| verraad | Het verwijt aan de Zuidelijke staten; volgens Spooner een leeg begrip, omdat trouw nooit individueel beloofd is. |
+| natuurlijke gerechtigheid | De van wetgeving onafhankelijke rechtsregels waarop volgens Spooner elk werkelijk gezag moet rusten. |
+
+#### Waar het argument op rust
+
+Het betoog rust op juridische redenering, niet op empirie. Spooner was
+praktiserend jurist en past de gewone regels van het contractenrecht van zijn
+tijd consequent toe op de grondwetstekst zelf, inclusief een nauwkeurige
+lezing van de preambule. Binnen die aanpak is het stuk moeilijk te betrappen
+op inconsistentie: wie de premisse aanvaardt dat politiek gezag dezelfde toets
+moet doorstaan als een privaatrechtelijke overeenkomst, komt vrijwel dwingend
+bij zijn conclusie uit.
+
+De zwakke plek zit dan ook in die premisse. Dat een grondwet als
+privaatcontract beoordeeld moet worden, is zelf een aanname die Spooner niet
+verdedigt tegen alternatieven. De hedendaagse filosofische literatuur over
+politieke verplichting neemt zijn probleem overigens serieus: auteurs als A.
+John Simmons concluderen langs andere weg dat geen van de gangbare
+rechtvaardigingen van staatsgezag sluitend is, een positie die filosofisch
+anarchisme heet en die Spooners vraag levend houdt.
+
+#### Wat er tegen in te brengen valt
+
+Het gangbaarste bezwaar is een categoriefout: constituties zijn geen
+privaatrechtelijke contracten en pretenderen dat ook niet. Legitimiteit kan op
+andere gronden rusten, zoals eerlijk profijt van gedeelde instellingen, een
+natuurlijke plicht tot rechtvaardigheid of het simpele feit dat samenleven
+zonder gemeenschappelijke regels slechter uitpakt. David Hume had bovendien al
+in de achttiende eeuw betoogd dat werkelijke instemming nergens bestaat;
+Spooners maatstaf keurt daarmee elke staat af en onderscheidt dus weinig. Wat
+het pamflet niet levert, is een antwoord op de vraag hoe defensie, rechtspraak
+en andere gedeelde voorzieningen zonder dwang georganiseerd zouden worden.
+
+Historisch wringt er ook iets: een abolitionist die het afscheidingsrecht van
+slavenstaten verdedigde, vond in 1867 vrijwel geen gehoor, en de tekst bleef
+lang een marginale curiositeit. De herontdekking kwam via de libertarische
+beweging van de twintigste eeuw, die er haar eigen agenda in las. Wie het stuk
+vandaag leest, moet het dus wegen als een scherp maar eenzijdig juridisch
+betoog, geschreven in woede over een oorlog, en als het beginpunt van een
+traditie die in het staatsrecht zelf nooit voet aan de grond kreeg.
+
+#### Wat er concreet mee te doen is
+
+- Toets bij elk beroep op draagvlak of mandaat wie er feitelijk heeft
+ingestemd en waaruit die instemming blijkt.
+- Onderscheid gehoorzaamheid uit berusting van werkelijke instemming; zwijgen
+bewijst geen akkoord.
+- Gebruik de struikroverstoets: zou hetzelfde gedrag aanvaardbaar heten
+wanneer een privépersoon het vertoonde?
+- Lees het pamflet naast een verdediging van politieke verplichting, zodat
+beide kanten van het vraagstuk aan bod komen.
+
+#### Wat je hierna leest
+
+- 546. How I Found Freedom in an Unfree World. How I Found Freedom in an
+Unfree World vertaalt dezelfde libertarische grondhouding naar een praktische
+levenshouding.
+- 215. Obedience to Authority. Obedience to Authority onderzoekt experimenteel
+waarom mensen gezag gehoorzamen dat ze nooit gekozen hebben.
+- 221. The Dictator's Handbook. The Dictator's Handbook beschrijft nuchter hoe
+machthebbers steun organiseren, met of zonder instemming.
+
+## 617. The Politics of Obedience: The Discourse of Voluntary Servitude
+
+Étienne de La Boétie, ca. 1548. *The Politics of Obedience: The Discourse of
+Voluntary Servitude* (Free Life Editions, New York, 1975, 88 blz., ISBN
+9780914156116), vertaling Harry Kurz, met de inleiding "The Political Thought
+of Étienne de la Boétie" van Murray Rothbard; nadien herdrukt door onder meer
+het Mises Institute. Het oorspronkelijke *Discours de la servitude volontaire*
+werd rond 1548 geschreven en in 1576 voor het eerst volledig gedrukt.
+Nederlandse vertaling: *De vrijwillige onderwerping* (Athenaeum-Polak & Van
+Gennep, 2025, 80 blz., ISBN 9789025319328, vertaling Tatjana Daan), aanwezig
+in de catalogus van bibliotheek.nl; oudere Nederlandse uitgaven verschenen
+onder de titel *De vrijwillige slavernij*. Rubriek: staat en vrijheid.
+Tags: `macht`, `gehoorzaamheid`, `tirannie`, `burgerlijk verzet`, `klassieker`
+
+Vertoog van de Franse rechtenstudent Étienne de La Boétie (1530-1563),
+geschreven rond zijn achttiende en pas na zijn dood gedrukt. De vraag die het
+stelt is sindsdien niet meer weggegaan: hoe kan één man miljoenen onderdrukken
+die samen zoveel sterker zijn dan hij. Het antwoord luidt dat elke tiran
+regeert bij de gratie van de gehoorzaamheid die mensen hem zelf verlenen, in
+stand gehouden door gewoonte, door verstrooiing en door een piramide van
+begunstigden die van het regime meeprofiteert. Wie ophoudt te dienen, hoeft de
+tiran niet eens aan te vallen: als een kolos zonder voetstuk valt hij onder
+zijn eigen gewicht.
+
+De hier besproken editie uit 1975 bevat de vertaling van Harry Kurz en een
+uitvoerige inleiding van Murray Rothbard, die de tekst leest als eerste
+theorie van massale burgerlijke ongehoorzaamheid. Sinds november 2025 bestaat
+er een nieuwe Nederlandse vertaling onder de titel *De vrijwillige
+onderwerping*.
+
+### Uitgebreide samenvatting
+
+**De stelling.** La Boétie stelt dat elke tiran zijn macht ontleent aan de
+mensen die hem gehoorzamen. Eén man kan miljoenen alleen onderdrukken zolang
+die miljoenen hem hun handen, ogen en steden blijven lenen; de onderwerping is
+daarmee in de kern vrijwillig, gedragen door gewoonte, verstrooiing en een
+keten van begunstigden die bij het regime belang heeft. Daaruit volgt een
+vergaande conclusie: het volk hoeft de tiran niets af te nemen, het hoeft hem
+alleen niets meer te geven. Wie ophoudt te dienen, ziet de kolos zonder
+voetstuk onder zijn eigen gewicht bezwijken.
+
+#### De gang van het boek
+
+**Het raadsel van de gehoorzaamheid**
+
+Het vertoog opent met een waarneming die het hele betoog draagt: miljoenen
+mensen dienen één enkele heerser, die niet sterker is dan zij en zijn macht
+volledig aan hen ontleent. Dat geldt voor soldaten, belastingbetalers en
+hovelingen evenzeer als voor boeren. La Boétie schreef dit als rechtenstudent
+van ongeveer achttien; de tekst circuleerde tientallen jaren in handschrift,
+onder anderen bij zijn boezemvriend Montaigne, tot Hugenoten hem in 1574
+gedeeltelijk en in 1576 volledig lieten drukken als wapen tegen de Franse
+kroon.
+
+**De kolos zonder voetstuk**
+
+Het beroemdste beeld van het vertoog is dat van de kolos: een reusachtig
+standbeeld dat vanzelf breekt zodra het voetstuk wordt weggetrokken. La Boétie
+roept nergens op tot geweld. Hij vraagt zijn lezers niet de tiran aan te
+raken, alleen hem niet langer te ondersteunen. Vrijheid is in deze
+voorstelling geen verovering; het is het staken van een dienst die niemand
+verplicht was te leveren. Dat maakt de tekst tot een vroege theorie van wat
+later geweldloos verzet zou heten.
+
+La Boétie somt op wat de tiran allemaal geleend heeft: de vele ogen waarmee
+hij bespiedt, de handen waarmee hij slaat en de voeten waarmee hij steden
+vertreedt, komen alle van de onderworpenen zelf. Zij bebouwen de akkers
+waarvan hij vordert en voeden hun kinderen op voor zijn hofhouding en zijn
+oorlogen. Het enige dat nodig is, is die leveranties staken.
+
+**Gewoonte als tweede natuur**
+
+Waarom dient men dan toch? De eerste oorzaak is gewoonte. Wie onder het juk
+geboren is, kent niets anders en houdt de eigen geboortestaat voor natuurlijk;
+opvoeding en gewenning overschrijven wat de natuur aan vrijheidsdrang meegaf.
+La Boétie onderscheidt drie soorten tirannen, gekozen, erfelijk en veroverend,
+en laat zien dat het mechanisme telkens hetzelfde is. Ter contrast wijst hij
+op dieren, van olifanten tot paarden, die zich tegen gevangenschap verzetten:
+zelfs het redeloze dier toont de drang die de gewende mens verleerd heeft.
+
+**Brood, spelen en wonderverhalen**
+
+De tweede oorzaak is verstrooiing. La Boétie vertelt hoe Cyrus na de opstand
+van Sardis afzag van verwoesting; hij liet in Lydië bordelen, taveernen en
+openbare spelen inrichten, waarna de Lydiërs hun vrijheid vergaten. Theaters,
+spelen en vermaak noemt hij het lokaas van de knechtschap. Daarbij komt het
+bijgeloof dat heersers rond zichzelf organiseren: wonderverhalen, heilige
+symbolen en koningen die zieken zouden genezen. Wie de heerser voor
+bovenmenselijk houdt, komt niet op het idee dat gehoorzaamheid een keuze is.
+
+**De piramide van begunstigden**
+
+De derde oorzaak acht La Boétie de eigenlijke motor van de tirannie. Vijf of
+zes vertrouwelingen hebben het oor van de tiran; onder hen staan zeshonderd
+die van die vijf of zes profiteren, en daaronder weer zesduizend, tot een heel
+land aan de keten hangt van mensen die bij het regime belang hebben. Angst
+alleen verklaart geen tirannie; belang wel. Wrang genoeg zijn juist de
+hovelingen het minst vrij: zij moeten elke blik van de heerser lezen en kunnen
+geen vriendschap kennen, want vriendschap bestaat alleen tussen gelijken en
+een tiran heeft geen gelijken.
+
+**Rothbards lezing**
+
+De inleiding van Murray Rothbard uit 1975 plaatst het vertoog aan het begin
+van twee tradities: de strategie van massale burgerlijke ongehoorzaamheid, via
+Thoreau tot Tolstoj en Gandhi, en het inzicht dat elk regime uiteindelijk op
+opinie en instemming rust, dat David Hume later systematischer zou formuleren.
+Rothbard leest de tekst als grondslag voor zijn eigen libertarisme en
+benadrukt dat machtsonttrekking geen meerderheid vergt, alleen het wegvallen
+van medewerking op genoeg plaatsen tegelijk.
+
+Dezelfde inleiding bespreekt de omweg waarlangs de tekst overleefde. Montaigne
+wilde het vertoog van zijn gestorven vriend opnemen in zijn *Essais* en zag
+daarvan af toen Hugenoten het als strijdschrift tegen de kroon gebruikten; op
+de opengehouden plaats zette hij negenentwintig sonnetten van La Boétie,
+terwijl het beroemde vriendschapsessay als gedenkteken bleef staan.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| vrijwillige onderwerping | De kern van het vertoog: knechtschap die voortduurt doordat de onderworpenen zelf blijven meewerken. |
+| de kolos | Het beeld van de tiran als standbeeld dat onder zijn eigen gewicht breekt zodra het voetstuk van medewerking wordt weggetrokken. |
+| gewoonte | De eerste oorzaak van knechtschap: wie onder het juk geboren is, houdt de eigen staat voor natuurlijk. |
+| het lokaas van de knechtschap | Verstrooiing en vermaak, van spelen tot taveernen, waarmee heersers de vrijheidsdrang in slaap sussen. |
+| de tirannenpiramide | De keten van vijf of zes vertrouwelingen, zeshonderd profiteurs en zesduizend handlangers die het regime uit eigenbelang draagt. |
+| natuurlijke vrijheid | De aangeboren gelijkheid en vrijheid die de natuur volgens La Boétie aan alle mensen meegeeft en die alleen gewenning kan uitwissen. |
+| vriendschap | De band tussen gelijken die onder tirannie onmogelijk wordt, omdat een tiran geen gelijken duldt. |
+
+#### Waar het argument op rust
+
+Het vertoog is een humanistisch betoog uit de zestiende eeuw en argumenteert
+met klassieke voorbeelden: Cyrus en de Lydiërs, Griekse stadstaten, Romeinse
+keizers die met brood en spelen regeerden. Empirie in moderne zin bevat het
+niet, en de voorbeelden zijn gekozen om te overtuigen, niet om te toetsen. De
+kracht zit in het mechanisme dat wordt blootgelegd: macht als optelsom van
+dagelijkse medewerking.
+
+Juist dat mechanisme heeft later steun gekregen. Het twintigste-eeuwse
+onderzoek naar geweldloos verzet, met Gene Sharp als bekendste theoreticus,
+werkt met hetzelfde model: regimes steunen op pijlers van medewerking, van
+ambtenaren tot soldaten, en vallen wanneer genoeg pijlers wegvallen. Studies
+naar burgerverzet in de twintigste en eenentwintigste eeuw laten zien dat
+massale weigering regimes daadwerkelijk ten val kan brengen, al zegt dat niets
+over de kans van slagen in een willekeurig geval.
+
+#### Wat er tegen in te brengen valt
+
+Historici twisten over wat de tekst eigenlijk is. La Boétie werd zelf
+magistraat in het parlement van Bordeaux, diende de kroon en bemiddelde in de
+godsdiensttwisten; het vertoog kan een retorische oefening in klassieke stijl
+zijn geweest in plaats van een politiek program. Of het zich tegen elke
+monarchie richt of alleen tegen ontaarde heerschappij is evenmin uitgemaakt.
+De anarchistische en libertarische lezing, waaronder die van Rothbard in deze
+editie, is dus een latere toe-eigening die de zestiende-eeuwse context
+wegpoetst.
+
+Inhoudelijk onderschat het woord vrijwillig de rol van dwang en van het
+coördinatieprobleem: individueel weigeren is levensgevaarlijk zolang anderen
+niet meedoen, en het vertoog biedt geen strategie om die impasse te
+doorbreken. Wat het wel biedt, een verklaring van duurzame macht uit gewoonte,
+vermaak en eigenbelang, blijft daarvan overeind, en het is precies dat deel
+dat de moderne verzetstheorie heeft overgenomen.
+
+#### Wat er concreet mee te doen is
+
+- Breng bij elke machtsstructuur in kaart wie er belang bij heeft; de piramide
+van begunstigden verklaart meer dan de angst voor de top.
+- Reken verstrooiing tot de machtsmiddelen: wat de aandacht wegzuigt, houdt
+ook gehoorzaam.
+- Zoek bij verandering naar de pijlers van medewerking die weg te trekken
+zijn, eerder dan naar de confrontatie met de top.
+- Wantrouw wat als vanzelfsprekend voelt: gewoonte doet zich voor als natuur
+en is aangeleerd.
+
+#### Wat je hierna leest
+
+- 215. Obedience to Authority. Obedience to Authority is de experimentele
+twintigste-eeuwse versie van dezelfde vraag naar gehoorzaamheid.
+- 221. The Dictator's Handbook. The Dictator's Handbook werkt de piramide van
+begunstigden uit tot een moderne theorie van machtsbehoud.
+- 566. Manufacturing Consent. Manufacturing Consent beschrijft hoe instemming
+in massademocratieën georganiseerd wordt, met media in de rol van het lokaas.
+
+## 618. The Iron Heel
+
+Jack London, 1908. *The Iron Heel* (oorspronkelijk Macmillan, New York, 1908;
+geraadpleegde editie Penguin Classics, 2006, 288 blz., ISBN 9780143039716,
+bezorgd en ingeleid door Jonathan Auerbach). Geen Nederlandse vertaling
+gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse
+editie gebaseerd. Rubriek: roman en memoir.
+Tags: `dystopie`, `socialisme`, `oligarchie`, `klassieker`
+
+Dystopische roman van Jack London uit 1908, vermomd als historisch document.
+Het boek presenteert zich als het teruggevonden manuscript van Avis Everhard,
+geschreven tussen 1912 en 1932 en ruim zeven eeuwen later bezorgd en van
+voetnoten voorzien door de geleerde Anthony Meredith, die leeft in het
+tijdperk van de Broederschap van de Mens. Avis beschrijft hoe haar man Ernest,
+socialistisch arbeidersintellectueel, voorziet dat het Amerikaanse
+grootkapitaal zich aaneensluit tot een oligarchie, de IJzeren Hiel, die de
+middenklasse vermorzelt, bevoorrechte vakbonden koopt en de eerste opstand in
+bloed smoort. Het manuscript breekt midden in een zin af.
+
+Bij verschijnen reageerde ook de socialistische pers lauw, maar Trotski prees
+in 1937 de vooruitziende blik en George Orwell noemde London een van de
+weinigen die het fascisme zag aankomen. Het boek geldt als voorloper van de
+moderne dystopie van Zamjatin, Huxley en Orwell.
+
+### Uitgebreide samenvatting
+
+**De stelling.** London stelt tegenover het socialistische vooruitgangsgeloof
+van zijn tijd een sombere voorspelling: het kapitalisme zal bij bedreiging
+geen plaats maken voor de heilstaat; het zal zich samentrekken tot een naakte
+oligarchie die drie eeuwen kan standhouden met huurlingen, gekochte vakbonden
+en religieuze zelfrechtvaardiging. De roman betoogt dat een heersende klasse
+die zich in het nauw gedreven weet elke schijn van democratie zal afwerpen, en
+dat de weg naar een rechtvaardige samenleving over generaties van verpletterde
+opstanden loopt.
+
+#### De gang van het verhaal
+
+**Een manuscript met voetnoten**
+
+De roman opent met een voorwoord van Anthony Meredith, een historicus die
+eeuwen na de gebeurtenissen leeft, nadat de oligarchie drie eeuwen heeft
+geheerst en uiteindelijk heeft plaatsgemaakt voor de Broederschap van de Mens.
+Meredith bezorgt het onvoltooide manuscript van Avis Everhard en voorziet het
+van voetnoten die begrippen uit de kapitalistische oertijd uitleggen aan zijn
+eigen tijdgenoten. Die constructie werkt twee kanten op: de lezer weet vooraf
+dat de komende opstand mislukt, en tegelijk dat de onderdrukking niet het
+laatste woord heeft.
+
+**Ernest Everhard aan tafel**
+
+Avis, dochter van de Berkeleyse natuurkundige John Cunningham, ontmoet Ernest
+Everhard als haar vader hem uitnodigt bij een diner met geestelijken.
+Everhard, autodidact en oud-smid, zet er zijn economische lessen uiteen, met
+de meerwaardeleer als kern: arbeiders produceren meer dan ze aan loon
+terugzien, en dat overschot zoekt wereldwijd afzet tot het systeem vastloopt.
+Bij een genootschap van industriëlen krijgt hij het eerlijkste antwoord van
+het boek, uit de mond van de oligarch Wickson: geen argumenten, maar macht, en
+een antwoord in granaten en mitrailleurvuur voor wie naar de paleizen reikt.
+
+**De zaak-Jackson**
+
+Avis onderzoekt op Everhards aandringen de zaak van de arbeider Jackson, die
+zijn arm verloor in een fabrieksmachine en zonder schadevergoeding op straat
+staat. Ze ontdekt dat advocaat, rechter, krant en zelfs collega's allemaal aan
+de kant van het bedrijf staan, elk uit begrijpelijk eigenbelang. Die
+ontdekking radicaliseert haar. Haar vader verliest zijn leerstoel en zijn
+vermogen als hij zich bij de socialisten aansluit, en bisschop Morehouse, die
+na een gewetenscrisis het evangelie letterlijk gaat naleven en zijn bezit aan
+de armen geeft, wordt krankzinnig verklaard en opgesloten.
+
+**De Hiel daalt neer**
+
+Wanneer de socialisten electoraal groeien, werpt de plutocratie het masker af.
+De middenstand wordt tussen trusts vermalen, de grote vakbonden van spoor en
+staal worden met privileges losgekocht van de rest van de arbeidersklasse, en
+een huurlingenleger vervangt de militie. Everhard wordt als congreslid met een
+in scène gezette bomaanslag in het Capitool tot staatsgevaar verklaard en
+verdwijnt in de gevangenis. Na zijn ontsnapping leiden hij en Avis vanuit de
+ondergrondse een netwerk van agenten en dubbelspionnen tegen wat inmiddels de
+IJzeren Hiel heet.
+
+**De Commune van Chicago**
+
+De oligarchie lokt de eerste opstand voortijdig uit. In Chicago wordt het volk
+van de afgrond, de tot wanhoop gebrachte onderklasse, de straat op gedreven en
+door bommenwerpers en huurlingen afgeslacht; Avis beschrijft de menigte als
+een redeloos geworden oerkracht die London met huiver en mededogen tegelijk
+tekent. Het manuscript breekt midden in een zin af, vlak voor de tweede
+opstand van 1932. Een voetnoot van Meredith meldt droog dat Ernest Everhard
+dat jaar is terechtgesteld en dat er nog eeuwen van oligarchie zouden volgen.
+
+**Ontvangst en nawerking**
+
+Bij verschijnen in 1908 stelde het boek ook geestverwanten teleur: de
+socialistische pers vond het defaitistisch en te gewelddadig. De herwaardering
+kwam later. Trotski prees in 1937 hoe London de logica van het fascisme
+decennia vooruit had gedacht, Anatole France schreef een bewonderend voorwoord
+bij de Franse editie, en Orwell oordeelde in 1940 dat London het fascisme kon
+voorzien omdat hij de aantrekkingskracht van geweld zelf kende. Het raamwerk
+van gevonden document met geleerde annotatie keert herkenbaar terug in de
+dystopische traditie tot en met *Nineteen Eighty-Four*.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| de IJzeren Hiel | Everhards naam voor de oligarchie waarin de trusts zich verenigen zodra hun macht electoraal bedreigd wordt. |
+| het Everhard-manuscript | De gevonden-documentvorm van de roman: Avis' onvoltooide ooggetuigenverslag, eeuwen later geannoteerd. |
+| Broederschap van de Mens | Het tijdperk van waaruit bezorger Meredith terugkijkt, de samenleving die na drie eeuwen oligarchie ontstond. |
+| meerwaarde | De aan Marx ontleende kern van Everhards lessen: het onbetaalde deel van de arbeid dat als winst afzet moet vinden. |
+| bevoorrechte vakbonden | De grote bonden die de oligarchie met hoge lonen loskoopt van de rest van de arbeidersklasse. |
+| de Huurlingen | Het beroepsleger waarmee de oligarchie de militie vervangt en opstanden neerslaat. |
+| het volk van de afgrond | Londons benaming, ontleend aan zijn eigen reportagewerk, voor de tot wanhoop gebrachte onderklasse. |
+
+#### Waar het argument op rust
+
+Als roman bewijst het boek niets, maar het leunt op materiaal dat London
+kende. Voor de onderklasse putte hij uit *The People of the Abyss* (1903),
+zijn eigen reportage uit de sloppen van Londen, en als rondreizend
+socialistisch spreker kende hij de arbeidsconflicten van zijn tijd van
+dichtbij; de gewelddadige onderdrukking van stakingen in het Amerika van rond
+1900 was geen fictie. De economische colleges van Everhard volgen de toen
+gangbare marxistische analyse.
+
+De voorspellende waarde is gemengd. De concrete tijdlijn kwam niet uit: geen
+Amerikaanse oligarchie in 1913, geen commune in Chicago. Het mechanisme dat
+London beschrijft, een bedreigde elite die democratische vormen afwerpt,
+knokploegen en propaganda inzet en delen van de arbeidersklasse loskoopt,
+vertoont wel treffende gelijkenis met het fascisme dat vijftien jaar na
+verschijnen in Europa opkwam, en dat is precies waarom Trotski en Orwell het
+boek serieus namen.
+
+#### Wat er tegen in te brengen valt
+
+Het bekendste bezwaar is literair: de roman bevat lange redevoeringen en
+economische colleges die het verhaal stilleggen, en Avis is als vertelster
+vooral een bewonderaarster, waardoor Everhard meer standbeeld dan mens wordt.
+Critici wijzen ook op de spanning tussen Londons socialisme en zijn verering
+van de sterke man: Everhard wordt met Nietzscheaanse trekken neergezet, en
+Orwell zag daarin de sleutel tot het boek, de schrijver die het fascisme
+begreep omdat de hang naar kracht hem zelf vertrouwd was.
+
+Politiek is het boek eenzijdig: de tegenstander bestaat vrijwel geheel uit
+cynici en gekochte zielen, en de mogelijkheid dat democratische instellingen
+zich zonder bloedbad kunnen verweren komt nauwelijks in beeld. De vreedzame
+hervormingsweg die het Amerikaanse socialisme in 1908 zelf voorstond, wordt
+weggezet als naïef, wat de lauwe ontvangst in eigen kring verklaart. Wie het
+nu leest, moet bovendien door gedateerd pathos heen; de blijvende waarde zit
+in het mechanisme van de machtsgreep, dat in de twintigste eeuw herkenbaar
+terugkeerde.
+
+#### Wat je hierna leest
+
+- 61. Brave New World. Brave New World beschrijft de omgekeerde dystopie,
+waarin genot in plaats van de laars de bevolking stilhoudt.
+- 566. Manufacturing Consent. Manufacturing Consent analyseert zonder fictie
+hoe pers en instituties de kant van de macht kiezen, het mechanisme uit de
+zaak-Jackson.
+- 221. The Dictator's Handbook. The Dictator's Handbook legt de logica bloot
+waarmee oligarchieën sleutelgroepen loskopen, zoals de Hiel de grote
+vakbonden.
+
+## 619. The Anti-Federalist Papers
+
+diverse auteurs, bezorgd door Ralph Ketcham, 1787-1788. *The Anti-Federalist
+Papers and the Constitutional Convention Debates*, samengesteld en ingeleid
+door Ralph Ketcham (Signet Classics, eerste druk 1986, herziene herdruk 2003,
+408 blz., ISBN 9780451528841). Deze editie is gekozen omdat zij de gangbaarste
+eendelige uitgave is en de antifederalistische stukken combineert met de
+debatten van de Conventie van Philadelphia; het wetenschappelijke alternatief
+is Herbert Storings *The Complete Anti-Federalist* (7 delen, University of
+Chicago Press, 1981) met de eendelige selectie *The Anti-Federalist* (1985).
+Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de
+samenvatting is op de Engelse editie gebaseerd. Rubriek: staat en vrijheid.
+Tags: `grondwet`, `democratie`, `federalisme`, `geschiedenis`, `klassieker`
+
+Bundel met de belangrijkste geschriften tegen de Amerikaanse grondwet van
+1787, aangevuld met fragmenten uit de debatten van de Conventie van
+Philadelphia naar de aantekeningen van James Madison. De schrijvers, onder
+pseudoniemen als Brutus en Federal Farmer en met redenaars als Patrick Henry,
+waarschuwden dat een uitgestrekte republiek met een sterke centrale regering
+zou ontaarden in een aristocratie op afstand: te weinig vertegenwoordigers,
+onbeperkte belasting- en legermacht, een hooggerechtshof zonder tegenwicht en
+geen rechtencatalogus.
+
+Zij verloren de ratificatiestrijd, maar hun druk leverde in 1791 de Bill of
+Rights op, de eerste tien amendementen. De bundel van Ralph Ketcham is de
+gangbaarste eendelige toegang tot deze verliezerskant van het debat, die door
+latere lezers deels als vooruitziend wordt beschouwd.
+
+### Uitgebreide samenvatting
+
+**De stelling.** De schrijvers tegen de grondwet van 1787 stellen dat een
+uitgestrekte republiek met een sterke centrale regering onvermijdelijk
+ontaardt in een aristocratie op afstand: een klein aantal bestuurders met
+onbeperkte belasting- en legermacht en een benoemd hooggerechtshof zal de
+staten en de gewone burger overvleugelen. Vrijheid overleeft in hun ogen
+alleen in kleine gemenebesten met talrijke vertegenwoordigers, korte
+zittingstermijnen en een uitdrukkelijke rechtencatalogus. Zij verloren de
+ratificatiestrijd en dwongen met hun verzet de Bill of Rights af.
+
+#### De gang van het boek
+
+**Wat deze bundel bevat**
+
+Antifederalist is een verzamelnaam achteraf voor een losse coalitie die tussen
+1787 en 1789 in kranten, pamfletten en ratificatieconventies tegen de nieuwe
+grondwet ageerde. Er bestaat dus geen vaste canon zoals bij de 85 Federalist
+Papers. Ketcham selecteert de invloedrijkste stukken, waaronder essays van
+Brutus (toegeschreven aan Robert Yates) en de Federal Farmer (toegeschreven
+aan Richard Henry Lee of Melancton Smith) en redevoeringen van Patrick Henry,
+en plaatst ze naast fragmenten uit Madisons aantekeningen van de Conventie,
+zodat bezwaar en ontstaansgeschiedenis samen te lezen zijn.
+
+**De Conventie zelf**
+
+De debatfragmenten laten zien dat de grondwet een onderhandelingsproduct was.
+Het Virginia-plan wilde een sterke nationale regering, het New Jersey-plan
+verdedigde de kleine staten, Hamilton bepleitte in een dagvullende rede zelfs
+een levenslang gekozen bewind naar Brits model. De compromissen over de Senaat
+en over de telling van slaven als drievijfde persoon tonen hoeveel er achter
+gesloten deuren is geschikt. Patrick Henry weigerde naar Philadelphia af te
+reizen; naar verluidt omdat hij onraad rook, en zijn latere vraag met welk
+recht de gedelegeerden namens "wij het volk" spraken, zette de toon van het
+verzet.
+
+**De kleine republiek**
+
+Het theoretische hart van het antifederalisme is de aan Montesquieu ontleende
+leer dat een vrije republiek klein en overzichtelijk moet zijn. Brutus betoogt
+in zijn eerste essay dat een gebied zo uitgestrekt en verscheiden als de
+Verenigde Staten alleen door dwang als één republiek bestuurd kan worden.
+Federal Farmer en Melancton Smith voegen daar het representatiebezwaar aan
+toe: één afgevaardigde per dertigduizend inwoners levert een
+volksvertegenwoordiging op die de middenstand en de boer niet weerspiegelt,
+zodat de natuurlijke aristocratie van juristen en grootgrondbezitters de
+zetels vult. Daarbij hoorden eisen die in de stukken telkens terugkeren: korte
+zittingstermijnen, verplichte roulatie van ambtsdragers en een terugroeprecht,
+zodat vertegenwoordigers dicht bij hun kiezers zouden blijven.
+
+**Onbeperkte middelen**
+
+Een tweede lijn bezwaren richt zich op de open einden in de tekst. De
+belastingbevoegdheid kent geen grens, de necessary and proper-clausule
+machtigt het Congres tot alles wat het voor zijn taken nodig acht, en de
+suprematieclausule stelt federale wetten boven die van de staten. Samen vormen
+die bepalingen volgens de antifederalisten een blanco volmacht die de staten
+tot uitvoeringskantoren degradeert. Daarbij komt de vrees voor een staand
+leger in vredestijd, in de achttiende eeuw het klassieke werktuig van
+tirannie, waar Brutus meerdere essays aan wijdt.
+
+**Rechters en rechten**
+
+Het scherpst voorspellend zijn de essays van Brutus over de rechterlijke
+macht: voor het leven benoemde federale rechters, aan niemand verantwoording
+schuldig, zullen de grondwet naar de geest uitleggen en zo de federale macht
+gestaag oprekken, zonder dat er hoger beroep mogelijk is. Het meest gevoelde
+bezwaar was praktischer: de grondwet bevatte geen rechtencatalogus. Dat een
+document dat alle macht ontleende aan het volk naliet de rechten van dat volk
+op te sommen, achtten de antifederalisten onverdedigbaar, en op dit punt
+kregen zij brede steun.
+
+**Verlies en nalatenschap**
+
+De grondwet werd geratificeerd, mede doordat federalisten in staten als
+Massachusetts en Virginia amendementen toezegden. Madison loste die belofte in
+het eerste Congres in; tien amendementen werden in 1791 van kracht als Bill of
+Rights. De waardering voor de verliezers heeft sindsdien geschommeld:
+historica Cecelia Kenyon deed hen in 1955 af als mannen van weinig vertrouwen,
+terwijl Herbert Storing hen in 1981 rehabiliteerde als serieuze denkers over
+zelfbestuur. Latere lezers wijzen erop dat de groei van de federale macht, het
+hof en het presidentschap veel van hun voorspellingen heeft ingehaald.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| antifederalisten | Verzamelnaam achteraf voor de losse coalitie die in 1787-1788 tegen ratificatie van de grondwet ageerde. |
+| kleine-republiekleer | De aan Montesquieu ontleende stelling dat vrijheid alleen standhoudt in een klein, overzichtelijk gemenebest. |
+| Brutus | Pseudoniem, toegeschreven aan Robert Yates, van de scherpste essayist van het kamp, vooral over rechterlijke macht en staand leger. |
+| Federal Farmer | Pseudoniem van een reeks bedaarde brieven tegen de grondwet, toegeschreven aan Richard Henry Lee of Melancton Smith. |
+| natuurlijke aristocratie | De klasse van juristen, kooplieden en grootgrondbezitters die bij schaarse zetels de volksvertegenwoordiging zou vullen. |
+| necessary and proper-clausule | De bepaling die het Congres machtigt tot alles wat nodig en gepast is voor zijn taken, door critici gelezen als blanco volmacht. |
+| staand leger | Een beroepsleger in vredestijd, in het achttiende-eeuwse denken het klassieke werktuig van tirannie. |
+| Bill of Rights | De eerste tien amendementen uit 1791, afgedwongen door de antifederalistische druk tijdens de ratificatie. |
+
+#### Waar het argument op rust
+
+De bundel is een bronnenuitgave: het bewijs bestaat uit de primaire teksten
+zelf, en Ketchams inleiding plaatst ze in hun context. De argumenten van de
+schrijvers rusten op de politieke theorie van hun tijd, vooral Montesquieu, op
+klassieke voorbeelden van gestorven republieken en op verse ervaring met de
+Britse kroon. Toetsbaar in moderne zin is dat niet; het zijn polemische
+krantenstukken uit een verkiezingsstrijd.
+
+Over de voorspellende waarde valt wel iets vast te stellen. De federale
+rechtsmacht en de centrale regering groeiden ruwweg zoals Brutus voorzag, en
+de vertegenwoordigingsratio is inmiddels ongeveer één afgevaardigde per
+zevenhonderdvijftigduizend inwoners, ver voorbij wat de critici al te dun
+vonden. De kernvoorspelling dat de republiek daardoor in tirannie zou eindigen
+kwam in de voorziene vorm niet uit; de unie bleek twee eeuwen houdbaar, wat
+pleit voor Madisons tegenargument dat een grote republiek facties juist
+tempert.
+
+#### Wat er tegen in te brengen valt
+
+De antifederalisten vormden geen school en hun bezwaren lopen uiteen tot in
+het tegenstrijdige; het kamp verenigde principiële republikeinen met
+staatspolitici die hun eigen positie verdedigden, en in het Zuiden speelde ook
+de bescherming van de slavernij tegen een sterke centrale macht mee. Cecelia
+Kenyons verwijt uit 1955 blijft het klassieke bezwaar: zij boden vooral een
+nee, met weinig uitgewerkt alternatief voor de zwakke Artikelen van
+Confederatie, waarvan het failliet in 1787 breed gevoeld werd.
+
+Op de editie zelf valt aan te merken dat Ketchams selectie beknopt is en het
+materiaal thematisch ordent, waardoor de chronologie van de strijd per staat
+uit beeld raakt; wie volledigheid zoekt is op Storing aangewezen. Het
+achttiende-eeuwse proza vraagt bovendien geduld. Daar staat tegenover dat deze
+bundel als enige goedkope uitgave de tegenstemmen én de Conventiedebatten
+bijeenbrengt, en zo laat zien dat de heiligverklaarde grondwet het resultaat
+was van compromis en fel bevochten twijfel.
+
+#### Wat er concreet mee te doen is
+
+- Lees bij elk ontwerp van bestuur of architectuur de bezwaren van de
+verliezende partij; die benoemen de risico's die de winnaars bagatelliseren.
+- Toets bevoegdheden op hun rek: clausules die alles toestaan wat nodig wordt
+geacht, groeien mee met de ambities van de uitvoerder.
+- Regel tegenwicht en rechten vooraf en schriftelijk, in plaats van te
+vertrouwen op de goede bedoelingen van de eerste bezetting.
+- Bewaar het verloren gegane debat: dat de ratificatiestrijd via openbare
+stukken verliep, maakt hem tot op vandaag toetsbaar.
+
+#### Wat je hierna leest
+
+- 243. Benjamin Franklin: An American Life. Benjamin Franklin: An American
+Life portretteert een van de architecten van de Conventie waar deze bundel de
+tegenstemmen van bewaart.
+- 221. The Dictator's Handbook. The Dictator's Handbook onderbouwt met moderne
+middelen de antifederalistische intuïtie dat macht zich aan controle onttrekt.
+- 57. The Lessons of History. The Lessons of History plaatst de
+slingerbeweging tussen centralisatie en vrijheid in een langer historisch
+verband.
+
+## 620. Anarchism and Other Essays
+
+Emma Goldman, 1910. *Anarchism and Other Essays* (Mother Earth Publishing
+Association, New York, 1910, 277 blz.; herdruk Dover, 1969, 304 blz., ISBN
+9780486224848). Geen Nederlandse vertaling van deze bundel gevonden in de
+catalogus van bibliotheek.nl; daar zijn wel Nederlandstalige keuzes uit haar
+werk aanwezig, waaronder *Essays en brieven* (1982) en *De nieuwe vrouw*
+(1979). De samenvatting is op de Engelse tekst gebaseerd. Rubriek: staat en
+vrijheid.
+Tags: `anarchisme`, `feminisme`, `vrijheid`, `essaybundel`, `klassieker`
+
+Bundel van twaalf essays van de Litouws-Amerikaanse anarchiste Emma Goldman
+(1869-1940), voortgekomen uit de lezingen waarmee zij door de Verenigde Staten
+trok voor haar tijdschrift *Mother Earth*. De bundel opent met haar definitie
+van anarchisme als filosofie van een nieuwe orde, gegrond op vrijheid die door
+geen mensenwet wordt beperkt, en bestrijkt daarna politiek geweld,
+gevangenissen, patriottisme, het moderne onderwijs van Francisco Ferrer,
+prostitutie, vrouwenkiesrecht, huwelijk en het moderne toneel.
+
+Opvallend is haar afwijzing van het vrouwenkiesrecht als fetisj: emancipatie
+die alleen uiterlijke rechten verovert laat de innerlijke onderwerping intact.
+Daarmee legde zij de basis voor wat later anarchafeminisme is gaan heten. De
+bundel verscheen negen jaar voor haar deportatie naar Rusland en geldt als de
+toegankelijkste ingang tot haar denken.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Goldman stelt dat werkelijke vrijheid pas begint waar de
+grote gezagsvormen wijken: religie als heerschappij over de geest, eigendom
+als heerschappij over de behoeften en de staat als heerschappij over het
+gedrag. Emancipatie die alleen uiterlijke rechten verovert, zoals stemrecht of
+een eigen loon, laat de innerlijke onderwerping intact; de omwenteling moet
+daarom in het individu beginnen, bij vrouwen evengoed als bij mannen, en wordt
+volgens haar altijd gedragen door minderheden, omdat meerderheden het
+bestaande gedachteloos volgen.
+
+#### De gang van het boek
+
+**Van lezing naar bundel**
+
+De twaalf essays komen voort uit lezingen die Goldman door het hele land
+hield; in het voorwoord verantwoordt ze de overstap naar de gedrukte tekst,
+die de lezer rustiger bereikt dan een opgewonden zaal. De bundel opent met een
+biografische schets door Hippolyte Havel: geboren in Kovno in 1869, in 1885
+naar Amerika geëmigreerd, als fabrieksmeisje geradicaliseerd door de
+terechtstelling van de anarchisten van de Haymarket-affaire in 1887, vanaf
+1906 uitgeefster van *Mother Earth*.
+
+Havel memoreert ook de prijs van dat spreken: in 1893 zat Goldman een jaar
+vast op Blackwell's Island wegens opruiing, nadat ze werklozen had
+voorgehouden dat brood een recht is. In de gevangenis schoolde ze zich tot
+verpleegster, het beroep waarmee ze nadien in de armenwijken haar brood
+verdiende.
+
+**Anarchisme en de meerderheid**
+
+Het titelessay omschrijft anarchisme als de filosofie van een nieuwe
+maatschappelijke orde, gegrond op vrijheid die door geen mensenwet wordt
+beperkt, en richt zijn pijlen op religie, eigendom en staat als de drie vormen
+van heerschappij over geest, behoeften en gedrag. In *Minorities versus
+Majorities* keert ze zich tegen het geloof in aantallen: massa's hebben in
+haar lezing van de geschiedenis nooit iets bevochten, elke stap vooruit begon
+bij een kleine, verguisde minderheid, en het meerderheidsdenken drukt het
+afwijkende plat. Het titelessay weerlegt daarnaast de gangbare tegenwerpingen
+dat anarchisme onuitvoerbaar zou zijn en geweld zou prediken, met beroep op
+schrijvers als Thoreau en Emerson, en eindigt bij directe actie als methode:
+openlijk verzet tegen en niet-meewerken aan elke vorm van dwang.
+
+**Geweld, gevangenis en vaderland**
+
+In *The Psychology of Political Violence* verklaart Goldman aanslagplegers als
+overgevoelige naturen die aan maatschappelijk onrecht kapotgaan; ze
+veroordeelt hun daden niet en legt de oorzaak bij het geweld van staat en
+kapitaal. Het gevangenisessay betoogt met verwijzing naar de cijfers van haar
+tijd dat misdaad vooral economische wortels heeft en dat de gevangenis kweekt
+wat zij beweert te bestrijden. Patriottisme noemt ze een bijgeloof dat
+kunstmatig wordt aangekweekt om legers en vloten te rechtvaardigen, een
+dreigement aan de vrijheid.
+
+**Ferrer en de moderne school**
+
+Het essay over Francisco Ferrer herdenkt de Spaanse onderwijshervormer die in
+1909 in Barcelona werd gefusilleerd na een schijnproces. Zijn Escuela Moderna,
+vrij van kerk en staat, staat voor Goldman model voor onderwijs dat kinderen
+leert denken in plaats van gehoorzamen. Het stuk over de huichelarij van het
+puritanisme trekt dezelfde lijn door naar de zeden: een moraal die het lichaam
+ontkent, maakt ziek wat ze zegt te beschermen.
+
+**De vrouwenessays**
+
+Vier essays maken de bundel tot een grondtekst van het anarchafeminisme. *The
+Traffic in Women* verklaart prostitutie uit hongerlonen en uit een opvoeding
+die vrouwen alleen als waar op de huwelijksmarkt waardeert. *Woman Suffrage*
+noemt het stemrecht een fetisj en wijst op staten als Colorado, Idaho, Utah en
+Wyoming, waar vrouwen al stemden zonder dat lonen of wetten er wezenlijk
+anders uitvielen dan elders. *The Tragedy of Woman's Emancipation* stelt dat
+uiterlijke vrijheid zonder innerlijke bevrijding vooral eenzame, overwerkte
+vrouwen heeft opgeleverd. *Marriage and Love* beschrijft het huwelijk als
+economische verzekeringsovereenkomst en zet er de vrije liefde tegenover.
+
+**Het toneel en de nawerking**
+
+Het slotessay behandelt Ibsen, Shaw, Hauptmann en de Russen als verspreiders
+van opstandige gedachten onder een publiek dat pamfletten nooit zou lezen;
+haar toneellezingen groeiden later uit tot een apart boek, *The Social
+Significance of the Modern Drama* (1914). De bundel markeert het hoogtepunt
+van Goldmans Amerikaanse jaren: in 1919 werd ze gedeporteerd naar Rusland,
+waar de ontmoeting met het bolsjewisme uitliep op de desillusie die ze in 1923
+beschreef. De tweede feministische golf herontdekte haar in de jaren zeventig
+als denker die het persoonlijke al politiek noemde voordat die leus bestond.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| anarchisme | In Goldmans definitie de filosofie van een nieuwe maatschappelijke orde, gegrond op vrijheid die door geen mensenwet wordt beperkt. |
+| minderheden tegenover meerderheden | Haar stelling dat elke verandering begint bij een kleine minderheid en dat het meerderheidsdenken het afwijkende platdrukt. |
+| attentäter | De aanslagpleger uit politieke wanhoop, door Goldman verklaard als product van maatschappelijk geweld. |
+| patriottisme als bijgeloof | Vaderlandsliefde als aangekweekte superstitie die militarisme rechtvaardigt. |
+| de moderne school | Ferrers onderwijsmodel zonder kerk en staat, gericht op zelfstandig denken. |
+| het fetisj van het stemrecht | Haar aanduiding voor het geloof dat de stembus vrouwen zal bevrijden. |
+| innerlijke emancipatie | De bevrijding van aangeleerde vooroordelen in het eigen hoofd, die aan elke uiterlijke bevrijding vooraf moet gaan. |
+| vrije liefde | De verbintenis uit genegenheid alleen, tegenover het huwelijk als economische verzekeringsovereenkomst. |
+| directe actie | Openlijk verzet tegen en niet-meewerken aan elke vorm van dwang, Goldmans methode naast het gedrukte en gesproken woord. |
+
+#### Waar het argument op rust
+
+De essays zijn polemisch en leunen op journalistieke bronnen van haar tijd:
+loonstatistieken van winkel- en fabrieksmeisjes in het prostitutie-essay,
+gevangeniscijfers en krantenberichten elders, plus wat Goldman zelf zag als
+fabrieksarbeidster, verpleegster en gevangene. Een systematische theorie of
+toetsing biedt de bundel niet, en dat pretendeert hij ook niet; het zijn
+strijdschriften.
+
+Sommige waarnemingen zijn goed blijven staan: haar economische verklaring van
+prostitutie en haar analyse van de gevangenis als misdaadschool sporen met
+veel later onderzoek. Haar voorspelling dat het vrouwenkiesrecht niets
+wezenlijks zou veranderen is te absoluut gebleken; stemrecht bleek wel
+degelijk een werkzaam middel, al gaf het haar gelijk dat het geen eindpunt
+was. Haar analyse van patriottisme als aangekweekt sentiment vond enkele jaren
+later bevestiging in de oorlogspropaganda van 1917, die haar wegens verzet
+tegen de dienstplicht opnieuw achter tralies bracht.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar betreft haar houding tegenover politiek geweld. Goldman
+verklaart aanslagen zonder ze te veroordelen, en ze stond de daders
+persoonlijk na: de aanslag van haar levensgezel Alexander Berkman op de
+industrieel Frick in 1892 had ze mede voorbereid, iets wat ze in haar memoires
+zelf beschrijft. De grens tussen begrijpen en goedpraten wordt in deze essays
+herhaaldelijk overschreden, en dat heeft haar zaak toen en later geschaad.
+
+Ook binnen de vrouwenbeweging kreeg ze kritiek: haar hoon over het kiesrecht
+kleineerde de strijd van medestanders en berustte op een te rooskleurig beeld
+van wat innerlijke bevrijding zonder rechten vermag. Bredere bezwaren gelden
+haar idealisering van de menselijke natuur en het ontbreken van elk
+institutioneel ontwerp: hoe een samenleving zonder staat geschillen beslecht,
+blijft onbesproken. Haar eigen confrontatie met het bolsjewistische Rusland
+dwong haar later tot bijstellingen die in deze bundel nog ontbreken. Als
+denker die persoonlijk en politiek verbond, is ze niettemin blijvend
+invloedrijk gebleken.
+
+#### Wat er concreet mee te doen is
+
+- Toets bij elke emancipatiebelofte wat er innerlijk verandert naast wat er
+formeel verandert.
+- Kijk bij misdaad- en overlastcijfers eerst naar de economische
+omstandigheden erachter.
+- Lees naast de consensus van het moment minstens één tegendraadse
+minderheidsstem.
+- Onderscheid het verklaren van geweld van het rechtvaardigen ervan; deze
+bundel laat zien hoe dun die lijn kan worden.
+
+#### Wat je hierna leest
+
+- 3. The Will to Change. The Will to Change zet Goldmans thema van innerlijke
+bevrijding voort aan de mannenkant van het feminisme.
+- 215. Obedience to Authority. Obedience to Authority toont experimenteel de
+gedachteloze volgzaamheid waar Goldman de meerderheid van beschuldigde.
+- 546. How I Found Freedom in an Unfree World. How I Found Freedom in an
+Unfree World zoekt de vrijheid van het individu langs libertarische in plaats
+van anarchistische weg.
+
 ## 621. Anarchism and American Traditions
 
 Voltairine de Cleyre, 1908. *Anarchism and American Traditions*, essay,
@@ -120235,27 +122090,28 @@ Alfabetisch, met de nummers van de titels die de tag dragen.
 `adverteren` 308 · `advies` 473 · `adviespraktijk` 151 · `adviseren` 511 ·
 `affirmaties` 117, 184, 188, 190, 380, 403, 439, 560 · `afhankelijkheid` 167 ·
 `afleiding` 290 · `aforismen` 2, 17, 179, 216, 218, 228, 391, 394, 462, 473,
-535 · `afrika` 589, 596, 597, 599, 600, 602 · `afrikaanse diaspora` 601 ·
-`afrocentrisme` 588, 589, 597 · `afscheid nemen` 285 · `afschrikking` 217 ·
-`afvallen` 557 · `afwezige-vader` 4 · `agenda` 512 · `agressie` 223, 339 ·
-`alcohol` 4 · `algoritmen` 476, 477, 479 · `alledaags` 89 · `allegorie` 222,
-524 · `allocatie` 507 · `amazon` 257 · `ambacht` 6, 12, 13, 17, 18 · `ambitie`
-75 · `amerika` 600 · `Amerika` 114, 431 · `amerikaans` 117, 118, 120, 132,
-133, 134, 136, 158 · `amerikaanse droom` 284 · `amerikaanse geschiedenis` 621
-· `Amerikaanse geschiedenis` 402 · `amerikaanse revolutie` 243 · `Amsterdam`
-295 · `anarchisme` 621, 624, 625, 626 · `anarchokapitalisme` 627, 629 ·
-`anatomie` 241, 412 · `Andalusië` 8 · `Andes` 521 · `angst` 53, 58, 107, 119,
-131, 136, 140, 181, 214, 252, 341, 401, 440, 548 · `angst voor de dood` 377 ·
-`animatie` 41 · `Antarctica` 36 · `anthologie` 189 · `antieke filosofie` 586 ·
-`antropologie` 223, 410, 602 · `antwerpen` 113 · `apartheid` 26, 523 · `Apple`
-46, 231 · `apps` 294 · `arbeid` 6, 173, 297, 390 · `arbeidsethos` 266 ·
-`archeologie` 600 · `archetype` 360 · `archetypen` 357, 404, 407, 409, 410 ·
-`Argentinië` 521 · `argumentatie` 421, 437, 511 · `argumenten` 63 ·
-`argumenteren` 438 · `Aristoteles` 438 · `armoede` 26, 234, 254 ·
-`Arthashastra` 370 · `assertiviteit` 162 · `asymmetrie` 282 · `atletiek` 31 ·
-`atomisme` 281 · `Auschwitz` 48 · `Australië` 447 · `autobiografie` 358, 440 ·
-`automatisering` 297, 539 · `autonomie` 6, 50 · `autoriteit` 215 · `autotelie`
-200 · `backtesten` 482, 502 · `banken en verzekeraars` 497 · `barok` 216 ·
+535 · `afrika` 589, 591, 593, 594, 595, 596, 597, 599, 600, 602 · `afrikaanse
+diaspora` 601 · `afrocentrisme` 588, 589, 591, 592, 593, 595, 597 · `afscheid
+nemen` 285 · `afschrikking` 217 · `afvallen` 557 · `afwezige-vader` 4 ·
+`agenda` 512 · `agressie` 223, 339 · `alcohol` 4 · `algoritmen` 476, 477, 479
+· `alledaags` 89 · `allegorie` 222, 524 · `allocatie` 507 · `amazon` 257 ·
+`ambacht` 6, 12, 13, 17, 18 · `ambitie` 75 · `amerika` 600 · `Amerika` 114,
+431 · `amerikaans` 117, 118, 120, 132, 133, 134, 136, 158 · `amerikaanse
+droom` 284 · `amerikaanse geschiedenis` 621 · `Amerikaanse geschiedenis` 402 ·
+`amerikaanse revolutie` 243 · `Amsterdam` 295 · `anarchisme` 616, 620, 621,
+624, 625, 626 · `anarchokapitalisme` 627, 629 · `anatomie` 241, 412 ·
+`Andalusië` 8 · `Andes` 521 · `angst` 53, 58, 107, 119, 131, 136, 140, 181,
+214, 252, 341, 401, 440, 548 · `angst voor de dood` 377 · `animatie` 41 ·
+`Antarctica` 36 · `anthologie` 189 · `antieke filosofie` 586 · `antropologie`
+223, 410, 602 · `antwerpen` 113 · `apartheid` 26, 523 · `Apple` 46, 231 ·
+`apps` 294 · `arbeid` 6, 173, 297, 390 · `arbeidsethos` 266 · `archeologie`
+600 · `archetype` 360 · `archetypen` 357, 404, 407, 409, 410 · `Argentinië`
+521 · `argumentatie` 421, 437, 511 · `argumenten` 63 · `argumenteren` 438 ·
+`Aristoteles` 438 · `armoede` 26, 234, 254 · `Arthashastra` 370 ·
+`assertiviteit` 162 · `asymmetrie` 282 · `atletiek` 31 · `atomisme` 281 ·
+`Auschwitz` 48 · `Australië` 447 · `autobiografie` 358, 440 · `automatisering`
+297, 539 · `autonomie` 6, 50 · `autoriteit` 215 · `autotelie` 200 ·
+`backtesten` 482, 502 · `banken en verzekeraars` 497 · `barok` 216 ·
 `basisbehoeften` 107 · `bbc` 82 · `bedrijfsbestuur` 567 · `bedrijfscultuur`
 170, 257, 270 · `bedrijfsgroei` 350 · `bedrijfsleven` 209, 293 ·
 `bedrijfsonderzoek` 353 · `bedrijfssystemen` 264 · `beeldcultuur` 563 ·
@@ -120264,7 +122120,7 @@ Alfabetisch, met de nummers van de titels die de tag dragen.
 `beleggen` 21, 64, 144, 233, 277, 351, 474, 476, 477, 478, 479, 480, 481, 482,
 483, 484, 485, 486, 489, 490, 492, 496, 498, 499, 500, 501, 502, 503, 504, 505
 · `beleid` 65 · `beloningssysteem` 418 · `bemiddeling` 35 · `beroemdheden` 128
-· `beroemdheid` 563 · `beschadigd-bestand` 115, 130 · `beschaving` 57 ·
+· `beroemdheid` 563 · `beschadigd-bestand` 115, 130 · `beschaving` 57, 593 ·
 `beslissen` 55 · `beslissingen` 197 · `besluiten` 47, 59, 69, 137 ·
 `besluitvorming` 151, 166, 170, 174, 209, 270, 282, 283, 293, 299, 364, 396,
 423, 424, 426, 450, 451, 468, 475, 510 · `bestseller` 8, 37, 250 · `betekenis`
@@ -120280,37 +122136,38 @@ van gedrag` 273 · `biologische klok` 326, 329, 552 · `biotechnologie` 236, 413
 `boeddhisme` 111, 287, 333, 341, 401, 528 · `bootstrapping` 369 ·
 `brainstormen` 33 · `branding` 443 · `brein` 414 · `brieven` 292, 517 ·
 `broers` 10 · `budgetteren` 159, 233, 464 · `buitenlandse hulp` 221 ·
-`burgerschap` 243 · `burn-out` 135, 207, 400, 551, 552 · `bushido` 535 ·
-`cafeïne` 52 · `Californië` 10 · `carl jung` 258 · `carrière` 146, 158, 388 ·
-`cases` 40 · `cashflow` 37 · `celbiologie` 419 · `chakra's` 432 · `challenger`
-62 · `Chanakya` 370 · `channeling` 549 · `chaos` 74, 347 · `chapbook` 100 ·
-`charismatisch christendom` 559 · `China` 348 · `Chinese filosofie` 389, 394 ·
-`Chinese geschiedenis` 219 · `chiropractie` 432 · `christendom` 162, 201, 391,
-603, 606, 612 · `chronobiologie` 326, 329 · `cijfers` 39, 65 ·
-`civilisatiekritiek` 298 · `coaching` 161, 291, 441 · `cognitieve
-gedragstherapie` 147, 153, 373 · `cognitieve herstructurering` 177 ·
-`cognitieve vertekening` 234 · `cognitieve wetenschap` 467 · `cognitieve-bias`
-59 · `collectief bewustzijn` 435 · `collectief onbewuste` 357, 360, 362 ·
-`columns` 89, 90 · `comfortzone` 187 · `commando` 97 · `communicatie` 34, 35,
-122, 145, 152, 156, 162, 164, 183, 186, 193, 213, 305, 338, 356, 398, 399,
-444, 466, 475, 539, 555 · `communisme` 625 · `complexiteit` 170, 268, 300,
-347, 423 · `complimenten geven` 356 · `concentratie` 70, 441 · `concurrentie`
-293 · `conditionering` 61, 519 · `conflict` 35, 42, 43, 212, 305 ·
-`conflictbemiddeling` 304 · `conflicthantering` 271 · `conformisme` 211 ·
-`consistentie` 553 · `consumptie` 463 · `consumptiekeuzes` 299 ·
-`consumptiemaatschappij` 564 · `content` 308 · `content creatie` 365 ·
-`content marketing` 369 · `corruptie` 221 · `creativiteit` 11, 12, 13, 14, 15,
-16, 17, 74, 206, 312, 349, 418, 445, 471, 472, 475, 550 · `cricket` 174 ·
-`crisis` 47 · `CRISPR` 413 · `cultuur` 68, 274 · `cultuurfilosofie` 580 ·
-`cultuurkritiek` 54, 405 · `cursus` 108, 130, 201 · `cursus-in-wonderen` 102,
-131, 548 · `cybernetica` 411, 539, 540, 541 · `cynisme` 250, 319 · `Cyrus de
-Grote` 536 · `dagboek` 2, 109, 224, 286, 579 · `dagboekaantekeningen` 226 ·
-`dagboekmethode` 78 · `dagboekonderzoek` 472 · `dagelijkse gewoontes` 205 ·
-`dagelijkse praktijk` 442 · `dankbaarheid` 129, 433 · `darmbacteriën` 417 ·
-`dataïsme` 236 · `daten` 166 · `de ander` 574 · `debat` 28 · `debuutboek` 226
-· `degrowth` 298 · `dekoloniaal denken` 521 · `delegeren` 434 · `deliberate
-practice` 376 · `dementie` 84, 85, 225 · `democratie` 98, 562, 628 · `denken`
-310, 509 · `denkfouten` 55, 59, 142, 396, 437, 510, 514 · `denkmethode` 471 ·
+`burgerlijk verzet` 617 · `burgerschap` 243 · `burn-out` 135, 207, 400, 551,
+552 · `bushido` 535 · `cafeïne` 52 · `Californië` 10 · `carl jung` 258 ·
+`carrière` 146, 158, 388 · `cases` 40 · `cashflow` 37 · `celbiologie` 419 ·
+`chakra's` 432 · `challenger` 62 · `Chanakya` 370 · `channeling` 549 · `chaos`
+74, 347 · `chapbook` 100 · `charismatisch christendom` 559 · `China` 348 ·
+`Chinese filosofie` 389, 394 · `Chinese geschiedenis` 219 · `chiropractie` 432
+· `christendom` 162, 201, 391, 603, 606, 612 · `chronobiologie` 326, 329 ·
+`cijfers` 39, 65 · `civilisatiekritiek` 298 · `coaching` 161, 291, 441 ·
+`cognitieve gedragstherapie` 147, 153, 373 · `cognitieve herstructurering` 177
+· `cognitieve vertekening` 234 · `cognitieve wetenschap` 467 ·
+`cognitieve-bias` 59 · `collectief bewustzijn` 435 · `collectief onbewuste`
+357, 360, 362 · `columns` 89, 90 · `comfortzone` 187 · `commando` 97 ·
+`communicatie` 34, 35, 122, 145, 152, 156, 162, 164, 183, 186, 193, 213, 305,
+338, 356, 398, 399, 444, 466, 475, 539, 555 · `communisme` 625 ·
+`complexiteit` 170, 268, 300, 347, 423 · `complimenten geven` 356 ·
+`concentratie` 70, 441 · `concurrentie` 293 · `conditionering` 61, 519 ·
+`conflict` 35, 42, 43, 212, 305 · `conflictbemiddeling` 304 ·
+`conflicthantering` 271 · `conformisme` 211 · `consistentie` 553 ·
+`consumptie` 463 · `consumptiekeuzes` 299 · `consumptiemaatschappij` 564 ·
+`content` 308 · `content creatie` 365 · `content marketing` 369 · `corruptie`
+221 · `creativiteit` 11, 12, 13, 14, 15, 16, 17, 74, 206, 312, 349, 418, 445,
+471, 472, 475, 550 · `cricket` 174 · `crisis` 47 · `CRISPR` 413 · `cultuur`
+68, 274 · `cultuurfilosofie` 580 · `cultuurkritiek` 54, 405, 592 · `cursus`
+108, 130, 201 · `cursus-in-wonderen` 102, 131, 548 · `cybernetica` 411, 539,
+540, 541 · `cynisme` 250, 319 · `Cyrus de Grote` 536 · `dagboek` 2, 109, 224,
+286, 579 · `dagboekaantekeningen` 226 · `dagboekmethode` 78 ·
+`dagboekonderzoek` 472 · `dagelijkse gewoontes` 205 · `dagelijkse praktijk`
+442 · `dankbaarheid` 129, 433 · `darmbacteriën` 417 · `dataïsme` 236 · `daten`
+166 · `de ander` 574 · `debat` 28 · `debuutboek` 226 · `degrowth` 298 ·
+`dekoloniaal denken` 521 · `delegeren` 434 · `deliberate practice` 376 ·
+`dementie` 84, 85, 225 · `democratie` 98, 562, 619, 628 · `denken` 310, 509 ·
+`denkfouten` 55, 59, 142, 396, 437, 510, 514 · `denkmethode` 471 ·
 `denkmodellen` 426 · `depressie` 403 · `derivaten` 494, 495 · `design
 thinking` 150 · `destructiviteit` 223 · `deugd` 247, 459, 581 · `diagnose` 104
 · `dialoog` 335, 572 · `dichotomie van controle` 194 · `dichtwerk` 524 ·
@@ -120324,61 +122181,62 @@ thinking` 150 · `destructiviteit` 223 · `deugd` 247, 459, 581 · `diagnose` 10
 `donkere-triade` 124 · `dood` 98, 169, 292, 535 · `doodsangst` 405 ·
 `doorzetten` 20 · `doorzettingsvermogen` 185, 249, 289, 324 · `dopamine` 314,
 418 · `drogredenen` 421 · `dromen` 52, 357, 358, 359, 360 · `drugs` 568 ·
-`dummies` 112 · `durfkapitaal` 47 · `duurzaamheid` 92 · `dystopie` 61 ·
+`dummies` 112 · `durfkapitaal` 47 · `duurzaamheid` 92 · `dystopie` 61, 618 ·
 `e-commerce` 257 · `e-mail` 70, 512 · `e-mailmarketing` 309 · `ecologie` 298 ·
 `economie` 65, 98, 217, 251, 297, 347, 423, 450, 452, 478, 625, 627 ·
 `economische geschiedenis` 155 · `educatief` 327 · `eenvoud` 170, 205, 379 ·
 `eenzaamheid` 7, 96, 98, 111, 288, 302 · `eer` 530, 534 · `eerlijk` 47 ·
 `eerlijkheid` 62 · `eerste-versie` 19 · `ego` 75, 102, 149, 435 · `ego en
-zelf` 409 · `ego-depletie` 382 · `egypte` 596, 597, 599, 602 · `eigen bedrijf`
-210 · `eigen-beheer` 107, 140, 142 · `eigen-oordeel` 58, 546 · `eigenaarschap`
-97 · `eindigheid` 442 · `einstein` 94 · `elektriciteit` 267 · `elektrische
-auto's` 266 · `emancipatie` 598 · `EMDR` 386 · `emigratie` 240 · `emotie-eten`
-557 · `emoties` 3, 43, 137, 142, 147, 153, 177, 330, 331, 449, 457, 470, 488,
-542 · `empathie` 35, 67, 303, 577 · `energetisch werk` 560 · `energie` 92,
-195, 291, 377 · `energiewerk` 432 · `entropie` 539 · `epigenetica` 208, 415 ·
-`epos` 5, 530, 531, 532 · `erfelijkheid` 419 · `erfenis` 39 ·
-`erkenningszucht` 406 · `erotiek` 113, 164 · `esoterie` 378, 590, 603, 605,
-606, 613 · `essay` 3, 9, 21, 57, 59, 63, 64, 68, 96, 197, 232 · `essaybundel`
-390, 425 · `essays` 523 · `eten` 103 · `ethiek` 282, 299, 413, 574, 612 ·
-`evangelisatie` 201 · `evolutie` 56, 66, 89, 90, 91, 239, 318, 322, 323, 332,
-339, 347, 383, 518, 609 · `evolutiebiologie` 452, 453 ·
+zelf` 409 · `ego-depletie` 382 · `egypte` 591, 594, 595, 596, 597, 599, 602 ·
+`eigen bedrijf` 210 · `eigen-beheer` 107, 140, 142 · `eigen-oordeel` 58, 546 ·
+`eigenaarschap` 97 · `eindigheid` 442 · `einstein` 94 · `elektriciteit` 267 ·
+`elektrische auto's` 266 · `emancipatie` 598 · `EMDR` 386 · `emigratie` 240 ·
+`emotie-eten` 557 · `emoties` 3, 43, 137, 142, 147, 153, 177, 330, 331, 449,
+457, 470, 488, 542 · `empathie` 35, 67, 303, 577 · `energetisch werk` 560 ·
+`energie` 92, 195, 291, 377 · `energiewerk` 432 · `entropie` 539 ·
+`epigenetica` 208, 415 · `epos` 5, 530, 531, 532 · `erfelijkheid` 419 ·
+`erfenis` 39 · `erkenningszucht` 406 · `erotiek` 113, 164 · `esoterie` 378,
+590, 603, 605, 606, 613 · `essay` 3, 9, 21, 57, 59, 63, 64, 68, 96, 197, 232 ·
+`essaybundel` 390, 425, 620 · `essays` 523 · `eten` 103 · `ethiek` 282, 299,
+413, 574, 612 · `evangelisatie` 201 · `evolutie` 56, 66, 89, 90, 91, 239, 318,
+322, 323, 332, 339, 347, 383, 518, 609 · `evolutiebiologie` 452, 453 ·
 `evolutionaire-psychologie` 67 · `excellentie` 553 · `executives` 344 ·
 `existentialisme` 405 · `expeditie` 36 · `experiment` 79, 215 · `experimenten`
 280, 424 · `experimenteren` 265 · `expertise` 283, 320, 376 · `extraversie`
 361 · `fabel` 8, 42, 135, 167, 252 · `facilitatie` 304 · `falen` 23, 72, 75,
 312, 422 · `familie` 45, 325, 466 · `familieconflict` 178 ·
 `familiegeschiedenis` 114, 235 · `familieroman` 10 · `fantasy` 192, 203 ·
-`FBI` 154, 271 · `FBI-onderzoek` 431 · `feedback` 41, 296, 541, 542 · `feiten`
-43 · `feminisme` 3, 624 · `fenomenologie` 574, 577, 582 · `fictie` 100, 115 ·
-`film` 41 · `filosofie` 1, 6, 71, 93, 199, 211, 216, 224, 247, 255, 263, 292,
-299, 383, 390, 391, 392, 393, 421, 436, 442, 521, 588, 597, 604, 610 ·
-`filosofiegeschiedenis` 269 · `filosofische antropologie` 584 · `financiële
-geletterdheid` 163 · `financiële markten` 268, 351, 480, 481, 483, 499, 501 ·
-`financiële onafhankelijkheid` 264 · `financiele vrijheid` 277 · `financiële
-wiskunde` 497, 507 · `financiële-discipline` 464 · `financiën` 334, 395, 425 ·
-`financiering` 172 · `fitnessbranche` 307, 544 · `flitshandel` 499 · `flow`
-78, 187, 200 · `focus` 175, 197, 448, 513 · `folklore` 615 · `fotoboek` 189 ·
-`foutcultuur` 422 · `fouten maken` 509 · `franchise` 544 · `frankrijk` 115 ·
-`Franse-Weerstand` 390 · `freelance` 515 · `Fulani` 522 · `fysieke uitdaging`
-323 · `fysiologie` 318, 412, 458 · `Galenus` 328 · `gaslighting` 123 ·
-`gastheerschap` 304 · `gastvrijheid` 531 · `gebed` 83, 259, 573 ·
-`gebruikersgedrag` 294 · `gedachten` 148, 177 · `gedachtenjournal` 176 ·
-`gedrag` 21, 22, 89, 90, 138, 154, 280, 330, 383, 425 · `gedragsbiologie` 322,
-339 · `gedragseconomie` 424, 426, 514 · `gedragsonderzoek` 302, 382 ·
-`gedragspatronen` 161 · `gedragspsychologie` 294 · `gedragstypen` 156 ·
-`gedragsverandering` 238, 290, 457, 469 · `gedragswetenschap` 166, 209, 305,
-468, 469, 510 · `geduld` 21, 351 · `geest` 584 · `geestelijke gezondheid` 193
-· `geestelijke oefeningen` 586 · `gegevensanalyse` 486 · `gehechtheid` 166 ·
-`geheim genootschap` 202 · `geheugen` 66, 85, 175, 414 · `gehoorzaamheid` 215
-· `geïllustreerd boek` 176 · `geld` 21, 37, 38, 56, 76, 121, 132, 133, 158,
-159, 433, 463, 464 · `geldmanagement` 492, 493 · `geldmindset` 395 ·
-`geldpsychologie` 233, 264 · `geloof` 45, 83, 201, 554 · `geluk` 79, 93, 160,
-228, 335, 516, 526, 579 · `gemeenschap` 9, 96, 304, 461 · `genealogie` 601 ·
-`geneeskunde` 49, 328 · `generaties` 114 · `generatieve drift` 315 ·
-`genetica` 413, 419 · `genezing` 340 · `genot en pijn` 314 · `gentechnologie`
-413 · `geologie` 239 · `geopolitiek` 220 · `geschiedenis` 30, 36, 56, 57, 68,
-93, 94, 212, 218, 250, 258, 298, 328, 381, 425, 440, 588, 589, 597, 598, 600 ·
+`FBI` 154, 271 · `FBI-onderzoek` 431 · `federalisme` 619 · `feedback` 41, 296,
+541, 542 · `feiten` 43 · `feminisme` 3, 620, 624 · `fenomenologie` 574, 577,
+582 · `fictie` 100, 115 · `film` 41 · `filosofie` 1, 6, 71, 93, 199, 211, 216,
+224, 247, 255, 263, 292, 299, 383, 390, 391, 392, 393, 421, 436, 442, 521,
+588, 592, 594, 597, 604, 610 · `filosofiegeschiedenis` 269 · `filosofische
+antropologie` 584 · `financiële geletterdheid` 163 · `financiële markten` 268,
+351, 480, 481, 483, 499, 501 · `financiële onafhankelijkheid` 264 ·
+`financiele vrijheid` 277 · `financiële wiskunde` 497, 507 ·
+`financiële-discipline` 464 · `financiën` 334, 395, 425 · `financiering` 172 ·
+`fitnessbranche` 307, 544 · `flitshandel` 499 · `flow` 78, 187, 200 · `focus`
+175, 197, 448, 513 · `folklore` 615 · `fotoboek` 189 · `foutcultuur` 422 ·
+`fouten maken` 509 · `franchise` 544 · `frankrijk` 115 · `Franse-Weerstand`
+390 · `freelance` 515 · `Fulani` 522 · `fysieke uitdaging` 323 · `fysiologie`
+318, 412, 458 · `Galenus` 328 · `gaslighting` 123 · `gastheerschap` 304 ·
+`gastvrijheid` 531 · `gebed` 83, 259, 573 · `gebruikersgedrag` 294 ·
+`gedachten` 148, 177 · `gedachtenjournal` 176 · `gedrag` 21, 22, 89, 90, 138,
+154, 280, 330, 383, 425 · `gedragsbiologie` 322, 339 · `gedragseconomie` 424,
+426, 514 · `gedragsonderzoek` 302, 382 · `gedragspatronen` 161 ·
+`gedragspsychologie` 294 · `gedragstypen` 156 · `gedragsverandering` 238, 290,
+457, 469 · `gedragswetenschap` 166, 209, 305, 468, 469, 510 · `geduld` 21, 351
+· `geest` 584 · `geestelijke gezondheid` 193 · `geestelijke oefeningen` 586 ·
+`gegevensanalyse` 486 · `gehechtheid` 166 · `geheim genootschap` 202 ·
+`geheugen` 66, 85, 175, 414 · `gehoorzaamheid` 215, 617 · `geïllustreerd boek`
+176 · `geld` 21, 37, 38, 56, 76, 121, 132, 133, 158, 159, 433, 463, 464 ·
+`geldmanagement` 492, 493 · `geldmindset` 395 · `geldpsychologie` 233, 264 ·
+`geloof` 45, 83, 201, 554 · `geluk` 79, 93, 160, 228, 335, 516, 526, 579 ·
+`gemeenschap` 9, 96, 304, 461 · `genealogie` 601 · `geneeskunde` 49, 328 ·
+`generaties` 114 · `generatieve drift` 315 · `genetica` 413, 419 · `genezing`
+340 · `genot en pijn` 314 · `gentechnologie` 413 · `geologie` 239 ·
+`geopolitiek` 220 · `geschiedenis` 30, 36, 56, 57, 68, 93, 94, 212, 218, 250,
+258, 298, 328, 381, 425, 440, 588, 589, 591, 593, 595, 597, 598, 600, 619 ·
 `geschiedenis van de geneeskunde` 412 · `geschiedfilosofie` 235 ·
 `geschiedschrijving` 601, 602 · `gesprek` 43, 95, 302, 444 ·
 `gesprekstechniek` 182, 186, 438 · `gevangenendilemma` 453 · `gevolgen` 67 ·
@@ -120396,82 +122254,83 @@ wiskunde` 497, 507 · `financiële-discipline` 464 · `financiën` 334, 395, 425
 466 · `grenzen stellen` 151, 204, 406, 429 · `Griekenland` 537 · `Griekse
 literatuur` 536 · `griekse mythologie` 261 · `Griekse oudheid` 530, 531 ·
 `groei` 222 · `groeiaandelen` 474 · `groeimentaliteit` 116 · `groepsdenken`
-339 · `groepsgedrag` 303 · `grondstoffen` 92 · `groot-verhaal` 56 ·
-`grootouders` 91 · `handboek` 493, 495 · `handel` 80, 251 · `handelen` 30,
-476, 477, 478, 479, 501 · `handelspsychologie` 488, 489 · `handelssysteem`
-489, 491 · `handelssystemen` 484, 486, 500, 502 · `handleiding` 112 · `hart`
-86, 128 · `Harvard` 457 · `Hay House` 380 · `hechting` 145, 152, 317, 386 ·
-`hedendaags India` 202 · `hedgefondsen` 505 · `heelal` 99, 262 · `heldendom`
-532 · `heldenreis` 410 · `helderheid` 82, 436 · `herhaling` 125, 134 ·
-`herkomst` 127 · `hermetische filosofie` 378 · `hermetisme` 613 ·
-`heroverwegen` 28 · `hersenen` 51, 84, 85, 86, 327 · `hersenonderzoek` 330,
-333 · `hersenspoeling` 384 · `herstel` 87, 552, 583 · `het gesprek` 416 ·
-`Himalaya` 191 · `hindoeïsme` 169, 199, 527, 569 · `Hindoeïstische mythologie`
-192, 202 · `hindoemythologie` 203 · `Hinge` 166 · `hiphop` 440 · `historische
-portretten` 248 · `historische roman` 529 · `hofcultuur` 216 · `hollywood` 555
-· `Hollywood` 178 · `Holocaust` 48 · `holografie` 340 · `homoseksualiteit` 325
-· `hoop` 255, 319 · `hormonen` 80, 339 · `hospice` 416 · `houding` 117 ·
-`huisvesting` 65 · `humanisme` 236 · `humor` 16, 19, 26, 105, 227, 561 ·
-`husserl` 577 · `huwelijk` 9, 34, 165 · `Huxley` 54 · `hybride werken` 512 ·
-`hyperrealiteit` 565 · `hypnose` 123, 124, 125 · `Idaho` 45 · `ideeën` 206 ·
-`ideeëngeschiedenis` 269 · `identiteit` 22, 115, 192, 261, 374, 375, 467, 559
-· `identiteitskapitaal` 51 · `ideologie` 628 · `ierland` 110 · `IJsland` 185,
-533 · `ik-vorm` 113 · `illustraties` 109, 327 · `imitatie` 11 ·
-`imperfectionisme` 442 · `import` 20 · `India` 163, 171, 172, 180, 189, 191,
-196, 199, 203, 226, 242, 365, 370, 518, 520, 527 · `individualisme` 9, 96, 624
-· `individualiteit` 263 · `individuatie` 359, 360, 408, 409 ·
-`individuele-verantwoordelijkheid` 299 · `industrie` 348 · `inheems denken`
-521 · `initiatie` 407, 408, 522 · `inleiding` 452, 456 · `innerlijk-kind` 109
-· `innerlijk-werkleven` 472 · `innerlijke stem` 377 · `innerlijke vrede` 548 ·
-`innovatie` 206, 251, 293, 306, 471 · `instagram` 129 · `instituties` 392 ·
-`integraal bewustzijn` 580 · `integriteit` 547 · `intelligentie` 383 ·
-`internationale betrekkingen` 455 · `internet` 60, 198 · `interviews` 58, 277,
-289 · `intimiteit` 122, 145, 164, 165 · `introspectie` 579 · `introversie` 33,
-361 · `intuitie` 128 · `intuïtie` 214, 283, 320 · `investeren` 270, 348 ·
-`invloed` 11 · `invoeling` 577 · `inzicht` 587 · `irrationaliteit` 424 ·
-`islam` 526 · `islamitische filosofie` 525 · `Israël` 514 · `Italiaanse
-non-fictie` 211 · `Italië` 155 · `jaloezie` 19 · `Japan` 77, 205, 261, 335,
-346, 379, 462, 517, 528, 535 · `japanse filosofie` 576 · `jaren negentig` 348
-· `jaren-tachtig` 139 · `jaren-twintig` 94 · `jazztijdperk` 284 · `jeff bezos`
-257 · `jeugd` 53, 104, 115 · `John Harrison` 321 · `joint ventures` 348 ·
-`jonge liefde` 180 · `jongeren` 25 · `jongvolwassenen` 569 ·
-`jongvolwassenenroman` 295 · `joodse filosofie` 572, 574 · `journaling` 147 ·
-`journalistiek` 4, 7, 46, 82, 238, 257, 285, 401, 499, 566 · `Jung` 143, 358,
-359 · `Jungiaanse psychologie` 404, 407, 408, 409, 410 · `kaakontwikkeling`
-332 · `Kabul` 184 · `Kaïn-en-Abel` 10 · `kalmte` 248, 389 · `kameraadschap`
-529 · `kanker` 419 · `kans` 64 · `kansdenken` 487 · `kansen` 137 ·
-`kansrekening` 282, 456, 484, 490, 496, 504, 505 · `kapitalisme` 298 ·
-`karakter` 97, 537 · `Karel de Grote` 534 · `karma` 184 · `karmel` 573 ·
-`Kasjmir` 180 · `keegan` 110 · `Kelly-criterium` 504 · `keltische traditie`
-611 · `kennis` 81, 508 · `kennisleer` 525, 587 · `kenniswerk` 6, 50, 400, 472
-· `kernwaarden` 245 · `kernwapens` 454 · `keuzes` 51, 71, 72, 510 ·
-`Kierkegaard` 405 · `kinderboek` 167 · `kinderjaren` 152 · `kinesiologie` 449
-· `klantcontact` 182, 186 · `klantpsychologie` 367 · `klantrelaties` 246 ·
-`klantvalidatie` 265 · `klantwaarde` 309 · `klassenverschil` 284 · `klassieke
-bronnen` 286 · `klassieke tekst` 219, 394 · `klassieker` 10, 24, 38, 48, 61,
-83, 127, 135, 144, 173, 213, 254, 351, 420, 520, 537, 626 · `klein-beginnen`
-40 · `kleine-bedrijven` 172 · `kleine-stappen` 22, 133 · `kleurboek` 327 ·
+339 · `groepsgedrag` 303 · `grondstoffen` 92 · `grondwet` 616, 619 ·
+`groot-verhaal` 56 · `grootouders` 91 · `handboek` 493, 495 · `handel` 80, 251
+· `handelen` 30, 476, 477, 478, 479, 501 · `handelspsychologie` 488, 489 ·
+`handelssysteem` 489, 491 · `handelssystemen` 484, 486, 500, 502 ·
+`handleiding` 112 · `hart` 86, 128 · `Harvard` 457 · `Hay House` 380 ·
+`hechting` 145, 152, 317, 386 · `hedendaags India` 202 · `hedgefondsen` 505 ·
+`heelal` 99, 262 · `heldendom` 532 · `heldenreis` 410 · `helderheid` 82, 436 ·
+`herhaling` 125, 134 · `herkomst` 127 · `hermetische filosofie` 378 ·
+`hermetisme` 613 · `heroverwegen` 28 · `hersenen` 51, 84, 85, 86, 327 ·
+`hersenonderzoek` 330, 333 · `hersenspoeling` 384 · `herstel` 87, 552, 583 ·
+`het gesprek` 416 · `Himalaya` 191 · `hindoeïsme` 169, 199, 527, 569 ·
+`Hindoeïstische mythologie` 192, 202 · `hindoemythologie` 203 · `Hinge` 166 ·
+`hiphop` 440 · `historische portretten` 248 · `historische roman` 529 ·
+`hofcultuur` 216 · `hollywood` 555 · `Hollywood` 178 · `Holocaust` 48 ·
+`holografie` 340 · `homoseksualiteit` 325 · `hoop` 255, 319 · `hormonen` 80,
+339 · `hospice` 416 · `houding` 117 · `huisvesting` 65 · `humanisme` 236 ·
+`humor` 16, 19, 26, 105, 227, 561 · `husserl` 577 · `huwelijk` 9, 34, 165 ·
+`Huxley` 54 · `hybride werken` 512 · `hyperrealiteit` 565 · `hypnose` 123,
+124, 125 · `Idaho` 45 · `ideeën` 206 · `ideeëngeschiedenis` 269 · `identiteit`
+22, 115, 192, 261, 374, 375, 467, 559 · `identiteitskapitaal` 51 · `ideologie`
+628 · `ierland` 110 · `IJsland` 185, 533 · `ik-vorm` 113 · `illustraties` 109,
+327 · `imitatie` 11 · `imperfectionisme` 442 · `import` 20 · `India` 163, 171,
+172, 180, 189, 191, 196, 199, 203, 226, 242, 365, 370, 518, 520, 527 ·
+`individualisme` 9, 96, 624 · `individualiteit` 263 · `individuatie` 359, 360,
+408, 409 · `individuele-verantwoordelijkheid` 299 · `industrie` 348 · `inheems
+denken` 521 · `initiatie` 407, 408, 522 · `inleiding` 452, 456 ·
+`innerlijk-kind` 109 · `innerlijk-werkleven` 472 · `innerlijke stem` 377 ·
+`innerlijke vrede` 548 · `innovatie` 206, 251, 293, 306, 471 · `instagram` 129
+· `instemming` 616 · `instituties` 392 · `integraal bewustzijn` 580 ·
+`integriteit` 547 · `intelligentie` 383 · `internationale betrekkingen` 455 ·
+`internet` 60, 198 · `interviews` 58, 277, 289 · `intimiteit` 122, 145, 164,
+165 · `introspectie` 579 · `introversie` 33, 361 · `intuitie` 128 · `intuïtie`
+214, 283, 320 · `investeren` 270, 348 · `invloed` 11 · `invoeling` 577 ·
+`inzicht` 587 · `irrationaliteit` 424 · `islam` 526 · `islamitische filosofie`
+525 · `Israël` 514 · `Italiaanse non-fictie` 211 · `Italië` 155 · `jaloezie`
+19 · `Japan` 77, 205, 261, 335, 346, 379, 462, 517, 528, 535 · `japanse
+filosofie` 576 · `jaren negentig` 348 · `jaren-tachtig` 139 · `jaren-twintig`
+94 · `jazztijdperk` 284 · `jeff bezos` 257 · `jeugd` 53, 104, 115 · `John
+Harrison` 321 · `joint ventures` 348 · `jonge liefde` 180 · `jongeren` 25 ·
+`jongvolwassenen` 569 · `jongvolwassenenroman` 295 · `joodse filosofie` 572,
+574 · `journaling` 147 · `journalistiek` 4, 7, 46, 82, 238, 257, 285, 401,
+499, 566 · `Jung` 143, 358, 359 · `Jungiaanse psychologie` 404, 407, 408, 409,
+410 · `kaakontwikkeling` 332 · `Kabul` 184 · `Kaïn-en-Abel` 10 · `kalmte` 248,
+389 · `kameraadschap` 529 · `kanker` 419 · `kans` 64 · `kansdenken` 487 ·
+`kansen` 137 · `kansrekening` 282, 456, 484, 490, 496, 504, 505 ·
+`kapitalisme` 298 · `karakter` 97, 537 · `Karel de Grote` 534 · `karma` 184 ·
+`karmel` 573 · `Kasjmir` 180 · `keegan` 110 · `Kelly-criterium` 504 ·
+`keltische traditie` 611 · `kennis` 81, 508 · `kennisleer` 525, 587 ·
+`kenniswerk` 6, 50, 400, 472 · `kernwaarden` 245 · `kernwapens` 454 · `keuzes`
+51, 71, 72, 510 · `Kierkegaard` 405 · `kinderboek` 167 · `kinderjaren` 152 ·
+`kinesiologie` 449 · `klantcontact` 182, 186 · `klantpsychologie` 367 ·
+`klantrelaties` 246 · `klantvalidatie` 265 · `klantwaarde` 309 ·
+`klassenverschil` 284 · `klassieke bronnen` 286 · `klassieke tekst` 219, 394 ·
+`klassieker` 10, 24, 38, 48, 61, 83, 127, 135, 144, 173, 213, 254, 351, 420,
+520, 537, 616, 617, 618, 619, 620, 626 · `klein-beginnen` 40 ·
+`kleine-bedrijven` 172 · `kleine-stappen` 22, 133 · `kleurboek` 327 ·
 `klimaatfictie` 203 · `klimaatverandering` 299 · `klinische psychologie` 460 ·
-`klokkenmakerij` 321 · `kolonialisme` 298 · `korea` 111 · `kort` 59, 99, 100,
-101, 110, 140 · `kort-boek` 11, 13, 16, 27, 38, 57, 445 · `kort-stuk` 19, 30 ·
-`korte-teksten` 111 · `korte-vorm` 473 · `kosmologie` 239, 262, 281 · `koude
-oorlog` 217, 220, 384, 454, 456 · `krijgsgevangenschap` 31 · `krijgskunde`
-212, 218, 219, 272 · `krijgskunst` 346 · `kritiek` 24, 41, 50 · `kritiek
-geven` 356 · `kritisch denken` 420, 421 · `kroeg` 4 · `kruistochtgeest` 534 ·
-`kunst` 11, 445 · `kunstenaars` 312 · `kunstgeschiedenis` 241, 312 ·
-`kunstmatig leven` 347 · `kunstmatige intelligentie` 236, 237, 297 · `kwaad`
-404 · `kwaliteit` 1, 400 · `kwantificering` 392 · `kwantitatief handelen` 506
-· `kwantitatieve analyse` 498 · `kwantitatieve financiën` 485, 503 ·
-`kwantumfysica` 208, 340, 432, 433 · `kwantummechanica` 362 ·
-`kwantumzwaartekracht` 281 · `kwetsbaarheid` 32, 44, 470 · `kyotoschool` 576 ·
-`landbouw` 56, 98 · `landmark forum` 344 · `leadgeneratie` 308 · `lean
-manufacturing` 265 · `leefstijl` 86, 103, 138, 171 · `leertijd` 320 · `leger`
-106, 180, 222 · `leiderschap` 36, 41, 44, 46, 97, 106, 157, 170, 183, 218,
-222, 231, 260, 273, 344, 353, 364, 370, 389, 434, 465, 468, 475, 536, 544, 551
-· `leidinggeven` 156 · `leren` 175, 296, 349, 397, 422, 441, 509, 538 ·
-`lesmateriaal` 116 · `leugendetectie` 154, 338 · `levensinrichting` 334 ·
-`levenskeuzes` 150, 546 · `levenskunst` 27, 199, 216, 227, 586 ·
-`levenslessen` 285, 447 · `levensloop` 91 · `levensverhaal` 385 ·
+`klokkenmakerij` 321 · `kolonialisme` 298, 592 · `korea` 111 · `kort` 59, 99,
+100, 101, 110, 140 · `kort-boek` 11, 13, 16, 27, 38, 57, 445 · `kort-stuk` 19,
+30 · `korte-teksten` 111 · `korte-vorm` 473 · `kosmologie` 239, 262, 281 ·
+`koude oorlog` 217, 220, 384, 454, 456 · `krijgsgevangenschap` 31 ·
+`krijgskunde` 212, 218, 219, 272 · `krijgskunst` 346 · `kritiek` 24, 41, 50 ·
+`kritiek geven` 356 · `kritisch denken` 420, 421 · `kroeg` 4 ·
+`kruistochtgeest` 534 · `kunst` 11, 445 · `kunstenaars` 312 ·
+`kunstgeschiedenis` 241, 312 · `kunstmatig leven` 347 · `kunstmatige
+intelligentie` 236, 237, 297 · `kwaad` 404 · `kwaliteit` 1, 400 ·
+`kwantificering` 392 · `kwantitatief handelen` 506 · `kwantitatieve analyse`
+498 · `kwantitatieve financiën` 485, 503 · `kwantumfysica` 208, 340, 432, 433
+· `kwantummechanica` 362 · `kwantumzwaartekracht` 281 · `kwetsbaarheid` 32,
+44, 470 · `kyotoschool` 576 · `landbouw` 56, 98 · `landmark forum` 344 ·
+`leadgeneratie` 308 · `lean manufacturing` 265 · `leefstijl` 86, 103, 138, 171
+· `leertijd` 320 · `leger` 106, 180, 222 · `leiderschap` 36, 41, 44, 46, 97,
+106, 157, 170, 183, 218, 222, 231, 260, 273, 344, 353, 364, 370, 389, 434,
+465, 468, 475, 536, 544, 551 · `leidinggeven` 156 · `leren` 175, 296, 349,
+397, 422, 441, 509, 538 · `lesmateriaal` 116 · `leugendetectie` 154, 338 ·
+`levensinrichting` 334 · `levenskeuzes` 150, 546 · `levenskunst` 27, 199, 216,
+227, 586 · `levenslessen` 285, 447 · `levensloop` 91 · `levensverhaal` 385 ·
 `levenswijsheid` 473 · `lezen` 18, 420 · `lezing` 436 · `lezingen` 169 ·
 `libertarisme` 546, 623, 627, 629 · `lichaam` 80 · `lichaamsgericht werken`
 386 · `lichaamstaal` 125, 126, 154, 303, 338, 399 · `lichaamswerk` 432 ·
@@ -120481,23 +122340,23 @@ manufacturing` 265 · `leefstijl` 86, 103, 138, 171 · `leertijd` 320 · `leger`
 · `loopbaan` 50, 51, 150, 349, 515, 547 · `loslaten` 377, 449 · `losmaken` 45
 · `lotsbestemming` 261 · `luchtvaart` 422 · `luisteren` 24, 35, 305, 444 ·
 `machinaal leren` 484, 485, 486, 503 · `macht` 212, 250, 263, 381, 388, 440,
-622 · `machtspolitiek` 220 · `machtstheorie` 221 · `machtsverhoudingen` 155 ·
-`magie` 613 · `magisch realisme` 261 · `management` 42, 47, 170, 183, 256,
-350, 353, 364, 472 · `managementtheorie` 547 · `manifest` 629 · `manifesteren`
-128, 129, 130, 131, 132, 190, 196, 433, 543, 560 · `manipulatie` 123, 124,
-125, 126, 212, 213, 381, 384, 429 · `mannelijkheid` 3, 406, 407, 408 ·
-`mannen` 7 · `mannenbeweging` 407 · `mantelzorg` 225 · `mantra` 403 ·
-`manuscript` 359 · `maria magdalena` 614 · `marketing` 13, 40, 60, 172, 183,
-279, 280, 307, 308, 309, 350, 443, 446 · `marktmicrostructuur` 477, 478 ·
-`marxisme` 564 · `McKinsey` 511 · `media` 54, 60, 100, 562, 563, 564, 565, 566
-· `medische ethiek` 416 · `meditatie` 111, 141, 149, 169, 205, 208, 228, 230,
-237, 242, 333, 377, 401, 431, 527, 528, 590 · `meesterschap` 296, 320, 553 ·
-`meetsystemen` 392 · `memento mori` 286 · `memoir` 4, 7, 18, 20, 26, 45, 49,
-62, 95, 106, 178, 185, 191, 226, 229, 242, 289, 324, 325, 348, 385, 402, 403,
-431, 447, 505 · `mens en dier` 584 · `menselijk gedrag` 155 · `mensenkennis`
-126, 356 · `mentale gezondheid` 315 · `mentale helderheid` 148 · `mentale
-weerbaarheid` 229, 323, 372, 373, 374, 545 · `mentalisme` 378, 399 ·
-`mentorschap` 4, 285, 289, 320, 402 · `merken` 279 · `metabolisme` 313 ·
+617, 622 · `machtspolitiek` 220 · `machtstheorie` 221 · `machtsverhoudingen`
+155 · `magie` 613 · `magisch realisme` 261 · `management` 42, 47, 170, 183,
+256, 350, 353, 364, 472 · `managementtheorie` 547 · `manifest` 629 ·
+`manifesteren` 128, 129, 130, 131, 132, 190, 196, 433, 543, 560 ·
+`manipulatie` 123, 124, 125, 126, 212, 213, 381, 384, 429 · `mannelijkheid` 3,
+406, 407, 408 · `mannen` 7 · `mannenbeweging` 407 · `mantelzorg` 225 ·
+`mantra` 403 · `manuscript` 359 · `maria magdalena` 614 · `marketing` 13, 40,
+60, 172, 183, 279, 280, 307, 308, 309, 350, 443, 446 · `marktmicrostructuur`
+477, 478 · `marxisme` 564 · `McKinsey` 511 · `media` 54, 60, 100, 562, 563,
+564, 565, 566 · `medische ethiek` 416 · `meditatie` 111, 141, 149, 169, 205,
+208, 228, 230, 237, 242, 333, 377, 401, 431, 527, 528, 590 · `meesterschap`
+296, 320, 553 · `meetsystemen` 392 · `memento mori` 286 · `memoir` 4, 7, 18,
+20, 26, 45, 49, 62, 95, 106, 178, 185, 191, 226, 229, 242, 289, 324, 325, 348,
+385, 402, 403, 431, 447, 505 · `mens en dier` 584 · `menselijk gedrag` 155 ·
+`mensenkennis` 126, 356 · `mentale gezondheid` 315 · `mentale helderheid` 148
+· `mentale weerbaarheid` 229, 323, 372, 373, 374, 545 · `mentalisme` 378, 399
+· `mentorschap` 4, 285, 289, 320, 402 · `merken` 279 · `metabolisme` 313 ·
 `metafysica` 102, 518, 584, 587 · `meten` 69, 133 · `methode` 81 ·
 `microbedrijf` 40, 172 · `microbioom` 417 · `middelbare-leeftijd` 7 ·
 `middeleeuwen` 534 · `midlife` 324 · `militaire geschiedenis` 568 · `militaire
@@ -120534,36 +122393,36 @@ age` 149, 435, 449, 549 · `new thought` 259, 380, 555 · `NeXT` 46 ·
 `observeren` 15 · `obsessieve liefde` 284 · `occultisme` 378, 613 ·
 `ochtendroutine` 14, 134, 244 · `oefenen` 29, 397 · `oefening` 141, 296 ·
 `oefeningen` 15, 35, 87, 103, 109, 118, 120, 122, 130, 549 · `okinawa` 77 ·
-`okr` 256 · `omgangsvormen` 24, 398 · `omkering` 105 · `omstreden` 37, 73, 76,
-83 · `onbegrepen-klachten` 104 · `onbetrouwbaar` 123, 124, 125, 126 ·
-`onbetrouwbare verteller` 284 · `onbewezen` 127, 128, 129, 130, 131, 132, 139
-· `onbewuste` 16, 283, 358, 359 · `onderbewuste` 124 · `onderbewustzijn` 259 ·
-`onderbouwing` 87, 108, 117, 134, 135, 136 · `onderhandelen` 159, 186, 217,
-260, 271, 272, 305, 444, 450, 455 · `ondernemen` 20, 39, 40, 47, 172, 446, 476
-· `ondernemers` 174 · `ondernemerschap` 157, 163, 185, 197, 198, 210, 222,
-228, 231, 245, 249, 276, 278, 289, 306, 307, 308, 312, 350, 365, 369, 370,
-395, 403, 427, 431, 434, 465, 544, 567, 570 · `onderwijs` 6, 23, 33, 45, 63,
-65, 68, 116, 237, 349, 509, 598 · `onderwijskritiek` 37 · `onderzoek` 23, 28,
-29, 32, 33, 39, 44, 55, 62, 78, 79, 80, 84, 85, 86, 88, 152, 305 ·
-`onderzoeksdebat` 53 · `onderzoeksethiek` 215 · `onderzoekskritiek` 52, 415 ·
-`ongemak` 323 · `ongeneeslijke ziekte` 285 · `online ondernemen` 309 ·
-`onsterfelijkheid` 236, 405 · `onthechting` 462 · `ontmoeten` 304 ·
-`ontmoeting` 572 · `ontologie` 344 · `ontslagen` 47 · `ontwerp` 550 ·
-`ontwikkeling` 46, 85 · `ontwikkelingslanden` 234 · `onvolmaaktheid` 379 ·
-`onzekerheid` 268, 341, 375, 423, 515, 516 · `oordeel` 59, 69 · `oorlog` 31,
-57, 66, 364, 568 · `oorlogvoering` 218 · `oorsprong` 599 · `opdrachten` 116 ·
-`opgetekend` 97 · `opgeven` 249 · `opgroeien` 4, 295 · `opoffering` 554 ·
-`opties` 494, 495, 506 · `optimisme` 251 · `optogenetica` 331 · `opvoeding` 3,
-23, 29, 44, 53, 73, 162, 193, 290 · `opwekking` 558 · `orale traditie` 522 ·
-`orde` 73, 74 · `organisatie` 28, 41, 69, 238, 388, 422, 468 ·
-`organisatiecultuur` 183, 273, 353 · `orthodontie` 332 · `Orwell` 54 · `Otto
-Rank` 405 · `oud china` 272 · `Oude Rome` 328 · `Oudengels` 532 ·
-`ouder-worden` 5 · `ouderdom` 77, 84, 91, 95, 191, 402, 416 · `oudheid` 2,
-247, 292, 536, 537, 588, 589 · `outsourcen` 278 · `overdenken` 148 ·
-`overfitting` 484, 485, 502, 503 · `overgave` 431 · `overleven` 31, 36 ·
-`overlevingsvertekening` 64 · `overtuigen` 24, 182, 253, 356, 367, 438 ·
-`overtuiging` 280 · `overtuigingen` 28, 132, 139, 143, 469, 487 · `overvloed`
-17 · `oxytocine` 458 · `Pacific` 31 · `pacifisme` 240, 612 ·
+`okr` 256 · `oligarchie` 618 · `omgangsvormen` 24, 398 · `omkering` 105 ·
+`omstreden` 37, 73, 76, 83 · `onbegrepen-klachten` 104 · `onbetrouwbaar` 123,
+124, 125, 126 · `onbetrouwbare verteller` 284 · `onbewezen` 127, 128, 129,
+130, 131, 132, 139 · `onbewuste` 16, 283, 358, 359 · `onderbewuste` 124 ·
+`onderbewustzijn` 259 · `onderbouwing` 87, 108, 117, 134, 135, 136 ·
+`onderhandelen` 159, 186, 217, 260, 271, 272, 305, 444, 450, 455 ·
+`ondernemen` 20, 39, 40, 47, 172, 446, 476 · `ondernemers` 174 ·
+`ondernemerschap` 157, 163, 185, 197, 198, 210, 222, 228, 231, 245, 249, 276,
+278, 289, 306, 307, 308, 312, 350, 365, 369, 370, 395, 403, 427, 431, 434,
+465, 544, 567, 570 · `onderwijs` 6, 23, 33, 45, 63, 65, 68, 116, 237, 349,
+509, 598 · `onderwijskritiek` 37 · `onderzoek` 23, 28, 29, 32, 33, 39, 44, 55,
+62, 78, 79, 80, 84, 85, 86, 88, 152, 305 · `onderzoeksdebat` 53 ·
+`onderzoeksethiek` 215 · `onderzoekskritiek` 52, 415 · `ongemak` 323 ·
+`ongeneeslijke ziekte` 285 · `online ondernemen` 309 · `onsterfelijkheid` 236,
+405 · `onthechting` 462 · `ontmoeten` 304 · `ontmoeting` 572 · `ontologie` 344
+· `ontslagen` 47 · `ontwerp` 550 · `ontwikkeling` 46, 85 ·
+`ontwikkelingslanden` 234 · `onvolmaaktheid` 379 · `onzekerheid` 268, 341,
+375, 423, 515, 516 · `oordeel` 59, 69 · `oorlog` 31, 57, 66, 364, 568 ·
+`oorlogvoering` 218 · `oorsprong` 599 · `opdrachten` 116 · `opgetekend` 97 ·
+`opgeven` 249 · `opgroeien` 4, 295 · `opoffering` 554 · `opties` 494, 495, 506
+· `optimisme` 251 · `optogenetica` 331 · `opvoeding` 3, 23, 29, 44, 53, 73,
+162, 193, 290 · `opwekking` 558 · `orale traditie` 522 · `orde` 73, 74 ·
+`organisatie` 28, 41, 69, 238, 388, 422, 468 · `organisatiecultuur` 183, 273,
+353 · `orthodontie` 332 · `Orwell` 54 · `Otto Rank` 405 · `oud china` 272 ·
+`Oude Rome` 328 · `Oudengels` 532 · `ouder-worden` 5 · `ouderdom` 77, 84, 91,
+95, 191, 402, 416 · `oudheid` 2, 247, 292, 536, 537, 588, 589 · `outsourcen`
+278 · `overdenken` 148 · `overfitting` 484, 485, 502, 503 · `overgave` 431 ·
+`overleven` 31, 36 · `overlevingsvertekening` 64 · `overtuigen` 24, 182, 253,
+356, 367, 438 · `overtuiging` 280 · `overtuigingen` 28, 132, 139, 143, 469,
+487 · `overvloed` 17 · `oxytocine` 458 · `Pacific` 31 · `pacifisme` 240, 612 ·
 `Padma-onderscheiding` 189 · `palliatieve zorg` 416, 447 · `para` 81 ·
 `parabel` 38, 244, 246 · `paradigma` 543 · `paranormaal` 340, 362 · `passie`
 50, 198 · `pastoraat` 34 · `patiëntenverhalen` 331 · `patiëntverhalen` 414 ·
@@ -120633,35 +122492,35 @@ literatuur` 235 · `rust` 32 · `SaaS` 434 · `sadisme` 223 · `saga` 533 ·
 564 · `slaap` 52, 87, 88, 171, 181, 316, 329, 414 · `slaapapneu` 332 ·
 `slavernij` 68 · `smartphone` 53, 288 · `sociale besmetting` 303 · `sociale
 media` 53, 70, 194, 198, 204, 288, 365 · `sociale psychologie` 215, 280, 302,
-319 · `sociale-vaardigheden` 398 · `sociologie` 300, 622 · `soefisme` 524, 526
-· `software` 276, 484 · `somberheid` 119 · `spanning` 101 · `sparen` 21, 38,
-159, 233, 464 · `Sparta` 529 · `specialisatie` 349 · `speedreading` 175 ·
-`spel` 550 · `spelen` 32 · `spellen` 392 · `speltheorie` 217, 221, 450, 451,
-452, 453, 454, 455, 456 · `spiegelneuronen` 303 · `spiegeloefening` 380 ·
-`spiegelogie` 108 · `spieropbouw` 316 · `spijt` 447 · `spiritualiteit` 8, 14,
-27, 102, 108, 141, 149, 160, 169, 184, 190, 195, 196, 199, 242, 310, 358, 377,
-431, 435, 449, 519, 526, 556, 583, 590, 596, 603, 604, 614 · `spirituele
-zoektocht` 287, 524 · `sport` 20, 349 · `sportpsychologie` 372, 374, 441 ·
-`sportwetenschap` 461 · `spreekangst` 253 · `spreker` 117, 134 ·
-`staartrisico` 494, 496 · `staat` 612 · `staatsgreep` 220 · `staatskritiek`
-621, 622, 623 · `staatsvorming` 622 · `stalking` 214 · `standaarden` 396 ·
-`Stanford` 150, 388, 458 · `start-ups` 306 · `startups` 265 · `statistiek` 55,
-65, 69, 234, 268, 300, 426, 476, 479, 483, 484, 485, 497, 500, 502, 503, 507 ·
-`statistiek van uitzonderingen` 274 · `status` 39, 66, 463 · `stereotypen` 562
-· `sterfelijkheid` 2, 71, 232, 295, 416, 516 · `sterrenkunde` 99 · `sterven`
-49, 95, 275, 447 · `stijl` 18, 436 · `stoicijns` 75, 140, 142 · `stoïcijnse
-filosofie` 153, 228, 232, 286, 423, 459 · `stoïcijnse levenshouding` 402 ·
-`stoïcijnse-houding` 462 · `stoïcisme` 2, 30, 194, 247, 248, 292, 516, 586 ·
-`stommiteit` 155 · `storytelling` 253, 279 · `strategie` 212, 217, 218, 219,
-249, 250, 260, 272, 293, 306, 346, 353, 370, 426, 440, 443, 450, 451, 456 ·
-`streken` 112 · `stress` 80, 87, 106, 118, 187, 387, 458 · `stressmanagement`
-153 · `stressregulatie` 372 · `strip` 452 · `structuur` 82, 511 · `studieboek`
-421, 437, 497, 498, 507 · `studietechniek` 420 · `succes` 75, 76, 274 ·
-`superkrachten` 203 · `supplementen` 171, 316 · `surveillance` 393 ·
-`syllogismen` 437 · `symboliek` 357, 360, 522, 605, 608, 610 ·
-`synchroniciteit` 362 · `synchronisatie` 303 · `systeem` 22, 142 ·
-`systeemtheorie` 165 · `systematisch handelen` 482, 502 · `taal` 26, 27, 436 ·
-`taal en macht` 344 · `tactische empathie` 271 · `talent` 23, 29, 274 ·
+319 · `sociale-vaardigheden` 398 · `socialisme` 618 · `sociologie` 300, 622 ·
+`soefisme` 524, 526 · `software` 276, 484 · `somberheid` 119 · `spanning` 101
+· `sparen` 21, 38, 159, 233, 464 · `Sparta` 529 · `specialisatie` 349 ·
+`speedreading` 175 · `spel` 550 · `spelen` 32 · `spellen` 392 · `speltheorie`
+217, 221, 450, 451, 452, 453, 454, 455, 456 · `spiegelneuronen` 303 ·
+`spiegeloefening` 380 · `spiegelogie` 108 · `spieropbouw` 316 · `spijt` 447 ·
+`spiritualiteit` 8, 14, 27, 102, 108, 141, 149, 160, 169, 184, 190, 195, 196,
+199, 242, 310, 358, 377, 431, 435, 449, 519, 526, 556, 583, 590, 596, 603,
+604, 614 · `spirituele zoektocht` 287, 524 · `sport` 20, 349 ·
+`sportpsychologie` 372, 374, 441 · `sportwetenschap` 461 · `spreekangst` 253 ·
+`spreker` 117, 134 · `staartrisico` 494, 496 · `staat` 612 · `staatsgezag` 616
+· `staatsgreep` 220 · `staatskritiek` 621, 622, 623 · `staatsvorming` 622 ·
+`stalking` 214 · `standaarden` 396 · `Stanford` 150, 388, 458 · `start-ups`
+306 · `startups` 265 · `statistiek` 55, 65, 69, 234, 268, 300, 426, 476, 479,
+483, 484, 485, 497, 500, 502, 503, 507 · `statistiek van uitzonderingen` 274 ·
+`status` 39, 66, 463 · `stereotypen` 562 · `sterfelijkheid` 2, 71, 232, 295,
+416, 516 · `sterrenkunde` 99 · `sterven` 49, 95, 275, 447 · `stijl` 18, 436 ·
+`stoicijns` 75, 140, 142 · `stoïcijnse filosofie` 153, 228, 232, 286, 423, 459
+· `stoïcijnse levenshouding` 402 · `stoïcijnse-houding` 462 · `stoïcisme` 2,
+30, 194, 247, 248, 292, 516, 586 · `stommiteit` 155 · `storytelling` 253, 279
+· `strategie` 212, 217, 218, 219, 249, 250, 260, 272, 293, 306, 346, 353, 370,
+426, 440, 443, 450, 451, 456 · `streken` 112 · `stress` 80, 87, 106, 118, 187,
+387, 458 · `stressmanagement` 153 · `stressregulatie` 372 · `strip` 452 ·
+`structuur` 82, 511 · `studieboek` 421, 437, 497, 498, 507 · `studietechniek`
+420 · `succes` 75, 76, 274 · `superkrachten` 203 · `supplementen` 171, 316 ·
+`surveillance` 393 · `syllogismen` 437 · `symboliek` 357, 360, 522, 605, 608,
+610 · `synchroniciteit` 362 · `synchronisatie` 303 · `systeem` 22, 142 ·
+`systeemtheorie` 165 · `systematisch handelen` 482, 502 · `taal` 26, 27, 436,
+594 · `taal en macht` 344 · `tactische empathie` 271 · `talent` 23, 29, 274 ·
 `taoïsme` 341, 394 · `tarieven` 121 · `teams` 42, 273, 364, 468 ·
 `teamvorming` 260 · `teamwork` 156, 256 · `techniek` 1, 6, 43, 61, 92 ·
 `technische analyse` 483, 500 · `technologie` 160, 288, 294, 306, 393, 499 ·
@@ -120674,12 +122533,12 @@ filosofie` 153, 228, 232, 286, 423, 459 · `stoïcijnse levenshouding` 402 ·
 120, 121, 122, 145, 466 · `Thermopylae` 529 · `thriller` 101, 202 ·
 `thuiskomst` 531 · `thuiszorg` 225 · `tieners` 193 · `tijd` 71, 232, 262, 292,
 334, 442 · `tijdmanagement` 434 · `tijdsbeleving` 326 · `timemanagement` 311,
-448 · `toekomst` 236 · `toeval` 21, 64, 93, 137, 274, 362, 483 · `Tolteeks` 27
-· `toon` 72, 118, 119, 121, 132, 145 · `topprestatie` 374 · `topsport` 422,
-460, 545 · `totalitarisme` 384 · `trading` 492, 493, 495 · `training` 376 ·
-`transpersoonlijke psychologie` 583 · `trauma` 104, 119, 195, 229, 317, 386 ·
-`trendvolgen` 480, 501 · `trilling` 127 · `trilogie` 202, 203, 248 · `TRIZ`
-471 · `Troje` 530 · `tuinontwerp` 205 · `tumoronderdrukker` 419 ·
+448 · `tirannie` 617 · `toekomst` 236 · `toeval` 21, 64, 93, 137, 274, 362,
+483 · `Tolteeks` 27 · `toon` 72, 118, 119, 121, 132, 145 · `topprestatie` 374
+· `topsport` 422, 460, 545 · `totalitarisme` 384 · `trading` 492, 493, 495 ·
+`training` 376 · `transpersoonlijke psychologie` 583 · `trauma` 104, 119, 195,
+229, 317, 386 · `trendvolgen` 480, 501 · `trilling` 127 · `trilogie` 202, 203,
+248 · `TRIZ` 471 · `Troje` 530 · `tuinontwerp` 205 · `tumoronderdrukker` 419 ·
 `twaalf-weken` 14 · `twaalfde eeuw` 525 · `tweede-wereldoorlog` 115 ·
 `tweelingonderzoek` 417 · `twintigers` 51 · `typologie` 361 · `ufo's` 615 ·
 `uitdaging-vaardigheid` 200 · `uitgeven` 463 · `uitleg` 99, 102 · `uitleggen`
@@ -120719,7 +122578,7 @@ goud` 533 · `vervolg` 74, 131 · `vervreemding` 173 · `verwachting` 387 ·
 stellen` 509 · `vragen-stellen` 475 · `vreemden` 302 · `vreugde` 549 ·
 `vriendelijkheid` 551 · `vriendschap` 5, 7, 114, 292, 295, 319, 514 · `vrije
 markt` 627 · `vrije tijd` 78, 288 · `vrije wil` 10, 236, 339 · `vrijheid` 61,
-546, 621, 626 · `vrijmetselarij` 605 · `vroeg christendom` 614 · `vroeg
+546, 620, 621, 626 · `vrijmetselarij` 605 · `vroeg christendom` 614 · `vroeg
 pensioen` 264 · `vrouwenhaat` 110 · `waardebeleggen` 144, 351 ·
 `waardecreatie` 246, 508 · `waarden` 72, 142, 392, 457, 461, 553 ·
 `waardering` 24, 34 · `waarheid` 263 · `waarneming` 154, 283, 322, 541, 582 ·

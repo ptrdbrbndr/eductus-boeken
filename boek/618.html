@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Iron Heel &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="London stelt tegenover het socialistische vooruitgangsgeloof van zijn tijd een sombere voorspelling: het kapitalisme zal bij bedreiging geen plaats maken…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-618">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">618 &middot; Roman en memoir</p>
+    <h1>The Iron Heel</h1>
+    <p class="lede">Jack London, 1908</p>
+    <p class="stats">
+      <span><b>1091</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="618"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>London stelt tegenover het socialistische vooruitgangsgeloof van zijn tijd een sombere voorspelling: het kapitalisme zal bij bedreiging geen plaats maken voor de heilstaat; het zal zich samentrekken tot een naakte oligarchie die drie eeuwen kan standhouden met huurlingen, gekochte vakbonden en religieuze zelfrechtvaardiging. De roman betoogt dat een heersende klasse die zich in het nauw gedreven weet elke schijn van democratie zal afwerpen, en dat de weg naar een rechtvaardige samenleving over generaties van verpletterde opstanden loopt.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Een manuscript met voetnoten</h3>
+      <p>De roman opent met een voorwoord van Anthony Meredith, een historicus die eeuwen na de gebeurtenissen leeft, nadat de oligarchie drie eeuwen heeft geheerst en uiteindelijk heeft plaatsgemaakt voor de Broederschap van de Mens. Meredith bezorgt het onvoltooide manuscript van Avis Everhard en voorziet het van voetnoten die begrippen uit de kapitalistische oertijd uitleggen aan zijn eigen tijdgenoten. Die constructie werkt twee kanten op: de lezer weet vooraf dat de komende opstand mislukt, en tegelijk dat de onderdrukking niet het laatste woord heeft.</p>
+      <h3>Ernest Everhard aan tafel</h3>
+      <p>Avis, dochter van de Berkeleyse natuurkundige John Cunningham, ontmoet Ernest Everhard als haar vader hem uitnodigt bij een diner met geestelijken. Everhard, autodidact en oud-smid, zet er zijn economische lessen uiteen, met de meerwaardeleer als kern: arbeiders produceren meer dan ze aan loon terugzien, en dat overschot zoekt wereldwijd afzet tot het systeem vastloopt. Bij een genootschap van industriëlen krijgt hij het eerlijkste antwoord van het boek, uit de mond van de oligarch Wickson: geen argumenten, maar macht, en een antwoord in granaten en mitrailleurvuur voor wie naar de paleizen reikt.</p>
+      <h3>De zaak-Jackson</h3>
+      <p>Avis onderzoekt op Everhards aandringen de zaak van de arbeider Jackson, die zijn arm verloor in een fabrieksmachine en zonder schadevergoeding op straat staat. Ze ontdekt dat advocaat, rechter, krant en zelfs collega's allemaal aan de kant van het bedrijf staan, elk uit begrijpelijk eigenbelang. Die ontdekking radicaliseert haar. Haar vader verliest zijn leerstoel en zijn vermogen als hij zich bij de socialisten aansluit, en bisschop Morehouse, die na een gewetenscrisis het evangelie letterlijk gaat naleven en zijn bezit aan de armen geeft, wordt krankzinnig verklaard en opgesloten.</p>
+      <h3>De Hiel daalt neer</h3>
+      <p>Wanneer de socialisten electoraal groeien, werpt de plutocratie het masker af. De middenstand wordt tussen trusts vermalen, de grote vakbonden van spoor en staal worden met privileges losgekocht van de rest van de arbeidersklasse, en een huurlingenleger vervangt de militie. Everhard wordt als congreslid met een in scène gezette bomaanslag in het Capitool tot staatsgevaar verklaard en verdwijnt in de gevangenis. Na zijn ontsnapping leiden hij en Avis vanuit de ondergrondse een netwerk van agenten en dubbelspionnen tegen wat inmiddels de IJzeren Hiel heet.</p>
+      <h3>De Commune van Chicago</h3>
+      <p>De oligarchie lokt de eerste opstand voortijdig uit. In Chicago wordt het volk van de afgrond, de tot wanhoop gebrachte onderklasse, de straat op gedreven en door bommenwerpers en huurlingen afgeslacht; Avis beschrijft de menigte als een redeloos geworden oerkracht die London met huiver en mededogen tegelijk tekent. Het manuscript breekt midden in een zin af, vlak voor de tweede opstand van 1932. Een voetnoot van Meredith meldt droog dat Ernest Everhard dat jaar is terechtgesteld en dat er nog eeuwen van oligarchie zouden volgen.</p>
+      <h3>Ontvangst en nawerking</h3>
+      <p>Bij verschijnen in 1908 stelde het boek ook geestverwanten teleur: de socialistische pers vond het defaitistisch en te gewelddadig. De herwaardering kwam later. Trotski prees in 1937 hoe London de logica van het fascisme decennia vooruit had gedacht, Anatole France schreef een bewonderend voorwoord bij de Franse editie, en Orwell oordeelde in 1940 dat London het fascisme kon voorzien omdat hij de aantrekkingskracht van geweld zelf kende. Het raamwerk van gevonden document met geleerde annotatie keert herkenbaar terug in de dystopische traditie tot en met <i>Nineteen Eighty-Four</i>.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">de IJzeren Hiel</td><td>Everhards naam voor de oligarchie waarin de trusts zich verenigen zodra hun macht electoraal bedreigd wordt.</td></tr>
+          <tr><td class="term">het Everhard-manuscript</td><td>De gevonden-documentvorm van de roman: Avis' onvoltooide ooggetuigenverslag, eeuwen later geannoteerd.</td></tr>
+          <tr><td class="term">Broederschap van de Mens</td><td>Het tijdperk van waaruit bezorger Meredith terugkijkt, de samenleving die na drie eeuwen oligarchie ontstond.</td></tr>
+          <tr><td class="term">meerwaarde</td><td>De aan Marx ontleende kern van Everhards lessen: het onbetaalde deel van de arbeid dat als winst afzet moet vinden.</td></tr>
+          <tr><td class="term">bevoorrechte vakbonden</td><td>De grote bonden die de oligarchie met hoge lonen loskoopt van de rest van de arbeidersklasse.</td></tr>
+          <tr><td class="term">de Huurlingen</td><td>Het beroepsleger waarmee de oligarchie de militie vervangt en opstanden neerslaat.</td></tr>
+          <tr><td class="term">het volk van de afgrond</td><td>Londons benaming, ontleend aan zijn eigen reportagewerk, voor de tot wanhoop gebrachte onderklasse.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Als roman bewijst het boek niets, maar het leunt op materiaal dat London kende. Voor de onderklasse putte hij uit <i>The People of the Abyss</i> (1903), zijn eigen reportage uit de sloppen van Londen, en als rondreizend socialistisch spreker kende hij de arbeidsconflicten van zijn tijd van dichtbij; de gewelddadige onderdrukking van stakingen in het Amerika van rond 1900 was geen fictie. De economische colleges van Everhard volgen de toen gangbare marxistische analyse.</p>
+      <p>De voorspellende waarde is gemengd. De concrete tijdlijn kwam niet uit: geen Amerikaanse oligarchie in 1913, geen commune in Chicago. Het mechanisme dat London beschrijft, een bedreigde elite die democratische vormen afwerpt, knokploegen en propaganda inzet en delen van de arbeidersklasse loskoopt, vertoont wel treffende gelijkenis met het fascisme dat vijftien jaar na verschijnen in Europa opkwam, en dat is precies waarom Trotski en Orwell het boek serieus namen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het bekendste bezwaar is literair: de roman bevat lange redevoeringen en economische colleges die het verhaal stilleggen, en Avis is als vertelster vooral een bewonderaarster, waardoor Everhard meer standbeeld dan mens wordt. Critici wijzen ook op de spanning tussen Londons socialisme en zijn verering van de sterke man: Everhard wordt met Nietzscheaanse trekken neergezet, en Orwell zag daarin de sleutel tot het boek, de schrijver die het fascisme begreep omdat de hang naar kracht hem zelf vertrouwd was.</p>
+      <p>Politiek is het boek eenzijdig: de tegenstander bestaat vrijwel geheel uit cynici en gekochte zielen, en de mogelijkheid dat democratische instellingen zich zonder bloedbad kunnen verweren komt nauwelijks in beeld. De vreedzame hervormingsweg die het Amerikaanse socialisme in 1908 zelf voorstond, wordt weggezet als naïef, wat de lauwe ontvangst in eigen kring verklaart. Wie het nu leest, moet bovendien door gedateerd pathos heen; de blijvende waarde zit in het mechanisme van de machtsgreep, dat in de twintigste eeuw herkenbaar terugkeerde.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Iron Heel</i> (oorspronkelijk Macmillan, New York, 1908; geraadpleegde editie Penguin Classics, 2006, 288 blz., ISBN 9780143039716, bezorgd en ingeleid door Jonathan Auerbach). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Dystopische roman van Jack London uit 1908, vermomd als historisch document. Het boek presenteert zich als het teruggevonden manuscript van Avis Everhard, geschreven tussen 1912 en 1932 en ruim zeven eeuwen later bezorgd en van voetnoten voorzien door de geleerde Anthony Meredith, die leeft in het tijdperk van de Broederschap van de Mens. Avis beschrijft hoe haar man Ernest, socialistisch arbeidersintellectueel, voorziet dat het Amerikaanse grootkapitaal zich aaneensluit tot een oligarchie, de IJzeren Hiel, die de middenklasse vermorzelt, bevoorrechte vakbonden koopt en de eerste opstand in bloed smoort. Het manuscript breekt midden in een zin af.</p><p>Bij verschijnen reageerde ook de socialistische pers lauw, maar Trotski prees in 1937 de vooruitziende blik en George Orwell noemde London een van de weinigen die het fascisme zag aankomen. Het boek geldt als voorloper van de moderne dystopie van Zamjatin, Huxley en Orwell.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>dystopie</li><li>socialisme</li><li>oligarchie</li><li>klassieker</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="61"><a href="61.html">Brave New World</a>. Brave New World beschrijft de omgekeerde dystopie, waarin genot in plaats van de laars de bevolking stilhoudt.</li>
+          <li value="566"><a href="566.html">Manufacturing Consent</a>. Manufacturing Consent analyseert zonder fictie hoe pers en instituties de kant van de macht kiezen, het mechanisme uit de zaak-Jackson.</li>
+          <li value="221"><a href="221.html">The Dictator's Handbook</a>. The Dictator's Handbook legt de logica bloot waarmee oligarchieën sleutelgroepen loskopen, zoals de Hiel de grote vakbonden.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

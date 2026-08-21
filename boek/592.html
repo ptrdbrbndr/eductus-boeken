@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yurugu &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Ani stelt dat elke cultuur een asili heeft, een kiem die al haar uitingen richt, en dat de asili van de Europese cultuur bestaat uit afscheiding en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-592">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">592 &middot; Geschiedenis en samenleving</p>
+    <h1>Yurugu</h1>
+    <p class="lede">Marimba Ani, 1994</p>
+    <p class="stats">
+      <span><b>1372</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="592"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Ani stelt dat elke cultuur een asili heeft, een kiem die al haar uitingen richt, en dat de asili van de Europese cultuur bestaat uit afscheiding en beheersing. Uit die kiem groeien een denkstijl, het utamawazo, die de wereld opdeelt in tegenstellingen en alles tot object maakt, en een collectief temperament, het utamaroho, dat zich voedt met macht over anderen. De beleden moraal van naastenliefde en universele waarden is in haar analyse een retorische ethiek: bedoeld om buitenstaanders te ontwapenen, zonder gezag over het feitelijke gedrag. Europa gedraagt zich daarmee als Yurugu uit de Dogon-mythe, het wezen dat zonder zijn vrouwelijke helft ter wereld kwam, onvolledig bleef en wanorde sticht.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Drie werktuigen: asili, utamawazo, utamaroho</h3>
+      <p>Het boek opent met een cultuurtheorie. Ani munt drie termen, ontleend aan het Kiswahili: de asili als kiem of grondpatroon van een cultuur, het utamawazo als de cultureel gevormde denkwijze en het utamaroho als de bezielende geestkracht of het collectieve temperament. Een cultuur is in haar ogen geen losse verzameling gebruiken; alle onderdelen voeren het program van de asili uit. Zij kondigt aan dat het boek een opzettelijk agressieve polemiek is, geschreven vanuit een Afrikaans gezichtspunt, en bouwt voort op de these van Cheikh Anta Diop dat Europa en Afrika uit verschillende culturele wiegen stammen.</p>
+      <p>De titel geeft het oordeel vooraf mee. In de kosmologie van de Dogon in Mali is Yurugu de bleke vos: een wezen dat tegen de scheppingsorde in zonder zijn vrouwelijke tweelinghelft ontstond, daardoor onvolledig bleef en rusteloos wanorde zaait. Ani koos die figuur bewust uit een Afrikaanse overlevering; de maat waaraan Europa wordt gemeten is daarmee zelf Afrikaans, en de diagnose luidt onvolledigheid in plaats van kwaadaardigheid.</p>
+      <h3>Utamawazo: denken volgens Plato</h3>
+      <p>Het eerste hoofdstuk legt de wortel van het Europese denken bij Plato. Diens kentheorie scheidt de kenner van het gekende, stelt de abstractie boven de geleefde ervaring en zet rede tegenover gevoel en lichaam. Uit die scheidingen groeien volgens Ani de kenmerken van het utamawazo: dichotomisering, objectivering en wat zij scientisme noemt, het geloof dat alleen meetbare kennis telt. De lijn loopt door via Descartes en de Verlichting naar de moderne wetenschap, die de wereld tot materiaal voor beheersing maakt, de natuur inbegrepen.</p>
+      <h3>Religie, ideologie en esthetiek</h3>
+      <p>Twee hoofdstukken behandelen godsdienst en schoonheidsleer als dragers van hetzelfde patroon. Het Europese christendom is in Ani's lezing vroeg samengesmolten met staatsmacht en diende in de zending en de kolonisatie als ideologie die verovering tot beschavingswerk omdoopte. De esthetiek doet vergelijkbaar werk: normen voor schoonheid, kunst en zelfs lichaamsbouw worden als universeel gepresenteerd, waardoor al het andere als minder verschijnt. Symbolen zijn voor Ani machtsmiddelen, en wie de verbeelding van een volk bezet, hoeft het niet meer te bewaken.</p>
+      <h3>Zelfbeeld en de culturele ander</h3>
+      <p>De middenhoofdstukken beschrijven het Europese zelfbeeld als beschaver en wereldverbeteraar, en het spiegelbeeld daarvan: de culturele ander. Wie buiten de eigen cultuur valt, wordt als wild, heidens of achterlijk voorgesteld en daarmee tot geoorloofd object van verovering, bekering en uitbuiting. Ani betoogt dat dit beeldenpaar geen bijverschijnsel van de expansie was, maar er de voorwaarde voor vormde; de vernietiging van anderen kon zo worden beleefd als dienst aan de mensheid.</p>
+      <h3>Gedrag en de retorische ethiek</h3>
+      <p>Vervolgens verschuift de aandacht van denken naar doen. Ani onderscheidt het gedrag binnen de eigen cultuur van het gedrag tegenover buitenstaanders en constateert een dubbele standaard die volgens haar geen incident is; zij is stelselmatig. Hier introduceert zij de retorische ethiek: morele beginselen die met overtuiging worden uitgedragen, juist omdat zij tegenover de ander niet als gedragsnorm bedoeld zijn. Verdragen die gesloten en gebroken werden, zending die aan onderwerping voorafging en ontwikkelingshulp met voorwaarden dienen als illustraties.</p>
+      <p>De retorische ethiek werkt in Ani's analyse naar twee kanten. Zij ontwapent de tegenpartij, die de beleden beginselen voor gedragsnormen aanziet en verdragen en beloften vertrouwt. En zij stelt de eigen groep gerust: wie de expansie als beschavingswerk en het eigen land als hoeder van vrijheid kan blijven zien, hoeft het feitelijke gedrag niet onder ogen te komen. Huichelarij is in deze lezing geen persoonlijke ondeugd van enkelingen; zij is een cultureel gewaardeerde vaardigheid.</p>
+      <h3>Universalisme, vooruitgang en het slot</h3>
+      <p>De slothoofdstukken behandelen de ideologie van de Europese wereldoverheersing. Vooruitgang en universalisme zijn daarin de sleutelwoorden: het eigen pad wordt tot maat van de mensheid verklaard, waarna gelijkschakeling van andere culturen als hulp kan gelden. Ani noemt dit de syntaxis van het culturele imperialisme, de grammatica waarin overheersing wordt uitgesproken als altruïsme. Het slot keert terug naar de mythe: Europa als Yurugu, onvolledig en rusteloos. Genezing zoekt zij in Afrikaanse zelfdefinitie, in herstel van het geestelijke naast het stoffelijke en in ritueel als hersteltechniek.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">asili</td><td>De kiem of het grondpatroon van een cultuur, dat al haar uitingen richting geeft; bij Europa volgens Ani afscheiding en beheersing.</td></tr>
+          <tr><td class="term">utamawazo</td><td>De cultureel gestructureerde denkwijze, bij Europa gekenmerkt door dichotomisering, objectivering en scientisme.</td></tr>
+          <tr><td class="term">utamaroho</td><td>De bezielende geestkracht of het collectieve temperament van een cultuur, de energie achter haar gedrag.</td></tr>
+          <tr><td class="term">retorische ethiek</td><td>Moraal die naar buiten toe wordt uitgedragen zonder als gedragsnorm bedoeld te zijn, en zo de medewerking van anderen wint.</td></tr>
+          <tr><td class="term">culturele ander</td><td>Degene die buiten de cultuur wordt geplaatst en daardoor als geoorloofd object van verovering en uitbuiting geldt.</td></tr>
+          <tr><td class="term">universalisme</td><td>Het uitroepen van de eigen waarden tot maat van de hele mensheid, door Ani de syntaxis van het culturele imperialisme genoemd.</td></tr>
+          <tr><td class="term">Maafa</td><td>Door Ani gemunte Kiswahili-term, grote ramp, voor slavenhandel en kolonisatie als één doorlopende catastrofe.</td></tr>
+          <tr><td class="term">Yurugu</td><td>Figuur uit de Dogon-mythologie, zonder vrouwelijke helft geschapen en daardoor onvolledig; Ani's beeld voor de Europese cultuur.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een studie van 636 bladzijden met een uitgebreid notenapparaat en een begrippenlijst, voortgekomen uit Ani's academische werk; zij promoveerde in de antropologie aan de New School for Social Research en doceerde tientallen jaren aan Hunter College in New York. Haar materiaal is de Europese canon zelf: Plato, kerkvaders, verlichtingsdenkers, antropologen en historici, gelezen als getuigen van één cultuurpatroon. Op de feiten van kolonisatie, slavenhandel en zending waarop zij wijst, valt weinig af te dingen.</p>
+      <p>De bewijsvoering kent een aangekondigde beperking: Ani noemt het boek zelf een opzettelijk agressieve polemiek. Bronnen zijn geselecteerd op wat het patroon bevestigt en een toets waaraan de these zou kunnen sneuvelen ontbreekt. Aangetoond wordt dat de Europese traditie veel materiaal bevat dat in het patroon past; dat het patroon die traditie als geheel verklaart, volgt daar niet uit.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het hoofdbezwaar is essentialisme. Ani behandelt tweeënhalf millennium Europese geschiedenis, van Plato tot na de Koude Oorlog, als uitvloeisel van één onveranderlijke kiem, en moet daarvoor alle interne verschillen wegdrukken: tussen christendom en Verlichting, tussen kapitalisme en marxisme, tussen kolonisatoren en de Europese critici van kolonisatie. De historicus Stephen Howe, die het boek in <i>Afrocentrism: Mythical Pasts and Imagined Homes</i> (1998) uitvoerig bespreekt, rekent het tot de meest doorgevoerde vorm van cultuurnationalisme in de Afrocentrische literatuur en wijst erop dat de redeneervorm het spiegelbeeld is van het raciale denken dat het boek bestrijdt.</p>
+      <p>Daar komt bij dat de asili als verklaring onweerlegbaar is ingericht: gedrag dat het patroon bevestigt telt als bewijs, en afwijkend gedrag telt via de retorische ethiek als bevestiging op een dieper niveau. Binnen de universitaire antropologie heeft het boek dan ook weinig weerklank gevonden. Zijn invloed ligt in Africana studies en in activistische en culturele kringen, waar het begrippenapparaat, tot en met de term Maafa in herdenkingspraktijken, gemeengoed werd. Wie het leest, krijgt een samenhangend en soms scherpzinnig instrumentarium, gemonteerd op een fundament dat de eigen toetsing uitsluit.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik asili, utamawazo en utamaroho als analysevragen voor willekeurig welke cultuur of organisatie; het instrument is los van de these bruikbaar.</li>
+        <li>Let bij instellingen op de afstand tussen beleden waarden en feitelijk gedrag; de retorische ethiek is als toets goed te hanteren.</li>
+        <li>Zoek bij elke geponeerde cultuurtegenstelling ten minste twee tegenvoorbeelden binnen de Europese traditie voordat het patroon geloofd wordt.</li>
+        <li>Lees het boek naast een postkoloniale klassieker om te zien waar cultuurkritiek in essentialisme overgaat.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Yurugu: An African-Centered Critique of European Cultural Thought and Behavior</i> (Africa World Press, Trenton NJ, 1994, xxviii + 636 blz., ISBN 9780865432499; gebonden editie ISBN 9780865432482). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Omvangrijke cultuurkritiek van de Amerikaanse antropologe Marimba Ani, jarenlang docent Africana studies aan Hunter College. De titel verwijst naar de Dogon-mythe van Yurugu, een wezen dat zonder zijn vrouwelijke helft geschapen werd en daardoor onvolledig bleef. Zo leest Ani de Europese cultuur: gedreven door een asili, een kiem, van afscheiding en beheersing, met een denkstijl (utamawazo) die de wereld in tegenstellingen opdeelt en een collectief temperament (utamaroho) dat op overheersing is gericht. De beleden moraal van universele waarden noemt zij een retorische ethiek voor de buitenwacht.</p><p>Het boek, door de auteur zelf een opzettelijk agressieve polemiek genoemd, werd invloedrijk in Africana studies en activistische kringen. Academische critici, onder wie Stephen Howe, verwijten het essentialisme: tweeënhalf millennium Europese geschiedenis wordt tot één onveranderlijke kiem herleid, met een redeneervorm die spiegelbeeldig is aan het racisme dat het bestrijdt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>cultuurkritiek</li><li>afrocentrisme</li><li>kolonialisme</li><li>filosofie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="521"><a href="521.html">Indigenous and Popular Thinking in América</a>. Indigenous and Popular Thinking in América onderneemt vanuit Zuid-Amerika een verwante kritiek op Europese denkcategorieën, met meer veldwerk en minder systeem.</li>
+          <li value="523"><a href="523.html">I Write What I Like</a>. I Write What I Like formuleert de psychologische kant van dekolonisatie waarop Ani haar cultuurtheorie laat aansluiten.</li>
+          <li value="269"><a href="269.html">The Story of Philosophy</a>. The Story of Philosophy presenteert de canon van Plato tot in de moderne tijd die Ani als één cultuurpatroon leest; naast elkaar gelegd wordt het contrast zichtbaar.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
