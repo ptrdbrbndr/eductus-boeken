@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Man Who Knew Infinity &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Kanigel stelt dat het leven van Ramanujan toont wat er gebeurt wanneer wiskundig talent van de hoogste orde opgroeit buiten elke vakgemeenschap: er…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-649">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">649 &middot; Natuur en wetenschap</p>
+    <h1>The Man Who Knew Infinity</h1>
+    <p class="lede">Robert Kanigel, 1991</p>
+    <p class="stats">
+      <span><b>1222</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="649"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Kanigel stelt dat het leven van Ramanujan toont wat er gebeurt wanneer wiskundig talent van de hoogste orde opgroeit buiten elke vakgemeenschap: er ontstaat een denker die langs eigen wegen resultaten vindt die niemand anders had kunnen vinden, en die tegelijk het gereedschap mist om ze te bewijzen of te zien wat al bekend was. De ontmoeting met Hardy was daarom zowel redding als botsing, van intuïtie met strengheid, van tempeltraditie met Cambridge-atheïsme. Het boek betoogt bovendien dat het Britse examenstelsel in koloniaal India dit talent tweemaal bijna had weggegooid, en dat de redding afhing van één brief die toevallig bij de juiste lezer belandde.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Kumbakonam</h3>
+      <p>Ramanujan groeide op in de tempelstad Kumbakonam in het Tamil-sprekende zuiden van India, als oudste zoon van een klerk en een sterke, diepgelovige moeder, Komalatammal. Op school blonk hij uit tot hij rond zijn zestiende <i>A Synopsis of Elementary Results in Pure Mathematics</i> van G.S. Carr in handen kreeg: een naslagwerk met duizenden stellingen zonder bewijzen. Dat boek vormde zijn stijl. Hij werkte de resultaten zelf na, vulde notitieboeken met eigen formules en liet al het andere liggen. Op twee opeenvolgende colleges zakte hij omdat hij buiten wiskunde nergens punten haalde, waarmee elke gebaande weg naar een wetenschappelijke loopbaan afgesloten was.</p>
+      <h3>Klerk in Madras</h3>
+      <p>Jarenlang leefde Ramanujan in armoede, uitgehuwelijkt aan de jonge Janaki, zonder diploma en zonder werk, terwijl hij zijn notitieboeken bleef vullen. Via beschermheren onder Indiase wiskundeliefhebbers kreeg hij een klerkenbaan bij de haven van Madras, de Port Trust, waar zijn chefs hem ruimte gaven voor zijn eigenlijke werk. Kanigel beschrijft hoe een klein netwerk van Indiase en Britse tussenpersonen hem aanmoedigde om zijn resultaten naar Engelse wiskundigen te sturen. Twee vooraanstaande Cambridge-hoogleraren, Baker en Hobson, reageerden niet.</p>
+      <h3>De brief aan Hardy</h3>
+      <p>Op 16 januari 1913 schreef Ramanujan aan G.H. Hardy, met negen dichtbeschreven pagina's formules als bijlage. Hardy hield eerst rekening met bedrog, legde de brief weg, en boog zich er die avond met zijn medewerker Littlewood alsnog over. Hun oordeel: sommige resultaten waren bekend, sommige fout, maar de beste konden alleen waar zijn, want niemand zou de verbeelding hebben ze te verzinnen. Hardy noemde de brief later de meest opmerkelijke die hij ooit ontving en zette de machinerie in gang om Ramanujan naar Cambridge te halen: een beurs in Madras, en de jonge wiskundige Neville als gezant.</p>
+      <h3>Cambridge</h3>
+      <p>Voor een orthodoxe brahmaan gold de zeereis als bezoedeling, en Ramanujan weigerde aanvankelijk. De doorbraak kwam, in de overlevering die Kanigel navertelt, toen zijn moeder droomde dat de familiegodin Namagiri toestemming gaf. In april 1914 kwam hij in Cambridge aan, maanden voor het uitbreken van de oorlog. Er volgden vijf jaar samenwerking met Hardy, met als bekendste resultaat de asymptotische formule voor de partitiefunctie, het aantal manieren om een getal als som te schrijven, verkregen met de later zo genoemde cirkelmethode. Hardy moest hem daarvoor het bewijzen bijbrengen zonder de bron van zijn invallen te beschadigen, een evenwicht dat Kanigel als kern van hun verhouding neerzet.</p>
+      <h3>Ziekte en terugkeer</h3>
+      <p>Het oorlogse Engeland brak hem op: een strenge vegetariër die zijn eigen potje kookte, koude wintersvol ver van huis, brieven uit India die stokten. In 1917 werd hij ziek, kreeg de diagnose tuberculose en zwierf langs sanatoria; na een inzinking deed hij een zelfmoordpoging voor een naderende metro in Londen. Vlak daarna kwam de erkenning: in 1918 werd hij gekozen tot Fellow of the Royal Society, als een van de jongste ooit, en tot fellow van Trinity College. In 1919 keerde hij terug naar India, waar hij nog een jaar doorwerkte aan wat hij mock-thetafuncties noemde. Hij stierf op 26 april 1920, 32 jaar oud. Latere medische analyse wijst eerder op een behandelbare leverinfectie, amoebiasis, dan op tuberculose.</p>
+      <h3>Hardy en de nalatenschap</h3>
+      <p>Het boek is voor een flink deel ook een biografie van Hardy: cricketliefhebber, overtuigd atheïst, pleitbezorger van zuivere wiskunde en van strengheid in het bewijs. Hardy zette op een eigen schaal van natuurlijk talent zichzelf op 25, Littlewood op 30, Hilbert op 80 en Ramanujan op 100. Kanigel volgt de nalatenschap tot in zijn eigen tijd: de notitieboeken die generaties wiskundigen werk gaven, en het verloren gewaande laatste notitieboek dat George Andrews in 1976 in een archief in Cambridge terugvond. Formules van Ramanujan doken later op in de getaltheorie en de natuurkunde van zwarte gaten, wat de vraag voedt waar zijn invallen vandaan kwamen. Zelf zei hij dat een vergelijking voor hem geen betekenis had tenzij zij een gedachte van God uitdrukte.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Carr's Synopsis</td><td>Het naslagwerk met duizenden onbewezen stellingen waaruit Ramanujan zichzelf wiskunde leerde en dat zijn bewijsloze stijl vormde.</td></tr>
+          <tr><td class="term">partitiefunctie</td><td>Telt op hoeveel manieren een getal als som van kleinere getallen te schrijven is; Hardy en Ramanujan vonden er een beroemde benaderingsformule voor.</td></tr>
+          <tr><td class="term">cirkelmethode</td><td>De analytische techniek die uit de samenwerking van Hardy en Ramanujan voortkwam en een standaardgereedschap in de getaltheorie werd.</td></tr>
+          <tr><td class="term">mock-thetafuncties</td><td>De functiefamilie uit Ramanujans laatste levensjaar, pas decennia later goed begrepen en nog altijd onderwerp van onderzoek.</td></tr>
+          <tr><td class="term">Namagiri</td><td>De familiegodin aan wie Ramanujan zijn ingevingen toeschreef en wier gedroomde toestemming de zeereis naar Engeland mogelijk maakte.</td></tr>
+          <tr><td class="term">strengheid</td><td>De eis van sluitend bewijs die Hardy vertegenwoordigde en die Ramanujans intuïtieve werkwijze aanvulde en soms corrigeerde.</td></tr>
+          <tr><td class="term">1729</td><td>Het taxinummer dat Hardy saai noemde en Ramanujan meteen herkende als het kleinste getal dat op twee manieren de som van twee derdemachten is.</td></tr>
+          <tr><td class="term">verloren notitieboek</td><td>De stapel losse bladen met werk uit Ramanujans laatste jaar, in 1976 door George Andrews teruggevonden.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Kanigel is wetenschapsjournalist en geen wiskundige. Hij werkte met archiefmateriaal in Cambridge en Madras, de gepubliceerde briefwisseling, Hardy's eigen geschriften en gesprekken in India, onder meer over de nog levende herinnering aan Ramanujans weduwe Janaki. De feitelijke ruggengraat, data, brieven, benoemingen, is goed gedocumenteerd en wordt door wiskundehistorici als betrouwbaar aanvaard. De wiskunde zelf legt hij in grote lijnen uit, met de partitiefunctie als uitgewerkt voorbeeld, en hij markeert doorgaans eerlijk waar de anekdote ophoudt en de overlevering begint.</p>
+      <p>Waar de bronnen zwijgen, vult Kanigel in. Gevoelens, motieven en huiselijke scènes zijn deels reconstructie, herkenbaar aan formuleringen als wat iemand gevoeld moet hebben. Wie alleen op het gedocumenteerde wil afgaan, kan die passages als sfeertekening lezen zonder dat het feitenverhaal instort.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Wiskundigen hebben opgemerkt dat het boek de wiskunde dun houdt en een enkele keer scheef weergeeft; wie wil begrijpen wat Ramanujan werkelijk deed, moet naar Hardy's colleges over hem of naar de literatuur rond de notitieboeken. Ook is de psychologische invulling ruim bemeten: over Ramanujans binnenwereld, zijn huwelijk en de verhouding met zijn moeder is weinig hard materiaal, en de vertelling wekt meer zekerheid dan de bronnen dragen.</p>
+      <p>Daarnaast kleurt het boek naar het heldenverhaal. De rol van Indiase wiskundigen en beschermheren vóór de brief aan Hardy krijgt minder gewicht dan die van de Britse redders, en de beschrijving van Zuid-Indiase religiositeit blijft die van een welwillende buitenstaander. De medische slotsom is intussen ingehaald: analyse uit 1994 maakt aannemelijk dat geen tuberculose maar hepatische amoebiasis hem doodde, een destijds behandelbare ziekte, wat het einde nog wranger maakt dan Kanigel het al tekent.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Man Who Knew Infinity: A Life of the Genius Ramanujan</i> (Charles Scribner's Sons, New York, 1991, 438 blz., ISBN 9780684192598; heruitgave Washington Square Press/Simon &amp; Schuster, ISBN 9781476763491). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Biografie van de Indiase wiskundige Srinivasa Ramanujan (1887-1920), geschreven door wetenschapsjournalist Robert Kanigel. Ramanujan groeide op in een arm brahmaans gezin in Zuid-India, zakte voor zijn studie omdat hij alles behalve wiskunde verwaarloosde, en werkte als klerk toen hij in 1913 een brief met ruim honderd stellingen naar de Cambridge-wiskundige G.H. Hardy stuurde. Hardy herkende het talent, haalde hem naar Engeland en werkte vijf jaar met hem samen, tot Ramanujan ziek terugkeerde naar India en op 32-jarige leeftijd stierf.</p><p>Kanigel vertelt ook het leven van Hardy, de apostel van het wiskundig bewijs die zijn tegenpool werd, en schetst het koloniale onderwijsstelsel dat dit talent bijna had gesmoord. Het boek werd bekroond en diende als basis voor de gelijknamige film uit 2015 met Dev Patel en Jeremy Irons. Ramanujans notitieboeken leveren tot vandaag nieuwe wiskunde op.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>biografie</li><li>wiskunde</li><li>wetenschapsgeschiedenis</li><li>india</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="240"><a href="240.html">Einstein: His Life and Universe</a>. Einstein: His Life and Universe portretteert een tijdgenoot wiens intuïtie eveneens tegen de gevestigde wetenschap in werkte.</li>
+          <li value="321"><a href="321.html">Longitude: The True Story of a Lone Genius Who Solved the Greatest Scientific Problem of His Time</a>. Longitude vertelt net als dit boek over een buitenstaander zonder opleiding die het wetenschappelijk establishment moest overtuigen.</li>
+          <li value="505"><a href="505.html">A Man for All Markets</a>. A Man for All Markets is het zelfportret van een wiskundige die zijn talent juist wel binnen de instituties tot bloei bracht.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

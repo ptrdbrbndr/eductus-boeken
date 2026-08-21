@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 21
-augustus 2026: 616 titels in 20 rubrieken.
+augustus 2026: 626 titels in 20 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -27,10 +27,10 @@ bij de volgende build verloren.
 | Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140, 174, 189, 194, 229, 247, 248, 286, 289, 323, 324, 372, 373, 374, 375, 389, 457, 460, 467, 470, 513, 545 |
 | Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49, 285, 447 |
 | Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537, 568, 588, 589, 591, 592, 593, 594, 595, 597, 598, 599, 600, 601, 602 |
-| Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347, 383, 413, 539, 555, 659, 660, 661, 662 |
+| Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347, 383, 413, 539, 555, 649, 650, 651, 653, 659, 660, 661, 662 |
 | Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102, 108, 117, 127, 128, 129, 130, 131, 132, 136, 139, 179, 184, 188, 190, 196, 259, 340, 362, 378, 380, 403, 433, 543, 548, 549, 559, 560 |
 | Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122, 327, 421, 437, 456, 477, 478, 493, 495, 497, 498, 500, 504, 506, 507 |
-| Filosofie en mystiek | wijsgerige hoofdwerken en mystieke teksten over wat werkelijk is en hoe te leven | 572, 573, 574, 576, 577, 578, 580, 581, 582, 584, 587, 590, 596, 603, 604, 605, 606, 608, 609, 610, 611, 612, 613, 614, 615 |
+| Filosofie en mystiek | wijsgerige hoofdwerken en mystieke teksten over wat werkelijk is en hoe te leven | 572, 573, 574, 576, 577, 578, 580, 581, 582, 584, 587, 590, 596, 603, 604, 605, 606, 608, 609, 610, 611, 612, 613, 614, 615, 630, 631, 632, 633, 634, 652 |
 | Staat en vrijheid | politieke denkers over macht, gezag en het vrije individu | 616, 617, 619, 620, 621, 622, 623, 624, 625, 626, 627, 628, 629 |
 
 Een titel kan in één rubriek staan en toch tags uit een andere dragen. De tags
@@ -122073,6 +122073,1889 @@ onderzoek.
 oorlogspropaganda en medevolgzame media vanuit de tegenovergestelde politieke
 hoek.
 
+## 630. Sefer Yetzirah: The Book of Creation
+
+anoniem, ca. 2e–6e eeuw. *Sefer Yetzirah: The Book of Creation. In Theory and
+Practice*, vertaald en toegelicht door Aryeh Kaplan (Weiser Books, herziene
+editie 1997, eerste editie 1990, 474 blz., ISBN 9780877288558). Geen
+Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de
+samenvatting is op deze Engelse editie gebaseerd. Rubriek: filosofie en
+mystiek.
+Tags: `kabbala`, `mystiek`, `jodendom`, `esoterie`, `meditatie`
+
+Oudste bewaard gebleven tekst van de joodse mystiek, in omvang niet meer dan
+enkele bladzijden, vermoedelijk ontstaan tussen de tweede en de zesde eeuw.
+Het boekje beschrijft hoe God de wereld schiep langs 32 paden van wijsheid:
+tien sefirot (grondtallen) en de 22 letters van het Hebreeuwse alfabet. Elke
+letter krijgt een plaats in drie lagen van de werkelijkheid: het heelal, het
+jaar en de mens. De latere kabbala ontleent er haar kernbegrippen aan.
+
+De besproken editie is die van rabbijn Aryeh Kaplan, die de vier overgeleverde
+versies naast elkaar zet, de tekst regel voor regel toelicht en hem leest als
+handleiding voor meditatie in plaats van als wijsgerig traktaat. Als bron over
+het ontstaan van het kabbalistische denken is de uitgave goed bruikbaar; de
+meditatieve claims zelf onttrekken zich aan elke controle.
+
+### Uitgebreide samenvatting
+
+**De stelling.** De Sefer Yetzirah stelt dat de schepping een talige daad is:
+God bouwde het heelal met 32 paden van wijsheid, tien sefirot en de 22 letters
+van het Hebreeuwse alfabet, en wie de structuur van die letters doorgrondt,
+raakt aan het bouwplan van de werkelijkheid zelf. Dezelfde letterpatronen
+ordenen volgens de tekst drie lagen tegelijk: de ruimte (het heelal), de tijd
+(het jaar) en de mens (lichaam en ziel). Vertaler Aryeh Kaplan voegt daar een
+tweede these aan toe: de tekst is geen beschrijvende kosmologie maar een
+oefenboek, bedoeld om door lettercombinatie en verbeelding tot mystieke
+ervaring te komen.
+
+#### De gang van het boek
+
+**Een tekst van enkele bladzijden**
+
+De Sefer Yetzirah (Boek van de Vorming) beslaat in de kortste versie zo'n 1300
+woorden. De traditie schrijft hem toe aan aartsvader Abraham; het slot van de
+tekst suggereert die toeschrijving zelf. Taalkundig en inhoudelijk plaatsen
+onderzoekers het ontstaan ergens tussen de tweede en de zesde eeuw, met de
+eerste zekere vermeldingen in de tiende eeuw, toen Saadia Gaon er een
+commentaar op schreef. Er circuleren vier hoofdversies: een korte, een lange,
+de door de Wilnaer Gaon geredigeerde Gra-versie en de versie van Saadia.
+Kaplan neemt de Gra-versie als basistekst en drukt de andere drie in
+appendices af, met het Hebreeuws erbij.
+
+**Tweeëndertig paden en tien sefirot**
+
+Het eerste hoofdstuk opent met de mededeling dat God de wereld 'graveerde' met
+32 wonderbaarlijke paden van wijsheid: tien sefirot belimah en 22 letters. De
+sefirot zijn hier nog geen uitgewerkte emanaties zoals in de latere kabbala,
+maar tien grondtallen die dimensies afbakenen: begin en einde, goed en kwaad,
+de zes windrichtingen, en diepten die 'geen einde' hebben. De tekst hamert op
+het precieze aantal ('tien en niet negen, tien en niet elf') en maant tot
+zwijgen: het hart moet terugkeren wanneer het gaat rennen. Die formules wijzen
+op een omgang met gevaarlijk geachte kennis.
+
+**Drie moeders, zeven dubbele en twaalf enkelvoudige letters**
+
+De 22 letters worden in drie groepen verdeeld. De drie 'moeders' alef, mem en
+sjin corresponderen met lucht, water en vuur, en met de weegschaal die
+verdienste en schuld tegen elkaar afweegt. De zeven 'dubbele' letters (letters
+met twee uitspraken) horen bij de zeven klassieke planeten, de dagen van de
+week en zeven openingen van het hoofd. De twaalf 'enkelvoudige' letters horen
+bij de tekens van de dierenriem, de maanden van het jaar en twaalf organen en
+vermogens van het lichaam. Elke letter is volgens de tekst een werktuig
+waarmee God een deel van de werkelijkheid vormde.
+
+**Heelal, jaar en ziel**
+
+Het ordeningsprincipe van het boek is de drieslag olam, sjana en nefesj:
+wereld (ruimte), jaar (tijd) en ziel (de mens). Ieder
+lettercorrespondentiepaar wordt in alle drie de lagen doorgevoerd: dezelfde
+letter die een planeet vormde, vormde ook een weekdag en een lichaamsopening.
+Zo ontstaat een gesloten stelsel van overeenkomsten waarin macrokosmos en
+microkosmos elkaar spiegelen. Dit denkpatroon, dat later in de hermetische
+literatuur en de renaissancemagie terugkeert, krijgt hier zijn oudste joodse
+formulering.
+
+**De 231 poorten en de golem**
+
+Hoofdstuk twee beschrijft hoe de letters op een rad staan en paarsgewijs
+gecombineerd worden: 231 'poorten', alle mogelijke tweelettercombinaties. Uit
+die combinaties komt volgens de tekst al het gevormde voort. Aan dit
+combinatoriek-idee hechtte zich later de golem-legende: het verhaal dat wie
+het boek beheerst een kunstmatig wezen kan bezielen. Het slothoofdstuk vertelt
+dat Abraham deze kennis beoefende, waarna God een verbond met hem sloot.
+Daarmee presenteert de tekst zichzelf als geopenbaarde en beproefde praktijk,
+niet als bespiegeling.
+
+**Kaplans leeswijze en apparaat**
+
+Kaplan (1934-1983), een Amerikaanse orthodoxe rabbijn met een natuurkundige
+opleiding, leest de Sefer Yetzirah als meditatiehandleiding. Hij vertaalt de
+werkwoorden ('graveren', 'houwen', 'wegen', 'combineren') als aanwijzingen
+voor een oefenpraktijk van letterviisualisatie en recitatie, en onderbouwt dat
+met latere kabbalisten, vooral de dertiende-eeuwse Abraham Aboelafia. De
+editie bevat naast de doorlopende toelichting ook tabellen met
+correspondenties, alle vier de tekstversies, noten en een bibliografie. De
+uitgave verscheen in 1990 en werd in 1997 herzien.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| sefirot belimah | De tien 'grondtallen uit het niets' die de dimensies van de werkelijkheid afbakenen, voorloper van de sefirot uit de latere kabbala. |
+| drie moeders | De letters alef, mem en sjin, die corresponderen met lucht, water en vuur. |
+| dubbele letters | Zeven letters met twee uitspraken, verbonden met de zeven klassieke planeten, de weekdagen en openingen van het hoofd. |
+| enkelvoudige letters | De twaalf overige letters, verbonden met de dierenriemtekens, de maanden en twaalf lichaamsfuncties. |
+| olam, sjana, nefesj | Wereld, jaar en ziel: de drie lagen (ruimte, tijd, mens) waarin elk letterpatroon wordt doorgevoerd. |
+| 231 poorten | Alle tweelettercombinaties van het alfabet, waaruit volgens de tekst het gevormde voortkomt. |
+| Gra-versie | De door de Gaon van Wilna geredigeerde tekstversie die Kaplan als basis voor zijn vertaling neemt. |
+| golem | Kunstmatig bezield wezen uit de latere legende, die zich hechtte aan de scheppingskracht die dit boek aan lettercombinaties toekent. |
+
+#### Waar het argument op rust
+
+De tekst zelf argumenteert niet; hij poneert. De correspondenties tussen
+letters, planeten, maanden en organen worden vastgesteld zonder afleiding of
+waarneming, en de handschriften spreken elkaar op die toewijzingen ook nog
+tegen. Wat historisch wel vaststaat: de tekst bestond uiterlijk in de tiende
+eeuw, want Saadia Gaon becommentarieerde hem toen al, en hij heeft de gehele
+latere kabbala gevoed. Voor de ouderdom vóór die tijd bestaan alleen indirecte
+taalkundige aanwijzingen: het Hebreeuws vertoont laatantieke trekken, en de
+tekst kent begrippen noch polemieken die op een latere ontstaanstijd zouden
+wijzen. Elke preciezere datering blijft een schatting.
+
+Kaplans meditatieve lezing steunt op commentaren van eeuwen later, vooral
+Aboelafia uit de dertiende eeuw. Dat latere kabbalisten de tekst als oefenboek
+gebruikten is goed gedocumenteerd; dat de oorspronkelijke auteur het zo
+bedoelde is daarmee niet aangetoond. Kaplan projecteert een middeleeuwse
+praktijk terug op een laatantieke tekst en geeft dat zelf maar ten dele aan.
+Zijn filologische apparaat, met vier versies naast elkaar, is los daarvan
+degelijk en voor niet-hebraïsten nog altijd het toegankelijkste.
+
+#### Wat er tegen in te brengen valt
+
+De toeschrijving aan Abraham is legende, en over de datering lopen serieuze
+schattingen eeuwen uiteen. Wetenschappelijke onderzoekers van de joodse
+mystiek, met Gershom Scholem voorop, lezen het boek als laatantieke speculatie
+over taal en kosmos die pas achteraf tot grondtekst van de kabbala werd
+gemaakt; de latere sefirot-leer legt betekenissen in de tekst die er
+oorspronkelijk niet stonden. De inhoudelijke claims zijn bovendien
+onverifieerbaar, en waar ze aan de sterrenkunde raken (zeven planeten die
+weekdagen en lichaamsopeningen besturen) zijn ze achterhaald.
+
+Kaplans editie mengt wetenschap en geloofspraktijk. Hij presenteert
+meditatietechnieken als herwinbare oefenstof en behandelt de werkzaamheid
+daarvan als gegeven. Wie de uitgave als geschiedwerk leest, moet zijn
+historische noten scheiden van zijn praktijkclaims. Als cultuurhistorisch
+document blijft de tekst zelf van de eerste orde: vrijwel het gehele joodse
+mystieke vocabulaire, en via de renaissance ook een flink deel van het
+westerse esoterische denken, gaat op deze paar bladzijden terug.
+
+#### Wat er concreet mee te doen is
+
+- Lees de tekst als cultuurhistorisch document: de oudste bron van het
+sefirot-begrip en van het joodse denken over taal als scheppingsinstrument.
+- Gebruik Kaplans editie om de vier tekstversies naast elkaar te zien, en houd
+zijn historische informatie gescheiden van zijn meditatie-instructies.
+- Herken het correspondentiedenken (macrokosmos spiegelt microkosmos) als
+terugkerend patroon in latere esoterische literatuur.
+
+#### Wat je hierna leest
+
+- 378. The Kybalion. The Kybalion bouwt een modern stelsel op hetzelfde
+correspondentiedenken, maar dan uit twintigste-eeuwse Amerikaanse koker.
+- 525. The Philosophy of Illumination. The Philosophy of Illumination laat
+zien hoe in dezelfde eeuwen een islamitische denker mystiek en filosofie tot
+een stelsel smeedde.
+- 359. Het Rode Boek. Het Rode Boek toont een twintigste-eeuwse omgang met
+verbeelding en symboliek zonder kosmologische waarheidsclaim.
+
+## 631. The Chemical Wedding of Christian Rosenkreutz
+
+toegeschreven aan Johann Valentin Andreae, 1616. *The Chemical Wedding of
+Christian Rosenkreutz*, vertaald door Joscelyn Godwin, met inleiding en
+commentaar van Adam McLean (Phanes Press, reeks Magnum Opus Hermetic
+Sourceworks 18, 1991, 172 blz., ISBN 9780933999350). Oorspronkelijk anoniem
+verschenen als *Chymische Hochzeit Christiani Rosencreutz anno 1459*
+(Straatsburg, 1616). Nederlandse vertaling aanwezig in de catalogus van
+bibliotheek.nl: *De alchemische bruiloft van Christiaan Rozenkruis*, met
+esoterisch commentaar van J. van Rijckenborgh (Rozekruis Pers, Haarlem, 1967
+en 1988). Rubriek: filosofie en mystiek.
+Tags: `alchemie`, `rozenkruisers`, `esoterie`, `allegorie`, `hermetisme`
+
+Anoniem verschenen allegorische vertelling uit 1616, het derde van de drie
+rozenkruisersgeschriften die begin zeventiende eeuw heel geleerd Europa in
+beroering brachten. De bejaarde Christian Rosenkreutz wordt uitgenodigd voor
+een koninklijke bruiloft en maakt zeven dagen mee in een wonderlijk kasteel:
+een weging van de gasten, de onthoofding van het koningspaar en hun gevolg, en
+de alchemistische opwekking van de doden in de Toren van Olympus. Hij eindigt
+als ridder van de Gouden Steen.
+
+De Lutherse theoloog Johann Valentin Andreae noemde het werk later een
+ludibrium, een spel uit zijn jeugd. Het boek leest als alchemistisch
+inwijdingsverhaal en als satire tegelijk, en werd de bron van de
+rozenkruisersmythe waar echte genootschappen zich later op beriepen. De editie
+van Godwin en McLean geeft de vertaling met een duidend commentaar per dag.
+
+### Uitgebreide samenvatting
+
+**De stelling.** De vertelling voert de alchemie op als beeldtaal voor een
+innerlijke loutering: de bruiloft waarop Christian Rosenkreutz wordt genodigd
+is de vereniging van het koninklijke paar, die pas kan plaatsvinden nadat
+dood, ontbinding en zuivering zijn doorstaan. Wie aan dat werk wil deelnemen
+moet gewogen worden en te licht bevonden pretendenten vallen af; de held zelf
+komt verder door nederigheid, nieuwsgierigheid en schuldbesef in plaats van
+door kennisvertoon. Tegelijk houdt de tekst zichzelf op afstand: de auteur
+noemde hem later een ludibrium, een spel, en die dubbele bodem van ernst en
+satire is geen gebrek maar de opzet van het werk.
+
+#### De gang van het boek
+
+**Het derde manifest**
+
+In 1614 en 1615 verschenen in Kassel de *Fama Fraternitatis* en de *Confessio
+Fraternitatis*, pamfletten die het bestaan aankondigden van een geheime
+broederschap van het Rozenkruis die een algemene hervorming van wetenschap en
+samenleving voorbereidde. Heel geleerd Europa reageerde; honderden geschriften
+vielen de broederschap bij of aan. In 1616 volgde in Straatsburg de *Chymische
+Hochzeit*, geen pamflet maar een roman in de ik-vorm. De Wuertembergse
+theoloog Johann Valentin Andreae (1586-1654) vermeldde in zijn autobiografie
+een jeugdwerk met deze titel en noemde het een ludibrium; het auteurschap van
+de gedrukte versie wordt op grond daarvan en van stijlkenmerken vrij algemeen
+aan hem toegeschreven.
+
+**Dag een en twee: roeping en keuze**
+
+Aan de vooravond van Pasen zit de bejaarde Christian Rosenkreutz in gebed als
+een storm zijn huisje doet schudden en een gevleugelde vrouwengestalte hem een
+uitnodiging voor een koninklijke bruiloft overhandigt. Een droom volgt:
+gevangenen in een put, waarvan er enkele aan neergelaten touwen omhoog mogen;
+Rosenkreutz is een van hen, maar raakt gewond. Op de tweede dag kiest hij uit
+vier mogelijke wegen naar het kasteel, deels bij toeval, en bereikt langs
+poortwachters de burcht. Al in deze hoofdstukken zet de tekst de toon: de held
+voelt zich onwaardig, en juist dat besef blijkt telkens zijn toegangsbewijs.
+
+**Dag drie en vier: de weging**
+
+Op de derde dag worden alle gasten publiekelijk gewogen tegen zeven gewichten.
+De meeste genodigden, onder wie keizers en geleerden die zich luidruchtig op
+hun waardigheid lieten voorstaan, vallen door de mand en worden gestraft of
+weggestuurd. Rosenkreutz, die zich uit bescheidenheid liet vastketenen bij wie
+geen kans dachten te maken, doorstaat de proef ruim en mag zelfs een
+medegevangene vrijpleiten. De maagd Virgo Lucifera leidt de overgeblevenen
+rond; op de vierde dag volgen een toneelvoorstelling en een feestmaal, waarna
+de koninklijke personen door een beul worden onthoofd en hun bloed wordt
+bewaard. De gasten blijven verbijsterd achter.
+
+**Dag vijf tot zeven: het werk in de toren**
+
+Rosenkreutz dwaalt op de vijfde dag af en ziet in een onderaardse kamer de
+slapende Venus onbedekt, een overtreding die hem later wordt aangerekend. Per
+schip reizen de gasten naar de Toren van Olympus, waar zij als 'kunstenaars'
+verdieping na verdieping meewerken aan het eigenlijke werk: de lichamen van de
+onthoofden worden ontbonden, gedistilleerd en omgezet, uit het bewerkte bloed
+ontstaat een vogel die wordt gevoed, geofferd en tot as gebrand, en uit die as
+worden twee kleine gestalten gevormd die uitgroeien tot de herboren koning en
+koningin. Op de zevende dag worden de deelnemers geridderd tot ridders van de
+Gouden Steen. Dan blijkt de overtreding bij Venus: Rosenkreutz zou als
+poortwachter moeten achterblijven. De tekst breekt af met de mededeling dat
+hij toch naar huis terugkeerde; het slot ontbreekt.
+
+**Alchemie als beeldtaal**
+
+Het verhaal volgt herkenbaar de fasen van het alchemistische opus: dood en
+ontbinding van de oude vorm, zuivering, en de vereniging van tegendelen in een
+nieuw koningschap. Commentator McLean leest de zeven dagen als evenzovele
+stadia van dat werk en wijst op de talrijke getallenraadsels en emblemen in de
+tekst. Daarnaast is het boek doortrokken van Luthers vroomheid (genade weegt
+zwaarder dan verdienste) en van spot met alchemistische oplichters en
+titelzuchtige geleerden, die bij de weging genadeloos worden ontmaskerd. Het
+werk laat zich daardoor tegelijk lezen als inwijdingsallegorie, als
+christelijke moraal en als satire op de eigen kringen.
+
+**Doorwerking**
+
+Historica Frances Yates plaatste het werk in *The Rosicrucian Enlightenment*
+(1972) in de politiek-religieuze context van de Palts rond keurvorst Frederik
+V en las de bruiloftssymboliek mede tegen die achtergrond. De
+rozenkruisersmythe die de drie geschriften schiepen bracht in latere eeuwen
+echte genootschappen voort, van achttiende-eeuwse Gold- und Rosenkreuzer tot
+het Nederlandse Lectorium Rosicrucianum, welks stichter Van Rijckenborgh de
+Nederlandse editie van een eigen leerstellig commentaar voorzag. Goethe kende
+het werk, en Jung gebruikte de alchemistische bruiloft als sleutelbeeld voor
+zijn psychologie. Godwin publiceerde naast deze editie uit 1991 in 2016 een
+herziene vertaling in de bundel *Rosicrucian Trilogy*.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| ludibrium | Andreaes eigen aanduiding voor het werk: een spel of schertsvertoning, waarmee hij het als jeugdwerk relativeerde. |
+| rozenkruisersmanifesten | De *Fama* (1614) en *Confessio* (1615), pamfletten over een geheime hervormingsbroederschap waar dit boek als derde geschrift bij hoort. |
+| weging | De proef op de derde dag waarbij gasten tegen zeven gewichten worden gewogen en pretentie wordt afgestraft. |
+| Virgo Lucifera | De 'lichtdragende maagd' die de gasten door het kasteel en de proeven leidt. |
+| Toren van Olympus | Het eilandbouwwerk waarin de gasten verdieping na verdieping meewerken aan de opwekking van het koningspaar. |
+| ridders van de Gouden Steen | De titel die de deelnemers na het voltooide werk ontvangen, met de steen als teken van de geslaagde omzetting. |
+| Venus-episode | Rosenkreutz' heimelijke blik op de slapende Venus, de overtreding die hem aan het slot wordt aangerekend. |
+
+#### Waar het argument op rust
+
+Het boek doet geen feitelijke beweringen die zich laten toetsen; de
+beoordeling is literair en historisch. Voor het auteurschap van Andreae
+bestaat redelijk bewijs: zijn eigen autobiografische vermelding van een
+*Chymische Hochzeit* als ludibrium, stilistische verwantschap met zijn overige
+werk en zijn aantoonbare band met de Tuebinger kring waaruit de manifesten
+voortkwamen. Zekerheid is er niet; de gedrukte tekst van 1616 kan een
+bewerking van het jeugdwerk zijn.
+
+Voor de duiding ligt dat lastiger. Een sleutel die alle beelden verklaart is
+nooit gevonden, en commentatoren spreken elkaar tegen: alchemistisch,
+Luthers-theologisch, politiek en satirisch gelezen levert de tekst telkens een
+ander boek op. Yates onderbouwde de politieke context met dateerbaar drukwerk
+en hofcultuur van de Palts, maar haar verdergaande reconstructies zijn
+omstreden. Het commentaar van McLean in deze editie presenteert zich
+uitdrukkelijk als één mogelijke lezing.
+
+#### Wat er tegen in te brengen valt
+
+De allegorie is zwaar beladen en gedeeltelijk duister; het getallenwerk klopt
+niet overal, het slot ontbreekt en de tekst wemelt van raadsels die
+vermoedelijk nooit een oplossing hebben gehad. Wie er een sluitend
+inwijdingssysteem in zoekt, leest meer dan er staat. Dat geldt met name voor
+leerstellige commentaren als dat van Van Rijckenborgh, die het verhaal tot
+bewijstekst van een twintigste-eeuwse gnostieke leer maken; historisch valt
+die continuïteit niet te onderbouwen.
+
+Verder verdient de ontstaanscontext nadruk: er bestond in 1616 geen
+broederschap van het Rozenkruis. De manifesten waren een literaire
+constructie, vermoedelijk van een kring rond Andreae, en de genootschappen die
+zich later rozenkruisers noemden zijn navolgers van een fictie. Historici van
+de esoterie als Yates en Hanegraaff behandelen het werk daarom als
+cultuurhistorisch document van de eerste rang: het laat zien hoe rond 1600
+alchemie, vroomheid en hervormingsverlangen samenvloeiden, en hoe werkzaam een
+goed vertelde mythe kan zijn.
+
+#### Wat er concreet mee te doen is
+
+- Lees het werk als literaire allegorie met een commentaar ernaast, en
+aanvaard dat een deel van de beelden zonder sleutel blijft.
+- Gebruik het als primaire bron bij de vraag hoe de rozenkruisersmythe
+ontstond en wat latere genootschappen eraan toevoegden.
+- Onderscheid bij elke moderne 'rozenkruisers'-claim de zeventiende-eeuwse
+fictie van de organisaties die zich er sinds de achttiende eeuw op beroepen.
+
+#### Wat je hierna leest
+
+- 524. The Conference of the Birds. The Conference of the Birds is een oudere
+allegorische reis waarin de zoekers eveneens door proeven heen naar een
+koninklijk einddoel trekken.
+- 410. the hero with a thousand faces. The Hero with a Thousand Faces
+beschrijft het patroon van roeping, beproeving en terugkeer dat ook deze
+vertelling draagt.
+- 359. Het Rode Boek. Het Rode Boek laat zien wat Jung, groot lezer van de
+alchemisten, met dit soort beeldtaal in de twintigste eeuw deed.
+
+## 632. The Complete Picatrix
+
+anoniem, ca. 10e–11e eeuw. *The Complete Picatrix: The Occult Classic of
+Astrological Magic*, vertaald door John Michael Greer en Christopher Warnock
+(Adocentyn Press, 2011, ca. 310 blz., ISBN 9781257767854). Vertaling van de
+Latijnse tekst naar de kritische editie van David Pingree (1986);
+oorspronkelijk Arabisch als *Ghayat al-Hakim*, in de traditie ten onrechte
+toegeschreven aan Maslama al-Majriti. Geen Nederlandse vertaling gevonden in
+de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie
+gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `astrologie`, `magie`, `esoterie`, `middeleeuwen`, `hermetisme`
+
+Middeleeuws handboek voor astrologische magie, in de tiende of elfde eeuw in
+het Arabisch geschreven als *Ghayat al-Hakim* (Het doel van de wijze), in 1256
+aan het hof van Alfons X in het Castiliaans vertaald en vandaar in het Latijn
+verspreid onder de raadselachtige naam Picatrix. Vier boeken behandelen
+achtereenvolgens de wijsgerige grondslag van magie, het maken van talismans
+onder gekozen hemelstanden, het weefsel van overeenkomsten tussen planeten,
+stenen, planten en dieren, en gebeden en rituelen gericht tot de planeten.
+
+Greer en Warnock leverden de eerste volledige Engelse vertaling, naar Pingrees
+kritische Latijnse editie, met honderden noten. Het boek was eeuwenlang
+ondergronds invloedrijk, tot bij Ficino en Agrippa. De astrologische aannames
+houden geen stand, en sommige recepten zijn ronduit giftig; als venster op het
+middeleeuwse wereldbeeld is de tekst van grote waarde.
+
+### Uitgebreide samenvatting
+
+**De stelling.** De Picatrix presenteert magie als de kroon op de filosofie.
+De kosmos is een hiërarchie waarin invloed van de Ene via het intellect, de
+wereldziel en de planeetsferen omlaag stroomt naar de stoffelijke wereld, en
+de wijze die de keten van overeenkomsten kent kan die invloed opvangen in
+talismans, gemaakt van de juiste materialen op astrologisch gekozen momenten.
+Magie is in deze voorstelling geen tegennatuurlijke kunst maar toegepaste
+kennis van de natuur, voorbehouden aan wie zich wijsgerig en moreel heeft
+gevormd; de tekst noemt haar het besluit en de voltooiing van de
+wetenschappen.
+
+#### De gang van het boek
+
+**Van Ghayat al-Hakim tot Picatrix**
+
+Het werk ontstond in de tiende of elfde eeuw in het Arabischtalige Spanje en
+werd in de overlevering toegeschreven aan de wiskundige Maslama al-Majriti,
+een toeschrijving die chronologisch niet klopt. In 1256 liet koning Alfons X
+van Castilië het in het Castiliaans vertalen; kort daarna ontstond de Latijnse
+versie waaronder het werk Europa veroverde. De naam Picatrix, in de Latijnse
+tekst gebruikt voor de vermeende auteur, is vermoedelijk een verbastering
+waarvan de herkomst onzeker is. De filoloog David Pingree bezorgde in 1986 de
+kritische editie van de Latijnse tekst; Greer en Warnock vertaalden die
+integraal en voorzagen haar van een inleiding en honderden verklarende noten.
+
+**Boek 1: magie als wijsheid**
+
+Het eerste boek legt de wijsgerige grondslag. Kennis is hiërarchisch geordend
+en magie is haar sluitstuk, alleen bereikbaar voor wie de voorbereidende
+wetenschappen beheerst. De werkelijkheid emaneert in neoplatoonse trant uit de
+Ene, en de hemellichamen zijn de doorgeefluiken van vorm en werking naar de
+ondermaanse wereld. Talismans heten hier 'geest in lichaam': een stoffelijke
+drager waarin op het juiste moment een hemelse werking is gebonden. Het boek
+geeft daarnaast al direct praktijkmateriaal, waaronder beschrijvingen van
+beelden voor elk der 360 graden van de dierenriem.
+
+**Boek 2: beelden en decanaten**
+
+Het tweede boek werkt de talismankunst uit. Voor de planeten en voor de
+decanaten (segmenten van tien graden van de dierenriem) worden beelden
+beschreven die in steen of metaal gegraveerd moeten worden: Saturnus als oude
+man op een kameel, Venus als vrouw met appel, en zo verder. De werking hangt
+af van de electie, het astrologisch kiezen van het gunstige moment waarop de
+betrokken planeet sterk staat. Doelen lopen uiteen van genezing en bescherming
+tot liefde, handel en het schaden van vijanden. De tekst herhaalt telkens dat
+kennis van de hemelstanden beslissend is en dat de kunst zonder die kennis
+niets vermag.
+
+**Boek 3: het weefsel van overeenkomsten**
+
+Het derde boek ordent de correspondentieleer: aan elke planeet zijn kleuren,
+metalen, stenen, planten, dieren, lichaamsdelen, landstreken en beroepen
+toegewezen. Wie een planeetwerking wil aantrekken omringt zich met haar
+attributen, draagt haar kleuren en brandt haar reukwerken (suffumigaties). Het
+boek geeft de namen van de geesten van de planeten in meerdere talen en
+beschrijft hoe de beoefenaar zich kleedt en gedraagt om als het ware zelf
+talisman te worden. Hier is de Picatrix op zijn encyclopedischst; hele
+hoofdstukken bestaan uit lijsten die de hele zichtbare wereld aan de zeven
+planeten vastknopen.
+
+**Boek 4: gebeden en werkingen**
+
+Het vierde boek bevat de meest rituele stof: volledige aanroepingen van de
+planeten met offers en reukwerk, ontleend aan wat de tekst voorstelt als de
+praktijk van de Sabiërs van Harran, naast Nabatese landbouwmagie, recepten met
+plantaardige en dierlijke ingrediënten en instructies voor het aantrekken van
+planeetgeesten. Sommige recepten bevatten giftige of walgelijke bestanddelen;
+de vertalers waarschuwen daar nadrukkelijk voor. Het boek sluit af met
+vermaningen tot geheimhouding: deze kennis hoort bij de wijzen te blijven en
+gaat verloren aan wie haar onwaardig is.
+
+**Doorwerking en editie**
+
+Hoewel het werk op kerkelijke veroordeling kon rekenen, circuleerde het in
+afschriften onder geleerden. In het renaissance-Florence van Ficino klinkt de
+talismanleer van de Picatrix aantoonbaar door in diens *De vita coelitus
+comparanda*, en via Agrippa's *De occulta philosophia* bereikte zij de hele
+latere westerse esoterie. Warnock is praktiserend astroloog, Greer een
+veelschrijver over esoterie; hun editie richt zich zowel op historisch
+geïnteresseerden als op hedendaagse beoefenaars van astrologische magie, en
+dat dubbele publiek kleurt inleiding en noten. Een academische Engelse
+vertaling van Attrell en Porreca verscheen in 2019 bij Penn State University
+Press.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| talisman | Stoffelijke drager, meestal gegraveerd steen of metaal, waarin op een gekozen moment een hemelse werking gebonden heet te worden. |
+| electie | Het astrologisch kiezen van het gunstige tijdstip waarop een werking moet worden verricht. |
+| decanaat | Segment van tien graden van de dierenriem, elk met een eigen beeld en werking. |
+| correspondentie | De vaste overeenkomst tussen een planeet en kleuren, stenen, planten, dieren en beroepen waarlangs haar invloed loopt. |
+| suffumigatie | Reukwerk dat verbrand wordt om een planeetwerking aan te trekken. |
+| Ghayat al-Hakim | De Arabische oorspronkelijke titel, 'Het doel van de wijze'. |
+| geesten van de planeten | De met naam aangeroepen wezens die per planeet de werking overbrengen. |
+| Sabiërs van Harran | De gemeenschap in Noord-Mesopotamië aan wier planeetverering het vierde boek zijn rituelen toeschrijft. |
+
+#### Waar het argument op rust
+
+Het stelsel rust op de ptolemeïsche kosmos en op neoplatoonse emanatieleer, en
+argumenteert met autoriteit en analogie; waarneming of proef komt er niet aan
+te pas, en de honderden correspondenties worden nergens onderbouwd. De
+operatieve kern, dat hemelstanden via talismans aardse zaken sturen, is met de
+moderne sterrenkunde onverenigbaar, en waar astrologische voorspelkracht in
+gecontroleerde tests is onderzocht, bleef er niets van over.
+
+Wat wel stevig staat is de tekstgeschiedenis en de invloed. De vertaalketen
+Arabisch-Castiliaans-Latijn is gedocumenteerd, Pingrees editie geldt als
+betrouwbaar, en de doorwerking bij Ficino en Agrippa is in het onderzoek naar
+renaissance-esoterie (Yates, en recenter de school rond Hanegraaff)
+ruimschoots aangetoond. Voor die historische beweringen is deze uitgave, met
+haar noten en bronverwijzingen, goed bruikbaar, al is zij minder streng dan de
+academische editie van 2019.
+
+#### Wat er tegen in te brengen valt
+
+Als werkboek is de Picatrix onhoudbaar en deels gevaarlijk: de premissen zijn
+weerlegd, en de recepten bevatten giftige stoffen en dierenoffers, naast
+werkingen die uitdrukkelijk bedoeld zijn om mensen ziek te maken of te
+onderwerpen. De vertalers signaleren dat eerlijk, maar hun editie bedient
+tegelijk een publiek dat de kunst weer wil beoefenen; wie de inleiding leest
+moet die dubbele agenda onderkennen. Ook de romantisering van 'oude wijsheid'
+ligt op de loer bij een tekst die goeddeels compilatie is van oudere, elkaar
+tegensprekende bronnen.
+
+Cultuurhistorisch is het werk juist daardoor waardevol. Het laat zien dat
+magie in de middeleeuwse geleerdenwereld geen randverschijnsel was maar met
+filosofie en sterrenkunde één kennisgebouw vormde, en het maakt de herkomst
+zichtbaar van denkfiguren die tot in hedendaagse esoterie en
+zelfhulpliteratuur doorlopen: het gekozen moment, de overeenkomst tussen boven
+en beneden, het voorwerp dat een kracht draagt. Wie de renaissance van Ficino
+en Agrippa wil begrijpen, kan niet om deze bron heen.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik de tekst als bron voor de studie van middeleeuwse en
+renaissance-magie, niet als receptenboek; een deel van de ingrediënten is
+giftig.
+- Herken bij het lezen van Ficino, Agrippa of latere esoterie de talisman- en
+correspondentieleer die hier haar Latijnse vorm kreeg.
+- Vergelijk voor serieus bronnenwerk deze vertaling met de academische editie
+van Attrell en Porreca uit 2019.
+
+#### Wat je hierna leest
+
+- 362. Synchroniciteit. Synchroniciteit is Jungs twintigste-eeuwse poging om
+betekenisvolle overeenkomst zonder oorzakelijk verband opnieuw te doordenken.
+- 127. The Law of Attraction. The Law of Attraction laat zien hoe het oude
+correspondentiedenken in de twintigste eeuw terugkeerde als leer van de
+aantrekkende gedachte.
+- 63. The Demon-Haunted World. The Demon-Haunted World geeft het
+wetenschappelijke tegenwicht: hoe claims als deze zich laten toetsen en waarom
+ze sneuvelen.
+
+## 633. The Hieroglyphic Monad
+
+John Dee, 1564. *The Hieroglyphic Monad*, vertaald door J.W. Hamilton-Jones
+(Weiser Books, 2000, 76 blz., ISBN 9781578632039; deze vertaling verscheen
+oorspronkelijk bij John M. Watkins, Londen, 1947). Oorspronkelijk *Monas
+Hieroglyphica* (Willem Silvius, Antwerpen, 1564). Geen Nederlandse vertaling
+gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse
+editie gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `hermetisme`, `symboliek`, `alchemie`, `esoterie`,
+`wetenschapsgeschiedenis`
+
+Kort Latijns traktaat uit 1564 van de Engelse wiskundige en hofgeleerde John
+Dee, in twaalf dagen geschreven in Antwerpen en opgedragen aan keizer
+Maximiliaan II. Dee construeert één samengesteld teken, de hiërogliefische
+monade, opgebouwd uit punt, cirkel, halve maan, het kruis van de elementen en
+het teken Ram, en betoogt in 24 theoremata in euclidische stijl dat dit teken
+de eenheid van kosmos, alchemie, sterrenkunde en taal bevat.
+
+Dee beschouwde het als zijn belangrijkste werk; tijdgenoten stonden er
+grotendeels voor een raadsel en dat is sindsdien weinig veranderd. Als
+bewijsvoering is het getallen- en letterspel willekeurig, maar als document is
+het traktaat leerzaam: het toont hoe bij een vooraanstaand zestiende-eeuws
+geleerde wiskunde, magie en symboliek één onderneming vormden. De vertaling
+van Hamilton-Jones uit 1947 is de gangbaarste; de wetenschappelijke standaard
+is Jostens editie uit 1964.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Dee stelt dat de hele schepping is voortgebracht uit punt,
+lijn en cirkel, en dat zijn zelfontworpen teken, de monade, die voortbrenging
+zichtbaar samenvat: de zon als cirkel om een punt, daarboven de halve maan,
+daaronder het kruis van de vier elementen en het vuurteken Ram. Wie het teken
+meetkundig en symbolisch ontleedt, vindt er volgens Dee de tekens van alle
+planeten en metalen in terug, en daarmee de sleutel tot een hervormde
+sterrenkunde, een 'lagere sterrenkunde' (alchemie) en zelfs de ware herkomst
+van de letters. Het traktaat belooft niets minder dan een herschikking van
+alle wetenschappen rond dit ene teken.
+
+#### De gang van het boek
+
+**Twaalf dagen in Antwerpen**
+
+John Dee (1527-1608/9), wiskundige, geograaf en adviseur van Elizabeth I,
+schreef de *Monas Hieroglyphica* begin 1564 naar eigen zeggen in twaalf dagen,
+terwijl hij in Antwerpen verbleef bij drukker Willem Silvius. Hij droeg het
+werk op aan Maximiliaan II, kort daarop keizer van het Heilige Roomse Rijk, en
+verdedigde in de uitvoerige opdrachtbrief de waarde van zijn nieuwe
+'schrijfkunst van de dingen'. Dee had toen al naam als wiskundige; zijn latere
+faam als engelenbezweerder lag nog in het verschiet. Zelf bleef hij dit dunne
+boek zijn leven lang als zijn hoogste prestatie beschouwen.
+
+**Het teken**
+
+De monade is een samengesteld glyf. Onderaan staan de twee bogen van het teken
+Ram, het begin van de dierenriem en het vuur. Daarboven het kruis, dat voor de
+vier elementen staat en tegelijk voor het viertal als zodanig. Daarboven de
+cirkel met middelpunt, het astronomische teken van de zon, bekroond door de
+halve maan. Zon en maan rusten zo op elementen en vuur: een beeld van de
+hemellichten die het ondermaanse doordringen. Dee laat zien dat door delen van
+het teken weg te laten of te draaien de tekens van Saturnus, Jupiter, Mars,
+Venus en Mercurius verschijnen, en daarmee de zeven metalen van de alchemie.
+
+**Vierentwintig theoremata**
+
+De vorm is die van Euclides: 24 genummerde theoremata die op elkaar
+voortbouwen. De eerste stellen dat alle dingen zijn voortgebracht uit punt en
+lijn, en dat de cirkel niet zonder beide kan bestaan. Daarna volgen
+meetkundige, astronomische en alchemistische lezingen van het teken, en steeds
+vrijere manipulaties: het kruis wordt ontleed in rechte hoeken en in de
+Romeinse cijfers V en X, het viertal levert via 1+2+3+4 het tiental, en
+Griekse, Latijnse en Hebreeuwse letters worden uit de onderdelen van de monade
+afgeleid. Bewijzen in wiskundige zin zijn het niet; de vorm van Euclides
+draagt een inhoud van symbolische gelijkstellingen.
+
+**De lagere sterrenkunde**
+
+Alchemie heet bij Dee 'astronomia inferior': wat de sterrenkunde aan de hemel
+leest, voltrekt de alchemist in de stof. Verschillende theoremata beschrijven
+het alchemistische werk in beeldtaal, met een eivormig diagram en een
+spiraalvormige gang van de metalen. De strekking is dat de monade niet alleen
+tekens samenvat maar een werkelijk proces stuurt, en Dee laat doorschemeren
+dat de ingewijde langs deze weg zelf verandert. Hoe dat proces er praktisch
+uitziet zegt de tekst nergens; het geheim blijft uitdrukkelijk voorbehouden
+aan wie waardig is.
+
+**Raadselachtig, ook voor tijdgenoten**
+
+Al bij verschijnen klaagden geleerden dat het boek onbegrijpelijk was, en Dee
+erkende dat het voor de meeste lezers gesloten zou blijven; hij richtte zich
+naar eigen zeggen tot een kleine kring van ingewijden. Elizabeth I zou zich
+het werk door Dee persoonlijk hebben laten toelichten. De raadselachtigheid is
+dus geen leesprobleem achteraf maar opzet: Dee onthoudt de lezer bewust de
+sleutel. Het gevolg is dat tot op heden niemand met zekerheid kan zeggen wat
+het boek precies beweert, en dat elke duiding gedeeltelijk reconstructie is.
+
+**Latere lezingen**
+
+Frances Yates las de monade als een talisman die de hermetisch-kabbalistische
+renaissancetraditie in één teken bundelt, en wees erop dat het teken in 1616
+opduikt in de *Chymische Hochzeit* van de rozenkruisers. Wetenschapshistoricus
+Nicholas Clulee betoogde daartegen dat het werk vooral binnen Dees eigen
+natuurfilosofie begrepen moet worden, als poging om wiskunde, taal en
+natuurkennis op één grondslag te brengen. De vertaling van C.H. Josten (1964,
+in het tijdschrift *Ambix*, met facsimile) geldt als wetenschappelijke
+standaard; de hier besproken vertaling van Hamilton-Jones uit 1947 is vrijer
+maar goed verkrijgbaar.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| monade | Dees samengestelde teken van punt, cirkel, halve maan, elementenkruis en Ram, dat de eenheid van de kosmos zou samenvatten. |
+| theorema | Genummerde stelling in euclidische stijl; het traktaat bestaat uit 24 opeenvolgende theoremata. |
+| punt, lijn en cirkel | De meetkundige grondelementen waaruit volgens de openingstheoremata alle dingen zijn voortgebracht. |
+| kruis van de elementen | Het kruis in het teken, dat voor de vier elementen staat en door Dee ook als viertal en als lettervorm wordt gelezen. |
+| quaternarius | Het viertal, dat via de optelling 1+2+3+4 het tiental voortbrengt, een aan Pythagoras ontleende denkfiguur. |
+| astronomia inferior | Dees benaming voor de alchemie: de sterrenkunde van beneden, die in de stof voltrekt wat de hemel voordoet. |
+| hiëroglief | Bij Dee een teken dat de zaak zelf bevat en toont, geen afspraak maar een afdruk van de werkelijkheid. |
+
+#### Waar het argument op rust
+
+De bewijsvoering is geheel intern: Dee construeert het teken, ontleedt het en
+verklaart de gevonden onderdelen tot betekenissen, zonder dat enige stap
+buiten het teken om wordt getoetst. Het letter- en getallenspel is naar
+moderne maatstaven willekeurig; met dezelfde vrijheid laat zich uit vrijwel
+elk teken vrijwel alles afleiden. Toetsbare beweringen over de natuur bevat
+het traktaat niet, en de beloofde hervorming van de wetenschappen heeft het
+aantoonbaar niet opgeleverd.
+
+Vast staan de historische feiten: druk en opdracht in 1564, Dees status als
+wiskundige van formaat, zijn eigen hoge waardering voor het werk en de
+verlegenheid van tijdgenoten. Dat de duidingsliteratuur na vier eeuwen nog
+altijd uiteenloopt, van alchemistisch werkschema tot taalfilosofie, is zelf
+een gegeven: de tekst legt zijn betekenis niet vast, en elke stellige uitleg
+van 'wat Dee werkelijk bedoelde' overschrijdt wat de bron draagt.
+
+#### Wat er tegen in te brengen valt
+
+Het voornaamste bezwaar is de gewilde duisternis. Dee beroept zich op een
+geheim dat hij nergens prijsgeeft, waardoor het werk onweerlegbaar wordt: elke
+kritiek kan worden afgedaan als bewijs van oningewijdheid. Dat is een
+structuur die geen kennis oplevert. Latere esoterische lezers hebben die
+leemte gevuld met eigen stelsels, en juist de ondoorgrondelijkheid maakte het
+teken bruikbaar voor rozenkruisers, theosofen en hedendaagse occultisten die
+er elk iets anders in vonden.
+
+Daar staat tegenover dat het traktaat wetenschapshistorisch veelzeggend is.
+Clulee en anderen laten zien dat voor Dee wiskunde, taalstudie en wat later
+magie ging heten één samenhangende onderneming vormden, en dat de scheiding
+tussen wetenschap en esoterie van later datum is. Wie de zestiende eeuw op
+haar eigen voorwaarden wil begrijpen, vindt hier een leerzame correctie op het
+beeld van een rechte lijn naar de moderne wetenschap. Als kennisbron over de
+natuur is het boek waardeloos; als bron over het denken van zijn tijd is het
+van blijvende waarde.
+
+#### Wat er concreet mee te doen is
+
+- Lees het traktaat met de editie van Josten of een recent commentaar ernaast;
+de tekst zelf geeft zijn sleutel niet prijs.
+- Gebruik het als casus in de wetenschapsgeschiedenis: het laat zien hoe
+verweven wiskunde en esoterie bij een topgeleerde rond 1564 waren.
+- Wees terughoudend bij moderne duidingen die het teken een vaststaande
+betekenis toeschrijven; de bron zelf laat die ruimte niet toe.
+
+#### Wat je hierna leest
+
+- 378. The Kybalion. The Kybalion presenteert eeuwen later opnieuw een compact
+stelsel dat de hele kosmos in enkele principes wil vangen.
+- 357. De mens en zijn symbolen. De mens en zijn symbolen behandelt de vraag
+wat samengebalde tekens als deze psychologisch doen.
+- 63. The Demon-Haunted World. The Demon-Haunted World beschrijft het verschil
+tussen onweerlegbare geheimtaal en toetsbare kennis.
+
+## 634. The History of Magic
+
+Éliphas Lévi, 1860. *The History of Magic: Including a Clear and Precise
+Exposition of Its Procedure, Its Rites and Its Mysteries*, vertaald door
+Arthur Edward Waite (Rider, Londen, 1913; herdruk Weiser Books, 2001, 384
+blz., ISBN 9780877289296). Oorspronkelijk *Histoire de la magie* (Germer
+Baillière, Parijs, 1860). Geen Nederlandse vertaling gevonden in de catalogus
+van bibliotheek.nl, wel het Franse origineel; de samenvatting is op de Engelse
+editie gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `occultisme`, `magie`, `esoterie`, `geschiedenis`, `kabbala`
+
+Geschiedenis van de magie uit 1860 van Éliphas Lévi, pseudoniem van de Franse
+ex-seminarist Alphonse-Louis Constant, de schrijver die het woord occultisme
+zijn moderne lading gaf. Het boek is geen afstandelijke geschiedschrijving:
+Lévi gelooft in één geheime overlevering, met de kabbala als kern en het
+'astrale licht' als werkzaam middel, en vertelt de wereldgeschiedenis als de
+doorgave, verhulling en ontheiliging van dat ene geheim, van Zoroaster en
+Egypte via de mysteriën, het christendom en de alchemisten tot het mesmerisme
+en spiritisme van zijn eigen tijd.
+
+De opbouw is zeven boeken van elk zeven hoofdstukken. Vertaler A.E. Waite
+voorzag zijn editie uit 1913 van een voorwoord en noten waarin hij Lévi's
+fouten en tegenspraken benoemt. Als geschiedwerk is het boek onbetrouwbaar;
+als brondocument van de negentiende-eeuwse occulte opleving is het van de
+eerste orde.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Lévi stelt dat er achter alle religies en magische scholen
+één universele, geheime leer schuilgaat, bewaard in de kabbala en zichtbaar
+voor wie de symbolen kan lezen. Het werkzame middel van die leer is het
+astrale licht, een fijnstoffelijk agens dat alle indrukken vastlegt en
+overdraagt, en dat door de geoefende wil kan worden gericht. Ware magie is
+daarmee in zijn ogen een exacte wetenschap van wil en verbeelding; tovenarij,
+bijgeloof en het toen populaire spiritisme zijn ontaardingen ervan. De
+geschiedenis van de mensheid laat zich volgens Lévi lezen als de lotgevallen
+van dit ene arcanum: geopenbaard aan de magiërs, versluierd in de mysteriën,
+voltooid in het christendom en telkens opnieuw ontheiligd door onbevoegden.
+
+#### De gang van het boek
+
+**Opzet: zeven maal zeven**
+
+Het werk bestaat uit zeven boeken van elk zeven hoofdstukken, een bewust
+gekozen zevental dat de heilige getallenleer weerspiegelt die Lévi overal in
+de stof aanwijst. Een inleiding zet de leer uiteen die het geschiedverhaal
+moet dragen: magie als de ene wetenschap van de oude magiërs, de kabbala als
+haar bewaarplaats, het astrale licht als haar instrument. De geschiedenis die
+volgt is dus van meet af aan illustratie van een stelling, geen open
+onderzoek, en Lévi zegt dat ook onbekommerd; hij schrijft naar eigen zeggen
+als ingewijde, met de sleutel die gewone historici missen.
+
+**Boek een en twee: de afkomst van het geheim**
+
+De eerste twee boeken voeren de leer terug op de oudste beschavingen. India,
+Perzië (Zoroaster en de magiërs aan wie het woord magie herinnert), hermetisch
+Egypte en vooral de Hebreeuwse overlevering passeren, met de kabbala als
+zuiverste vorm van de oerleer. Daarna Griekenland: de mysteriën, Orpheus,
+Pythagoras en de orakels. Kenmerkend is Lévi's verklaringswijze: orakels en
+wonderen berusten noch op bedrog noch op demonen, maar op de werking van het
+astrale licht op ontvankelijke zieners. Zo houdt hij het wonderbaarlijke
+overeind en geeft er tegelijk een quasi-natuurwetenschappelijke draai aan.
+
+**Boek drie en vier: christendom en middeleeuwen**
+
+Lévi, gevormd op het seminarie en nooit los van de kerk, tekent het
+christendom als de openbare voltooiing van wat de mysteriën verborgen hielden;
+de gnostici verwijt hij het geheim te vroeg en verkeerd te hebben
+prijsgegeven. In de middeleeuwse boeken behandelt hij legenden,
+tovenarijprocessen en volksmagie als ontaarding van de leer bij het onwetende
+volk, en de kathedralen, de scholastiek en figuren als Raymundus Lullus als
+haar voortzetting bij de geleerden. Ook de tempeliers krijgen een hoofdrol:
+hun veroordeling verbindt hij aan het Baphomet-symbool waarvan zijn eigen
+tekening uit een eerder werk beroemd werd.
+
+**Boek vijf en zes: adepten en revolutie**
+
+Het vijfde boek behandelt de adepten van de vroegmoderne tijd: alchemisten als
+Nicolas Flamel, Paracelsus en Agrippa, de rozenkruisers en de vrijmetselarij,
+telkens gelezen als schakels in de keten van het geheim. Het zesde boek trekt
+de lijn door naar de achttiende eeuw: de illuminaten, wonderdoeners en
+avonturiers als Cagliostro en het dierlijk magnetisme van Mesmer, dat Lévi als
+herontdekking van het astrale licht beschouwt. De Franse Revolutie verschijnt
+als uitbarsting die volgt wanneer het heilige evenwicht van gezag en kennis
+wordt verbroken; Lévi's jeugdige socialisme is hier omgeslagen in een
+conservatieve duiding.
+
+**Boek zeven: de eigen tijd**
+
+Het slotboek behandelt de negentiende eeuw: het tafeldans-spiritisme dat sinds
+1848 uit Amerika was overgewaaid, magnetiseurs, visioenairs als Vintras en
+mediums als Home. Lévi wijst het spiritisme scherp af: wie zich passief
+openstelt voor 'geesten' levert zich uit aan de weerschijnsels van het astrale
+licht en aan zijn eigen ontregelde verbeelding. Ware magie eist juist
+beheersing, kennis en een sterke wil. Het boek eindigt met de verzekering dat
+het grote arcanum bewaard blijft in de symbolen van de kerk en de kabbala,
+leesbaar voor wie de sleutel bezit; die sleutel zelf blijft, zoals steeds,
+achtergehouden.
+
+**Waites vertaling en de doorwerking**
+
+A.E. Waite, zelf occult geleerde en scepticus tegelijk, vertaalde het werk in
+1913 en voorzag het van een voorwoord en noten waarin hij Lévi's feitelijke
+fouten, verzwegen bronnen en tegenspraken met diens eerdere *Dogme et rituel
+de la haute magie* aanwijst. Juist die kritische bezorging maakt de editie
+bruikbaar. De invloed van Lévi is moeilijk te overschatten: de Golden Dawn
+bouwde op zijn koppeling van tarot en kabbala, Aleister Crowley presenteerde
+zich als zijn reïncarnatie, en het moderne beeld van 'de magiër' als
+beoefenaar van een wilswetenschap stamt goeddeels van hem.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| astraal licht | Het fijnstoffelijke agens dat volgens Lévi alle indrukken vastlegt en overdraagt, en waardoor magische werking en visioenen tot stand komen. |
+| de wil | Het vermogen dat, geoefend en gericht, het astrale licht bestuurt; voor Lévi de kern van alle ware magie. |
+| groot arcanum | Het ene geheim van de universele leer, dat door de eeuwen wordt doorgegeven en nooit openlijk uitgesproken. |
+| kabbala | De joodse geheime overlevering, door Lévi opgevat als bewaarplaats van de oerleer en sleutel tot alle symbolen. |
+| Baphomet | Het aan de tempeliers verbonden symbool waarvan Lévi's eigen tekening het moderne beeld bepaalde. |
+| magnetisme | Mesmers dierlijk magnetisme, door Lévi gelezen als onwetende herontdekking van het astrale licht. |
+| profanatie | De ontheiliging van het geheim door onbevoegden, voor Lévi de bron van tovenarij, bijgeloof en spiritisme. |
+| septenarium | Het heilige zevental dat de indeling van het boek (zeven boeken van zeven hoofdstukken) en veel van zijn symboliek bepaalt. |
+
+#### Waar het argument op rust
+
+Bronkritiek ontbreekt volledig. Lévi noemt zijn bronnen zelden, parafraseert
+vrij, neemt legenden als geschiedenis en construeert de doorlopende
+overlevering die hij zegt aan te treffen. Vertaler Waite, de auteur welgezind,
+wijst in zijn noten zelf op feitelijke fouten en op punten waar het boek
+eerdere werken van Lévi tegenspreekt. Het astrale licht is nooit als
+verschijnsel aangetoond en zo geformuleerd dat het zich aan elke toets
+onttrekt; de verklaringen die erop rusten hebben dus geen bewijskracht.
+
+Wel goed gedocumenteerd is de plaats van het boek zelf in de geschiedenis.
+Onderzoekers van de westerse esoterie, onder wie Christopher McIntosh en
+Wouter Hanegraaff, hebben Lévi's beslissende rol in de occulte opleving van de
+negentiende eeuw en zijn doorwerking op de Golden Dawn, Crowley en de moderne
+tarot in detail beschreven. Als bron over wat een ontwikkelde
+negentiende-eeuwse occultist geloofde en hoe hij de geschiedenis herschreef,
+is het werk daarom juist sterk.
+
+#### Wat er tegen in te brengen valt
+
+Als geschiedschrijving is het boek onbruikbaar. De ene geheime traditie die
+van Zoroaster tot Mesmer zou lopen bestaat alleen doordat Lévi haar
+construeert: hij leest zijn eigen leer in elke bron terug en verklaart
+tegenbewijs tot versluiering. Hanegraaff en andere historici van de esoterie
+noemen dit type geschiedverhaal religionistisch: het schept de traditie die
+het beweert te beschrijven. Wie werkelijke geschiedenis van magie zoekt, is op
+modern academisch werk aangewezen en kan Lévi alleen als studieobject
+gebruiken.
+
+Daarbij komt de retorische werkwijze: het beslissende geheim wordt telkens
+aangekondigd en nooit gegeven, kritiek is per definitie een teken van
+oningewijdheid, en de stijl overdondert waar het betoog tekortschiet. Dat
+maakte het boek intussen wel tot een van de invloedrijkste esoterische teksten
+van de moderne tijd. De hedendaagse omgang met tarot, magie als wilskunst en
+'oude wijsheid' is zonder Lévi niet te begrijpen, en juist daarom loont het
+dit werk te kennen: als monument van hoe de moderne occulte verbeelding is
+gebouwd.
+
+#### Wat er concreet mee te doen is
+
+- Lees het boek als primaire bron over het negentiende-eeuwse occultisme, niet
+als naslagwerk over de geschiedenis van magie.
+- Gebruik Waites noten als eerste correctief en leg academisch werk over
+westerse esoterie ernaast.
+- Herken Lévi's denkfiguren (geheime traditie, wilskracht, astraal licht) als
+bouwstenen die in latere esoterische en zelfhulpliteratuur terugkeren.
+
+#### Wat je hierna leest
+
+- 63. The Demon-Haunted World. The Demon-Haunted World laat zien hoe
+onweerlegbaar geformuleerde leerstellingen als het astrale licht zich tot
+toetsbare kennis verhouden.
+- 378. The Kybalion. The Kybalion is een rechtstreekse erfgenaam: een
+twintigste-eeuws stelsel dat zich eveneens op een verborgen hermetische
+traditie beroept.
+- 269. The Story of Philosophy. The Story of Philosophy toont het verschil
+tussen een persoonlijk gekleurd maar controleerbaar overzichtswerk en
+geschiedenis als geloofsbelijdenis.
+
+## 649. The Man Who Knew Infinity
+
+Robert Kanigel, 1991. *The Man Who Knew Infinity: A Life of the Genius
+Ramanujan* (Charles Scribner's Sons, New York, 1991, 438 blz., ISBN
+9780684192598; heruitgave Washington Square Press/Simon & Schuster, ISBN
+9781476763491). Geen Nederlandse vertaling gevonden in de catalogus van
+bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd. Rubriek:
+natuur en wetenschap.
+Tags: `biografie`, `wiskunde`, `wetenschapsgeschiedenis`, `india`
+
+Biografie van de Indiase wiskundige Srinivasa Ramanujan (1887-1920),
+geschreven door wetenschapsjournalist Robert Kanigel. Ramanujan groeide op in
+een arm brahmaans gezin in Zuid-India, zakte voor zijn studie omdat hij alles
+behalve wiskunde verwaarloosde, en werkte als klerk toen hij in 1913 een brief
+met ruim honderd stellingen naar de Cambridge-wiskundige G.H. Hardy stuurde.
+Hardy herkende het talent, haalde hem naar Engeland en werkte vijf jaar met
+hem samen, tot Ramanujan ziek terugkeerde naar India en op 32-jarige leeftijd
+stierf.
+
+Kanigel vertelt ook het leven van Hardy, de apostel van het wiskundig bewijs
+die zijn tegenpool werd, en schetst het koloniale onderwijsstelsel dat dit
+talent bijna had gesmoord. Het boek werd bekroond en diende als basis voor de
+gelijknamige film uit 2015 met Dev Patel en Jeremy Irons. Ramanujans
+notitieboeken leveren tot vandaag nieuwe wiskunde op.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Kanigel stelt dat het leven van Ramanujan toont wat er
+gebeurt wanneer wiskundig talent van de hoogste orde opgroeit buiten elke
+vakgemeenschap: er ontstaat een denker die langs eigen wegen resultaten vindt
+die niemand anders had kunnen vinden, en die tegelijk het gereedschap mist om
+ze te bewijzen of te zien wat al bekend was. De ontmoeting met Hardy was
+daarom zowel redding als botsing, van intuïtie met strengheid, van
+tempeltraditie met Cambridge-atheïsme. Het boek betoogt bovendien dat het
+Britse examenstelsel in koloniaal India dit talent tweemaal bijna had
+weggegooid, en dat de redding afhing van één brief die toevallig bij de juiste
+lezer belandde.
+
+#### De gang van het boek
+
+**Kumbakonam**
+
+Ramanujan groeide op in de tempelstad Kumbakonam in het Tamil-sprekende zuiden
+van India, als oudste zoon van een klerk en een sterke, diepgelovige moeder,
+Komalatammal. Op school blonk hij uit tot hij rond zijn zestiende *A Synopsis
+of Elementary Results in Pure Mathematics* van G.S. Carr in handen kreeg: een
+naslagwerk met duizenden stellingen zonder bewijzen. Dat boek vormde zijn
+stijl. Hij werkte de resultaten zelf na, vulde notitieboeken met eigen
+formules en liet al het andere liggen. Op twee opeenvolgende colleges zakte
+hij omdat hij buiten wiskunde nergens punten haalde, waarmee elke gebaande weg
+naar een wetenschappelijke loopbaan afgesloten was.
+
+**Klerk in Madras**
+
+Jarenlang leefde Ramanujan in armoede, uitgehuwelijkt aan de jonge Janaki,
+zonder diploma en zonder werk, terwijl hij zijn notitieboeken bleef vullen.
+Via beschermheren onder Indiase wiskundeliefhebbers kreeg hij een klerkenbaan
+bij de haven van Madras, de Port Trust, waar zijn chefs hem ruimte gaven voor
+zijn eigenlijke werk. Kanigel beschrijft hoe een klein netwerk van Indiase en
+Britse tussenpersonen hem aanmoedigde om zijn resultaten naar Engelse
+wiskundigen te sturen. Twee vooraanstaande Cambridge-hoogleraren, Baker en
+Hobson, reageerden niet.
+
+**De brief aan Hardy**
+
+Op 16 januari 1913 schreef Ramanujan aan G.H. Hardy, met negen dichtbeschreven
+pagina's formules als bijlage. Hardy hield eerst rekening met bedrog, legde de
+brief weg, en boog zich er die avond met zijn medewerker Littlewood alsnog
+over. Hun oordeel: sommige resultaten waren bekend, sommige fout, maar de
+beste konden alleen waar zijn, want niemand zou de verbeelding hebben ze te
+verzinnen. Hardy noemde de brief later de meest opmerkelijke die hij ooit
+ontving en zette de machinerie in gang om Ramanujan naar Cambridge te halen:
+een beurs in Madras, en de jonge wiskundige Neville als gezant.
+
+**Cambridge**
+
+Voor een orthodoxe brahmaan gold de zeereis als bezoedeling, en Ramanujan
+weigerde aanvankelijk. De doorbraak kwam, in de overlevering die Kanigel
+navertelt, toen zijn moeder droomde dat de familiegodin Namagiri toestemming
+gaf. In april 1914 kwam hij in Cambridge aan, maanden voor het uitbreken van
+de oorlog. Er volgden vijf jaar samenwerking met Hardy, met als bekendste
+resultaat de asymptotische formule voor de partitiefunctie, het aantal
+manieren om een getal als som te schrijven, verkregen met de later zo genoemde
+cirkelmethode. Hardy moest hem daarvoor het bewijzen bijbrengen zonder de bron
+van zijn invallen te beschadigen, een evenwicht dat Kanigel als kern van hun
+verhouding neerzet.
+
+**Ziekte en terugkeer**
+
+Het oorlogse Engeland brak hem op: een strenge vegetariër die zijn eigen potje
+kookte, koude wintersvol ver van huis, brieven uit India die stokten. In 1917
+werd hij ziek, kreeg de diagnose tuberculose en zwierf langs sanatoria; na een
+inzinking deed hij een zelfmoordpoging voor een naderende metro in Londen.
+Vlak daarna kwam de erkenning: in 1918 werd hij gekozen tot Fellow of the
+Royal Society, als een van de jongste ooit, en tot fellow van Trinity College.
+In 1919 keerde hij terug naar India, waar hij nog een jaar doorwerkte aan wat
+hij mock-thetafuncties noemde. Hij stierf op 26 april 1920, 32 jaar oud.
+Latere medische analyse wijst eerder op een behandelbare leverinfectie,
+amoebiasis, dan op tuberculose.
+
+**Hardy en de nalatenschap**
+
+Het boek is voor een flink deel ook een biografie van Hardy:
+cricketliefhebber, overtuigd atheïst, pleitbezorger van zuivere wiskunde en
+van strengheid in het bewijs. Hardy zette op een eigen schaal van natuurlijk
+talent zichzelf op 25, Littlewood op 30, Hilbert op 80 en Ramanujan op 100.
+Kanigel volgt de nalatenschap tot in zijn eigen tijd: de notitieboeken die
+generaties wiskundigen werk gaven, en het verloren gewaande laatste
+notitieboek dat George Andrews in 1976 in een archief in Cambridge terugvond.
+Formules van Ramanujan doken later op in de getaltheorie en de natuurkunde van
+zwarte gaten, wat de vraag voedt waar zijn invallen vandaan kwamen. Zelf zei
+hij dat een vergelijking voor hem geen betekenis had tenzij zij een gedachte
+van God uitdrukte.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Carr's Synopsis | Het naslagwerk met duizenden onbewezen stellingen waaruit Ramanujan zichzelf wiskunde leerde en dat zijn bewijsloze stijl vormde. |
+| partitiefunctie | Telt op hoeveel manieren een getal als som van kleinere getallen te schrijven is; Hardy en Ramanujan vonden er een beroemde benaderingsformule voor. |
+| cirkelmethode | De analytische techniek die uit de samenwerking van Hardy en Ramanujan voortkwam en een standaardgereedschap in de getaltheorie werd. |
+| mock-thetafuncties | De functiefamilie uit Ramanujans laatste levensjaar, pas decennia later goed begrepen en nog altijd onderwerp van onderzoek. |
+| Namagiri | De familiegodin aan wie Ramanujan zijn ingevingen toeschreef en wier gedroomde toestemming de zeereis naar Engeland mogelijk maakte. |
+| strengheid | De eis van sluitend bewijs die Hardy vertegenwoordigde en die Ramanujans intuïtieve werkwijze aanvulde en soms corrigeerde. |
+| 1729 | Het taxinummer dat Hardy saai noemde en Ramanujan meteen herkende als het kleinste getal dat op twee manieren de som van twee derdemachten is. |
+| verloren notitieboek | De stapel losse bladen met werk uit Ramanujans laatste jaar, in 1976 door George Andrews teruggevonden. |
+
+#### Waar het argument op rust
+
+Kanigel is wetenschapsjournalist en geen wiskundige. Hij werkte met
+archiefmateriaal in Cambridge en Madras, de gepubliceerde briefwisseling,
+Hardy's eigen geschriften en gesprekken in India, onder meer over de nog
+levende herinnering aan Ramanujans weduwe Janaki. De feitelijke ruggengraat,
+data, brieven, benoemingen, is goed gedocumenteerd en wordt door
+wiskundehistorici als betrouwbaar aanvaard. De wiskunde zelf legt hij in grote
+lijnen uit, met de partitiefunctie als uitgewerkt voorbeeld, en hij markeert
+doorgaans eerlijk waar de anekdote ophoudt en de overlevering begint.
+
+Waar de bronnen zwijgen, vult Kanigel in. Gevoelens, motieven en huiselijke
+scènes zijn deels reconstructie, herkenbaar aan formuleringen als wat iemand
+gevoeld moet hebben. Wie alleen op het gedocumenteerde wil afgaan, kan die
+passages als sfeertekening lezen zonder dat het feitenverhaal instort.
+
+#### Wat er tegen in te brengen valt
+
+Wiskundigen hebben opgemerkt dat het boek de wiskunde dun houdt en een enkele
+keer scheef weergeeft; wie wil begrijpen wat Ramanujan werkelijk deed, moet
+naar Hardy's colleges over hem of naar de literatuur rond de notitieboeken.
+Ook is de psychologische invulling ruim bemeten: over Ramanujans binnenwereld,
+zijn huwelijk en de verhouding met zijn moeder is weinig hard materiaal, en de
+vertelling wekt meer zekerheid dan de bronnen dragen.
+
+Daarnaast kleurt het boek naar het heldenverhaal. De rol van Indiase
+wiskundigen en beschermheren vóór de brief aan Hardy krijgt minder gewicht dan
+die van de Britse redders, en de beschrijving van Zuid-Indiase religiositeit
+blijft die van een welwillende buitenstaander. De medische slotsom is intussen
+ingehaald: analyse uit 1994 maakt aannemelijk dat geen tuberculose maar
+hepatische amoebiasis hem doodde, een destijds behandelbare ziekte, wat het
+einde nog wranger maakt dan Kanigel het al tekent.
+
+#### Wat je hierna leest
+
+- 240. Einstein: His Life and Universe. Einstein: His Life and Universe
+portretteert een tijdgenoot wiens intuïtie eveneens tegen de gevestigde
+wetenschap in werkte.
+- 321. Longitude: The True Story of a Lone Genius Who Solved the Greatest
+Scientific Problem of His Time. Longitude vertelt net als dit boek over een
+buitenstaander zonder opleiding die het wetenschappelijk establishment moest
+overtuigen.
+- 505. A Man for All Markets. A Man for All Markets is het zelfportret van een
+wiskundige die zijn talent juist wel binnen de instituties tot bloei bracht.
+
+## 650. Quantum Mechanics and Experience
+
+David Z. Albert, 1992. *Quantum Mechanics and Experience* (Harvard University
+Press, 1992, 206 blz., ISBN 9780674741126; paperback 1994, ISBN
+9780674741133). Geen Nederlandse vertaling gevonden in de catalogus van
+bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd. Rubriek:
+natuur en wetenschap.
+Tags: `natuurkunde`, `quantum`, `wetenschapsfilosofie`, `meetprobleem`
+
+Inleiding in de grondslagen van de kwantummechanica door David Albert,
+natuurkundige en hoogleraar filosofie aan Columbia. Het boek bouwt de theorie
+op uit eenvoudige proefjes met elektronen die twee eigenschappen hebben, door
+Albert kleur en hardheid genoemd, en laat met niet veel meer dan optellen en
+vectoren zien wat superpositie is en waarom die begrip tart. Daarna volgt de
+kern: het meetprobleem, de vaststelling dat de theorie twee onverenigbare
+bewegingswetten bevat zonder regel die zegt wanneer welke geldt.
+
+De tweede helft weegt de uitwegen: echte instorting van de golffunctie (de
+GRW-theorie), verborgen deeltjesposities (Bohm), en interpretaties zonder
+instorting zoals veelwerelden en het eigen veel-geestenvoorstel van Albert en
+Loewer. Het boek geldt sinds verschijnen als standaardinleiding in de
+filosofie van de natuurkunde, veeleisend maar zonder voorkennis leesbaar.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Albert stelt dat het meetprobleem geen filosofische bijzaak
+is; het is een aantoonbare tegenstrijdigheid in de standaardformulering van de
+kwantummechanica. De theorie kent twee bewegingswetten: de
+Schrödingervergelijking, die toestanden glad en voorspelbaar laat evolueren,
+en het instortingspostulaat, dat bij een meting plotseling één uitkomst kiest.
+Welke wet wanneer geldt hangt af van het woord meting, en dat woord definieert
+de theorie nergens. Wie de theorie als natuurbeschrijving serieus neemt, moet
+daarom kiezen: de dynamica aanpassen zodat instorting echt gebeurt, variabelen
+toevoegen die uitkomsten vastleggen, of de betekenis van de kwantumtoestand
+herzien. Elke route heeft een prijs, en de gangbare houding onder
+natuurkundigen, rekenen en de vraag laten rusten, lost niets op.
+
+#### De gang van het boek
+
+**Superpositie**
+
+Het boek opent met gedachte-experimenten over elektronen en twee meetbare
+eigenschappen die Albert kleur en hardheid doopt, in werkelijkheid
+spinrichtingen langs twee assen. Meetkastjes sorteren elektronen op kleur of
+op hardheid, maar wie eerst op het ene en dan op het andere sorteert, ziet de
+eerste uitkomst weer volledig verstoord raken: de eigenschappen laten zich
+niet samen scherp vastleggen.
+
+Een elektron dat op weg is door zo'n opstelling verkeert in superpositie: het
+is aantoonbaar niet hard, niet zacht, niet allebei en ook niet geen van beide.
+Albert laat de lezer met tellen en vergelijken zelf vaststellen dat elke
+gewone lezing van de situatie met de meetuitkomsten botst. Dat is de ervaring
+uit de titel: de proefresultaten dwingen tot een begrip dat in de alledaagse
+taal niet past.
+
+**Het formalisme en de standaardopvatting**
+
+Daarna bouwt Albert het wiskundige apparaat op: toestanden als vectoren,
+eigenschappen als operatoren, kansen via het kwadraat van amplitudes. Meer dan
+middelbareschoolwiskunde is er niet voor nodig; het hoofdstuk is er wel een om
+met pen en papier te lezen. De standaardopvatting, teruggaand op von Neumann,
+voegt aan de Schrödingervergelijking het instortingspostulaat toe: bij meting
+springt de toestand naar één van de mogelijke uitkomsten, met de berekende
+kansen.
+
+**Niet-lokaliteit**
+
+Een afzonderlijk hoofdstuk behandelt het argument van Einstein, Podolsky en
+Rosen uit 1935 en de stelling van Bell uit 1964. Twee deeltjes in een
+verstrengelde toestand vertonen correlaties die volgens Bell door geen enkele
+theorie met alleen lokale, vooraf vastliggende eigenschappen te reproduceren
+zijn. Experimenten geven de kwantummechanica gelijk. De natuur is dus in een
+precieze zin niet-lokaal, al valt er langs die weg niets sneller dan het licht
+te seinen. Albert benadrukt dat elke serieuze interpretatie deze
+niet-lokaliteit ergens moet onderbrengen.
+
+**Het meetprobleem**
+
+De kern van het boek. Een meetapparaat bestaat zelf uit deeltjes en valt dus
+onder de Schrödingervergelijking. Die vergelijking, toegepast op apparaat plus
+elektron, levert geen enkele uitkomst maar een superpositie van het apparaat
+dat hard aanwijst en het apparaat dat zacht aanwijst; met een menselijke
+waarnemer erbij komt ook die in superpositie. Ergens moet het
+instortingspostulaat ingrijpen, maar elke grens, bij het apparaat, bij het
+oog, bij het bewustzijn, is willekeurig. De twee wetten van de theorie spreken
+elkaar tegen zodra meting zelf als natuurkundig proces wordt behandeld.
+
+**Instorting serieus nemen: GRW**
+
+Eén uitweg maakt de instorting tot echte natuurkunde. De theorie van Ghirardi,
+Rimini en Weber uit 1986 laat elke deeltjesgolffunctie spontaan en zeldzaam
+samentrekken tot een scherpe plaats; voor één deeltje vrijwel nooit, voor de
+triljoenen deeltjes van een meetnaald vrijwel meteen. Meting is dan niets
+bijzonders meer, en de theorie doet in beginsel iets afwijkends voorspellen,
+zodat zij toetsbaar verschilt van de gewone kwantummechanica. Albert bespreekt
+ook de prijs, waaronder het staartenprobleem: de samengetrokken golffunctie
+behoudt kleine uitlopers, zodat de vraag wat er dan precies bepaald is
+terugkeert.
+
+**Zonder instorting: veelwerelden en veel geesten**
+
+Een tweede route schrapt het instortingspostulaat en houdt alleen de
+Schrödingervergelijking over. Albert onderzoekt eerst de kale theorie, waarin
+superpositie nooit eindigt, en laat zien dat die vreemde, deels loze
+voorspellingen over waarnemers doet. De veelwereldeninterpretatie leest de
+blijvende superpositie als splitsing in takken die elk een uitkomst bevatten;
+Albert acht onduidelijk wat kansen daar nog betekenen en wat een tak precies
+afbakent. Zijn eigen voorstel met Barry Loewer, de veel-geestenvariant, legt
+de splitsing bij de geesten van waarnemers in plaats van bij werelden. Dat
+repareert de kansen, tegen de prijs dat het geestelijke een eigen,
+niet-fysische rol in de theorie krijgt.
+
+**Bohm en zelfmeting**
+
+De derde route is de theorie van De Broglie en Bohm: deeltjes hebben altijd
+een plaats, en de golffunctie stuurt hun beweging via een extra vergelijking.
+De theorie is deterministisch, reproduceert alle kwantumvoorspellingen en lost
+het meetprobleem op zonder instorting, tegen de prijs van openlijke
+niet-lokaliteit en een zekere asymmetrie: plaats is fundamenteel, alle andere
+grootheden zijn afgeleid. Het slothoofdstuk over zelfmeting onderzoekt wat een
+waarnemer die zichzelf meet volgens de theorie over de eigen toestand kan
+weten, met principiële grenzen als uitkomst.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| superpositie | Toestand waarin een systeem ten aanzien van een eigenschap geen van de mogelijke waarden heeft en zich toch anders gedraagt dan een mengsel van die waarden. |
+| meetprobleem | De tegenstrijdigheid dat de theorie twee bewegingswetten bevat zonder gedefinieerde regel die zegt wanneer welke geldt. |
+| instorting van de golffunctie | De postulaat-sprong waarbij een toestand bij meting overgaat in één uitkomst, met kansen volgens de amplitudes. |
+| kleur en hardheid | Alberts didactische namen voor twee spineigenschappen die zich niet samen scherp laten vastleggen. |
+| niet-lokaliteit | Het door Bell aangetoonde en experimenteel bevestigde feit dat verstrengelde deeltjes correlaties vertonen die geen lokale theorie kan leveren. |
+| GRW-theorie | Voorstel van Ghirardi, Rimini en Weber waarin golffuncties spontaan lokaliseren, zodat instorting echte natuurkunde wordt. |
+| theorie van Bohm | Deterministische theorie waarin deeltjes altijd een plaats hebben en door de golffunctie worden gestuurd. |
+| veel-geesteninterpretatie | Voorstel van Albert en Loewer waarin niet werelden maar de geesten van waarnemers zich over de meetuitkomsten verdelen. |
+| kale theorie | De kwantummechanica met alleen de Schrödingervergelijking, zonder instorting en zonder toegevoegde variabelen. |
+
+#### Waar het argument op rust
+
+Het boek voert geen eigen empirie aan en hoeft dat niet: de proefresultaten
+waarop het bouwt, van spinmetingen tot de schending van de Bell-ongelijkheden
+in de experimenten van Aspect en anderen, zijn standaardnatuurkunde. De kracht
+zit in de bewijsvoering zelf. Albert rekent de kernstappen voor met wiskunde
+die een aandachtige lezer kan controleren, en het meetprobleem zoals hij het
+formuleert wordt in het vak breed erkend als echt en onopgelost. Ook zijn
+weergave van GRW en Bohm volgt de gepubliceerde theorieën.
+
+Waar het boek van verslag naar standpunt overgaat, is dat zichtbaar: de weging
+van de interpretaties, en zeker het eigen veel-geestenvoorstel, is
+filosofische argumentatie waarover het vak verdeeld is. De interpretaties doen
+vrijwel dezelfde voorspellingen, met GRW als in beginsel toetsbare
+uitzondering, zodat experimenten hier weinig beslissen en de keuze op
+begripskosten wordt gemaakt.
+
+#### Wat er tegen in te brengen valt
+
+De receptie is verdeeld langs voorspelbare lijnen. Het veel-geestenvoorstel
+van Albert en Loewer vond vrijwel geen aanhang: het geeft het geestelijke een
+rol die de meeste vakgenoten als verkapt dualisme lezen, en latere verdedigers
+van de veelwereldeninterpretatie, zoals Wallace, menen dat decoherentie, het
+proces waarbij omgevingsinvloed superposities praktisch onzichtbaar maakt, de
+takkenstructuur levert die Albert miste. Decoherentie komt in het boek
+nauwelijks voor, wat het gedateerd maakt op precies het punt waar het latere
+debat zich afspeelde. Aanhangers van GRW moeten leven met het staartenprobleem
+en met het ontbreken van een overtuigende relativistische versie.
+
+Natuurkundigen van de Kopenhaagse lijn vinden bovendien dat Albert de
+standaardopvatting als karikatuur neerzet: in hun ogen is de theorie een
+rekenschema voor meetuitkomsten en vraagt niemand haar om een beschrijving van
+de werkelijkheid tussen metingen. Wie die instrumentele houding aanvaardt,
+voelt het meetprobleem niet als tegenstrijdigheid maar als grensafspraak. Ten
+slotte is de stijl, lange zinnen vol cursiveringen en herhalingen, een aanslag
+op het geduld; het boek is dun en toch traag te lezen.
+
+#### Wat er concreet mee te doen is
+
+- Lees de hoofdstukken op volgorde en met pen en papier; het boek is opgebouwd
+als één doorlopende redenering en laat stappen controleren in plaats van
+geloven.
+- Gebruik het meetprobleem als toetssteen bij populaire kwantumclaims: wie
+beweert dat de waarnemer de werkelijkheid schept, moet eerst uitleggen wat een
+meting is.
+- Houd bij elk interpretatiedebat de vraag paraat welke prijs er betaald
+wordt: aangepaste dynamica, extra variabelen of een herziene lezing van de
+toestand.
+- Onthoud dat niet-lokaliteit geen seinkanaal is; correlaties op afstand laten
+geen boodschappen sneller dan het licht toe.
+
+#### Wat je hierna leest
+
+- 262. A Brief History of Time. A Brief History of Time geeft het
+kosmologische panorama waar dit boek juist de begripsvragen onder legt.
+- 94. Het tijdperk van onzekerheid. Het tijdperk van onzekerheid vertelt de
+geschiedenis van de generatie die het meetprobleem schiep en erover verdeeld
+raakte.
+- 281. Reality Is Not What It Seems. Reality Is Not What It Seems laat zien
+hoe een hedendaags natuurkundige de kwantumtheorie met de zwaartekracht
+probeert te verzoenen.
+
+## 651. The Black Hole War
+
+Leonard Susskind, 2008. *The Black Hole War: My Battle with Stephen Hawking to
+Make the World Safe for Quantum Mechanics* (Little, Brown and Company, 2008,
+480 blz., ISBN 9780316016407; paperback ISBN 9780316016414). Geen Nederlandse
+vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op
+de Engelse editie gebaseerd. Rubriek: natuur en wetenschap.
+Tags: `natuurkunde`, `zwarte gaten`, `kosmologie`, `wetenschapsgeschiedenis`
+
+Verslag uit de eerste hand van een wetenschappelijke controverse die bijna
+dertig jaar duurde. In 1981 hoorde Stanford-natuurkundige Leonard Susskind
+Stephen Hawking betogen dat informatie die in een zwart gat valt bij de
+verdamping van dat gat definitief verloren gaat. Voor Susskind en Gerard 't
+Hooft ondermijnde die claim de kwantummechanica zelf, die eist dat informatie
+behouden blijft. Het boek volgt de strijd om dat beginsel, van
+gedachte-experimenten over horizonten tot de komst van complementariteit, het
+holografisch principe en de snaartheoretische onderbouwing die Hawking in 2004
+deed toegeven.
+
+Susskind schrijft als partijdige deelnemer, met anekdotes over de
+hoofdrolspelers en uitleg zonder formules. De uitkomst van de oorlog, het
+inzicht dat de informatie-inhoud van een ruimtegebied op het omhullende
+oppervlak past, geldt inmiddels als een van de leidende ideeën in de
+theoretische natuurkunde.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Susskind stelt dat Hawkings bewering uit 1976, dat een
+verdampend zwart gat de ingevallen informatie vernietigt, geen detailkwestie
+was; als zij klopte, zou de kwantummechanica in de kern falen, want die
+theorie staat of valt met het beginsel dat de huidige toestand van de wereld
+het verleden volledig vastlegt. De verdediging van dat beginsel dwong tot
+ingrijpende nieuwe ideeën: de complementariteit van zwarte gaten, die
+tegenstrijdig lijkende waarnemingen binnen en buiten de horizon beide geldig
+verklaart, en het holografisch principe, dat de informatie-inhoud van een
+ruimtegebied aan het omhullende oppervlak koppelt. Het boek betoogt dat de
+snaartheorie deze ideeën hard maakte en dat Hawkings capitulatie in 2004 de
+winst bezegelde, terwijl de vraag hoe de informatie het gat verlaat open
+bleef.
+
+#### De gang van het boek
+
+**De zolder van Werner Erhard**
+
+Het boek opent in 1981, op een besloten bijeenkomst van natuurkundigen op de
+zolder van de omstreden zelfhulpondernemer Werner Erhard in San Francisco.
+Hawking, al zwaar getekend door zijn ziekte, presenteert daar zijn stelling
+dat informatie in zwarte gaten verloren gaat. De meeste aanwezigen halen hun
+schouders op; Susskind en 't Hooft schrikken. Susskind voert de lezer
+vervolgens door de voorgeschiedenis van het begrip zwart gat, van de
+ontsnappingssnelheid van Michell en Laplace tot de horizon van Schwarzschild,
+met alledaagse beelden zoals kikkervisjes bij een waterval die pas te laat
+merkt dat terugzwemmen niet meer kan.
+
+**Entropie en straling**
+
+De aanleiding voor het conflict ligt in de jaren zeventig. Bekenstein betoogde
+in 1972 dat een zwart gat entropie heeft, evenredig met het oppervlak van de
+horizon, en Hawking berekende in 1974 dat een zwart gat door kwantumeffecten
+straalt en langzaam verdampt. Die Hawkingstraling leek volgens zijn berekening
+volstrekt willekeurig, zonder spoor van wat er ooit in viel. Daaruit trok
+Hawking de conclusie dat de informatie weg is zodra het gat verdampt is.
+Susskind legt uit waarom dat meer is dan een curiositeit: informatie is in de
+natuurkunde de boekhouding van de werkelijkheid, en entropie de maat voor
+verborgen informatie.
+
+**Waarom informatiebehoud heilig is**
+
+De kwantummechanica is omkeerbaar: uit de volledige eindtoestand van een
+proces is de begintoestand terug te rekenen. Dat heet unitariteit. Laat men
+informatie echt verdwijnen, dan lekken ook kansen weg, wordt energiebehoud
+wankel en verliest de theorie haar samenhang. Hawking aanvaardde die
+consequentie en stelde een aangepaste boekhouding voor. Voor Susskind en 't
+Hooft was dat het opgeven van de best geteste theorie uit de natuurkunde, en
+zij besloten te bewijzen dat de informatie op een of andere manier in de
+straling terugkeert.
+
+**Complementariteit**
+
+De eerste doorbraak aan Susskinds kant is de complementariteit van zwarte
+gaten, begin jaren negentig geformuleerd. Voor een waarnemer buiten het gat
+wordt alles wat invalt bij de gloeiend hete, uitgerekte horizon verschroeid en
+als straling teruggegeven; voor de invallende reiziger zelf gebeurt er bij het
+passeren van de horizon niets bijzonders. Beide beschrijvingen lijken elkaar
+uit te sluiten, maar geen enkele waarnemer kan ze allebei toetsen, dus levert
+de tegenspraak geen meetbaar conflict op. Susskind presenteert dit als les in
+de traditie van Bohr en Einstein: schijnbare paradoxen verdwijnen wanneer
+alleen telt wat een waarnemer werkelijk kan vaststellen.
+
+**Het holografisch principe**
+
+Uit de entropieformule van Bekenstein volgt iets vreemds: de maximale
+informatie-inhoud van een ruimtegebied groeit met het oppervlak van de rand,
+in Planck-eenheden, en dus niet met het volume. 't Hooft en Susskind maakten
+daar in 1993 en 1994 een principe van: de volledige natuurkunde binnen een
+gebied is te beschrijven als een theorie op de rand, zoals een hologram een
+driedimensionaal beeld in een plat vlak opslaat. Susskind besteedt veel
+bladzijden aan het invoelbaar maken van deze gedachte, die tegen elke
+ruimtelijke intuïtie ingaat en het middelpunt van het moderne onderzoek naar
+kwantumzwaartekracht werd.
+
+**Snaren, tellingen en Maldacena**
+
+De onderbouwing kwam uit de snaartheorie. Susskind laat zien hoe een invallend
+voorwerp vanuit de buitenwaarnemer gezien uitsmeert over de horizon, zoals een
+snaar die bij hoge energie steeds verder uitwaaiert. In 1996 telden Strominger
+en Vafa voor een bijzondere klasse zwarte gaten de kwantumtoestanden en vonden
+exact de entropie van Bekenstein en Hawking. In 1997 volgde de sterkste klap:
+Maldacena's correspondentie, waarin zwaartekracht in een doosvormig heelal
+wiskundig gelijkwaardig blijkt aan een gewone kwantumtheorie zonder
+zwaartekracht op de wand van de doos. In die randtheorie gaat aantoonbaar geen
+informatie verloren, dus ook niet bij de zwarte gaten binnenin.
+
+**Dublin 2004 en wat open bleef**
+
+Op een congres in Dublin in 2004 verklaarde Hawking publiekelijk dat
+informatie toch behouden blijft, en loste hij zijn weddenschap met John
+Preskill in met een honkbalencyclopedie, waaruit informatie naar believen is
+op te vissen. Susskind noteert de overwinning zonder triomfalisme over de man
+zelf, voor wie hij bewondering houdt, en sluit eerlijk af: het mechanisme
+waarmee de informatie in de straling terechtkomt was bij verschijnen niet
+begrepen, en Hawkings eigen capitulatie-argument overtuigde de veteranen van
+de oorlog maar half.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| informatieparadox | Het conflict tussen Hawkings berekening dat verdampingsstraling geen geheugen heeft en het kwantumbeginsel dat informatie behouden blijft. |
+| Hawkingstraling | De door kwantumeffecten veroorzaakte straling waardoor een zwart gat langzaam massa verliest en uiteindelijk verdampt. |
+| entropie van een zwart gat | De door Bekenstein en Hawking gevonden maat voor verborgen informatie, evenredig met het oppervlak van de horizon. |
+| horizon | De grens waarbinnen niets, ook licht niet, nog aan het zwarte gat kan ontsnappen. |
+| unitariteit | De eigenschap van de kwantummechanica dat evolutie omkeerbaar is en de eindtoestand de begintoestand volledig vastlegt. |
+| complementariteit van zwarte gaten | Het beginsel dat de buitenwaarnemer en de invallende waarnemer tegenstrijdig lijkende maar elk geldige beschrijvingen hebben. |
+| holografisch principe | De stelling dat de volledige natuurkunde in een ruimtegebied te beschrijven is als een theorie op het omhullende oppervlak. |
+| Maldacena-correspondentie | De wiskundige gelijkwaardigheid uit 1997 tussen een zwaartekrachttheorie in een gekromd binnengebied en een kwantumtheorie op de rand. |
+| Plancklengte | De kleinste betekenisvolle lengteschaal van de natuur, waarin het horizonoppervlak de entropie telt. |
+
+#### Waar het argument op rust
+
+De wetenschappelijke ruggengraat van het boek bestaat uit gepubliceerde en
+veel geciteerde resultaten: de entropieformule van Bekenstein en Hawking, de
+telling van Strominger en Vafa uit 1996 en de correspondentie van Maldacena
+uit 1997, die tot de meest aangehaalde artikelen in de theoretische
+natuurkunde behoort. Binnen die kaders is de conclusie dat informatie behouden
+blijft breed aanvaard, en Hawkings publieke koerswijziging in 2004 is
+gedocumenteerd feit. Als ooggetuigenverslag van veertig jaar vakgeschiedenis
+is het boek bovendien een bron op zichzelf.
+
+Tegelijk is de bewijsvoering indirect. De harde resultaten gelden binnen de
+snaartheorie en in modelheelallen met een handzame rand, terwijl ons eigen
+heelal daar niet aan voldoet; directe waarneming van Hawkingstraling ontbreekt
+en zal vermoedelijk lang ontbreken. Het gevecht is beslecht met wiskundige
+consistentie en gedachte-experimenten, en Susskind zegt dat zelf ook.
+
+#### Wat er tegen in te brengen valt
+
+Het boek is de versie van de winnaar. Hawkings kant krijgt weinig
+woordvoerders, de eigen rol staat vol in het licht, en collega's worden
+neergezet in anekdotes die vermakelijk maar onverifieerbaar zijn. Wie een
+afgewogen geschiedenis van de informatieparadox zoekt, leest hier een memoir
+met een scherpe agenda. Ook golft het uitlegniveau: huiskamerbeelden over
+kikkervisjes staan naast passages over verstrengeling en randtheorieën die
+zonder voorkennis nauwelijks landen.
+
+Belangrijker: de oorlog bleek minder voorbij dan de slotakkoorden suggereren.
+In 2012 heropenden Almheiri, Marolf, Polchinski en Sully het debat met het
+firewall-argument, dat aantoont dat complementariteit, gladde horizonten en
+informatiebehoud niet zomaar samengaan; het veld werkt sindsdien aan nieuwe
+verzoeningen, met verstrengeling als hoofdrolspeler. En een minderheid, onder
+wie Penrose, aanvaardt het informatiebehoud nog altijd niet omdat het bewijs
+aan de snaartheorie hangt. Hawkings eigen argument uit 2004 wordt zelden als
+de beslissende stap gezien; de paradox is van kleur veranderd, niet verdwenen.
+
+#### Wat er concreet mee te doen is
+
+- Lees het boek als casus over hoe theoretische natuurkunde beslist wanneer
+experimenten ontbreken: met consistentie-eisen, gedachte-experimenten en
+decennia geduld.
+- Gebruik de entropie-oppervlakteregel als geheugensteun voor wat het
+holografisch principe beweert: informatie-inhoud schaalt met de rand van een
+gebied.
+- Houd bij populaire stukken over zwarte gaten de vraag paraat welke waarnemer
+wordt bedoeld; sinds complementariteit is dat geen detail meer.
+- Neem de slothoofdstukken niet als eindstand; zoek voor de stand van het
+debat op het firewall-argument uit 2012 en wat erop volgde.
+
+#### Wat je hierna leest
+
+- 262. A Brief History of Time. A Brief History of Time is het boek van de
+tegenstander, met de oorspronkelijke populaire uitleg van verdampende zwarte
+gaten.
+- 281. Reality Is Not What It Seems. Reality Is Not What It Seems zoekt de
+verzoening van kwantumtheorie en zwaartekracht langs een andere weg, de
+luskwantumzwaartekracht.
+- 240. Einstein: His Life and Universe. Einstein: His Life and Universe
+portretteert de grondlegger van de relativiteitstheorie wiens
+veldvergelijkingen dit hele strijdtoneel schiepen.
+
+## 652. The Rediscovery of the Mind
+
+John R. Searle, 1992. *The Rediscovery of the Mind* (MIT Press, reeks
+Representation and Mind, 1992, 286 blz., ISBN 9780262193214; paperback ISBN
+9780262691543). Geen Nederlandse vertaling gevonden in de catalogus van
+bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd. Rubriek:
+filosofie en mystiek.
+Tags: `bewustzijn`, `filosofie`, `geest`, `kunstmatige intelligentie`
+
+Frontale aanval van de Amerikaanse filosoof John Searle, bekend van het
+Chinese Kamer-argument, op de heersende stromingen in de filosofie van de
+geest. Behaviorisme, identiteitstheorie, functionalisme en sterke kunstmatige
+intelligentie maken volgens hem steeds dezelfde fout: zij laten het bewustzijn
+weg uit een theorie over de geest. Searles alternatief heet biologisch
+naturalisme: bewustzijn is een gewoon biologisch verschijnsel, veroorzaakt
+door hersenprocessen en gerealiseerd in de hersenen, zoals spijsvertering in
+de maag, en tegelijk alleen vanuit het eerste-persoonsperspectief volledig te
+beschrijven.
+
+Het boek werkt die positie uit in stellingen die elk een eigen debat
+ontketenden: het verbindingsbeginsel over het onbewuste, de analyse van de
+Achtergrond van vaardigheden, en het argument dat het brein geen digitale
+computer is omdat syntaxis geen eigenschap van de natuur zelf is. Wie het
+hedendaagse bewustzijnsdebat wil volgen, komt dit boek overal tegen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Searle stelt dat de filosofie van de geest en de cognitieve
+wetenschap al decennia om hun eigenlijke onderwerp heen lopen: het bewustzijn.
+Materialistische theorieën definiëren de geest in termen van gedrag,
+functionele rollen of computerprogramma's en laten daarmee precies weg wat een
+geest tot geest maakt, de subjectieve ervaring. Dualisme is evenmin een
+uitweg. Zijn alternatief, biologisch naturalisme, houdt in dat bewustzijn een
+hoger-niveau-eigenschap van de hersenen is, causaal veroorzaakt door neuronale
+processen, even natuurlijk als spijsvertering of fotosynthese, en toch
+ontologisch onherleidbaar omdat het alleen als beleefd bestaat. Uit die
+positie volgen twee polemische stellingen: onbewuste toestanden verdienen die
+naam alleen als zij in beginsel bewust kunnen worden, en het brein is geen
+computer, want berekening is geen intrinsieke eigenschap van de natuur; zij
+wordt door waarnemers aan systemen toegeschreven.
+
+#### De gang van het boek
+
+**Wat er mis is met de filosofie van de geest**
+
+Searle opent met een diagnose van zeventig jaar vakgeschiedenis. Van het
+behaviorisme, dat geest gelijkstelt aan gedrag, via de identiteitstheorie, die
+geestestoestanden aan hersentoestanden gelijkstelt, tot het functionalisme,
+dat ze definieert als causale rollen, en de sterke kunstmatige intelligentie,
+die de geest als programma opvat: telkens verdwijnt het bewustzijn uit beeld.
+Hij beschrijft het patroon van dat debat als voorspelbaar: elke theorie
+strandt op tegenvoorbeelden waarin alle uiterlijke kenmerken kloppen en de
+ervaring ontbreekt, waarna een nieuwe variant hetzelfde weglaat. De
+volgehouden ontkenning van het vanzelfsprekende noemt hij alleen verklaarbaar
+uit angst voor het verwijt van dualisme.
+
+**Biologisch naturalisme**
+
+Het alternatief is naar Searles smaak nuchter. Bewustzijn wordt veroorzaakt
+door processen in de hersenen en is een eigenschap van de hersenen op een
+hoger beschrijvingsniveau, zoals vloeibaarheid een eigenschap van
+watermoleculen gezamenlijk is zonder eigenschap van één molecuul te zijn.
+Daarmee vervalt volgens hem de klassieke tegenstelling: wie causale
+verankering in de biologie aanvaardt, is geen dualist, ook al erkent hij dat
+ervaring een eigen bestaanswijze heeft. De vergissing van beide kampen is dat
+zij het vocabulaire van de zeventiende eeuw, geest tegenover materie, blijven
+hanteren.
+
+**Onherleidbaarheid en het eerste-persoonsperspectief**
+
+Waarom laat bewustzijn zich dan niet wegverklaren, zoals warmte tot
+moleculaire beweging is herleid? Searles antwoord: bij zulke reducties
+schuiven wetenschappers de verschijningsvorm terzijde om de onderliggende
+werkelijkheid over te houden. Bij bewustzijn kan dat niet, want daar is de
+verschijningsvorm de werkelijkheid; een pijn die niet gevoeld wordt, is geen
+pijn. Bewustzijn heeft een eerste-persoonsontologie: het bestaat alleen als
+ervaren door iemand. Causaal is het volledig verankerd in de hersenen,
+ontologisch valt het niet samen te vatten in beschrijvingen vanuit de derde
+persoon. Die combinatie is de kern van het boek en het meest aangevochten
+onderdeel ervan.
+
+**Het verbindingsbeginsel en het onbewuste**
+
+Het hoofdstuk over het onbewuste bevat de eerste polemische hoofdstelling. Een
+toestand kan alleen een echte geestestoestand zijn, met een gerichtheid op
+iets (intentionaliteit) en een eigen gezichtspunt daarop (aspectvorm), als zij
+in beginsel bewust kan worden. Onbewuste overtuigingen en verlangens bestaan
+dus als sluimerende capaciteiten van de hersenen. Wat principieel
+ontoegankelijk is voor bewustzijn, zoals de door taalkundigen aangenomen diepe
+grammaticaregels, is volgens Searle geen psychologie; het zijn beschrijvingen
+van neuronale machinerie waaraan ten onrechte gedachte-inhoud wordt
+toegeschreven.
+
+**De structuur van bewustzijn en de Achtergrond**
+
+In het beschrijvende deel inventariseert Searle kenmerken van het bewuste
+leven: subjectiviteit, eenheid, stemming, het onderscheid tussen centrum en
+periferie van de aandacht, vertrouwdheid, en de gestalte-achtige organisatie
+van waarneming. Daarnaast staat zijn begrip van de Achtergrond: het geheel van
+vaardigheden, gewoonten en vanzelfsprekendheden dat geen overtuiging is en
+toch elke overtuiging draagt. Wie een biertje bestelt, heeft geen expliciete
+theorie dat glazen ondoordringbaar zijn en vloeistof naar beneden valt; zonder
+dat stilzwijgende kunnen zou de bestelling niettemin betekenisloos zijn.
+
+**Is het brein een digitale computer?**
+
+De tweede polemische hoofdstelling richt zich op de cognitieve wetenschap
+zelf. Het Chinese Kamer-argument uit 1980 betoogde al dat het uitvoeren van
+een programma geen begrip oplevert: wie in een kamer Chinese tekens volgens
+regels manipuleert, spreekt nog geen Chinees, dus syntaxis is onvoldoende voor
+semantiek. Dit boek gaat een stap verder: syntaxis is niet eens een
+intrinsieke eigenschap van de natuur. Of iets een berekening uitvoert, hangt
+af van de beschrijving die een waarnemer eraan geeft; bij voldoende
+rekkelijkheid voert de muur achter het bureau ook een tekstverwerker uit. De
+vraag of het brein een computer is, is daarmee volgens Searle verkeerd
+gesteld: hersenen veroorzaken geesten door hun causale krachten, en geen
+enkele simulatie van die krachten is er de duplicatie van.
+
+In het verlengde daarvan bekritiseert hij de verklaringsstijl van de
+cognitieve wetenschap, die onbewuste regelvolging aanneemt waar volgens hem
+alleen neuronale structuur plus aangeboren en aangeleerde vermogens aan het
+werk zijn.
+
+**De juiste studie van de geest**
+
+Het slothoofdstuk schetst hoe het verder moet. De studie van de geest begint
+bij het serieus nemen van bewustzijn en intentionaliteit als biologische
+verschijnselen, en zoekt vervolgens in de neurowetenschap naar de mechanismen
+die ze voortbrengen. Searle verwacht geen kant-en-klare theorie, wel een
+herordening: minder modellenbouw rond de computer als metafoor, meer aandacht
+voor wat organismen werkelijk beleven en doen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| biologisch naturalisme | Searles positie dat bewustzijn een door hersenprocessen veroorzaakte, hoger-niveau-eigenschap van de hersenen is, natuurlijk en toch onherleidbaar. |
+| eerste-persoonsontologie | De bestaanswijze van bewustzijn: het bestaat alleen voor zover het door iemand ervaren wordt. |
+| intentionaliteit | De gerichtheid van geestestoestanden op iets, zoals een overtuiging over iets gaat en een verlangen iets betreft. |
+| alsof-intentionaliteit | Toegeschreven gerichtheid, zoals bij een thermostaat die de temperatuur wil verlagen; te onderscheiden van de intrinsieke intentionaliteit van een geest. |
+| verbindingsbeginsel | De stelling dat alleen toestanden die in beginsel bewust kunnen worden als echte geestestoestanden tellen. |
+| aspectvorm | Het eigen gezichtspunt van elke geestestoestand: wie water wil, wil daarmee nog geen H2O, ook al is het hetzelfde spul. |
+| de Achtergrond | Het geheel van niet-representationele vaardigheden en vanzelfsprekendheden dat intentionele toestanden mogelijk maakt. |
+| Chinese Kamer | Searles gedachte-experiment waarin regelgeleide symboolmanipulatie zonder begrip laat zien dat syntaxis geen semantiek oplevert. |
+| waarnemer-relatief | Eigenschappen die een systeem alleen heeft krachtens een toekenning door waarnemers; berekening is er volgens Searle één van. |
+
+#### Waar het argument op rust
+
+Het boek is wijsgerige argumentatie en presenteert geen eigen empirie. De
+kracht ligt in de gedachte-experimenten en in de beroepen op wat iedereen van
+binnenuit weet: dat pijn gevoeld wordt, dat begrip iets anders is dan symbolen
+schuiven. De Chinese Kamer is een van de meest besproken argumenten uit de
+naoorlogse filosofie, en het meetlint dat Searle langs de vakgeschiedenis
+legt, telkens dezelfde weglating van het bewustzijn, wordt ook door
+tegenstanders als scherpe diagnose erkend. Zijn stelling dat berekening
+waarnemer-relatief is, bouwt voort op een verwant argument van Putnam en
+Kripke over regelvolging.
+
+De zwakte van dit soort bewijs is even duidelijk: beroepen op
+vanzelfsprekendheid overtuigen alleen wie de vanzelfsprekendheid deelt. Searle
+geeft geen criterium voor welke fysische systemen wel bewustzijn kunnen
+veroorzaken en welke niet, en verwijst daarvoor naar toekomstige
+neurowetenschap. Het boek bewijst dus vooral dat de gangbare theorieën iets
+missen; wat de eigen theorie precies verklaart, blijft dun.
+
+#### Wat er tegen in te brengen valt
+
+De hoofdaanval op Searle luidt dat zijn positie niet stabiel is. Bewustzijn is
+volgens hem causaal volledig verankerd in de hersenen en toch ontologisch
+onherleidbaar; critici als Dennett en Chalmers lezen daar een verkapt
+eigenschapsdualisme in, dat alle problemen van het dualisme erft zonder de
+naam te dragen. De vinnige openbare polemiek tussen Searle en Dennett,
+uitgevochten in *The New York Review of Books* in 1995, draaide precies
+hierom: volgens Dennett verklaart Searle tot vanzelfsprekendheid wat juist
+verklaard moet worden. Functionalisten voegen toe dat Searle nergens zegt
+welke causale krachten van hersenweefsel het werk doen, zodat zijn biologisch
+naturalisme neerkomt op koolstofchauvinisme zonder argument.
+
+Ook de afzonderlijke stellingen kregen tegenvuur. Het verbindingsbeginsel zou,
+consequent toegepast, succesvolle wetenschap schrappen: de taalkunde van
+Chomsky en de visuele verwerkingsmodellen van Marr leunen op principieel
+onbewuste regels en voorspellen er goed mee. En tegen het waarnemer-relatieve
+karakter van berekening is ingebracht dat er wel degelijk objectieve
+maatstaven bestaan om te bepalen of een systeem een berekening implementeert,
+zodat de muur-met-tekstverwerker een karikatuur is. Het boek is ten slotte
+polemisch tot op het onbillijke af; tegenstanders krijgen zelden de sterkste
+versie van hun eigen positie voorgelegd.
+
+#### Wat er concreet mee te doen is
+
+- Onderscheid bij elke claim over denkende machines intrinsieke
+intentionaliteit van toegeschreven intentionaliteit; veel AI-taal ontleent
+haar overtuigingskracht aan het stilzwijgend verwisselen van die twee.
+- Gebruik het verschil tussen simulatie en duplicatie als toets: een
+gesimuleerde storm maakt niemand nat, dus vraag bij een gesimuleerde geest wat
+er gedupliceerd is.
+- Houd in discussies over het onbewuste het verbindingsbeginsel bij de hand
+als scherpe, betwistbare stelling: wat nooit bewust kan worden, is dat dan nog
+psychologie?
+- Lees de inventaris van bewustzijnskenmerken als checklist voor wat een
+bewustzijnstheorie minimaal moet verklaren.
+
+#### Wat je hierna leest
+
+- 339. Behave. Behave beschrijft de neurobiologie van gedrag waarin Searles
+beloofde wetenschap van de hersenen gestalte krijgt.
+- 383. If Nietzsche Were a Narwhal. If Nietzsche Were a Narwhal stelt de vraag
+naar bewustzijn en intelligentie bij dieren, waar Searles biologische
+benadering direct raakt.
+- 539. The Human Use of Human Beings. The Human Use of Human Beings is het
+klassieke pleidooi uit de cybernetica voor de machinevergelijking die Searle
+hier bestrijdt.
+
+## 653. Speakable and Unspeakable in Quantum Mechanics
+
+J.S. Bell, 1987. *Speakable and Unspeakable in Quantum Mechanics: Collected
+Papers on Quantum Philosophy* (Cambridge University Press, 1987, 224 blz.,
+ISBN 9780521334952; paperback ISBN 9780521368698; tweede, uitgebreide editie
+2004 met inleiding van Alain Aspect, ISBN 9780521523387). Geen Nederlandse
+vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op
+de Engelse editie gebaseerd. Rubriek: natuur en wetenschap.
+Tags: `natuurkunde`, `quantum`, `wetenschapsfilosofie`, `meetprobleem`
+
+Verzamelde opstellen van de Noord-Ierse natuurkundige John Stewart Bell
+(1928-1990), die naast zijn dagwerk als deeltjesfysicus bij CERN de
+grondslagen van de kwantummechanica onderzocht. De bundel bevat de artikelen
+waarmee hij het vak veranderde: de ontmaskering van von Neumanns bewijs tegen
+verborgen variabelen, en de stelling van Bell uit 1964, die aantoont dat geen
+enkele lokale theorie de voorspelde correlaties tussen verstrengelde deeltjes
+kan reproduceren. Experimenten, met als sluitstuk het werk dat in 2022 de
+Nobelprijs kreeg, gaven de kwantummechanica gelijk.
+
+Daarnaast bevat de bundel Bells heldere pleidooien tegen de vaagheid van het
+woord meting in de grondslagen van de theorie, zijn welwillende behandeling
+van de pilotgolftheorie van De Broglie en Bohm en van het instortingsvoorstel
+van Ghirardi, Rimini en Weber, en het essay over zes mogelijke
+kwantumwerelden. Technisch op sommige plaatsen, maar de programmatische
+stukken zijn voor een geduldige lezer zonder vakopleiding te volgen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Bell stelt dat de kwantummechanica voor alle praktische
+doeleinden voortreffelijk werkt en als natuurbeschrijving toch onaf is, omdat
+haar grondbegrippen, meting, waarnemer, systeem, nergens gedefinieerd zijn en
+een fundamentele theorie niet mag rusten op zulk drijfzand. Een goede theorie
+gaat over beables, dingen die er zijn, en niet louter over observables, dingen
+die gemeten worden. Daarnaast staat zijn wiskundige hoofdresultaat: elke
+theorie waarin de uitkomsten hier niet afhangen van wat daar, buiten bereik
+van het licht, gebeurt, voldoet aan een ongelijkheid die de kwantummechanica
+aantoonbaar schendt. De natuur zelf blijkt bij toetsing de
+kwantumvoorspellingen te volgen, zodat lokale causaliteit als beginsel
+sneuvelt. Dat resultaat kwam voort uit een minderheidstraditie, van Einstein
+via De Broglie en Bohm, die Bell tegen de heersende Kopenhaagse
+zelfgenoegzaamheid in eerherstel gaf.
+
+#### De gang van het boek
+
+**Een bundel avondwerk**
+
+Het boek bundelt tweeëntwintig stukken uit de jaren 1964 tot 1987, geschreven
+naast Bells reguliere werk als versneller- en deeltjesfysicus bij CERN in
+Genève. De toon wisselt per stuk: sommige zijn technische artikelen, andere
+voordrachten voor gemengd publiek, met de droge humor die Bells handelsmerk
+werd. Samen documenteren ze hoe een respectabel geacht randonderwerp, de
+grondslagen van de kwantummechanica, mede door deze stukken weer een levend
+onderzoeksveld werd.
+
+**Von Neumann onderuit**
+
+Het openingswerk, geschreven in 1964 maar pas in 1966 gepubliceerd, rekent af
+met een dogma. Von Neumann had in 1932 bewezen dat verborgen variabelen,
+onderliggende grootheden die de kwantumkansen zouden verklaren, onmogelijk
+zijn, en generaties namen dat op gezag aan. Bell laat zien dat het bewijs op
+een onredelijke aanname rust en dus weinig uitsluit. Wat wel overeind blijft,
+ontleent hij aan de stellingen van Gleason en van Kochen en Specker: verborgen
+variabelen kunnen alleen als de uitkomst van een meting mag afhangen van welke
+andere grootheden tegelijk gemeten worden. Die eigenschap heet
+contextualiteit, en Bell vond haar geen bezwaar: het resultaat van een ingreep
+hangt nu eenmaal af van de hele opstelling.
+
+**De stelling van Bell**
+
+Het beroemdste artikel, uit 1964, vertrekt bij de paradox van Einstein,
+Podolsky en Rosen: twee deeltjes uit één bron vertonen op afstand volmaakte
+correlaties, en Einstein concludeerde dat de uitkomsten dan vooraf moeten
+vastliggen in lokale eigenschappen. Bell rekent uit wat elke theorie van dat
+type voorspelt voor metingen onder gedraaide hoeken en vindt een grens, de
+ongelijkheid van Bell, waar de kwantummechanica overheen gaat. De conclusie is
+verstrekkend: de keuze is tussen de kwantumvoorspellingen en lokale
+causaliteit; beide behouden kan niet. Latere stukken in de bundel scherpen de
+aannames aan en weerleggen het misverstand dat alleen determinisme zou
+sneuvelen.
+
+**Tegen het woord meting**
+
+Een tweede lijn door de bundel is Bells kruistocht tegen de vaagheid van de
+orthodoxe theorie. Woorden als meting, apparaat en waarnemer horen volgens hem
+niet in de axioma's van een natuurtheorie thuis: een apparaat bestaat uit
+atomen en kan geen fundamenteel begrip zijn. Hij munt de spottende afkorting
+FAPP, for all practical purposes: de gangbare verdedigingen van de theorie
+werken voor alle praktische doeleinden en juist daarom verhullen ze dat de
+principiële vraag onbeantwoord blijft. In plaats van observables wil hij
+theorieën over beables, zijnden, met een heldere uitspraak over wat er volgens
+de theorie werkelijk is.
+
+**Bohm en de kwantumsprongen**
+
+Meerdere stukken behandelen de pilotgolftheorie van De Broglie en Bohm, waarin
+deeltjes altijd een plaats hebben en door de golffunctie worden geleid. Bell
+noemde het een schandaal dat deze theorie, die in 1952 liet zien dat het
+volgens hem onmogelijk geachte gewoon bestond, in de leerboeken werd
+doodgezwegen; zijn eigen stelling ontstond uit de vraag of de niet-lokaliteit
+van Bohms theorie te vermijden was. Het antwoord bleek nee. Daarnaast
+bespreekt hij in het slotstuk van de eerste editie het voorstel van Ghirardi,
+Rimini en Weber, waarin golffuncties spontaan instorten, als eerlijke poging
+om de theorie zonder waarnemers af te maken: er zijn dan werkelijk
+kwantumsprongen, en de theorie doet toetsbaar andere voorspellingen.
+
+**Zes mogelijke werelden**
+
+In het essay over zes mogelijke werelden van de kwantummechanica zet Bell de
+opvattingen naast elkaar: drie romantische, waaronder de
+veelwereldeninterpretatie en de gedachte dat bewustzijn de instorting
+veroorzaakt, en drie prozaïsche, waaronder het pragmatische zwijgen, de
+pilotgolf en de echte instorting. Zijn voorkeur gaat naar de prozaïsche kant;
+de veelwereldenleer vond hij extravagant. Het stuk toont de schrijver op zijn
+best: eerlijk over de kosten van elke keuze, ook die van zijn eigen
+sympathieën, en scherp op het punt dat er hoe dan ook gekozen moet worden.
+
+**Toetsing en nasleep**
+
+Bells ongelijkheid verplaatste een wijsgerig geschil naar het laboratorium.
+Freedman en Clauser vonden in 1972 de eerste schending, Aspect en zijn groep
+sloten in 1982 met snel schakelende metingen een belangrijk achterpoortje, en
+in 2015 volgden experimenten in Delft, Wenen en Boulder die de resterende
+mazen tegelijk dichtten. In 2022 kregen Clauser, Aspect en Zeilinger er de
+Nobelprijs voor; het comité noemde Bells werk als grondslag. Bell zelf
+overleed in 1990. De tweede editie van de bundel voegt onder meer het late
+strijdschrift tegen het woord meting en een inleiding van Aspect toe.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| stelling van Bell | Het bewijs dat geen enkele lokale theorie alle kwantumcorrelaties tussen verstrengelde deeltjes kan reproduceren. |
+| Bell-ongelijkheid | De rekengrens waaraan lokale theorieën moeten voldoen en die de kwantummechanica in experimenten aantoonbaar schendt. |
+| lokale causaliteit | Het beginsel dat gebeurtenissen alleen beïnvloed worden door wat zich in hun eigen lichtkegel, dus binnen bereik van het licht, bevindt. |
+| verborgen variabelen | Aangenomen onderliggende grootheden die de kwantumkansen zouden verklaren zoals klassieke onwetendheid gewone kansen verklaart. |
+| beable | Bells kunstwoord voor wat er volgens een theorie werkelijk is, tegenover de observable die alleen over meetuitkomsten gaat. |
+| contextualiteit | De eigenschap dat de uitkomst van een meting mag afhangen van welke andere grootheden in dezelfde opstelling gemeten worden. |
+| FAPP | Bells spotafkorting voor for all practical purposes: verdedigingen van de theorie die praktisch volstaan en principieel niets oplossen. |
+| pilotgolftheorie | De theorie van De Broglie en Bohm waarin deeltjes altijd een positie hebben en door de golffunctie worden geleid. |
+| verstrengeling | De kwantumtoestand van meerdere deeltjes samen die zich niet laat ontleden in afzonderlijke toestanden per deeltje. |
+
+#### Waar het argument op rust
+
+Weinig boeken in dit genre staan er qua onderbouwing zo goed voor. De kern is
+een wiskundige stelling waarvan de afleiding in de bundel zelf staat en die
+iedereen met wat algebra kan narekenen. De voorspelde schending van de
+ongelijkheid is vervolgens gemeten, telkens opnieuw en met steeds strengere
+uitsluiting van achterpoortjes, tot en met de maasvrije experimenten van 2015.
+De Nobelprijs van 2022 voor Clauser, Aspect en Zeilinger bevestigde de status
+van dit onderzoeksprogramma. Ook Bells vernietigende analyse van von Neumanns
+bewijs geldt sinds lang als juist.
+
+Onderscheid wel wat vaststaat en wat standpunt is. Vast staat de stelling plus
+de experimentele uitkomst; wat daaruit volgt voor het wereldbeeld hangt af van
+aannames die in de stukken zelf zorgvuldig benoemd worden. Wie bereid is de
+vrije keuze van meetinstellingen op te geven, superdeterminisme, of uitkomsten
+niet als enkelvoudige feiten te lezen, zoals de veelwereldeninterpretatie
+doet, ontloopt de conclusie dat lokaliteit sneuvelt. Bell achtte die
+ontsnappingen te duur, maar bewees hun onmogelijkheid niet.
+
+#### Wat er tegen in te brengen valt
+
+Als boek heeft de bundel de gebreken van het genre: overlap tussen stukken die
+hetzelfde punt voor verschillende gehoren maken, wisselend technisch niveau,
+en geen doorlopende lijn; wie geen natuurkunde heeft gestudeerd, moet de
+rekenstukken overslaan en houdt dan ongeveer de helft over. Een systematische
+inleiding in het veld is het uitdrukkelijk niet.
+
+Inhoudelijk ligt de strijd niet bij de stelling maar bij de duiding.
+Kopenhaags gezinde natuurkundigen vinden dat Bell een karikatuur bestrijdt: de
+theorie pretendeert in hun lezing geen beschrijving van een
+waarnemersonafhankelijke werkelijkheid, en dan is het ontbreken van beables
+geen gebrek. Anderen betogen dat de experimenten eerder het realisme van de
+aannames treffen dan de lokaliteit. Bells eigen sympathieën, pilotgolf en
+spontane instorting, zijn binnen het vak minderheidsposities gebleven, mede
+omdat beide moeizaam met de relativiteitstheorie samengaan, iets wat Bell zelf
+ruiterlijk erkende. Zijn hoop op een diepere, wel weer scherp geformuleerde
+theorie is tot nu toe niet ingelost.
+
+#### Wat er concreet mee te doen is
+
+- Begin bij de toegankelijke essays, waaronder het stuk over de zes mogelijke
+werelden en de socks-lezing over Bertlmanns sokken, en laat de technische
+afleidingen desnoods liggen.
+- Gebruik het onderscheid tussen beables en observables als vraag aan elke
+natuurkundige theorie of duiding: wat is er volgens dit verhaal werkelijk?
+- Onthoud bij berichten over verstrengeling dat de correlaties geen seinkanaal
+vormen; wie er telepathie of sneller-dan-licht-communicatie aan ophangt, heeft
+de stelling niet begrepen.
+- Herken FAPP-argumenten, ook buiten de natuurkunde: een oplossing die voor
+alle praktische doeleinden werkt, kan de principiële vraag intact laten.
+
+#### Wat je hierna leest
+
+- 262. A Brief History of Time. A Brief History of Time toont de
+kwantummechanica en de zwaartekracht in samenhang, zonder de grondslagenvragen
+die hier centraal staan.
+- 94. Het tijdperk van onzekerheid. Het tijdperk van onzekerheid vertelt de
+menselijke geschiedenis van Bohr, Einstein en Heisenberg, de generatie waar
+Bell zich toe verhield.
+- 281. Reality Is Not What It Seems. Reality Is Not What It Seems bouwt verder
+op de vraag wat er werkelijk is als golffuncties en velden de beschrijving
+overnemen.
+
 ## 659. The Equation That Couldn't Be Solved
 
 Mario Livio, 2005. *The Equation That Couldn't Be Solved: How Mathematical
@@ -122855,44 +124738,45 @@ Alfabetisch, met de nummers van de titels die de tag dragen.
 535 · `afrika` 589, 591, 593, 594, 595, 596, 597, 599, 600, 602 · `afrikaanse
 diaspora` 601 · `afrocentrisme` 588, 589, 591, 592, 593, 595, 597 · `afscheid
 nemen` 285 · `afschrikking` 217 · `afvallen` 557 · `afwezige-vader` 4 ·
-`agenda` 512 · `agressie` 223, 339 · `alcohol` 4 · `algoritmen` 476, 477, 479
-· `alledaags` 89 · `allegorie` 222, 524 · `allocatie` 507 · `amazon` 257 ·
-`ambacht` 6, 12, 13, 17, 18 · `ambitie` 75 · `amerika` 600 · `Amerika` 114,
-431 · `amerikaans` 117, 118, 120, 132, 133, 134, 136, 158 · `amerikaanse
-droom` 284 · `amerikaanse geschiedenis` 621 · `Amerikaanse geschiedenis` 402 ·
-`amerikaanse revolutie` 243 · `Amsterdam` 295 · `anarchisme` 616, 620, 621,
-624, 625, 626 · `anarchokapitalisme` 627, 629 · `anatomie` 241, 412 ·
-`Andalusië` 8 · `Andes` 521 · `angst` 53, 58, 107, 119, 131, 136, 140, 181,
-214, 252, 341, 401, 440, 548 · `angst voor de dood` 377 · `animatie` 41 ·
-`Antarctica` 36 · `anthologie` 189 · `antieke filosofie` 586 · `antropologie`
-223, 410, 602 · `antwerpen` 113 · `apartheid` 26, 523 · `Apple` 46, 231 ·
-`apps` 294 · `arbeid` 6, 173, 297, 390 · `arbeidsethos` 266 · `archeologie`
-600 · `archetype` 360 · `archetypen` 357, 404, 407, 409, 410 · `Argentinië`
-521 · `argumentatie` 421, 437, 511 · `argumenten` 63 · `argumenteren` 438 ·
-`Aristoteles` 438 · `armoede` 26, 234, 254 · `Arthashastra` 370 ·
-`assertiviteit` 162 · `asymmetrie` 282 · `atletiek` 31 · `atomisme` 281 ·
-`Auschwitz` 48 · `Australië` 447 · `autobiografie` 358, 440 · `automatisering`
-297, 539 · `autonomie` 6, 50 · `autoriteit` 215 · `autotelie` 200 ·
-`backtesten` 482, 502 · `banken en verzekeraars` 497 · `barok` 216 ·
-`basisbehoeften` 107 · `bbc` 82 · `bedrijfsbestuur` 567 · `bedrijfscultuur`
-170, 257, 270 · `bedrijfsgroei` 350 · `bedrijfsleven` 209, 293 ·
-`bedrijfsonderzoek` 353 · `bedrijfssystemen` 264 · `beeldcultuur` 563 ·
-`beeldverhaal` 561 · `beginners` 112 · `behoeften` 35 · `beinvloeding` 123,
-126 · `beïnvloeding` 399 · `bekentenis` 60 · `belangenverstrengeling` 138 ·
-`beleggen` 21, 64, 144, 233, 277, 351, 474, 476, 477, 478, 479, 480, 481, 482,
-483, 484, 485, 486, 489, 490, 492, 496, 498, 499, 500, 501, 502, 503, 504, 505
-· `beleid` 65 · `beloningssysteem` 418 · `bemiddeling` 35 · `beroemdheden` 128
-· `beroemdheid` 563 · `beschadigd-bestand` 115, 130 · `beschaving` 57, 593 ·
-`beslissen` 55 · `beslissingen` 197 · `besluiten` 47, 59, 69, 137 ·
-`besluitvorming` 151, 166, 170, 174, 209, 270, 282, 283, 293, 299, 364, 396,
-423, 424, 426, 450, 451, 468, 475, 510 · `bestseller` 8, 37, 250 · `betekenis`
-143 · `bethel` 559 · `betrokkenheid` 472 · `beurs` 80, 488 · `beurshandel` 487
-· `beursrendement` 353 · `beweging` 77, 84 · `bewijs` 63, 660 ·
-`bewustwording` 103 · `bewustzijn` 148, 169, 200, 275, 340, 377, 518, 580, 585
-· `bewustzijnsniveaus` 449 · `bezit` 37 · `bhagavad gita` 569 · `bias` 209 ·
+`agenda` 512 · `agressie` 223, 339 · `alchemie` 631, 633 · `alcohol` 4 ·
+`algoritmen` 476, 477, 479 · `alledaags` 89 · `allegorie` 222, 524, 631 ·
+`allocatie` 507 · `amazon` 257 · `ambacht` 6, 12, 13, 17, 18 · `ambitie` 75 ·
+`amerika` 600 · `Amerika` 114, 431 · `amerikaans` 117, 118, 120, 132, 133,
+134, 136, 158 · `amerikaanse droom` 284 · `amerikaanse geschiedenis` 621 ·
+`Amerikaanse geschiedenis` 402 · `amerikaanse revolutie` 243 · `Amsterdam` 295
+· `anarchisme` 616, 620, 621, 624, 625, 626 · `anarchokapitalisme` 627, 629 ·
+`anatomie` 241, 412 · `Andalusië` 8 · `Andes` 521 · `angst` 53, 58, 107, 119,
+131, 136, 140, 181, 214, 252, 341, 401, 440, 548 · `angst voor de dood` 377 ·
+`animatie` 41 · `Antarctica` 36 · `anthologie` 189 · `antieke filosofie` 586 ·
+`antropologie` 223, 410, 602 · `antwerpen` 113 · `apartheid` 26, 523 · `Apple`
+46, 231 · `apps` 294 · `arbeid` 6, 173, 297, 390 · `arbeidsethos` 266 ·
+`archeologie` 600 · `archetype` 360 · `archetypen` 357, 404, 407, 409, 410 ·
+`Argentinië` 521 · `argumentatie` 421, 437, 511 · `argumenten` 63 ·
+`argumenteren` 438 · `Aristoteles` 438 · `armoede` 26, 234, 254 ·
+`Arthashastra` 370 · `assertiviteit` 162 · `astrologie` 632 · `asymmetrie` 282
+· `atletiek` 31 · `atomisme` 281 · `Auschwitz` 48 · `Australië` 447 ·
+`autobiografie` 358, 440 · `automatisering` 297, 539 · `autonomie` 6, 50 ·
+`autoriteit` 215 · `autotelie` 200 · `backtesten` 482, 502 · `banken en
+verzekeraars` 497 · `barok` 216 · `basisbehoeften` 107 · `bbc` 82 ·
+`bedrijfsbestuur` 567 · `bedrijfscultuur` 170, 257, 270 · `bedrijfsgroei` 350
+· `bedrijfsleven` 209, 293 · `bedrijfsonderzoek` 353 · `bedrijfssystemen` 264
+· `beeldcultuur` 563 · `beeldverhaal` 561 · `beginners` 112 · `behoeften` 35 ·
+`beinvloeding` 123, 126 · `beïnvloeding` 399 · `bekentenis` 60 ·
+`belangenverstrengeling` 138 · `beleggen` 21, 64, 144, 233, 277, 351, 474,
+476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 492, 496,
+498, 499, 500, 501, 502, 503, 504, 505 · `beleid` 65 · `beloningssysteem` 418
+· `bemiddeling` 35 · `beroemdheden` 128 · `beroemdheid` 563 ·
+`beschadigd-bestand` 115, 130 · `beschaving` 57, 593 · `beslissen` 55 ·
+`beslissingen` 197 · `besluiten` 47, 59, 69, 137 · `besluitvorming` 151, 166,
+170, 174, 209, 270, 282, 283, 293, 299, 364, 396, 423, 424, 426, 450, 451,
+468, 475, 510 · `bestseller` 8, 37, 250 · `betekenis` 143 · `bethel` 559 ·
+`betrokkenheid` 472 · `beurs` 80, 488 · `beurshandel` 487 · `beursrendement`
+353 · `beweging` 77, 84 · `bewijs` 63, 660 · `bewustwording` 103 ·
+`bewustzijn` 148, 169, 200, 275, 340, 377, 518, 580, 585, 652 ·
+`bewustzijnsniveaus` 449 · `bezit` 37 · `bhagavad gita` 569 · `bias` 209 ·
 `bijeenkomsten` 304 · `bijgeloof` 63 · `bijna-doodervaring` 585 · `biografie`
 31, 46, 189, 231, 240, 241, 243, 247, 266, 267, 269, 320, 328, 402, 454, 514,
-537, 558, 659 · `biohacking` 316 · `biologie` 66, 88, 89, 90, 91, 322 ·
+537, 558, 649, 659 · `biohacking` 316 · `biologie` 66, 88, 89, 90, 91, 322 ·
 `biologie van gedrag` 273 · `biologische klok` 326, 329, 552 ·
 `biotechnologie` 236, 413 · `blackjack` 505 · `bloedvaten` 86 · `bloedwaarden`
 313 · `blokkade` 14 · `boeddhisme` 111, 287, 333, 341, 401, 528 ·
@@ -122958,87 +124842,88 @@ zelf` 409 · `ego-depletie` 382 · `egypte` 591, 594, 595, 596, 597, 599, 602 ·
 `energie` 92, 195, 291, 377 · `energiewerk` 432 · `entropie` 539 ·
 `epigenetica` 208, 415 · `epos` 5, 530, 531, 532 · `erfelijkheid` 419 ·
 `erfenis` 39 · `erkenningszucht` 406 · `erotiek` 113, 164 · `esoterie` 378,
-590, 603, 605, 606, 613 · `essay` 3, 9, 21, 57, 59, 63, 64, 68, 96, 197, 232 ·
-`essaybundel` 390, 425, 620 · `essays` 523 · `eten` 103 · `ethiek` 282, 299,
-413, 574, 612 · `evangelisatie` 201 · `evolutie` 56, 66, 89, 90, 91, 239, 318,
-322, 323, 332, 339, 347, 383, 518, 609 · `evolutiebiologie` 452, 453 ·
-`evolutionaire-psychologie` 67 · `excellentie` 553 · `executives` 344 ·
-`existentialisme` 405 · `expeditie` 36 · `experiment` 79, 215 · `experimenten`
-280, 424 · `experimenteren` 265 · `expertise` 283, 320, 376 · `extraversie`
-361 · `fabel` 8, 42, 135, 167, 252 · `facilitatie` 304 · `falen` 23, 72, 75,
-312, 422 · `familie` 45, 325, 466 · `familieconflict` 178 ·
-`familiegeschiedenis` 114, 235 · `familieroman` 10 · `fantasy` 192, 203 ·
-`FBI` 154, 271 · `FBI-onderzoek` 431 · `federalisme` 619 · `feedback` 41, 296,
-541, 542 · `feiten` 43 · `feminisme` 3, 620, 624 · `fenomenologie` 574, 577,
-582 · `fictie` 100, 115 · `film` 41 · `filosofie` 1, 6, 71, 93, 199, 211, 216,
-224, 247, 255, 263, 292, 299, 383, 390, 391, 392, 393, 421, 436, 442, 521,
-588, 592, 594, 597, 604, 610 · `filosofiegeschiedenis` 269 · `filosofische
-antropologie` 584 · `financiële geletterdheid` 163 · `financiële markten` 268,
-351, 480, 481, 483, 499, 501 · `financiële onafhankelijkheid` 264 ·
-`financiele vrijheid` 277 · `financiële wiskunde` 497, 507 ·
-`financiële-discipline` 464 · `financiën` 334, 395, 425 · `financiering` 172 ·
-`fitnessbranche` 307, 544 · `flitshandel` 499 · `flow` 78, 187, 200 · `focus`
-175, 197, 448, 513 · `folklore` 615 · `fotoboek` 189 · `foutcultuur` 422 ·
-`fouten maken` 509 · `franchise` 544 · `frankrijk` 115 · `Franse-Weerstand`
-390 · `freelance` 515 · `Fulani` 522 · `fysieke uitdaging` 323 · `fysiologie`
-318, 412, 458 · `Galenus` 328 · `gaslighting` 123 · `gastheerschap` 304 ·
-`gastvrijheid` 531 · `gebed` 83, 259, 573 · `gebruikersgedrag` 294 ·
-`gedachten` 148, 177 · `gedachtenjournal` 176 · `gedrag` 21, 22, 89, 90, 138,
-154, 280, 330, 383, 425 · `gedragsbiologie` 322, 339 · `gedragseconomie` 424,
-426, 514 · `gedragsonderzoek` 302, 382 · `gedragspatronen` 161 ·
-`gedragspsychologie` 294 · `gedragstypen` 156 · `gedragsverandering` 238, 290,
-457, 469 · `gedragswetenschap` 166, 209, 305, 468, 469, 510 · `geduld` 21, 351
-· `geest` 584 · `geestelijke gezondheid` 193 · `geestelijke oefeningen` 586 ·
-`gegevensanalyse` 486 · `gehechtheid` 166 · `geheim genootschap` 202 ·
-`geheugen` 66, 85, 175, 414 · `gehoorzaamheid` 215, 617 · `geïllustreerd boek`
-176 · `geld` 21, 37, 38, 56, 76, 121, 132, 133, 158, 159, 433, 463, 464 ·
-`geldmanagement` 492, 493 · `geldmindset` 395 · `geldpsychologie` 233, 264 ·
-`geloof` 45, 83, 201, 554 · `geluk` 79, 93, 160, 228, 335, 516, 526, 579 ·
-`gemeenschap` 9, 96, 304, 461 · `genealogie` 601 · `geneeskunde` 49, 328 ·
-`generaties` 114 · `generatieve drift` 315 · `genetica` 413, 419 · `genezing`
-340 · `genot en pijn` 314 · `gentechnologie` 413 · `geologie` 239 ·
-`geopolitiek` 220 · `geschiedenis` 30, 36, 56, 57, 68, 93, 94, 212, 218, 250,
-258, 298, 328, 381, 425, 440, 588, 589, 591, 593, 595, 597, 598, 600, 619 ·
-`geschiedenis van de geneeskunde` 412 · `geschiedfilosofie` 235 ·
-`geschiedschrijving` 601, 602 · `gesprek` 43, 95, 302, 444 ·
-`gesprekstechniek` 182, 186, 438 · `gevangenendilemma` 453 · `gevolgen` 67 ·
-`gewaarzijn` 519 · `geweld` 45, 90, 214 · `geweldloosheid` 612 · `gewicht` 138
-· `gewoontelus` 238 · `gewoonten` 187, 373 · `gewoontes` 7, 11, 13, 22, 25,
-58, 70, 76, 77, 79, 88, 97, 103, 133, 134, 135, 138, 147, 157, 158, 181, 207,
-208, 224, 230, 290, 334, 382, 439, 442, 445, 513, 557 · `gewoontevorming` 146,
-161, 168, 188, 244, 291, 294, 396, 397, 411, 540 · `gezag` 62 · `gezin` 547 ·
-`gezinnen` 327 · `gezondheid` 52, 88, 171, 181, 318, 323, 329, 332, 412, 414,
-415 · `gezondheidspsychologie` 458 · `gezondheidszorg` 313, 317, 422 · `ggz`
-104 · `giftige relaties` 429 · `gijzelingsonderhandelaar` 271 · `gnostiek` 614
-· `godin` 611 · `godsdienstkritiek` 341 · `godsdienstwetenschap` 578, 608 ·
-`goeroe` 242 · `Google` 512 · `Graallegende` 408 · `grandiositeit` 404 ·
-`gratie` 374 · `grenswetenschap` 615 · `grenzen` 72, 105, 109, 120, 122, 187,
-466 · `grenzen stellen` 151, 204, 406, 429 · `Griekenland` 537 · `Griekse
-literatuur` 536 · `griekse mythologie` 261 · `Griekse oudheid` 530, 531 ·
-`groei` 222 · `groeiaandelen` 474 · `groeimentaliteit` 116 · `groepsdenken`
-339 · `groepsgedrag` 303 · `grondstoffen` 92 · `grondwet` 616, 619 ·
-`groot-verhaal` 56 · `grootouders` 91 · `handboek` 493, 495 · `handel` 80, 251
-· `handelen` 30, 476, 477, 478, 479, 501 · `handelspsychologie` 488, 489 ·
-`handelssysteem` 489, 491 · `handelssystemen` 484, 486, 500, 502 ·
-`handleiding` 112 · `hart` 86, 128 · `Harvard` 457 · `Hay House` 380 ·
-`hechting` 145, 152, 317, 386 · `hedendaags India` 202 · `hedgefondsen` 505 ·
-`heelal` 99, 262 · `heldendom` 532 · `heldenreis` 410 · `helderheid` 82, 436 ·
-`herhaling` 125, 134 · `herkomst` 127 · `hermetische filosofie` 378 ·
-`hermetisme` 613 · `heroverwegen` 28 · `hersenen` 51, 84, 85, 86, 327 ·
-`hersenonderzoek` 330, 333 · `hersenspoeling` 384 · `herstel` 87, 552, 583 ·
-`het gesprek` 416 · `Himalaya` 191 · `hindoeïsme` 169, 199, 527, 569 ·
-`Hindoeïstische mythologie` 192, 202 · `hindoemythologie` 203 · `Hinge` 166 ·
-`hiphop` 440 · `historische portretten` 248 · `historische roman` 529 ·
-`hofcultuur` 216 · `hollywood` 555 · `Hollywood` 178 · `Holocaust` 48 ·
-`holografie` 340 · `homoseksualiteit` 325 · `hoop` 255, 319 · `hormonen` 80,
-339 · `hospice` 416 · `houding` 117 · `huisvesting` 65 · `humanisme` 236 ·
-`humor` 16, 19, 26, 105, 227, 561 · `husserl` 577 · `huwelijk` 9, 34, 165 ·
-`Huxley` 54 · `hybride werken` 512 · `hyperrealiteit` 565 · `hypnose` 123,
-124, 125 · `Idaho` 45 · `ideeën` 206 · `ideeëngeschiedenis` 269 · `identiteit`
-22, 115, 192, 261, 374, 375, 467, 559 · `identiteitskapitaal` 51 · `ideologie`
-628 · `ierland` 110 · `IJsland` 185, 533 · `ik-vorm` 113 · `illustraties` 109,
-327 · `imitatie` 11 · `imperfectionisme` 442 · `import` 20 · `India` 163, 171,
-172, 180, 189, 191, 196, 199, 203, 226, 242, 365, 370, 518, 520, 527 ·
+590, 603, 605, 606, 613, 630, 631, 632, 633, 634 · `essay` 3, 9, 21, 57, 59,
+63, 64, 68, 96, 197, 232 · `essaybundel` 390, 425, 620 · `essays` 523 · `eten`
+103 · `ethiek` 282, 299, 413, 574, 612 · `evangelisatie` 201 · `evolutie` 56,
+66, 89, 90, 91, 239, 318, 322, 323, 332, 339, 347, 383, 518, 609 ·
+`evolutiebiologie` 452, 453 · `evolutionaire-psychologie` 67 · `excellentie`
+553 · `executives` 344 · `existentialisme` 405 · `expeditie` 36 · `experiment`
+79, 215 · `experimenten` 280, 424 · `experimenteren` 265 · `expertise` 283,
+320, 376 · `extraversie` 361 · `fabel` 8, 42, 135, 167, 252 · `facilitatie`
+304 · `falen` 23, 72, 75, 312, 422 · `familie` 45, 325, 466 ·
+`familieconflict` 178 · `familiegeschiedenis` 114, 235 · `familieroman` 10 ·
+`fantasy` 192, 203 · `FBI` 154, 271 · `FBI-onderzoek` 431 · `federalisme` 619
+· `feedback` 41, 296, 541, 542 · `feiten` 43 · `feminisme` 3, 620, 624 ·
+`fenomenologie` 574, 577, 582 · `fictie` 100, 115 · `film` 41 · `filosofie` 1,
+6, 71, 93, 199, 211, 216, 224, 247, 255, 263, 292, 299, 383, 390, 391, 392,
+393, 421, 436, 442, 521, 588, 592, 594, 597, 604, 610, 652 ·
+`filosofiegeschiedenis` 269 · `filosofische antropologie` 584 · `financiële
+geletterdheid` 163 · `financiële markten` 268, 351, 480, 481, 483, 499, 501 ·
+`financiële onafhankelijkheid` 264 · `financiele vrijheid` 277 · `financiële
+wiskunde` 497, 507 · `financiële-discipline` 464 · `financiën` 334, 395, 425 ·
+`financiering` 172 · `fitnessbranche` 307, 544 · `flitshandel` 499 · `flow`
+78, 187, 200 · `focus` 175, 197, 448, 513 · `folklore` 615 · `fotoboek` 189 ·
+`foutcultuur` 422 · `fouten maken` 509 · `franchise` 544 · `frankrijk` 115 ·
+`Franse-Weerstand` 390 · `freelance` 515 · `Fulani` 522 · `fysieke uitdaging`
+323 · `fysiologie` 318, 412, 458 · `Galenus` 328 · `gaslighting` 123 ·
+`gastheerschap` 304 · `gastvrijheid` 531 · `gebed` 83, 259, 573 ·
+`gebruikersgedrag` 294 · `gedachten` 148, 177 · `gedachtenjournal` 176 ·
+`gedrag` 21, 22, 89, 90, 138, 154, 280, 330, 383, 425 · `gedragsbiologie` 322,
+339 · `gedragseconomie` 424, 426, 514 · `gedragsonderzoek` 302, 382 ·
+`gedragspatronen` 161 · `gedragspsychologie` 294 · `gedragstypen` 156 ·
+`gedragsverandering` 238, 290, 457, 469 · `gedragswetenschap` 166, 209, 305,
+468, 469, 510 · `geduld` 21, 351 · `geest` 584, 652 · `geestelijke gezondheid`
+193 · `geestelijke oefeningen` 586 · `gegevensanalyse` 486 · `gehechtheid` 166
+· `geheim genootschap` 202 · `geheugen` 66, 85, 175, 414 · `gehoorzaamheid`
+215, 617 · `geïllustreerd boek` 176 · `geld` 21, 37, 38, 56, 76, 121, 132,
+133, 158, 159, 433, 463, 464 · `geldmanagement` 492, 493 · `geldmindset` 395 ·
+`geldpsychologie` 233, 264 · `geloof` 45, 83, 201, 554 · `geluk` 79, 93, 160,
+228, 335, 516, 526, 579 · `gemeenschap` 9, 96, 304, 461 · `genealogie` 601 ·
+`geneeskunde` 49, 328 · `generaties` 114 · `generatieve drift` 315 ·
+`genetica` 413, 419 · `genezing` 340 · `genot en pijn` 314 · `gentechnologie`
+413 · `geologie` 239 · `geopolitiek` 220 · `geschiedenis` 30, 36, 56, 57, 68,
+93, 94, 212, 218, 250, 258, 298, 328, 381, 425, 440, 588, 589, 591, 593, 595,
+597, 598, 600, 619, 634 · `geschiedenis van de geneeskunde` 412 ·
+`geschiedfilosofie` 235 · `geschiedschrijving` 601, 602 · `gesprek` 43, 95,
+302, 444 · `gesprekstechniek` 182, 186, 438 · `gevangenendilemma` 453 ·
+`gevolgen` 67 · `gewaarzijn` 519 · `geweld` 45, 90, 214 · `geweldloosheid` 612
+· `gewicht` 138 · `gewoontelus` 238 · `gewoonten` 187, 373 · `gewoontes` 7,
+11, 13, 22, 25, 58, 70, 76, 77, 79, 88, 97, 103, 133, 134, 135, 138, 147, 157,
+158, 181, 207, 208, 224, 230, 290, 334, 382, 439, 442, 445, 513, 557 ·
+`gewoontevorming` 146, 161, 168, 188, 244, 291, 294, 396, 397, 411, 540 ·
+`gezag` 62 · `gezin` 547 · `gezinnen` 327 · `gezondheid` 52, 88, 171, 181,
+318, 323, 329, 332, 412, 414, 415 · `gezondheidspsychologie` 458 ·
+`gezondheidszorg` 313, 317, 422 · `ggz` 104 · `giftige relaties` 429 ·
+`gijzelingsonderhandelaar` 271 · `gnostiek` 614 · `godin` 611 ·
+`godsdienstkritiek` 341 · `godsdienstwetenschap` 578, 608 · `goeroe` 242 ·
+`Google` 512 · `Graallegende` 408 · `grandiositeit` 404 · `gratie` 374 ·
+`grenswetenschap` 615 · `grenzen` 72, 105, 109, 120, 122, 187, 466 · `grenzen
+stellen` 151, 204, 406, 429 · `Griekenland` 537 · `Griekse literatuur` 536 ·
+`griekse mythologie` 261 · `Griekse oudheid` 530, 531 · `groei` 222 ·
+`groeiaandelen` 474 · `groeimentaliteit` 116 · `groepsdenken` 339 ·
+`groepsgedrag` 303 · `grondstoffen` 92 · `grondwet` 616, 619 · `groot-verhaal`
+56 · `grootouders` 91 · `handboek` 493, 495 · `handel` 80, 251 · `handelen`
+30, 476, 477, 478, 479, 501 · `handelspsychologie` 488, 489 · `handelssysteem`
+489, 491 · `handelssystemen` 484, 486, 500, 502 · `handleiding` 112 · `hart`
+86, 128 · `Harvard` 457 · `Hay House` 380 · `hechting` 145, 152, 317, 386 ·
+`hedendaags India` 202 · `hedgefondsen` 505 · `heelal` 99, 262 · `heldendom`
+532 · `heldenreis` 410 · `helderheid` 82, 436 · `herhaling` 125, 134 ·
+`herkomst` 127 · `hermetische filosofie` 378 · `hermetisme` 613, 631, 632, 633
+· `heroverwegen` 28 · `hersenen` 51, 84, 85, 86, 327 · `hersenonderzoek` 330,
+333 · `hersenspoeling` 384 · `herstel` 87, 552, 583 · `het gesprek` 416 ·
+`Himalaya` 191 · `hindoeïsme` 169, 199, 527, 569 · `Hindoeïstische mythologie`
+192, 202 · `hindoemythologie` 203 · `Hinge` 166 · `hiphop` 440 · `historische
+portretten` 248 · `historische roman` 529 · `hofcultuur` 216 · `hollywood` 555
+· `Hollywood` 178 · `Holocaust` 48 · `holografie` 340 · `homoseksualiteit` 325
+· `hoop` 255, 319 · `hormonen` 80, 339 · `hospice` 416 · `houding` 117 ·
+`huisvesting` 65 · `humanisme` 236 · `humor` 16, 19, 26, 105, 227, 561 ·
+`husserl` 577 · `huwelijk` 9, 34, 165 · `Huxley` 54 · `hybride werken` 512 ·
+`hyperrealiteit` 565 · `hypnose` 123, 124, 125 · `Idaho` 45 · `ideeën` 206 ·
+`ideeëngeschiedenis` 269 · `identiteit` 22, 115, 192, 261, 374, 375, 467, 559
+· `identiteitskapitaal` 51 · `ideologie` 628 · `ierland` 110 · `IJsland` 185,
+533 · `ik-vorm` 113 · `illustraties` 109, 327 · `imitatie` 11 ·
+`imperfectionisme` 442 · `import` 20 · `india` 649 · `India` 163, 171, 172,
+180, 189, 191, 196, 199, 203, 226, 242, 365, 370, 518, 520, 527 ·
 `individualisme` 9, 96, 624 · `individualiteit` 263 · `individuatie` 359, 360,
 408, 409 · `individuele-verantwoordelijkheid` 299 · `industrie` 348 · `inheems
 denken` 521 · `initiatie` 407, 408, 522 · `inleiding` 452, 456 ·
@@ -123053,35 +124938,35 @@ denken` 521 · `initiatie` 407, 408, 522 · `inleiding` 452, 456 ·
 525 · `Israël` 514 · `Italiaanse non-fictie` 211 · `Italië` 155 · `jaloezie`
 19 · `Japan` 77, 205, 261, 335, 346, 379, 462, 517, 528, 535 · `japanse
 filosofie` 576 · `jaren negentig` 348 · `jaren-tachtig` 139 · `jaren-twintig`
-94 · `jazztijdperk` 284 · `jeff bezos` 257 · `jeugd` 53, 104, 115 · `John
-Harrison` 321 · `joint ventures` 348 · `jonge liefde` 180 · `jongeren` 25 ·
-`jongvolwassenen` 569 · `jongvolwassenenroman` 295 · `joodse filosofie` 572,
-574 · `journaling` 147 · `journalistiek` 4, 7, 46, 82, 238, 257, 285, 401,
-499, 566 · `Jung` 143, 358, 359 · `Jungiaanse psychologie` 404, 407, 408, 409,
-410 · `kaakontwikkeling` 332 · `Kabul` 184 · `Kaïn-en-Abel` 10 · `kalmte` 248,
-389 · `kameraadschap` 529 · `kanker` 419 · `kans` 64 · `kansdenken` 487 ·
-`kansen` 137 · `kansrekening` 282, 456, 484, 490, 496, 504, 505 ·
-`kapitalisme` 298 · `karakter` 97, 537 · `Karel de Grote` 534 · `karma` 184 ·
-`karmel` 573 · `Kasjmir` 180 · `keegan` 110 · `Kelly-criterium` 504 ·
-`keltische traditie` 611 · `kennis` 81, 508 · `kennisleer` 525, 587 ·
-`kenniswerk` 6, 50, 400, 472 · `kernwaarden` 245 · `kernwapens` 454 · `keuzes`
-51, 71, 72, 510 · `Kierkegaard` 405 · `kinderboek` 167 · `kinderjaren` 152 ·
-`kinesiologie` 449 · `klantcontact` 182, 186 · `klantpsychologie` 367 ·
-`klantrelaties` 246 · `klantvalidatie` 265 · `klantwaarde` 309 ·
-`klassenverschil` 284 · `klassieke bronnen` 286 · `klassieke tekst` 219, 394 ·
-`klassieker` 10, 24, 38, 48, 61, 83, 127, 135, 144, 173, 213, 254, 351, 420,
-520, 537, 616, 617, 618, 619, 620, 626 · `klein-beginnen` 40 ·
-`kleine-bedrijven` 172 · `kleine-stappen` 22, 133 · `kleurboek` 327 ·
-`klimaatfictie` 203 · `klimaatverandering` 299 · `klinische psychologie` 460 ·
-`klokkenmakerij` 321 · `kolonialisme` 298, 592 · `korea` 111 · `kort` 59, 99,
-100, 101, 110, 140 · `kort-boek` 11, 13, 16, 27, 38, 57, 445 · `kort-stuk` 19,
-30 · `korte-teksten` 111 · `korte-vorm` 473 · `kosmologie` 239, 262, 281 ·
-`koude oorlog` 217, 220, 384, 454, 456 · `krijgsgevangenschap` 31 ·
-`krijgskunde` 212, 218, 219, 272 · `krijgskunst` 346 · `kritiek` 24, 41, 50 ·
-`kritiek geven` 356 · `kritisch denken` 420, 421 · `kroeg` 4 ·
-`kruistochtgeest` 534 · `kunst` 11, 445 · `kunstenaars` 312 ·
+94 · `jazztijdperk` 284 · `jeff bezos` 257 · `jeugd` 53, 104, 115 · `jodendom`
+630 · `John Harrison` 321 · `joint ventures` 348 · `jonge liefde` 180 ·
+`jongeren` 25 · `jongvolwassenen` 569 · `jongvolwassenenroman` 295 · `joodse
+filosofie` 572, 574 · `journaling` 147 · `journalistiek` 4, 7, 46, 82, 238,
+257, 285, 401, 499, 566 · `Jung` 143, 358, 359 · `Jungiaanse psychologie` 404,
+407, 408, 409, 410 · `kaakontwikkeling` 332 · `kabbala` 630, 634 · `Kabul` 184
+· `Kaïn-en-Abel` 10 · `kalmte` 248, 389 · `kameraadschap` 529 · `kanker` 419 ·
+`kans` 64 · `kansdenken` 487 · `kansen` 137 · `kansrekening` 282, 456, 484,
+490, 496, 504, 505 · `kapitalisme` 298 · `karakter` 97, 537 · `Karel de Grote`
+534 · `karma` 184 · `karmel` 573 · `Kasjmir` 180 · `keegan` 110 ·
+`Kelly-criterium` 504 · `keltische traditie` 611 · `kennis` 81, 508 ·
+`kennisleer` 525, 587 · `kenniswerk` 6, 50, 400, 472 · `kernwaarden` 245 ·
+`kernwapens` 454 · `keuzes` 51, 71, 72, 510 · `Kierkegaard` 405 · `kinderboek`
+167 · `kinderjaren` 152 · `kinesiologie` 449 · `klantcontact` 182, 186 ·
+`klantpsychologie` 367 · `klantrelaties` 246 · `klantvalidatie` 265 ·
+`klantwaarde` 309 · `klassenverschil` 284 · `klassieke bronnen` 286 ·
+`klassieke tekst` 219, 394 · `klassieker` 10, 24, 38, 48, 61, 83, 127, 135,
+144, 173, 213, 254, 351, 420, 520, 537, 616, 617, 618, 619, 620, 626 ·
+`klein-beginnen` 40 · `kleine-bedrijven` 172 · `kleine-stappen` 22, 133 ·
+`kleurboek` 327 · `klimaatfictie` 203 · `klimaatverandering` 299 · `klinische
+psychologie` 460 · `klokkenmakerij` 321 · `kolonialisme` 298, 592 · `korea`
+111 · `kort` 59, 99, 100, 101, 110, 140 · `kort-boek` 11, 13, 16, 27, 38, 57,
+445 · `kort-stuk` 19, 30 · `korte-teksten` 111 · `korte-vorm` 473 ·
+`kosmologie` 239, 262, 281, 651 · `koude oorlog` 217, 220, 384, 454, 456 ·
+`krijgsgevangenschap` 31 · `krijgskunde` 212, 218, 219, 272 · `krijgskunst`
+346 · `kritiek` 24, 41, 50 · `kritiek geven` 356 · `kritisch denken` 420, 421
+· `kroeg` 4 · `kruistochtgeest` 534 · `kunst` 11, 445 · `kunstenaars` 312 ·
 `kunstgeschiedenis` 241, 312 · `kunstmatig leven` 347 · `kunstmatige
-intelligentie` 236, 237, 297 · `kwaad` 404 · `kwaliteit` 1, 400 ·
+intelligentie` 236, 237, 297, 652 · `kwaad` 404 · `kwaliteit` 1, 400 ·
 `kwantificering` 392 · `kwantitatief handelen` 506 · `kwantitatieve analyse`
 498 · `kwantitatieve financiën` 485, 503 · `kwantumfysica` 208, 340, 432, 433
 · `kwantummechanica` 362 · `kwantumzwaartekracht` 281 · `kwetsbaarheid` 32,
@@ -123103,8 +124988,8 @@ intelligentie` 236, 237, 297 · `kwaad` 404 · `kwaliteit` 1, 400 ·
 · `lotsbestemming` 261 · `luchtvaart` 422 · `luisteren` 24, 35, 305, 444 ·
 `machinaal leren` 484, 485, 486, 503 · `macht` 212, 250, 263, 381, 388, 440,
 617, 622 · `machtspolitiek` 220 · `machtstheorie` 221 · `machtsverhoudingen`
-155 · `magie` 613 · `magisch realisme` 261 · `management` 42, 47, 170, 183,
-256, 350, 353, 364, 472 · `managementtheorie` 547 · `manifest` 629 ·
+155 · `magie` 613, 632, 634 · `magisch realisme` 261 · `management` 42, 47,
+170, 183, 256, 350, 353, 364, 472 · `managementtheorie` 547 · `manifest` 629 ·
 `manifesteren` 128, 129, 130, 131, 132, 190, 196, 433, 543, 560 ·
 `manipulatie` 123, 124, 125, 126, 212, 213, 381, 384, 429 · `mannelijkheid` 3,
 406, 407, 408 · `mannen` 7 · `mannenbeweging` 407 · `mantelzorg` 225 ·
@@ -123112,39 +124997,40 @@ intelligentie` 236, 237, 297 · `kwaad` 404 · `kwaliteit` 1, 400 ·
 60, 172, 183, 279, 280, 307, 308, 309, 350, 443, 446 · `marktmicrostructuur`
 477, 478 · `marxisme` 564 · `McKinsey` 511 · `media` 54, 60, 100, 562, 563,
 564, 565, 566 · `medische ethiek` 416 · `meditatie` 111, 141, 149, 169, 205,
-208, 228, 230, 237, 242, 333, 377, 401, 431, 527, 528, 590 · `meesterschap`
-296, 320, 553 · `meetsystemen` 392 · `memento mori` 286 · `memoir` 4, 7, 18,
-20, 26, 45, 49, 62, 95, 106, 178, 185, 191, 226, 229, 242, 289, 324, 325, 348,
-385, 402, 403, 431, 447, 505 · `mens en dier` 584 · `menselijk gedrag` 155 ·
-`mensenkennis` 126, 356 · `mentale gezondheid` 315 · `mentale helderheid` 148
-· `mentale weerbaarheid` 229, 323, 372, 373, 374, 545 · `mentalisme` 378, 399
-· `mentorschap` 4, 285, 289, 320, 402 · `merken` 279 · `metabolisme` 313 ·
-`metafysica` 102, 518, 584, 587 · `meten` 69, 133 · `methode` 81 ·
-`microbedrijf` 40, 172 · `microbioom` 417 · `middelbare-leeftijd` 7 ·
-`middeleeuwen` 534 · `midlife` 324 · `militaire geschiedenis` 568 · `militaire
-strategie` 220 · `millennials` 159 · `minderheden` 68 · `mindful` 103 ·
-`mindfulness` 141, 147, 149, 177, 333, 401 · `mindset` 146, 181, 188, 387, 458
-· `minimalisme` 181 · `misdaad` 254 · `misleiding` 219, 272 · `mislukking` 516
-· `missie` 567 · `mitochondriën` 313 · `modellen` 300 · `modelleren` 139 ·
-`modellering` 455 · `moed` 44, 529 · `moeder-en-zoon` 26 · `momentum` 481 ·
-`monniksleven` 230 · `monomythe` 410 · `monopolie` 306 · `monsters` 532 ·
-`Monty-Python` 16 · `moraal` 9, 57, 67, 263 · `moraalfilosofie` 581 ·
-`moraalkritiek` 391 · `moreel` 36 · `mormonisme` 560 · `motivatie` 117, 139,
-146, 183, 200, 207, 315, 427, 468, 469, 472 · `Motley Fool` 474 · `motoren` 6
-· `motorfietsen` 325 · `muziek` 17, 85 · `mystiek` 340, 390, 524, 525, 573,
-578, 603, 604, 606, 610 · `mythe` 608 · `mythevorming` 615 · `mythologie` 73,
-143, 357, 360, 407, 408, 409, 599, 611 · `mythologische fantasy` 202 ·
-`mythologische fictie` 203 · `NAD+` 415 · `nalatenschap` 178 · `napoleontische
-oorlogen` 235 · `narcisme` 258, 404 · `naslag` 99, 112 · `naslagwerk` 59, 225,
-426, 477, 478, 486, 491, 500, 504, 661, 662 · `nationalisme` 237 · `natuur`
-191, 323, 609 · `natuurkunde` 62, 94, 240, 262, 281, 300, 326 · `navigatie`
-321 · `navy seals` 229, 364 · `nazisme` 223 · `necrofilie` 223 · `nederland`
-96 · `nederlands` 93, 97, 100, 101, 102, 103, 104, 105, 106, 107, 108, 128,
-130, 131, 141 · `nederlands-auteur` 140 · `nederlandstalig` 113 · `negatieve
-emoties` 176 · `negentig dagen` 188 · `neopaganisme` 611 · `nepnieuws` 237 ·
-`netwerken` 24, 246, 300, 388, 508 · `neurobiologie` 119 · `neurochirurgie`
-49, 414 · `neurologie` 325 · `neuroplasticiteit` 175, 208, 414 · `neurose` 575
-· `neurowetenschap` 52, 208, 238, 275, 314, 326, 330, 331, 333, 339, 340, 386,
+208, 228, 230, 237, 242, 333, 377, 401, 431, 527, 528, 590, 630 ·
+`meesterschap` 296, 320, 553 · `meetprobleem` 650, 653 · `meetsystemen` 392 ·
+`memento mori` 286 · `memoir` 4, 7, 18, 20, 26, 45, 49, 62, 95, 106, 178, 185,
+191, 226, 229, 242, 289, 324, 325, 348, 385, 402, 403, 431, 447, 505 · `mens
+en dier` 584 · `menselijk gedrag` 155 · `mensenkennis` 126, 356 · `mentale
+gezondheid` 315 · `mentale helderheid` 148 · `mentale weerbaarheid` 229, 323,
+372, 373, 374, 545 · `mentalisme` 378, 399 · `mentorschap` 4, 285, 289, 320,
+402 · `merken` 279 · `metabolisme` 313 · `metafysica` 102, 518, 584, 587 ·
+`meten` 69, 133 · `methode` 81 · `microbedrijf` 40, 172 · `microbioom` 417 ·
+`middelbare-leeftijd` 7 · `middeleeuwen` 534, 632 · `midlife` 324 · `militaire
+geschiedenis` 568 · `militaire strategie` 220 · `millennials` 159 ·
+`minderheden` 68 · `mindful` 103 · `mindfulness` 141, 147, 149, 177, 333, 401
+· `mindset` 146, 181, 188, 387, 458 · `minimalisme` 181 · `misdaad` 254 ·
+`misleiding` 219, 272 · `mislukking` 516 · `missie` 567 · `mitochondriën` 313
+· `modellen` 300 · `modelleren` 139 · `modellering` 455 · `moed` 44, 529 ·
+`moeder-en-zoon` 26 · `momentum` 481 · `monniksleven` 230 · `monomythe` 410 ·
+`monopolie` 306 · `monsters` 532 · `Monty-Python` 16 · `moraal` 9, 57, 67, 263
+· `moraalfilosofie` 581 · `moraalkritiek` 391 · `moreel` 36 · `mormonisme` 560
+· `motivatie` 117, 139, 146, 183, 200, 207, 315, 427, 468, 469, 472 · `Motley
+Fool` 474 · `motoren` 6 · `motorfietsen` 325 · `muziek` 17, 85 · `mystiek`
+340, 390, 524, 525, 573, 578, 603, 604, 606, 610, 630 · `mythe` 608 ·
+`mythevorming` 615 · `mythologie` 73, 143, 357, 360, 407, 408, 409, 599, 611 ·
+`mythologische fantasy` 202 · `mythologische fictie` 203 · `NAD+` 415 ·
+`nalatenschap` 178 · `napoleontische oorlogen` 235 · `narcisme` 258, 404 ·
+`naslag` 99, 112 · `naslagwerk` 59, 225, 426, 477, 478, 486, 491, 500, 504,
+661, 662 · `nationalisme` 237 · `natuur` 191, 323, 609 · `natuurkunde` 62, 94,
+240, 262, 281, 300, 326, 650, 651, 653 · `navigatie` 321 · `navy seals` 229,
+364 · `nazisme` 223 · `necrofilie` 223 · `nederland` 96 · `nederlands` 93, 97,
+100, 101, 102, 103, 104, 105, 106, 107, 108, 128, 130, 131, 141 ·
+`nederlands-auteur` 140 · `nederlandstalig` 113 · `negatieve emoties` 176 ·
+`negentig dagen` 188 · `neopaganisme` 611 · `nepnieuws` 237 · `netwerken` 24,
+246, 300, 388, 508 · `neurobiologie` 119 · `neurochirurgie` 49, 414 ·
+`neurologie` 325 · `neuroplasticiteit` 175, 208, 414 · `neurose` 575 ·
+`neurowetenschap` 52, 208, 238, 275, 314, 326, 330, 331, 333, 339, 340, 386,
 418, 513, 585 · `neurowetenschap-voor-kinderen` 327 · `neusademing` 318 · `new
 age` 149, 435, 449, 549 · `new thought` 259, 380, 555 · `NeXT` 46 ·
 `Nietzsche` 391 · `nieuwe gedachte` 127, 378 · `nieuws` 60, 90 ·
@@ -123152,7 +125038,7 @@ age` 149, 435, 449, 549 · `new thought` 259, 380, 555 · `NeXT` 46 ·
 `Nobelprijs` 55 · `non-dualiteit` 520 · `non-fictie` 420 · `non-verbaal` 399 ·
 `non-verbale communicatie` 154 · `noodlot` 533 · `Noordse mythologie` 533 ·
 `notitieboeken` 241 · `novelle` 173 · `numineus` 578 · `obesitas` 417 ·
-`observeren` 15 · `obsessieve liefde` 284 · `occultisme` 378, 613 ·
+`observeren` 15 · `obsessieve liefde` 284 · `occultisme` 378, 613, 634 ·
 `ochtendroutine` 14, 134, 244 · `oefenen` 29, 397 · `oefening` 141, 296 ·
 `oefeningen` 15, 35, 87, 103, 109, 118, 120, 122, 130, 549 · `okinawa` 77 ·
 `okr` 256 · `oligarchie` 618 · `omgangsvormen` 24, 398 · `omkering` 105 ·
@@ -123223,38 +125109,39 @@ financiën` 163, 233, 395 · `persoonlijke ontwikkeling` 161, 465, 467 ·
 · `psychologische flexibiliteit` 460 · `psychologische functies` 361 ·
 `psychopathie` 429 · `psychotherapie` 164, 227, 386, 406 · `PTSS` 386 ·
 `publiceren` 13 · `publiek opbouwen` 369 · `publieksfilosofie` 269 ·
-`Pulitzer` 5 · `puzzels` 451 · `Python` 486 · `quantum` 94 · `queeste` 522 ·
-`quilten` 114 · `quotes` 179 · `racisme` 601, 602 · `radicale transparantie`
-270 · `RAND` 454, 456 · `Rat-Pack` 178 · `rationaliteit` 454 · `rationele
-keuze` 455 · `recht` 393 · `rechtspraak` 69 · `rechtvaardigheid` 623 ·
-`reclame` 206, 279, 443, 446, 563 · `reeks` 114, 192 · `regimeverandering` 220
-· `reïncarnatie` 202 · `reïnventie` 344 · `reisverhaal` 1 · `reizen` 278 ·
-`relaties` 34, 51, 101, 120, 122, 145, 152, 162, 164, 166, 167, 195, 213, 334,
-335, 381, 398, 406, 466 · `relatietherapie` 165 · `relativiteitstheorie` 240,
-281 · `religie` 56, 572, 596, 599, 626 · `religieus naturalisme` 609 ·
-`religieuze symboliek` 409 · `REM` 52 · `remarkable` 446 · `Renaissance` 15,
-241 · `rente` 38 · `replicatie` 79 · `reputatie` 388 · `retorica` 253, 438 ·
-`revisie` 18 · `revolutie` 625 · `ridderepos` 534 · `rijkdom` 57, 228 ·
-`risico` 64, 80, 144, 268, 282, 351, 423, 425, 480, 481, 482, 487, 496, 500,
-501 · `risicobeheer` 479, 489, 490, 491, 492, 493, 494, 497, 498, 504, 506 ·
-`ritueel` 404, 590, 608 · `rituelen` 304 · `rivier als symbool` 287 ·
-`roem-en-eenzaamheid` 178 · `roeping` 8, 9, 12, 160 · `roman` 61, 113, 114,
-115, 254, 554 · `Rome` 537 · `romeinse oudheid` 232 · `rouw` 95, 467 ·
-`rouwverwerking` 204 · `ruimte en tijd` 281 · `ruimtevaart` 266 · `russische
-literatuur` 235 · `rust` 32 · `SaaS` 434 · `sadisme` 223 · `saga` 533 ·
-`Salinas` 10 · `samenleving` 90, 98, 319 · `samenwerken` 25 · `samenwerking`
-453 · `samoerai` 346, 462, 517, 535 · `Sanskriet` 520 · `Santa Fe Institute`
-347 · `satire` 155 · `satori` 528 · `scepsis` 63, 585 · `schaalgroei` 434 ·
-`schaalvergroting` 350 · `schaamte` 32, 44, 317, 470 · `schaarste` 92, 249 ·
-`schaduw` 404 · `scheiding` 556 · `scheikunde` 92 · `school` 53, 84 ·
-`schrijven` 11, 12, 14, 18, 19, 81, 436, 511 · `schrijverschap` 191, 325 ·
-`schuld` 254 · `schulden` 20, 38, 121, 159, 464 · `seksualiteit` 100, 145,
-164, 165, 316 · `selectoraattheorie` 221 · `seminar` 139, 543 · `Shaolin` 389
-· `Silicon Valley` 306 · `simulatie` 565 · `sirtuïnen` 415 · `situationisme`
-564 · `slaap` 52, 87, 88, 171, 181, 316, 329, 414 · `slaapapneu` 332 ·
-`slavernij` 68 · `smartphone` 53, 288 · `sociale besmetting` 303 · `sociale
-media` 53, 70, 194, 198, 204, 288, 365 · `sociale psychologie` 215, 280, 302,
-319 · `sociale-vaardigheden` 398 · `socialisme` 618 · `sociologie` 300, 622 ·
+`Pulitzer` 5 · `puzzels` 451 · `Python` 486 · `quantum` 94, 650, 653 ·
+`queeste` 522 · `quilten` 114 · `quotes` 179 · `racisme` 601, 602 · `radicale
+transparantie` 270 · `RAND` 454, 456 · `Rat-Pack` 178 · `rationaliteit` 454 ·
+`rationele keuze` 455 · `recht` 393 · `rechtspraak` 69 · `rechtvaardigheid`
+623 · `reclame` 206, 279, 443, 446, 563 · `reeks` 114, 192 ·
+`regimeverandering` 220 · `reïncarnatie` 202 · `reïnventie` 344 ·
+`reisverhaal` 1 · `reizen` 278 · `relaties` 34, 51, 101, 120, 122, 145, 152,
+162, 164, 166, 167, 195, 213, 334, 335, 381, 398, 406, 466 · `relatietherapie`
+165 · `relativiteitstheorie` 240, 281 · `religie` 56, 572, 596, 599, 626 ·
+`religieus naturalisme` 609 · `religieuze symboliek` 409 · `REM` 52 ·
+`remarkable` 446 · `Renaissance` 15, 241 · `rente` 38 · `replicatie` 79 ·
+`reputatie` 388 · `retorica` 253, 438 · `revisie` 18 · `revolutie` 625 ·
+`ridderepos` 534 · `rijkdom` 57, 228 · `risico` 64, 80, 144, 268, 282, 351,
+423, 425, 480, 481, 482, 487, 496, 500, 501 · `risicobeheer` 479, 489, 490,
+491, 492, 493, 494, 497, 498, 504, 506 · `ritueel` 404, 590, 608 · `rituelen`
+304 · `rivier als symbool` 287 · `roem-en-eenzaamheid` 178 · `roeping` 8, 9,
+12, 160 · `roman` 61, 113, 114, 115, 254, 554 · `Rome` 537 · `romeinse
+oudheid` 232 · `rouw` 95, 467 · `rouwverwerking` 204 · `rozenkruisers` 631 ·
+`ruimte en tijd` 281 · `ruimtevaart` 266 · `russische literatuur` 235 · `rust`
+32 · `SaaS` 434 · `sadisme` 223 · `saga` 533 · `Salinas` 10 · `samenleving`
+90, 98, 319 · `samenwerken` 25 · `samenwerking` 453 · `samoerai` 346, 462,
+517, 535 · `Sanskriet` 520 · `Santa Fe Institute` 347 · `satire` 155 ·
+`satori` 528 · `scepsis` 63, 585 · `schaalgroei` 434 · `schaalvergroting` 350
+· `schaamte` 32, 44, 317, 470 · `schaarste` 92, 249 · `schaduw` 404 ·
+`scheiding` 556 · `scheikunde` 92 · `school` 53, 84 · `schrijven` 11, 12, 14,
+18, 19, 81, 436, 511 · `schrijverschap` 191, 325 · `schuld` 254 · `schulden`
+20, 38, 121, 159, 464 · `seksualiteit` 100, 145, 164, 165, 316 ·
+`selectoraattheorie` 221 · `seminar` 139, 543 · `Shaolin` 389 · `Silicon
+Valley` 306 · `simulatie` 565 · `sirtuïnen` 415 · `situationisme` 564 ·
+`slaap` 52, 87, 88, 171, 181, 316, 329, 414 · `slaapapneu` 332 · `slavernij`
+68 · `smartphone` 53, 288 · `sociale besmetting` 303 · `sociale media` 53, 70,
+194, 198, 204, 288, 365 · `sociale psychologie` 215, 280, 302, 319 ·
+`sociale-vaardigheden` 398 · `socialisme` 618 · `sociologie` 300, 622 ·
 `soefisme` 524, 526 · `software` 276, 484 · `somberheid` 119 · `spanning` 101
 · `sparen` 21, 38, 159, 233, 464 · `Sparta` 529 · `specialisatie` 349 ·
 `speedreading` 175 · `spel` 550 · `spelen` 32 · `spellen` 392 · `speltheorie`
@@ -123280,7 +125167,7 @@ media` 53, 70, 194, 198, 204, 288, 365 · `sociale psychologie` 215, 280, 302,
 `structuur` 82, 511 · `studieboek` 421, 437, 497, 498, 507 · `studietechniek`
 420 · `succes` 75, 76, 274 · `superkrachten` 203 · `supplementen` 171, 316 ·
 `surveillance` 393 · `syllogismen` 437 · `symboliek` 357, 360, 522, 605, 608,
-610 · `symmetrie` 659 · `synchroniciteit` 362 · `synchronisatie` 303 ·
+610, 633 · `symmetrie` 659 · `synchroniciteit` 362 · `synchronisatie` 303 ·
 `systeem` 22, 142 · `systeemtheorie` 165 · `systematisch handelen` 482, 502 ·
 `taal` 26, 27, 436, 594 · `taal en macht` 344 · `tactische empathie` 271 ·
 `talent` 23, 29, 274 · `taoïsme` 341, 394 · `tarieven` 121 · `teams` 42, 273,
@@ -123352,17 +125239,18 @@ rust` 512 · `werkboek` 14, 122, 150 · `werkcultuur` 551 · `werkdruk` 400 ·
 `West-Point` 29 · `westen` 67 · `western` 5 · `westerse filosofie` 269, 341 ·
 `wet van aantrekking` 127, 190, 433, 543 · `wetenschap` 63, 66, 93, 94, 328,
 485 · `wetenschap en religie` 609 · `wetenschappers` 239 ·
-`wetenschapsfilosofie` 483 · `wetenschapsgeschiedenis` 239, 240, 321, 347,
-413, 419, 659, 660, 661, 662 · `wetenschapsjournalistiek` 387, 412 · `wijn`
-112 · `wijsheid` 596 · `wilskracht` 238 · `Wired` 473 · `wiskunde` 116, 454,
-456, 490, 505, 509, 659, 660, 661, 662 · `wisselstroom` 267 · `woede` 119, 120
-· `woestijn` 8 · `Wolfgang Pauli` 362 · `wraak` 101, 533 · `WRAP` 510 · `wrok`
-530 · `wu wei` 394 · `Yale` 215 · `yin-yang` 394 · `yoga` 195, 242, 518 ·
-`young adult` 192 · `youtube` 245 · `zakelijk` 307 · `zakelijke communicatie`
-182 · `zakendoen` 348, 367, 465, 508 · `zeereis` 36 · `zeevaart` 321 ·
-`zeldzaam` 144 · `zelfacceptatie` 176, 335, 561 · `zelfbedrog` 66 ·
-`zelfbeeld` 25, 27, 105, 107, 108, 129, 138, 197, 367, 372, 411, 439, 538,
-540, 559, 575 · `zelfbeheersing` 75, 148, 212, 248, 286, 314, 382, 389, 396 ·
+`wetenschapsfilosofie` 483, 650, 653 · `wetenschapsgeschiedenis` 239, 240,
+321, 347, 413, 419, 633, 649, 651, 659, 660, 661, 662 ·
+`wetenschapsjournalistiek` 387, 412 · `wijn` 112 · `wijsheid` 596 ·
+`wilskracht` 238 · `Wired` 473 · `wiskunde` 116, 454, 456, 490, 505, 509, 649,
+659, 660, 661, 662 · `wisselstroom` 267 · `woede` 119, 120 · `woestijn` 8 ·
+`Wolfgang Pauli` 362 · `wraak` 101, 533 · `WRAP` 510 · `wrok` 530 · `wu wei`
+394 · `Yale` 215 · `yin-yang` 394 · `yoga` 195, 242, 518 · `young adult` 192 ·
+`youtube` 245 · `zakelijk` 307 · `zakelijke communicatie` 182 · `zakendoen`
+348, 367, 465, 508 · `zeereis` 36 · `zeevaart` 321 · `zeldzaam` 144 ·
+`zelfacceptatie` 176, 335, 561 · `zelfbedrog` 66 · `zelfbeeld` 25, 27, 105,
+107, 108, 129, 138, 197, 367, 372, 411, 439, 538, 540, 559, 575 ·
+`zelfbeheersing` 75, 148, 212, 248, 286, 314, 382, 389, 396 ·
 `zelfbescherming` 214 · `zelfcompassie` 32, 551 · `zelfdiscipline` 2, 158,
 229, 244, 311, 544 · `zelfevaluatie` 270 · `zelfexperiment` 316, 318, 417 ·
 `zelfhaat` 575 · `zelfhulp` 15, 22, 25, 34, 58, 72, 76, 79, 83, 117, 134, 135,
@@ -123385,7 +125273,7 @@ starten` 210 · `zelfsturing` 142, 168 · `zelfuitgegeven` 123, 124, 125, 126 ·
 `zingeving` 9, 48, 77, 91, 160, 183, 200, 201, 237, 245, 255, 515, 547 ·
 `zintuigen` 582 · `zitten` 84 · `zorg` 96 · `Zuid-Afrika` 26, 266, 523 ·
 `zuinigheid` 39 · `zuivere ervaring` 576 · `zwaar` 143 · `zwaardvechten` 346,
-517 · `zwart bewustzijn` 523 · `zwarte gaten` 99, 262
+517 · `zwart bewustzijn` 523 · `zwarte gaten` 99, 262, 651
 
 ## Leesroutes
 

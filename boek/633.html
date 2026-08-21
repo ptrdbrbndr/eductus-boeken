@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Hieroglyphic Monad &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Dee stelt dat de hele schepping is voortgebracht uit punt, lijn en cirkel, en dat zijn zelfontworpen teken, de monade, die voortbrenging zichtbaar…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-633">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">633 &middot; Filosofie en mystiek</p>
+    <h1>The Hieroglyphic Monad</h1>
+    <p class="lede">John Dee, 1564</p>
+    <p class="stats">
+      <span><b>1210</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="633"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Dee stelt dat de hele schepping is voortgebracht uit punt, lijn en cirkel, en dat zijn zelfontworpen teken, de monade, die voortbrenging zichtbaar samenvat: de zon als cirkel om een punt, daarboven de halve maan, daaronder het kruis van de vier elementen en het vuurteken Ram. Wie het teken meetkundig en symbolisch ontleedt, vindt er volgens Dee de tekens van alle planeten en metalen in terug, en daarmee de sleutel tot een hervormde sterrenkunde, een 'lagere sterrenkunde' (alchemie) en zelfs de ware herkomst van de letters. Het traktaat belooft niets minder dan een herschikking van alle wetenschappen rond dit ene teken.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Twaalf dagen in Antwerpen</h3>
+      <p>John Dee (1527-1608/9), wiskundige, geograaf en adviseur van Elizabeth I, schreef de <i>Monas Hieroglyphica</i> begin 1564 naar eigen zeggen in twaalf dagen, terwijl hij in Antwerpen verbleef bij drukker Willem Silvius. Hij droeg het werk op aan Maximiliaan II, kort daarop keizer van het Heilige Roomse Rijk, en verdedigde in de uitvoerige opdrachtbrief de waarde van zijn nieuwe 'schrijfkunst van de dingen'. Dee had toen al naam als wiskundige; zijn latere faam als engelenbezweerder lag nog in het verschiet. Zelf bleef hij dit dunne boek zijn leven lang als zijn hoogste prestatie beschouwen.</p>
+      <h3>Het teken</h3>
+      <p>De monade is een samengesteld glyf. Onderaan staan de twee bogen van het teken Ram, het begin van de dierenriem en het vuur. Daarboven het kruis, dat voor de vier elementen staat en tegelijk voor het viertal als zodanig. Daarboven de cirkel met middelpunt, het astronomische teken van de zon, bekroond door de halve maan. Zon en maan rusten zo op elementen en vuur: een beeld van de hemellichten die het ondermaanse doordringen. Dee laat zien dat door delen van het teken weg te laten of te draaien de tekens van Saturnus, Jupiter, Mars, Venus en Mercurius verschijnen, en daarmee de zeven metalen van de alchemie.</p>
+      <h3>Vierentwintig theoremata</h3>
+      <p>De vorm is die van Euclides: 24 genummerde theoremata die op elkaar voortbouwen. De eerste stellen dat alle dingen zijn voortgebracht uit punt en lijn, en dat de cirkel niet zonder beide kan bestaan. Daarna volgen meetkundige, astronomische en alchemistische lezingen van het teken, en steeds vrijere manipulaties: het kruis wordt ontleed in rechte hoeken en in de Romeinse cijfers V en X, het viertal levert via 1+2+3+4 het tiental, en Griekse, Latijnse en Hebreeuwse letters worden uit de onderdelen van de monade afgeleid. Bewijzen in wiskundige zin zijn het niet; de vorm van Euclides draagt een inhoud van symbolische gelijkstellingen.</p>
+      <h3>De lagere sterrenkunde</h3>
+      <p>Alchemie heet bij Dee 'astronomia inferior': wat de sterrenkunde aan de hemel leest, voltrekt de alchemist in de stof. Verschillende theoremata beschrijven het alchemistische werk in beeldtaal, met een eivormig diagram en een spiraalvormige gang van de metalen. De strekking is dat de monade niet alleen tekens samenvat maar een werkelijk proces stuurt, en Dee laat doorschemeren dat de ingewijde langs deze weg zelf verandert. Hoe dat proces er praktisch uitziet zegt de tekst nergens; het geheim blijft uitdrukkelijk voorbehouden aan wie waardig is.</p>
+      <h3>Raadselachtig, ook voor tijdgenoten</h3>
+      <p>Al bij verschijnen klaagden geleerden dat het boek onbegrijpelijk was, en Dee erkende dat het voor de meeste lezers gesloten zou blijven; hij richtte zich naar eigen zeggen tot een kleine kring van ingewijden. Elizabeth I zou zich het werk door Dee persoonlijk hebben laten toelichten. De raadselachtigheid is dus geen leesprobleem achteraf maar opzet: Dee onthoudt de lezer bewust de sleutel. Het gevolg is dat tot op heden niemand met zekerheid kan zeggen wat het boek precies beweert, en dat elke duiding gedeeltelijk reconstructie is.</p>
+      <h3>Latere lezingen</h3>
+      <p>Frances Yates las de monade als een talisman die de hermetisch-kabbalistische renaissancetraditie in één teken bundelt, en wees erop dat het teken in 1616 opduikt in de <i>Chymische Hochzeit</i> van de rozenkruisers. Wetenschapshistoricus Nicholas Clulee betoogde daartegen dat het werk vooral binnen Dees eigen natuurfilosofie begrepen moet worden, als poging om wiskunde, taal en natuurkennis op één grondslag te brengen. De vertaling van C.H. Josten (1964, in het tijdschrift <i>Ambix</i>, met facsimile) geldt als wetenschappelijke standaard; de hier besproken vertaling van Hamilton-Jones uit 1947 is vrijer maar goed verkrijgbaar.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">monade</td><td>Dees samengestelde teken van punt, cirkel, halve maan, elementenkruis en Ram, dat de eenheid van de kosmos zou samenvatten.</td></tr>
+          <tr><td class="term">theorema</td><td>Genummerde stelling in euclidische stijl; het traktaat bestaat uit 24 opeenvolgende theoremata.</td></tr>
+          <tr><td class="term">punt, lijn en cirkel</td><td>De meetkundige grondelementen waaruit volgens de openingstheoremata alle dingen zijn voortgebracht.</td></tr>
+          <tr><td class="term">kruis van de elementen</td><td>Het kruis in het teken, dat voor de vier elementen staat en door Dee ook als viertal en als lettervorm wordt gelezen.</td></tr>
+          <tr><td class="term">quaternarius</td><td>Het viertal, dat via de optelling 1+2+3+4 het tiental voortbrengt, een aan Pythagoras ontleende denkfiguur.</td></tr>
+          <tr><td class="term">astronomia inferior</td><td>Dees benaming voor de alchemie: de sterrenkunde van beneden, die in de stof voltrekt wat de hemel voordoet.</td></tr>
+          <tr><td class="term">hiëroglief</td><td>Bij Dee een teken dat de zaak zelf bevat en toont, geen afspraak maar een afdruk van de werkelijkheid.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De bewijsvoering is geheel intern: Dee construeert het teken, ontleedt het en verklaart de gevonden onderdelen tot betekenissen, zonder dat enige stap buiten het teken om wordt getoetst. Het letter- en getallenspel is naar moderne maatstaven willekeurig; met dezelfde vrijheid laat zich uit vrijwel elk teken vrijwel alles afleiden. Toetsbare beweringen over de natuur bevat het traktaat niet, en de beloofde hervorming van de wetenschappen heeft het aantoonbaar niet opgeleverd.</p>
+      <p>Vast staan de historische feiten: druk en opdracht in 1564, Dees status als wiskundige van formaat, zijn eigen hoge waardering voor het werk en de verlegenheid van tijdgenoten. Dat de duidingsliteratuur na vier eeuwen nog altijd uiteenloopt, van alchemistisch werkschema tot taalfilosofie, is zelf een gegeven: de tekst legt zijn betekenis niet vast, en elke stellige uitleg van 'wat Dee werkelijk bedoelde' overschrijdt wat de bron draagt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het voornaamste bezwaar is de gewilde duisternis. Dee beroept zich op een geheim dat hij nergens prijsgeeft, waardoor het werk onweerlegbaar wordt: elke kritiek kan worden afgedaan als bewijs van oningewijdheid. Dat is een structuur die geen kennis oplevert. Latere esoterische lezers hebben die leemte gevuld met eigen stelsels, en juist de ondoorgrondelijkheid maakte het teken bruikbaar voor rozenkruisers, theosofen en hedendaagse occultisten die er elk iets anders in vonden.</p>
+      <p>Daar staat tegenover dat het traktaat wetenschapshistorisch veelzeggend is. Clulee en anderen laten zien dat voor Dee wiskunde, taalstudie en wat later magie ging heten één samenhangende onderneming vormden, en dat de scheiding tussen wetenschap en esoterie van later datum is. Wie de zestiende eeuw op haar eigen voorwaarden wil begrijpen, vindt hier een leerzame correctie op het beeld van een rechte lijn naar de moderne wetenschap. Als kennisbron over de natuur is het boek waardeloos; als bron over het denken van zijn tijd is het van blijvende waarde.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het traktaat met de editie van Josten of een recent commentaar ernaast; de tekst zelf geeft zijn sleutel niet prijs.</li>
+        <li>Gebruik het als casus in de wetenschapsgeschiedenis: het laat zien hoe verweven wiskunde en esoterie bij een topgeleerde rond 1564 waren.</li>
+        <li>Wees terughoudend bij moderne duidingen die het teken een vaststaande betekenis toeschrijven; de bron zelf laat die ruimte niet toe.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Hieroglyphic Monad</i>, vertaald door J.W. Hamilton-Jones (Weiser Books, 2000, 76 blz., ISBN 9781578632039; deze vertaling verscheen oorspronkelijk bij John M. Watkins, Londen, 1947). Oorspronkelijk <i>Monas Hieroglyphica</i> (Willem Silvius, Antwerpen, 1564). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Kort Latijns traktaat uit 1564 van de Engelse wiskundige en hofgeleerde John Dee, in twaalf dagen geschreven in Antwerpen en opgedragen aan keizer Maximiliaan II. Dee construeert één samengesteld teken, de hiërogliefische monade, opgebouwd uit punt, cirkel, halve maan, het kruis van de elementen en het teken Ram, en betoogt in 24 theoremata in euclidische stijl dat dit teken de eenheid van kosmos, alchemie, sterrenkunde en taal bevat.</p><p>Dee beschouwde het als zijn belangrijkste werk; tijdgenoten stonden er grotendeels voor een raadsel en dat is sindsdien weinig veranderd. Als bewijsvoering is het getallen- en letterspel willekeurig, maar als document is het traktaat leerzaam: het toont hoe bij een vooraanstaand zestiende-eeuws geleerde wiskunde, magie en symboliek één onderneming vormden. De vertaling van Hamilton-Jones uit 1947 is de gangbaarste; de wetenschappelijke standaard is Jostens editie uit 1964.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>hermetisme</li><li>symboliek</li><li>alchemie</li><li>esoterie</li><li>wetenschapsgeschiedenis</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="378"><a href="378.html">The Kybalion</a>. The Kybalion presenteert eeuwen later opnieuw een compact stelsel dat de hele kosmos in enkele principes wil vangen.</li>
+          <li value="357"><a href="357.html">De mens en zijn symbolen</a>. De mens en zijn symbolen behandelt de vraag wat samengebalde tekens als deze psychologisch doen.</li>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. The Demon-Haunted World beschrijft het verschil tussen onweerlegbare geheimtaal en toetsbare kennis.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

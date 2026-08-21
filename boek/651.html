@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Black Hole War &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Susskind stelt dat Hawkings bewering uit 1976, dat een verdampend zwart gat de ingevallen informatie vernietigt, geen detailkwestie was; als zij klopte,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-651">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">651 &middot; Natuur en wetenschap</p>
+    <h1>The Black Hole War</h1>
+    <p class="lede">Leonard Susskind, 2008</p>
+    <p class="stats">
+      <span><b>1381</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="651"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Susskind stelt dat Hawkings bewering uit 1976, dat een verdampend zwart gat de ingevallen informatie vernietigt, geen detailkwestie was; als zij klopte, zou de kwantummechanica in de kern falen, want die theorie staat of valt met het beginsel dat de huidige toestand van de wereld het verleden volledig vastlegt. De verdediging van dat beginsel dwong tot ingrijpende nieuwe ideeën: de complementariteit van zwarte gaten, die tegenstrijdig lijkende waarnemingen binnen en buiten de horizon beide geldig verklaart, en het holografisch principe, dat de informatie-inhoud van een ruimtegebied aan het omhullende oppervlak koppelt. Het boek betoogt dat de snaartheorie deze ideeën hard maakte en dat Hawkings capitulatie in 2004 de winst bezegelde, terwijl de vraag hoe de informatie het gat verlaat open bleef.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De zolder van Werner Erhard</h3>
+      <p>Het boek opent in 1981, op een besloten bijeenkomst van natuurkundigen op de zolder van de omstreden zelfhulpondernemer Werner Erhard in San Francisco. Hawking, al zwaar getekend door zijn ziekte, presenteert daar zijn stelling dat informatie in zwarte gaten verloren gaat. De meeste aanwezigen halen hun schouders op; Susskind en 't Hooft schrikken. Susskind voert de lezer vervolgens door de voorgeschiedenis van het begrip zwart gat, van de ontsnappingssnelheid van Michell en Laplace tot de horizon van Schwarzschild, met alledaagse beelden zoals kikkervisjes bij een waterval die pas te laat merkt dat terugzwemmen niet meer kan.</p>
+      <h3>Entropie en straling</h3>
+      <p>De aanleiding voor het conflict ligt in de jaren zeventig. Bekenstein betoogde in 1972 dat een zwart gat entropie heeft, evenredig met het oppervlak van de horizon, en Hawking berekende in 1974 dat een zwart gat door kwantumeffecten straalt en langzaam verdampt. Die Hawkingstraling leek volgens zijn berekening volstrekt willekeurig, zonder spoor van wat er ooit in viel. Daaruit trok Hawking de conclusie dat de informatie weg is zodra het gat verdampt is. Susskind legt uit waarom dat meer is dan een curiositeit: informatie is in de natuurkunde de boekhouding van de werkelijkheid, en entropie de maat voor verborgen informatie.</p>
+      <h3>Waarom informatiebehoud heilig is</h3>
+      <p>De kwantummechanica is omkeerbaar: uit de volledige eindtoestand van een proces is de begintoestand terug te rekenen. Dat heet unitariteit. Laat men informatie echt verdwijnen, dan lekken ook kansen weg, wordt energiebehoud wankel en verliest de theorie haar samenhang. Hawking aanvaardde die consequentie en stelde een aangepaste boekhouding voor. Voor Susskind en 't Hooft was dat het opgeven van de best geteste theorie uit de natuurkunde, en zij besloten te bewijzen dat de informatie op een of andere manier in de straling terugkeert.</p>
+      <h3>Complementariteit</h3>
+      <p>De eerste doorbraak aan Susskinds kant is de complementariteit van zwarte gaten, begin jaren negentig geformuleerd. Voor een waarnemer buiten het gat wordt alles wat invalt bij de gloeiend hete, uitgerekte horizon verschroeid en als straling teruggegeven; voor de invallende reiziger zelf gebeurt er bij het passeren van de horizon niets bijzonders. Beide beschrijvingen lijken elkaar uit te sluiten, maar geen enkele waarnemer kan ze allebei toetsen, dus levert de tegenspraak geen meetbaar conflict op. Susskind presenteert dit als les in de traditie van Bohr en Einstein: schijnbare paradoxen verdwijnen wanneer alleen telt wat een waarnemer werkelijk kan vaststellen.</p>
+      <h3>Het holografisch principe</h3>
+      <p>Uit de entropieformule van Bekenstein volgt iets vreemds: de maximale informatie-inhoud van een ruimtegebied groeit met het oppervlak van de rand, in Planck-eenheden, en dus niet met het volume. 't Hooft en Susskind maakten daar in 1993 en 1994 een principe van: de volledige natuurkunde binnen een gebied is te beschrijven als een theorie op de rand, zoals een hologram een driedimensionaal beeld in een plat vlak opslaat. Susskind besteedt veel bladzijden aan het invoelbaar maken van deze gedachte, die tegen elke ruimtelijke intuïtie ingaat en het middelpunt van het moderne onderzoek naar kwantumzwaartekracht werd.</p>
+      <h3>Snaren, tellingen en Maldacena</h3>
+      <p>De onderbouwing kwam uit de snaartheorie. Susskind laat zien hoe een invallend voorwerp vanuit de buitenwaarnemer gezien uitsmeert over de horizon, zoals een snaar die bij hoge energie steeds verder uitwaaiert. In 1996 telden Strominger en Vafa voor een bijzondere klasse zwarte gaten de kwantumtoestanden en vonden exact de entropie van Bekenstein en Hawking. In 1997 volgde de sterkste klap: Maldacena's correspondentie, waarin zwaartekracht in een doosvormig heelal wiskundig gelijkwaardig blijkt aan een gewone kwantumtheorie zonder zwaartekracht op de wand van de doos. In die randtheorie gaat aantoonbaar geen informatie verloren, dus ook niet bij de zwarte gaten binnenin.</p>
+      <h3>Dublin 2004 en wat open bleef</h3>
+      <p>Op een congres in Dublin in 2004 verklaarde Hawking publiekelijk dat informatie toch behouden blijft, en loste hij zijn weddenschap met John Preskill in met een honkbalencyclopedie, waaruit informatie naar believen is op te vissen. Susskind noteert de overwinning zonder triomfalisme over de man zelf, voor wie hij bewondering houdt, en sluit eerlijk af: het mechanisme waarmee de informatie in de straling terechtkomt was bij verschijnen niet begrepen, en Hawkings eigen capitulatie-argument overtuigde de veteranen van de oorlog maar half.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">informatieparadox</td><td>Het conflict tussen Hawkings berekening dat verdampingsstraling geen geheugen heeft en het kwantumbeginsel dat informatie behouden blijft.</td></tr>
+          <tr><td class="term">Hawkingstraling</td><td>De door kwantumeffecten veroorzaakte straling waardoor een zwart gat langzaam massa verliest en uiteindelijk verdampt.</td></tr>
+          <tr><td class="term">entropie van een zwart gat</td><td>De door Bekenstein en Hawking gevonden maat voor verborgen informatie, evenredig met het oppervlak van de horizon.</td></tr>
+          <tr><td class="term">horizon</td><td>De grens waarbinnen niets, ook licht niet, nog aan het zwarte gat kan ontsnappen.</td></tr>
+          <tr><td class="term">unitariteit</td><td>De eigenschap van de kwantummechanica dat evolutie omkeerbaar is en de eindtoestand de begintoestand volledig vastlegt.</td></tr>
+          <tr><td class="term">complementariteit van zwarte gaten</td><td>Het beginsel dat de buitenwaarnemer en de invallende waarnemer tegenstrijdig lijkende maar elk geldige beschrijvingen hebben.</td></tr>
+          <tr><td class="term">holografisch principe</td><td>De stelling dat de volledige natuurkunde in een ruimtegebied te beschrijven is als een theorie op het omhullende oppervlak.</td></tr>
+          <tr><td class="term">Maldacena-correspondentie</td><td>De wiskundige gelijkwaardigheid uit 1997 tussen een zwaartekrachttheorie in een gekromd binnengebied en een kwantumtheorie op de rand.</td></tr>
+          <tr><td class="term">Plancklengte</td><td>De kleinste betekenisvolle lengteschaal van de natuur, waarin het horizonoppervlak de entropie telt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De wetenschappelijke ruggengraat van het boek bestaat uit gepubliceerde en veel geciteerde resultaten: de entropieformule van Bekenstein en Hawking, de telling van Strominger en Vafa uit 1996 en de correspondentie van Maldacena uit 1997, die tot de meest aangehaalde artikelen in de theoretische natuurkunde behoort. Binnen die kaders is de conclusie dat informatie behouden blijft breed aanvaard, en Hawkings publieke koerswijziging in 2004 is gedocumenteerd feit. Als ooggetuigenverslag van veertig jaar vakgeschiedenis is het boek bovendien een bron op zichzelf.</p>
+      <p>Tegelijk is de bewijsvoering indirect. De harde resultaten gelden binnen de snaartheorie en in modelheelallen met een handzame rand, terwijl ons eigen heelal daar niet aan voldoet; directe waarneming van Hawkingstraling ontbreekt en zal vermoedelijk lang ontbreken. Het gevecht is beslecht met wiskundige consistentie en gedachte-experimenten, en Susskind zegt dat zelf ook.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek is de versie van de winnaar. Hawkings kant krijgt weinig woordvoerders, de eigen rol staat vol in het licht, en collega's worden neergezet in anekdotes die vermakelijk maar onverifieerbaar zijn. Wie een afgewogen geschiedenis van de informatieparadox zoekt, leest hier een memoir met een scherpe agenda. Ook golft het uitlegniveau: huiskamerbeelden over kikkervisjes staan naast passages over verstrengeling en randtheorieën die zonder voorkennis nauwelijks landen.</p>
+      <p>Belangrijker: de oorlog bleek minder voorbij dan de slotakkoorden suggereren. In 2012 heropenden Almheiri, Marolf, Polchinski en Sully het debat met het firewall-argument, dat aantoont dat complementariteit, gladde horizonten en informatiebehoud niet zomaar samengaan; het veld werkt sindsdien aan nieuwe verzoeningen, met verstrengeling als hoofdrolspeler. En een minderheid, onder wie Penrose, aanvaardt het informatiebehoud nog altijd niet omdat het bewijs aan de snaartheorie hangt. Hawkings eigen argument uit 2004 wordt zelden als de beslissende stap gezien; de paradox is van kleur veranderd, niet verdwenen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het boek als casus over hoe theoretische natuurkunde beslist wanneer experimenten ontbreken: met consistentie-eisen, gedachte-experimenten en decennia geduld.</li>
+        <li>Gebruik de entropie-oppervlakteregel als geheugensteun voor wat het holografisch principe beweert: informatie-inhoud schaalt met de rand van een gebied.</li>
+        <li>Houd bij populaire stukken over zwarte gaten de vraag paraat welke waarnemer wordt bedoeld; sinds complementariteit is dat geen detail meer.</li>
+        <li>Neem de slothoofdstukken niet als eindstand; zoek voor de stand van het debat op het firewall-argument uit 2012 en wat erop volgde.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Black Hole War: My Battle with Stephen Hawking to Make the World Safe for Quantum Mechanics</i> (Little, Brown and Company, 2008, 480 blz., ISBN 9780316016407; paperback ISBN 9780316016414). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Verslag uit de eerste hand van een wetenschappelijke controverse die bijna dertig jaar duurde. In 1981 hoorde Stanford-natuurkundige Leonard Susskind Stephen Hawking betogen dat informatie die in een zwart gat valt bij de verdamping van dat gat definitief verloren gaat. Voor Susskind en Gerard 't Hooft ondermijnde die claim de kwantummechanica zelf, die eist dat informatie behouden blijft. Het boek volgt de strijd om dat beginsel, van gedachte-experimenten over horizonten tot de komst van complementariteit, het holografisch principe en de snaartheoretische onderbouwing die Hawking in 2004 deed toegeven.</p><p>Susskind schrijft als partijdige deelnemer, met anekdotes over de hoofdrolspelers en uitleg zonder formules. De uitkomst van de oorlog, het inzicht dat de informatie-inhoud van een ruimtegebied op het omhullende oppervlak past, geldt inmiddels als een van de leidende ideeën in de theoretische natuurkunde.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>natuurkunde</li><li>zwarte gaten</li><li>kosmologie</li><li>wetenschapsgeschiedenis</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="262"><a href="262.html">A Brief History of Time</a>. A Brief History of Time is het boek van de tegenstander, met de oorspronkelijke populaire uitleg van verdampende zwarte gaten.</li>
+          <li value="281"><a href="281.html">Reality Is Not What It Seems</a>. Reality Is Not What It Seems zoekt de verzoening van kwantumtheorie en zwaartekracht langs een andere weg, de luskwantumzwaartekracht.</li>
+          <li value="240"><a href="240.html">Einstein: His Life and Universe</a>. Einstein: His Life and Universe portretteert de grondlegger van de relativiteitstheorie wiens veldvergelijkingen dit hele strijdtoneel schiepen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Speakable and Unspeakable in Quantum Mechanics &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Bell stelt dat de kwantummechanica voor alle praktische doeleinden voortreffelijk werkt en als natuurbeschrijving toch onaf is, omdat haar grondbegrippen,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-653">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">653 &middot; Natuur en wetenschap</p>
+    <h1>Speakable and Unspeakable in Quantum Mechanics</h1>
+    <p class="lede">J.S. Bell, 1987</p>
+    <p class="stats">
+      <span><b>1458</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="653"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Bell stelt dat de kwantummechanica voor alle praktische doeleinden voortreffelijk werkt en als natuurbeschrijving toch onaf is, omdat haar grondbegrippen, meting, waarnemer, systeem, nergens gedefinieerd zijn en een fundamentele theorie niet mag rusten op zulk drijfzand. Een goede theorie gaat over beables, dingen die er zijn, en niet louter over observables, dingen die gemeten worden. Daarnaast staat zijn wiskundige hoofdresultaat: elke theorie waarin de uitkomsten hier niet afhangen van wat daar, buiten bereik van het licht, gebeurt, voldoet aan een ongelijkheid die de kwantummechanica aantoonbaar schendt. De natuur zelf blijkt bij toetsing de kwantumvoorspellingen te volgen, zodat lokale causaliteit als beginsel sneuvelt. Dat resultaat kwam voort uit een minderheidstraditie, van Einstein via De Broglie en Bohm, die Bell tegen de heersende Kopenhaagse zelfgenoegzaamheid in eerherstel gaf.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een bundel avondwerk</h3>
+      <p>Het boek bundelt tweeëntwintig stukken uit de jaren 1964 tot 1987, geschreven naast Bells reguliere werk als versneller- en deeltjesfysicus bij CERN in Genève. De toon wisselt per stuk: sommige zijn technische artikelen, andere voordrachten voor gemengd publiek, met de droge humor die Bells handelsmerk werd. Samen documenteren ze hoe een respectabel geacht randonderwerp, de grondslagen van de kwantummechanica, mede door deze stukken weer een levend onderzoeksveld werd.</p>
+      <h3>Von Neumann onderuit</h3>
+      <p>Het openingswerk, geschreven in 1964 maar pas in 1966 gepubliceerd, rekent af met een dogma. Von Neumann had in 1932 bewezen dat verborgen variabelen, onderliggende grootheden die de kwantumkansen zouden verklaren, onmogelijk zijn, en generaties namen dat op gezag aan. Bell laat zien dat het bewijs op een onredelijke aanname rust en dus weinig uitsluit. Wat wel overeind blijft, ontleent hij aan de stellingen van Gleason en van Kochen en Specker: verborgen variabelen kunnen alleen als de uitkomst van een meting mag afhangen van welke andere grootheden tegelijk gemeten worden. Die eigenschap heet contextualiteit, en Bell vond haar geen bezwaar: het resultaat van een ingreep hangt nu eenmaal af van de hele opstelling.</p>
+      <h3>De stelling van Bell</h3>
+      <p>Het beroemdste artikel, uit 1964, vertrekt bij de paradox van Einstein, Podolsky en Rosen: twee deeltjes uit één bron vertonen op afstand volmaakte correlaties, en Einstein concludeerde dat de uitkomsten dan vooraf moeten vastliggen in lokale eigenschappen. Bell rekent uit wat elke theorie van dat type voorspelt voor metingen onder gedraaide hoeken en vindt een grens, de ongelijkheid van Bell, waar de kwantummechanica overheen gaat. De conclusie is verstrekkend: de keuze is tussen de kwantumvoorspellingen en lokale causaliteit; beide behouden kan niet. Latere stukken in de bundel scherpen de aannames aan en weerleggen het misverstand dat alleen determinisme zou sneuvelen.</p>
+      <h3>Tegen het woord meting</h3>
+      <p>Een tweede lijn door de bundel is Bells kruistocht tegen de vaagheid van de orthodoxe theorie. Woorden als meting, apparaat en waarnemer horen volgens hem niet in de axioma's van een natuurtheorie thuis: een apparaat bestaat uit atomen en kan geen fundamenteel begrip zijn. Hij munt de spottende afkorting FAPP, for all practical purposes: de gangbare verdedigingen van de theorie werken voor alle praktische doeleinden en juist daarom verhullen ze dat de principiële vraag onbeantwoord blijft. In plaats van observables wil hij theorieën over beables, zijnden, met een heldere uitspraak over wat er volgens de theorie werkelijk is.</p>
+      <h3>Bohm en de kwantumsprongen</h3>
+      <p>Meerdere stukken behandelen de pilotgolftheorie van De Broglie en Bohm, waarin deeltjes altijd een plaats hebben en door de golffunctie worden geleid. Bell noemde het een schandaal dat deze theorie, die in 1952 liet zien dat het volgens hem onmogelijk geachte gewoon bestond, in de leerboeken werd doodgezwegen; zijn eigen stelling ontstond uit de vraag of de niet-lokaliteit van Bohms theorie te vermijden was. Het antwoord bleek nee. Daarnaast bespreekt hij in het slotstuk van de eerste editie het voorstel van Ghirardi, Rimini en Weber, waarin golffuncties spontaan instorten, als eerlijke poging om de theorie zonder waarnemers af te maken: er zijn dan werkelijk kwantumsprongen, en de theorie doet toetsbaar andere voorspellingen.</p>
+      <h3>Zes mogelijke werelden</h3>
+      <p>In het essay over zes mogelijke werelden van de kwantummechanica zet Bell de opvattingen naast elkaar: drie romantische, waaronder de veelwereldeninterpretatie en de gedachte dat bewustzijn de instorting veroorzaakt, en drie prozaïsche, waaronder het pragmatische zwijgen, de pilotgolf en de echte instorting. Zijn voorkeur gaat naar de prozaïsche kant; de veelwereldenleer vond hij extravagant. Het stuk toont de schrijver op zijn best: eerlijk over de kosten van elke keuze, ook die van zijn eigen sympathieën, en scherp op het punt dat er hoe dan ook gekozen moet worden.</p>
+      <h3>Toetsing en nasleep</h3>
+      <p>Bells ongelijkheid verplaatste een wijsgerig geschil naar het laboratorium. Freedman en Clauser vonden in 1972 de eerste schending, Aspect en zijn groep sloten in 1982 met snel schakelende metingen een belangrijk achterpoortje, en in 2015 volgden experimenten in Delft, Wenen en Boulder die de resterende mazen tegelijk dichtten. In 2022 kregen Clauser, Aspect en Zeilinger er de Nobelprijs voor; het comité noemde Bells werk als grondslag. Bell zelf overleed in 1990. De tweede editie van de bundel voegt onder meer het late strijdschrift tegen het woord meting en een inleiding van Aspect toe.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">stelling van Bell</td><td>Het bewijs dat geen enkele lokale theorie alle kwantumcorrelaties tussen verstrengelde deeltjes kan reproduceren.</td></tr>
+          <tr><td class="term">Bell-ongelijkheid</td><td>De rekengrens waaraan lokale theorieën moeten voldoen en die de kwantummechanica in experimenten aantoonbaar schendt.</td></tr>
+          <tr><td class="term">lokale causaliteit</td><td>Het beginsel dat gebeurtenissen alleen beïnvloed worden door wat zich in hun eigen lichtkegel, dus binnen bereik van het licht, bevindt.</td></tr>
+          <tr><td class="term">verborgen variabelen</td><td>Aangenomen onderliggende grootheden die de kwantumkansen zouden verklaren zoals klassieke onwetendheid gewone kansen verklaart.</td></tr>
+          <tr><td class="term">beable</td><td>Bells kunstwoord voor wat er volgens een theorie werkelijk is, tegenover de observable die alleen over meetuitkomsten gaat.</td></tr>
+          <tr><td class="term">contextualiteit</td><td>De eigenschap dat de uitkomst van een meting mag afhangen van welke andere grootheden in dezelfde opstelling gemeten worden.</td></tr>
+          <tr><td class="term">FAPP</td><td>Bells spotafkorting voor for all practical purposes: verdedigingen van de theorie die praktisch volstaan en principieel niets oplossen.</td></tr>
+          <tr><td class="term">pilotgolftheorie</td><td>De theorie van De Broglie en Bohm waarin deeltjes altijd een positie hebben en door de golffunctie worden geleid.</td></tr>
+          <tr><td class="term">verstrengeling</td><td>De kwantumtoestand van meerdere deeltjes samen die zich niet laat ontleden in afzonderlijke toestanden per deeltje.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Weinig boeken in dit genre staan er qua onderbouwing zo goed voor. De kern is een wiskundige stelling waarvan de afleiding in de bundel zelf staat en die iedereen met wat algebra kan narekenen. De voorspelde schending van de ongelijkheid is vervolgens gemeten, telkens opnieuw en met steeds strengere uitsluiting van achterpoortjes, tot en met de maasvrije experimenten van 2015. De Nobelprijs van 2022 voor Clauser, Aspect en Zeilinger bevestigde de status van dit onderzoeksprogramma. Ook Bells vernietigende analyse van von Neumanns bewijs geldt sinds lang als juist.</p>
+      <p>Onderscheid wel wat vaststaat en wat standpunt is. Vast staat de stelling plus de experimentele uitkomst; wat daaruit volgt voor het wereldbeeld hangt af van aannames die in de stukken zelf zorgvuldig benoemd worden. Wie bereid is de vrije keuze van meetinstellingen op te geven, superdeterminisme, of uitkomsten niet als enkelvoudige feiten te lezen, zoals de veelwereldeninterpretatie doet, ontloopt de conclusie dat lokaliteit sneuvelt. Bell achtte die ontsnappingen te duur, maar bewees hun onmogelijkheid niet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Als boek heeft de bundel de gebreken van het genre: overlap tussen stukken die hetzelfde punt voor verschillende gehoren maken, wisselend technisch niveau, en geen doorlopende lijn; wie geen natuurkunde heeft gestudeerd, moet de rekenstukken overslaan en houdt dan ongeveer de helft over. Een systematische inleiding in het veld is het uitdrukkelijk niet.</p>
+      <p>Inhoudelijk ligt de strijd niet bij de stelling maar bij de duiding. Kopenhaags gezinde natuurkundigen vinden dat Bell een karikatuur bestrijdt: de theorie pretendeert in hun lezing geen beschrijving van een waarnemersonafhankelijke werkelijkheid, en dan is het ontbreken van beables geen gebrek. Anderen betogen dat de experimenten eerder het realisme van de aannames treffen dan de lokaliteit. Bells eigen sympathieën, pilotgolf en spontane instorting, zijn binnen het vak minderheidsposities gebleven, mede omdat beide moeizaam met de relativiteitstheorie samengaan, iets wat Bell zelf ruiterlijk erkende. Zijn hoop op een diepere, wel weer scherp geformuleerde theorie is tot nu toe niet ingelost.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Begin bij de toegankelijke essays, waaronder het stuk over de zes mogelijke werelden en de socks-lezing over Bertlmanns sokken, en laat de technische afleidingen desnoods liggen.</li>
+        <li>Gebruik het onderscheid tussen beables en observables als vraag aan elke natuurkundige theorie of duiding: wat is er volgens dit verhaal werkelijk?</li>
+        <li>Onthoud bij berichten over verstrengeling dat de correlaties geen seinkanaal vormen; wie er telepathie of sneller-dan-licht-communicatie aan ophangt, heeft de stelling niet begrepen.</li>
+        <li>Herken FAPP-argumenten, ook buiten de natuurkunde: een oplossing die voor alle praktische doeleinden werkt, kan de principiële vraag intact laten.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Speakable and Unspeakable in Quantum Mechanics: Collected Papers on Quantum Philosophy</i> (Cambridge University Press, 1987, 224 blz., ISBN 9780521334952; paperback ISBN 9780521368698; tweede, uitgebreide editie 2004 met inleiding van Alain Aspect, ISBN 9780521523387). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Verzamelde opstellen van de Noord-Ierse natuurkundige John Stewart Bell (1928-1990), die naast zijn dagwerk als deeltjesfysicus bij CERN de grondslagen van de kwantummechanica onderzocht. De bundel bevat de artikelen waarmee hij het vak veranderde: de ontmaskering van von Neumanns bewijs tegen verborgen variabelen, en de stelling van Bell uit 1964, die aantoont dat geen enkele lokale theorie de voorspelde correlaties tussen verstrengelde deeltjes kan reproduceren. Experimenten, met als sluitstuk het werk dat in 2022 de Nobelprijs kreeg, gaven de kwantummechanica gelijk.</p><p>Daarnaast bevat de bundel Bells heldere pleidooien tegen de vaagheid van het woord meting in de grondslagen van de theorie, zijn welwillende behandeling van de pilotgolftheorie van De Broglie en Bohm en van het instortingsvoorstel van Ghirardi, Rimini en Weber, en het essay over zes mogelijke kwantumwerelden. Technisch op sommige plaatsen, maar de programmatische stukken zijn voor een geduldige lezer zonder vakopleiding te volgen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>natuurkunde</li><li>quantum</li><li>wetenschapsfilosofie</li><li>meetprobleem</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="262"><a href="262.html">A Brief History of Time</a>. A Brief History of Time toont de kwantummechanica en de zwaartekracht in samenhang, zonder de grondslagenvragen die hier centraal staan.</li>
+          <li value="94"><a href="94.html">Het tijdperk van onzekerheid</a>. Het tijdperk van onzekerheid vertelt de menselijke geschiedenis van Bohr, Einstein en Heisenberg, de generatie waar Bell zich toe verhield.</li>
+          <li value="281"><a href="281.html">Reality Is Not What It Seems</a>. Reality Is Not What It Seems bouwt verder op de vraag wat er werkelijk is als golffuncties en velden de beschrijving overnemen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

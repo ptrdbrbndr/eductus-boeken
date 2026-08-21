@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The History of Magic &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Lévi stelt dat er achter alle religies en magische scholen één universele, geheime leer schuilgaat, bewaard in de kabbala en zichtbaar voor wie de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-634">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">634 &middot; Filosofie en mystiek</p>
+    <h1>The History of Magic</h1>
+    <p class="lede">Éliphas Lévi, 1860</p>
+    <p class="stats">
+      <span><b>1266</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="634"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Lévi stelt dat er achter alle religies en magische scholen één universele, geheime leer schuilgaat, bewaard in de kabbala en zichtbaar voor wie de symbolen kan lezen. Het werkzame middel van die leer is het astrale licht, een fijnstoffelijk agens dat alle indrukken vastlegt en overdraagt, en dat door de geoefende wil kan worden gericht. Ware magie is daarmee in zijn ogen een exacte wetenschap van wil en verbeelding; tovenarij, bijgeloof en het toen populaire spiritisme zijn ontaardingen ervan. De geschiedenis van de mensheid laat zich volgens Lévi lezen als de lotgevallen van dit ene arcanum: geopenbaard aan de magiërs, versluierd in de mysteriën, voltooid in het christendom en telkens opnieuw ontheiligd door onbevoegden.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Opzet: zeven maal zeven</h3>
+      <p>Het werk bestaat uit zeven boeken van elk zeven hoofdstukken, een bewust gekozen zevental dat de heilige getallenleer weerspiegelt die Lévi overal in de stof aanwijst. Een inleiding zet de leer uiteen die het geschiedverhaal moet dragen: magie als de ene wetenschap van de oude magiërs, de kabbala als haar bewaarplaats, het astrale licht als haar instrument. De geschiedenis die volgt is dus van meet af aan illustratie van een stelling, geen open onderzoek, en Lévi zegt dat ook onbekommerd; hij schrijft naar eigen zeggen als ingewijde, met de sleutel die gewone historici missen.</p>
+      <h3>Boek een en twee: de afkomst van het geheim</h3>
+      <p>De eerste twee boeken voeren de leer terug op de oudste beschavingen. India, Perzië (Zoroaster en de magiërs aan wie het woord magie herinnert), hermetisch Egypte en vooral de Hebreeuwse overlevering passeren, met de kabbala als zuiverste vorm van de oerleer. Daarna Griekenland: de mysteriën, Orpheus, Pythagoras en de orakels. Kenmerkend is Lévi's verklaringswijze: orakels en wonderen berusten noch op bedrog noch op demonen, maar op de werking van het astrale licht op ontvankelijke zieners. Zo houdt hij het wonderbaarlijke overeind en geeft er tegelijk een quasi-natuurwetenschappelijke draai aan.</p>
+      <h3>Boek drie en vier: christendom en middeleeuwen</h3>
+      <p>Lévi, gevormd op het seminarie en nooit los van de kerk, tekent het christendom als de openbare voltooiing van wat de mysteriën verborgen hielden; de gnostici verwijt hij het geheim te vroeg en verkeerd te hebben prijsgegeven. In de middeleeuwse boeken behandelt hij legenden, tovenarijprocessen en volksmagie als ontaarding van de leer bij het onwetende volk, en de kathedralen, de scholastiek en figuren als Raymundus Lullus als haar voortzetting bij de geleerden. Ook de tempeliers krijgen een hoofdrol: hun veroordeling verbindt hij aan het Baphomet-symbool waarvan zijn eigen tekening uit een eerder werk beroemd werd.</p>
+      <h3>Boek vijf en zes: adepten en revolutie</h3>
+      <p>Het vijfde boek behandelt de adepten van de vroegmoderne tijd: alchemisten als Nicolas Flamel, Paracelsus en Agrippa, de rozenkruisers en de vrijmetselarij, telkens gelezen als schakels in de keten van het geheim. Het zesde boek trekt de lijn door naar de achttiende eeuw: de illuminaten, wonderdoeners en avonturiers als Cagliostro en het dierlijk magnetisme van Mesmer, dat Lévi als herontdekking van het astrale licht beschouwt. De Franse Revolutie verschijnt als uitbarsting die volgt wanneer het heilige evenwicht van gezag en kennis wordt verbroken; Lévi's jeugdige socialisme is hier omgeslagen in een conservatieve duiding.</p>
+      <h3>Boek zeven: de eigen tijd</h3>
+      <p>Het slotboek behandelt de negentiende eeuw: het tafeldans-spiritisme dat sinds 1848 uit Amerika was overgewaaid, magnetiseurs, visioenairs als Vintras en mediums als Home. Lévi wijst het spiritisme scherp af: wie zich passief openstelt voor 'geesten' levert zich uit aan de weerschijnsels van het astrale licht en aan zijn eigen ontregelde verbeelding. Ware magie eist juist beheersing, kennis en een sterke wil. Het boek eindigt met de verzekering dat het grote arcanum bewaard blijft in de symbolen van de kerk en de kabbala, leesbaar voor wie de sleutel bezit; die sleutel zelf blijft, zoals steeds, achtergehouden.</p>
+      <h3>Waites vertaling en de doorwerking</h3>
+      <p>A.E. Waite, zelf occult geleerde en scepticus tegelijk, vertaalde het werk in 1913 en voorzag het van een voorwoord en noten waarin hij Lévi's feitelijke fouten, verzwegen bronnen en tegenspraken met diens eerdere <i>Dogme et rituel de la haute magie</i> aanwijst. Juist die kritische bezorging maakt de editie bruikbaar. De invloed van Lévi is moeilijk te overschatten: de Golden Dawn bouwde op zijn koppeling van tarot en kabbala, Aleister Crowley presenteerde zich als zijn reïncarnatie, en het moderne beeld van 'de magiër' als beoefenaar van een wilswetenschap stamt goeddeels van hem.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">astraal licht</td><td>Het fijnstoffelijke agens dat volgens Lévi alle indrukken vastlegt en overdraagt, en waardoor magische werking en visioenen tot stand komen.</td></tr>
+          <tr><td class="term">de wil</td><td>Het vermogen dat, geoefend en gericht, het astrale licht bestuurt; voor Lévi de kern van alle ware magie.</td></tr>
+          <tr><td class="term">groot arcanum</td><td>Het ene geheim van de universele leer, dat door de eeuwen wordt doorgegeven en nooit openlijk uitgesproken.</td></tr>
+          <tr><td class="term">kabbala</td><td>De joodse geheime overlevering, door Lévi opgevat als bewaarplaats van de oerleer en sleutel tot alle symbolen.</td></tr>
+          <tr><td class="term">Baphomet</td><td>Het aan de tempeliers verbonden symbool waarvan Lévi's eigen tekening het moderne beeld bepaalde.</td></tr>
+          <tr><td class="term">magnetisme</td><td>Mesmers dierlijk magnetisme, door Lévi gelezen als onwetende herontdekking van het astrale licht.</td></tr>
+          <tr><td class="term">profanatie</td><td>De ontheiliging van het geheim door onbevoegden, voor Lévi de bron van tovenarij, bijgeloof en spiritisme.</td></tr>
+          <tr><td class="term">septenarium</td><td>Het heilige zevental dat de indeling van het boek (zeven boeken van zeven hoofdstukken) en veel van zijn symboliek bepaalt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Bronkritiek ontbreekt volledig. Lévi noemt zijn bronnen zelden, parafraseert vrij, neemt legenden als geschiedenis en construeert de doorlopende overlevering die hij zegt aan te treffen. Vertaler Waite, de auteur welgezind, wijst in zijn noten zelf op feitelijke fouten en op punten waar het boek eerdere werken van Lévi tegenspreekt. Het astrale licht is nooit als verschijnsel aangetoond en zo geformuleerd dat het zich aan elke toets onttrekt; de verklaringen die erop rusten hebben dus geen bewijskracht.</p>
+      <p>Wel goed gedocumenteerd is de plaats van het boek zelf in de geschiedenis. Onderzoekers van de westerse esoterie, onder wie Christopher McIntosh en Wouter Hanegraaff, hebben Lévi's beslissende rol in de occulte opleving van de negentiende eeuw en zijn doorwerking op de Golden Dawn, Crowley en de moderne tarot in detail beschreven. Als bron over wat een ontwikkelde negentiende-eeuwse occultist geloofde en hoe hij de geschiedenis herschreef, is het werk daarom juist sterk.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Als geschiedschrijving is het boek onbruikbaar. De ene geheime traditie die van Zoroaster tot Mesmer zou lopen bestaat alleen doordat Lévi haar construeert: hij leest zijn eigen leer in elke bron terug en verklaart tegenbewijs tot versluiering. Hanegraaff en andere historici van de esoterie noemen dit type geschiedverhaal religionistisch: het schept de traditie die het beweert te beschrijven. Wie werkelijke geschiedenis van magie zoekt, is op modern academisch werk aangewezen en kan Lévi alleen als studieobject gebruiken.</p>
+      <p>Daarbij komt de retorische werkwijze: het beslissende geheim wordt telkens aangekondigd en nooit gegeven, kritiek is per definitie een teken van oningewijdheid, en de stijl overdondert waar het betoog tekortschiet. Dat maakte het boek intussen wel tot een van de invloedrijkste esoterische teksten van de moderne tijd. De hedendaagse omgang met tarot, magie als wilskunst en 'oude wijsheid' is zonder Lévi niet te begrijpen, en juist daarom loont het dit werk te kennen: als monument van hoe de moderne occulte verbeelding is gebouwd.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het boek als primaire bron over het negentiende-eeuwse occultisme, niet als naslagwerk over de geschiedenis van magie.</li>
+        <li>Gebruik Waites noten als eerste correctief en leg academisch werk over westerse esoterie ernaast.</li>
+        <li>Herken Lévi's denkfiguren (geheime traditie, wilskracht, astraal licht) als bouwstenen die in latere esoterische en zelfhulpliteratuur terugkeren.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The History of Magic: Including a Clear and Precise Exposition of Its Procedure, Its Rites and Its Mysteries</i>, vertaald door Arthur Edward Waite (Rider, Londen, 1913; herdruk Weiser Books, 2001, 384 blz., ISBN 9780877289296). Oorspronkelijk <i>Histoire de la magie</i> (Germer Baillière, Parijs, 1860). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl, wel het Franse origineel; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Geschiedenis van de magie uit 1860 van Éliphas Lévi, pseudoniem van de Franse ex-seminarist Alphonse-Louis Constant, de schrijver die het woord occultisme zijn moderne lading gaf. Het boek is geen afstandelijke geschiedschrijving: Lévi gelooft in één geheime overlevering, met de kabbala als kern en het 'astrale licht' als werkzaam middel, en vertelt de wereldgeschiedenis als de doorgave, verhulling en ontheiliging van dat ene geheim, van Zoroaster en Egypte via de mysteriën, het christendom en de alchemisten tot het mesmerisme en spiritisme van zijn eigen tijd.</p><p>De opbouw is zeven boeken van elk zeven hoofdstukken. Vertaler A.E. Waite voorzag zijn editie uit 1913 van een voorwoord en noten waarin hij Lévi's fouten en tegenspraken benoemt. Als geschiedwerk is het boek onbetrouwbaar; als brondocument van de negentiende-eeuwse occulte opleving is het van de eerste orde.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>occultisme</li><li>magie</li><li>esoterie</li><li>geschiedenis</li><li>kabbala</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. The Demon-Haunted World laat zien hoe onweerlegbaar geformuleerde leerstellingen als het astrale licht zich tot toetsbare kennis verhouden.</li>
+          <li value="378"><a href="378.html">The Kybalion</a>. The Kybalion is een rechtstreekse erfgenaam: een twintigste-eeuws stelsel dat zich eveneens op een verborgen hermetische traditie beroept.</li>
+          <li value="269"><a href="269.html">The Story of Philosophy</a>. The Story of Philosophy toont het verschil tussen een persoonlijk gekleurd maar controleerbaar overzichtswerk en geschiedenis als geloofsbelijdenis.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
