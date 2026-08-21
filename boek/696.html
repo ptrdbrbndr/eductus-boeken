@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fire in the Minds of Men &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Billington behandelt de moderne omwentelingsgedachte als een geloof, met bekeerlingen, ketters, heiligen en een eigen liturgie, dat in de jaren negentig…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-696">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">696 &middot; Geschiedenis en samenleving</p>
+    <h1>Fire in the Minds of Men</h1>
+    <p class="lede">James H. Billington, 1980</p>
+    <p class="stats">
+      <span><b>1526</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="696"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Billington behandelt de moderne omwentelingsgedachte als een geloof, met bekeerlingen, ketters, heiligen en een eigen liturgie, dat in de jaren negentig van de achttiende eeuw ontstond en zich als een vuur van hoofd tot hoofd verspreidde. Zijn stelling luidt dat de kern van dat geloof geen economisch programma is en ook geen wetenschappelijke leer, maar de verwachting dat een volmaakte wereldlijke orde ontstaat zodra de bestaande met geweld is weggenomen. De dragers waren geen massa's maar kleine kringen van geletterde mannen: journalisten, dichters, samenzweerders. En de organisatievormen waarin zij werkten, de graden, de cellen en de eed, komen volgens hem niet uit de rede van de verlichting maar uit de loges en de geheime genootschappen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het beeld en de vraag</h3>
+      <p>De titel komt uit een uitspraak in Dostojevski's roman over de nihilisten, dat het vuur in de hoofden van mensen zit en niet in de daken van huizen. Billington neemt dat beeld letterlijk als onderzoeksopdracht: hij wil de brand in de hoofden volgen, niet de branden in de straten. Dat maakt het boek tot ideeëngeschiedenis van een bijzonder soort, want hij spoort woorden, symbolen en liederen op en kijkt waar die voor het eerst opduiken en wie ze doorgeeft.</p>
+      <p>Zo volgt hij de herkomst van politieke woorden die inmiddels vanzelfsprekend klinken: de indeling in links en rechts, de betekenisverschuiving van het woord sociaal, het ontstaan van de aanduidingen communist en socialist in Parijse tijdschriften van de jaren dertig en veertig van de negentiende eeuw, en de loopbaan van de rode vlag. Zijn aanname is dat wie het woord verovert, de beweging vormt.</p>
+      <h3>Het geloof en zijn drie beloften</h3>
+      <p>Het eerste van de drie boekdelen, met hoofdstukken over de menswording van het idee, over de vraag waar gezag voortaan vandaan komt en over de voorwerpen van het nieuwe geloof, behandelt de jaren rond 1789. Billington ontleedt de drieledige leus van de Franse Revolutie en laat zien dat vrijheid, broederschap en gelijkheid uiteenliepen tot drie afzonderlijke tradities met eigen erfgenamen. Vrijheid werd de zaak van de grondwetgevers, broederschap ging op in de nationale zaak en het leger, gelijkheid werd de kiem van socialisme en communisme.</p>
+      <p>Voor de vierde bouwsteen, de organisatie, wijst hij naar de Beierse Illuminaten van Adam Weishaupt en naar de loges: graden van inwijding, kringen binnen kringen, driehoeken en vijfhoeken, geheimhouding en eed. Nicolas Bonneville en zijn Cercle Social in Parijs vormen daarin een schakel, evenals de samenzwering van Babeuf in 1796. Filippo Buonarroti, die deze samenzwering overleefde en er decennia later over publiceerde, is voor Billington de figuur die de vorm doorgeeft aan de generaties na hem.</p>
+      <h3>De eeuw van de nationale strijd</h3>
+      <p>Het tweede boekdeel loopt van 1815 tot omstreeks 1870 en draagt de nationale zaak als hoofdthema. Hoofdstukken behandelen de samenzwerende grondwetsvrienden van 1815 tot 1825, de botsing tussen nationale en sociale doelen tussen 1830 en 1848, en het bestaan van een geweldloze weg die het veld verloor. Billington beschrijft hoe zich in deze jaren een nieuwe stand vormt, de intelligentsia, die haar gezag ontleent aan het geschreven woord en niet aan bezit of geboorte.</p>
+      <p>Twee hoofdstukken vallen op. Het ene gaat over de breuk tussen Marx en Proudhon, die Billington als een kerkscheuring behandelt: twee scholen die dezelfde eindtoestand voor ogen hebben en elkaar juist daarom niet verdragen. Het andere gaat over de journalistiek, door hem het toverende medium genoemd, omdat de krant en het tijdschrift de plaats innamen die eerder de preekstoel had. Redactiekamers in Parijs, Berlijn, Londen en Sint-Petersburg vormen in dit boek het eigenlijke strijdtoneel.</p>
+      <h3>De sociale beweging en de macht</h3>
+      <p>Het derde boekdeel gaat over de late negentiende en de vroege twintigste eeuw, toen de sociale zaak de nationale verdrong. Billington behandelt de Duitse sociaaldemocratie als machine: een partij met leden, kassen, kranten en verkiezingen, die het geloof organiseerde en tegelijk temde. Daarnaast zet hij het Russische geweld, dat hij de bom noemt, met een eigen kweekvijver in de studentencultuur en met Sergej Netsjajev, wiens catechismus van 1869 de volstrekte gewetenloosheid tot plicht verhief.</p>
+      <p>Verdere hoofdstukken behandelen het syndicalisme, de weg naar de macht die Lenin aflegde en de rol van vrouwen in de beweging, een onderwerp dat in werken uit die tijd zelden een eigen hoofdstuk kreeg. In de slotbeschouwing stelt Billington dat het geloof zijn vuur verloor op het moment dat het de staat won: wat als verwachting sterk was, verstarde als bestuur.</p>
+      <h3>Methode en opzet</h3>
+      <p>Billington werkte met bronnen in een groot aantal talen en met materiaal dat in de gangbare geschiedschrijving zelden voorkomt: pamfletten van kleine oplage, liedteksten, ledenlijsten, brieven van vergeten samenzweerders. Het notenapparaat beslaat een aanzienlijk deel van de bijna zevenhonderd bladzijden en functioneert als zelfstandige bibliografie van een verspreid onderzoeksveld.</p>
+      <p>De keuze om het spoor van ideeën te volgen in plaats van de sociale en economische oorzaken, is bewust en wordt in de inleiding verantwoord. Billington ontkent niet dat honger, oorlog en klassenverhoudingen opstanden veroorzaken. Zijn punt is dat die omstandigheden niet verklaren waarom de opstand telkens dezelfde taal, dezelfde symbolen en dezelfde organisatievorm koos.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">wereldlijk geloof</td><td>Billingtons aanduiding voor de verwachting dat een volmaakte samenleving ontstaat na het gewelddadig wegnemen van bestaand gezag, met de toewijding van een godsdienst.</td></tr>
+          <tr><td class="term">intelligentsia</td><td>De stand van geletterden die gezag ontleent aan het geschreven woord, in het boek de eigenlijke drager van de omwentelingsgedachte.</td></tr>
+          <tr><td class="term">het toverende medium</td><td>Zijn benaming voor de journalistiek, die de rol van de preekstoel overnam bij het verspreiden en zuiveren van de leer.</td></tr>
+          <tr><td class="term">de machine</td><td>De Duitse sociaaldemocratie als georganiseerde partij, die het geloof zowel verspreidde als binnen kaders bracht.</td></tr>
+          <tr><td class="term">de bom</td><td>De Russische traditie van aanslagen en persoonlijk geweld, met eigen wortels in de studentencultuur.</td></tr>
+          <tr><td class="term">onvoltooide revolutie</td><td>De gedachte dat de politieke omwenteling van 1789 pas af is wanneer een sociale omwenteling volgt, waarmee elke nederlaag tot uitstel werd verklaard.</td></tr>
+          <tr><td class="term">occulte oorsprong van de organisatie</td><td>Zijn stelling dat graden, cellen, eden en geheimhouding uit de loges komen en niet uit het politieke denken van de verlichting.</td></tr>
+          <tr><td class="term">nationale tegenover sociale zaak</td><td>De scheidslijn die volgens Billington de negentiende eeuw in tweeën deelt, met broederschap tegenover gelijkheid als inzet.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De kracht van het boek zit in de bronnen. Billington las in tien talen en gebruikte materiaal dat elders nauwelijks is bekeken: obscure tijdschriften, liedbundels, statuten van genootschappen, correspondentie van tweederangs figuren. Voor een aantal schakels in zijn verhaal is dit de enige plaats waar het bijeen staat.</p>
+      <p>Zijn methode is filologisch van aard. Waar hij beweert dat een woord of symbool zich verplaatste, wijst hij vindplaatsen aan met jaartal en publicatie. Dat maakt de afzonderlijke stappen toetsbaar, ook voor wie zijn eindconclusie niet deelt.</p>
+      <p>Zwakker is de schakel tussen die vindplaatsen. Dat vormen uit de loges terugkeren bij samenzweerders, is aantoonbaar; dat de een de ander veroorzaakte, is een gevolgtrekking. Buonarroti draagt in de opbouw veel gewicht als levende schakel tussen achttiende-eeuws genootschapsleven en negentiende-eeuwse groepen, en op die ene loopbaan rust meer dan één man kan dragen.</p>
+      <p>Het boek stopt bij 1917 en behandelt de latere bewegingen buiten Europa alleen in de marge. Voor de vraag of het patroon algemeen is of Europees, biedt het daarom geen uitsluitsel.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De keuze voor ideeën boven omstandigheden is ook het grootste bezwaar. Sociaal en economisch historici hebben tegengeworpen dat opstanden ontstaan uit honger, belastingdruk, oorlogsverliezen en machtsvacuüm, en dat de taal daar achteraan komt. In Billingtons opzet blijven die krachten grotendeels buiten beeld, waardoor het lijkt alsof enkele honderden schrijvers een eeuw in beweging brachten.</p>
+      <p>De vergelijking met godsdienst verheldert en versluiert tegelijk. Zij verklaart de toewijding, de ketterjacht en de zuiveringen, maar strijkt de verschillen glad tussen bewegingen die weinig gemeen hadden behalve hun tegenstander. Wie alles wat overtuiging heet een geloof noemt, verliest onderscheidingsvermogen.</p>
+      <p>De draad van de geheime genootschappen is het kwetsbaarst. Billington blijft er zelf voorzichtig, maar de stof leent zich voor lezers die er een aaneengesloten samenzwering in willen zien, en het boek is in latere decennia in zulke kringen dan ook gretig aangehaald. Dat is niet zijn schuld, wel een gevolg van de keuze om de loges zo veel gewicht te geven.</p>
+      <p>De omvang en de dichtheid maken het boek zwaar toegankelijk. Namen van kleine figuren volgen elkaar in hoog tempo op en het verhaal springt tussen landen en decennia, zodat de hoofdlijn af en toe verdwijnt onder het materiaal.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het boek als geschiedenis van een woordenschat en let daarbij op welke politieke termen van vandaag hier hun herkomst krijgen.</li>
+        <li>Toets zijn hoofdstelling door bij een eigentijdse beweging na te gaan of de organisatievorm ouder is dan de leer.</li>
+        <li>Houd bij elke schakel in de redenering vast wat een vindplaats is en wat een gevolgtrekking; het boek maakt dat onderscheid, maar niet altijd hardop.</li>
+        <li>Neem het notenapparaat als bronnengids voor een periode waarover in het Nederlands weinig te vinden is.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Fire in the Minds of Men: Origins of the Revolutionary Faith</i> (Basic Books, New York, 1980, 677 blz.; latere heruitgave bij Transaction Publishers, ISBN 9780765804716). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Ideeëngeschiedenis van de Amerikaanse historicus James H. Billington, hoogleraar in Harvard en Princeton, later directeur van het Wilson Center en van 1987 tot 2015 hoofd van de Library of Congress. Het boek volgt één draad van 1789 tot 1917: het ontstaan van wat Billington een wereldlijk geloof noemt, de overtuiging dat een volmaakte samenleving te bereiken is door bestaand gezag met geweld omver te werpen. Hij zoekt de herkomst niet alleen bij de Franse verlichting, maar ook bij Duitse romantiek en bij de organisatievormen van vrijmetselarij en geheime genootschappen.</p><p>De opzet is drieledig: eerst het ontstaan van het geloof rond de Franse Revolutie, dan de eeuw van de nationale strijdgroepen, ten slotte de opkomst van de sociale beweging met Duitse sociaaldemocratie, Russisch geweld en Lenin. Billington leest pamfletten, liederen, symbolen en woorden in tien talen. Het boek is geen verhaal over gebeurtenissen, maar over hoe een taal ontstond waarin geweld toekomst kon heten.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ideeëngeschiedenis</li><li>europa</li><li>politiek geloof</li><li>negentiende eeuw</li><li>geheime genootschappen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="223"><a href="223.html">The Anatomy of Human Destructiveness</a>. Fromm onderzocht in dezelfde jaren waar de aantrekkingskracht van vernietiging vandaan komt, een vraag die Billington historisch stelt en Fromm psychologisch.</li>
+          <li value="220"><a href="220.html">Coup d'État</a>. Luttwak beschrijft de staatsgreep als techniek, waar Billington de overtuiging beschrijft die aan zulke technieken vooraf moet gaan.</li>
+          <li value="269"><a href="269.html">The Story of Philosophy</a>. Durant geeft de wijsgerige achtergrond van de denkers die in dit boek als bron van politieke geloofsartikelen opduiken.</li>
+          <li value="537"><a href="537.html">Plutarch's Lives</a>. Plutarchus toont hoe oud het beeld van de bevlogen samenzweerder is, en hoe biografie als politieke les werkt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

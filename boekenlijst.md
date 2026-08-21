@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 21
-augustus 2026: 682 titels in 20 rubrieken.
+augustus 2026: 687 titels in 20 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -26,12 +26,12 @@ bij de volgende build verloren.
 | Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156, 162, 182, 186, 253, 271, 273, 302, 304, 305, 338, 356, 364, 367, 398, 399, 438, 444, 466, 468, 508, 511, 551 |
 | Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140, 174, 189, 194, 229, 247, 248, 286, 289, 323, 324, 372, 373, 374, 375, 389, 457, 460, 467, 470, 513, 545 |
 | Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49, 285, 447 |
-| Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537, 568, 588, 589, 591, 592, 593, 594, 595, 597, 598, 599, 600, 601, 602, 665, 680, 681, 682, 683, 684, 685, 687, 688, 689, 690, 691, 692, 693, 694, 714 |
+| Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537, 568, 588, 589, 591, 592, 593, 594, 595, 597, 598, 599, 600, 601, 602, 665, 680, 681, 682, 683, 684, 685, 687, 688, 689, 690, 691, 692, 693, 694, 695, 696, 697, 714 |
 | Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347, 383, 413, 539, 555, 648, 649, 650, 651, 653, 654, 655, 656, 657, 658, 659, 660, 661, 662, 710, 711, 712 |
 | Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102, 108, 117, 127, 128, 129, 130, 131, 132, 136, 139, 179, 184, 188, 190, 196, 259, 340, 362, 378, 380, 403, 433, 543, 548, 549, 559, 560 |
 | Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122, 327, 421, 437, 456, 477, 478, 493, 495, 497, 498, 500, 504, 506, 507 |
-| Filosofie en mystiek | wijsgerige hoofdwerken en mystieke teksten over wat werkelijk is en hoe te leven | 572, 573, 574, 576, 577, 578, 580, 581, 582, 584, 587, 590, 596, 603, 604, 605, 606, 608, 609, 610, 611, 612, 613, 614, 615, 630, 631, 632, 633, 634, 635, 636, 637, 638, 639, 640, 641, 642, 643, 644, 645, 646, 647, 652, 663, 666, 669, 670, 675, 676, 677, 678, 679 |
-| Staat en vrijheid | politieke denkers over macht, gezag en het vrije individu | 616, 617, 619, 620, 621, 622, 623, 624, 625, 626, 627, 628, 629 |
+| Filosofie en mystiek | wijsgerige hoofdwerken en mystieke teksten over wat werkelijk is en hoe te leven | 572, 573, 574, 576, 577, 578, 580, 581, 582, 584, 587, 590, 596, 603, 604, 605, 606, 608, 609, 610, 611, 612, 613, 614, 615, 630, 631, 632, 633, 634, 635, 636, 637, 638, 639, 640, 641, 642, 643, 644, 645, 646, 647, 652, 663, 666, 669, 670, 675, 676, 677, 678, 679, 699 |
+| Staat en vrijheid | politieke denkers over macht, gezag en het vrije individu | 616, 617, 619, 620, 621, 622, 623, 624, 625, 626, 627, 628, 629, 698 |
 
 Een titel kan in één rubriek staan en toch tags uit een andere dragen. De tags
 zijn het fijnmazige zoekmiddel, de rubriek is de plek in de kast.
@@ -134077,6 +134077,1119 @@ strategisch advies aan de macht, geschreven om gelezen te worden.
 van de spelers op Brzezinski's bord vanuit hun binnenlandse machtslogica,
 precies wat het schaakbordperspectief weglaat.
 
+## 695. Acid Dreams
+
+Martin A. Lee en Bruce Shlain, 1985. *Acid Dreams: The Complete Social History
+of LSD: The CIA, the Sixties, and Beyond* (Grove Press, New York, 1985;
+herziene uitgave Grove Weidenfeld, 1992, 345 blz., ISBN 9780802130624, met een
+inleiding van Andrei Codrescu). Geen Nederlandse vertaling gevonden in de
+catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie
+gebaseerd. Rubriek: geschiedenis en samenleving.
+Tags: `lsd`, `cia`, `jaren zestig`, `tegencultuur`, `geheime diensten`
+
+Sociale geschiedenis van LSD, geschreven door onderzoeksjournalist Martin A.
+Lee en schrijver Bruce Shlain. Het boek volgt de stof van de synthese bij
+Sandoz in 1938 tot de handel en de rechtszaken van de jaren tachtig. Het
+eerste deel behandelt de belangstelling van het Amerikaanse leger en de CIA,
+die LSD vanaf begin jaren vijftig onderzochten als ondervragingsmiddel en als
+wapen, onder meer in het programma MK-ULTRA. Het tweede deel beschrijft hoe
+dezelfde stof buiten de laboratoria terechtkwam en de jeugdcultuur van de
+jaren zestig mee vormgaf.
+
+De auteurs bouwden hun eerste helft op ongeveer twintigduizend pagina's
+overheidsstukken die via de Amerikaanse openbaarheidswet vrijkwamen, aangevuld
+met interviews. Hun conclusie is terughoudender dan de reputatie van het boek
+doet vermoeden: er is geen bewijs dat de dienst de tegencultuur heeft gepland,
+wel dat zij aan de wieg ervan stond zonder dat te willen. Het tweede deel
+leunt zwaarder op herinneringen van betrokkenen en is daardoor minder hard
+onderbouwd dan het eerste.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Lee en Shlain stellen dat de Amerikaanse geheime diensten en
+het leger LSD ruim twintig jaar hebben behandeld als een instrument van
+oorlogvoering, en dat precies die stof daarna de brandstof werd van een
+jeugdbeweging die zich tegen de staat keerde. De omkering is de kern van het
+boek: de dienst die hoopte gedachten te kunnen sturen, hielp het middel
+verspreiden dat de gehoorzaamheid van een generatie ondermijnde. De auteurs
+schrijven daarbij dat van opzet geen sprake was. Wat zij laten zien is beleid
+dat zijn eigen uitwerking niet overzag, uitgevoerd door mensen die de gevolgen
+pas begrepen toen die zich buiten hun bereik voltrokken.
+
+#### De gang van het boek
+
+**Een stof op zoek naar een toepassing**
+
+Albert Hofmann synthetiseerde LSD-25 in 1938 bij het Zwitserse Sandoz en
+ontdekte de werking pas in 1943, toen hij per ongeluk een spoor binnenkreeg.
+Sandoz zocht jarenlang naar een medisch doel voor het middel en stuurde het
+gratis rond naar onderzoekers, met het verzoek te melden waarvoor het te
+gebruiken viel. Die open verspreiding verklaart waarom de stof in het begin
+van de jaren vijftig zowel in psychiatrische klinieken als in militaire
+laboratoria lag.
+
+In het Amerikaanse legeronderzoek gold LSD eerst als psychotomimeticum: een
+middel dat een tijdelijke psychose zou nabootsen en daarmee een venster zou
+bieden op geestesziekte. Diezelfde eigenschap maakte het aantrekkelijk voor
+wie zocht naar een middel om verhoorde gevangenen uit balans te brengen.
+
+**De koude oorlog en MK-ULTRA**
+
+Het eerste deel van het boek gaat over de vrees die in Washington ontstond na
+de bekentenissen van Amerikaanse krijgsgevangenen in de Koreaanse oorlog. De
+aanname was dat de tegenstander over een methode beschikte om overtuigingen om
+te bouwen, en dat de Verenigde Staten moesten bijbenen. Onder programma's als
+BLUEBIRD, ARTICHOKE en vanaf 1953 MK-ULTRA, geleid door scheikundige Sidney
+Gottlieb binnen de technische dienst van de CIA, werden tientallen middelen
+beproefd. LSD kreeg daarin een hoofdrol, omdat het in kleine hoeveelheden
+werkte en reukloos was.
+
+Lee en Shlain beschrijven hoe het onderzoek zich uitstrekte tot
+universiteiten, ziekenhuizen, gevangenissen en het legerarsenaal Edgewood,
+waar dienstplichtigen proefpersoon waren. Zij besteden veel ruimte aan de dood
+van legerbioloog Frank Olson, die in november 1953 zonder het te weten een
+dosis kreeg tijdens een besloten bijeenkomst en enkele dagen later in New York
+uit een hotelraam viel. De familie hoorde pas in 1975 hoe dat was gegaan, na
+openbaarmakingen door een presidentiële onderzoekscommissie.
+
+**Proeven op nietsvermoedende burgers**
+
+De hardste passages betreffen de proeven buiten elke medische omgeving. In het
+project dat intern Midnight Climax heette, huurde de dienst woningen in San
+Francisco en New York, waar de van narcoticabestrijding afkomstige agent
+George Hunter White prostituees inschakelde om klanten binnen te halen. Die
+kregen LSD toegediend en werden door een spiegel bekeken. Er bestond geen
+toestemming, geen medische begeleiding en geen nazorg.
+
+Wat er precies is gebeurd, valt maar ten dele te reconstrueren. Richard Helms,
+de latere directeur, liet in 1973 de dossiers van het programma vernietigen.
+Wat de auteurs in handen kregen, waren financiële stukken die per ongeluk
+elders waren opgeslagen en die pas in 1977 boven water kwamen. Het boek maakt
+dat gat in de bronnen zichtbaar in plaats van het te overschreeuwen.
+
+**Zendelingen buiten de dienst**
+
+Daarnaast liep een tweede verhaallijn: artsen, schrijvers en zakenlieden die
+LSD als geestelijke oefening zagen. Aldous Huxley beschreef in 1954 in *The
+Doors of Perception* zijn ervaring met mescaline en gaf de latere beweging
+haar vocabulaire. Kapitein Al Hubbard, een ondernemer met contacten in
+inlichtingenkringen, deelde het middel jarenlang uit aan artsen, geestelijken
+en directeuren, en kreeg de bijnaam de Johnny Appleseed van LSD. In de
+klinische praktijk werd het beproefd bij alcoholisme en bij angst van
+stervenden.
+
+Uit die kring komen ook de begrippen set en setting: de gedachte dat de
+uitkomst van een sessie vooral afhangt van de gemoedstoestand van de gebruiker
+en van de omgeving. Dat inzicht ondergroef de militaire hoop op een
+voorspelbaar wapen, want een stof waarvan het effect met de omstandigheden
+meebeweegt, valt slecht in te zetten als betrouwbaar dwangmiddel.
+
+**Leary, Kesey en de verspreiding**
+
+Timothy Leary begon in 1960 aan Harvard met onderzoek naar psilocybine en LSD,
+samen met Richard Alpert. Het project raakte in botsing met de universiteit
+over de vraag of onderzoekers zelf mochten meedoen aan hun proeven; in 1963
+vertrokken beiden. Wat volgde was een landgoed in Millbrook, een eigen
+geloofsgemeenschap en de leus die Leary in 1966 formuleerde. Lee en Shlain
+zijn niet mild over hem: zij tekenen een man die de aandacht zocht en de
+beweging schade toebracht door haar aan zijn persoon te binden.
+
+Ken Kesey en zijn Merry Pranksters kozen een andere weg. Kesey had het middel
+voor het eerst gekregen als proefpersoon in een door de overheid gefinancierd
+onderzoek. Met de Acid Tests, feesten met muziek, licht en LSD, gaf hij het
+middel een collectieve vorm. De chemicus Owsley Stanley zorgde voor de
+productie. Vanaf het Human Be-In in San Francisco in januari 1967 werd de zaak
+nationaal nieuws. Californië verbood LSD in oktober 1966, de federale wetgever
+volgde.
+
+**Verharding en nasleep**
+
+Het slotdeel beschrijft hoe de vrolijke fase overging in iets grimmigers:
+harddrugs in de wijken die eerst als vrijplaats golden, gewapende
+splintergroepen, en overheidsprogramma's als Operatie CHAOS en COINTELPRO die
+de linkse beweging infiltreerden en waarin drugsaanklachten een handig
+instrument bleken. De auteurs beschrijven ook de handelsorganisatie
+Brotherhood of Eternal Love en de figuur Ronald Stark, die grote hoeveelheden
+liet produceren en die in 1979 door een Italiaanse rechter werd vrijgelaten
+met de overweging dat er aanwijzingen waren voor banden met een Amerikaanse
+dienst.
+
+De laatste hoofdstukken lopen door tot in de jaren tachtig, met de
+rechtszaken, de vergoedingen aan slachtoffers van de proeven en de vraag wat
+er van het onderzoek naar psychedelica overbleef. De herziene uitgave van 1992
+voegde daar een inleiding aan toe.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| MK-ULTRA | Het overkoepelende CIA-programma vanaf 1953 waarin middelen, waaronder LSD, werden beproefd op hun bruikbaarheid bij verhoor en beïnvloeding. |
+| psychotomimeticum | De vroege aanduiding van LSD als stof die een tijdelijke psychose nabootst, wat het onderzoek een medische rechtvaardiging gaf. |
+| Midnight Climax | De schuilnaam van de proeven in gehuurde woningen, waar nietsvermoedende bezoekers werden gedrogeerd en geobserveerd. |
+| set en setting | De stelling dat gemoedstoestand en omgeving de uitkomst van een sessie sterker bepalen dan de dosis. |
+| Johnny Appleseed van LSD | De bijnaam van Al Hubbard, die het middel op eigen initiatief onder artsen, geestelijken en zakenlieden verspreidde. |
+| Acid Test | Het openbare feest met muziek en LSD waarmee Ken Kesey het middel uit de spreekkamer haalde en in een groep plaatste. |
+| Operatie CHAOS | Het binnenlandse inlichtingenprogramma waarmee de CIA de protestbeweging in kaart bracht, formeel buiten haar bevoegdheid. |
+| Brotherhood of Eternal Love | De Californische groep die zichzelf als geloofsgemeenschap zag en tegelijk uitgroeide tot een handelsnetwerk van formaat. |
+
+#### Waar het argument op rust
+
+De eerste helft van het boek rust op ongeveer twintigduizend pagina's stukken
+van de CIA en het leger die via de Amerikaanse openbaarheidswet vrijkwamen,
+aangevuld met verhoren voor het Congres uit 1975 en 1977. Dat is voor een
+journalistiek werk uit 1985 een stevige basis, en de gebeurtenissen die de
+auteurs beschrijven zijn later door archiefonderzoek in hoofdlijnen bevestigd.
+
+Tegelijk zijn de bronnen aantoonbaar onvolledig. De vernietiging van de
+dossiers in 1973 betekent dat de kern van het programma alleen indirect te
+reconstrueren valt, uit boekhouding, memo's die elders belandden en
+verklaringen achteraf. Waar de auteurs die leemte overbruggen, doen zij dat
+met redeneringen die zij als redenering presenteren.
+
+De tweede helft steunt op een ander soort materiaal: interviews met
+deelnemers, tijdschriften uit de periode en memoires. Herinnering aan
+gebeurtenissen die onder invloed plaatsvonden is een wankele bron, en het boek
+weegt die verhalen minder streng dan de overheidsstukken.
+
+De passages over Ronald Stark leunen op Italiaanse rechtbankstukken en op de
+gevolgtrekkingen die de auteurs daaruit maken. Dat een rechter aanwijzingen
+voor inlichtingenbanden noemde, is vastgelegd; wat die banden inhielden,
+blijft open.
+
+#### Wat er tegen in te brengen valt
+
+Historicus Richard H. Immerman verweet het boek dat het te veel over
+drugscultuur gaat en te weinig over de dienst zelf, waardoor de institutionele
+geschiedenis onderbelicht blijft. Wie het boek leest voor inzicht in hoe de
+CIA werkte, krijgt vooral de excessen te zien en weinig over besluitvorming,
+toezicht en verantwoording.
+
+Bibliothecaris Jack Forman vond de opbouw verwarrend en de analyse dun. Die
+kritiek raakt een reëel punt: het boek springt tussen personen en jaren, en de
+scheidslijn tussen wat vaststaat en wat de auteurs vermoeden is in de latere
+hoofdstukken lastiger te trekken dan in de eerste.
+
+Lee en Shlain zijn niet onverschillig tegenover hun onderwerp. Er spreekt
+sympathie uit voor de psychedelische ervaring, en die kleurt de weegschaal: de
+schade van wijdverbreid gebruik, de psychiatrische ontsporingen en de mensen
+die niet heelhuids terugkwamen, krijgen minder ruimte dan de belofte.
+
+Het boek is inmiddels op onderdelen ingehaald. Later onderzoek met ruimere
+archieftoegang heeft het beeld van Gottlieb, Olson en de binnenlandse
+operaties aangevuld en op punten bijgesteld. Wie de stand van zaken zoekt, kan
+dit boek beter als vertrekpunt gebruiken dan als eindstation.
+
+#### Wat er concreet mee te doen is
+
+- Let bij het lezen op het onderscheid tussen wat uit vrijgegeven stukken komt
+en wat de auteurs afleiden; het boek maakt dat verschil zichtbaar, maar alleen
+voor wie erop let.
+- Neem de datum van vernietiging van de dossiers als vaste referentie bij
+alles wat over MK-ULTRA wordt beweerd: uitspraken die zekerheid claimen over
+de kern van het programma, claimen te veel.
+- Vergelijk de gebeurtenissen met wat er later over toezicht op
+inlichtingendiensten is geregeld, en kijk welke waarborgen ontbraken.
+- Gebruik de scheiding tussen de twee helften van het boek als maat voor
+bronkwaliteit: overheidsstukken en herinneringen achteraf verdienen niet
+dezelfde weging.
+
+#### Wat je hierna leest
+
+- 61. Brave New World. Huxley beschreef in zijn roman al een samenleving
+waarin een middel de instemming levert; hij duikt in dit boek op als levende
+schakel tussen literatuur en de vroege psychedelische kring.
+- 384. The Rape of the Mind. Meerloo schreef in dezelfde jaren over de angst
+voor gedachtebeheersing die de programma's uit dit boek in gang zette.
+- 215. Obedience to Authority. Milgram liet zien hoe ver gewone mensen gaan in
+opdracht van een instituut, wat verklaart hoe artsen en agenten hun deel van
+deze proeven konden uitvoeren.
+- 63. The Demon-Haunted World. Sagan biedt het gereedschap om te scheiden
+tussen gedocumenteerde overheidsmisdragingen en de samenzweringsverhalen die
+zich eraan hechten.
+
+## 696. Fire in the Minds of Men
+
+James H. Billington, 1980. *Fire in the Minds of Men: Origins of the
+Revolutionary Faith* (Basic Books, New York, 1980, 677 blz.; latere heruitgave
+bij Transaction Publishers, ISBN 9780765804716). Geen Nederlandse vertaling
+gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse
+editie gebaseerd. Rubriek: geschiedenis en samenleving.
+Tags: `ideeëngeschiedenis`, `europa`, `politiek geloof`, `negentiende eeuw`,
+`geheime genootschappen`
+
+Ideeëngeschiedenis van de Amerikaanse historicus James H. Billington,
+hoogleraar in Harvard en Princeton, later directeur van het Wilson Center en
+van 1987 tot 2015 hoofd van de Library of Congress. Het boek volgt één draad
+van 1789 tot 1917: het ontstaan van wat Billington een wereldlijk geloof
+noemt, de overtuiging dat een volmaakte samenleving te bereiken is door
+bestaand gezag met geweld omver te werpen. Hij zoekt de herkomst niet alleen
+bij de Franse verlichting, maar ook bij Duitse romantiek en bij de
+organisatievormen van vrijmetselarij en geheime genootschappen.
+
+De opzet is drieledig: eerst het ontstaan van het geloof rond de Franse
+Revolutie, dan de eeuw van de nationale strijdgroepen, ten slotte de opkomst
+van de sociale beweging met Duitse sociaaldemocratie, Russisch geweld en
+Lenin. Billington leest pamfletten, liederen, symbolen en woorden in tien
+talen. Het boek is geen verhaal over gebeurtenissen, maar over hoe een taal
+ontstond waarin geweld toekomst kon heten.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Billington behandelt de moderne omwentelingsgedachte als een
+geloof, met bekeerlingen, ketters, heiligen en een eigen liturgie, dat in de
+jaren negentig van de achttiende eeuw ontstond en zich als een vuur van hoofd
+tot hoofd verspreidde. Zijn stelling luidt dat de kern van dat geloof geen
+economisch programma is en ook geen wetenschappelijke leer, maar de
+verwachting dat een volmaakte wereldlijke orde ontstaat zodra de bestaande met
+geweld is weggenomen. De dragers waren geen massa's maar kleine kringen van
+geletterde mannen: journalisten, dichters, samenzweerders. En de
+organisatievormen waarin zij werkten, de graden, de cellen en de eed, komen
+volgens hem niet uit de rede van de verlichting maar uit de loges en de
+geheime genootschappen.
+
+#### De gang van het boek
+
+**Het beeld en de vraag**
+
+De titel komt uit een uitspraak in Dostojevski's roman over de nihilisten, dat
+het vuur in de hoofden van mensen zit en niet in de daken van huizen.
+Billington neemt dat beeld letterlijk als onderzoeksopdracht: hij wil de brand
+in de hoofden volgen, niet de branden in de straten. Dat maakt het boek tot
+ideeëngeschiedenis van een bijzonder soort, want hij spoort woorden, symbolen
+en liederen op en kijkt waar die voor het eerst opduiken en wie ze doorgeeft.
+
+Zo volgt hij de herkomst van politieke woorden die inmiddels vanzelfsprekend
+klinken: de indeling in links en rechts, de betekenisverschuiving van het
+woord sociaal, het ontstaan van de aanduidingen communist en socialist in
+Parijse tijdschriften van de jaren dertig en veertig van de negentiende eeuw,
+en de loopbaan van de rode vlag. Zijn aanname is dat wie het woord verovert,
+de beweging vormt.
+
+**Het geloof en zijn drie beloften**
+
+Het eerste van de drie boekdelen, met hoofdstukken over de menswording van het
+idee, over de vraag waar gezag voortaan vandaan komt en over de voorwerpen van
+het nieuwe geloof, behandelt de jaren rond 1789. Billington ontleedt de
+drieledige leus van de Franse Revolutie en laat zien dat vrijheid,
+broederschap en gelijkheid uiteenliepen tot drie afzonderlijke tradities met
+eigen erfgenamen. Vrijheid werd de zaak van de grondwetgevers, broederschap
+ging op in de nationale zaak en het leger, gelijkheid werd de kiem van
+socialisme en communisme.
+
+Voor de vierde bouwsteen, de organisatie, wijst hij naar de Beierse
+Illuminaten van Adam Weishaupt en naar de loges: graden van inwijding, kringen
+binnen kringen, driehoeken en vijfhoeken, geheimhouding en eed. Nicolas
+Bonneville en zijn Cercle Social in Parijs vormen daarin een schakel, evenals
+de samenzwering van Babeuf in 1796. Filippo Buonarroti, die deze samenzwering
+overleefde en er decennia later over publiceerde, is voor Billington de figuur
+die de vorm doorgeeft aan de generaties na hem.
+
+**De eeuw van de nationale strijd**
+
+Het tweede boekdeel loopt van 1815 tot omstreeks 1870 en draagt de nationale
+zaak als hoofdthema. Hoofdstukken behandelen de samenzwerende
+grondwetsvrienden van 1815 tot 1825, de botsing tussen nationale en sociale
+doelen tussen 1830 en 1848, en het bestaan van een geweldloze weg die het veld
+verloor. Billington beschrijft hoe zich in deze jaren een nieuwe stand vormt,
+de intelligentsia, die haar gezag ontleent aan het geschreven woord en niet
+aan bezit of geboorte.
+
+Twee hoofdstukken vallen op. Het ene gaat over de breuk tussen Marx en
+Proudhon, die Billington als een kerkscheuring behandelt: twee scholen die
+dezelfde eindtoestand voor ogen hebben en elkaar juist daarom niet verdragen.
+Het andere gaat over de journalistiek, door hem het toverende medium genoemd,
+omdat de krant en het tijdschrift de plaats innamen die eerder de preekstoel
+had. Redactiekamers in Parijs, Berlijn, Londen en Sint-Petersburg vormen in
+dit boek het eigenlijke strijdtoneel.
+
+**De sociale beweging en de macht**
+
+Het derde boekdeel gaat over de late negentiende en de vroege twintigste eeuw,
+toen de sociale zaak de nationale verdrong. Billington behandelt de Duitse
+sociaaldemocratie als machine: een partij met leden, kassen, kranten en
+verkiezingen, die het geloof organiseerde en tegelijk temde. Daarnaast zet hij
+het Russische geweld, dat hij de bom noemt, met een eigen kweekvijver in de
+studentencultuur en met Sergej Netsjajev, wiens catechismus van 1869 de
+volstrekte gewetenloosheid tot plicht verhief.
+
+Verdere hoofdstukken behandelen het syndicalisme, de weg naar de macht die
+Lenin aflegde en de rol van vrouwen in de beweging, een onderwerp dat in
+werken uit die tijd zelden een eigen hoofdstuk kreeg. In de slotbeschouwing
+stelt Billington dat het geloof zijn vuur verloor op het moment dat het de
+staat won: wat als verwachting sterk was, verstarde als bestuur.
+
+**Methode en opzet**
+
+Billington werkte met bronnen in een groot aantal talen en met materiaal dat
+in de gangbare geschiedschrijving zelden voorkomt: pamfletten van kleine
+oplage, liedteksten, ledenlijsten, brieven van vergeten samenzweerders. Het
+notenapparaat beslaat een aanzienlijk deel van de bijna zevenhonderd
+bladzijden en functioneert als zelfstandige bibliografie van een verspreid
+onderzoeksveld.
+
+De keuze om het spoor van ideeën te volgen in plaats van de sociale en
+economische oorzaken, is bewust en wordt in de inleiding verantwoord.
+Billington ontkent niet dat honger, oorlog en klassenverhoudingen opstanden
+veroorzaken. Zijn punt is dat die omstandigheden niet verklaren waarom de
+opstand telkens dezelfde taal, dezelfde symbolen en dezelfde organisatievorm
+koos.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| wereldlijk geloof | Billingtons aanduiding voor de verwachting dat een volmaakte samenleving ontstaat na het gewelddadig wegnemen van bestaand gezag, met de toewijding van een godsdienst. |
+| intelligentsia | De stand van geletterden die gezag ontleent aan het geschreven woord, in het boek de eigenlijke drager van de omwentelingsgedachte. |
+| het toverende medium | Zijn benaming voor de journalistiek, die de rol van de preekstoel overnam bij het verspreiden en zuiveren van de leer. |
+| de machine | De Duitse sociaaldemocratie als georganiseerde partij, die het geloof zowel verspreidde als binnen kaders bracht. |
+| de bom | De Russische traditie van aanslagen en persoonlijk geweld, met eigen wortels in de studentencultuur. |
+| onvoltooide revolutie | De gedachte dat de politieke omwenteling van 1789 pas af is wanneer een sociale omwenteling volgt, waarmee elke nederlaag tot uitstel werd verklaard. |
+| occulte oorsprong van de organisatie | Zijn stelling dat graden, cellen, eden en geheimhouding uit de loges komen en niet uit het politieke denken van de verlichting. |
+| nationale tegenover sociale zaak | De scheidslijn die volgens Billington de negentiende eeuw in tweeën deelt, met broederschap tegenover gelijkheid als inzet. |
+
+#### Waar het argument op rust
+
+De kracht van het boek zit in de bronnen. Billington las in tien talen en
+gebruikte materiaal dat elders nauwelijks is bekeken: obscure tijdschriften,
+liedbundels, statuten van genootschappen, correspondentie van tweederangs
+figuren. Voor een aantal schakels in zijn verhaal is dit de enige plaats waar
+het bijeen staat.
+
+Zijn methode is filologisch van aard. Waar hij beweert dat een woord of
+symbool zich verplaatste, wijst hij vindplaatsen aan met jaartal en
+publicatie. Dat maakt de afzonderlijke stappen toetsbaar, ook voor wie zijn
+eindconclusie niet deelt.
+
+Zwakker is de schakel tussen die vindplaatsen. Dat vormen uit de loges
+terugkeren bij samenzweerders, is aantoonbaar; dat de een de ander
+veroorzaakte, is een gevolgtrekking. Buonarroti draagt in de opbouw veel
+gewicht als levende schakel tussen achttiende-eeuws genootschapsleven en
+negentiende-eeuwse groepen, en op die ene loopbaan rust meer dan één man kan
+dragen.
+
+Het boek stopt bij 1917 en behandelt de latere bewegingen buiten Europa alleen
+in de marge. Voor de vraag of het patroon algemeen is of Europees, biedt het
+daarom geen uitsluitsel.
+
+#### Wat er tegen in te brengen valt
+
+De keuze voor ideeën boven omstandigheden is ook het grootste bezwaar. Sociaal
+en economisch historici hebben tegengeworpen dat opstanden ontstaan uit
+honger, belastingdruk, oorlogsverliezen en machtsvacuüm, en dat de taal daar
+achteraan komt. In Billingtons opzet blijven die krachten grotendeels buiten
+beeld, waardoor het lijkt alsof enkele honderden schrijvers een eeuw in
+beweging brachten.
+
+De vergelijking met godsdienst verheldert en versluiert tegelijk. Zij
+verklaart de toewijding, de ketterjacht en de zuiveringen, maar strijkt de
+verschillen glad tussen bewegingen die weinig gemeen hadden behalve hun
+tegenstander. Wie alles wat overtuiging heet een geloof noemt, verliest
+onderscheidingsvermogen.
+
+De draad van de geheime genootschappen is het kwetsbaarst. Billington blijft
+er zelf voorzichtig, maar de stof leent zich voor lezers die er een
+aaneengesloten samenzwering in willen zien, en het boek is in latere decennia
+in zulke kringen dan ook gretig aangehaald. Dat is niet zijn schuld, wel een
+gevolg van de keuze om de loges zo veel gewicht te geven.
+
+De omvang en de dichtheid maken het boek zwaar toegankelijk. Namen van kleine
+figuren volgen elkaar in hoog tempo op en het verhaal springt tussen landen en
+decennia, zodat de hoofdlijn af en toe verdwijnt onder het materiaal.
+
+#### Wat er concreet mee te doen is
+
+- Lees het boek als geschiedenis van een woordenschat en let daarbij op welke
+politieke termen van vandaag hier hun herkomst krijgen.
+- Toets zijn hoofdstelling door bij een eigentijdse beweging na te gaan of de
+organisatievorm ouder is dan de leer.
+- Houd bij elke schakel in de redenering vast wat een vindplaats is en wat een
+gevolgtrekking; het boek maakt dat onderscheid, maar niet altijd hardop.
+- Neem het notenapparaat als bronnengids voor een periode waarover in het
+Nederlands weinig te vinden is.
+
+#### Wat je hierna leest
+
+- 223. The Anatomy of Human Destructiveness. Fromm onderzocht in dezelfde
+jaren waar de aantrekkingskracht van vernietiging vandaan komt, een vraag die
+Billington historisch stelt en Fromm psychologisch.
+- 220. Coup d'État. Luttwak beschrijft de staatsgreep als techniek, waar
+Billington de overtuiging beschrijft die aan zulke technieken vooraf moet
+gaan.
+- 269. The Story of Philosophy. Durant geeft de wijsgerige achtergrond van de
+denkers die in dit boek als bron van politieke geloofsartikelen opduiken.
+- 537. Plutarch's Lives. Plutarchus toont hoe oud het beeld van de bevlogen
+samenzweerder is, en hoe biografie als politieke les werkt.
+
+## 697. Side Effects: Death
+
+John Virapen, 2010. *Side Effects: Death. Confessions of a Pharma-Insider*
+(Virtualbookworm.com Publishing, 2010, 252 blz., ISBN 9781602645165).
+Nederlandse uitgave: *Bijwerkingen, waarvan sommige dodelijk kunnen zijn. Het
+ware gezicht van de farmaceutische industrie* (Succesboeken.nl, Den Dolder,
+2010, 264 blz., ISBN 9789079872138). Rubriek: geschiedenis en samenleving.
+Tags: `farmaceutische industrie`, `klokkenluider`, `geneesmiddelen`, `memoir`,
+`belangenverstrengeling`
+
+Memoir van John Virapen, die vijfendertig jaar in de farmaceutische industrie
+werkte en in de jaren tachtig directeur was van Eli Lilly in Zweden. Hij
+beschrijft zijn loopbaan van vertegenwoordiger tot landendirecteur en
+beschuldigt de bedrijfstak van het kopen van artsen, het wegmoffelen van
+ongunstige onderzoeksuitkomsten en het optuigen van aandoeningen om middelen
+aan kwijt te kunnen. De kern van het boek is zijn eigen bekentenis: hij zegt
+de Zweedse registratie van fluoxetine, beter bekend als Prozac, te hebben
+bevorderd door een hoogleraar te betalen en door zelfmoordgevallen uit de
+proefgegevens anders te laten benoemen.
+
+Het boek is een aanklacht en tegelijk een zelfbeschuldiging. Wat de
+bedrijfstak in het algemeen betreft, staan er zaken in die uit rechtszaken en
+toezichtdossiers bekend zijn. Wat zijn eigen omkopingsverhaal betreft, rust
+vrijwel alles op zijn woord: er is geen veroordeling, geen bewaard document,
+geen tweede getuige. De lezer krijgt een geloofwaardig geschetste wereld te
+zien en een verteller met een eigen rekening.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Virapen betoogt dat de farmaceutische bedrijfstak niet
+incidenteel ontspoort maar structureel is ingericht op verkoop, en dat de
+instanties die daar tegenwicht aan moeten geven, de toezichthouders, de
+hoogleraren en de behandelend artsen, in de praktijk zijn ingekocht. Hij
+ondersteunt die stelling met zijn eigen loopbaan als bewijsstuk: hij zegt zelf
+betaald, gestuurd en verhuld te hebben, en presenteert dat als de normale gang
+van zaken en niet als een uitzondering. De zwaarste bewering is dat hij de
+Zweedse goedkeuring van fluoxetine heeft bevorderd door een deskundige te
+betalen en door zelfmoordpogingen in het onderzoeksmateriaal onder een andere
+noemer te laten brengen.
+
+#### De gang van het boek
+
+**Hoe hij werd wat hij was**
+
+De eerste hoofdstukken zijn autobiografisch. Virapen groeide op in
+Brits-Guyana in armoede, kwam naar Europa, vond werk als vertegenwoordiger en
+klom binnen de bedrijfstak op tot landendirecteur. Die achtergrond doet er in
+het boek toe, want hij verklaart zijn latere gedrag mede uit de wil om erbij
+te horen en uit de angst terug te vallen. Hij schetst zichzelf niet als held
+maar als iemand die deed wat er van hem gevraagd werd zolang de beloning
+volgde.
+
+**Het vak van verkopen**
+
+Een groot deel van het boek gaat over de methoden waarmee voorschrijfgedrag
+wordt beïnvloed. Virapen beschrijft congresreizen, adviseurschappen,
+sponsoring van nascholing en de rol van de deskundige die als onafhankelijke
+stem optreedt terwijl hij van het bedrijf betaald wordt. Hij noemt dat kopen
+van artsen, en het hoofdstuk met die titel is het meest systematische deel van
+het boek.
+
+Daarnaast beschrijft hij hoe de omschrijving van een ziektebeeld verkoop kan
+scheppen. Zijn voorbeeld is de verschuiving waarbij gewone somberheid,
+verlegenheid of drukte bij kinderen een medische naam krijgt en daarmee een
+indicatie wordt. Hij verbindt dat aan de rol die door bedrijven gefinancierde
+psychiaters spelen bij het opstellen van classificaties.
+
+**Benoxaprofen en de eerste barst**
+
+Een apart hoofdstuk gaat over benoxaprofen, in Europa verkocht als Opren en in
+de Verenigde Staten als Oraflex, een ontstekingsremmer van Eli Lilly die in
+augustus 1982 van de markt werd gehaald na meldingen van ernstige lever- en
+nierschade, vooral bij ouderen. Dat verhaal is los van Virapen gedocumenteerd:
+het bedrijf pleitte in 1985 schuldig aan vijfentwintig aanklachten wegens het
+niet melden van sterfgevallen en ernstige bijwerkingen aan de Amerikaanse
+toezichthouder, met een boete die naar de maatstaven van vandaag symbolisch
+was.
+
+Virapen gebruikt de zaak om te laten zien wat er volgens hem intern gebeurde
+toen de meldingen binnenkwamen. Dat deel van zijn verhaal is niet zelfstandig
+te controleren, maar de uitkomst van de zaak staat vast.
+
+**Het Prozac-verhaal**
+
+Het zwaartepunt van het boek is de registratie van fluoxetine in Zweden in de
+jaren tachtig. De Zweedse toezichthouder stond bekend als streng op het gebied
+van psychiatrische middelen en zag naar zijn zeggen weinig in het dossier: te
+kort onderzocht, te weinig effect en zorgwekkende meldingen over
+zelfmoordneiging. Virapen beschrijft hoe zijn hoofdkantoor duidelijk maakte
+dat zijn positie afhing van de goedkeuring.
+
+Zijn kernbewering is dat hij een Zweedse hoogleraar betaalde die als
+beoordelaar bij de procedure betrokken was, en dat gevallen van
+zelfmoordpoging in het proefmateriaal onder een andere noemer werden gebracht,
+zodat de bijwerking uit het overzicht verdween. Het hoofdstuk met de
+aanduiding van een onderzoeksprotocol behandelt de gegevens die daarbij aan de
+orde waren.
+
+**Serotonine, rechtszaken en kinderen**
+
+In het hoofdstuk over wat hij de serotoninezwendel noemt, betwist Virapen de
+gedachte dat depressie berust op een tekort aan een boodschapperstof en dat
+het middel dat tekort aanvult. Hij stelt dat die verklaring vooral als
+verkoopverhaal diende. Andere hoofdstukken volgen de rechtszaken rond
+fluoxetine in de Verenigde Staten en de introductie in Duitsland.
+
+Het slot van het boek gaat over middelen voor kinderen, met atomoxetine als
+voorbeeld: volgens Virapen een stof die eerder als antidepressivum
+tekortschoot en daarna een tweede leven kreeg bij een andere aandoening. Hij
+verbindt daaraan zijn persoonlijke motief, de zorg om zijn eigen jonge kind.
+
+**Wat vaststaat en wat op zijn woord rust**
+
+Rond de bedrijfstak in het algemeen is veel van wat Virapen beschrijft langs
+andere weg vastgesteld. Eli Lilly betaalde in januari 2009 ruim anderhalf
+miljard dollar in een schikking met het Amerikaanse ministerie van Justitie
+wegens het aanprijzen van olanzapine voor niet goedgekeurde toepassingen,
+waaronder dementie bij ouderen, met een strafrechtelijke boete van
+vijfhonderdvijftien miljoen dollar. De Amerikaanse toezichthouder legde in
+2004 een zwaarste waarschuwing op aan antidepressiva vanwege
+zelfmoordgedachten bij jongeren.
+
+Zijn eigen omkopingsverhaal ligt anders. Er is geen strafzaak geweest, geen
+bewaard bewijsstuk, geen tweede getuige die de betaling bevestigt. Virapen
+verwees naar Zweedse persberichtgeving en bood aan onder ede te verklaren.
+Bovendien had hij eerder een procedure tegen zijn oud-werkgever gevoerd wegens
+onterecht ontslag en discriminatie, die hij in 1995 verloor omdat hij zijn
+zaak niet bewees. Dat maakt zijn verhaal niet onwaar, maar het geeft hem een
+belang dat een lezer moet meewegen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| opinieleider | De hoogleraar of specialist wiens oordeel het voorschrijfgedrag van collega's stuurt en die daarom door bedrijven wordt aangetrokken als adviseur of spreker. |
+| ziekte verkopen | Het oprekken of benoemen van een aandoening zodat er een markt ontstaat voor een middel dat al bestaat. |
+| serotoninetekort | De verklaring van depressie als een tekort aan een boodschapperstof, door Virapen beschreven als een verkoopverhaal met een dunne wetenschappelijke basis. |
+| buiten de bijsluiter voorschrijven | Het aanprijzen of gebruiken van een middel voor een toepassing waarvoor het niet is goedgekeurd. |
+| herbenoemen van bijwerkingen | Het onder een andere noemer boeken van ongewenste gebeurtenissen in proefgegevens, waardoor een bijwerking uit de statistiek verdwijnt. |
+| registratieprocedure | De beoordeling waarbij een nationale instantie besluit of een middel op de markt mag, in dit boek het punt waar volgens de auteur de beïnvloeding het meeste opleverde. |
+| landendirecteur | De functie die Virapen bekleedde, verantwoordelijk voor de omzet in één land en daarmee voor het halen van doelen die het hoofdkantoor stelde. |
+
+#### Waar het argument op rust
+
+Het boek is een memoir en geen onderzoek. Er is geen notenapparaat waarmee de
+lezer de beweringen kan natrekken, en de gebeurtenissen worden decennia na
+dato uit het geheugen verteld.
+
+De achtergrond die Virapen schetst, is wel op onderdelen langs andere weg
+vastgesteld: de terugroeping van benoxaprofen in 1982 en de schuldigverklaring
+van Eli Lilly in 1985 wegens het niet melden van bijwerkingen, de schikking
+van 2009 over het aanprijzen van olanzapine buiten de goedgekeurde toepassing,
+en de waarschuwing die toezichthouders in 2004 aan antidepressiva verbonden
+vanwege zelfmoordgedachten bij jongeren.
+
+De specifieke beschuldiging over de Zweedse registratie staat los van dat
+alles. Zij is nooit in een procedure getoetst, de betrokken hoogleraar wordt
+in het boek niet met naam en bewijsstuk aan de betaling gekoppeld, en er is
+geen documentatie van de betaling openbaar gemaakt.
+
+Virapens eerdere, verloren rechtszaak tegen zijn oud-werkgever hoort tot het
+beeld. Zij verklaart niet vanzelf wat hij schrijft, maar zij geeft hem een
+motief dat elke lezer in de weging moet betrekken.
+
+De ontvangst van het boek is een tweede aandachtspunt. Het werd meteen omarmd
+door de aan Scientology verbonden organisatie die campagne voert tegen de
+psychiatrie, die er een persbericht aan wijdde. Virapen heeft banden met die
+beweging ontkend. Wie het boek beoordeelt, doet er goed aan de inhoud los te
+zien van wie ermee schermde.
+
+#### Wat er tegen in te brengen valt
+
+Het grootste bezwaar is de bewijslast. Een insider die stelt dat hij een
+toezichtprocedure heeft omgekocht, beschrijft een misdrijf waaraan hij zelf
+deelnam. Dat verdient onderzoek, geen aanname. Het boek levert de aanname en
+niet het onderzoek.
+
+De redenering springt herhaaldelijk van een concreet geval naar een algemene
+uitspraak over de gehele bedrijfstak. Uit een omkoping in één land in de jaren
+tachtig volgt niet dat toezichthouders in het algemeen te koop zijn, en uit
+ondeugdelijke marketing volgt niet dat de middelen zelf niet werken.
+
+De toon is die van een aanklacht en de auteur weegt zijn eigen materiaal niet.
+Waar de bedrijfstak fouten maakte, komt dat uitvoerig aan bod; waar
+geneesmiddelen aantoonbaar levens verlengen, blijft het stil. Dat maakt het
+boek eenzijdig als beeld van de sector.
+
+Stijl en opbouw zijn rommelig. Herhalingen, sprongen in de tijd en
+uitweidingen maken lastig na te gaan waar een bewering vandaan komt, ook voor
+wie de auteur het voordeel van de twijfel gunt.
+
+De onderwerpen die hij aansnijdt, zijn intussen door onderzoekers grondiger
+behandeld dan hij zelf doet, met bronvermelding en cijfers. Wie de zaak wil
+doorgronden in plaats van er verontwaardigd over te raken, heeft aan dit boek
+weinig genoeg.
+
+#### Wat er concreet mee te doen is
+
+- Scheid bij het lezen de gedocumenteerde zaken van de persoonlijke
+beschuldigingen; de eerste zijn na te trekken in rechtbank- en
+toezichtdossiers, de tweede rusten op één getuige.
+- Vraag bij elke deskundige die in het publieke debat over een middel spreekt,
+wie het onderzoek en het spreekhonorarium betaalde.
+- Lees bij een bericht over een nieuw middel de opzet van het onderzoek: hoe
+lang, bij wie, met welke uitkomstmaat en met welke vergelijkingsgroep.
+- Houd de bewijslast gelijk: wie de bedrijfstak van fraude beschuldigt, moet
+dezelfde onderbouwing leveren als hij van de bedrijfstak eist.
+
+#### Wat je hierna leest
+
+- 328. The Prince of Medicine. Mattern laat zien hoe oud de vermenging van
+geneeskunde, gezag en verkoop is, en hoe de arts als handelaar in vertrouwen
+altijd al functioneerde.
+- 63. The Demon-Haunted World. Sagan geeft de maatstaven waarmee een
+beschuldiging als deze te wegen valt zonder haar bij voorbaat af te wijzen of
+te geloven.
+- 60. Trust Me, I'm Lying. Holiday beschrijft van binnenuit hoe berichtgeving
+te sturen valt, wat verklaart hoe zowel een middel als een aanklacht ertegen
+in het nieuws komt.
+- 413. A Crack in Creation. Doudna en Sternberg tonen hoe onderzoekers zelf
+omgaan met de commerciële druk op hun vakgebied, een tegenwicht tegen het
+beeld van dit boek.
+
+## 698. Friendly Fascism
+
+Bertram Gross, 1980. *Friendly Fascism: The New Face of Power in America* (M.
+Evans and Company, New York, 1980, 410 blz., ISBN 0871313170; heruitgave South
+End Press, 1982, ISBN 9780896081499; heruitgave in de reeks Forbidden
+Bookshelf, 2014, met een inleiding van Mark Crispin Miller). Geen Nederlandse
+vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op
+de Engelse editie gebaseerd. Rubriek: staat en vrijheid.
+Tags: `macht`, `democratie`, `fascisme`, `verenigde staten`, `politieke
+analyse`
+
+Politieke analyse van Bertram Gross (1912-1997), sociaal wetenschapper en
+oud-ambtenaar die de Amerikaanse werkgelegenheidswetten van 1944 tot 1946
+opstelde, van 1946 tot 1952 secretaris was van de economische adviesraad van
+de president en later hoogleraar in New York. Zijn stelling is dat de
+Verenigde Staten geen gewelddadige machtsgreep hoeven te vrezen zoals Italië,
+Duitsland en Japan die kenden, maar een langzame versmelting van grote
+bedrijven en grote overheid, met verkiezingen, rechtbanken en vrije pers nog
+op hun plaats.
+
+Het boek behandelt eerst het klassieke fascisme, dan de opkomst van wat Gross
+de nieuwe ondernemingssamenleving noemt, met de vermogenden en bestuurders die
+hij samen het Establishment noemt, en ten slotte het beeld van een
+vriendelijke variant die met beheer, informatie en spektakel werkt in plaats
+van met knokploegen. Het slot gaat over de vraag wat daar tegenover te zetten
+valt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Gross stelt dat de bedreiging van de Amerikaanse democratie
+niet uit een staatsgreep zal komen maar uit een geleidelijke vergroeiing van
+grote ondernemingen met de staat, die de vormen van de democratie intact laat
+en de inhoud eruit haalt. In zijn schets blijven verkiezingen, partijen,
+rechters en kranten gewoon bestaan, maar verschuift de eigenlijke
+besluitvorming naar een netwerk van bestuurders, vermogenden en beheerders dat
+aan niemand rekenschap schuldig is. Het woord fascisme gebruikt hij daarbij
+bewust, met de aantekening dat de nieuwe uitvoering geen uniformen en geen
+straatgeweld nodig heeft: zij komt met een vriendelijk gezicht, met
+welvaartsbeloften en met beheerst nieuws.
+
+#### De gang van het boek
+
+**Wat het klassieke fascisme was**
+
+Het eerste hoofdstuk behandelt de opkomst en ondergang van het fascisme in
+Italië, Duitsland en Japan. Gross beschrijft de voedingsbodem, de
+bondgenootschappen met bestaande machten en de ideologieën, en hij benadrukt
+dat de fascistische bewegingen aan de macht kwamen met medewerking van
+gevestigde belangen en niet ondanks hen. Zijn doel met dit hoofdstuk is een
+werkdefinitie: fascisme als vergroeiing van grote ondernemingen met een sterke
+staat, gericht op het uitschakelen van tegenmacht.
+
+Hij besluit met wat hij de onverwoestbare mythen noemt, waaronder de gedachte
+dat fascisme alleen kan bestaan als het zich met vlaggen en marsen aandient.
+Die verwachting maakt volgens hem blind voor een andere gedaante.
+
+**De nieuwe ondernemingssamenleving**
+
+Het tweede hoofdstuk beschrijft de naoorlogse orde: Amerikaanse bedrijven die
+wereldwijd opereren, staatssteun aan grote ondernemingen, planning binnen
+concerns die de omvang van staatsplanning benadert, en de sturing van welke
+techniek wordt ontwikkeld en welke niet. Gross vat de internationale zakelijke
+bovenlaag samen als de Gouden Internationale, met een knipoog naar de
+arbeidersinternationale die de negentiende eeuw kende.
+
+Zijn punt is dat kapitalisme in deze vorm geen nationale zaak meer is, zodat
+een nationale regering die zichzelf soeverein noemt in de praktijk
+onderhandelt met partijen die de landsgrens ontgroeid zijn.
+
+**Het Establishment**
+
+Het derde hoofdstuk gaat over de vraag wie er dan beslist. Gross onderscheidt
+de zeer vermogenden, de bestuurders van de grote concerns, een netwerk van
+topfunctionarissen dat tussen bedrijfsleven en overheid heen en weer beweegt,
+en daaromheen kringen van uitvoerders en aanhangers. Hij benadrukt dat dit
+geen samenzwering is en ook geen comité dat vergadert: het gaat om
+overlappende belangen, gedeelde opleiding en dezelfde loopbaanpaden.
+
+Binnen die kring bestaan volgens hem echte conflicten, met zuiveringen en
+bekeringen, en die conflicten houden het geheel beweeglijk. Dat maakt het
+lastiger te bestrijden dan een gesloten kliek, want er is geen centrum om aan
+te wijzen.
+
+**Het beeld van de vriendelijke variant**
+
+Het middendeel van het boek schetst hoe een Amerikaanse vorm van deze macht
+eruit zou zien. Geen partijmilitie, wel toenemende bewaking en
+gegevensverzameling. Geen verboden partijen, wel verkiezingen waarin de keuze
+vooraf is versmald door geld en toegang. Geen censuur, wel een
+nieuwsvoorziening die van gebeurtenissen vertoningen maakt en die de aandacht
+stuurt.
+
+Gross voorziet daarbij een samenleving die materiële zekerheid biedt aan een
+deel van de bevolking en die de rest beheerst met armoedebeleid, gevangenissen
+en geweld aan de randen. Zijn opmerking dat de gemiddelde burger niet vraagt
+wie de dienst uitmaakt zolang de welvaart groeit, draagt het hele betoog.
+
+**Het ondermijnen van de democratische machinerie**
+
+Een apart hoofdstuk behandelt hoe de vormen van democratie kunnen blijven
+bestaan terwijl hun werking verdwijnt. Gross bespreekt de rol van geld in
+campagnes, de verplaatsing van beslissingen naar toezichthouders en
+deskundigencommissies, de vervlechting van adviesbureaus met beleid, en de rol
+van geheimhouding onder verwijzing naar veiligheid.
+
+Ook behandelt hij het tegenargument dat het in de Verenigde Staten niet kan
+gebeuren. Zijn antwoord is dat die overtuiging zelf onderdeel van het probleem
+is, omdat zij het waarschuwingssysteem uitschakelt. De vergelijking met Europa
+in de jaren twintig gebruikt hij daarbij als geheugensteun, niet als
+voorspelling.
+
+**Wat ertegenover staat**
+
+Het slotdeel is niet somber bedoeld. Gross beschrijft tegenbewegingen,
+vakbondswerk, lokale organisatie, openbaarheid van bestuur en het volledige
+werkgelegenheidsbeleid waarvoor hij zelf decennia had gestreden, als de weg
+naar wat hij echte democratie noemt. Hij houdt vol dat de uitkomst open is en
+dat de door hem geschetste toekomst een waarschuwing is en geen wetmatigheid.
+
+Die combinatie is het karakter van het boek: een gedetailleerde beschrijving
+van hoe het mis kan gaan, geschreven door iemand die zijn loopbaan besteedde
+aan het opbouwen van de instellingen die hij nu ziet uithollen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| vriendelijk fascisme | De versmelting van grote ondernemingen met de staat die de democratische vormen laat staan en de zeggenschap eruit haalt, zonder uniformen of straatgeweld. |
+| klassiek fascisme | De historische bewegingen in Italië, Duitsland en Japan, door Gross gebruikt als vergelijkingsmateriaal en niet als voorspelling. |
+| Gouden Internationale | Zijn benaming voor de grensoverschrijdende zakelijke bovenlaag wier belangen niet meer met één land samenvallen. |
+| het Establishment | Het losse netwerk van vermogenden, concernbestuurders en topfunctionarissen dat volgens hem de eigenlijke besluiten neemt zonder als lichaam te bestaan. |
+| netwerk van topfunctionarissen | De groep die tussen bedrijfsleven, overheid en advieswereld heen en weer beweegt en daarmee de scheiding tussen beide vervaagt. |
+| beheerde samenleving | Een bestel waarin problemen als bestuurskwesties worden behandeld en aan deskundigen worden overgelaten in plaats van als politieke keuzes. |
+| ondermijnen van de machinerie | Het uithollen van verkiezingen, volksvertegenwoordiging en rechtspraak zonder ze af te schaffen. |
+| onverwoestbare mythen | De vastgeroeste beelden van het fascisme die volgens Gross verhinderen dat een nieuwe gedaante op tijd wordt herkend. |
+
+#### Waar het argument op rust
+
+Het boek is dicht gedocumenteerd naar de maatstaven van politieke essayistiek:
+het bevat honderden aangehaalde bronnen, met rapporten, verhoren,
+bedrijfsgegevens en persberichtgeving uit de jaren zeventig.
+
+Gross schrijft vanuit ervaring binnen het bestel dat hij analyseert. Hij
+stelde de werkgelegenheidswetgeving van 1946 mee op, werkte zes jaar voor de
+economische adviesraad van het Witte Huis en was hoofdauteur van de volledige
+werkgelegenheidswet van 1978. Zijn beschrijving van hoe beleid tot stand komt,
+rust dus niet alleen op literatuur.
+
+De zwakte zit in de aard van de bewering. Het grootste deel van het boek
+beschrijft een toekomst die nog niet bestond, opgebouwd uit tendensen die hij
+in het heden meende te zien. Zo'n schets is moeilijk te weerleggen: elke
+ontwikkeling kan als bevestiging worden gelezen en het uitblijven ervan als
+uitstel.
+
+Op enkele punten valt zijn analyse achteraf te toetsen. De concentratie van
+vermogen, de groei van bewaking en gegevensverzameling en de rol van geld in
+campagnes zijn sinds 1980 toegenomen. De door hem verwachte sturing via
+bedrijfsplanning en overheidsafspraken kwam er niet in die vorm; de jaren
+tachtig brachten juist deregulering en marktwerking.
+
+#### Wat er tegen in te brengen valt
+
+Het woord fascisme is het grootste bezwaar. Historici van het fascisme
+omschrijven het als een beweging met massamobilisatie, extreem nationalisme,
+een partijmilitie en een leidercultus. Geen van die kenmerken hoort bij het
+bestel dat Gross beschrijft. Wie de term oprekt tot elke vorm van vervlochten
+bedrijfs- en staatsmacht, verliest het onderscheid tussen een tekortschietende
+democratie en een regime dat tegenstanders opsluit.
+
+Gross verdedigt zijn woordkeuze door op de continuïteit met de jaren twintig
+te wijzen, maar de retorische winst gaat ten koste van analytische scherpte.
+Zijn eigen beschrijving zou zonder het woord even goed staan, en zou minder
+aanleiding geven tot het gebruik van het boek als scheldwoordenboek in latere
+politieke ruzies.
+
+De analyse komt uit een linkse traditie die grote ondernemingen als de motor
+van alle machtsvorming ziet. Daardoor blijven andere krachten onderbelicht:
+ambtelijke belangen die zichzelf reproduceren, rechterlijke macht, deelstaten,
+en de rol van kiezers die bewust voor bepaalde uitkomsten kiezen.
+
+Het boek voorspelt veel en preciseert weinig. Er staat geen maatstaf in
+waaraan te toetsen valt wanneer de door hem geschetste toestand is bereikt,
+wat de lezer overlaat aan de eigen indruk.
+
+Sinds de heruitgave van 2014 wordt het boek door uiteenlopende politieke
+kampen aangehaald om de eigen tegenstander te typeren. Die veelzijdigheid in
+het gebruik wijst op de rekbaarheid van het begrip dat Gross introduceerde.
+
+#### Wat er concreet mee te doen is
+
+- Vervang bij het lezen het woord fascisme telkens door de beschrijving die
+Gross zelf geeft, en kijk of het betoog dan nog staat.
+- Toets zijn stelling met concrete gevallen: kijk wie in een dossier de tekst
+van een wet leverde, wie de deskundigen betaalde en waar de betrokkenen daarna
+gingen werken.
+- Gebruik zijn onderscheid tussen de vorm en de werking van een instelling bij
+het beoordelen van verkiezingen, toezicht en openbaarheid.
+- Let op het verschil tussen een gedocumenteerde vaststelling en een
+geschetste toekomst; het boek wisselt daar zonder waarschuwing tussen.
+
+#### Wat je hierna leest
+
+- 566. Manufacturing Consent. Herman en Chomsky werkten acht jaar later uit
+hoe de nieuwsvoorziening zonder censuur toch binnen grenzen blijft, precies
+het mechanisme dat Gross veronderstelt.
+- 54. Amusing Ourselves to Death. Postman beschrijft dezelfde jaren vanuit het
+medium en komt tot een verwante uitkomst: vermaak dat het politieke oordeel
+verdringt.
+- 61. Brave New World. Huxley schetste in romanvorm de beheerste samenleving
+die met welvaart en genot werkt, het beeld waaraan Gross zijn vriendelijke
+variant ontleent.
+- 221. The Dictator's Handbook. Bueno de Mesquita en Smith geven het koele
+tegenmodel: macht verklaard uit het aantal mensen dat een heerser nodig heeft,
+zonder beroep op ideologie.
+
+## 699. Mystiek
+
+Evelyn Underhill, 1911. *Mysticism: A Study in the Nature and Development of
+Man's Spiritual Consciousness* (Methuen, Londen, 1911; twaalfde, herziene druk
+1930 met een nieuw voorwoord). Nederlandse uitgave: *Mystiek. Hoe God werkt in
+de mens*, vertaald en bewerkt door Jean Jacques Suurmond (Skandalon,
+Middelburg, 2022, 512 blz., ISBN 9789493220263). Rubriek: filosofie en
+mystiek.
+Tags: `mystiek`, `christendom`, `spiritualiteit`, `godsdienstpsychologie`,
+`klassieker`
+
+Studie van de Engelse schrijfster Evelyn Underhill (1875-1941) over de
+mystieke traditie, in 1911 verschenen en sindsdien onafgebroken in druk. Het
+eerste deel bepaalt wat mystiek volgens haar is en zet haar af tegen
+godgeleerdheid, symboliek, psychologie en magie. Het tweede deel beschrijft de
+weg die mystici volgens haar afleggen, in vijf fasen: ontwaken, loutering,
+verlichting, de donkere nacht van de ziel en het verenigde leven. Underhill
+bouwt haar betoog op met citaten uit honderden bronnen, van Plotinus en
+Ruusbroec tot Teresa van Ávila, Johannes van het Kruis, Julian van Norwich en
+Jacob Böhme.
+
+Haar uitgangspunt is dat mystiek geen randverschijnsel is en geen ziekte, maar
+een aanleg die bij enkelingen tot volle ontwikkeling komt. Het boek maakte de
+teksten van de mystici toegankelijk voor lezers buiten de kloosters. De
+psychologie waarop zij leunt is verouderd, en haar aanname dat alle mystici
+hetzelfde beschrijven wordt sinds de jaren zeventig betwist.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Underhill betoogt dat mystiek te beschrijven valt als een
+geordend groeiproces van het bewustzijn en niet als een reeks losse
+buitengewone ervaringen. Wie de getuigenissen uit veertien eeuwen naast elkaar
+legt, ziet volgens haar telkens dezelfde vijf fasen terugkeren, in dezelfde
+volgorde en met dezelfde crises. Daaruit trekt zij een verstrekkende
+conclusie: de mysticus verkeert niet in een uitzonderingstoestand maar
+doorloopt in versterkte vorm wat in aanleg tot de mens behoort, en zijn
+getuigenis is daarom bruikbaar bewijsmateriaal over de werkelijkheid en niet
+louter over hemzelf. Mystiek noemt zij de kunst van de vereniging met de
+werkelijkheid, waarbij het gaat om liefde en niet om kennis.
+
+#### De gang van het boek
+
+**Het vertrekpunt**
+
+Het eerste deel, dat zij het mystieke feit noemt, opent met de vraag hoe het
+bewustzijn de werkelijkheid benadert. Underhill zet drie houdingen naast
+elkaar: die van de natuurwetenschapper, die van de wijsgeer en die van de
+mysticus, en betoogt dat de laatste niet minder ernstig te nemen valt omdat
+zijn methode een andere is. Zij verwerpt daarbij zowel de opvatting dat
+mystieke verschijnselen op ziekte berusten als de opvatting dat zij zonder
+toetsing te aanvaarden zijn.
+
+Zij komt tot vier kenmerken waaraan echte mystiek volgens haar herkenbaar is:
+zij is werkzaam en praktisch en geen theorie, zij is geheel gericht op het
+bovenzinnelijke, haar methode is liefde, en zij brengt een bepaalde omvorming
+van de persoon met zich mee. Daaraan voegt zij toe dat mystiek nooit uit is op
+eigen gewin.
+
+**Mystiek naast vitalisme en psychologie**
+
+Twee hoofdstukken plaatsen het onderwerp in de denkwereld van 1911. Underhill
+leest de levensdrang van Henri Bergson en de wijsbegeerte van Rudolf Eucken
+als bondgenoten, omdat beide de werkelijkheid als beweging opvatten waarin de
+mens kan meegroeien. In het hoofdstuk over psychologie gebruikt zij het toen
+gangbare model van een bewuste en een onderliggende laag van de geest,
+ontleend aan Frederic Myers en aan Franse psychologen van die periode.
+
+Die keuze heeft gevolgen voor het hele boek. Zij verklaart met dat model
+waarom stemmen, gezichten en automatisch schrift optreden: het zijn volgens
+haar vertaalvormen waarmee de diepere laag zich aan het waakbewustzijn
+meedeelt. Dat maakt zulke verschijnselen tot begeleidende omstandigheden en
+niet tot de kern, en het is een van de redenen waarom haar boek in kerkelijke
+kring aanvaardbaar bleef.
+
+**Godgeleerdheid, symbool en magie**
+
+In het hoofdstuk over godgeleerdheid onderscheidt zij twee bewegingen die zij
+bij alle mystici terugvindt: de weg naar buiten en omhoog, waarin de
+werkelijkheid als volstrekt boven de mens verheven verschijnt, en de weg naar
+binnen, waarin zij in de ziel zelf gezocht wordt. De tradities verschillen
+volgens haar in nadruk, niet in richting.
+
+Het hoofdstuk over symboliek behandelt de drie beelden waarin mystici hun weg
+vatten: de pelgrimstocht, het huwelijk en de omvorming van het onedele tot
+goud. Het hoofdstuk over magie is het scherpst. Underhill trekt daar een grens
+die zij overal aanhoudt: magie wil verwerven en macht uitoefenen, mystiek wil
+zich overgeven. Zij had zelf enige tijd belangstelling voor hermetische
+genootschappen, en dat verklaart de nauwkeurigheid waarmee zij het onderscheid
+maakt.
+
+**De vijf fasen**
+
+Het tweede deel beschrijft de weg zelf. Het ontwaken is de plotselinge omslag
+waarin een mens zich bewust wordt van een werkelijkheid die hij eerder niet
+opmerkte, vaak scherp gedateerd door de betrokkene zelf. De loutering volgt
+als pijnlijk gevolg: het besef van afstand leidt tot versobering, boete en het
+loslaten van bezit en aanzien. De verlichting brengt een langdurige toestand
+van helderheid en vreugde, met een sterk vermeerderd besef van de aanwezigheid
+van God in de wereld.
+
+Daarna beschrijft zij de donkere nacht van de ziel, ontleend aan Johannes van
+het Kruis: het wegvallen van alle troost, waarin de verworven zekerheid weer
+verdwijnt en de mysticus zich verlaten weet. Underhill behandelt die fase als
+noodzakelijk en niet als terugval, omdat er volgens haar iets wordt afgebroken
+dat nog aan de persoon zelf toebehoorde. Het slot is het verenigde leven, dat
+zij nadrukkelijk niet als rust beschrijft: de mystici die haar overtuigen zijn
+juist degenen die daarna stichtten, schreven, hervormden en organiseerden.
+
+**Tussenliggende hoofdstukken**
+
+Tussen de fasen door behandelt zij afzonderlijke onderwerpen. Twee
+hoofdstukken gaan over inkeer, verdeeld in de oefening van de aandacht en de
+eigenlijke beschouwing, met beschrijvingen van de gebedsvormen die in de
+kloostertraditie zijn ontwikkeld. Een hoofdstuk gaat over stemmen en
+gezichten, een over vervoering en extase, waarbij zij lichamelijke
+verschijnselen nuchter behandelt en waarschuwt tegen de neiging ze als bewijs
+op te vatten.
+
+Het boek sluit af met een historisch overzicht van de Europese mystiek als
+bijlage, dat als beknopte gids door de teksten dient. De opbouw maakt dat de
+lezer het werk zowel als betoog kan lezen als naslagwerk kan gebruiken.
+
+**De schrijfster en het latere oordeel**
+
+Underhill had geen theologische opleiding en werkte buiten de universiteit.
+Zij schreef het boek in haar midden dertig, na jaren van eigen zoeken. In 1921
+kwam zij onder geestelijke leiding van Friedrich von Hügel te staan en
+verlegde haar aandacht naar het gewone kerkelijke leven, naar eredienst en
+naar het begeleiden van retraites. In het voorwoord bij de twaalfde druk van
+1930 schreef zij zelf dat de studie van de mystiek sinds 1911 was veranderd en
+dat de wijsgerige lijst waarin zij haar onderwerp had gezet, niet meer voorop
+stond.
+
+Die zelfcorrectie is het eerlijkste kompas bij het boek. Underhill zag later
+dat haar nadruk op de mysticus als uitzonderlijke figuur op gespannen voet
+stond met de gedachte dat heiligheid zich juist in gewone dienstbaarheid
+toont.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| mystiek | Door Underhill omschreven als de kunst van de vereniging met de werkelijkheid, een levenspraktijk die op liefde berust en niet op kennisverwerving. |
+| de mystieke weg | Het geordende verloop in vijf fasen dat zij bij uiteenlopende mystici meent te herkennen. |
+| ontwaken van het zelf | De eerste fase, waarin het besef van een omvattende werkelijkheid doorbreekt, meestal plotseling en scherp herinnerd. |
+| loutering | De tweede fase, waarin gehechtheden worden afgelegd omdat de afstand tot het geziene pijnlijk wordt. |
+| donkere nacht van de ziel | De fase waarin alle troost en zekerheid wegvallen, door haar aan Johannes van het Kruis ontleend en als noodzakelijke doorgang behandeld. |
+| verenigd leven | De slotfase, die zij niet als rust maar als vruchtbaarheid opvat: de mysticus wordt in de wereld werkzaam. |
+| magie tegenover mystiek | Haar scheidslijn tussen het willen verwerven van kennis en macht en het willen overgeven van het eigen ik. |
+| onderbewuste laag | Het psychologische model van haar tijd waarmee zij stemmen, gezichten en schriftverschijnselen als vertaalvormen verklaart. |
+
+#### Waar het argument op rust
+
+De onderbouwing bestaat uit een grote hoeveelheid primaire teksten. Underhill
+citeert Plotinus, Augustinus, Ruusbroec, Eckhart, Suso, Angela van Foligno,
+Richard Rolle, Julian van Norwich, Catharina van Genua, Teresa van Ávila,
+Johannes van het Kruis, Jacob Böhme, Broeder Laurentius en de soefidichters,
+vaak in eigen vertaling. Dat materiaal is de blijvende waarde van het boek.
+
+De redenering is vergelijkend van aard: zij legt getuigenissen naast elkaar en
+wijst overeenkomsten aan. Die methode toont patronen, maar zij toont niet aan
+dat de overeenkomst uit dezelfde bron komt. Mystici lazen elkaar, stonden in
+dezelfde traditie en gebruikten een gedeeld vocabulaire, en dat verklaart een
+deel van de gelijkenis.
+
+De psychologische verklaringen berusten op modellen die in 1911 gangbaar waren
+en sindsdien zijn losgelaten. Bergsons levensdrang en de leer van een
+onderliggende bewustzijnslaag hebben geen plaats meer in de huidige
+psychologie, en Underhill erkende dat later zelf.
+
+Het aandeel van niet-westers materiaal is klein. Buiten de soefitraditie en de
+neoplatoonse voorlopers put zij vrijwel uitsluitend uit het westerse
+christendom, terwijl haar conclusie over alle mystici gaat.
+
+De keuze van bronnen is niet neutraal. Zij selecteert de getuigenissen die in
+haar schema passen en behandelt afwijkende gevallen als onvolgroeid, wat het
+gevaar van een gesloten redenering met zich meebrengt.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar geldt haar aanname dat alle mystici in de kern hetzelfde
+beschrijven. Sinds de jaren zeventig verdedigen godsdienstwetenschappers de
+tegenovergestelde opvatting: er bestaat geen onbemiddelde ervaring, en wat een
+boeddhistische monnik, een joodse kabbalist en een karmelietes meemaken wordt
+gevormd door de leer waarin zij staan. Underhills eenheidsgedachte is daarmee
+een aanname geworden waar zij haar als vondst presenteerde.
+
+Haar samengestelde beeld van de mysticus vlakt eeuwen en culturen af. Teksten
+uit de veertiende eeuw worden gelezen alsof zij dezelfde vragen beantwoorden
+als teksten uit de zestiende, en de sociale omstandigheden waarin zij
+ontstonden blijven grotendeels buiten beeld.
+
+Het perspectief is christelijk en het boek verhult dat niet, maar het
+presenteert de christelijke vorm wel als de maatstaf. Wie een neutrale
+godsdienstwetenschappelijke beschrijving zoekt, krijgt hier een pleidooi mee
+dat zich als beschrijving aandient.
+
+De nadruk op de mysticus als heldenfiguur is later door haarzelf
+tegengesproken. Zij verlegde na 1921 het accent naar eredienst, gemeenschap en
+het gewone leven, en dat ondergraaft de aanleg van het boek uit 1911 op het
+punt waar het het meest indruk maakt.
+
+De toon neigt naar het immanente denken dat in haar jaren in de mode was,
+waarbij God en wereld dicht bij elkaar komen. Die neiging is meermalen
+aangewezen als een zwakke plek, omdat zij het onderscheid tussen schepper en
+schepping laat vervagen zonder daar rekenschap van te geven.
+
+#### Wat er concreet mee te doen is
+
+- Lees het boek in de eerste plaats als toegang tot de bronteksten; de citaten
+wijzen naar werken die op zichzelf te lezen zijn.
+- Houd bij het volgen van de vijf fasen in de gaten dat het om een ordening
+achteraf gaat en niet om een programma dat te doorlopen valt.
+- Vergelijk haar hoofdstuk over magie met haar hoofdstuk over de mystieke weg
+om te zien hoe zij het verschil tussen verwerven en loslaten hanteert.
+- Neem bij de psychologische passages het jaartal 1911 mee; de waarnemingen
+blijven bruikbaar, de verklaringen niet.
+
+#### Wat je hierna leest
+
+- 528. An Introduction to Zen Buddhism. Suzuki beschrijft een traditie die
+Underhill nauwelijks behandelt en die haar aanname over de eenheid van alle
+mystiek op de proef stelt.
+- 394. Tao Te Ching. De Tao Te Ching biedt een taal van overgave die dicht bij
+haar beschrijving komt, uit een wereld die zij niet in haar bronnen opnam.
+- 341. The Wisdom of Insecurity. Watts brengt dezelfde stof vier decennia
+later naar een lezerspubliek buiten de kerk, met wel de ervaring en niet de
+leerstellige inbedding.
+- 359. Het Rode Boek. Jung legde in dezelfde jaren zijn eigen innerlijke
+doorgang vast, waarbij hij de verschijnselen psychologisch duidde die
+Underhill godsdienstig las.
+
 ## 710. Other Minds: The Octopus, the Sea, and the Deep Origins of Consciousness
 
 Peter Godfrey-Smith, 2016. *Other Minds: The Octopus, the Sea, and the Deep
@@ -135337,10 +136450,10 @@ verzekeraars` 497 · `barok` 216 · `basisbehoeften` 107 · `bbc` 82 ·
 · `bedrijfsleven` 209, 293 · `bedrijfsonderzoek` 353 · `bedrijfssystemen` 264
 · `beeldcultuur` 563 · `beeldverhaal` 561 · `beginners` 112 · `behoeften` 35 ·
 `beinvloeding` 123, 126 · `beïnvloeding` 399 · `bekentenis` 60 ·
-`belangenverstrengeling` 138 · `beleggen` 21, 64, 144, 233, 277, 351, 474,
-476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 492, 496,
-498, 499, 500, 501, 502, 503, 504, 505 · `beleid` 65 · `beloningssysteem` 418
-· `bemiddeling` 35 · `beroemdheden` 128 · `beroemdheid` 563 ·
+`belangenverstrengeling` 138, 697 · `beleggen` 21, 64, 144, 233, 277, 351,
+474, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 492,
+496, 498, 499, 500, 501, 502, 503, 504, 505 · `beleid` 65 · `beloningssysteem`
+418 · `bemiddeling` 35 · `beroemdheden` 128 · `beroemdheid` 563 ·
 `beschadigd-bestand` 115, 130 · `beschaving` 57, 593 · `beslissen` 55 ·
 `beslissingen` 197 · `besluiten` 47, 59, 69, 137 · `besluitvorming` 151, 166,
 170, 174, 209, 270, 282, 283, 293, 299, 364, 396, 423, 424, 426, 450, 451,
@@ -135364,8 +136477,8 @@ verzekeraars` 497 · `barok` 216 · `basisbehoeften` 107 · `bbc` 82 ·
 432 · `challenger` 62 · `Chanakya` 370 · `channeling` 549, 670, 677, 678, 679
 · `chaos` 74, 347 · `chapbook` 100 · `charismatisch christendom` 559 · `China`
 348 · `Chinese filosofie` 389, 394 · `Chinese geschiedenis` 219 ·
-`chiropractie` 432 · `christendom` 162, 201, 391, 603, 606, 612 ·
-`chronobiologie` 326, 329 · `cia` 693 · `cijfers` 39, 65 ·
+`chiropractie` 432 · `christendom` 162, 201, 391, 603, 606, 612, 699 ·
+`chronobiologie` 326, 329 · `cia` 693, 695 · `cijfers` 39, 65 ·
 `civilisatiekritiek` 298 · `coaching` 161, 291, 441 · `cognitie` 656 ·
 `cognitieve gedragstherapie` 147, 153, 373 · `cognitieve herstructurering` 177
 · `cognitieve neurowetenschap` 713 · `cognitieve vertekening` 234 ·
@@ -135391,8 +136504,8 @@ geven` 356 · `complotdenken` 667, 668, 672, 676, 683, 684, 688, 690 ·
 433 · `darmbacteriën` 417 · `dataïsme` 236 · `daten` 166 · `de ander` 574 ·
 `debat` 28 · `debuutboek` 226 · `deeltjesfysica` 648 · `degrowth` 298 ·
 `dekoloniaal denken` 521 · `delegeren` 434 · `deliberate practice` 376 ·
-`dementie` 84, 85, 225 · `democratie` 98, 562, 619, 628 · `denken` 310, 509,
-664 · `denkfouten` 55, 59, 142, 396, 437, 510, 514 · `denkmethode` 471 ·
+`dementie` 84, 85, 225 · `democratie` 98, 562, 619, 628, 698 · `denken` 310,
+509, 664 · `denkfouten` 55, 59, 142, 396, 437, 510, 514 · `denkmethode` 471 ·
 `denkmodellen` 426 · `depressie` 403 · `derivaten` 494, 495 · `design
 thinking` 150 · `destructiviteit` 223 · `deugd` 247, 459, 581 · `diagnose` 104
 · `dialoog` 335, 572 · `dichotomie van controle` 194 · `dichtwerk` 524 ·
@@ -135426,50 +136539,51 @@ zelf` 409 · `ego-depletie` 382 · `egypte` 591, 594, 595, 596, 597, 599, 602 ·
 643, 644, 645, 647, 670, 678, 679 · `essay` 3, 9, 21, 57, 59, 63, 64, 68, 96,
 197, 232 · `essaybundel` 390, 425, 620 · `essays` 523, 656 · `eten` 103 ·
 `ethiek` 282, 299, 413, 574, 612, 665 · `etnografie` 714 · `eurazië` 694 ·
-`evangelisatie` 201 · `evolutie` 56, 66, 89, 90, 91, 239, 318, 322, 323, 332,
-339, 347, 383, 518, 609, 710, 712 · `evolutiebiologie` 452, 453 ·
-`evolutionaire-psychologie` 67 · `excellentie` 553 · `executives` 344 ·
+`europa` 696 · `evangelisatie` 201 · `evolutie` 56, 66, 89, 90, 91, 239, 318,
+322, 323, 332, 339, 347, 383, 518, 609, 710, 712 · `evolutiebiologie` 452, 453
+· `evolutionaire-psychologie` 67 · `excellentie` 553 · `executives` 344 ·
 `existentialisme` 405 · `expeditie` 36 · `experiment` 79, 215 · `experimenten`
 280, 424 · `experimenteren` 265 · `expertise` 283, 320, 376 · `extra
 dimensies` 648 · `extraversie` 361 · `fabel` 8, 42, 135, 167, 252 ·
 `facilitatie` 304 · `falen` 23, 72, 75, 312, 422 · `familie` 45, 325, 466 ·
 `familieconflict` 178 · `familiegeschiedenis` 114, 235 · `familieroman` 10 ·
-`fantasy` 192, 203 · `FBI` 154, 271 · `FBI-onderzoek` 431 · `federalisme` 619
-· `feedback` 41, 296, 541, 542 · `feiten` 43 · `feminisme` 3, 620, 624 ·
-`fenomenologie` 574, 577, 582 · `fictie` 100, 115 · `film` 41 · `filologie`
-641 · `filosofie` 1, 6, 71, 93, 199, 211, 216, 224, 247, 255, 263, 292, 299,
-383, 390, 391, 392, 393, 421, 436, 442, 521, 588, 592, 594, 597, 604, 610,
-652, 654 · `filosofie van de biologie` 710 · `filosofiegeschiedenis` 269, 639
-· `filosofische antropologie` 584 · `financiële geletterdheid` 163 ·
-`financiële markten` 268, 351, 480, 481, 483, 499, 501 · `financiële
-onafhankelijkheid` 264 · `financiele vrijheid` 277 · `financiële wiskunde`
-497, 507 · `financiële-discipline` 464 · `financiën` 334, 395, 425 ·
-`financiering` 172 · `fitnessbranche` 307, 544 · `flitshandel` 499 · `flow`
-78, 187, 200 · `focus` 175, 197, 448, 513 · `folklore` 615, 669 · `fotoboek`
-189 · `foutcultuur` 422 · `fouten maken` 509 · `franchise` 544 · `frankrijk`
-115 · `Franse-Weerstand` 390 · `freelance` 515 · `Fulani` 522 · `fysieke
-uitdaging` 323 · `fysiologie` 318, 412, 458 · `Galenus` 328 · `gaslighting`
-123 · `gastheerschap` 304 · `gastvrijheid` 531 · `gebed` 83, 259, 573 ·
-`gebruikersgedrag` 294 · `gedachten` 148, 177 · `gedachtenjournal` 176 ·
-`gedrag` 21, 22, 89, 90, 138, 154, 280, 330, 383, 425 · `gedragsbiologie` 322,
-339 · `gedragseconomie` 424, 426, 514 · `gedragsonderzoek` 302, 382 ·
-`gedragspatronen` 161 · `gedragspsychologie` 294 · `gedragstypen` 156 ·
-`gedragsverandering` 238, 290, 457, 469 · `gedragswetenschap` 166, 209, 305,
-468, 469, 510 · `geduld` 21, 351 · `geest` 584, 652 · `geestelijke gezondheid`
-193 · `geestelijke oefeningen` 586 · `gegevensanalyse` 486 · `gehechtheid` 166
-· `geheim genootschap` 202 · `geheime diensten` 665, 668, 684, 685 ·
+`fantasy` 192, 203 · `farmaceutische industrie` 697 · `fascisme` 698 · `FBI`
+154, 271 · `FBI-onderzoek` 431 · `federalisme` 619 · `feedback` 41, 296, 541,
+542 · `feiten` 43 · `feminisme` 3, 620, 624 · `fenomenologie` 574, 577, 582 ·
+`fictie` 100, 115 · `film` 41 · `filologie` 641 · `filosofie` 1, 6, 71, 93,
+199, 211, 216, 224, 247, 255, 263, 292, 299, 383, 390, 391, 392, 393, 421,
+436, 442, 521, 588, 592, 594, 597, 604, 610, 652, 654 · `filosofie van de
+biologie` 710 · `filosofiegeschiedenis` 269, 639 · `filosofische antropologie`
+584 · `financiële geletterdheid` 163 · `financiële markten` 268, 351, 480,
+481, 483, 499, 501 · `financiële onafhankelijkheid` 264 · `financiele
+vrijheid` 277 · `financiële wiskunde` 497, 507 · `financiële-discipline` 464 ·
+`financiën` 334, 395, 425 · `financiering` 172 · `fitnessbranche` 307, 544 ·
+`flitshandel` 499 · `flow` 78, 187, 200 · `focus` 175, 197, 448, 513 ·
+`folklore` 615, 669 · `fotoboek` 189 · `foutcultuur` 422 · `fouten maken` 509
+· `franchise` 544 · `frankrijk` 115 · `Franse-Weerstand` 390 · `freelance` 515
+· `Fulani` 522 · `fysieke uitdaging` 323 · `fysiologie` 318, 412, 458 ·
+`Galenus` 328 · `gaslighting` 123 · `gastheerschap` 304 · `gastvrijheid` 531 ·
+`gebed` 83, 259, 573 · `gebruikersgedrag` 294 · `gedachten` 148, 177 ·
+`gedachtenjournal` 176 · `gedrag` 21, 22, 89, 90, 138, 154, 280, 330, 383, 425
+· `gedragsbiologie` 322, 339 · `gedragseconomie` 424, 426, 514 ·
+`gedragsonderzoek` 302, 382 · `gedragspatronen` 161 · `gedragspsychologie` 294
+· `gedragstypen` 156 · `gedragsverandering` 238, 290, 457, 469 ·
+`gedragswetenschap` 166, 209, 305, 468, 469, 510 · `geduld` 21, 351 · `geest`
+584, 652 · `geestelijke gezondheid` 193 · `geestelijke oefeningen` 586 ·
+`gegevensanalyse` 486 · `gehechtheid` 166 · `geheim genootschap` 202 ·
+`geheime diensten` 665, 668, 684, 685, 695 · `geheime genootschappen` 696 ·
 `geheugen` 66, 85, 175, 414 · `gehoorzaamheid` 215, 617 · `geïllustreerd boek`
 176 · `geld` 21, 37, 38, 56, 76, 121, 132, 133, 158, 159, 433, 463, 464 ·
 `geldmanagement` 492, 493 · `geldmindset` 395 · `geldpsychologie` 233, 264 ·
 `geldstelsel` 680 · `geloof` 45, 83, 201, 554 · `geluk` 79, 93, 160, 228, 335,
 516, 526, 579 · `gemeenschap` 9, 96, 304, 461 · `genealogie` 601 ·
-`geneeskunde` 49, 328 · `generaties` 114 · `generatieve drift` 315 ·
-`genetica` 413, 419 · `genezing` 340 · `genot en pijn` 314 · `gentechnologie`
-413 · `geologie` 239 · `geopolitiek` 220, 692, 694 · `geschiedenis` 30, 36,
-56, 57, 68, 93, 94, 212, 218, 250, 258, 298, 328, 381, 425, 440, 588, 589,
-591, 593, 595, 597, 598, 600, 619, 634, 665, 667, 681, 682, 683, 684, 685,
-687, 689, 690, 693 · `geschiedenis van de geneeskunde` 412 ·
-`geschiedfilosofie` 235 · `geschiedschrijving` 601, 602 · `gesprek` 43, 95,
+`geneeskunde` 49, 328 · `geneesmiddelen` 697 · `generaties` 114 · `generatieve
+drift` 315 · `genetica` 413, 419 · `genezing` 340 · `genot en pijn` 314 ·
+`gentechnologie` 413 · `geologie` 239 · `geopolitiek` 220, 692, 694 ·
+`geschiedenis` 30, 36, 56, 57, 68, 93, 94, 212, 218, 250, 258, 298, 328, 381,
+425, 440, 588, 589, 591, 593, 595, 597, 598, 600, 619, 634, 665, 667, 681,
+682, 683, 684, 685, 687, 689, 690, 693 · `geschiedenis van de geneeskunde` 412
+· `geschiedfilosofie` 235 · `geschiedschrijving` 601, 602 · `gesprek` 43, 95,
 302, 444 · `gesprekstechniek` 182, 186, 438 · `getallen` 657 ·
 `gevangenendilemma` 453 · `gevolgen` 67 · `gewaarzijn` 519 · `geweld` 45, 90,
 214 · `geweldloosheid` 612 · `gewicht` 138 · `gewoontelus` 238 · `gewoonten`
@@ -135480,122 +136594,124 @@ uitdaging` 323 · `fysiologie` 318, 412, 458 · `Galenus` 328 · `gaslighting`
 52, 88, 171, 181, 318, 323, 329, 332, 412, 414, 415 · `gezondheidspsychologie`
 458 · `gezondheidszorg` 313, 317, 422 · `ggz` 104 · `giftige relaties` 429 ·
 `gijzelingsonderhandelaar` 271 · `globale werkruimte` 713 · `gnostiek` 614,
-666 · `godin` 611 · `godsdienstkritiek` 341 · `godsdienstwetenschap` 578, 608,
-640, 641 · `goeroe` 242 · `Google` 512 · `Graallegende` 408 · `grandiositeit`
-404 · `gratie` 374 · `grenswetenschap` 615 · `grenzen` 72, 105, 109, 120, 122,
-187, 466 · `grenzen stellen` 151, 204, 406, 429 · `Griekenland` 537 · `Griekse
-literatuur` 536 · `griekse mythologie` 261 · `Griekse oudheid` 530, 531 ·
-`groei` 222 · `groeiaandelen` 474 · `groeimentaliteit` 116 · `groepsdenken`
-339 · `groepsgedrag` 303 · `grondstoffen` 92 · `grondwet` 616, 619 ·
-`groot-verhaal` 56 · `grootouders` 91 · `handboek` 493, 495 · `handel` 80, 251
-· `handelen` 30, 476, 477, 478, 479, 501 · `handelspsychologie` 488, 489 ·
-`handelssysteem` 489, 491 · `handelssystemen` 484, 486, 500, 502 ·
-`handleiding` 112 · `hart` 86, 128 · `Harvard` 457 · `Hay House` 380 ·
-`hechting` 145, 152, 317, 386 · `hedendaags India` 202 · `hedgefondsen` 505 ·
-`heelal` 99, 262 · `heldendom` 532 · `heldenreis` 410 · `helderheid` 82, 436 ·
-`herhaling` 125, 134 · `herkomst` 127 · `hermetische filosofie` 378 ·
-`hermetisme` 613, 631, 632, 633, 638, 639, 642, 647 · `heroverwegen` 28 ·
-`hersenen` 51, 84, 85, 86, 327 · `hersenonderzoek` 330, 333, 713 ·
-`hersenspoeling` 384, 668 · `herstel` 87, 552, 583 · `het gesprek` 416 ·
-`Himalaya` 191 · `hindoeïsme` 169, 199, 527, 569 · `Hindoeïstische mythologie`
-192, 202 · `hindoemythologie` 203 · `Hinge` 166 · `hiphop` 440 · `historische
-portretten` 248 · `historische roman` 529 · `hofcultuur` 216 · `hollywood` 555
-· `Hollywood` 178 · `Holocaust` 48 · `holografie` 340 · `homoseksualiteit` 325
-· `hoop` 255, 319 · `hormonen` 80, 339 · `hospice` 416 · `houding` 117 ·
-`huisvesting` 65 · `humanisme` 236, 643 · `humor` 16, 19, 26, 105, 227, 561 ·
-`husserl` 577 · `huwelijk` 9, 34, 165 · `Huxley` 54 · `hybride werken` 512 ·
-`hyperrealiteit` 565 · `hypnose` 123, 124, 125, 668 · `Idaho` 45 · `ideeën`
-206 · `ideeëngeschiedenis` 269 · `identiteit` 22, 115, 192, 261, 374, 375,
-467, 559 · `identiteitskapitaal` 51 · `ideologie` 628 · `ierland` 110 ·
-`IJsland` 185, 533 · `ik-vorm` 113 · `illustraties` 109, 327 · `imitatie` 11 ·
-`imperfectionisme` 442 · `import` 20 · `india` 649 · `India` 163, 171, 172,
-180, 189, 191, 196, 199, 203, 226, 242, 365, 370, 518, 520, 527 ·
-`individualisme` 9, 96, 624 · `individualiteit` 263 · `individuatie` 359, 360,
-408, 409, 646 · `individuele-verantwoordelijkheid` 299 · `indonesië` 692 ·
-`industrie` 348 · `inheems denken` 521 · `initiatie` 407, 408, 522 ·
-`inleiding` 452, 456 · `inlichtingendiensten` 687, 688, 689 · `innerlijk-kind`
-109 · `innerlijk-werkleven` 472 · `innerlijke stem` 377 · `innerlijke vrede`
-548 · `innovatie` 206, 251, 293, 306, 471 · `instagram` 129 · `instemming` 616
-· `instituties` 392 · `integraal bewustzijn` 580 · `integriteit` 547 ·
-`intelligentie` 383 · `internationale betrekkingen` 455 · `internet` 60, 198 ·
-`internetcultuur` 666 · `interpretatie` 714 · `interviews` 58, 277, 289 ·
-`intimiteit` 122, 145, 164, 165 · `introspectie` 579 · `introversie` 33, 361 ·
-`intuitie` 128 · `intuïtie` 214, 283, 320 · `investeren` 270, 348 · `invloed`
-11 · `invoeling` 577 · `inwijding` 636 · `inzicht` 587 · `irrationaliteit` 424
-· `islam` 526 · `islamitische filosofie` 525 · `Israël` 514 · `Italiaanse
-non-fictie` 211 · `Italië` 155 · `jaloezie` 19 · `Japan` 77, 205, 261, 335,
-346, 379, 462, 517, 528, 535 · `japanse filosofie` 576 · `jaren negentig` 348
-· `jaren-tachtig` 139 · `jaren-twintig` 94 · `jazztijdperk` 284 · `jeff bezos`
-257 · `jeugd` 53, 104, 115 · `jodendom` 630, 640 · `John Harrison` 321 ·
-`joint ventures` 348 · `jonge liefde` 180 · `jongeren` 25 · `jongvolwassenen`
-569 · `jongvolwassenenroman` 295 · `joodse filosofie` 572, 574 · `journaling`
-147 · `journalistiek` 4, 7, 46, 82, 238, 257, 285, 401, 499, 566, 669, 690 ·
-`jung` 646 · `Jung` 143, 358, 359 · `Jungiaanse psychologie` 404, 407, 408,
-409, 410 · `kaakontwikkeling` 332 · `kabbala` 630, 634, 640, 643, 644 ·
-`Kabul` 184 · `Kaïn-en-Abel` 10 · `kalmte` 248, 389 · `kameraadschap` 529 ·
-`kanker` 419 · `kans` 64 · `kansdenken` 487 · `kansen` 137 · `kansrekening`
-282, 456, 484, 490, 496, 504, 505 · `kapitalisme` 298, 682 · `karakter` 97,
-537 · `Karel de Grote` 534 · `karma` 184 · `karmel` 573 · `Kasjmir` 180 ·
-`katholicisme` 672 · `keegan` 110 · `Kelly-criterium` 504 · `keltische
-traditie` 611 · `kennedy` 690 · `kennedy-moord` 691 · `kennis` 81, 508 ·
-`kennisleer` 525, 587 · `kennistheorie` 654 · `kenniswerk` 6, 50, 400, 472 ·
-`kernwaarden` 245 · `kernwapens` 454 · `keuzes` 51, 71, 72, 510 ·
-`Kierkegaard` 405 · `kinderboek` 167 · `kinderjaren` 152 · `kinesiologie` 449
-· `klantcontact` 182, 186 · `klantpsychologie` 367 · `klantrelaties` 246 ·
-`klantvalidatie` 265 · `klantwaarde` 309 · `klassenverschil` 284 · `klassieke
-bronnen` 286 · `klassieke tekst` 219, 394 · `klassieker` 10, 24, 38, 48, 61,
-83, 127, 135, 144, 173, 213, 254, 351, 420, 520, 537, 616, 617, 618, 619, 620,
-626 · `klein-beginnen` 40 · `kleine-bedrijven` 172 · `kleine-stappen` 22, 133
-· `kleurboek` 327 · `klimaatfictie` 203 · `klimaatverandering` 299 ·
-`klinische psychologie` 460 · `klokkenmakerij` 321 · `kolonialisme` 298, 592 ·
-`korea` 111 · `kort` 59, 99, 100, 101, 110, 140 · `kort-boek` 11, 13, 16, 27,
-38, 57, 445 · `kort-stuk` 19, 30 · `korte-teksten` 111 · `korte-vorm` 473 ·
-`kosmologie` 239, 262, 281, 645, 647, 648, 651, 655 · `koude oorlog` 217, 220,
-384, 454, 456, 680, 689, 692, 693 · `krijgsgevangenschap` 31 · `krijgskunde`
-212, 218, 219, 272 · `krijgskunst` 346 · `kritiek` 24, 41, 50 · `kritiek
-geven` 356 · `kritisch denken` 420, 421 · `kroeg` 4 · `kruistochtgeest` 534 ·
-`kunst` 11, 445 · `kunstenaars` 312 · `kunstgeschiedenis` 241, 312 ·
-`kunstmatig leven` 347 · `kunstmatige intelligentie` 236, 237, 297, 652 ·
-`kwaad` 404 · `kwaliteit` 1, 400 · `kwantificering` 392 · `kwantitatief
-handelen` 506 · `kwantitatieve analyse` 498 · `kwantitatieve financiën` 485,
-503 · `kwantumfysica` 208, 340, 432, 433 · `kwantummechanica` 362, 655, 711 ·
-`kwantumzwaartekracht` 281 · `kwetsbaarheid` 32, 44, 470 · `kyotoschool` 576 ·
-`landbouw` 56, 98 · `landmark forum` 344 · `leadgeneratie` 308 · `lean
-manufacturing` 265 · `leefstijl` 86, 103, 138, 171 · `leertijd` 320 · `leger`
-106, 180, 222 · `leiderschap` 36, 41, 44, 46, 97, 106, 157, 170, 183, 218,
-222, 231, 260, 273, 344, 353, 364, 370, 389, 434, 465, 468, 475, 536, 544, 551
-· `leidinggeven` 156 · `leren` 175, 296, 349, 397, 422, 441, 509, 538 ·
-`lesmateriaal` 116 · `leugendetectie` 154, 338 · `levensinrichting` 334 ·
-`levenskeuzes` 150, 546 · `levenskunst` 27, 199, 216, 227, 586 ·
-`levenslessen` 285, 447 · `levensloop` 91 · `levensverhaal` 385 ·
-`levenswijsheid` 473 · `lezen` 18, 420 · `lezing` 436 · `lezingen` 169 ·
-`libertarisme` 546, 623, 627, 629 · `lichaam` 80 · `lichaamsgericht werken`
-386 · `lichaamstaal` 125, 126, 154, 303, 338, 399 · `lichaamswerk` 432 ·
-`licht` 525 · `liefde` 3, 131, 160, 295 · `liefdesroman` 180 · `lifestyle` 278
-· `lijden` 48, 73, 160, 310, 390 · `list` 531 · `literair` 110 · `literatuur`
-49 · `logica` 421, 437 · `logotherapie` 48 · `Long-Island` 4 · `longevity` 415
-· `loopbaan` 50, 51, 150, 349, 515, 547 · `loslaten` 377, 449 · `losmaken` 45
-· `lotsbestemming` 261 · `luchtvaart` 422 · `luisteren` 24, 35, 305, 444 ·
-`maatschappijkritiek` 674 · `machinaal leren` 484, 485, 486, 503 · `macht`
-212, 250, 263, 381, 388, 440, 617, 622, 683, 684, 685 · `machtspolitiek` 220 ·
-`machtstheorie` 221 · `machtsverhoudingen` 155 · `magie` 613, 632, 634, 637,
-638, 639, 641 · `magisch realisme` 261 · `management` 42, 47, 170, 183, 256,
-350, 353, 364, 472 · `managementtheorie` 547 · `manifest` 629 · `manifesteren`
-128, 129, 130, 131, 132, 190, 196, 433, 543, 560 · `manipulatie` 123, 124,
-125, 126, 212, 213, 381, 384, 429, 672, 673, 675, 686 · `mannelijkheid` 3,
-406, 407, 408 · `mannen` 7 · `mannenbeweging` 407 · `mantelzorg` 225 ·
-`mantra` 403 · `manuscript` 359 · `maria magdalena` 614 · `marketing` 13, 40,
-60, 172, 183, 279, 280, 307, 308, 309, 350, 443, 446 · `marktmicrostructuur`
-477, 478 · `marxisme` 564 · `McKinsey` 511 · `media` 54, 60, 100, 562, 563,
-564, 565, 566, 666, 673, 674, 686 · `medische ethiek` 416 · `meditatie` 111,
-141, 149, 169, 205, 208, 228, 230, 237, 242, 333, 377, 401, 431, 527, 528,
-590, 630, 638 · `meesterschap` 296, 320, 553 · `meetprobleem` 650, 653 ·
-`meetsystemen` 392 · `memento mori` 286 · `memoir` 4, 7, 18, 20, 26, 45, 49,
-62, 95, 106, 178, 185, 191, 226, 229, 242, 289, 324, 325, 348, 385, 402, 403,
-431, 447, 505, 671 · `mens en dier` 584 · `menselijk gedrag` 155 ·
-`mensenkennis` 126, 356 · `mentale gezondheid` 315 · `mentale helderheid` 148
-· `mentale weerbaarheid` 229, 323, 372, 373, 374, 545 · `mentalisme` 378, 399
-· `mentorschap` 4, 285, 289, 320, 402 · `merken` 279 · `metabolisme` 313 ·
+666 · `godin` 611 · `godsdienstkritiek` 341 · `godsdienstpsychologie` 699 ·
+`godsdienstwetenschap` 578, 608, 640, 641 · `goeroe` 242 · `Google` 512 ·
+`Graallegende` 408 · `grandiositeit` 404 · `gratie` 374 · `grenswetenschap`
+615 · `grenzen` 72, 105, 109, 120, 122, 187, 466 · `grenzen stellen` 151, 204,
+406, 429 · `Griekenland` 537 · `Griekse literatuur` 536 · `griekse mythologie`
+261 · `Griekse oudheid` 530, 531 · `groei` 222 · `groeiaandelen` 474 ·
+`groeimentaliteit` 116 · `groepsdenken` 339 · `groepsgedrag` 303 ·
+`grondstoffen` 92 · `grondwet` 616, 619 · `groot-verhaal` 56 · `grootouders`
+91 · `handboek` 493, 495 · `handel` 80, 251 · `handelen` 30, 476, 477, 478,
+479, 501 · `handelspsychologie` 488, 489 · `handelssysteem` 489, 491 ·
+`handelssystemen` 484, 486, 500, 502 · `handleiding` 112 · `hart` 86, 128 ·
+`Harvard` 457 · `Hay House` 380 · `hechting` 145, 152, 317, 386 · `hedendaags
+India` 202 · `hedgefondsen` 505 · `heelal` 99, 262 · `heldendom` 532 ·
+`heldenreis` 410 · `helderheid` 82, 436 · `herhaling` 125, 134 · `herkomst`
+127 · `hermetische filosofie` 378 · `hermetisme` 613, 631, 632, 633, 638, 639,
+642, 647 · `heroverwegen` 28 · `hersenen` 51, 84, 85, 86, 327 ·
+`hersenonderzoek` 330, 333, 713 · `hersenspoeling` 384, 668 · `herstel` 87,
+552, 583 · `het gesprek` 416 · `Himalaya` 191 · `hindoeïsme` 169, 199, 527,
+569 · `Hindoeïstische mythologie` 192, 202 · `hindoemythologie` 203 · `Hinge`
+166 · `hiphop` 440 · `historische portretten` 248 · `historische roman` 529 ·
+`hofcultuur` 216 · `hollywood` 555 · `Hollywood` 178 · `Holocaust` 48 ·
+`holografie` 340 · `homoseksualiteit` 325 · `hoop` 255, 319 · `hormonen` 80,
+339 · `hospice` 416 · `houding` 117 · `huisvesting` 65 · `humanisme` 236, 643
+· `humor` 16, 19, 26, 105, 227, 561 · `husserl` 577 · `huwelijk` 9, 34, 165 ·
+`Huxley` 54 · `hybride werken` 512 · `hyperrealiteit` 565 · `hypnose` 123,
+124, 125, 668 · `Idaho` 45 · `ideeën` 206 · `ideeëngeschiedenis` 269, 696 ·
+`identiteit` 22, 115, 192, 261, 374, 375, 467, 559 · `identiteitskapitaal` 51
+· `ideologie` 628 · `ierland` 110 · `IJsland` 185, 533 · `ik-vorm` 113 ·
+`illustraties` 109, 327 · `imitatie` 11 · `imperfectionisme` 442 · `import` 20
+· `india` 649 · `India` 163, 171, 172, 180, 189, 191, 196, 199, 203, 226, 242,
+365, 370, 518, 520, 527 · `individualisme` 9, 96, 624 · `individualiteit` 263
+· `individuatie` 359, 360, 408, 409, 646 · `individuele-verantwoordelijkheid`
+299 · `indonesië` 692 · `industrie` 348 · `inheems denken` 521 · `initiatie`
+407, 408, 522 · `inleiding` 452, 456 · `inlichtingendiensten` 687, 688, 689 ·
+`innerlijk-kind` 109 · `innerlijk-werkleven` 472 · `innerlijke stem` 377 ·
+`innerlijke vrede` 548 · `innovatie` 206, 251, 293, 306, 471 · `instagram` 129
+· `instemming` 616 · `instituties` 392 · `integraal bewustzijn` 580 ·
+`integriteit` 547 · `intelligentie` 383 · `internationale betrekkingen` 455 ·
+`internet` 60, 198 · `internetcultuur` 666 · `interpretatie` 714 ·
+`interviews` 58, 277, 289 · `intimiteit` 122, 145, 164, 165 · `introspectie`
+579 · `introversie` 33, 361 · `intuitie` 128 · `intuïtie` 214, 283, 320 ·
+`investeren` 270, 348 · `invloed` 11 · `invoeling` 577 · `inwijding` 636 ·
+`inzicht` 587 · `irrationaliteit` 424 · `islam` 526 · `islamitische filosofie`
+525 · `Israël` 514 · `Italiaanse non-fictie` 211 · `Italië` 155 · `jaloezie`
+19 · `Japan` 77, 205, 261, 335, 346, 379, 462, 517, 528, 535 · `japanse
+filosofie` 576 · `jaren negentig` 348 · `jaren zestig` 695 · `jaren-tachtig`
+139 · `jaren-twintig` 94 · `jazztijdperk` 284 · `jeff bezos` 257 · `jeugd` 53,
+104, 115 · `jodendom` 630, 640 · `John Harrison` 321 · `joint ventures` 348 ·
+`jonge liefde` 180 · `jongeren` 25 · `jongvolwassenen` 569 ·
+`jongvolwassenenroman` 295 · `joodse filosofie` 572, 574 · `journaling` 147 ·
+`journalistiek` 4, 7, 46, 82, 238, 257, 285, 401, 499, 566, 669, 690 · `jung`
+646 · `Jung` 143, 358, 359 · `Jungiaanse psychologie` 404, 407, 408, 409, 410
+· `kaakontwikkeling` 332 · `kabbala` 630, 634, 640, 643, 644 · `Kabul` 184 ·
+`Kaïn-en-Abel` 10 · `kalmte` 248, 389 · `kameraadschap` 529 · `kanker` 419 ·
+`kans` 64 · `kansdenken` 487 · `kansen` 137 · `kansrekening` 282, 456, 484,
+490, 496, 504, 505 · `kapitalisme` 298, 682 · `karakter` 97, 537 · `Karel de
+Grote` 534 · `karma` 184 · `karmel` 573 · `Kasjmir` 180 · `katholicisme` 672 ·
+`keegan` 110 · `Kelly-criterium` 504 · `keltische traditie` 611 · `kennedy`
+690 · `kennedy-moord` 691 · `kennis` 81, 508 · `kennisleer` 525, 587 ·
+`kennistheorie` 654 · `kenniswerk` 6, 50, 400, 472 · `kernwaarden` 245 ·
+`kernwapens` 454 · `keuzes` 51, 71, 72, 510 · `Kierkegaard` 405 · `kinderboek`
+167 · `kinderjaren` 152 · `kinesiologie` 449 · `klantcontact` 182, 186 ·
+`klantpsychologie` 367 · `klantrelaties` 246 · `klantvalidatie` 265 ·
+`klantwaarde` 309 · `klassenverschil` 284 · `klassieke bronnen` 286 ·
+`klassieke tekst` 219, 394 · `klassieker` 10, 24, 38, 48, 61, 83, 127, 135,
+144, 173, 213, 254, 351, 420, 520, 537, 616, 617, 618, 619, 620, 626, 699 ·
+`klein-beginnen` 40 · `kleine-bedrijven` 172 · `kleine-stappen` 22, 133 ·
+`kleurboek` 327 · `klimaatfictie` 203 · `klimaatverandering` 299 · `klinische
+psychologie` 460 · `klokkenluider` 697 · `klokkenmakerij` 321 · `kolonialisme`
+298, 592 · `korea` 111 · `kort` 59, 99, 100, 101, 110, 140 · `kort-boek` 11,
+13, 16, 27, 38, 57, 445 · `kort-stuk` 19, 30 · `korte-teksten` 111 ·
+`korte-vorm` 473 · `kosmologie` 239, 262, 281, 645, 647, 648, 651, 655 ·
+`koude oorlog` 217, 220, 384, 454, 456, 680, 689, 692, 693 ·
+`krijgsgevangenschap` 31 · `krijgskunde` 212, 218, 219, 272 · `krijgskunst`
+346 · `kritiek` 24, 41, 50 · `kritiek geven` 356 · `kritisch denken` 420, 421
+· `kroeg` 4 · `kruistochtgeest` 534 · `kunst` 11, 445 · `kunstenaars` 312 ·
+`kunstgeschiedenis` 241, 312 · `kunstmatig leven` 347 · `kunstmatige
+intelligentie` 236, 237, 297, 652 · `kwaad` 404 · `kwaliteit` 1, 400 ·
+`kwantificering` 392 · `kwantitatief handelen` 506 · `kwantitatieve analyse`
+498 · `kwantitatieve financiën` 485, 503 · `kwantumfysica` 208, 340, 432, 433
+· `kwantummechanica` 362, 655, 711 · `kwantumzwaartekracht` 281 ·
+`kwetsbaarheid` 32, 44, 470 · `kyotoschool` 576 · `landbouw` 56, 98 ·
+`landmark forum` 344 · `leadgeneratie` 308 · `lean manufacturing` 265 ·
+`leefstijl` 86, 103, 138, 171 · `leertijd` 320 · `leger` 106, 180, 222 ·
+`leiderschap` 36, 41, 44, 46, 97, 106, 157, 170, 183, 218, 222, 231, 260, 273,
+344, 353, 364, 370, 389, 434, 465, 468, 475, 536, 544, 551 · `leidinggeven`
+156 · `leren` 175, 296, 349, 397, 422, 441, 509, 538 · `lesmateriaal` 116 ·
+`leugendetectie` 154, 338 · `levensinrichting` 334 · `levenskeuzes` 150, 546 ·
+`levenskunst` 27, 199, 216, 227, 586 · `levenslessen` 285, 447 · `levensloop`
+91 · `levensverhaal` 385 · `levenswijsheid` 473 · `lezen` 18, 420 · `lezing`
+436 · `lezingen` 169 · `libertarisme` 546, 623, 627, 629 · `lichaam` 80 ·
+`lichaamsgericht werken` 386 · `lichaamstaal` 125, 126, 154, 303, 338, 399 ·
+`lichaamswerk` 432 · `licht` 525 · `liefde` 3, 131, 160, 295 · `liefdesroman`
+180 · `lifestyle` 278 · `lijden` 48, 73, 160, 310, 390 · `list` 531 ·
+`literair` 110 · `literatuur` 49 · `logica` 421, 437 · `logotherapie` 48 ·
+`Long-Island` 4 · `longevity` 415 · `loopbaan` 50, 51, 150, 349, 515, 547 ·
+`loslaten` 377, 449 · `losmaken` 45 · `lotsbestemming` 261 · `lsd` 695 ·
+`luchtvaart` 422 · `luisteren` 24, 35, 305, 444 · `maatschappijkritiek` 674 ·
+`machinaal leren` 484, 485, 486, 503 · `macht` 212, 250, 263, 381, 388, 440,
+617, 622, 683, 684, 685, 698 · `machtspolitiek` 220 · `machtstheorie` 221 ·
+`machtsverhoudingen` 155 · `magie` 613, 632, 634, 637, 638, 639, 641 ·
+`magisch realisme` 261 · `management` 42, 47, 170, 183, 256, 350, 353, 364,
+472 · `managementtheorie` 547 · `manifest` 629 · `manifesteren` 128, 129, 130,
+131, 132, 190, 196, 433, 543, 560 · `manipulatie` 123, 124, 125, 126, 212,
+213, 381, 384, 429, 672, 673, 675, 686 · `mannelijkheid` 3, 406, 407, 408 ·
+`mannen` 7 · `mannenbeweging` 407 · `mantelzorg` 225 · `mantra` 403 ·
+`manuscript` 359 · `maria magdalena` 614 · `marketing` 13, 40, 60, 172, 183,
+279, 280, 307, 308, 309, 350, 443, 446 · `marktmicrostructuur` 477, 478 ·
+`marxisme` 564 · `McKinsey` 511 · `media` 54, 60, 100, 562, 563, 564, 565,
+566, 666, 673, 674, 686 · `medische ethiek` 416 · `meditatie` 111, 141, 149,
+169, 205, 208, 228, 230, 237, 242, 333, 377, 401, 431, 527, 528, 590, 630, 638
+· `meesterschap` 296, 320, 553 · `meetprobleem` 650, 653 · `meetsystemen` 392
+· `memento mori` 286 · `memoir` 4, 7, 18, 20, 26, 45, 49, 62, 95, 106, 178,
+185, 191, 226, 229, 242, 289, 324, 325, 348, 385, 402, 403, 431, 447, 505,
+671, 697 · `mens en dier` 584 · `menselijk gedrag` 155 · `mensenkennis` 126,
+356 · `mentale gezondheid` 315 · `mentale helderheid` 148 · `mentale
+weerbaarheid` 229, 323, 372, 373, 374, 545 · `mentalisme` 378, 399 ·
+`mentorschap` 4, 285, 289, 320, 402 · `merken` 279 · `metabolisme` 313 ·
 `metafysica` 102, 518, 584, 587 · `meten` 69, 133 · `methode` 81, 714 ·
 `microbedrijf` 40, 172 · `microbioom` 417 · `middelbare-leeftijd` 7 ·
 `middeleeuwen` 534, 632 · `midlife` 324 · `militaire geschiedenis` 568 ·
@@ -135610,23 +136726,24 @@ manufacturing` 265 · `leefstijl` 86, 103, 138, 171 · `leertijd` 320 · `leger`
 `moreel` 36 · `mormonisme` 560 · `motivatie` 117, 139, 146, 183, 200, 207,
 315, 427, 468, 469, 472 · `Motley Fool` 474 · `motoren` 6 · `motorfietsen` 325
 · `muziek` 17, 85, 712 · `mystiek` 340, 390, 524, 525, 573, 578, 603, 604,
-606, 610, 630, 636, 640, 666 · `mythe` 608 · `mythevorming` 615 · `mythologie`
-73, 143, 357, 360, 407, 408, 409, 599, 611 · `mythologische fantasy` 202 ·
-`mythologische fictie` 203 · `NAD+` 415 · `nalatenschap` 178 · `napoleontische
-oorlogen` 235 · `narcisme` 258, 404 · `naslag` 99, 112 · `naslagwerk` 59, 225,
-426, 477, 478, 486, 491, 500, 504, 640, 661, 662 · `nationalisme` 237 ·
-`natuur` 191, 323, 609 · `natuurkunde` 62, 94, 240, 262, 281, 300, 326, 648,
-650, 651, 653, 655, 657 · `navigatie` 321 · `navy seals` 229, 364 · `nazisme`
-223 · `neanderthaler` 712 · `necrofilie` 223 · `nederland` 96 · `nederlands`
-93, 97, 100, 101, 102, 103, 104, 105, 106, 107, 108, 128, 130, 131, 141 ·
-`nederlands-auteur` 140 · `nederlandstalig` 113 · `negatieve emoties` 176 ·
-`negentig dagen` 188 · `neopaganisme` 611, 637 · `nepnieuws` 237 · `netwerken`
-24, 246, 300, 388, 508 · `neurobiologie` 119 · `neurochirurgie` 49, 414 ·
-`neurologie` 325 · `neuroplasticiteit` 175, 208, 414 · `neurose` 575 ·
-`neurowetenschap` 52, 208, 238, 275, 314, 326, 330, 331, 333, 339, 340, 386,
-418, 513, 585 · `neurowetenschap-voor-kinderen` 327 · `neusademing` 318 · `new
-age` 149, 435, 449, 549, 670, 678, 679 · `new thought` 259, 380, 555 · `NeXT`
-46 · `Nietzsche` 391 · `nieuwe gedachte` 127, 378 · `nieuws` 60, 90 ·
+606, 610, 630, 636, 640, 666, 699 · `mythe` 608 · `mythevorming` 615 ·
+`mythologie` 73, 143, 357, 360, 407, 408, 409, 599, 611 · `mythologische
+fantasy` 202 · `mythologische fictie` 203 · `NAD+` 415 · `nalatenschap` 178 ·
+`napoleontische oorlogen` 235 · `narcisme` 258, 404 · `naslag` 99, 112 ·
+`naslagwerk` 59, 225, 426, 477, 478, 486, 491, 500, 504, 640, 661, 662 ·
+`nationalisme` 237 · `natuur` 191, 323, 609 · `natuurkunde` 62, 94, 240, 262,
+281, 300, 326, 648, 650, 651, 653, 655, 657 · `navigatie` 321 · `navy seals`
+229, 364 · `nazisme` 223 · `neanderthaler` 712 · `necrofilie` 223 ·
+`nederland` 96 · `nederlands` 93, 97, 100, 101, 102, 103, 104, 105, 106, 107,
+108, 128, 130, 131, 141 · `nederlands-auteur` 140 · `nederlandstalig` 113 ·
+`negatieve emoties` 176 · `negentiende eeuw` 696 · `negentig dagen` 188 ·
+`neopaganisme` 611, 637 · `nepnieuws` 237 · `netwerken` 24, 246, 300, 388, 508
+· `neurobiologie` 119 · `neurochirurgie` 49, 414 · `neurologie` 325 ·
+`neuroplasticiteit` 175, 208, 414 · `neurose` 575 · `neurowetenschap` 52, 208,
+238, 275, 314, 326, 330, 331, 333, 339, 340, 386, 418, 513, 585 ·
+`neurowetenschap-voor-kinderen` 327 · `neusademing` 318 · `new age` 149, 435,
+449, 549, 670, 678, 679 · `new thought` 259, 380, 555 · `NeXT` 46 ·
+`Nietzsche` 391 · `nieuwe gedachte` 127, 378 · `nieuws` 60, 90 ·
 `nieuwsgierigheid` 15, 28, 62, 241, 550 · `Nike` 20 · `nlp` 123, 125, 139 ·
 `Nobelprijs` 55 · `non-dualiteit` 520 · `non-fictie` 420 · `non-verbaal` 399 ·
 `non-verbale communicatie` 154 · `noodlot` 533 · `Noordse mythologie` 533 ·
@@ -135678,33 +136795,34 @@ age` 149, 435, 449, 549, 670, 678, 679 · `new thought` 259, 380, 555 · `NeXT`
 324 · `plastische chirurgie` 411 · `plato` 581 · `plicht` 2 · `podcast` 136,
 465, 513 · `poëzie` 204, 611 · `poker` 137 · `polarisatie` 305 · `polemiek` 67
 · `politicologie` 220, 221, 453, 455 · `politiek` 54, 219, 438, 629, 680, 681,
-688 · `politieke economie` 566 · `politieke filosofie` 394, 623, 624, 626,
-627, 628 · `populair` 77, 129, 133 · `populair-wetenschappelijk` 88, 239, 326,
-418, 451 · `populaire filosofie` 194 · `populaire psychologie` 156, 429 ·
-`portefeuille` 474 · `portefeuillebeheer` 507 · `portefeuilletheorie` 503 ·
-`portretten` 75, 94 · `positief denken` 83, 179, 516 · `positiegrootte` 489,
-490, 491, 493, 504, 506 · `positieve-psychologie` 207 · `positionering` 443 ·
-`postmarxisme` 628 · `postmodernisme` 565 · `postuum` 49 · `pr` 686 · `Praag`
-173 · `praktijk` 459 · `praktisch` 118, 121, 140, 159, 172 · `prentenboek` 167
-· `presenteren` 82, 253 · `prestatie` 168, 291, 372, 397, 488, 545 ·
-`prestatiebeoordeling` 256 · `prestatiecultuur` 461 · `prestatieonderzoek` 376
-· `prestige` 515 · `preventie` 86, 313 · `prijsstelling` 307 · `prijzen` 23,
-424 · `prikkels` 60, 65 · `prioriteiten` 25, 196 · `prioriteren` 151, 311, 448
-· `privacy` 393, 687 · `proactief` 25 · `producer` 17 · `product` 446 ·
-`productiviteit` 151, 175, 197, 207, 244, 276, 278, 290, 311, 400, 434, 442,
-448, 512, 552 · `productontwerp` 231, 294 · `productontwikkeling` 265, 471 ·
-`proeven` 112 · `programmering` 439 · `projecten` 81 · `projectie` 107, 108 ·
-`propaganda` 60, 384, 562, 566, 686 · `propositielogica` 437 · `protocol` 69 ·
-`pseudokennis` 126 · `pseudoniem` 378 · `pseudowetenschap` 673 ·
-`psychedelica` 275 · `psychiatrie` 1, 48, 95, 96, 104, 213, 314, 315, 317,
-331, 671 · `psychoanalyse` 223, 360, 361, 405, 409, 575, 610 · `psychologie`
-23, 28, 29, 55, 73, 78, 79, 105, 138, 143, 147, 152, 154, 162, 200, 211, 213,
-214, 250, 254, 258, 296, 310, 338, 357, 358, 375, 381, 382, 384, 387, 424,
-444, 457, 463, 467, 468, 469, 487, 501, 514, 538, 541, 542, 582, 665 ·
-`psychologische flexibiliteit` 460 · `psychologische functies` 361 ·
-`psychopathie` 429 · `psychose` 671 · `psychotherapie` 164, 227, 386, 406 ·
-`PTSS` 386 · `publiceren` 13 · `publiek opbouwen` 369 · `publieksfilosofie`
-269 · `Pulitzer` 5 · `puzzels` 451 · `Python` 486 · `quantum` 94, 650, 653 ·
+688 · `politiek geloof` 696 · `politieke analyse` 698 · `politieke economie`
+566 · `politieke filosofie` 394, 623, 624, 626, 627, 628 · `populair` 77, 129,
+133 · `populair-wetenschappelijk` 88, 239, 326, 418, 451 · `populaire
+filosofie` 194 · `populaire psychologie` 156, 429 · `portefeuille` 474 ·
+`portefeuillebeheer` 507 · `portefeuilletheorie` 503 · `portretten` 75, 94 ·
+`positief denken` 83, 179, 516 · `positiegrootte` 489, 490, 491, 493, 504, 506
+· `positieve-psychologie` 207 · `positionering` 443 · `postmarxisme` 628 ·
+`postmodernisme` 565 · `postuum` 49 · `pr` 686 · `Praag` 173 · `praktijk` 459
+· `praktisch` 118, 121, 140, 159, 172 · `prentenboek` 167 · `presenteren` 82,
+253 · `prestatie` 168, 291, 372, 397, 488, 545 · `prestatiebeoordeling` 256 ·
+`prestatiecultuur` 461 · `prestatieonderzoek` 376 · `prestige` 515 ·
+`preventie` 86, 313 · `prijsstelling` 307 · `prijzen` 23, 424 · `prikkels` 60,
+65 · `prioriteiten` 25, 196 · `prioriteren` 151, 311, 448 · `privacy` 393, 687
+· `proactief` 25 · `producer` 17 · `product` 446 · `productiviteit` 151, 175,
+197, 207, 244, 276, 278, 290, 311, 400, 434, 442, 448, 512, 552 ·
+`productontwerp` 231, 294 · `productontwikkeling` 265, 471 · `proeven` 112 ·
+`programmering` 439 · `projecten` 81 · `projectie` 107, 108 · `propaganda` 60,
+384, 562, 566, 686 · `propositielogica` 437 · `protocol` 69 · `pseudokennis`
+126 · `pseudoniem` 378 · `pseudowetenschap` 673 · `psychedelica` 275 ·
+`psychiatrie` 1, 48, 95, 96, 104, 213, 314, 315, 317, 331, 671 ·
+`psychoanalyse` 223, 360, 361, 405, 409, 575, 610 · `psychologie` 23, 28, 29,
+55, 73, 78, 79, 105, 138, 143, 147, 152, 154, 162, 200, 211, 213, 214, 250,
+254, 258, 296, 310, 338, 357, 358, 375, 381, 382, 384, 387, 424, 444, 457,
+463, 467, 468, 469, 487, 501, 514, 538, 541, 542, 582, 665 · `psychologische
+flexibiliteit` 460 · `psychologische functies` 361 · `psychopathie` 429 ·
+`psychose` 671 · `psychotherapie` 164, 227, 386, 406 · `PTSS` 386 ·
+`publiceren` 13 · `publiek opbouwen` 369 · `publieksfilosofie` 269 ·
+`Pulitzer` 5 · `puzzels` 451 · `Python` 486 · `quantum` 94, 650, 653 ·
 `queeste` 522 · `quilten` 114 · `quotes` 179 · `racisme` 601, 602 · `radicale
 transparantie` 270 · `RAND` 454, 456 · `Rat-Pack` 178 · `rationaliteit` 454 ·
 `rationele keuze` 455 · `recht` 393 · `rechtspraak` 69 · `rechtvaardigheid`
@@ -135745,9 +136863,9 @@ psychologie` 215, 280, 302, 319 · `sociale-vaardigheden` 398 · `socialisme`
 · `spiegelneuronen` 303 · `spiegeloefening` 380 · `spiegelogie` 108 ·
 `spieropbouw` 316 · `spijt` 447 · `spiritisme` 677 · `spiritualiteit` 8, 14,
 27, 102, 108, 141, 149, 160, 169, 184, 190, 195, 196, 199, 242, 310, 358, 377,
-431, 435, 449, 519, 526, 556, 583, 590, 596, 603, 604, 614, 679 · `spirituele
-zoektocht` 287, 524 · `sport` 20, 349 · `sportpsychologie` 372, 374, 441 ·
-`sportwetenschap` 461 · `spreekangst` 253 · `spreker` 117, 134 ·
+431, 435, 449, 519, 526, 556, 583, 590, 596, 603, 604, 614, 679, 699 ·
+`spirituele zoektocht` 287, 524 · `sport` 20, 349 · `sportpsychologie` 372,
+374, 441 · `sportwetenschap` 461 · `spreekangst` 253 · `spreker` 117, 134 ·
 `staartrisico` 494, 496 · `staat` 612 · `staatsgezag` 616 · `staatsgreep` 220
 · `staatskritiek` 621, 622, 623 · `staatsvorming` 622 · `stalking` 214 ·
 `standaarden` 396 · `Stanford` 150, 388, 458 · `start-ups` 306 · `startups`
@@ -135773,21 +136891,21 @@ macht` 344 · `taaloorsprong` 712 · `tactische empathie` 271 · `talent` 23, 29
 92 · `techniekgeschiedenis` 666 · `technische analyse` 483, 500 ·
 `technologie` 160, 288, 294, 306, 393, 499 · `technologiebedrijven` 293 ·
 `technologiegeschiedenis` 231, 267 · `technologiekritiek` 297, 539, 674 ·
-`tegen-productiviteit` 71 · `tegenslag` 30, 111, 174, 570 · `tekenen` 15 ·
-`tekstkwaliteit` 124 · `televisie` 54, 674 · `temperament` 33 · `tempo` 552 ·
-`termijnmarkten` 480, 482 · `testament` 462 · `tevredenheid` 463 · `Texas` 5,
-385 · `The Secret` 433 · `theeceremonie` 379 · `thelema` 644 · `theologie`
-578, 587 · `theosofie` 605, 606, 645 · `therapie` 51, 107, 118, 119, 120, 121,
-122, 145, 466 · `Thermopylae` 529 · `thriller` 101, 202 · `thuiskomst` 531 ·
-`thuiszorg` 225 · `tieners` 193 · `tijd` 71, 232, 262, 292, 334, 442, 655 ·
-`tijdmanagement` 434 · `tijdsbeleving` 326 · `timemanagement` 311, 448 ·
-`tirannie` 617 · `toekomst` 236 · `toeval` 21, 64, 93, 137, 274, 362, 483 ·
-`Tolteeks` 27 · `toon` 72, 118, 119, 121, 132, 145 · `topprestatie` 374 ·
-`topsport` 422, 460, 545 · `totalitarisme` 384 · `trading` 492, 493, 495 ·
-`training` 376 · `transpersoonlijke psychologie` 583 · `trauma` 104, 119, 195,
-229, 317, 386 · `trendvolgen` 480, 501 · `trilling` 127 · `trilogie` 202, 203,
-248 · `TRIZ` 471 · `Troje` 530 · `tuinontwerp` 205 · `tumoronderdrukker` 419 ·
-`twaalf-weken` 14 · `twaalfde eeuw` 525 · `tweede-wereldoorlog` 115 ·
+`tegen-productiviteit` 71 · `tegencultuur` 695 · `tegenslag` 30, 111, 174, 570
+· `tekenen` 15 · `tekstkwaliteit` 124 · `televisie` 54, 674 · `temperament` 33
+· `tempo` 552 · `termijnmarkten` 480, 482 · `testament` 462 · `tevredenheid`
+463 · `Texas` 5, 385 · `The Secret` 433 · `theeceremonie` 379 · `thelema` 644
+· `theologie` 578, 587 · `theosofie` 605, 606, 645 · `therapie` 51, 107, 118,
+119, 120, 121, 122, 145, 466 · `Thermopylae` 529 · `thriller` 101, 202 ·
+`thuiskomst` 531 · `thuiszorg` 225 · `tieners` 193 · `tijd` 71, 232, 262, 292,
+334, 442, 655 · `tijdmanagement` 434 · `tijdsbeleving` 326 · `timemanagement`
+311, 448 · `tirannie` 617 · `toekomst` 236 · `toeval` 21, 64, 93, 137, 274,
+362, 483 · `Tolteeks` 27 · `toon` 72, 118, 119, 121, 132, 145 · `topprestatie`
+374 · `topsport` 422, 460, 545 · `totalitarisme` 384 · `trading` 492, 493, 495
+· `training` 376 · `transpersoonlijke psychologie` 583 · `trauma` 104, 119,
+195, 229, 317, 386 · `trendvolgen` 480, 501 · `trilling` 127 · `trilogie` 202,
+203, 248 · `TRIZ` 471 · `Troje` 530 · `tuinontwerp` 205 · `tumoronderdrukker`
+419 · `twaalf-weken` 14 · `twaalfde eeuw` 525 · `tweede-wereldoorlog` 115 ·
 `tweelingonderzoek` 417 · `twintigers` 51 · `twintigste eeuw` 682 ·
 `typologie` 361 · `ufo` 669, 678 · `ufo's` 615, 675, 676 ·
 `uitdaging-vaardigheid` 200 · `uitgeven` 463 · `uitleg` 99, 102 · `uitleggen`
@@ -135802,7 +136920,7 @@ macht` 344 · `taaloorsprong` 712 · `tactische empathie` 271 · `talent` 23, 29
 214 · `veiligheidsmarge` 144 · `veldwerk` 521 · `verandering` 170, 252, 375,
 467 · `verantwoordelijkheid` 42, 72, 73, 74, 93, 184, 282, 335, 364 ·
 `verbinding` 302, 550 · `verdriet` 111, 227 · `verenigde staten` 598, 667,
-687, 688, 689, 690 · `Verenigde-Staten` 464 · `vergaderen` 42 ·
+687, 688, 689, 690, 698 · `Verenigde-Staten` 464 · `vergaderen` 42 ·
 `vergaderingen` 276 · `vergankelijkheid` 379, 532 · `vergelijkende mythologie`
 410, 635 · `vergelijkende religie` 604 · `vergeving` 31, 102, 120, 548, 556 ·
 `verhaal` 74 · `verhaalstructuur` 410 · `verhaalvorm` 135 · `verhalen` 56,

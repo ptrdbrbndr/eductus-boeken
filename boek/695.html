@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Acid Dreams &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Lee en Shlain stellen dat de Amerikaanse geheime diensten en het leger LSD ruim twintig jaar hebben behandeld als een instrument van oorlogvoering, en dat…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-695">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">695 &middot; Geschiedenis en samenleving</p>
+    <h1>Acid Dreams</h1>
+    <p class="lede">Martin A. Lee en Bruce Shlain, 1985</p>
+    <p class="stats">
+      <span><b>1676</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="695"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Lee en Shlain stellen dat de Amerikaanse geheime diensten en het leger LSD ruim twintig jaar hebben behandeld als een instrument van oorlogvoering, en dat precies die stof daarna de brandstof werd van een jeugdbeweging die zich tegen de staat keerde. De omkering is de kern van het boek: de dienst die hoopte gedachten te kunnen sturen, hielp het middel verspreiden dat de gehoorzaamheid van een generatie ondermijnde. De auteurs schrijven daarbij dat van opzet geen sprake was. Wat zij laten zien is beleid dat zijn eigen uitwerking niet overzag, uitgevoerd door mensen die de gevolgen pas begrepen toen die zich buiten hun bereik voltrokken.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een stof op zoek naar een toepassing</h3>
+      <p>Albert Hofmann synthetiseerde LSD-25 in 1938 bij het Zwitserse Sandoz en ontdekte de werking pas in 1943, toen hij per ongeluk een spoor binnenkreeg. Sandoz zocht jarenlang naar een medisch doel voor het middel en stuurde het gratis rond naar onderzoekers, met het verzoek te melden waarvoor het te gebruiken viel. Die open verspreiding verklaart waarom de stof in het begin van de jaren vijftig zowel in psychiatrische klinieken als in militaire laboratoria lag.</p>
+      <p>In het Amerikaanse legeronderzoek gold LSD eerst als psychotomimeticum: een middel dat een tijdelijke psychose zou nabootsen en daarmee een venster zou bieden op geestesziekte. Diezelfde eigenschap maakte het aantrekkelijk voor wie zocht naar een middel om verhoorde gevangenen uit balans te brengen.</p>
+      <h3>De koude oorlog en MK-ULTRA</h3>
+      <p>Het eerste deel van het boek gaat over de vrees die in Washington ontstond na de bekentenissen van Amerikaanse krijgsgevangenen in de Koreaanse oorlog. De aanname was dat de tegenstander over een methode beschikte om overtuigingen om te bouwen, en dat de Verenigde Staten moesten bijbenen. Onder programma's als BLUEBIRD, ARTICHOKE en vanaf 1953 MK-ULTRA, geleid door scheikundige Sidney Gottlieb binnen de technische dienst van de CIA, werden tientallen middelen beproefd. LSD kreeg daarin een hoofdrol, omdat het in kleine hoeveelheden werkte en reukloos was.</p>
+      <p>Lee en Shlain beschrijven hoe het onderzoek zich uitstrekte tot universiteiten, ziekenhuizen, gevangenissen en het legerarsenaal Edgewood, waar dienstplichtigen proefpersoon waren. Zij besteden veel ruimte aan de dood van legerbioloog Frank Olson, die in november 1953 zonder het te weten een dosis kreeg tijdens een besloten bijeenkomst en enkele dagen later in New York uit een hotelraam viel. De familie hoorde pas in 1975 hoe dat was gegaan, na openbaarmakingen door een presidentiële onderzoekscommissie.</p>
+      <h3>Proeven op nietsvermoedende burgers</h3>
+      <p>De hardste passages betreffen de proeven buiten elke medische omgeving. In het project dat intern Midnight Climax heette, huurde de dienst woningen in San Francisco en New York, waar de van narcoticabestrijding afkomstige agent George Hunter White prostituees inschakelde om klanten binnen te halen. Die kregen LSD toegediend en werden door een spiegel bekeken. Er bestond geen toestemming, geen medische begeleiding en geen nazorg.</p>
+      <p>Wat er precies is gebeurd, valt maar ten dele te reconstrueren. Richard Helms, de latere directeur, liet in 1973 de dossiers van het programma vernietigen. Wat de auteurs in handen kregen, waren financiële stukken die per ongeluk elders waren opgeslagen en die pas in 1977 boven water kwamen. Het boek maakt dat gat in de bronnen zichtbaar in plaats van het te overschreeuwen.</p>
+      <h3>Zendelingen buiten de dienst</h3>
+      <p>Daarnaast liep een tweede verhaallijn: artsen, schrijvers en zakenlieden die LSD als geestelijke oefening zagen. Aldous Huxley beschreef in 1954 in <i>The Doors of Perception</i> zijn ervaring met mescaline en gaf de latere beweging haar vocabulaire. Kapitein Al Hubbard, een ondernemer met contacten in inlichtingenkringen, deelde het middel jarenlang uit aan artsen, geestelijken en directeuren, en kreeg de bijnaam de Johnny Appleseed van LSD. In de klinische praktijk werd het beproefd bij alcoholisme en bij angst van stervenden.</p>
+      <p>Uit die kring komen ook de begrippen set en setting: de gedachte dat de uitkomst van een sessie vooral afhangt van de gemoedstoestand van de gebruiker en van de omgeving. Dat inzicht ondergroef de militaire hoop op een voorspelbaar wapen, want een stof waarvan het effect met de omstandigheden meebeweegt, valt slecht in te zetten als betrouwbaar dwangmiddel.</p>
+      <h3>Leary, Kesey en de verspreiding</h3>
+      <p>Timothy Leary begon in 1960 aan Harvard met onderzoek naar psilocybine en LSD, samen met Richard Alpert. Het project raakte in botsing met de universiteit over de vraag of onderzoekers zelf mochten meedoen aan hun proeven; in 1963 vertrokken beiden. Wat volgde was een landgoed in Millbrook, een eigen geloofsgemeenschap en de leus die Leary in 1966 formuleerde. Lee en Shlain zijn niet mild over hem: zij tekenen een man die de aandacht zocht en de beweging schade toebracht door haar aan zijn persoon te binden.</p>
+      <p>Ken Kesey en zijn Merry Pranksters kozen een andere weg. Kesey had het middel voor het eerst gekregen als proefpersoon in een door de overheid gefinancierd onderzoek. Met de Acid Tests, feesten met muziek, licht en LSD, gaf hij het middel een collectieve vorm. De chemicus Owsley Stanley zorgde voor de productie. Vanaf het Human Be-In in San Francisco in januari 1967 werd de zaak nationaal nieuws. Californië verbood LSD in oktober 1966, de federale wetgever volgde.</p>
+      <h3>Verharding en nasleep</h3>
+      <p>Het slotdeel beschrijft hoe de vrolijke fase overging in iets grimmigers: harddrugs in de wijken die eerst als vrijplaats golden, gewapende splintergroepen, en overheidsprogramma's als Operatie CHAOS en COINTELPRO die de linkse beweging infiltreerden en waarin drugsaanklachten een handig instrument bleken. De auteurs beschrijven ook de handelsorganisatie Brotherhood of Eternal Love en de figuur Ronald Stark, die grote hoeveelheden liet produceren en die in 1979 door een Italiaanse rechter werd vrijgelaten met de overweging dat er aanwijzingen waren voor banden met een Amerikaanse dienst.</p>
+      <p>De laatste hoofdstukken lopen door tot in de jaren tachtig, met de rechtszaken, de vergoedingen aan slachtoffers van de proeven en de vraag wat er van het onderzoek naar psychedelica overbleef. De herziene uitgave van 1992 voegde daar een inleiding aan toe.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">MK-ULTRA</td><td>Het overkoepelende CIA-programma vanaf 1953 waarin middelen, waaronder LSD, werden beproefd op hun bruikbaarheid bij verhoor en beïnvloeding.</td></tr>
+          <tr><td class="term">psychotomimeticum</td><td>De vroege aanduiding van LSD als stof die een tijdelijke psychose nabootst, wat het onderzoek een medische rechtvaardiging gaf.</td></tr>
+          <tr><td class="term">Midnight Climax</td><td>De schuilnaam van de proeven in gehuurde woningen, waar nietsvermoedende bezoekers werden gedrogeerd en geobserveerd.</td></tr>
+          <tr><td class="term">set en setting</td><td>De stelling dat gemoedstoestand en omgeving de uitkomst van een sessie sterker bepalen dan de dosis.</td></tr>
+          <tr><td class="term">Johnny Appleseed van LSD</td><td>De bijnaam van Al Hubbard, die het middel op eigen initiatief onder artsen, geestelijken en zakenlieden verspreidde.</td></tr>
+          <tr><td class="term">Acid Test</td><td>Het openbare feest met muziek en LSD waarmee Ken Kesey het middel uit de spreekkamer haalde en in een groep plaatste.</td></tr>
+          <tr><td class="term">Operatie CHAOS</td><td>Het binnenlandse inlichtingenprogramma waarmee de CIA de protestbeweging in kaart bracht, formeel buiten haar bevoegdheid.</td></tr>
+          <tr><td class="term">Brotherhood of Eternal Love</td><td>De Californische groep die zichzelf als geloofsgemeenschap zag en tegelijk uitgroeide tot een handelsnetwerk van formaat.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De eerste helft van het boek rust op ongeveer twintigduizend pagina's stukken van de CIA en het leger die via de Amerikaanse openbaarheidswet vrijkwamen, aangevuld met verhoren voor het Congres uit 1975 en 1977. Dat is voor een journalistiek werk uit 1985 een stevige basis, en de gebeurtenissen die de auteurs beschrijven zijn later door archiefonderzoek in hoofdlijnen bevestigd.</p>
+      <p>Tegelijk zijn de bronnen aantoonbaar onvolledig. De vernietiging van de dossiers in 1973 betekent dat de kern van het programma alleen indirect te reconstrueren valt, uit boekhouding, memo's die elders belandden en verklaringen achteraf. Waar de auteurs die leemte overbruggen, doen zij dat met redeneringen die zij als redenering presenteren.</p>
+      <p>De tweede helft steunt op een ander soort materiaal: interviews met deelnemers, tijdschriften uit de periode en memoires. Herinnering aan gebeurtenissen die onder invloed plaatsvonden is een wankele bron, en het boek weegt die verhalen minder streng dan de overheidsstukken.</p>
+      <p>De passages over Ronald Stark leunen op Italiaanse rechtbankstukken en op de gevolgtrekkingen die de auteurs daaruit maken. Dat een rechter aanwijzingen voor inlichtingenbanden noemde, is vastgelegd; wat die banden inhielden, blijft open.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Historicus Richard H. Immerman verweet het boek dat het te veel over drugscultuur gaat en te weinig over de dienst zelf, waardoor de institutionele geschiedenis onderbelicht blijft. Wie het boek leest voor inzicht in hoe de CIA werkte, krijgt vooral de excessen te zien en weinig over besluitvorming, toezicht en verantwoording.</p>
+      <p>Bibliothecaris Jack Forman vond de opbouw verwarrend en de analyse dun. Die kritiek raakt een reëel punt: het boek springt tussen personen en jaren, en de scheidslijn tussen wat vaststaat en wat de auteurs vermoeden is in de latere hoofdstukken lastiger te trekken dan in de eerste.</p>
+      <p>Lee en Shlain zijn niet onverschillig tegenover hun onderwerp. Er spreekt sympathie uit voor de psychedelische ervaring, en die kleurt de weegschaal: de schade van wijdverbreid gebruik, de psychiatrische ontsporingen en de mensen die niet heelhuids terugkwamen, krijgen minder ruimte dan de belofte.</p>
+      <p>Het boek is inmiddels op onderdelen ingehaald. Later onderzoek met ruimere archieftoegang heeft het beeld van Gottlieb, Olson en de binnenlandse operaties aangevuld en op punten bijgesteld. Wie de stand van zaken zoekt, kan dit boek beter als vertrekpunt gebruiken dan als eindstation.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Let bij het lezen op het onderscheid tussen wat uit vrijgegeven stukken komt en wat de auteurs afleiden; het boek maakt dat verschil zichtbaar, maar alleen voor wie erop let.</li>
+        <li>Neem de datum van vernietiging van de dossiers als vaste referentie bij alles wat over MK-ULTRA wordt beweerd: uitspraken die zekerheid claimen over de kern van het programma, claimen te veel.</li>
+        <li>Vergelijk de gebeurtenissen met wat er later over toezicht op inlichtingendiensten is geregeld, en kijk welke waarborgen ontbraken.</li>
+        <li>Gebruik de scheiding tussen de twee helften van het boek als maat voor bronkwaliteit: overheidsstukken en herinneringen achteraf verdienen niet dezelfde weging.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Acid Dreams: The Complete Social History of LSD: The CIA, the Sixties, and Beyond</i> (Grove Press, New York, 1985; herziene uitgave Grove Weidenfeld, 1992, 345 blz., ISBN 9780802130624, met een inleiding van Andrei Codrescu). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Sociale geschiedenis van LSD, geschreven door onderzoeksjournalist Martin A. Lee en schrijver Bruce Shlain. Het boek volgt de stof van de synthese bij Sandoz in 1938 tot de handel en de rechtszaken van de jaren tachtig. Het eerste deel behandelt de belangstelling van het Amerikaanse leger en de CIA, die LSD vanaf begin jaren vijftig onderzochten als ondervragingsmiddel en als wapen, onder meer in het programma MK-ULTRA. Het tweede deel beschrijft hoe dezelfde stof buiten de laboratoria terechtkwam en de jeugdcultuur van de jaren zestig mee vormgaf.</p><p>De auteurs bouwden hun eerste helft op ongeveer twintigduizend pagina's overheidsstukken die via de Amerikaanse openbaarheidswet vrijkwamen, aangevuld met interviews. Hun conclusie is terughoudender dan de reputatie van het boek doet vermoeden: er is geen bewijs dat de dienst de tegencultuur heeft gepland, wel dat zij aan de wieg ervan stond zonder dat te willen. Het tweede deel leunt zwaarder op herinneringen van betrokkenen en is daardoor minder hard onderbouwd dan het eerste.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>lsd</li><li>cia</li><li>jaren zestig</li><li>tegencultuur</li><li>geheime diensten</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="61"><a href="61.html">Brave New World</a>. Huxley beschreef in zijn roman al een samenleving waarin een middel de instemming levert; hij duikt in dit boek op als levende schakel tussen literatuur en de vroege psychedelische kring.</li>
+          <li value="384"><a href="384.html">The Rape of the Mind</a>. Meerloo schreef in dezelfde jaren over de angst voor gedachtebeheersing die de programma's uit dit boek in gang zette.</li>
+          <li value="215"><a href="215.html">Obedience to Authority</a>. Milgram liet zien hoe ver gewone mensen gaan in opdracht van een instituut, wat verklaart hoe artsen en agenten hun deel van deze proeven konden uitvoeren.</li>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. Sagan biedt het gereedschap om te scheiden tussen gedocumenteerde overheidsmisdragingen en de samenzweringsverhalen die zich eraan hechten.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

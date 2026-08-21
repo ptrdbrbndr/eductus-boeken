@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Friendly Fascism &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Gross stelt dat de bedreiging van de Amerikaanse democratie niet uit een staatsgreep zal komen maar uit een geleidelijke vergroeiing van grote…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-698">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">698 &middot; Staat en vrijheid</p>
+    <h1>Friendly Fascism</h1>
+    <p class="lede">Bertram Gross, 1980</p>
+    <p class="stats">
+      <span><b>1453</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="698"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Gross stelt dat de bedreiging van de Amerikaanse democratie niet uit een staatsgreep zal komen maar uit een geleidelijke vergroeiing van grote ondernemingen met de staat, die de vormen van de democratie intact laat en de inhoud eruit haalt. In zijn schets blijven verkiezingen, partijen, rechters en kranten gewoon bestaan, maar verschuift de eigenlijke besluitvorming naar een netwerk van bestuurders, vermogenden en beheerders dat aan niemand rekenschap schuldig is. Het woord fascisme gebruikt hij daarbij bewust, met de aantekening dat de nieuwe uitvoering geen uniformen en geen straatgeweld nodig heeft: zij komt met een vriendelijk gezicht, met welvaartsbeloften en met beheerst nieuws.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat het klassieke fascisme was</h3>
+      <p>Het eerste hoofdstuk behandelt de opkomst en ondergang van het fascisme in Italië, Duitsland en Japan. Gross beschrijft de voedingsbodem, de bondgenootschappen met bestaande machten en de ideologieën, en hij benadrukt dat de fascistische bewegingen aan de macht kwamen met medewerking van gevestigde belangen en niet ondanks hen. Zijn doel met dit hoofdstuk is een werkdefinitie: fascisme als vergroeiing van grote ondernemingen met een sterke staat, gericht op het uitschakelen van tegenmacht.</p>
+      <p>Hij besluit met wat hij de onverwoestbare mythen noemt, waaronder de gedachte dat fascisme alleen kan bestaan als het zich met vlaggen en marsen aandient. Die verwachting maakt volgens hem blind voor een andere gedaante.</p>
+      <h3>De nieuwe ondernemingssamenleving</h3>
+      <p>Het tweede hoofdstuk beschrijft de naoorlogse orde: Amerikaanse bedrijven die wereldwijd opereren, staatssteun aan grote ondernemingen, planning binnen concerns die de omvang van staatsplanning benadert, en de sturing van welke techniek wordt ontwikkeld en welke niet. Gross vat de internationale zakelijke bovenlaag samen als de Gouden Internationale, met een knipoog naar de arbeidersinternationale die de negentiende eeuw kende.</p>
+      <p>Zijn punt is dat kapitalisme in deze vorm geen nationale zaak meer is, zodat een nationale regering die zichzelf soeverein noemt in de praktijk onderhandelt met partijen die de landsgrens ontgroeid zijn.</p>
+      <h3>Het Establishment</h3>
+      <p>Het derde hoofdstuk gaat over de vraag wie er dan beslist. Gross onderscheidt de zeer vermogenden, de bestuurders van de grote concerns, een netwerk van topfunctionarissen dat tussen bedrijfsleven en overheid heen en weer beweegt, en daaromheen kringen van uitvoerders en aanhangers. Hij benadrukt dat dit geen samenzwering is en ook geen comité dat vergadert: het gaat om overlappende belangen, gedeelde opleiding en dezelfde loopbaanpaden.</p>
+      <p>Binnen die kring bestaan volgens hem echte conflicten, met zuiveringen en bekeringen, en die conflicten houden het geheel beweeglijk. Dat maakt het lastiger te bestrijden dan een gesloten kliek, want er is geen centrum om aan te wijzen.</p>
+      <h3>Het beeld van de vriendelijke variant</h3>
+      <p>Het middendeel van het boek schetst hoe een Amerikaanse vorm van deze macht eruit zou zien. Geen partijmilitie, wel toenemende bewaking en gegevensverzameling. Geen verboden partijen, wel verkiezingen waarin de keuze vooraf is versmald door geld en toegang. Geen censuur, wel een nieuwsvoorziening die van gebeurtenissen vertoningen maakt en die de aandacht stuurt.</p>
+      <p>Gross voorziet daarbij een samenleving die materiële zekerheid biedt aan een deel van de bevolking en die de rest beheerst met armoedebeleid, gevangenissen en geweld aan de randen. Zijn opmerking dat de gemiddelde burger niet vraagt wie de dienst uitmaakt zolang de welvaart groeit, draagt het hele betoog.</p>
+      <h3>Het ondermijnen van de democratische machinerie</h3>
+      <p>Een apart hoofdstuk behandelt hoe de vormen van democratie kunnen blijven bestaan terwijl hun werking verdwijnt. Gross bespreekt de rol van geld in campagnes, de verplaatsing van beslissingen naar toezichthouders en deskundigencommissies, de vervlechting van adviesbureaus met beleid, en de rol van geheimhouding onder verwijzing naar veiligheid.</p>
+      <p>Ook behandelt hij het tegenargument dat het in de Verenigde Staten niet kan gebeuren. Zijn antwoord is dat die overtuiging zelf onderdeel van het probleem is, omdat zij het waarschuwingssysteem uitschakelt. De vergelijking met Europa in de jaren twintig gebruikt hij daarbij als geheugensteun, niet als voorspelling.</p>
+      <h3>Wat ertegenover staat</h3>
+      <p>Het slotdeel is niet somber bedoeld. Gross beschrijft tegenbewegingen, vakbondswerk, lokale organisatie, openbaarheid van bestuur en het volledige werkgelegenheidsbeleid waarvoor hij zelf decennia had gestreden, als de weg naar wat hij echte democratie noemt. Hij houdt vol dat de uitkomst open is en dat de door hem geschetste toekomst een waarschuwing is en geen wetmatigheid.</p>
+      <p>Die combinatie is het karakter van het boek: een gedetailleerde beschrijving van hoe het mis kan gaan, geschreven door iemand die zijn loopbaan besteedde aan het opbouwen van de instellingen die hij nu ziet uithollen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">vriendelijk fascisme</td><td>De versmelting van grote ondernemingen met de staat die de democratische vormen laat staan en de zeggenschap eruit haalt, zonder uniformen of straatgeweld.</td></tr>
+          <tr><td class="term">klassiek fascisme</td><td>De historische bewegingen in Italië, Duitsland en Japan, door Gross gebruikt als vergelijkingsmateriaal en niet als voorspelling.</td></tr>
+          <tr><td class="term">Gouden Internationale</td><td>Zijn benaming voor de grensoverschrijdende zakelijke bovenlaag wier belangen niet meer met één land samenvallen.</td></tr>
+          <tr><td class="term">het Establishment</td><td>Het losse netwerk van vermogenden, concernbestuurders en topfunctionarissen dat volgens hem de eigenlijke besluiten neemt zonder als lichaam te bestaan.</td></tr>
+          <tr><td class="term">netwerk van topfunctionarissen</td><td>De groep die tussen bedrijfsleven, overheid en advieswereld heen en weer beweegt en daarmee de scheiding tussen beide vervaagt.</td></tr>
+          <tr><td class="term">beheerde samenleving</td><td>Een bestel waarin problemen als bestuurskwesties worden behandeld en aan deskundigen worden overgelaten in plaats van als politieke keuzes.</td></tr>
+          <tr><td class="term">ondermijnen van de machinerie</td><td>Het uithollen van verkiezingen, volksvertegenwoordiging en rechtspraak zonder ze af te schaffen.</td></tr>
+          <tr><td class="term">onverwoestbare mythen</td><td>De vastgeroeste beelden van het fascisme die volgens Gross verhinderen dat een nieuwe gedaante op tijd wordt herkend.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is dicht gedocumenteerd naar de maatstaven van politieke essayistiek: het bevat honderden aangehaalde bronnen, met rapporten, verhoren, bedrijfsgegevens en persberichtgeving uit de jaren zeventig.</p>
+      <p>Gross schrijft vanuit ervaring binnen het bestel dat hij analyseert. Hij stelde de werkgelegenheidswetgeving van 1946 mee op, werkte zes jaar voor de economische adviesraad van het Witte Huis en was hoofdauteur van de volledige werkgelegenheidswet van 1978. Zijn beschrijving van hoe beleid tot stand komt, rust dus niet alleen op literatuur.</p>
+      <p>De zwakte zit in de aard van de bewering. Het grootste deel van het boek beschrijft een toekomst die nog niet bestond, opgebouwd uit tendensen die hij in het heden meende te zien. Zo'n schets is moeilijk te weerleggen: elke ontwikkeling kan als bevestiging worden gelezen en het uitblijven ervan als uitstel.</p>
+      <p>Op enkele punten valt zijn analyse achteraf te toetsen. De concentratie van vermogen, de groei van bewaking en gegevensverzameling en de rol van geld in campagnes zijn sinds 1980 toegenomen. De door hem verwachte sturing via bedrijfsplanning en overheidsafspraken kwam er niet in die vorm; de jaren tachtig brachten juist deregulering en marktwerking.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het woord fascisme is het grootste bezwaar. Historici van het fascisme omschrijven het als een beweging met massamobilisatie, extreem nationalisme, een partijmilitie en een leidercultus. Geen van die kenmerken hoort bij het bestel dat Gross beschrijft. Wie de term oprekt tot elke vorm van vervlochten bedrijfs- en staatsmacht, verliest het onderscheid tussen een tekortschietende democratie en een regime dat tegenstanders opsluit.</p>
+      <p>Gross verdedigt zijn woordkeuze door op de continuïteit met de jaren twintig te wijzen, maar de retorische winst gaat ten koste van analytische scherpte. Zijn eigen beschrijving zou zonder het woord even goed staan, en zou minder aanleiding geven tot het gebruik van het boek als scheldwoordenboek in latere politieke ruzies.</p>
+      <p>De analyse komt uit een linkse traditie die grote ondernemingen als de motor van alle machtsvorming ziet. Daardoor blijven andere krachten onderbelicht: ambtelijke belangen die zichzelf reproduceren, rechterlijke macht, deelstaten, en de rol van kiezers die bewust voor bepaalde uitkomsten kiezen.</p>
+      <p>Het boek voorspelt veel en preciseert weinig. Er staat geen maatstaf in waaraan te toetsen valt wanneer de door hem geschetste toestand is bereikt, wat de lezer overlaat aan de eigen indruk.</p>
+      <p>Sinds de heruitgave van 2014 wordt het boek door uiteenlopende politieke kampen aangehaald om de eigen tegenstander te typeren. Die veelzijdigheid in het gebruik wijst op de rekbaarheid van het begrip dat Gross introduceerde.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vervang bij het lezen het woord fascisme telkens door de beschrijving die Gross zelf geeft, en kijk of het betoog dan nog staat.</li>
+        <li>Toets zijn stelling met concrete gevallen: kijk wie in een dossier de tekst van een wet leverde, wie de deskundigen betaalde en waar de betrokkenen daarna gingen werken.</li>
+        <li>Gebruik zijn onderscheid tussen de vorm en de werking van een instelling bij het beoordelen van verkiezingen, toezicht en openbaarheid.</li>
+        <li>Let op het verschil tussen een gedocumenteerde vaststelling en een geschetste toekomst; het boek wisselt daar zonder waarschuwing tussen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Friendly Fascism: The New Face of Power in America</i> (M. Evans and Company, New York, 1980, 410 blz., ISBN 0871313170; heruitgave South End Press, 1982, ISBN 9780896081499; heruitgave in de reeks Forbidden Bookshelf, 2014, met een inleiding van Mark Crispin Miller). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Politieke analyse van Bertram Gross (1912-1997), sociaal wetenschapper en oud-ambtenaar die de Amerikaanse werkgelegenheidswetten van 1944 tot 1946 opstelde, van 1946 tot 1952 secretaris was van de economische adviesraad van de president en later hoogleraar in New York. Zijn stelling is dat de Verenigde Staten geen gewelddadige machtsgreep hoeven te vrezen zoals Italië, Duitsland en Japan die kenden, maar een langzame versmelting van grote bedrijven en grote overheid, met verkiezingen, rechtbanken en vrije pers nog op hun plaats.</p><p>Het boek behandelt eerst het klassieke fascisme, dan de opkomst van wat Gross de nieuwe ondernemingssamenleving noemt, met de vermogenden en bestuurders die hij samen het Establishment noemt, en ten slotte het beeld van een vriendelijke variant die met beheer, informatie en spektakel werkt in plaats van met knokploegen. Het slot gaat over de vraag wat daar tegenover te zetten valt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>macht</li><li>democratie</li><li>fascisme</li><li>verenigde staten</li><li>politieke analyse</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="566"><a href="566.html">Manufacturing Consent</a>. Herman en Chomsky werkten acht jaar later uit hoe de nieuwsvoorziening zonder censuur toch binnen grenzen blijft, precies het mechanisme dat Gross veronderstelt.</li>
+          <li value="54"><a href="54.html">Amusing Ourselves to Death</a>. Postman beschrijft dezelfde jaren vanuit het medium en komt tot een verwante uitkomst: vermaak dat het politieke oordeel verdringt.</li>
+          <li value="61"><a href="61.html">Brave New World</a>. Huxley schetste in romanvorm de beheerste samenleving die met welvaart en genot werkt, het beeld waaraan Gross zijn vriendelijke variant ontleent.</li>
+          <li value="221"><a href="221.html">The Dictator's Handbook</a>. Bueno de Mesquita en Smith geven het koele tegenmodel: macht verklaard uit het aantal mensen dat een heerser nodig heeft, zonder beroep op ideologie.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

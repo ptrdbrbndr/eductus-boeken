@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Side Effects: Death &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Virapen betoogt dat de farmaceutische bedrijfstak niet incidenteel ontspoort maar structureel is ingericht op verkoop, en dat de instanties die daar…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-697">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">697 &middot; Geschiedenis en samenleving</p>
+    <h1>Side Effects: Death</h1>
+    <p class="lede">John Virapen, 2010</p>
+    <p class="stats">
+      <span><b>1563</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="697"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Virapen betoogt dat de farmaceutische bedrijfstak niet incidenteel ontspoort maar structureel is ingericht op verkoop, en dat de instanties die daar tegenwicht aan moeten geven, de toezichthouders, de hoogleraren en de behandelend artsen, in de praktijk zijn ingekocht. Hij ondersteunt die stelling met zijn eigen loopbaan als bewijsstuk: hij zegt zelf betaald, gestuurd en verhuld te hebben, en presenteert dat als de normale gang van zaken en niet als een uitzondering. De zwaarste bewering is dat hij de Zweedse goedkeuring van fluoxetine heeft bevorderd door een deskundige te betalen en door zelfmoordpogingen in het onderzoeksmateriaal onder een andere noemer te laten brengen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Hoe hij werd wat hij was</h3>
+      <p>De eerste hoofdstukken zijn autobiografisch. Virapen groeide op in Brits-Guyana in armoede, kwam naar Europa, vond werk als vertegenwoordiger en klom binnen de bedrijfstak op tot landendirecteur. Die achtergrond doet er in het boek toe, want hij verklaart zijn latere gedrag mede uit de wil om erbij te horen en uit de angst terug te vallen. Hij schetst zichzelf niet als held maar als iemand die deed wat er van hem gevraagd werd zolang de beloning volgde.</p>
+      <h3>Het vak van verkopen</h3>
+      <p>Een groot deel van het boek gaat over de methoden waarmee voorschrijfgedrag wordt beïnvloed. Virapen beschrijft congresreizen, adviseurschappen, sponsoring van nascholing en de rol van de deskundige die als onafhankelijke stem optreedt terwijl hij van het bedrijf betaald wordt. Hij noemt dat kopen van artsen, en het hoofdstuk met die titel is het meest systematische deel van het boek.</p>
+      <p>Daarnaast beschrijft hij hoe de omschrijving van een ziektebeeld verkoop kan scheppen. Zijn voorbeeld is de verschuiving waarbij gewone somberheid, verlegenheid of drukte bij kinderen een medische naam krijgt en daarmee een indicatie wordt. Hij verbindt dat aan de rol die door bedrijven gefinancierde psychiaters spelen bij het opstellen van classificaties.</p>
+      <h3>Benoxaprofen en de eerste barst</h3>
+      <p>Een apart hoofdstuk gaat over benoxaprofen, in Europa verkocht als Opren en in de Verenigde Staten als Oraflex, een ontstekingsremmer van Eli Lilly die in augustus 1982 van de markt werd gehaald na meldingen van ernstige lever- en nierschade, vooral bij ouderen. Dat verhaal is los van Virapen gedocumenteerd: het bedrijf pleitte in 1985 schuldig aan vijfentwintig aanklachten wegens het niet melden van sterfgevallen en ernstige bijwerkingen aan de Amerikaanse toezichthouder, met een boete die naar de maatstaven van vandaag symbolisch was.</p>
+      <p>Virapen gebruikt de zaak om te laten zien wat er volgens hem intern gebeurde toen de meldingen binnenkwamen. Dat deel van zijn verhaal is niet zelfstandig te controleren, maar de uitkomst van de zaak staat vast.</p>
+      <h3>Het Prozac-verhaal</h3>
+      <p>Het zwaartepunt van het boek is de registratie van fluoxetine in Zweden in de jaren tachtig. De Zweedse toezichthouder stond bekend als streng op het gebied van psychiatrische middelen en zag naar zijn zeggen weinig in het dossier: te kort onderzocht, te weinig effect en zorgwekkende meldingen over zelfmoordneiging. Virapen beschrijft hoe zijn hoofdkantoor duidelijk maakte dat zijn positie afhing van de goedkeuring.</p>
+      <p>Zijn kernbewering is dat hij een Zweedse hoogleraar betaalde die als beoordelaar bij de procedure betrokken was, en dat gevallen van zelfmoordpoging in het proefmateriaal onder een andere noemer werden gebracht, zodat de bijwerking uit het overzicht verdween. Het hoofdstuk met de aanduiding van een onderzoeksprotocol behandelt de gegevens die daarbij aan de orde waren.</p>
+      <h3>Serotonine, rechtszaken en kinderen</h3>
+      <p>In het hoofdstuk over wat hij de serotoninezwendel noemt, betwist Virapen de gedachte dat depressie berust op een tekort aan een boodschapperstof en dat het middel dat tekort aanvult. Hij stelt dat die verklaring vooral als verkoopverhaal diende. Andere hoofdstukken volgen de rechtszaken rond fluoxetine in de Verenigde Staten en de introductie in Duitsland.</p>
+      <p>Het slot van het boek gaat over middelen voor kinderen, met atomoxetine als voorbeeld: volgens Virapen een stof die eerder als antidepressivum tekortschoot en daarna een tweede leven kreeg bij een andere aandoening. Hij verbindt daaraan zijn persoonlijke motief, de zorg om zijn eigen jonge kind.</p>
+      <h3>Wat vaststaat en wat op zijn woord rust</h3>
+      <p>Rond de bedrijfstak in het algemeen is veel van wat Virapen beschrijft langs andere weg vastgesteld. Eli Lilly betaalde in januari 2009 ruim anderhalf miljard dollar in een schikking met het Amerikaanse ministerie van Justitie wegens het aanprijzen van olanzapine voor niet goedgekeurde toepassingen, waaronder dementie bij ouderen, met een strafrechtelijke boete van vijfhonderdvijftien miljoen dollar. De Amerikaanse toezichthouder legde in 2004 een zwaarste waarschuwing op aan antidepressiva vanwege zelfmoordgedachten bij jongeren.</p>
+      <p>Zijn eigen omkopingsverhaal ligt anders. Er is geen strafzaak geweest, geen bewaard bewijsstuk, geen tweede getuige die de betaling bevestigt. Virapen verwees naar Zweedse persberichtgeving en bood aan onder ede te verklaren. Bovendien had hij eerder een procedure tegen zijn oud-werkgever gevoerd wegens onterecht ontslag en discriminatie, die hij in 1995 verloor omdat hij zijn zaak niet bewees. Dat maakt zijn verhaal niet onwaar, maar het geeft hem een belang dat een lezer moet meewegen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">opinieleider</td><td>De hoogleraar of specialist wiens oordeel het voorschrijfgedrag van collega's stuurt en die daarom door bedrijven wordt aangetrokken als adviseur of spreker.</td></tr>
+          <tr><td class="term">ziekte verkopen</td><td>Het oprekken of benoemen van een aandoening zodat er een markt ontstaat voor een middel dat al bestaat.</td></tr>
+          <tr><td class="term">serotoninetekort</td><td>De verklaring van depressie als een tekort aan een boodschapperstof, door Virapen beschreven als een verkoopverhaal met een dunne wetenschappelijke basis.</td></tr>
+          <tr><td class="term">buiten de bijsluiter voorschrijven</td><td>Het aanprijzen of gebruiken van een middel voor een toepassing waarvoor het niet is goedgekeurd.</td></tr>
+          <tr><td class="term">herbenoemen van bijwerkingen</td><td>Het onder een andere noemer boeken van ongewenste gebeurtenissen in proefgegevens, waardoor een bijwerking uit de statistiek verdwijnt.</td></tr>
+          <tr><td class="term">registratieprocedure</td><td>De beoordeling waarbij een nationale instantie besluit of een middel op de markt mag, in dit boek het punt waar volgens de auteur de beïnvloeding het meeste opleverde.</td></tr>
+          <tr><td class="term">landendirecteur</td><td>De functie die Virapen bekleedde, verantwoordelijk voor de omzet in één land en daarmee voor het halen van doelen die het hoofdkantoor stelde.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een memoir en geen onderzoek. Er is geen notenapparaat waarmee de lezer de beweringen kan natrekken, en de gebeurtenissen worden decennia na dato uit het geheugen verteld.</p>
+      <p>De achtergrond die Virapen schetst, is wel op onderdelen langs andere weg vastgesteld: de terugroeping van benoxaprofen in 1982 en de schuldigverklaring van Eli Lilly in 1985 wegens het niet melden van bijwerkingen, de schikking van 2009 over het aanprijzen van olanzapine buiten de goedgekeurde toepassing, en de waarschuwing die toezichthouders in 2004 aan antidepressiva verbonden vanwege zelfmoordgedachten bij jongeren.</p>
+      <p>De specifieke beschuldiging over de Zweedse registratie staat los van dat alles. Zij is nooit in een procedure getoetst, de betrokken hoogleraar wordt in het boek niet met naam en bewijsstuk aan de betaling gekoppeld, en er is geen documentatie van de betaling openbaar gemaakt.</p>
+      <p>Virapens eerdere, verloren rechtszaak tegen zijn oud-werkgever hoort tot het beeld. Zij verklaart niet vanzelf wat hij schrijft, maar zij geeft hem een motief dat elke lezer in de weging moet betrekken.</p>
+      <p>De ontvangst van het boek is een tweede aandachtspunt. Het werd meteen omarmd door de aan Scientology verbonden organisatie die campagne voert tegen de psychiatrie, die er een persbericht aan wijdde. Virapen heeft banden met die beweging ontkend. Wie het boek beoordeelt, doet er goed aan de inhoud los te zien van wie ermee schermde.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het grootste bezwaar is de bewijslast. Een insider die stelt dat hij een toezichtprocedure heeft omgekocht, beschrijft een misdrijf waaraan hij zelf deelnam. Dat verdient onderzoek, geen aanname. Het boek levert de aanname en niet het onderzoek.</p>
+      <p>De redenering springt herhaaldelijk van een concreet geval naar een algemene uitspraak over de gehele bedrijfstak. Uit een omkoping in één land in de jaren tachtig volgt niet dat toezichthouders in het algemeen te koop zijn, en uit ondeugdelijke marketing volgt niet dat de middelen zelf niet werken.</p>
+      <p>De toon is die van een aanklacht en de auteur weegt zijn eigen materiaal niet. Waar de bedrijfstak fouten maakte, komt dat uitvoerig aan bod; waar geneesmiddelen aantoonbaar levens verlengen, blijft het stil. Dat maakt het boek eenzijdig als beeld van de sector.</p>
+      <p>Stijl en opbouw zijn rommelig. Herhalingen, sprongen in de tijd en uitweidingen maken lastig na te gaan waar een bewering vandaan komt, ook voor wie de auteur het voordeel van de twijfel gunt.</p>
+      <p>De onderwerpen die hij aansnijdt, zijn intussen door onderzoekers grondiger behandeld dan hij zelf doet, met bronvermelding en cijfers. Wie de zaak wil doorgronden in plaats van er verontwaardigd over te raken, heeft aan dit boek weinig genoeg.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Scheid bij het lezen de gedocumenteerde zaken van de persoonlijke beschuldigingen; de eerste zijn na te trekken in rechtbank- en toezichtdossiers, de tweede rusten op één getuige.</li>
+        <li>Vraag bij elke deskundige die in het publieke debat over een middel spreekt, wie het onderzoek en het spreekhonorarium betaalde.</li>
+        <li>Lees bij een bericht over een nieuw middel de opzet van het onderzoek: hoe lang, bij wie, met welke uitkomstmaat en met welke vergelijkingsgroep.</li>
+        <li>Houd de bewijslast gelijk: wie de bedrijfstak van fraude beschuldigt, moet dezelfde onderbouwing leveren als hij van de bedrijfstak eist.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Side Effects: Death. Confessions of a Pharma-Insider</i> (Virtualbookworm.com Publishing, 2010, 252 blz., ISBN 9781602645165). Nederlandse uitgave: <i>Bijwerkingen, waarvan sommige dodelijk kunnen zijn. Het ware gezicht van de farmaceutische industrie</i> (Succesboeken.nl, Den Dolder, 2010, 264 blz., ISBN 9789079872138).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Memoir van John Virapen, die vijfendertig jaar in de farmaceutische industrie werkte en in de jaren tachtig directeur was van Eli Lilly in Zweden. Hij beschrijft zijn loopbaan van vertegenwoordiger tot landendirecteur en beschuldigt de bedrijfstak van het kopen van artsen, het wegmoffelen van ongunstige onderzoeksuitkomsten en het optuigen van aandoeningen om middelen aan kwijt te kunnen. De kern van het boek is zijn eigen bekentenis: hij zegt de Zweedse registratie van fluoxetine, beter bekend als Prozac, te hebben bevorderd door een hoogleraar te betalen en door zelfmoordgevallen uit de proefgegevens anders te laten benoemen.</p><p>Het boek is een aanklacht en tegelijk een zelfbeschuldiging. Wat de bedrijfstak in het algemeen betreft, staan er zaken in die uit rechtszaken en toezichtdossiers bekend zijn. Wat zijn eigen omkopingsverhaal betreft, rust vrijwel alles op zijn woord: er is geen veroordeling, geen bewaard document, geen tweede getuige. De lezer krijgt een geloofwaardig geschetste wereld te zien en een verteller met een eigen rekening.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>farmaceutische industrie</li><li>klokkenluider</li><li>geneesmiddelen</li><li>memoir</li><li>belangenverstrengeling</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="328"><a href="328.html">The Prince of Medicine</a>. Mattern laat zien hoe oud de vermenging van geneeskunde, gezag en verkoop is, en hoe de arts als handelaar in vertrouwen altijd al functioneerde.</li>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. Sagan geeft de maatstaven waarmee een beschuldiging als deze te wegen valt zonder haar bij voorbaat af te wijzen of te geloven.</li>
+          <li value="60"><a href="60.html">Trust Me, I'm Lying</a>. Holiday beschrijft van binnenuit hoe berichtgeving te sturen valt, wat verklaart hoe zowel een middel als een aanklacht ertegen in het nieuws komt.</li>
+          <li value="413"><a href="413.html">A Crack in Creation</a>. Doudna en Sternberg tonen hoe onderzoekers zelf omgaan met de commerciële druk op hun vakgebied, een tegenwicht tegen het beeld van dit boek.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
