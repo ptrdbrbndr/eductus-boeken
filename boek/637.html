@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Real Magic &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Bonewits stelt dat magie werkelijk bestaat, mits juist gedefinieerd: geen bovennatuurlijk ingrijpen, maar het gericht inzetten van paranormale vermogens…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-637">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">637 &middot; Filosofie en mystiek</p>
+    <h1>Real Magic</h1>
+    <p class="lede">Isaac Bonewits, 1971</p>
+    <p class="stats">
+      <span><b>1216</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="637"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Bonewits stelt dat magie werkelijk bestaat, mits juist gedefinieerd: geen bovennatuurlijk ingrijpen, maar het gericht inzetten van paranormale vermogens die in ieder mens sluimeren, versterkt door emotie, concentratie en ritueel. Magie is in zijn woorden volkse parapsychologie: overal ter wereld hebben mensen dezelfde onderliggende wetmatigheden ontdekt en in eigen cultuurvormen gegoten. Wie die wetten expliciet maakt, kan magische tradities vergelijken, rituelen ontleden en het verschijnsel onderzoeken zoals elk ander natuurverschijnsel. De gangbare scheidslijnen, wit tegenover zwart, religie tegenover toverij, wetenschap tegenover occultisme, berusten volgens hem op vooroordeel en niet op waarneming.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Definities en opgeruimde etiketten</h3>
+      <p>Het boek opent met begripsverheldering. Termen als occult, bovennatuurlijk en zwarte magie worden ontleed en grotendeels afgedankt: bovennatuurlijk noemt Bonewits een leeg woord, want wat bestaat is per definitie natuurlijk, en de indeling in witte en zwarte magie is volgens hem vooral een oordeel van de spreker over andermans bedoelingen. In plaats daarvan stelt hij een indeling naar kleur voor, waarin elk werkterrein van de magie een eigen kleur krijgt. Zijn eigen terrein, de magie van het verstand en de wetenschappelijke analyse, noemt hij gele magie, vandaar de ondertitel van het boek.</p>
+      <h3>De wetten van de magie</h3>
+      <p>Het hart van het boek is de eerste systematische formulering van de Laws of Magic, gedistilleerd uit volkenkundig en occult materiaal van over de hele wereld. Tot de bekendste horen de wet van de kennis (weten is macht over het gekende), de wet van de zelfkennis, de wet van de namen, de wet van de machtswoorden, en de van Frazer overgenomen wetten van gelijkenis en besmetting: wat op iets lijkt kan erop inwerken, en wat met iets in aanraking is geweest houdt er verbinding mee. Daarnaast beschrijft hij onder meer associatie, personificatie, identificatie, invocatie en evocatie. De wetten zijn bedoeld als beschrijvend gereedschap waarmee elke magische traditie, van voodoopop tot gebed, in dezelfde termen ontleed kan worden.</p>
+      <h3>Paranormale verschijnselen langsgelopen</h3>
+      <p>Vervolgens inventariseert Bonewits het verschijnselengebied dat zijn theorie moet dragen: telepathie, helderziendheid, voorschouw, psychokinese, poltergeistverschijnselen en het laboratoriumonderzoek van de parapsychologie, met de kaartproeven van J.B. Rhine als bekendste voorbeeld. Zijn stelling is dat deze onderzoekslijn de fysieke basis van magie aannemelijk maakt: rituelen zouden technieken zijn om dergelijke vermogens op te wekken en te richten. Hij bespreekt daarnaast oosters materiaal, waaronder tantra, en westerse waarzegsystemen zoals de tarot, telkens als cultuurspecifieke verpakking van dezelfde onderliggende vermogens.</p>
+      <h3>Het schakelbord en de goden</h3>
+      <p>Voor religieuze verschijnselen introduceert Bonewits een eigen model, het schakelbord: een netwerk waarin alle menselijke geesten met elkaar in verbinding staan. Goden en geesten zijn in dit model knooppunten van gebundelde aandacht en emotie, door generaties gelovigen opgeladen. Bidden en offeren zijn dan geen contact met zelfstandige wezens maar het aanspreken van zulke knooppunten. Het model verklaart voor hem waarom goden werkzaam kunnen zijn voor wie erin gelooft, zonder dat hun zelfstandig bestaan aangenomen hoeft te worden.</p>
+      <h3>De anatomie van het ritueel</h3>
+      <p>Het slotdeel past alles toe op de vraag hoe een werkend ritueel in elkaar zit. Bonewits ontleedt het ritueel psychologisch: afbakening van tijd en plaats, opbouw van emotionele lading door muziek, dans, symboliek of vasten, het richten van die lading op een helder omschreven doel, en de ontlading op het hoogtepunt. Elke geslaagde ceremonie, religieus of magisch, volgt volgens hem dit patroon. Het boek sluit af met een pleidooi om magie serieus te onderzoeken en met waarschuwingen tegen zowel gelovige goedgelovigheid als reflexmatige afwijzing. De herziene uitgave van 1979, opnieuw uitgebracht in 1989, voegde voorwoorden en correcties toe maar liet de opzet ongewijzigd; de wetten zelf werkte Bonewits verder uit in zijn spelregelboek <i>Authentic Thaumaturgy</i> uit 1978.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">gele magie</td><td>Bonewits' term voor de magie van het verstand: analyse, studie en wetenschappelijke benadering van het magische bedrijf.</td></tr>
+          <tr><td class="term">Laws of Magic</td><td>Zijn verzameling beschrijvende wetmatigheden die magische overtuigingen uit alle culturen in één kader ordenen.</td></tr>
+          <tr><td class="term">wet van gelijkenis</td><td>Het beginsel dat wat op iets lijkt, magisch op dat iets kan inwerken, zoals een pop op de afgebeelde persoon.</td></tr>
+          <tr><td class="term">wet van besmetting</td><td>Het beginsel dat zaken die in aanraking zijn geweest met elkaar verbonden blijven, zoals haar of kleding met de eigenaar.</td></tr>
+          <tr><td class="term">wet van de namen</td><td>Het beginsel dat kennis van de ware naam van iets macht over dat iets geeft.</td></tr>
+          <tr><td class="term">schakelbord</td><td>Bonewits' model van een netwerk dat alle geesten verbindt, waarin goden knooppunten van gebundelde menselijke aandacht zijn.</td></tr>
+          <tr><td class="term">volkse parapsychologie</td><td>Zijn omschrijving van magie: het praktische, voorwetenschappelijke gebruik van vermoede paranormale vermogens.</td></tr>
+          <tr><td class="term">invocatie en evocatie</td><td>Het aanroepen van een macht binnen de eigen geest tegenover het oproepen van een verschijning daarbuiten.</td></tr>
+          <tr><td class="term">wet van de pragmatiek</td><td>Het beginsel dat een overtuiging die werkt binnen haar eigen verband als waar mag gelden, ongeacht haar herkomst.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het betoog rust op twee pijlers van ongelijke sterkte. De eerste is volkenkundig: dat magische praktijken wereldwijd dezelfde patronen volgen, is goed gedocumenteerd en al door Frazer beschreven. Als beschrijvend kader voor wat mensen geloven en doen zijn de Laws of Magic bruikbaar en worden ze tot op heden in studies van hedendaags heidendom aangehaald. De tweede pijler is de parapsychologie van de jaren vijftig en zestig, vooral het kaart- en dobbelsteenonderzoek van Rhine, dat Bonewits als voorlopig bewijs van paranormale vermogens aanvaardt.</p>
+      <p>Die tweede pijler is sindsdien weggezakt. De resultaten van Rhine en navolgers bleken bij replicatie onder streng toezicht te verdampen; methodologische fouten en fraudegevallen ondermijnden het veld, en meer dan een halve eeuw later is er geen enkel paranormaal vermogen onder gecontroleerde omstandigheden aangetoond. Daarmee mist de kernclaim van het boek, magie als toepasbare paranormale techniek, empirische grond. Wat overeind blijft is de psychologie van het ritueel: dat ceremonieën emotie opbouwen en richten, en daarmee werkelijke effecten op deelnemers hebben, is onomstreden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar richt zich op de titelclaim: echte magie in de zin van meetbare werking op afstand is nooit aangetoond, en Bonewits' beroep op de parapsychologie leest een halve eeuw later als een gok op het verkeerde paard. Zijn eigen toetsingscriterium, dat magie zich als wetenschap moet laten onderzoeken, valt daarmee in zijn nadeel uit: het onderzoek is gedaan en leverde niets op. De spottende toon waarmee hij sceptici en gelovigen beide de maat neemt, verhult soms dat zijn eigen bewijsvoering op dezelfde zwakke bronnen leunt.</p>
+      <p>Daar staat tegenover dat het boek als ordening en als cultuurdocument zijn waarde houdt. De wetten van de magie zijn een heldere taal om magisch denken te beschrijven, ook voor wie er geen werkelijkheid achter vermoedt, en de rituele analyse in het slotdeel is bruikbare psychologie. Historisch markeert het boek bovendien het begin van een levensloop die het Amerikaanse neopaganisme mede vormde: Bonewits stichtte in 1983 de druïdenorde Ár nDraíocht Féin en bleef tot zijn dood in 2010 pleiten voor een onderzoekende houding binnen de eigen beweging.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik de wetten van de magie als analysekader bij het lezen van etnografie, occulte literatuur of fantasy: benoem per praktijk welke wet er wordt verondersteld.</li>
+        <li>Ontleed een willekeurige ceremonie, van kerkdienst tot bedrijfsevenement, met Bonewits' rituele anatomie: afbakening, opbouw van lading, richting, ontlading.</li>
+        <li>Toets elke claim over paranormale werking aan de replicatie-eis die Bonewits zelf stelt, en aan wat het onderzoek sindsdien heeft opgeleverd.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Real Magic: An Introductory Treatise on the Basic Principles of Yellow Magic</i> (Coward, McCann &amp; Geoghegan, New York, 1971; herziene editie Samuel Weiser, York Beach, 1989, xxi + 282 blz., ISBN 9780877286882). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Philip Emmons Isaac Bonewits (1949-2010) studeerde in 1970 aan de universiteit van Berkeley af met een zelf samengestelde bachelor in magie, en werkte die studie uit tot dit boek. Zijn stelling: magie is geen bovennatuur maar toegepaste paranormale begaafdheid, te beschrijven met wetten en in beginsel wetenschappelijk te onderzoeken. Hij ruimt de morele etiketten zwarte en witte magie op, ordent magische overtuigingen uit vele culturen in zijn Laws of Magic, loopt het parapsychologische onderzoek van zijn tijd langs en analyseert hoe een ritueel psychologisch werkt.</p><p>Het boek werd een klassieker in neopaganistische kringen en Bonewits, later oprichter van de druïdenorde Ár nDraíocht Féin, een centrale figuur in die beweging. De wetenschappelijke belofte is nooit ingelost: de parapsychologische resultaten waarop het betoog leunt, zijn onder gecontroleerde omstandigheden niet gerepliceerd. Als ordening van magisch denken blijft het werk verhelderend.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>magie</li><li>occultisme</li><li>parapsychologie</li><li>neopaganisme</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. The Demon-Haunted World geeft de sceptische toets waar de paranormale claims uit dit boek niet doorheen komen.</li>
+          <li value="378"><a href="378.html">The Kybalion</a>. The Kybalion presenteert een oudere set magische wetten, als openbaring in plaats van als hypothese.</li>
+          <li value="340"><a href="340.html">The Holographic Universe</a>. The Holographic Universe doet een latere poging om paranormale verschijnselen wetenschappelijk in te bedden.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

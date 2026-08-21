@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 21
-augustus 2026: 626 titels in 20 rubrieken.
+augustus 2026: 631 titels in 20 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -30,7 +30,7 @@ bij de volgende build verloren.
 | Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347, 383, 413, 539, 555, 649, 650, 651, 653, 659, 660, 661, 662 |
 | Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102, 108, 117, 127, 128, 129, 130, 131, 132, 136, 139, 179, 184, 188, 190, 196, 259, 340, 362, 378, 380, 403, 433, 543, 548, 549, 559, 560 |
 | Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122, 327, 421, 437, 456, 477, 478, 493, 495, 497, 498, 500, 504, 506, 507 |
-| Filosofie en mystiek | wijsgerige hoofdwerken en mystieke teksten over wat werkelijk is en hoe te leven | 572, 573, 574, 576, 577, 578, 580, 581, 582, 584, 587, 590, 596, 603, 604, 605, 606, 608, 609, 610, 611, 612, 613, 614, 615, 630, 631, 632, 633, 634, 652 |
+| Filosofie en mystiek | wijsgerige hoofdwerken en mystieke teksten over wat werkelijk is en hoe te leven | 572, 573, 574, 576, 577, 578, 580, 581, 582, 584, 587, 590, 596, 603, 604, 605, 606, 608, 609, 610, 611, 612, 613, 614, 615, 630, 631, 632, 633, 634, 635, 636, 637, 638, 639, 652 |
 | Staat en vrijheid | politieke denkers over macht, gezag en het vrije individu | 616, 617, 619, 620, 621, 622, 623, 624, 625, 626, 627, 628, 629 |
 
 Een titel kan in één rubriek staan en toch tags uit een andere dragen. De tags
@@ -122969,6 +122969,902 @@ traditie beroept.
 tussen een persoonlijk gekleurd maar controleerbaar overzichtswerk en
 geschiedenis als geloofsbelijdenis.
 
+## 635. Freemasonry and the Ancient Gods
+
+J.S.M. Ward, 1921. *Freemasonry and the Ancient Gods* (Simpkin, Marshall,
+Hamilton, Kent & Co., Londen, 1921, xxii + 374 blz., met een inleiding van Sir
+John A. Cockburn; verschenen voor de invoering van het ISBN, latere
+fotografische herdrukken bij onder meer Kessinger). Geen Nederlandse vertaling
+gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse
+editie gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `vrijmetselarij`, `esoterie`, `vergelijkende mythologie`, `symboliek`
+
+John Sebastian Marlow Ward (1885-1949), Engels auteur en verzamelaar van
+maçonniek materiaal, betoogt in dit boek dat de vrijmetselarij in rechte lijn
+afstamt van de inwijdingsriten van de prehistorische mens. Als bewijs voert
+hij overeenkomsten aan tussen maçonnieke tekens, grepen en symbolen en
+gebruiken die hij aantrof bij derwisj-ordes, in de hindoeïstische godenwereld,
+bij Afrikaanse en Australische inwijdingsriten en in de antieke
+mysteriecultussen. Deel I behandelt die parallellen, deel II de hogere graden,
+deel III de oude wijsheid die volgens Ward in het ritueel bewaard bleef.
+
+Het boek is een hoofdwerk van de zogenoemde antropologische school in de
+maçonnieke geschiedschrijving. Vakhistorici van de vrijmetselarij verwerpen de
+methode: gelijkende gebaren bewijzen geen historische afstamming, en de
+documenteerbare lijn voert naar middeleeuwse bouwgilden, niet naar
+prehistorische riten. Als tijdsdocument van het esoterische denken rond 1920
+blijft het leesbaar.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Ward stelt dat de moderne vrijmetselarij geen
+achttiende-eeuwse uitvinding is en evenmin louter een voortzetting van
+middeleeuwse bouwgilden, maar de jongste schakel in een ononderbroken keten
+van inwijdingsriten die teruggaat tot de prehistorische mens. De
+mysteriecultussen van de oudheid, de godsdiensten van India en het Nabije
+Oosten en de riten van volken in Afrika, Amerika en Australië zouden allemaal
+takken van dezelfde stam zijn. Het bewijs zoekt hij in de wereldwijde
+verspreiding van herkenbaar dezelfde tekens, grepen en symbolen: waar
+hetzelfde gebaar bij volken zonder onderling contact dezelfde betekenis
+draagt, moet volgens Ward een gemeenschappelijke oorsprong liggen.
+
+#### De gang van het boek
+
+**Opzet en methode**
+
+Het boek opent met een inleiding van Sir John A. Cockburn, oud-premier van
+Zuid-Australië en vooraanstaand vrijmetselaar, die Wards vergelijkende aanpak
+aanbeveelt. Ward zelf zet in dat de gangbare geschiedschrijving, die de
+vrijmetselarij laat beginnen bij de oprichting van de Grand Lodge in Londen in
+1717 en de operatieve bouwgilden daarvoor, het eigenlijke raadsel onaangeroerd
+laat: waarom een genootschap van bouwers een volledig uitgewerkt stelsel van
+inwijding, dood- en opstandingssymboliek bezit. Zijn methode is die van de
+vergelijkende volkenkunde van zijn tijd: parallellen verzamelen en uit
+gelijkenis afstamming afleiden.
+
+**Parallellen in het Oosten**
+
+Deel I begint met de vaststelling dat er onder islamitische derwisj-ordes een
+stelsel van graden, tekens en grepen bestaat dat sterk aan de vrijmetselarij
+doet denken. Daarna volgt India: Ward legt maçonnieke symbolen naast de
+iconografie van hindoegoden en betoogt dat houdingen en attributen uit de
+tempelkunst overeenkomen met de tekens van de drie graden. Aparte hoofdstukken
+betrekken de Royal Arch, de verloren betekenis van bepaalde tekens, de letter
+G en de Mark-graad in het betoog. Telkens is de redenering dezelfde: de
+overeenkomst is te precies om toeval te zijn.
+
+**Tekens en grepen over de hele wereld**
+
+De volgende hoofdstukken breiden het bewijsmateriaal uit naar Afrika, Amerika,
+Australazië en het oude Europa. Ward, die jaren in Brits-Malakka werkte en
+materiaal over geheime genootschappen verzamelde, beschrijft inwijdingsriten
+van jongensgenootschappen, stamverbonden en priestercolleges waarin hij
+maçonnieke tekens herkent. Uit deze wereldwijde oogst concludeert hij dat de
+bron niet in een bepaalde cultuur ligt, maar in de oertijd van de mensheid
+zelf, bij riten rond dood en wedergeboorte die met de verspreiding van de mens
+zijn meegereisd.
+
+**De afstammingslijn**
+
+In de slothoofdstukken van deel I schetst Ward de lijn die volgens hem naar de
+moderne loge voert: van prehistorische inwijdingsriten via de
+mysteriecultussen van Egypte, Griekenland en het Nabije Oosten naar de
+Romeinse bouwcolleges, en vandaar via de middeleeuwse bouwgilden naar de
+speculatieve vrijmetselarij. De gilden zijn in deze visie geen oorsprong maar
+doorgeefluik: het ambacht bood een beschermde omgeving waarin een veel oudere
+rituele erfenis kon overwinteren. Het hoofdstuk over de mythos werkt uit hoe
+het centrale drama van de derde graad past in het patroon van de stervende en
+herrijzende god.
+
+**Hogere graden en oude wijsheid**
+
+Deel II past dezelfde methode toe op de hogere graden en zijgraden:
+kruissymboliek, tempelierstradities en ridderlijke graden worden herleid tot
+oudere religieuze motieven, waarbij Ward onder meer betoogt dat de
+kruistochten en de daarop volgende ridderordes oosterse inwijdingsgebruiken
+opnieuw naar Europa brachten. Deel III trekt de conclusies: de vrijmetselarij
+bewaart volgens Ward fragmenten van een oeroude wijsheidsleer over de ziel, de
+dood en de wedergeboorte, en juist die erfenis geeft de orde haar
+bestaansrecht in een tijd van materialisme. Het boek eindigt met een pleidooi
+om het ritueel niet te moderniseren maar te bestuderen, omdat elke
+ondoordachte wijziging een schakel met het verleden kan vernietigen.
+
+**Ontvangst**
+
+Het boek verkocht goed; de eerste druk raakte snel uitverkocht en rond 1926
+volgde een tweede. Binnen de vrijmetselarij werd het door de esoterisch
+gestemde vleugel omarmd en door de historisch werkende onderzoekers afgewezen,
+een tweedeling die de receptie van Wards hele oeuvre zou blijven bepalen.
+Samen met zijn latere studies over geheime genootschappen, waaronder een
+driedelig werk over de Chinese Hung-genootschappen, vestigde het zijn naam als
+belezen maar onkritische verzamelaar.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| inwijdingsriten | Plechtigheden waarmee een kandidaat door een symbolische dood en wedergeboorte in een genootschap wordt opgenomen, volgens Ward de oervorm van alle religie. |
+| tekens en grepen | De herkenningsgebaren en handdrukken van de vrijmetselarij, die Ward wereldwijd bij andere volken meent terug te vinden. |
+| mysteriën | Antieke geheime cultussen met gegradeerde inwijding, in Wards betoog de tussenschakel tussen prehistorische riten en de moderne loge. |
+| operatieve en speculatieve vrijmetselarij | Het onderscheid tussen de middeleeuwse bouwvakgilden en de latere symbolische orde die hun werktuigen als zinnebeelden gebruikt. |
+| Royal Arch | Aanvullende graad op de meestergraad, die volgens Ward oosterse leerstukken over het godsbegrip bewaart en daarmee zijn afstammingsthese steunt. |
+| de letter G | Symbool in de loge, gangbaar gelezen als God en geometrie, waaraan Ward een oudere, oosterse betekenislaag toeschrijft. |
+| mythos | Het centrale rituele drama van de derde graad, door Ward geduid als variant van het wijdverbreide verhaal van de stervende en herrijzende god. |
+| antropologische school | Richting in de maçonnieke geschiedschrijving die de oorsprong van de orde zoekt in algemeen menselijke riten in plaats van in schriftelijke bronnen. |
+| Mark-graad | Zijgraad rond het merkteken van de steenhouwer, door Ward aangevoerd als bewaarplaats van bijzonder oude symboliek. |
+| derwisj-ordes | Islamitische broederschappen met eigen graden en herkenningstekens, voor Ward het eerste bewijs dat het maçonnieke stelsel geen Europese uitvinding is. |
+
+#### Waar het argument op rust
+
+Het bewijsmateriaal bestaat vrijwel geheel uit parallellen: afbeeldingen,
+reisverslagen, etnografische literatuur en Wards eigen waarnemingen in Azië,
+naast elkaar gelegd met maçonnieke ritualen. Een schriftelijke bewijsketen
+ontbreekt en Ward erkent dat ook; zijn argument is cumulatief, de optelsom van
+vele gelijkenissen moet de conclusie dragen. De methode leunt op de
+vergelijkende school van James Frazer, die in Wards tijd gezag had.
+
+Daar staat tegenover dat de controleerbare feiten een andere kant op wijzen.
+De documenteerbare geschiedenis van de vrijmetselarij voert naar Schotse en
+Engelse bouwgilden vanaf de late middeleeuwen en naar de Londense Grand Lodge
+van 1717; voor een doorlopende lijn naar antieke mysteriën of prehistorische
+riten bestaat geen document. Gelijkende gebaren en
+dood-en-wedergeboortemotieven komen bovendien in zoveel culturen voor dat ze
+eerder iets zeggen over de menselijke verbeelding dan over historische
+afstamming.
+
+#### Wat er tegen in te brengen valt
+
+Vakhistorici van de vrijmetselarij, verenigd in de zogeheten authentieke
+school rond onderzoeksloges als Quatuor Coronati, verwerpen Wards these. Hun
+bezwaar is methodisch: overeenkomst bewijst geen verwantschap, en wie
+wereldwijd naar driehoeken, handdrukken en opstandingsverhalen zoekt, vindt ze
+overal. De vergelijkende mythologie waarop Ward steunt is in de
+godsdienstwetenschap na Frazer grotendeels verlaten, juist vanwege dit soort
+ongecontroleerde parallellenjacht.
+
+Ook de auteur zelf maant tot voorzichtigheid: Ward was overtuigd spiritist,
+meende boodschappen van overledenen te ontvangen en stichtte later een eigen
+religieuze gemeenschap, de Confraternity of the Kingdom of Christ. Dat maakt
+het boek niet waardeloos, wel gekleurd: het wil aantonen wat de schrijver al
+geloofde. Blijvende waarde heeft het als goed geschreven tijdsdocument van de
+esoterische stroming binnen de vrijmetselarij van rond 1920, en als
+verzameling etnografisch materiaal dat op eigen merites te toetsen valt.
+
+#### Wat er concreet mee te doen is
+
+- Lees het boek als bron over hoe esoterisch ingestelde vrijmetselaars rond
+1920 hun eigen traditie duidden, niet als geschiedschrijving van die traditie.
+- Toets elke aangevoerde parallel afzonderlijk: gelijkenis van vorm bewijst
+geen gemeenschappelijke oorsprong.
+- Vergelijk Wards afstammingsverhaal met de documenteerbare gildegeschiedenis
+om het verschil tussen speculatieve en authentieke school scherp te krijgen.
+
+#### Wat je hierna leest
+
+- 410. the hero with a thousand faces. The Hero with a Thousand Faces past
+dezelfde vergelijkende methode toe op mythen, met dezelfde sterke en zwakke
+kanten.
+- 357. De mens en zijn symbolen. De mens en zijn symbolen biedt een
+psychologische verklaring voor terugkerende symbolen, zonder historische
+afstamming te veronderstellen.
+- 378. The Kybalion. The Kybalion toont een verwante esoterische beweging uit
+dezelfde periode die zich eveneens op oeroude wijsheid beriep.
+
+## 636. The Masonic Initiation
+
+W.L. Wilmshurst, 1924. *The Masonic Initiation* (John M. Watkins, Londen,
+1924, 223 blz.; herziene moderne editie bezorgd door Shawn Eyer bij
+Plumbstone, 2007, ISBN 9781603020022). Een Nederlandse vertaling verscheen in
+1930 als *De Maçonnieke Inwijding* (herdrukt 1977) en staat in de catalogus
+van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.
+Rubriek: filosofie en mystiek.
+Tags: `vrijmetselarij`, `mystiek`, `inwijding`, `symboliek`
+
+Walter Leslie Wilmshurst (1867-1939), Engels jurist en vrijmetselaar, schreef
+dit vervolg op zijn *The Meaning of Masonry* als handleiding voor wat hij de
+wetenschap van de inwijding noemt. Zijn kernonderscheid: de ceremoniële
+inwijding in de loge verleent op zichzelf niets; echte inwijding is een
+innerlijk proces van zuivering, zelfkennis en bewustzijnsverruiming waarvan
+het ritueel alleen de landkaart is. In vier hoofdstukken loopt hij het pad van
+duisternis naar licht door, leest hij de symbolen van de graden als
+aanwijzingen voor dat innerlijke werk en bepleit hij een geestelijke
+vernieuwing van de orde.
+
+Het boek geldt als hoofdwerk van de mystieke school binnen de vrijmetselarij
+en wordt daar nog altijd gelezen. Historisch bewijs voor zijn duiding levert
+Wilmshurst niet; hij leest een tijdloze mysterieleer in ritualen waarvan de
+documenteerbare wortels in de vroegmoderne tijd liggen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Wilmshurst stelt dat de vrijmetselarij naar haar wezen een
+mysterieschool is: een moderne, verzwakte voortzetting van de oude wetenschap
+van de inwijding, die de mens van het natuurlijke naar het geestelijke
+bewustzijn wil voeren. De ceremonie in de loge verleent die inwijding niet;
+zij beeldt haar slechts af. Wie het schootsvel draagt zonder innerlijke
+omvorming heeft een formaliteit ondergaan, geen inwijding. Echte inwijding
+vraagt jarenlange zuivering van lichaam, verlangen en denken, en loopt uit op
+wat Wilmshurst de wedergeboorte noemt: de ontdekking dat het eigen wezen in de
+grond goddelijk is. De orde heeft volgens hem alleen toekomst als zij deze
+verloren betekenis van haar eigen ritueel herontdekt.
+
+#### De gang van het boek
+
+**Maçonnerie en religie**
+
+De inleiding bakent de verhouding tot de kerken af. De vrijmetselarij is
+volgens Wilmshurst geen godsdienst en geen vervanging daarvan, maar een
+aanvulling: zij biedt wat de uiterlijke religie kwijtraakte, een stelselmatige
+weg van persoonlijke vervolmaking. Hij plaatst de orde in de lijn van de oude
+mysteriën, die naast de volksreligie een school voor geestelijke ontwikkeling
+vormden, en richt zich uitdrukkelijk tot broeders die in het ritueel meer
+vermoeden dan gezelligheid en liefdadigheid.
+
+**Van duisternis naar licht**
+
+Het eerste hoofdstuk bevat het kernonderscheid tussen echte en ceremoniële
+inwijding. De ceremonie kan in enkele maanden doorlopen worden; het werkelijke
+werk beslaat volgens Wilmshurst jaren en verloopt in stadia die het ritueel
+symbolisch samenvat: de leerling zuivert het lichaam en de zinnen, de gezel
+schoolt het denken, de meester sterft aan zijn oude zelf. Daarnaast schetst
+hij het doel van de mysteriën, bewustzijnsverruiming van het menselijke naar
+het goddelijke niveau, en beschrijft hij de ideale loge als een geoefende
+groep die gezamenlijk aan dat werk deelneemt in plaats van ritualen op te
+zeggen.
+
+**Licht op de weg**
+
+Het tweede en langste hoofdstuk leest de symbolen van de graden stuk voor stuk
+als aanwijzingen voor het innerlijke pad: de opdracht tot zelfkennis, de
+letter G, de ladder, het op te richten bouwwerk, het kabeltouw, het
+schootsvel, de wind, het zoeken van een meester, het loon van de werkman en de
+wet van de berg. Telkens is het patroon hetzelfde: wat in de loge als voorwerp
+of handeling verschijnt, staat voor een vermogen of een beproeving van de
+ziel. Het kabeltouw bijvoorbeeld duidt de band met het oude leven aan die de
+kandidaat moet kunnen afleggen, het loon de geestelijke vrucht die alleen aan
+werkelijk verrichte arbeid toevalt.
+
+**Volheid van licht**
+
+Het derde hoofdstuk beschrijft waar de weg op uitloopt. Wilmshurst geeft
+observaties en voorbeelden van wat hij de volheid van licht noemt: het
+bewustzijn dat na de mystieke dood van het eigen ik ontstaat, verwant aan wat
+christelijke mystici de vereniging noemen. Opmerkelijk is de afsluitende
+sectie over de Apocalyps, waarin hij het bijbelboek Openbaring leest als
+verslag van een inwijdingservaring, met dezelfde opeenvolging van beproeving,
+dood en verheerlijking die het maçonnieke ritueel in verkleinde vorm
+doorloopt.
+
+**Verleden en toekomst van de orde**
+
+Het slothoofdstuk behandelt de geschiedenis en de bestemming van de
+vrijmetselarij. Dat de orde ondanks vervlakking en ledenaanwas is blijven
+bestaan, schrijft Wilmshurst toe aan een onverwoestbaar levensbeginsel in haar
+ritueel. De toekomst hangt er volgens hem van af of genoeg leden het
+ceremoniële lidmaatschap inruilen voor het werkelijke werk. In eigen kring
+bracht hij dat in praktijk: in 1927 stichtte hij in Leeds de Lodge of Living
+Stones, die zijn contemplatieve benadering tot op heden voortzet.
+
+**Plaats in het oeuvre**
+
+Het boek is de uitwerking van *The Meaning of Masonry* uit 1922, dat de
+symboliek van de graden voor een breder publiek had geduid. Waar dat eerdere
+boek uitlegt wat de vrijmetselarij volgens Wilmshurst betekent, beschrijft dit
+vervolg hoe de betekenis in praktijk gebracht moet worden; het richt zich
+uitdrukkelijk tot gevorderde lezers binnen de broederschap. Beide titels
+werden al in 1930 in het Nederlands vertaald en bereikten zo ook de
+Nederlandse loges, waar de mystieke school eveneens aanhang had.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| echte inwijding | Het innerlijke proces van zuivering, zelfkennis en bewustzijnsverruiming dat volgens Wilmshurst het eigenlijke doel van de vrijmetselarij is. |
+| ceremoniële inwijding | De rituele opname in de loge, die het innerlijke proces afbeeldt maar het niet bewerkstelligt. |
+| mysteriën | De antieke inwijdingsscholen waarvan de vrijmetselarij volgens Wilmshurst de moderne, verzwakte erfgenaam is. |
+| wedergeboorte | De omslag waarin het oude ik sterft en de mens zijn goddelijke kern ontdekt, in het ritueel verbeeld door de meestergraad. |
+| kabeltouw | Het koord om de hals van de kandidaat, gelezen als de binding aan het oude leven die moet kunnen worden losgemaakt. |
+| de letter G | Logesymbool voor God en geometrie, bij Wilmshurst teken van de goddelijke ordening die de ingewijde in zichzelf moet terugvinden. |
+| ideale loge | Een groep broeders die het ritueel als gezamenlijk geestelijk werk verricht in plaats van als opgezegde tekst. |
+| volheid van licht | De bewustzijnstoestand na de mystieke dood van het ik, het eindpunt van de inwijdingsweg. |
+| loon van de werkman | Symbool voor de geestelijke vrucht die alleen toevalt aan wie het innerlijke werk daadwerkelijk verricht. |
+
+#### Waar het argument op rust
+
+Wilmshurst onderbouwt zijn lezing niet historisch maar hermeneutisch: hij legt
+het ritueel naast de mystieke literatuur van meerdere tradities, van de
+antieke mysteriën tot christelijke mystici, en laat zien dat de symboliek zich
+sluitend zo lezen laat. De kracht van het boek ligt in de consistentie van die
+duiding: vrijwel elk element van de drie graden krijgt een plaats in één
+samenhangend schema van geestelijke ontwikkeling.
+
+Als bewijs voor een historische afstamming van de mysteriën is dat schema
+echter niet bruikbaar, en Wilmshurst is daarover terughoudender dan
+tijdgenoten als Ward: het gaat hem om de geestelijke verwantschap, minder om
+de stamboom. Dat een symbool zich mystiek lezen laat, bewijst niet dat de
+achttiende-eeuwse samenstellers van de ritualen die lezing bedoelden. De
+documenteerbare geschiedenis wijst op gildegebruiken, bijbelse stof en
+verlichtingsdenkbeelden als bronnen van het ritueel.
+
+#### Wat er tegen in te brengen valt
+
+Het hoofdbezwaar is projectie: Wilmshurst leest een volgroeide mystieke leer,
+gevoed door de theosofie en het perennialisme van zijn tijd, in ritualen die
+aantoonbaar in de vroegmoderne tijd zijn samengesteld. Historici van de
+vrijmetselarij beschouwen zijn duiding als vroom hineininterpretieren, hoe
+fraai ook verwoord. Binnen de orde zelf ligt zijn benadering eveneens
+gevoelig, omdat reguliere grootloges benadrukken dat de vrijmetselarij geen
+religieuze leer verkondigt, terwijl Wilmshurst haar de facto tot geestelijke
+school verklaart.
+
+Daarnaast blijft de methode van de innerlijke weg vaag waar het concreet zou
+moeten worden: het boek beschrijft stadia en doelen, maar nauwelijks toetsbare
+praktijk, en de beloofde bewustzijnsverruiming is een ervaringsclaim die zich
+aan controle onttrekt. Blijvende betekenis heeft het werk als best uitgewerkte
+formulering van de mystieke school binnen de vrijmetselarij: wie wil weten wat
+esoterisch ingestelde vrijmetselaars in hun ritueel zien, vindt hier de
+klassieke tekst, in de editie van 2007 opnieuw ontsloten.
+
+#### Wat er concreet mee te doen is
+
+- Lees het boek naast de tekst van de drie graden om de mystieke lezing per
+symbool te kunnen vergelijken met de nuchtere gildeverklaring.
+- Gebruik het onderscheid tussen ceremonie en werkelijke ontwikkeling als
+toets voor elk ritueel of lidmaatschap: wat verandert er aantoonbaar aan
+gedrag en karakter?
+- Behandel de historische claims en de geestelijke duiding als twee gescheiden
+vragen die elk hun eigen bewijs vergen.
+
+#### Wat je hierna leest
+
+- 410. the hero with a thousand faces. The Hero with a Thousand Faces
+beschrijft hetzelfde patroon van afdaling, dood en terugkeer als algemeen
+menselijke verhaalstructuur.
+- 526. The Alchemy of Happiness. The Alchemy of Happiness beschrijft een
+vergelijkbare innerlijke louteringsweg binnen de islamitische mystiek.
+- 378. The Kybalion. The Kybalion laat zien hoe dezelfde
+vroeg-twintigste-eeuwse esoterie zich buiten de loge als hermetische leer
+presenteerde.
+
+## 637. Real Magic
+
+Isaac Bonewits, 1971. *Real Magic: An Introductory Treatise on the Basic
+Principles of Yellow Magic* (Coward, McCann & Geoghegan, New York, 1971;
+herziene editie Samuel Weiser, York Beach, 1989, xxi + 282 blz., ISBN
+9780877286882). Geen Nederlandse vertaling gevonden in de catalogus van
+bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd. Rubriek:
+filosofie en mystiek.
+Tags: `magie`, `occultisme`, `parapsychologie`, `neopaganisme`
+
+Philip Emmons Isaac Bonewits (1949-2010) studeerde in 1970 aan de universiteit
+van Berkeley af met een zelf samengestelde bachelor in magie, en werkte die
+studie uit tot dit boek. Zijn stelling: magie is geen bovennatuur maar
+toegepaste paranormale begaafdheid, te beschrijven met wetten en in beginsel
+wetenschappelijk te onderzoeken. Hij ruimt de morele etiketten zwarte en witte
+magie op, ordent magische overtuigingen uit vele culturen in zijn Laws of
+Magic, loopt het parapsychologische onderzoek van zijn tijd langs en
+analyseert hoe een ritueel psychologisch werkt.
+
+Het boek werd een klassieker in neopaganistische kringen en Bonewits, later
+oprichter van de druïdenorde Ár nDraíocht Féin, een centrale figuur in die
+beweging. De wetenschappelijke belofte is nooit ingelost: de
+parapsychologische resultaten waarop het betoog leunt, zijn onder
+gecontroleerde omstandigheden niet gerepliceerd. Als ordening van magisch
+denken blijft het werk verhelderend.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Bonewits stelt dat magie werkelijk bestaat, mits juist
+gedefinieerd: geen bovennatuurlijk ingrijpen, maar het gericht inzetten van
+paranormale vermogens die in ieder mens sluimeren, versterkt door emotie,
+concentratie en ritueel. Magie is in zijn woorden volkse parapsychologie:
+overal ter wereld hebben mensen dezelfde onderliggende wetmatigheden ontdekt
+en in eigen cultuurvormen gegoten. Wie die wetten expliciet maakt, kan
+magische tradities vergelijken, rituelen ontleden en het verschijnsel
+onderzoeken zoals elk ander natuurverschijnsel. De gangbare scheidslijnen, wit
+tegenover zwart, religie tegenover toverij, wetenschap tegenover occultisme,
+berusten volgens hem op vooroordeel en niet op waarneming.
+
+#### De gang van het boek
+
+**Definities en opgeruimde etiketten**
+
+Het boek opent met begripsverheldering. Termen als occult, bovennatuurlijk en
+zwarte magie worden ontleed en grotendeels afgedankt: bovennatuurlijk noemt
+Bonewits een leeg woord, want wat bestaat is per definitie natuurlijk, en de
+indeling in witte en zwarte magie is volgens hem vooral een oordeel van de
+spreker over andermans bedoelingen. In plaats daarvan stelt hij een indeling
+naar kleur voor, waarin elk werkterrein van de magie een eigen kleur krijgt.
+Zijn eigen terrein, de magie van het verstand en de wetenschappelijke analyse,
+noemt hij gele magie, vandaar de ondertitel van het boek.
+
+**De wetten van de magie**
+
+Het hart van het boek is de eerste systematische formulering van de Laws of
+Magic, gedistilleerd uit volkenkundig en occult materiaal van over de hele
+wereld. Tot de bekendste horen de wet van de kennis (weten is macht over het
+gekende), de wet van de zelfkennis, de wet van de namen, de wet van de
+machtswoorden, en de van Frazer overgenomen wetten van gelijkenis en
+besmetting: wat op iets lijkt kan erop inwerken, en wat met iets in aanraking
+is geweest houdt er verbinding mee. Daarnaast beschrijft hij onder meer
+associatie, personificatie, identificatie, invocatie en evocatie. De wetten
+zijn bedoeld als beschrijvend gereedschap waarmee elke magische traditie, van
+voodoopop tot gebed, in dezelfde termen ontleed kan worden.
+
+**Paranormale verschijnselen langsgelopen**
+
+Vervolgens inventariseert Bonewits het verschijnselengebied dat zijn theorie
+moet dragen: telepathie, helderziendheid, voorschouw, psychokinese,
+poltergeistverschijnselen en het laboratoriumonderzoek van de parapsychologie,
+met de kaartproeven van J.B. Rhine als bekendste voorbeeld. Zijn stelling is
+dat deze onderzoekslijn de fysieke basis van magie aannemelijk maakt: rituelen
+zouden technieken zijn om dergelijke vermogens op te wekken en te richten. Hij
+bespreekt daarnaast oosters materiaal, waaronder tantra, en westerse
+waarzegsystemen zoals de tarot, telkens als cultuurspecifieke verpakking van
+dezelfde onderliggende vermogens.
+
+**Het schakelbord en de goden**
+
+Voor religieuze verschijnselen introduceert Bonewits een eigen model, het
+schakelbord: een netwerk waarin alle menselijke geesten met elkaar in
+verbinding staan. Goden en geesten zijn in dit model knooppunten van
+gebundelde aandacht en emotie, door generaties gelovigen opgeladen. Bidden en
+offeren zijn dan geen contact met zelfstandige wezens maar het aanspreken van
+zulke knooppunten. Het model verklaart voor hem waarom goden werkzaam kunnen
+zijn voor wie erin gelooft, zonder dat hun zelfstandig bestaan aangenomen
+hoeft te worden.
+
+**De anatomie van het ritueel**
+
+Het slotdeel past alles toe op de vraag hoe een werkend ritueel in elkaar zit.
+Bonewits ontleedt het ritueel psychologisch: afbakening van tijd en plaats,
+opbouw van emotionele lading door muziek, dans, symboliek of vasten, het
+richten van die lading op een helder omschreven doel, en de ontlading op het
+hoogtepunt. Elke geslaagde ceremonie, religieus of magisch, volgt volgens hem
+dit patroon. Het boek sluit af met een pleidooi om magie serieus te
+onderzoeken en met waarschuwingen tegen zowel gelovige goedgelovigheid als
+reflexmatige afwijzing. De herziene uitgave van 1979, opnieuw uitgebracht in
+1989, voegde voorwoorden en correcties toe maar liet de opzet ongewijzigd; de
+wetten zelf werkte Bonewits verder uit in zijn spelregelboek *Authentic
+Thaumaturgy* uit 1978.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| gele magie | Bonewits' term voor de magie van het verstand: analyse, studie en wetenschappelijke benadering van het magische bedrijf. |
+| Laws of Magic | Zijn verzameling beschrijvende wetmatigheden die magische overtuigingen uit alle culturen in één kader ordenen. |
+| wet van gelijkenis | Het beginsel dat wat op iets lijkt, magisch op dat iets kan inwerken, zoals een pop op de afgebeelde persoon. |
+| wet van besmetting | Het beginsel dat zaken die in aanraking zijn geweest met elkaar verbonden blijven, zoals haar of kleding met de eigenaar. |
+| wet van de namen | Het beginsel dat kennis van de ware naam van iets macht over dat iets geeft. |
+| schakelbord | Bonewits' model van een netwerk dat alle geesten verbindt, waarin goden knooppunten van gebundelde menselijke aandacht zijn. |
+| volkse parapsychologie | Zijn omschrijving van magie: het praktische, voorwetenschappelijke gebruik van vermoede paranormale vermogens. |
+| invocatie en evocatie | Het aanroepen van een macht binnen de eigen geest tegenover het oproepen van een verschijning daarbuiten. |
+| wet van de pragmatiek | Het beginsel dat een overtuiging die werkt binnen haar eigen verband als waar mag gelden, ongeacht haar herkomst. |
+
+#### Waar het argument op rust
+
+Het betoog rust op twee pijlers van ongelijke sterkte. De eerste is
+volkenkundig: dat magische praktijken wereldwijd dezelfde patronen volgen, is
+goed gedocumenteerd en al door Frazer beschreven. Als beschrijvend kader voor
+wat mensen geloven en doen zijn de Laws of Magic bruikbaar en worden ze tot op
+heden in studies van hedendaags heidendom aangehaald. De tweede pijler is de
+parapsychologie van de jaren vijftig en zestig, vooral het kaart- en
+dobbelsteenonderzoek van Rhine, dat Bonewits als voorlopig bewijs van
+paranormale vermogens aanvaardt.
+
+Die tweede pijler is sindsdien weggezakt. De resultaten van Rhine en navolgers
+bleken bij replicatie onder streng toezicht te verdampen; methodologische
+fouten en fraudegevallen ondermijnden het veld, en meer dan een halve eeuw
+later is er geen enkel paranormaal vermogen onder gecontroleerde
+omstandigheden aangetoond. Daarmee mist de kernclaim van het boek, magie als
+toepasbare paranormale techniek, empirische grond. Wat overeind blijft is de
+psychologie van het ritueel: dat ceremonieën emotie opbouwen en richten, en
+daarmee werkelijke effecten op deelnemers hebben, is onomstreden.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar richt zich op de titelclaim: echte magie in de zin van
+meetbare werking op afstand is nooit aangetoond, en Bonewits' beroep op de
+parapsychologie leest een halve eeuw later als een gok op het verkeerde paard.
+Zijn eigen toetsingscriterium, dat magie zich als wetenschap moet laten
+onderzoeken, valt daarmee in zijn nadeel uit: het onderzoek is gedaan en
+leverde niets op. De spottende toon waarmee hij sceptici en gelovigen beide de
+maat neemt, verhult soms dat zijn eigen bewijsvoering op dezelfde zwakke
+bronnen leunt.
+
+Daar staat tegenover dat het boek als ordening en als cultuurdocument zijn
+waarde houdt. De wetten van de magie zijn een heldere taal om magisch denken
+te beschrijven, ook voor wie er geen werkelijkheid achter vermoedt, en de
+rituele analyse in het slotdeel is bruikbare psychologie. Historisch markeert
+het boek bovendien het begin van een levensloop die het Amerikaanse
+neopaganisme mede vormde: Bonewits stichtte in 1983 de druïdenorde Ár
+nDraíocht Féin en bleef tot zijn dood in 2010 pleiten voor een onderzoekende
+houding binnen de eigen beweging.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik de wetten van de magie als analysekader bij het lezen van
+etnografie, occulte literatuur of fantasy: benoem per praktijk welke wet er
+wordt verondersteld.
+- Ontleed een willekeurige ceremonie, van kerkdienst tot bedrijfsevenement,
+met Bonewits' rituele anatomie: afbakening, opbouw van lading, richting,
+ontlading.
+- Toets elke claim over paranormale werking aan de replicatie-eis die Bonewits
+zelf stelt, en aan wat het onderzoek sindsdien heeft opgeleverd.
+
+#### Wat je hierna leest
+
+- 63. The Demon-Haunted World. The Demon-Haunted World geeft de sceptische
+toets waar de paranormale claims uit dit boek niet doorheen komen.
+- 378. The Kybalion. The Kybalion presenteert een oudere set magische wetten,
+als openbaring in plaats van als hypothese.
+- 340. The Holographic Universe. The Holographic Universe doet een latere
+poging om paranormale verschijnselen wetenschappelijk in te bedden.
+
+## 638. Initiation into Hermetics
+
+Franz Bardon, 1956. *Initiation into Hermetics: The Path of the True Adept*
+(oorspronkelijk Duits: *Der Weg zum wahren Adepten*, Verlag Hermann Bauer,
+Freiburg, 1956; eerste Engelse vertaling 1962; huidige editie Merkur
+Publishing, 356 blz., ISBN 9781885928122). Geen Nederlandse vertaling gevonden
+in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie
+gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `hermetisme`, `magie`, `occultisme`, `meditatie`
+
+Franz Bardon (1909-1958), Tsjechisch occultist uit de buurt van Opava, schreef
+met dit boek het eerste deel van een driedelig leersysteem en volgens zijn
+aanhang het meest systematische leerboek van de westerse magie. Na een
+theoretisch deel over de vier elementen, akasha, de fluïda en de drie lichamen
+volgt een oefenprogramma in tien stappen, waarin telkens gelijktijdig aan
+geest, ziel en lichaam wordt gewerkt: van gedachtecontrole en de zwart-witte
+zielenspiegels via ademhalings- en concentratieoefeningen en het werken met de
+elementen tot mentaal reizen en, in de tiende stap, de vereniging met het
+persoonlijke godsbeeld.
+
+Het boek vraagt jaren dagelijkse oefening en biedt als toets alleen
+zelfwaarneming; geen van de beloofde vermogens is ooit onafhankelijk
+vastgesteld. Bardon stierf in 1958 in een gevangenisziekenhuis in Brno na
+arrestatie door het communistische regime; zijn levensverhaal is vooral via
+hagiografische bronnen van leerlingen overgeleverd.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Bardon stelt dat magische ontwikkeling geen gave en geen
+genade is, maar exacte training: iedere gezonde volwassene kan langs een vaste
+trap van tien stappen de vermogens van geest, ziel en lichaam zo ontwikkelen
+dat beheersing van de vier elementen, van het eigen astrale lichaam en
+uiteindelijk vereniging met het goddelijke binnen bereik komt. Voorwaarde is
+evenwicht: elke stap oefent verplicht op drie fronten tegelijk, mentaal,
+astraal en fysiek, en wie een front verwaarloost of stappen overslaat, bouwt
+scheef. Loge, leraar of geheime overlevering zijn niet nodig; het boek zelf is
+de leermeester, en de leerling toetst de eigen voortgang voordat hij verder
+gaat.
+
+#### De gang van het boek
+
+**Het theoretische fundament**
+
+Het openingsdeel zet de leer uiteen waarop de oefeningen rusten. Alles wat
+bestaat is volgens Bardon opgebouwd uit de vier elementen vuur, lucht, water
+en aarde, met hun eigenschappen warmte en uitzetting, koude en samentrekking,
+en daarboven het vijfde beginsel akasha, de oergrond waaruit de elementen
+voortkomen. Twee tegengestelde werkzame beginselen, het elektrische en het
+magnetische fluïdum, doortrekken alles. De mens is drievoudig: een fysiek, een
+astraal en een mentaal lichaam, elk met een eigen voeding en hygiëne. Verder
+behandelt het deel karma als wet van oorzaak en gevolg, en een occulte
+anatomie van het lichaam.
+
+**Stap een tot en met drie: de grondslag**
+
+De eerste stap begint met gedachtecontrole: de leerling observeert minutenlang
+de eigen gedachtestroom, leert die stilzetten en op één gedachte vasthouden.
+Astraal begint het werk met de zielenspiegels: twee lijsten waarin de leerling
+de eigen goede en slechte eigenschappen zo volledig mogelijk inventariseert en
+aan de vier elementen toewijst. Fysiek gelden eenvoudige lichaamszorg,
+ademoefeningen en gewoontevorming. De tweede en derde stap bouwen uit met
+autosuggestie, zintuiglijke concentratie op beelden, klanken en gevoelens, het
+bewuste inademen van levenskracht en het begin van de karakterombouw op basis
+van de spiegels: het elementenevenwicht.
+
+**Stap vier tot en met zes: werken met de elementen**
+
+In het middendeel verschuift het werk naar de elementen zelf. De leerling
+leert de elementen afzonderlijk in het lichaam ophopen, in delen van het
+lichaam samentrekken en weer oplossen, en het bewustzijn in voorwerpen en
+wezens te verplaatsen. Ook ruimtebeheersing komt aan bod: het opladen van een
+ruimte met een gewenste sfeer. De zesde stap voegt het werken met akasha toe
+en het bewust scheppen van gedachtevormen, elementalen, die als hulpmiddel een
+taak meekrijgen. Telkens geldt de eis dat het geoefende niet verbeeld maar
+gevoeld en beheerst moet worden voordat de volgende stap begint.
+
+**Stap zeven tot en met tien: de hogere school**
+
+De laatste stappen beschrijven wat in occulte termen de hogere vermogens heet:
+de ontwikkeling van helderziendheid, helderhorendheid en heldervoelendheid met
+behulp van de fluïda, het mentale reizen waarbij de geest het lichaam verlaat
+en waarneemt op afstand, en daarna de scheiding van het astrale lichaam. De
+tiende stap is uitdrukkelijk religieus van aard: de leerling bouwt een beeld
+van de eigen godheid op, laadt dit met de vier goddelijke eigenschappen
+almacht, liefde, wijsheid en onsterfelijkheid, en zoekt de vereniging daarmee.
+Daarmee is volgens Bardon de eerste tarotkaart doorlopen, de leerschool van de
+magiër, en is de leerling gereed voor de vervolgdelen over evocatie en
+kabbala.
+
+**Herkomst en overlevering**
+
+Het boek verscheen in 1956 in het Duits bij Verlag Hermann Bauer, twee jaar
+voor Bardons dood, en is sindsdien in vele talen vertaald. Over de auteur is
+weinig met zekerheid bekend: geboren in 1909 als zoon van een vrome
+fabrieksarbeider bij Opava, werkzaam als variétéartiest onder de naam Frabato,
+gearresteerd door het communistische regime en in 1958 overleden in een
+gevangenisziekenhuis in Brno. De verhalen over zijn gevangenschap onder de
+nazi's en zijn wonderbaarlijke vermogens stammen uit kringen van leerlingen,
+vooral uit de geromantiseerde biografie *Frabato the Magician*, en zijn niet
+onafhankelijk te staven.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| de vier elementen | Vuur, lucht, water en aarde als grondkrachten van al het bestaande, bij Bardon zowel natuurbeginselen als karaktereigenschappen. |
+| akasha | Het vijfde beginsel, de oergrond buiten tijd en ruimte waaruit de elementen voortkomen. |
+| elektrisch en magnetisch fluïdum | De twee tegengestelde werkzame beginselen, verbonden met vuur en water, waarmee de magiër naar believen laadt en ontlaadt. |
+| zielenspiegels | De witte en zwarte inventarislijsten van eigen deugden en gebreken, geordend naar element, als basis voor de karakterombouw. |
+| elementenevenwicht | De vereiste gelijkmatige ontwikkeling van de vier elementen in het karakter voordat hogere oefeningen verantwoord zijn. |
+| de drie lichamen | Het fysieke, astrale en mentale lichaam van de mens, die elk eigen oefening en verzorging vragen. |
+| mentaal reizen | Het verplaatsen van het waarnemende bewustzijn buiten het lichaam, geoefend vanaf de achtste stap. |
+| elementaal | Een bewust geschapen en met een taak geladen gedachtevorm. |
+| levenskracht | De alles doordringende vitale energie die de leerling via adem en poriën leert opnemen, ophopen en gericht afgeven. |
+
+#### Waar het argument op rust
+
+Het boek voert geen enkel extern bewijs aan en pretendeert dat ook niet: de
+enige toets die Bardon biedt is de eigen ervaring van de leerling, die per
+stap moet vaststellen of de beschreven vermogens zijn bereikt. Bronnen noemt
+hij niet; het stelsel presenteert zich als eigen weergave van een tijdloze
+hermetische leer. Herkenbaar zijn niettemin ontleningen aan de yogatraditie,
+de theosofie en het Duitse occultisme van het interbellum, waaronder
+ademoefeningen, concentratietraining en de leer van de fijnstoffelijke
+lichamen.
+
+Voor de kernclaims, waaronder waarneming op afstand, beheersing van de
+elementen en het verlaten van het lichaam, bestaat geen onafhankelijke
+bevestiging; waar dergelijke vermogens onder gecontroleerde omstandigheden
+zijn onderzocht, is nooit iets aangetoond. Wel valt vast te stellen dat de
+eerste stappen van het programma overlappen met technieken waarvan de werking
+op aandacht en zelfbeheersing gedocumenteerd is: meditatieve concentratie,
+zelfobservatie en systematische gewoontevorming. De zelfrapportage als
+maatstaf maakt het stelsel als geheel onttoetsbaar: wie faalt, heeft in
+Bardons termen niet goed genoeg geoefend.
+
+#### Wat er tegen in te brengen valt
+
+Het voornaamste bezwaar is de onverifieerbaarheid. Het stelsel vraagt jaren
+dagelijkse oefening op weg naar vermogens waarvan het bestaan nergens is
+aangetoond, en bouwt de toetsing zo in dat het systeem nooit kan falen:
+uitblijvend resultaat bewijst gebrek aan volharding, niet de onjuistheid van
+de leer. Ook de leer zelf, elementen, fluïda en fijnstoffelijke lichamen, is
+een voorwetenschappelijk wereldbeeld dat met de bekende natuurkunde en
+fysiologie onverenigbaar is. Wie het boek als feitelijke natuurbeschrijving
+leest, leest het verkeerd.
+
+Daarnaast is de overlevering rond de auteur troebel: vrijwel alles wat over
+Bardons vermogens en lotgevallen circuleert komt uit de eigen kring en is
+hagiografisch van karakter, wat maant tot terughoudendheid bij de claims die
+uitgevers en bewonderaars aan het boek hechten. Binnen zijn genre is het werk
+niettemin een buitenbeentje in gunstige zin: nuchter van toon, streng tegen
+effectbejag en geldzucht, met nadruk op karaktervorming voor elke zogenaamde
+hogere oefening. Als document van het twintigste-eeuwse occultisme en als
+meest methodische formulering van de westerse magische traditie heeft het
+blijvende cultuurhistorische waarde.
+
+#### Wat er concreet mee te doen is
+
+- Lees het boek als primaire bron over hoe de moderne westerse magie zichzelf
+als oefenweg begrijpt, niet als handleiding met bewezen werking.
+- Beoordeel de eerste stappen, gedachteobservatie, concentratie en de
+zielenspiegels, op wat ze zijn: herkenbare zelfonderzoeks- en
+aandachtstechnieken zonder magische lading.
+- Wees wantrouwig bij elke leer waarin uitblijvend resultaat per definitie aan
+de beoefenaar ligt; dat is het kenmerk van een onweerlegbaar en dus
+ontoetsbaar stelsel.
+
+#### Wat je hierna leest
+
+- 378. The Kybalion. The Kybalion formuleert de hermetische leer waarop Bardon
+zich beroept in de vorm van zeven beginselen.
+- 242. Autobiography of a Yogi. Autobiography of a Yogi beschrijft een
+oosterse oefenweg met vergelijkbare claims en dezelfde bewijsproblemen.
+- 259. The Power of Your Subconscious Mind. The Power of Your Subconscious
+Mind brengt verwante technieken van autosuggestie zonder het magische bouwwerk
+eromheen.
+
+## 639. Three Books of Occult Philosophy
+
+Heinrich Cornelius Agrippa, 1533. *De occulta philosophia libri tres*
+(volledige uitgave Keulen, 1533; eerste versie in handschrift circa 1510).
+Engelse vertaling door James Freake als *Three Books of Occult Philosophy*
+(Londen, 1651); gangbaarste moderne editie de door Donald Tyson geannoteerde
+uitgave (Llewellyn, St. Paul, 1993, lxxii + 938 blz., ISBN 9780875428321).
+Geen Nederlandse vertaling van dit werk gevonden in de catalogus van
+bibliotheek.nl, wel oude vertalingen van ander werk van Agrippa; de
+samenvatting is op de Engelse editie gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `renaissance`, `magie`, `hermetisme`, `filosofiegeschiedenis`
+
+Heinrich Cornelius Agrippa von Nettesheim (1486-1535), Duits geleerde, jurist
+en avonturier, schreef met dit driedelige werk de omvattendste samenvatting
+van het magische wereldbeeld van de renaissance. Uitgaande van drie werelden,
+de elementaire, de hemelse en de goddelijke, behandelt boek een de natuurlijke
+magie van stenen, kruiden en dieren, boek twee de hemelse magie van getallen,
+sterren en talismannen, en boek drie de ceremoniële magie van godsnamen,
+engelen en riten. Magie is voor Agrippa de volmaakte wijsbegeerte, die de
+vrome mens langs de scheppingsorde omhoog voert.
+
+Het werk voedde eeuwenlang vrijwel de hele westerse occulte traditie, van John
+Dee tot de negentiende-eeuwse ordes, en belandde in 1559 op de kerkelijke
+Index. Als natuurbeschrijving is het volledig achterhaald; als sleutel tot het
+denken van de renaissance en als bronnenboek van de esoterie is het van
+blijvende cultuurhistorische waarde.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Agrippa stelt dat magie de volmaaktste vorm van wijsbegeerte
+is: geen duivelskunst, maar kennis van de verborgen krachten waarmee God de
+schepping heeft doortrokken. De werkelijkheid bestaat uit drie werelden, de
+elementaire wereld van de stoffen, de hemelse wereld van de sterren en de
+goddelijke wereld van engelen en godsnamen, en die werelden zijn door
+overeenkomsten met elkaar verbonden: wat boven is werkt door naar beneden. Wie
+die keten van overeenkomsten kent, kan krachten van hogere werelden naar de
+lagere trekken, van kruidengeneeskunde tot talisman en gebedsritueel.
+Voorwaarde is vroomheid en zuiverheid; ontaarde magie die demonen aanroept
+wijst Agrippa af als de karikatuur waarmee zijn kunst ten onrechte wordt
+verward.
+
+#### De gang van het boek
+
+**Ontstaan en lotgevallen van het boek**
+
+Agrippa voltooide een eerste versie rond 1510, op zijn drieëntwintigste, en
+legde die voor aan de abt en geleerde Johannes Trithemius, die hem aanmoedigde
+maar tot geheimhouding maande. Twintig jaar bleef het werk in handschrift
+circuleren en groeide het aan; het eerste boek verscheen in 1531 in druk, de
+volledige uitgave in 1533 in Keulen, ondanks verzet van de inquisitie.
+Merkwaardig genoeg had Agrippa in 1530 in *De incertitudine et vanitate
+scientiarum* alle wetenschappen inclusief de magie als ijdelheid weggezet; die
+spanning tussen herroeping en publicatie is nooit bevredigend opgelost en
+hoort bij het raadsel van de auteur.
+
+**Boek een: de natuurlijke magie**
+
+Het eerste boek behandelt de elementaire wereld. Alles bestaat uit de vier
+elementen, maar daarnaast dragen stenen, kruiden, dieren en lichaamsdelen
+verborgen werkzaamheden, occulte virtutes, die niet uit de elementen
+verklaarbaar zijn maar uit de inwerking van de sterren via de wereldziel en de
+spiritus mundi, het fijnstoffelijke medium dat hemel en aarde verbindt.
+Agrippa ordent lange reeksen overeenkomsten: welke planten, dieren en stoffen
+bij welke planeet horen, hoe sympathie en antipathie tussen dingen werken, en
+hoe de magiër door juiste combinatie werkingen kan versterken. Het materiaal
+komt grotendeels uit Plinius en de middeleeuwse natuurboeken.
+
+**Boek twee: de hemelse magie**
+
+Het tweede boek bestijgt de hemelse wereld en is het meest wiskundig. Getallen
+hebben eigen werkzaamheden; Agrippa behandelt de betekenissen van de getallen
+een tot en met twaalf, de beroemde magische kwadraten van de zeven planeten
+met hun zegels, en de leer van de astrologische beelden: afbeeldingen die op
+het juiste hemelmoment in het juiste materiaal gegrift een planeetkracht
+vangen, de talisman. Hier leunt hij zwaar op Marsilio Ficino's leer van het
+aantrekken van sterrenwerkingen en op de middeleeuwse beeldenmagie. Ook
+muziek, harmonie en de samenhang tussen ziel en hemellichamen krijgen hun
+plaats in dit deel.
+
+**Boek drie: de ceremoniële magie**
+
+Het derde boek betreedt de goddelijke wereld en behandelt wat Agrippa
+religieuze of ceremoniële magie noemt. Het ontvouwt de leer van de godsnamen
+en hun kracht, de hiërarchieën van engelen en demonen, de tien sefirot uit de
+joodse kabbala die hij via Johannes Reuchlin en Pico della Mirandola kende, en
+de riten van reiniging, gebed en wijding waarmee de magiër zich voor het
+hoogste werk gereedmaakt. De grondtoon is theürgisch: het doel is opstijging
+naar God, en alleen de vrome, zedelijk zuivere mens kan dit werk verrichten
+zonder ten prooi te vallen aan de machten die hij aanroept.
+
+**Bronnen en bouwwerk**
+
+Het werk is een compendium, en juist dat maakte het werkzaam: Agrippa smeedt
+neoplatonisme, de hermetische geschriften, de kabbala en de middeleeuwse
+natuurlijke magie samen tot één samenhangend stelsel, geschraagd met honderden
+aanhalingen van Plato en Aristoteles tot Ptolemaeus, Plinius en de kerkvaders.
+Het is de synthese van wat Ficino, Pico en Reuchlin in de decennia daarvoor
+hadden aangedragen, voor het eerst als volledig systeem geordend en daarmee
+als naslagwerk bruikbaar.
+
+**Doorwerking**
+
+De kerk veroordeelde het werk en plaatste het in 1559 op de Index; het verhaal
+van Agrippa als zwarte kunstenaar met zijn zwarte hond voedde later de
+Faustlegende. Ondertussen werd het boek het bronnenboek van vrijwel de hele
+westerse esoterie: John Dee en Giordano Bruno lazen het, de grimoires van de
+vroegmoderne tijd plunderden het, en via de vertaling van 1651 bereikte het de
+Engelse wereld, waar negentiende-eeuwse ordes als de Golden Dawn er hun
+stelsels op bouwden. De editie van Donald Tyson uit 1993 maakte de tekst met
+uitvoerige aantekeningen opnieuw toegankelijk.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| de drie werelden | De elementaire, hemelse en goddelijke wereld waaruit de werkelijkheid bestaat, elk met een eigen vorm van magie. |
+| occulte virtus | De verborgen werkzaamheid van een steen, plant of dier die niet uit de elementen maar uit hemelse inwerking voortkomt. |
+| spiritus mundi | Het fijnstoffelijke wereldmedium dat de invloed van de sterren op de aardse dingen overdraagt. |
+| correspondenties | De vaste overeenkomsten tussen planeten, metalen, planten, dieren en lichaamsdelen waarop alle magische werking berust. |
+| talisman | Een op het juiste hemelmoment vervaardigd voorwerp met een astrologisch beeld, dat een planeetkracht vasthoudt. |
+| magische kwadraten | Getallenvierkanten van de zeven planeten waaruit zegels en karakters voor talismannen worden afgeleid. |
+| kabbala | De joodse mystieke leer van godsnamen en sefirot, door Agrippa als hoogste sleutel tot de goddelijke wereld ingezet. |
+| theürgie | Godgerichte rituele magie die opstijging naar het goddelijke beoogt, tegenover demonenbezwering. |
+
+#### Waar het argument op rust
+
+Het bewijs van Agrippa is het bewijs van zijn tijd: gezag en overeenstemming
+van bronnen. Een bewering is gestaafd wanneer Plato, Hermes, de kabbalisten en
+de kerkvaders haar eensluidend melden; eigen waarneming of proefneming speelt
+vrijwel geen rol. Binnen dat kader is het werk indrukwekkend grondig, met een
+belezenheid die honderden antieke en middeleeuwse bronnen omspant en ordent.
+Wie wil weten wat de geleerde renaissance over de samenhang van de kosmos
+dacht, vindt nergens een completer overzicht.
+
+Naar moderne maatstaven bewijst dat alles niets: de leer van de
+correspondenties, de astrologische werking en de kracht van namen en getallen
+is nooit door enige gecontroleerde waarneming gesteund en is met de latere
+natuurwetenschap onverenigbaar gebleken. Het wereldbeeld waarin het stelsel
+sluitend was, is in de eeuw na Agrippa afgebroken. De waarde van het boek is
+dan ook niet die van een natuurbeschrijving maar die van een historisch
+document: het toont hoe een samenhangend, geleerd en vroom magisch wereldbeeld
+eruitzag vlak voordat de wetenschappelijke revolutie het onmogelijk maakte.
+
+#### Wat er tegen in te brengen valt
+
+De inhoudelijke kritiek is definitief: als kennis van de natuur is het werk
+volledig achterhaald, en dat besef is ouder dan de moderne wetenschap, want
+Agrippa zelf verklaarde in *De incertitudine* de occulte kunsten tot ijdelheid
+nog voordat hij ze liet drukken. Of dat herroeping, ironie of indekking tegen
+vervolging was, is onder historici omstreden, maar het ontslaat niemand van de
+vaststelling dat het stelsel op gezag en analogie rust en op niets anders. Wie
+het boek vandaag als werkende handleiding leest, zoals delen van de
+hedendaagse esoterische markt aanmoedigen, negeert vijf eeuwen
+kennisontwikkeling.
+
+Cultuurhistorisch weegt het werk daarentegen zwaar: het is de belangrijkste
+samenvatting van het renaissancistische magische denken en de voornaamste bron
+van de latere westerse esoterie, en wordt in de wetenschapsgeschiedenis
+serieus genomen omdat het laat zien hoe dicht magie, geneeskunde, wiskunde en
+vroomheid ooit bij elkaar lagen. Enige behoedzaamheid past bij de gangbare
+Tyson-editie: die berust op de vertaling van 1651 en is bezorgd vanuit een
+praktiserend-esoterisch gezichtspunt, waar wetenschappelijke gebruikers eerder
+naar de kritische Latijnse editie van Vittoria Perrone Compagni (1992)
+grijpen.
+
+#### Wat er concreet mee te doen is
+
+- Lees het werk als sleutel tot het wereldbeeld achter renaissancekunst en
+-literatuur, waar planeetkinderen, talismannen en correspondenties telkens
+terugkeren.
+- Gebruik het als bronnenboek bij de studie van latere esoterie: vrijwel elke
+westerse occulte traditie citeert Agrippa, meestal zonder bronvermelding.
+- Onderscheid bij elk hoofdstuk wat Agrippa beweert en waarop hij zich
+beroept; het boek is een leerschool in het herkennen van gezagsargumenten.
+
+#### Wat je hierna leest
+
+- 269. The Story of Philosophy. The Story of Philosophy schetst de wijsgerige
+hoofdlijn waarnaast dit magische wereldbeeld bestond en verdween.
+- 378. The Kybalion. The Kybalion laat zien wat er van de hermetische leer
+overbleef toen de twintigste eeuw haar hervond.
+- 63. The Demon-Haunted World. The Demon-Haunted World beschrijft hoe
+wetenschappelijk denken zich van dit soort correspondentiedenken heeft
+losgemaakt.
+
 ## 649. The Man Who Knew Infinity
 
 Robert Kanigel, 1991. *The Man Who Knew Infinity: A Life of the Genius
@@ -124842,83 +125738,84 @@ zelf` 409 · `ego-depletie` 382 · `egypte` 591, 594, 595, 596, 597, 599, 602 ·
 `energie` 92, 195, 291, 377 · `energiewerk` 432 · `entropie` 539 ·
 `epigenetica` 208, 415 · `epos` 5, 530, 531, 532 · `erfelijkheid` 419 ·
 `erfenis` 39 · `erkenningszucht` 406 · `erotiek` 113, 164 · `esoterie` 378,
-590, 603, 605, 606, 613, 630, 631, 632, 633, 634 · `essay` 3, 9, 21, 57, 59,
-63, 64, 68, 96, 197, 232 · `essaybundel` 390, 425, 620 · `essays` 523 · `eten`
-103 · `ethiek` 282, 299, 413, 574, 612 · `evangelisatie` 201 · `evolutie` 56,
-66, 89, 90, 91, 239, 318, 322, 323, 332, 339, 347, 383, 518, 609 ·
-`evolutiebiologie` 452, 453 · `evolutionaire-psychologie` 67 · `excellentie`
-553 · `executives` 344 · `existentialisme` 405 · `expeditie` 36 · `experiment`
-79, 215 · `experimenten` 280, 424 · `experimenteren` 265 · `expertise` 283,
-320, 376 · `extraversie` 361 · `fabel` 8, 42, 135, 167, 252 · `facilitatie`
-304 · `falen` 23, 72, 75, 312, 422 · `familie` 45, 325, 466 ·
+590, 603, 605, 606, 613, 630, 631, 632, 633, 634, 635 · `essay` 3, 9, 21, 57,
+59, 63, 64, 68, 96, 197, 232 · `essaybundel` 390, 425, 620 · `essays` 523 ·
+`eten` 103 · `ethiek` 282, 299, 413, 574, 612 · `evangelisatie` 201 ·
+`evolutie` 56, 66, 89, 90, 91, 239, 318, 322, 323, 332, 339, 347, 383, 518,
+609 · `evolutiebiologie` 452, 453 · `evolutionaire-psychologie` 67 ·
+`excellentie` 553 · `executives` 344 · `existentialisme` 405 · `expeditie` 36
+· `experiment` 79, 215 · `experimenten` 280, 424 · `experimenteren` 265 ·
+`expertise` 283, 320, 376 · `extraversie` 361 · `fabel` 8, 42, 135, 167, 252 ·
+`facilitatie` 304 · `falen` 23, 72, 75, 312, 422 · `familie` 45, 325, 466 ·
 `familieconflict` 178 · `familiegeschiedenis` 114, 235 · `familieroman` 10 ·
 `fantasy` 192, 203 · `FBI` 154, 271 · `FBI-onderzoek` 431 · `federalisme` 619
 · `feedback` 41, 296, 541, 542 · `feiten` 43 · `feminisme` 3, 620, 624 ·
 `fenomenologie` 574, 577, 582 · `fictie` 100, 115 · `film` 41 · `filosofie` 1,
 6, 71, 93, 199, 211, 216, 224, 247, 255, 263, 292, 299, 383, 390, 391, 392,
 393, 421, 436, 442, 521, 588, 592, 594, 597, 604, 610, 652 ·
-`filosofiegeschiedenis` 269 · `filosofische antropologie` 584 · `financiële
-geletterdheid` 163 · `financiële markten` 268, 351, 480, 481, 483, 499, 501 ·
-`financiële onafhankelijkheid` 264 · `financiele vrijheid` 277 · `financiële
-wiskunde` 497, 507 · `financiële-discipline` 464 · `financiën` 334, 395, 425 ·
-`financiering` 172 · `fitnessbranche` 307, 544 · `flitshandel` 499 · `flow`
-78, 187, 200 · `focus` 175, 197, 448, 513 · `folklore` 615 · `fotoboek` 189 ·
-`foutcultuur` 422 · `fouten maken` 509 · `franchise` 544 · `frankrijk` 115 ·
-`Franse-Weerstand` 390 · `freelance` 515 · `Fulani` 522 · `fysieke uitdaging`
-323 · `fysiologie` 318, 412, 458 · `Galenus` 328 · `gaslighting` 123 ·
-`gastheerschap` 304 · `gastvrijheid` 531 · `gebed` 83, 259, 573 ·
-`gebruikersgedrag` 294 · `gedachten` 148, 177 · `gedachtenjournal` 176 ·
-`gedrag` 21, 22, 89, 90, 138, 154, 280, 330, 383, 425 · `gedragsbiologie` 322,
-339 · `gedragseconomie` 424, 426, 514 · `gedragsonderzoek` 302, 382 ·
-`gedragspatronen` 161 · `gedragspsychologie` 294 · `gedragstypen` 156 ·
-`gedragsverandering` 238, 290, 457, 469 · `gedragswetenschap` 166, 209, 305,
-468, 469, 510 · `geduld` 21, 351 · `geest` 584, 652 · `geestelijke gezondheid`
-193 · `geestelijke oefeningen` 586 · `gegevensanalyse` 486 · `gehechtheid` 166
-· `geheim genootschap` 202 · `geheugen` 66, 85, 175, 414 · `gehoorzaamheid`
-215, 617 · `geïllustreerd boek` 176 · `geld` 21, 37, 38, 56, 76, 121, 132,
-133, 158, 159, 433, 463, 464 · `geldmanagement` 492, 493 · `geldmindset` 395 ·
-`geldpsychologie` 233, 264 · `geloof` 45, 83, 201, 554 · `geluk` 79, 93, 160,
-228, 335, 516, 526, 579 · `gemeenschap` 9, 96, 304, 461 · `genealogie` 601 ·
-`geneeskunde` 49, 328 · `generaties` 114 · `generatieve drift` 315 ·
-`genetica` 413, 419 · `genezing` 340 · `genot en pijn` 314 · `gentechnologie`
-413 · `geologie` 239 · `geopolitiek` 220 · `geschiedenis` 30, 36, 56, 57, 68,
-93, 94, 212, 218, 250, 258, 298, 328, 381, 425, 440, 588, 589, 591, 593, 595,
-597, 598, 600, 619, 634 · `geschiedenis van de geneeskunde` 412 ·
-`geschiedfilosofie` 235 · `geschiedschrijving` 601, 602 · `gesprek` 43, 95,
-302, 444 · `gesprekstechniek` 182, 186, 438 · `gevangenendilemma` 453 ·
-`gevolgen` 67 · `gewaarzijn` 519 · `geweld` 45, 90, 214 · `geweldloosheid` 612
-· `gewicht` 138 · `gewoontelus` 238 · `gewoonten` 187, 373 · `gewoontes` 7,
-11, 13, 22, 25, 58, 70, 76, 77, 79, 88, 97, 103, 133, 134, 135, 138, 147, 157,
-158, 181, 207, 208, 224, 230, 290, 334, 382, 439, 442, 445, 513, 557 ·
-`gewoontevorming` 146, 161, 168, 188, 244, 291, 294, 396, 397, 411, 540 ·
-`gezag` 62 · `gezin` 547 · `gezinnen` 327 · `gezondheid` 52, 88, 171, 181,
-318, 323, 329, 332, 412, 414, 415 · `gezondheidspsychologie` 458 ·
-`gezondheidszorg` 313, 317, 422 · `ggz` 104 · `giftige relaties` 429 ·
-`gijzelingsonderhandelaar` 271 · `gnostiek` 614 · `godin` 611 ·
-`godsdienstkritiek` 341 · `godsdienstwetenschap` 578, 608 · `goeroe` 242 ·
-`Google` 512 · `Graallegende` 408 · `grandiositeit` 404 · `gratie` 374 ·
-`grenswetenschap` 615 · `grenzen` 72, 105, 109, 120, 122, 187, 466 · `grenzen
-stellen` 151, 204, 406, 429 · `Griekenland` 537 · `Griekse literatuur` 536 ·
-`griekse mythologie` 261 · `Griekse oudheid` 530, 531 · `groei` 222 ·
-`groeiaandelen` 474 · `groeimentaliteit` 116 · `groepsdenken` 339 ·
-`groepsgedrag` 303 · `grondstoffen` 92 · `grondwet` 616, 619 · `groot-verhaal`
-56 · `grootouders` 91 · `handboek` 493, 495 · `handel` 80, 251 · `handelen`
-30, 476, 477, 478, 479, 501 · `handelspsychologie` 488, 489 · `handelssysteem`
-489, 491 · `handelssystemen` 484, 486, 500, 502 · `handleiding` 112 · `hart`
-86, 128 · `Harvard` 457 · `Hay House` 380 · `hechting` 145, 152, 317, 386 ·
-`hedendaags India` 202 · `hedgefondsen` 505 · `heelal` 99, 262 · `heldendom`
-532 · `heldenreis` 410 · `helderheid` 82, 436 · `herhaling` 125, 134 ·
-`herkomst` 127 · `hermetische filosofie` 378 · `hermetisme` 613, 631, 632, 633
-· `heroverwegen` 28 · `hersenen` 51, 84, 85, 86, 327 · `hersenonderzoek` 330,
-333 · `hersenspoeling` 384 · `herstel` 87, 552, 583 · `het gesprek` 416 ·
-`Himalaya` 191 · `hindoeïsme` 169, 199, 527, 569 · `Hindoeïstische mythologie`
-192, 202 · `hindoemythologie` 203 · `Hinge` 166 · `hiphop` 440 · `historische
-portretten` 248 · `historische roman` 529 · `hofcultuur` 216 · `hollywood` 555
-· `Hollywood` 178 · `Holocaust` 48 · `holografie` 340 · `homoseksualiteit` 325
-· `hoop` 255, 319 · `hormonen` 80, 339 · `hospice` 416 · `houding` 117 ·
-`huisvesting` 65 · `humanisme` 236 · `humor` 16, 19, 26, 105, 227, 561 ·
-`husserl` 577 · `huwelijk` 9, 34, 165 · `Huxley` 54 · `hybride werken` 512 ·
-`hyperrealiteit` 565 · `hypnose` 123, 124, 125 · `Idaho` 45 · `ideeën` 206 ·
+`filosofiegeschiedenis` 269, 639 · `filosofische antropologie` 584 ·
+`financiële geletterdheid` 163 · `financiële markten` 268, 351, 480, 481, 483,
+499, 501 · `financiële onafhankelijkheid` 264 · `financiele vrijheid` 277 ·
+`financiële wiskunde` 497, 507 · `financiële-discipline` 464 · `financiën`
+334, 395, 425 · `financiering` 172 · `fitnessbranche` 307, 544 · `flitshandel`
+499 · `flow` 78, 187, 200 · `focus` 175, 197, 448, 513 · `folklore` 615 ·
+`fotoboek` 189 · `foutcultuur` 422 · `fouten maken` 509 · `franchise` 544 ·
+`frankrijk` 115 · `Franse-Weerstand` 390 · `freelance` 515 · `Fulani` 522 ·
+`fysieke uitdaging` 323 · `fysiologie` 318, 412, 458 · `Galenus` 328 ·
+`gaslighting` 123 · `gastheerschap` 304 · `gastvrijheid` 531 · `gebed` 83,
+259, 573 · `gebruikersgedrag` 294 · `gedachten` 148, 177 · `gedachtenjournal`
+176 · `gedrag` 21, 22, 89, 90, 138, 154, 280, 330, 383, 425 ·
+`gedragsbiologie` 322, 339 · `gedragseconomie` 424, 426, 514 ·
+`gedragsonderzoek` 302, 382 · `gedragspatronen` 161 · `gedragspsychologie` 294
+· `gedragstypen` 156 · `gedragsverandering` 238, 290, 457, 469 ·
+`gedragswetenschap` 166, 209, 305, 468, 469, 510 · `geduld` 21, 351 · `geest`
+584, 652 · `geestelijke gezondheid` 193 · `geestelijke oefeningen` 586 ·
+`gegevensanalyse` 486 · `gehechtheid` 166 · `geheim genootschap` 202 ·
+`geheugen` 66, 85, 175, 414 · `gehoorzaamheid` 215, 617 · `geïllustreerd boek`
+176 · `geld` 21, 37, 38, 56, 76, 121, 132, 133, 158, 159, 433, 463, 464 ·
+`geldmanagement` 492, 493 · `geldmindset` 395 · `geldpsychologie` 233, 264 ·
+`geloof` 45, 83, 201, 554 · `geluk` 79, 93, 160, 228, 335, 516, 526, 579 ·
+`gemeenschap` 9, 96, 304, 461 · `genealogie` 601 · `geneeskunde` 49, 328 ·
+`generaties` 114 · `generatieve drift` 315 · `genetica` 413, 419 · `genezing`
+340 · `genot en pijn` 314 · `gentechnologie` 413 · `geologie` 239 ·
+`geopolitiek` 220 · `geschiedenis` 30, 36, 56, 57, 68, 93, 94, 212, 218, 250,
+258, 298, 328, 381, 425, 440, 588, 589, 591, 593, 595, 597, 598, 600, 619, 634
+· `geschiedenis van de geneeskunde` 412 · `geschiedfilosofie` 235 ·
+`geschiedschrijving` 601, 602 · `gesprek` 43, 95, 302, 444 ·
+`gesprekstechniek` 182, 186, 438 · `gevangenendilemma` 453 · `gevolgen` 67 ·
+`gewaarzijn` 519 · `geweld` 45, 90, 214 · `geweldloosheid` 612 · `gewicht` 138
+· `gewoontelus` 238 · `gewoonten` 187, 373 · `gewoontes` 7, 11, 13, 22, 25,
+58, 70, 76, 77, 79, 88, 97, 103, 133, 134, 135, 138, 147, 157, 158, 181, 207,
+208, 224, 230, 290, 334, 382, 439, 442, 445, 513, 557 · `gewoontevorming` 146,
+161, 168, 188, 244, 291, 294, 396, 397, 411, 540 · `gezag` 62 · `gezin` 547 ·
+`gezinnen` 327 · `gezondheid` 52, 88, 171, 181, 318, 323, 329, 332, 412, 414,
+415 · `gezondheidspsychologie` 458 · `gezondheidszorg` 313, 317, 422 · `ggz`
+104 · `giftige relaties` 429 · `gijzelingsonderhandelaar` 271 · `gnostiek` 614
+· `godin` 611 · `godsdienstkritiek` 341 · `godsdienstwetenschap` 578, 608 ·
+`goeroe` 242 · `Google` 512 · `Graallegende` 408 · `grandiositeit` 404 ·
+`gratie` 374 · `grenswetenschap` 615 · `grenzen` 72, 105, 109, 120, 122, 187,
+466 · `grenzen stellen` 151, 204, 406, 429 · `Griekenland` 537 · `Griekse
+literatuur` 536 · `griekse mythologie` 261 · `Griekse oudheid` 530, 531 ·
+`groei` 222 · `groeiaandelen` 474 · `groeimentaliteit` 116 · `groepsdenken`
+339 · `groepsgedrag` 303 · `grondstoffen` 92 · `grondwet` 616, 619 ·
+`groot-verhaal` 56 · `grootouders` 91 · `handboek` 493, 495 · `handel` 80, 251
+· `handelen` 30, 476, 477, 478, 479, 501 · `handelspsychologie` 488, 489 ·
+`handelssysteem` 489, 491 · `handelssystemen` 484, 486, 500, 502 ·
+`handleiding` 112 · `hart` 86, 128 · `Harvard` 457 · `Hay House` 380 ·
+`hechting` 145, 152, 317, 386 · `hedendaags India` 202 · `hedgefondsen` 505 ·
+`heelal` 99, 262 · `heldendom` 532 · `heldenreis` 410 · `helderheid` 82, 436 ·
+`herhaling` 125, 134 · `herkomst` 127 · `hermetische filosofie` 378 ·
+`hermetisme` 613, 631, 632, 633, 638, 639 · `heroverwegen` 28 · `hersenen` 51,
+84, 85, 86, 327 · `hersenonderzoek` 330, 333 · `hersenspoeling` 384 ·
+`herstel` 87, 552, 583 · `het gesprek` 416 · `Himalaya` 191 · `hindoeïsme`
+169, 199, 527, 569 · `Hindoeïstische mythologie` 192, 202 · `hindoemythologie`
+203 · `Hinge` 166 · `hiphop` 440 · `historische portretten` 248 · `historische
+roman` 529 · `hofcultuur` 216 · `hollywood` 555 · `Hollywood` 178 ·
+`Holocaust` 48 · `holografie` 340 · `homoseksualiteit` 325 · `hoop` 255, 319 ·
+`hormonen` 80, 339 · `hospice` 416 · `houding` 117 · `huisvesting` 65 ·
+`humanisme` 236 · `humor` 16, 19, 26, 105, 227, 561 · `husserl` 577 ·
+`huwelijk` 9, 34, 165 · `Huxley` 54 · `hybride werken` 512 · `hyperrealiteit`
+565 · `hypnose` 123, 124, 125 · `Idaho` 45 · `ideeën` 206 ·
 `ideeëngeschiedenis` 269 · `identiteit` 22, 115, 192, 261, 374, 375, 467, 559
 · `identiteitskapitaal` 51 · `ideologie` 628 · `ierland` 110 · `IJsland` 185,
 533 · `ik-vorm` 113 · `illustraties` 109, 327 · `imitatie` 11 ·
@@ -124934,33 +125831,33 @@ denken` 521 · `initiatie` 407, 408, 522 · `inleiding` 452, 456 ·
 `internet` 60, 198 · `interviews` 58, 277, 289 · `intimiteit` 122, 145, 164,
 165 · `introspectie` 579 · `introversie` 33, 361 · `intuitie` 128 · `intuïtie`
 214, 283, 320 · `investeren` 270, 348 · `invloed` 11 · `invoeling` 577 ·
-`inzicht` 587 · `irrationaliteit` 424 · `islam` 526 · `islamitische filosofie`
-525 · `Israël` 514 · `Italiaanse non-fictie` 211 · `Italië` 155 · `jaloezie`
-19 · `Japan` 77, 205, 261, 335, 346, 379, 462, 517, 528, 535 · `japanse
-filosofie` 576 · `jaren negentig` 348 · `jaren-tachtig` 139 · `jaren-twintig`
-94 · `jazztijdperk` 284 · `jeff bezos` 257 · `jeugd` 53, 104, 115 · `jodendom`
-630 · `John Harrison` 321 · `joint ventures` 348 · `jonge liefde` 180 ·
-`jongeren` 25 · `jongvolwassenen` 569 · `jongvolwassenenroman` 295 · `joodse
-filosofie` 572, 574 · `journaling` 147 · `journalistiek` 4, 7, 46, 82, 238,
-257, 285, 401, 499, 566 · `Jung` 143, 358, 359 · `Jungiaanse psychologie` 404,
-407, 408, 409, 410 · `kaakontwikkeling` 332 · `kabbala` 630, 634 · `Kabul` 184
-· `Kaïn-en-Abel` 10 · `kalmte` 248, 389 · `kameraadschap` 529 · `kanker` 419 ·
-`kans` 64 · `kansdenken` 487 · `kansen` 137 · `kansrekening` 282, 456, 484,
-490, 496, 504, 505 · `kapitalisme` 298 · `karakter` 97, 537 · `Karel de Grote`
-534 · `karma` 184 · `karmel` 573 · `Kasjmir` 180 · `keegan` 110 ·
-`Kelly-criterium` 504 · `keltische traditie` 611 · `kennis` 81, 508 ·
-`kennisleer` 525, 587 · `kenniswerk` 6, 50, 400, 472 · `kernwaarden` 245 ·
-`kernwapens` 454 · `keuzes` 51, 71, 72, 510 · `Kierkegaard` 405 · `kinderboek`
-167 · `kinderjaren` 152 · `kinesiologie` 449 · `klantcontact` 182, 186 ·
-`klantpsychologie` 367 · `klantrelaties` 246 · `klantvalidatie` 265 ·
-`klantwaarde` 309 · `klassenverschil` 284 · `klassieke bronnen` 286 ·
-`klassieke tekst` 219, 394 · `klassieker` 10, 24, 38, 48, 61, 83, 127, 135,
-144, 173, 213, 254, 351, 420, 520, 537, 616, 617, 618, 619, 620, 626 ·
-`klein-beginnen` 40 · `kleine-bedrijven` 172 · `kleine-stappen` 22, 133 ·
-`kleurboek` 327 · `klimaatfictie` 203 · `klimaatverandering` 299 · `klinische
-psychologie` 460 · `klokkenmakerij` 321 · `kolonialisme` 298, 592 · `korea`
-111 · `kort` 59, 99, 100, 101, 110, 140 · `kort-boek` 11, 13, 16, 27, 38, 57,
-445 · `kort-stuk` 19, 30 · `korte-teksten` 111 · `korte-vorm` 473 ·
+`inwijding` 636 · `inzicht` 587 · `irrationaliteit` 424 · `islam` 526 ·
+`islamitische filosofie` 525 · `Israël` 514 · `Italiaanse non-fictie` 211 ·
+`Italië` 155 · `jaloezie` 19 · `Japan` 77, 205, 261, 335, 346, 379, 462, 517,
+528, 535 · `japanse filosofie` 576 · `jaren negentig` 348 · `jaren-tachtig`
+139 · `jaren-twintig` 94 · `jazztijdperk` 284 · `jeff bezos` 257 · `jeugd` 53,
+104, 115 · `jodendom` 630 · `John Harrison` 321 · `joint ventures` 348 ·
+`jonge liefde` 180 · `jongeren` 25 · `jongvolwassenen` 569 ·
+`jongvolwassenenroman` 295 · `joodse filosofie` 572, 574 · `journaling` 147 ·
+`journalistiek` 4, 7, 46, 82, 238, 257, 285, 401, 499, 566 · `Jung` 143, 358,
+359 · `Jungiaanse psychologie` 404, 407, 408, 409, 410 · `kaakontwikkeling`
+332 · `kabbala` 630, 634 · `Kabul` 184 · `Kaïn-en-Abel` 10 · `kalmte` 248, 389
+· `kameraadschap` 529 · `kanker` 419 · `kans` 64 · `kansdenken` 487 · `kansen`
+137 · `kansrekening` 282, 456, 484, 490, 496, 504, 505 · `kapitalisme` 298 ·
+`karakter` 97, 537 · `Karel de Grote` 534 · `karma` 184 · `karmel` 573 ·
+`Kasjmir` 180 · `keegan` 110 · `Kelly-criterium` 504 · `keltische traditie`
+611 · `kennis` 81, 508 · `kennisleer` 525, 587 · `kenniswerk` 6, 50, 400, 472
+· `kernwaarden` 245 · `kernwapens` 454 · `keuzes` 51, 71, 72, 510 ·
+`Kierkegaard` 405 · `kinderboek` 167 · `kinderjaren` 152 · `kinesiologie` 449
+· `klantcontact` 182, 186 · `klantpsychologie` 367 · `klantrelaties` 246 ·
+`klantvalidatie` 265 · `klantwaarde` 309 · `klassenverschil` 284 · `klassieke
+bronnen` 286 · `klassieke tekst` 219, 394 · `klassieker` 10, 24, 38, 48, 61,
+83, 127, 135, 144, 173, 213, 254, 351, 420, 520, 537, 616, 617, 618, 619, 620,
+626 · `klein-beginnen` 40 · `kleine-bedrijven` 172 · `kleine-stappen` 22, 133
+· `kleurboek` 327 · `klimaatfictie` 203 · `klimaatverandering` 299 ·
+`klinische psychologie` 460 · `klokkenmakerij` 321 · `kolonialisme` 298, 592 ·
+`korea` 111 · `kort` 59, 99, 100, 101, 110, 140 · `kort-boek` 11, 13, 16, 27,
+38, 57, 445 · `kort-stuk` 19, 30 · `korte-teksten` 111 · `korte-vorm` 473 ·
 `kosmologie` 239, 262, 281, 651 · `koude oorlog` 217, 220, 384, 454, 456 ·
 `krijgsgevangenschap` 31 · `krijgskunde` 212, 218, 219, 272 · `krijgskunst`
 346 · `kritiek` 24, 41, 50 · `kritiek geven` 356 · `kritisch denken` 420, 421
@@ -124988,36 +125885,37 @@ intelligentie` 236, 237, 297, 652 · `kwaad` 404 · `kwaliteit` 1, 400 ·
 · `lotsbestemming` 261 · `luchtvaart` 422 · `luisteren` 24, 35, 305, 444 ·
 `machinaal leren` 484, 485, 486, 503 · `macht` 212, 250, 263, 381, 388, 440,
 617, 622 · `machtspolitiek` 220 · `machtstheorie` 221 · `machtsverhoudingen`
-155 · `magie` 613, 632, 634 · `magisch realisme` 261 · `management` 42, 47,
-170, 183, 256, 350, 353, 364, 472 · `managementtheorie` 547 · `manifest` 629 ·
-`manifesteren` 128, 129, 130, 131, 132, 190, 196, 433, 543, 560 ·
-`manipulatie` 123, 124, 125, 126, 212, 213, 381, 384, 429 · `mannelijkheid` 3,
-406, 407, 408 · `mannen` 7 · `mannenbeweging` 407 · `mantelzorg` 225 ·
-`mantra` 403 · `manuscript` 359 · `maria magdalena` 614 · `marketing` 13, 40,
-60, 172, 183, 279, 280, 307, 308, 309, 350, 443, 446 · `marktmicrostructuur`
-477, 478 · `marxisme` 564 · `McKinsey` 511 · `media` 54, 60, 100, 562, 563,
-564, 565, 566 · `medische ethiek` 416 · `meditatie` 111, 141, 149, 169, 205,
-208, 228, 230, 237, 242, 333, 377, 401, 431, 527, 528, 590, 630 ·
-`meesterschap` 296, 320, 553 · `meetprobleem` 650, 653 · `meetsystemen` 392 ·
-`memento mori` 286 · `memoir` 4, 7, 18, 20, 26, 45, 49, 62, 95, 106, 178, 185,
-191, 226, 229, 242, 289, 324, 325, 348, 385, 402, 403, 431, 447, 505 · `mens
-en dier` 584 · `menselijk gedrag` 155 · `mensenkennis` 126, 356 · `mentale
-gezondheid` 315 · `mentale helderheid` 148 · `mentale weerbaarheid` 229, 323,
-372, 373, 374, 545 · `mentalisme` 378, 399 · `mentorschap` 4, 285, 289, 320,
-402 · `merken` 279 · `metabolisme` 313 · `metafysica` 102, 518, 584, 587 ·
-`meten` 69, 133 · `methode` 81 · `microbedrijf` 40, 172 · `microbioom` 417 ·
-`middelbare-leeftijd` 7 · `middeleeuwen` 534, 632 · `midlife` 324 · `militaire
-geschiedenis` 568 · `militaire strategie` 220 · `millennials` 159 ·
-`minderheden` 68 · `mindful` 103 · `mindfulness` 141, 147, 149, 177, 333, 401
-· `mindset` 146, 181, 188, 387, 458 · `minimalisme` 181 · `misdaad` 254 ·
-`misleiding` 219, 272 · `mislukking` 516 · `missie` 567 · `mitochondriën` 313
-· `modellen` 300 · `modelleren` 139 · `modellering` 455 · `moed` 44, 529 ·
-`moeder-en-zoon` 26 · `momentum` 481 · `monniksleven` 230 · `monomythe` 410 ·
-`monopolie` 306 · `monsters` 532 · `Monty-Python` 16 · `moraal` 9, 57, 67, 263
-· `moraalfilosofie` 581 · `moraalkritiek` 391 · `moreel` 36 · `mormonisme` 560
-· `motivatie` 117, 139, 146, 183, 200, 207, 315, 427, 468, 469, 472 · `Motley
+155 · `magie` 613, 632, 634, 637, 638, 639 · `magisch realisme` 261 ·
+`management` 42, 47, 170, 183, 256, 350, 353, 364, 472 · `managementtheorie`
+547 · `manifest` 629 · `manifesteren` 128, 129, 130, 131, 132, 190, 196, 433,
+543, 560 · `manipulatie` 123, 124, 125, 126, 212, 213, 381, 384, 429 ·
+`mannelijkheid` 3, 406, 407, 408 · `mannen` 7 · `mannenbeweging` 407 ·
+`mantelzorg` 225 · `mantra` 403 · `manuscript` 359 · `maria magdalena` 614 ·
+`marketing` 13, 40, 60, 172, 183, 279, 280, 307, 308, 309, 350, 443, 446 ·
+`marktmicrostructuur` 477, 478 · `marxisme` 564 · `McKinsey` 511 · `media` 54,
+60, 100, 562, 563, 564, 565, 566 · `medische ethiek` 416 · `meditatie` 111,
+141, 149, 169, 205, 208, 228, 230, 237, 242, 333, 377, 401, 431, 527, 528,
+590, 630, 638 · `meesterschap` 296, 320, 553 · `meetprobleem` 650, 653 ·
+`meetsystemen` 392 · `memento mori` 286 · `memoir` 4, 7, 18, 20, 26, 45, 49,
+62, 95, 106, 178, 185, 191, 226, 229, 242, 289, 324, 325, 348, 385, 402, 403,
+431, 447, 505 · `mens en dier` 584 · `menselijk gedrag` 155 · `mensenkennis`
+126, 356 · `mentale gezondheid` 315 · `mentale helderheid` 148 · `mentale
+weerbaarheid` 229, 323, 372, 373, 374, 545 · `mentalisme` 378, 399 ·
+`mentorschap` 4, 285, 289, 320, 402 · `merken` 279 · `metabolisme` 313 ·
+`metafysica` 102, 518, 584, 587 · `meten` 69, 133 · `methode` 81 ·
+`microbedrijf` 40, 172 · `microbioom` 417 · `middelbare-leeftijd` 7 ·
+`middeleeuwen` 534, 632 · `midlife` 324 · `militaire geschiedenis` 568 ·
+`militaire strategie` 220 · `millennials` 159 · `minderheden` 68 · `mindful`
+103 · `mindfulness` 141, 147, 149, 177, 333, 401 · `mindset` 146, 181, 188,
+387, 458 · `minimalisme` 181 · `misdaad` 254 · `misleiding` 219, 272 ·
+`mislukking` 516 · `missie` 567 · `mitochondriën` 313 · `modellen` 300 ·
+`modelleren` 139 · `modellering` 455 · `moed` 44, 529 · `moeder-en-zoon` 26 ·
+`momentum` 481 · `monniksleven` 230 · `monomythe` 410 · `monopolie` 306 ·
+`monsters` 532 · `Monty-Python` 16 · `moraal` 9, 57, 67, 263 ·
+`moraalfilosofie` 581 · `moraalkritiek` 391 · `moreel` 36 · `mormonisme` 560 ·
+`motivatie` 117, 139, 146, 183, 200, 207, 315, 427, 468, 469, 472 · `Motley
 Fool` 474 · `motoren` 6 · `motorfietsen` 325 · `muziek` 17, 85 · `mystiek`
-340, 390, 524, 525, 573, 578, 603, 604, 606, 610, 630 · `mythe` 608 ·
+340, 390, 524, 525, 573, 578, 603, 604, 606, 610, 630, 636 · `mythe` 608 ·
 `mythevorming` 615 · `mythologie` 73, 143, 357, 360, 407, 408, 409, 599, 611 ·
 `mythologische fantasy` 202 · `mythologische fictie` 203 · `NAD+` 415 ·
 `nalatenschap` 178 · `napoleontische oorlogen` 235 · `narcisme` 258, 404 ·
@@ -125027,8 +125925,8 @@ Fool` 474 · `motoren` 6 · `motorfietsen` 325 · `muziek` 17, 85 · `mystiek`
 364 · `nazisme` 223 · `necrofilie` 223 · `nederland` 96 · `nederlands` 93, 97,
 100, 101, 102, 103, 104, 105, 106, 107, 108, 128, 130, 131, 141 ·
 `nederlands-auteur` 140 · `nederlandstalig` 113 · `negatieve emoties` 176 ·
-`negentig dagen` 188 · `neopaganisme` 611 · `nepnieuws` 237 · `netwerken` 24,
-246, 300, 388, 508 · `neurobiologie` 119 · `neurochirurgie` 49, 414 ·
+`negentig dagen` 188 · `neopaganisme` 611, 637 · `nepnieuws` 237 · `netwerken`
+24, 246, 300, 388, 508 · `neurobiologie` 119 · `neurochirurgie` 49, 414 ·
 `neurologie` 325 · `neuroplasticiteit` 175, 208, 414 · `neurose` 575 ·
 `neurowetenschap` 52, 208, 238, 275, 314, 326, 330, 331, 333, 339, 340, 386,
 418, 513, 585 · `neurowetenschap-voor-kinderen` 327 · `neusademing` 318 · `new
@@ -125038,9 +125936,9 @@ age` 149, 435, 449, 549 · `new thought` 259, 380, 555 · `NeXT` 46 ·
 `Nobelprijs` 55 · `non-dualiteit` 520 · `non-fictie` 420 · `non-verbaal` 399 ·
 `non-verbale communicatie` 154 · `noodlot` 533 · `Noordse mythologie` 533 ·
 `notitieboeken` 241 · `novelle` 173 · `numineus` 578 · `obesitas` 417 ·
-`observeren` 15 · `obsessieve liefde` 284 · `occultisme` 378, 613, 634 ·
-`ochtendroutine` 14, 134, 244 · `oefenen` 29, 397 · `oefening` 141, 296 ·
-`oefeningen` 15, 35, 87, 103, 109, 118, 120, 122, 130, 549 · `okinawa` 77 ·
+`observeren` 15 · `obsessieve liefde` 284 · `occultisme` 378, 613, 634, 637,
+638 · `ochtendroutine` 14, 134, 244 · `oefenen` 29, 397 · `oefening` 141, 296
+· `oefeningen` 15, 35, 87, 103, 109, 118, 120, 122, 130, 549 · `okinawa` 77 ·
 `okr` 256 · `oligarchie` 618 · `omgangsvormen` 24, 398 · `omkering` 105 ·
 `omstreden` 37, 73, 76, 83 · `onbegrepen-klachten` 104 · `onbetrouwbaar` 123,
 124, 125, 126 · `onbetrouwbare verteller` 284 · `onbewezen` 127, 128, 129,
@@ -125072,44 +125970,44 @@ age` 149, 435, 449, 549 · `new thought` 259, 380, 555 · `NeXT` 46 ·
 356, 367, 438 · `overtuiging` 280 · `overtuigingen` 28, 132, 139, 143, 469,
 487 · `overvloed` 17 · `oxytocine` 458 · `Pacific` 31 · `pacifisme` 240, 612 ·
 `Padma-onderscheiding` 189 · `palliatieve zorg` 416, 447 · `para` 81 ·
-`parabel` 38, 244, 246 · `paradigma` 543 · `paranormaal` 340, 362 · `passie`
-50, 198 · `pastoraat` 34 · `patiëntenverhalen` 331 · `patiëntverhalen` 414 ·
-`patriarchaat` 3 · `pelgrimage` 8 · `pensioen` 277 · `perceptie` 30 ·
-`perfectionisme` 19, 32, 44, 575 · `persoonlijk merk` 198, 365 · `persoonlijke
-financiën` 163, 233, 395 · `persoonlijke ontwikkeling` 161, 465, 467 ·
-`persoonlijkheid` 33, 338, 538 · `persoonlijkheidstypen` 361 · `perspectief`
-580 · `Perzië` 524, 525, 526, 536 · `piekeren` 105, 176 · `pijn` 85, 255 ·
-`pijnlichaam` 435 · `Pixar` 41, 46 · `placebo` 387, 469 · `planeten` 99 ·
-`planning` 70, 276 · `plantaardig-dieet` 324 · `plastische chirurgie` 411 ·
-`plato` 581 · `plicht` 2 · `podcast` 136, 465, 513 · `poëzie` 204, 611 ·
-`poker` 137 · `polarisatie` 305 · `polemiek` 67 · `politicologie` 220, 221,
-453, 455 · `politiek` 54, 219, 438, 629 · `politieke economie` 566 ·
-`politieke filosofie` 394, 623, 624, 626, 627, 628 · `populair` 77, 129, 133 ·
-`populair-wetenschappelijk` 88, 239, 326, 418, 451 · `populaire filosofie` 194
-· `populaire psychologie` 156, 429 · `portefeuille` 474 · `portefeuillebeheer`
-507 · `portefeuilletheorie` 503 · `portretten` 75, 94 · `positief denken` 83,
-179, 516 · `positiegrootte` 489, 490, 491, 493, 504, 506 ·
-`positieve-psychologie` 207 · `positionering` 443 · `postmarxisme` 628 ·
-`postmodernisme` 565 · `postuum` 49 · `Praag` 173 · `praktijk` 459 ·
-`praktisch` 118, 121, 140, 159, 172 · `prentenboek` 167 · `presenteren` 82,
-253 · `prestatie` 168, 291, 372, 397, 488, 545 · `prestatiebeoordeling` 256 ·
-`prestatiecultuur` 461 · `prestatieonderzoek` 376 · `prestige` 515 ·
-`preventie` 86, 313 · `prijsstelling` 307 · `prijzen` 23, 424 · `prikkels` 60,
-65 · `prioriteiten` 25, 196 · `prioriteren` 151, 311, 448 · `privacy` 393 ·
-`proactief` 25 · `producer` 17 · `product` 446 · `productiviteit` 151, 175,
-197, 207, 244, 276, 278, 290, 311, 400, 434, 442, 448, 512, 552 ·
-`productontwerp` 231, 294 · `productontwikkeling` 265, 471 · `proeven` 112 ·
-`programmering` 439 · `projecten` 81 · `projectie` 107, 108 · `propaganda` 60,
-384, 562, 566 · `propositielogica` 437 · `protocol` 69 · `pseudokennis` 126 ·
-`pseudoniem` 378 · `psychedelica` 275 · `psychiatrie` 1, 48, 95, 96, 104, 213,
-314, 315, 317, 331 · `psychoanalyse` 223, 360, 361, 405, 409, 575, 610 ·
-`psychologie` 23, 28, 29, 55, 73, 78, 79, 105, 138, 143, 147, 152, 154, 162,
-200, 211, 213, 214, 250, 254, 258, 296, 310, 338, 357, 358, 375, 381, 382,
-384, 387, 424, 444, 457, 463, 467, 468, 469, 487, 501, 514, 538, 541, 542, 582
-· `psychologische flexibiliteit` 460 · `psychologische functies` 361 ·
-`psychopathie` 429 · `psychotherapie` 164, 227, 386, 406 · `PTSS` 386 ·
-`publiceren` 13 · `publiek opbouwen` 369 · `publieksfilosofie` 269 ·
-`Pulitzer` 5 · `puzzels` 451 · `Python` 486 · `quantum` 94, 650, 653 ·
+`parabel` 38, 244, 246 · `paradigma` 543 · `paranormaal` 340, 362 ·
+`parapsychologie` 637 · `passie` 50, 198 · `pastoraat` 34 ·
+`patiëntenverhalen` 331 · `patiëntverhalen` 414 · `patriarchaat` 3 ·
+`pelgrimage` 8 · `pensioen` 277 · `perceptie` 30 · `perfectionisme` 19, 32,
+44, 575 · `persoonlijk merk` 198, 365 · `persoonlijke financiën` 163, 233, 395
+· `persoonlijke ontwikkeling` 161, 465, 467 · `persoonlijkheid` 33, 338, 538 ·
+`persoonlijkheidstypen` 361 · `perspectief` 580 · `Perzië` 524, 525, 526, 536
+· `piekeren` 105, 176 · `pijn` 85, 255 · `pijnlichaam` 435 · `Pixar` 41, 46 ·
+`placebo` 387, 469 · `planeten` 99 · `planning` 70, 276 · `plantaardig-dieet`
+324 · `plastische chirurgie` 411 · `plato` 581 · `plicht` 2 · `podcast` 136,
+465, 513 · `poëzie` 204, 611 · `poker` 137 · `polarisatie` 305 · `polemiek` 67
+· `politicologie` 220, 221, 453, 455 · `politiek` 54, 219, 438, 629 ·
+`politieke economie` 566 · `politieke filosofie` 394, 623, 624, 626, 627, 628
+· `populair` 77, 129, 133 · `populair-wetenschappelijk` 88, 239, 326, 418, 451
+· `populaire filosofie` 194 · `populaire psychologie` 156, 429 ·
+`portefeuille` 474 · `portefeuillebeheer` 507 · `portefeuilletheorie` 503 ·
+`portretten` 75, 94 · `positief denken` 83, 179, 516 · `positiegrootte` 489,
+490, 491, 493, 504, 506 · `positieve-psychologie` 207 · `positionering` 443 ·
+`postmarxisme` 628 · `postmodernisme` 565 · `postuum` 49 · `Praag` 173 ·
+`praktijk` 459 · `praktisch` 118, 121, 140, 159, 172 · `prentenboek` 167 ·
+`presenteren` 82, 253 · `prestatie` 168, 291, 372, 397, 488, 545 ·
+`prestatiebeoordeling` 256 · `prestatiecultuur` 461 · `prestatieonderzoek` 376
+· `prestige` 515 · `preventie` 86, 313 · `prijsstelling` 307 · `prijzen` 23,
+424 · `prikkels` 60, 65 · `prioriteiten` 25, 196 · `prioriteren` 151, 311, 448
+· `privacy` 393 · `proactief` 25 · `producer` 17 · `product` 446 ·
+`productiviteit` 151, 175, 197, 207, 244, 276, 278, 290, 311, 400, 434, 442,
+448, 512, 552 · `productontwerp` 231, 294 · `productontwikkeling` 265, 471 ·
+`proeven` 112 · `programmering` 439 · `projecten` 81 · `projectie` 107, 108 ·
+`propaganda` 60, 384, 562, 566 · `propositielogica` 437 · `protocol` 69 ·
+`pseudokennis` 126 · `pseudoniem` 378 · `psychedelica` 275 · `psychiatrie` 1,
+48, 95, 96, 104, 213, 314, 315, 317, 331 · `psychoanalyse` 223, 360, 361, 405,
+409, 575, 610 · `psychologie` 23, 28, 29, 55, 73, 78, 79, 105, 138, 143, 147,
+152, 154, 162, 200, 211, 213, 214, 250, 254, 258, 296, 310, 338, 357, 358,
+375, 381, 382, 384, 387, 424, 444, 457, 463, 467, 468, 469, 487, 501, 514,
+538, 541, 542, 582 · `psychologische flexibiliteit` 460 · `psychologische
+functies` 361 · `psychopathie` 429 · `psychotherapie` 164, 227, 386, 406 ·
+`PTSS` 386 · `publiceren` 13 · `publiek opbouwen` 369 · `publieksfilosofie`
+269 · `Pulitzer` 5 · `puzzels` 451 · `Python` 486 · `quantum` 94, 650, 653 ·
 `queeste` 522 · `quilten` 114 · `quotes` 179 · `racisme` 601, 602 · `radicale
 transparantie` 270 · `RAND` 454, 456 · `Rat-Pack` 178 · `rationaliteit` 454 ·
 `rationele keuze` 455 · `recht` 393 · `rechtspraak` 69 · `rechtvaardigheid`
@@ -125119,29 +126017,29 @@ transparantie` 270 · `RAND` 454, 456 · `Rat-Pack` 178 · `rationaliteit` 454 �
 162, 164, 166, 167, 195, 213, 334, 335, 381, 398, 406, 466 · `relatietherapie`
 165 · `relativiteitstheorie` 240, 281 · `religie` 56, 572, 596, 599, 626 ·
 `religieus naturalisme` 609 · `religieuze symboliek` 409 · `REM` 52 ·
-`remarkable` 446 · `Renaissance` 15, 241 · `rente` 38 · `replicatie` 79 ·
-`reputatie` 388 · `retorica` 253, 438 · `revisie` 18 · `revolutie` 625 ·
-`ridderepos` 534 · `rijkdom` 57, 228 · `risico` 64, 80, 144, 268, 282, 351,
-423, 425, 480, 481, 482, 487, 496, 500, 501 · `risicobeheer` 479, 489, 490,
-491, 492, 493, 494, 497, 498, 504, 506 · `ritueel` 404, 590, 608 · `rituelen`
-304 · `rivier als symbool` 287 · `roem-en-eenzaamheid` 178 · `roeping` 8, 9,
-12, 160 · `roman` 61, 113, 114, 115, 254, 554 · `Rome` 537 · `romeinse
-oudheid` 232 · `rouw` 95, 467 · `rouwverwerking` 204 · `rozenkruisers` 631 ·
-`ruimte en tijd` 281 · `ruimtevaart` 266 · `russische literatuur` 235 · `rust`
-32 · `SaaS` 434 · `sadisme` 223 · `saga` 533 · `Salinas` 10 · `samenleving`
-90, 98, 319 · `samenwerken` 25 · `samenwerking` 453 · `samoerai` 346, 462,
-517, 535 · `Sanskriet` 520 · `Santa Fe Institute` 347 · `satire` 155 ·
-`satori` 528 · `scepsis` 63, 585 · `schaalgroei` 434 · `schaalvergroting` 350
-· `schaamte` 32, 44, 317, 470 · `schaarste` 92, 249 · `schaduw` 404 ·
-`scheiding` 556 · `scheikunde` 92 · `school` 53, 84 · `schrijven` 11, 12, 14,
-18, 19, 81, 436, 511 · `schrijverschap` 191, 325 · `schuld` 254 · `schulden`
-20, 38, 121, 159, 464 · `seksualiteit` 100, 145, 164, 165, 316 ·
-`selectoraattheorie` 221 · `seminar` 139, 543 · `Shaolin` 389 · `Silicon
-Valley` 306 · `simulatie` 565 · `sirtuïnen` 415 · `situationisme` 564 ·
-`slaap` 52, 87, 88, 171, 181, 316, 329, 414 · `slaapapneu` 332 · `slavernij`
-68 · `smartphone` 53, 288 · `sociale besmetting` 303 · `sociale media` 53, 70,
-194, 198, 204, 288, 365 · `sociale psychologie` 215, 280, 302, 319 ·
-`sociale-vaardigheden` 398 · `socialisme` 618 · `sociologie` 300, 622 ·
+`remarkable` 446 · `renaissance` 639 · `Renaissance` 15, 241 · `rente` 38 ·
+`replicatie` 79 · `reputatie` 388 · `retorica` 253, 438 · `revisie` 18 ·
+`revolutie` 625 · `ridderepos` 534 · `rijkdom` 57, 228 · `risico` 64, 80, 144,
+268, 282, 351, 423, 425, 480, 481, 482, 487, 496, 500, 501 · `risicobeheer`
+479, 489, 490, 491, 492, 493, 494, 497, 498, 504, 506 · `ritueel` 404, 590,
+608 · `rituelen` 304 · `rivier als symbool` 287 · `roem-en-eenzaamheid` 178 ·
+`roeping` 8, 9, 12, 160 · `roman` 61, 113, 114, 115, 254, 554 · `Rome` 537 ·
+`romeinse oudheid` 232 · `rouw` 95, 467 · `rouwverwerking` 204 ·
+`rozenkruisers` 631 · `ruimte en tijd` 281 · `ruimtevaart` 266 · `russische
+literatuur` 235 · `rust` 32 · `SaaS` 434 · `sadisme` 223 · `saga` 533 ·
+`Salinas` 10 · `samenleving` 90, 98, 319 · `samenwerken` 25 · `samenwerking`
+453 · `samoerai` 346, 462, 517, 535 · `Sanskriet` 520 · `Santa Fe Institute`
+347 · `satire` 155 · `satori` 528 · `scepsis` 63, 585 · `schaalgroei` 434 ·
+`schaalvergroting` 350 · `schaamte` 32, 44, 317, 470 · `schaarste` 92, 249 ·
+`schaduw` 404 · `scheiding` 556 · `scheikunde` 92 · `school` 53, 84 ·
+`schrijven` 11, 12, 14, 18, 19, 81, 436, 511 · `schrijverschap` 191, 325 ·
+`schuld` 254 · `schulden` 20, 38, 121, 159, 464 · `seksualiteit` 100, 145,
+164, 165, 316 · `selectoraattheorie` 221 · `seminar` 139, 543 · `Shaolin` 389
+· `Silicon Valley` 306 · `simulatie` 565 · `sirtuïnen` 415 · `situationisme`
+564 · `slaap` 52, 87, 88, 171, 181, 316, 329, 414 · `slaapapneu` 332 ·
+`slavernij` 68 · `smartphone` 53, 288 · `sociale besmetting` 303 · `sociale
+media` 53, 70, 194, 198, 204, 288, 365 · `sociale psychologie` 215, 280, 302,
+319 · `sociale-vaardigheden` 398 · `socialisme` 618 · `sociologie` 300, 622 ·
 `soefisme` 524, 526 · `software` 276, 484 · `somberheid` 119 · `spanning` 101
 · `sparen` 21, 38, 159, 233, 464 · `Sparta` 529 · `specialisatie` 349 ·
 `speedreading` 175 · `spel` 550 · `spelen` 32 · `spellen` 392 · `speltheorie`
@@ -125167,27 +126065,28 @@ Valley` 306 · `simulatie` 565 · `sirtuïnen` 415 · `situationisme` 564 ·
 `structuur` 82, 511 · `studieboek` 421, 437, 497, 498, 507 · `studietechniek`
 420 · `succes` 75, 76, 274 · `superkrachten` 203 · `supplementen` 171, 316 ·
 `surveillance` 393 · `syllogismen` 437 · `symboliek` 357, 360, 522, 605, 608,
-610, 633 · `symmetrie` 659 · `synchroniciteit` 362 · `synchronisatie` 303 ·
-`systeem` 22, 142 · `systeemtheorie` 165 · `systematisch handelen` 482, 502 ·
-`taal` 26, 27, 436, 594 · `taal en macht` 344 · `tactische empathie` 271 ·
-`talent` 23, 29, 274 · `taoïsme` 341, 394 · `tarieven` 121 · `teams` 42, 273,
-364, 468 · `teamvorming` 260 · `teamwork` 156, 256 · `techniek` 1, 6, 43, 61,
-92 · `technische analyse` 483, 500 · `technologie` 160, 288, 294, 306, 393,
-499 · `technologiebedrijven` 293 · `technologiegeschiedenis` 231, 267 ·
-`technologiekritiek` 297, 539 · `tegen-productiviteit` 71 · `tegenslag` 30,
-111, 174, 570 · `tekenen` 15 · `tekstkwaliteit` 124 · `televisie` 54 ·
-`temperament` 33 · `tempo` 552 · `termijnmarkten` 480, 482 · `testament` 462 ·
-`tevredenheid` 463 · `Texas` 5, 385 · `The Secret` 433 · `theeceremonie` 379 ·
-`theologie` 578, 587 · `theosofie` 605, 606 · `therapie` 51, 107, 118, 119,
-120, 121, 122, 145, 466 · `Thermopylae` 529 · `thriller` 101, 202 ·
-`thuiskomst` 531 · `thuiszorg` 225 · `tieners` 193 · `tijd` 71, 232, 262, 292,
-334, 442 · `tijdmanagement` 434 · `tijdsbeleving` 326 · `timemanagement` 311,
-448 · `tirannie` 617 · `toekomst` 236 · `toeval` 21, 64, 93, 137, 274, 362,
-483 · `Tolteeks` 27 · `toon` 72, 118, 119, 121, 132, 145 · `topprestatie` 374
-· `topsport` 422, 460, 545 · `totalitarisme` 384 · `trading` 492, 493, 495 ·
-`training` 376 · `transpersoonlijke psychologie` 583 · `trauma` 104, 119, 195,
-229, 317, 386 · `trendvolgen` 480, 501 · `trilling` 127 · `trilogie` 202, 203,
-248 · `TRIZ` 471 · `Troje` 530 · `tuinontwerp` 205 · `tumoronderdrukker` 419 ·
+610, 633, 635, 636 · `symmetrie` 659 · `synchroniciteit` 362 ·
+`synchronisatie` 303 · `systeem` 22, 142 · `systeemtheorie` 165 ·
+`systematisch handelen` 482, 502 · `taal` 26, 27, 436, 594 · `taal en macht`
+344 · `tactische empathie` 271 · `talent` 23, 29, 274 · `taoïsme` 341, 394 ·
+`tarieven` 121 · `teams` 42, 273, 364, 468 · `teamvorming` 260 · `teamwork`
+156, 256 · `techniek` 1, 6, 43, 61, 92 · `technische analyse` 483, 500 ·
+`technologie` 160, 288, 294, 306, 393, 499 · `technologiebedrijven` 293 ·
+`technologiegeschiedenis` 231, 267 · `technologiekritiek` 297, 539 ·
+`tegen-productiviteit` 71 · `tegenslag` 30, 111, 174, 570 · `tekenen` 15 ·
+`tekstkwaliteit` 124 · `televisie` 54 · `temperament` 33 · `tempo` 552 ·
+`termijnmarkten` 480, 482 · `testament` 462 · `tevredenheid` 463 · `Texas` 5,
+385 · `The Secret` 433 · `theeceremonie` 379 · `theologie` 578, 587 ·
+`theosofie` 605, 606 · `therapie` 51, 107, 118, 119, 120, 121, 122, 145, 466 ·
+`Thermopylae` 529 · `thriller` 101, 202 · `thuiskomst` 531 · `thuiszorg` 225 ·
+`tieners` 193 · `tijd` 71, 232, 262, 292, 334, 442 · `tijdmanagement` 434 ·
+`tijdsbeleving` 326 · `timemanagement` 311, 448 · `tirannie` 617 · `toekomst`
+236 · `toeval` 21, 64, 93, 137, 274, 362, 483 · `Tolteeks` 27 · `toon` 72,
+118, 119, 121, 132, 145 · `topprestatie` 374 · `topsport` 422, 460, 545 ·
+`totalitarisme` 384 · `trading` 492, 493, 495 · `training` 376 ·
+`transpersoonlijke psychologie` 583 · `trauma` 104, 119, 195, 229, 317, 386 ·
+`trendvolgen` 480, 501 · `trilling` 127 · `trilogie` 202, 203, 248 · `TRIZ`
+471 · `Troje` 530 · `tuinontwerp` 205 · `tumoronderdrukker` 419 ·
 `twaalf-weken` 14 · `twaalfde eeuw` 525 · `tweede-wereldoorlog` 115 ·
 `tweelingonderzoek` 417 · `twintigers` 51 · `typologie` 361 · `ufo's` 615 ·
 `uitdaging-vaardigheid` 200 · `uitgeven` 463 · `uitleg` 99, 102 · `uitleggen`
@@ -125203,54 +126102,54 @@ Valley` 306 · `simulatie` 565 · `sirtuïnen` 415 · `situationisme` 564 ·
 `verantwoordelijkheid` 42, 72, 73, 74, 93, 184, 282, 335, 364 · `verbinding`
 302, 550 · `verdriet` 111, 227 · `verenigde staten` 598 · `Verenigde-Staten`
 464 · `vergaderen` 42 · `vergaderingen` 276 · `vergankelijkheid` 379, 532 ·
-`vergelijkende mythologie` 410 · `vergelijkende religie` 604 · `vergeving` 31,
-102, 120, 548, 556 · `verhaal` 74 · `verhaalstructuur` 410 · `verhaalvorm` 135
-· `verhalen` 56, 101, 110, 136, 196, 470 · `verhalenbundel` 206 · `verhouding`
-113 · `verhoudingen` 110 · `verkeer` 300 · `verklaringen` 68 · `verkoop` 132,
-182, 185, 186, 188, 246, 280, 307, 308, 350, 367, 427 · `verkooptrechters` 309
-· `verkopen` 210 · `verlangen` 76, 100, 113, 130, 164, 418 · `verleiding` 381
-· `verlichting` 243, 287 · `verlies` 95, 373 · `vermaak` 61 · `vermogen` 39,
-463 · `vermogen opbouwen` 395 · `vermogensbeheer` 498 · `vermogensopbouw` 163,
-264, 277 · `veroudering` 171, 387, 415 · `verpleeghuis` 416 · `verpleegkunde`
-225 · `verplichting` 9 · `verraad` 534 · `verslaving` 18, 238, 275, 294, 314,
-324, 325, 418, 554, 568, 583 · `vertrouwen` 42, 273, 279, 319 · `vervloekt
-goud` 533 · `vervolg` 74, 131 · `vervreemding` 173 · `verwachting` 387 ·
-`verwachtingen` 425 · `verwachtingswaarde` 492 · `verwondering` 227 ·
-`verzekeren` 496 · `verzet` 523 · `vier deugden` 194 · `visioenen` 359 ·
-`visualisatie` 259, 411, 540 · `visualiseren` 116 · `vlaams` 89, 91, 98, 109 ·
-`voeding` 86, 88, 171, 313, 316, 329, 332, 417 · `voedingswetenschap` 417 ·
-`volatiliteit` 494, 495, 506 · `volharding` 29 · `volledigheid` 167 ·
-`voorbede` 558 · `voorbeelden` 128 · `voorbereiding` 82 · `voordrachten` 519 ·
-`voorkeuren` 89 · `vooroordelen` 55, 283 · `voorspellen` 455 ·
-`voorspellingen` 268 · `vooruitgang` 251 · `vooruitgangsdenken` 298 ·
-`voorzichtigheid` 216 · `vorming` 224 · `vorstenspiegel` 536 · `vragen
-stellen` 509 · `vragen-stellen` 475 · `vreemden` 302 · `vreugde` 549 ·
-`vriendelijkheid` 551 · `vriendschap` 5, 7, 114, 292, 295, 319, 514 · `vrije
-markt` 627 · `vrije tijd` 78, 288 · `vrije wil` 10, 236, 339 · `vrijheid` 61,
-546, 620, 621, 626 · `vrijmetselarij` 605 · `vroeg christendom` 614 · `vroeg
-pensioen` 264 · `vrouwenhaat` 110 · `waardebeleggen` 144, 351 ·
-`waardecreatie` 246, 508 · `waarden` 72, 142, 392, 457, 461, 553 ·
-`waardering` 24, 34 · `waarheid` 263 · `waarneming` 154, 283, 322, 541, 582 ·
-`wabi-sabi` 379 · `wales` 558 · `Wall Street` 144, 351, 499 · `weerbaarheid`
-194 · `weerstand` 12, 538 · `welvaart` 251, 334 · `welvaartsbewustzijn` 433 ·
-`wereldbeeld` 234 · `wereldbouw` 192 · `werk` 70, 78, 151, 252, 466 · `werk en
-rust` 512 · `werkboek` 14, 122, 150 · `werkcultuur` 551 · `werkdruk` 400 ·
-`werkplek` 33, 43 · `werktempo` 400 · `werkwijze` 16 · `West-Afrika` 522 ·
-`West-Point` 29 · `westen` 67 · `western` 5 · `westerse filosofie` 269, 341 ·
-`wet van aantrekking` 127, 190, 433, 543 · `wetenschap` 63, 66, 93, 94, 328,
-485 · `wetenschap en religie` 609 · `wetenschappers` 239 ·
-`wetenschapsfilosofie` 483, 650, 653 · `wetenschapsgeschiedenis` 239, 240,
-321, 347, 413, 419, 633, 649, 651, 659, 660, 661, 662 ·
-`wetenschapsjournalistiek` 387, 412 · `wijn` 112 · `wijsheid` 596 ·
-`wilskracht` 238 · `Wired` 473 · `wiskunde` 116, 454, 456, 490, 505, 509, 649,
-659, 660, 661, 662 · `wisselstroom` 267 · `woede` 119, 120 · `woestijn` 8 ·
-`Wolfgang Pauli` 362 · `wraak` 101, 533 · `WRAP` 510 · `wrok` 530 · `wu wei`
-394 · `Yale` 215 · `yin-yang` 394 · `yoga` 195, 242, 518 · `young adult` 192 ·
-`youtube` 245 · `zakelijk` 307 · `zakelijke communicatie` 182 · `zakendoen`
-348, 367, 465, 508 · `zeereis` 36 · `zeevaart` 321 · `zeldzaam` 144 ·
-`zelfacceptatie` 176, 335, 561 · `zelfbedrog` 66 · `zelfbeeld` 25, 27, 105,
-107, 108, 129, 138, 197, 367, 372, 411, 439, 538, 540, 559, 575 ·
-`zelfbeheersing` 75, 148, 212, 248, 286, 314, 382, 389, 396 ·
+`vergelijkende mythologie` 410, 635 · `vergelijkende religie` 604 ·
+`vergeving` 31, 102, 120, 548, 556 · `verhaal` 74 · `verhaalstructuur` 410 ·
+`verhaalvorm` 135 · `verhalen` 56, 101, 110, 136, 196, 470 · `verhalenbundel`
+206 · `verhouding` 113 · `verhoudingen` 110 · `verkeer` 300 · `verklaringen`
+68 · `verkoop` 132, 182, 185, 186, 188, 246, 280, 307, 308, 350, 367, 427 ·
+`verkooptrechters` 309 · `verkopen` 210 · `verlangen` 76, 100, 113, 130, 164,
+418 · `verleiding` 381 · `verlichting` 243, 287 · `verlies` 95, 373 ·
+`vermaak` 61 · `vermogen` 39, 463 · `vermogen opbouwen` 395 ·
+`vermogensbeheer` 498 · `vermogensopbouw` 163, 264, 277 · `veroudering` 171,
+387, 415 · `verpleeghuis` 416 · `verpleegkunde` 225 · `verplichting` 9 ·
+`verraad` 534 · `verslaving` 18, 238, 275, 294, 314, 324, 325, 418, 554, 568,
+583 · `vertrouwen` 42, 273, 279, 319 · `vervloekt goud` 533 · `vervolg` 74,
+131 · `vervreemding` 173 · `verwachting` 387 · `verwachtingen` 425 ·
+`verwachtingswaarde` 492 · `verwondering` 227 · `verzekeren` 496 · `verzet`
+523 · `vier deugden` 194 · `visioenen` 359 · `visualisatie` 259, 411, 540 ·
+`visualiseren` 116 · `vlaams` 89, 91, 98, 109 · `voeding` 86, 88, 171, 313,
+316, 329, 332, 417 · `voedingswetenschap` 417 · `volatiliteit` 494, 495, 506 ·
+`volharding` 29 · `volledigheid` 167 · `voorbede` 558 · `voorbeelden` 128 ·
+`voorbereiding` 82 · `voordrachten` 519 · `voorkeuren` 89 · `vooroordelen` 55,
+283 · `voorspellen` 455 · `voorspellingen` 268 · `vooruitgang` 251 ·
+`vooruitgangsdenken` 298 · `voorzichtigheid` 216 · `vorming` 224 ·
+`vorstenspiegel` 536 · `vragen stellen` 509 · `vragen-stellen` 475 ·
+`vreemden` 302 · `vreugde` 549 · `vriendelijkheid` 551 · `vriendschap` 5, 7,
+114, 292, 295, 319, 514 · `vrije markt` 627 · `vrije tijd` 78, 288 · `vrije
+wil` 10, 236, 339 · `vrijheid` 61, 546, 620, 621, 626 · `vrijmetselarij` 605,
+635, 636 · `vroeg christendom` 614 · `vroeg pensioen` 264 · `vrouwenhaat` 110
+· `waardebeleggen` 144, 351 · `waardecreatie` 246, 508 · `waarden` 72, 142,
+392, 457, 461, 553 · `waardering` 24, 34 · `waarheid` 263 · `waarneming` 154,
+283, 322, 541, 582 · `wabi-sabi` 379 · `wales` 558 · `Wall Street` 144, 351,
+499 · `weerbaarheid` 194 · `weerstand` 12, 538 · `welvaart` 251, 334 ·
+`welvaartsbewustzijn` 433 · `wereldbeeld` 234 · `wereldbouw` 192 · `werk` 70,
+78, 151, 252, 466 · `werk en rust` 512 · `werkboek` 14, 122, 150 ·
+`werkcultuur` 551 · `werkdruk` 400 · `werkplek` 33, 43 · `werktempo` 400 ·
+`werkwijze` 16 · `West-Afrika` 522 · `West-Point` 29 · `westen` 67 · `western`
+5 · `westerse filosofie` 269, 341 · `wet van aantrekking` 127, 190, 433, 543 ·
+`wetenschap` 63, 66, 93, 94, 328, 485 · `wetenschap en religie` 609 ·
+`wetenschappers` 239 · `wetenschapsfilosofie` 483, 650, 653 ·
+`wetenschapsgeschiedenis` 239, 240, 321, 347, 413, 419, 633, 649, 651, 659,
+660, 661, 662 · `wetenschapsjournalistiek` 387, 412 · `wijn` 112 · `wijsheid`
+596 · `wilskracht` 238 · `Wired` 473 · `wiskunde` 116, 454, 456, 490, 505,
+509, 649, 659, 660, 661, 662 · `wisselstroom` 267 · `woede` 119, 120 ·
+`woestijn` 8 · `Wolfgang Pauli` 362 · `wraak` 101, 533 · `WRAP` 510 · `wrok`
+530 · `wu wei` 394 · `Yale` 215 · `yin-yang` 394 · `yoga` 195, 242, 518 ·
+`young adult` 192 · `youtube` 245 · `zakelijk` 307 · `zakelijke communicatie`
+182 · `zakendoen` 348, 367, 465, 508 · `zeereis` 36 · `zeevaart` 321 ·
+`zeldzaam` 144 · `zelfacceptatie` 176, 335, 561 · `zelfbedrog` 66 ·
+`zelfbeeld` 25, 27, 105, 107, 108, 129, 138, 197, 367, 372, 411, 439, 538,
+540, 559, 575 · `zelfbeheersing` 75, 148, 212, 248, 286, 314, 382, 389, 396 ·
 `zelfbescherming` 214 · `zelfcompassie` 32, 551 · `zelfdiscipline` 2, 158,
 229, 244, 311, 544 · `zelfevaluatie` 270 · `zelfexperiment` 316, 318, 417 ·
 `zelfhaat` 575 · `zelfhulp` 15, 22, 25, 34, 58, 72, 76, 79, 83, 117, 134, 135,

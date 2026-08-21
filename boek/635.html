@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Freemasonry and the Ancient Gods &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Ward stelt dat de moderne vrijmetselarij geen achttiende-eeuwse uitvinding is en evenmin louter een voortzetting van middeleeuwse bouwgilden, maar de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-635">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">635 &middot; Filosofie en mystiek</p>
+    <h1>Freemasonry and the Ancient Gods</h1>
+    <p class="lede">J.S.M. Ward, 1921</p>
+    <p class="stats">
+      <span><b>1228</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="635"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Ward stelt dat de moderne vrijmetselarij geen achttiende-eeuwse uitvinding is en evenmin louter een voortzetting van middeleeuwse bouwgilden, maar de jongste schakel in een ononderbroken keten van inwijdingsriten die teruggaat tot de prehistorische mens. De mysteriecultussen van de oudheid, de godsdiensten van India en het Nabije Oosten en de riten van volken in Afrika, Amerika en Australië zouden allemaal takken van dezelfde stam zijn. Het bewijs zoekt hij in de wereldwijde verspreiding van herkenbaar dezelfde tekens, grepen en symbolen: waar hetzelfde gebaar bij volken zonder onderling contact dezelfde betekenis draagt, moet volgens Ward een gemeenschappelijke oorsprong liggen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Opzet en methode</h3>
+      <p>Het boek opent met een inleiding van Sir John A. Cockburn, oud-premier van Zuid-Australië en vooraanstaand vrijmetselaar, die Wards vergelijkende aanpak aanbeveelt. Ward zelf zet in dat de gangbare geschiedschrijving, die de vrijmetselarij laat beginnen bij de oprichting van de Grand Lodge in Londen in 1717 en de operatieve bouwgilden daarvoor, het eigenlijke raadsel onaangeroerd laat: waarom een genootschap van bouwers een volledig uitgewerkt stelsel van inwijding, dood- en opstandingssymboliek bezit. Zijn methode is die van de vergelijkende volkenkunde van zijn tijd: parallellen verzamelen en uit gelijkenis afstamming afleiden.</p>
+      <h3>Parallellen in het Oosten</h3>
+      <p>Deel I begint met de vaststelling dat er onder islamitische derwisj-ordes een stelsel van graden, tekens en grepen bestaat dat sterk aan de vrijmetselarij doet denken. Daarna volgt India: Ward legt maçonnieke symbolen naast de iconografie van hindoegoden en betoogt dat houdingen en attributen uit de tempelkunst overeenkomen met de tekens van de drie graden. Aparte hoofdstukken betrekken de Royal Arch, de verloren betekenis van bepaalde tekens, de letter G en de Mark-graad in het betoog. Telkens is de redenering dezelfde: de overeenkomst is te precies om toeval te zijn.</p>
+      <h3>Tekens en grepen over de hele wereld</h3>
+      <p>De volgende hoofdstukken breiden het bewijsmateriaal uit naar Afrika, Amerika, Australazië en het oude Europa. Ward, die jaren in Brits-Malakka werkte en materiaal over geheime genootschappen verzamelde, beschrijft inwijdingsriten van jongensgenootschappen, stamverbonden en priestercolleges waarin hij maçonnieke tekens herkent. Uit deze wereldwijde oogst concludeert hij dat de bron niet in een bepaalde cultuur ligt, maar in de oertijd van de mensheid zelf, bij riten rond dood en wedergeboorte die met de verspreiding van de mens zijn meegereisd.</p>
+      <h3>De afstammingslijn</h3>
+      <p>In de slothoofdstukken van deel I schetst Ward de lijn die volgens hem naar de moderne loge voert: van prehistorische inwijdingsriten via de mysteriecultussen van Egypte, Griekenland en het Nabije Oosten naar de Romeinse bouwcolleges, en vandaar via de middeleeuwse bouwgilden naar de speculatieve vrijmetselarij. De gilden zijn in deze visie geen oorsprong maar doorgeefluik: het ambacht bood een beschermde omgeving waarin een veel oudere rituele erfenis kon overwinteren. Het hoofdstuk over de mythos werkt uit hoe het centrale drama van de derde graad past in het patroon van de stervende en herrijzende god.</p>
+      <h3>Hogere graden en oude wijsheid</h3>
+      <p>Deel II past dezelfde methode toe op de hogere graden en zijgraden: kruissymboliek, tempelierstradities en ridderlijke graden worden herleid tot oudere religieuze motieven, waarbij Ward onder meer betoogt dat de kruistochten en de daarop volgende ridderordes oosterse inwijdingsgebruiken opnieuw naar Europa brachten. Deel III trekt de conclusies: de vrijmetselarij bewaart volgens Ward fragmenten van een oeroude wijsheidsleer over de ziel, de dood en de wedergeboorte, en juist die erfenis geeft de orde haar bestaansrecht in een tijd van materialisme. Het boek eindigt met een pleidooi om het ritueel niet te moderniseren maar te bestuderen, omdat elke ondoordachte wijziging een schakel met het verleden kan vernietigen.</p>
+      <h3>Ontvangst</h3>
+      <p>Het boek verkocht goed; de eerste druk raakte snel uitverkocht en rond 1926 volgde een tweede. Binnen de vrijmetselarij werd het door de esoterisch gestemde vleugel omarmd en door de historisch werkende onderzoekers afgewezen, een tweedeling die de receptie van Wards hele oeuvre zou blijven bepalen. Samen met zijn latere studies over geheime genootschappen, waaronder een driedelig werk over de Chinese Hung-genootschappen, vestigde het zijn naam als belezen maar onkritische verzamelaar.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">inwijdingsriten</td><td>Plechtigheden waarmee een kandidaat door een symbolische dood en wedergeboorte in een genootschap wordt opgenomen, volgens Ward de oervorm van alle religie.</td></tr>
+          <tr><td class="term">tekens en grepen</td><td>De herkenningsgebaren en handdrukken van de vrijmetselarij, die Ward wereldwijd bij andere volken meent terug te vinden.</td></tr>
+          <tr><td class="term">mysteriën</td><td>Antieke geheime cultussen met gegradeerde inwijding, in Wards betoog de tussenschakel tussen prehistorische riten en de moderne loge.</td></tr>
+          <tr><td class="term">operatieve en speculatieve vrijmetselarij</td><td>Het onderscheid tussen de middeleeuwse bouwvakgilden en de latere symbolische orde die hun werktuigen als zinnebeelden gebruikt.</td></tr>
+          <tr><td class="term">Royal Arch</td><td>Aanvullende graad op de meestergraad, die volgens Ward oosterse leerstukken over het godsbegrip bewaart en daarmee zijn afstammingsthese steunt.</td></tr>
+          <tr><td class="term">de letter G</td><td>Symbool in de loge, gangbaar gelezen als God en geometrie, waaraan Ward een oudere, oosterse betekenislaag toeschrijft.</td></tr>
+          <tr><td class="term">mythos</td><td>Het centrale rituele drama van de derde graad, door Ward geduid als variant van het wijdverbreide verhaal van de stervende en herrijzende god.</td></tr>
+          <tr><td class="term">antropologische school</td><td>Richting in de maçonnieke geschiedschrijving die de oorsprong van de orde zoekt in algemeen menselijke riten in plaats van in schriftelijke bronnen.</td></tr>
+          <tr><td class="term">Mark-graad</td><td>Zijgraad rond het merkteken van de steenhouwer, door Ward aangevoerd als bewaarplaats van bijzonder oude symboliek.</td></tr>
+          <tr><td class="term">derwisj-ordes</td><td>Islamitische broederschappen met eigen graden en herkenningstekens, voor Ward het eerste bewijs dat het maçonnieke stelsel geen Europese uitvinding is.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het bewijsmateriaal bestaat vrijwel geheel uit parallellen: afbeeldingen, reisverslagen, etnografische literatuur en Wards eigen waarnemingen in Azië, naast elkaar gelegd met maçonnieke ritualen. Een schriftelijke bewijsketen ontbreekt en Ward erkent dat ook; zijn argument is cumulatief, de optelsom van vele gelijkenissen moet de conclusie dragen. De methode leunt op de vergelijkende school van James Frazer, die in Wards tijd gezag had.</p>
+      <p>Daar staat tegenover dat de controleerbare feiten een andere kant op wijzen. De documenteerbare geschiedenis van de vrijmetselarij voert naar Schotse en Engelse bouwgilden vanaf de late middeleeuwen en naar de Londense Grand Lodge van 1717; voor een doorlopende lijn naar antieke mysteriën of prehistorische riten bestaat geen document. Gelijkende gebaren en dood-en-wedergeboortemotieven komen bovendien in zoveel culturen voor dat ze eerder iets zeggen over de menselijke verbeelding dan over historische afstamming.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Vakhistorici van de vrijmetselarij, verenigd in de zogeheten authentieke school rond onderzoeksloges als Quatuor Coronati, verwerpen Wards these. Hun bezwaar is methodisch: overeenkomst bewijst geen verwantschap, en wie wereldwijd naar driehoeken, handdrukken en opstandingsverhalen zoekt, vindt ze overal. De vergelijkende mythologie waarop Ward steunt is in de godsdienstwetenschap na Frazer grotendeels verlaten, juist vanwege dit soort ongecontroleerde parallellenjacht.</p>
+      <p>Ook de auteur zelf maant tot voorzichtigheid: Ward was overtuigd spiritist, meende boodschappen van overledenen te ontvangen en stichtte later een eigen religieuze gemeenschap, de Confraternity of the Kingdom of Christ. Dat maakt het boek niet waardeloos, wel gekleurd: het wil aantonen wat de schrijver al geloofde. Blijvende waarde heeft het als goed geschreven tijdsdocument van de esoterische stroming binnen de vrijmetselarij van rond 1920, en als verzameling etnografisch materiaal dat op eigen merites te toetsen valt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het boek als bron over hoe esoterisch ingestelde vrijmetselaars rond 1920 hun eigen traditie duidden, niet als geschiedschrijving van die traditie.</li>
+        <li>Toets elke aangevoerde parallel afzonderlijk: gelijkenis van vorm bewijst geen gemeenschappelijke oorsprong.</li>
+        <li>Vergelijk Wards afstammingsverhaal met de documenteerbare gildegeschiedenis om het verschil tussen speculatieve en authentieke school scherp te krijgen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Freemasonry and the Ancient Gods</i> (Simpkin, Marshall, Hamilton, Kent &amp; Co., Londen, 1921, xxii + 374 blz., met een inleiding van Sir John A. Cockburn; verschenen voor de invoering van het ISBN, latere fotografische herdrukken bij onder meer Kessinger). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>John Sebastian Marlow Ward (1885-1949), Engels auteur en verzamelaar van maçonniek materiaal, betoogt in dit boek dat de vrijmetselarij in rechte lijn afstamt van de inwijdingsriten van de prehistorische mens. Als bewijs voert hij overeenkomsten aan tussen maçonnieke tekens, grepen en symbolen en gebruiken die hij aantrof bij derwisj-ordes, in de hindoeïstische godenwereld, bij Afrikaanse en Australische inwijdingsriten en in de antieke mysteriecultussen. Deel I behandelt die parallellen, deel II de hogere graden, deel III de oude wijsheid die volgens Ward in het ritueel bewaard bleef.</p><p>Het boek is een hoofdwerk van de zogenoemde antropologische school in de maçonnieke geschiedschrijving. Vakhistorici van de vrijmetselarij verwerpen de methode: gelijkende gebaren bewijzen geen historische afstamming, en de documenteerbare lijn voert naar middeleeuwse bouwgilden, niet naar prehistorische riten. Als tijdsdocument van het esoterische denken rond 1920 blijft het leesbaar.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>vrijmetselarij</li><li>esoterie</li><li>vergelijkende mythologie</li><li>symboliek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="410"><a href="410.html">the hero with a thousand faces</a>. The Hero with a Thousand Faces past dezelfde vergelijkende methode toe op mythen, met dezelfde sterke en zwakke kanten.</li>
+          <li value="357"><a href="357.html">De mens en zijn symbolen</a>. De mens en zijn symbolen biedt een psychologische verklaring voor terugkerende symbolen, zonder historische afstamming te veronderstellen.</li>
+          <li value="378"><a href="378.html">The Kybalion</a>. The Kybalion toont een verwante esoterische beweging uit dezelfde periode die zich eveneens op oeroude wijsheid beriep.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
