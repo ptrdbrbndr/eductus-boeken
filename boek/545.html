@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Relentless: From Good to Great to Unstoppable &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="In elk team en elk vak lopen drie soorten presteerders rond: coolers die afwachten en volgen, closers die uitstekend werk leveren zolang de omstandigheden…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-545">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">545 &middot; Moed en karakter</p>
+    <h1>Relentless: From Good to Great to Unstoppable</h1>
+    <p class="lede">Tim S. Grover, 2013</p>
+    <p class="stats">
+      <span><b>1490</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="545"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>In elk team en elk vak lopen drie soorten presteerders rond: coolers die afwachten en volgen, closers die uitstekend werk leveren zolang de omstandigheden voorspelbaar zijn, en cleaners die onder alle omstandigheden het eindresultaat afdwingen. Het verschil zit volgens Grover in de mentale inrichting. Een cleaner vertrouwt na jaren voorbereiding op instinct in plaats van na te denken, gebruikt zijn donkere drijfveren als brandstof, zoekt druk op en is nooit tevreden. Die meedogenloosheid is volgens hem aan te leren voor wie bereid is de prijs te betalen: wantrouwen, eenzaamheid en een honger die nooit stilt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De trainer die zichzelf uitnodigde</h3>
+      <p>Grover werkte eind jaren tachtig als trainer in een gewone sportschool in Chicago toen hij in de krant las hoe de Detroit Pistons Michael Jordan met fysiek spel afmatten. Hij schreef alle spelers van de Chicago Bulls een brief met het aanbod hen daartegen te wapenen. Jordan was de enige die reageerde. In een gesprek bij Jordan thuis legde Grover uit hoe elke fysieke verandering het schot zou beïnvloeden en vroeg hij dertig dagen proeftijd. Het werden vijftien jaar.</p>
+      <p>Die entree is meteen het visitekaartje van het boek: geen onderzoek, wel een kwart eeuw van dichtbij meekijken bij de grootste namen van het Amerikaanse basketbal. Na Jordan trainde Grover in zijn eigen sportcomplex ATTACK Athletics in Chicago onder anderen Kobe Bryant, Dwyane Wade en Charles Barkley. <i>Relentless</i>, geschreven met Shari Lesser Wenk, destilleert uit die praktijk wat de allerbesten mentaal gemeen hebben.</p>
+      <h3>Coolers, closers en cleaners</h3>
+      <p>Grovers indeling kent drie treden. De cooler is goed: hij wacht op instructies, kijkt wat anderen doen en schuift een probleem door zodra het spannend wordt. De closer is uitstekend: hij beheerst zijn taak en levert, mits de situatie voorspelbaar is, de rol duidelijk en de erkenning gegarandeerd. De cleaner is volgens Grover niet te stoppen: hij neemt verantwoordelijkheid voor het geheel, beslist zonder ruggespraak en levert juist wanneer niemand meer weet wat er moet gebeuren.</p>
+      <p>Het drietal keert in alle latere hoofdstukken terug: bij elk kenmerk beschrijft Grover eerst hoe een cooler en een closer zich gedragen, en daarna wat de cleaner anders doet. Als archetype buiten de sport voert hij de peetvader uit de gelijknamige film op, de man die de kamer beheerst zonder zijn stem te verheffen en aan wie iedereen vanzelf rapporteert.</p>
+      <h3>Niet denken</h3>
+      <p>Het openingshoofdstuk heet <i>Don't Think</i>. Denken hoort volgens Grover thuis in de voorbereiding; op het moment van uitvoering is het een stoorzender. Wie zijn vak duizenden uren heeft geoefend, kan op het beslissende moment op instinct vertrouwen, en wie dan alsnog gaat wikken, blokkeert. Vandaar zijn werkregel: eerst al het werk doen, dan loslaten.</p>
+      <p>In het verlengde ligt de zone, de toestand van stille, koele concentratie waarin cleaners volgens Grover hun beste werk doen. Die zone is bij hem geen ontspannen flow; zij draait op beheerste woede en op persoonlijke drijfveren die vaak uit oude wonden komen. Als voorbeeld beschrijft hij Jordan voor wedstrijden: geen oogcontact, nauwelijks aanspreekbaar, volledig naar binnen gekeerd.</p>
+      <h3>De donkere kant</h3>
+      <p>Het tweede hoofdstuk, <i>The Cleaner You Are, the Dirtier You Get</i>, bevat de meest omstreden gedachte van het boek. Ieder mens heeft volgens Grover een donkere kant: woede, wraakzucht, angst, begeerte. De meeste mensen leren die te onderdrukken; cleaners leren hem te gebruiken. De donkere kant is in zijn ogen de motor onder uitzonderlijke prestaties, en wie hem ontkent, snijdt zichzelf van die motor af.</p>
+      <p>Grover moraliseert daar nauwelijks bij. Hij stelt vast dat de allerbesten die hij trainde stuk voor stuk zulke drijfveren hadden en dat de buitenwereld daar liever van wegkijkt. Beheersing is wel voorwaarde: de donkere kant moet op afroep beschikbaar zijn, en weer in zijn hok zodra het werk gedaan is.</p>
+      <h3>De dertien kenmerken</h3>
+      <p>De rest van het boek bestaat uit dertien hoofdstukken die elk met dezelfde woorden beginnen: when you're a cleaner. Samen vormen zij de Relentless 13. Een greep: een cleaner gaat door waar alle anderen genoeg hebben, kent zichzelf precies, wordt door druk juist beter, viert zijn successen niet omdat hij altijd meer wil, kent geen mislukking omdat er altijd nog een weg naar de uitkomst is, en hoeft het werk niet leuk te vinden zolang hij naar het eindresultaat hunkert.</p>
+      <p>De scherpste kenmerken staan achteraan. Een cleaner vertrouwt weinig mensen en verdraagt niet dat die hem teleurstellen, neemt besluiten in plaats van suggesties te doen, concurreert met niemand omdat hij de zwakte van zijn tegenstander zoekt en daar aanvalt, en is liever gevreesd dan geliefd. Bij elk kenmerk horen anekdotes uit kleedkamers en trainingszalen, meestal zonder naam.</p>
+      <h3>De prijs</h3>
+      <p>Grover verkoopt de cleaner niet als gelukkig mens. Nooit tevreden zijn betekent nooit klaar zijn; weinig vertrouwen betekent weinig nabijheid; de honger die kampioenschappen oplevert, vreet ook aan huwelijken en vriendschappen. Het boek erkent die schade en aanvaardt haar als onderdeel van de afspraak: wie het eindresultaat boven alles stelt, aanvaardt wat dat kost. Wie dat te duur vindt, hoort volgens Grover eerlijk vast te stellen dat hij geen cleaner wil zijn. Dat is een geldige keuze, alleen geen weg naar onverslaanbaarheid.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">cooler</td><td>De goede presteerder die op instructies wacht, de leider volgt en verantwoordelijkheid doorschuift zodra de spanning oploopt.</td></tr>
+          <tr><td class="term">closer</td><td>De uitstekende presteerder die levert zolang de taak afgebakend is, de omstandigheden voorspelbaar zijn en de erkenning gegarandeerd.</td></tr>
+          <tr><td class="term">cleaner</td><td>De niet te stoppen presteerder die verantwoordelijkheid neemt voor het geheel, op instinct beslist en zich uitsluitend aan het eindresultaat meet.</td></tr>
+          <tr><td class="term">de donkere kant</td><td>Het geheel van rauwe drijfveren als woede en wraakzucht dat cleaners volgens Grover beheersen en als brandstof gebruiken, terwijl de meeste mensen het wegstoppen.</td></tr>
+          <tr><td class="term">de zone</td><td>De toestand van stille, beheerste concentratie waarin een cleaner op instinct handelt en alles buitensluit wat niet bij de taak hoort.</td></tr>
+          <tr><td class="term">niet denken</td><td>Grovers regel dat analyse in de voorbereiding thuishoort en dat op het moment van uitvoering alleen het getrainde instinct aan het woord mag zijn.</td></tr>
+          <tr><td class="term">de Relentless 13</td><td>De dertien kenmerken van een cleaner die samen het grootste deel van het boek vormen, elk uitgewerkt in een eigen hoofdstuk.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek bevat geen onderzoek, geen literatuurverwijzing en geen meetbaar resultaat. Het bewijs bestaat volledig uit Grovers eigen waarnemingen als trainer, met Jordan, Bryant en Wade als hoofdgetuigen en een stroom naamloze anekdotes daaromheen. Dat is geen bijzaak: Grover voert zijn kwart eeuw aan de top uitdrukkelijk op als de reden om hem te geloven.</p>
+      <p>Die basis is smal. De verhalen zijn niet controleerbaar en de steekproef bestaat uit een handvol van de beste atleten uit de geschiedenis van hun sport. Of de beschreven houding hen aan de top bracht, of dat uitzonderlijk talent deze houding betaalbaar maakte, valt uit dit materiaal niet op te maken. Wat overeind blijft is de waarde van het ooggetuigenverslag zelf: weinig mensen hebben Jordan en Bryant zo lang van zo dichtbij aan het werk gezien.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het grootste bezwaar is overlevingsvertekening. Grover zag alleen de sporters bij wie obsessie, wantrouwen en woede samenvielen met titels; de veel grotere groep bij wie dezelfde houding op blessures, uitputting of een gebroken loopbaan uitliep, komt in het boek niet voor. Uit de vaststelling dat de allerbesten meedogenloos waren, volgt niet dat meedogenloosheid de weg naar de top is.</p>
+      <p>Daarnaast staat de inhoud op gespannen voet met wat er wel onderzocht is. Latere sportwetenschap wijst herstel, slaap en zelfregulatie aan als dragers van duurzame topprestatie, en auteurs als Steve Magness betogen met dat onderzoek in de hand dat het oude ideaal van hardheid en doorbeulen prestaties eerder schaadt. Ook het advies liever gevreesd dan geliefd te zijn en het aangeprezen wantrouwen staan haaks op wat er over goed functionerende teams bekend is.</p>
+      <p>Ten slotte is het boek moeilijk te weerleggen, en dat is een zwakte. Wie faalt, was volgens de definitie kennelijk geen cleaner; wie slaagt, bewijst het gelijk van het boek. Een lezer buiten de topsport krijgt bovendien weinig aanwijzingen voor de maandagochtend: <i>Relentless</i> beschrijft een houding, geen methode.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Stel per project vast wie de cleaner is: degene die het eindresultaat draagt wanneer niemand meer weet wat er moet gebeuren. Is dat niemand, dan is dat het eigenlijke probleem.</li>
+        <li>Verplaats analyse naar de voorbereiding. Oefen tot de uitvoering zonder nadenken kan en laat het wikken op het beslismoment achterwege.</li>
+        <li>Onderzoek de eigen donkere drijfveer en de omstandigheden waarin die bruikbaar is, in plaats van te doen alsof hij niet bestaat.</li>
+        <li>Reken af op het eindresultaat en niet op de geleverde inspanning; inspanning zonder uitkomst telt in dit boek niet.</li>
+        <li>Weeg de prijs vooraf: wie deze standaard overneemt, aanvaardt ook de eenzaamheid en het wantrouwen die Grover erbij beschrijft.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Relentless: From Good to Great to Unstoppable</i> (Scribner, 2013, 256 blz., ISBN 9781476710938), geschreven met Shari Lesser Wenk. De Nederlandse vertaling verscheen als <i>Meedogenloos</i> (Kosmos Uitgevers, 2019, 239 blz.).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Tim Grover was een onbekende trainer in Chicago toen hij in 1989 alle spelers van de Chicago Bulls een brief stuurde met het aanbod hen fysiek weerbaarder te maken. Alleen Michael Jordan reageerde, gaf hem dertig dagen proeftijd en hield hem vijftien jaar. Daarna trainde Grover onder anderen Kobe Bryant en Dwyane Wade. In <i>Relentless</i> beschrijft hij wat de allerbesten volgens hem onderscheidt van de zeer goeden: hun mentale inrichting.</p><p>Grover deelt presteerders in drie groepen in. Coolers zijn goed en volgen. Closers zijn uitstekend en leveren zolang de situatie voorspelbaar is. Cleaners zijn niet te stoppen: zij nemen verantwoordelijkheid voor het geheel, vertrouwen op instinct, zoeken druk op en meten zich alleen aan het eindresultaat. Dertien kenmerken van zulke cleaners vormen het skelet van het boek, van doorgaan waar alle anderen stoppen tot liever gevreesd dan geliefd zijn.</p><p>De onderbouwing komt volledig uit Grovers eigen praktijk; onderzoek ontbreekt. Wie wil weten hoe het er rond Jordan en Bryant aan toeging, leest hier een ooggetuige. Wie een toetsbare methode zoekt, vindt vooral een houding.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>mentale weerbaarheid</li><li>topsport</li><li>prestatie</li><li>discipline</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="229"><a href="229.html">Can't Hurt Me</a>. Goggins beschrijft van binnenuit het leven dat Grover van buitenaf aanprijst, met dezelfde obsessie en dezelfde schade.</li>
+          <li value="372"><a href="372.html">Do Hard Things</a>. Magness zet de sportwetenschap tegenover het hardheidsideaal van trainers als Grover en komt op vrijwel elk punt ergens anders uit.</li>
+          <li value="29"><a href="29.html">Grit</a>. Duckworth onderzoekt volharding wel met data en laat zien wat er van het verband tussen doorzetten en presteren overblijft onder meting.</li>
+          <li value="441"><a href="441.html">The Inner Game of Tennis</a>. Gallwey bereikt hetzelfde niet-denken langs de omgekeerde route: ontspannen aandacht in plaats van beheerste woede.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

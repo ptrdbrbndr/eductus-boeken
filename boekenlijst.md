@@ -1,8 +1,8 @@
 # Boekenlijst
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
-met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 20
-augustus 2026: 527 titels in 18 rubrieken.
+met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 21
+augustus 2026: 530 titels in 18 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -22,13 +22,13 @@ bij de volgende build verloren.
 | Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153, 157, 158, 161, 168, 176, 177, 181, 193, 209, 211, 224, 238, 244, 252, 268, 274, 282, 283, 291, 296, 310, 349, 382, 392, 396, 397, 411, 422, 423, 424, 425, 426, 436, 439, 450, 451, 452, 469, 475, 487, 488, 509, 510, 514, 538, 540, 542 |
 | Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275, 303, 313, 314, 315, 316, 317, 318, 326, 329, 330, 331, 332, 333, 339, 357, 359, 360, 361, 386, 387, 401, 404, 409, 410, 412, 414, 415, 417, 418, 419, 432, 441, 458, 541 |
 | Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63, 123, 124, 125, 126, 212, 213, 215, 250, 258, 280, 381, 384, 388, 429, 440 |
-| Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144, 159, 163, 172, 183, 185, 198, 210, 222, 231, 233, 243, 245, 246, 257, 260, 264, 265, 266, 270, 277, 279, 293, 294, 306, 307, 308, 309, 344, 348, 350, 351, 353, 365, 369, 370, 395, 427, 434, 443, 446, 463, 464, 465, 474, 476, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 491, 492, 494, 496, 499, 501, 502, 503 |
+| Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144, 159, 163, 172, 183, 185, 198, 210, 222, 231, 233, 243, 245, 246, 257, 260, 264, 265, 266, 270, 277, 279, 293, 294, 306, 307, 308, 309, 344, 348, 350, 351, 353, 365, 369, 370, 395, 427, 434, 443, 446, 463, 464, 465, 474, 476, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 491, 492, 494, 496, 499, 501, 502, 503, 544 |
 | Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156, 162, 182, 186, 253, 271, 273, 302, 304, 305, 338, 356, 364, 367, 398, 399, 438, 444, 466, 468, 508, 511 |
-| Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140, 174, 189, 194, 229, 247, 248, 286, 289, 323, 324, 372, 373, 374, 375, 389, 457, 460, 467, 470, 513 |
+| Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140, 174, 189, 194, 229, 247, 248, 286, 289, 323, 324, 372, 373, 374, 375, 389, 457, 460, 467, 470, 513, 545 |
 | Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49, 285, 447 |
 | Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537 |
 | Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347, 383, 413, 539 |
-| Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102, 108, 117, 127, 128, 129, 130, 131, 132, 136, 139, 179, 184, 188, 190, 196, 259, 340, 362, 378, 380, 403, 433 |
+| Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102, 108, 117, 127, 128, 129, 130, 131, 132, 136, 139, 179, 184, 188, 190, 196, 259, 340, 362, 378, 380, 403, 433, 543 |
 | Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122, 327, 421, 437, 456, 477, 478, 493, 495, 497, 498, 500, 504, 506, 507 |
 
 Een titel kan in één rubriek staan en toch tags uit een andere dragen. De tags
@@ -105774,6 +105774,627 @@ vroege verwant van het geïdealiseerde zelf bovenin de doelhiërarchie.
 - 55. Thinking, Fast and Slow. Kahnemans overzicht van oordeelsvorming, ter
 aanvulling op wat dit boek over gevoel als informatiebron beweert.
 
+## 543. The Art of Living
+
+Bob Proctor met Sandra Gallagher, 2015. *The Art of Living* (TarcherPerigee,
+2015, 240 blz., ISBN 9780399175190). Geen Nederlandse vertaling gevonden in de
+catalogus van bibliotheek.nl; alleen het oudere *Je bent rijk geboren* (2007)
+staat er. De samenvatting is op de Engelse editie gebaseerd. Rubriek: positief
+denken en manifesteren.
+Tags: `manifesteren`, `paradigma`, `wet van aantrekking`, `seminar`,
+`zelfhulp`
+
+Bob Proctor (1934-2022), Canadees spreker en een van de gezichten uit de film
+*The Secret*, bundelde in dit boek de transcripten van zijn seminar Matrixx:
+23 korte lessen over de vraag waarom mensen de resultaten krijgen die ze
+krijgen. Zijn antwoord is steeds hetzelfde. Het paradigma, het aangeleerde
+programma in het onderbewuste, bepaalt inkomen, gezondheid en relaties, en wie
+de zes hogere geestvermogens traint kan dat programma vervangen en aantrekken
+wat hij verlangt.
+
+Het boek staat vol citaten uit de traditie van het positieve denken en vol
+verhalen uit de seminarzaal; onderzoek ontbreekt en de wet van vibratie waarop
+alles rust is geen natuurwet. Wie wil weten wat er in deze hoek van de
+zelfhulp wordt geleerd, vindt hier de leer van een van haar bekendste sprekers
+in gespreksvorm, met de beloften en de zwakke plekken van het genre.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Resultaten in inkomen, gezondheid en relaties komen volgens
+Proctor voort uit het paradigma: het geheel van gewoonten en overtuigingen dat
+vanaf de kindertijd in het onderbewuste is geprogrammeerd. Omstandigheden en
+intelligentie doen er in zijn model weinig toe; hij kende genoeg slimme mensen
+die arm bleven en schoolverlaters die rijk werden. Wie de zes hogere
+geestvermogens leert gebruiken kan dat programma herschrijven, brengt zichzelf
+in harmonie met wat hij verlangt en trekt het dan aan volgens de wet van
+vibratie. Goed leven is in die opvatting een kunst met leerbare wetten, en
+gebrek is in de kern een kennisprobleem: mensen worstelen omdat niemand hun
+heeft geleerd hoe het worstelen ophoudt.
+
+#### De gang van het boek
+
+**Een seminar op papier**
+
+Het boek is geen doorlopende verhandeling maar een bundel transcripten van
+Matrixx, het seminar dat Proctor met zakenpartner Sandra Gallagher gaf vanuit
+hun Proctor Gallagher Institute. De tekst is verdeeld in 23 korte lessen, elk
+rond een eigen onderwerp, met titels als Whatever It Is, You Can Get It, Money
+Is a Magnifier en Think Dreams to Reality. Op veel plaatsen staat de zaal er
+nog in: deelnemers stellen vragen, Proctor antwoordt, dwaalt af en keert terug
+naar zijn punt.
+
+Proctor verliet jong de school, werkte bij de brandweer in Toronto en kreeg in
+1961 *Think and Grow Rich* van Napoleon Hill in handen. Dat boek, zo vertelt
+hij telkens opnieuw, keerde zijn leven: hij bouwde een schoonmaakbedrijf op,
+ging werken voor radiomaker Earl Nightingale en werd spreker in de traditie
+van het positieve denken. Een groot publiek kende hem sinds 2006 van *The
+Secret*. Dit boek is de leer van die halve eeuw in gespreksvorm.
+
+**Het paradigma als programma**
+
+De kern van vrijwel elke les is het paradigma. Proctor gebruikt dat woord voor
+de verzameling gewoonten die in het onderbewuste ligt opgeslagen en die het
+gedrag stuurt. Het paradigma is grotendeels overgenomen van ouders en
+omgeving, zonder dat er ooit iemand bewust voor koos. Wie meer wil verdienen
+of gezonder wil leven, verandert volgens Proctor niets zolang het oude
+programma draait: kennis alleen legt het af tegen conditionering.
+
+Daarom moet de lezer eerst afleren. Veel van wat voor waar wordt gehouden,
+noemt Proctor valse overtuigingen die er met herhaling zijn ingeslepen. Het
+intellect helpt daar niet vanzelf bij; een goed getraind verstand kan de eigen
+beperkende overtuigingen juist scherpzinnig verdedigen.
+
+**De zes hogere vermogens**
+
+Tegenover de vijf zintuigen, die alleen registreren wat er al is, zet Proctor
+zes hogere geestvermogens: waarneming, wil, verbeelding, geheugen, intuïtie en
+rede. Dieren leven via hun zintuigen in de omgeving die ze aantreffen; de mens
+kan met deze vermogens een beeld vormen van iets dat er nog niet is en zich
+daarnaar richten. Wie ze ontwikkelt, bepaalt zijn omgeving in plaats van
+erdoor bepaald te worden.
+
+De vermogens blijven bij de meeste mensen onontwikkeld omdat school ze
+nauwelijks traint. Het seminar is opgezet als oefening erin: een doel kiezen
+dat het huidige paradigma te groot vindt, dat doel dagelijks in de verbeelding
+vasthouden en de wil gebruiken om de aandacht daar te houden, tegen de oude
+gewoonten in.
+
+**Geloven is zien**
+
+Proctor keert het gezegde "eerst zien, dan geloven" om. Wie wacht op bewijs
+voordat hij gelooft, blijft binnen zijn huidige resultaten; wie eerst gelooft,
+gaat volgens Proctor kansen en middelen waarnemen die er al waren. Daarachter
+ligt de wet van vibratie: alles trilt, gedachten hebben een frequentie, en
+gelijke frequenties vinden elkaar. De vaak aangehaalde formule luidt dat
+iemand aantrekt waarmee hij in harmonie is, los van wat hij bewust wil of
+nodig heeft.
+
+Het leven stroomt in dit beeld als een rivier met twee richtingen: een stroom
+naar overvloed, gevoed door vertrouwen en dankbaarheid, en een stroom naar
+gebrek, gevoed door angst en twijfel. Welke kant iemand op drijft, hangt af
+van de gedachten die hij gewoonlijk denkt.
+
+**Geld als vergrootglas**
+
+Een fors deel van de lessen gaat over geld. Proctor wil de gêne eraf halen:
+geld is een middel om vrijer te leven en meer te kunnen betekenen voor
+anderen, en armoede is geen deugd. Geld vergroot bovendien uit wat er al is:
+een goedhartig mens kan er meer goeds mee doen, een onaangenaam mens wordt er
+onaangenamer van.
+
+De diepste laag is religieus getint. Er is volgens Proctor één onuitputtelijke
+bron van voorraad, de geest die alles doordringt, en wie zich daarop afstemt
+hoeft niet te vechten om een beperkte koek. Lestitels als Our Only Source of
+Supply verraden de afkomst van dit gedachtegoed uit de New Thought-beweging
+van rond 1900.
+
+**Van droom naar besluit**
+
+De praktische lijn door het boek: schrijf een doel op dat werkelijk trekt, ook
+als onduidelijk is hoe het bereikt moet worden, en neem er een besluit over.
+Proctor onderscheidt reageren, het automatische antwoord van het oude
+paradigma, van antwoorden, waarbij iemand ruimte neemt en zelf kiest.
+Dagelijkse studie, herhaling en visualisatie moeten het nieuwe beeld in het
+onderbewuste slijten totdat het gedrag vanzelf volgt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Paradigma | De verzameling gewoonten en overtuigingen in het onderbewuste die volgens Proctor vrijwel alle resultaten in een mensenleven bepaalt. |
+| Hogere geestvermogens | Waarneming, wil, verbeelding, geheugen, intuïtie en rede: de zes vermogens waarmee de mens zijn denken zelf kan richten. |
+| Wet van vibratie | De aanname dat alles trilt en dat gedachten via hun frequentie soortgelijke mensen en omstandigheden aantrekken. |
+| Harmonie | De toestand waarin het onderbewuste beeld overeenstemt met wat iemand wil bereiken; pas dan komt het volgens Proctor binnen bereik. |
+| Geloven is zien | De omkering van "eerst zien, dan geloven": wie eerst gelooft, neemt volgens Proctor kansen waar die de scepticus ontgaan. |
+| Geld als vergrootglas | Geld maakt volgens Proctor groter wat er al in iemand zit, ten goede en ten kwade. |
+| Reageren versus antwoorden | Reageren is het automatische gedrag van het oude paradigma; antwoorden is een bewuste keuze na een moment van afstand. |
+| Bron van voorraad | De ene geestelijke bron die volgens Proctor onuitputtelijk is, zodat welvaart geen strijd om een beperkte koek hoeft te zijn. |
+
+#### Waar het argument op rust
+
+Het betoog rust op autoriteit en anekdote. Proctor citeert overvloedig uit de
+canon van het positieve denken, met Napoleon Hill voorop, en vult dat aan met
+verhalen uit zijn eigen loopbaan en die van seminardeelnemers, zoals een
+deelnemer wier boek binnen enkele maanden een bestseller zou zijn geworden.
+Verwijzingen naar wetenschappelijk onderzoek ontbreken; het boek doet ook geen
+poging in die richting.
+
+De wet van vibratie wordt gepresenteerd als natuurwet, gelijkwaardig aan de
+zwaartekracht, terwijl er geen natuurkundige of psychologische literatuur
+bestaat die haar ondersteunt. De succesverhalen zijn niet controleerbaar en er
+wordt niet verteld hoeveel deelnemers hetzelfde deden zonder resultaat. Wat
+wel aansluit op degelijk onderzoek is bescheidener van aard: doelen
+opschrijven, herhaling en concrete voornemens vergroten aantoonbaar de kans op
+gedragsverandering, al is dat effect vele malen kleiner dan wat het boek
+belooft.
+
+#### Wat er tegen in te brengen valt
+
+Als verklaring van de werkelijkheid is de leer onhoudbaar. Frequenties van
+gedachten zijn nooit gemeten en aantrekking tussen gedachte en gebeurtenis is
+nooit aangetoond. Het lenen van natuurkundige termen geeft het geheel een
+schijn van exactheid die de inhoud niet draagt. De redenering is bovendien
+gesloten: wie het doel bereikt, bevestigt de wet, en wie het niet bereikt, was
+kennelijk niet in harmonie. Zo valt er niets te weerleggen.
+
+De leer legt daarnaast de volle verantwoordelijkheid voor armoede en tegenslag
+bij het denken van de getroffene, alsof conjunctuur, gezondheid en afkomst
+geen rol spelen. Het bewijs bestaat uit winnaars die achteraf vertellen; over
+de velen die hetzelfde geloofden en niets bereikten, zwijgt het boek.
+
+Het boek is ook onderdeel van een verdienmodel: Matrixx was een betaald
+seminar van het Proctor Gallagher Institute en de tekst wijst geregeld door
+naar verdere studie en begeleiding. De transcriptvorm maakt het geheel los en
+herhalend, en wie Hill of Peale kent, vindt hier weinig nieuws. Wat overblijft
+is een reeks op zichzelf redelijke gewoonteadviezen, verpakt in een metafysica
+die ze niet nodig hebben.
+
+#### Wat er concreet mee te doen is
+
+- Schrijf één doel op dat spanning oproept omdat het buiten het huidige kunnen
+ligt, en herlees het dagelijks.
+- Neem bij irritatie of slecht nieuws eerst afstand en kies dan een antwoord,
+zodat het automatische reageren niet vanzelf wint.
+- Ga na welke overtuigingen over geld en eigen kunnen ooit ongemerkt zijn
+overgenomen van ouders of omgeving, en toets ze een voor een.
+- Behandel de beloften van het genre als hypothesen: houd bij wat opschrijven
+en visualiseren werkelijk opleveren en wat niet.
+
+#### Wat je hierna leest
+
+- 76. Think and Grow Rich. *Think and Grow Rich* van Napoleon Hill is het boek
+dat Proctor in 1961 op dit spoor zette; vrijwel elke les grijpt erop terug.
+- 127. The Law of Attraction. *The Law of Attraction* van William Walker
+Atkinson laat zien waar de vibratietaal vandaan komt: de New Thought-beweging
+van rond 1900.
+- 259. The Power of Your Subconscious Mind. *The Power of Your Subconscious
+Mind* van Joseph Murphy leert hetzelfde onderbewuste-model, met dezelfde
+beloften en dezelfde bewijsproblemen.
+- 516. The Antidote. *The Antidote* van Oliver Burkeman is het tegenwicht: wat
+er overblijft als positief denken zelf onder de loep gaat.
+
+## 544. Man Up: How to Cut the Bullshit and Kick Ass in Business (and in Life)
+
+Bedros Keuilian, 2018. *Man Up: How to Cut the Bullsh!t and Kick @ss in
+Business (and in Life)* (BenBella Books, 2018, 192 blz., ISBN 9781946885036).
+Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de
+samenvatting is op de Engelse editie gebaseerd. Rubriek: geld en ondernemen.
+Tags: `ondernemerschap`, `leiderschap`, `zelfdiscipline`, `fitnessbranche`,
+`franchise`
+
+Bedros Keuilian vluchtte in 1980 als kind met zijn familie uit Sovjet-Armenië
+naar Californië, werkte als bordenwasser en personal trainer en bouwde later
+de fitnessfranchise Fit Body Boot Camp op. In dit boek voert hij vrijwel elk
+zakelijk probleem terug op de ondernemer zelf. Het startpunt is een
+paniekaanval eind 2012 die hij aanzag voor een hartinfarct: zijn bedrijf lekte
+geld, hij ontweek elke confrontatie en de rekening kwam bij zijn gezondheid
+terecht. De weg terug bestond volgens hem uit zes eigenschappen:
+zelfdiscipline, heldere communicatie, besluitvaardigheid, emotionele
+veerkracht, een scherpe visie en een sterk team.
+
+Het boek telt drie delen: eerst de eigen persoon (gewoontes, ochtendritme,
+prioriteiten, besluiten), dan visie en koers, en ten slotte het team binnen en
+buiten het bedrijf. Onderweg passeren zijn vier nonnegotiables: werkethiek,
+geen excuses, voortdurend waarde toevoegen en recht op het doel afgaan. De
+onderbouwing bestaat volledig uit het eigen levensverhaal; onderzoek of
+bronnen ontbreken. Wie een kort, opzwepend ondernemersboek zoekt, vindt hier
+een leesbaar exemplaar; wie bewijs zoekt, moet elders zijn.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Wie een bedrijf wil leiden, moet eerst zichzelf leiden.
+Keuilian voert vrijwel elk zakelijk probleem terug op de ondernemer zelf: op
+angst, uitstel, vage besluiten en verwaarloosde discipline. Tegenover dat
+falen zet hij zes eigenschappen die samen het gedrag vormen dat hij *man up*
+noemt: zelfdiscipline, heldere communicatie, besluitvaardigheid, emotionele
+veerkracht, een scherpe visie en een sterk team. Een geheim of aangeboren
+talent komt er volgens hem niet aan te pas; succes is het gevolg van afspraken
+met zichzelf die niet onderhandelbaar zijn en elke dag worden nagekomen.
+
+#### De gang van het boek
+
+**Een paniekaanval als startpunt**
+
+Het boek opent eind 2012. Keuilian, dan achtendertig, denkt een hartinfarct te
+krijgen: beklemming op de borst, een dove arm, tunnelzicht. In het ziekenhuis
+blijkt zijn hart gezond; de diagnose is een acute angstaanval. De oorzaak ligt
+in zijn bedrijf. De franchise verliest geld, een zakenpartner werkt tegen,
+zijn spaargeld gaat op aan salarissen en zijn geliefde Nissan GT-R is verkocht
+om de kwartaalbelasting te betalen. De arts waarschuwt dat aanhoudende stress
+hem alsnog een echt infarct kan bezorgen.
+
+Die waarschuwing behandelt Keuilian als het keerpunt. Zijn conclusie: het
+bedrijf faalde omdat hij als leider faalde, door problemen te ontwijken in
+plaats van ze aan te pakken. In de jaren daarna groeide Fit Body Boot Camp
+naar eigen zeggen uit tot een franchise met tientallen miljoenen omzet en twee
+noteringen op de Inc. 5000-lijst van snelst groeiende Amerikaanse bedrijven.
+
+**Van vluchteling tot franchisegever**
+
+Het eerste deel, over het leiden van zichzelf, begint autobiografisch. Het
+gezin Keuilian ontsnapte in 1980 uit communistisch Armenië; de vader zette
+daarvoor alles op het spel. In Californië leefde de familie in armoede. De
+jonge Bedros sprak de taal niet, werd gepest en presteerde slecht op school.
+Hij waste borden, verkocht supplementen in een mislukte webwinkel en werd
+uiteindelijk personal trainer bij Disneyland. Twee mentoren duiken hier op:
+Doug, een leidinggevende bij Disneyland, en ondernemer Jim Franco, die hem
+later 126.000 dollar leende voor zijn eerste trainingsstudio.
+
+Daarna richt het boek zich op wat Keuilian noodremmen noemt: zelfbeperkende
+overtuigingen, vaak gevormd in een jeugd met armoede of onveiligheid, die als
+angst, slecht tijdsbeheer en een zwakke omgeving het handelen afremmen. Zijn
+remedie is confrontatie: therapie, hardop uitgesproken affirmaties en het
+bewust opzoeken van mensen die hoger mikken.
+
+**De nonnegotiables en de lekken**
+
+Het geheim van succes is volgens Keuilian dat er geen geheim is. Wel zijn er
+vier gedragsregels waarover niet te onderhandelen valt: een stevige werkethiek
+gericht op het werk dat er het meest toe doet, geen excuses (die komen volgens
+hem voort uit onzekerheid), voortdurend waarde toevoegen aan anderen, en de
+mentaliteit van een gevechtsvliegtuig dat recht op zijn doel afvliegt in
+plaats van een sproeivliegtuig dat eroverheen blijft cirkelen.
+
+Daarna kijkt hij naar zichzelf als leidinggevende. Uit zijn crisisjaren
+destilleert hij zeven lekken die verraden dat de leider zelf het probleem is,
+waaronder gebrekkige communicatie, afspraken zonder opvolging, afstand tot het
+team, ontbrekende visie en zwakke discipline. Het advies is om actief om
+eerlijke feedback te vragen, ook als die pijn doet.
+
+**Ochtenden, prioriteiten en besluiten**
+
+De hoofdstukken vijf tot en met acht zijn het praktische hart van het eerste
+deel. Met hulp van mentor Craig Ballantyne leerde Keuilian dat de ochtend de
+rest van de dag bepaalt: de avond tevoren plannen, vroeg beginnen en het
+belangrijkste werk eerst. De 5 percent rule stelt dat een ondernemer alleen
+het kleine deel taken zelf moet doen waarin hij het verschil maakt, en al het
+overige moet overdragen.
+
+Het hoofdstuk over besluitvaardigheid beschrijft wat besluiteloosheid hem in
+zijn bedrijf heeft gekost; wie leidt, hakt knopen door en herstelt fouten
+later. Het slothoofdstuk van dit deel, over de televisie die 's nachts
+aanstaat, gaat over het bewaken van wat de geest dagelijks binnenkrijgt: wie
+zich voedt met ruis, denkt in ruis.
+
+**Visie en pad**
+
+Het tweede deel behandelt richting. Een doel moet passend zijn: groot genoeg
+om voor op te staan, klein genoeg om te kunnen uitvoeren. De vraag wiens leven
+de onderneming gaat veranderen krijgt een persoonlijk antwoord: Keuilian
+beloofde zichzelf ooit dat zijn zus nooit meer voor een nare baas zou hoeven
+werken; zij werkt inmiddels in de klantenservice van zijn bedrijf.
+
+Visie is bij Keuilian geen gerecht dat familie-stijl gedeeld wordt: de leider
+bepaalt de koers en stelt die niet ter stemming. Wat hij een e-vision noemt,
+is een visie die concreet genoeg is om dagelijkse beslissingen te sturen en
+tegelijk ruimte laat om bij te sturen. Het deel sluit af met de eis van een
+helder pad: mijlpalen, middelen en volgorde, omdat een visie zonder route een
+dagdroom blijft.
+
+**Het team, de lijm en het slot**
+
+Het derde deel opent met de krabbenmand: zoals krabben in een emmer elke
+soortgenoot die eruit klimt terugtrekken, zo trekken middelmatige omstanders
+iedereen die vooruit wil naar beneden. Keuilian onderscheidt vervolgens een
+buitenteam van mentoren, coaches en gelijkgestemde ondernemers, en een
+binnenteam van medewerkers, waarbij hij culturele passing zwaarder laat wegen
+dan het cv en aandringt op snel afscheid van wie niet functioneert.
+
+De lijm die alles bijeenhoudt is cultuur, geïllustreerd met twee
+leidinggevenden uit zijn Disneyland-tijd: Kathy, die tijdens de drukte op de
+lengte van bakkebaarden lette en respect verspeelde, tegenover Doug, die
+meewerkte en prees, en daarmee echte inzet won. De conclusie draagt de titel
+*Never Peak*: wie zijn hoogtepunt bereikt verklaart, is klaar met groeien, en
+dat moment mag nooit komen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Man up | De beslissing om elke uitkomst, zakelijk en privé, als eigen verantwoordelijkheid te behandelen en daarnaar te handelen. |
+| Nonnegotiables | Vier gedragsregels waarover niet te onderhandelen valt: werkethiek, geen excuses, voortdurend waarde toevoegen en recht op het doel afgaan. |
+| Fighter jet mentality | Recht op een doel afvliegen zoals een gevechtsvliegtuig, in tegenstelling tot het sproeivliegtuig dat eindeloos boven het terrein blijft cirkelen. |
+| Emergency brakes | Zelfbeperkende overtuigingen, vaak uit de jeugd, die als onzichtbare noodremmen het handelen vertragen. |
+| 5 percent rule | Alleen het kleine deel taken zelf doen waarin de ondernemer het meeste waarde toevoegt, en de rest overdragen. |
+| Leadership leaks | Zeven zichtbare tekenen, van gebrekkige communicatie tot zwakke discipline, die verraden dat de leider zelf het probleem is. |
+| E-vision | Een visie die concreet genoeg is om dagelijkse beslissingen te sturen en tegelijk ruimte laat om bij te sturen. |
+| Krabbenmand | Beeld voor een omgeving die iedereen die omhoog klimt terugtrekt, zoals krabben in een emmer elkaar beletten te ontsnappen. |
+| Outside team | De kring van mentoren, coaches en gelijkgestemde ondernemers buiten het eigen bedrijf die de leider scherp houden. |
+| Never peak | Het uitgangspunt dat er geen eindpunt is: wie zijn hoogtepunt bereikt verklaart, stopt met groeien. |
+
+#### Waar het argument op rust
+
+De onderbouwing bestaat vrijwel volledig uit het eigen levensverhaal: de
+vlucht uit Armenië, de mislukte supplementenwinkel, de paniekaanval van 2012
+en de ommekeer van Fit Body Boot Camp. Een deel daarvan is controleerbaar: het
+bedrijf bestaat, groeide in die jaren hard en stond op de Inc. 5000-lijst. De
+rest, van het geleende bedrag van 126.000 dollar tot de gesprekken met
+mentoren, komt uit Keuilians eigen herinnering en is nergens onafhankelijk
+gestaafd.
+
+Onderzoek, cijfers van derden of literatuurverwijzingen ontbreken volledig.
+Het advies zelf, van ochtendroutines tot delegeren en cultuur boven cv,
+overlapt met wat in beter onderbouwde management- en gedragsliteratuur te
+vinden is, maar het boek levert die onderbouwing niet en verwijst er ook niet
+naar. Als redacteuren worden Ryan Holiday en Jimmy Soni vermeld; dat verklaart
+de strakke vorm, niet de bewijskracht.
+
+#### Wat er tegen in te brengen valt
+
+Het hele betoog rust op één geval: de schrijver zelf. Dat is het klassieke
+patroon van overlevingsvertekening. Talloze ondernemers met dezelfde
+werkethiek en dezelfde ochtendroutine zijn nooit boven water gekomen, en het
+succes van Fit Body Boot Camp laat zich minstens zo goed verklaren uit het
+franchisemodel en de groeiende fitnessmarkt van die jaren als uit de zes
+eigenschappen die het boek aanprijst. Uit de paniekaanval volgt bovendien niet
+de algemene stelling dat slecht leiderschap dodelijk is; het blijft één
+anekdote.
+
+De radicale eigen verantwoordelijkheid heeft ook een keerzijde. Wie elk
+probleem bij de ondernemer zelf legt, veegt marktomstandigheden, kapitaal en
+toeval van tafel, en het etiket slachtoffermentaliteit maakt elk beroep op
+omstandigheden bij voorbaat verdacht. De machotoon van titel en taalgebruik
+zal een deel van de lezers eerder afstoten dan helpen. Ten slotte is het boek
+met 192 bladzijden dun voor achttien hoofdstukken: de meeste onderwerpen
+krijgen enkele bladzijden en blijven op het niveau van aansporing, terwijl het
+verhaal tegelijk als etalage voor het merk van de schrijver dient.
+
+#### Wat er concreet mee te doen is
+
+- Leg vier eigen nonnegotiables vast en toets een maand lang elke avond of ze
+zijn nagekomen.
+- Plan de ochtend de avond tevoren en begin de dag met het werk dat het meeste
+oplevert, niet met de mailbox.
+- Maak een weeklijst van alle taken en streep alles weg dat een ander kan
+doen; houd alleen het deel waarin de eigen bijdrage het verschil maakt.
+- Vraag het team gericht waar de leiding tekortschiet en loop de zeven lekken
+langs voordat de schuld buiten de deur wordt gelegd.
+- Ga na wie in de omgeving zich als krab gedraagt en beperk de tijd met die
+mensen ten gunste van een buitenteam dat hoger mikt.
+
+#### Wat je hierna leest
+
+- 229. Can't Hurt Me. *Can't Hurt Me* van David Goggins vertelt een verwant
+verhaal van armoede naar extreme zelfdiscipline, maar dan als rauwe memoir
+zonder managementadvies.
+- 364. Extreme Ownership. *Extreme Ownership* van Jocko Willink en Leif Babin
+brengt dezelfde kernboodschap, alle uitkomsten zijn de verantwoordelijkheid
+van de leider, vanuit de militaire praktijk en met meer methode.
+- 47. The Hard Thing About Hard Things. *The Hard Thing About Hard Things* van
+Ben Horowitz beschrijft een ondernemerscrisis van binnenuit met aanzienlijk
+meer zakelijke inhoud en minder aansporing.
+- 427. The 10X Rule. *The 10X Rule* van Grant Cardone komt uit hetzelfde
+Amerikaanse motivatiegenre en kent dezelfde sterke en zwakke punten: veel
+vuur, weinig bewijs.
+
+## 545. Relentless: From Good to Great to Unstoppable
+
+Tim S. Grover, 2013. *Relentless: From Good to Great to Unstoppable*
+(Scribner, 2013, 256 blz., ISBN 9781476710938), geschreven met Shari Lesser
+Wenk. De Nederlandse vertaling verscheen als *Meedogenloos* (Kosmos Uitgevers,
+2019, 239 blz.). Rubriek: moed en karakter.
+Tags: `mentale weerbaarheid`, `topsport`, `prestatie`, `discipline`
+
+Tim Grover was een onbekende trainer in Chicago toen hij in 1989 alle spelers
+van de Chicago Bulls een brief stuurde met het aanbod hen fysiek weerbaarder
+te maken. Alleen Michael Jordan reageerde, gaf hem dertig dagen proeftijd en
+hield hem vijftien jaar. Daarna trainde Grover onder anderen Kobe Bryant en
+Dwyane Wade. In *Relentless* beschrijft hij wat de allerbesten volgens hem
+onderscheidt van de zeer goeden: hun mentale inrichting.
+
+Grover deelt presteerders in drie groepen in. Coolers zijn goed en volgen.
+Closers zijn uitstekend en leveren zolang de situatie voorspelbaar is.
+Cleaners zijn niet te stoppen: zij nemen verantwoordelijkheid voor het geheel,
+vertrouwen op instinct, zoeken druk op en meten zich alleen aan het
+eindresultaat. Dertien kenmerken van zulke cleaners vormen het skelet van het
+boek, van doorgaan waar alle anderen stoppen tot liever gevreesd dan geliefd
+zijn.
+
+De onderbouwing komt volledig uit Grovers eigen praktijk; onderzoek ontbreekt.
+Wie wil weten hoe het er rond Jordan en Bryant aan toeging, leest hier een
+ooggetuige. Wie een toetsbare methode zoekt, vindt vooral een houding.
+
+### Uitgebreide samenvatting
+
+**De stelling.** In elk team en elk vak lopen drie soorten presteerders rond:
+coolers die afwachten en volgen, closers die uitstekend werk leveren zolang de
+omstandigheden voorspelbaar zijn, en cleaners die onder alle omstandigheden
+het eindresultaat afdwingen. Het verschil zit volgens Grover in de mentale
+inrichting. Een cleaner vertrouwt na jaren voorbereiding op instinct in plaats
+van na te denken, gebruikt zijn donkere drijfveren als brandstof, zoekt druk
+op en is nooit tevreden. Die meedogenloosheid is volgens hem aan te leren voor
+wie bereid is de prijs te betalen: wantrouwen, eenzaamheid en een honger die
+nooit stilt.
+
+#### De gang van het boek
+
+**De trainer die zichzelf uitnodigde**
+
+Grover werkte eind jaren tachtig als trainer in een gewone sportschool in
+Chicago toen hij in de krant las hoe de Detroit Pistons Michael Jordan met
+fysiek spel afmatten. Hij schreef alle spelers van de Chicago Bulls een brief
+met het aanbod hen daartegen te wapenen. Jordan was de enige die reageerde. In
+een gesprek bij Jordan thuis legde Grover uit hoe elke fysieke verandering het
+schot zou beïnvloeden en vroeg hij dertig dagen proeftijd. Het werden vijftien
+jaar.
+
+Die entree is meteen het visitekaartje van het boek: geen onderzoek, wel een
+kwart eeuw van dichtbij meekijken bij de grootste namen van het Amerikaanse
+basketbal. Na Jordan trainde Grover in zijn eigen sportcomplex ATTACK
+Athletics in Chicago onder anderen Kobe Bryant, Dwyane Wade en Charles
+Barkley. *Relentless*, geschreven met Shari Lesser Wenk, destilleert uit die
+praktijk wat de allerbesten mentaal gemeen hebben.
+
+**Coolers, closers en cleaners**
+
+Grovers indeling kent drie treden. De cooler is goed: hij wacht op
+instructies, kijkt wat anderen doen en schuift een probleem door zodra het
+spannend wordt. De closer is uitstekend: hij beheerst zijn taak en levert,
+mits de situatie voorspelbaar is, de rol duidelijk en de erkenning
+gegarandeerd. De cleaner is volgens Grover niet te stoppen: hij neemt
+verantwoordelijkheid voor het geheel, beslist zonder ruggespraak en levert
+juist wanneer niemand meer weet wat er moet gebeuren.
+
+Het drietal keert in alle latere hoofdstukken terug: bij elk kenmerk
+beschrijft Grover eerst hoe een cooler en een closer zich gedragen, en daarna
+wat de cleaner anders doet. Als archetype buiten de sport voert hij de
+peetvader uit de gelijknamige film op, de man die de kamer beheerst zonder
+zijn stem te verheffen en aan wie iedereen vanzelf rapporteert.
+
+**Niet denken**
+
+Het openingshoofdstuk heet *Don't Think*. Denken hoort volgens Grover thuis in
+de voorbereiding; op het moment van uitvoering is het een stoorzender. Wie
+zijn vak duizenden uren heeft geoefend, kan op het beslissende moment op
+instinct vertrouwen, en wie dan alsnog gaat wikken, blokkeert. Vandaar zijn
+werkregel: eerst al het werk doen, dan loslaten.
+
+In het verlengde ligt de zone, de toestand van stille, koele concentratie
+waarin cleaners volgens Grover hun beste werk doen. Die zone is bij hem geen
+ontspannen flow; zij draait op beheerste woede en op persoonlijke drijfveren
+die vaak uit oude wonden komen. Als voorbeeld beschrijft hij Jordan voor
+wedstrijden: geen oogcontact, nauwelijks aanspreekbaar, volledig naar binnen
+gekeerd.
+
+**De donkere kant**
+
+Het tweede hoofdstuk, *The Cleaner You Are, the Dirtier You Get*, bevat de
+meest omstreden gedachte van het boek. Ieder mens heeft volgens Grover een
+donkere kant: woede, wraakzucht, angst, begeerte. De meeste mensen leren die
+te onderdrukken; cleaners leren hem te gebruiken. De donkere kant is in zijn
+ogen de motor onder uitzonderlijke prestaties, en wie hem ontkent, snijdt
+zichzelf van die motor af.
+
+Grover moraliseert daar nauwelijks bij. Hij stelt vast dat de allerbesten die
+hij trainde stuk voor stuk zulke drijfveren hadden en dat de buitenwereld daar
+liever van wegkijkt. Beheersing is wel voorwaarde: de donkere kant moet op
+afroep beschikbaar zijn, en weer in zijn hok zodra het werk gedaan is.
+
+**De dertien kenmerken**
+
+De rest van het boek bestaat uit dertien hoofdstukken die elk met dezelfde
+woorden beginnen: when you're a cleaner. Samen vormen zij de Relentless 13.
+Een greep: een cleaner gaat door waar alle anderen genoeg hebben, kent
+zichzelf precies, wordt door druk juist beter, viert zijn successen niet omdat
+hij altijd meer wil, kent geen mislukking omdat er altijd nog een weg naar de
+uitkomst is, en hoeft het werk niet leuk te vinden zolang hij naar het
+eindresultaat hunkert.
+
+De scherpste kenmerken staan achteraan. Een cleaner vertrouwt weinig mensen en
+verdraagt niet dat die hem teleurstellen, neemt besluiten in plaats van
+suggesties te doen, concurreert met niemand omdat hij de zwakte van zijn
+tegenstander zoekt en daar aanvalt, en is liever gevreesd dan geliefd. Bij elk
+kenmerk horen anekdotes uit kleedkamers en trainingszalen, meestal zonder
+naam.
+
+**De prijs**
+
+Grover verkoopt de cleaner niet als gelukkig mens. Nooit tevreden zijn
+betekent nooit klaar zijn; weinig vertrouwen betekent weinig nabijheid; de
+honger die kampioenschappen oplevert, vreet ook aan huwelijken en
+vriendschappen. Het boek erkent die schade en aanvaardt haar als onderdeel van
+de afspraak: wie het eindresultaat boven alles stelt, aanvaardt wat dat kost.
+Wie dat te duur vindt, hoort volgens Grover eerlijk vast te stellen dat hij
+geen cleaner wil zijn. Dat is een geldige keuze, alleen geen weg naar
+onverslaanbaarheid.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| cooler | De goede presteerder die op instructies wacht, de leider volgt en verantwoordelijkheid doorschuift zodra de spanning oploopt. |
+| closer | De uitstekende presteerder die levert zolang de taak afgebakend is, de omstandigheden voorspelbaar zijn en de erkenning gegarandeerd. |
+| cleaner | De niet te stoppen presteerder die verantwoordelijkheid neemt voor het geheel, op instinct beslist en zich uitsluitend aan het eindresultaat meet. |
+| de donkere kant | Het geheel van rauwe drijfveren als woede en wraakzucht dat cleaners volgens Grover beheersen en als brandstof gebruiken, terwijl de meeste mensen het wegstoppen. |
+| de zone | De toestand van stille, beheerste concentratie waarin een cleaner op instinct handelt en alles buitensluit wat niet bij de taak hoort. |
+| niet denken | Grovers regel dat analyse in de voorbereiding thuishoort en dat op het moment van uitvoering alleen het getrainde instinct aan het woord mag zijn. |
+| de Relentless 13 | De dertien kenmerken van een cleaner die samen het grootste deel van het boek vormen, elk uitgewerkt in een eigen hoofdstuk. |
+
+#### Waar het argument op rust
+
+Het boek bevat geen onderzoek, geen literatuurverwijzing en geen meetbaar
+resultaat. Het bewijs bestaat volledig uit Grovers eigen waarnemingen als
+trainer, met Jordan, Bryant en Wade als hoofdgetuigen en een stroom naamloze
+anekdotes daaromheen. Dat is geen bijzaak: Grover voert zijn kwart eeuw aan de
+top uitdrukkelijk op als de reden om hem te geloven.
+
+Die basis is smal. De verhalen zijn niet controleerbaar en de steekproef
+bestaat uit een handvol van de beste atleten uit de geschiedenis van hun
+sport. Of de beschreven houding hen aan de top bracht, of dat uitzonderlijk
+talent deze houding betaalbaar maakte, valt uit dit materiaal niet op te
+maken. Wat overeind blijft is de waarde van het ooggetuigenverslag zelf:
+weinig mensen hebben Jordan en Bryant zo lang van zo dichtbij aan het werk
+gezien.
+
+#### Wat er tegen in te brengen valt
+
+Het grootste bezwaar is overlevingsvertekening. Grover zag alleen de sporters
+bij wie obsessie, wantrouwen en woede samenvielen met titels; de veel grotere
+groep bij wie dezelfde houding op blessures, uitputting of een gebroken
+loopbaan uitliep, komt in het boek niet voor. Uit de vaststelling dat de
+allerbesten meedogenloos waren, volgt niet dat meedogenloosheid de weg naar de
+top is.
+
+Daarnaast staat de inhoud op gespannen voet met wat er wel onderzocht is.
+Latere sportwetenschap wijst herstel, slaap en zelfregulatie aan als dragers
+van duurzame topprestatie, en auteurs als Steve Magness betogen met dat
+onderzoek in de hand dat het oude ideaal van hardheid en doorbeulen prestaties
+eerder schaadt. Ook het advies liever gevreesd dan geliefd te zijn en het
+aangeprezen wantrouwen staan haaks op wat er over goed functionerende teams
+bekend is.
+
+Ten slotte is het boek moeilijk te weerleggen, en dat is een zwakte. Wie
+faalt, was volgens de definitie kennelijk geen cleaner; wie slaagt, bewijst
+het gelijk van het boek. Een lezer buiten de topsport krijgt bovendien weinig
+aanwijzingen voor de maandagochtend: *Relentless* beschrijft een houding, geen
+methode.
+
+#### Wat er concreet mee te doen is
+
+- Stel per project vast wie de cleaner is: degene die het eindresultaat draagt
+wanneer niemand meer weet wat er moet gebeuren. Is dat niemand, dan is dat het
+eigenlijke probleem.
+- Verplaats analyse naar de voorbereiding. Oefen tot de uitvoering zonder
+nadenken kan en laat het wikken op het beslismoment achterwege.
+- Onderzoek de eigen donkere drijfveer en de omstandigheden waarin die
+bruikbaar is, in plaats van te doen alsof hij niet bestaat.
+- Reken af op het eindresultaat en niet op de geleverde inspanning; inspanning
+zonder uitkomst telt in dit boek niet.
+- Weeg de prijs vooraf: wie deze standaard overneemt, aanvaardt ook de
+eenzaamheid en het wantrouwen die Grover erbij beschrijft.
+
+#### Wat je hierna leest
+
+- 229. Can't Hurt Me. Goggins beschrijft van binnenuit het leven dat Grover
+van buitenaf aanprijst, met dezelfde obsessie en dezelfde schade.
+- 372. Do Hard Things. Magness zet de sportwetenschap tegenover het
+hardheidsideaal van trainers als Grover en komt op vrijwel elk punt ergens
+anders uit.
+- 29. Grit. Duckworth onderzoekt volharding wel met data en laat zien wat er
+van het verband tussen doorzetten en presteren overblijft onder meting.
+- 441. The Inner Game of Tennis. Gallwey bereikt hetzelfde niet-denken langs
+de omgekeerde route: ontspannen aandacht in plaats van beheerste woede.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
@@ -105865,8 +106486,8 @@ marketing` 369 · `corruptie` 221 · `creativiteit` 11, 12, 13, 14, 15, 16, 17,
 `dierenzintuigen` 322 · `dierlijke-cognitie` 383 · `dierproeven` 330 ·
 `differentiatie` 165 · `digitaal` 81 · `diplomatie` 243 · `direct response`
 350 · `DISC` 156, 429 · `discipline` 12, 13, 22, 30, 106, 133, 137, 146, 445,
-462, 480, 481, 482, 487, 488 · `disruptie` 293 · `DNA` 419 · `docenten` 116 ·
-`doelen` 58, 136, 158, 542 · `doelen stellen` 367, 427, 448 ·
+462, 480, 481, 482, 487, 488, 545 · `disruptie` 293 · `DNA` 419 · `docenten`
+116 · `doelen` 58, 136, 158, 542 · `doelen stellen` 367, 427, 448 ·
 `doelgericht-oefenen` 50 · `doelgroep` 446 · `doelstellingen` 256 ·
 `donkere-triade` 124 · `dood` 98, 169, 292, 535 · `doodsangst` 405 ·
 `doorzetten` 20 · `doorzettingsvermogen` 185, 249, 289, 324 · `dopamine` 314,
@@ -105900,14 +106521,14 @@ bedrijf` 210 · `eigen-beheer` 107, 140, 142 · `eigen-oordeel` 58 ·
 `financiële markten` 268, 351, 480, 481, 483, 499, 501 · `financiële
 onafhankelijkheid` 264 · `financiele vrijheid` 277 · `financiële wiskunde`
 497, 507 · `financiële-discipline` 464 · `financiën` 334, 395, 425 ·
-`financiering` 172 · `fitnessbranche` 307 · `flitshandel` 499 · `flow` 78,
-187, 200 · `focus` 175, 197, 448, 513 · `fotoboek` 189 · `foutcultuur` 422 ·
-`fouten maken` 509 · `frankrijk` 115 · `Franse-Weerstand` 390 · `freelance`
-515 · `Fulani` 522 · `fysieke uitdaging` 323 · `fysiologie` 318, 412, 458 ·
-`Galenus` 328 · `gaslighting` 123 · `gastheerschap` 304 · `gastvrijheid` 531 ·
-`gebed` 83, 259 · `gebruikersgedrag` 294 · `gedachten` 148, 177 ·
-`gedachtenjournal` 176 · `gedrag` 21, 22, 89, 90, 138, 154, 280, 330, 383, 425
-· `gedragsbiologie` 322, 339 · `gedragseconomie` 424, 426, 514 ·
+`financiering` 172 · `fitnessbranche` 307, 544 · `flitshandel` 499 · `flow`
+78, 187, 200 · `focus` 175, 197, 448, 513 · `fotoboek` 189 · `foutcultuur` 422
+· `fouten maken` 509 · `franchise` 544 · `frankrijk` 115 · `Franse-Weerstand`
+390 · `freelance` 515 · `Fulani` 522 · `fysieke uitdaging` 323 · `fysiologie`
+318, 412, 458 · `Galenus` 328 · `gaslighting` 123 · `gastheerschap` 304 ·
+`gastvrijheid` 531 · `gebed` 83, 259 · `gebruikersgedrag` 294 · `gedachten`
+148, 177 · `gedachtenjournal` 176 · `gedrag` 21, 22, 89, 90, 138, 154, 280,
+330, 383, 425 · `gedragsbiologie` 322, 339 · `gedragseconomie` 424, 426, 514 ·
 `gedragsonderzoek` 302, 382 · `gedragspatronen` 161 · `gedragspsychologie` 294
 · `gedragstypen` 156 · `gedragsverandering` 238, 290, 457, 469 ·
 `gedragswetenschap` 166, 209, 305, 468, 469, 510 · `geduld` 21, 351 ·
@@ -106001,8 +106622,8 @@ intelligentie` 236, 237, 297 · `kwaad` 404 · `kwaliteit` 1, 400 ·
 44, 470 · `landbouw` 56, 98 · `landmark forum` 344 · `leadgeneratie` 308 ·
 `lean manufacturing` 265 · `leefstijl` 86, 103, 138, 171 · `leertijd` 320 ·
 `leger` 106, 180, 222 · `leiderschap` 36, 41, 44, 46, 97, 106, 157, 170, 183,
-218, 222, 231, 260, 273, 344, 353, 364, 370, 389, 434, 465, 468, 475, 536 ·
-`leidinggeven` 156 · `leren` 175, 296, 349, 397, 422, 441, 509, 538 ·
+218, 222, 231, 260, 273, 344, 353, 364, 370, 389, 434, 465, 468, 475, 536, 544
+· `leidinggeven` 156 · `leren` 175, 296, 349, 397, 422, 441, 509, 538 ·
 `lesmateriaal` 116 · `leugendetectie` 154, 338 · `levensinrichting` 334 ·
 `levenskeuzes` 150 · `levenskunst` 27, 199, 216, 227 · `levenslessen` 285, 447
 · `levensloop` 91 · `levensverhaal` 385 · `levenswijsheid` 473 · `lezen` 18,
@@ -106016,51 +106637,51 @@ intelligentie` 236, 237, 297 · `kwaad` 404 · `kwaliteit` 1, 400 ·
 `machinaal leren` 484, 485, 486, 503 · `macht` 212, 250, 263, 381, 388, 440 ·
 `machtspolitiek` 220 · `machtstheorie` 221 · `machtsverhoudingen` 155 ·
 `magisch realisme` 261 · `management` 42, 47, 170, 183, 256, 350, 353, 364,
-472 · `manifesteren` 128, 129, 130, 131, 132, 190, 196, 433 · `manipulatie`
-123, 124, 125, 126, 212, 213, 381, 384, 429 · `mannelijkheid` 3, 406, 407, 408
-· `mannen` 7 · `mannenbeweging` 407 · `mantelzorg` 225 · `mantra` 403 ·
-`manuscript` 359 · `marketing` 13, 40, 60, 172, 183, 279, 280, 307, 308, 309,
-350, 443, 446 · `marktmicrostructuur` 477, 478 · `McKinsey` 511 · `media` 54,
-60, 100 · `medische ethiek` 416 · `meditatie` 111, 141, 149, 169, 205, 208,
-228, 230, 237, 242, 333, 377, 401, 431, 527, 528 · `meesterschap` 296, 320 ·
-`meetsystemen` 392 · `memento mori` 286 · `memoir` 4, 7, 18, 20, 26, 45, 49,
-62, 95, 106, 178, 185, 191, 226, 229, 242, 289, 324, 325, 348, 385, 402, 403,
-431, 447, 505 · `menselijk gedrag` 155 · `mensenkennis` 126, 356 · `mentale
-gezondheid` 315 · `mentale helderheid` 148 · `mentale weerbaarheid` 229, 323,
-372, 373, 374 · `mentalisme` 378, 399 · `mentorschap` 4, 285, 289, 320, 402 ·
-`merken` 279 · `metabolisme` 313 · `metafysica` 102, 518 · `meten` 69, 133 ·
-`methode` 81 · `microbedrijf` 40, 172 · `microbioom` 417 ·
-`middelbare-leeftijd` 7 · `middeleeuwen` 534 · `midlife` 324 · `militaire
-strategie` 220 · `millennials` 159 · `minderheden` 68 · `mindful` 103 ·
-`mindfulness` 141, 147, 149, 177, 333, 401 · `mindset` 146, 181, 188, 387, 458
-· `minimalisme` 181 · `misdaad` 254 · `misleiding` 219, 272 · `mislukking` 516
-· `mitochondriën` 313 · `modellen` 300 · `modelleren` 139 · `modellering` 455
-· `moed` 44, 529 · `moeder-en-zoon` 26 · `momentum` 481 · `monniksleven` 230 ·
-`monomythe` 410 · `monopolie` 306 · `monsters` 532 · `Monty-Python` 16 ·
-`moraal` 9, 57, 67, 263 · `moraalkritiek` 391 · `moreel` 36 · `motivatie` 117,
-139, 146, 183, 200, 207, 315, 427, 468, 469, 472 · `Motley Fool` 474 ·
-`motoren` 6 · `motorfietsen` 325 · `muziek` 17, 85 · `mystiek` 340, 390, 524,
-525 · `mythologie` 73, 143, 357, 360, 407, 408, 409 · `mythologische fantasy`
-202 · `mythologische fictie` 203 · `NAD+` 415 · `nalatenschap` 178 ·
-`napoleontische oorlogen` 235 · `narcisme` 258, 404 · `naslag` 99, 112 ·
-`naslagwerk` 59, 225, 426, 477, 478, 486, 491, 500, 504 · `nationalisme` 237 ·
-`natuur` 191, 323 · `natuurkunde` 62, 94, 240, 262, 281, 300, 326 ·
-`navigatie` 321 · `navy seals` 229, 364 · `nazisme` 223 · `necrofilie` 223 ·
-`nederland` 96 · `nederlands` 93, 97, 100, 101, 102, 103, 104, 105, 106, 107,
-108, 128, 130, 131, 141 · `nederlands-auteur` 140 · `nederlandstalig` 113 ·
-`negatieve emoties` 176 · `negentig dagen` 188 · `nepnieuws` 237 · `netwerken`
-24, 246, 300, 388, 508 · `neurobiologie` 119 · `neurochirurgie` 49, 414 ·
-`neurologie` 325 · `neuroplasticiteit` 175, 208, 414 · `neurowetenschap` 52,
-208, 238, 275, 314, 326, 330, 331, 333, 339, 340, 386, 418, 513 ·
-`neurowetenschap-voor-kinderen` 327 · `neusademing` 318 · `new age` 149, 435,
-449 · `new thought` 259, 380 · `NeXT` 46 · `Nietzsche` 391 · `nieuwe gedachte`
-127, 378 · `nieuws` 60, 90 · `nieuwsgierigheid` 15, 28, 62, 241 · `Nike` 20 ·
-`nlp` 123, 125, 139 · `Nobelprijs` 55 · `non-dualiteit` 520 · `non-fictie` 420
-· `non-verbaal` 399 · `non-verbale communicatie` 154 · `noodlot` 533 ·
-`Noordse mythologie` 533 · `notitieboeken` 241 · `novelle` 173 · `obesitas`
-417 · `observeren` 15 · `obsessieve liefde` 284 · `occultisme` 378 ·
-`ochtendroutine` 14, 134, 244 · `oefenen` 29, 397 · `oefening` 141, 296 ·
-`oefeningen` 15, 35, 87, 103, 109, 118, 120, 122, 130 · `okinawa` 77 · `okr`
+472 · `manifesteren` 128, 129, 130, 131, 132, 190, 196, 433, 543 ·
+`manipulatie` 123, 124, 125, 126, 212, 213, 381, 384, 429 · `mannelijkheid` 3,
+406, 407, 408 · `mannen` 7 · `mannenbeweging` 407 · `mantelzorg` 225 ·
+`mantra` 403 · `manuscript` 359 · `marketing` 13, 40, 60, 172, 183, 279, 280,
+307, 308, 309, 350, 443, 446 · `marktmicrostructuur` 477, 478 · `McKinsey` 511
+· `media` 54, 60, 100 · `medische ethiek` 416 · `meditatie` 111, 141, 149,
+169, 205, 208, 228, 230, 237, 242, 333, 377, 401, 431, 527, 528 ·
+`meesterschap` 296, 320 · `meetsystemen` 392 · `memento mori` 286 · `memoir`
+4, 7, 18, 20, 26, 45, 49, 62, 95, 106, 178, 185, 191, 226, 229, 242, 289, 324,
+325, 348, 385, 402, 403, 431, 447, 505 · `menselijk gedrag` 155 ·
+`mensenkennis` 126, 356 · `mentale gezondheid` 315 · `mentale helderheid` 148
+· `mentale weerbaarheid` 229, 323, 372, 373, 374, 545 · `mentalisme` 378, 399
+· `mentorschap` 4, 285, 289, 320, 402 · `merken` 279 · `metabolisme` 313 ·
+`metafysica` 102, 518 · `meten` 69, 133 · `methode` 81 · `microbedrijf` 40,
+172 · `microbioom` 417 · `middelbare-leeftijd` 7 · `middeleeuwen` 534 ·
+`midlife` 324 · `militaire strategie` 220 · `millennials` 159 · `minderheden`
+68 · `mindful` 103 · `mindfulness` 141, 147, 149, 177, 333, 401 · `mindset`
+146, 181, 188, 387, 458 · `minimalisme` 181 · `misdaad` 254 · `misleiding`
+219, 272 · `mislukking` 516 · `mitochondriën` 313 · `modellen` 300 ·
+`modelleren` 139 · `modellering` 455 · `moed` 44, 529 · `moeder-en-zoon` 26 ·
+`momentum` 481 · `monniksleven` 230 · `monomythe` 410 · `monopolie` 306 ·
+`monsters` 532 · `Monty-Python` 16 · `moraal` 9, 57, 67, 263 · `moraalkritiek`
+391 · `moreel` 36 · `motivatie` 117, 139, 146, 183, 200, 207, 315, 427, 468,
+469, 472 · `Motley Fool` 474 · `motoren` 6 · `motorfietsen` 325 · `muziek` 17,
+85 · `mystiek` 340, 390, 524, 525 · `mythologie` 73, 143, 357, 360, 407, 408,
+409 · `mythologische fantasy` 202 · `mythologische fictie` 203 · `NAD+` 415 ·
+`nalatenschap` 178 · `napoleontische oorlogen` 235 · `narcisme` 258, 404 ·
+`naslag` 99, 112 · `naslagwerk` 59, 225, 426, 477, 478, 486, 491, 500, 504 ·
+`nationalisme` 237 · `natuur` 191, 323 · `natuurkunde` 62, 94, 240, 262, 281,
+300, 326 · `navigatie` 321 · `navy seals` 229, 364 · `nazisme` 223 ·
+`necrofilie` 223 · `nederland` 96 · `nederlands` 93, 97, 100, 101, 102, 103,
+104, 105, 106, 107, 108, 128, 130, 131, 141 · `nederlands-auteur` 140 ·
+`nederlandstalig` 113 · `negatieve emoties` 176 · `negentig dagen` 188 ·
+`nepnieuws` 237 · `netwerken` 24, 246, 300, 388, 508 · `neurobiologie` 119 ·
+`neurochirurgie` 49, 414 · `neurologie` 325 · `neuroplasticiteit` 175, 208,
+414 · `neurowetenschap` 52, 208, 238, 275, 314, 326, 330, 331, 333, 339, 340,
+386, 418, 513 · `neurowetenschap-voor-kinderen` 327 · `neusademing` 318 · `new
+age` 149, 435, 449 · `new thought` 259, 380 · `NeXT` 46 · `Nietzsche` 391 ·
+`nieuwe gedachte` 127, 378 · `nieuws` 60, 90 · `nieuwsgierigheid` 15, 28, 62,
+241 · `Nike` 20 · `nlp` 123, 125, 139 · `Nobelprijs` 55 · `non-dualiteit` 520
+· `non-fictie` 420 · `non-verbaal` 399 · `non-verbale communicatie` 154 ·
+`noodlot` 533 · `Noordse mythologie` 533 · `notitieboeken` 241 · `novelle` 173
+· `obesitas` 417 · `observeren` 15 · `obsessieve liefde` 284 · `occultisme`
+378 · `ochtendroutine` 14, 134, 244 · `oefenen` 29, 397 · `oefening` 141, 296
+· `oefeningen` 15, 35, 87, 103, 109, 118, 120, 122, 130 · `okinawa` 77 · `okr`
 256 · `omgangsvormen` 24, 398 · `omkering` 105 · `omstreden` 37, 73, 76, 83 ·
 `onbegrepen-klachten` 104 · `onbetrouwbaar` 123, 124, 125, 126 ·
 `onbetrouwbare verteller` 284 · `onbewezen` 127, 128, 129, 130, 131, 132, 139
@@ -106069,9 +106690,9 @@ strategie` 220 · `millennials` 159 · `minderheden` 68 · `mindful` 103 ·
 260, 271, 272, 305, 444, 450, 455 · `ondernemen` 20, 39, 40, 47, 172, 446, 476
 · `ondernemers` 174 · `ondernemerschap` 157, 163, 185, 197, 198, 210, 222,
 228, 231, 245, 249, 276, 278, 289, 306, 307, 308, 312, 350, 365, 369, 370,
-395, 403, 427, 431, 434, 465 · `onderwijs` 6, 23, 33, 45, 63, 65, 68, 116,
-237, 349, 509 · `onderwijskritiek` 37 · `onderzoek` 23, 28, 29, 32, 33, 39,
-44, 55, 62, 78, 79, 80, 84, 85, 86, 88, 152, 305 · `onderzoeksdebat` 53 ·
+395, 403, 427, 431, 434, 465, 544 · `onderwijs` 6, 23, 33, 45, 63, 65, 68,
+116, 237, 349, 509 · `onderwijskritiek` 37 · `onderzoek` 23, 28, 29, 32, 33,
+39, 44, 55, 62, 78, 79, 80, 84, 85, 86, 88, 152, 305 · `onderzoeksdebat` 53 ·
 `onderzoeksethiek` 215 · `onderzoekskritiek` 52, 415 · `ongemak` 323 ·
 `ongeneeslijke ziekte` 285 · `online ondernemen` 309 · `onsterfelijkheid` 236,
 405 · `onthechting` 462 · `ontmoeten` 304 · `ontologie` 344 · `ontslagen` 47 ·
@@ -106089,67 +106710,68 @@ strategie` 220 · `millennials` 159 · `minderheden` 68 · `mindful` 103 ·
 64 · `overtuigen` 24, 182, 253, 356, 367, 438 · `overtuiging` 280 ·
 `overtuigingen` 28, 132, 139, 143, 469, 487 · `overvloed` 17 · `oxytocine` 458
 · `Pacific` 31 · `pacifisme` 240 · `Padma-onderscheiding` 189 · `palliatieve
-zorg` 416, 447 · `para` 81 · `parabel` 38, 244, 246 · `paranormaal` 340, 362 ·
-`passie` 50, 198 · `pastoraat` 34 · `patiëntenverhalen` 331 ·
-`patiëntverhalen` 414 · `patriarchaat` 3 · `pelgrimage` 8 · `pensioen` 277 ·
-`perceptie` 30 · `perfectionisme` 19, 32, 44 · `persoonlijk merk` 198, 365 ·
-`persoonlijke financiën` 163, 233, 395 · `persoonlijke ontwikkeling` 161, 465,
-467 · `persoonlijkheid` 33, 338, 538 · `persoonlijkheidstypen` 361 · `Perzië`
-524, 525, 526, 536 · `piekeren` 105, 176 · `pijn` 85, 255 · `pijnlichaam` 435
-· `Pixar` 41, 46 · `placebo` 387, 469 · `planeten` 99 · `planning` 70, 276 ·
-`plantaardig-dieet` 324 · `plastische chirurgie` 411 · `plicht` 2 · `podcast`
-136, 465, 513 · `poëzie` 204 · `poker` 137 · `polarisatie` 305 · `polemiek` 67
-· `politicologie` 220, 221, 453, 455 · `politiek` 54, 219, 438 · `politieke
-filosofie` 394 · `populair` 77, 129, 133 · `populair-wetenschappelijk` 88,
-239, 326, 418, 451 · `populaire filosofie` 194 · `populaire psychologie` 156,
-429 · `portefeuille` 474 · `portefeuillebeheer` 507 · `portefeuilletheorie`
-503 · `portretten` 75, 94 · `positief denken` 83, 179, 516 · `positiegrootte`
-489, 490, 491, 493, 504, 506 · `positieve-psychologie` 207 · `positionering`
-443 · `postuum` 49 · `Praag` 173 · `praktijk` 459 · `praktisch` 118, 121, 140,
-159, 172 · `prentenboek` 167 · `presenteren` 82, 253 · `prestatie` 168, 291,
-372, 397, 488 · `prestatiebeoordeling` 256 · `prestatiecultuur` 461 ·
-`prestatieonderzoek` 376 · `prestige` 515 · `preventie` 86, 313 ·
-`prijsstelling` 307 · `prijzen` 23, 424 · `prikkels` 60, 65 · `prioriteiten`
-25, 196 · `prioriteren` 151, 311, 448 · `privacy` 393 · `proactief` 25 ·
-`producer` 17 · `product` 446 · `productiviteit` 151, 175, 197, 207, 244, 276,
-278, 290, 311, 400, 434, 442, 448, 512 · `productontwerp` 231, 294 ·
-`productontwikkeling` 265, 471 · `proeven` 112 · `programmering` 439 ·
-`projecten` 81 · `projectie` 107, 108 · `propaganda` 60, 384 ·
-`propositielogica` 437 · `protocol` 69 · `pseudokennis` 126 · `pseudoniem` 378
-· `psychedelica` 275 · `psychiatrie` 1, 48, 95, 96, 104, 213, 314, 315, 317,
-331 · `psychoanalyse` 223, 360, 361, 405, 409 · `psychologie` 23, 28, 29, 55,
-73, 78, 79, 105, 138, 143, 147, 152, 154, 162, 200, 211, 213, 214, 250, 254,
-258, 296, 310, 338, 357, 358, 375, 381, 382, 384, 387, 424, 444, 457, 463,
-467, 468, 469, 487, 501, 514, 538, 541, 542 · `psychologische flexibiliteit`
-460 · `psychologische functies` 361 · `psychopathie` 429 · `psychotherapie`
-164, 227, 386, 406 · `PTSS` 386 · `publiceren` 13 · `publiek opbouwen` 369 ·
-`publieksfilosofie` 269 · `Pulitzer` 5 · `puzzels` 451 · `Python` 486 ·
-`quantum` 94 · `queeste` 522 · `quilten` 114 · `quotes` 179 · `radicale
-transparantie` 270 · `RAND` 454, 456 · `Rat-Pack` 178 · `rationaliteit` 454 ·
-`rationele keuze` 455 · `recht` 393 · `rechtspraak` 69 · `reclame` 206, 279,
-443, 446 · `reeks` 114, 192 · `regimeverandering` 220 · `reïncarnatie` 202 ·
-`reïnventie` 344 · `reisverhaal` 1 · `reizen` 278 · `relaties` 34, 51, 101,
-120, 122, 145, 152, 162, 164, 166, 167, 195, 213, 334, 335, 381, 398, 406, 466
-· `relatietherapie` 165 · `relativiteitstheorie` 240, 281 · `religie` 56 ·
-`religieuze symboliek` 409 · `REM` 52 · `remarkable` 446 · `Renaissance` 15,
-241 · `rente` 38 · `replicatie` 79 · `reputatie` 388 · `retorica` 253, 438 ·
-`revisie` 18 · `ridderepos` 534 · `rijkdom` 57, 228 · `risico` 64, 80, 144,
-268, 282, 351, 423, 425, 480, 481, 482, 487, 496, 500, 501 · `risicobeheer`
-479, 489, 490, 491, 492, 493, 494, 497, 498, 504, 506 · `ritueel` 404 ·
-`rituelen` 304 · `rivier als symbool` 287 · `roem-en-eenzaamheid` 178 ·
-`roeping` 8, 9, 12, 160 · `roman` 61, 113, 114, 115, 254 · `Rome` 537 ·
-`romeinse oudheid` 232 · `rouw` 95, 467 · `rouwverwerking` 204 · `ruimte en
-tijd` 281 · `ruimtevaart` 266 · `russische literatuur` 235 · `rust` 32 ·
-`SaaS` 434 · `sadisme` 223 · `saga` 533 · `Salinas` 10 · `samenleving` 90, 98,
-319 · `samenwerken` 25 · `samenwerking` 453 · `samoerai` 346, 462, 517, 535 ·
-`Sanskriet` 520 · `Santa Fe Institute` 347 · `satire` 155 · `satori` 528 ·
-`scepsis` 63 · `schaalgroei` 434 · `schaalvergroting` 350 · `schaamte` 32, 44,
-317, 470 · `schaarste` 92, 249 · `schaduw` 404 · `scheikunde` 92 · `school`
-53, 84 · `schrijven` 11, 12, 14, 18, 19, 81, 436, 511 · `schrijverschap` 191,
-325 · `schuld` 254 · `schulden` 20, 38, 121, 159, 464 · `seksualiteit` 100,
-145, 164, 165, 316 · `selectoraattheorie` 221 · `seminar` 139 · `Shaolin` 389
-· `Silicon Valley` 306 · `sirtuïnen` 415 · `slaap` 52, 87, 88, 171, 181, 316,
-329, 414 · `slaapapneu` 332 · `slavernij` 68 · `smartphone` 53, 288 · `sociale
+zorg` 416, 447 · `para` 81 · `parabel` 38, 244, 246 · `paradigma` 543 ·
+`paranormaal` 340, 362 · `passie` 50, 198 · `pastoraat` 34 ·
+`patiëntenverhalen` 331 · `patiëntverhalen` 414 · `patriarchaat` 3 ·
+`pelgrimage` 8 · `pensioen` 277 · `perceptie` 30 · `perfectionisme` 19, 32, 44
+· `persoonlijk merk` 198, 365 · `persoonlijke financiën` 163, 233, 395 ·
+`persoonlijke ontwikkeling` 161, 465, 467 · `persoonlijkheid` 33, 338, 538 ·
+`persoonlijkheidstypen` 361 · `Perzië` 524, 525, 526, 536 · `piekeren` 105,
+176 · `pijn` 85, 255 · `pijnlichaam` 435 · `Pixar` 41, 46 · `placebo` 387, 469
+· `planeten` 99 · `planning` 70, 276 · `plantaardig-dieet` 324 · `plastische
+chirurgie` 411 · `plicht` 2 · `podcast` 136, 465, 513 · `poëzie` 204 · `poker`
+137 · `polarisatie` 305 · `polemiek` 67 · `politicologie` 220, 221, 453, 455 ·
+`politiek` 54, 219, 438 · `politieke filosofie` 394 · `populair` 77, 129, 133
+· `populair-wetenschappelijk` 88, 239, 326, 418, 451 · `populaire filosofie`
+194 · `populaire psychologie` 156, 429 · `portefeuille` 474 ·
+`portefeuillebeheer` 507 · `portefeuilletheorie` 503 · `portretten` 75, 94 ·
+`positief denken` 83, 179, 516 · `positiegrootte` 489, 490, 491, 493, 504, 506
+· `positieve-psychologie` 207 · `positionering` 443 · `postuum` 49 · `Praag`
+173 · `praktijk` 459 · `praktisch` 118, 121, 140, 159, 172 · `prentenboek` 167
+· `presenteren` 82, 253 · `prestatie` 168, 291, 372, 397, 488, 545 ·
+`prestatiebeoordeling` 256 · `prestatiecultuur` 461 · `prestatieonderzoek` 376
+· `prestige` 515 · `preventie` 86, 313 · `prijsstelling` 307 · `prijzen` 23,
+424 · `prikkels` 60, 65 · `prioriteiten` 25, 196 · `prioriteren` 151, 311, 448
+· `privacy` 393 · `proactief` 25 · `producer` 17 · `product` 446 ·
+`productiviteit` 151, 175, 197, 207, 244, 276, 278, 290, 311, 400, 434, 442,
+448, 512 · `productontwerp` 231, 294 · `productontwikkeling` 265, 471 ·
+`proeven` 112 · `programmering` 439 · `projecten` 81 · `projectie` 107, 108 ·
+`propaganda` 60, 384 · `propositielogica` 437 · `protocol` 69 · `pseudokennis`
+126 · `pseudoniem` 378 · `psychedelica` 275 · `psychiatrie` 1, 48, 95, 96,
+104, 213, 314, 315, 317, 331 · `psychoanalyse` 223, 360, 361, 405, 409 ·
+`psychologie` 23, 28, 29, 55, 73, 78, 79, 105, 138, 143, 147, 152, 154, 162,
+200, 211, 213, 214, 250, 254, 258, 296, 310, 338, 357, 358, 375, 381, 382,
+384, 387, 424, 444, 457, 463, 467, 468, 469, 487, 501, 514, 538, 541, 542 ·
+`psychologische flexibiliteit` 460 · `psychologische functies` 361 ·
+`psychopathie` 429 · `psychotherapie` 164, 227, 386, 406 · `PTSS` 386 ·
+`publiceren` 13 · `publiek opbouwen` 369 · `publieksfilosofie` 269 ·
+`Pulitzer` 5 · `puzzels` 451 · `Python` 486 · `quantum` 94 · `queeste` 522 ·
+`quilten` 114 · `quotes` 179 · `radicale transparantie` 270 · `RAND` 454, 456
+· `Rat-Pack` 178 · `rationaliteit` 454 · `rationele keuze` 455 · `recht` 393 ·
+`rechtspraak` 69 · `reclame` 206, 279, 443, 446 · `reeks` 114, 192 ·
+`regimeverandering` 220 · `reïncarnatie` 202 · `reïnventie` 344 ·
+`reisverhaal` 1 · `reizen` 278 · `relaties` 34, 51, 101, 120, 122, 145, 152,
+162, 164, 166, 167, 195, 213, 334, 335, 381, 398, 406, 466 · `relatietherapie`
+165 · `relativiteitstheorie` 240, 281 · `religie` 56 · `religieuze symboliek`
+409 · `REM` 52 · `remarkable` 446 · `Renaissance` 15, 241 · `rente` 38 ·
+`replicatie` 79 · `reputatie` 388 · `retorica` 253, 438 · `revisie` 18 ·
+`ridderepos` 534 · `rijkdom` 57, 228 · `risico` 64, 80, 144, 268, 282, 351,
+423, 425, 480, 481, 482, 487, 496, 500, 501 · `risicobeheer` 479, 489, 490,
+491, 492, 493, 494, 497, 498, 504, 506 · `ritueel` 404 · `rituelen` 304 ·
+`rivier als symbool` 287 · `roem-en-eenzaamheid` 178 · `roeping` 8, 9, 12, 160
+· `roman` 61, 113, 114, 115, 254 · `Rome` 537 · `romeinse oudheid` 232 ·
+`rouw` 95, 467 · `rouwverwerking` 204 · `ruimte en tijd` 281 · `ruimtevaart`
+266 · `russische literatuur` 235 · `rust` 32 · `SaaS` 434 · `sadisme` 223 ·
+`saga` 533 · `Salinas` 10 · `samenleving` 90, 98, 319 · `samenwerken` 25 ·
+`samenwerking` 453 · `samoerai` 346, 462, 517, 535 · `Sanskriet` 520 · `Santa
+Fe Institute` 347 · `satire` 155 · `satori` 528 · `scepsis` 63 · `schaalgroei`
+434 · `schaalvergroting` 350 · `schaamte` 32, 44, 317, 470 · `schaarste` 92,
+249 · `schaduw` 404 · `scheikunde` 92 · `school` 53, 84 · `schrijven` 11, 12,
+14, 18, 19, 81, 436, 511 · `schrijverschap` 191, 325 · `schuld` 254 ·
+`schulden` 20, 38, 121, 159, 464 · `seksualiteit` 100, 145, 164, 165, 316 ·
+`selectoraattheorie` 221 · `seminar` 139, 543 · `Shaolin` 389 · `Silicon
+Valley` 306 · `sirtuïnen` 415 · `slaap` 52, 87, 88, 171, 181, 316, 329, 414 ·
+`slaapapneu` 332 · `slavernij` 68 · `smartphone` 53, 288 · `sociale
 besmetting` 303 · `sociale media` 53, 70, 194, 198, 204, 288, 365 · `sociale
 psychologie` 215, 280, 302, 319 · `sociale-vaardigheden` 398 · `sociologie`
 300 · `soefisme` 524, 526 · `software` 276, 484 · `somberheid` 119 ·
@@ -106191,11 +106813,11 @@ Secret` 433 · `theeceremonie` 379 · `therapie` 51, 107, 118, 119, 120, 121,
 `thuiszorg` 225 · `tieners` 193 · `tijd` 71, 232, 262, 292, 334, 442 ·
 `tijdmanagement` 434 · `tijdsbeleving` 326 · `timemanagement` 311, 448 ·
 `toekomst` 236 · `toeval` 21, 64, 93, 137, 274, 362, 483 · `Tolteeks` 27 ·
-`toon` 72, 118, 119, 121, 132, 145 · `topprestatie` 374 · `topsport` 422, 460
-· `totalitarisme` 384 · `trading` 492, 493, 495 · `training` 376 · `trauma`
-104, 119, 195, 229, 317, 386 · `trendvolgen` 480, 501 · `trilling` 127 ·
-`trilogie` 202, 203, 248 · `TRIZ` 471 · `Troje` 530 · `tuinontwerp` 205 ·
-`tumoronderdrukker` 419 · `twaalf-weken` 14 · `twaalfde eeuw` 525 ·
+`toon` 72, 118, 119, 121, 132, 145 · `topprestatie` 374 · `topsport` 422, 460,
+545 · `totalitarisme` 384 · `trading` 492, 493, 495 · `training` 376 ·
+`trauma` 104, 119, 195, 229, 317, 386 · `trendvolgen` 480, 501 · `trilling`
+127 · `trilogie` 202, 203, 248 · `TRIZ` 471 · `Troje` 530 · `tuinontwerp` 205
+· `tumoronderdrukker` 419 · `twaalf-weken` 14 · `twaalfde eeuw` 525 ·
 `tweede-wereldoorlog` 115 · `tweelingonderzoek` 417 · `twintigers` 51 ·
 `typologie` 361 · `uitdaging-vaardigheid` 200 · `uitgeven` 463 · `uitleg` 99,
 102 · `uitleggen` 82 · `uitstel` 71, 140 · `uitstelgedrag` 12, 311, 513 ·
@@ -106241,8 +106863,8 @@ Secret` 433 · `theeceremonie` 379 · `therapie` 51, 107, 118, 119, 120, 121,
 78, 151, 252, 466 · `werk en rust` 512 · `werkboek` 14, 122, 150 · `werkdruk`
 400 · `werkplek` 33, 43 · `werktempo` 400 · `werkwijze` 16 · `West-Afrika` 522
 · `West-Point` 29 · `westen` 67 · `western` 5 · `westerse filosofie` 269, 341
-· `wet van aantrekking` 127, 190, 433 · `wetenschap` 63, 66, 93, 94, 328, 485
-· `wetenschappers` 239 · `wetenschapsfilosofie` 483 ·
+· `wet van aantrekking` 127, 190, 433, 543 · `wetenschap` 63, 66, 93, 94, 328,
+485 · `wetenschappers` 239 · `wetenschapsfilosofie` 483 ·
 `wetenschapsgeschiedenis` 239, 240, 321, 347, 413, 419 ·
 `wetenschapsjournalistiek` 387, 412 · `wijn` 112 · `wilskracht` 238 · `Wired`
 473 · `wiskunde` 116, 454, 456, 490, 505, 509 · `wisselstroom` 267 · `woede`
@@ -106254,26 +106876,26 @@ communicatie` 182 · `zakendoen` 348, 367, 465, 508 · `zeereis` 36 · `zeevaart
 `zelfbeeld` 25, 27, 105, 107, 108, 129, 138, 197, 367, 372, 411, 439, 538, 540
 · `zelfbeheersing` 75, 148, 212, 248, 286, 314, 382, 389, 396 ·
 `zelfbescherming` 214 · `zelfcompassie` 32 · `zelfdiscipline` 2, 158, 229,
-244, 311 · `zelfevaluatie` 270 · `zelfexperiment` 316, 318, 417 · `zelfhulp`
-15, 22, 25, 34, 58, 72, 76, 79, 83, 117, 134, 135, 136, 146, 147, 148, 149,
-150, 151, 152, 153, 156, 157, 158, 161, 162, 166, 168, 174, 175, 176, 177,
-179, 181, 184, 187, 188, 190, 193, 194, 195, 196, 199, 204, 207, 208, 209,
-210, 211, 213, 222, 224, 230, 255, 259, 291, 310, 334, 338, 356, 373, 380,
-389, 395, 398, 401, 403, 406, 411, 427, 429, 432, 435, 439, 449, 459, 465,
-513, 540 · `zelfkennis` 258, 260, 361, 519, 526 · `zelfliefde` 190, 195, 204,
-380, 403 · `zelfonderzoek` 315, 470, 520, 527 · `zelfontplooiing` 393 ·
-`zelfontwikkeling` 179 · `zelfpraat` 161 · `zelfpromotie` 388 ·
-`zelfpublicatie` 174 · `zelfregulatie` 153, 165, 177, 541, 542 ·
-`zelfsabotage` 161, 344 · `zelfspot` 19 · `zelfspraak` 439 · `zelfstandig` 40,
-515 · `zelfstandig denken` 211 · `zelfstandig ondernemen` 198 · `zelfstandig
-starten` 210 · `zelfsturing` 142, 168 · `zelfuitgegeven` 123, 124, 125, 126 ·
-`zelfverbetering` 243 · `zelfvertrouwen` 157, 187, 312, 365, 440, 441 ·
-`zelfwaarde` 168 · `zelfwaardering` 121 · `zelfzorg` 109, 225, 466 · `zen`
-141, 346, 441, 517, 528 · `zenboeddhisme` 205, 379 · `zenuwstelsel` 87 ·
-`zeven-stappen` 129 · `ziekte` 74, 180, 295 · `zingeving` 9, 48, 77, 91, 160,
-183, 200, 201, 237, 245, 255, 515 · `zitten` 84 · `zorg` 96 · `Zuid-Afrika`
-26, 266, 523 · `zuinigheid` 39 · `zwaar` 143 · `zwaardvechten` 346, 517 ·
-`zwart bewustzijn` 523 · `zwarte gaten` 99, 262
+244, 311, 544 · `zelfevaluatie` 270 · `zelfexperiment` 316, 318, 417 ·
+`zelfhulp` 15, 22, 25, 34, 58, 72, 76, 79, 83, 117, 134, 135, 136, 146, 147,
+148, 149, 150, 151, 152, 153, 156, 157, 158, 161, 162, 166, 168, 174, 175,
+176, 177, 179, 181, 184, 187, 188, 190, 193, 194, 195, 196, 199, 204, 207,
+208, 209, 210, 211, 213, 222, 224, 230, 255, 259, 291, 310, 334, 338, 356,
+373, 380, 389, 395, 398, 401, 403, 406, 411, 427, 429, 432, 435, 439, 449,
+459, 465, 513, 540, 543 · `zelfkennis` 258, 260, 361, 519, 526 · `zelfliefde`
+190, 195, 204, 380, 403 · `zelfonderzoek` 315, 470, 520, 527 ·
+`zelfontplooiing` 393 · `zelfontwikkeling` 179 · `zelfpraat` 161 ·
+`zelfpromotie` 388 · `zelfpublicatie` 174 · `zelfregulatie` 153, 165, 177,
+541, 542 · `zelfsabotage` 161, 344 · `zelfspot` 19 · `zelfspraak` 439 ·
+`zelfstandig` 40, 515 · `zelfstandig denken` 211 · `zelfstandig ondernemen`
+198 · `zelfstandig starten` 210 · `zelfsturing` 142, 168 · `zelfuitgegeven`
+123, 124, 125, 126 · `zelfverbetering` 243 · `zelfvertrouwen` 157, 187, 312,
+365, 440, 441 · `zelfwaarde` 168 · `zelfwaardering` 121 · `zelfzorg` 109, 225,
+466 · `zen` 141, 346, 441, 517, 528 · `zenboeddhisme` 205, 379 ·
+`zenuwstelsel` 87 · `zeven-stappen` 129 · `ziekte` 74, 180, 295 · `zingeving`
+9, 48, 77, 91, 160, 183, 200, 201, 237, 245, 255, 515 · `zitten` 84 · `zorg`
+96 · `Zuid-Afrika` 26, 266, 523 · `zuinigheid` 39 · `zwaar` 143 ·
+`zwaardvechten` 346, 517 · `zwart bewustzijn` 523 · `zwarte gaten` 99, 262
 
 ## Leesroutes
 

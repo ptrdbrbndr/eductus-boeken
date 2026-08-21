@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Art of Living &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Resultaten in inkomen, gezondheid en relaties komen volgens Proctor voort uit het paradigma: het geheel van gewoonten en overtuigingen dat vanaf de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-543">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">543 &middot; Positief denken en manifesteren</p>
+    <h1>The Art of Living</h1>
+    <p class="lede">Bob Proctor met Sandra Gallagher, 2015</p>
+    <p class="stats">
+      <span><b>1455</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="543"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Resultaten in inkomen, gezondheid en relaties komen volgens Proctor voort uit het paradigma: het geheel van gewoonten en overtuigingen dat vanaf de kindertijd in het onderbewuste is geprogrammeerd. Omstandigheden en intelligentie doen er in zijn model weinig toe; hij kende genoeg slimme mensen die arm bleven en schoolverlaters die rijk werden. Wie de zes hogere geestvermogens leert gebruiken kan dat programma herschrijven, brengt zichzelf in harmonie met wat hij verlangt en trekt het dan aan volgens de wet van vibratie. Goed leven is in die opvatting een kunst met leerbare wetten, en gebrek is in de kern een kennisprobleem: mensen worstelen omdat niemand hun heeft geleerd hoe het worstelen ophoudt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een seminar op papier</h3>
+      <p>Het boek is geen doorlopende verhandeling maar een bundel transcripten van Matrixx, het seminar dat Proctor met zakenpartner Sandra Gallagher gaf vanuit hun Proctor Gallagher Institute. De tekst is verdeeld in 23 korte lessen, elk rond een eigen onderwerp, met titels als Whatever It Is, You Can Get It, Money Is a Magnifier en Think Dreams to Reality. Op veel plaatsen staat de zaal er nog in: deelnemers stellen vragen, Proctor antwoordt, dwaalt af en keert terug naar zijn punt.</p>
+      <p>Proctor verliet jong de school, werkte bij de brandweer in Toronto en kreeg in 1961 <i>Think and Grow Rich</i> van Napoleon Hill in handen. Dat boek, zo vertelt hij telkens opnieuw, keerde zijn leven: hij bouwde een schoonmaakbedrijf op, ging werken voor radiomaker Earl Nightingale en werd spreker in de traditie van het positieve denken. Een groot publiek kende hem sinds 2006 van <i>The Secret</i>. Dit boek is de leer van die halve eeuw in gespreksvorm.</p>
+      <h3>Het paradigma als programma</h3>
+      <p>De kern van vrijwel elke les is het paradigma. Proctor gebruikt dat woord voor de verzameling gewoonten die in het onderbewuste ligt opgeslagen en die het gedrag stuurt. Het paradigma is grotendeels overgenomen van ouders en omgeving, zonder dat er ooit iemand bewust voor koos. Wie meer wil verdienen of gezonder wil leven, verandert volgens Proctor niets zolang het oude programma draait: kennis alleen legt het af tegen conditionering.</p>
+      <p>Daarom moet de lezer eerst afleren. Veel van wat voor waar wordt gehouden, noemt Proctor valse overtuigingen die er met herhaling zijn ingeslepen. Het intellect helpt daar niet vanzelf bij; een goed getraind verstand kan de eigen beperkende overtuigingen juist scherpzinnig verdedigen.</p>
+      <h3>De zes hogere vermogens</h3>
+      <p>Tegenover de vijf zintuigen, die alleen registreren wat er al is, zet Proctor zes hogere geestvermogens: waarneming, wil, verbeelding, geheugen, intuïtie en rede. Dieren leven via hun zintuigen in de omgeving die ze aantreffen; de mens kan met deze vermogens een beeld vormen van iets dat er nog niet is en zich daarnaar richten. Wie ze ontwikkelt, bepaalt zijn omgeving in plaats van erdoor bepaald te worden.</p>
+      <p>De vermogens blijven bij de meeste mensen onontwikkeld omdat school ze nauwelijks traint. Het seminar is opgezet als oefening erin: een doel kiezen dat het huidige paradigma te groot vindt, dat doel dagelijks in de verbeelding vasthouden en de wil gebruiken om de aandacht daar te houden, tegen de oude gewoonten in.</p>
+      <h3>Geloven is zien</h3>
+      <p>Proctor keert het gezegde "eerst zien, dan geloven" om. Wie wacht op bewijs voordat hij gelooft, blijft binnen zijn huidige resultaten; wie eerst gelooft, gaat volgens Proctor kansen en middelen waarnemen die er al waren. Daarachter ligt de wet van vibratie: alles trilt, gedachten hebben een frequentie, en gelijke frequenties vinden elkaar. De vaak aangehaalde formule luidt dat iemand aantrekt waarmee hij in harmonie is, los van wat hij bewust wil of nodig heeft.</p>
+      <p>Het leven stroomt in dit beeld als een rivier met twee richtingen: een stroom naar overvloed, gevoed door vertrouwen en dankbaarheid, en een stroom naar gebrek, gevoed door angst en twijfel. Welke kant iemand op drijft, hangt af van de gedachten die hij gewoonlijk denkt.</p>
+      <h3>Geld als vergrootglas</h3>
+      <p>Een fors deel van de lessen gaat over geld. Proctor wil de gêne eraf halen: geld is een middel om vrijer te leven en meer te kunnen betekenen voor anderen, en armoede is geen deugd. Geld vergroot bovendien uit wat er al is: een goedhartig mens kan er meer goeds mee doen, een onaangenaam mens wordt er onaangenamer van.</p>
+      <p>De diepste laag is religieus getint. Er is volgens Proctor één onuitputtelijke bron van voorraad, de geest die alles doordringt, en wie zich daarop afstemt hoeft niet te vechten om een beperkte koek. Lestitels als Our Only Source of Supply verraden de afkomst van dit gedachtegoed uit de New Thought-beweging van rond 1900.</p>
+      <h3>Van droom naar besluit</h3>
+      <p>De praktische lijn door het boek: schrijf een doel op dat werkelijk trekt, ook als onduidelijk is hoe het bereikt moet worden, en neem er een besluit over. Proctor onderscheidt reageren, het automatische antwoord van het oude paradigma, van antwoorden, waarbij iemand ruimte neemt en zelf kiest. Dagelijkse studie, herhaling en visualisatie moeten het nieuwe beeld in het onderbewuste slijten totdat het gedrag vanzelf volgt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Paradigma</td><td>De verzameling gewoonten en overtuigingen in het onderbewuste die volgens Proctor vrijwel alle resultaten in een mensenleven bepaalt.</td></tr>
+          <tr><td class="term">Hogere geestvermogens</td><td>Waarneming, wil, verbeelding, geheugen, intuïtie en rede: de zes vermogens waarmee de mens zijn denken zelf kan richten.</td></tr>
+          <tr><td class="term">Wet van vibratie</td><td>De aanname dat alles trilt en dat gedachten via hun frequentie soortgelijke mensen en omstandigheden aantrekken.</td></tr>
+          <tr><td class="term">Harmonie</td><td>De toestand waarin het onderbewuste beeld overeenstemt met wat iemand wil bereiken; pas dan komt het volgens Proctor binnen bereik.</td></tr>
+          <tr><td class="term">Geloven is zien</td><td>De omkering van "eerst zien, dan geloven": wie eerst gelooft, neemt volgens Proctor kansen waar die de scepticus ontgaan.</td></tr>
+          <tr><td class="term">Geld als vergrootglas</td><td>Geld maakt volgens Proctor groter wat er al in iemand zit, ten goede en ten kwade.</td></tr>
+          <tr><td class="term">Reageren versus antwoorden</td><td>Reageren is het automatische gedrag van het oude paradigma; antwoorden is een bewuste keuze na een moment van afstand.</td></tr>
+          <tr><td class="term">Bron van voorraad</td><td>De ene geestelijke bron die volgens Proctor onuitputtelijk is, zodat welvaart geen strijd om een beperkte koek hoeft te zijn.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het betoog rust op autoriteit en anekdote. Proctor citeert overvloedig uit de canon van het positieve denken, met Napoleon Hill voorop, en vult dat aan met verhalen uit zijn eigen loopbaan en die van seminardeelnemers, zoals een deelnemer wier boek binnen enkele maanden een bestseller zou zijn geworden. Verwijzingen naar wetenschappelijk onderzoek ontbreken; het boek doet ook geen poging in die richting.</p>
+      <p>De wet van vibratie wordt gepresenteerd als natuurwet, gelijkwaardig aan de zwaartekracht, terwijl er geen natuurkundige of psychologische literatuur bestaat die haar ondersteunt. De succesverhalen zijn niet controleerbaar en er wordt niet verteld hoeveel deelnemers hetzelfde deden zonder resultaat. Wat wel aansluit op degelijk onderzoek is bescheidener van aard: doelen opschrijven, herhaling en concrete voornemens vergroten aantoonbaar de kans op gedragsverandering, al is dat effect vele malen kleiner dan wat het boek belooft.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Als verklaring van de werkelijkheid is de leer onhoudbaar. Frequenties van gedachten zijn nooit gemeten en aantrekking tussen gedachte en gebeurtenis is nooit aangetoond. Het lenen van natuurkundige termen geeft het geheel een schijn van exactheid die de inhoud niet draagt. De redenering is bovendien gesloten: wie het doel bereikt, bevestigt de wet, en wie het niet bereikt, was kennelijk niet in harmonie. Zo valt er niets te weerleggen.</p>
+      <p>De leer legt daarnaast de volle verantwoordelijkheid voor armoede en tegenslag bij het denken van de getroffene, alsof conjunctuur, gezondheid en afkomst geen rol spelen. Het bewijs bestaat uit winnaars die achteraf vertellen; over de velen die hetzelfde geloofden en niets bereikten, zwijgt het boek.</p>
+      <p>Het boek is ook onderdeel van een verdienmodel: Matrixx was een betaald seminar van het Proctor Gallagher Institute en de tekst wijst geregeld door naar verdere studie en begeleiding. De transcriptvorm maakt het geheel los en herhalend, en wie Hill of Peale kent, vindt hier weinig nieuws. Wat overblijft is een reeks op zichzelf redelijke gewoonteadviezen, verpakt in een metafysica die ze niet nodig hebben.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf één doel op dat spanning oproept omdat het buiten het huidige kunnen ligt, en herlees het dagelijks.</li>
+        <li>Neem bij irritatie of slecht nieuws eerst afstand en kies dan een antwoord, zodat het automatische reageren niet vanzelf wint.</li>
+        <li>Ga na welke overtuigingen over geld en eigen kunnen ooit ongemerkt zijn overgenomen van ouders of omgeving, en toets ze een voor een.</li>
+        <li>Behandel de beloften van het genre als hypothesen: houd bij wat opschrijven en visualiseren werkelijk opleveren en wat niet.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Art of Living</i> (TarcherPerigee, 2015, 240 blz., ISBN 9780399175190). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; alleen het oudere <i>Je bent rijk geboren</i> (2007) staat er. De samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Bob Proctor (1934-2022), Canadees spreker en een van de gezichten uit de film <i>The Secret</i>, bundelde in dit boek de transcripten van zijn seminar Matrixx: 23 korte lessen over de vraag waarom mensen de resultaten krijgen die ze krijgen. Zijn antwoord is steeds hetzelfde. Het paradigma, het aangeleerde programma in het onderbewuste, bepaalt inkomen, gezondheid en relaties, en wie de zes hogere geestvermogens traint kan dat programma vervangen en aantrekken wat hij verlangt.</p><p>Het boek staat vol citaten uit de traditie van het positieve denken en vol verhalen uit de seminarzaal; onderzoek ontbreekt en de wet van vibratie waarop alles rust is geen natuurwet. Wie wil weten wat er in deze hoek van de zelfhulp wordt geleerd, vindt hier de leer van een van haar bekendste sprekers in gespreksvorm, met de beloften en de zwakke plekken van het genre.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>manifesteren</li><li>paradigma</li><li>wet van aantrekking</li><li>seminar</li><li>zelfhulp</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="76"><a href="76.html">Think and Grow Rich</a>. <i>Think and Grow Rich</i> van Napoleon Hill is het boek dat Proctor in 1961 op dit spoor zette; vrijwel elke les grijpt erop terug.</li>
+          <li value="127"><a href="127.html">The Law of Attraction</a>. <i>The Law of Attraction</i> van William Walker Atkinson laat zien waar de vibratietaal vandaan komt: de New Thought-beweging van rond 1900.</li>
+          <li value="259"><a href="259.html">The Power of Your Subconscious Mind</a>. <i>The Power of Your Subconscious Mind</i> van Joseph Murphy leert hetzelfde onderbewuste-model, met dezelfde beloften en dezelfde bewijsproblemen.</li>
+          <li value="516"><a href="516.html">The Antidote</a>. <i>The Antidote</i> van Oliver Burkeman is het tegenwicht: wat er overblijft als positief denken zelf onder de loep gaat.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
