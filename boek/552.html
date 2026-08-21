@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Art of Pacing &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Tempo is een vaardigheid. Duurlopers weten wanneer ze moeten versnellen, inhouden en herstellen; in werk en leven ontbreekt dat vermogen meestal, en de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-552">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">552 &middot; Werk en aandacht</p>
+    <h1>The Art of Pacing</h1>
+    <p class="lede">Elizabeth Svoboda, 2026</p>
+    <p class="stats">
+      <span><b>1276</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="552"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Tempo is een vaardigheid. Duurlopers weten wanneer ze moeten versnellen, inhouden en herstellen; in werk en leven ontbreekt dat vermogen meestal, en de cultuur duwt alles richting één stand: voluit. Het gevolg is een pendel tussen overbelasting en lusteloosheid. Svoboda betoogt dat het hele tempospectrum beschikbaar moet zijn: pieken op de uren waarop het eigen lichaam het aankan, bewust moduleren tussen versnellingen, met opzet middelmatig zijn waar het er weinig toe doet, en rusten op momenten die betekenis hebben. Een houdbaar ritme is bovendien mede een collectieve opgave: werkplekken, gezinnen en gemeenschappen bepalen of hun leden verstandig kunnen doseren.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het moordende tempo en het lichaam</h3>
+      <p>De openingshoofdstukken, A Breakneck Pace en A Biological Reckoning, stellen de diagnose. De cultuur beloont wie altijd aan staat, zelfverbetering is een wedstrijd zonder finish geworden, en succes wordt afgemeten aan maatstaven die anderen aanleveren. Svoboda schrijft uit eigen ervaring: het boek opent als memoir van iemand die zelf leerde dat aanhoudend voluit gaan zich wreekt.</p>
+      <p>Tegenover die norm zet zij de biologie: circadiane ritmes, herstelcycli en de grenzen van wat een lichaam aan aanhoudende belasting verdraagt. Wie het lichaam structureel overvraagt, betaalt met slaap, stemming en gezondheid, en presteert per saldo minder. De afrekening met de eigen biologie is in dit boek het startpunt van elke verstandige planning.</p>
+      <h3>Verhaallijn en polsslag</h3>
+      <p>Plotting a Narrative Arc introduceert het verhalende gereedschap: wie het eigen leven als verhaallijn leest, ziet welke inspanningen bij de eigen bedoeling horen en welke alleen maar aangewaaid zijn. Die reflectie bepaalt waar versnelling zin heeft en wat geschrapt kan worden; het overtollige benoemen is in dit boek een voorwaarde om ergens anders werkelijk te kunnen pieken.</p>
+      <p>Find Your Pulse maakt het concreet met polspunten: de uren waarop energie en concentratie pieken, per persoon verschillend en met de eigen biologische klok verbonden. Het advies is het belangrijkste werk op die uren te leggen en de rest van de dag daaromheen te bouwen, tegen de gewoonte in om de agenda door anderen te laten vullen.</p>
+      <h3>Moduleren, middelmaat en digitale triage</h3>
+      <p>The Art of Modulation behandelt het schakelen zelf: op- en terugschakelen als een loper die intervallen traint, met selectieve middelmaat als onderschat instrument. Wie op onbelangrijke terreinen bewust genoegen neemt met matig werk, houdt vermogen over voor wat er wel toe doet. Moduleren is bij Svoboda meer dan een agendatechniek; het is de manier om een leefstijl te ontwerpen die voedt in plaats van uitput, met wisselingen die vooraf gekozen zijn en niet worden afgedwongen door instorting.</p>
+      <p>Digital Triage past hetzelfde principe toe op schermen: een route uitzetten door het online aanbod die de eigen doelen dient, tegen de ontwerpers in die op eindeloos doorscrollen aansturen. Het gaat om selectie vooraf, en om minder reactief leven.</p>
+      <h3>Flow, korte kaarsen en van de kaart</h3>
+      <p>Flourishing in Flow behandelt de toestand waarin inspanning vanzelf lijkt te gaan, als bewijs dat hoog tempo op zich het probleem niet is: het gaat om de passing tussen taak, vermogen en moment. Brief Candles pleit voor korte, betekenisvolle pauzes die met opzet gepland worden en echt herstel opleveren.</p>
+      <p>Selfless Pacing en Dropping off the Map verbreden het palet: doseren omwille van anderen die op iemand steunen, met het eigen tempo als voorbeeld en steun voor de omgeving, en het periodiek volledig verdwijnen van de kaart, langer en radicaler dan een weekend, als middel om richting terug te vinden. In beide hoofdstukken keert de gedachte terug dat rust geen onderbreking van het echte leven is; zij hoort bij de arbeid zoals herstel bij training hoort.</p>
+      <h3>Collectief tempo</h3>
+      <p>De slothoofdstukken, Collective Pacing, The New Pacing Movement en Course Corrections, halen het onderwerp uit de privésfeer. Werkplekken, gezinnen en gemeenschappen bepalen mede of leden verstandig kunnen doseren: een organisatie die bereikbaarheid als loyaliteit leest, maakt individuele goede voornemens kansloos, en een gezonde cultuur maakt houdbare prestatie juist normaal. Svoboda beschrijft een opkomende beweging van organisaties die duurzame prestatie serieus nemen, en sluit af met bijsturen als blijvende taak: tempo is geen instelling die één keer goed gezet wordt, en wie doseert, blijft corrigeren naarmate omstandigheden en levensfasen veranderen.</p>
+      <p>Elk hoofdstuk volgt hetzelfde stramien: een persoon, een beslissend moment, en daarna concrete stappen met vragen om het zelf te proberen. De geïnterviewden lopen uiteen van olympische sporters tot ondernemers.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">tempospectrum</td><td>Het hele bereik van snelheden tussen voluit en stilstand, dat volgens Svoboda in zijn geheel beschikbaar moet zijn.</td></tr>
+          <tr><td class="term">polspunten</td><td>De uren waarop energie en concentratie van een persoon pieken en waar het belangrijkste werk zou moeten landen.</td></tr>
+          <tr><td class="term">modulatie</td><td>Het bewuste schakelen tussen versnellingen in plaats van alles in één tempo te doen.</td></tr>
+          <tr><td class="term">selectieve middelmaat</td><td>Bewust genoegen nemen met matig resultaat op terreinen die er weinig toe doen, om vermogen over te houden.</td></tr>
+          <tr><td class="term">brief candles</td><td>Korte, met opzet geplande pauzes die betekenis hebben en werkelijk herstel opleveren.</td></tr>
+          <tr><td class="term">digitale triage</td><td>Vooraf een route uitzetten door het online aanbod die de eigen doelen dient, tegen het ontwerp van de apps in.</td></tr>
+          <tr><td class="term">verhaallijn uitzetten</td><td>Het eigen leven als verhaal lezen om te bepalen welke inspanningen bij de bedoeling horen en wat geschrapt kan worden.</td></tr>
+          <tr><td class="term">collectief tempo</td><td>De invloed van werkplekken, gezinnen en gemeenschappen op het tempo dat hun leden kunnen volhouden.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Svoboda is een bekroonde wetenschapsjournalist die eerder over heldendom en altruïsme schreef, en dat is aan de werkwijze te zien: het boek heeft noten en een register, en de stellingen over slaap, circadiane ritmes en herstel steunen op gevestigde fysiologie. De interviews met sporters en ondernemers leveren de verhalen waar de hoofdstukken aan zijn opgehangen, en het vaste stramien per hoofdstuk (persoon, moment, stappen) houdt het betoog controleerbaar: de lezer ziet steeds waar een advies vandaan komt.</p>
+      <p>Tegelijk is dit synthese, geen eigen onderzoek. De kernclaim, dat het schakelen tussen tempo's uit de duursport overdraagbaar is op kenniswerk en levensinrichting, is een analogie die aannemelijk wordt gemaakt met voorbeelden, niet getoetst met studies die precies dat vergelijken. Het boek verscheen in juni 2026; een oordeel van vakgenoten en onafhankelijke recensenten moet nog grotendeels komen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De hardloopmetafoor wordt ver opgerekt. Dat een marathonloper zijn wedstrijd indeelt, bewijst weinig over loopbanen, gezinnen of rouw, en op de plaatsen waar het boek die sprong maakt, doet de bewijslast het werk niet; de lezer moet de overdracht op gezag van de voorbeelden aannemen.</p>
+      <p>Daarnaast is het terrein druk bezet. Wie Newport over traag en diep werken heeft gelezen, of Burkeman over eindigheid, vindt hier vooral een nieuwe ordening van bekende adviezen; het eigen accent zit in de biologie en in het hoofdstuk over collectief tempo. Dat laatste is ook het eerlijkste deel: Svoboda erkent dat individuele doseerkunst strandt in organisaties die haar bestraffen, al blijven de aanbevelingen voor die organisaties globaal.</p>
+      <p>Ten slotte veronderstelt het hele programma een ruimte om te kiezen die lang niet iedereen heeft. Wie ploegendiensten draait, mantelzorg combineert met werk of van twee banen leeft, kan het zware werk niet naar de eigen polspunten schuiven en geen periode van de kaart verdwijnen. Het boek richt zich, zoals veel van dit genre, op kenniswerkers met regie over hun agenda, en zegt dat er niet bij.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Zoek de eigen polspunten door twee weken bij te houden wanneer concentratie piekt, en leg het zwaarste werk op die uren.</li>
+        <li>Wijs terreinen aan waar middelmaat volstaat, en spreek dat hardop af.</li>
+        <li>Plan na elk afgerond project een korte pauze met betekenis in plaats van meteen door te schuiven.</li>
+        <li>Zet vooraf een route uit voor schermgebruik: wat wel, wat niet, en wanneer.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Art of Pacing: A Guide to Balancing Short-Term Demands with Long-Term Thriving</i> (Simon Element, 2026, 240 blz., ISBN 9781668022412). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Wetenschapsjournalist Elizabeth Svoboda, vaste bijdrager aan onder meer Scientific American en The New York Times, past in <i>The Art of Pacing</i> een hardloopbegrip toe op het hele leven: wie alles in één tempo doet, raakt uitgeput of komt stil te staan. Duurzame prestatie vraagt het vermogen om over het hele tempospectrum te schakelen, van voluit naar bewust traag en terug.</p><p>Het boek combineert memoir, onderzoek en interviews met onder anderen olympische sporters en ondernemers. Praktische kernstukken zijn het vinden van de eigen polspunten (de uren waarop het zware werk moet landen), moduleren tussen versnellingen, selectieve middelmaat op terreinen die er minder toe doen, en korte, betekenisvolle pauzes. In de slothoofdstukken verschuift de blik van het individu naar werkplekken, gezinnen en gemeenschappen, die het tempo van hun leden mede bepalen.</p><p>Het boek verscheen in juni 2026; onafhankelijke besprekingen zijn nog dun gezaaid. Het betoog is journalistiek degelijk opgebouwd, met noten en register, maar berust op synthese en analogie, niet op eigen onderzoek.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>tempo</li><li>burn-out</li><li>herstel</li><li>productiviteit</li><li>biologische klok</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="400"><a href="400.html">Slow Productivity</a>. Newport bepleit hetzelfde tragere ritme voor kenniswerk, met meer nadruk op de werkpraktijk.</li>
+          <li value="71"><a href="71.html">Four Thousand Weeks</a>. Burkeman levert het filosofische fundament onder het schrappen: eindigheid dwingt tot kiezen.</li>
+          <li value="329"><a href="329.html">The Circadian Code</a>. Panda werkt de circadiane biologie uit waar Svoboda's polspunten op steunen.</li>
+          <li value="461"><a href="461.html">The Practice of Groundedness</a>. Stulberg beschrijft dezelfde duurzame omgang met ambitie vanuit waarden en aandacht.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

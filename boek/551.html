@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Kind Way &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Moderne organisaties hebben een onhoudbaar tempo tot norm verheven, en de rekening daarvan is stille uitputting: leiders en professionals die blijven…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-551">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">551 &middot; Samenwerken en gesprek</p>
+    <h1>The Kind Way</h1>
+    <p class="lede">Sophie Bretag, 2026</p>
+    <p class="stats">
+      <span><b>1262</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="551"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Moderne organisaties hebben een onhoudbaar tempo tot norm verheven, en de rekening daarvan is stille uitputting: leiders en professionals die blijven presteren terwijl ze leeglopen. Vriendelijkheid geldt in dit boek als het antwoord, en dan als capaciteit die zich laat ontwikkelen en meten, met betere besluiten, sterkere teams en houdbare culturen als opbrengst. Wie bij zichzelf begint, met zelfkennis en zelfvriendelijkheid, oordeelt scherper en houdt het langer vol; organisaties die vriendelijkheid via de vier pijlers en de KINDHUMAN Quotient meetbaar maken, bouwen volgens Bretag aan prestatie waar niemand aan onderdoor gaat.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een diagnose uit eigen ervaring</h3>
+      <p>Bretag bouwde bijna twintig jaar aan een loopbaan in HR-strategie, organisatiepsychologie en leiderschapsontwikkeling, met haar adviesbureau Metta Leaders als thuisbasis. In 2024 werd ze geopereerd aan agressieve hoofd-halskanker. Het herstel dwong tot de vaststelling dat ze zichzelf jarenlang had weggecijferd: prestatie was eigenwaarde geworden, dienstbaarheid zelfopoffering, en kracht het onderdrukken van wat er werkelijk speelde.</p>
+      <p>Dat persoonlijke verhaal draagt het boek. De adviseur die organisaties leerde zorgen voor mensen, bleek dat zelf niet te doen, en die tegenstrijdigheid maakt de vraag van het boek geloofwaardig: wat is succes waard als het lichaam de rekening betaalt?</p>
+      <h3>De prijs van constant doorgaan</h3>
+      <p>De diagnose die Bretag stelt: organisaties hebben een tempo genormaliseerd dat mensen sloopt, en noemen dat professionaliteit. Het gevolg omschrijft ze als stille uitputting: mensen die aan alle verwachtingen voldoen en zich tegelijk leeg, cynisch of afwezig voelen. De onhoudbare kosten van het constante doen noemt ze een van de zwaarste vraagstukken van modern leiderschap.</p>
+      <p>Vriendelijkheid staat in dit boek tegenover die norm, uitdrukkelijk ook als zakelijk argument: uitgeputte mensen nemen slechtere besluiten en verlaten de organisatie. Bretag keert daarbij een gangbare aanname om: vriendelijkheid voedt ambitie, omdat wie goed voor zichzelf en anderen zorgt langer en met meer overzicht kan blijven bouwen.</p>
+      <h3>De vier pijlers</h3>
+      <p>Het hart van het boek is een raamwerk van vier pijlers. Know Yourself gaat over zelfkennis en zelfvriendelijkheid als basis voor oordeelsvermogen: wie de eigen patronen, grenzen en drijfveren kent en zichzelf niet voortdurend afstraft, denkt strategischer en beslist rustiger. Include with Intention gaat over doelbewuste insluiting: het gevoel erbij te horen wordt behandeld als voorwaarde voor betrokkenheid en prestatie, en insluiting als iets dat leiders actief moeten organiseren.</p>
+      <p>Nurture Your Capacity gaat over het onderhouden van de eigen draagkracht: energie, herstel en het bewaken van wat iemand aankan, als tegenwicht tegen de reflex om altijd beschikbaar te zijn. Demonstrate Conscious Leadership ten slotte gaat over voorleven: leiders die hun eigen gedrag als instrument zien en culturen bouwen waarin presteren en welzijn samengaan.</p>
+      <p>Elke pijler wordt uitgewerkt met casuïstiek uit de adviespraktijk, reflectievragen en werkvormen voor drukke professionals. De pijlers zijn bedoeld als capaciteiten die op individueel en organisatieniveau te ontwikkelen en te toetsen zijn.</p>
+      <h3>Meten wat zacht lijkt</h3>
+      <p>De ondertitel belooft een meetlat, en die levert het boek in de vorm van de KINDHUMAN Quotient, een door Bretag ontwikkeld en als merk vastgelegd instrument dat vriendelijkheid als leiderschapscapaciteit in kaart brengt. De gedachte erachter: wat gemeten wordt, telt mee in organisaties, en zolang vriendelijkheid een vaag ideaal blijft, verliest zij het van elk dashboard. Door er een score aan te verbinden, moet zij dezelfde status krijgen als andere stuurgetallen.</p>
+      <p>Het instrument is bedoeld voor twee niveaus tegelijk. Individuele leiders gebruiken het om te zien waar hun eigen praktijk tekortschiet, van zelfzorg tot insluiting; organisaties gebruiken het om vriendelijkheid als cultuurkenmerk te volgen en om te bepalen waar ontwikkeling nodig is. Details over de opbouw en de toetsing van het instrument geeft het toegankelijke materiaal rond het boek niet prijs.</p>
+      <h3>Toon en publiek</h3>
+      <p>Het boek richt zich op leiders en professionals die naar buiten toe slagen en van binnen uitgeput raken. De toon is persoonlijk en bemoedigend, met de mengeling van memoir, adviespraktijk en oefeningen die in het genre gebruikelijk is. Bretag positioneert het boek nadrukkelijk tegen de heersende prestatiecultuur: ambitie en vriendelijkheid worden als bondgenoten gepresenteerd, en de belofte is een loopbaan die vol te houden is.</p>
+      <p>Het boek verscheen medio 2026 bij The Kind Press en wordt gedistribueerd door Simon &amp; Schuster Australië. De ontvangst speelde zich in de eerste maanden vooral af in Australische media en in het spreker- en HR-netwerk rond de auteur, met interviews in regionale kranten en een goed bezochte boekpresentatie; een bespreking in de vakpers of een landelijke krant buiten dat circuit is nog niet gevonden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">stille uitputting</td><td>De toestand waarin iemand aan alle verwachtingen blijft voldoen en zich tegelijk leeg en opgebrand voelt.</td></tr>
+          <tr><td class="term">zelfvriendelijkheid</td><td>Vriendelijkheid voor zichzelf als startpunt van goed leiderschap, tegenover de reflex om eigen behoeften weg te cijferen.</td></tr>
+          <tr><td class="term">Know Yourself</td><td>De eerste pijler: zelfkennis en zelfcompassie als basis voor oordeelsvermogen en besluiten.</td></tr>
+          <tr><td class="term">Include with Intention</td><td>De tweede pijler: erbij horen doelbewust organiseren, als voorwaarde voor betrokkenheid en prestatie.</td></tr>
+          <tr><td class="term">Nurture Your Capacity</td><td>De derde pijler: de eigen draagkracht onderhouden met energie, herstel en grenzen.</td></tr>
+          <tr><td class="term">Demonstrate Conscious Leadership</td><td>De vierde pijler: bewust voorleven van gedrag dat een houdbare cultuur mogelijk maakt.</td></tr>
+          <tr><td class="term">KINDHUMAN Quotient</td><td>Bretags eigen, als merk vastgelegde meetinstrument dat vriendelijkheid als leiderschapscapaciteit scoort op individueel en organisatieniveau.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek beroept zich op neurowetenschap, psychologie en organisatieonderzoek. De richting van dat beroep spoort met bestaand werk: onderzoek naar zelfcompassie, onder anderen van Kristin Neff, laat verbanden zien met veerkracht en minder burn-outklachten, en onderzoek naar psychologische veiligheid ondersteunt het verband tussen erbij horen en teamprestatie. Hoe zorgvuldig het boek die literatuur gebruikt, valt van buitenaf niet vast te stellen: onafhankelijke besprekingen ontbraken bij het schrijven van deze samenvatting.</p>
+      <p>De sterkste bewijslast is het persoonlijke verhaal en de adviespraktijk van twintig jaar. Dat maakt het boek geloofwaardig als getuigenis en als praktijkboek, maar het levert geen toets van de centrale claim dat gemeten vriendelijkheid tot betere organisaties leidt. Voor de KINDHUMAN Quotient is geen onafhankelijke validering gevonden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>The Kind Press is een uitgeverij waar auteurs meebetalen aan de uitgave, met distributie via Simon &amp; Schuster Australië. Dat zegt niets over de oprechtheid van het boek, wel over de filter: er is geen redactie van een grote uitgeverij en geen recensietraditie omheen, en de aanbevelingen komen uit het sprekerscircuit rond de auteur.</p>
+      <p>De meetlat is tegelijk het zwakste punt. Een als merk vastgelegd instrument dat samenhangt met het adviesbureau van de auteur maakt het boek mede een visitekaartje, en een vriendelijkheidsscore die op zelfrapportage leunt, meet vooral hoe mensen zichzelf zien. Er is ook een principiëler bezwaar: zodra vriendelijkheid een stuurgetal wordt, kan zij hetzelfde lot ondergaan als andere stuurgetallen en verworden tot doel op zichzelf, met gespeelde warmte als resultaat. Het boek onderkent dat risico niet zichtbaar.</p>
+      <p>Wie de vier pijlers naast de bestaande leiderschapsliteratuur legt, herkent bekende bouwstenen onder nieuwe namen: zelfcompassie, insluiting, herstel en voorbeeldgedrag zijn elk al goed beschreven. Het eigene van dit boek zit in de persoonlijke urgentie van het kankerverhaal en in de poging om er één samenhangend meetbaar geheel van te maken, minder in de onderdelen zelf.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga na welke van de drie verwisselingen uit het boek herkenbaar is: prestatie voor eigenwaarde, dienstbaarheid voor zelfopoffering, kracht voor onderdrukking.</li>
+        <li>Behandel herstel als onderdeel van het werk en plan het even hard in als afspraken.</li>
+        <li>Toets bij het eerstvolgende besluit of uitputting meebeslist, en stel het zo nodig een dag uit.</li>
+        <li>Benoem in het eigen team wie er buiten de boot valt en organiseer insluiting in plaats van haar te veronderstellen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Kind Way: The Life-Changing Metric for Leadership, Success and the Human Spirit</i> (The Kind Press, 2026, 288 blz., ISBN 9781764207492). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Sophie Bretag werkte bijna twintig jaar als HR-adviseur en keynote-spreker in Australië toen ze in 2024 werd geopereerd aan agressieve hoofd-halskanker. In haar herstel zag ze dat ze prestatie voor eigenwaarde had aangezien, dienstbaarheid voor zelfopoffering en kracht voor onderdrukking. Uit die ervaring komt <i>The Kind Way</i> voort: een pleidooi om vriendelijkheid, te beginnen bij vriendelijkheid voor zichzelf, te behandelen als een leiderschapsvaardigheid die zich laat ontwikkelen en meten.</p><p>Het raamwerk bestaat uit vier pijlers (Know Yourself, Include with Intention, Nurture Your Capacity en Demonstrate Conscious Leadership) en een eigen meetlat, de KINDHUMAN Quotient, bedoeld voor zowel individuen als organisaties. Het boek mengt het persoonlijke verhaal met casuïstiek uit haar adviespraktijk, reflectieoefeningen en werkvormen.</p><p>Het boek verscheen medio 2026 bij The Kind Press, een Australische uitgeverij waar auteurs meebetalen aan de uitgave; onafhankelijke recensies waren er bij het schrijven van deze samenvatting nog niet. De richting van het betoog spoort met serieus onderzoek naar zelfcompassie en psychologische veiligheid, maar hoe stevig het boek zelf op dat onderzoek leunt, valt van buitenaf niet vast te stellen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>leiderschap</li><li>vriendelijkheid</li><li>burn-out</li><li>werkcultuur</li><li>zelfcompassie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="273"><a href="273.html">Leaders Eat Last</a>. Sinek legt dezelfde koppeling tussen veiligheid, zorg voor mensen en teamprestatie.</li>
+          <li value="468"><a href="468.html">Inspire</a>. Galinsky onderbouwt met sociale psychologie hoe leiders anderen laten groeien of juist klein houden.</li>
+          <li value="32"><a href="32.html">The Gifts of Imperfection</a>. Brown behandelt de zelfcompassie waar Bretags eerste pijler op steunt.</li>
+          <li value="466"><a href="466.html">Set Boundaries, Find Peace</a>. Tawwab geeft het gereedschap voor de grenzen die Nurture Your Capacity veronderstelt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

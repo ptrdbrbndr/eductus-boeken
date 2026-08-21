@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Playful &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Vrij spel, gedrag dat vrijwillig gekozen is, zelf gestuurd wordt en zijn motivatie in zichzelf draagt, is voor volwassenen even wezenlijk als voor…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-550">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">550 &middot; Maken en scheppen</p>
+    <h1>Playful</h1>
+    <p class="lede">Cas Holman met Lydia Denworth, 2025</p>
+    <p class="stats">
+      <span><b>1314</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="550"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Vrij spel, gedrag dat vrijwillig gekozen is, zelf gestuurd wordt en zijn motivatie in zichzelf draagt, is voor volwassenen even wezenlijk als voor kinderen. Een cultuur van productiviteit, meetbaarheid en zelfverbetering heeft volwassenen aangeleerd om elke activiteit een doel te geven, en daarmee is het spelen verleerd. Dat verlies schaadt de emotionele gezondheid, het probleemoplossend vermogen en de band met anderen. De weg terug vraagt geen nieuwe hobby's of activiteiten; zij vraagt het afleren van de gewoonte om overal een prestatie van te maken. Een speelse houding laat zich oefenen, en zij verandert hoe gewone dagen voelen en hoe goed iemand denkt en samenleeft.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De ontwerper en de journalist</h3>
+      <p>Holman ontwierp twintig jaar speelgoed en speelplekken. Haar bouwset Rigamajig, ontwikkeld voor het High Line-park in New York, heeft geen handleiding en geen eindbeeld: wie ermee bouwt, bepaalt zelf wat het wordt. In workshops voor bedrijven als LEGO, Nike, Google en Disney Imagineering zag ze steeds hetzelfde patroon: volwassenen die eerst vragen wat de bedoeling is, en pas na lang aarzelen iets durven maken zonder plan. Uit die observatie komt het boek voort.</p>
+      <p>Wetenschapsjournalist Lydia Denworth, redacteur bij Scientific American en auteur van een boek over de biologie van vriendschap, leverde de onderzoekskant. Die taakverdeling bepaalt de toon: een ontwerpersbetoog, gestut met wetenschap waar die voorhanden is. Holmans eigen loopbaan loopt als voorbeeldmateriaal door het hele boek heen, van haar speelgoedbedrijf Heroes Will Rise tot installaties in het Liberty Science Center.</p>
+      <h3>Wat vrij spel is</h3>
+      <p>Het boek hanteert de definitie die speelonderzoekers gebruiken: vrij spel is vrijwillig gekozen, zelf gestuurd en van binnenuit gemotiveerd. Er is geen externe maatstaf, geen publiek en geen beoogde uitkomst. Daarmee is spel een houding die in vrijwel elke activiteit kan zitten: een gesprek met een vreemde, een wandeling zonder route, dansen in de keuken, meubels verschuiven om te zien hoe het staat.</p>
+      <p>Dezelfde definitie sluit veel uit wat voor vrije tijd doorgaat. Een hardloopapp met reeksen die niet onderbroken mogen worden, een cursus die op een certificaat afkoerst en een spelletjesavond waarop gewonnen moet worden, zijn in deze indeling geen vrij spel: er is een prestatiemaat binnengeslopen die het doen zelf ondergeschikt maakt.</p>
+      <p>Belangrijk is ook wat het boek uitdrukkelijk afwijst: het idee dat volwassenen moeten spelen zoals kinderen spelen. Volwassen spel hoeft niet op een speelplaats plaats te vinden en vraagt geen speelgoed; het vraagt de innerlijke drijfveer terug die kinderen vanzelf hebben en volwassenen zijn kwijtgeraakt aan beloningen, deadlines en beoordelingen.</p>
+      <h3>Hoe het spelen verloren ging</h3>
+      <p>Het eerste deel beschrijft hoe volwassenen het spelen afleren. School leert dat tijd verantwoord moet worden, werk leert dat zichtbare prestatie de maat is, en sociale media voegen een permanent publiek toe. Wie iets doet waar hij slecht in is, voelt schaamte; wie iets doet zonder doel, voelt schuld. Zo verdwijnt het spel eerst uit de agenda en daarna uit het repertoire.</p>
+      <p>Holmans kernzin luidt dat niemand hoeft te leren spelen: het vermogen blijft intact, wat aangeleerd is, is de rem erop. Het boek gaat dus over afleren, en dat maakt het optimistischer dan veel zelfhulp: er hoeft niets nieuws verworven te worden.</p>
+      <h3>Wat spel oplevert</h3>
+      <p>De baten die het boek opvoert: minder stress, soepeler en origineler denken, minder angst om te falen, sterkere banden. Spel maakt mislukken veilig, en wie veilig kan mislukken, probeert meer en leert sneller. Holman noemt spel de manier waarop mensen leren wie ze zijn, hoe ze falen, communiceren, bouwen en overleven.</p>
+      <p>Voor de sociale kant gebruikt het boek herkenbare voorbeelden, zoals Halloween: de ene avond per jaar waarop buren verkleed bij vreemden aanbellen, sociale drempels wegvallen en een straat zich even als gemeenschap gedraagt. Spel verlaagt de kosten van contact, en dat effect is op elke leeftijd te gebruiken.</p>
+      <p>Het boek reserveert daarnaast ruimte voor zware periodes: juist bij verlies, ziekte of tegenslag kan een speelse houding volgens Holman betekenis en lucht geven, omdat spel een manier is om zonder oordeel bij het heden te blijven. Dat is de meest persoonlijke en tegelijk de minst onderbouwde claim van het boek.</p>
+      <h3>De speelse houding in de praktijk</h3>
+      <p>Het tweede deel is praktisch en hangt aan drie pijlers. De eerste is mogelijkheid omarmen: gewone momenten, van de rit naar school tot een vergadering, bevatten speelruimte voor wie ernaar kijkt. De tweede is oordeel loslaten: plezier telt zwaarder dan niveau, en iets slecht doen mag, zolang het doen zelf bevalt.</p>
+      <p>De derde pijler is succes herijken: de maat voor een geslaagde avond wordt verbondenheid en plezier, en de vraag wat het heeft opgeleverd, kan vervallen. Holman gebruikt het voorbeeld van ouders die van Halloween een productie maken met uitgewerkte kostuums en een draaiboek: het feest slaagt volgens haar wanneer de avond ontspannen en mal was, los van wat er van de plannen terechtkwam.</p>
+      <p>In plaats van een uitgewerkt programma biedt het boek per pijler voorbeelden en kleine oefeningen om de eigen vorm van spel terug te vinden. Wat voor de een spel is, is voor de ander een verplichting, en dat verschil moet ieder zelf uitzoeken; het boek reikt daarvoor vragen aan en geen recept.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">vrij spel</td><td>Gedrag dat vrijwillig gekozen is, zelf gestuurd wordt en zijn beloning in het doen zelf vindt, zonder externe maatstaf of publiek.</td></tr>
+          <tr><td class="term">speelse houding</td><td>De bereidheid om in gewone situaties ruimte voor spel te zien; volgens Holman zit spel in de houding en niet in de activiteit.</td></tr>
+          <tr><td class="term">mogelijkheid omarmen</td><td>De eerste pijler: alledaagse momenten behandelen als gelegenheid tot spel.</td></tr>
+          <tr><td class="term">oordeel loslaten</td><td>De tweede pijler: plezier laten voorgaan op de vraag of iets goed gedaan wordt.</td></tr>
+          <tr><td class="term">succes herijken</td><td>De derde pijler: uitkomstmaten vervangen door verbondenheid en plezier als maat voor een geslaagd moment.</td></tr>
+          <tr><td class="term">afleren</td><td>Holmans woord voor de weg terug: het vermogen om te spelen blijft intact, alleen de aangeleerde rem erop moet weg.</td></tr>
+          <tr><td class="term">Rigamajig</td><td>Holmans houten bouwset zonder handleiding of eindbeeld, in het boek het model van open spel.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een betoog uit de ontwerppraktijk, gestut door journalistiek werk. Denworth verwerkt onderzoek uit de ontwikkelingspsychologie en gedragsbiologie, terreinen waar de waarde van spel voor kinderen en jonge dieren goed gedocumenteerd is. Voor volwassenen is de basis dunner: veel steunt op correlaties, kleine studies en de aanname dat wat bij kinderen vaststaat, overdraagbaar is.</p>
+      <p>De tweede bewijsbron is Holmans eigen praktijk: twintig jaar observatie van spelende en verkrampte volwassenen in workshops bij grote bedrijven en instellingen. Dat is rijk en geloofwaardig materiaal, geen gecontroleerd onderzoek. Het boek verscheen in oktober 2025, kreeg brede media-aandacht van televisie tot tijdschriften en lovende aanbevelingen van onder anderen Elizabeth Gilbert; onafhankelijke kritische besprekingen zijn nog schaars, en de aanhalingen op het omslag komen grotendeels van auteurs uit hetzelfde genre.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het rekbare spelbegrip is het zwakke punt. Als een vergadering, een schoolrit en een gesprek met een vreemde allemaal spel kunnen zijn, verschuift de definitie van activiteit naar houding, en een houding laat zich moeilijk meten of weerleggen. De claim dat spel creativiteit en welzijn bevordert, wordt aannemelijk gemaakt, niet aangetoond.</p>
+      <p>Daarnaast is de boodschapper belanghebbend: Holman verkoopt spelworkshops aan dezelfde bedrijven die in het boek als voorbeeld dienen, en de aanbevelingen op het omslag komen uit bevriende hoek. Wie de onderzoekskant van spel zoekt, vindt meer in het oudere <i>Play</i> van Stuart Brown; dit boek wint het op toegankelijkheid en op de ontwerpersblik.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kies één activiteit per week zonder doel, meting of publiek, en houd haar buiten elke app.</li>
+        <li>Doe iets waar niveau niet telt: teken, dans of bouw, en bewaar het resultaat niet.</li>
+        <li>Zoek in een gewone dag één moment dat speels kan worden, zoals de route naar het werk.</li>
+        <li>Laat na afloop de vraag vallen of het iets heeft opgeleverd.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Playful: How Play Shifts Our Thinking, Inspires Connection, and Sparks Creativity</i> (Avery, 2025, 288 blz., ISBN 9780593713402). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Cas Holman ontwerpt speelgoed en speelplekken: haar grote houten bouwset Rigamajig staat op schoolpleinen en in musea, ze doceerde industrieel ontwerp aan de Rhode Island School of Design en gaf spelworkshops bij onder meer LEGO, Nike en Google. In <i>Playful</i> betoogt ze, samen met wetenschapsjournalist Lydia Denworth, dat volwassenen het vrije spel zijn kwijtgeraakt en dat dit verlies ten koste gaat van denkvermogen, banden en plezier. Vrij spel is in haar definitie vrijwillig gekozen, zelf gestuurd en van binnenuit gemotiveerd; het gaat om de houding, niet om een bepaalde activiteit.</p><p>Het boek bestaat uit twee delen: eerst het betoog waarom vrij spel er voor volwassenen toe doet, daarna de praktijk van een speelse houding, opgehangen aan drie pijlers: mogelijkheid omarmen, oordeel loslaten en succes herijken. De onderzoekskant komt van Denworth, redacteur bij Scientific American; de voorbeelden komen uit twintig jaar ontwerppraktijk.</p><p>Een warm en toegankelijk pleidooi met een dunne onderzoeksbasis voor volwassenen: veel steunt op wat bij kinderen vaststaat en op observaties uit workshops. Wie het wetenschappelijke fundament zoekt, komt hier tekort; wie een aanzet zoekt om het eigen spelen terug te vinden, heeft er genoeg aan.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>spel</li><li>creativiteit</li><li>ontwerp</li><li>verbinding</li><li>nieuwsgierigheid</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="16"><a href="16.html">Creativity: A Short and Cheerful Guide</a>. Cleese beschrijft de open denkmodus die Holman spel noemt, in zestig bladzijden.</li>
+          <li value="53"><a href="53.html">The Anxious Generation</a>. Haidt documenteert wat er met kinderen gebeurt als vrij spel verdwijnt; Holman trekt die lijn door naar volwassenen.</li>
+          <li value="200"><a href="200.html">Flow</a>. Csikszentmihalyi onderzocht de toestand waarin vrij spel vaak uitmondt, met de onderzoeksbasis erbij.</li>
+          <li value="17"><a href="17.html">The Creative Act</a>. Rubin behandelt dezelfde onbevangen aandacht vanuit het maken van werk.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

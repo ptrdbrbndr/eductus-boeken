@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How Will You Measure Your Life? &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Theorieën die verklaren waarom bedrijven bloeien of ontsporen, verklaren ook hoe levens dat doen. Wie zijn loopbaan stuurt op hygiënefactoren als salaris…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-547">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">547 &middot; Levenskunst</p>
+    <h1>How Will You Measure Your Life?</h1>
+    <p class="lede">Clayton Christensen, met James Allworth en Karen Dillon, 2012</p>
+    <p class="stats">
+      <span><b>1469</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="547"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Theorieën die verklaren waarom bedrijven bloeien of ontsporen, verklaren ook hoe levens dat doen. Wie zijn loopbaan stuurt op hygiënefactoren als salaris en status, zijn tijd toewijst aan wat vandaag meetbaar rendeert, de opvoeding van zijn kinderen feitelijk uitbesteedt en uitzonderingen op eigen principes tegen marginale kosten goedrekent, komt uit waar hij nooit heen wilde, langs stappen die elk afzonderlijk verdedigbaar leken. De maat van een leven is voor Christensen uitdrukkelijk godsdienstig geformuleerd: de afzonderlijke mensen die er beter van werden dat dit leven er was.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Theorie boven anekdote</h3>
+      <p>De inleiding legt de methode vast. Goed advies bestaat volgens Christensen niet uit voorbeelden van geslaagde mensen naäpen, want anekdotes vertellen alleen wat bij iemand anders ooit werkte. Pas toen onderzoekers begrepen waaróm iets werkt, zoals de luchtvaart pas vooruitkwam toen liftkracht begrepen werd in plaats van veren gekopieerd, ontstond voorspellende kennis. Het boek belooft daarom theorie: mechanismen met oorzaak en gevolg, door de lezer zelf op de eigen situatie toe te passen.</p>
+      <p>De urgentie komt uit Christensens eigen reünies: klasgenoten van Harvard Business School die rijk en aangezien eindigden in scheidingen en vervreemding, onder wie Enron-topman Jeffrey Skilling. Drie vragen ordenen het boek: hoe wordt een loopbaan bevredigend, hoe blijven relaties met partner en kinderen een bron van geluk, en hoe blijft iemand uit de gevangenis.</p>
+      <h3>Loopbaan: motivatie en strategie</h3>
+      <p>Voor de loopbaan gebruikt Christensen de motivatietheorie van Frederick Herzberg: hygiënefactoren als salaris, status en werkomstandigheden nemen hoogstens ontevredenheid weg, terwijl motivatoren als leren, verantwoordelijkheid en erkenning het werk zelf de moeite waard maken. Wie carrièrekeuzes op hygiënefactoren stapelt, koopt telkens tevredenheid die niet komt.</p>
+      <p>Daarnaast zet hij weloverwogen strategie tegenover opkomende strategie, met Honda als voorbeeld: het bedrijf wilde in de Verenigde Staten zware motoren verkopen en ontdekte per ongeluk dat de kleine Super Cub aansloeg. De les voor een loopbaan: zolang nog onduidelijk is wat werkt, verdienen onvoorziene kansen ruimte naast het plan, en bij elke stap hoort de vraag welke aannames waar moeten zijn om de keuze te laten slagen.</p>
+      <h3>Waar tijd en geld werkelijk heengaan</h3>
+      <p>De werkelijke strategie van een bedrijf staat niet in het jaarplan; zij is af te lezen aan waar middelen heengaan. Hetzelfde geldt thuis: wie zegt dat het gezin voorgaat en elke avond overwerkt, voert een andere strategie uit dan hij belijdt. Investeringen in loopbaan geven snelle, zichtbare terugkoppeling; investeringen in partner en kinderen renderen pas na jaren, en juist daarom verliezen ze de dagelijkse toewijzing.</p>
+      <p>Met de theorie van goed en slecht kapitaal waarschuwt hij voor uitstel: wie relaties pas aandacht geeft wanneer de carrière staat, plant zijn boom op het moment dat hij schaduw nodig heeft. Goed kapitaal voor het leven is geduldig over de opbrengst en begint vroeg met kleine, trouwe inleg.</p>
+      <h3>Gezin: de taak van de ander en de school van ervaring</h3>
+      <p>Uit het marktonderzoek komt de theorie van de te verrichten taak: klanten kopen geen product, ze huren het in voor een klus, zoals de ochtendmilkshake die forenzen inhuurden tegen verveling onderweg. Toegepast op het huwelijk: begrijpen voor welke klus de partner steun zoekt, in plaats van geven wat de gever zelf graag zou krijgen.</p>
+      <p>Voor kinderen combineert hij twee theorieën. Vermogens bestaan uit middelen, processen en prioriteiten; wie de opvoeding volboekt met uitbestede activiteiten levert middelen, terwijl processen (zelf problemen oplossen) en prioriteiten thuis gevormd worden. De waarschuwing komt uit de industrie: Dell besteedde stap voor stap steeds meer uit aan Asus, tot Asus alles kon en met een eigen merk kwam. En vermogens groeien volgens Morgan McCalls ervaringsscholen door doorgemaakte uitdagingen; kinderen hebben dus problemen nodig die ze zelf mogen dragen.</p>
+      <h3>Cultuur thuis</h3>
+      <p>Met Edgar Scheins cultuurbegrip beschrijft Christensen hoe gewoonten ontstaan: een groep lost samen een probleem op, de oplossing werkt, wordt herhaald en zakt weg tot vanzelfsprekendheid. Een gezin bouwt zo'n cultuur hoe dan ook op; de enige keuze is of dat bewust gebeurt. Wat ouders willen dat vanzelf gaat, moet in de jaren daarvoor telkens voorgedaan en herhaald zijn.</p>
+      <h3>Integriteit en de maat van het leven</h3>
+      <p>Het derde deel draait om marginaal denken. Blockbuster beoordeelde de videotheekvernieuwing tegen de marginale kosten van het bestaande bedrijf en ging ten onder aan wat er buiten die som viel; zo rekent ook wie 'deze ene keer' een principe opschort de volle prijs weg. Christensen vertelt hoe hij als student in Oxford weigerde de landelijke basketbalfinale op zondag te spelen omdat die dag voor hem heilig was: honderd procent vasthouden bleek makkelijker dan 98 procent, omdat de eerste uitzondering de grens verplaatst.</p>
+      <p>Het slot behandelt levensdoel als samenspel van beeld (wie iemand wil worden), toewijding en maatstaf. Christensens eigen maatstaf is religieus: God telt volgens hem geen totalen maar afzonderlijke mensen, dus telt een leven in de personen die er beter van werden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Hygiënefactoren en motivatoren</td><td>Herzbergs onderscheid tussen omstandigheden die alleen ontevredenheid wegnemen (salaris, status) en factoren die werk de moeite waard maken (leren, verantwoordelijkheid, erkenning).</td></tr>
+          <tr><td class="term">Opkomende strategie</td><td>De koers die ontstaat uit onvoorziene kansen en dagelijkse keuzes, naast of in plaats van het vooraf bedachte plan.</td></tr>
+          <tr><td class="term">Middelenallocatie</td><td>De werkelijke strategie van een bedrijf of een persoon, af te lezen aan waar tijd, geld en aandacht heengaan.</td></tr>
+          <tr><td class="term">Goed en slecht kapitaal</td><td>Kapitaal dat geduldig is over groei en ongeduldig over winst zolang de strategie nog gezocht wordt; toegepast op het leven: vroeg investeren in relaties die pas laat renderen.</td></tr>
+          <tr><td class="term">Te verrichten taak</td><td>De klus waarvoor een klant een product inhuurt; in het gezin de klus waarvoor de partner werkelijk steun zoekt.</td></tr>
+          <tr><td class="term">Ervaringsscholen</td><td>Morgan McCalls idee dat vermogens ontstaan door doorgemaakte uitdagingen, waaruit volgt dat kinderen eigen problemen te dragen moeten krijgen.</td></tr>
+          <tr><td class="term">Middelen, processen, prioriteiten</td><td>De drie bestanddelen van wat een organisatie of een kind kan; bij uitbesteding blijven alleen de middelen over.</td></tr>
+          <tr><td class="term">Marginale-kostendenken</td><td>De redenering die een uitzondering goedkoop laat lijken omdat de volledige kosten van 'deze ene keer' buiten de som blijven.</td></tr>
+          <tr><td class="term">Honderdprocentregel</td><td>Een principe voor de volle honderd procent vasthouden kost minder dan er 98 procent aan vasthouden, omdat de eerste uitzondering de grens verplaatst.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De gebruikte theorieën komen uit gepubliceerd managementonderzoek: Herzbergs motivatietheorie (1959, bekend geworden via zijn Harvard Business Review-artikel uit 1968), het Honda-strategieonderzoek dat Richard Pascale in 1984 beschreef, Scheins cultuurwerk en Christensens eigen onderzoekstraditie rond ontwrichtende vernieuwing en de te verrichten taak. Binnen de bedrijfskunde zijn dit gevestigde, veel onderwezen kaders.</p>
+      <p>Voor de kernclaim, dat deze theorieën ook huwelijken, opvoeding en integriteit voorspellen, bestaat geen toets. De overdracht van bedrijf naar leven verloopt via analogie en wordt geïllustreerd met anekdotes: reüniewaarnemingen, de val van klasgenoot Jeffrey Skilling, de basketbalfinale. Dat is precies de bewijsvorm die de inleiding afwijst; het boek meet zichzelf een standaard aan die het daarna niet haalt.</p>
+      <p>Ook de bouwstenen zelf staan ter discussie. Herzbergs tweefactorentheorie bleek in later onderzoek sterk methodegebonden en is in de arbeidspsychologie omstreden, en Christensens eigen ontwrichtingstheorie kreeg vanaf 2014 stevige kritiek, onder meer van historica Jill Lepore en in een MIT Sloan-analyse uit 2015 die vond dat een minderheid van de aangehaalde gevallen het patroon volgt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het eerlijkste bezwaar staat hierboven al: een boek dat opent met de eis van toetsbare theorie levert voor het eigen onderwerp analogieën plus anekdotes. Of iemand die zijn tijd anders toewijst werkelijk gelukkiger eindigt, wordt nergens gemeten en is met dit materiaal ook niet te meten; overtuigend is het boek vooral waar de lezer de analogie zelf herkent.</p>
+      <p>De maat zelf krijgt de lezer aangereikt in plaats van beredeneerd. Christensen was een toegewijd lid van de mormoonse kerk en schrijft dat ook op; huwelijk, kinderen en geloof vormen stilzwijgend de horizon van elk hoofdstuk. Wie een ander leven leidt of wil leiden, vindt hier wel bruikbaar gereedschap, en tegelijk een levensmodel dat als vanzelfsprekend wordt neergezet.</p>
+      <p>Ten slotte leunt het derde deel op enkele afschrikvoorbeelden. Dat Skilling ontspoorde via kleine, verdedigbare stappen is een aanname over diens binnenkant, geen vaststelling; overlevingsvertekening ligt op de loer wanneer reünies het waarnemingsmateriaal vormen. De persoonlijke ernst van het boek, geschreven onder een kankerdiagnose, verdient vermelding, en verandert aan deze bewijsproblemen niets.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de eigen strategie af aan agenda en afschriften van de afgelopen maanden, in plaats van aan voornemens.</li>
+        <li>Benoem bij een loopbaankeuze welke aannames waar moeten zijn om de stap te laten slagen, en toets wie dat kan weten.</li>
+        <li>Zoek bij spanning thuis eerst de te verrichten taak van de ander, in plaats van het eigen aanbod te verdedigen.</li>
+        <li>Geef kinderen problemen die ze zelf mogen dragen; uitbestede uitdagingen leveren middelen en geen vermogens.</li>
+        <li>Behandel 'deze ene keer' als de beslissing over alle volgende keren en houd principes op honderd procent.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>How Will You Measure Your Life?</i> (Harper Business, 2012, 240 blz., ISBN 9780062102416). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Clayton Christensen (1952-2020), Harvard-hoogleraar en auteur van <i>The Innovator's Dilemma</i>, sprak in 2010 de afstuderende klas van Harvard Business School toe, in het jaar waarin bij hem lymfeklierkanker was vastgesteld. Met oud-student James Allworth en redacteur Karen Dillon werkte hij die toespraak uit tot dit boek. De vraag erachter: waarom eindigen zoveel geslaagde, doelgerichte mensen met kapotte huwelijken, vervreemde kinderen en soms de gevangenis, terwijl niemand dat ooit van plan was.</p><p>Het antwoord zoekt Christensen in zijn eigen vak: managementtheorieën die voorspellen hoe bedrijven bloeien en ontsporen, toegepast op loopbaan, gezin en integriteit. Herzbergs motivatietheorie, opkomende strategie, middelenallocatie, de te verrichten taak, uitbestedingslessen van Dell en Asus, en het marginale-kostendenken dat Blockbuster de kop kostte, worden stuk voor stuk naar het persoonlijke leven vertaald. Geen stappenplan; wel denkgereedschap, en één harde regel: aan een principe voor honderd procent vasthouden is vol te houden, 98 procent niet.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zingeving</li><li>loopbaan</li><li>gezin</li><li>integriteit</li><li>managementtheorie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="293"><a href="293.html">The Innovator's Dilemma</a>. Christensens hoofdwerk over ontwrichtende vernieuwing, de theorie die hier op levens wordt toegepast.</li>
+          <li value="9"><a href="09.html">The Second Mountain</a>. Brooks komt langs een andere weg op dezelfde slotsom uit: verplichtingen aan mensen als maat van een leven.</li>
+          <li value="150"><a href="150.html">Designing Your Life</a>. Dezelfde levensvragen benaderd met ontwerpmethoden in plaats van managementtheorie.</li>
+          <li value="334"><a href="334.html">The 5 Types of Wealth</a>. Blooms vijf vermogens als recenter voorstel voor een bredere maatstaf dan geld en positie.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

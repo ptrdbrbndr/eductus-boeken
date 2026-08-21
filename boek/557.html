@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Life Is Hard, Food Is Easy &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Spangle stelt dat diëten zelden stranden op gebrek aan kennis over voeding en vrijwel altijd op eten zonder honger: eten als demper van gevoelens. Dat…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-557">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">557 &middot; Brein en lichaam</p>
+    <h1>Life Is Hard, Food Is Easy</h1>
+    <p class="lede">Linda Spangle, 2003</p>
+    <p class="stats">
+      <span><b>1245</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="557"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Spangle stelt dat diëten zelden stranden op gebrek aan kennis over voeding en vrijwel altijd op eten zonder honger: eten als demper van gevoelens. Dat eetgedrag bevat volgens haar een leesbare boodschap. Wie leert onderscheiden of trek uit de maag, het hoofd of het hart komt, en bij elke eetdrang vijf vragen doorloopt, wat is er aan de hand, wat voel ik, wat heb ik nodig, wat staat me in de weg, wat ga ik doen, leert gevoelens rechtstreeks te hanteren en kan daarna met vrijwel elk redelijk voedingspatroon gewicht verliezen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Eten als beste vriend</h3>
+      <p>Spangle begint bij de functie van eten die op geen etiket staat: het is altijd beschikbaar, stelt geen vragen en werkt onmiddellijk. Zolang eten de betrouwbaarste troost in iemands leven is, verliest elk dieet het op den duur van een moeilijke week. Haar cliëntverhalen, vrouwen en mannen die na elke tegenslag bij de koelkast eindigen, zetten het patroon neer. De titel vat het samen: het leven is moeilijk en eten is makkelijk, dus wie het leven niet aankan, eet.</p>
+      <p>Het doel van het boek is eten terug te brengen tot twee taken: het lichaam voeden en van smaak genieten. Alles wat iemand daarbuiten van eten vraagt, wijst volgens Spangle naar een behoefte die anders vervuld moet worden. De vijf stappen krijgen elk een eigen hoofdstuk, met tussenliggende hoofdstukken die het thema verdiepen; het geheel is opgezet als werkboek met adviezen, cliëntverhalen, schrijfoefeningen en losse praktijktips.</p>
+      <h3>Stap 1: wat is er aan de hand?</h3>
+      <p>De eerste vraag richt zich op het signalement van de trek. Hoofdhonger is gericht: verlangen naar iets specifieks, meestal knapperig of kauwbaar zoals chips of pizza, en hoort bij drukemoties als woede, stress, frustratie en wrok. Harthonger is diffuus: geen bepaald voedsel maar de wens om te eten, doorgaans zacht en romig troostvoedsel zoals ijs of pasta, en hoort bij verdriet, eenzaamheid en leegte.</p>
+      <p>Fysieke honger onderscheidt zich van beide doordat zij geleidelijk opkomt en met elk voedsel te stillen is. De indeling geeft de lezer een eerste diagnose-instrument: het soort trek verraadt het soort probleem. Wie bij hoofdhonger doorvraagt, komt volgens Spangle meestal uit bij iets dat aangepakt of uitgesproken moet worden; wie bij harthonger doorvraagt, bij iets dat gemist wordt.</p>
+      <h3>Stap 2: wat voel ik?</h3>
+      <p>Veel eters herkennen hun gevoelens niet meer, stelt Spangle, omdat die jarenlang zijn weggegeten. Zij gebruikt het beeld van de emotionele doos: wie lastige gevoelens wegstopt, stompt ook de prettige af. Ongeschreven gezinsregels, zoals dat boosheid onfatsoenlijk is of verdriet aanstellerij, bepalen welke emoties iemand zichzelf toestaat.</p>
+      <p>De oefening bij deze stap is eenvoudig: de zin 'ik voel ... omdat ...' afmaken, op papier, tot het gevoel een naam en een oorzaak heeft. Pas wat benoemd is, kan anders worden aangepakt dan met eten.</p>
+      <h3>Stap 3: wat heb ik nodig?</h3>
+      <p>Achter elke eetdrang zonder honger zit volgens Spangle een onvervulde behoefte: rust, erkenning, gezelschap, afleiding, troost. Eten dempt het signaal maar vervult de behoefte nooit, en daarom keert de trek terug; wie na een eenzame avond een bak ijs leegt, is de eenzaamheid de volgende avond niet kwijt. De derde stap vraagt de behoefte te benoemen en ten minste één manier te bedenken om haar rechtstreeks te vervullen, van een telefoontje tot een wandeling of een afgedwongen half uur rust.</p>
+      <p>Hier verbindt het boek eetgedrag met zelfzorg in bredere zin: wie structureel niets voor zichzelf regelt, blijft op wilskracht vechten tegen een tekort dat elke avond terugkomt.</p>
+      <h3>Stappen 4 en 5: obstakels en actie</h3>
+      <p>De vierde vraag, wat staat me in de weg, gaat over de blokkades tussen inzicht en gedrag: een laag zelfbeeld, perfectionisme, de overtuiging dat het toch niet lukt. Spangle besteedt hier ruim aandacht aan zelfwaardering, omdat in haar praktijk een negatief zelfbeeld en eetbuien elkaar in stand houden: wie zich waardeloos voelt eet, en wie gegeten heeft voelt zich waardelozer. Een van de oefeningen is terugdenken aan momenten waarop iemand op zijn best functioneerde en die versie van zichzelf als maatstaf nemen in plaats van de mislukking van gisteren.</p>
+      <p>De vijfde vraag, wat ga ik doen, mondt uit in concrete afspraken met zichzelf: klein, meetbaar en voor vandaag. Daaromheen staan praktische regels: nooit langer dan vijf uur zonder eten om vreetbuien uit extreme honger te voorkomen, porties halveren, en de eerste happen aandachtig proeven omdat de smaakopbrengst daarna snel afneemt. Spangle bouwde deze aanpak later uit tot de oefenreeks 100 Days of Weight Loss, en van dit boek verscheen nadien een herziene editie.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">hoofdhonger</td><td>Gerichte trek in specifiek, vaak knapperig of kauwbaar voedsel, volgens Spangle gekoppeld aan drukemoties als woede, stress en frustratie.</td></tr>
+          <tr><td class="term">harthonger</td><td>Diffuse trek in zacht troostvoedsel zonder specifieke voorkeur, gekoppeld aan verdriet, eenzaamheid en leegte.</td></tr>
+          <tr><td class="term">eten zonder honger</td><td>Elk eetmoment dat niet uit lichamelijke honger of smaakgenot voortkomt en dus een emotionele functie vervult.</td></tr>
+          <tr><td class="term">emotionele doos</td><td>Het beeld voor weggestopte gevoelens: wie de lastige emoties opsluit, verliest ook de toegang tot de prettige.</td></tr>
+          <tr><td class="term">gezinsregels</td><td>De ongeschreven regels uit de jeugd over welke emoties getoond mochten worden, die bepalen wat iemand nu nog voelt en toelaat.</td></tr>
+          <tr><td class="term">vijfuursregel</td><td>Het advies nooit langer dan vijf uur zonder eten te blijven, omdat extreme honger eetbuien uitlokt.</td></tr>
+          <tr><td class="term">eerste-happen-principe</td><td>De vaststelling dat de smaakbeleving na de eerste happen sterk afneemt, zodat bewust proeven met minder toekan.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing komt uit Spangles eigen praktijk als verpleegkundige en gewichtscoach. Het boek voert cliënten met naam en verhaal op, maar bevat geen verwijzingen naar gepubliceerd onderzoek, en het in het promotiemateriaal genoemde succespercentage van negentig procent onder haar cliënten is nergens gedocumenteerd of door derden gecontroleerd. Ook het onderscheid tussen hoofdhonger en harthonger, met de koppeling tussen emotiesoort en voedselvoorkeur, is haar eigen indeling; validering ontbreekt. Haar autoriteit rust dus op klinische ervaring, en dat is bij dit genre eerder regel dan uitzondering.</p>
+      <p>De bredere richting staat er steviger voor. Dat emotie-eten bestaat, dat het onderscheiden van fysieke en emotionele honger helpt en dat gevoelens benoemen en behoeften rechtstreeks vervullen eetbuien vermindert, spoort met bevindingen uit cognitief-gedragsmatig onderzoek naar eetgedrag. Het vijfvragenmodel is in wezen een zelfregistratie- en emotieregulatieoefening, en juist van dat type interventie is de werkzaamheid het best gedocumenteerd.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De ondertitel belooft afvallen met elk dieet, en dat is een verkoopclaim die het boek zelf niet kan inlossen: er wordt geen gewichtsverlies aangetoond, alleen aannemelijk gemaakt dat minder emotie-eten daarbij helpt. De nette koppeling tussen emotiesoort en voedselsoort, spanning vraagt knapperig, verdriet vraagt romig, is bovendien te mooi om zonder bewijs aan te nemen; het onderzoek naar zulke specifieke verbanden is mager en wisselend.</p>
+      <p>Belangrijker: het boek trekt geen duidelijke grens naar eetstoornissen. Wie aan een eetbuistoornis of boulimia lijdt, heeft klinische behandeling nodig en geen vijfstappenplan, en die doorverwijzing had er nadrukkelijker in gemogen. Binnen zijn grenzen is het werk degelijk: mild van toon, zonder verboden voedsel, met oefeningen die klein en uitvoerbaar zijn. Het blijft alleen een boek uit de dieetcultuur van zijn tijd, waarin gewichtsverlies vanzelfsprekend het einddoel is.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Stel bij plotselinge trek eerst de vraag: maag, hoofd of hart?</li>
+        <li>Wacht tien minuten en beantwoord de vijf vragen op papier voordat er gegeten wordt.</li>
+        <li>Blijf nooit langer dan vijf uur zonder eten; extreme honger lokt eetbuien uit.</li>
+        <li>Proef de eerste happen aandachtig en stop wanneer de smaak niet meer opvalt.</li>
+        <li>Zoek bij terugkerende eetbuien met controleverlies professionele hulp; dit boek is daarvoor geen vervanging.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Life Is Hard, Food Is Easy: The 5-Step Plan to Overcome Emotional Eating and Lose Weight on Any Diet</i> (LifeLine Press, 2003, 294 blz., ISBN 9780895261458). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Linda Spangle, verpleegkundige en gewichtscoach met een eigen afslankpraktijk in Denver, richt zich op de eetmomenten waarop geen honger bestaat: de zak chips na een rotdag, het ijs tegen de leegte. Haar indeling: hoofdhonger is gerichte trek in knapperig of kauwbaar voedsel en hoort bij spanning en ergernis; harthonger is diffuse trek in zacht troostvoedsel en hoort bij leegte en verdriet. Wie de trek herkent, kan vijf vragen doorlopen: wat is er aan de hand, wat voel ik, wat heb ik nodig, wat staat me in de weg, wat ga ik doen.</p><p>Het boek combineert dat model met concrete regels, zoals nooit langer dan vijf uur zonder eten en de eerste happen bewust proeven. De onderbouwing blijft bij eigen praktijkervaring; het geclaimde succespercentage van negentig procent bij haar cliënten is nergens gepubliceerd of gecontroleerd, en het onderscheid hoofd- en harthonger is haar eigen indeling, geen gevalideerd construct. De aanpak zelf, gevoelens benoemen en behoeften rechtstreeks vervullen, spoort wel met wat over emotie-eten bekend is uit cognitief-gedragsmatige hoek.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>emotie-eten</li><li>afvallen</li><li>gewoontes</li><li>zelfhulp</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="103"><a href="103.html">De psychologie van eetgedrag</a>. De psychologie van eetgedrag: hetzelfde terrein, met de stand van het onderzoek erbij.</li>
+          <li value="138"><a href="138.html">The Shift</a>. The Shift: gewicht en zelfbeeld vanuit gedragsverandering.</li>
+          <li value="314"><a href="314.html">Dopamine Nation</a>. Dopamine Nation: waarom dempen met eten zo goed werkt en zo moeilijk stopt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

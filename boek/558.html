@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rees Howells: Intercessor &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Grubb betoogt aan de hand van het leven van Rees Howells dat God de geschiedenis mede wil sturen via voorbidders: mensen die zich onder leiding van de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-558">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">558 &middot; Roman en memoir</p>
+    <h1>Rees Howells: Intercessor</h1>
+    <p class="lede">Norman Grubb, 1952</p>
+    <p class="stats">
+      <span><b>1256</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="558"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Grubb betoogt aan de hand van het leven van Rees Howells dat God de geschiedenis mede wil sturen via voorbidders: mensen die zich onder leiding van de Heilige Geest zo volledig met een nood vereenzelvigen dat hun gebed gezag krijgt. Voorbede is in dit boek een beroep met eigen wetten, dat begint met gehoorzaamheid in kleine, vaak vernederende opdrachten en kan uitgroeien tot verantwoordelijkheid voor volken. Wie het boek op zijn eigen voorwaarden leest, moet aanvaarden dat een biddende gemeenschap in Swansea heeft bijgedragen aan de afloop van de Tweede Wereldoorlog; wie dat te veel gevraagd vindt, leest een leerstuk in religieuze duiding achteraf.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Mijnwerker, emigrant, bekeerling</h3>
+      <p>Rees Howells wordt op 10 oktober 1879 geboren in het mijndorp Brynamman in Zuid-Wales, als zesde van elf kinderen. Hij werkt vanaf zijn twaalfde in de tinfabriek en de mijn, en emigreert als jongeman naar New Castle bij Pittsburgh om, zoals hij zelf zegt, geld te verdienen en jong te kunnen stoppen met werken. Daar komt hij tot geloof tijdens samenkomsten van Maurice Reuben, een tot het christendom bekeerde Joodse zakenman uit Pittsburgh wiens getuigenis hem naar eigen zeggen voor het eerst Golgotha laat zien.</p>
+      <p>In 1904 keert hij terug naar Wales, precies in het jaar dat de grote opwekking het land overspoelt. De teruggekeerde emigrant met zijn verse bekeringservaring wordt er meteen in meegezogen.</p>
+      <h3>Overgave en leerschool in het kleine</h3>
+      <p>Op de conventie van Llandrindod komt het volgens het boek tot een volledige overgave aan de Heilige Geest, die Howells daarna stap voor stap alles afneemt wat van hemzelf is: geld, ambitie, reputatie, familiebanden. De leerschool bestaat uit concrete opdrachten in het dorp: een verstoten vrouw liefhebben, zwervers opvangen, een dorp bewerken dat de opwekking links had laten liggen, en wekenlang bidden voor een aan tuberculose stervende vrouw. In die laatste strijd krijgt het woord voorbede voor hem zijn volle betekenis.</p>
+      <p>De opdrachten worden steeds ingrijpender: een gelofte naar het voorbeeld van de nazireeër, blootshoofds lopen als teken van afzondering, en ten slotte het opgeven van zijn loon om alleen van gebedsverhoring te leven.</p>
+      <h3>Wat een voorbidder is</h3>
+      <p>Halverwege onderbreekt Grubb het verhaal voor het leerstellige hart van het boek. Een voorbidder onderscheidt zich volgens hem van een gewone bidder door drie dingen: vereenzelviging met degene voor wie hij bidt, het meedragen van diens lijden, en het gezag dat uit die twee voortkomt. Wie een gebedsstrijd doorleefd heeft, verwerft daarmee een positie die daarna beschikbaar blijft voor vergelijkbare gevallen. Het model is Christus zelf, die volgens Jesaja 53 zijn leven uitgoot en zich onder de overtreders liet tellen.</p>
+      <h3>Afrika</h3>
+      <p>Howells trouwt met Elizabeth Hannah Jones en samen vertrekken ze op 10 juli 1915 met de South Africa General Mission, waarvan Andrew Murray de eerste president was, naar het zendingsstation Rusitu in Gazaland, bij de grens met Portugees Oost-Afrika. Hun zoontje Samuel laten ze in Wales achter; het boek beschrijft dat afstaan als hun zwaarste offer.</p>
+      <p>In de jaren tot 1920 breekt op Rusitu een opwekking uit die zich over tientallen stations van de missie verspreidt. Voor Howells is het de bevestiging dat de wetten van de voorbede overal werken.</p>
+      <h3>De Bijbelschool van Wales</h3>
+      <p>Terug in Wales koopt Howells zonder kapitaal of achterban het landgoed Glynderwen bij Swansea; de volledige koopsom van 6.150 pond komt volgens het boek binnen via giften waar niet om gevraagd is. Op tweede pinksterdag 1924 opent de Bible College of Wales met zo'n duizend bezoekers. Later volgen Derwen Fawr, een derde landgoed met kindertehuis en school voor zendingskinderen, en het grote Penllergaer; alles zonder comité, collecte of lening die niet wordt afgelost.</p>
+      <h3>Every creature en de oorlog</h3>
+      <p>Op 26 december 1934 ontvangt Howells wat het boek de Every Creature Commission noemt: de opdracht om het evangelie binnen deze generatie bij ieder mens te brengen. Vanaf maart 1936 ziet hij Hitler als satans werktuig om die opdracht te blokkeren, en de school verlegt haar gebed van de eigen terreinen naar het wereldtoneel: Ethiopië, de Joden, en na 1939 de oorlog zelf.</p>
+      <p>De hoofdstukken over Duinkerken, de Battle of Britain, Rusland, Noord-Afrika en D-day citeren aantekeningen uit de dagelijkse gebedssamenkomsten, waarin telkens eerst zekerheid over de uitkomst wordt verkregen en het nieuws die zekerheid daarna bevestigt. Grubb presenteert dat als bewijsvoering; de lezer moet zelf beslissen wat het waard is.</p>
+      <h3>Einde en nalatenschap</h3>
+      <p>Howells sterft op 13 februari 1950; zijn laatste verstaanbare woord is volgens het slothoofdstuk Victory. Zijn zoon Samuel neemt de leiding van de school over. Grubb schreef de biografie op verzoek van de familie en baseerde zich vooral op tachtig schriften waarin secretaresse Mary Henderson tien jaar lang Howells' ochtend- en avondtoespraken had genoteerd, aangevuld met eigen herinneringen vanaf 1928.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">voorbede</td><td>Gebed waarin de bidder de plaats van een ander inneemt en diens nood als de zijne draagt tot er zekerheid over de uitkomst is.</td></tr>
+          <tr><td class="term">vereenzelviging</td><td>De eerste wet van de voorbidder: zo ver mogelijk letterlijk gaan staan waar degene staat voor wie gebeden wordt.</td></tr>
+          <tr><td class="term">positie van voorbede</td><td>Gezag dat volgens Howells door een doorleden gebedsstrijd wordt verworven en daarna beschikbaar blijft voor vergelijkbare noden.</td></tr>
+          <tr><td class="term">leven door geloof</td><td>Afzien van vast inkomen en voor elke behoefte alleen God om voorziening vragen, naar het voorbeeld van George Müller.</td></tr>
+          <tr><td class="term">nazireeërgelofte</td><td>Periode van afzondering naar Numeri 6 waarin Howells uiterlijke gewoonten aflegde en de spot van zijn omgeving verdroeg.</td></tr>
+          <tr><td class="term">Every Creature Commission</td><td>De opdracht die Howells op 26 december 1934 ontving om het evangelie binnen een generatie bij ieder mens te brengen.</td></tr>
+          <tr><td class="term">victory</td><td>Howells' vaste woord voor het moment waarop een gebedsstrijd innerlijk beslist is, nog voordat de uitkomst zichtbaar wordt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De bron van vrijwel alles is Howells zelf. Grubb baseerde zich op de tachtig schriften met toespraken die Mary Henderson bijhield, op gesprekken sinds 1928 en op controle door de weduwe en zoon Samuel. Het is dus een door de familie geautoriseerd binnenperspectief; buitenstaanders of critici komen niet aan het woord. De uiterlijke feiten staan behoorlijk vast: de school, de landgoederen, de zendingsjaren bij de South Africa General Mission en de opwekking op Rusitu zijn documenteerbaar, en Grubb noemt bedragen, data en namen consequent.</p>
+      <p>De eigenlijke claim van het boek, dat gebed de uitkomsten veroorzaakte, rust op de samenloop van gebedszekerheid en nieuwsberichten en is niet toetsbaar. Bij de oorlogshoofdstukken bad half christelijk Engeland om dezelfde uitkomsten, wat elke toerekening aan één biddende school onmogelijk maakt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Dit is hagiografie in de volle zin: elke tegenslag wordt leerschool, elke meevaller verhoring, en een gebeurtenis die dat schema weerspreekt komt niet voor. Dat maakt het wereldbeeld van het boek onweerlegbaar; er is geen denkbare uitkomst die het ongelijk van de voorbidder zou aantonen. De oorlogshoofdstukken lezen achteraf oorzakelijkheid in een correlatie, en het boek vermeldt zelf dat de zekerheid soms pas na het nieuws alsnog werd bijgesteld tot een les in geloof.</p>
+      <p>Ook binnen het eigen kader zijn er schurende passages die Grubb goedkeurend vertelt: het achterlaten van de kleine Samuel als geloofsoffer, het wegbidden van regen voor de openingsdag, de eis dat ouders desnoods in het graf of het gesticht aan Gods roeping ondergeschikt zijn. Wie het boek als geschiedenis van de Welshe opwekkingsvroomheid leest, vindt hier rijk materiaal; wie het als bewijs voor de werking van gebed leest, krijgt alleen getuigenis van één kant.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Rees Howells: Intercessor</i> (Lutterworth Press, 1952, 275 blz.; latere Amerikaanse uitgave Christian Literature Crusade, ISBN 9780875081885). Er bestaat een Nederlandse vertaling, <i>Op de bres: het leven van Rees Howells</i>, in de catalogus van bibliotheek.nl alleen aanwezig als gesproken boek (Dedicon, 1997); de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Biografie van de Welshe mijnwerker Rees Howells (1879-1950), geschreven door zendingsleider Norman Grubb in opdracht van de familie, twee jaar na Howells' dood. Howells emigreerde als jonge man naar de staalstreek rond Pittsburgh, kwam daar tot geloof, keerde in 1904 terug naar Wales midden in de grote opwekking en groeide uit tot wat het boek een voorbidder noemt: iemand die zich in gebed zo met een ander vereenzelvigt dat hij diens plaats inneemt. Het verhaal loopt van gebedsstrijd om een stervende dorpsvrouw, via zendingsjaren in Afrika, naar de stichting van de Bible College of Wales in Swansea (1924), volledig gefinancierd op gebed, en eindigt met de oorlogsjaren waarin de hele school avond aan avond bad om de afloop van Duinkerken en de Battle of Britain.</p><p>Het boek is een klassieker van de evangelische gebedsliteratuur, in ruim twintig talen vertaald en in miljoenen exemplaren verspreid. Het is ook onversneden hagiografie: Grubb schreef als vriend en geestverwant, vrijwel alle materiaal komt uit Howells' eigen terugblikken, en elke gebeurtenis wordt als gebedsverhoring of als goddelijke leerschool geduid. Wie dat verdisconteert, houdt een goed gedocumenteerd en soms verbijsterend levensverhaal over uit de wereld van de Welshe opwekking.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>biografie</li><li>voorbede</li><li>wales</li><li>opwekking</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="83"><a href="83.html">The Power of Positive Thinking</a>. The Power of Positive Thinking verscheen in hetzelfde jaar 1952 en zet gebed juist in als psychologische techniek voor succes; het contrast met Howells' offerweg is leerzaam.</li>
+          <li value="242"><a href="242.html">Autobiography of a Yogi</a>. Autobiography of a Yogi is het hindoeïstische spiegelbeeld: een spiritueel levensverhaal vol wonderclaims, met dezelfde bronproblemen.</li>
+          <li value="201"><a href="201.html">Life Explored</a>. Life Explored biedt de leerstellige kern van het christelijk geloof waar dit levensverhaal op steunt, in nuchtere cursusvorm.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

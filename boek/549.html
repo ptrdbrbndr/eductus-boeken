@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Living with Joy &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Vreugde is een innerlijke toestand die door keuze en oefening bereikbaar is, onafhankelijk van omstandigheden; leren en veranderen hoeven volgens dit boek…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-549">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">549 &middot; Positief denken en manifesteren</p>
+    <h1>Living with Joy</h1>
+    <p class="lede">Sanaya Roman, 1986</p>
+    <p class="stats">
+      <span><b>1234</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="549"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Vreugde is een innerlijke toestand die door keuze en oefening bereikbaar is, onafhankelijk van omstandigheden; leren en veranderen hoeven volgens dit boek niet via pijn, drama en strijd te verlopen. Het presenteert die boodschap als doorgeving van Orin, een onstoffelijke leraar die via Sanaya Roman zou spreken, en werkt haar uit tot een oefenprogramma: zelfliefde en zelfrespect als fundament, daarna openstaan om te ontvangen, dankbaarheid, evenwicht en helderheid, en ten slotte de vrijheid om het eigen leven te vernieuwen. Wie de channelingclaim niet aanvaardt, houdt een reeks stellige uitspraken over energie en aantrekking over waarvoor het boek geen bewijs aanvoert.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Orin en de verpakking</h3>
+      <p>Het boek verschijnt onder Romans naam, maar de tekst wordt aan Orin toegeschreven; Roman beschrijft zichzelf als kanaal dat de woorden doorgeeft. De inleidende hoofdstukken vertellen hoe Orin zich aandiende en hoe de samenwerking verloopt. Daarna spreekt vrijwel de hele tekst in Orins stem, in korte leerstellige alinea's.</p>
+      <p>Elk hoofdstuk sluit af met een oefenblad: vragen en opdrachten om het besprokene op het eigen leven toe te passen. De jubileumeditie uit 2011 voegde affirmaties en dagelijkse vreugde-oefeningen toe. Het boek opent de Earth Life-reeks, waarin onder meer <i>Personal Power Through Awareness</i> volgde.</p>
+      <h3>Vreugde als keuze</h3>
+      <p>De kernstelling: groei loopt in de menselijke gewoonte via crisis en pijn, en dat is een keuze, geen wet. Wie leert reageren vanuit vreugde, aldus Orin, kan dezelfde lessen zonder lijden leren. Vreugde wordt neergezet als houding die geoefend kan worden: aandacht richten op wat goed gaat, drama herkennen als gewoonte, en verantwoordelijkheid nemen voor de eigen reactie in plaats van omstandigheden de schuld te geven.</p>
+      <p>Negativiteit wordt behandeld als signaal: een gevoel wijst op een behoefte of een grens, en kan omgezet worden zodra het serieus wordt genomen. Onderdrukken raadt het boek af; erin blijven hangen eveneens.</p>
+      <h3>Zelfliefde, zelfrespect en het ego</h3>
+      <p>Het fundament van het programma is de verhouding tot zichzelf. Zelfliefde betekent hier zacht spreken tegen zichzelf en de eigen behoeften serieus nemen; zelfrespect betekent afspraken met zichzelf nakomen en grenzen stellen zonder schuldgevoel. Wie zichzelf tekortdoet om aardig gevonden te worden, betaalt volgens het boek met sluimerende wrok.</p>
+      <p>Het ego wordt niet bestreden maar verfijnd: het mag dienen in plaats van heersen. Een eigen hoofdstuk behandelt subpersoonlijkheden, deelpersonen binnen één mens die elk iets anders willen en die verenigd kunnen worden zodat ze één richting op werken.</p>
+      <h3>Ontvangen, dankbaarheid en de wet van toename</h3>
+      <p>Een opvallend hoofdstuk gaat over ontvangen: veel mensen kunnen wel geven maar geen hulp, lof of overvloed aannemen, en sluiten daarmee af wat ze zeggen te willen. Openstaan om te ontvangen wordt als oefenbare vaardigheid neergezet, even waardevol als geven.</p>
+      <p>Daarop volgt de wet van toename: wat waardering en aandacht krijgt, groeit. Dankbaarheid is in dit boek dus geen beleefdheid, het is gereedschap. Hier is het boek het duidelijkst een voorloper van de latere manifesteerliteratuur, inclusief het ontbreken van elke onderbouwing voor de wetmatigheid die wordt beweerd.</p>
+      <h3>Vrede, helderheid en de kwantumsprong</h3>
+      <p>De slothoofdstukken behandelen innerlijke vrede als eigen keuze, evenwicht en veiligheid als iets dat van binnenuit komt, en helderheid als leven in meer licht. Vrijheid heet een geboorterecht: niemand hoeft toestemming te vragen om het eigen leven anders in te richten.</p>
+      <p>Het boek eindigt met het omarmen van het nieuwe en de kwantumsprong: de grote, snelle verandering die mogelijk zou zijn zodra iemand aandacht en energie bundelt. De natuurkundige term is hier leenwoord zonder natuurkundige inhoud; bedoeld wordt dat verandering niet altijd geleidelijk hoeft te gaan.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Channeling</td><td>Het doorgeven van boodschappen die van een onstoffelijke entiteit afkomstig zouden zijn; de vorm waarin dit hele boek is geschreven.</td></tr>
+          <tr><td class="term">Orin</td><td>De onstoffelijke leraar aan wie Roman de tekst toeschrijft en die in de ik-vorm het woord voert.</td></tr>
+          <tr><td class="term">Groei door vreugde</td><td>De stelling dat leren en veranderen ook zonder pijn, drama en crisis kunnen verlopen.</td></tr>
+          <tr><td class="term">Oefenblad</td><td>De pagina met vragen en opdrachten waarmee elk hoofdstuk afsluit.</td></tr>
+          <tr><td class="term">Zelfrespect</td><td>Bij Roman het nakomen van afspraken met zichzelf en het stellen van grenzen zonder schuldgevoel.</td></tr>
+          <tr><td class="term">Openstaan om te ontvangen</td><td>De vaardigheid hulp, lof en overvloed aan te nemen, in het boek even zwaar gewogen als geven.</td></tr>
+          <tr><td class="term">Wet van toename</td><td>De bewering dat waardering en aandacht datgene laten groeien waarop zij gericht worden.</td></tr>
+          <tr><td class="term">Subpersoonlijkheden</td><td>Deelpersonen binnen één mens die elk iets anders willen en die volgens het boek verenigd kunnen worden.</td></tr>
+          <tr><td class="term">Kwantumsprong</td><td>De grote, snelle verandering die mogelijk zou zijn zodra aandacht en energie gebundeld worden; natuurkundig is de term hier betekenisloos.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De herkomstclaim draagt het hele boek en is niet toetsbaar. Er bestaat geen methode om een gechannelde tekst te onderscheiden van een tekst die de auteur zelf schreef, parapsychologisch onderzoek heeft nooit betrouwbaar bewijs voor communicerende entiteiten opgeleverd, en deze tekst onderscheidt zich in stijl en inhoud niet van ander Amerikaans zelfhulpproza uit de jaren tachtig. Het boek staat bovendien in een herkenbare uitgeeftraditie: de gechannelde Seth-boeken van Jane Roberts hadden in de jaren zeventig al laten zien dat deze vorm een publiek vond, en Living with Joy volgde dat model. De redelijke lezing is dat Sanaya Roman de auteur is.</p>
+      <p>De inhoudelijke leerstellingen, energie die aantrekt, een wet van toename, de kwantumsprong, worden nergens onderbouwd; er staat geen verwijzing, meting of casus in het boek die als toets kan dienen. De uitspraken zijn bovendien zo geformuleerd dat elk resultaat ze bevestigt: blijft de verandering uit, dan was de aandacht kennelijk niet gebundeld.</p>
+      <p>Een deel van de oefeningen overlapt met later onderzocht terrein. Dagelijkse dankbaarheid liet in gecontroleerd onderzoek, zoals dat van Emmons en McCullough uit 2003, bescheiden effecten op welbevinden zien, en het herformuleren van negatieve gedachten is verwant aan technieken uit de cognitieve gedragstherapie. Dat bewijs draagt de losse oefening, niet het wereldbeeld eromheen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De toeschrijving aan Orin onttrekt de inhoud aan gewone toetsing: een onstoffelijke leraar kan niet ondervraagd worden, en kritiek op de tekst wordt daarmee kritiek op de lezer die 'er nog niet aan toe is'. Dat is de klassieke beweging van geopenbaarde teksten en verdient de nuchtere vaststelling dat er geen reden is dit boek anders te lezen dan als werk van Roman zelf, geschreven in een genreconventie die verkoopbaar bleek.</p>
+      <p>De centrale begrippen blijven ondefinieerbaar. Energie, licht, trilling en helderheid krijgen nergens een omschrijving die een waarneming zou kunnen weerleggen; daarmee is het stelsel onweerlegbaar en dus leeg als kennisclaim. Wat overblijft is beeldspraak, en als beeldspraak is het boek mild en welwillend, zonder de geldbeloften van latere manifesteertitels.</p>
+      <p>Het praktische risico zit in de reikwijdte. Bij kleine ergernissen is 'kies een andere reactie' bruikbaar advies; bij schulden, ziekte of aanhoudende somberheid kan hetzelfde advies als ontkenning werken en echte hulp uitstellen. En de omkering sluimert ook hier: wie lijdt, heeft in dit kader kennelijk nog niet goed gekozen. Het boek spreekt dat oordeel nergens uit, maar de logica draagt het wel.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik de oefenbladen als losse reflectieoefeningen; ze werken ook zonder het wereldbeeld eromheen.</li>
+        <li>Noteer dagelijks enkele punten van dankbaarheid; voor die gewoonte bestaat los van dit boek bescheiden bewijs.</li>
+        <li>Behandel 'kies vreugde' als richtvraag bij kleine ergernissen, en niet als antwoord op ziekte, schulden of aanhoudende somberheid.</li>
+        <li>Lees uitspraken over energie en aantrekking als beeldspraak, en toets concrete beslissingen op gewone gronden.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Living with Joy: Keys to Personal Power and Spiritual Transformation</i> (H J Kramer, 1986, 195 blz., ISBN 9780915811038). Nederlandse vertaling: <i>Leven in vreugde</i> (Ankh-Hermes, 2003).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Sanaya Roman publiceert sinds de jaren tachtig boeken die zij presenteert als doorgevingen van Orin, een onstoffelijke leraar die via haar zou spreken. <i>Living with Joy</i> (1986) opent de Earth Life-reeks en werd met volgens de uitgever ruim een half miljoen verkochte exemplaren haar bekendste titel. De boodschap: vreugde is een innerlijke keuze die losstaat van omstandigheden, en groei kan via vreugde in plaats van via pijn en strijd. Hoofdstukken over zelfliefde, zelfrespect, ontvangen, dankbaarheid, innerlijke vrede en vrijheid sluiten telkens af met een oefenblad.</p><p>De channelingclaim is de kern van de verpakking en tegelijk het zwakste punt: er is geen manier om vast te stellen dat de tekst van iemand anders komt dan van Roman zelf, en de stijl verschilt in niets van ander Amerikaans zelfhulpproza uit die jaren. Inhoudelijk is het vriendelijke, algemene levenskunst; sommige oefeningen lijken op interventies waarvoor later bescheiden bewijs is gevonden, zoals dankbaarheidsoefeningen. De uitgebreide samenvatting behandelt claim en inhoud afzonderlijk.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>channeling</li><li>vreugde</li><li>zelfliefde</li><li>new age</li><li>oefeningen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="102"><a href="102.html">Ingangen tot Een cursus in wonderen</a>. Een ander leerstelsel met een openbaringsclaim, <i>Een cursus in wonderen</i>, hier Nederlands ontsloten.</li>
+          <li value="127"><a href="127.html">The Law of Attraction</a>. Atkinson uit 1906 als oerversie van de aantrekkingsleer die dit boek zonder bronvermelding voortzet.</li>
+          <li value="190"><a href="190.html">Good Vibes, Good Life</a>. Hedendaagse variant van dezelfde boodschap over trilling en zelfliefde, met dezelfde bewijsproblemen.</li>
+          <li value="377"><a href="377.html">The Untethered Soul</a>. Singer over innerlijke vrijheid en loslaten, verwant thema zonder doorgevingsclaim.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

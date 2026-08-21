@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 21
-augustus 2026: 530 titels in 18 rubrieken.
+augustus 2026: 545 titels in 18 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -12,23 +12,23 @@ bij de volgende build verloren.
 
 | Rubriek | Waar de rubriek over gaat | Titels |
 | --- | --- | --- |
-| Vakmanschap en aandacht | werken met je handen, en wat kwaliteit dan is | 1, 6, 320, 346, 376, 462, 517, 535 |
-| Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9, 71, 72, 77, 91, 95, 105, 107, 109, 111, 134, 135, 141, 145, 149, 150, 160, 167, 169, 187, 199, 201, 204, 205, 216, 227, 228, 230, 232, 242, 255, 263, 292, 299, 334, 335, 341, 377, 379, 390, 391, 394, 405, 416, 435, 442, 449, 459, 461, 473, 515, 516, 518, 519, 520, 524, 525, 526, 527, 528 |
+| Vakmanschap en aandacht | werken met je handen, en wat kwaliteit dan is | 1, 6, 320, 346, 376, 462, 517, 535, 553 |
+| Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9, 71, 72, 77, 91, 95, 105, 107, 109, 111, 134, 135, 141, 145, 149, 150, 160, 167, 169, 187, 199, 201, 204, 205, 216, 227, 228, 230, 232, 242, 255, 263, 292, 299, 334, 335, 341, 377, 379, 390, 391, 394, 405, 416, 435, 442, 449, 459, 461, 473, 515, 516, 518, 519, 520, 524, 525, 526, 527, 528, 546, 547, 556 |
 | Mannen, vriendschap, verbinding | mannenrollen en het onderhouden van vriendschap | 3, 7, 406, 407, 408 |
-| Roman en memoir | verhalend werk, autobiografisch of fictie | 4, 5, 10, 61, 100, 101, 110, 113, 114, 115, 173, 178, 180, 191, 192, 202, 203, 226, 235, 254, 261, 284, 287, 295, 325, 358, 385, 402, 431, 505, 522, 529, 530, 531, 532, 533, 534 |
-| Maken en scheppen | aan het werk komen en blijven als maker | 11, 12, 13, 14, 15, 16, 17, 41, 206, 241, 312, 445, 471 |
-| Werk en aandacht | concentratie, aantekeningen en het inrichten van je eigen werk | 70, 78, 81, 151, 170, 197, 200, 207, 249, 256, 276, 278, 288, 290, 311, 400, 420, 448, 472, 512 |
+| Roman en memoir | verhalend werk, autobiografisch of fictie | 4, 5, 10, 61, 100, 101, 110, 113, 114, 115, 173, 178, 180, 191, 192, 202, 203, 226, 235, 254, 261, 284, 287, 295, 325, 358, 385, 402, 431, 505, 522, 529, 530, 531, 532, 533, 534, 554, 558 |
+| Maken en scheppen | aan het werk komen en blijven als maker | 11, 12, 13, 14, 15, 16, 17, 41, 206, 241, 312, 445, 471, 550 |
+| Werk en aandacht | concentratie, aantekeningen en het inrichten van je eigen werk | 70, 78, 81, 151, 170, 197, 200, 207, 249, 256, 276, 278, 288, 290, 311, 400, 420, 448, 472, 512, 552 |
 | Schrijfambacht | schrijven als vak, door schrijvers zelf uitgelegd | 18, 19 |
 | Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153, 157, 158, 161, 168, 176, 177, 181, 193, 209, 211, 224, 238, 244, 252, 268, 274, 282, 283, 291, 296, 310, 349, 382, 392, 396, 397, 411, 422, 423, 424, 425, 426, 436, 439, 450, 451, 452, 469, 475, 487, 488, 509, 510, 514, 538, 540, 542 |
-| Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275, 303, 313, 314, 315, 316, 317, 318, 326, 329, 330, 331, 332, 333, 339, 357, 359, 360, 361, 386, 387, 401, 404, 409, 410, 412, 414, 415, 417, 418, 419, 432, 441, 458, 541 |
+| Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275, 303, 313, 314, 315, 316, 317, 318, 326, 329, 330, 331, 332, 333, 339, 357, 359, 360, 361, 386, 387, 401, 404, 409, 410, 412, 414, 415, 417, 418, 419, 432, 441, 458, 541, 557 |
 | Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63, 123, 124, 125, 126, 212, 213, 215, 250, 258, 280, 381, 384, 388, 429, 440 |
 | Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144, 159, 163, 172, 183, 185, 198, 210, 222, 231, 233, 243, 245, 246, 257, 260, 264, 265, 266, 270, 277, 279, 293, 294, 306, 307, 308, 309, 344, 348, 350, 351, 353, 365, 369, 370, 395, 427, 434, 443, 446, 463, 464, 465, 474, 476, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 491, 492, 494, 496, 499, 501, 502, 503, 544 |
-| Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156, 162, 182, 186, 253, 271, 273, 302, 304, 305, 338, 356, 364, 367, 398, 399, 438, 444, 466, 468, 508, 511 |
+| Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156, 162, 182, 186, 253, 271, 273, 302, 304, 305, 338, 356, 364, 367, 398, 399, 438, 444, 466, 468, 508, 511, 551 |
 | Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140, 174, 189, 194, 229, 247, 248, 286, 289, 323, 324, 372, 373, 374, 375, 389, 457, 460, 467, 470, 513, 545 |
 | Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49, 285, 447 |
 | Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537 |
-| Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347, 383, 413, 539 |
-| Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102, 108, 117, 127, 128, 129, 130, 131, 132, 136, 139, 179, 184, 188, 190, 196, 259, 340, 362, 378, 380, 403, 433, 543 |
+| Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347, 383, 413, 539, 555 |
+| Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102, 108, 117, 127, 128, 129, 130, 131, 132, 136, 139, 179, 184, 188, 190, 196, 259, 340, 362, 378, 380, 403, 433, 543, 548, 549, 559, 560 |
 | Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122, 327, 421, 437, 456, 477, 478, 493, 495, 497, 498, 500, 504, 506, 507 |
 
 Een titel kan in één rubriek staan en toch tags uit een andere dragen. De tags
@@ -106395,6 +106395,2820 @@ van het verband tussen doorzetten en presteren overblijft onder meting.
 - 441. The Inner Game of Tennis. Gallwey bereikt hetzelfde niet-denken langs
 de omgekeerde route: ontspannen aandacht in plaats van beheerste woede.
 
+## 546. How I Found Freedom in an Unfree World
+
+Harry Browne, 1973. *How I Found Freedom in an Unfree World: A Handbook for
+Personal Liberty* (Macmillan, 1973, 374 blz., ISBN 9780025174702). Geen
+Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de
+samenvatting is op de Engelse editie gebaseerd. Rubriek: levenskunst.
+Tags: `vrijheid`, `libertarisme`, `eigen-oordeel`, `levenskeuzes`, `zelfhulp`
+
+Harry Browne (1933-2006), beleggingsadviseur en later tweemaal
+presidentskandidaat voor de Libertarian Party, schreef in 1973 dit handboek
+voor persoonlijke vrijheid. Zijn diagnose: onvrijheid komt zelden van buiten
+en meestal uit aannames die de drager nooit toetst. Browne noemt die aannames
+vallen: de identiteitsval, de morele val, de groepsval, vier overheidsvallen,
+de doosval en nog een reeks andere. Wie ze doorziet kan vrij leven zonder
+eerst de wereld of andere mensen te veranderen.
+
+Het boek bestaat uit drie delen: de vallen, de wegen eruit, en het inrichten
+van een vrij leven. De praktische kern is het onderscheid tussen directe
+alternatieven (zelf handelen of vertrekken) en indirecte alternatieven
+(wachten tot anderen veranderen). Het boek werd een klassieker in
+libertarische kring. Het bewijs bestaat geheel uit redenering en eigen
+ervaring, en de radicaal individualistische moraal roept tot op vandaag verzet
+op.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Vrijheid is leven op eigen voorwaarden, en die vrijheid is
+voor vrijwel iedereen direct beschikbaar. Wat mensen onvrij houdt zijn vooral
+onbewezen aannames, door Browne vallen genoemd: dat anderen denken zoals
+zijzelf, dat een moraal van buitenaf gehoorzaamd moet worden, dat de groep
+meer bereikt dan de enkeling, dat de overheid te sturen of te temmen valt, en
+dat eerdere investeringen verplichten tot doorgaan. Wie die aannames laat
+vallen, betaalt de prijs van zijn keuzes zelf en heeft niemands toestemming
+nodig; de wereld veranderen is daarvoor niet vereist.
+
+#### De gang van het boek
+
+**Vallen als diagnose**
+
+Het eerste en langste deel behandelt veertien vallen: aannames die vrijheid
+inperken zolang ze onuitgesproken blijven. Browne opent met de identiteitsval,
+die twee vormen kent: de veronderstelling iemand anders te moeten zijn dan wie
+men is, en de veronderstelling dat anderen waarnemen en beslissen zoals men
+zelf zou doen. Uit die tweede vorm volgt volgens hem het meeste onbegrip
+tussen mensen: wie verwacht dat een ander 'toch moet inzien' wat hijzelf ziet,
+wacht op iets dat niet komt.
+
+Daarnaast staan de intellectuele val (vinden dat gevoelens zich naar een norm
+horen te voegen) en de emotionele val (grote beslissingen nemen in de greep
+van een emotie). Browne behandelt gevoelens als gegevens die informatie
+leveren, en beslissingen als iets voor een kalm moment.
+
+**Moraal, onbaatzuchtigheid en de groep**
+
+De morele val is het gehoorzamen van een moraal die anderen hebben opgesteld.
+Browne onderscheidt een persoonlijke moraal, gebaseerd op de gevolgen die de
+handelende zelf draagt, van universele en absolute stelsels die gehoorzaamheid
+vragen zonder de rekening te betalen. Hij bepleit de persoonlijke variant en
+aanvaardt de consequentie dat ieder zijn eigen morele boekhouding voert.
+
+De onbaatzuchtigheidsval is het geloof dat andermans geluk voorrang verdient
+boven het eigen geluk; de groepsval het geloof dat samen optrekken meer
+oplevert dan zelfstandig handelen. Browne ziet relaties en samenwerking als
+ruil tussen soevereine individuen: waardevol zolang beide partijen er beter
+van worden, en op te zeggen zodra dat ophoudt.
+
+**Overheid, rechten en utopie**
+
+Vier overheidsvallen beschrijven evenzoveel misvattingen over de staat: dat de
+overheid taken doeltreffend uitvoert, dat gehoorzaamheid een morele plicht is,
+dat de overheid van binnenuit te hervormen valt, en dat haar macht zo groot is
+dat ontwijken zinloos is. Browne raadt aan de staat te behandelen als een
+natuurverschijnsel: er rekening mee houden en er verder zo min mogelijk
+energie aan geven.
+
+In dezelfde lijn liggen de rechtenval (leunen op rechten in plaats van op
+eigen belangenbehartiging), de utopieval (eerst de samenleving willen
+verbeteren voordat het eigen leven mag beginnen) en de brandende-kwestieval
+(zich verplicht voelen aan elke maatschappelijke strijd). Steeds is de raad
+dezelfde: de eigen vrijheid hoeft niet te wachten op een betere wereld.
+
+**Gedane investeringen, dozen en zekerheid**
+
+De eerdere-investeringsval is de gedachte dat wat al in een baan, huwelijk of
+onderneming is gestoken, verplicht tot doorgaan; Browne stelt daar tegenover
+dat alleen toekomstige kosten en baten tellen. Daarmee beschreef hij in 1973
+wat de gedragswetenschap later de verzonken-kostenmisvatting ging noemen.
+
+De doosval is het overschatten van de prijs om een knellende situatie te
+verlaten, waardoor blijven de norm wordt. Browne adviseert die prijs concreet
+uit te rekenen, eenmalig te betalen en niet jarenlang in termijnen via
+ergernis en uitstel. De zekerheidsval sluit het deel af: handelen alsof de
+eigen kennis volledig is, terwijl elke beslissing onder onzekerheid valt.
+
+**Vrij worden langs directe wegen**
+
+Het tweede deel past de diagnose toe. Kernonderscheid is dat tussen directe
+alternatieven, die alleen eigen handelen vragen (iets zelf regelen, iets
+anders kiezen, vertrekken), en indirecte alternatieven, die afhangen van het
+veranderen van anderen (overtuigen, protesteren, hervormen). Browne acht de
+indirecte weg vrijwel altijd verspilde moeite en de directe vrijwel altijd
+beschikbaar.
+
+Hoofdstuk voor hoofdstuk behandelt hij vrijheid tegenover overheidsbemoeienis,
+knellende sociale regels, jaloezie en bezitsdenken in relaties, gezins- en
+huwelijksproblemen en vastgelopen werk. Zijn recept is steeds eenzijdig
+handelen: voorwaarden stellen, afspraken heronderhandelen of weggaan, met
+openheid over wie men is en wat men wil.
+
+**Opnieuw beginnen**
+
+Het slotdeel beschrijft de overgang naar een vrij leven. Browne stelt een
+gedachte-oefening voor: het eigen leven denkbeeldig tot nul afbreken, alle
+bezittingen, relaties en verplichtingen op tafel, en alleen terugnemen wat men
+vandaag opnieuw zou kiezen. Wat overblijft is de te betalen prijs: inkomen,
+comfort of goedkeuring inleveren in ruil voor zeggenschap.
+
+Hij besluit met leefregels over eerlijkheid, het vermijden van afspraken die
+de toekomst vastleggen, en het aanvaarden dat vrijheid geen eindtoestand is;
+het boek presenteert zijn eigen leven als proefneming met deze aanpak.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Val | Een onbewezen aanname die vrijheid inperkt zolang de drager haar niet als aanname herkent. |
+| Identiteitsval | De veronderstelling iemand anders te moeten zijn dan wie men is, of dat anderen waarnemen en beslissen zoals men zelf zou doen. |
+| Morele val | Het gehoorzamen van een moraal die anderen hebben opgesteld, in plaats van een persoonlijke moraal op basis van eigen gevolgen. |
+| Onbaatzuchtigheidsval | Het geloof dat andermans geluk voorrang verdient boven het eigen geluk. |
+| Groepsval | Het geloof dat samen optrekken vanzelf meer oplevert dan zelfstandig handelen op eigen voorwaarden. |
+| Overheidsvallen | Vier misvattingen over de staat, van vertrouwen in haar doelmatigheid tot verlammende angst voor haar macht. |
+| Eerdere-investeringsval | De gedachte dat gedane investeringen verplichten tot doorgaan, terwijl alleen toekomstige kosten en baten tellen. |
+| Doosval | Het overschatten van de prijs om een knellende situatie te verlaten, waardoor blijven de norm wordt. |
+| Direct alternatief | Een uitweg die alleen eigen handelen vraagt, zoals vertrekken of zelf regelen, tegenover het indirecte alternatief dat op verandering van anderen wacht. |
+
+#### Waar het argument op rust
+
+Het boek bevat geen onderzoek. Browne bouwt op introspectie, voorbeelden uit
+zijn praktijk als adviseur en redeneringen over subjectieve waarde en
+vrijwillige ruil; de titel kondigt dat eerlijk aan als persoonlijk verslag.
+Wie de premissen aanvaardt (waarde is subjectief, ieder draagt zijn eigen
+gevolgen), krijgt een consequent doorgeredeneerd stelsel; wie ze betwist,
+vindt nergens een empirische toets.
+
+Enkele vallen zijn later wel goed gedocumenteerd. De eerdere-investeringsval
+beschrijft de verzonken-kostenmisvatting die Arkes en Blumer in 1985
+experimenteel aantoonden, en de tweede identiteitsval lijkt sterk op het
+valse-consensuseffect dat Ross en collega's in 1977 beschreven. Op die punten
+liep Browne op de literatuur vooruit.
+
+De grootste claim, dat vrijheid voor vrijwel iedereen tegen een draaglijke
+prijs beschikbaar is, steunt alleen op geselecteerde voorbeelden van mensen
+bij wie vertrek goed uitpakte. Over mislukte pogingen, mensen zonder
+financiële buffer of met zorgplichten zwijgt het boek grotendeels; de
+bewijslast voor het optimisme blijft onvervuld.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar richt zich op de moraal. Browne behandelt elke relatie
+als opzegbare ruil tussen soevereine individuen; verplichtingen aan kinderen,
+zieke partners of afhankelijke ouders komen er nauwelijks in voor. Critici
+lezen het advies om knellende banden eenzijdig te verbreken als een recept dat
+de rekening bij de achterblijvers legt, en het zelfbelang-criterium dreigt
+bovendien leeg te worden: vrijwel elke keuze valt achteraf tot eigenbelang te
+herleiden, waarmee het stelsel onweerlegbaar en dus oncontroleerbaar wordt.
+
+Er zit spanning tussen boek en biografie. Browne raadt de politiek af als
+indirect alternatief en utopieval, en werd vervolgens in 1996 en 2000 zelf
+presidentskandidaat voor de Libertarian Party. Dat hij die stap verdedigde als
+bewuste, betaalde keuze doet aan de wrijving weinig af: het boek verklaart
+zulke inzet voor maatschappelijke verandering nu juist tot verspilde moeite.
+
+Praktisch is het boek gedateerd op de plekken waar het concreet wordt:
+passages over belastingen, huwelijk en werkverhoudingen ademen de Amerikaanse
+jaren zeventig. En voor problemen die alleen collectief op te lossen zijn, van
+milieuvervuiling tot rechtsbescherming, biedt een kader dat alle
+groepshandelen wantrouwt geen antwoord.
+
+#### Wat er concreet mee te doen is
+
+- Benoem bij een knellende situatie eerst de eigen aannames en toets welke
+regel alleen in het eigen hoofd bestaat.
+- Zoek per probleem een direct alternatief (zelf doen, anders kiezen,
+vertrekken) voordat er energie gaat naar het veranderen van anderen.
+- Tel bij de keuze tussen blijven en gaan alleen toekomstige kosten en baten;
+gedane investeringen zijn weg, wat er ook volgt.
+- Reken de prijs van vertrek uit een doos concreet uit; volgens Browne valt
+die vrijwel altijd lager uit dan gevreesd.
+
+#### Wat je hierna leest
+
+- 335. The Courage to Be Disliked. Dezelfde boodschap dat andermans oordeel
+geen leidraad hoeft te zijn, hier vanuit de adleriaanse psychologie en zonder
+libertarisch program.
+- 72. The Subtle Art of Not Giving a F*ck. Hedendaagse zelfhulpvariant van het
+kiezen waar de eigen aandacht en verantwoordelijkheid liggen.
+- 197. Hell Yeah or No. Sivers past het directe alternatief toe op agenda en
+verplichtingen: volmondig ja, en anders nee.
+
+## 547. How Will You Measure Your Life?
+
+Clayton Christensen, met James Allworth en Karen Dillon, 2012. *How Will You
+Measure Your Life?* (Harper Business, 2012, 240 blz., ISBN 9780062102416).
+Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de
+samenvatting is op de Engelse editie gebaseerd. Rubriek: levenskunst.
+Tags: `zingeving`, `loopbaan`, `gezin`, `integriteit`, `managementtheorie`
+
+Clayton Christensen (1952-2020), Harvard-hoogleraar en auteur van *The
+Innovator's Dilemma*, sprak in 2010 de afstuderende klas van Harvard Business
+School toe, in het jaar waarin bij hem lymfeklierkanker was vastgesteld. Met
+oud-student James Allworth en redacteur Karen Dillon werkte hij die toespraak
+uit tot dit boek. De vraag erachter: waarom eindigen zoveel geslaagde,
+doelgerichte mensen met kapotte huwelijken, vervreemde kinderen en soms de
+gevangenis, terwijl niemand dat ooit van plan was.
+
+Het antwoord zoekt Christensen in zijn eigen vak: managementtheorieën die
+voorspellen hoe bedrijven bloeien en ontsporen, toegepast op loopbaan, gezin
+en integriteit. Herzbergs motivatietheorie, opkomende strategie,
+middelenallocatie, de te verrichten taak, uitbestedingslessen van Dell en
+Asus, en het marginale-kostendenken dat Blockbuster de kop kostte, worden stuk
+voor stuk naar het persoonlijke leven vertaald. Geen stappenplan; wel
+denkgereedschap, en één harde regel: aan een principe voor honderd procent
+vasthouden is vol te houden, 98 procent niet.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Theorieën die verklaren waarom bedrijven bloeien of
+ontsporen, verklaren ook hoe levens dat doen. Wie zijn loopbaan stuurt op
+hygiënefactoren als salaris en status, zijn tijd toewijst aan wat vandaag
+meetbaar rendeert, de opvoeding van zijn kinderen feitelijk uitbesteedt en
+uitzonderingen op eigen principes tegen marginale kosten goedrekent, komt uit
+waar hij nooit heen wilde, langs stappen die elk afzonderlijk verdedigbaar
+leken. De maat van een leven is voor Christensen uitdrukkelijk godsdienstig
+geformuleerd: de afzonderlijke mensen die er beter van werden dat dit leven er
+was.
+
+#### De gang van het boek
+
+**Theorie boven anekdote**
+
+De inleiding legt de methode vast. Goed advies bestaat volgens Christensen
+niet uit voorbeelden van geslaagde mensen naäpen, want anekdotes vertellen
+alleen wat bij iemand anders ooit werkte. Pas toen onderzoekers begrepen
+waaróm iets werkt, zoals de luchtvaart pas vooruitkwam toen liftkracht
+begrepen werd in plaats van veren gekopieerd, ontstond voorspellende kennis.
+Het boek belooft daarom theorie: mechanismen met oorzaak en gevolg, door de
+lezer zelf op de eigen situatie toe te passen.
+
+De urgentie komt uit Christensens eigen reünies: klasgenoten van Harvard
+Business School die rijk en aangezien eindigden in scheidingen en
+vervreemding, onder wie Enron-topman Jeffrey Skilling. Drie vragen ordenen het
+boek: hoe wordt een loopbaan bevredigend, hoe blijven relaties met partner en
+kinderen een bron van geluk, en hoe blijft iemand uit de gevangenis.
+
+**Loopbaan: motivatie en strategie**
+
+Voor de loopbaan gebruikt Christensen de motivatietheorie van Frederick
+Herzberg: hygiënefactoren als salaris, status en werkomstandigheden nemen
+hoogstens ontevredenheid weg, terwijl motivatoren als leren,
+verantwoordelijkheid en erkenning het werk zelf de moeite waard maken. Wie
+carrièrekeuzes op hygiënefactoren stapelt, koopt telkens tevredenheid die niet
+komt.
+
+Daarnaast zet hij weloverwogen strategie tegenover opkomende strategie, met
+Honda als voorbeeld: het bedrijf wilde in de Verenigde Staten zware motoren
+verkopen en ontdekte per ongeluk dat de kleine Super Cub aansloeg. De les voor
+een loopbaan: zolang nog onduidelijk is wat werkt, verdienen onvoorziene
+kansen ruimte naast het plan, en bij elke stap hoort de vraag welke aannames
+waar moeten zijn om de keuze te laten slagen.
+
+**Waar tijd en geld werkelijk heengaan**
+
+De werkelijke strategie van een bedrijf staat niet in het jaarplan; zij is af
+te lezen aan waar middelen heengaan. Hetzelfde geldt thuis: wie zegt dat het
+gezin voorgaat en elke avond overwerkt, voert een andere strategie uit dan hij
+belijdt. Investeringen in loopbaan geven snelle, zichtbare terugkoppeling;
+investeringen in partner en kinderen renderen pas na jaren, en juist daarom
+verliezen ze de dagelijkse toewijzing.
+
+Met de theorie van goed en slecht kapitaal waarschuwt hij voor uitstel: wie
+relaties pas aandacht geeft wanneer de carrière staat, plant zijn boom op het
+moment dat hij schaduw nodig heeft. Goed kapitaal voor het leven is geduldig
+over de opbrengst en begint vroeg met kleine, trouwe inleg.
+
+**Gezin: de taak van de ander en de school van ervaring**
+
+Uit het marktonderzoek komt de theorie van de te verrichten taak: klanten
+kopen geen product, ze huren het in voor een klus, zoals de ochtendmilkshake
+die forenzen inhuurden tegen verveling onderweg. Toegepast op het huwelijk:
+begrijpen voor welke klus de partner steun zoekt, in plaats van geven wat de
+gever zelf graag zou krijgen.
+
+Voor kinderen combineert hij twee theorieën. Vermogens bestaan uit middelen,
+processen en prioriteiten; wie de opvoeding volboekt met uitbestede
+activiteiten levert middelen, terwijl processen (zelf problemen oplossen) en
+prioriteiten thuis gevormd worden. De waarschuwing komt uit de industrie: Dell
+besteedde stap voor stap steeds meer uit aan Asus, tot Asus alles kon en met
+een eigen merk kwam. En vermogens groeien volgens Morgan McCalls
+ervaringsscholen door doorgemaakte uitdagingen; kinderen hebben dus problemen
+nodig die ze zelf mogen dragen.
+
+**Cultuur thuis**
+
+Met Edgar Scheins cultuurbegrip beschrijft Christensen hoe gewoonten ontstaan:
+een groep lost samen een probleem op, de oplossing werkt, wordt herhaald en
+zakt weg tot vanzelfsprekendheid. Een gezin bouwt zo'n cultuur hoe dan ook op;
+de enige keuze is of dat bewust gebeurt. Wat ouders willen dat vanzelf gaat,
+moet in de jaren daarvoor telkens voorgedaan en herhaald zijn.
+
+**Integriteit en de maat van het leven**
+
+Het derde deel draait om marginaal denken. Blockbuster beoordeelde de
+videotheekvernieuwing tegen de marginale kosten van het bestaande bedrijf en
+ging ten onder aan wat er buiten die som viel; zo rekent ook wie 'deze ene
+keer' een principe opschort de volle prijs weg. Christensen vertelt hoe hij
+als student in Oxford weigerde de landelijke basketbalfinale op zondag te
+spelen omdat die dag voor hem heilig was: honderd procent vasthouden bleek
+makkelijker dan 98 procent, omdat de eerste uitzondering de grens verplaatst.
+
+Het slot behandelt levensdoel als samenspel van beeld (wie iemand wil worden),
+toewijding en maatstaf. Christensens eigen maatstaf is religieus: God telt
+volgens hem geen totalen maar afzonderlijke mensen, dus telt een leven in de
+personen die er beter van werden.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Hygiënefactoren en motivatoren | Herzbergs onderscheid tussen omstandigheden die alleen ontevredenheid wegnemen (salaris, status) en factoren die werk de moeite waard maken (leren, verantwoordelijkheid, erkenning). |
+| Opkomende strategie | De koers die ontstaat uit onvoorziene kansen en dagelijkse keuzes, naast of in plaats van het vooraf bedachte plan. |
+| Middelenallocatie | De werkelijke strategie van een bedrijf of een persoon, af te lezen aan waar tijd, geld en aandacht heengaan. |
+| Goed en slecht kapitaal | Kapitaal dat geduldig is over groei en ongeduldig over winst zolang de strategie nog gezocht wordt; toegepast op het leven: vroeg investeren in relaties die pas laat renderen. |
+| Te verrichten taak | De klus waarvoor een klant een product inhuurt; in het gezin de klus waarvoor de partner werkelijk steun zoekt. |
+| Ervaringsscholen | Morgan McCalls idee dat vermogens ontstaan door doorgemaakte uitdagingen, waaruit volgt dat kinderen eigen problemen te dragen moeten krijgen. |
+| Middelen, processen, prioriteiten | De drie bestanddelen van wat een organisatie of een kind kan; bij uitbesteding blijven alleen de middelen over. |
+| Marginale-kostendenken | De redenering die een uitzondering goedkoop laat lijken omdat de volledige kosten van 'deze ene keer' buiten de som blijven. |
+| Honderdprocentregel | Een principe voor de volle honderd procent vasthouden kost minder dan er 98 procent aan vasthouden, omdat de eerste uitzondering de grens verplaatst. |
+
+#### Waar het argument op rust
+
+De gebruikte theorieën komen uit gepubliceerd managementonderzoek: Herzbergs
+motivatietheorie (1959, bekend geworden via zijn Harvard Business
+Review-artikel uit 1968), het Honda-strategieonderzoek dat Richard Pascale in
+1984 beschreef, Scheins cultuurwerk en Christensens eigen onderzoekstraditie
+rond ontwrichtende vernieuwing en de te verrichten taak. Binnen de
+bedrijfskunde zijn dit gevestigde, veel onderwezen kaders.
+
+Voor de kernclaim, dat deze theorieën ook huwelijken, opvoeding en integriteit
+voorspellen, bestaat geen toets. De overdracht van bedrijf naar leven verloopt
+via analogie en wordt geïllustreerd met anekdotes: reüniewaarnemingen, de val
+van klasgenoot Jeffrey Skilling, de basketbalfinale. Dat is precies de
+bewijsvorm die de inleiding afwijst; het boek meet zichzelf een standaard aan
+die het daarna niet haalt.
+
+Ook de bouwstenen zelf staan ter discussie. Herzbergs tweefactorentheorie
+bleek in later onderzoek sterk methodegebonden en is in de arbeidspsychologie
+omstreden, en Christensens eigen ontwrichtingstheorie kreeg vanaf 2014 stevige
+kritiek, onder meer van historica Jill Lepore en in een MIT Sloan-analyse uit
+2015 die vond dat een minderheid van de aangehaalde gevallen het patroon
+volgt.
+
+#### Wat er tegen in te brengen valt
+
+Het eerlijkste bezwaar staat hierboven al: een boek dat opent met de eis van
+toetsbare theorie levert voor het eigen onderwerp analogieën plus anekdotes.
+Of iemand die zijn tijd anders toewijst werkelijk gelukkiger eindigt, wordt
+nergens gemeten en is met dit materiaal ook niet te meten; overtuigend is het
+boek vooral waar de lezer de analogie zelf herkent.
+
+De maat zelf krijgt de lezer aangereikt in plaats van beredeneerd. Christensen
+was een toegewijd lid van de mormoonse kerk en schrijft dat ook op; huwelijk,
+kinderen en geloof vormen stilzwijgend de horizon van elk hoofdstuk. Wie een
+ander leven leidt of wil leiden, vindt hier wel bruikbaar gereedschap, en
+tegelijk een levensmodel dat als vanzelfsprekend wordt neergezet.
+
+Ten slotte leunt het derde deel op enkele afschrikvoorbeelden. Dat Skilling
+ontspoorde via kleine, verdedigbare stappen is een aanname over diens
+binnenkant, geen vaststelling; overlevingsvertekening ligt op de loer wanneer
+reünies het waarnemingsmateriaal vormen. De persoonlijke ernst van het boek,
+geschreven onder een kankerdiagnose, verdient vermelding, en verandert aan
+deze bewijsproblemen niets.
+
+#### Wat er concreet mee te doen is
+
+- Lees de eigen strategie af aan agenda en afschriften van de afgelopen
+maanden, in plaats van aan voornemens.
+- Benoem bij een loopbaankeuze welke aannames waar moeten zijn om de stap te
+laten slagen, en toets wie dat kan weten.
+- Zoek bij spanning thuis eerst de te verrichten taak van de ander, in plaats
+van het eigen aanbod te verdedigen.
+- Geef kinderen problemen die ze zelf mogen dragen; uitbestede uitdagingen
+leveren middelen en geen vermogens.
+- Behandel 'deze ene keer' als de beslissing over alle volgende keren en houd
+principes op honderd procent.
+
+#### Wat je hierna leest
+
+- 293. The Innovator's Dilemma. Christensens hoofdwerk over ontwrichtende
+vernieuwing, de theorie die hier op levens wordt toegepast.
+- 9. The Second Mountain. Brooks komt langs een andere weg op dezelfde slotsom
+uit: verplichtingen aan mensen als maat van een leven.
+- 150. Designing Your Life. Dezelfde levensvragen benaderd met ontwerpmethoden
+in plaats van managementtheorie.
+- 334. The 5 Types of Wealth. Blooms vijf vermogens als recenter voorstel voor
+een bredere maatstaf dan geld en positie.
+
+## 548. Love Is Letting Go of Fear
+
+Gerald Jampolsky, 1979. *Love Is Letting Go of Fear* (Celestial Arts, 1979,
+131 blz., ISBN 9780890872468). Nederlandse vertaling: *Liefde is angst laten
+varen* (Synthese, 2009, 127 blz.). Rubriek: positief denken en manifesteren.
+Tags: `vergeving`, `angst`, `cursus-in-wonderen`, `innerlijke vrede`,
+`zelfhulp`
+
+De Amerikaanse psychiater Gerald Jampolsky (1925-2020) richtte in 1975 in
+Tiburon, Californië het Center for Attitudinal Healing op, waar kinderen met
+levensbedreigende ziekten elkaar in groepen steunden. In dit dunne boek uit
+1979, met cartoons van Jack Keeler en een voorwoord van Hugh Prather, vat hij
+de aanpak samen die hij ontleende aan *A Course in Miracles*. De kern: er zijn
+maar twee grondhoudingen, liefde en angst; gezondheid is innerlijke vrede,
+genezing is het loslaten van angst, en vergeving is daarvoor het instrument.
+
+Het boek bestaat uit een persoonlijk voorwoord, een uiteenzetting van de
+uitgangspunten en twaalf lessen om de eigen geest om te scholen, elk bedoeld
+voor één dag oefening. Het werd een van de best verkochte spirituele
+zelfhulpboeken van zijn tijd. De onderbouwing is een metafysisch leerstelsel
+waarvan de herkomstclaim niet toetsbaar is; de uitgebreide samenvatting
+benoemt afzonderlijk wat dat voor de inhoud betekent.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Alle onvrede komt volgens Jampolsky uit één bron: angst,
+vastgehouden in oordelen over verleden en toekomst. Omdat angst een
+aangeleerde denkgewoonte is, valt zij af te leren; wie de eigen geest daarop
+traint en vergeving tot vaste reactie maakt, ervaart innerlijke vrede, en die
+vrede is wat het boek gezondheid noemt. Liefde is hier geen gevoel dat iemand
+overkomt: het is wat overblijft zodra angst wordt losgelaten. De twaalf lessen
+vormen de oefenvorm om die keuze dagelijks te maken, één les per dag, telkens
+opnieuw, tot de nieuwe gewoonte de oude vervangt.
+
+#### De gang van het boek
+
+**Een psychiater in crisis**
+
+Het boek opent persoonlijk. Jampolsky beschrijft zichzelf halverwege de jaren
+zeventig als gescheiden, zwaar drinkend en vastgelopen, ondanks een gevestigde
+praktijk als psychiater met een opleiding aan Stanford. In 1975 kreeg hij *A
+Course in Miracles* in handen, het driedelige leerstelsel dat een jaar later
+door de Foundation for Inner Peace werd uitgegeven en dat volgens degene die
+het optekende, psychologe Helen Schucman, aan haar was gedicteerd door een
+innerlijke stem die zij met Jezus identificeerde.
+
+Jampolsky presenteert zijn boek als praktische toepassing van die cursus: geen
+theologie, wel een oefenprogramma. In hetzelfde jaar begon hij het Center for
+Attitudinal Healing, waar ernstig zieke kinderen elkaar steunden volgens
+dezelfde uitgangspunten; dat werk gaf het boek zijn gezag en zijn toon.
+
+**Twee grondhoudingen**
+
+De uitgangspunten zijn snel verteld. Er zijn in dit kader maar twee
+grondhoudingen, liefde en angst, en alleen de eerste is echt; angst is een
+maaksel van de geest. Gezondheid wordt gedefinieerd als innerlijke vrede en
+genezing als het loslaten van angst, uitdrukkelijk los van de vraag of het
+lichaam beter wordt. Geven en ontvangen vallen samen: wie liefde geeft,
+ervaart haar.
+
+Verder telt alleen het huidige moment. Schuld hoort bij het verleden, zorg bij
+de toekomst; beide zijn gedachtenconstructies die de vrede van nu verstoren.
+De geest kan volgens Jampolsky worden omgeschoold door één doel te kiezen,
+vrede, en elke gedachte aan dat doel te toetsen.
+
+**Vergeving als methode**
+
+Het werkzame bestanddeel is vergeving, door Jampolsky breed opgevat: het
+opgeven van oordelen en grieven, over anderen en over zichzelf. Een
+vastgehouden grief houdt het verleden levend en de angst op zijn plaats;
+vergeven is in dit kader geen goedkeuren van wat gebeurde, het is stoppen met
+het telkens opnieuw afspelen ervan. Aanvalsgedachten, de oordelende en
+verwijtende gedachten waarmee de geest zich verdedigt, worden gelezen als
+teken van eigen angst en niet als informatie over de ander.
+
+**De twaalf lessen**
+
+Het tweede deel bestaat uit twaalf lessen, elk met een cartoon en een
+dagoefening. De titels zijn programmatisch: alles wat ik geef, geef ik aan
+mijzelf; vergeving is de sleutel tot geluk; ik ben nooit van streek om de
+reden die ik denk; ik ben vastbesloten de dingen anders te zien; ik kan de
+wereld die ik zie ontvluchten door aanvalsgedachten op te geven; dit moment is
+de enige tijd die er is; ik zou vrede kunnen zien in plaats van dit; ik ben
+verantwoordelijk voor wat ik zie.
+
+De aanwijzing is eenvoudig: één les per dag, de zin herhalen bij elke
+ergernis, en na les twaalf opnieuw beginnen tot de reactie vanzelf gaat. Veel
+lessen komen woordelijk uit het werkboek van *A Course in Miracles*;
+Jampolsky's bijdrage is de selectie, de toelichting en de toegankelijke vorm.
+
+**De praktijk van houdingsgenezing**
+
+Het slot verbindt de lessen met het groepswerk in Tiburon: kinderen met kanker
+die elkaar zonder adviezen aanhoren, ouders die leren bij de dag te leven,
+vrijwilligers die niets hoeven op te lossen. Uit dat werk groeide een
+internationaal netwerk van centra voor houdingsgenezing. Het boek zelf bleef
+Jampolsky's bekendste; latere edities, waaronder een derde met een voorwoord
+van Carlos Santana, houden de tekst vrijwel ongewijzigd.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Houdingsgenezing | Het herstellen van innerlijke vrede door de eigen houding te veranderen, los van de vraag of de omstandigheden of het lichaam veranderen. |
+| Liefde en angst | De twee grondhoudingen waartoe Jampolsky alle gemoedstoestanden herleidt; angst is aangeleerd, liefde geldt als de natuurlijke staat. |
+| Innerlijke vrede | De toestand die in dit boek als gezondheid geldt, ook bij lichamelijke ziekte. |
+| Vergeving | Het opgeven van oordelen en grieven over anderen en zichzelf; in het boek de sleutel tot geluk. |
+| Aanvalsgedachten | Oordelende, verwijtende gedachten die angst in stand houden en de waargenomen wereld kleuren. |
+| Geestestraining | Het dagelijks herhalen van één les om een oude denkgewoonte door een nieuwe te vervangen. |
+| Het enige moment | De stelling dat alleen het nu bestaat en dat schuld en zorg constructies zijn van verleden en toekomst. |
+| Een cursus in wonderen | Het leerstelsel uit 1976 waarop dit boek steunt, door Helen Schucman opgetekend als dictaat van een innerlijke stem die zij met Jezus identificeerde. |
+
+#### Waar het argument op rust
+
+Het boek bevat geen onderzoek, geen patiëntgegevens en geen effectmeting. De
+bron is *A Course in Miracles*, een tekst waarvan de herkomstclaim, dictaat
+van een innerlijke stem, niet toetsbaar is en buiten de aanhang niet wordt
+aanvaard. Jampolsky's medische titel geeft het geheel klinisch aanzien, maar
+de stellingen worden nergens klinisch onderbouwd; de sterkste claim, dat
+gezondheid innerlijke vrede is en genezing het loslaten van angst, is bij
+nader inzien een herdefinitie van beide woorden.
+
+Er is wel raakvlak met onderbouwde psychologie. Dat interpretaties emoties
+mede bepalen is de kern van de cognitieve gedragstherapie, en naar
+vergevingsinterventies is later gecontroleerd onderzoek gedaan, met bescheiden
+gunstige effecten op woede en welbevinden. Het boek beroept zich daar zelf
+niet op en gaat er ver aan voorbij: het belooft geen vermindering van klachten
+maar een andere werkelijkheidsopvatting.
+
+Voor het groepswerk in Tiburon geldt iets vergelijkbaars: lotgenotensteun bij
+ernstige ziekte kan de ervaren kwaliteit van leven verbeteren, en dat
+verklaart de waarde van de centra zonder dat de metafysica erachter waar hoeft
+te zijn.
+
+#### Wat er tegen in te brengen valt
+
+Het fundament is een leerstelsel dat zichzelf presenteert als dictaat van een
+bovennatuurlijke stem. Wie die claim niet aanvaardt, en er is geen
+onafhankelijke reden dat wel te doen, houdt een reeks onbewezen stellingen
+over: dat angst onwerkelijk is, dat geven en ontvangen samenvallen, dat vrede
+gezondheid is. Het boek vraagt overgave aan dat kader en biedt de kritische
+lezer weinig anders dan de uitnodiging het te proberen.
+
+De herdefinitie van gezondheid heeft een schaduwzijde. Als vrede gezondheid is
+en angst het te genezen kwaad, ligt de omkering op de loer dat wie ziek of
+bang blijft, kennelijk onvoldoende heeft losgelaten. Jampolsky spreekt zieken
+nergens op schuld aan, maar het kader biedt tegen die lezing weinig verweer,
+en juist bij zijn doelgroep, ernstig zieken en hun naasten, weegt dat zwaar.
+
+Ten slotte is de herleiding van alle gemoedsleven tot twee grondhoudingen te
+grof voor de klinische werkelijkheid. Angststoornissen en depressies vragen
+behandeling; een lezer in psychische nood krijgt hier dagoefeningen aangeboden
+waar soms zorg nodig is. Als milde oefening in minder oordelen en eerder
+vergeven heeft het boek waarde; als leer over gezondheid en genezing
+overschrijdt het zijn bewijs ruimschoots.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik het boek als oefenschema: één les per dag, herhaald bij elke
+ergernis; als leesboek is het in een uur uit.
+- Behandel een vastgehouden grief als iets dat de eigen vrede kost, en toets
+wat loslaten in dat licht oplevert.
+- Lees aanvalsgedachten als signaal van eigen angst en niet als betrouwbare
+informatie over de ander.
+- Kies bij een botsing bewust tussen gelijk krijgen en rust houden, in plaats
+van automatisch voor gelijk.
+- Zoek bij aanhoudende angst of somberheid reguliere hulp; dit boek is
+daarvoor geen vervanging.
+
+#### Wat je hierna leest
+
+- 102. Ingangen tot Een cursus in wonderen. Nederlandse toegang tot *Een
+cursus in wonderen*, het leerstelsel waarop Jampolsky's boek volledig steunt.
+- 131. Wonderen manifesteren. Hedendaagse Nederlandse variant die dezelfde
+cursus verbindt met manifesteren.
+- 449. Letting Go: The Pathway of Surrender. Hawkins over het loslaten van
+emoties: verwant genre, zelfde bewijsprobleem, andere systematiek.
+
+## 549. Living with Joy
+
+Sanaya Roman, 1986. *Living with Joy: Keys to Personal Power and Spiritual
+Transformation* (H J Kramer, 1986, 195 blz., ISBN 9780915811038). Nederlandse
+vertaling: *Leven in vreugde* (Ankh-Hermes, 2003). Rubriek: positief denken en
+manifesteren.
+Tags: `channeling`, `vreugde`, `zelfliefde`, `new age`, `oefeningen`
+
+Sanaya Roman publiceert sinds de jaren tachtig boeken die zij presenteert als
+doorgevingen van Orin, een onstoffelijke leraar die via haar zou spreken.
+*Living with Joy* (1986) opent de Earth Life-reeks en werd met volgens de
+uitgever ruim een half miljoen verkochte exemplaren haar bekendste titel. De
+boodschap: vreugde is een innerlijke keuze die losstaat van omstandigheden, en
+groei kan via vreugde in plaats van via pijn en strijd. Hoofdstukken over
+zelfliefde, zelfrespect, ontvangen, dankbaarheid, innerlijke vrede en vrijheid
+sluiten telkens af met een oefenblad.
+
+De channelingclaim is de kern van de verpakking en tegelijk het zwakste punt:
+er is geen manier om vast te stellen dat de tekst van iemand anders komt dan
+van Roman zelf, en de stijl verschilt in niets van ander Amerikaans
+zelfhulpproza uit die jaren. Inhoudelijk is het vriendelijke, algemene
+levenskunst; sommige oefeningen lijken op interventies waarvoor later
+bescheiden bewijs is gevonden, zoals dankbaarheidsoefeningen. De uitgebreide
+samenvatting behandelt claim en inhoud afzonderlijk.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Vreugde is een innerlijke toestand die door keuze en oefening
+bereikbaar is, onafhankelijk van omstandigheden; leren en veranderen hoeven
+volgens dit boek niet via pijn, drama en strijd te verlopen. Het presenteert
+die boodschap als doorgeving van Orin, een onstoffelijke leraar die via Sanaya
+Roman zou spreken, en werkt haar uit tot een oefenprogramma: zelfliefde en
+zelfrespect als fundament, daarna openstaan om te ontvangen, dankbaarheid,
+evenwicht en helderheid, en ten slotte de vrijheid om het eigen leven te
+vernieuwen. Wie de channelingclaim niet aanvaardt, houdt een reeks stellige
+uitspraken over energie en aantrekking over waarvoor het boek geen bewijs
+aanvoert.
+
+#### De gang van het boek
+
+**Orin en de verpakking**
+
+Het boek verschijnt onder Romans naam, maar de tekst wordt aan Orin
+toegeschreven; Roman beschrijft zichzelf als kanaal dat de woorden doorgeeft.
+De inleidende hoofdstukken vertellen hoe Orin zich aandiende en hoe de
+samenwerking verloopt. Daarna spreekt vrijwel de hele tekst in Orins stem, in
+korte leerstellige alinea's.
+
+Elk hoofdstuk sluit af met een oefenblad: vragen en opdrachten om het
+besprokene op het eigen leven toe te passen. De jubileumeditie uit 2011 voegde
+affirmaties en dagelijkse vreugde-oefeningen toe. Het boek opent de Earth
+Life-reeks, waarin onder meer *Personal Power Through Awareness* volgde.
+
+**Vreugde als keuze**
+
+De kernstelling: groei loopt in de menselijke gewoonte via crisis en pijn, en
+dat is een keuze, geen wet. Wie leert reageren vanuit vreugde, aldus Orin, kan
+dezelfde lessen zonder lijden leren. Vreugde wordt neergezet als houding die
+geoefend kan worden: aandacht richten op wat goed gaat, drama herkennen als
+gewoonte, en verantwoordelijkheid nemen voor de eigen reactie in plaats van
+omstandigheden de schuld te geven.
+
+Negativiteit wordt behandeld als signaal: een gevoel wijst op een behoefte of
+een grens, en kan omgezet worden zodra het serieus wordt genomen. Onderdrukken
+raadt het boek af; erin blijven hangen eveneens.
+
+**Zelfliefde, zelfrespect en het ego**
+
+Het fundament van het programma is de verhouding tot zichzelf. Zelfliefde
+betekent hier zacht spreken tegen zichzelf en de eigen behoeften serieus
+nemen; zelfrespect betekent afspraken met zichzelf nakomen en grenzen stellen
+zonder schuldgevoel. Wie zichzelf tekortdoet om aardig gevonden te worden,
+betaalt volgens het boek met sluimerende wrok.
+
+Het ego wordt niet bestreden maar verfijnd: het mag dienen in plaats van
+heersen. Een eigen hoofdstuk behandelt subpersoonlijkheden, deelpersonen
+binnen één mens die elk iets anders willen en die verenigd kunnen worden zodat
+ze één richting op werken.
+
+**Ontvangen, dankbaarheid en de wet van toename**
+
+Een opvallend hoofdstuk gaat over ontvangen: veel mensen kunnen wel geven maar
+geen hulp, lof of overvloed aannemen, en sluiten daarmee af wat ze zeggen te
+willen. Openstaan om te ontvangen wordt als oefenbare vaardigheid neergezet,
+even waardevol als geven.
+
+Daarop volgt de wet van toename: wat waardering en aandacht krijgt, groeit.
+Dankbaarheid is in dit boek dus geen beleefdheid, het is gereedschap. Hier is
+het boek het duidelijkst een voorloper van de latere manifesteerliteratuur,
+inclusief het ontbreken van elke onderbouwing voor de wetmatigheid die wordt
+beweerd.
+
+**Vrede, helderheid en de kwantumsprong**
+
+De slothoofdstukken behandelen innerlijke vrede als eigen keuze, evenwicht en
+veiligheid als iets dat van binnenuit komt, en helderheid als leven in meer
+licht. Vrijheid heet een geboorterecht: niemand hoeft toestemming te vragen om
+het eigen leven anders in te richten.
+
+Het boek eindigt met het omarmen van het nieuwe en de kwantumsprong: de grote,
+snelle verandering die mogelijk zou zijn zodra iemand aandacht en energie
+bundelt. De natuurkundige term is hier leenwoord zonder natuurkundige inhoud;
+bedoeld wordt dat verandering niet altijd geleidelijk hoeft te gaan.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Channeling | Het doorgeven van boodschappen die van een onstoffelijke entiteit afkomstig zouden zijn; de vorm waarin dit hele boek is geschreven. |
+| Orin | De onstoffelijke leraar aan wie Roman de tekst toeschrijft en die in de ik-vorm het woord voert. |
+| Groei door vreugde | De stelling dat leren en veranderen ook zonder pijn, drama en crisis kunnen verlopen. |
+| Oefenblad | De pagina met vragen en opdrachten waarmee elk hoofdstuk afsluit. |
+| Zelfrespect | Bij Roman het nakomen van afspraken met zichzelf en het stellen van grenzen zonder schuldgevoel. |
+| Openstaan om te ontvangen | De vaardigheid hulp, lof en overvloed aan te nemen, in het boek even zwaar gewogen als geven. |
+| Wet van toename | De bewering dat waardering en aandacht datgene laten groeien waarop zij gericht worden. |
+| Subpersoonlijkheden | Deelpersonen binnen één mens die elk iets anders willen en die volgens het boek verenigd kunnen worden. |
+| Kwantumsprong | De grote, snelle verandering die mogelijk zou zijn zodra aandacht en energie gebundeld worden; natuurkundig is de term hier betekenisloos. |
+
+#### Waar het argument op rust
+
+De herkomstclaim draagt het hele boek en is niet toetsbaar. Er bestaat geen
+methode om een gechannelde tekst te onderscheiden van een tekst die de auteur
+zelf schreef, parapsychologisch onderzoek heeft nooit betrouwbaar bewijs voor
+communicerende entiteiten opgeleverd, en deze tekst onderscheidt zich in stijl
+en inhoud niet van ander Amerikaans zelfhulpproza uit de jaren tachtig. Het
+boek staat bovendien in een herkenbare uitgeeftraditie: de gechannelde
+Seth-boeken van Jane Roberts hadden in de jaren zeventig al laten zien dat
+deze vorm een publiek vond, en Living with Joy volgde dat model. De redelijke
+lezing is dat Sanaya Roman de auteur is.
+
+De inhoudelijke leerstellingen, energie die aantrekt, een wet van toename, de
+kwantumsprong, worden nergens onderbouwd; er staat geen verwijzing, meting of
+casus in het boek die als toets kan dienen. De uitspraken zijn bovendien zo
+geformuleerd dat elk resultaat ze bevestigt: blijft de verandering uit, dan
+was de aandacht kennelijk niet gebundeld.
+
+Een deel van de oefeningen overlapt met later onderzocht terrein. Dagelijkse
+dankbaarheid liet in gecontroleerd onderzoek, zoals dat van Emmons en
+McCullough uit 2003, bescheiden effecten op welbevinden zien, en het
+herformuleren van negatieve gedachten is verwant aan technieken uit de
+cognitieve gedragstherapie. Dat bewijs draagt de losse oefening, niet het
+wereldbeeld eromheen.
+
+#### Wat er tegen in te brengen valt
+
+De toeschrijving aan Orin onttrekt de inhoud aan gewone toetsing: een
+onstoffelijke leraar kan niet ondervraagd worden, en kritiek op de tekst wordt
+daarmee kritiek op de lezer die 'er nog niet aan toe is'. Dat is de klassieke
+beweging van geopenbaarde teksten en verdient de nuchtere vaststelling dat er
+geen reden is dit boek anders te lezen dan als werk van Roman zelf, geschreven
+in een genreconventie die verkoopbaar bleek.
+
+De centrale begrippen blijven ondefinieerbaar. Energie, licht, trilling en
+helderheid krijgen nergens een omschrijving die een waarneming zou kunnen
+weerleggen; daarmee is het stelsel onweerlegbaar en dus leeg als kennisclaim.
+Wat overblijft is beeldspraak, en als beeldspraak is het boek mild en
+welwillend, zonder de geldbeloften van latere manifesteertitels.
+
+Het praktische risico zit in de reikwijdte. Bij kleine ergernissen is 'kies
+een andere reactie' bruikbaar advies; bij schulden, ziekte of aanhoudende
+somberheid kan hetzelfde advies als ontkenning werken en echte hulp
+uitstellen. En de omkering sluimert ook hier: wie lijdt, heeft in dit kader
+kennelijk nog niet goed gekozen. Het boek spreekt dat oordeel nergens uit,
+maar de logica draagt het wel.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik de oefenbladen als losse reflectieoefeningen; ze werken ook zonder
+het wereldbeeld eromheen.
+- Noteer dagelijks enkele punten van dankbaarheid; voor die gewoonte bestaat
+los van dit boek bescheiden bewijs.
+- Behandel 'kies vreugde' als richtvraag bij kleine ergernissen, en niet als
+antwoord op ziekte, schulden of aanhoudende somberheid.
+- Lees uitspraken over energie en aantrekking als beeldspraak, en toets
+concrete beslissingen op gewone gronden.
+
+#### Wat je hierna leest
+
+- 102. Ingangen tot Een cursus in wonderen. Een ander leerstelsel met een
+openbaringsclaim, *Een cursus in wonderen*, hier Nederlands ontsloten.
+- 127. The Law of Attraction. Atkinson uit 1906 als oerversie van de
+aantrekkingsleer die dit boek zonder bronvermelding voortzet.
+- 190. Good Vibes, Good Life. Hedendaagse variant van dezelfde boodschap over
+trilling en zelfliefde, met dezelfde bewijsproblemen.
+- 377. The Untethered Soul. Singer over innerlijke vrijheid en loslaten,
+verwant thema zonder doorgevingsclaim.
+
+## 550. Playful
+
+Cas Holman met Lydia Denworth, 2025. *Playful: How Play Shifts Our Thinking,
+Inspires Connection, and Sparks Creativity* (Avery, 2025, 288 blz., ISBN
+9780593713402). Geen Nederlandse vertaling gevonden in de catalogus van
+bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd. Rubriek:
+maken en scheppen.
+Tags: `spel`, `creativiteit`, `ontwerp`, `verbinding`, `nieuwsgierigheid`
+
+Cas Holman ontwerpt speelgoed en speelplekken: haar grote houten bouwset
+Rigamajig staat op schoolpleinen en in musea, ze doceerde industrieel ontwerp
+aan de Rhode Island School of Design en gaf spelworkshops bij onder meer LEGO,
+Nike en Google. In *Playful* betoogt ze, samen met wetenschapsjournalist Lydia
+Denworth, dat volwassenen het vrije spel zijn kwijtgeraakt en dat dit verlies
+ten koste gaat van denkvermogen, banden en plezier. Vrij spel is in haar
+definitie vrijwillig gekozen, zelf gestuurd en van binnenuit gemotiveerd; het
+gaat om de houding, niet om een bepaalde activiteit.
+
+Het boek bestaat uit twee delen: eerst het betoog waarom vrij spel er voor
+volwassenen toe doet, daarna de praktijk van een speelse houding, opgehangen
+aan drie pijlers: mogelijkheid omarmen, oordeel loslaten en succes herijken.
+De onderzoekskant komt van Denworth, redacteur bij Scientific American; de
+voorbeelden komen uit twintig jaar ontwerppraktijk.
+
+Een warm en toegankelijk pleidooi met een dunne onderzoeksbasis voor
+volwassenen: veel steunt op wat bij kinderen vaststaat en op observaties uit
+workshops. Wie het wetenschappelijke fundament zoekt, komt hier tekort; wie
+een aanzet zoekt om het eigen spelen terug te vinden, heeft er genoeg aan.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Vrij spel, gedrag dat vrijwillig gekozen is, zelf gestuurd
+wordt en zijn motivatie in zichzelf draagt, is voor volwassenen even wezenlijk
+als voor kinderen. Een cultuur van productiviteit, meetbaarheid en
+zelfverbetering heeft volwassenen aangeleerd om elke activiteit een doel te
+geven, en daarmee is het spelen verleerd. Dat verlies schaadt de emotionele
+gezondheid, het probleemoplossend vermogen en de band met anderen. De weg
+terug vraagt geen nieuwe hobby's of activiteiten; zij vraagt het afleren van
+de gewoonte om overal een prestatie van te maken. Een speelse houding laat
+zich oefenen, en zij verandert hoe gewone dagen voelen en hoe goed iemand
+denkt en samenleeft.
+
+#### De gang van het boek
+
+**De ontwerper en de journalist**
+
+Holman ontwierp twintig jaar speelgoed en speelplekken. Haar bouwset
+Rigamajig, ontwikkeld voor het High Line-park in New York, heeft geen
+handleiding en geen eindbeeld: wie ermee bouwt, bepaalt zelf wat het wordt. In
+workshops voor bedrijven als LEGO, Nike, Google en Disney Imagineering zag ze
+steeds hetzelfde patroon: volwassenen die eerst vragen wat de bedoeling is, en
+pas na lang aarzelen iets durven maken zonder plan. Uit die observatie komt
+het boek voort.
+
+Wetenschapsjournalist Lydia Denworth, redacteur bij Scientific American en
+auteur van een boek over de biologie van vriendschap, leverde de
+onderzoekskant. Die taakverdeling bepaalt de toon: een ontwerpersbetoog,
+gestut met wetenschap waar die voorhanden is. Holmans eigen loopbaan loopt als
+voorbeeldmateriaal door het hele boek heen, van haar speelgoedbedrijf Heroes
+Will Rise tot installaties in het Liberty Science Center.
+
+**Wat vrij spel is**
+
+Het boek hanteert de definitie die speelonderzoekers gebruiken: vrij spel is
+vrijwillig gekozen, zelf gestuurd en van binnenuit gemotiveerd. Er is geen
+externe maatstaf, geen publiek en geen beoogde uitkomst. Daarmee is spel een
+houding die in vrijwel elke activiteit kan zitten: een gesprek met een
+vreemde, een wandeling zonder route, dansen in de keuken, meubels verschuiven
+om te zien hoe het staat.
+
+Dezelfde definitie sluit veel uit wat voor vrije tijd doorgaat. Een
+hardloopapp met reeksen die niet onderbroken mogen worden, een cursus die op
+een certificaat afkoerst en een spelletjesavond waarop gewonnen moet worden,
+zijn in deze indeling geen vrij spel: er is een prestatiemaat binnengeslopen
+die het doen zelf ondergeschikt maakt.
+
+Belangrijk is ook wat het boek uitdrukkelijk afwijst: het idee dat volwassenen
+moeten spelen zoals kinderen spelen. Volwassen spel hoeft niet op een
+speelplaats plaats te vinden en vraagt geen speelgoed; het vraagt de
+innerlijke drijfveer terug die kinderen vanzelf hebben en volwassenen zijn
+kwijtgeraakt aan beloningen, deadlines en beoordelingen.
+
+**Hoe het spelen verloren ging**
+
+Het eerste deel beschrijft hoe volwassenen het spelen afleren. School leert
+dat tijd verantwoord moet worden, werk leert dat zichtbare prestatie de maat
+is, en sociale media voegen een permanent publiek toe. Wie iets doet waar hij
+slecht in is, voelt schaamte; wie iets doet zonder doel, voelt schuld. Zo
+verdwijnt het spel eerst uit de agenda en daarna uit het repertoire.
+
+Holmans kernzin luidt dat niemand hoeft te leren spelen: het vermogen blijft
+intact, wat aangeleerd is, is de rem erop. Het boek gaat dus over afleren, en
+dat maakt het optimistischer dan veel zelfhulp: er hoeft niets nieuws
+verworven te worden.
+
+**Wat spel oplevert**
+
+De baten die het boek opvoert: minder stress, soepeler en origineler denken,
+minder angst om te falen, sterkere banden. Spel maakt mislukken veilig, en wie
+veilig kan mislukken, probeert meer en leert sneller. Holman noemt spel de
+manier waarop mensen leren wie ze zijn, hoe ze falen, communiceren, bouwen en
+overleven.
+
+Voor de sociale kant gebruikt het boek herkenbare voorbeelden, zoals
+Halloween: de ene avond per jaar waarop buren verkleed bij vreemden aanbellen,
+sociale drempels wegvallen en een straat zich even als gemeenschap gedraagt.
+Spel verlaagt de kosten van contact, en dat effect is op elke leeftijd te
+gebruiken.
+
+Het boek reserveert daarnaast ruimte voor zware periodes: juist bij verlies,
+ziekte of tegenslag kan een speelse houding volgens Holman betekenis en lucht
+geven, omdat spel een manier is om zonder oordeel bij het heden te blijven.
+Dat is de meest persoonlijke en tegelijk de minst onderbouwde claim van het
+boek.
+
+**De speelse houding in de praktijk**
+
+Het tweede deel is praktisch en hangt aan drie pijlers. De eerste is
+mogelijkheid omarmen: gewone momenten, van de rit naar school tot een
+vergadering, bevatten speelruimte voor wie ernaar kijkt. De tweede is oordeel
+loslaten: plezier telt zwaarder dan niveau, en iets slecht doen mag, zolang
+het doen zelf bevalt.
+
+De derde pijler is succes herijken: de maat voor een geslaagde avond wordt
+verbondenheid en plezier, en de vraag wat het heeft opgeleverd, kan vervallen.
+Holman gebruikt het voorbeeld van ouders die van Halloween een productie maken
+met uitgewerkte kostuums en een draaiboek: het feest slaagt volgens haar
+wanneer de avond ontspannen en mal was, los van wat er van de plannen
+terechtkwam.
+
+In plaats van een uitgewerkt programma biedt het boek per pijler voorbeelden
+en kleine oefeningen om de eigen vorm van spel terug te vinden. Wat voor de
+een spel is, is voor de ander een verplichting, en dat verschil moet ieder
+zelf uitzoeken; het boek reikt daarvoor vragen aan en geen recept.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| vrij spel | Gedrag dat vrijwillig gekozen is, zelf gestuurd wordt en zijn beloning in het doen zelf vindt, zonder externe maatstaf of publiek. |
+| speelse houding | De bereidheid om in gewone situaties ruimte voor spel te zien; volgens Holman zit spel in de houding en niet in de activiteit. |
+| mogelijkheid omarmen | De eerste pijler: alledaagse momenten behandelen als gelegenheid tot spel. |
+| oordeel loslaten | De tweede pijler: plezier laten voorgaan op de vraag of iets goed gedaan wordt. |
+| succes herijken | De derde pijler: uitkomstmaten vervangen door verbondenheid en plezier als maat voor een geslaagd moment. |
+| afleren | Holmans woord voor de weg terug: het vermogen om te spelen blijft intact, alleen de aangeleerde rem erop moet weg. |
+| Rigamajig | Holmans houten bouwset zonder handleiding of eindbeeld, in het boek het model van open spel. |
+
+#### Waar het argument op rust
+
+Het boek is een betoog uit de ontwerppraktijk, gestut door journalistiek werk.
+Denworth verwerkt onderzoek uit de ontwikkelingspsychologie en
+gedragsbiologie, terreinen waar de waarde van spel voor kinderen en jonge
+dieren goed gedocumenteerd is. Voor volwassenen is de basis dunner: veel
+steunt op correlaties, kleine studies en de aanname dat wat bij kinderen
+vaststaat, overdraagbaar is.
+
+De tweede bewijsbron is Holmans eigen praktijk: twintig jaar observatie van
+spelende en verkrampte volwassenen in workshops bij grote bedrijven en
+instellingen. Dat is rijk en geloofwaardig materiaal, geen gecontroleerd
+onderzoek. Het boek verscheen in oktober 2025, kreeg brede media-aandacht van
+televisie tot tijdschriften en lovende aanbevelingen van onder anderen
+Elizabeth Gilbert; onafhankelijke kritische besprekingen zijn nog schaars, en
+de aanhalingen op het omslag komen grotendeels van auteurs uit hetzelfde
+genre.
+
+#### Wat er tegen in te brengen valt
+
+Het rekbare spelbegrip is het zwakke punt. Als een vergadering, een schoolrit
+en een gesprek met een vreemde allemaal spel kunnen zijn, verschuift de
+definitie van activiteit naar houding, en een houding laat zich moeilijk meten
+of weerleggen. De claim dat spel creativiteit en welzijn bevordert, wordt
+aannemelijk gemaakt, niet aangetoond.
+
+Daarnaast is de boodschapper belanghebbend: Holman verkoopt spelworkshops aan
+dezelfde bedrijven die in het boek als voorbeeld dienen, en de aanbevelingen
+op het omslag komen uit bevriende hoek. Wie de onderzoekskant van spel zoekt,
+vindt meer in het oudere *Play* van Stuart Brown; dit boek wint het op
+toegankelijkheid en op de ontwerpersblik.
+
+#### Wat er concreet mee te doen is
+
+- Kies één activiteit per week zonder doel, meting of publiek, en houd haar
+buiten elke app.
+- Doe iets waar niveau niet telt: teken, dans of bouw, en bewaar het resultaat
+niet.
+- Zoek in een gewone dag één moment dat speels kan worden, zoals de route naar
+het werk.
+- Laat na afloop de vraag vallen of het iets heeft opgeleverd.
+
+#### Wat je hierna leest
+
+- 16. Creativity: A Short and Cheerful Guide. Cleese beschrijft de open
+denkmodus die Holman spel noemt, in zestig bladzijden.
+- 53. The Anxious Generation. Haidt documenteert wat er met kinderen gebeurt
+als vrij spel verdwijnt; Holman trekt die lijn door naar volwassenen.
+- 200. Flow. Csikszentmihalyi onderzocht de toestand waarin vrij spel vaak
+uitmondt, met de onderzoeksbasis erbij.
+- 17. The Creative Act. Rubin behandelt dezelfde onbevangen aandacht vanuit
+het maken van werk.
+
+## 551. The Kind Way
+
+Sophie Bretag, 2026. *The Kind Way: The Life-Changing Metric for Leadership,
+Success and the Human Spirit* (The Kind Press, 2026, 288 blz., ISBN
+9781764207492). Geen Nederlandse vertaling gevonden in de catalogus van
+bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd. Rubriek:
+samenwerken en gesprek.
+Tags: `leiderschap`, `vriendelijkheid`, `burn-out`, `werkcultuur`,
+`zelfcompassie`
+
+Sophie Bretag werkte bijna twintig jaar als HR-adviseur en keynote-spreker in
+Australië toen ze in 2024 werd geopereerd aan agressieve hoofd-halskanker. In
+haar herstel zag ze dat ze prestatie voor eigenwaarde had aangezien,
+dienstbaarheid voor zelfopoffering en kracht voor onderdrukking. Uit die
+ervaring komt *The Kind Way* voort: een pleidooi om vriendelijkheid, te
+beginnen bij vriendelijkheid voor zichzelf, te behandelen als een
+leiderschapsvaardigheid die zich laat ontwikkelen en meten.
+
+Het raamwerk bestaat uit vier pijlers (Know Yourself, Include with Intention,
+Nurture Your Capacity en Demonstrate Conscious Leadership) en een eigen
+meetlat, de KINDHUMAN Quotient, bedoeld voor zowel individuen als
+organisaties. Het boek mengt het persoonlijke verhaal met casuïstiek uit haar
+adviespraktijk, reflectieoefeningen en werkvormen.
+
+Het boek verscheen medio 2026 bij The Kind Press, een Australische uitgeverij
+waar auteurs meebetalen aan de uitgave; onafhankelijke recensies waren er bij
+het schrijven van deze samenvatting nog niet. De richting van het betoog
+spoort met serieus onderzoek naar zelfcompassie en psychologische veiligheid,
+maar hoe stevig het boek zelf op dat onderzoek leunt, valt van buitenaf niet
+vast te stellen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Moderne organisaties hebben een onhoudbaar tempo tot norm
+verheven, en de rekening daarvan is stille uitputting: leiders en
+professionals die blijven presteren terwijl ze leeglopen. Vriendelijkheid
+geldt in dit boek als het antwoord, en dan als capaciteit die zich laat
+ontwikkelen en meten, met betere besluiten, sterkere teams en houdbare
+culturen als opbrengst. Wie bij zichzelf begint, met zelfkennis en
+zelfvriendelijkheid, oordeelt scherper en houdt het langer vol; organisaties
+die vriendelijkheid via de vier pijlers en de KINDHUMAN Quotient meetbaar
+maken, bouwen volgens Bretag aan prestatie waar niemand aan onderdoor gaat.
+
+#### De gang van het boek
+
+**Een diagnose uit eigen ervaring**
+
+Bretag bouwde bijna twintig jaar aan een loopbaan in HR-strategie,
+organisatiepsychologie en leiderschapsontwikkeling, met haar adviesbureau
+Metta Leaders als thuisbasis. In 2024 werd ze geopereerd aan agressieve
+hoofd-halskanker. Het herstel dwong tot de vaststelling dat ze zichzelf
+jarenlang had weggecijferd: prestatie was eigenwaarde geworden, dienstbaarheid
+zelfopoffering, en kracht het onderdrukken van wat er werkelijk speelde.
+
+Dat persoonlijke verhaal draagt het boek. De adviseur die organisaties leerde
+zorgen voor mensen, bleek dat zelf niet te doen, en die tegenstrijdigheid
+maakt de vraag van het boek geloofwaardig: wat is succes waard als het lichaam
+de rekening betaalt?
+
+**De prijs van constant doorgaan**
+
+De diagnose die Bretag stelt: organisaties hebben een tempo genormaliseerd dat
+mensen sloopt, en noemen dat professionaliteit. Het gevolg omschrijft ze als
+stille uitputting: mensen die aan alle verwachtingen voldoen en zich tegelijk
+leeg, cynisch of afwezig voelen. De onhoudbare kosten van het constante doen
+noemt ze een van de zwaarste vraagstukken van modern leiderschap.
+
+Vriendelijkheid staat in dit boek tegenover die norm, uitdrukkelijk ook als
+zakelijk argument: uitgeputte mensen nemen slechtere besluiten en verlaten de
+organisatie. Bretag keert daarbij een gangbare aanname om: vriendelijkheid
+voedt ambitie, omdat wie goed voor zichzelf en anderen zorgt langer en met
+meer overzicht kan blijven bouwen.
+
+**De vier pijlers**
+
+Het hart van het boek is een raamwerk van vier pijlers. Know Yourself gaat
+over zelfkennis en zelfvriendelijkheid als basis voor oordeelsvermogen: wie de
+eigen patronen, grenzen en drijfveren kent en zichzelf niet voortdurend
+afstraft, denkt strategischer en beslist rustiger. Include with Intention gaat
+over doelbewuste insluiting: het gevoel erbij te horen wordt behandeld als
+voorwaarde voor betrokkenheid en prestatie, en insluiting als iets dat leiders
+actief moeten organiseren.
+
+Nurture Your Capacity gaat over het onderhouden van de eigen draagkracht:
+energie, herstel en het bewaken van wat iemand aankan, als tegenwicht tegen de
+reflex om altijd beschikbaar te zijn. Demonstrate Conscious Leadership ten
+slotte gaat over voorleven: leiders die hun eigen gedrag als instrument zien
+en culturen bouwen waarin presteren en welzijn samengaan.
+
+Elke pijler wordt uitgewerkt met casuïstiek uit de adviespraktijk,
+reflectievragen en werkvormen voor drukke professionals. De pijlers zijn
+bedoeld als capaciteiten die op individueel en organisatieniveau te
+ontwikkelen en te toetsen zijn.
+
+**Meten wat zacht lijkt**
+
+De ondertitel belooft een meetlat, en die levert het boek in de vorm van de
+KINDHUMAN Quotient, een door Bretag ontwikkeld en als merk vastgelegd
+instrument dat vriendelijkheid als leiderschapscapaciteit in kaart brengt. De
+gedachte erachter: wat gemeten wordt, telt mee in organisaties, en zolang
+vriendelijkheid een vaag ideaal blijft, verliest zij het van elk dashboard.
+Door er een score aan te verbinden, moet zij dezelfde status krijgen als
+andere stuurgetallen.
+
+Het instrument is bedoeld voor twee niveaus tegelijk. Individuele leiders
+gebruiken het om te zien waar hun eigen praktijk tekortschiet, van zelfzorg
+tot insluiting; organisaties gebruiken het om vriendelijkheid als
+cultuurkenmerk te volgen en om te bepalen waar ontwikkeling nodig is. Details
+over de opbouw en de toetsing van het instrument geeft het toegankelijke
+materiaal rond het boek niet prijs.
+
+**Toon en publiek**
+
+Het boek richt zich op leiders en professionals die naar buiten toe slagen en
+van binnen uitgeput raken. De toon is persoonlijk en bemoedigend, met de
+mengeling van memoir, adviespraktijk en oefeningen die in het genre
+gebruikelijk is. Bretag positioneert het boek nadrukkelijk tegen de heersende
+prestatiecultuur: ambitie en vriendelijkheid worden als bondgenoten
+gepresenteerd, en de belofte is een loopbaan die vol te houden is.
+
+Het boek verscheen medio 2026 bij The Kind Press en wordt gedistribueerd door
+Simon & Schuster Australië. De ontvangst speelde zich in de eerste maanden
+vooral af in Australische media en in het spreker- en HR-netwerk rond de
+auteur, met interviews in regionale kranten en een goed bezochte
+boekpresentatie; een bespreking in de vakpers of een landelijke krant buiten
+dat circuit is nog niet gevonden.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| stille uitputting | De toestand waarin iemand aan alle verwachtingen blijft voldoen en zich tegelijk leeg en opgebrand voelt. |
+| zelfvriendelijkheid | Vriendelijkheid voor zichzelf als startpunt van goed leiderschap, tegenover de reflex om eigen behoeften weg te cijferen. |
+| Know Yourself | De eerste pijler: zelfkennis en zelfcompassie als basis voor oordeelsvermogen en besluiten. |
+| Include with Intention | De tweede pijler: erbij horen doelbewust organiseren, als voorwaarde voor betrokkenheid en prestatie. |
+| Nurture Your Capacity | De derde pijler: de eigen draagkracht onderhouden met energie, herstel en grenzen. |
+| Demonstrate Conscious Leadership | De vierde pijler: bewust voorleven van gedrag dat een houdbare cultuur mogelijk maakt. |
+| KINDHUMAN Quotient | Bretags eigen, als merk vastgelegde meetinstrument dat vriendelijkheid als leiderschapscapaciteit scoort op individueel en organisatieniveau. |
+
+#### Waar het argument op rust
+
+Het boek beroept zich op neurowetenschap, psychologie en organisatieonderzoek.
+De richting van dat beroep spoort met bestaand werk: onderzoek naar
+zelfcompassie, onder anderen van Kristin Neff, laat verbanden zien met
+veerkracht en minder burn-outklachten, en onderzoek naar psychologische
+veiligheid ondersteunt het verband tussen erbij horen en teamprestatie. Hoe
+zorgvuldig het boek die literatuur gebruikt, valt van buitenaf niet vast te
+stellen: onafhankelijke besprekingen ontbraken bij het schrijven van deze
+samenvatting.
+
+De sterkste bewijslast is het persoonlijke verhaal en de adviespraktijk van
+twintig jaar. Dat maakt het boek geloofwaardig als getuigenis en als
+praktijkboek, maar het levert geen toets van de centrale claim dat gemeten
+vriendelijkheid tot betere organisaties leidt. Voor de KINDHUMAN Quotient is
+geen onafhankelijke validering gevonden.
+
+#### Wat er tegen in te brengen valt
+
+The Kind Press is een uitgeverij waar auteurs meebetalen aan de uitgave, met
+distributie via Simon & Schuster Australië. Dat zegt niets over de oprechtheid
+van het boek, wel over de filter: er is geen redactie van een grote uitgeverij
+en geen recensietraditie omheen, en de aanbevelingen komen uit het
+sprekerscircuit rond de auteur.
+
+De meetlat is tegelijk het zwakste punt. Een als merk vastgelegd instrument
+dat samenhangt met het adviesbureau van de auteur maakt het boek mede een
+visitekaartje, en een vriendelijkheidsscore die op zelfrapportage leunt, meet
+vooral hoe mensen zichzelf zien. Er is ook een principiëler bezwaar: zodra
+vriendelijkheid een stuurgetal wordt, kan zij hetzelfde lot ondergaan als
+andere stuurgetallen en verworden tot doel op zichzelf, met gespeelde warmte
+als resultaat. Het boek onderkent dat risico niet zichtbaar.
+
+Wie de vier pijlers naast de bestaande leiderschapsliteratuur legt, herkent
+bekende bouwstenen onder nieuwe namen: zelfcompassie, insluiting, herstel en
+voorbeeldgedrag zijn elk al goed beschreven. Het eigene van dit boek zit in de
+persoonlijke urgentie van het kankerverhaal en in de poging om er één
+samenhangend meetbaar geheel van te maken, minder in de onderdelen zelf.
+
+#### Wat er concreet mee te doen is
+
+- Ga na welke van de drie verwisselingen uit het boek herkenbaar is: prestatie
+voor eigenwaarde, dienstbaarheid voor zelfopoffering, kracht voor
+onderdrukking.
+- Behandel herstel als onderdeel van het werk en plan het even hard in als
+afspraken.
+- Toets bij het eerstvolgende besluit of uitputting meebeslist, en stel het zo
+nodig een dag uit.
+- Benoem in het eigen team wie er buiten de boot valt en organiseer insluiting
+in plaats van haar te veronderstellen.
+
+#### Wat je hierna leest
+
+- 273. Leaders Eat Last. Sinek legt dezelfde koppeling tussen veiligheid, zorg
+voor mensen en teamprestatie.
+- 468. Inspire. Galinsky onderbouwt met sociale psychologie hoe leiders
+anderen laten groeien of juist klein houden.
+- 32. The Gifts of Imperfection. Brown behandelt de zelfcompassie waar Bretags
+eerste pijler op steunt.
+- 466. Set Boundaries, Find Peace. Tawwab geeft het gereedschap voor de
+grenzen die Nurture Your Capacity veronderstelt.
+
+## 552. The Art of Pacing
+
+Elizabeth Svoboda, 2026. *The Art of Pacing: A Guide to Balancing Short-Term
+Demands with Long-Term Thriving* (Simon Element, 2026, 240 blz., ISBN
+9781668022412). Geen Nederlandse vertaling gevonden in de catalogus van
+bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd. Rubriek:
+werk en aandacht.
+Tags: `tempo`, `burn-out`, `herstel`, `productiviteit`, `biologische klok`
+
+Wetenschapsjournalist Elizabeth Svoboda, vaste bijdrager aan onder meer
+Scientific American en The New York Times, past in *The Art of Pacing* een
+hardloopbegrip toe op het hele leven: wie alles in één tempo doet, raakt
+uitgeput of komt stil te staan. Duurzame prestatie vraagt het vermogen om over
+het hele tempospectrum te schakelen, van voluit naar bewust traag en terug.
+
+Het boek combineert memoir, onderzoek en interviews met onder anderen
+olympische sporters en ondernemers. Praktische kernstukken zijn het vinden van
+de eigen polspunten (de uren waarop het zware werk moet landen), moduleren
+tussen versnellingen, selectieve middelmaat op terreinen die er minder toe
+doen, en korte, betekenisvolle pauzes. In de slothoofdstukken verschuift de
+blik van het individu naar werkplekken, gezinnen en gemeenschappen, die het
+tempo van hun leden mede bepalen.
+
+Het boek verscheen in juni 2026; onafhankelijke besprekingen zijn nog dun
+gezaaid. Het betoog is journalistiek degelijk opgebouwd, met noten en
+register, maar berust op synthese en analogie, niet op eigen onderzoek.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Tempo is een vaardigheid. Duurlopers weten wanneer ze moeten
+versnellen, inhouden en herstellen; in werk en leven ontbreekt dat vermogen
+meestal, en de cultuur duwt alles richting één stand: voluit. Het gevolg is
+een pendel tussen overbelasting en lusteloosheid. Svoboda betoogt dat het hele
+tempospectrum beschikbaar moet zijn: pieken op de uren waarop het eigen
+lichaam het aankan, bewust moduleren tussen versnellingen, met opzet
+middelmatig zijn waar het er weinig toe doet, en rusten op momenten die
+betekenis hebben. Een houdbaar ritme is bovendien mede een collectieve opgave:
+werkplekken, gezinnen en gemeenschappen bepalen of hun leden verstandig kunnen
+doseren.
+
+#### De gang van het boek
+
+**Het moordende tempo en het lichaam**
+
+De openingshoofdstukken, A Breakneck Pace en A Biological Reckoning, stellen
+de diagnose. De cultuur beloont wie altijd aan staat, zelfverbetering is een
+wedstrijd zonder finish geworden, en succes wordt afgemeten aan maatstaven die
+anderen aanleveren. Svoboda schrijft uit eigen ervaring: het boek opent als
+memoir van iemand die zelf leerde dat aanhoudend voluit gaan zich wreekt.
+
+Tegenover die norm zet zij de biologie: circadiane ritmes, herstelcycli en de
+grenzen van wat een lichaam aan aanhoudende belasting verdraagt. Wie het
+lichaam structureel overvraagt, betaalt met slaap, stemming en gezondheid, en
+presteert per saldo minder. De afrekening met de eigen biologie is in dit boek
+het startpunt van elke verstandige planning.
+
+**Verhaallijn en polsslag**
+
+Plotting a Narrative Arc introduceert het verhalende gereedschap: wie het
+eigen leven als verhaallijn leest, ziet welke inspanningen bij de eigen
+bedoeling horen en welke alleen maar aangewaaid zijn. Die reflectie bepaalt
+waar versnelling zin heeft en wat geschrapt kan worden; het overtollige
+benoemen is in dit boek een voorwaarde om ergens anders werkelijk te kunnen
+pieken.
+
+Find Your Pulse maakt het concreet met polspunten: de uren waarop energie en
+concentratie pieken, per persoon verschillend en met de eigen biologische klok
+verbonden. Het advies is het belangrijkste werk op die uren te leggen en de
+rest van de dag daaromheen te bouwen, tegen de gewoonte in om de agenda door
+anderen te laten vullen.
+
+**Moduleren, middelmaat en digitale triage**
+
+The Art of Modulation behandelt het schakelen zelf: op- en terugschakelen als
+een loper die intervallen traint, met selectieve middelmaat als onderschat
+instrument. Wie op onbelangrijke terreinen bewust genoegen neemt met matig
+werk, houdt vermogen over voor wat er wel toe doet. Moduleren is bij Svoboda
+meer dan een agendatechniek; het is de manier om een leefstijl te ontwerpen
+die voedt in plaats van uitput, met wisselingen die vooraf gekozen zijn en
+niet worden afgedwongen door instorting.
+
+Digital Triage past hetzelfde principe toe op schermen: een route uitzetten
+door het online aanbod die de eigen doelen dient, tegen de ontwerpers in die
+op eindeloos doorscrollen aansturen. Het gaat om selectie vooraf, en om minder
+reactief leven.
+
+**Flow, korte kaarsen en van de kaart**
+
+Flourishing in Flow behandelt de toestand waarin inspanning vanzelf lijkt te
+gaan, als bewijs dat hoog tempo op zich het probleem niet is: het gaat om de
+passing tussen taak, vermogen en moment. Brief Candles pleit voor korte,
+betekenisvolle pauzes die met opzet gepland worden en echt herstel opleveren.
+
+Selfless Pacing en Dropping off the Map verbreden het palet: doseren omwille
+van anderen die op iemand steunen, met het eigen tempo als voorbeeld en steun
+voor de omgeving, en het periodiek volledig verdwijnen van de kaart, langer en
+radicaler dan een weekend, als middel om richting terug te vinden. In beide
+hoofdstukken keert de gedachte terug dat rust geen onderbreking van het echte
+leven is; zij hoort bij de arbeid zoals herstel bij training hoort.
+
+**Collectief tempo**
+
+De slothoofdstukken, Collective Pacing, The New Pacing Movement en Course
+Corrections, halen het onderwerp uit de privésfeer. Werkplekken, gezinnen en
+gemeenschappen bepalen mede of leden verstandig kunnen doseren: een
+organisatie die bereikbaarheid als loyaliteit leest, maakt individuele goede
+voornemens kansloos, en een gezonde cultuur maakt houdbare prestatie juist
+normaal. Svoboda beschrijft een opkomende beweging van organisaties die
+duurzame prestatie serieus nemen, en sluit af met bijsturen als blijvende
+taak: tempo is geen instelling die één keer goed gezet wordt, en wie doseert,
+blijft corrigeren naarmate omstandigheden en levensfasen veranderen.
+
+Elk hoofdstuk volgt hetzelfde stramien: een persoon, een beslissend moment, en
+daarna concrete stappen met vragen om het zelf te proberen. De geïnterviewden
+lopen uiteen van olympische sporters tot ondernemers.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| tempospectrum | Het hele bereik van snelheden tussen voluit en stilstand, dat volgens Svoboda in zijn geheel beschikbaar moet zijn. |
+| polspunten | De uren waarop energie en concentratie van een persoon pieken en waar het belangrijkste werk zou moeten landen. |
+| modulatie | Het bewuste schakelen tussen versnellingen in plaats van alles in één tempo te doen. |
+| selectieve middelmaat | Bewust genoegen nemen met matig resultaat op terreinen die er weinig toe doen, om vermogen over te houden. |
+| brief candles | Korte, met opzet geplande pauzes die betekenis hebben en werkelijk herstel opleveren. |
+| digitale triage | Vooraf een route uitzetten door het online aanbod die de eigen doelen dient, tegen het ontwerp van de apps in. |
+| verhaallijn uitzetten | Het eigen leven als verhaal lezen om te bepalen welke inspanningen bij de bedoeling horen en wat geschrapt kan worden. |
+| collectief tempo | De invloed van werkplekken, gezinnen en gemeenschappen op het tempo dat hun leden kunnen volhouden. |
+
+#### Waar het argument op rust
+
+Svoboda is een bekroonde wetenschapsjournalist die eerder over heldendom en
+altruïsme schreef, en dat is aan de werkwijze te zien: het boek heeft noten en
+een register, en de stellingen over slaap, circadiane ritmes en herstel
+steunen op gevestigde fysiologie. De interviews met sporters en ondernemers
+leveren de verhalen waar de hoofdstukken aan zijn opgehangen, en het vaste
+stramien per hoofdstuk (persoon, moment, stappen) houdt het betoog
+controleerbaar: de lezer ziet steeds waar een advies vandaan komt.
+
+Tegelijk is dit synthese, geen eigen onderzoek. De kernclaim, dat het
+schakelen tussen tempo's uit de duursport overdraagbaar is op kenniswerk en
+levensinrichting, is een analogie die aannemelijk wordt gemaakt met
+voorbeelden, niet getoetst met studies die precies dat vergelijken. Het boek
+verscheen in juni 2026; een oordeel van vakgenoten en onafhankelijke
+recensenten moet nog grotendeels komen.
+
+#### Wat er tegen in te brengen valt
+
+De hardloopmetafoor wordt ver opgerekt. Dat een marathonloper zijn wedstrijd
+indeelt, bewijst weinig over loopbanen, gezinnen of rouw, en op de plaatsen
+waar het boek die sprong maakt, doet de bewijslast het werk niet; de lezer
+moet de overdracht op gezag van de voorbeelden aannemen.
+
+Daarnaast is het terrein druk bezet. Wie Newport over traag en diep werken
+heeft gelezen, of Burkeman over eindigheid, vindt hier vooral een nieuwe
+ordening van bekende adviezen; het eigen accent zit in de biologie en in het
+hoofdstuk over collectief tempo. Dat laatste is ook het eerlijkste deel:
+Svoboda erkent dat individuele doseerkunst strandt in organisaties die haar
+bestraffen, al blijven de aanbevelingen voor die organisaties globaal.
+
+Ten slotte veronderstelt het hele programma een ruimte om te kiezen die lang
+niet iedereen heeft. Wie ploegendiensten draait, mantelzorg combineert met
+werk of van twee banen leeft, kan het zware werk niet naar de eigen polspunten
+schuiven en geen periode van de kaart verdwijnen. Het boek richt zich, zoals
+veel van dit genre, op kenniswerkers met regie over hun agenda, en zegt dat er
+niet bij.
+
+#### Wat er concreet mee te doen is
+
+- Zoek de eigen polspunten door twee weken bij te houden wanneer concentratie
+piekt, en leg het zwaarste werk op die uren.
+- Wijs terreinen aan waar middelmaat volstaat, en spreek dat hardop af.
+- Plan na elk afgerond project een korte pauze met betekenis in plaats van
+meteen door te schuiven.
+- Zet vooraf een route uit voor schermgebruik: wat wel, wat niet, en wanneer.
+
+#### Wat je hierna leest
+
+- 400. Slow Productivity. Newport bepleit hetzelfde tragere ritme voor
+kenniswerk, met meer nadruk op de werkpraktijk.
+- 71. Four Thousand Weeks. Burkeman levert het filosofische fundament onder
+het schrappen: eindigheid dwingt tot kiezen.
+- 329. The Circadian Code. Panda werkt de circadiane biologie uit waar
+Svoboda's polspunten op steunen.
+- 461. The Practice of Groundedness. Stulberg beschrijft dezelfde duurzame
+omgang met ambitie vanuit waarden en aandacht.
+
+## 553. The Way of Excellence
+
+Brad Stulberg, 2026. *The Way of Excellence: A Guide to True Greatness and
+Deep Satisfaction in a Chaotic World* (HarperOne, 2026, 304 blz., ISBN
+9780063385948). Geen Nederlandse vertaling gevonden in de catalogus van
+bibliotheek.nl (alleen *Master of Change* staat er, in het Engels); de
+samenvatting is op de Engelse editie gebaseerd. Rubriek: vakmanschap en
+aandacht.
+Tags: `excellentie`, `vakmanschap`, `waarden`, `consistentie`, `meesterschap`
+
+Brad Stulberg, coach van sporters en leidinggevenden en auteur van *The
+Practice of Groundedness* en *Master of Change*, richt zich in dit derde boek
+op excellentie zelf. Tegenover wat hij pseudo-excellentie noemt, de wereld van
+hacks, snelle oplossingen en perfectionisme, zet hij een oudere opvatting:
+zonder afleiding werken aan iets dat ertoe doet, scheppen en bijdragen, en
+diep verbonden zijn met anderen.
+
+Het boek valt in twee delen. Het eerste legt het fundament met biologie,
+psychologie en filosofie: mensen zijn gebouwd om ergens goed in te willen
+worden, en duurzame motivatie rust op autonomie, competentie en verbondenheid.
+Het tweede deel werkt zestien houdingen en praktijken uit, waaronder geven om
+het werk, waarden als kompas, consistentie boven intensiteit, duurzaam
+zelfvertrouwen, gumption en het inrichten van de omgeving.
+
+Het boek werd bij verschijnen in januari 2026 een bestseller. Veel bouwstenen
+zijn bekend uit Stulbergs eerdere werk en uit de bredere
+meesterschapsliteratuur; de waarde zit in de nuchtere samenhang, niet in
+nieuwe vondsten.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Echte excellentie bestaat uit zonder afleiding werken aan
+iets dat ertoe doet, scheppen en bijdragen aan de wereld, en diepe
+betrokkenheid bij anderen. Zij verschilt wezenlijk van pseudo-excellentie: de
+wereld van hacks, snelle oplossingen en perfectionisme, gedreven door externe
+bevestiging en een eindeloze dopaminejacht. Het verlangen om ergens goed in te
+worden zit volgens Stulberg in de menselijke natuur ingebakken; wie het volgt
+langs meesterschap dat er voor anderen toe doet, met oprechte zorg voor het
+werk, consistentie boven intensiteit en een omgeving die het goede gedrag
+draagt, vindt prestatie en diepe voldoening tegelijk, omdat het proces zelf de
+beloning is.
+
+#### De gang van het boek
+
+**Pseudo-excellentie als tijdsbeeld**
+
+Het boek opent met een diagnose van de prestatiecultuur. Aan
+pseudo-excellentie is geen gebrek: optimalisatietrucs, ochtendroutines van
+anderen, perfectionisme en de jacht op zichtbare resultaten. Stulberg
+beschrijft de kosten daarvan in termen van vervreemding, verslaving aan
+externe bevestiging en een dopaminehuishouding die telkens meer prikkels
+vraagt. Wie zo excelleert, wordt hooguit ergens goed in dat hem koud laat.
+
+Zijn alternatief vat hij in drie kenmerken die de rest van het boek dragen:
+zonder afleiding werken aan iets dat ertoe doet, scheppen en bijdragen aan de
+wereld, en diepe betrokkenheid bij anderen. Excellentie is in die opvatting
+een manier van leven en geen prestatieniveau; zij is bereikbaar voor wie
+gitaar oefent of een afdeling leidt, en zij vraagt om dezelfde grondhouding op
+elk niveau.
+
+**Het fundament: waarom mensen willen uitblinken**
+
+Het eerste deel legt met biologie, psychologie en filosofie uit waarom het
+streven naar beter bij het mens-zijn hoort: mensen zijn gebouwd om te reiken,
+en een leven zonder waardevolle inspanning voelt leeg, hoe comfortabel het ook
+is. Stulberg zoekt daarbij de plekken op waar modern onderzoek en oude
+wijsheidstradities hetzelfde zeggen, van stoïcijnen en boeddhisten tot
+hedendaagse motivatiepsychologie.
+
+De psychologische kern is de zelfdeterminatietheorie: motivatie die houdt,
+rust op autonomie, competentie en verbondenheid, en verschraalt zodra externe
+beloningen het overnemen. Daarom werkt de jacht op likes, ranglijsten en
+applaus op den duur averechts, en daarom begint duurzame excellentie bij
+bezigheden die iemand ook zonder publiek zou voortzetten.
+
+De kern van zijn eigen definitie is de koppeling van meesterschap en
+betekenis, mastery and mattering: vaardigheid opbouwen in iets dat er ook voor
+anderen toe doet. Meesterschap zonder betekenis wordt hol, betekenis zonder
+meesterschap blijft goede bedoeling; de combinatie levert het soort werk waar
+mensen decennia mee vooruit kunnen.
+
+**Zorg, waarden en focus**
+
+Het tweede deel bevat zestien houdingen, gewoonten en praktijken. De eerste
+cluster draait om geven om het werk: talent doet er weinig toe zonder oprechte
+interesse en een zekere eerbied voor het vak. Stulberg noemt dat geven een
+daad van moed, omdat wie ergens zichtbaar om geeft, ook zichtbaar kan
+mislukken; onverschilligheid is de veiliger pose. Daarop volgen waarden,
+expliciet gemaakt en gebruikt als toets voor keuzes, en de vaardigheid van
+aandacht: zonder afleiding kunnen werken is in dit boek een voorwaarde, geen
+luxe.
+
+Ook doelen kiezen krijgt een eigen draai: kies doelen op grond van wie iemand
+wil worden, en laat de vraag wat het oplevert daaraan ondergeschikt zijn.
+
+**Consistentie, vertrouwen en gumption**
+
+Consistentie boven intensiteit is de meest praktische regel: gewone dagen,
+jaren volgehouden, verslaan heroïsche uitbarstingen die tot blessures en
+terugval leiden. Duurzaam zelfvertrouwen bouwt daarop voort: het groeit uit
+bewijs dat iemand zichzelf levert door te doen wat hij zich voornam, en heeft
+weinig met peptalk te maken.
+
+Het eigenzinnigste hoofdstuk gaat over gumption, een term die via Pirsig het
+Amerikaanse vakmanschapsdenken binnenkwam: voorwaartse traagheid, gevoel van
+voortgang en mogelijkheid, sterk en tegelijk gedoseerd enthousiasme. Gumption
+is de brandstof die het lange pad begaanbaar houdt.
+
+**Omgeving, afwegingen en afronding**
+
+De laatste praktijken verplaatsen het zwaartepunt van wilskracht naar
+inrichting: een omgeving die het gewenste gedrag makkelijk maakt, doet meer
+dan discipline. Daarnaast behandelt Stulberg afwegingen (excellentie kost
+iets, en wie de prijs ontkent, betaalt haar dubbel), herstel en routine als
+dragers van het lange werk, vreugde in het werk zelf, en het belang van
+afmaken: projecten daadwerkelijk voltooien in plaats van eeuwig bijschaven.
+
+De rode draad door alle zestien: de voldoening zit in het proces, en resultaat
+is bijvangst van goed gekozen en goed volgehouden werk. Stulberg schrijft als
+coach, met korte hoofdstukken die telkens van verhaal naar onderzoek naar
+aanwijzing lopen, en hij put daarbij uit sport, wetenschap, kunst en zijn
+eigen praktijk als begeleider van sporters en leidinggevenden.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| pseudo-excellentie | Het streven naar zichtbare prestatie via hacks, snelle oplossingen en perfectionisme, gedreven door externe bevestiging. |
+| mastery and mattering | De koppeling van meesterschap en betekenis: vaardigheid opbouwen in werk dat er ook voor anderen toe doet. |
+| consistentie boven intensiteit | Gewone inspanning, lang volgehouden, verkozen boven heroïsche uitbarstingen die niet vol te houden zijn. |
+| duurzaam zelfvertrouwen | Vertrouwen dat groeit uit geleverd bewijs aan zichzelf, door te doen wat voorgenomen was. |
+| gumption | Voorwaartse beweging met gevoel van voortgang en mogelijkheid: sterk en tegelijk gedoseerd enthousiasme. |
+| eerbied voor het werk | De oprechte zorg en diepe interesse zonder welke talent volgens Stulberg weinig waard is. |
+| omgevingsontwerp | De eigen omgeving zo inrichten dat het gewenste gedrag de weg van de minste weerstand wordt. |
+
+#### Waar het argument op rust
+
+De stevigste onderbouwing zit in het fundament: de zelfdeterminatietheorie van
+Deci en Ryan, met autonomie, competentie en verbondenheid als dragende
+behoeften, is een van de best onderzochte motivatietheorieën. Ook de
+pleidooien voor consistentie, herstel en omgevingsontwerp sporen met wat uit
+sportfysiologie en gedragsonderzoek bekend is, terrein dat Stulberg al bewerkt
+sinds *Peak Performance*, het boek dat hij in 2017 met sportwetenschapper
+Steve Magness schreef, en dat hij sindsdien voortzet in zijn nieuwsbrief en
+podcast.
+
+Het tweede deel steunt vooral op verhalen van sporters, makers en
+wetenschappers en op Stulbergs coachingspraktijk. Dat materiaal illustreert de
+principes en bewijst ze niet; de zestien praktijken zijn een ordening van
+levenswijsheid en onderzoek, geen getoetst programma. De bestsellerstatus en
+de aanbevelingen, onder meer van basketbalcoach Steve Kerr, zeggen iets over
+bereik en netwerk, weinig over houdbaarheid.
+
+#### Wat er tegen in te brengen valt
+
+Wie *The Practice of Groundedness* en *Master of Change* kent, komt hier veel
+bekends tegen: waarden, aandacht, geduld en gemeenschap vormden ook daar het
+skelet. Het boek is eerder de voltooiing van een drieluik dan een nieuwe stap,
+en de zestien praktijken geven het geheel het karakter van een geordende
+lijst. Ook binnen de bredere meesterschapsliteratuur is weinig hiervan nieuw:
+doelgericht oefenen, omgevingsontwerp en het waardenkompas zijn elders al
+uitgebreid beschreven, en de lezer die daar thuis is, koopt hier vooral de
+bundeling.
+
+De tegenstelling tussen echte en pseudo-excellentie is bovendien normatief en
+laat zich nauwelijks weerleggen: wat goed uitpakt heet al snel echt, wat leeg
+voelt pseudo. Daar staat tegenover dat het boek binnen zijn genre opvallend
+nuchter is: het belooft geen doorbraken, erkent afwegingen en kosten, en zet
+zich af tegen precies de trucjescultuur waar veel prestatieliteratuur van
+leeft.
+
+#### Wat er concreet mee te doen is
+
+- Toets een lopende ambitie aan mastery and mattering: wordt er vaardigheid
+opgebouwd, en doet het er voor iemand anders toe?
+- Kies bij elk nieuw doel eerst wie er bereikt wil worden, en pas daarna wat
+er behaald moet worden.
+- Vervang één geplande krachtsinspanning door een kleinere versie die maanden
+vol te houden is.
+- Richt de werkplek zo in dat het belangrijkste werk de minste weerstand kost.
+- Maak af wat bijna klaar is voordat er iets nieuws begint.
+
+#### Wat je hierna leest
+
+- 1. Zen en de kunst van het motoronderhoud. Pirsig muntte het gumption-begrip
+dat Stulberg overneemt, in zijn onderzoek naar kwaliteit.
+- 320. Mastery. Greene beschrijft dezelfde lange weg naar meesterschap langs
+leertijd en mentoren.
+- 375. Master of Change. Stulbergs vorige boek behandelt de omgang met
+verandering die excellentie telkens onderbreekt.
+- 461. The Practice of Groundedness. Het eerste deel van het drieluik legt de
+gegronde basis waar dit boek op voortbouwt.
+
+## 554. When Heaven Weeps
+
+Ted Dekker, 2001. *When Heaven Weeps* (Word Publishing, 2001, 390 blz., ISBN
+9780849942914), deel 2 van de Martyr's Song-reeks. Nederlandse vertaling:
+*Wanneer de hemel huilt* (Novapres, 2005). Rubriek: roman en memoir.
+Tags: `roman`, `geloof`, `verslaving`, `opoffering`
+
+Ted Dekker vertelt in deze vroege thriller het bijbelboek Hosea na. Jan Jovic,
+een Servische oorlogsveteraan die in Amerika beroemd werd met een boek over
+een martelaarschap dat hij als soldaat zelf hielp aanrichten, wordt verliefd
+op Helen, een aan heroïne en cocaïne verslaafde vrouw die telkens terugkeert
+naar de drugsbaron die haar kapotmaakt. Zijn huwelijk met haar wordt een beeld
+van Gods geduld met de ontrouwe mens, en de prijs die hij ervoor betaalt is
+hoog.
+
+Het boek opent met het sterkste deel: een Bosnisch dorp in 1944, waar een
+sadistische commandant een spel om leven en dood afdwingt en een priester en
+een meisje sterven zonder haat. Wie dat deel gelezen heeft, begrijpt waarom de
+rest van het verhaal, met al zijn melodrama, toch blijft hangen. Voor lezers
+die christelijke fictie principieel mijden is dit geen boek; voor wie wil zien
+wat het genre op zijn best en op zijn zwakst tegelijk kan zijn, is het een
+leerzaam voorbeeld.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Deze roman vertelt het bijbelboek Hosea na als thriller. Jan
+Jovic, een Servische oorlogsveteraan die in Amerika beroemd werd met een boek
+over een martelaarschap dat hij zelf hielp aanrichten, trouwt met een
+verslaafde vrouw die telkens terugkeert naar de man die haar vernietigt.
+Dekker stelt dat dit precies is hoe God de mens liefheeft: een liefde die
+vernedering verdraagt en de dood aandurft, omdat één moment bij God de dood
+waard is. Het boek is dus geen romantiek in christelijke verpakking; het is
+een betoog over genade in verhaalvorm.
+
+#### De gang van het verhaal
+
+**Het spel in het dorp**
+
+Het verhaal opent in 1944 in een Bosnisch dorp waar pater Michael een vrome,
+hechte gemeenschap leidt. De Servische commandant Karadzic dwingt de
+dorpsvrouwen betonnen kruisen te dragen en drijft de vernedering op tot een
+spel om leven en dood. Het meisje Nadia biedt haar leven aan in ruil voor dat
+van de priester; Karadzic schiet haar dood en vermoordt daarna ook Michael. De
+jonge soldaat Jan Jovic ziet dat deze mensen sterven zonder haat, en dat
+ogenblik breekt hem open.
+
+Jan keert zich tegen zijn commandant, zit na de oorlog vijf jaar gevangen en
+komt tot geloof. Deze openingshoofdstukken werkte Dekker later apart uit in de
+novelle The Martyr's Song, die de reeks zijn naam gaf.
+
+**De schrijver in Atlanta**
+
+Twintig jaar later woont Jan in Atlanta. Zijn boek The Dance of the Dead, het
+verslag van wat hij in het dorp zag, is een bestseller. Er is een bediening
+omheen gebouwd, een filmcontract ligt klaar en Jan is verloofd met zijn agente
+Karen. Nadia's moeder Ivena is met hem mee geëmigreerd en is zijn geestelijke
+moeder. Boven zijn huis hangt de spreuk 'In leven sterven wij, in sterven
+leven wij', maar Ivena ziet dat Jan de liefde waarover hij schrijft zelf nog
+niet kent.
+
+In Ivena's kas ent zich intussen een onbekende witte bloem op een rozenstruik,
+een stil wonder dat het hele boek door meegroeit met wat komen gaat.
+
+**Helen**
+
+Jan kruist het pad van Helen, een jonge vrouw die verslaafd is en op de vlucht
+voor Glenn Lutz, een rijke, gewelddadige drugsbaron uit Atlanta die haar als
+zijn bezit beschouwt. Helen is rauw getekend: een verwoeste jeugd, een
+verslaving die volgens het boek 'tot in de ziel' zit. Jan neemt haar in huis,
+tegen elke redelijkheid in, en merkt dat hij van haar houdt.
+
+De verloving met Karen strandt, de christelijke achterban reageert
+verontwaardigd en het filmcontract wankelt. Dekker gebruikt die
+verontwaardiging als spiegel: de kerk die genade predikt, herkent haar niet
+wanneer zij zich aandient in de gestalte van een junkie.
+
+**Huwelijk en terugval**
+
+Jan trouwt met Helen. Zij valt terug, keert terug naar Lutz, komt weer thuis,
+en dat herhaalt zich. Hier wordt de Hosea-parallel expliciet: zoals de profeet
+moest trouwen met een overspelige vrouw om Israël Gods trouw te tonen, zo
+wordt Jans huwelijk een beeld van Gods geduld met wie hem telkens verlaat.
+Lutz voert ondertussen de druk op; zijn obsessie met Helen groeit uit tot een
+jacht op Jan zelf.
+
+**De prijs**
+
+Het boek is opgedeeld in vier delen, De priester, De zondaar, De minnaar en De
+geliefde, en die volgorde verraadt waar het heen gaat: de blik verschuift van
+Jan naar Helen. De ontknoping draait om de vraag uit Jans eigen boek: is één
+moment bij God de dood waard? Lutz krijgt Jan in handen, en het antwoord kost
+Jan alles. Het slot laat Helen achter als jonge weduwe met een kind.
+
+Wie Heaven's Wager kent, het eerste deel van de reeks, weet dat zij daar
+decennia later terugkeert als de biddende grootmoeder Helen Jovic; de drie
+delen van de trilogie delen die figuur. Haar redding komt er pas wanneer zij
+zelf te zien krijgt wat Jan al die jaren zag, en juist over dat slot lopen de
+meningen van lezers het sterkst uiteen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| The Dance of the Dead | Jans bestseller over het martelaarschap van Nadia en pater Michael, met als kernzin dat God de mens hartstochtelijk liefheeft en dat één moment met Hem de dood waard is. |
+| het spel | Karadzic' benaming voor de gedwongen keuze tussen Christus verloochenen en sterven, het sadisme waarmee het boek opent. |
+| In leven sterven wij, in sterven leven wij | De spreuk boven Jans huis, die de these van het boek samenvat: navolging betekent het eigen leven loslaten. |
+| de rozen van Ivena | De vreemde witte bloemen die zich in Ivena's kas op een rozenstruik enten en meebloeien met de genade in het verhaal. |
+| Hosea-parallel | Het oudtestamentische patroon waarin een profeet trouwt met een ontrouwe vrouw als beeld van Gods verbond met een ontrouw volk. |
+| Martyr's Song-reeks | De romans Heaven's Wager, When Heaven Weeps en Thunder of Heaven plus de novelle The Martyr's Song, verbonden door het dorp uit 1944 en de figuur van Helen. |
+
+#### Waar het argument op rust
+
+Een roman hoeft niets te bewijzen, maar de bouwstenen zijn na te trekken. De
+Hosea-parallel is expliciet en volgt de bijbelse bron getrouw. De historische
+inkleding is losser: Dekker situeert het dorpsdrama aan het eind van de Tweede
+Wereldoorlog, maar de naam Karadzic en het beeld van Servische soldaten die
+een Bosnisch dorp terroriseren verwijzen onmiskenbaar naar de Joegoslavische
+oorlogen van de jaren negentig, vers in het geheugen toen het boek verscheen.
+Als tijdsbeeld van 1944 moet de lezer het niet nemen.
+
+De martelaarsthematiek komt wel ergens vandaan: Dekker groeide op als kind van
+zendelingen in Indonesië en verwerkte de vraag wat geloof mag kosten in
+vrijwel al zijn vroege werk. Het boek werd in het genre een blijvende titel en
+Dekker groeide uit tot een van de best verkopende auteurs van christelijke
+thrillers.
+
+#### Wat er tegen in te brengen valt
+
+Het zwakste punt is dat het middenstuk het openingsdeel niet waarmaakt. Na het
+dorp in 1944 vervalt het verhaal geregeld in melodrama, het tempo hapert en
+Karen bestaat vooral om spanning te leveren; recensenten die het boek verder
+waarderen noemen het niet Dekkers best geschreven werk. Het geweld is
+bovendien expliciet, ook tegen kinderen, en dat verdraagt niet elke lezer.
+
+Inhoudelijk valt er meer te zeggen. Als het boek als relatiemodel wordt
+gelezen, staat er dat liefde en volharding een verslaafde partner heel kunnen
+maken; hulpverleners herkennen daarin eerder een recept voor
+medeafhankelijkheid dan voor redding, en meerdere christelijke lezers hebben
+precies dat bezwaar aangetekend. Ook binnen de eigen logica wringt iets:
+Helens ommekeer komt uiteindelijk door een rechtstreekse hemelervaring en net
+dat verzwakt de Hosea-pointe dat trouwe liefde zelf het middel is. Wie het als
+parabel leest en niet als handleiding, houdt het meeste over.
+
+#### Wat je hierna leest
+
+- 31. Unbroken. Unbroken: een waargebeurde geschiedenis van oorlog,
+krijgsgevangenschap en vergeving, zonder romanvrijheden.
+- 48. Man's Search for Meaning. Man's Search for Meaning: Frankl over de vraag
+wat lijden zin geeft, uit de eerste hand.
+- 254. Crime and Punishment. Crime and Punishment: schuld en genade bij
+Dostojevski, dezelfde vragen met meer psychologische diepte.
+
+## 555. Kinship with All Life
+
+J. Allen Boone, 1954. *Kinship with All Life* (Harper & Brothers, 1954, 157
+blz.; herdruk HarperOne, ISBN 9780060609122). Geen Nederlandse vertaling
+gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse
+editie gebaseerd. Rubriek: natuur en wetenschap.
+Tags: `dieren`, `communicatie`, `hollywood`, `new thought`
+
+J. Allen Boone, journalist en filmproducent in het vroege Hollywood, kreeg
+eind jaren twintig de zorg over Strongheart, een Duitse herder die op dat
+moment de grootste kassatrekker van de filmindustrie was. Uit die logeerpartij
+groeide dit boek: tweeëndertig korte hoofdstukken over wat er volgens Boone
+gebeurt wanneer een mens een dier als gelijke behandelt. Hij claimt woordloze
+gesprekken in twee richtingen, met de hond, met een leger mieren, met
+ratelslangen en uiteindelijk met een huisvlieg die hij Freddie noemt.
+
+Die claims zijn nooit met iets anders onderbouwd dan Boones eigen woord, en
+wie het boek als bewijs voor dierentelepathie leest, leest een
+geloofsgetuigenis uit de New Thought-traditie. Wat overblijft na aftrek van de
+metafysica is niet niks: een charmant tijdsdocument over Hollywoods eerste
+dierenster en een vroeg pleidooi voor respectvolle, geduldige observatie van
+dieren, geschreven door iemand die oprecht van ze hield. Het boek wordt tot
+vandaag in kringen van dierencommunicatie als klassieker doorgegeven; juist
+daarom is het nuttig te weten wat er wel en niet in staat.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Boone stelt dat tussen mens en dier woordloze communicatie in
+twee richtingen mogelijk is. Alle levende wezens zijn in zijn ogen
+uitdrukkingen van één universele Geest; wie de aangenomen meerderwaardigheid
+van de mens aflegt en zijn denken zuivert, merkt volgens hem dat zijn
+gedachten hem vooruitreizen en dat het dier daarop antwoordt. Het boek draagt
+die claim voor als doorleefd ervaringsfeit, aan de hand van de filmhond
+Strongheart, een leger mieren, ratelslangen in de woestijn en een huisvlieg,
+en vraagt er geen ander bewijs voor dan de bereidheid het zelf te proberen.
+
+#### De gang van het boek
+
+**Een filmster in huis**
+
+Strongheart, in Duitsland opgeleid als politie- en oorlogshond, werd begin
+jaren twintig met The Silent Call en White Fang de best betaalde ster van
+Hollywood. Toen zijn trainer Larry Trimble de stad uit moest, kreeg Boone, die
+naar eigen zeggen vrijwel niets van honden wist, de zorg over hem. De eerste
+nacht zet de toon: de hond opent zelf deuren, inspecteert het huis als een
+politieman en gaat telkens dwars in bed liggen. Als Boone hem er hardop over
+onderhoudt, trekt Strongheart hem aan zijn pyjamamouw naar het raam waar de
+verdachte geluiden vandaan kwamen: hij lag zo om zijn mens te bewaken.
+
+Boone concludeert dat hij niet met 'zomaar een hond' te maken heeft en besluit
+het dier serieus te bestuderen, niet als lichaam maar als karakter.
+
+**Mojave Dan en het omgekeerde onderwijs**
+
+Vastgelopen in zijn vragen zoekt Boone in de woestijn de kluizenaar Mojave Dan
+op, die met honden en ezels samenleeft. Na een avond zwijgen krijgt hij één
+raad: er valt veel over een hond te leren, maar dat moet aan de hond zelf
+gevraagd worden. Boone beseft dat hij iedereen over Strongheart had
+geraadpleegd behalve Strongheart.
+
+Terug in Hollywood draait hij de rolverdeling om: geen mens die de hond
+traint, maar een hond die de mens opvoedt. Hij legt zijn trots als 'weter' af
+en laat zich onderwijzen. De hoofdstukken over dit leerplan zijn de kern van
+het boek.
+
+**Stille gesprekken en de mentale brug**
+
+Op verlaten stranden en onder de sterrenhemel voert Boone naar eigen zeggen
+stille tweegesprekken met de hond. Hij beschrijft een 'mentale brug' die
+horizontaal moet liggen: beide kanten gelijkwaardig, verkeer in twee
+richtingen, en alleen de beste gedachten mogen erover. Wie de brug laat hellen
+omdat hij zich als mens verheven voelt, verbreekt de verbinding.
+
+Boone claimt dat hij antwoorden ontving op vrijwel al zijn vragen en dat die
+'tot in detail werden bevestigd'. Welke vragen en welke bevestigingen dat
+waren, blijft onvermeld.
+
+**Ratelslangen en gedachte-uitstraling**
+
+Een oude goudzoeker vertelt Boone dat ratelslangen witte mannen wel bijten en
+indianen vrijwel nooit. Boones verklaring: het denken van een mens reist voor
+hem uit, en de slang leest die uitstraling feilloos. Wie met walging en
+doodsdrift nadert, krijgt strijd; wie zonder vijandschap komt, wordt met rust
+gelaten.
+
+In dezelfde geest beschrijft hij hoe een vrouw een grote slang kalmeert met
+stille welwillendheid, en hoe hijzelf met een mierenkolonie tot een vergelijk
+komt. De les die hij eraan verbindt: elke levensvorm reageert op oprechte
+belangstelling en respect.
+
+**Freddie de vlieg**
+
+Het slotdeel is het bekendste. Een huisvlieg die zich tijdens het scheren op
+Boones hand zet, krijgt de naam Freddie, komt naar eigen waarneming op die
+naam af, laat zich de vleugels strelen en wordt Boones laatste leermeester.
+Via een vers uit het boek Job ('Gij zult een zaak decreteren, en zij zal u
+bevestigd worden') komt Boone op zijn leer van het decreteren: hij verwachtte
+altijd dat vliegen zouden hinderen, en ze deden het; sinds hij zijn
+verwachting omkeerde, zegt hij nergens meer last van vliegen te hebben, zelfs
+niet in de tropen.
+
+Het boek eindigt waar het begon: alle wezens zijn verwanten binnen één
+Totaliteit, en de oude toestand waarin 'de hele aarde één taal sprak' is voor
+wie het aandurft nog steeds bereikbaar.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| verwantschap (kinship) | Boones kerngedachte dat mens en dier gelijkwaardige uitdrukkingen zijn van hetzelfde leven en elkaar daarom kunnen verstaan. |
+| mentale brug | De denkbeeldige verbinding tussen twee wezens waarover gedachten in beide richtingen reizen, mits beide einden even hoog liggen. |
+| stil spreken (silent talk) | Woordloos vragen stellen en indrukken terugontvangen, door Boone beschreven als gewoon te leren vaardigheid. |
+| hond traint mens | De omkering waarbij Boone zich door Strongheart laat opvoeden in plaats van andersom. |
+| gedachte-uitstraling | Boones stelling dat iemands denken hem vooruitreist en door dieren wordt gelezen voordat hij iets doet. |
+| decreteren | Aan Job 22:28 ontleende leer dat stellige verwachtingen de ervaren werkelijkheid vormen, door Boone toegepast op vliegen. |
+| Totaliteit | De universele Geest of het goddelijk Bewustzijn waarvan elk levend wezen volgens Boone een individuele uitdrukking is. |
+
+#### Waar het argument op rust
+
+Het bewijs bestaat geheel uit anekdotes van de auteur zelf, opgeschreven
+decennia na dato: Strongheart stierf in 1929, het boek verscheen in 1954. Er
+is geen registratie, geen tweede waarnemer, geen poging tot controle. De
+sterkste claims zijn zo geformuleerd dat ze niet te toetsen zijn: dat de
+antwoorden van de hond 'tot in detail werden bevestigd' moet de lezer op gezag
+aannemen, en het verhaal over ratelslangen die indianen sparen komt van één
+naamloze goudzoeker.
+
+Wat wel vaststaat: Strongheart bestond, was als politiehond uitzonderlijk goed
+getraind en werd Hollywoods eerste grote hondenster. Dat zo'n dier deuren
+opent, op stemmingen reageert en zijn verzorger leest, vergt geen telepathie.
+Uit onderzoek is bekend dat honden zeer goed menselijke signalen oppikken, en
+de geschiedenis van het paard Kluger Hans uit 1907 laat zien hoe gemakkelijk
+een welwillende waarnemer onbewuste signalen voor begrip of
+gedachtenoverdracht aanziet. Boones waarnemingen passen daar volledig in; zijn
+verklaring ervoor niet.
+
+#### Wat er tegen in te brengen valt
+
+De metafysica komt herkenbaar uit de New Thought-beweging: één goddelijke
+Geest, gedachten die de werkelijkheid vormen, decreteren als techniek. Dat
+wordt nergens als levensbeschouwing gepresenteerd maar als vaststaand feit, en
+dat is het niet. Voor telepathische communicatie tussen soorten bestaat geen
+serieus bewijs, en de vliegenclaim, nooit meer last van vliegen sinds de
+verwachting omsloeg, is selectieve waarneming in zuivere vorm. Dat het boek in
+kringen van dierentolken nog altijd als bewijsstuk circuleert, zegt iets over
+die kringen en niets over het bewijs.
+
+Daar staat tegenover dat de praktische kern goed spoort met wat honderd jaar
+gedragsonderzoek sindsdien opleverde: dieren reageren scherp op houding,
+spanning en verwachting van mensen, en respectvolle observatie levert meer op
+dan dwang. Als document over het vroege Hollywood en als getuigenis van iemand
+die dieren werkelijk zag, heeft het boek blijvende charme. Het verdient alleen
+een andere plank dan die van de wetenschap.
+
+#### Wat er concreet mee te doen is
+
+- Behandel een huisdier als nauwkeurige waarnemer van stemming en spanning;
+kalmte en duidelijkheid werken beter dan dwang.
+- Observeer een dier eerst langdurig voordat er een verklaring aan zijn gedrag
+wordt gehangen.
+- Toets verhalen over dierentelepathie aan het Kluger Hans-effect: ga na welke
+gewone signalen het gedrag kunnen verklaren.
+- Lees het boek als tijdsdocument en levenshouding, en zoek de feiten over
+dierencognitie in recenter werk.
+
+#### Wat je hierna leest
+
+- 322. An Immense World. An Immense World: wat dierenzintuigen werkelijk
+kunnen, op basis van onderzoek.
+- 383. If Nietzsche Were a Narwhal. If Nietzsche Were a Narwhal: dierlijke
+intelligentie nuchter gewogen.
+- 63. The Demon-Haunted World. The Demon-Haunted World: het gereedschap om
+claims als die van Boone te toetsen.
+
+## 556. Spiritual Divorce
+
+Debbie Ford, 2001. *Spiritual Divorce: Divorce as a Catalyst for an
+Extraordinary Life* (HarperSanFrancisco, 2001, 240 blz., ISBN 9780062516954).
+Nederlandse vertaling: *Heling na scheiding* (2002). Rubriek: levenskunst.
+Tags: `scheiding`, `spiritualiteit`, `zelfhulp`, `vergeving`
+
+Debbie Ford, bekend geworden met haar schaduwwerk-boek The Dark Side of the
+Light Chasers, schreef dit boek na haar eigen echtscheiding. Haar stelling:
+een scheiding is een spirituele wekroep. De pijn legt bloot welke oude wonden
+en verstoten kanten van het zelf aandacht vragen, en wie de crisis doorloopt
+volgens zeven geestelijke wetten, van acceptatie tot schepping, komt er vrijer
+uit dan hij het huwelijk inging. Elk hoofdstuk sluit af met oefeningen uit
+haar workshoppraktijk.
+
+Het boek geeft taal en structuur aan een levensfase waarvoor weinig rituelen
+bestaan, en de oefeningen dwingen tot eerlijk zelfonderzoek waar
+verongelijktheid makkelijker zou zijn. De onderbouwing is er niet: geen
+onderzoek, wel een metafysica waarin alles gebeurt zoals het moet gebeuren en
+de ex-partner precies de leraar was die nodig was. Voor wie uit een
+gewelddadig huwelijk komt, kan dat uitgangspunt eerder schaden dan helen; voor
+wie een gewone scheiding te verwerken heeft, valt er met enige selectie
+bruikbaar gereedschap te halen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Ford stelt dat een echtscheiding een spirituele wekroep is.
+De ineenstorting van een huwelijk komt in haar ogen nooit uit de lucht vallen:
+de crisis legt bloot welke oude wonden en verstoten kanten van het zelf om
+aandacht vragen. Wie de scheiding doorloopt volgens zeven geestelijke wetten,
+acceptatie, overgave, goddelijke leiding, verantwoordelijkheid, keuze,
+vergeving en schepping, gebruikt de pijn als brandstof voor groei en komt
+vrijer en completer uit de breuk dan hij het huwelijk inging. Het uitgangspunt
+is radicaal: alles gebeurt zoals het moet gebeuren, ook dit, en de ex-partner
+was precies de leraar die nodig was.
+
+#### De gang van het boek
+
+**Van drama naar wekroep**
+
+Ford opent met haar eigen verhaal: een kort huwelijk, een jonge zoon, en de
+vernedering van een scheiding die haaks stond op haar zelfbeeld van spiritueel
+gevorderde. Zij beschrijft hoe zij in de rol van slachtoffer wegzakte, nachten
+doorbracht met woede op haar ex en pas verder kwam toen zij de breuk ging
+bekijken met dezelfde bril die zij in haar schaduwwerk hanteert: wat gebeurt
+er hier dat ik nodig heb om te groeien? Angst en pijn behandelt zij door het
+hele boek heen als boodschappers die de plaats van een oude wond aanwijzen,
+meestal een wond die ouder is dan het huwelijk zelf.
+
+Daarmee staat het kader: niet de juridische of praktische scheiding is het
+onderwerp, maar wat Ford de spirituele scheiding noemt, het innerlijke proces
+waarin iemand zich losmaakt van het verhaal dat de ander de schuld draagt. Wie
+in dat verhaal blijft wonen, sleept het volgens haar mee naar elke volgende
+relatie en herhaalt daar hetzelfde patroon met een nieuwe tegenspeler.
+
+**Acceptatie en overgave**
+
+De eerste wet, acceptatie, zegt dat alles is zoals het moet zijn: geen toeval,
+geen vergissing, maar een leven dat zo is ingericht dat ieder precies de
+lessen krijgt die zijn ontwikkeling dient. De tweede wet, overgave, richt zich
+op het verzet: zolang iemand vecht tegen wat er is, uit angst dat loslaten
+chaos betekent, kan er niets helen. Wie toegeeft de situatie niet te kunnen
+repareren, staat volgens Ford aan het begin van herstel.
+
+De taal is hier onmiskenbaar die van de twaalfstappenwereld: machteloosheid
+erkennen, hulp toelaten, een macht groter dan het eigen ego. Ford, die
+openlijk over haar eigen verslavingsverleden heeft geschreven, bouwt
+aantoonbaar op dat model voort.
+
+**Leiding en verantwoordelijkheid**
+
+De derde wet belooft dat God doet wat de mens zelf niet kan, zodra nederigheid
+het ego opzij zet. De vierde wet is de scharnier van het boek:
+verantwoordelijkheid. Ford vraagt de lezer na te gaan hoe hij zijn eigen
+scheidingsdrama heeft meegeschapen: welke signalen genegeerd, welke patronen
+herhaald, welke partnerkeuze gemaakt en waarom.
+
+De formule die zij daarbij gebruikt, de perfecte partner voor de perfecte
+lessen, is de meest geciteerde en de meest aanvechtbare van het boek. Bedoeld
+is: wie zijn aandeel ziet, hoeft niet langer op de ander te wachten om verder
+te kunnen. Verantwoordelijkheid is bij Ford uitdrukkelijk iets anders dan
+schuld; het gaat om het terugnemen van handelingsruimte, al bewaakt zij die
+grens in haar formuleringen niet altijd even zorgvuldig.
+
+**Keuze en vergeving**
+
+Met de vijfde wet verschuift het boek van inzicht naar handeling: wie
+verantwoordelijkheid heeft genomen, kan nieuwe interpretaties kiezen en gedrag
+veranderen. Ford spreekt van het doorsnijden van karmische koorden: de
+projecties terughalen die op de ex-partner waren geplakt, het schaduwwerk uit
+haar eerdere boek toegepast op een huwelijk.
+
+De zesde wet, vergeving, komt nadrukkelijk pas hierna. Vergeving is bij Ford
+geen beleefdheid richting de ander maar het loslaten van de eigen oordelen, te
+beginnen met compassie voor zichzelf; pas daarna komt de ex in beeld.
+
+**Schepping en de praktijk**
+
+De zevende wet, schepping, keert de blik naar voren: wie de koorden heeft
+doorgesneden en vergeven heeft, kan een toekomst ontwerpen die niet langer een
+reactie op het verleden is. Ford laat deelnemers uit haar workshops aan het
+woord die de scheiding achteraf hun belangrijkste leerschool noemen.
+
+Praktisch is het boek een werkboek: elk hoofdstuk sluit af met Healing Action
+Steps, oefeningen om de wet van dat hoofdstuk in te oefenen, geput uit Fords
+workshoppraktijk. In de wet van de keuze hoort daar het terugnemen van
+projecties bij: nagaan welke eigenschappen aan de ex-partner werden
+toegeschreven en bij de schrijver zelf horen. De volgorde van de wetten is
+bindend bedoeld: vergeven vóór er verantwoordelijkheid genomen is, werkt
+volgens Ford niet, en een nieuwe toekomst ontwerpen vóór er vergeven is
+evenmin.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| spirituele scheiding | Het innerlijke proces waarin de breuk wordt gebruikt om oude wonden te helen, los van de juridische scheiding. |
+| wekroep | Fords duiding van de crisis: de ineenstorting van het huwelijk als signaal dat het leven om een koerswijziging vraagt. |
+| scheidingsdrama | Het verhaal van schuld en slachtofferschap dat beide partners over de breuk vertellen en dat heling in de weg staat. |
+| de zeven geestelijke wetten | Acceptatie, overgave, goddelijke leiding, verantwoordelijkheid, keuze, vergeving en schepping, als verplichte volgorde gepresenteerd. |
+| karmische koorden | De onzichtbare banden met de ex-partner die volgens Ford worden doorgesneden door projecties terug te nemen. |
+| schaduw | De verstoten eigenschappen die iemand op zijn partner projecteert; kernbegrip uit Fords eerdere werk dat hier op het huwelijk wordt toegepast. |
+| Healing Action Steps | De schrijfoefeningen, gebeden en rituelen waarmee elk hoofdstuk afsluit. |
+
+#### Waar het argument op rust
+
+Het boek steunt op twee bronnen: Fords eigen scheiding en de verhalen van
+deelnemers aan haar workshops. Onderzoek ontbreekt volledig; er is geen
+cijfer, geen vergelijking, geen verwijzing naar literatuur over
+scheidingsverwerking. De metafysische kern, een goddelijk ontwerp waarin elke
+partner de juiste leraar is, is een geloofsuitspraak die zich aan elke
+toetsing onttrekt.
+
+Wel leunt het schema herkenbaar op beproefde bouwstenen. De eerste wetten
+volgen het twaalfstappenmodel, waarvan de werkzaamheid bij verslaving redelijk
+gedocumenteerd is; acceptatie en het herformuleren van het eigen verhaal
+sporen met wat rouwonderzoek en cognitieve therapie over verliesverwerking
+zeggen. Dat maakt het aannemelijk dat de oefeningen menigeen goed doen, maar
+het boek zelf levert daarvoor alleen tevreden cursisten als bewijs.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar richt zich op de combinatie van wet één en wet vier. Wie
+net door een partner is bedrogen of mishandeld, krijgt hier te horen dat alles
+is zoals het moet zijn en dat hij zijn drama heeft meegeschapen. Ford maakt
+nauwelijks onderscheid tussen een gelijkwaardige breuk en situaties van geweld
+of misbruik, en juist daar wordt medeverantwoordelijkheid aanpraten
+schadelijk. Het verwijt dat dit denken slachtoffers met de schuld opzadelt, is
+bij dit boek niet theoretisch.
+
+Daarnaast blijft alles wat een scheiding praktisch zwaar maakt, geld, recht,
+ouderschap, vrijwel buiten beeld, en wordt de metafysica van karma en
+goddelijk plan als feit gebracht. Daar staat tegenover dat het boek iets biedt
+wat in 2001 schaars was en dat nog steeds is: een doordachte volgorde voor de
+innerlijke kant van een scheiding, met de nuchtere kern dat wachten op excuses
+van de ander de eigen heling blokkeert. Wie de kosmologie laat voor wat zij
+is, houdt een bruikbaar werkboek over.
+
+#### Wat er concreet mee te doen is
+
+- Schrijf het eigen aandeel in de breuk op zonder het gedrag van de ander goed
+te praten; het een sluit het ander niet uit.
+- Stel vergeving uit tot de woede erkend en doorvoeld is; de volgorde van de
+zeven wetten is daarin verstandiger dan haastige verzoening.
+- Gebruik de schrijfoefeningen ook zonder de metafysica; ze werken als
+gestructureerd zelfonderzoek.
+- Zoek bij een scheiding na geweld of misbruik eerst professionele hulp; het
+co-creatie-kader van dit boek past daar niet.
+
+#### Wat je hierna leest
+
+- 162. Boundaries. Boundaries: grenzen stellen in relaties, met dezelfde
+geestelijke inslag en meer praktische scherpte.
+- 204. The Path to Self-Love. The Path to Self-Love: rouwverwerking na een
+relatiebreuk zonder karmisch kader.
+- 449. Letting Go: The Pathway of Surrender. Letting Go: overgave als methode,
+met vergelijkbare sterke en zwakke kanten.
+
+## 557. Life Is Hard, Food Is Easy
+
+Linda Spangle, 2003. *Life Is Hard, Food Is Easy: The 5-Step Plan to Overcome
+Emotional Eating and Lose Weight on Any Diet* (LifeLine Press, 2003, 294 blz.,
+ISBN 9780895261458). Geen Nederlandse vertaling gevonden in de catalogus van
+bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd. Rubriek:
+brein en lichaam.
+Tags: `emotie-eten`, `afvallen`, `gewoontes`, `zelfhulp`
+
+Linda Spangle, verpleegkundige en gewichtscoach met een eigen afslankpraktijk
+in Denver, richt zich op de eetmomenten waarop geen honger bestaat: de zak
+chips na een rotdag, het ijs tegen de leegte. Haar indeling: hoofdhonger is
+gerichte trek in knapperig of kauwbaar voedsel en hoort bij spanning en
+ergernis; harthonger is diffuse trek in zacht troostvoedsel en hoort bij
+leegte en verdriet. Wie de trek herkent, kan vijf vragen doorlopen: wat is er
+aan de hand, wat voel ik, wat heb ik nodig, wat staat me in de weg, wat ga ik
+doen.
+
+Het boek combineert dat model met concrete regels, zoals nooit langer dan vijf
+uur zonder eten en de eerste happen bewust proeven. De onderbouwing blijft bij
+eigen praktijkervaring; het geclaimde succespercentage van negentig procent
+bij haar cliënten is nergens gepubliceerd of gecontroleerd, en het onderscheid
+hoofd- en harthonger is haar eigen indeling, geen gevalideerd construct. De
+aanpak zelf, gevoelens benoemen en behoeften rechtstreeks vervullen, spoort
+wel met wat over emotie-eten bekend is uit cognitief-gedragsmatige hoek.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Spangle stelt dat diëten zelden stranden op gebrek aan kennis
+over voeding en vrijwel altijd op eten zonder honger: eten als demper van
+gevoelens. Dat eetgedrag bevat volgens haar een leesbare boodschap. Wie leert
+onderscheiden of trek uit de maag, het hoofd of het hart komt, en bij elke
+eetdrang vijf vragen doorloopt, wat is er aan de hand, wat voel ik, wat heb ik
+nodig, wat staat me in de weg, wat ga ik doen, leert gevoelens rechtstreeks te
+hanteren en kan daarna met vrijwel elk redelijk voedingspatroon gewicht
+verliezen.
+
+#### De gang van het boek
+
+**Eten als beste vriend**
+
+Spangle begint bij de functie van eten die op geen etiket staat: het is altijd
+beschikbaar, stelt geen vragen en werkt onmiddellijk. Zolang eten de
+betrouwbaarste troost in iemands leven is, verliest elk dieet het op den duur
+van een moeilijke week. Haar cliëntverhalen, vrouwen en mannen die na elke
+tegenslag bij de koelkast eindigen, zetten het patroon neer. De titel vat het
+samen: het leven is moeilijk en eten is makkelijk, dus wie het leven niet
+aankan, eet.
+
+Het doel van het boek is eten terug te brengen tot twee taken: het lichaam
+voeden en van smaak genieten. Alles wat iemand daarbuiten van eten vraagt,
+wijst volgens Spangle naar een behoefte die anders vervuld moet worden. De
+vijf stappen krijgen elk een eigen hoofdstuk, met tussenliggende hoofdstukken
+die het thema verdiepen; het geheel is opgezet als werkboek met adviezen,
+cliëntverhalen, schrijfoefeningen en losse praktijktips.
+
+**Stap 1: wat is er aan de hand?**
+
+De eerste vraag richt zich op het signalement van de trek. Hoofdhonger is
+gericht: verlangen naar iets specifieks, meestal knapperig of kauwbaar zoals
+chips of pizza, en hoort bij drukemoties als woede, stress, frustratie en
+wrok. Harthonger is diffuus: geen bepaald voedsel maar de wens om te eten,
+doorgaans zacht en romig troostvoedsel zoals ijs of pasta, en hoort bij
+verdriet, eenzaamheid en leegte.
+
+Fysieke honger onderscheidt zich van beide doordat zij geleidelijk opkomt en
+met elk voedsel te stillen is. De indeling geeft de lezer een eerste
+diagnose-instrument: het soort trek verraadt het soort probleem. Wie bij
+hoofdhonger doorvraagt, komt volgens Spangle meestal uit bij iets dat
+aangepakt of uitgesproken moet worden; wie bij harthonger doorvraagt, bij iets
+dat gemist wordt.
+
+**Stap 2: wat voel ik?**
+
+Veel eters herkennen hun gevoelens niet meer, stelt Spangle, omdat die
+jarenlang zijn weggegeten. Zij gebruikt het beeld van de emotionele doos: wie
+lastige gevoelens wegstopt, stompt ook de prettige af. Ongeschreven
+gezinsregels, zoals dat boosheid onfatsoenlijk is of verdriet aanstellerij,
+bepalen welke emoties iemand zichzelf toestaat.
+
+De oefening bij deze stap is eenvoudig: de zin 'ik voel ... omdat ...'
+afmaken, op papier, tot het gevoel een naam en een oorzaak heeft. Pas wat
+benoemd is, kan anders worden aangepakt dan met eten.
+
+**Stap 3: wat heb ik nodig?**
+
+Achter elke eetdrang zonder honger zit volgens Spangle een onvervulde
+behoefte: rust, erkenning, gezelschap, afleiding, troost. Eten dempt het
+signaal maar vervult de behoefte nooit, en daarom keert de trek terug; wie na
+een eenzame avond een bak ijs leegt, is de eenzaamheid de volgende avond niet
+kwijt. De derde stap vraagt de behoefte te benoemen en ten minste één manier
+te bedenken om haar rechtstreeks te vervullen, van een telefoontje tot een
+wandeling of een afgedwongen half uur rust.
+
+Hier verbindt het boek eetgedrag met zelfzorg in bredere zin: wie structureel
+niets voor zichzelf regelt, blijft op wilskracht vechten tegen een tekort dat
+elke avond terugkomt.
+
+**Stappen 4 en 5: obstakels en actie**
+
+De vierde vraag, wat staat me in de weg, gaat over de blokkades tussen inzicht
+en gedrag: een laag zelfbeeld, perfectionisme, de overtuiging dat het toch
+niet lukt. Spangle besteedt hier ruim aandacht aan zelfwaardering, omdat in
+haar praktijk een negatief zelfbeeld en eetbuien elkaar in stand houden: wie
+zich waardeloos voelt eet, en wie gegeten heeft voelt zich waardelozer. Een
+van de oefeningen is terugdenken aan momenten waarop iemand op zijn best
+functioneerde en die versie van zichzelf als maatstaf nemen in plaats van de
+mislukking van gisteren.
+
+De vijfde vraag, wat ga ik doen, mondt uit in concrete afspraken met zichzelf:
+klein, meetbaar en voor vandaag. Daaromheen staan praktische regels: nooit
+langer dan vijf uur zonder eten om vreetbuien uit extreme honger te voorkomen,
+porties halveren, en de eerste happen aandachtig proeven omdat de
+smaakopbrengst daarna snel afneemt. Spangle bouwde deze aanpak later uit tot
+de oefenreeks 100 Days of Weight Loss, en van dit boek verscheen nadien een
+herziene editie.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| hoofdhonger | Gerichte trek in specifiek, vaak knapperig of kauwbaar voedsel, volgens Spangle gekoppeld aan drukemoties als woede, stress en frustratie. |
+| harthonger | Diffuse trek in zacht troostvoedsel zonder specifieke voorkeur, gekoppeld aan verdriet, eenzaamheid en leegte. |
+| eten zonder honger | Elk eetmoment dat niet uit lichamelijke honger of smaakgenot voortkomt en dus een emotionele functie vervult. |
+| emotionele doos | Het beeld voor weggestopte gevoelens: wie de lastige emoties opsluit, verliest ook de toegang tot de prettige. |
+| gezinsregels | De ongeschreven regels uit de jeugd over welke emoties getoond mochten worden, die bepalen wat iemand nu nog voelt en toelaat. |
+| vijfuursregel | Het advies nooit langer dan vijf uur zonder eten te blijven, omdat extreme honger eetbuien uitlokt. |
+| eerste-happen-principe | De vaststelling dat de smaakbeleving na de eerste happen sterk afneemt, zodat bewust proeven met minder toekan. |
+
+#### Waar het argument op rust
+
+De onderbouwing komt uit Spangles eigen praktijk als verpleegkundige en
+gewichtscoach. Het boek voert cliënten met naam en verhaal op, maar bevat geen
+verwijzingen naar gepubliceerd onderzoek, en het in het promotiemateriaal
+genoemde succespercentage van negentig procent onder haar cliënten is nergens
+gedocumenteerd of door derden gecontroleerd. Ook het onderscheid tussen
+hoofdhonger en harthonger, met de koppeling tussen emotiesoort en
+voedselvoorkeur, is haar eigen indeling; validering ontbreekt. Haar autoriteit
+rust dus op klinische ervaring, en dat is bij dit genre eerder regel dan
+uitzondering.
+
+De bredere richting staat er steviger voor. Dat emotie-eten bestaat, dat het
+onderscheiden van fysieke en emotionele honger helpt en dat gevoelens benoemen
+en behoeften rechtstreeks vervullen eetbuien vermindert, spoort met
+bevindingen uit cognitief-gedragsmatig onderzoek naar eetgedrag. Het
+vijfvragenmodel is in wezen een zelfregistratie- en emotieregulatieoefening,
+en juist van dat type interventie is de werkzaamheid het best gedocumenteerd.
+
+#### Wat er tegen in te brengen valt
+
+De ondertitel belooft afvallen met elk dieet, en dat is een verkoopclaim die
+het boek zelf niet kan inlossen: er wordt geen gewichtsverlies aangetoond,
+alleen aannemelijk gemaakt dat minder emotie-eten daarbij helpt. De nette
+koppeling tussen emotiesoort en voedselsoort, spanning vraagt knapperig,
+verdriet vraagt romig, is bovendien te mooi om zonder bewijs aan te nemen; het
+onderzoek naar zulke specifieke verbanden is mager en wisselend.
+
+Belangrijker: het boek trekt geen duidelijke grens naar eetstoornissen. Wie
+aan een eetbuistoornis of boulimia lijdt, heeft klinische behandeling nodig en
+geen vijfstappenplan, en die doorverwijzing had er nadrukkelijker in gemogen.
+Binnen zijn grenzen is het werk degelijk: mild van toon, zonder verboden
+voedsel, met oefeningen die klein en uitvoerbaar zijn. Het blijft alleen een
+boek uit de dieetcultuur van zijn tijd, waarin gewichtsverlies vanzelfsprekend
+het einddoel is.
+
+#### Wat er concreet mee te doen is
+
+- Stel bij plotselinge trek eerst de vraag: maag, hoofd of hart?
+- Wacht tien minuten en beantwoord de vijf vragen op papier voordat er gegeten
+wordt.
+- Blijf nooit langer dan vijf uur zonder eten; extreme honger lokt eetbuien
+uit.
+- Proef de eerste happen aandachtig en stop wanneer de smaak niet meer opvalt.
+- Zoek bij terugkerende eetbuien met controleverlies professionele hulp; dit
+boek is daarvoor geen vervanging.
+
+#### Wat je hierna leest
+
+- 103. De psychologie van eetgedrag. De psychologie van eetgedrag: hetzelfde
+terrein, met de stand van het onderzoek erbij.
+- 138. The Shift. The Shift: gewicht en zelfbeeld vanuit gedragsverandering.
+- 314. Dopamine Nation. Dopamine Nation: waarom dempen met eten zo goed werkt
+en zo moeilijk stopt.
+
+## 558. Rees Howells: Intercessor
+
+Norman Grubb, 1952. *Rees Howells: Intercessor* (Lutterworth Press, 1952, 275
+blz.; latere Amerikaanse uitgave Christian Literature Crusade, ISBN
+9780875081885). Er bestaat een Nederlandse vertaling, *Op de bres: het leven
+van Rees Howells*, in de catalogus van bibliotheek.nl alleen aanwezig als
+gesproken boek (Dedicon, 1997); de samenvatting is op de Engelse editie
+gebaseerd. Rubriek: roman en memoir.
+Tags: `biografie`, `voorbede`, `wales`, `opwekking`
+
+Biografie van de Welshe mijnwerker Rees Howells (1879-1950), geschreven door
+zendingsleider Norman Grubb in opdracht van de familie, twee jaar na Howells'
+dood. Howells emigreerde als jonge man naar de staalstreek rond Pittsburgh,
+kwam daar tot geloof, keerde in 1904 terug naar Wales midden in de grote
+opwekking en groeide uit tot wat het boek een voorbidder noemt: iemand die
+zich in gebed zo met een ander vereenzelvigt dat hij diens plaats inneemt. Het
+verhaal loopt van gebedsstrijd om een stervende dorpsvrouw, via zendingsjaren
+in Afrika, naar de stichting van de Bible College of Wales in Swansea (1924),
+volledig gefinancierd op gebed, en eindigt met de oorlogsjaren waarin de hele
+school avond aan avond bad om de afloop van Duinkerken en de Battle of
+Britain.
+
+Het boek is een klassieker van de evangelische gebedsliteratuur, in ruim
+twintig talen vertaald en in miljoenen exemplaren verspreid. Het is ook
+onversneden hagiografie: Grubb schreef als vriend en geestverwant, vrijwel
+alle materiaal komt uit Howells' eigen terugblikken, en elke gebeurtenis wordt
+als gebedsverhoring of als goddelijke leerschool geduid. Wie dat
+verdisconteert, houdt een goed gedocumenteerd en soms verbijsterend
+levensverhaal over uit de wereld van de Welshe opwekking.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Grubb betoogt aan de hand van het leven van Rees Howells dat
+God de geschiedenis mede wil sturen via voorbidders: mensen die zich onder
+leiding van de Heilige Geest zo volledig met een nood vereenzelvigen dat hun
+gebed gezag krijgt. Voorbede is in dit boek een beroep met eigen wetten, dat
+begint met gehoorzaamheid in kleine, vaak vernederende opdrachten en kan
+uitgroeien tot verantwoordelijkheid voor volken. Wie het boek op zijn eigen
+voorwaarden leest, moet aanvaarden dat een biddende gemeenschap in Swansea
+heeft bijgedragen aan de afloop van de Tweede Wereldoorlog; wie dat te veel
+gevraagd vindt, leest een leerstuk in religieuze duiding achteraf.
+
+#### De gang van het boek
+
+**Mijnwerker, emigrant, bekeerling**
+
+Rees Howells wordt op 10 oktober 1879 geboren in het mijndorp Brynamman in
+Zuid-Wales, als zesde van elf kinderen. Hij werkt vanaf zijn twaalfde in de
+tinfabriek en de mijn, en emigreert als jongeman naar New Castle bij
+Pittsburgh om, zoals hij zelf zegt, geld te verdienen en jong te kunnen
+stoppen met werken. Daar komt hij tot geloof tijdens samenkomsten van Maurice
+Reuben, een tot het christendom bekeerde Joodse zakenman uit Pittsburgh wiens
+getuigenis hem naar eigen zeggen voor het eerst Golgotha laat zien.
+
+In 1904 keert hij terug naar Wales, precies in het jaar dat de grote opwekking
+het land overspoelt. De teruggekeerde emigrant met zijn verse
+bekeringservaring wordt er meteen in meegezogen.
+
+**Overgave en leerschool in het kleine**
+
+Op de conventie van Llandrindod komt het volgens het boek tot een volledige
+overgave aan de Heilige Geest, die Howells daarna stap voor stap alles afneemt
+wat van hemzelf is: geld, ambitie, reputatie, familiebanden. De leerschool
+bestaat uit concrete opdrachten in het dorp: een verstoten vrouw liefhebben,
+zwervers opvangen, een dorp bewerken dat de opwekking links had laten liggen,
+en wekenlang bidden voor een aan tuberculose stervende vrouw. In die laatste
+strijd krijgt het woord voorbede voor hem zijn volle betekenis.
+
+De opdrachten worden steeds ingrijpender: een gelofte naar het voorbeeld van
+de nazireeër, blootshoofds lopen als teken van afzondering, en ten slotte het
+opgeven van zijn loon om alleen van gebedsverhoring te leven.
+
+**Wat een voorbidder is**
+
+Halverwege onderbreekt Grubb het verhaal voor het leerstellige hart van het
+boek. Een voorbidder onderscheidt zich volgens hem van een gewone bidder door
+drie dingen: vereenzelviging met degene voor wie hij bidt, het meedragen van
+diens lijden, en het gezag dat uit die twee voortkomt. Wie een gebedsstrijd
+doorleefd heeft, verwerft daarmee een positie die daarna beschikbaar blijft
+voor vergelijkbare gevallen. Het model is Christus zelf, die volgens Jesaja 53
+zijn leven uitgoot en zich onder de overtreders liet tellen.
+
+**Afrika**
+
+Howells trouwt met Elizabeth Hannah Jones en samen vertrekken ze op 10 juli
+1915 met de South Africa General Mission, waarvan Andrew Murray de eerste
+president was, naar het zendingsstation Rusitu in Gazaland, bij de grens met
+Portugees Oost-Afrika. Hun zoontje Samuel laten ze in Wales achter; het boek
+beschrijft dat afstaan als hun zwaarste offer.
+
+In de jaren tot 1920 breekt op Rusitu een opwekking uit die zich over
+tientallen stations van de missie verspreidt. Voor Howells is het de
+bevestiging dat de wetten van de voorbede overal werken.
+
+**De Bijbelschool van Wales**
+
+Terug in Wales koopt Howells zonder kapitaal of achterban het landgoed
+Glynderwen bij Swansea; de volledige koopsom van 6.150 pond komt volgens het
+boek binnen via giften waar niet om gevraagd is. Op tweede pinksterdag 1924
+opent de Bible College of Wales met zo'n duizend bezoekers. Later volgen
+Derwen Fawr, een derde landgoed met kindertehuis en school voor
+zendingskinderen, en het grote Penllergaer; alles zonder comité, collecte of
+lening die niet wordt afgelost.
+
+**Every creature en de oorlog**
+
+Op 26 december 1934 ontvangt Howells wat het boek de Every Creature Commission
+noemt: de opdracht om het evangelie binnen deze generatie bij ieder mens te
+brengen. Vanaf maart 1936 ziet hij Hitler als satans werktuig om die opdracht
+te blokkeren, en de school verlegt haar gebed van de eigen terreinen naar het
+wereldtoneel: Ethiopië, de Joden, en na 1939 de oorlog zelf.
+
+De hoofdstukken over Duinkerken, de Battle of Britain, Rusland, Noord-Afrika
+en D-day citeren aantekeningen uit de dagelijkse gebedssamenkomsten, waarin
+telkens eerst zekerheid over de uitkomst wordt verkregen en het nieuws die
+zekerheid daarna bevestigt. Grubb presenteert dat als bewijsvoering; de lezer
+moet zelf beslissen wat het waard is.
+
+**Einde en nalatenschap**
+
+Howells sterft op 13 februari 1950; zijn laatste verstaanbare woord is volgens
+het slothoofdstuk Victory. Zijn zoon Samuel neemt de leiding van de school
+over. Grubb schreef de biografie op verzoek van de familie en baseerde zich
+vooral op tachtig schriften waarin secretaresse Mary Henderson tien jaar lang
+Howells' ochtend- en avondtoespraken had genoteerd, aangevuld met eigen
+herinneringen vanaf 1928.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| voorbede | Gebed waarin de bidder de plaats van een ander inneemt en diens nood als de zijne draagt tot er zekerheid over de uitkomst is. |
+| vereenzelviging | De eerste wet van de voorbidder: zo ver mogelijk letterlijk gaan staan waar degene staat voor wie gebeden wordt. |
+| positie van voorbede | Gezag dat volgens Howells door een doorleden gebedsstrijd wordt verworven en daarna beschikbaar blijft voor vergelijkbare noden. |
+| leven door geloof | Afzien van vast inkomen en voor elke behoefte alleen God om voorziening vragen, naar het voorbeeld van George Müller. |
+| nazireeërgelofte | Periode van afzondering naar Numeri 6 waarin Howells uiterlijke gewoonten aflegde en de spot van zijn omgeving verdroeg. |
+| Every Creature Commission | De opdracht die Howells op 26 december 1934 ontving om het evangelie binnen een generatie bij ieder mens te brengen. |
+| victory | Howells' vaste woord voor het moment waarop een gebedsstrijd innerlijk beslist is, nog voordat de uitkomst zichtbaar wordt. |
+
+#### Waar het argument op rust
+
+De bron van vrijwel alles is Howells zelf. Grubb baseerde zich op de tachtig
+schriften met toespraken die Mary Henderson bijhield, op gesprekken sinds 1928
+en op controle door de weduwe en zoon Samuel. Het is dus een door de familie
+geautoriseerd binnenperspectief; buitenstaanders of critici komen niet aan het
+woord. De uiterlijke feiten staan behoorlijk vast: de school, de landgoederen,
+de zendingsjaren bij de South Africa General Mission en de opwekking op Rusitu
+zijn documenteerbaar, en Grubb noemt bedragen, data en namen consequent.
+
+De eigenlijke claim van het boek, dat gebed de uitkomsten veroorzaakte, rust
+op de samenloop van gebedszekerheid en nieuwsberichten en is niet toetsbaar.
+Bij de oorlogshoofdstukken bad half christelijk Engeland om dezelfde
+uitkomsten, wat elke toerekening aan één biddende school onmogelijk maakt.
+
+#### Wat er tegen in te brengen valt
+
+Dit is hagiografie in de volle zin: elke tegenslag wordt leerschool, elke
+meevaller verhoring, en een gebeurtenis die dat schema weerspreekt komt niet
+voor. Dat maakt het wereldbeeld van het boek onweerlegbaar; er is geen
+denkbare uitkomst die het ongelijk van de voorbidder zou aantonen. De
+oorlogshoofdstukken lezen achteraf oorzakelijkheid in een correlatie, en het
+boek vermeldt zelf dat de zekerheid soms pas na het nieuws alsnog werd
+bijgesteld tot een les in geloof.
+
+Ook binnen het eigen kader zijn er schurende passages die Grubb goedkeurend
+vertelt: het achterlaten van de kleine Samuel als geloofsoffer, het wegbidden
+van regen voor de openingsdag, de eis dat ouders desnoods in het graf of het
+gesticht aan Gods roeping ondergeschikt zijn. Wie het boek als geschiedenis
+van de Welshe opwekkingsvroomheid leest, vindt hier rijk materiaal; wie het
+als bewijs voor de werking van gebed leest, krijgt alleen getuigenis van één
+kant.
+
+#### Wat je hierna leest
+
+- 83. The Power of Positive Thinking. The Power of Positive Thinking verscheen
+in hetzelfde jaar 1952 en zet gebed juist in als psychologische techniek voor
+succes; het contrast met Howells' offerweg is leerzaam.
+- 242. Autobiography of a Yogi. Autobiography of a Yogi is het hindoeïstische
+spiegelbeeld: een spiritueel levensverhaal vol wonderclaims, met dezelfde
+bronproblemen.
+- 201. Life Explored. Life Explored biedt de leerstellige kern van het
+christelijk geloof waar dit levensverhaal op steunt, in nuchtere cursusvorm.
+
+## 559. The Supernatural Ways of Royalty
+
+Kris Vallotton en Bill Johnson, 2006. *The Supernatural Ways of Royalty:
+Discovering Your Rights and Privileges of Being a Son or Daughter of God*
+(Destiny Image, 2006, 232 blz., ISBN 9780768423235; later in herziene en
+uitgebreide editie verschenen). Geen Nederlandse vertaling gevonden in de
+catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie
+gebaseerd. Rubriek: positief denken en manifesteren.
+Tags: `identiteit`, `zelfbeeld`, `charismatisch christendom`, `bethel`
+
+Kris Vallotton, naast Bill Johnson leider van Bethel Church in Redding
+(Californië) en medeoprichter van de Bethel School of Supernatural Ministry,
+betoogt dat christenen bij hun bekering koningskinderen worden maar massaal
+als bedelaars blijven leven. Wie in onbeduidendheid is opgegroeid, draagt
+volgens hem een bedelaarsmentaliteit mee die ook na de bekering het gedrag
+stuurt: schaarstedenken, schaamte, angst voor gezag. Het boek wil dat
+zelfbeeld vervangen door wat het koninklijke identiteit noemt, met de eigen
+levensloop van Vallotton (verdronken vader, gewelddadige stiefvaders,
+paniekaanvallen) als hoofdvoorbeeld en met bijbelfiguren als Mozes, Salomo en
+Esther als illustratie van vorming voor het regeren. Eén hoofdstuk, A Royal
+Flush, is van Bill Johnson en gaat over vergeving als het wissen van het
+strafblad.
+
+De kracht van het boek zit in de pastorale waarneming dat jeugd en zelfbeeld
+doorwerken in volwassen gedrag; die waarneming spoort met gewone psychologie.
+De onderbouwing bestaat echter volledig uit persoonlijke anekdotes en een
+typologische bijbeluitleg die verhalen als leerstellingen inzet. De centrale
+leer dat een gelovige geen zondaar meer is maar heilige, is binnen de
+evangelische wereld omstreden, en de belofte van bovennatuurlijke koninklijke
+levens wordt nergens buiten het eigen getuigenis om onderbouwd.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Vallotton stelt dat christenen bij hun bekering van zondaars
+in heiligen veranderen en daarmee koninklijke waardigheid ontvangen, maar dat
+de meesten innerlijk bedelaars blijven: gevormd door afwijzing en tekort zien
+zij zichzelf als onbeduidend en gedragen zich daarnaar. Naar Spreuken
+30:21-22, de aarde beeft onder een slaaf die koning wordt, luidt de these dat
+niet de omstandigheden maar het zelfbeeld bepaalt of iemand zijn bestemming
+kan dragen. Genezing verloopt via het aanvaarden van de eigen koninklijke
+identiteit, vergeving die het verleden zijn zeggenschap ontneemt, en een
+gemeenschapscultuur van eer die in anderen hun mogelijke grootheid aanspreekt.
+
+#### De gang van het boek
+
+**Een droom over een bedelaar op de troon**
+
+Het boek opent met een confrontatie: Vallottons assistente Nancy wijst hem op
+zijn botte gedrag als leidinggevende. Die avond droomt hij over Spreuken
+30:21-22, waar staat dat de aarde het niet dragen kan wanneer een slaaf koning
+wordt. Zijn conclusie: wie als bedelaar is grootgebracht, kan een troon
+krijgen en toch als bedelaar blijven regeren, met schaarste en zelfverdediging
+als grondtoon.
+
+Tegenover de bedelaar staat Mozes, die als prins aan het Egyptische hof werd
+opgevoed en daardoor volgens Vallotton het leiderschap over een volk kon
+dragen. Opvoeding en zelfbeeld worden zo de sleutel tot bestemming.
+
+**Het eigen verhaal als bewijsstuk**
+
+Vallotton vertelt zijn levensloop: zijn vader verdronk toen hij drie was, er
+volgden gewelddadige, drinkende stiefvaders, en als jonge man kampte hij met
+paniekaanvallen. Humor werd zijn overlevingsmechanisme. Jaren later legt een
+gift van 30.000 dollar van een kerkleider zijn armoedegeest bloot: hij kan het
+bedrag niet aannemen zonder zich onwaardig te voelen.
+
+Naast zijn eigen verhaal staat dat van Eddie, een geadopteerde jongen die in
+zijn nieuwe, welvarende gezin eten blijft hamsteren. De les die Vallotton
+eraan verbindt: een innerlijk tekort verhuist mee, ook naar een paleis.
+
+**Kerkers, draken en een royal flush**
+
+Het hoofdstuk Dungeons and Dragons behandelt de macht van het verleden: wie
+zijn kwetsers niet vergeeft, blijft volgens Vallotton, met een beroep op de
+kwelgeesten uit Matteüs 18, gevangen in wrok en herhaalt patronen die hij
+juist wilde ontvluchten. Wat iemand blijvend voor ogen houdt, wordt zijn
+werkelijkheid; daarom moet de blik van de oude pijn naar de beloofde toekomst.
+
+Bill Johnsons hoofdstuk A Royal Flush werkt de vergeving leerstellig uit: God
+wist het strafblad, en de aanklachten van de duivel hebben alleen macht zolang
+de gelovige ermee instemt. Ware nederigheid komt volgens Johnson uit
+aanvaarde, onverdiende vergeving; schaamtegedreven zelfonderzoek noemt hij een
+vrome vorm van ongeloof.
+
+**Van zondaar naar heilige**
+
+Lizards in the Palace gaat over etiketten. Wie het label hagedis aanvaardt
+terwijl hij een krokodil is, zo opent een kinderspel-anekdote, gedraagt zich
+naar het kleinste woord dat over hem is uitgesproken. Bijbelse
+naamsveranderingen dienen als bewijs: Simon wordt Petrus, Abram wordt Abraham,
+Jakob wordt Israël.
+
+Hier staat ook de meest omstreden leerstelling: een christen is volgens
+Vallotton geen zondaar meer maar een heilige, omdat Paulus zijn brieven aan
+heiligen adresseert. Zonde-management, kerkcultuur die gelovigen vooral als
+bedwongen zondaars aanspreekt, houdt volgens hem de bedelaarsmentaliteit in
+stand.
+
+**Opgeleid om te regeren**
+
+Training for Reigning zet Salomo en Esther naast elkaar: Salomo werd
+uitdrukkelijk als koning opgevoed, Esther werd door haar oom Mordechai op
+waarde geschat en voorbereid op haar rol. Vallotton vertaalt dat naar de
+gemeentepraktijk van Bethel: profetische bediening betekent er niet de zonden
+van mensen benoemen maar hun mogelijke grootheid aanspreken, zodat ze naar dat
+woord toe kunnen groeien.
+
+**De eigenschappen van royalty**
+
+Het tweede deel beschrijft hoe koninklijke mensen zich gedragen. Eer is er de
+omgangsvorm: anderen behandelen naar hun waarde, ook wie die waarde zelf nog
+niet ziet. Adel zoekt gemeenschap, want royalty is volgens de hoofdstuktitel
+dying to be together; zij verdedigt de besluiten van de Koning in plaats van
+eigen gelijk, en herkent tegenstand als teken dat een bestemming dichtbij
+komt: de honden van onheil blaffen bij de deuren van de bestemming.
+
+De toon blijft door het hele deel aforistisch en anekdotisch; per eigenschap
+levert een verhaal uit de eigen kring het bewijs. Het deel maakt ook de
+functie van het boek zichtbaar: rond de tekst verschenen een werkboek (Basic
+Training for the Supernatural Ways of Royalty) en een curriculumuitgave, en de
+gemeente in Redding dient overal als decor en bewijsterrein.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| bedelaarsmentaliteit (pauper mindset) | Het aangeleerde zelfbeeld van tekort en onbeduidendheid dat volgens Vallotton ook na de bekering het gedrag blijft sturen. |
+| armoedegeest | De geestelijke macht die Vallotton achter schaarstedenken ziet en die verbroken wordt door de eigen koninklijke identiteit te aanvaarden. |
+| koninklijke identiteit | De status van zoon of dochter van God, met bijbehorende rechten en verantwoordelijkheden, die de gelovige bij de bekering ontvangt. |
+| heilige | De nieuwe natuur van de gelovige; Vallotton leert dat een christen geen zondaar meer is en zich ook niet zo mag aanspreken. |
+| cultuur van eer | Een gemeenschap waarin mensen elkaar behandelen naar hun waarde en mogelijke toekomst, niet naar hun gedrag van vandaag. |
+| profetische bediening | Het aanspreken van de door God bedoelde grootheid in een ander, zoals dat op Bethel wordt onderwezen en beoefend. |
+| kwelgeesten | De pijnigers uit Matteüs 18 aan wie volgens het boek wordt overgeleverd wie weigert te vergeven. |
+| zonde-management | Vallottons spotnaam voor kerkcultuur die gelovigen vooral als bedwongen zondaars aanspreekt en daarmee volgens hem hun bedelaarszelfbeeld voedt. |
+
+#### Waar het argument op rust
+
+De bewijsvoering bestaat uit drie soorten materiaal: Vallottons eigen
+levensverhaal, anekdotes uit de kring rond Bethel Church, en bijbelgedeelten
+die typologisch worden gelezen, waarbij verhaalfiguren als Mozes, Salomo en
+Esther model staan voor een leer over opvoeding en zelfbeeld. Onderzoek,
+cijfers of bronnen buiten de eigen kring komen niet voor; de anekdotes zijn
+niet verifieerbaar en kennen geen tegenvoorbeelden. Het gezag van het boek is
+dan ook vooral positioneel: het geldt als een van de kernteksten van de
+Bethel-beweging, en de aanbevelingen komen van geestverwante voorgangers als
+Myles Munroe, James Goll en Heidi en Rolland Baker, niet van buitenstaanders.
+
+De pastorale kernwaarneming, dat vroege afwijzing het volwassen zelfbeeld en
+gedrag tekent, spoort met wat ontwikkelingspsychologie beschrijft, maar het
+boek voert daar geen literatuur voor aan. De theologische claims, van de
+verdwenen zondaarsstatus tot de bovennatuurlijke roeping van elke gelovige,
+hebben als onderbouwing alleen de eigen schriftuitleg en het eigen getuigenis;
+het boek presenteert ze niettemin als vaststaande werkelijkheid.
+
+#### Wat er tegen in te brengen valt
+
+De exegese is het zwakste punt. Spreuken 30:21-22 is een observatie over een
+omgekeerde orde, geen leer over zelfbeeld en bestemming; het boek bouwt er wel
+zijn hoofdthese op. De stelling dat een christen geen zondaar meer is, leunt
+op de aanhef van Paulus' brieven en stapt heen over teksten die het blijvende
+zondebesef van gelovigen beschrijven; binnen de evangelische theologie is deze
+identiteitsleer dan ook omstreden. Verhalende bijbelstof wordt stelselmatig
+als voorschrift gelezen.
+
+Daarnaast is het denkmodel pastoraal riskant. Wie tegenslag, armoede of angst
+houdt, heeft in dit kader een identiteitsprobleem, en tegenstand geldt als
+teken van naderende bestemming; beide duidingen zijn onweerlegbaar en kunnen
+falen omdraaien tot schuld van de gelovige. De observatie dat jeugdwonden
+zelfbeeld en leiderschap tekenen is raak, en de cultuur-van-eer-gedachte heeft
+praktische waarde, maar de lezer moet die kern zelf losmaken uit een leer die
+elk levensfeit al bij voorbaat verklaard heeft.
+
+#### Wat er concreet mee te doen is
+
+- Neem uit het boek de waarneming mee dat taal van tekort (dat is niets voor
+mij, dat verdien ik niet) vaak ouder is dan de situatie waarin zij opduikt, en
+onderzoek waar zij vandaan komt.
+- Behandel mensen naar wat zij kunnen worden zonder hun huidige gedrag goed te
+praten; dat is het bruikbare deel van de cultuur van eer.
+- Toets identiteitsuitspraken uit dit genre aan meer dan één bijbeltekst
+voordat er levensbeslissingen op rusten.
+- Wees terughoudend met het duiden van tegenslag als geestelijke aanval of
+teken van bestemming; het maakt elke uitkomst tot bevestiging.
+
+#### Wat je hierna leest
+
+- 83. The Power of Positive Thinking. The Power of Positive Thinking is de
+protestantse voorloper van dit genre: geloofstaal als techniek voor
+zelfvertrouwen, met dezelfde anekdotische bewijsvoering.
+- 411. Psycho-Cybernetics. Psycho-Cybernetics behandelt hetzelfde mechanisme,
+het zelfbeeld als stuurprogramma van gedrag, maar dan seculier en zonder
+geestelijke wereld.
+- 162. Boundaries. Boundaries komt uit dezelfde evangelische wereld en laat
+zien hoe identiteits- en gedragsvragen ook met klinische onderbouwing
+behandeld kunnen worden.
+
+## 560. Remembering Wholeness
+
+Carol Tuttle, 2000. *Remembering Wholeness: A Personal Handbook for Thriving
+in the 21st Century* (Writers Club Press/iUniverse, 2000, 272 blz., ISBN
+9780595099016; herziene uitgave Elton-Wolf, 2002, 338 blz., en latere
+edities). Geen Nederlandse vertaling gevonden in de catalogus van
+bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd. Rubriek:
+positief denken en manifesteren.
+Tags: `energetisch werk`, `affirmaties`, `manifesteren`, `mormonisme`
+
+Carol Tuttle, energetisch therapeut uit Utah en later bekend van Energy
+Profiling en The Child Whisperer, schreef dit handboek vanuit haar praktijk
+als Rapid Eye-therapeut en reikimaster. De grondgedachte: ieder mens is een
+goddelijk wezen dat zijn heelheid is vergeten door geboorte, opvoeding en
+generatiepatronen. Gedachten en uitgesproken woorden zijn energie die de
+werkelijkheid vormt; wie oude negatieve energie laat opruimen en dagelijks
+affirmaties en scripts inzet, schept naar eigen believen gezondheid, welvaart
+en betere relaties. Het boek bestaat uit korte hoofdstukken met oefeningen,
+gebeden en cliëntverhalen, en bedt dit alles in een mormoons-christelijk kader
+in: voorgeboortelijke contracten met God, engelen, en de verzoening van
+Christus als beschikbare heelkracht.
+
+Het boek is in de eigen kring een blijvende bestseller en veel lezers melden
+er houvast aan te hebben. De onderbouwing bestaat uitsluitend uit eigen
+praktijkverhalen; energetische geneeswijzen als Rapid Eye Technology en reiki
+hebben geen wetenschappelijke basis, en de leer dat ieder zijn omstandigheden
+zelf aantrekt, legt de verantwoordelijkheid voor ziekte en tegenslag bij de
+getroffene. Ook binnen Tuttles eigen kerkgenootschap vinden lezers dat de
+new-age-elementen op gespannen voet staan met de leer.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Tuttle stelt dat ieder mens als heel en goddelijk wezen
+geboren wordt en dat lijden voortkomt uit vergeten: geboortetrauma,
+aangeleerde overtuigingen en generatiepatronen leggen negatieve energie over
+die oorspronkelijke heelheid heen. Omdat gedachten energie zijn en energie de
+gedachte volgt, schept ieder mens doorlopend zijn eigen werkelijkheid, bewust
+of per ongeluk. Genezing is daarom geen toevoegen maar herinneren: wie oude
+energie opruimt, dagelijks affirmeert en zijn verlangens uitspreekt, mag
+verwachten dat gezondheid, geld en liefdevolle relaties naar hem toe stromen,
+met God, engelen en de verzoening van Christus als meewerkende krachten.
+
+#### De gang van het boek
+
+**Uitgangspunt: heelheid en energie**
+
+Tuttle opent met haar praktijkervaring als Rapid Eye-therapeut en reikimaster:
+cliënten die hun negatieve energie laten opruimen, zouden weer toegang krijgen
+tot hun geestelijke natuur. Genezing heet hier het herstel van de
+geest-waarheid in het lichaam. De grootste waarheid van het boek luidt dat er
+geen macht buiten de mens bestaat, alleen macht die hij zelf aan dingen
+toekent.
+
+Aanvaarding is de eerste stap: wie zijn omstandigheden liefheeft in plaats van
+bestrijdt, zet volgens Tuttle de energie om van verzet naar groei.
+
+**Gedachten als scheppende kracht**
+
+De kern van de methode is het bewust richten van aandacht. Waar aandacht op
+rust, groeit; ik-ben-uitspraken vormen de identiteit; wie de dag met
+dankbaarheid en affirmaties begint, trekt volgens Tuttle passende ervaringen
+aan. Zij adviseert elke avond een script te schrijven voor de volgende dag,
+zodat de energie van die dag vooraf wordt vastgelegd.
+
+Negatieve emoties krijgen een dubbele rol: ze wijzen op kritische
+zelfovertuigingen of ze signaleren dat iemand van zijn hoogste goed afbuigt.
+In beide gevallen zijn ze materiaal, geen noodlot.
+
+**Oude energie opruimen**
+
+Een groot deel van het boek behandelt het opruimen van geërfde lagen:
+geboorte-energie, waarbij een moeizame bevalling patronen van strijd en
+controle in een relatie zou verankeren, en generatiepatronen, waarin ook
+depressie wordt geduid als energiestaat die van ouder op kind overgaat. Tuttle
+beschrijft eigen ervaringen, onder meer met de geboorte van haar zoon, en
+cliëntverhalen als bewijs.
+
+In navolging van Louise Hay legt zij per klacht een verband tussen emotionele
+disharmonie en lichamelijke ziekte; genezing vraagt daarom werk aan beide
+kanten.
+
+**Vragen en ontvangen**
+
+Het scheppingsdeel leert vragen: verlangens benoemen zonder schuldgevoel, het
+universum om het gewenste vragen en op synchroniciteit letten. Het verhaal van
+cliënte Maureen, die baan en relatie vindt nadat zij haar beperkende
+overtuigingen heeft opgeruimd, dient als model. Als techniek reikt Tuttle
+onder meer de energiecirkel aan: verlangens hardop uitspreken in een
+denkbeeldige cirkel om er gerichte energie omheen op te bouwen. Wie zijn wil
+gelijkricht met Gods wil, die volgens Tuttle op geluk gericht is, mag
+verwachten dat het gewenste zonder geploeter toestroomt.
+
+De mens is in dit hoofdstukkencluster per definitie schepper; de enige keuze
+is die tussen per ongeluk scheppen en bewust scheppen.
+
+**Contracten, spiegels en relaties**
+
+Tuttle leert dat ieder mens vóór de geboorte contracten met God sloot over de
+lessen van dit leven; ook ziekte en een moeilijk gezin kunnen gekozen
+leerwegen zijn. Het dagelijks leven is een spiegel: relaties weerkaatsen de
+eigen overtuigingen, en wie een les niet leert, trekt dezelfde les in sterkere
+vorm opnieuw aan. Vergeving van iedereen die kwetste is voorwaarde om verder
+te komen.
+
+Voor huwelijk en gezin volgen praktische adviezen: verantwoordelijkheid nemen
+voor het eigen aandeel, scripts van de ander herschrijven door nieuwe
+verwachtingen uit te spreken, en kinderen als geestelijk begaafde wezens
+begeleiden.
+
+**De religieuze bedding**
+
+Het slot maakt de mormoons-christelijke inbedding expliciet. De verzoening van
+Christus staat als heelkracht ter beschikking van wie erom vraagt; genade is
+goddelijke hulp om boven het eigen kunnen uit te leven; engelen zijn dienaren
+van hemelse ouders die op verzoek wonderen aandragen; naastenliefde, de reine
+liefde van Christus, is de hoogste trilling. De ondertitel over thriving in de
+eenentwintigste eeuw sluit aan bij het laatste-dagen-denken van Tuttles kerk:
+de oude energie van de planeet is strijd, de nieuwe is vreugde.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| heelheid | De oorspronkelijke, goddelijke staat van ieder mens, die niet verworven maar herinnerd moet worden. |
+| clearen | Het energetisch opruimen van negatieve energie uit ervaringen en overtuigingen, in Tuttles praktijk onder meer via Rapid Eye Technology. |
+| geboorte-energie | De energetische afdruk van de eigen geboorte, die volgens Tuttle latere patronen van strijd of gemak verklaart. |
+| generatiepatroon | Een energetische erfenis van eerdere generaties, zoals depressie of armoede, die bewust opgeruimd kan worden. |
+| affirmatie | Een positieve ik-ben-uitspraak die de identiteit en daarmee de aangetrokken werkelijkheid moet bijstellen. |
+| dagscript | Een avond tevoren geschreven tekst die vastlegt hoe de volgende dag moet verlopen, om de energie ervan vooraf te richten. |
+| spiritueel contract | Een vóór de geboorte met God gesloten afspraak over de lessen en opdrachten van dit leven. |
+| trilling | De energetische frequentie van gedachten en gevoelens, waarbij hoge trillingen als vreugde en dankbaarheid het gewenste aantrekken. |
+| energiecirkel | Oefening waarbij verlangens hardop in een denkbeeldige cirkel worden uitgesproken om er scheppende energie omheen te bundelen. |
+
+#### Waar het argument op rust
+
+Het boek voert geen onderzoek aan. De bewijsvoering bestaat uit verhalen uit
+Tuttles eigen praktijk en gezin, met voornamen als Maureen, Stacey, Karla en
+Jill, en uit een beroep op Louise Hays lijsten van mentale ziekteoorzaken. De
+onderliggende technieken hebben geen wetenschappelijke status: Rapid Eye
+Technology en reiki zijn nooit werkzaam gebleken boven placebo, voor chakra's
+en trillingsniveaus van gedachten bestaat geen meetbare grondslag, en de wet
+van aantrekking is een geloofsartikel uit de new-thought-traditie, geen
+getoetste theorie.
+
+De claims zijn bovendien zo geformuleerd dat ze niet kunnen falen: komt het
+gewenste niet, dan was de energie nog niet opgeruimd of de trilling niet
+vastgehouden. Waar het boek raakt aan wat wel onderzocht is,
+dankbaarheidsoefeningen en het bijstellen van negatieve zelfspraak, blijft de
+gelijkenis oppervlakkig; de klinische varianten kennen hun grenzen en beloven
+geen welvaart of genezing.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is de omkering van verantwoordelijkheid. Als ieder zijn
+werkelijkheid aantrekt en ook ziekte en een gewelddadige jeugd gekozen
+leerwegen kunnen zijn, ligt elke tegenslag uiteindelijk bij de getroffene;
+kritische lezers noemen dat terecht victim blaming, en de formule dat trauma
+nooit iemands schuld was maar genezing wel ieders verantwoordelijkheid,
+verzacht dat maar ten dele. Riskant wordt het waar depressie een energiestaat
+heet die met clearing en gedachtenwerk te keren is; wie ernstige klachten
+heeft en dit boek als behandelplan leest, wordt van werkzame zorg weggeleid.
+In latere, herziene edities trekt Tuttle de lijn onverminderd door: ook de
+coronapandemie verschijnt daar als energie waar de goed afgestemde lezer
+gelukkiger, gezonder en welvarender uitkomt.
+
+Daarnaast is de vermenging van registers principieel onzuiver: bijbelse
+begrippen als verzoening, genade en engelen worden ingezet als energetische
+instrumenten binnen een wet-van-aantrekking-kader, wat zowel gelovige als
+seculiere lezers reden tot bezwaar geeft; ook binnen Tuttles eigen
+kerkgenootschap klinkt die kritiek. Wat overblijft als bruikbare kern,
+aandacht voor dankbaarheid, zelfspraak en patronen uit het gezin van herkomst,
+is elders zonder de energetische en religieuze aannames verkrijgbaar.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik hooguit de onschuldige kern: een vast dankbaarheidsmoment en het
+opmerken van negatieve zelfspraak zijn ook buiten dit kader zinnige gewoonten.
+- Schrijf verlangens en voornemens gerust op, maar behandel het script als
+planning en niet als bestelling bij het universum.
+- Zoek bij aanhoudende somberheid of trauma reguliere hulp; laat een boek dat
+depressie een energiestaat noemt daar geen alternatief voor zijn.
+- Weeg claims over aangetrokken tegenslag altijd op hun keerzijde: wat zij
+beloven aan macht, rekenen zij toe aan schuld.
+
+#### Wat je hierna leest
+
+- 380. The Power Is Within You. The Power Is Within You van Louise Hay is de
+directe inspiratiebron; Tuttle neemt haar koppeling van emoties aan ziekten
+over.
+- 259. The Power of Your Subconscious Mind. The Power of Your Subconscious
+Mind leert hetzelfde scheppingsmechanisme via het onderbewuste, in de oudere
+new-thought-taal.
+- 432. The Energy Codes. The Energy Codes bouwt een vergelijkbaar energetisch
+stelsel rond chakra's en ademwerk, met dezelfde onderbouwingsproblemen.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
@@ -106409,17 +109223,17 @@ and commitment therapy` 457, 460 · `achttiende eeuw` 321 · `acteren` 385 ·
 `actie` 427 · `actualiteit` 237 · `actueel` 67 · `adel` 235 · `ademhaling` 87,
 118, 318, 332, 432 · `adleriaanse-psychologie` 335 · `advaita` 527 · `advaita
 vedanta` 520 · `adverteren` 308 · `advies` 473 · `adviespraktijk` 151 ·
-`adviseren` 511 · `affirmaties` 117, 184, 188, 190, 380, 403, 439 ·
+`adviseren` 511 · `affirmaties` 117, 184, 188, 190, 380, 403, 439, 560 ·
 `afhankelijkheid` 167 · `afleiding` 290 · `aforismen` 2, 17, 179, 216, 218,
 228, 391, 394, 462, 473, 535 · `afscheid nemen` 285 · `afschrikking` 217 ·
-`afwezige-vader` 4 · `agenda` 512 · `agressie` 223, 339 · `alcohol` 4 ·
-`algoritmen` 476, 477, 479 · `alledaags` 89 · `allegorie` 222, 524 ·
-`allocatie` 507 · `amazon` 257 · `ambacht` 6, 12, 13, 17, 18 · `ambitie` 75 ·
-`Amerika` 114, 431 · `amerikaans` 117, 118, 120, 132, 133, 134, 136, 158 ·
-`amerikaanse droom` 284 · `Amerikaanse geschiedenis` 402 · `amerikaanse
+`afvallen` 557 · `afwezige-vader` 4 · `agenda` 512 · `agressie` 223, 339 ·
+`alcohol` 4 · `algoritmen` 476, 477, 479 · `alledaags` 89 · `allegorie` 222,
+524 · `allocatie` 507 · `amazon` 257 · `ambacht` 6, 12, 13, 17, 18 · `ambitie`
+75 · `Amerika` 114, 431 · `amerikaans` 117, 118, 120, 132, 133, 134, 136, 158
+· `amerikaanse droom` 284 · `Amerikaanse geschiedenis` 402 · `amerikaanse
 revolutie` 243 · `Amsterdam` 295 · `anatomie` 241, 412 · `Andalusië` 8 ·
 `Andes` 521 · `angst` 53, 58, 107, 119, 131, 136, 140, 181, 214, 252, 341,
-401, 440 · `angst voor de dood` 377 · `animatie` 41 · `Antarctica` 36 ·
+401, 440, 548 · `angst voor de dood` 377 · `animatie` 41 · `Antarctica` 36 ·
 `anthologie` 189 · `antropologie` 223, 410 · `antwerpen` 113 · `apartheid` 26,
 523 · `Apple` 46, 231 · `apps` 294 · `arbeid` 6, 173, 297, 390 ·
 `arbeidsethos` 266 · `archetype` 360 · `archetypen` 357, 404, 407, 409, 410 ·
@@ -106440,49 +109254,50 @@ revolutie` 243 · `Amsterdam` 295 · `anatomie` 241, 412 · `Andalusië` 8 ·
 `beslissen` 55 · `beslissingen` 197 · `besluiten` 47, 59, 69, 137 ·
 `besluitvorming` 151, 166, 170, 174, 209, 270, 282, 283, 293, 299, 364, 396,
 423, 424, 426, 450, 451, 468, 475, 510 · `bestseller` 8, 37, 250 · `betekenis`
-143 · `betrokkenheid` 472 · `beurs` 80, 488 · `beurshandel` 487 ·
-`beursrendement` 353 · `beweging` 77, 84 · `bewijs` 63 · `bewustwording` 103 ·
-`bewustzijn` 148, 169, 200, 275, 340, 377, 518 · `bewustzijnsniveaus` 449 ·
+143 · `bethel` 559 · `betrokkenheid` 472 · `beurs` 80, 488 · `beurshandel` 487
+· `beursrendement` 353 · `beweging` 77, 84 · `bewijs` 63 · `bewustwording` 103
+· `bewustzijn` 148, 169, 200, 275, 340, 377, 518 · `bewustzijnsniveaus` 449 ·
 `bezit` 37 · `bias` 209 · `bijeenkomsten` 304 · `bijgeloof` 63 · `biografie`
 31, 46, 189, 231, 240, 241, 243, 247, 266, 267, 269, 320, 328, 402, 454, 514,
-537 · `biohacking` 316 · `biologie` 66, 88, 89, 90, 91, 322 · `biologie van
-gedrag` 273 · `biologische klok` 326, 329 · `biotechnologie` 236, 413 ·
-`blackjack` 505 · `bloedvaten` 86 · `bloedwaarden` 313 · `blokkade` 14 ·
+537, 558 · `biohacking` 316 · `biologie` 66, 88, 89, 90, 91, 322 · `biologie
+van gedrag` 273 · `biologische klok` 326, 329, 552 · `biotechnologie` 236, 413
+· `blackjack` 505 · `bloedvaten` 86 · `bloedwaarden` 313 · `blokkade` 14 ·
 `boeddhisme` 111, 287, 333, 341, 401, 528 · `bootstrapping` 369 ·
 `brainstormen` 33 · `branding` 443 · `brein` 414 · `brieven` 292, 517 ·
 `broers` 10 · `budgetteren` 159, 233, 464 · `buitenlandse hulp` 221 ·
-`burgerschap` 243 · `burn-out` 135, 207, 400 · `bushido` 535 · `cafeïne` 52 ·
-`Californië` 10 · `carl jung` 258 · `carrière` 146, 158, 388 · `cases` 40 ·
-`cashflow` 37 · `celbiologie` 419 · `chakra's` 432 · `challenger` 62 ·
-`Chanakya` 370 · `chaos` 74, 347 · `chapbook` 100 · `China` 348 · `Chinese
-filosofie` 389, 394 · `Chinese geschiedenis` 219 · `chiropractie` 432 ·
-`christendom` 162, 201, 391 · `chronobiologie` 326, 329 · `cijfers` 39, 65 ·
-`civilisatiekritiek` 298 · `coaching` 161, 291, 441 · `cognitieve
-gedragstherapie` 147, 153, 373 · `cognitieve herstructurering` 177 ·
-`cognitieve vertekening` 234 · `cognitieve wetenschap` 467 · `cognitieve-bias`
-59 · `collectief bewustzijn` 435 · `collectief onbewuste` 357, 360, 362 ·
-`columns` 89, 90 · `comfortzone` 187 · `commando` 97 · `communicatie` 34, 35,
-122, 145, 152, 156, 162, 164, 183, 186, 193, 213, 305, 338, 356, 398, 399,
-444, 466, 475, 539 · `complexiteit` 170, 268, 300, 347, 423 · `complimenten
-geven` 356 · `concentratie` 70, 441 · `concurrentie` 293 · `conditionering`
-61, 519 · `conflict` 35, 42, 43, 212, 305 · `conflictbemiddeling` 304 ·
-`conflicthantering` 271 · `conformisme` 211 · `consumptie` 463 ·
-`consumptiekeuzes` 299 · `content` 308 · `content creatie` 365 · `content
-marketing` 369 · `corruptie` 221 · `creativiteit` 11, 12, 13, 14, 15, 16, 17,
-74, 206, 312, 349, 418, 445, 471, 472, 475 · `cricket` 174 · `crisis` 47 ·
-`CRISPR` 413 · `cultuur` 68, 274 · `cultuurkritiek` 54, 405 · `cursus` 108,
-130, 201 · `cursus-in-wonderen` 102, 131 · `cybernetica` 411, 539, 540, 541 ·
-`cynisme` 250, 319 · `Cyrus de Grote` 536 · `dagboek` 2, 109, 224, 286 ·
-`dagboekaantekeningen` 226 · `dagboekmethode` 78 · `dagboekonderzoek` 472 ·
-`dagelijkse gewoontes` 205 · `dagelijkse praktijk` 442 · `dankbaarheid` 129,
-433 · `darmbacteriën` 417 · `dataïsme` 236 · `daten` 166 · `debat` 28 ·
-`debuutboek` 226 · `degrowth` 298 · `dekoloniaal denken` 521 · `delegeren` 434
-· `deliberate practice` 376 · `dementie` 84, 85, 225 · `democratie` 98 ·
-`denken` 310, 509 · `denkfouten` 55, 59, 142, 396, 437, 510, 514 ·
-`denkmethode` 471 · `denkmodellen` 426 · `depressie` 403 · `derivaten` 494,
-495 · `design thinking` 150 · `destructiviteit` 223 · `deugd` 247, 459 ·
-`diagnose` 104 · `dialoog` 335 · `dichotomie van controle` 194 · `dichtwerk`
-524 · `dictatuur` 221 · `dienstbaarheid` 230, 245, 535 · `diepe-tijd` 239 ·
+`burgerschap` 243 · `burn-out` 135, 207, 400, 551, 552 · `bushido` 535 ·
+`cafeïne` 52 · `Californië` 10 · `carl jung` 258 · `carrière` 146, 158, 388 ·
+`cases` 40 · `cashflow` 37 · `celbiologie` 419 · `chakra's` 432 · `challenger`
+62 · `Chanakya` 370 · `channeling` 549 · `chaos` 74, 347 · `chapbook` 100 ·
+`charismatisch christendom` 559 · `China` 348 · `Chinese filosofie` 389, 394 ·
+`Chinese geschiedenis` 219 · `chiropractie` 432 · `christendom` 162, 201, 391
+· `chronobiologie` 326, 329 · `cijfers` 39, 65 · `civilisatiekritiek` 298 ·
+`coaching` 161, 291, 441 · `cognitieve gedragstherapie` 147, 153, 373 ·
+`cognitieve herstructurering` 177 · `cognitieve vertekening` 234 · `cognitieve
+wetenschap` 467 · `cognitieve-bias` 59 · `collectief bewustzijn` 435 ·
+`collectief onbewuste` 357, 360, 362 · `columns` 89, 90 · `comfortzone` 187 ·
+`commando` 97 · `communicatie` 34, 35, 122, 145, 152, 156, 162, 164, 183, 186,
+193, 213, 305, 338, 356, 398, 399, 444, 466, 475, 539, 555 · `complexiteit`
+170, 268, 300, 347, 423 · `complimenten geven` 356 · `concentratie` 70, 441 ·
+`concurrentie` 293 · `conditionering` 61, 519 · `conflict` 35, 42, 43, 212,
+305 · `conflictbemiddeling` 304 · `conflicthantering` 271 · `conformisme` 211
+· `consistentie` 553 · `consumptie` 463 · `consumptiekeuzes` 299 · `content`
+308 · `content creatie` 365 · `content marketing` 369 · `corruptie` 221 ·
+`creativiteit` 11, 12, 13, 14, 15, 16, 17, 74, 206, 312, 349, 418, 445, 471,
+472, 475, 550 · `cricket` 174 · `crisis` 47 · `CRISPR` 413 · `cultuur` 68, 274
+· `cultuurkritiek` 54, 405 · `cursus` 108, 130, 201 · `cursus-in-wonderen`
+102, 131, 548 · `cybernetica` 411, 539, 540, 541 · `cynisme` 250, 319 · `Cyrus
+de Grote` 536 · `dagboek` 2, 109, 224, 286 · `dagboekaantekeningen` 226 ·
+`dagboekmethode` 78 · `dagboekonderzoek` 472 · `dagelijkse gewoontes` 205 ·
+`dagelijkse praktijk` 442 · `dankbaarheid` 129, 433 · `darmbacteriën` 417 ·
+`dataïsme` 236 · `daten` 166 · `debat` 28 · `debuutboek` 226 · `degrowth` 298
+· `dekoloniaal denken` 521 · `delegeren` 434 · `deliberate practice` 376 ·
+`dementie` 84, 85, 225 · `democratie` 98 · `denken` 310, 509 · `denkfouten`
+55, 59, 142, 396, 437, 510, 514 · `denkmethode` 471 · `denkmodellen` 426 ·
+`depressie` 403 · `derivaten` 494, 495 · `design thinking` 150 ·
+`destructiviteit` 223 · `deugd` 247, 459 · `diagnose` 104 · `dialoog` 335 ·
+`dichotomie van controle` 194 · `dichtwerk` 524 · `dictatuur` 221 ·
+`dienstbaarheid` 230, 245, 535 · `diepe-tijd` 239 · `dieren` 555 ·
 `dierenzintuigen` 322 · `dierlijke-cognitie` 383 · `dierproeven` 330 ·
 `differentiatie` 165 · `digitaal` 81 · `diplomatie` 243 · `direct response`
 350 · `DISC` 156, 429 · `discipline` 12, 13, 22, 30, 106, 133, 137, 146, 445,
@@ -106498,21 +109313,22 @@ marketing` 369 · `corruptie` 221 · `creativiteit` 11, 12, 13, 14, 15, 16, 17,
 `educatief` 327 · `eenvoud` 170, 205, 379 · `eenzaamheid` 7, 96, 98, 111, 288,
 302 · `eer` 530, 534 · `eerlijk` 47 · `eerlijkheid` 62 · `eerste-versie` 19 ·
 `ego` 75, 102, 149, 435 · `ego en zelf` 409 · `ego-depletie` 382 · `eigen
-bedrijf` 210 · `eigen-beheer` 107, 140, 142 · `eigen-oordeel` 58 ·
+bedrijf` 210 · `eigen-beheer` 107, 140, 142 · `eigen-oordeel` 58, 546 ·
 `eigenaarschap` 97 · `eindigheid` 442 · `einstein` 94 · `elektriciteit` 267 ·
-`elektrische auto's` 266 · `EMDR` 386 · `emigratie` 240 · `emoties` 3, 43,
-137, 142, 147, 153, 177, 330, 331, 449, 457, 470, 488, 542 · `empathie` 35,
-67, 303 · `energie` 92, 195, 291, 377 · `energiewerk` 432 · `entropie` 539 ·
-`epigenetica` 208, 415 · `epos` 5, 530, 531, 532 · `erfelijkheid` 419 ·
-`erfenis` 39 · `erkenningszucht` 406 · `erotiek` 113, 164 · `esoterie` 378 ·
-`essay` 3, 9, 21, 57, 59, 63, 64, 68, 96, 197, 232 · `essaybundel` 390, 425 ·
-`essays` 523 · `eten` 103 · `ethiek` 282, 299, 413 · `evangelisatie` 201 ·
-`evolutie` 56, 66, 89, 90, 91, 239, 318, 322, 323, 332, 339, 347, 383, 518 ·
-`evolutiebiologie` 452, 453 · `evolutionaire-psychologie` 67 · `executives`
-344 · `existentialisme` 405 · `expeditie` 36 · `experiment` 79, 215 ·
-`experimenten` 280, 424 · `experimenteren` 265 · `expertise` 283, 320, 376 ·
-`extraversie` 361 · `fabel` 8, 42, 135, 167, 252 · `facilitatie` 304 · `falen`
-23, 72, 75, 312, 422 · `familie` 45, 325, 466 · `familieconflict` 178 ·
+`elektrische auto's` 266 · `EMDR` 386 · `emigratie` 240 · `emotie-eten` 557 ·
+`emoties` 3, 43, 137, 142, 147, 153, 177, 330, 331, 449, 457, 470, 488, 542 ·
+`empathie` 35, 67, 303 · `energetisch werk` 560 · `energie` 92, 195, 291, 377
+· `energiewerk` 432 · `entropie` 539 · `epigenetica` 208, 415 · `epos` 5, 530,
+531, 532 · `erfelijkheid` 419 · `erfenis` 39 · `erkenningszucht` 406 ·
+`erotiek` 113, 164 · `esoterie` 378 · `essay` 3, 9, 21, 57, 59, 63, 64, 68,
+96, 197, 232 · `essaybundel` 390, 425 · `essays` 523 · `eten` 103 · `ethiek`
+282, 299, 413 · `evangelisatie` 201 · `evolutie` 56, 66, 89, 90, 91, 239, 318,
+322, 323, 332, 339, 347, 383, 518 · `evolutiebiologie` 452, 453 ·
+`evolutionaire-psychologie` 67 · `excellentie` 553 · `executives` 344 ·
+`existentialisme` 405 · `expeditie` 36 · `experiment` 79, 215 · `experimenten`
+280, 424 · `experimenteren` 265 · `expertise` 283, 320, 376 · `extraversie`
+361 · `fabel` 8, 42, 135, 167, 252 · `facilitatie` 304 · `falen` 23, 72, 75,
+312, 422 · `familie` 45, 325, 466 · `familieconflict` 178 ·
 `familiegeschiedenis` 114, 235 · `familieroman` 10 · `fantasy` 192, 203 ·
 `FBI` 154, 271 · `FBI-onderzoek` 431 · `feedback` 41, 296, 541, 542 · `feiten`
 43 · `feminisme` 3 · `fictie` 100, 115 · `film` 41 · `filosofie` 1, 6, 71, 93,
@@ -106536,8 +109352,8 @@ onafhankelijkheid` 264 · `financiele vrijheid` 277 · `financiële wiskunde`
 `geheim genootschap` 202 · `geheugen` 66, 85, 175, 414 · `gehoorzaamheid` 215
 · `geïllustreerd boek` 176 · `geld` 21, 37, 38, 56, 76, 121, 132, 133, 158,
 159, 433, 463, 464 · `geldmanagement` 492, 493 · `geldmindset` 395 ·
-`geldpsychologie` 233, 264 · `geloof` 45, 83, 201 · `geluk` 79, 93, 160, 228,
-335, 516, 526 · `gemeenschap` 9, 96, 304, 461 · `geneeskunde` 49, 328 ·
+`geldpsychologie` 233, 264 · `geloof` 45, 83, 201, 554 · `geluk` 79, 93, 160,
+228, 335, 516, 526 · `gemeenschap` 9, 96, 304, 461 · `geneeskunde` 49, 328 ·
 `generaties` 114 · `generatieve drift` 315 · `genetica` 413, 419 · `genezing`
 340 · `genot en pijn` 314 · `gentechnologie` 413 · `geologie` 239 ·
 `geopolitiek` 220 · `geschiedenis` 30, 36, 56, 57, 68, 93, 94, 212, 218, 250,
@@ -106547,10 +109363,10 @@ onafhankelijkheid` 264 · `financiele vrijheid` 277 · `financiële wiskunde`
 `geweld` 45, 90, 214 · `gewicht` 138 · `gewoontelus` 238 · `gewoonten` 187,
 373 · `gewoontes` 7, 11, 13, 22, 25, 58, 70, 76, 77, 79, 88, 97, 103, 133,
 134, 135, 138, 147, 157, 158, 181, 207, 208, 224, 230, 290, 334, 382, 439,
-442, 445, 513 · `gewoontevorming` 146, 161, 168, 188, 244, 291, 294, 396, 397,
-411, 540 · `gezag` 62 · `gezinnen` 327 · `gezondheid` 52, 88, 171, 181, 318,
-323, 329, 332, 412, 414, 415 · `gezondheidspsychologie` 458 ·
-`gezondheidszorg` 313, 317, 422 · `ggz` 104 · `giftige relaties` 429 ·
+442, 445, 513, 557 · `gewoontevorming` 146, 161, 168, 188, 244, 291, 294, 396,
+397, 411, 540 · `gezag` 62 · `gezin` 547 · `gezinnen` 327 · `gezondheid` 52,
+88, 171, 181, 318, 323, 329, 332, 412, 414, 415 · `gezondheidspsychologie` 458
+· `gezondheidszorg` 313, 317, 422 · `ggz` 104 · `giftige relaties` 429 ·
 `gijzelingsonderhandelaar` 271 · `godsdienstkritiek` 341 · `goeroe` 242 ·
 `Google` 512 · `Graallegende` 408 · `grandiositeit` 404 · `gratie` 374 ·
 `grenzen` 72, 105, 109, 120, 122, 187, 466 · `grenzen stellen` 151, 204, 406,
@@ -106565,24 +109381,25 @@ House` 380 · `hechting` 145, 152, 317, 386 · `hedendaags India` 202 ·
 `hedgefondsen` 505 · `heelal` 99, 262 · `heldendom` 532 · `heldenreis` 410 ·
 `helderheid` 82, 436 · `herhaling` 125, 134 · `herkomst` 127 · `hermetische
 filosofie` 378 · `heroverwegen` 28 · `hersenen` 51, 84, 85, 86, 327 ·
-`hersenonderzoek` 330, 333 · `hersenspoeling` 384 · `herstel` 87 · `het
+`hersenonderzoek` 330, 333 · `hersenspoeling` 384 · `herstel` 87, 552 · `het
 gesprek` 416 · `Himalaya` 191 · `hindoeïsme` 169, 199, 527 · `Hindoeïstische
 mythologie` 192, 202 · `hindoemythologie` 203 · `Hinge` 166 · `hiphop` 440 ·
 `historische portretten` 248 · `historische roman` 529 · `hofcultuur` 216 ·
-`Hollywood` 178 · `Holocaust` 48 · `holografie` 340 · `homoseksualiteit` 325 ·
-`hoop` 255, 319 · `hormonen` 80, 339 · `hospice` 416 · `houding` 117 ·
-`huisvesting` 65 · `humanisme` 236 · `humor` 16, 19, 26, 105, 227 · `huwelijk`
-9, 34, 165 · `Huxley` 54 · `hybride werken` 512 · `hypnose` 123, 124, 125 ·
-`Idaho` 45 · `ideeën` 206 · `ideeëngeschiedenis` 269 · `identiteit` 22, 115,
-192, 261, 374, 375, 467 · `identiteitskapitaal` 51 · `ierland` 110 · `IJsland`
-185, 533 · `ik-vorm` 113 · `illustraties` 109, 327 · `imitatie` 11 ·
-`imperfectionisme` 442 · `import` 20 · `India` 163, 171, 172, 180, 189, 191,
-196, 199, 203, 226, 242, 365, 370, 518, 520, 527 · `individualisme` 9, 96 ·
-`individualiteit` 263 · `individuatie` 359, 360, 408, 409 ·
-`individuele-verantwoordelijkheid` 299 · `industrie` 348 · `inheems denken`
-521 · `initiatie` 407, 408, 522 · `inleiding` 452, 456 · `innerlijk-kind` 109
-· `innerlijk-werkleven` 472 · `innerlijke stem` 377 · `innovatie` 206, 251,
-293, 306, 471 · `instagram` 129 · `instituties` 392 · `intelligentie` 383 ·
+`hollywood` 555 · `Hollywood` 178 · `Holocaust` 48 · `holografie` 340 ·
+`homoseksualiteit` 325 · `hoop` 255, 319 · `hormonen` 80, 339 · `hospice` 416
+· `houding` 117 · `huisvesting` 65 · `humanisme` 236 · `humor` 16, 19, 26,
+105, 227 · `huwelijk` 9, 34, 165 · `Huxley` 54 · `hybride werken` 512 ·
+`hypnose` 123, 124, 125 · `Idaho` 45 · `ideeën` 206 · `ideeëngeschiedenis` 269
+· `identiteit` 22, 115, 192, 261, 374, 375, 467, 559 · `identiteitskapitaal`
+51 · `ierland` 110 · `IJsland` 185, 533 · `ik-vorm` 113 · `illustraties` 109,
+327 · `imitatie` 11 · `imperfectionisme` 442 · `import` 20 · `India` 163, 171,
+172, 180, 189, 191, 196, 199, 203, 226, 242, 365, 370, 518, 520, 527 ·
+`individualisme` 9, 96 · `individualiteit` 263 · `individuatie` 359, 360, 408,
+409 · `individuele-verantwoordelijkheid` 299 · `industrie` 348 · `inheems
+denken` 521 · `initiatie` 407, 408, 522 · `inleiding` 452, 456 ·
+`innerlijk-kind` 109 · `innerlijk-werkleven` 472 · `innerlijke stem` 377 ·
+`innerlijke vrede` 548 · `innovatie` 206, 251, 293, 306, 471 · `instagram` 129
+· `instituties` 392 · `integriteit` 547 · `intelligentie` 383 ·
 `internationale betrekkingen` 455 · `internet` 60, 198 · `interviews` 58, 277,
 289 · `intimiteit` 122, 145, 164, 165 · `introversie` 33, 361 · `intuitie` 128
 · `intuïtie` 214, 283, 320 · `investeren` 270, 348 · `invloed` 11 ·
@@ -106622,47 +109439,48 @@ intelligentie` 236, 237, 297 · `kwaad` 404 · `kwaliteit` 1, 400 ·
 44, 470 · `landbouw` 56, 98 · `landmark forum` 344 · `leadgeneratie` 308 ·
 `lean manufacturing` 265 · `leefstijl` 86, 103, 138, 171 · `leertijd` 320 ·
 `leger` 106, 180, 222 · `leiderschap` 36, 41, 44, 46, 97, 106, 157, 170, 183,
-218, 222, 231, 260, 273, 344, 353, 364, 370, 389, 434, 465, 468, 475, 536, 544
-· `leidinggeven` 156 · `leren` 175, 296, 349, 397, 422, 441, 509, 538 ·
-`lesmateriaal` 116 · `leugendetectie` 154, 338 · `levensinrichting` 334 ·
-`levenskeuzes` 150 · `levenskunst` 27, 199, 216, 227 · `levenslessen` 285, 447
-· `levensloop` 91 · `levensverhaal` 385 · `levenswijsheid` 473 · `lezen` 18,
-420 · `lezing` 436 · `lezingen` 169 · `lichaam` 80 · `lichaamsgericht werken`
-386 · `lichaamstaal` 125, 126, 154, 303, 338, 399 · `lichaamswerk` 432 ·
-`licht` 525 · `liefde` 3, 131, 160, 295 · `liefdesroman` 180 · `lifestyle` 278
-· `lijden` 48, 73, 160, 310, 390 · `list` 531 · `literair` 110 · `literatuur`
-49 · `logica` 421, 437 · `logotherapie` 48 · `Long-Island` 4 · `longevity` 415
-· `loopbaan` 50, 51, 150, 349, 515 · `loslaten` 377, 449 · `losmaken` 45 ·
-`lotsbestemming` 261 · `luchtvaart` 422 · `luisteren` 24, 35, 305, 444 ·
-`machinaal leren` 484, 485, 486, 503 · `macht` 212, 250, 263, 381, 388, 440 ·
-`machtspolitiek` 220 · `machtstheorie` 221 · `machtsverhoudingen` 155 ·
-`magisch realisme` 261 · `management` 42, 47, 170, 183, 256, 350, 353, 364,
-472 · `manifesteren` 128, 129, 130, 131, 132, 190, 196, 433, 543 ·
-`manipulatie` 123, 124, 125, 126, 212, 213, 381, 384, 429 · `mannelijkheid` 3,
-406, 407, 408 · `mannen` 7 · `mannenbeweging` 407 · `mantelzorg` 225 ·
-`mantra` 403 · `manuscript` 359 · `marketing` 13, 40, 60, 172, 183, 279, 280,
-307, 308, 309, 350, 443, 446 · `marktmicrostructuur` 477, 478 · `McKinsey` 511
-· `media` 54, 60, 100 · `medische ethiek` 416 · `meditatie` 111, 141, 149,
-169, 205, 208, 228, 230, 237, 242, 333, 377, 401, 431, 527, 528 ·
-`meesterschap` 296, 320 · `meetsystemen` 392 · `memento mori` 286 · `memoir`
-4, 7, 18, 20, 26, 45, 49, 62, 95, 106, 178, 185, 191, 226, 229, 242, 289, 324,
-325, 348, 385, 402, 403, 431, 447, 505 · `menselijk gedrag` 155 ·
-`mensenkennis` 126, 356 · `mentale gezondheid` 315 · `mentale helderheid` 148
-· `mentale weerbaarheid` 229, 323, 372, 373, 374, 545 · `mentalisme` 378, 399
-· `mentorschap` 4, 285, 289, 320, 402 · `merken` 279 · `metabolisme` 313 ·
-`metafysica` 102, 518 · `meten` 69, 133 · `methode` 81 · `microbedrijf` 40,
-172 · `microbioom` 417 · `middelbare-leeftijd` 7 · `middeleeuwen` 534 ·
-`midlife` 324 · `militaire strategie` 220 · `millennials` 159 · `minderheden`
-68 · `mindful` 103 · `mindfulness` 141, 147, 149, 177, 333, 401 · `mindset`
-146, 181, 188, 387, 458 · `minimalisme` 181 · `misdaad` 254 · `misleiding`
-219, 272 · `mislukking` 516 · `mitochondriën` 313 · `modellen` 300 ·
-`modelleren` 139 · `modellering` 455 · `moed` 44, 529 · `moeder-en-zoon` 26 ·
-`momentum` 481 · `monniksleven` 230 · `monomythe` 410 · `monopolie` 306 ·
-`monsters` 532 · `Monty-Python` 16 · `moraal` 9, 57, 67, 263 · `moraalkritiek`
-391 · `moreel` 36 · `motivatie` 117, 139, 146, 183, 200, 207, 315, 427, 468,
-469, 472 · `Motley Fool` 474 · `motoren` 6 · `motorfietsen` 325 · `muziek` 17,
-85 · `mystiek` 340, 390, 524, 525 · `mythologie` 73, 143, 357, 360, 407, 408,
-409 · `mythologische fantasy` 202 · `mythologische fictie` 203 · `NAD+` 415 ·
+218, 222, 231, 260, 273, 344, 353, 364, 370, 389, 434, 465, 468, 475, 536,
+544, 551 · `leidinggeven` 156 · `leren` 175, 296, 349, 397, 422, 441, 509, 538
+· `lesmateriaal` 116 · `leugendetectie` 154, 338 · `levensinrichting` 334 ·
+`levenskeuzes` 150, 546 · `levenskunst` 27, 199, 216, 227 · `levenslessen`
+285, 447 · `levensloop` 91 · `levensverhaal` 385 · `levenswijsheid` 473 ·
+`lezen` 18, 420 · `lezing` 436 · `lezingen` 169 · `libertarisme` 546 ·
+`lichaam` 80 · `lichaamsgericht werken` 386 · `lichaamstaal` 125, 126, 154,
+303, 338, 399 · `lichaamswerk` 432 · `licht` 525 · `liefde` 3, 131, 160, 295 ·
+`liefdesroman` 180 · `lifestyle` 278 · `lijden` 48, 73, 160, 310, 390 · `list`
+531 · `literair` 110 · `literatuur` 49 · `logica` 421, 437 · `logotherapie` 48
+· `Long-Island` 4 · `longevity` 415 · `loopbaan` 50, 51, 150, 349, 515, 547 ·
+`loslaten` 377, 449 · `losmaken` 45 · `lotsbestemming` 261 · `luchtvaart` 422
+· `luisteren` 24, 35, 305, 444 · `machinaal leren` 484, 485, 486, 503 ·
+`macht` 212, 250, 263, 381, 388, 440 · `machtspolitiek` 220 · `machtstheorie`
+221 · `machtsverhoudingen` 155 · `magisch realisme` 261 · `management` 42, 47,
+170, 183, 256, 350, 353, 364, 472 · `managementtheorie` 547 · `manifesteren`
+128, 129, 130, 131, 132, 190, 196, 433, 543, 560 · `manipulatie` 123, 124,
+125, 126, 212, 213, 381, 384, 429 · `mannelijkheid` 3, 406, 407, 408 ·
+`mannen` 7 · `mannenbeweging` 407 · `mantelzorg` 225 · `mantra` 403 ·
+`manuscript` 359 · `marketing` 13, 40, 60, 172, 183, 279, 280, 307, 308, 309,
+350, 443, 446 · `marktmicrostructuur` 477, 478 · `McKinsey` 511 · `media` 54,
+60, 100 · `medische ethiek` 416 · `meditatie` 111, 141, 149, 169, 205, 208,
+228, 230, 237, 242, 333, 377, 401, 431, 527, 528 · `meesterschap` 296, 320,
+553 · `meetsystemen` 392 · `memento mori` 286 · `memoir` 4, 7, 18, 20, 26, 45,
+49, 62, 95, 106, 178, 185, 191, 226, 229, 242, 289, 324, 325, 348, 385, 402,
+403, 431, 447, 505 · `menselijk gedrag` 155 · `mensenkennis` 126, 356 ·
+`mentale gezondheid` 315 · `mentale helderheid` 148 · `mentale weerbaarheid`
+229, 323, 372, 373, 374, 545 · `mentalisme` 378, 399 · `mentorschap` 4, 285,
+289, 320, 402 · `merken` 279 · `metabolisme` 313 · `metafysica` 102, 518 ·
+`meten` 69, 133 · `methode` 81 · `microbedrijf` 40, 172 · `microbioom` 417 ·
+`middelbare-leeftijd` 7 · `middeleeuwen` 534 · `midlife` 324 · `militaire
+strategie` 220 · `millennials` 159 · `minderheden` 68 · `mindful` 103 ·
+`mindfulness` 141, 147, 149, 177, 333, 401 · `mindset` 146, 181, 188, 387, 458
+· `minimalisme` 181 · `misdaad` 254 · `misleiding` 219, 272 · `mislukking` 516
+· `mitochondriën` 313 · `modellen` 300 · `modelleren` 139 · `modellering` 455
+· `moed` 44, 529 · `moeder-en-zoon` 26 · `momentum` 481 · `monniksleven` 230 ·
+`monomythe` 410 · `monopolie` 306 · `monsters` 532 · `Monty-Python` 16 ·
+`moraal` 9, 57, 67, 263 · `moraalkritiek` 391 · `moreel` 36 · `mormonisme` 560
+· `motivatie` 117, 139, 146, 183, 200, 207, 315, 427, 468, 469, 472 · `Motley
+Fool` 474 · `motoren` 6 · `motorfietsen` 325 · `muziek` 17, 85 · `mystiek`
+340, 390, 524, 525 · `mythologie` 73, 143, 357, 360, 407, 408, 409 ·
+`mythologische fantasy` 202 · `mythologische fictie` 203 · `NAD+` 415 ·
 `nalatenschap` 178 · `napoleontische oorlogen` 235 · `narcisme` 258, 404 ·
 `naslag` 99, 112 · `naslagwerk` 59, 225, 426, 477, 478, 486, 491, 500, 504 ·
 `nationalisme` 237 · `natuur` 191, 323 · `natuurkunde` 62, 94, 240, 262, 281,
@@ -106674,217 +109492,220 @@ intelligentie` 236, 237, 297 · `kwaad` 404 · `kwaliteit` 1, 400 ·
 `neurochirurgie` 49, 414 · `neurologie` 325 · `neuroplasticiteit` 175, 208,
 414 · `neurowetenschap` 52, 208, 238, 275, 314, 326, 330, 331, 333, 339, 340,
 386, 418, 513 · `neurowetenschap-voor-kinderen` 327 · `neusademing` 318 · `new
-age` 149, 435, 449 · `new thought` 259, 380 · `NeXT` 46 · `Nietzsche` 391 ·
-`nieuwe gedachte` 127, 378 · `nieuws` 60, 90 · `nieuwsgierigheid` 15, 28, 62,
-241 · `Nike` 20 · `nlp` 123, 125, 139 · `Nobelprijs` 55 · `non-dualiteit` 520
-· `non-fictie` 420 · `non-verbaal` 399 · `non-verbale communicatie` 154 ·
-`noodlot` 533 · `Noordse mythologie` 533 · `notitieboeken` 241 · `novelle` 173
-· `obesitas` 417 · `observeren` 15 · `obsessieve liefde` 284 · `occultisme`
-378 · `ochtendroutine` 14, 134, 244 · `oefenen` 29, 397 · `oefening` 141, 296
-· `oefeningen` 15, 35, 87, 103, 109, 118, 120, 122, 130 · `okinawa` 77 · `okr`
-256 · `omgangsvormen` 24, 398 · `omkering` 105 · `omstreden` 37, 73, 76, 83 ·
-`onbegrepen-klachten` 104 · `onbetrouwbaar` 123, 124, 125, 126 ·
-`onbetrouwbare verteller` 284 · `onbewezen` 127, 128, 129, 130, 131, 132, 139
-· `onbewuste` 16, 283, 358, 359 · `onderbewuste` 124 · `onderbewustzijn` 259 ·
-`onderbouwing` 87, 108, 117, 134, 135, 136 · `onderhandelen` 159, 186, 217,
-260, 271, 272, 305, 444, 450, 455 · `ondernemen` 20, 39, 40, 47, 172, 446, 476
-· `ondernemers` 174 · `ondernemerschap` 157, 163, 185, 197, 198, 210, 222,
-228, 231, 245, 249, 276, 278, 289, 306, 307, 308, 312, 350, 365, 369, 370,
-395, 403, 427, 431, 434, 465, 544 · `onderwijs` 6, 23, 33, 45, 63, 65, 68,
-116, 237, 349, 509 · `onderwijskritiek` 37 · `onderzoek` 23, 28, 29, 32, 33,
-39, 44, 55, 62, 78, 79, 80, 84, 85, 86, 88, 152, 305 · `onderzoeksdebat` 53 ·
-`onderzoeksethiek` 215 · `onderzoekskritiek` 52, 415 · `ongemak` 323 ·
-`ongeneeslijke ziekte` 285 · `online ondernemen` 309 · `onsterfelijkheid` 236,
-405 · `onthechting` 462 · `ontmoeten` 304 · `ontologie` 344 · `ontslagen` 47 ·
+age` 149, 435, 449, 549 · `new thought` 259, 380, 555 · `NeXT` 46 ·
+`Nietzsche` 391 · `nieuwe gedachte` 127, 378 · `nieuws` 60, 90 ·
+`nieuwsgierigheid` 15, 28, 62, 241, 550 · `Nike` 20 · `nlp` 123, 125, 139 ·
+`Nobelprijs` 55 · `non-dualiteit` 520 · `non-fictie` 420 · `non-verbaal` 399 ·
+`non-verbale communicatie` 154 · `noodlot` 533 · `Noordse mythologie` 533 ·
+`notitieboeken` 241 · `novelle` 173 · `obesitas` 417 · `observeren` 15 ·
+`obsessieve liefde` 284 · `occultisme` 378 · `ochtendroutine` 14, 134, 244 ·
+`oefenen` 29, 397 · `oefening` 141, 296 · `oefeningen` 15, 35, 87, 103, 109,
+118, 120, 122, 130, 549 · `okinawa` 77 · `okr` 256 · `omgangsvormen` 24, 398 ·
+`omkering` 105 · `omstreden` 37, 73, 76, 83 · `onbegrepen-klachten` 104 ·
+`onbetrouwbaar` 123, 124, 125, 126 · `onbetrouwbare verteller` 284 ·
+`onbewezen` 127, 128, 129, 130, 131, 132, 139 · `onbewuste` 16, 283, 358, 359
+· `onderbewuste` 124 · `onderbewustzijn` 259 · `onderbouwing` 87, 108, 117,
+134, 135, 136 · `onderhandelen` 159, 186, 217, 260, 271, 272, 305, 444, 450,
+455 · `ondernemen` 20, 39, 40, 47, 172, 446, 476 · `ondernemers` 174 ·
+`ondernemerschap` 157, 163, 185, 197, 198, 210, 222, 228, 231, 245, 249, 276,
+278, 289, 306, 307, 308, 312, 350, 365, 369, 370, 395, 403, 427, 431, 434,
+465, 544 · `onderwijs` 6, 23, 33, 45, 63, 65, 68, 116, 237, 349, 509 ·
+`onderwijskritiek` 37 · `onderzoek` 23, 28, 29, 32, 33, 39, 44, 55, 62, 78,
+79, 80, 84, 85, 86, 88, 152, 305 · `onderzoeksdebat` 53 · `onderzoeksethiek`
+215 · `onderzoekskritiek` 52, 415 · `ongemak` 323 · `ongeneeslijke ziekte` 285
+· `online ondernemen` 309 · `onsterfelijkheid` 236, 405 · `onthechting` 462 ·
+`ontmoeten` 304 · `ontologie` 344 · `ontslagen` 47 · `ontwerp` 550 ·
 `ontwikkeling` 46, 85 · `ontwikkelingslanden` 234 · `onvolmaaktheid` 379 ·
 `onzekerheid` 268, 341, 375, 423, 515, 516 · `oordeel` 59, 69 · `oorlog` 31,
 57, 66, 364 · `oorlogvoering` 218 · `opdrachten` 116 · `opgetekend` 97 ·
-`opgeven` 249 · `opgroeien` 4, 295 · `opties` 494, 495, 506 · `optimisme` 251
-· `optogenetica` 331 · `opvoeding` 3, 23, 29, 44, 53, 73, 162, 193, 290 ·
-`orale traditie` 522 · `orde` 73, 74 · `organisatie` 28, 41, 69, 238, 388,
-422, 468 · `organisatiecultuur` 183, 273, 353 · `orthodontie` 332 · `Orwell`
-54 · `Otto Rank` 405 · `oud china` 272 · `Oude Rome` 328 · `Oudengels` 532 ·
-`ouder-worden` 5 · `ouderdom` 77, 84, 91, 95, 191, 402, 416 · `oudheid` 2,
-247, 292, 536, 537 · `outsourcen` 278 · `overdenken` 148 · `overfitting` 484,
-485, 502, 503 · `overgave` 431 · `overleven` 31, 36 · `overlevingsvertekening`
-64 · `overtuigen` 24, 182, 253, 356, 367, 438 · `overtuiging` 280 ·
-`overtuigingen` 28, 132, 139, 143, 469, 487 · `overvloed` 17 · `oxytocine` 458
-· `Pacific` 31 · `pacifisme` 240 · `Padma-onderscheiding` 189 · `palliatieve
-zorg` 416, 447 · `para` 81 · `parabel` 38, 244, 246 · `paradigma` 543 ·
-`paranormaal` 340, 362 · `passie` 50, 198 · `pastoraat` 34 ·
-`patiëntenverhalen` 331 · `patiëntverhalen` 414 · `patriarchaat` 3 ·
-`pelgrimage` 8 · `pensioen` 277 · `perceptie` 30 · `perfectionisme` 19, 32, 44
-· `persoonlijk merk` 198, 365 · `persoonlijke financiën` 163, 233, 395 ·
-`persoonlijke ontwikkeling` 161, 465, 467 · `persoonlijkheid` 33, 338, 538 ·
-`persoonlijkheidstypen` 361 · `Perzië` 524, 525, 526, 536 · `piekeren` 105,
-176 · `pijn` 85, 255 · `pijnlichaam` 435 · `Pixar` 41, 46 · `placebo` 387, 469
-· `planeten` 99 · `planning` 70, 276 · `plantaardig-dieet` 324 · `plastische
-chirurgie` 411 · `plicht` 2 · `podcast` 136, 465, 513 · `poëzie` 204 · `poker`
-137 · `polarisatie` 305 · `polemiek` 67 · `politicologie` 220, 221, 453, 455 ·
-`politiek` 54, 219, 438 · `politieke filosofie` 394 · `populair` 77, 129, 133
-· `populair-wetenschappelijk` 88, 239, 326, 418, 451 · `populaire filosofie`
-194 · `populaire psychologie` 156, 429 · `portefeuille` 474 ·
-`portefeuillebeheer` 507 · `portefeuilletheorie` 503 · `portretten` 75, 94 ·
-`positief denken` 83, 179, 516 · `positiegrootte` 489, 490, 491, 493, 504, 506
-· `positieve-psychologie` 207 · `positionering` 443 · `postuum` 49 · `Praag`
-173 · `praktijk` 459 · `praktisch` 118, 121, 140, 159, 172 · `prentenboek` 167
-· `presenteren` 82, 253 · `prestatie` 168, 291, 372, 397, 488, 545 ·
-`prestatiebeoordeling` 256 · `prestatiecultuur` 461 · `prestatieonderzoek` 376
-· `prestige` 515 · `preventie` 86, 313 · `prijsstelling` 307 · `prijzen` 23,
-424 · `prikkels` 60, 65 · `prioriteiten` 25, 196 · `prioriteren` 151, 311, 448
-· `privacy` 393 · `proactief` 25 · `producer` 17 · `product` 446 ·
-`productiviteit` 151, 175, 197, 207, 244, 276, 278, 290, 311, 400, 434, 442,
-448, 512 · `productontwerp` 231, 294 · `productontwikkeling` 265, 471 ·
-`proeven` 112 · `programmering` 439 · `projecten` 81 · `projectie` 107, 108 ·
-`propaganda` 60, 384 · `propositielogica` 437 · `protocol` 69 · `pseudokennis`
-126 · `pseudoniem` 378 · `psychedelica` 275 · `psychiatrie` 1, 48, 95, 96,
-104, 213, 314, 315, 317, 331 · `psychoanalyse` 223, 360, 361, 405, 409 ·
-`psychologie` 23, 28, 29, 55, 73, 78, 79, 105, 138, 143, 147, 152, 154, 162,
-200, 211, 213, 214, 250, 254, 258, 296, 310, 338, 357, 358, 375, 381, 382,
-384, 387, 424, 444, 457, 463, 467, 468, 469, 487, 501, 514, 538, 541, 542 ·
-`psychologische flexibiliteit` 460 · `psychologische functies` 361 ·
-`psychopathie` 429 · `psychotherapie` 164, 227, 386, 406 · `PTSS` 386 ·
-`publiceren` 13 · `publiek opbouwen` 369 · `publieksfilosofie` 269 ·
-`Pulitzer` 5 · `puzzels` 451 · `Python` 486 · `quantum` 94 · `queeste` 522 ·
-`quilten` 114 · `quotes` 179 · `radicale transparantie` 270 · `RAND` 454, 456
-· `Rat-Pack` 178 · `rationaliteit` 454 · `rationele keuze` 455 · `recht` 393 ·
-`rechtspraak` 69 · `reclame` 206, 279, 443, 446 · `reeks` 114, 192 ·
-`regimeverandering` 220 · `reïncarnatie` 202 · `reïnventie` 344 ·
-`reisverhaal` 1 · `reizen` 278 · `relaties` 34, 51, 101, 120, 122, 145, 152,
-162, 164, 166, 167, 195, 213, 334, 335, 381, 398, 406, 466 · `relatietherapie`
-165 · `relativiteitstheorie` 240, 281 · `religie` 56 · `religieuze symboliek`
-409 · `REM` 52 · `remarkable` 446 · `Renaissance` 15, 241 · `rente` 38 ·
-`replicatie` 79 · `reputatie` 388 · `retorica` 253, 438 · `revisie` 18 ·
-`ridderepos` 534 · `rijkdom` 57, 228 · `risico` 64, 80, 144, 268, 282, 351,
-423, 425, 480, 481, 482, 487, 496, 500, 501 · `risicobeheer` 479, 489, 490,
-491, 492, 493, 494, 497, 498, 504, 506 · `ritueel` 404 · `rituelen` 304 ·
-`rivier als symbool` 287 · `roem-en-eenzaamheid` 178 · `roeping` 8, 9, 12, 160
-· `roman` 61, 113, 114, 115, 254 · `Rome` 537 · `romeinse oudheid` 232 ·
-`rouw` 95, 467 · `rouwverwerking` 204 · `ruimte en tijd` 281 · `ruimtevaart`
-266 · `russische literatuur` 235 · `rust` 32 · `SaaS` 434 · `sadisme` 223 ·
-`saga` 533 · `Salinas` 10 · `samenleving` 90, 98, 319 · `samenwerken` 25 ·
-`samenwerking` 453 · `samoerai` 346, 462, 517, 535 · `Sanskriet` 520 · `Santa
-Fe Institute` 347 · `satire` 155 · `satori` 528 · `scepsis` 63 · `schaalgroei`
-434 · `schaalvergroting` 350 · `schaamte` 32, 44, 317, 470 · `schaarste` 92,
-249 · `schaduw` 404 · `scheikunde` 92 · `school` 53, 84 · `schrijven` 11, 12,
-14, 18, 19, 81, 436, 511 · `schrijverschap` 191, 325 · `schuld` 254 ·
-`schulden` 20, 38, 121, 159, 464 · `seksualiteit` 100, 145, 164, 165, 316 ·
-`selectoraattheorie` 221 · `seminar` 139, 543 · `Shaolin` 389 · `Silicon
-Valley` 306 · `sirtuïnen` 415 · `slaap` 52, 87, 88, 171, 181, 316, 329, 414 ·
-`slaapapneu` 332 · `slavernij` 68 · `smartphone` 53, 288 · `sociale
-besmetting` 303 · `sociale media` 53, 70, 194, 198, 204, 288, 365 · `sociale
-psychologie` 215, 280, 302, 319 · `sociale-vaardigheden` 398 · `sociologie`
-300 · `soefisme` 524, 526 · `software` 276, 484 · `somberheid` 119 ·
-`spanning` 101 · `sparen` 21, 38, 159, 233, 464 · `Sparta` 529 ·
-`specialisatie` 349 · `speedreading` 175 · `spelen` 32 · `spellen` 392 ·
-`speltheorie` 217, 221, 450, 451, 452, 453, 454, 455, 456 · `spiegelneuronen`
-303 · `spiegeloefening` 380 · `spiegelogie` 108 · `spieropbouw` 316 · `spijt`
-447 · `spiritualiteit` 8, 14, 27, 102, 108, 141, 149, 160, 169, 184, 190, 195,
-196, 199, 242, 310, 358, 377, 431, 435, 449, 519, 526 · `spirituele zoektocht`
-287, 524 · `sport` 20, 349 · `sportpsychologie` 372, 374, 441 ·
-`sportwetenschap` 461 · `spreekangst` 253 · `spreker` 117, 134 ·
-`staartrisico` 494, 496 · `staatsgreep` 220 · `stalking` 214 · `standaarden`
-396 · `Stanford` 150, 388, 458 · `start-ups` 306 · `startups` 265 ·
-`statistiek` 55, 65, 69, 234, 268, 300, 426, 476, 479, 483, 484, 485, 497,
-500, 502, 503, 507 · `statistiek van uitzonderingen` 274 · `status` 39, 66,
-463 · `sterfelijkheid` 2, 71, 232, 295, 416, 516 · `sterrenkunde` 99 ·
-`sterven` 49, 95, 275, 447 · `stijl` 18, 436 · `stoicijns` 75, 140, 142 ·
-`stoïcijnse filosofie` 153, 228, 232, 286, 423, 459 · `stoïcijnse
-levenshouding` 402 · `stoïcijnse-houding` 462 · `stoïcisme` 2, 30, 194, 247,
-248, 292, 516 · `stommiteit` 155 · `storytelling` 253, 279 · `strategie` 212,
-217, 218, 219, 249, 250, 260, 272, 293, 306, 346, 353, 370, 426, 440, 443,
-450, 451, 456 · `streken` 112 · `stress` 80, 87, 106, 118, 187, 387, 458 ·
-`stressmanagement` 153 · `stressregulatie` 372 · `strip` 452 · `structuur` 82,
-511 · `studieboek` 421, 437, 497, 498, 507 · `studietechniek` 420 · `succes`
-75, 76, 274 · `superkrachten` 203 · `supplementen` 171, 316 · `surveillance`
-393 · `syllogismen` 437 · `symboliek` 357, 360, 522 · `synchroniciteit` 362 ·
-`synchronisatie` 303 · `systeem` 22, 142 · `systeemtheorie` 165 ·
-`systematisch handelen` 482, 502 · `taal` 26, 27, 436 · `taal en macht` 344 ·
-`tactische empathie` 271 · `talent` 23, 29, 274 · `taoïsme` 341, 394 ·
-`tarieven` 121 · `teams` 42, 273, 364, 468 · `teamvorming` 260 · `teamwork`
-156, 256 · `techniek` 1, 6, 43, 61, 92 · `technische analyse` 483, 500 ·
-`technologie` 160, 288, 294, 306, 393, 499 · `technologiebedrijven` 293 ·
-`technologiegeschiedenis` 231, 267 · `technologiekritiek` 297, 539 ·
-`tegen-productiviteit` 71 · `tegenslag` 30, 111, 174 · `tekenen` 15 ·
-`tekstkwaliteit` 124 · `televisie` 54 · `temperament` 33 · `termijnmarkten`
-480, 482 · `testament` 462 · `tevredenheid` 463 · `Texas` 5, 385 · `The
-Secret` 433 · `theeceremonie` 379 · `therapie` 51, 107, 118, 119, 120, 121,
-122, 145, 466 · `Thermopylae` 529 · `thriller` 101, 202 · `thuiskomst` 531 ·
-`thuiszorg` 225 · `tieners` 193 · `tijd` 71, 232, 262, 292, 334, 442 ·
-`tijdmanagement` 434 · `tijdsbeleving` 326 · `timemanagement` 311, 448 ·
-`toekomst` 236 · `toeval` 21, 64, 93, 137, 274, 362, 483 · `Tolteeks` 27 ·
-`toon` 72, 118, 119, 121, 132, 145 · `topprestatie` 374 · `topsport` 422, 460,
-545 · `totalitarisme` 384 · `trading` 492, 493, 495 · `training` 376 ·
-`trauma` 104, 119, 195, 229, 317, 386 · `trendvolgen` 480, 501 · `trilling`
-127 · `trilogie` 202, 203, 248 · `TRIZ` 471 · `Troje` 530 · `tuinontwerp` 205
-· `tumoronderdrukker` 419 · `twaalf-weken` 14 · `twaalfde eeuw` 525 ·
-`tweede-wereldoorlog` 115 · `tweelingonderzoek` 417 · `twintigers` 51 ·
-`typologie` 361 · `uitdaging-vaardigheid` 200 · `uitgeven` 463 · `uitleg` 99,
-102 · `uitleggen` 82 · `uitstel` 71, 140 · `uitstelgedrag` 12, 311, 513 ·
-`uitstellen` 16 · `uitvinding` 267 · `ultra-triatlon` 324 · `ultralopen` 229 ·
-`umwelt` 322 · `Upanishaden` 169 · `vaardigheden` 40, 50, 349, 397 ·
-`vaardigheid` 64, 296 · `vader-en-dochter` 178, 226 · `vader-en-zoon` 1, 173,
-287 · `vaderschap` 49, 226, 324, 385 · `vakbonden` 297 · `vakmanschap` 1, 206,
-320, 346, 376 · `variantie` 137 · `vastgoed` 37, 448 · `vechtkunst` 389 ·
-`vedanta` 518 · `vedische filosofie` 230 · `veedrift` 5 · `veerkracht` 106,
-153, 174, 177, 189, 317, 375, 459, 460, 461, 467, 470 · `veiligheid` 43, 214 ·
+`opgeven` 249 · `opgroeien` 4, 295 · `opoffering` 554 · `opties` 494, 495, 506
+· `optimisme` 251 · `optogenetica` 331 · `opvoeding` 3, 23, 29, 44, 53, 73,
+162, 193, 290 · `opwekking` 558 · `orale traditie` 522 · `orde` 73, 74 ·
+`organisatie` 28, 41, 69, 238, 388, 422, 468 · `organisatiecultuur` 183, 273,
+353 · `orthodontie` 332 · `Orwell` 54 · `Otto Rank` 405 · `oud china` 272 ·
+`Oude Rome` 328 · `Oudengels` 532 · `ouder-worden` 5 · `ouderdom` 77, 84, 91,
+95, 191, 402, 416 · `oudheid` 2, 247, 292, 536, 537 · `outsourcen` 278 ·
+`overdenken` 148 · `overfitting` 484, 485, 502, 503 · `overgave` 431 ·
+`overleven` 31, 36 · `overlevingsvertekening` 64 · `overtuigen` 24, 182, 253,
+356, 367, 438 · `overtuiging` 280 · `overtuigingen` 28, 132, 139, 143, 469,
+487 · `overvloed` 17 · `oxytocine` 458 · `Pacific` 31 · `pacifisme` 240 ·
+`Padma-onderscheiding` 189 · `palliatieve zorg` 416, 447 · `para` 81 ·
+`parabel` 38, 244, 246 · `paradigma` 543 · `paranormaal` 340, 362 · `passie`
+50, 198 · `pastoraat` 34 · `patiëntenverhalen` 331 · `patiëntverhalen` 414 ·
+`patriarchaat` 3 · `pelgrimage` 8 · `pensioen` 277 · `perceptie` 30 ·
+`perfectionisme` 19, 32, 44 · `persoonlijk merk` 198, 365 · `persoonlijke
+financiën` 163, 233, 395 · `persoonlijke ontwikkeling` 161, 465, 467 ·
+`persoonlijkheid` 33, 338, 538 · `persoonlijkheidstypen` 361 · `Perzië` 524,
+525, 526, 536 · `piekeren` 105, 176 · `pijn` 85, 255 · `pijnlichaam` 435 ·
+`Pixar` 41, 46 · `placebo` 387, 469 · `planeten` 99 · `planning` 70, 276 ·
+`plantaardig-dieet` 324 · `plastische chirurgie` 411 · `plicht` 2 · `podcast`
+136, 465, 513 · `poëzie` 204 · `poker` 137 · `polarisatie` 305 · `polemiek` 67
+· `politicologie` 220, 221, 453, 455 · `politiek` 54, 219, 438 · `politieke
+filosofie` 394 · `populair` 77, 129, 133 · `populair-wetenschappelijk` 88,
+239, 326, 418, 451 · `populaire filosofie` 194 · `populaire psychologie` 156,
+429 · `portefeuille` 474 · `portefeuillebeheer` 507 · `portefeuilletheorie`
+503 · `portretten` 75, 94 · `positief denken` 83, 179, 516 · `positiegrootte`
+489, 490, 491, 493, 504, 506 · `positieve-psychologie` 207 · `positionering`
+443 · `postuum` 49 · `Praag` 173 · `praktijk` 459 · `praktisch` 118, 121, 140,
+159, 172 · `prentenboek` 167 · `presenteren` 82, 253 · `prestatie` 168, 291,
+372, 397, 488, 545 · `prestatiebeoordeling` 256 · `prestatiecultuur` 461 ·
+`prestatieonderzoek` 376 · `prestige` 515 · `preventie` 86, 313 ·
+`prijsstelling` 307 · `prijzen` 23, 424 · `prikkels` 60, 65 · `prioriteiten`
+25, 196 · `prioriteren` 151, 311, 448 · `privacy` 393 · `proactief` 25 ·
+`producer` 17 · `product` 446 · `productiviteit` 151, 175, 197, 207, 244, 276,
+278, 290, 311, 400, 434, 442, 448, 512, 552 · `productontwerp` 231, 294 ·
+`productontwikkeling` 265, 471 · `proeven` 112 · `programmering` 439 ·
+`projecten` 81 · `projectie` 107, 108 · `propaganda` 60, 384 ·
+`propositielogica` 437 · `protocol` 69 · `pseudokennis` 126 · `pseudoniem` 378
+· `psychedelica` 275 · `psychiatrie` 1, 48, 95, 96, 104, 213, 314, 315, 317,
+331 · `psychoanalyse` 223, 360, 361, 405, 409 · `psychologie` 23, 28, 29, 55,
+73, 78, 79, 105, 138, 143, 147, 152, 154, 162, 200, 211, 213, 214, 250, 254,
+258, 296, 310, 338, 357, 358, 375, 381, 382, 384, 387, 424, 444, 457, 463,
+467, 468, 469, 487, 501, 514, 538, 541, 542 · `psychologische flexibiliteit`
+460 · `psychologische functies` 361 · `psychopathie` 429 · `psychotherapie`
+164, 227, 386, 406 · `PTSS` 386 · `publiceren` 13 · `publiek opbouwen` 369 ·
+`publieksfilosofie` 269 · `Pulitzer` 5 · `puzzels` 451 · `Python` 486 ·
+`quantum` 94 · `queeste` 522 · `quilten` 114 · `quotes` 179 · `radicale
+transparantie` 270 · `RAND` 454, 456 · `Rat-Pack` 178 · `rationaliteit` 454 ·
+`rationele keuze` 455 · `recht` 393 · `rechtspraak` 69 · `reclame` 206, 279,
+443, 446 · `reeks` 114, 192 · `regimeverandering` 220 · `reïncarnatie` 202 ·
+`reïnventie` 344 · `reisverhaal` 1 · `reizen` 278 · `relaties` 34, 51, 101,
+120, 122, 145, 152, 162, 164, 166, 167, 195, 213, 334, 335, 381, 398, 406, 466
+· `relatietherapie` 165 · `relativiteitstheorie` 240, 281 · `religie` 56 ·
+`religieuze symboliek` 409 · `REM` 52 · `remarkable` 446 · `Renaissance` 15,
+241 · `rente` 38 · `replicatie` 79 · `reputatie` 388 · `retorica` 253, 438 ·
+`revisie` 18 · `ridderepos` 534 · `rijkdom` 57, 228 · `risico` 64, 80, 144,
+268, 282, 351, 423, 425, 480, 481, 482, 487, 496, 500, 501 · `risicobeheer`
+479, 489, 490, 491, 492, 493, 494, 497, 498, 504, 506 · `ritueel` 404 ·
+`rituelen` 304 · `rivier als symbool` 287 · `roem-en-eenzaamheid` 178 ·
+`roeping` 8, 9, 12, 160 · `roman` 61, 113, 114, 115, 254, 554 · `Rome` 537 ·
+`romeinse oudheid` 232 · `rouw` 95, 467 · `rouwverwerking` 204 · `ruimte en
+tijd` 281 · `ruimtevaart` 266 · `russische literatuur` 235 · `rust` 32 ·
+`SaaS` 434 · `sadisme` 223 · `saga` 533 · `Salinas` 10 · `samenleving` 90, 98,
+319 · `samenwerken` 25 · `samenwerking` 453 · `samoerai` 346, 462, 517, 535 ·
+`Sanskriet` 520 · `Santa Fe Institute` 347 · `satire` 155 · `satori` 528 ·
+`scepsis` 63 · `schaalgroei` 434 · `schaalvergroting` 350 · `schaamte` 32, 44,
+317, 470 · `schaarste` 92, 249 · `schaduw` 404 · `scheiding` 556 ·
+`scheikunde` 92 · `school` 53, 84 · `schrijven` 11, 12, 14, 18, 19, 81, 436,
+511 · `schrijverschap` 191, 325 · `schuld` 254 · `schulden` 20, 38, 121, 159,
+464 · `seksualiteit` 100, 145, 164, 165, 316 · `selectoraattheorie` 221 ·
+`seminar` 139, 543 · `Shaolin` 389 · `Silicon Valley` 306 · `sirtuïnen` 415 ·
+`slaap` 52, 87, 88, 171, 181, 316, 329, 414 · `slaapapneu` 332 · `slavernij`
+68 · `smartphone` 53, 288 · `sociale besmetting` 303 · `sociale media` 53, 70,
+194, 198, 204, 288, 365 · `sociale psychologie` 215, 280, 302, 319 ·
+`sociale-vaardigheden` 398 · `sociologie` 300 · `soefisme` 524, 526 ·
+`software` 276, 484 · `somberheid` 119 · `spanning` 101 · `sparen` 21, 38,
+159, 233, 464 · `Sparta` 529 · `specialisatie` 349 · `speedreading` 175 ·
+`spel` 550 · `spelen` 32 · `spellen` 392 · `speltheorie` 217, 221, 450, 451,
+452, 453, 454, 455, 456 · `spiegelneuronen` 303 · `spiegeloefening` 380 ·
+`spiegelogie` 108 · `spieropbouw` 316 · `spijt` 447 · `spiritualiteit` 8, 14,
+27, 102, 108, 141, 149, 160, 169, 184, 190, 195, 196, 199, 242, 310, 358, 377,
+431, 435, 449, 519, 526, 556 · `spirituele zoektocht` 287, 524 · `sport` 20,
+349 · `sportpsychologie` 372, 374, 441 · `sportwetenschap` 461 · `spreekangst`
+253 · `spreker` 117, 134 · `staartrisico` 494, 496 · `staatsgreep` 220 ·
+`stalking` 214 · `standaarden` 396 · `Stanford` 150, 388, 458 · `start-ups`
+306 · `startups` 265 · `statistiek` 55, 65, 69, 234, 268, 300, 426, 476, 479,
+483, 484, 485, 497, 500, 502, 503, 507 · `statistiek van uitzonderingen` 274 ·
+`status` 39, 66, 463 · `sterfelijkheid` 2, 71, 232, 295, 416, 516 ·
+`sterrenkunde` 99 · `sterven` 49, 95, 275, 447 · `stijl` 18, 436 · `stoicijns`
+75, 140, 142 · `stoïcijnse filosofie` 153, 228, 232, 286, 423, 459 ·
+`stoïcijnse levenshouding` 402 · `stoïcijnse-houding` 462 · `stoïcisme` 2, 30,
+194, 247, 248, 292, 516 · `stommiteit` 155 · `storytelling` 253, 279 ·
+`strategie` 212, 217, 218, 219, 249, 250, 260, 272, 293, 306, 346, 353, 370,
+426, 440, 443, 450, 451, 456 · `streken` 112 · `stress` 80, 87, 106, 118, 187,
+387, 458 · `stressmanagement` 153 · `stressregulatie` 372 · `strip` 452 ·
+`structuur` 82, 511 · `studieboek` 421, 437, 497, 498, 507 · `studietechniek`
+420 · `succes` 75, 76, 274 · `superkrachten` 203 · `supplementen` 171, 316 ·
+`surveillance` 393 · `syllogismen` 437 · `symboliek` 357, 360, 522 ·
+`synchroniciteit` 362 · `synchronisatie` 303 · `systeem` 22, 142 ·
+`systeemtheorie` 165 · `systematisch handelen` 482, 502 · `taal` 26, 27, 436 ·
+`taal en macht` 344 · `tactische empathie` 271 · `talent` 23, 29, 274 ·
+`taoïsme` 341, 394 · `tarieven` 121 · `teams` 42, 273, 364, 468 ·
+`teamvorming` 260 · `teamwork` 156, 256 · `techniek` 1, 6, 43, 61, 92 ·
+`technische analyse` 483, 500 · `technologie` 160, 288, 294, 306, 393, 499 ·
+`technologiebedrijven` 293 · `technologiegeschiedenis` 231, 267 ·
+`technologiekritiek` 297, 539 · `tegen-productiviteit` 71 · `tegenslag` 30,
+111, 174 · `tekenen` 15 · `tekstkwaliteit` 124 · `televisie` 54 ·
+`temperament` 33 · `tempo` 552 · `termijnmarkten` 480, 482 · `testament` 462 ·
+`tevredenheid` 463 · `Texas` 5, 385 · `The Secret` 433 · `theeceremonie` 379 ·
+`therapie` 51, 107, 118, 119, 120, 121, 122, 145, 466 · `Thermopylae` 529 ·
+`thriller` 101, 202 · `thuiskomst` 531 · `thuiszorg` 225 · `tieners` 193 ·
+`tijd` 71, 232, 262, 292, 334, 442 · `tijdmanagement` 434 · `tijdsbeleving`
+326 · `timemanagement` 311, 448 · `toekomst` 236 · `toeval` 21, 64, 93, 137,
+274, 362, 483 · `Tolteeks` 27 · `toon` 72, 118, 119, 121, 132, 145 ·
+`topprestatie` 374 · `topsport` 422, 460, 545 · `totalitarisme` 384 ·
+`trading` 492, 493, 495 · `training` 376 · `trauma` 104, 119, 195, 229, 317,
+386 · `trendvolgen` 480, 501 · `trilling` 127 · `trilogie` 202, 203, 248 ·
+`TRIZ` 471 · `Troje` 530 · `tuinontwerp` 205 · `tumoronderdrukker` 419 ·
+`twaalf-weken` 14 · `twaalfde eeuw` 525 · `tweede-wereldoorlog` 115 ·
+`tweelingonderzoek` 417 · `twintigers` 51 · `typologie` 361 ·
+`uitdaging-vaardigheid` 200 · `uitgeven` 463 · `uitleg` 99, 102 · `uitleggen`
+82 · `uitstel` 71, 140 · `uitstelgedrag` 12, 311, 513 · `uitstellen` 16 ·
+`uitvinding` 267 · `ultra-triatlon` 324 · `ultralopen` 229 · `umwelt` 322 ·
+`Upanishaden` 169 · `vaardigheden` 40, 50, 349, 397 · `vaardigheid` 64, 296 ·
+`vader-en-dochter` 178, 226 · `vader-en-zoon` 1, 173, 287 · `vaderschap` 49,
+226, 324, 385 · `vakbonden` 297 · `vakmanschap` 1, 206, 320, 346, 376, 553 ·
+`variantie` 137 · `vastgoed` 37, 448 · `vechtkunst` 389 · `vedanta` 518 ·
+`vedische filosofie` 230 · `veedrift` 5 · `veerkracht` 106, 153, 174, 177,
+189, 317, 375, 459, 460, 461, 467, 470 · `veiligheid` 43, 214 ·
 `veiligheidsmarge` 144 · `veldwerk` 521 · `verandering` 170, 252, 375, 467 ·
 `verantwoordelijkheid` 42, 72, 73, 74, 93, 184, 282, 335, 364 · `verbinding`
-302 · `verdriet` 111, 227 · `Verenigde-Staten` 464 · `vergaderen` 42 ·
+302, 550 · `verdriet` 111, 227 · `Verenigde-Staten` 464 · `vergaderen` 42 ·
 `vergaderingen` 276 · `vergankelijkheid` 379, 532 · `vergelijkende mythologie`
-410 · `vergeving` 31, 102, 120 · `verhaal` 74 · `verhaalstructuur` 410 ·
-`verhaalvorm` 135 · `verhalen` 56, 101, 110, 136, 196, 470 · `verhalenbundel`
-206 · `verhouding` 113 · `verhoudingen` 110 · `verkeer` 300 · `verklaringen`
-68 · `verkoop` 132, 182, 185, 186, 188, 246, 280, 307, 308, 350, 367, 427 ·
-`verkooptrechters` 309 · `verkopen` 210 · `verlangen` 76, 100, 113, 130, 164,
-418 · `verleiding` 381 · `verlichting` 243, 287 · `verlies` 95, 373 ·
-`vermaak` 61 · `vermogen` 39, 463 · `vermogen opbouwen` 395 ·
+410 · `vergeving` 31, 102, 120, 548, 556 · `verhaal` 74 · `verhaalstructuur`
+410 · `verhaalvorm` 135 · `verhalen` 56, 101, 110, 136, 196, 470 ·
+`verhalenbundel` 206 · `verhouding` 113 · `verhoudingen` 110 · `verkeer` 300 ·
+`verklaringen` 68 · `verkoop` 132, 182, 185, 186, 188, 246, 280, 307, 308,
+350, 367, 427 · `verkooptrechters` 309 · `verkopen` 210 · `verlangen` 76, 100,
+113, 130, 164, 418 · `verleiding` 381 · `verlichting` 243, 287 · `verlies` 95,
+373 · `vermaak` 61 · `vermogen` 39, 463 · `vermogen opbouwen` 395 ·
 `vermogensbeheer` 498 · `vermogensopbouw` 163, 264, 277 · `veroudering` 171,
 387, 415 · `verpleeghuis` 416 · `verpleegkunde` 225 · `verplichting` 9 ·
-`verraad` 534 · `verslaving` 18, 238, 275, 294, 314, 324, 325, 418 ·
+`verraad` 534 · `verslaving` 18, 238, 275, 294, 314, 324, 325, 418, 554 ·
 `vertrouwen` 42, 273, 279, 319 · `vervloekt goud` 533 · `vervolg` 74, 131 ·
 `vervreemding` 173 · `verwachting` 387 · `verwachtingen` 425 ·
 `verwachtingswaarde` 492 · `verwondering` 227 · `verzekeren` 496 · `verzet`
 523 · `vier deugden` 194 · `visioenen` 359 · `visualisatie` 259, 411, 540 ·
 `visualiseren` 116 · `vlaams` 89, 91, 98, 109 · `voeding` 86, 88, 171, 313,
 316, 329, 332, 417 · `voedingswetenschap` 417 · `volatiliteit` 494, 495, 506 ·
-`volharding` 29 · `volledigheid` 167 · `voorbeelden` 128 · `voorbereiding` 82
-· `voordrachten` 519 · `voorkeuren` 89 · `vooroordelen` 55, 283 ·
-`voorspellen` 455 · `voorspellingen` 268 · `vooruitgang` 251 ·
+`volharding` 29 · `volledigheid` 167 · `voorbede` 558 · `voorbeelden` 128 ·
+`voorbereiding` 82 · `voordrachten` 519 · `voorkeuren` 89 · `vooroordelen` 55,
+283 · `voorspellen` 455 · `voorspellingen` 268 · `vooruitgang` 251 ·
 `vooruitgangsdenken` 298 · `voorzichtigheid` 216 · `vorming` 224 ·
 `vorstenspiegel` 536 · `vragen stellen` 509 · `vragen-stellen` 475 ·
-`vreemden` 302 · `vriendschap` 5, 7, 114, 292, 295, 319, 514 · `vrije tijd`
-78, 288 · `vrije wil` 10, 236, 339 · `vrijheid` 61 · `vroeg pensioen` 264 ·
-`vrouwenhaat` 110 · `waardebeleggen` 144, 351 · `waardecreatie` 246, 508 ·
-`waarden` 72, 142, 392, 457, 461 · `waardering` 24, 34 · `waarheid` 263 ·
-`waarneming` 154, 283, 322, 541 · `wabi-sabi` 379 · `Wall Street` 144, 351,
-499 · `weerbaarheid` 194 · `weerstand` 12, 538 · `welvaart` 251, 334 ·
+`vreemden` 302 · `vreugde` 549 · `vriendelijkheid` 551 · `vriendschap` 5, 7,
+114, 292, 295, 319, 514 · `vrije tijd` 78, 288 · `vrije wil` 10, 236, 339 ·
+`vrijheid` 61, 546 · `vroeg pensioen` 264 · `vrouwenhaat` 110 ·
+`waardebeleggen` 144, 351 · `waardecreatie` 246, 508 · `waarden` 72, 142, 392,
+457, 461, 553 · `waardering` 24, 34 · `waarheid` 263 · `waarneming` 154, 283,
+322, 541 · `wabi-sabi` 379 · `wales` 558 · `Wall Street` 144, 351, 499 ·
+`weerbaarheid` 194 · `weerstand` 12, 538 · `welvaart` 251, 334 ·
 `welvaartsbewustzijn` 433 · `wereldbeeld` 234 · `wereldbouw` 192 · `werk` 70,
-78, 151, 252, 466 · `werk en rust` 512 · `werkboek` 14, 122, 150 · `werkdruk`
-400 · `werkplek` 33, 43 · `werktempo` 400 · `werkwijze` 16 · `West-Afrika` 522
-· `West-Point` 29 · `westen` 67 · `western` 5 · `westerse filosofie` 269, 341
-· `wet van aantrekking` 127, 190, 433, 543 · `wetenschap` 63, 66, 93, 94, 328,
-485 · `wetenschappers` 239 · `wetenschapsfilosofie` 483 ·
-`wetenschapsgeschiedenis` 239, 240, 321, 347, 413, 419 ·
-`wetenschapsjournalistiek` 387, 412 · `wijn` 112 · `wilskracht` 238 · `Wired`
-473 · `wiskunde` 116, 454, 456, 490, 505, 509 · `wisselstroom` 267 · `woede`
-119, 120 · `woestijn` 8 · `Wolfgang Pauli` 362 · `wraak` 101, 533 · `WRAP` 510
-· `wrok` 530 · `wu wei` 394 · `Yale` 215 · `yin-yang` 394 · `yoga` 195, 242,
-518 · `young adult` 192 · `youtube` 245 · `zakelijk` 307 · `zakelijke
-communicatie` 182 · `zakendoen` 348, 367, 465, 508 · `zeereis` 36 · `zeevaart`
-321 · `zeldzaam` 144 · `zelfacceptatie` 176, 335 · `zelfbedrog` 66 ·
-`zelfbeeld` 25, 27, 105, 107, 108, 129, 138, 197, 367, 372, 411, 439, 538, 540
-· `zelfbeheersing` 75, 148, 212, 248, 286, 314, 382, 389, 396 ·
-`zelfbescherming` 214 · `zelfcompassie` 32 · `zelfdiscipline` 2, 158, 229,
-244, 311, 544 · `zelfevaluatie` 270 · `zelfexperiment` 316, 318, 417 ·
+78, 151, 252, 466 · `werk en rust` 512 · `werkboek` 14, 122, 150 ·
+`werkcultuur` 551 · `werkdruk` 400 · `werkplek` 33, 43 · `werktempo` 400 ·
+`werkwijze` 16 · `West-Afrika` 522 · `West-Point` 29 · `westen` 67 · `western`
+5 · `westerse filosofie` 269, 341 · `wet van aantrekking` 127, 190, 433, 543 ·
+`wetenschap` 63, 66, 93, 94, 328, 485 · `wetenschappers` 239 ·
+`wetenschapsfilosofie` 483 · `wetenschapsgeschiedenis` 239, 240, 321, 347,
+413, 419 · `wetenschapsjournalistiek` 387, 412 · `wijn` 112 · `wilskracht` 238
+· `Wired` 473 · `wiskunde` 116, 454, 456, 490, 505, 509 · `wisselstroom` 267 ·
+`woede` 119, 120 · `woestijn` 8 · `Wolfgang Pauli` 362 · `wraak` 101, 533 ·
+`WRAP` 510 · `wrok` 530 · `wu wei` 394 · `Yale` 215 · `yin-yang` 394 · `yoga`
+195, 242, 518 · `young adult` 192 · `youtube` 245 · `zakelijk` 307 ·
+`zakelijke communicatie` 182 · `zakendoen` 348, 367, 465, 508 · `zeereis` 36 ·
+`zeevaart` 321 · `zeldzaam` 144 · `zelfacceptatie` 176, 335 · `zelfbedrog` 66
+· `zelfbeeld` 25, 27, 105, 107, 108, 129, 138, 197, 367, 372, 411, 439, 538,
+540, 559 · `zelfbeheersing` 75, 148, 212, 248, 286, 314, 382, 389, 396 ·
+`zelfbescherming` 214 · `zelfcompassie` 32, 551 · `zelfdiscipline` 2, 158,
+229, 244, 311, 544 · `zelfevaluatie` 270 · `zelfexperiment` 316, 318, 417 ·
 `zelfhulp` 15, 22, 25, 34, 58, 72, 76, 79, 83, 117, 134, 135, 136, 146, 147,
 148, 149, 150, 151, 152, 153, 156, 157, 158, 161, 162, 166, 168, 174, 175,
 176, 177, 179, 181, 184, 187, 188, 190, 193, 194, 195, 196, 199, 204, 207,
 208, 209, 210, 211, 213, 222, 224, 230, 255, 259, 291, 310, 334, 338, 356,
 373, 380, 389, 395, 398, 401, 403, 406, 411, 427, 429, 432, 435, 439, 449,
-459, 465, 513, 540, 543 · `zelfkennis` 258, 260, 361, 519, 526 · `zelfliefde`
-190, 195, 204, 380, 403 · `zelfonderzoek` 315, 470, 520, 527 ·
-`zelfontplooiing` 393 · `zelfontwikkeling` 179 · `zelfpraat` 161 ·
+459, 465, 513, 540, 543, 546, 548, 556, 557 · `zelfkennis` 258, 260, 361, 519,
+526 · `zelfliefde` 190, 195, 204, 380, 403, 549 · `zelfonderzoek` 315, 470,
+520, 527 · `zelfontplooiing` 393 · `zelfontwikkeling` 179 · `zelfpraat` 161 ·
 `zelfpromotie` 388 · `zelfpublicatie` 174 · `zelfregulatie` 153, 165, 177,
 541, 542 · `zelfsabotage` 161, 344 · `zelfspot` 19 · `zelfspraak` 439 ·
 `zelfstandig` 40, 515 · `zelfstandig denken` 211 · `zelfstandig ondernemen`
@@ -106893,8 +109714,8 @@ communicatie` 182 · `zakendoen` 348, 367, 465, 508 · `zeereis` 36 · `zeevaart
 365, 440, 441 · `zelfwaarde` 168 · `zelfwaardering` 121 · `zelfzorg` 109, 225,
 466 · `zen` 141, 346, 441, 517, 528 · `zenboeddhisme` 205, 379 ·
 `zenuwstelsel` 87 · `zeven-stappen` 129 · `ziekte` 74, 180, 295 · `zingeving`
-9, 48, 77, 91, 160, 183, 200, 201, 237, 245, 255, 515 · `zitten` 84 · `zorg`
-96 · `Zuid-Afrika` 26, 266, 523 · `zuinigheid` 39 · `zwaar` 143 ·
+9, 48, 77, 91, 160, 183, 200, 201, 237, 245, 255, 515, 547 · `zitten` 84 ·
+`zorg` 96 · `Zuid-Afrika` 26, 266, 523 · `zuinigheid` 39 · `zwaar` 143 ·
 `zwaardvechten` 346, 517 · `zwart bewustzijn` 523 · `zwarte gaten` 99, 262
 
 ## Leesroutes

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Love Is Letting Go of Fear &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Alle onvrede komt volgens Jampolsky uit één bron: angst, vastgehouden in oordelen over verleden en toekomst. Omdat angst een aangeleerde denkgewoonte is,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-548">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">548 &middot; Positief denken en manifesteren</p>
+    <h1>Love Is Letting Go of Fear</h1>
+    <p class="lede">Gerald Jampolsky, 1979</p>
+    <p class="stats">
+      <span><b>1250</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="548"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Alle onvrede komt volgens Jampolsky uit één bron: angst, vastgehouden in oordelen over verleden en toekomst. Omdat angst een aangeleerde denkgewoonte is, valt zij af te leren; wie de eigen geest daarop traint en vergeving tot vaste reactie maakt, ervaart innerlijke vrede, en die vrede is wat het boek gezondheid noemt. Liefde is hier geen gevoel dat iemand overkomt: het is wat overblijft zodra angst wordt losgelaten. De twaalf lessen vormen de oefenvorm om die keuze dagelijks te maken, één les per dag, telkens opnieuw, tot de nieuwe gewoonte de oude vervangt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een psychiater in crisis</h3>
+      <p>Het boek opent persoonlijk. Jampolsky beschrijft zichzelf halverwege de jaren zeventig als gescheiden, zwaar drinkend en vastgelopen, ondanks een gevestigde praktijk als psychiater met een opleiding aan Stanford. In 1975 kreeg hij <i>A Course in Miracles</i> in handen, het driedelige leerstelsel dat een jaar later door de Foundation for Inner Peace werd uitgegeven en dat volgens degene die het optekende, psychologe Helen Schucman, aan haar was gedicteerd door een innerlijke stem die zij met Jezus identificeerde.</p>
+      <p>Jampolsky presenteert zijn boek als praktische toepassing van die cursus: geen theologie, wel een oefenprogramma. In hetzelfde jaar begon hij het Center for Attitudinal Healing, waar ernstig zieke kinderen elkaar steunden volgens dezelfde uitgangspunten; dat werk gaf het boek zijn gezag en zijn toon.</p>
+      <h3>Twee grondhoudingen</h3>
+      <p>De uitgangspunten zijn snel verteld. Er zijn in dit kader maar twee grondhoudingen, liefde en angst, en alleen de eerste is echt; angst is een maaksel van de geest. Gezondheid wordt gedefinieerd als innerlijke vrede en genezing als het loslaten van angst, uitdrukkelijk los van de vraag of het lichaam beter wordt. Geven en ontvangen vallen samen: wie liefde geeft, ervaart haar.</p>
+      <p>Verder telt alleen het huidige moment. Schuld hoort bij het verleden, zorg bij de toekomst; beide zijn gedachtenconstructies die de vrede van nu verstoren. De geest kan volgens Jampolsky worden omgeschoold door één doel te kiezen, vrede, en elke gedachte aan dat doel te toetsen.</p>
+      <h3>Vergeving als methode</h3>
+      <p>Het werkzame bestanddeel is vergeving, door Jampolsky breed opgevat: het opgeven van oordelen en grieven, over anderen en over zichzelf. Een vastgehouden grief houdt het verleden levend en de angst op zijn plaats; vergeven is in dit kader geen goedkeuren van wat gebeurde, het is stoppen met het telkens opnieuw afspelen ervan. Aanvalsgedachten, de oordelende en verwijtende gedachten waarmee de geest zich verdedigt, worden gelezen als teken van eigen angst en niet als informatie over de ander.</p>
+      <h3>De twaalf lessen</h3>
+      <p>Het tweede deel bestaat uit twaalf lessen, elk met een cartoon en een dagoefening. De titels zijn programmatisch: alles wat ik geef, geef ik aan mijzelf; vergeving is de sleutel tot geluk; ik ben nooit van streek om de reden die ik denk; ik ben vastbesloten de dingen anders te zien; ik kan de wereld die ik zie ontvluchten door aanvalsgedachten op te geven; dit moment is de enige tijd die er is; ik zou vrede kunnen zien in plaats van dit; ik ben verantwoordelijk voor wat ik zie.</p>
+      <p>De aanwijzing is eenvoudig: één les per dag, de zin herhalen bij elke ergernis, en na les twaalf opnieuw beginnen tot de reactie vanzelf gaat. Veel lessen komen woordelijk uit het werkboek van <i>A Course in Miracles</i>; Jampolsky's bijdrage is de selectie, de toelichting en de toegankelijke vorm.</p>
+      <h3>De praktijk van houdingsgenezing</h3>
+      <p>Het slot verbindt de lessen met het groepswerk in Tiburon: kinderen met kanker die elkaar zonder adviezen aanhoren, ouders die leren bij de dag te leven, vrijwilligers die niets hoeven op te lossen. Uit dat werk groeide een internationaal netwerk van centra voor houdingsgenezing. Het boek zelf bleef Jampolsky's bekendste; latere edities, waaronder een derde met een voorwoord van Carlos Santana, houden de tekst vrijwel ongewijzigd.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Houdingsgenezing</td><td>Het herstellen van innerlijke vrede door de eigen houding te veranderen, los van de vraag of de omstandigheden of het lichaam veranderen.</td></tr>
+          <tr><td class="term">Liefde en angst</td><td>De twee grondhoudingen waartoe Jampolsky alle gemoedstoestanden herleidt; angst is aangeleerd, liefde geldt als de natuurlijke staat.</td></tr>
+          <tr><td class="term">Innerlijke vrede</td><td>De toestand die in dit boek als gezondheid geldt, ook bij lichamelijke ziekte.</td></tr>
+          <tr><td class="term">Vergeving</td><td>Het opgeven van oordelen en grieven over anderen en zichzelf; in het boek de sleutel tot geluk.</td></tr>
+          <tr><td class="term">Aanvalsgedachten</td><td>Oordelende, verwijtende gedachten die angst in stand houden en de waargenomen wereld kleuren.</td></tr>
+          <tr><td class="term">Geestestraining</td><td>Het dagelijks herhalen van één les om een oude denkgewoonte door een nieuwe te vervangen.</td></tr>
+          <tr><td class="term">Het enige moment</td><td>De stelling dat alleen het nu bestaat en dat schuld en zorg constructies zijn van verleden en toekomst.</td></tr>
+          <tr><td class="term">Een cursus in wonderen</td><td>Het leerstelsel uit 1976 waarop dit boek steunt, door Helen Schucman opgetekend als dictaat van een innerlijke stem die zij met Jezus identificeerde.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek bevat geen onderzoek, geen patiëntgegevens en geen effectmeting. De bron is <i>A Course in Miracles</i>, een tekst waarvan de herkomstclaim, dictaat van een innerlijke stem, niet toetsbaar is en buiten de aanhang niet wordt aanvaard. Jampolsky's medische titel geeft het geheel klinisch aanzien, maar de stellingen worden nergens klinisch onderbouwd; de sterkste claim, dat gezondheid innerlijke vrede is en genezing het loslaten van angst, is bij nader inzien een herdefinitie van beide woorden.</p>
+      <p>Er is wel raakvlak met onderbouwde psychologie. Dat interpretaties emoties mede bepalen is de kern van de cognitieve gedragstherapie, en naar vergevingsinterventies is later gecontroleerd onderzoek gedaan, met bescheiden gunstige effecten op woede en welbevinden. Het boek beroept zich daar zelf niet op en gaat er ver aan voorbij: het belooft geen vermindering van klachten maar een andere werkelijkheidsopvatting.</p>
+      <p>Voor het groepswerk in Tiburon geldt iets vergelijkbaars: lotgenotensteun bij ernstige ziekte kan de ervaren kwaliteit van leven verbeteren, en dat verklaart de waarde van de centra zonder dat de metafysica erachter waar hoeft te zijn.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het fundament is een leerstelsel dat zichzelf presenteert als dictaat van een bovennatuurlijke stem. Wie die claim niet aanvaardt, en er is geen onafhankelijke reden dat wel te doen, houdt een reeks onbewezen stellingen over: dat angst onwerkelijk is, dat geven en ontvangen samenvallen, dat vrede gezondheid is. Het boek vraagt overgave aan dat kader en biedt de kritische lezer weinig anders dan de uitnodiging het te proberen.</p>
+      <p>De herdefinitie van gezondheid heeft een schaduwzijde. Als vrede gezondheid is en angst het te genezen kwaad, ligt de omkering op de loer dat wie ziek of bang blijft, kennelijk onvoldoende heeft losgelaten. Jampolsky spreekt zieken nergens op schuld aan, maar het kader biedt tegen die lezing weinig verweer, en juist bij zijn doelgroep, ernstig zieken en hun naasten, weegt dat zwaar.</p>
+      <p>Ten slotte is de herleiding van alle gemoedsleven tot twee grondhoudingen te grof voor de klinische werkelijkheid. Angststoornissen en depressies vragen behandeling; een lezer in psychische nood krijgt hier dagoefeningen aangeboden waar soms zorg nodig is. Als milde oefening in minder oordelen en eerder vergeven heeft het boek waarde; als leer over gezondheid en genezing overschrijdt het zijn bewijs ruimschoots.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik het boek als oefenschema: één les per dag, herhaald bij elke ergernis; als leesboek is het in een uur uit.</li>
+        <li>Behandel een vastgehouden grief als iets dat de eigen vrede kost, en toets wat loslaten in dat licht oplevert.</li>
+        <li>Lees aanvalsgedachten als signaal van eigen angst en niet als betrouwbare informatie over de ander.</li>
+        <li>Kies bij een botsing bewust tussen gelijk krijgen en rust houden, in plaats van automatisch voor gelijk.</li>
+        <li>Zoek bij aanhoudende angst of somberheid reguliere hulp; dit boek is daarvoor geen vervanging.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Love Is Letting Go of Fear</i> (Celestial Arts, 1979, 131 blz., ISBN 9780890872468). Nederlandse vertaling: <i>Liefde is angst laten varen</i> (Synthese, 2009, 127 blz.).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De Amerikaanse psychiater Gerald Jampolsky (1925-2020) richtte in 1975 in Tiburon, Californië het Center for Attitudinal Healing op, waar kinderen met levensbedreigende ziekten elkaar in groepen steunden. In dit dunne boek uit 1979, met cartoons van Jack Keeler en een voorwoord van Hugh Prather, vat hij de aanpak samen die hij ontleende aan <i>A Course in Miracles</i>. De kern: er zijn maar twee grondhoudingen, liefde en angst; gezondheid is innerlijke vrede, genezing is het loslaten van angst, en vergeving is daarvoor het instrument.</p><p>Het boek bestaat uit een persoonlijk voorwoord, een uiteenzetting van de uitgangspunten en twaalf lessen om de eigen geest om te scholen, elk bedoeld voor één dag oefening. Het werd een van de best verkochte spirituele zelfhulpboeken van zijn tijd. De onderbouwing is een metafysisch leerstelsel waarvan de herkomstclaim niet toetsbaar is; de uitgebreide samenvatting benoemt afzonderlijk wat dat voor de inhoud betekent.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>vergeving</li><li>angst</li><li>cursus-in-wonderen</li><li>innerlijke vrede</li><li>zelfhulp</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="102"><a href="102.html">Ingangen tot Een cursus in wonderen</a>. Nederlandse toegang tot <i>Een cursus in wonderen</i>, het leerstelsel waarop Jampolsky's boek volledig steunt.</li>
+          <li value="131"><a href="131.html">Wonderen manifesteren</a>. Hedendaagse Nederlandse variant die dezelfde cursus verbindt met manifesteren.</li>
+          <li value="449"><a href="449.html">Letting Go: The Pathway of Surrender</a>. Hawkins over het loslaten van emoties: verwant genre, zelfde bewijsprobleem, andere systematiek.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
