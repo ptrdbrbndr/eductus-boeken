@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Puzzle Palace &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Bamford stelt dat de grootste en duurste inlichtingendienst van de Verenigde Staten zonder wet, zonder openbaar debat en vrijwel zonder toezicht is…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-687">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">687 &middot; Geschiedenis en samenleving</p>
+    <h1>The Puzzle Palace</h1>
+    <p class="lede">James Bamford, 1982</p>
+    <p class="stats">
+      <span><b>1211</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="687"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Bamford stelt dat de grootste en duurste inlichtingendienst van de Verenigde Staten zonder wet, zonder openbaar debat en vrijwel zonder toezicht is opgericht en gegroeid, en dat die combinatie van technisch vermogen en onzichtbaarheid vanzelf tot misbruik leidt. De programma's SHAMROCK en MINARET, waarbij het berichtenverkeer van Amerikaanse burgers jarenlang werd meegelezen, zijn in zijn ogen geen ontsporing van een verder gezonde dienst; ze volgen uit een structuur waarin niemand buiten de dienst weet wat er gebeurt. Tegelijk bewijst het boek zelf de tegenstelling die het bepleit: met openbare bronnen, archieven en de Freedom of Information Act valt ook de geheimste organisatie in kaart te brengen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Van Black Chamber tot geheim memorandum</h3>
+      <p>Het boek opent met de voorgeschiedenis van het Amerikaanse codebreken. Herbert Yardley leidde na de Eerste Wereldoorlog de zogeheten Black Chamber, die diplomatiek telegramverkeer ontcijferde totdat minister Stimson het bureau in 1929 sloot met de beroemde opmerking dat heren elkaars post niet lezen. William Friedman bouwde het vak daarna opnieuw op bij het leger, met als hoogtepunt het breken van de Japanse codes in de Tweede Wereldoorlog. Na een mislukte tussenvorm, de Armed Forces Security Agency, ontstond de NSA in 1952 op grond van een geheim memorandum van president Truman. Er kwam geen wet, geen debat in het Congres en geen persbericht; ambtenaren grapten dat de afkorting stond voor 'No Such Agency'.</p>
+      <h3>Anatomie van Fort Meade</h3>
+      <p>Bamford beschrijft vervolgens de dienst zelf: het hoofdkwartier in Fort Meade, Maryland, in de volksmond het puzzelpaleis, met tienduizenden medewerkers, de grootste verzameling computers ter wereld en een budget dat dat van de CIA overtrof. Hij ontleedt de directoraten voor onderscheppen, ontcijferen en het beveiligen van eigen verbindingen, de reeks directeuren en de interne cultuur van leugendetectors, compartimenten en levenslange zwijgplicht. Ook de zwakke plekken komen aan bod, zoals het overlopen van de analisten Martin en Mitchell naar de Sovjet-Unie in 1960, dat de dienst voor het eerst in het nieuws bracht.</p>
+      <h3>Platforms: schepen, vliegtuigen, satellieten</h3>
+      <p>Een afzonderlijk deel behandelt de verzamelmiddelen: honderden luisterposten rond de wereld, vliegtuigen langs de randen van het Sovjetblok, satellieten en spionageschepen. Twee rampen illustreren de risico's. De USS Liberty werd in 1967 tijdens de Zesdaagse Oorlog door Israëlische vliegtuigen en torpedoboten aangevallen, met 34 doden. De USS Pueblo werd in 1968 door Noord-Korea gekaapt, waarbij een lading cryptografisch materiaal in vreemde handen viel. Beide affaires werden destijds klein gehouden; Bamford zet ze in de context van een dienst die overal wil meeluisteren en de kosten daarvan verborgen houdt.</p>
+      <h3>SHAMROCK en MINARET</h3>
+      <p>De kern van het boek zijn de binnenlandse programma's. Onder SHAMROCK leverden de telegraafbedrijven ITT, RCA Global en Western Union vanaf 1945 dertig jaar lang kopieën van vrijwel al het internationale telegramverkeer aan de dienst, zonder rechterlijk bevel. Onder MINARET hielden analisten vanaf 1967 volglijsten bij met duizenden Amerikanen, onder wie critici van de Vietnamoorlog en burgerrechtenactivisten. De Church-commissie van de Senaat legde de programma's in 1975 bloot; de Foreign Intelligence Surveillance Act van 1978 stelde daarna voor het eerst een rechterlijke toets in voor afluisteren binnen de landsgrenzen. Bamford laat zien hoe dun die waarborg is zolang de techniek van de dienst elke wet vooruit blijft.</p>
+      <h3>Partners onder het UKUSA-verdrag</h3>
+      <p>Het hoofdstuk over de bondgenoten beschrijft het geheime UKUSA-verdrag uit 1947, waarin de Verenigde Staten, Groot-Brittannië, Canada, Australië en Nieuw-Zeeland de wereld in afluisterzones verdeelden. Het Britse GCHQ is de nauwste partner. Bamford wijst op een gevaar dat pas decennia later breed werd besproken: partners kunnen elkaars burgers afluisteren en de opbrengst uitwisselen, waarmee nationale beperkingen te omzeilen zijn.</p>
+      <h3>De staat tegen het boek</h3>
+      <p>De ontstaansgeschiedenis van het boek is er zelf een hoofdstuk geheime-dienstengeschiedenis bij. Justitie eiste onder dreiging van vervolging zo'n 250 vrijgegeven documenten terug, de regering-Reagan maakte met Executive Order 12356 het terugclassificeren van openbaar materiaal weer mogelijk en NSA-medewerkers haalden brieven van Friedman uit een openbaar archief. De Amerikaanse bibliotheekvereniging procedeerde daartegen en verloor in 1987 op formele gronden. Bamford publiceerde alles en werd niet vervolgd; twintig jaar later werkte de dienst zelfs mee aan zijn vervolgboek <i>Body of Secrets</i>.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">SIGINT</td><td>Signals intelligence, inlichtingen uit onderschept berichtenverkeer en elektronische signalen, de kerntaak van de NSA.</td></tr>
+          <tr><td class="term">Black Chamber</td><td>Het geheime ontcijferbureau van Herbert Yardley uit de jaren twintig, de verre voorloper van de NSA.</td></tr>
+          <tr><td class="term">SHAMROCK</td><td>Programma waarbij telegraafbedrijven van 1945 tot 1975 kopieën van internationaal telegramverkeer aan de dienst afstonden.</td></tr>
+          <tr><td class="term">MINARET</td><td>Volglijstprogramma waarmee vanaf 1967 het berichtenverkeer van duizenden Amerikanen werd gevolgd, onder wie oorlogscritici.</td></tr>
+          <tr><td class="term">UKUSA-verdrag</td><td>Geheim verdrag uit 1947 waarin vijf Engelstalige landen het afluisteren van de wereld onderling verdeelden.</td></tr>
+          <tr><td class="term">No Such Agency</td><td>Spotnaam die uitdrukt dat de regering het bestaan van de dienst decennialang niet eens bevestigde.</td></tr>
+          <tr><td class="term">FISA</td><td>Wet uit 1978 die na de onthullingen een aparte geheime rechtbank instelde voor afluisteroperaties op Amerikaanse bodem.</td></tr>
+          <tr><td class="term">puzzelpaleis</td><td>Bijnaam van het hoofdkwartier in Fort Meade, ontleend aan het ontcijferwerk dat er gebeurt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing is voor dit genre uitzonderlijk controleerbaar. Bamford werkte met vrijgegeven overheidsdocumenten, honderden FOIA-verzoeken, het archief van William Friedman, de openbare verslagen van de Church-commissie en interviews met oud-functionarissen tot en met voormalig directeur Marshall Carter. De reactie van de staat bevestigde onbedoeld de juistheid: justitie eiste documenten terug en de dienst liet archiefstukken weghalen, wat alleen zin heeft als de inhoud klopt.</p>
+      <p>Het oordeel van vakgenoten en van de dienst zelf is eenduidig. Het boek won de prijs van de vereniging van Amerikaanse onderzoeksjournalisten, werd door de New York Times geprezen om diepgang van onderzoek en diende later als lesmateriaal aan de opleidingsschool van de Amerikaanse defensie-inlichtingendiensten. De NSA noemde het in een eigen geschiedschrijving de grootste doorbraak in haar anonimiteit sinds <i>The Codebreakers</i> van David Kahn uit 1967.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is de dichtheid. Bamford stapelt organisatieschema's, namen, budgetten en technische details, en wie geen liefhebber is van het onderwerp verdwaalt in de opsomming van directoraten en luisterposten. Omdat de kern van het werk geheim bleef, moest hij bovendien op onderdelen redeneren vanuit randmateriaal; sommige beschrijvingen van operaties steunen op weinig bronnen en zijn nooit onafhankelijk bevestigd.</p>
+      <p>Daarnaast is het boek een momentopname van 1982. Satellieten en telegrammen vormen het decor, internet bestaat nog niet, en de latere gedaante van de dienst, bekend geworden door de onthullingen van Edward Snowden in 2013, valt buiten beeld. Bamford heeft dat zelf ondervangen met vervolgboeken (<i>Body of Secrets</i>, <i>The Shadow Factory</i>), maar wie het huidige afluisterbestel wil begrijpen heeft aan dit boek alleen de voorgeschiedenis. Die voorgeschiedenis is dan wel nergens beter beschreven.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Behandel claims dat een overheidsorganisatie te geheim is om te onderzoeken met wantrouwen; dit boek is met openbare bronnen en aanvraagformulieren geschreven.</li>
+        <li>Let bij elke bevoegdheid zonder externe toets op het patroon SHAMROCK: wat kan, gebeurt vroeg of laat ook, en wordt daarna decennia stilgehouden.</li>
+        <li>Weeg bij privacyvraagstukken de les van het UKUSA-verdrag mee: nationale waarborgen betekenen weinig als partnerdiensten elkaars werk kunnen overnemen.</li>
+        <li>Gebruik de reactie van een organisatie op onderzoek als signaal: wie documenten terugeist en archieven schoont, bevestigt de waarde van wat er ligt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Puzzle Palace: A Report on America's Most Secret Agency</i> (Houghton Mifflin, 1982, 466 blz., ISBN 9780395312865; uitgebreide paperback bij Penguin, 1983, 655 blz., ISBN 9780140067484). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Eerste grondige studie van de National Security Agency, de Amerikaanse afluisterdienst die in 1982 groter en rijker was dan de CIA maar vrijwel onbekend bij het publiek. Bamford, oud-marineman met een rechtenstudie, reconstrueerde de dienst met openbare stukken, archieven en honderden verzoeken op grond van de Freedom of Information Act. Het boek beschrijft de voorgeschiedenis vanaf de Black Chamber, de geheime oprichting in 1952, de organisatie in Fort Meade, de luisterposten wereldwijd en de samenwerking met Groot-Brittannië onder het UKUSA-verdrag.</p><p>De onthullingen over de programma's SHAMROCK en MINARET, waarbij telegrammen van burgers jarenlang werden meegelezen, leidden tot dreigementen van justitie en het terugclassificeren van vrijgegeven documenten. Het boek won de boekenprijs van de Amerikaanse onderzoeksjournalisten en geldt sindsdien als het standaardwerk over de NSA.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>inlichtingendiensten</li><li>geschiedenis</li><li>verenigde staten</li><li>privacy</li><li>onderzoeksjournalistiek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="562"><a href="562.html">Public Opinion</a>. Public Opinion beschrijft de kloof tussen wat instituties doen en wat het publiek kan waarnemen, de kloof die Bamford voor één dienst dichtte.</li>
+          <li value="566"><a href="566.html">Manufacturing Consent</a>. Manufacturing Consent analyseert waarom grote media dit soort instituties zelden uit eigen beweging doorlichten.</li>
+          <li value="393"><a href="393.html">The Right to Oblivion</a>. The Right to Oblivion geeft het hedendaagse filosofische antwoord op de vraag waarom een samenleving ruimte buiten het zicht van diensten nodig heeft.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Open Conspiracy &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Wells betoogt dat wetenschap en techniek de wereld feitelijk al tot één samenhangend stelsel hebben gemaakt, terwijl de politieke ordening is blijven…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-681">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">681 &middot; Geschiedenis en samenleving</p>
+    <h1>The Open Conspiracy</h1>
+    <p class="lede">H.G. Wells, 1928</p>
+    <p class="stats">
+      <span><b>1328</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="681"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Wells betoogt dat wetenschap en techniek de wereld feitelijk al tot één samenhangend stelsel hebben gemaakt, terwijl de politieke ordening is blijven steken in soevereine staten en de moraal in overgeleverde godsdiensten; die wanverhouding drijft de mensheid naar oorlog en verspilling. De uitweg is volgens hem geen staatsgreep en geen wereldparlement in één klap, maar een open samenzwering: een zich openlijk organiserende beweging van bekwame mannen en vrouwen die loyaliteit aan de eigen staat ondergeschikt maakt aan de opbouw van een wereldgemenebest, met gemeenschappelijk beheer van krediet, grondstoffen en vervoer, wereldwijde zorg voor bevolking en gezondheid, en de groei van kennis als hoogste doel. Dat program presenteert hij uitdrukkelijk als de religie van de moderne mens.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een wereld uit het lood</h3>
+      <p>Het essay verscheen in 1928, tussen twee wereldoorlogen in, en ademt de ervaring van de eerste: industriële oorlogvoering had laten zien dat de techniek de politieke instellingen was ontgroeid. Wells opent met de vaststelling dat handel, wetenschap en verkeer allang wereldwijd opereren, terwijl bestuur en gevoel van saamhorigheid aan de landsgrenzen ophouden. Die kloof acht hij op termijn dodelijk. Het boek richt zich tot de individuele lezer met de vraag waaraan een leven gewijd moet zijn; de heruitgave van 1931 heette dan ook <i>What Are We to Do with Our Lives?</i>.</p>
+      <h3>Religie zonder openbaring</h3>
+      <p>Opmerkelijk aan de opzet is dat Wells zijn program als geloof presenteert. De traditionele godsdiensten acht hij versleten, maar de religieuze gezindheid, de bereidheid het eigenbelang ondergeschikt te maken aan iets groters, wil hij behouden en omleiden naar de dienst aan de menselijke toekomst. De open samenzwering moet worden wat kerken ooit waren: een gemeenschap die het leven van haar leden richting geeft, nu met wetenschappelijke vooruitgang en wereldorde als inhoud. Deze inzet verklaart de toon van het boek, die eerder oproept en belijdt dan analyseert.</p>
+      <h3>Het program in hoofdlijnen</h3>
+      <p>De kern is een korte lijst uitgangspunten die de beweging bijeenhoudt. Bestaande regeringen gelden als voorlopig; hun onderlinge conflicten moeten worden gedempt in afwachting van een wereldwijde ordening. Krediet, vervoer en de productie van basisgoederen horen onder een verantwoordelijk wereldbestuur in plaats van in particuliere of nationale handen. Daarbij komen wereldwijde biologische zorg, van bevolkingsvraagstuk tot ziektebestrijding, een gegarandeerd minimum aan vrijheid en welzijn voor ieder mens, en de plicht het persoonlijke leven in dienst te stellen van de opbouw van dat bestel en van de groei van kennis.</p>
+      <p>Als middelen noemt Wells voorlichting, onderwijs en georganiseerde weigering om aan oorlog mee te werken. Hij verwacht dat aanhangers eigen scholen, uitgaven en instellingen vormen en zich zo geleidelijk uit de oude orde losmaken. Dwang en geheimhouding wijst hij af; de beweging moet winnen door voorbeeld en overtuiging.</p>
+      <h3>Wie de samenzwering draagt</h3>
+      <p>De beweging die Wells voor ogen staat is geen massapartij maar een netwerk van functionele elites: mensen die in wetenschap, industrie, financiën en onderwijs feitelijk de moderne wereld draaiend houden en hun werk als wereldburgerschap leren verstaan. Democratische legitimatie speelt in het ontwerp nauwelijks een rol; bekwaamheid en toewijding zijn de toegangsbewijzen. Juist hier zit de aanvechtbaarheid van het boek, en Wells verhult die niet: hij schrijft onbekommerd over een voorhoede die weet wat goed is voor allen.</p>
+      <h3>Ontvangst en lotgevallen</h3>
+      <p>Bertrand Russell betuigde volledige sympathie, en in meerdere landen ontstonden groepjes die zich naar het boek noemden; de latere H.G. Wells Society droeg korte tijd de naam The Open Conspiracy. George Bernard Shaw en G.K. Chesterton wezen vorm en inhoud af, en latere beoordelaars noemden het ontwerp elitair en weinig democratisch. Wells bleef aan de tekst schaven: na de uitgebreide versie van 1930 en de heruitgave van 1931 verscheen in 1933 de slotversie onder de oorspronkelijke titel. Het gedachtegoed vloeide door in zijn latere pleidooien voor een wereldencyclopedie en voor mensenrechten.</p>
+      <h3>De verkeerde lezing</h3>
+      <p>In complotliteratuur wordt de titel tot op heden aangehaald als zelfbekentenis: Wells zou het geheime plan van een wereldelite hebben verklapt, en zijn latere boek <i>The New World Order</i> uit 1940 levert in die kringen de bijpassende term. Die lezing keert de tekst binnenstebuiten. Het boek bepleit openheid als methode, verwerpt geheimhouding met zoveel woorden en is als openbaar koopwaar verschenen; een samenzwering die zichzelf in de boekhandel legt, is geen samenzwering. De houdbare kritiek is een andere: dat een zichzelf benoemende elite van deskundigen zou mogen bepalen hoe de wereld wordt ingericht, is een politiek voorstel waarover democratieën terecht hard oordelen. Wie dat onderscheid vasthoudt, kan het boek lezen als wat het is: een openhartig, aanvechtbaar en historisch verhelderend utopisch program.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">open samenzwering</td><td>Wells' naam voor een zich openlijk organiserende wereldbeweging die door voorlichting en voorbeeld een nieuwe ordening opbouwt.</td></tr>
+          <tr><td class="term">wereldgemenebest</td><td>De beoogde politieke einddoelstelling: één samenhangend wereldbestel dat de soevereine staten geleidelijk vervangt.</td></tr>
+          <tr><td class="term">wereld-directoraat</td><td>Het verantwoordelijke wereldbestuur waaronder krediet, vervoer en de productie van basisgoederen zouden moeten vallen.</td></tr>
+          <tr><td class="term">voorlopigheid van regeringen</td><td>Het uitgangspunt dat bestaande staten als tijdelijke instellingen gelden in afwachting van de wereldordening.</td></tr>
+          <tr><td class="term">religie van de moderne mens</td><td>Wells' omschrijving van zijn program als geloof: de religieuze toewijding losgemaakt van openbaring en gericht op de menselijke toekomst.</td></tr>
+          <tr><td class="term">georganiseerde oorlogsweigering</td><td>Het voornaamste drukmiddel van de beweging: het collectief weigeren van deelname aan oorlogsvoorbereiding en oorlog.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een program en pretendeert geen empirie: Wells voert geen onderzoek aan en het essay valt of staat met de overtuigingskracht van zijn diagnose. Die diagnose, dat techniek en economie wereldwijd waren geworden terwijl de politiek nationaal bleef, was in 1928 goed waarneembaar en is door de eeuw daarna eerder bevestigd dan weerlegd; de wereldcrisis, de Tweede Wereldoorlog en de naoorlogse opbouw van internationale instellingen gaven het probleem dat Wells benoemde handen en voeten.</p>
+      <p>De voorspellende waarde van de voorgestelde oplossing is een ander verhaal. De verwachting dat functionele elites zich vreedzaam tot wereldburgers zouden omvormen kwam niet uit, en waar bovennationaal bestuur wel ontstond, zoals in de Verenigde Naties en de Europese samenwerking, gebeurde dat langs de weg van staten en verdragen die Wells juist te licht achtte. Als tijdsdocument is het boek daarmee sterk en als blauwdruk zwak; het laat vooral zien hoe een vooraanstaand denker tussen de wereldoorlogen de bestuurbaarheid van de planeet overschatte.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar betreft de democratie. Wells legt de leiding bij een zichzelf aanwijzende voorhoede van bekwamen en heeft weinig geduld met de instemming van de bestuurden; critici van Shaw en Chesterton tot hedendaagse lezers noemden het ontwerp daarom elitair en autoritair van inslag. De wereldwijde biologische zorg die het program bepleit, deelt bovendien in het eugenetische denkklimaat van het interbellum, en de kolonialistische bijklank van een beschavende voorhoede is er onafscheidelijk van. Wie het boek prijst om zijn vergezicht, moet deze kanten meewegen.</p>
+      <p>Daarnaast is de open samenzwering blijvend materiaal voor mislezing geworden. Omdat Wells vrijmoedig over wereldbestuur en de voorlopigheid van staten schrijft, is de tekst goud voor wie een citaat zoekt bij een vermeend geheim wereldplan; het genre rond de New World Order put er tot op heden uit. De tekst zelf weerlegt die lezing, maar het feit dat een openlijk utopisch essay decennialang als bewijsstuk van heimelijkheid dienstdoet, toont hoe weinig de citeerpraktijk van dat genre met lezen te maken heeft. Ten slotte geldt een nuchtere vaststelling: van de beweging die Wells wilde stichten is buiten enkele leeskringen nooit iets gekomen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het boek als primaire bron voor het wereldbestuursdenken van het interbellum, naast de volkenbondsgeschiedenis van dezelfde jaren.</li>
+        <li>Hanteer bij citaten uit dit boek in hedendaagse discussies het onderscheid tussen een openbaar pleidooi en een heimelijk plan; de tekst zelf is de toets.</li>
+        <li>Weeg bij elk technocratisch voorstel, toen en nu, de vraag wie de deskundigen aanwijst en aan wie zij verantwoording afleggen.</li>
+        <li>Vergelijk Wells' verwachtingen met de feitelijk ontstane internationale instellingen om te zien welke weg naar bovennationaal bestuur wel begaanbaar bleek.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Open Conspiracy: Blue Prints for a World Revolution</i> (Victor Gollancz, Londen, 1928, 200 blz., verschenen voor de invoering van het ISBN; herziene edities in 1930 en 1933, in 1931 onder de titel <i>What Are We to Do with Our Lives?</i>). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Programmatisch essay waarin H.G. Wells, dan 62 jaar oud, uiteenzet hoe de mensheid greep op haar eigen lot kan krijgen. Soevereine staten en overgeleverde godsdiensten kunnen de wereld van techniek, wereldhandel en moderne oorlog volgens hem niet meer besturen; nodig is een wereldgemenebest, opgebouwd door een openlijke beweging van wetenschappers, ingenieurs, ondernemers en onderwijzers. Die beweging noemt hij met opzet de open samenzwering: alles gebeurt in het volle licht, van propaganda en onderwijs tot georganiseerde dienstweigering.</p><p>Tijdgenoten als Bertrand Russell reageerden welwillend, Shaw en Chesterton afwijzend; latere critici noemden het program elitair en technocratisch. In complotkringen wordt de titel tot op heden aangehaald als bekentenis van een geheim wereldplan, een lezing die de tekst zelf weerspreekt: het boek is één lang openbaar pleidooi. Het blijft de helderste bron voor het utopische wereldbestuursdenken van het interbellum.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>utopie</li><li>wereldorde</li><li>politiek</li><li>geschiedenis</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="61"><a href="61.html">Brave New World</a>. Brave New World van Huxley leest als de donkere spiegel van dit soort bestuurd wereldgeluk uit dezelfde jaren.</li>
+          <li value="236"><a href="236.html">Homo Deus</a>. Homo Deus stelt de vraag naar de maakbare mensheid opnieuw, met een eeuw meer geschiedenis als materiaal.</li>
+          <li value="539"><a href="539.html">The Human Use of Human Beings</a>. The Human Use of Human Beings doordenkt de verhouding tussen techniek en samenleving die Wells' diagnose voortzet.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

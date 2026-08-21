@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Siren Call of Hungry Ghosts &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Fisher stelt dat channeling niet onschuldig is. De wezens die zich via trancemediums melden weten veel, vleien raak en binden mensen jarenlang aan zich,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-677">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">677 &middot; Filosofie en mystiek</p>
+    <h1>The Siren Call of Hungry Ghosts</h1>
+    <p class="lede">Joe Fisher, 2001</p>
+    <p class="stats">
+      <span><b>1329</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="677"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Fisher stelt dat channeling niet onschuldig is. De wezens die zich via trancemediums melden weten veel, vleien raak en binden mensen jarenlang aan zich, en juist daarom is de kernvraag of ze zijn wie ze zeggen te zijn. Zijn eigen toetsing van namen, plaatsen en jaartallen viel vernietigend uit: de controleerbare identiteiten bleken stuk voor stuk vals. Zijn conclusie luidt dat door mediums gechannelde gidsen aardgebonden, hongerige geesten zijn die zich met halve waarheden en liefdesbetuigingen voeden met de aandacht en de levenskracht van de levenden, en dat de spirituele markt die hen omarmt met vuur speelt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een gelovige begint een onderzoek</h3>
+      <p>Fisher (1947-2001) emigreerde in 1971 van Engeland naar Canada en werkte als onderzoeksjournalist voordat hij zich op het paranormale stortte. Met <i>The Case for Reincarnation</i> (1984) en <i>Life Between Life</i> (1988) verkocht hij honderdduizenden exemplaren; hij geloofde in wedergeboorte en een geestenwereld. Dit boek is dus geen aanval van een buitenstaander. Het is het verslag van iemand die het graag waar wilde hebben en al onderzoekend zijn eigen kamp tegen zich in het harnas joeg. Die uitgangspositie maakt de uitkomst zwaarder dan wanneer een scepticus hetzelfde had opgeschreven.</p>
+      <h3>De kring rond Aviva</h3>
+      <p>In 1984 komt Fisher terecht bij 'Aviva', een Toronto-huisvrouw met chronische leukemie, bij wie tijdens hypnosesessies, begonnen als genezingspoging, stemmen doorkwamen. In trance spreekt zij met andere stem en ander idioom; de sessies groeien uit tot een wekelijkse kring van uiteindelijk zo'n dertig deelnemers. De gidsen presenteren zich met een biografie: Russell Parnick, schaapboer uit het Yorkshire van de negentiende eeuw, treedt op als woordvoerder; Ernest Scott zegt in de Tweede Wereldoorlog bij de RAF te hebben gevlogen. Elke deelnemer krijgt een persoonlijke gids toegewezen, met wie ook buiten de sessies om contact zou bestaan.</p>
+      <h3>Filipa</h3>
+      <p>Fishers eigen gids noemt zich Filipa, een Griekse vrouw met wie hij in de achttiende eeuw, in een dorp dat Theros heet, een verboden liefde zou hebben gedeeld. Drie jaar lang onderhoudt hij naar eigen zeggen dagelijks innerlijk contact met haar en raakt hij, zoals hij openhartig beschrijft, verliefd op een stem. De relatie kost hem zijn aardse verhouding en trekt hem steeds dieper de kring in. Juist die persoonlijke verstrengeling maakt het boek als document zo sterk: de lezer ziet van binnenuit hoe vleierij, uitverkorenheid en romantiek een verstandig mens jarenlang vasthouden.</p>
+      <h3>De toets in Engeland</h3>
+      <p>Omdat de gidsen controleerbare details geven, gaat Fisher ze na. In Engeland zoekt hij Russells boerderij en familie in doopregisters en kadasters: niets. Bij het Public Record Office in Kew blijkt het genoemde RAF-squadron de opgegeven vlieger niet te kennen. Verwarrend genoeg herkennen twee bejaarde veteranen van datzelfde squadron, aan wie Fisher banden voorspeelt, wel het jargon en de couleur locale van 'hun' kameraad. Dat wordt het patroon: de stemmen beschikken over accurate tijdskleur, en liegen over wie ze zijn. Voor Fisher is dat de vingerafdruk van doelbewust bedrog.</p>
+      <h3>De toets in Griekenland en de breuk</h3>
+      <p>De reis naar Griekenland moet het bestaan van Theros en van Filipa's leven daar bevestigen. Fisher vindt het dorp niet, de topografie klopt niet en de streekgeschiedenis verdraagt haar verhaal niet; wat zij over de omgeving vertelde past bij een latere tijd dan de achttiende eeuw. De ontnuchtering slaat om in angst: het vertrouwde zoemen in zijn oren dat hij als haar nabijheid had leren lezen, krijgt iets schrils, hij slaapt niet meer en voelt zich besmet. Wanneer hij zijn bevindingen aan de kring voorlegt, kiest het merendeel voor de gidsen en tegen de feiten; de groep valt uiteen zonder van haar geloof te vallen.</p>
+      <h3>Hongerige geesten</h3>
+      <p>Voor de duiding grijpt Fisher naar het boeddhistische beeld van de preta, de hongerige geest: een aardgebonden wezen dat niet verder kan of wil en zich voedt met de aandacht van de levenden. Channeling opent volgens hem de deur voor precies zulke wezens, die zich uitgeven voor verheven meesters, overledenen of geliefden uit vorige levens en hun gehoor binden met wat hij ware leugens noemt: kloppende details om de valse kern geloofwaardig te maken. Het slot is een waarschuwing aan het new-age-publiek dat gidsen en meesters omarmt zonder één controlevraag te stellen. Colin Wilson voorzag de heruitgave van een voorwoord.</p>
+      <p>Bij het boek hoort een naschrift dat niet in het boek staat: op 9 mei 2001, kort na verschijning van deze editie, sprong Fisher bij Elora Gorge in Ontario van een klif. In kringen rond het boek is zijn dood uitgelegd als wraak van de geesten; de gedocumenteerde feiten zijn een zelfdoding na een periode van uitputting en somberheid. Het een uit het ander verklaren kan niemand, en het boek zelf vraagt daar ook niet om.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">hongerige geest</td><td>Uit het boeddhisme geleend beeld (preta) voor een aardgebonden wezen dat zich voedt met de aandacht en energie van levenden.</td></tr>
+          <tr><td class="term">channeling</td><td>Praktijk waarbij een medium in trance een andere persoonlijkheid laat spreken die zich als gids, meester of overledene presenteert.</td></tr>
+          <tr><td class="term">trancemedium</td><td>Iemand die in diepe trance het eigen bewustzijn terugtrekt, waarna een doorkomende stem het spreken overneemt.</td></tr>
+          <tr><td class="term">gids</td><td>De entiteit die een deelnemer persoonlijk toegewezen krijgt en die raad, troost en een gedeelde voorgeschiedenis aanbiedt.</td></tr>
+          <tr><td class="term">aardgebonden geest</td><td>In Fishers duiding een overledene die de overgang weigert en zich aan levenden hecht in plaats van verder te gaan.</td></tr>
+          <tr><td class="term">ware leugens</td><td>Fishers term voor het mengsel van kloppende details en valse identiteit waarmee de stemmen geloofwaardigheid kopen.</td></tr>
+          <tr><td class="term">vorige-levens-band</td><td>De geclaimde gedeelde geschiedenis tussen gids en deelnemer die de emotionele binding aan de kring verankert.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De kracht van het boek zit in de toetsing. Fisher behandelt de claims van de gidsen als journalistiek controleerbaar materiaal en gaat met naam, plaats en jaartal naar doopregisters, krijgsarchieven en Griekse dorpen. Die werkwijze is in de channeling-literatuur vrijwel zonder voorbeeld, en de uitkomst is eenduidig: geen enkele controleerbare identiteit hield stand. Wie wil weten wat er van gechannelde biografieën overblijft onder archiefonderzoek, vindt hier het antwoord.</p>
+      <p>Daar staat tegenover dat het bewijs voor zijn eigen duiding, echte maar bedrieglijke geesten, nergens dezelfde toets doorstaat. De kring draaide om één medium onder pseudoniem, de sessies zijn niet onafhankelijk onderzocht, en de accurate tijdskleur die de stemmen paraat hadden kan ook uit boeken, films en oorlogsherinneringen in het geheugen van het medium en de deelnemers stammen. Het boek bewijst dat de stemmen logen; wat de stemmen zijn, bewijst het niet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwakke punt is de verklaringskeuze. Dissociatie en cryptomnesie, waarbij een trancepersoonlijkheid put uit vergeten gelezen en gehoord materiaal, verklaren hetzelfde patroon van kloppende sfeer en valse identiteit zonder één geest nodig te hebben; de psychologie kent dat verschijnsel al sinds het klassieke spiritisme-onderzoek. Fisher bespreekt die route, en schuift haar te snel terzijde, mede omdat het bestaan van een geestenwereld voor hem buiten de vraag stond. Zo blijft een onfalsifieerbare conclusie over: wezens die per definitie liegen, laten zich door geen enkel onderzoek meer betrappen of vrijpleiten.</p>
+      <p>Ook de toon vraagt om een kanttekening: de dreiging wordt tegen het einde gotisch aangezet, en de sprong van één bedrogen kring in Toronto naar een oordeel over channeling wereldwijd is groot. Toch verdient het boek geen wegwuiven. Het documenteert van binnenuit, met gênante eerlijkheid over de eigen verliefdheid en angst, hoe een besloten kring rond een stem ontstaat, bindt en de feiten overleeft. Die sociologische kern staat los van de vraag wat er door het medium sprak, en blijft overeind voor gelovige en scepticus.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Toets bij elke bron die gezag claimt, aards of niet, eerst de controleerbare details: namen, plaatsen, jaartallen.</li>
+        <li>Herken vleierij en uitverkorenheid als bindmiddel; wat goed voelt over de eigen bijzonderheid verdient extra wantrouwen.</li>
+        <li>Reken kloppende sfeer en jargon niet als bewijs van identiteit; couleur locale is leerbaar.</li>
+        <li>Let op wat een groep doet wanneer feiten en geloof botsen; de reactie op weerlegging zegt meer dan de leer.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Siren Call of Hungry Ghosts: A Riveting Investigation into Channeling and Spirit Guides</i> (Paraview Press, 2001, 313 blz., ISBN 9781931044028; eerder verschenen als <i>Hungry Ghosts</i>, 1990). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Joe Fisher, Brits-Canadese journalist en schrijver van succesvolle boeken over reïncarnatie, sloot zich in 1984 aan bij een channeling-kring rond het Toronto-medium 'Aviva'. Via haar spraken gidsen die zich voorstelden met naam, plaats en jaartal: de Yorkshire-schaapboer Russell, de RAF-piloot Ernest Scott, en Fishers eigen gids Filipa, een Griekse geliefde uit een vorig leven. Fisher deed wat vrijwel niemand in dit veld doet: hij reisde naar Engeland en Griekenland om de verifieerbare details na te trekken. Archieven kenden de personen niet, het Griekse dorp bleek onvindbaar, terwijl de gidsen wel akelig accurate tijdskleur bleken te kennen.</p><p>Zijn conclusie: de stemmen zijn echte maar bedrieglijke entiteiten, 'hongerige geesten' die zich met vleierij aan levenden hechten. Dat blijft een geloofsstandpunt; de nuchterder verklaring via het onbewuste van het medium verwerpt hij te snel. Als waarschuwend binnenverslag van de channeling-wereld is het boek niettemin zeldzaam en waardevol. Fisher maakte in mei 2001, kort na deze heruitgave, een einde aan zijn leven.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>channeling</li><li>spiritisme</li><li>paranormaal</li><li>misleiding</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="549"><a href="549.html">Living with Joy</a>. Living with Joy is zelf een gechanneld boek en laat zien hoe het genre klinkt wanneer niemand controlevragen stelt.</li>
+          <li value="102"><a href="102.html">Ingangen tot Een cursus in wonderen</a>. Ingangen tot Een cursus in wonderen ontsluit de bekendste gechannelde tekst, ter vergelijking met Fishers bevindingen.</li>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. The Demon-Haunted World behandelt dezelfde vragen met het gereedschap dat Fisher pas gaandeweg ontwikkelde.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

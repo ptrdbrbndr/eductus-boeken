@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Killing Hope &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Blum stelt dat de Verenigde Staten sinds 1945 in tientallen landen regeringen ten val hebben gebracht of dat hebben geprobeerd, verkiezingen hebben…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-693">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">693 &middot; Geschiedenis en samenleving</p>
+    <h1>Killing Hope</h1>
+    <p class="lede">William Blum, 1995</p>
+    <p class="stats">
+      <span><b>1153</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="693"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Blum stelt dat de Verenigde Staten sinds 1945 in tientallen landen regeringen ten val hebben gebracht of dat hebben geprobeerd, verkiezingen hebben gemanipuleerd, opstanden hebben onderdrukt en bewegingen voor sociale hervorming hebben laten breken, en dat het gangbare motief daarvoor, verdediging van de vrije wereld tegen Moskou, een dekmantel was. Het werkelijke patroon is volgens hem imperiaal: elk land dat een onafhankelijke koers koos, links of niet, gold als bedreiging omdat het goede voorbeeld aanstekelijk kon zijn. De hoop die in de titel wordt gedood is die van arme landen op een eigen ontwikkelingsweg; de Koude Oorlog was in deze lezing vooral een oorlog van Washington tegen de Derde Wereld.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Van functionaris tot criticus</h3>
+      <p>Blum (1933-2018) werkte als programmeur bij IBM en daarna bij het State Department, met de ambitie diplomaat te worden in dienst van de strijd tegen het communisme. De Vietnamoorlog keerde hem om; in 1967 nam hij ontslag en werd hij journalist bij alternatieve bladen. In 1986 verscheen bij Zed Books <i>The CIA: A Forgotten History</i>, dat in 1995, herschreven en uitgebreid, als <i>Killing Hope</i> bij Common Courage Press uitkwam. Latere edities, tot en met die van 2014, trokken het verhaal door naar Irak en daarna. Die biografie kleurt het boek: het is geschreven door iemand die het apparaat van binnen zag en er zijn levenswerk van maakte het aan te klagen.</p>
+      <h3>Het openingsessay</h3>
+      <p>Het boek opent met een essay over anticommunisme als Amerikaanse staatsideologie. Blum betoogt dat het etiket communistisch in de praktijk werd geplakt op vrijwel elke beweging voor landhervorming, nationalisatie of neutraliteit, en dat de dreiging van Moskou stelselmatig werd opgeblazen om binnenlandse steun voor interventies te organiseren. Hier valt ook de zwaarste term van het boek: hij spreekt over de opgetelde slachtoffers van de interventies als een Amerikaanse holocaust. Het essay maakt geen geheim van het standpunt; wie het boek leest weet vanaf bladzijde één dat hier een aanklager schrijft en geen afstandelijke historicus.</p>
+      <h3>Ruim vijftig casussen, chronologisch</h3>
+      <p>De kern bestaat uit ruim vijftig landenhoofdstukken in chronologische volgorde. Daaronder de bekende zaken: de verkiezingsbeïnvloeding in Italië (1948), de door de CIA georganiseerde staatsgrepen tegen Mossadeq in Iran (1953) en Arbenz in Guatemala (1954), de moord op Lumumba in Congo (1960-61), de Varkensbaai en de aanslagplannen tegen Castro, de coup in Brazilië (1964), de steun aan de moordcampagne in Indonesië (1965), Vietnam, Laos en Cambodja, de val van Allende in Chili (1973), Angola, Afghanistan, Nicaragua en de contra's, Grenada (1983), Panama (1989), Irak en Joegoslavië. Daarnaast staan er kleinere en minder bekende episodes in, van Brits-Guyana tot de Seychellen, die elders zelden bijeenstaan.</p>
+      <h3>Het sjabloon per hoofdstuk</h3>
+      <p>Elk hoofdstuk volgt hetzelfde stramien: de politieke situatie vooraf, de Amerikaanse interventie met de gebruikte middelen, van omkoping en propaganda tot wapenleveranties en bombardementen, en de afloop voor het land in kwestie. Blum schrijft compact en met voortdurende bronverwijzing naar kranten, congresrapporten zoals die van de Church-commissie uit 1975-76, vrijgegeven documenten en memoires van oud-functionarissen. Het boek is daardoor eerder naslagwerk dan doorlopend betoog: de meeste lezers gebruiken het per casus. De optelling is het eigenlijke argument: één interventie kan incident heten, vijftig vormen volgens Blum een beleid.</p>
+      <h3>Status en ontvangst</h3>
+      <p>Het boek werd het standaardnaslagwerk van de linkse kritiek op de Amerikaanse buitenlandpolitiek. Noam Chomsky noemde het veruit het beste boek over het onderwerp; John Stockwell, oud-stationschef van de CIA, noemde het de nuttigste samenvatting van de CIA-geschiedenis. Academische recensies zijn koeler: de LSE-recensie van de editie 2014 verwijt Blum een geschiedschrijving in een vacuüm, zonder Sovjet-context, met vlakke karakteriseringen en, in de latere hoofdstukken, een onkritisch gebruik van bronnen als de Russische staatszender RT. Toen Osama bin Laden in 2006 Blums <i>Rogue State</i> aanprees, aanvaardde Blum de reclame; het typeert de omstreden positie die hij tot zijn dood in 2018 innam.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">interventie</td><td>Blums verzamelbegrip voor elke poging de politiek van een ander land te sturen, van verkiezingsgeld en propaganda tot staatsgreep en invasie.</td></tr>
+          <tr><td class="term">anticommunisme</td><td>In Blums analyse de staatsideologie die vrijwel elke onafhankelijke of hervormingsgezinde beweging tot vijand verklaarde.</td></tr>
+          <tr><td class="term">destabilisatie</td><td>Het langzaam onbestuurbaar maken van een land via economische druk, propaganda en steun aan de oppositie, als voorbereiding op een omwenteling.</td></tr>
+          <tr><td class="term">het goede voorbeeld</td><td>Blums verklaring voor interventies tegen kleine, ongevaarlijke landen: een geslaagde onafhankelijke ontwikkelingsweg zou navolging kunnen krijgen.</td></tr>
+          <tr><td class="term">Amerikaanse holocaust</td><td>Blums omstreden aanduiding voor de opgetelde slachtoffers van de beschreven interventies.</td></tr>
+          <tr><td class="term">plausible deniability</td><td>De inrichting van geheime operaties zo dat de politieke top betrokkenheid geloofwaardig kan ontkennen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De feitenbasis is voor een polemisch boek opvallend controleerbaar: elke casus is voorzien van verwijzingen naar persarchieven, congresonderzoeken, vrijgegeven documenten en memoires. De kernzaken, Iran 1953, Guatemala 1954, de aanslagplannen tegen Castro, Chili 1973, de contra-oorlog, zijn door officiële Amerikaanse onderzoeken en latere vrijgave van documenten bevestigd en staan ook in de gangbare geschiedschrijving. Wie Blums beschrijving van die hoofdzaken naast de academische literatuur legt, vindt weinig feitelijke missers.</p>
+      <p>Zwakker wordt het bij de optelling en de randen. Kleinere casussen leunen soms op dun of verouderd materiaal, mislukte en vermeende operaties tellen in de opsomming even zwaar mee als geslaagde, en de latere hoofdstukken halen hun bronnen deels uit partijdige media. Het boek bewijst dat het interventiepatroon bestaat; het bewijst niet de eenduidige imperiale bedoeling die Blum er overal achter ziet, omdat motieven per geval verschillen en hij het bewijs daarvoor zelden per geval levert.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is de eenzijdige weging. Blum behandelt elke interventie volgens hetzelfde sjabloon, waarin Washington handelt en alle anderen ondergaan: de Sovjet-Unie, China en Cuba komen als actoren nauwelijks voor, lokale machthebbers verschijnen vooral als werktuig, en de vraag of er per geval reële veiligheidsafwegingen of nog slechtere alternatieven bestonden, wordt niet gesteld. Academische recensenten spreken daarom van geschiedschrijving in een vacuüm; het boek is bruikbaar als kroniek en onbruikbaar als afgewogen oordeel.</p>
+      <p>Daarnaast schaadt de polemiek de zaak die Blum dient. Termen als Amerikaanse holocaust, de gelijke behandeling van bewezen en schimmige casussen en het onkritische brongebruik in latere edities geven critici aanleiding het hele boek terzijde te leggen, ook de delen die hard gedocumenteerd zijn. Wie het leest doet er goed aan per hoofdstuk de recente vakliteratuur ernaast te nemen: de feiten blijven dan grotendeels overeind, de duiding lang niet altijd.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik het boek als naslagwerk per land en niet als eindoordeel; controleer elke casus bij recente geschiedschrijving.</li>
+        <li>Onderscheid drie vragen die Blum in elkaar schuift: vond de interventie plaats, wat waren de gevolgen, en wat was het motief.</li>
+        <li>Let bij elk optelargument op wat er meetelt: mislukte, afgeblazen en vermeende gevallen horen apart gewogen te worden.</li>
+        <li>Weeg bij polemische bronnen de gedocumenteerde feiten los van de gekozen termen; het een verwerpen om het ander is even slordig als alles geloven.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Killing Hope: U.S. Military and CIA Interventions Since World War II</i> (Common Courage Press, 1995; herziene editie 2004, 469 blz., ISBN 9781567512526; latere update bij Zed Books, 2014). Een eerdere versie verscheen als <i>The CIA: A Forgotten History</i> (Zed Books, 1986). Geen Nederlandse vertaling van dit boek gevonden in de catalogus van bibliotheek.nl; van Blum is wel <i>Schurkenstaat</i> (Lemniscaat, 2003) vertaald. De samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Naslagwerk en aanklacht ineen: in ruim vijftig chronologische hoofdstukken, van China in 1945 tot Irak en verder, beschrijft William Blum Amerikaanse militaire interventies en CIA-operaties, van gemanipuleerde verkiezingen in Italië (1948) en de staatsgrepen in Iran (1953), Guatemala (1954) en Chili (1973) tot steun aan de moordcampagne in Indonesië (1965). Blum, die in 1967 uit protest tegen Vietnam ontslag nam bij het State Department, betoogt dat niet verdediging tegen Moskou het motief was, maar het onschadelijk maken van elk voorbeeld van onafhankelijke ontwikkeling.</p><p>De feitenbasis is grotendeels controleerbaar: Blum verwijst per casus naar persarchieven, congresonderzoeken en memoires, en de kerncasussen zijn door officiële onderzoeken bevestigd. De weging is dat niet: elk conflict gaat door dezelfde bril, Sovjet-context ontbreekt vrijwel geheel en termen als Amerikaanse holocaust tekenen de polemiek. Chomsky noemde het het beste boek over dit onderwerp; academische recensenten oordelen gereserveerder.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>koude oorlog</li><li>cia</li><li>amerikaanse buitenlandpolitiek</li><li>geschiedenis</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="566"><a href="566.html">Manufacturing Consent</a>. Manufacturing Consent levert het mediamodel dat verklaart waarom de hier beschreven operaties destijds zo weinig verontwaardiging wekten.</li>
+          <li value="217"><a href="217.html">The Strategy of Conflict</a>. The Strategy of Conflict toont de strategische denkwereld van dezelfde periode van binnenuit, als tegenwicht voor Blums buitenperspectief.</li>
+          <li value="221"><a href="221.html">The Dictator's Handbook</a>. The Dictator's Handbook verklaart met machtslogica waarom grootmachten kleine autocraten steunen, zonder Blums morele lading.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

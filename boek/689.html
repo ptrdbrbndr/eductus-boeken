@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Devil's Chessboard &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Talbot stelt dat Allen Dulles binnen de Amerikaanse staat een tweede, geheime staat opbouwde die verantwoording aan president noch Congres aflegde en die…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-689">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">689 &middot; Geschiedenis en samenleving</p>
+    <h1>The Devil's Chessboard</h1>
+    <p class="lede">David Talbot, 2015</p>
+    <p class="stats">
+      <span><b>1228</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="689"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Talbot stelt dat Allen Dulles binnen de Amerikaanse staat een tweede, geheime staat opbouwde die verantwoording aan president noch Congres aflegde en die belangen van de zakenwereld met geheime middelen doorzette, van staatsgrepen in Iran en Guatemala tot moordplannen tegen buitenlandse leiders. De uiterste consequentie van dat betoog is zijn omstreden slotstelling: dat ditzelfde apparaat onder leiding van de ontslagen Dulles ook de moord op de eigen president in Dallas organiseerde en via de Warren-commissie toedekte. Wie die laatste stap niet meemaakt, houdt nog altijd de vraag over die het boek draagt: wat er gebeurt met een democratie die haar geheime dienst niet controleert.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wall Street en Bern</h3>
+      <p>Dulles begon als diplomaat en werd advocaat bij Sullivan &amp; Cromwell, het kantoor van zijn broer John Foster Dulles, dat tot ver in de jaren dertig Duitse concerns bediende. In de oorlog leidde hij vanuit Bern het plaatselijke station van inlichtingendienst OSS. Talbot laat zien hoe Dulles daar al zijn eigen koers voer: bij Operation Sunrise onderhandelde hij in 1945 met SS-generaal Karl Wolff over de Duitse overgave in Italië, tegen de geallieerde afspraak van onvoorwaardelijke capitulatie in, en Wolff ontliep mede daardoor serieuze vervolging.</p>
+      <h3>Oude vijanden, nieuwe vrienden</h3>
+      <p>Na 1945 hielp het inlichtingenmilieu waarin Dulles opereerde voormalige nazi's aan een tweede leven, met als bekendste voorbeeld de spionageorganisatie van generaal Reinhard Gehlen die vrijwel intact in westerse dienst kwam. Talbot beschrijft hoe de logica van de vroege Koude Oorlog, elke anticommunist is bruikbaar, het rechtsgevoel verdrong, en hoe Dulles via zijn oude netwerken tegelijk zaken en spionage bleef verweven. Deze hoofdstukken steunen op bestaande literatuur en vrijgegeven dossiers en zijn in de kern onomstreden.</p>
+      <h3>De jaren als directeur</h3>
+      <p>Van 1953 tot 1961 leidde Dulles de CIA, terwijl broer Foster minister van Buitenlandse Zaken was. In die jaren viel de gekozen premier Mossadegh van Iran (1953) en president Arbenz van Guatemala (1954), de laatste ten gunste van United Fruit, een oude cliënt van het kantoor van de broers. Dulles keurde het geheime bewustzijnsonderzoek MK-Ultra goed, waarbij burgers zonder medeweten drugs kregen toegediend, en onder zijn leiding werden moordplannen ontwikkeld tegen Lumumba in Congo en Castro in Cuba, deels met hulp van de maffia. Vrijwel dit hele register is later door de Church-commissie en vrijgegeven archieven bevestigd; Talbots verdienste is de bundeling tot één portret.</p>
+      <h3>Dulles tegen Kennedy</h3>
+      <p>Na het fiasco van de Varkensbaai-invasie in april 1961 ontsloeg Kennedy Dulles. Talbot beschrijft de wederzijdse verachting: een jonge president die de dienst wilde breken 'in duizend stukken', tegenover een ontslagen chef die vanuit zijn huis in Georgetown zijn oude netwerk bleef ontvangen. Hier verschuift het boek van geschiedschrijving naar reconstructie: uit agenda's, memoires en gesprekken bouwt Talbot het beeld van een schaduwcentrum rond Dulles dat de regering als vijand zag. Het persoonlijke materiaal, waaronder de dagboeken van echtgenote Clover en minnares Mary Bancroft, geeft het portret kleur: een charmeur zonder warmte, door beide vrouwen als koud tot in de kern beschreven.</p>
+      <h3>Dallas en de Warren-commissie</h3>
+      <p>De slothoofdstukken bevatten de beschuldiging waaraan het boek zijn faam dankt: Dulles als spil van de moord op Kennedy, uitgevoerd door het milieu van CIA, Cubaanse ballingen en militairen, en toegedekt doordat Dulles zelf in de Warren-commissie plaatsnam en daar het onderzoek naar de dienst afschermde. Vast staat dat zijn benoeming in die commissie wrang was en dat hij informatie over de moordplannen tegen Castro voor de commissie verzweeg. Voor het meerdere, betrokkenheid bij de aanslag zelf, biedt Talbot ketens van omstandigheden en geen bewijsstuk; hij erkent dat Dulles zijn sporen te goed wiste.</p>
+      <h3>Ontvangst</h3>
+      <p>Kirkus gaf een sterrecensie en las het boek als waarschuwing over ongecontroleerde macht. Historicus Glenn Altschuler oordeelde in de San Francisco Chronicle dat de speculaties en beschuldigingen ver voor het bewijs uitlopen, ook voor wie geneigd is het ergste over Dulles te geloven. De grootste kranten lieten het boek grotendeels onbesproken. In het publieke debat over de CIA en over de vrijgave van de laatste Kennedy-dossiers wordt het niettemin veel aangehaald, meestal met de kanttekening dat de biografie sterker is dan de slotakte.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Operation Sunrise</td><td>Dulles' eigenmachtige onderhandeling in 1945 met SS-generaal Wolff over de Duitse overgave in Italië.</td></tr>
+          <tr><td class="term">Gehlen-organisatie</td><td>Het Duitse spionagenetwerk dat na de oorlog vrijwel intact in westerse dienst werd genomen, symbool voor het recyclen van oude vijanden.</td></tr>
+          <tr><td class="term">MK-Ultra</td><td>Door Dulles goedgekeurd geheim programma waarbij met drugs en dwang op nietsvermoedende mensen werd geëxperimenteerd.</td></tr>
+          <tr><td class="term">regime change</td><td>Het onder Dulles beproefde recept om ongewenste regeringen met geheime middelen te vervangen, toegepast in Iran en Guatemala.</td></tr>
+          <tr><td class="term">geheime regering</td><td>Talbots aanduiding voor het bestel van diensten, advocaten en zakenlieden dat volgens hem buiten de gekozen organen om regeerde.</td></tr>
+          <tr><td class="term">Varkensbaai</td><td>De mislukte invasie van Cuba in 1961 die Dulles zijn baan kostte en de breuk met Kennedy inluidde.</td></tr>
+          <tr><td class="term">Warren-commissie</td><td>De onderzoekscommissie naar de moord op Kennedy waarin de ontslagen CIA-chef zelf zitting kreeg, voor Talbot de doofpot in persoon.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het biografische fundament is stevig. De staatsgrepen in Iran en Guatemala, de moordplannen tegen Lumumba en Castro, MK-Ultra en het verzwijgen van de Castro-plannen voor de Warren-commissie zijn vastgesteld door de Church-commissie, door vrijgegeven CIA-archieven en, voor Iran, in 2013 door de CIA zelf erkend. Talbot voegt daar eigen materiaal aan toe: de dagboeken van Clover Dulles en Mary Bancroft, correspondentie en interviews met kinderen van CIA-functionarissen. Voor dit deel verschilt zijn boek vooral in toon van academische studies zoals <i>The Brothers</i> van Stephen Kinzer.</p>
+      <p>De Dallas-stelling rust op materiaal van een andere orde: onbewezen getuigenissen uit de conspiracyliteratuur, netwerkverbanden en veelzeggende stiltes. Een document, getuige of bekentenis die Dulles met de aanslag verbindt, is er niet, en Talbot zegt zelf dat hij niet verder gaat dan het bewijs draagt, wat in de praktijk betekent dat de zwaarste zinnen als vraag of suggestie zijn geformuleerd. Wie het boek als bewijsstuk voor een complot leest, leest meer dan er staat.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het voornaamste bezwaar is de vermenging van twee boeken in één band: een goed gedocumenteerde biografie van een gevaarlijk machtige spionagechef, en een moordreconstructie die op omstandigheden drijft. Vakhistorici nemen het eerste serieus en beschouwen het tweede als onbewezen; Altschulers oordeel dat de beschuldigingen voor het bewijs uitlopen, vat de wetenschappelijke ontvangst samen. Doordat Talbot beide registers in dezelfde stellige toon schrijft, moet de lezer zelf de scheidslijn bewaken die de auteur weglaat.</p>
+      <p>Daarnaast is het beeld gepolariseerd: Dulles krijgt geen enkele verzachtende context, Kennedy verschijnt als vredesvorst wiens scherpe kanten, van de door hemzelf gedekte Castro-plannen tot Vietnam, onderbelicht blijven. Wie het tijdperk evenwichtiger wil zien, heeft naast dit boek Kinzer of de academische CIA-geschiedschrijving nodig. Als aanklacht tegen geheime macht zonder toezicht blijft het boek ook voor sceptische lezers de moeite waard, juist omdat het gedocumenteerde deel al ernstig genoeg is.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Houd bij elk geschiedwerk met een grote onthulling de voetnoten bij: waar de verwijzingen ophouden, begint doorgaans de speculatie.</li>
+        <li>Beoordeel instituties op hun controleerbaarheid; het gedocumenteerde deel van dit boek laat zien wat een dienst zonder toezicht binnen tien jaar aanricht.</li>
+        <li>Let op belangenverstrengeling als verklaringsmodel: advocatenkantoor, ministerie en dienst in één familie verklaart hier meer dan enig geheim plan.</li>
+        <li>Onderscheid een wrange aanstelling, Dulles in de Warren-commissie, van bewezen opzet; het eerste is een feit, het tweede een hypothese.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Devil's Chessboard: Allen Dulles, the CIA, and the Rise of America's Secret Government</i> (Harper/HarperCollins, 2015, 704 blz., ISBN 9780062276162). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Biografie van Allen Dulles, advocaat op Wall Street, spionagechef in Bern tijdens de Tweede Wereldoorlog en van 1953 tot 1961 directeur van de CIA. Talbot, oprichter van Salon, beschrijft hoe Dulles de dienst uitbouwde tot een macht die regeringen ten val bracht in Iran en Guatemala, moordplannen tegen Lumumba en Castro liet ontwikkelen en met MK-Ultra experimenteerde op nietsvermoedende burgers, grotendeels buiten democratische controle.</p><p>Het gedocumenteerde deel steunt op archieven, de dagboeken van Dulles' vrouw en minnares en interviews met kinderen van CIA-functionarissen. Omstreden is de slotakte: Talbot houdt Dulles voor de regisseur van de moord op Kennedy en van de doofpot via de Warren-commissie. Voor die beschuldiging bestaat geen direct bewijs en vakhistorici beschouwen haar als onbewezen; als portret van ongecontroleerde macht wordt het boek wel serieus genomen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>inlichtingendiensten</li><li>biografie</li><li>koude oorlog</li><li>verenigde staten</li><li>geschiedenis</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="220"><a href="220.html">Coup d'État</a>. Coup d'État beschrijft het mechaniek van staatsgrepen dat onder Dulles tot exportproduct werd.</li>
+          <li value="566"><a href="566.html">Manufacturing Consent</a>. Manufacturing Consent verklaart waarom dit soort operaties zo lang buiten het nieuws bleef.</li>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. The Demon-Haunted World geeft de maatstaf om Talbots gedocumenteerde hoofdstukken van zijn speculatieve slot te scheiden.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

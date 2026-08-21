@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Science and Sanity &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Korzybski stelt dat de mens een 'tijdbindende' soort is die kennis over generaties doorgeeft via taal, en dat juist dat instrument ons ziek maakt zolang…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-664">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">664 &middot; Vrij denken en manipulatie</p>
+    <h1>Science and Sanity</h1>
+    <p class="lede">Alfred Korzybski, 1933</p>
+    <p class="stats">
+      <span><b>1446</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="664"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Korzybski stelt dat de mens een 'tijdbindende' soort is die kennis over generaties doorgeeft via taal, en dat juist dat instrument ons ziek maakt zolang zijn structuur niet klopt met de structuur van de werkelijkheid. De aristotelische erfenis, denken in vaste identiteiten ('dit is een X'), verleidt tot het verwarren van woord en zaak, van abstractie en waarneming. Een kaart is het gebied niet, en wie dat vergeet reageert op etiketten in plaats van op feiten. Training in niet-aristotelisch, 'extensioneel' taalgebruik zou individuen geestelijk gezonder maken en de mensheid in staat stellen haar wetenschappelijke vermogens ook op haar samenleven toe te passen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Tijdbinding en de menselijke soort</h3>
+      <p>Korzybski begint bij het onderscheid dat hij in zijn eerdere boek <i>Manhood of Humanity</i> (1921) uitwerkte: planten binden energie, dieren binden ruimte, mensen binden tijd. Tijdbinding is het vermogen om verworven kennis via symbolen aan volgende generaties door te geven, waardoor menselijke kennis exponentieel groeit. Dat vermogen draait volledig op taal, en daarmee wordt de kwaliteit van taal een zaak van soortbelang: fouten in de structuur van het symboolsysteem planten zich met de kennis mee voort.</p>
+      <p>De diagnose luidt dat wetenschap en techniek wel bij de tijd zijn, maar de alledaagse taal en de daarop gebouwde instituties nog de structuur van een voorwetenschappelijk wereldbeeld dragen. Die kloof zou oorlogen, waanideeën en persoonlijke ontsporingen voeden.</p>
+      <h3>De aristotelische erfenis</h3>
+      <p>Het mikpunt is wat Korzybski de aristotelische oriëntatie noemt, samengebald in het 'is van identiteit': uitspraken van de vorm 'Jan is lui' behandelen een persoon als samenvallend met één eigenschap, voor altijd en in alle omstandigheden. De werkelijkheid van 1933, met relativiteitstheorie, kwantummechanica en colloïdchemie, laat volgens hem zien dat de wereld uit dynamische processen op meerdere ordes bestaat, waar het statische subject-predicaatdenken geen recht aan doet.</p>
+      <p>Niet-aristotelisch denken wil zeggen: identiteit ('A is A') vervangen door structuur, relatie en orde. Korzybski presenteert dat nadrukkelijk als systeem, naar analogie van de niet-euclidische meetkunde: geen weerlegging van Aristoteles voor diens tijd, wel een ruimer stelsel voor een wetenschappelijk tijdperk.</p>
+      <h3>Abstraheren in ordes</h3>
+      <p>De kern van het stelsel is de abstractieleer. Tussen de wereld en het woord zitten trappen: het gebeuren op microniveau, het object zoals een zenuwstelsel het waarneemt, het benoemde object, de uitspraak over die naam, de uitspraak over die uitspraak, enzovoort. Elke trap laat kenmerken weg. Korzybski vat dat samen in de kaartmetafoor: een kaart is niet het gebied, een goede kaart heeft wel een soortgelijke structuur als het gebied, en kaarten van kaarten stapelen zich onbeperkt op.</p>
+      <p>Voor het onderwijs in dit inzicht ontwierp hij de 'structural differential', een tastbaar schema van parabool, schijven en labels met hangende draadjes, dat de weggelaten kenmerken per abstractietrap zichtbaar maakt. Gezond functioneren heet hier 'bewustzijn van abstraheren': doorlopend beseffen op welke trap een uitspraak zich bevindt en wat er onderweg is weggevallen.</p>
+      <h3>Semantische reacties en onaangepastheid</h3>
+      <p>Korzybski beschrijft de mens als organisme-als-geheel-in-een-omgeving: betekenis is geen abstract iets maar een 'semantische reactie', een respons van het hele zenuwstelsel op woorden en symbolen. Wie op een lagere abstractietrap reageert alsof het de werkelijkheid zelf is, identificeert, en identificatie is voor Korzybski het mechanisme achter fanatisme, vooroordeel en veel psychische klachten. Vandaar de titel: onaangepast taalgebruik en onaangepast gedrag ('unsanity') liggen op één lijn, met waanzin als uiterste.</p>
+      <p>Hij illustreert dit met klinische en alledaagse voorbeelden en met colleges waarin hij studenten liet ervaren hoe woorden lichamelijke reacties sturen, tot walging bij een omgekat etiket aan toe. De therapiebelofte is fors: training in niet-identificatie zou neuroses helpen voorkomen en verhelpen.</p>
+      <h3>Extensionele hulpmiddelen</h3>
+      <p>Praktisch mondt het stelsel uit in de 'extensionele instelling', voorrang voor feiten en gevallen boven definities, ondersteund door concrete taalgereedschappen: indexen (mens-1 is mens-2 niet), datums (Smith-1920 is Smith-1940 niet), 'enzovoort' als herinnering dat elke beschrijving onvolledig is, aanhalingstekens bij beladen abstracties en verbindingsstreepjes voor kunstmatig gescheiden begrippen als 'psycho-somatisch'. Elementalisme, het talig splitsen van wat in de werkelijkheid één geheel is (lichaam en geest, ruimte en tijd, denken en voelen), geldt als hoofdzonde.</p>
+      <p>Het boek besluit met lange delen over wiskunde en moderne natuurkunde als voorbeelden van talen waarvan de structuur wél bij de werkelijkheid past, plus een omvangrijk trainingsprogramma; Korzybski richtte in 1938 het Institute of General Semantics op om dat programma te onderwijzen.</p>
+      <h3>Doorwerking</h3>
+      <p>De algemene semantiek werd na 1933 een beweging. S.I. Hayakawa populariseerde haar in <i>Language in Thought and Action</i>, Wendell Johnson en Stuart Chase droegen haar uit, Albert Ellis noemde Korzybski een voorloper van zijn rationeel-emotieve gedragstherapie, en de grondleggers van NLP namen de kaart-gebied-formule als eerste axioma over. Ook de sciencefiction pikte het stelsel op, het bekendst in A.E. van Vogts <i>The World of Null-A</i>. In de taalkunde en de academische filosofie kreeg het stelsel geen voet aan de grond.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">tijdbinding</td><td>Het menselijke vermogen om kennis via symbolen over generaties door te geven, voor Korzybski het wezenskenmerk van de soort.</td></tr>
+          <tr><td class="term">kaart en gebied</td><td>De formule dat een kaart het gebied niet is en hoogstens een soortgelijke structuur heeft; elke uitspraak verhoudt zich zo tot de werkelijkheid.</td></tr>
+          <tr><td class="term">abstractieordes</td><td>De trappen tussen gebeuren, waarneming, naam en uitspraken over uitspraken, waarbij elke trap kenmerken weglaat.</td></tr>
+          <tr><td class="term">structural differential</td><td>Korzybski's tastbare lesmodel dat de abstractietrappen en de weggelaten kenmerken zichtbaar maakt.</td></tr>
+          <tr><td class="term">bewustzijn van abstraheren</td><td>Het doorlopende besef op welke abstractietrap een uitspraak staat; voor Korzybski de kern van geestelijke gezondheid.</td></tr>
+          <tr><td class="term">identificatie</td><td>Het verwarren van woord en zaak of van abstractietrappen, volgens Korzybski het mechanisme achter fanatisme en veel psychische klachten.</td></tr>
+          <tr><td class="term">semantische reactie</td><td>De respons van het hele organisme op woorden en symbolen, in plaats van betekenis als louter verstandelijke inhoud.</td></tr>
+          <tr><td class="term">is van identiteit</td><td>Het werkwoord 'zijn' in de vorm 'X is Y', dat een ding met een etiket laat samenvallen en daarom gewantrouwd moet worden.</td></tr>
+          <tr><td class="term">extensionele hulpmiddelen</td><td>Taalgereedschappen als indexen, datums en 'enzovoort' die uitspraken aan concrete gevallen en momenten binden.</td></tr>
+          <tr><td class="term">elementalisme</td><td>Het talig scheiden van wat in de werkelijkheid één geheel vormt, zoals lichaam en geest of ruimte en tijd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Korzybski onderbouwt breed maar ongelijkmatig. Sterk is de aansluiting bij de wetenschap van zijn tijd: de relativiteitstheorie, de kwantummechanica en de wiskundige logica van Russell en Whitehead leverden echte redenen om statische identiteitslogica te wantrouwen, en de kerngedachte dat mensen op hun representaties reageren in plaats van op de wereld is later gemeengoed geworden in de cognitieve psychologie, zij het langs andere weg en zonder verwijzing naar hem.</p>
+      <p>Zwak is de empirische kant van de gezondheidsclaims. Het boek biedt casuïstiek en demonstraties, geen gecontroleerd onderzoek dat training in algemene semantiek meet aan uitkomsten. De neurologische onderbouwing leunt op de colloïdchemie en de hersenwetenschap van rond 1930, die allebei achterhaald zijn. Dat Ellis en de gedragstherapie verwante technieken met succes toepassen, zegt iets over de bruikbaarheid van het kerninzicht, niet over de houdbaarheid van het bouwwerk eromheen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De scherpste kritiek kwam van filosofen en sceptici. Max Black betoogde in 1949 dat Korzybski's abstractieleer op een misverstaan van de aristotelische logica rust en dat er van de theorie weinig overblijft behalve hypothetische neurologie en stellige metafysica. Martin Gardner rekende de algemene semantiek in <i>Fads and Fallacies in the Name of Science</i> (1952) tot de grensgevallen van pseudowetenschap en noemde het boek een slecht georganiseerde, breedsprakige mengelmoes van geleende inzichten en dubieuze speculatie. Ook wie milder oordeelt, erkent dat het boek met zijn 800 dichtbedrukte bladzijden, eindeloze herhaling en zelfbedachte jargon zijn eigen boodschap over helder symboolgebruik ondergraaft.</p>
+      <p>Daarnaast is er het sociologische bezwaar: rond Korzybski ontstond een beweging met seminars, een instituut en discipelen, die de leer eerder beleed dan toetste. De claim dat een taaltraining neuroses en maatschappelijke conflicten kan voorkomen is nooit waargemaakt. Tegelijk is het onredelijk het boek af te doen als kwakzalverij zonder meer: de kaart-gebied-formule, de waarschuwing tegen etiketdenken en de extensionele gereedschappen zijn bruikbaar gebleken en leven voort in therapie, communicatieleer en kritisch-denken-onderwijs. Het werk is het best te lezen als een omvangrijk, deels verouderd systeem rond een klein aantal houdbare inzichten.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Pas indexen en datums toe bij oordelen over mensen: collega-2020 is collega-2026 niet, en klant-1 is klant-2 niet.</li>
+        <li>Vervang in verhitte discussies 'X is Y'-uitspraken door waarnemingen met tijd en plaats; dat haalt de identificatie eruit.</li>
+        <li>Voeg aan elke beschrijving een stilzwijgend 'enzovoort' toe: er is altijd meer weggelaten dan opgenomen.</li>
+        <li>Let op elementalisme in beleidsstukken en zelfhulp, waar 'lichaam en geest' of 'ratio en emotie' als gescheiden grootheden worden verkocht.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Science and Sanity: An Introduction to Non-Aristotelian Systems and General Semantics</i> (International Non-Aristotelian Library Publishing Company, Lancaster, 1933, xx + 798 blz.; vijfde editie Institute of General Semantics, 1994, ISBN 9780937298015; zesde editie 2023). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Hoofdwerk van de Pools-Amerikaanse ingenieur Alfred Korzybski en grondslag van de algemene semantiek. Korzybski betoogt dat de structuur van onze taal, geërfd van Aristoteles, niet spoort met de structuur van de werkelijkheid: taal deelt de wereld op in vaste dingen met vaste eigenschappen, terwijl de wereld uit processen en relaties bestaat. Wie woord en zaak vereenzelvigt, reageert op zijn eigen etiketten in plaats van op de feiten, met misverstand, fanatisme en psychische nood als gevolg. Het boek biedt een trainingsprogramma in 'bewustzijn van abstraheren'.</p><p>De invloed was groot: via Hayakawa, Albert Ellis en later NLP sijpelden Korzybski's denkbeelden de psychotherapie en communicatieleer in, en de kaart-gebied-metafoor werd gemeengoed. De wetenschappelijke ontvangst was koel: filosofen als Max Black en scepticus Martin Gardner oordeelden hard over de wijdlopige, deels verouderde onderbouwing.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>taal</li><li>denken</li><li>semantiek</li><li>wetenschapsfilosofie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="562"><a href="562.html">Public Opinion</a>. Public Opinion beschrijft hetzelfde probleem, mensen reageren op beelden in hun hoofd in plaats van op de wereld, vanuit de journalistiek in plaats van de taalleer.</li>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Thinking, Fast and Slow levert de experimentele onderbouwing die bij Korzybski ontbreekt voor de stelling dat snelle etiketten het oordeel sturen.</li>
+          <li value="539"><a href="539.html">The Human Use of Human Beings</a>. The Human Use of Human Beings plaatst taal en terugkoppeling eveneens in het hart van mens en samenleving, maar dan met de wiskundige gereedschappen van de cybernetica.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

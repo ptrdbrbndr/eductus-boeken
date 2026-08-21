@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Operation Mind Control &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Bowart stelt dat een niet-gekozen laag van geheime diensten, door hem de cryptocratie genoemd, sinds de Tweede Wereldoorlog stelselmatig technieken heeft…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-668">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">668 &middot; Vrij denken en manipulatie</p>
+    <h1>Operation Mind Control</h1>
+    <p class="lede">Walter Bowart, 1978</p>
+    <p class="stats">
+      <span><b>1155</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="668"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Bowart stelt dat een niet-gekozen laag van geheime diensten, door hem de cryptocratie genoemd, sinds de Tweede Wereldoorlog stelselmatig technieken heeft ontwikkeld om geheugen, wil en gedrag van individuele burgers over te nemen, met drugs, hypnose, elektroshock en conditionering. De MKULTRA-documenten die in de jaren zeventig vrijkwamen tonen in zijn lezing slechts het topje: de programma's zouden werkende hypnokoeriers en geprogrammeerde moordenaars hebben opgeleverd, en de moorden op John en Robert Kennedy en Martin Luther King verdienen in dat licht een heropening. Wie het bestaan van deze technologie ontkent, is er volgens Bowart al het eerste slachtoffer van.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een boek uit het kielzog van de onthullingen</h3>
+      <p>Het boek verscheen op een scharniermoment. In 1975 en 1976 legden de Rockefeller Commission en het Church Committee de binnenlandse operaties van de CIA bloot, en in 1977 kwamen via de Freedom of Information Act duizenden pagina's MKULTRA-administratie vrij. Bowart, afkomstig uit de tegencultuurjournalistiek, bundelde dat materiaal met eigen interviews tot een aanklacht tegen wat hij de cryptocratie noemt: het geheel van diensten en contractanten dat buiten democratische controle om opereert. Richard Condon geeft in zijn voorwoord de toon aan: de fictie van zijn roman zou door de werkelijkheid zijn ingehaald.</p>
+      <h3>De gedocumenteerde kern: MKULTRA en zijn voorlopers</h3>
+      <p>Het sterkste deel beschrijft wat inmiddels vaststaat. Vanaf 1950 liepen de programma's BLUEBIRD en ARTICHOKE, gericht op ondervraging met drugs en hypnose. In 1953 startte onder chemicus Sidney Gottlieb het overkoepelende MKULTRA, met tientallen deelprojecten bij universiteiten, ziekenhuizen en gevangenissen. Nietsvermoedende burgers kregen LSD toegediend; bioloog Frank Olson viel in 1953 na zo'n toediening uit een hotelraam. In Montreal onderwierp psychiater Ewen Cameron patiënten aan depatterning, een combinatie van slaapkuren, elektroshock en eindeloos herhaalde bandopnamen, betaald door de CIA. CIA-directeur Richard Helms liet in 1973 het grootste deel van het archief vernietigen.</p>
+      <p>Bowart vertelt dit deel grotendeels correct, en latere bronnen, waaronder de Senaatshoorzittingen van 1977 en schadevergoedingen aan Camerons patiënten, hebben het bevestigd.</p>
+      <h3>De veteraan zonder geheugen</h3>
+      <p>Het boek opent met David, een pseudoniem voor een luchtmachtveteraan met onverklaarbare gaten in zijn geheugen rond zijn diensttijd. Bowart plaatste advertenties in veteranenbladen en kreeg naar eigen zeggen honderden reacties met vergelijkbare verhalen over verloren tijd, vreemde medische behandelingen en flarden van herinneringen aan verhoren. Uit dit patroon leidt hij af dat op militairen geheugenmanipulatie is toegepast om operaties af te schermen. Documenten die dat voor deze individuele gevallen aantonen ontbreken; het bewijs blijft zelfrapportage.</p>
+      <h3>Candy Jones en de hypnokoerier</h3>
+      <p>Als kroongetuige voert Bowart het fotomodel Candy Jones op, wier verhaal in 1976 door Donald Bain was opgetekend. Onder hypnose, uitgevoerd door haar echtgenoot, radiopresentator Long John Nebel, vertelde Jones dat de CIA haar tussen 1960 en 1972 als koerier had gebruikt en een tweede persoonlijkheid met de naam Arlene Grant had aangelegd. Voor Bowart bewijst dit dat de hypnokoerier bestaat: een persoon die boodschappen vervoert zonder er zelf weet van te hebben, met een via een codewoord oproepbare tweede identiteit.</p>
+      <h3>Geprogrammeerde zondebokken</h3>
+      <p>Vervolgens richt het boek zich op de politieke moorden van de jaren zestig. Lee Harvey Oswald, Sirhan Sirhan en James Earl Ray zouden passen in het profiel van de geprogrammeerde zondebok: een dader die zich niets herinnert, wiens verklaringen niet sluiten en die na de daad gedwee wacht op arrestatie. Bowart wijst op Sirhans geheugenverlies en zijn dwangmatig volgeschreven notitieboekjes. Hier verlaat het boek de documenten volledig; de redenering steunt op wat de programma's, als ze voltooid waren, zouden hebben mogelijk gemaakt.</p>
+      <h3>Psycho-civilisatie</h3>
+      <p>Het slot verbreedt de aanklacht naar de toekomst. Met een verwijzing naar hersenonderzoeker José Delgado, die in 1969 over een psychogeciviliseerde samenleving schreef, waarschuwt Bowart voor elektronische breinstimulatie, gedragstechnologie en mediamanipulatie als volgende trap van beheersing. Hij eindigt met een oproep tot openbaarheid, wetgeving en schadeloosstelling van proefpersonen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">cryptocratie</td><td>Bowarts naam voor het geheel van geheime diensten en contractanten dat buiten democratische controle om regeert.</td></tr>
+          <tr><td class="term">MKULTRA</td><td>CIA-programma vanaf 1953 voor onderzoek naar gedragsbeheersing met drugs, hypnose en conditionering, in 1977 door documenten bevestigd.</td></tr>
+          <tr><td class="term">ARTICHOKE</td><td>Voorloper van MKULTRA, gericht op ondervragingstechnieken met drugs en hypnose.</td></tr>
+          <tr><td class="term">hypnokoerier</td><td>Persoon die volgens Bowart onder hypnose boodschappen vervoert zonder er zelf weet van te hebben.</td></tr>
+          <tr><td class="term">geïnduceerde amnesie</td><td>Kunstmatig aangebracht geheugenverlies dat een operatie voor de betrokkene zelf zou afschermen.</td></tr>
+          <tr><td class="term">Manchurian candidate</td><td>Naar de roman van Condon: een geprogrammeerde moordenaar die op een signaal handelt en zich daarna niets herinnert.</td></tr>
+          <tr><td class="term">psycho-civilisatie</td><td>Aan Delgado ontleende term voor een samenleving waarin gedrag technologisch wordt bijgestuurd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op twee heel verschillende fundamenten. Het eerste bestaat uit Congres-hoorzittingen, vrijgegeven CIA-documenten en journalistiek werk van onder anderen John Marks; dat deel is controleerbaar en heeft standgehouden. MKULTRA bestond, burgers werden zonder toestemming gedrogeerd, en de Canadese overheid en de CIA hebben Camerons patiënten later schadeloos gesteld.</p>
+      <p>Het tweede fundament bestaat uit zelfrapportage: herinneringen die onder hypnose zijn opgehaald, brieven van veteranen en anonieme zegslieden. Voor de kernclaim, een werkende geprogrammeerde koerier of moordenaar, bestaat geen document. De vrijgegeven stukken laten juist zien dat de CIA het programma als mislukt beschouwde: betrouwbare gedragssturing kwam er niet uit. Bowart kent die stukken en leest de mislukking als dekmantel, een redenering die zichzelf onweerlegbaar maakt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De voornaamste tekortkoming is dat het boek gedocumenteerde misdaad en onbewezen speculatie in één doorlopend verhaal giet. Dat MKULTRA bestond en ethisch verwerpelijk was, staat vast. Dat er ooit een hypnoprogrammeerde moordenaar heeft gefunctioneerd, is nooit aangetoond, en het experimentele hypnose-onderzoek van onder anderen Martin Orne wijst de andere kant op: hypnose levert geen betrouwbare dwang op en voedt juist confabulatie, het te goeder trouw produceren van onware herinneringen. De lezer die door het ene deel overtuigd raakt, neemt het andere ongemerkt mee.</p>
+      <p>De kroongetuige is daarvoor tekenend. Het Candy Jones-materiaal ontstond in hypnosesessies die haar echtgenoot afnam, een radiopresentator zonder klinische opleiding, met suggestieve vragen en een commercieel boek als uitkomst. Als bewijs voor een overheidsprogramma is dat waardeloos. De koppeling van Oswald, Sirhan en Ray aan mindcontrol steunt nergens op documenten. Het boek heeft bovendien een aanwijsbare schaduwzijde gehad: het leverde het sjabloon voor de recovered-memory-golf en de mindcontrol-verhalen van de jaren tachtig en negentig, waarin therapeuten bij cliënten herinneringen aan programmering meenden op te graven.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Scheid bij dit soort literatuur per claim de bron: een vrijgegeven document weegt anders dan een herinnering die onder hypnose is opgehaald.</li>
+        <li>Raadpleeg de primaire stukken; de rapporten van het Church Committee en de MKULTRA-documenten zijn openbaar.</li>
+        <li>Wees alert op de glijdende schaal van bewezen misdaad naar alomvattend complot: dat een dienst iets probeerde, bewijst niet dat het lukte.</li>
+        <li>Wantrouw redeneringen waarin het ontbreken van bewijs zelf als bewijs van geheimhouding geldt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Operation Mind Control</i> (Dell Publishing, 1978, 317 blz., ISBN 9780440167556; in 1994 verscheen een uitgebreide researcher's edition onder de titel <i>Operation Mind Control: The Cryptocracy's Plan to Psychocivilize You</i>). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Onderzoeksjournalistiek boek van Walter Bowart, medeoprichter van de undergroundkrant East Village Other, verschenen kort nadat het Amerikaanse Congres en vrijgegeven archieven het CIA-programma MKULTRA hadden blootgelegd. Bowart beschrijft de gedocumenteerde experimenten met LSD, hypnose, elektroshock en conditionering, en bouwt daar een veel verdergaande stelling op: een schaduwbestuur van geheime diensten, door hem de cryptocratie genoemd, zou werkende hypnokoeriers en geprogrammeerde moordenaars hebben afgeleverd, met de moorden op de Kennedy's en Martin Luther King als mogelijke vrucht. Het voorwoord is van Richard Condon, de romancier van <i>The Manchurian Candidate</i>.</p><p>De kracht van het boek zit in het gedocumenteerde deel, dat later grotendeels bevestigd is. De zwakte zit in de sprong daarvandaan naar onbewezen hypnoprogrammering; die twee lagen lopen in de tekst voortdurend door elkaar. Het boek werd een grondtekst van de latere mindcontrol-complotcultuur.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>hersenspoeling</li><li>geheime diensten</li><li>complotdenken</li><li>hypnose</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="215"><a href="215.html">Obedience to Authority</a>. Obedience to Authority laat zien hoeveel gedragsbeheersing er al mogelijk is zonder enige geheime techniek, met gedocumenteerd experiment in plaats van speculatie.</li>
+          <li value="384"><a href="384.html">The Rape of the Mind</a>. The Rape of the Mind behandelt hersenspoeling en dwangindoctrinatie vanuit klinische ervaring, geschreven twee decennia voor de MKULTRA-onthullingen.</li>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. The Demon-Haunted World levert het gereedschap om Bowarts twee lagen, document en speculatie, uit elkaar te houden.</li>
+          <li value="566"><a href="566.html">Manufacturing Consent</a>. Manufacturing Consent zoekt de sturing van burgers in zichtbare marktmechanismen in plaats van in geheime programma's.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

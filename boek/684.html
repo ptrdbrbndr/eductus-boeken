@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Secret Team &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Prouty beweert dat het Amerikaanse veiligheidsbeleid feitelijk wordt gestuurd door een informeel netwerk van ingewijden met de hoogste…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-684">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">684 &middot; Geschiedenis en samenleving</p>
+    <h1>The Secret Team</h1>
+    <p class="lede">L. Fletcher Prouty, 1973</p>
+    <p class="stats">
+      <span><b>1213</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="684"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Prouty beweert dat het Amerikaanse veiligheidsbeleid feitelijk wordt gestuurd door een informeel netwerk van ingewijden met de hoogste geheimhoudingsmachtigingen, verspreid over de CIA, de krijgsmacht, de ministeries, het bedrijfsleven en de universiteiten. Dit Secret Team ontleent zijn macht aan controle over geheime informatie en aan de doctrine van plausible deniability, die verantwoordelijkheid onvindbaar maakt. Geheime operaties zijn in zijn ogen niet langer een instrument van vastgesteld beleid; zij brengen zelf beleid voort, met de sluipende escalatie in Vietnam als grootste voorbeeld.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De man op het knooppunt</h3>
+      <p>Prouty (1917-2001) diende als kolonel bij de Amerikaanse luchtmacht. Vanaf 1955 richtte hij het kantoor in dat militaire steun aan clandestiene CIA-operaties regelde, en eindigde als Chief of Special Operations bij de Joint Chiefs of Staff, tot zijn pensioen in 1964. Negen jaar lang zag hij aanvragen, dekmantels en logistiek van geheime operaties over zijn bureau gaan. Het boek verscheen in 1973, midden in het Watergate-klimaat waarin wantrouwen tegen de diensten salonfähig werd. Die positie maakt het boek zeldzaam: dit deel van het apparaat had nog niemand van binnenuit beschreven.</p>
+      <h3>Van coördinatie naar operatiemacht</h3>
+      <p>Prouty schetst hoe de CIA, in 1947 opgericht om inlichtingen voor de president te coördineren, via richtlijnen van de National Security Council een operatietak kreeg die het inlichtingenwerk ging overvleugelen. Het woord intelligence werd volgens hem de dekmantel waaronder een actiebedrijf schuilgaat. De dienst gedijt op de reflex van geheimhouding: wie vragen stelt, krijgt te horen dat het antwoord geheim is, en wie het antwoord kent, hoort daarmee bij het Team. Zo ontstaat een gemeenschap die niet samenzweert in een achterkamer, maar elkaar herkent aan machtigingen en elkaars operaties mogelijk maakt.</p>
+      <h3>Het steunapparaat</h3>
+      <p>Het sterkste, meest feitelijke deel beschrijft de machinerie die Prouty zelf bediende. Via zogeheten Focal Point-kantoren binnen de krijgsmachtdelen worden personeel, vliegtuigen, bases, materieel en begrotingsposten geruisloos aan CIA-operaties uitgeleend, afgedekt met cover stories die ook binnen de eigen organisatie standhouden. De dienst plaatst bovendien eigen mensen op sleutelposten bij andere departementen. Wie deze hoofdstukken leest, begrijpt hoe een geheime oorlog georganiseerd wordt zonder dat er ergens één zichtbaar besluit ligt.</p>
+      <p>Juist omdat dit beschrijvende deel op eigen waarneming stoelt en later door vrijgegeven stukken in grote lijnen is bevestigd, wordt het nog altijd geciteerd, ook door lezers die Prouty's conclusies verwerpen.</p>
+      <h3>U-2 en de Varkensbaai</h3>
+      <p>Daarna schuift het boek op van beschrijving naar beschuldiging. Het neerhalen van Gary Powers' U-2 boven de Sovjet-Unie op 1 mei 1960, twee weken voor de topconferentie in Parijs, was volgens Prouty geen ongeluk: hij suggereert dat de vlucht zo was opgezet dat mislukking de ontspanning tussen Eisenhower en Chroesjtsjov moest torpederen. De invasie in de Varkensbaai (1961) leest hij als een operatie die door insiders onuitvoerbaar was gemaakt en waarvan de schuld bij Kennedy werd gelegd. Voor beide lezingen voert hij omstandigheden aan, geen documenten.</p>
+      <h3>Vietnam als erfenis</h3>
+      <p>Vietnam is voor Prouty het hoofdbewijs. Vanaf de Saigon Military Mission van 1954 bouwden clandestiene programma's een aanwezigheid op die stap voor stap door reguliere troepen moest worden overgenomen, zonder dat er ooit een open politiek besluit tot oorlog lag. Kennedy's richtlijnen NSAM 55 en 57, die paramilitaire operaties in vredestijd onder de Joint Chiefs brachten, ziet hij als poging het Team terug te dringen. In latere jaren rekte hij deze lijn op tot de bewering dat de moord op Kennedy een staatsgreep van datzelfde netwerk was; in dit boek blijft dat nog impliciet.</p>
+      <h3>Lotgevallen van boek en auteur</h3>
+      <p>Prouty beweerde later dat het boek na verschijnen is tegengewerkt: uit de handel genomen en uit bibliotheken verdwenen. Die claim is nooit onafhankelijk vastgesteld. Het boek is herdrukt in 1992 en 1997 en verscheen bij Skyhorse in 2008 en 2011, met een voorwoord van Jesse Ventura. Prouty zelf werd redacteur bij Freedom, het blad van Scientology, gaf interviews aan het Liberty Lobby-blad The Spotlight en stond model voor de figuur X in Oliver Stones film JFK (1991). Die omgeving zegt niets over de juistheid van afzonderlijke herinneringen, maar wel iets over de richting waarin zijn duiding zich bewoog.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Secret Team</td><td>Prouty's naam voor het informele netwerk van ingewijden met topmachtigingen dat volgens hem het veiligheidsbeleid stuurt.</td></tr>
+          <tr><td class="term">plausible deniability</td><td>De doctrine dat operaties zo worden opgezet dat de politieke top ze geloofwaardig kan ontkennen, waardoor verantwoordelijkheid verdampt.</td></tr>
+          <tr><td class="term">Focal Point-systeem</td><td>Het netwerk van verbindingskantoren binnen de krijgsmacht waarlangs militaire middelen onopvallend aan CIA-operaties werden geleverd.</td></tr>
+          <tr><td class="term">cover story</td><td>Dekverhaal dat een operatie of dienstverband een onschuldige verklaring geeft, ook tegenover de eigen organisatie.</td></tr>
+          <tr><td class="term">clandestiene operaties</td><td>Geheime acties gericht op beïnvloeding van andere landen, te onderscheiden van het verzamelen van inlichtingen.</td></tr>
+          <tr><td class="term">Saigon Military Mission</td><td>De in 1954 gestarte geheime missie in Vietnam die Prouty aanwijst als begin van de sluipende Amerikaanse betrokkenheid.</td></tr>
+          <tr><td class="term">NSAM 55</td><td>Richtlijn van Kennedy die de verantwoordelijkheid voor paramilitaire operaties in vredestijd bij de Joint Chiefs of Staff legde.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De kracht van het boek zit in de eerstehands positie van de auteur. Prouty beschrijft procedures die hij zelf jarenlang uitvoerde, en de kern van die beschrijving, het bestaan van een uitgebreid militair steunapparaat voor clandestiene operaties en de omvang van covert action als beleidsinstrument, is naderhand gestaafd door de Pentagon Papers en de onderzoeken van de Church-commissie (1975-1976).</p>
+      <p>Daar staat tegenover dat het boek geen notenapparaat of documenten bevat: het steunt op geheugen en interpretatie. De stap van mechanisme naar regie, van een apparaat dat misbruikt kan worden naar een Team dat de geschiedenis stuurt, wordt nergens gedocumenteerd. De specifieke beschuldigingen, zoals de opgezette U-2-vlucht en de bewering dat Daniel Ellsberg voor de CIA werkte, zijn nooit onderbouwd en door betrokkenen weersproken.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De ontvangst was overwegend afwijzend. CIA-recensent Walter Pforzheimer sprak in Studies in Intelligence van gebrekkige herinneringen en ongefundeerde conclusies, en vergeleek het lezen met het met de neus voortduwen van een muntje door gesmolten fudge; dat oordeel kwam uit het huis van de aangeklaagde, maar de kritiek op de bewijsvoering is ook elders gemaakt. The Washington Monthly prees de anekdotes en wees op stelselmatige overdrijving. Onderzoeker Harold Weisberg, zelf criticus van de officiële Kennedy-lezing, viel over de losse beschuldiging aan het adres van Ellsberg.</p>
+      <p>Het grootste probleem is de glijdende schaal in Prouty's eigen ontwikkeling. Na dit boek werden zijn claims steeds omvattender, tot en met de moord op Kennedy als staatsgreep, uitgedragen via Oliver Stones JFK, het Scientology-blad Freedom en kringen rond de Liberty Lobby. Wie het boek wil gebruiken, doet er verstandig aan de beschrijvende hoofdstukken over het steunapparaat zwaarder te wegen dan de duidende, en elke afzonderlijke bewering te toetsen aan vrijgegeven archieven. Ook de bewering dat het boek destijds is weggewerkt, verdient dezelfde toets: opmerkelijk als zij klopt, onbewezen zolang bewijs ontbreekt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Weeg bij insider-verslagen beschrijving en duiding afzonderlijk: wat zag de auteur zelf, en wat concludeert hij eruit.</li>
+        <li>Zoek bij grote claims het document; ontbreekt dat, behandel de claim als hypothese en niet als feit.</li>
+        <li>Kijk bij organisaties naast het organogram naar informele netwerken van ingewijden; dat deel van de analyse is bruikbaar zonder de complotconclusie.</li>
+        <li>Let op de loopbaan van een bron ná het boek: latere radicalisering dwingt tot terugkijken met extra argwaan.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Secret Team: The CIA and Its Allies in Control of the United States and the World</i> (Prentice-Hall, Englewood Cliffs, 1973, 496 blz., ISBN 9780137981731; heruitgaven in 1992 en 1997 en bij Skyhorse Publishing in 2008 en 2011). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Fletcher Prouty was van 1955 tot 1963 het schakelpunt tussen het Pentagon en de CIA: als hoofd special operations, laatstelijk bij de Joint Chiefs of Staff, regelde hij de militaire steun voor clandestiene operaties. In dit boek uit 1973 beschrijft hij dat apparaat van binnenuit en betoogt hij dat een Secret Team van ingewijden in diensten, krijgsmacht, bedrijfsleven en wetenschap het Amerikaanse beleid stuurt zonder verantwoording af te leggen.</p><p>De beschrijving van de mechanismen, dekmantels, logistieke steun en plausible deniability, vormt de blijvende waarde van het boek; delen ervan zijn later door de Pentagon Papers en de Church-commissie bevestigd. De grote beschuldigingen, van een opzettelijk mislukte U-2-vlucht tot Vietnam als project van het Team, blijven onbewezen. Prouty's latere loopbaan, als adviseur van Oliver Stones film JFK en medewerker van randbladen, heeft zijn geloofwaardigheid verder aangetast.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>geheime diensten</li><li>macht</li><li>geschiedenis</li><li>complotdenken</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="220"><a href="220.html">Coup d'État</a>. Coup d'État van Luttwak behandelt machtsgrepen binnen het staatsapparaat als techniek, nuchter en zonder complotlaag.</li>
+          <li value="566"><a href="566.html">Manufacturing Consent</a>. Manufacturing Consent biedt een structurele verklaring voor gelijkgericht overheids- en medieagedrag waar Prouty een regisserend Team veronderstelt.</li>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. The Demon-Haunted World geeft de maatstaven om getuigenissen zonder documenten op waarde te schatten.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

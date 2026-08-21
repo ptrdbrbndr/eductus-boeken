@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Jakarta Method &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Bevins stelt dat de massamoord op de Indonesische linkerzijde in 1965 en 1966 tot de vormende gebeurtenissen van de twintigste eeuw behoort, en dat zij…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-692">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">692 &middot; Geschiedenis en samenleving</p>
+    <h1>The Jakarta Method</h1>
+    <p class="lede">Vincent Bevins, 2020</p>
+    <p class="stats">
+      <span><b>1344</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="692"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Bevins stelt dat de massamoord op de Indonesische linkerzijde in 1965 en 1966 tot de vormende gebeurtenissen van de twintigste eeuw behoort, en dat zij ten onrechte uit het gangbare verhaal van de Koude Oorlog is weggevallen. Met Amerikaanse steun roeide het Indonesische leger de grootste communistische partij buiten het Oostblok uit, een partij die ontwapend aan verkiezingen deelnam. Het bleek een werkend model: georganiseerde uitroeiing van ongewapend links werd onder het codewoord Jakarta geëxporteerd naar Latijns-Amerika en elders. De wereldorde die daaruit voortkwam, met een verslagen derde-wereldbeweging en autoritair kapitalisme als winnaar, bestaat volgens Bevins in grote lijnen nog steeds.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Bandung en de derde weg</h3>
+      <p>Het boek opent bij de conferentie van Bandung in 1955, waar Soekarno leiders van 29 pas onafhankelijke Aziatische en Afrikaanse landen ontving. Daar kreeg het streven vorm om buiten de blokken van Washington en Moskou een eigen koers te varen. Indonesië was daarvan het uithangbord: een jonge staat met een charismatische president en met de PKI, een communistische partij van ongeveer drie miljoen leden die niet gewapend was, meedeed aan verkiezingen en binnen Soekarno's bestel opereerde. Bevins gebruikt dit beginpunt om te laten zien wat er in 1965 verloren ging: geen guerrillabeweging, maar een legale massapartij en een blokvrij project.</p>
+      <h3>Washington en de Derde Wereld</h3>
+      <p>Het tweede spoor volgt de Amerikaanse koude oorlog buiten Europa: de staatsgrepen in Iran (1953) en Guatemala (1954), de CIA-steun aan regionale opstanden in Indonesië in 1957 en 1958, en de propaganda-operaties tegen Soekarno, tot en met een plan om hem met een nagespeelde pornofilm in diskrediet te brengen. Bevins laat zien hoe in Washington het onderscheid tussen communisten, socialisten en blokvrije nationalisten vervaagde: wie niet meedeed aan het Amerikaanse kamp gold als risico. Trainingsprogramma's voor Indonesische officieren en de banden tussen het Pentagon en het leger legden intussen de basis voor wat volgde.</p>
+      <h3>1965: de campagne</h3>
+      <p>Op 30 september 1965 doodde een groep die zich de Beweging 30 September noemde zes generaals, een gebeurtenis waarvan de toedracht nog altijd deels duister is. Generaal Soeharto greep de macht en het leger presenteerde de moorden als communistische coup. Wat volgde was maandenlange, georganiseerde uitroeiing: leger en ingeschakelde milities doodden naar schatting vijfhonderdduizend tot een miljoen mensen en zetten ruwweg een miljoen anderen gevangen. Bevins documenteert de Amerikaanse rol: diplomatieke en financiële rugdekking, communicatieapparatuur, en ambassademedewerker Robert Martens die lijsten met duizenden namen van PKI-kaderleden aan het leger doorgaf. Uit in 2017 vrijgegeven telegrammen blijkt dat de ambassade wist van de omvang van het moorden en de lijn steunde.</p>
+      <h3>Het woord Jakarta reist</h3>
+      <p>Brazilië was al in 1964 door een militaire coup in het Amerikaanse kamp gebracht; Bevins beschrijft hoe Braziliaanse en Chileense rechtse groepen Indonesië als voorbeeld gingen aanhalen. In Chili verscheen begin jaren zeventig de leus Jakarta viene, Jakarta komt eraan, op muren als dreigement aan de aanhang van Allende. Na de coup van Pinochet in 1973 en onder Operatie Condor, het samenwerkingsverband van Zuid-Amerikaanse militaire regimes, werd het patroon herhaald: ontvoering, marteling en moord op ongewapende linkse burgers, met medeweten en vaak steun van Washington. Bevins telt in totaal 23 landen waar door de VS gesteunde regimes tot dit soort programmatische moord op politieke tegenstanders overgingen.</p>
+      <h3>De overlevenden</h3>
+      <p>Tussen de hoofdstukken door volgt het boek mensen die het meemaakten, opgetekend in interviews in twaalf landen: Indonesische ballingen die na 1965 staatloos in Oost-Europa strandden, gevangenen van het eiland Buru, en Chilenen en Brazilianen die de codetaal van de terreur van dichtbij hoorden. Deze levensverhalen dragen het boek. Ze laten zien wat de statistiek verbergt: dat de slachtoffers overwegend gewone partijleden, onderwijzers, vakbondsleden en boeren waren, en dat overlevenden tot vandaag met stigma en zwijgen leven. In Indonesië is nooit iemand voor de moorden berecht en bleef de officiële geschiedschrijving decennialang die van de daders.</p>
+      <h3>De balans</h3>
+      <p>Het slot trekt de lijn naar nu. De vernietiging van de PKI en de val van Soekarno braken volgens Bevins de ruggengraat van de blokvrije beweging; andere landen lazen de les dat ongewapend, democratisch links geen bescherming genoot. Indonesië werd onder Soeharto's Nieuwe Orde een autoritaire, investeerdersvriendelijke staat en gold in Washington als succes. Bevins formuleert het als open vraag aan de winnaars: de wereld van vandaag is mede gebouwd op massamoord die onbestraft bleef en grotendeels onverteld is gebleven. Een verantwoording over bronnen en de status van de schattingen sluit het boek af.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Jakartamethode</td><td>Bevins' naam voor het model uit 1965: georganiseerde uitroeiing van ongewapend links als instrument om een land blijvend in het pro-westerse kamp te brengen.</td></tr>
+          <tr><td class="term">PKI</td><td>Partai Komunis Indonesia, met ongeveer drie miljoen leden de grootste communistische partij buiten het Oostblok, ongewapend en deelnemend aan verkiezingen.</td></tr>
+          <tr><td class="term">Beweging 30 September</td><td>De groep die in 1965 zes generaals doodde; de gebeurtenis diende het leger als aanleiding voor de machtsovername en de moordcampagne.</td></tr>
+          <tr><td class="term">Bandung-conferentie</td><td>Bijeenkomst van blokvrije Aziatische en Afrikaanse landen in 1955, symbool van de derde weg die in 1965 werd gebroken.</td></tr>
+          <tr><td class="term">Jakarta viene</td><td>Muurleus in Chili begin jaren zeventig, Jakarta komt eraan, als dreigement dat het Indonesische scenario ook daar wachtte.</td></tr>
+          <tr><td class="term">Operatie Condor</td><td>Samenwerkingsverband van Zuid-Amerikaanse militaire regimes in de jaren zeventig voor grensoverschrijdende ontvoering en moord op linkse tegenstanders.</td></tr>
+          <tr><td class="term">Nieuwe Orde</td><td>Soeharto's regime na 1966, Orde Baru, dat Indonesië autoritair bestuurde en de moorden tot heldendaad omschreef.</td></tr>
+          <tr><td class="term">namenlijsten</td><td>Door ambassademedewerker Robert Martens aan het Indonesische leger doorgegeven lijsten met duizenden namen van PKI-kaderleden.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op drie soorten materiaal: vrijgegeven Amerikaanse documenten, waaronder de in 2017 gepubliceerde telegrammen van de ambassade in Jakarta; de bestaande wetenschappelijke literatuur over 1965, waarop Bevins in zijn verantwoording expliciet leunt; en eigen interviews met ruim honderd betrokkenen in twaalf landen, gevoerd in onder meer Indonesisch en Portugees, talen die hij als oud-correspondent beheerst. De kernfeiten, de omvang van het moorden, de doorgegeven namenlijsten en de Amerikaanse rugdekking, zijn door historici als geverifieerd aanvaard en waren deels al eerder vastgesteld; Bevins' bijdrage is de samenhang en de doorwerking over landsgrenzen heen.</p>
+      <p>De ontvangst weerspiegelt dat: het boek won de Zócalo Book Prize, stond op de shortlist van de Arthur Ross Book Award van de Council on Foreign Relations en op de longlist van de Carnegie Medal, en kreeg lof in bladen van uiteenlopende signatuur. Open blijft wat de archieven niet prijsgeven: hoe groot het Amerikaanse aandeel in de besluitvorming van het Indonesische leger precies was, en het dodental zelf, dat een schatting blijft tussen een half miljoen en een miljoen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De voornaamste kanttekening uit vakrecensies betreft de weging: Bevins schrijft nadrukkelijk als correctie op het westerse zelfbeeld en trekt vrijwel elke draad naar Washington, waardoor de eigen agency van Indonesische, Braziliaanse en Chileense daders, met hun binnenlandse motieven en religieuze en lokale conflicten, onderbelicht blijft. De moorden waren ook zonder Amerikaanse aanmoediging denkbaar geweest; hoe veel verschil de steun maakte, is een vraag die het boek stelliger beantwoordt dan het bewijs afdwingt.</p>
+      <p>Daarnaast geeft het boek weinig ruimte aan de terreur van communistische regimes in dezelfde periode. Bevins verantwoordt dat met de verwijzing dat daarover al een omvangrijke literatuur bestaat, wat klopt, maar het maakt de vergelijkende balans die de titel suggereert eenzijdig. Ten slotte is Bevins journalist: voor het historische fundament leunt hij op het werk van anderen, en zijn slotgedachte over hoe de wereld eruit had gezien als de derde-wereldbeweging had overleefd, is en blijft speculatie.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Toets het beeld van de Koude Oorlog als gewapende vrede aan wat er buiten Europa gebeurde; daar was de oorlog heet en vielen de meeste doden.</li>
+        <li>Let bij termen als stabiliteit en succes in beleidsstukken op wat eronder ligt en wie de rekening betaalde.</li>
+        <li>Onderscheid bij historische schuldvragen steun, medeweten en uitvoering; het boek laat zien dat die drie niet samenvallen.</li>
+        <li>Gebruik de bronverantwoording als leeswijzer: wie dieper wil, komt via Bevins bij het onderliggende archiefwerk en de vakliteratuur.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Jakarta Method: Washington's Anticommunist Crusade and the Mass Murder Program That Shaped Our World</i> (PublicAffairs, 2020, 320 blz., ISBN 9781541742406). Nederlandse vertaling: <i>De Jakartamethode</i> (Omniboek, 2025, 368 blz.).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>In 1965 en 1966 werden in Indonesië naar schatting vijfhonderdduizend tot een miljoen mensen vermoord, vrijwel allemaal ongewapende leden en vermeende sympathisanten van de communistische partij PKI. Journalist Vincent Bevins, oud-correspondent in Jakarta en São Paulo, reconstrueert hoe het leger van Soeharto die campagne uitvoerde met steun van de Verenigde Staten, tot en met namenlijsten die de ambassade doorgaf, en hoe het model daarna onder het codewoord Jakarta opdook in Brazilië, Chili en de rest van Latijns-Amerika.</p><p>Het boek combineert archiefonderzoek en vrijgegeven telegrammen met interviews met overlevenden in twaalf landen, won de Zócalo Book Prize en stond op de shortlist van de Arthur Ross Book Award. Vakrecensenten prijzen de research en tekenen aan dat Bevins veel aan Washington toeschrijft wat ook lokale daders had, en weinig ruimte geeft aan geweld van communistische regimes. Sinds 2025 is er een Nederlandse vertaling.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>koude oorlog</li><li>indonesië</li><li>geopolitiek</li><li>onderzoeksjournalistiek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="566"><a href="566.html">Manufacturing Consent</a>. Manufacturing Consent geeft het mediamodel dat verklaart waarom deze moorden in de westerse pers zo weinig aandacht kregen.</li>
+          <li value="220"><a href="220.html">Coup d'État</a>. Coup d'État beschrijft de techniek van de machtsgreep die in 1964 in Brazilië en 1965 in Indonesië in de praktijk te zien was.</li>
+          <li value="221"><a href="221.html">The Dictator's Handbook</a>. The Dictator's Handbook levert de machtslogica van regimes als dat van Soeharto, en van de buitenlandse steun daaraan.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

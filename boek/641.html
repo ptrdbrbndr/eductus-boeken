@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Greek Magical Papyri in Translation &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Betz en zijn medewerkers stellen dat de magische papyri een hoofdbron vormen voor de godsdienstige praktijk van gewone mensen en beroepsritualisten in het…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-641">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">641 &middot; Filosofie en mystiek</p>
+    <h1>The Greek Magical Papyri in Translation</h1>
+    <p class="lede">Hans Dieter Betz (red.), 1986</p>
+    <p class="stats">
+      <span><b>1236</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="641"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Betz en zijn medewerkers stellen dat de magische papyri een hoofdbron vormen voor de godsdienstige praktijk van gewone mensen en beroepsritualisten in het Grieks-Romeinse Egypte, en dat de gangbare scheiding tussen religie en magie op dit materiaal stukloopt. In deze handboeken verschijnen dezelfde goden, hymnen en offers als in de officiële cultus, ingezet voor alledaagse verlangens: liefde, genezing, wraak, bescherming en kennis van de toekomst. Het corpus verdient daarom dezelfde filologische zorg als de literaire teksten van de oudheid, en deze vertaling wil het voor het eerst in zijn geheel toegankelijk maken.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een verstrooide vondst</h3>
+      <p>Betz opent met de geschiedenis van het corpus. Het merendeel van de grote papyri komt uit één negentiende-eeuwse vondst bij Thebe, opgekocht door de Armeense handelaar Jean d'Anastasi en per veiling verspreid over Berlijn, Leiden, Londen en Parijs. Karl Preisendanz bundelde de Griekse teksten in 1928 en 1931 in de kritische editie Papyri Graecae Magicae; het derde deel ging in de Tweede Wereldoorlog bij een bombardement verloren. Betz liet een team van ruim vijftien classici en godsdiensthistorici het geheel vertalen, breidde het uit met later gepubliceerde teksten tot PGM CXXX en voegde de Demotische spreuken toe, die Janet H. Johnson vertaalde. Daarmee kwamen de Griekse en Egyptische delen van dezelfde handschriften voor het eerst bijeen te staan.</p>
+      <h3>Handboeken van vakmensen</h3>
+      <p>De meeste teksten zijn formularia: receptenboeken van beroepsmagiërs, met per recept het doel, de benodigdheden, de aanroepingen en de handelingen. Daarnaast staan er toegepaste stukken in, zoals beschreven amuletten. De recepten zijn zakelijk van toon, met kruiden, wierook, schrijfmateriaal en tijdstippen, en schrijven vaak geheimhouding voor. Een terugkerend doel is het verwerven van een paredros, een geesthelper die de magiër blijvend ten dienste staat.</p>
+      <p>Sommige handschriften zijn tweetalig en wisselen Grieks en Demotisch af, soms met glossen in het Koptisch of in geheimschrift. Juist daarom was de opname van de Demotische spreuken een vooruitgang: eerdere uitgaven hadden die delen weggelaten, waardoor samenhangende handboeken kunstmatig uiteenvielen. De vertaling van Johnson herstelde die eenheid en maakte zichtbaar hoe Egyptisch dit zogenaamd Griekse materiaal is.</p>
+      <h3>De grote Parijse papyrus</h3>
+      <p>Het bekendste handschrift is PGM IV, de grote Parijse papyrus van bijna 3300 regels uit de vierde eeuw. Daarin staat onder meer de zogeheten Mithrasliturgie, een opstijgingsritueel waarin de ziel langs de hemelsferen omhoog reist, naast liefdesdwangspreuken en een uitdrijvingsrecept dat Jezus, de god van de Hebreeën, aanroept. Andere beroemde stukken zijn het Achtste Boek van Mozes (PGM XIII) en de rite van de Hoofdloze (PGM V), die via de Golden Dawn en Aleister Crowley in de moderne magie terechtkwam.</p>
+      <h3>Goden door elkaar</h3>
+      <p>Het corpus is door en door syncretistisch. Egyptische goden als Thot, Isis, Seth en Osiris staan naast Apollo, Helios en Hekate, en joodse godsnamen als Iao, Sabaoth en Adonai duiken in bijna elke bezwering op. Daaromheen staan voces magicae, klankwoorden zonder herkenbare betekenis, en charaktères, magische tekens. Veel recepten werken met een historiola, een kort mythisch verhaal waarvan de afloop op de eigen situatie wordt overgedragen. Betz wijst erop dat de samenstellers vermoedelijk in de omgeving van Egyptische tempels gezocht moeten worden, waar priesters hun kennis na het verval van de tempeleconomie te gelde maakten.</p>
+      <h3>Wat de teksten willen bereiken</h3>
+      <p>De doelen zijn concreet. Waarzeggerij via lamp, schaal of droom, het zenden van dromen aan anderen, liefdesdwang in vele gradaties, het binden van concurrenten, genezing van koorts en schorpioensteken, bescherming van huis en lijf, geheugenversterking, onzichtbaarheid en zakelijk voordeel. De liefdes- en wraakspreuken zijn soms ronduit gewelddadig van beeldtaal. Juist die alledaagsheid maakt het corpus als bron waardevol: hier is te zien wat mensen werkelijk vroegen, buiten de gepolijste literatuur om.</p>
+      <h3>Betekenis en ontvangst</h3>
+      <p>Sinds 1986 is de bundel het referentiewerk voor de studie van antieke magie, ook voor onderzoek naar het Nieuwe Testament en de vroegchristelijke wonderverhalen, die tegen deze achtergrond scherper afsteken. De tweede editie van 1992 verwerkte correcties en aanvullingen. Het onderzoeksveld dat mede door deze uitgave op gang kwam, van Fritz Graf tot David Frankfurter, behandelt magie inmiddels als gewoon onderdeel van de antieke godsdienstgeschiedenis.</p>
+      <p>Ook buiten de wetenschap wordt de bundel druk gelezen. Moderne magische stromingen putten eruit voor reconstructies van antieke riten, en delen van het corpus circuleerden al eerder in de occulte wereld: de rite van de Hoofdloze werd eind negentiende eeuw als Bornless Ritual een vast onderdeel van het Golden Dawn-repertoire. Dat tweede leven zegt niets over de werkzaamheid van de spreuken, wel over de blijvende aantrekkingskracht van het materiaal.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">PGM</td><td>Gangbare afkorting van Papyri Graecae Magicae, de doorgenummerde verzameling Griekse magische papyri.</td></tr>
+          <tr><td class="term">PDM</td><td>De Demotische magische papyri, in deze uitgave voor het eerst samen met de Griekse teksten vertaald.</td></tr>
+          <tr><td class="term">voces magicae</td><td>Klankwoorden zonder herkenbare betekenis, zoals ablanathanalba, die aan de bezwering werkzaamheid moesten geven.</td></tr>
+          <tr><td class="term">charaktères</td><td>Magische tekens, vaak lettervormen met ringetjes, die op amuletten en tabletten werden geschreven.</td></tr>
+          <tr><td class="term">agogè</td><td>Liefdesdwangspreuk die de begeerde persoon rusteloos naar de opdrachtgever moest drijven.</td></tr>
+          <tr><td class="term">paredros</td><td>Geesthelper die door een ritueel wordt verworven en de magiër blijvend bijstaat.</td></tr>
+          <tr><td class="term">historiola</td><td>Kort mythisch verhaal in een spreuk, waarvan de goede afloop op het eigen geval wordt overgedragen.</td></tr>
+          <tr><td class="term">Mithrasliturgie</td><td>Moderne benaming voor het opstijgingsritueel in PGM IV, waarin de ziel langs de hemelsferen omhoog reist.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De uitgave berust op de kritische editie van Preisendanz en op sindsdien gepubliceerde papyri, vertaald door specialisten per tekst, onder wie John Dillon, David Aune en Morton Smith. Elke vertaling vermeldt de herkomst en belangrijke onzekerheden in voetnoten. Als bronnenuitgave doet het boek geen leerstellige beweringen die onderbouwing behoeven; de waarde staat of valt met de betrouwbaarheid van de vertalingen, en die geldt in het vak als hoog.</p>
+      <p>De vakontvangst bevestigt dat: recensenten prezen de uitgave bij verschijnen als de eerste volledige en nauwkeurige Engelse ontsluiting van reeds bekende teksten, en veertig jaar later wordt er in vrijwel elke studie over antieke magie standaard naar verwezen. Wel past een kanttekening bij de datering op het titelblad: de bewaarde handschriften stammen overwegend uit de derde en vierde eeuw n.Chr.; dat zij ouder materiaal kopiëren, is aannemelijk maar per tekst lastig te bewijzen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De opzet heeft grenzen. De Griekse en Demotische grondtekst staat er niet naast en doorlopend commentaar ontbreekt, zodat wie een passage wetenschappelijk wil gebruiken alsnog naar de edities moet. Afzonderlijke vertaalkeuzes zijn in recensies betwist, en doordat tientallen vertalers meewerkten, wisselt de toon per tekst. De inleiding van Betz is bewust kort gehouden en geeft weinig hulp bij interpretatie.</p>
+      <p>Ook het corpus zelf vraagt voorzichtigheid. Het meeste materiaal komt uit één Thebaanse vondst en weerspiegelt de bibliotheek van een kleine kring specialisten in laat-antiek Egypte; conclusies over de hele antieke wereld zijn er niet zomaar op te bouwen. Datering en herkomst van veel stukken blijven onzeker, en de categorie magie is zelf omstreden: wat hier magie heet, noemden de gebruikers vermoedelijk gewoon werkzame religie. Betz erkent dat probleem, maar de titel houdt de oude tegenstelling in stand.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik de bundel als bronnenboek naast een moderne studie over antieke magie, niet als zelfstandige inleiding.</li>
+        <li>Toets moderne beweringen over eeuwenoude magische tradities aan wat er werkelijk in de papyri staat.</li>
+        <li>Lees eerst de inleiding van Betz over herkomst en overlevering van het corpus; daarna zijn de losse teksten beter te plaatsen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Greek Magical Papyri in Translation, Including the Demotic Spells</i> (onder redactie van Hans Dieter Betz, University of Chicago Press, 1986; tweede, herziene editie 1992, 406 blz., ISBN 9780226044477). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Bronnenuitgave onder redactie van Hans Dieter Betz, hoogleraar Nieuwe Testament in Chicago: de eerste volledige Engelse vertaling van de Griekse magische papyri, de toverhandboeken en losse spreuken uit het Grieks-Romeinse Egypte van de tweede eeuw v.Chr. tot de vijfde eeuw n.Chr., voor het eerst samen met de Demotische teksten, vertaald door Janet H. Johnson. De recepten beslaan het hele leven: waarzeggerij, droomzendingen, liefdesdwang, genezing, bescherming, vervloeking en het verwerven van een geesthelper, met beroemde stukken als de grote Parijse papyrus met de zogeheten Mithrasliturgie.</p><p>Het corpus toont religie in de dagelijkse praktijk, met Egyptische goden, Griekse hymnen en joodse godsnamen door elkaar heen. Sinds verschijnen geldt de bundel als het standaardwerk voor de studie van de antieke magie.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>magie</li><li>oudheid</li><li>filologie</li><li>godsdienstwetenschap</li><li>bronnenuitgave</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="378"><a href="378.html">The Kybalion</a>. The Kybalion beroept zich op oeroude hermetische wijsheid; naast de echte antieke teksten valt op hoe modern dat boek is.</li>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. The Demon-Haunted World behandelt magisch denken vanuit de wetenschappelijke kant en biedt zo het spiegelbeeld van dit bronnenmateriaal.</li>
+          <li value="357"><a href="357.html">De mens en zijn symbolen</a>. De mens en zijn symbolen geeft een psychologische duiding van de beeldtaal die in bezweringen en riten opduikt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

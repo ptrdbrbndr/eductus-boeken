@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tragedy and Hope &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Quigley beschrijft de jaren 1880 tot 1964 als de overgang van een door Europa beheerste wereld naar een wereld van blokken, met de twee wereldoorlogen en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-682">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">682 &middot; Geschiedenis en samenleving</p>
+    <h1>Tragedy and Hope</h1>
+    <p class="lede">Carroll Quigley, 1966</p>
+    <p class="stats">
+      <span><b>1435</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="682"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Quigley beschrijft de jaren 1880 tot 1964 als de overgang van een door Europa beheerste wereld naar een wereld van blokken, met de twee wereldoorlogen en de ontsporing van het financiële kapitalisme als tragedie en het vermogen van de westerse beschaving tot zelfvernieuwing als hoop. Binnen dat brede verhaal verdedigt hij twee eigen stellingen: dat de aard van de beschikbare wapens mede bepaalt hoe democratisch een samenleving kan zijn, en dat een half openbaar Angelsaksisch netwerk rond Cecil Rhodes en Alfred Milner in de eerste helft van de twintigste eeuw onevenredige invloed op het Britse en Amerikaanse buitenlandbeleid uitoefende. Die laatste stelling bracht hij als historische bevinding, niet als onthulling van een wereldregering; juist dat onderscheid ging in het latere gebruik van het boek verloren.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een geschiedenis van twintig jaar werk</h3>
+      <p>Quigley doceerde beschavingsgeschiedenis aan Georgetown en schreef aan dit boek naar eigen zeggen twintig jaar. Het resultaat beslaat 1348 bladzijden en behandelt economie, krijgsgeschiedenis, wetenschap en cultuur in één doorlopend betoog, van de Europese wereldhegemonie rond 1880 via twee wereldoorlogen en de crisis van de jaren dertig tot de Koude Oorlog en de welvaartsmaatschappij van de vroege jaren zestig. De titel vat zijn oordeel samen: de eerste helft van de eeuw was een vermijdbare tragedie, en er is hoop omdat de westerse traditie het vermogen bezit haar fouten te herstellen.</p>
+      <h3>Fasen van het kapitalisme, wapens en democratie</h3>
+      <p>Twee denkfiguren dragen het boek. De eerste is een fasenleer van de westerse economie, van handelskapitalisme via industrieel naar financieel en monopoliekapitalisme, uitmondend in de pluralistische economie van na 1945. De tweede verbindt wapentechniek met staatsvorm: waar goedkope wapens door burgers te hanteren zijn, zoals het geweer van de negentiende eeuw, kan macht breed gespreid raken; waar oorlogvoering specialistisch en duur wordt, zoals met tanks en vliegtuigen, schuift de macht naar wie die middelen beheert. Beide figuren geven het boek zijn samenhang en horen tot het meest geciteerde deel van Quigleys eigen bijdrage aan het vak.</p>
+      <h3>Financieel kapitalisme en de centrale banken</h3>
+      <p>In de behandeling van het interbellum staat de passage die het boek buiten de vakwereld beroemd maakte: de machten van het financiële kapitalisme hadden volgens Quigley het verstrekkende doel een wereldwijd stelsel van financiële beheersing in particuliere handen te scheppen, beheerd op feodale wijze door de samenwerkende centrale banken, met de Bank voor Internationale Betalingen in Bazel als top. Hij beschrijft daarmee het tijdperk van de goudwisselstandaard en bankiers als Montagu Norman, en laat dat stelsel in 1931 met de crisis ten onder gaan. In zijn eigen betoog is dit dus een afgesloten episode uit de geschiedenis van het geldwezen; in de citeerpraktijk van complotauteurs werd het een tijdloze bekentenis.</p>
+      <h3>Het netwerk van Rhodes en Milner</h3>
+      <p>Verspreid door het boek staan de bladzijden die de annexatie mogelijk maakten. Quigley beschrijft hoe rond de erfenis van Cecil Rhodes en onder leiding van Alfred Milner tussen 1909 en 1913 half openbare Round Table-groepen ontstonden in de Britse dominions en de Verenigde Staten, met latere uitlopers als het Royal Institute of International Affairs en de Council on Foreign Relations. Dit netwerk zou decennialang onevenredige invloed op het Britse buitenlandbeleid en op de trans-Atlantische meningsvorming hebben gehad. Quigley voegt toe dat hij het netwerk twintig jaar bestudeerde, begin jaren zestig inzage kreeg in stukken, de meeste doelen ervan deelde en vooral bezwaar had tegen de voorkeur voor onzichtbaarheid. Zijn onderbouwing, grotendeels gebaseerd op personalia en verbanden, werkte hij uit in het pas na zijn dood verschenen <i>The Anglo-American Establishment</i>.</p>
+      <h3>Ontvangst in het vak</h3>
+      <p>De vakpers prees bij verschijnen de reikwijdte en eruditie, maar plaatste twee blijvende bezwaren. Het boek mist een notenapparaat en bibliografie, zodat veel oordelen op gezag van de auteur moeten worden aangenomen. En de netwerkthese geldt als overtrokken: historici van de Round Table-beweging erkennen het bestaan en de ambities van de groep, maar achten haar greep op het beleid veel kleiner en veel minder duurzaam dan Quigley suggereert, en wijzen erop dat verbanden tussen personen nog geen gezamenlijke regie bewijzen. Als synthese van de periode bleef het boek niettemin gerespecteerd, en de fasenleer en wapenthese worden nog altijd aangehaald.</p>
+      <h3>De annexatie door de complotliteratuur</h3>
+      <p>In 1970 verscheen <i>The Naked Capitalist</i> van W. Cleon Skousen, opgezet als uitgebreide bespreking van Quigleys boek, met de strekking dat het communisme een werktuig van superrijke kapitalisten was; een jaar later maakte Gary Allen in <i>None Dare Call It Conspiracy</i> Quigley tot kroongetuige van een wereldcomplot. Quigley verzette zich publiekelijk: hij sprak van verdraaiing en van overgenomen passages, en merkte op dat radicaal rechts zijn werk al jaren misvormde voor een eigen fantasie over een supersamenzwering. Dat Macmillan het boek uit de handel liet lopen en herdruk weigerde terwijl de vraag steeg, voedde de mythe verder; in de jaren zeventig circuleerden roofdrukken en gold het dikke boek als onderdrukte onthulling. Zo werd een academische geschiedenis het bronnenboek van een genre dat haar strekking omkeerde: waar Quigley beschreef en grotendeels instemde, lazen zijn annexeerders onthulling en verraad.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">financieel kapitalisme</td><td>De fase waarin bankiers en beleggingshuizen de industrie beheersten, door Quigley gedateerd van circa 1850 tot de ondergang van het stelsel in 1931.</td></tr>
+          <tr><td class="term">Round Table-groepen</td><td>De half openbare gespreks- en invloedsgroepen die vanaf 1909 rond de erfenis van Rhodes en onder leiding van Milner werden opgericht.</td></tr>
+          <tr><td class="term">Milner-groep</td><td>De kern van het netwerk rond Alfred Milner die volgens Quigley decennialang onevenredige invloed op het Britse buitenlandbeleid had.</td></tr>
+          <tr><td class="term">inclusive diversity</td><td>Quigleys naam voor de westerse traditie om tegenstellingen in één beschaving te verenigen, voor hem de bron van de hoop uit de titel.</td></tr>
+          <tr><td class="term">amateurwapens en specialistenwapens</td><td>Zijn onderscheid tussen goedkope, door burgers hanteerbare wapens die democratisering steunen en dure specialistische wapens die macht concentreren.</td></tr>
+          <tr><td class="term">pluralistische economie</td><td>De naoorlogse ordening waarin overheid, bedrijfsleven en andere machtscentra elkaar in evenwicht houden, na het monopoliekapitalisme.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het algemene geschiedverhaal rust op de brede literatuur van het vak en op twintig jaar doceer- en leeswerk, en staat in de kern niet ter discussie; als synthese van de periode 1880 tot 1964 wordt het boek nog altijd serieus genomen. De eigen theses zijn ongelijk onderbouwd. De fasenleer en de wapenthese zijn interpretatiekaders die zich aan veel materiaal laten toetsen. De netwerkthese steunt op personalia, benoemingen en persoonlijke kennis, deels op inzage in stukken waarvan de aard niet controleerbaar is, en het boek geeft geen noten; de posthume uitwerking in <i>The Anglo-American Establishment</i> maakt de redenering zichtbaar maar niet veel harder.</p>
+      <p>Voor de beruchte passages geldt een nuchtere leestoets. De beschrijving van het door centrale banken beheerde stelsel betreft de jaren tot 1931 en eindigt in het boek zelf met de ondergang van dat stelsel; de Round Table-bladzijden beschrijven invloed op meningsvorming en beleid, geen wereldregering. Latere historici bevestigen het bestaan van het netwerk en van de trans-Atlantische instituties, maar schatten de werkelijke sturing beduidend lager in. Wie het boek als bewijs van een hedendaags complot aanvoert, citeert dus een bron die het tegendeel beweert.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het gegronde vakbezwaar betreft methode en maat. Een werk van deze omvang zonder notenapparaat vraagt vertrouwen dat wetenschap juist organiseert via controleerbaarheid, en bij de netwerkhoofdstukken wreekt zich dat: verbanden tussen personen, stichtingen en redacties worden er gelezen als bewijs van gezamenlijke regie, een redeneervorm die Quigley elders in het boek bij anderen afkeurt. Zijn invloedsschattingen voor de Milner-kring gelden onder specialisten als te hoog, en zijn stelligheid verhult hoe dun het bewijs op sommige punten is.</p>
+      <p>Daarnaast is er de nawerking, die het boek zelf niet kan worden aangerekend maar wel zijn plaats in de leesgeschiedenis bepaalt. Skousen en Allen sneden de passages over banken en netwerken los van hun context en bouwden er een supersamenzwering van; Quigleys eigen instemming met de meeste doelen van het netwerk, zijn kernbezwaar was de geheimzinnigheid, verdween in die bewerking volledig. De uitgeversgeschiedenis, met een geweigerde herdruk en roofdrukken, gaf het geheel de glans van onderdrukte waarheid. Het gevolg is dat een van de meest geciteerde geschiedwerken van de twintigste eeuw vooral wordt aangehaald door lezers die het nooit opensloegen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik het boek als naslagwerk voor de politieke en financiële geschiedenis van 1880 tot 1964, met de netwerkhoofdstukken als hypothese in plaats van vaststaand feit.</li>
+        <li>Controleer bij elk rondzingend Quigley-citaat de context in het boek zelf; de bekende passages staan in een afgesloten historische episode.</li>
+        <li>Onderscheid invloed op meningsvorming van feitelijke regie; dat onderscheid scheidt Quigleys these van de complotlezing ervan.</li>
+        <li>Neem de wapenthese mee als denkgereedschap bij hedendaagse vragen over techniek, machtsconcentratie en democratie.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Tragedy and Hope: A History of the World in Our Time</i> (The Macmillan Company, New York, 1966, xi + 1348 blz., verschenen voor de brede invoering van het ISBN; herdruk onder meer ISBN 9780945001102). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Monumentale wereldgeschiedenis van de periode 1880 tot 1964 door Carroll Quigley, hoogleraar aan de School of Foreign Service van Georgetown, onder wiens studenten Bill Clinton hem later publiekelijk als leermeester noemde. Het boek volgt de overgang van de door Europa beheerste negentiende eeuw naar de wereld van machtsblokken, met veel aandacht voor de ontwikkelingsfasen van het kapitalisme, de rol van wapensystemen in de politiek en de ontsporingen van het financiële kapitalisme tussen de wereldoorlogen.</p><p>Berucht werd het boek buiten de vakwereld: enkele passages over centrale banken en over het netwerk rond Rhodes en Milner werden door W. Cleon Skousen en Gary Allen uitgeknipt en tot bewijs van een wereldcomplot omgesmeed, tot woede van Quigley zelf. Vakgenoten prezen de reikwijdte, maar misten een notenapparaat en achtten de invloed die Quigley aan het Milner-netwerk toeschrijft overtrokken.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>geschiedenis</li><li>twintigste eeuw</li><li>elites</li><li>kapitalisme</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="57"><a href="57.html">The Lessons of History</a>. The Lessons of History destilleert uit vergelijkbare stof de korte lessen waar Quigley de brede uitwerking geeft.</li>
+          <li value="56"><a href="56.html">Sapiens</a>. Sapiens toont een latere generatie grote geschiedschrijving met dezelfde spanning tussen synthese en bewijs.</li>
+          <li value="566"><a href="566.html">Manufacturing Consent</a>. Manufacturing Consent analyseert elite-invloed op meningsvorming met een toetsbaar model, als tegenwicht voor netwerkredeneringen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

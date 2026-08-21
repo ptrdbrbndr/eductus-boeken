@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Other Tongues, Other Flesh &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Williamson beweert dat de aarde sinds mensenheugenis wordt bezocht door ruimtevolken van menselijke gedaante, dat hun aanwezigheid is vastgelegd in…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-678">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">678 &middot; Filosofie en mystiek</p>
+    <h1>Other Tongues, Other Flesh</h1>
+    <p class="lede">George Hunt Williamson, 1953</p>
+    <p class="stats">
+      <span><b>1409</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="678"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Williamson beweert dat de aarde sinds mensenheugenis wordt bezocht door ruimtevolken van menselijke gedaante, dat hun aanwezigheid is vastgelegd in heilige teksten en in moderne waarnemingen van vliegende schotels, en dat het contact sinds 1952 ook per radio verloopt. De bezoekers spreken een universele zonnetaal, de Solex Mal, en een deel van hen leeft onopgemerkt onder de mensen: als geboren Wanderers, ruimtezielen in een aards lichaam, of als Agents die van buitenaf zijn ingevoegd. De mensheid nadert volgens hem een oogsttijd waarin wordt gescheiden wie geestelijk rijp is en wie niet. Het boek presenteert dit alles als vaststaand feit, terwijl er geen enkele toetsbare onderbouwing wordt geboden.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Uit de kring rond Adamski</h3>
+      <p>Williamson schreef dit boek als twintiger, kort nadat hij op 20 november 1952 bij Desert Center in Californië aanwezig was toen George Adamski naar eigen zeggen een bemanningslid van een Venusiaanse verkenner ontmoette. Williamson ondertekende de getuigenverklaring die in <i>Flying Saucers Have Landed</i> van Adamski en Desmond Leslie werd afgedrukt, en maakte gipsafdrukken van de voetsporen die de bezoeker zou hebben achtergelaten. Daarnaast claimde hij dat een groepje rond hem en Alfred Bailey vanaf augustus 1952 via kortegolfradio berichten van ruimteschepen ontving, eerst in code en later in spraak; die sessies beschreef hij in het verwante boek <i>The Saucers Speak</i>. Tegen het einde van <i>Other Tongues, Other Flesh</i> telt hij naar eigen zeggen ruim honderd contacten tussen mensen en schotelbemanningen.</p>
+      <h3>Eén waarheid, door de mens gebroken</h3>
+      <p>Het eerste deel legt de wereldbeschouwelijke basis. De Schepper gaf volgens Williamson één samenhangende waarheid, die de mensheid heeft versplinterd in rivaliserende godsdiensten en wetenschappen; wetenschap en religie zouden in wezen één zijn. Hij kondigt een Grote Influx aan, een intensivering van buitenaards contact die in de jaren 1890 begon en in de jaren vijftig een hoogtepunt bereikt.</p>
+      <p>De natuurkundige drager van dit alles is een universeel magnetisme dat hij het Resonating Electromagnetic Field noemt: een vierde grondkracht die atomen, planeten en melkwegstelsels bijeen zou houden en waarop de schotels vliegen. Ter ondersteuning haalt hij Einstein en de wiskundige Hlavaty aan, maar de verbinding tussen hun werk en zijn veldbegrip blijft bij naamsvermelding; een uitwerking of berekening ontbreekt.</p>
+      <h3>Other Tongues: de zonnetaal</h3>
+      <p>Het titeldeel over de andere tongen draait om de Solex Mal, door Williamson vertaald als zonnetaal: een symbolische beeldtaal die alle ruimtevolken zouden delen en die ook aan oude aardse culturen zou zijn geleerd. De tekens op de gipsafdrukken uit de woestijn en de symbolen die Adamski op schotels zag, leest hij als boodschappen in deze taal.</p>
+      <p>Als voorlopers van het moderne contact voert hij de Amerikaanse luchtschipgolf van 1897 op, met citaten uit de <i>Chicago Record</i> en de <i>Chicago Tribune</i>, en een anekdote uit de tweede hand over Marconi, die in 1921 signalen van Mars zou hebben opgevangen. Bijbelpassages als de wielen van Ezechiël en de vurige wagens duidt hij als verslagen van ruimteschepen. Telkens is het patroon hetzelfde: een onverklaard of onverifieerbaar bericht wordt zonder tussenstap tot bewijs van bezoek verklaard.</p>
+      <h3>Maldek en Malona</h3>
+      <p>Een afzonderlijk hoofdstuk behandelt Maldek en Malona, de namen die Williamson geeft aan een wereld tussen Mars en Jupiter die door atoomgeweld van haar eigen bewoners uiteen zou zijn gespat en de asteroïdengordel achterliet. Het verhaal functioneert als waarschuwing aan het atoomtijdperk: kernproeven zouden ook nu al werelden in andere dimensies vernietigen. In hetzelfde register beweert hij dat kometen ongeschonden door de zonnecorona reizen, dat de zon niet heet is zoals astronomen menen en dat Mercurius bewoonbaar is. Deze claims waren al in 1953 strijdig met de gevestigde natuur- en sterrenkunde en zijn sindsdien alleen maar grondiger weerlegd.</p>
+      <h3>Other Flesh: de indeling van de bezoekers</h3>
+      <p>Het slotdeel over het andere vlees deelt de betrokkenen in categorieën in, elk met een eigen hoofdstuk: de Migrants, ruimtevolken die zich in een ver verleden op aarde vestigden; de Wanderers, ruimtezielen die vrijwillig in een aards lichaam incarneren en meestal niet weten wie zij zijn; de Prophets, boodschappers door de eeuwen heen; de Harvesters, die de oogst aan het einde van dit tijdperk binnenhalen; de Agents, ruimtemensen die onopgemerkt tussen de aardbewoners werken; en de Intruders, vijandige wezens uit de richting van Orion die op verovering uit zouden zijn. Voor de getrouwen resteert een Remnant dat de overgang doorstaat.</p>
+      <p>De bezoekers lijken volgens Williamson op mensen omdat contact anders te moeilijk zou zijn. De oogstgedachte geeft het boek een uitgesproken eindtijdkarakter: de schotels komen niet uit nieuwsgierigheid, maar om een geestelijke schifting te begeleiden.</p>
+      <h3>Herkomst en doorwerking</h3>
+      <p>Williamson werkte rond 1950 bij Soulcraft Publications van William Dudley Pelley, de veroordeelde leider van de fascistische Silver Legion, wiens occulte leer over gevallen en gezonden zielen herkenbaar in dit boek doorklinkt. Godsdiensthistorici plaatsen <i>Other Tongues, Other Flesh</i> dan ook in de theosofische traditie: oude leerstellingen over meesters en wortelrassen, overgezet in het schotelidioom van de jaren vijftig.</p>
+      <p>De doorwerking is aanzienlijk. Het Wanderers-begrip keerde terug in latere channeling-literatuur en in het bredere new-age-denken over sterrenzaden, en Williamson zelf zette zijn loopbaan voort met expedities naar Peru en de Brotherhood of the Seven Rays. Wie hedendaagse verhalen over sterrenkinderen en geïncarneerde buitenaardsen wil begrijpen, vindt hier de bron.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Solex Mal</td><td>De universele zonnetaal, een symbolische beeldtaal die alle ruimtevolken zouden delen en die in voetsporen en schoteltekens te lezen zou zijn.</td></tr>
+          <tr><td class="term">Wanderers</td><td>Ruimtezielen die vrijwillig in een aards lichaam incarneren en zich hun herkomst meestal niet herinneren.</td></tr>
+          <tr><td class="term">Agents</td><td>Ruimtemensen die onopgemerkt tussen de aardbewoners leven en werken aan de voorbereiding van het contact.</td></tr>
+          <tr><td class="term">Intruders</td><td>Vijandige wezens uit de richting van Orion die volgens Williamson op verovering van de aarde uit zijn.</td></tr>
+          <tr><td class="term">Harvesters</td><td>De bezoekers die aan het einde van dit tijdperk de geestelijke oogst van de mensheid binnenhalen.</td></tr>
+          <tr><td class="term">Maldek en Malona</td><td>De wereld tussen Mars en Jupiter die door atoomgeweld van de eigen bewoners uiteen zou zijn gespat en de asteroïdengordel achterliet.</td></tr>
+          <tr><td class="term">Grote Influx</td><td>De intensivering van buitenaards contact die in de jaren 1890 zou zijn begonnen en in de jaren vijftig een hoogtepunt bereikt.</td></tr>
+          <tr><td class="term">Resonating Electromagnetic Field</td><td>Het universele magnetische veld dat als vierde grondkracht alles bijeen zou houden en de schotels laat vliegen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De bewijsvoering bestaat volledig uit onverifieerbaar materiaal: krantenberichten over de luchtschipgolf van 1897, een anekdote uit de tweede hand over Marconi, bijbelcitaten, de getuigenis rond Adamski's woestijncontact en de radiologboeken van Williamsons eigen groepje. Geen van de radioberichten is ooit onafhankelijk geregistreerd, de gipsafdrukken bewijzen hooguit dat er afdrukken in het zand stonden, en het contact van Adamski geldt ook binnen de ufologie al sinds de jaren vijftig als ongeloofwaardig.</p>
+      <p>Waar het boek raakvlakken met toetsbare wetenschap heeft, gaat het aantoonbaar mis: de asteroïdengordel is geen restant van een gesprongen planeet, Mercurius is onbewoonbaar en de zonnefysica van Williamson is met elke waarneming in strijd. Daar komt de persoon van de auteur bij: zijn academische titels en archeologische graden bleken deels gekocht bij een titelfabriek en deels verzonnen. Als bron over wat contactees geloofden is het boek waardevol; als bron over de werkelijkheid heeft het geen enkele bewijskracht.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het inhoudelijke bezwaar is totaal: er is geen bewering in dit boek die de toets van onafhankelijke controle doorstaat, en de auteur vraagt die controle ook nergens. Onverklaard wordt stelselmatig gelijkgesteld aan buitenaards, en elke traditie, van Ezechiël tot de Chicago-kranten, wordt in dezelfde mal geperst. Wie het boek leest als natuurwetenschap of geschiedschrijving houdt niets over.</p>
+      <p>Er is ook een donkerder kant. Williamson kwam uit de omgeving van William Dudley Pelley, een Amerikaanse fascist, en het vijandbeeld van de Intruders laat zien hoe gemakkelijk dit genre wereldpolitiek en rassenleer in kosmische termen hervertelt. Latere onderzoekers van de contactee-beweging wijzen op die voedingsbodem: de vroege schotelreligie was geen onschuldige rariteit, maar nam denkbeelden mee uit de occulte en radicaal-rechtse hoek waaruit een deel van haar schrijvers voortkwam.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het boek als primaire bron voor de geschiedenis van ufo-religies en new-age-denkbeelden, niet als informatie over buitenaards leven.</li>
+        <li>Controleer bij auteurs in dit genre altijd de opgegeven titels en kwalificaties; bij Williamson bleken ze verzonnen.</li>
+        <li>Herken het patroon waarin een onverklaard bericht zonder tussenstap tot bewijs wordt verklaard, en vraag telkens wat er onafhankelijk is vastgesteld.</li>
+        <li>Volg begrippen als Wanderers en sterrenzaad naar deze bron terug om te zien hoe hedendaagse spiritualiteit op oudere contactee-literatuur voortbouwt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Other Tongues, Other Flesh</i> (Amherst Press, Amherst, Wisconsin, 1953, 448 blz., verschenen voor de invoering van het ISBN; moderne herdrukken onder meer ISBN 9781736731475). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Sleuteltekst uit de vroege Amerikaanse contactee-beweging, geschreven door George Hunt Williamson, een van de zes getuigen van George Adamski's beweerde woestijnontmoeting met een Venusiaan in november 1952. Williamson stelt dat menselijke ruimtevolken de aarde al miljoenen jaren bezoeken, dat de Bijbel hun bezoeken beschrijft, dat zij een universele zonnetaal spreken (de Solex Mal) en dat een deel van de mensheid uit geïncarneerde ruimtezielen bestaat, de Wanderers, die een naderende oogst van de planeet voorbereiden.</p><p>Het boek levert voor geen van die beweringen controleerbaar bewijs: de onderbouwing bestaat uit krantenknipsels, anekdotes en de eigen radiologboeken van de auteur, wiens academische titels bovendien verzonnen bleken. Als geloofsdocument is het wel van betekenis: begrippen als de Wanderers werken tot op heden door in de new-age-literatuur.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ufo</li><li>esoterie</li><li>new age</li><li>channeling</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. The Demon-Haunted World behandelt schotelverhalen en aanverwante claims met het gereedschap dat hier ontbreekt: sceptisch onderzoek.</li>
+          <li value="378"><a href="378.html">The Kybalion</a>. The Kybalion toont de oudere esoterische bronstroom waaruit Williamson zijn leer van universele wetten en trillingen putte.</li>
+          <li value="340"><a href="340.html">The Holographic Universe</a>. The Holographic Universe laat een latere generatie zien die wetenschappelijke termen op vergelijkbare wijze in dienst van het wonderbaarlijke stelt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TechGnosis &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Davis stelt dat de moderne techniekcultuur zichzelf misversta zolang zij zich als louter rationeel en seculier beschouwt: onder de gebruikersinterface van…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-666">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">666 &middot; Filosofie en mystiek</p>
+    <h1>TechGnosis</h1>
+    <p class="lede">Erik Davis, 1998</p>
+    <p class="stats">
+      <span><b>1251</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="666"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Davis stelt dat de moderne techniekcultuur zichzelf misversta zolang zij zich als louter rationeel en seculier beschouwt: onder de gebruikersinterface van elke informatietechnologie draait een oud religieus programma mee. Verlossingsverwachtingen, magisch denken en vooral de gnostische mythe van de geest die aan de materie wil ontsnappen, bepalen mede hoe technologieën worden ontworpen, verkocht en beleefd. Wie die mythische lading niet herkent, wordt erdoor gestuurd; wie haar wel herkent, kan zich bewuster tot techniek verhouden. Het boek pleit daarom voor een dubbele blik die techniek tegelijk nuchter en als drager van verbeelding leest.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Techniek en magie: één stamboom</h3>
+      <p>Davis opent met de verwevenheid van techne en magie in de westerse traditie. De god Hermes, tevens Thoth, geldt als schutspatroon van schrift, handel én toverkunst, en Plato laat in de <i>Phaedrus</i> al de vraag stellen of het schrift het geheugen versterkt of juist uitholt. In het hermetisme van de renaissance lopen ingenieurskunst en bezweringskunst in elkaar over: automata, geheugentheaters en talismannen komen uit dezelfde werkplaats. De informatietechnologie erft die dubbelzinnigheid, tot in het spraakgebruik van 'wizards', 'demons' en bezwerende commandotaal toe.</p>
+      <p>Daarmee is de toon gezet: Davis behandelt mythen niet als vergissingen die de wetenschap heeft opgeruimd, maar als hardnekkige denkvormen die met elke techniekgolf een nieuwe gedaante aannemen.</p>
+      <h3>Het elektromagnetische imaginaire</h3>
+      <p>Het sterkste historische deel behandelt wat Davis het elektromagnetische imaginaire noemt. Elektriciteit werd vanaf de achttiende eeuw beleefd als levenskracht en geestesstof: Mesmer behandelde patiënten met 'dierlijk magnetisme', en toen in 1844 de telegraaf kwam, ontstond vrijwel gelijktijdig het spiritisme, dat zich nadrukkelijk als 'geestelijke telegraaf' naar het hiernamaals presenteerde. De klopgeesten van de gezusters Fox en het telegraafalfabet zijn kinderen van hetzelfde decennium.</p>
+      <p>Radio zette die lijn voort met de ether als bezield medium, en Davis laat zien hoe hetzelfde patroon zich bij elke sprong herhaalt: een onzichtbare kracht die berichten door de ruimte draagt, wordt vanzelf drager van religieuze projectie. De les is dat het enthousiasme rond nieuwe media zelden alleen over techniek gaat.</p>
+      <h3>Gnosis en informatie</h3>
+      <p>De kern van het boek is de terugkeer van de gnostiek. In de laatantieke gnostische mythe zit een goddelijke vonk gevangen in de materie en ontsnapt zij door geheime kennis, gnosis. Davis herkent die structuur in de informatiecultuur: het denkbeeld dat de mens 'eigenlijk' informatie is, dat het lichaam vervangbare hardware is en de geest uploadbare software, herhaalt het gnostische dualisme in technische taal. Cybernetica en kunstmatige intelligentie leverden het vocabulaire; sciencefiction en Silicon Valley de liturgie.</p>
+      <p>Hij verbindt dit met Teilhard de Chardins noösfeer, de veronderstelde denklaag om de aarde die in de jaren negentig gretig als voorafspiegeling van internet werd aangehaald, en met McLuhans global village. Ook nieuwe religies die techniek en openbaring mengen, van Scientology tot ufo-groepen, leest hij als varianten van dezelfde informatiegnostiek.</p>
+      <h3>Cyberspace als bezield landschap</h3>
+      <p>Vervolgens beschrijft Davis de internetcultuur van zijn eigen tijd: de virtuele werkelijkheid als nieuwe astrale ruimte, online rollenspellen en MUD's waarin identiteit vloeibaar wordt, technopaganen die het net als magisch werkterrein beschouwen, en programmeurs die in code en kabbala verwante systemen van tekenmanipulatie zien. Hij neemt deze subculturen serieus als veldwerk: ze tonen onverdund wat elders impliciet blijft, dat mensen betekenis, gemeenschap en transcendentie in het netwerk projecteren.</p>
+      <p>Tegelijk noteert hij de schaduwzijde: dezelfde verbeelding voedt paranoia, complotdenken en apocalyptiek. Het net is ook het medium van de datapocalyps, van doemverwachting rond het millennium en van sekten die de uitgang uit het lichaam letterlijk namen.</p>
+      <h3>Het netwerkpad</h3>
+      <p>Davis eindigt niet met een keuze tussen ontmaskering en overgave. Techniekmythen wegwuiven maakt blind voor hun werking; ze omhelzen leidt tot zweverigheid of erger. Hij bepleit wat hij het netwerkpad noemt: een houding die de mythische lading van techniek erkent, ermee speelt en haar tegelijk kritisch blijft bevragen, met aandacht voor het lichaam en de aarde die in de ontsnappingsmythe worden afgeschreven.</p>
+      <p>In het nawoord bij latere edities stelt Davis vast dat de vragen van het boek na de dotcomcrash, de sociale media en de opkomst van kunstmatige intelligentie eerder aan gewicht hebben gewonnen: de verlossingsretoriek rond nieuwe techniek is sindsdien alleen maar luider geworden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">techgnosis</td><td>Davis' term voor de mystieke, magische en religieuze verbeelding die met de informatietechnologie meereist.</td></tr>
+          <tr><td class="term">gnosis</td><td>Geheime, verlossende kennis uit de laatantieke gnostiek, waarvan de structuur volgens Davis terugkeert in de informatiecultuur.</td></tr>
+          <tr><td class="term">gnostisch dualisme</td><td>De tegenstelling tussen gevangen geest en minderwaardige materie, technisch herhaald in het beeld van uploadbare geest en vervangbaar lichaam.</td></tr>
+          <tr><td class="term">elektromagnetisch imaginaire</td><td>Het geheel van religieuze en magische voorstellingen dat zich sinds de achttiende eeuw aan elektriciteit en ether hecht.</td></tr>
+          <tr><td class="term">geestelijke telegraaf</td><td>Zelfaanduiding van het spiritisme uit de jaren 1840, dat contact met de doden modelleerde naar de pas uitgevonden telegraaf.</td></tr>
+          <tr><td class="term">noösfeer</td><td>Teilhard de Chardins veronderstelde denklaag om de aarde, in de jaren negentig veelvuldig aangehaald als voorafspiegeling van internet.</td></tr>
+          <tr><td class="term">technopaganisme</td><td>Subcultuur die computernetwerken en rituele magie met elkaar verbindt en het net als bezield werkterrein behandelt.</td></tr>
+          <tr><td class="term">netwerkpad</td><td>Davis' voorstel voor een houding die techniekmythen herkent en benut zonder erin te geloven of ze te verachten.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is cultuurgeschiedenis en essayistiek, geen empirische studie, en moet ook zo gewogen worden. De kracht zit in het bronnenbereik: Davis verbindt patristiek en gnostische teksten, mediageschiedenis (Mesmer, telegraaf en spiritisme, radio), religiewetenschap en eigen journalistiek veldwerk in de internetcultuur van de jaren negentig. De afzonderlijke historische bouwstenen, zoals de gelijktijdigheid van telegraaf en spiritisme of de hermetische wortels van de renaissancetechniek, zijn in de vakliteratuur goed gedocumenteerd.</p>
+      <p>De overkoepelende these is een interpretatiekader en als zodanig niet strikt toetsbaar: dat techniekcultuur gnostische patronen 'herhaalt' is een leeswijze, geen causale claim. De voorspellende waarde is intussen aanzienlijk gebleken: de verlossingsretoriek rond kunstmatige intelligentie, mind uploading en het metaversum uit de jaren twintig volgt de door Davis beschreven sjablonen opvallend precies, wat verklaart waarom het boek twee heruitgaven en een blijvende academische ontvangst kreeg.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het meest gehoorde bezwaar betreft de vorm: Davis schrijft dicht, associatief en met veel gelijktijdige registers, waardoor de argumentatie soms in de opsomming verdrinkt en de lezer moet accepteren dat verbanden eerder getoond dan bewezen worden. Wie een strakke these met toetsbare stappen verwacht, vindt hier eerder een caleidoscoop. Ook dateert het veldwerk uit de jaren negentig: MUD's, Wired-utopisme en millenniumkoorts vergen inmiddels historische inbedding, al ondervangt de editie van 2015 dat deels met nieuw nawoord.</p>
+      <p>Inhoudelijk valt in te brengen dat het gnostische sjabloon zo rekbaar wordt gebruikt dat het bijna overal op past, waardoor het onderscheidend vermogen afneemt: als elke techniekdroom gnostisch is, verklaart de term weinig meer. Religiewetenschappers wijzen er bovendien op dat 'gnostiek' als historische categorie zelf omstreden is. Dat gezegd hebbend staat de kern van het boek recht overeind: het is serieuze, goed gedocumenteerde cultuurgeschiedenis die een blinde vlek van de techniekkritiek zichtbaar maakte en die latere ontwikkelingen eerder heeft voorspeld dan achtervolgd.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees aankondigingen van nieuwe techniek met de vraag welk oud verlossingsverhaal erin meeklinkt; dat maakt reclame en oprechte verwachting beter te scheiden.</li>
+        <li>Herken het gnostische sjabloon (lichaam als kooi, informatie als ziel) in debatten over kunstmatige intelligentie en mind uploading, en vraag wat er in dat beeld wordt afgeschreven.</li>
+        <li>Gebruik de geschiedenis van telegraaf en spiritisme als tegengif voor het idee dat de eigen tijd voor het eerst techniek met religie verwart.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>TechGnosis: Myth, Magic, and Mysticism in the Age of Information</i> (Harmony Books, New York, 1998, 378 blz., ISBN 9780517704158; herziene uitgave North Atlantic Books, 2015, met voorwoord van Eugene Thacker, ISBN 9781583949306). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Cultuurgeschiedenis van de Amerikaanse essayist Erik Davis over de mystieke onderstroom van de informatietechnologie. Davis laat zien dat elke nieuwe communicatietechniek, van het schrift via telegraaf, radio en elektriciteit tot internet en virtuele werkelijkheid, is onthaald met religieuze verwachtingen: contact met de doden via de telegraafdraad, de ether als geesteswereld, cyberspace als plek waar de ziel het lichaam aflegt. De gnostische mythe van een goddelijke vonk die uit de gevangenis van de materie wil ontsnappen keert volgens hem terug in cybernetica, kunstmatige intelligentie en transhumanisme.</p><p>Het boek, verschenen op het hoogtepunt van de eerste internetgolf, is een erkende klassieker in de mediastudies geworden en werd in 2004 en 2015 heruitgegeven. Davis gelooft de mythen niet en ontkracht ze evenmin; hij brengt in kaart hoe ze het denken over techniek sturen, en dat blijkt verrassend actueel.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>techniekgeschiedenis</li><li>mystiek</li><li>media</li><li>internetcultuur</li><li>gnostiek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="54"><a href="54.html">Amusing Ourselves to Death</a>. Amusing Ourselves to Death is de nuchtere pendant: Postman analyseert wat media met het publieke denken doen, zonder de mythische laag die Davis juist opgraaft.</li>
+          <li value="565"><a href="565.html">Simulacres et simulation</a>. Simulacres et simulation levert het Franse theoriekader voor de vraag wat er gebeurt wanneer tekens de werkelijkheid vervangen.</li>
+          <li value="378"><a href="378.html">The Kybalion</a>. The Kybalion is zelf een voorbeeld van wat Davis beschrijft: hermetische leer, rond 1908 verpakt in de moderne taal van wetten en trillingen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

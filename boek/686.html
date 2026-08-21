@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toxic Sludge Is Good for You &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Stauber en Rampton stellen dat public relations in de Verenigde Staten is uitgegroeid tot een verborgen bedrijfstak van miljarden die het publieke debat…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-686">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">686 &middot; Vrij denken en manipulatie</p>
+    <h1>Toxic Sludge Is Good for You</h1>
+    <p class="lede">John Stauber en Sheldon Rampton, 1995</p>
+    <p class="stats">
+      <span><b>1224</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="686"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Stauber en Rampton stellen dat public relations in de Verenigde Staten is uitgegroeid tot een verborgen bedrijfstak van miljarden die het publieke debat stelselmatig bewerkt: wat zich voordoet als nieuws, burgerinitiatief of onafhankelijke wetenschap blijkt bij natrekken geregeld betaalde boodschap. Omdat pr per definitie het best werkt wanneer niemand haar opmerkt, blijft de omvang van die beïnvloeding voor het publiek onzichtbaar, en journalistiek die op krimpende redacties leunt neemt het aangeleverde materiaal gretig over.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een bedrijfstak die niet gezien wil worden</h3>
+      <p>Het boek komt voort uit PR Watch, het kwartaalblad van het door Stauber in 1993 opgerichte Center for Media and Democracy, dat de pr-industrie met haar eigen vakbladen en documenten volgt. Het openingshoofdstuk, Burning Books Before They're Printed, beschrijft hoe eerdere kritische publicaties over de branche werden tegengewerkt voordat ze de lezer bereikten, een voorproefje van het onderwerp zelf. Onderzoeksjournalist Mark Dowie zet in het voorwoord de toon: de gemiddelde krantenlezer heeft geen idee welk deel van zijn nieuws ergens als persbericht is begonnen.</p>
+      <h3>Van Barnum naar Bernays</h3>
+      <p>Een historisch hoofdstuk voert langs de wortels van het vak: de reclamestunts van P.T. Barnum, de Creel-commissie die de Amerikaanse publieke opinie voor deelname aan de Eerste Wereldoorlog won, Ivy Lee die het imago van de Rockefellers opknapte na het bloedbad van Ludlow, en Edward Bernays, die in 1929 rokende vrouwen in de paasparade van New York liet opdraven als torches of freedom en daarmee sigaretten aan een nieuw publiek verkocht. Bernays noemde zijn vak zonder gêne de bewuste manipulatie van de meningen van de massa; na de oorlog kreeg propaganda een nieuwe naam en heette het public relations.</p>
+      <h3>Tabak, atoom, landbouwgif</h3>
+      <p>Drie bedrijfstakken leveren de klassieke gevallen. Voor de tabaksindustrie richtte Hill &amp; Knowlton in 1953 het Tobacco Industry Research Committee in, dat decennialang georganiseerde twijfel over de schadelijkheid van roken produceerde; later bouwde Burson-Marsteller voor Philip Morris de National Smokers Alliance, een van bovenaf gefabriceerde rokersbeweging. Spinning the Atom volgt de pr van de kernenergiesector, van Atoms for Peace tot de schadebeperking na Three Mile Island. Silencing Spring beschrijft hoe de bestrijdingsmiddelenindustrie sinds Rachel Carson elke criticus met gehuurde experts en zaaigoed van twijfel beantwoordt.</p>
+      <h3>Gehuurd gras en verdeel-en-heers</h3>
+      <p>Het hart van het boek gaat over technieken. Astroturf: bureaus als Bonner &amp; Associates leveren op bestelling burgerprotest, met telefoonbanken en tarieven per opgetrommelde brief aan een Congreslid. Front groups met namen als Citizens for Sensible Control geven bedrijfsbelangen een burgergezicht. Spies for Hire toont bureaus die actiegroepen infiltreren en dossiers over activisten aanleggen.</p>
+      <p>Divide and Conquer beschrijft de strategie die pr-man Ronald Duchin openlijk doceerde: deel tegenstanders in als radicalen, idealisten, realisten en opportunisten, haal de realisten binnen met overleg en kleine concessies, isoleer de radicalen, en de beweging valt uiteen. De auteurs laten met interne stukken zien hoe deze aanpak tegen milieu- en consumentengroepen is ingezet.</p>
+      <h3>De folterlobby en Nayirah</h3>
+      <p>The Torturers' Lobby behandelt pr-bureaus die regimes met een slechte reputatie van een nieuw imago voorzien. Het uitgewerkte voorbeeld is de campagne van Citizens for a Free Kuwait, gefinancierd door de Koeweitse regering en uitgevoerd door Hill &amp; Knowlton voor ruim tien miljoen dollar. Hoogtepunt was het getuigenis van het meisje Nayirah in oktober 1990, dat Iraakse soldaten couveusebaby's uit ziekenhuizen zou hebben zien halen. Het verhaal ging de wereld over en dook op in het debat over de Golfoorlog; pas later bleek dat de getuige de dochter van de Koeweitse ambassadeur was, dat het bureau haar had voorbereid en dat het verhaal niet te staven viel.</p>
+      <h3>Nieuws uit blik en de weg terug</h3>
+      <p>All the News That's Fit to Print behandelt de video news release: een door een bureau geproduceerd item dat redacties als eigen nieuws uitzenden, compleet met voorgebakken interviews. Tellingen die de auteurs aanhalen komen uit op zo'n veertig procent van de nieuwsinhoud die herleidbaar is tot persberichten en ander pr-materiaal. Het titelhoofdstuk, The Sludge Hits the Fan, laat de Water Environment Federation met overheidssteun rioolslib omdopen tot biosolids om het als meststof op landbouwgrond geaccepteerd te krijgen. Het slothoofdstuk, Taking Back Your Own Back Yard, zet tegenover het gehuurde gras de echte burgerorganisatie: traag, lokaal en met zichtbare afzender.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">astroturf</td><td>Kunstmatig, betaald burgerprotest dat zich voordoet als spontane grassroots-beweging; genoemd naar een merk kunstgras.</td></tr>
+          <tr><td class="term">front group</td><td>Organisatie met een neutrale of burgerlijke naam die in werkelijkheid door een belanghebbende industrie is opgezet en betaald.</td></tr>
+          <tr><td class="term">video news release</td><td>Door een pr-bureau geproduceerd nieuwsitem dat omroepen als eigen verslaggeving uitzenden.</td></tr>
+          <tr><td class="term">third party technique</td><td>Het laten uitspreken van de boodschap door een ogenschijnlijk onafhankelijke derde, zoals een gehuurde expert of stichting.</td></tr>
+          <tr><td class="term">biosolids</td><td>De door de rioolwaterbranche bedachte naam voor rioolslib, gekozen om het als meststof aanvaardbaar te maken.</td></tr>
+          <tr><td class="term">verdeel-en-heersindeling van Duchin</td><td>De indeling van tegenstanders in radicalen, idealisten, realisten en opportunisten, bedoeld om bewegingen te splijten.</td></tr>
+          <tr><td class="term">torches of freedom</td><td>Bernays' campagne uit 1929 die roken door vrouwen als daad van emancipatie neerzette om sigaretten te verkopen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De documentatie is de kracht van het boek. De auteurs putten uit de vakbladen en congressen van de branche zelf, waaronder O'Dwyer's PR Services Report, uit congresverslagen, rechtszaakstukken, interne documenten en interviews, met bronvermelding. De grote casussen staan ook buiten dit boek vast: het couveuseverhaal is onafhankelijk ontleed, onder anderen door John MacArthur in <i>Second Front</i> (1992), de tabaksstrategie van georganiseerde twijfel is later door interne industrie-documenten bevestigd, en de biosolids-campagne is met stukken van de branche zelf gedocumenteerd.</p>
+      <p>Het boek is journalistiek, geen wetenschap: het biedt casuïstiek en geen systematische meting. De cijfers over het pr-aandeel in het nieuws komen uit tellingen van afzonderlijke kranten en zijn indicatief. Wie de omvang van het verschijnsel precies wil weten, vindt hier het bewijs dat het bestaat en hoe het werkt, geen statistiek van hoe vaak.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De invalshoek is onmiskenbaar activistisch. Stauber en Rampton zijn zelf campaigners, Common Courage Press is een klein links-activistisch huis, en de selectie bestaat uit de kwalijkste gevallen. De pr-sector wordt als één blok behandeld, terwijl het vak ook gewone voorlichting en woordvoering omvat die niemand misleidt. Beïnvloeding met dezelfde technieken door ngo's, vakbonden en overheden zelf blijft grotendeels buiten beeld, wat het beeld eenzijdiger maakt dan de werkelijkheid.</p>
+      <p>Daarnaast is het boek gedateerd: het verscheen vóór het internettijdperk, zodat sociale media, influencer-marketing en datagestuurde campagnes ontbreken, al zijn de beschreven mechanismen daarin zonder moeite terug te vinden. Op de feiten van de grote casussen is intussen weinig afgedongen; de pr-branche verweet het boek vooral eenzijdigheid, geen onjuistheid. Als geschiedenis van de manipulatietechnieken die het huidige informatielandschap hebben gevormd, houdt het stand.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga bij elke ogenschijnlijke burgerbeweging na wie de rekening betaalt voordat het pleidooi gewicht krijgt.</li>
+        <li>Behandel de onafhankelijke expert in een nieuwsbericht als te verifiëren bron: zoek uit wie het instituut financiert.</li>
+        <li>Herken kant-en-klaar nieuws aan identieke formuleringen in verschillende media; die wijzen op één persbericht of video news release.</li>
+        <li>Let bij overlegaanbiedingen aan actiegroepen op de verdeel-en-heersindeling: wie als realist wordt binnengehaald, kan als splijtmiddel dienen.</li>
+        <li>Pas de omgekeerde les toe in eigen communicatie: geloofwaardigheid vraagt een zichtbare afzender en controleerbare claims.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Toxic Sludge Is Good for You: Lies, Damn Lies and the Public Relations Industry</i> (Common Courage Press, Monroe (Maine), 1995, 236 blz., ISBN 9781567510607; met een voorwoord van Mark Dowie). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Stauber en Rampton, oprichters van het Center for Media and Democracy en makers van het kwartaalblad PR Watch, beschrijven hoe de Amerikaanse pr-industrie onzichtbaar het nieuws en het publieke debat bewerkt. De titel verwijst naar de campagne om rioolslib om te dopen tot biosolids en als meststof geaccepteerd te krijgen.</p><p>Twaalf hoofdstukken behandelen onder meer de tabakslobby die Hill &amp; Knowlton vanaf 1953 opzette, gehuurde grassroots-bewegingen, spionage op actievoerders, de verdeel-en-heersstrategie tegen actiegroepen, kant-en-klare video-nieuwsitems en de campagne rond het valse couveuseverhaal dat de Amerikaanse steun voor de Golfoorlog hielp verkopen. Degelijk gedocumenteerde kritische journalistiek met een uitgesproken activistische inslag; de voorbeelden dateren uit de jaren tachtig en negentig, maar de beschreven technieken zijn in het huidige medialandschap goed herkenbaar.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>propaganda</li><li>media</li><li>manipulatie</li><li>pr</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="60"><a href="60.html">Trust Me, I'm Lying</a>. Trust Me, I'm Lying beschrijft dezelfde mediamanipulatie in het blogtijdperk, opgetekend door iemand die haar zelf bedreef.</li>
+          <li value="562"><a href="562.html">Public Opinion</a>. Public Opinion van Lippmann uit 1922 levert de theoretische onderlaag: de kloof tussen de wereld en de beelden in ons hoofd.</li>
+          <li value="566"><a href="566.html">Manufacturing Consent</a>. Manufacturing Consent biedt het structurele model van nieuwsfilters waar deze casuïstiek in past.</li>
+          <li value="280"><a href="280.html">Influence</a>. Influence beschrijft de psychologische mechanismen, zoals autoriteit en sociale bewijskracht, waarop de hier getoonde technieken leunen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crossfire &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Marrs stelt dat president Kennedy op 22 november 1963 in een kruisvuur van meerdere schutters terechtkwam, dat Lee Harvey Oswald hooguit een bijrol…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-690">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">690 &middot; Geschiedenis en samenleving</p>
+    <h1>Crossfire</h1>
+    <p class="lede">Jim Marrs, 1989</p>
+    <p class="stats">
+      <span><b>1211</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="690"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Marrs stelt dat president Kennedy op 22 november 1963 in een kruisvuur van meerdere schutters terechtkwam, dat Lee Harvey Oswald hooguit een bijrol speelde en vooraf als zondebok was klaargezet, en dat een verbond van georganiseerde misdaad, delen van de inlichtingen- en veiligheidsdiensten en militaire kringen de moord beraamde, waarna de federale overheid de zaak toedekte. Het boek wil die stelling niet met één sluitend bewijs vestigen maar met massa: honderden getuigenissen, anomalieën en verbanden die samen de officiële lezing onhoudbaar moeten maken. Daarmee is het de rijkste bronnenverzameling van het genre en tegelijk de duidelijkste illustratie van zijn bewijsprobleem.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een journalist uit Fort Worth</h3>
+      <p>Marrs versloeg als jonge verslaggever in Texas de nasleep van de aanslag, gaf vanaf 1976 een universitaire cursus over de moord en verzamelde ruim twee decennia lang getuigen, documenten en theorieën. <i>Crossfire</i> bundelt dat alles in drie delen. Het boek verscheen in 1989, trok de aandacht van Oliver Stone en werd met Garrisons <i>On the Trail of the Assassins</i> de grondstof voor de film <i>JFK</i> uit 1991, die het publieke wantrouwen rond de zaak opnieuw aanwakkerde en tot de wet leidde die alle moorddossiers moest vrijgeven.</p>
+      <h3>Deel één: de moordzone</h3>
+      <p>Het eerste deel reconstrueert Dealey Plaza minuut voor minuut: de route, het Texas School Book Depository, het spoorviaduct en de grasheuvel. Marrs voert tientallen ooggetuigen op die schoten of rook van voren meenden waar te nemen, bespreekt de Zapruder-film, waarop Kennedy's hoofd naar achteren slaat, en telt meer schoten dan de officiële drie. Dit deel toont zijn werkwijze op haar best en haar zwakst tegelijk: de getuigenissen zijn echt en talrijk, maar tegenstrijdige waarnemingen krijgen zelden een weging, en wat vóór de grasheuvel pleit blijft staan naast wat ertegen pleit.</p>
+      <h3>Deel twee: middelen, motieven, gelegenheden</h3>
+      <p>Het middendeel loopt alle kandidaat-daders langs: de Sovjet-Unie, Cuba, de anti-Castro-ballingen, de maffiabazen Marcello, Trafficante en Giancana, de FBI, de geheime dienst, de CIA, Texaanse oliemiljonairs, extreem-rechts, de militaire top en Lyndon Johnson. Per hoofdstuk inventariseert Marrs motief en gelegenheid, en bijna niemand valt af. Zijn eigen synthese houdt het op een operationeel verbond van misdaad en inlichtingenmilieu met rugdekking hogerop. Oswald krijgt een eigen levensverhaal vol inlichtingencontacten, valse identiteiten en dubbelgangers, uitmondend in diens eigen woorden na de arrestatie: dat hij maar een zondebok was.</p>
+      <h3>Deel drie: de nasleep</h3>
+      <p>Het slotdeel behandelt de tegenstrijdige medische bevindingen tussen het Parkland-ziekenhuis in Dallas en de autopsie in Bethesda, de moord op Oswald door nachtclubeigenaar Jack Ruby, de kritiek op de Warren-commissie en het proces van openbaar aanklager Garrison in New Orleans. Ook de House Select Committee on Assassinations komt aan bod, die in 1979 op grond van een geluidsopname tot een waarschijnlijke samenzwering concludeerde. Het deel sluit af met de bekendste lijst van het boek: ruim honderd getuigen en betrokkenen die in de jaren na de aanslag stierven, door Marrs als verdacht patroon gepresenteerd.</p>
+      <h3>Wat het latere onderzoek ervan overliet</h3>
+      <p>De wetenschappelijke stand is sinds het boek verder van Marrs af komen te staan. De geluidsanalyse waarop de HSCA haar samenzweringsconclusie baseerde, werd in 1982 door een panel van de National Academy of Sciences als onbetrouwbaar terzijde geschoven. De sterfgevallenlijst gaat terug op een kansberekening uit 1967 die de krant in kwestie zelf als rekenfout heeft ingetrokken. De vrijgave van miljoenen pagina's moorddossiers sinds de jaren negentig heeft veel pijnlijks over CIA en FBI onthuld, vooral over wat de diensten vóór de moord van Oswald wisten en nadien verzwegen, maar geen bewijs voor een tweede schutter. Standaardwerken als dat van Bugliosi houden Oswald als enige dader overeind; peilingen laten zien dat een meerderheid van de Amerikanen desondanks aan samenzwering blijft denken.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">kruisvuur</td><td>Marrs' kernbeeld: schoten uit meerdere richtingen tegelijk, wat per definitie meer dan één schutter en dus samenzwering betekent.</td></tr>
+          <tr><td class="term">grasheuvel</td><td>De verhoging rechts voor de stoet vanwaar volgens veel door Marrs aangehaalde getuigen een schot zou zijn gekomen.</td></tr>
+          <tr><td class="term">zondebok</td><td>Oswalds eigen kwalificatie na zijn arrestatie, door Marrs gelezen als kern van de opzet: een vooraf klaargezette dader.</td></tr>
+          <tr><td class="term">magisch projectiel</td><td>Spotnaam van critici voor de officiële ene kogel die zowel Kennedy als gouverneur Connally zou hebben verwond.</td></tr>
+          <tr><td class="term">Zapruder-film</td><td>Het amateurfilmpje van de aanslag, in het boek hoofdbewijs voor een schot van voren en voor manipulatie van bewijs.</td></tr>
+          <tr><td class="term">convenient deaths</td><td>Marrs' lijst van ruim honderd sterfgevallen onder getuigen en betrokkenen, gepresenteerd als aanwijzing voor het uitschakelen van lastige kennis.</td></tr>
+          <tr><td class="term">Warren-commissie</td><td>De presidentiële commissie die in 1964 tot één dader concludeerde en in dit boek als doofpot wordt behandeld.</td></tr>
+          <tr><td class="term">HSCA</td><td>De Congrescommissie die in 1979 een waarschijnlijke samenzwering rapporteerde op grond van later verworpen geluidsanalyse.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De basis van het boek is omvangrijk en deels origineel: Marrs sprak als regionale journalist honderden betrokkenen die elders nooit gehoord waren, en zijn overzicht van getuigenissen, documenten en theorieën is als naslagwerk door voor- en tegenstanders gebruikt. Dat een deel van zijn wantrouwen terecht was, is naderhand gebleken: vrijgegeven dossiers bevestigen dat CIA en FBI de onderzoekscommissies materiaal onthielden, onder meer over de moordplannen tegen Castro en over het volgen van Oswald vóór de aanslag.</p>
+      <p>Als bewijsvoering voor de eigen stelling schiet het boek tekort. De methode is optellend: elke anomalie, elk gerucht en elke tegenstrijdige waarneming telt mee, vrijwel niets wordt verworpen, en onderling strijdige theorieën staan zonder keuze naast elkaar. De pijlers die het dichtst bij hard bewijs kwamen, zijn omgevallen: de HSCA-geluidsanalyse is door de National Academy of Sciences verworpen, de kansberekening onder de sterfgevallenlijst is ingetrokken, en de ballistische en forensische hertoetsingen ondersteunen het scenario met één schutter. Wat na ruim zestig jaar en miljoenen vrijgegeven pagina's ontbreekt, is één document of getuige die de samenzwering direct aanwijst.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het wezenlijke bezwaar geldt het genre waarvan dit boek het hoofdwerk is: de complotcompilatie. Door alles te verzamelen en niets te schrappen verschuift de bewijslast naar de lezer, en wekt de omvang zelf de indruk van bewijs. Onderzoekers als Posner en Bugliosi hebben laten zien dat veel van Marrs' sterkste voorbeelden bij natrekken sneuvelen: getuigen die hun verhaal later aanpasten, waarnemingen die aantoonbaar onjuist zijn, en een sterfgevallenlijst die statistisch niets bijzonders bevat gegeven de tienduizenden mensen die met de zaak in aanraking kwamen.</p>
+      <p>Tegelijk verdient het boek geen hoon maar plaatsbepaling. Het georganiseerde wantrouwen waaruit het voortkwam, was mede het product van echte leugens van de betrokken diensten, en de door de film <i>JFK</i> afgedwongen archiefwet heeft de geschiedschrijving blijvend geholpen. Wie <i>Crossfire</i> leest als staalkaart van wat er in 1989 aan twijfel bestond, en als les in hoe anomaliestapeling werkt, heeft er meer aan dan wie er de ware toedracht in zoekt. Voor die toedracht wijst de vakliteratuur nog altijd naar één schutter uit het magazijngebouw.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Weeg getuigenissen in plaats van ze te tellen; honderd zwakke aanwijzingen vormen samen geen sterke.</li>
+        <li>Controleer bij elke verdachte lijst of reeks de kansrekening: bij tienduizenden betrokkenen zijn tientallen sterfgevallen per decennium te verwachten.</li>
+        <li>Onderscheid bewezen doofpotgedrag rond een gebeurtenis van bewijs voor de gebeurtenis zelf; diensten die feiten achterhouden bewijzen daarmee nog geen moordcomplot.</li>
+        <li>Vraag bij elke theorie welk feit haar zou weerleggen; een verhaal dat elk nieuw gegeven kan opnemen, verklaart uiteindelijk niets.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Crossfire: The Plot That Killed Kennedy</i> (Carroll &amp; Graf, 1989, 595 blz., ISBN 9780881845242; heruitgave Basic Books, 2013, ISBN 9780465031801). Geen Nederlandse vertaling van dit boek gevonden in de catalogus van bibliotheek.nl, wel van andere titels van Marrs; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Encyclopedische verzameling van vrijwel alle theorieën over de moord op president Kennedy, geschreven door de Texaanse journalist Jim Marrs, die vanaf 1976 aan de universiteit van Texas in Arlington college gaf over de aanslag en honderden getuigen sprak. Het boek reconstrueert Dealey Plaza, loopt alle denkbare daders langs, van maffia en CIA tot Cubanen en oliemannen, en eindigt bij de onderzoeken en een lijst van verdacht geachte sterfgevallen. Marrs concludeert dat Oswald een zondebok was en dat een samenwerking van misdaad, inlichtingenwereld en militairen achter de moord zat.</p><p>Het boek diende naast het werk van Jim Garrison als basis voor Oliver Stones film <i>JFK</i> uit 1991 en werd daarna een bestseller. De vakliteratuur oordeelt anders dan Marrs: het doorslaggevende bewijs voor een tweede schutter is er nooit gekomen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>kennedy</li><li>complotdenken</li><li>verenigde staten</li><li>geschiedenis</li><li>journalistiek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. The Demon-Haunted World behandelt precies het denkpatroon van anomaliestapeling waarop dit boek drijft.</li>
+          <li value="562"><a href="562.html">Public Opinion</a>. Public Opinion verklaart hoe pseudo-omgevingen van beelden en verhalen zich losmaken van de gebeurtenis zelf.</li>
+          <li value="566"><a href="566.html">Manufacturing Consent</a>. Manufacturing Consent laat zien dat wantrouwen tegen officiële lezingen ook zonder moordcomplot te onderbouwen valt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

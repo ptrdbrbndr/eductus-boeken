@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Search for the "Manchurian Candidate" &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Marks stelt dat de CIA tussen 1950 en het begin van de jaren zeventig een omvangrijk, geheim onderzoeksprogramma naar gedragsbeheersing heeft gedraaid,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-665">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">665 &middot; Geschiedenis en samenleving</p>
+    <h1>The Search for the "Manchurian Candidate"</h1>
+    <p class="lede">John Marks, 1979</p>
+    <p class="stats">
+      <span><b>1372</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="665"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Marks stelt dat de CIA tussen 1950 en het begin van de jaren zeventig een omvangrijk, geheim onderzoeksprogramma naar gedragsbeheersing heeft gedraaid, dat universiteiten, ziekenhuizen en gevangenissen via dekmantels inschakelde en daarbij stelselmatig experimenteerde op mensen die van niets wisten. De drijfveer was angst voor communistische 'hersenspoeling', de oogst was mager: geen programmeerbare agenten, wel beschadigde proefpersonen en een dienst die de eigen sporen uitwiste. Het boek wil laten zien wat er gebeurt wanneer een staat wetenschap in het geheim en zonder toestemming op burgers loslaat.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Herkomst: waarheidsserum en hersenspoelingsangst</h3>
+      <p>Marks begint bij de Tweede Wereldoorlog, toen de OSS met marihuana-extract naar een waarheidsserum zocht, en bij de schok van de vroege Koude Oorlog: de schijnbekentenis van kardinaal Mindszenty in 1949 en Amerikaanse krijgsgevangenen die in Korea propaganda voorlazen. De CIA vreesde dat het Oostblok technieken voor gedachtenbeheersing bezat en wilde die voor zijn én tegen zich kunnen inzetten. In 1950 startte project BLUEBIRD, in 1951 omgedoopt tot ARTICHOKE, gericht op verhoortechnieken met drugs, hypnose en elektroshock.</p>
+      <p>In april 1953 gaf directeur Allen Dulles zijn akkoord voor MKULTRA, ondergebracht bij de Technical Services Staff onder chemicus Sidney Gottlieb. Het programma zou uitgroeien tot 149 deelprojecten bij tientallen universiteiten, ziekenhuizen en bedrijven, meestal via dekmantelstichtingen zodat onderzoekers en instellingen de echte opdrachtgever niet kenden.</p>
+      <h3>LSD en de dood van Frank Olson</h3>
+      <p>Het middengedeelte draait om LSD, door de dienst gezien als mogelijke sleutel tot de geest. Agenten testten het middel eerst op elkaar, daarna op nietsvermoedende buitenstaanders. In november 1953 kreeg legerbiochemicus Frank Olson tijdens een werkbijeenkomst bij Deep Creek Lake buiten zijn medeweten LSD in zijn drank, raakte in een psychische crisis en viel dagen later uit een raam op de tiende verdieping van het Statler Hotel in New York. Zijn gezin hoorde de ware toedracht pas in 1975, toen de Rockefeller Commission erover rapporteerde, en ontving een schadevergoeding en excuses van president Ford.</p>
+      <p>Nog rauwer is Operation Midnight Climax: narcoticarechercheur George Hunter White richtte voor de CIA appartementen in San Francisco en New York in waar prostituees klanten naartoe lokten, die vervolgens ongemerkt LSD kregen terwijl White achter doorkijkspiegels toekeek. Marks laat zien hoe dit jarenlang doorging zonder medische begeleiding of enige vorm van toestemming.</p>
+      <h3>Cameron en het Human Ecology-netwerk</h3>
+      <p>Een apart hoofdstuk betreft de Schots-Amerikaanse psychiater Ewen Cameron, destijds een van de meest gelauwerde psychiaters van Noord-Amerika, die in het Allan Memorial Institute in Montreal patiënten met relatief lichte klachten onderwierp aan 'depatterning': wekenlange slaapkuren met zware medicatie en elektroshocks in veelvouden van de gangbare sterkte, gevolgd door 'psychic driving', het eindeloos afspelen van bandopnamen om de leeggemaakte geest opnieuw te beschrijven. De CIA financierde dit werk vanaf 1957 via deelproject 68. Patiënten verloren jaren aan herinneringen; genezen deed de methode niemand.</p>
+      <p>De financiering liep via de Society for the Investigation of Human Ecology, een door de dienst opgezette stichting die ook regulier gedragsonderzoek subsidieerde om als dekmantel geloofwaardig te blijven. Marks laat daarmee zien hoe diep de inlichtingenwereld en de naoorlogse gedragswetenschap verweven raakten, vaak zonder dat onderzoekers de herkomst van hun geld kenden.</p>
+      <h3>Hypnose, elektroden en de grenzen van programmering</h3>
+      <p>Het derde deel behandelt de meer exotische sporen: hypnose-experimenten waarin proefpersonen tot schijnbaar tegennatuurlijke handelingen werden bewogen, onderzoek naar elektrostimulatie van dierenhersenen, zintuiglijke deprivatie en de persoonlijkheidstypologie van CIA-psycholoog John Gittinger, wiens Personality Assessment System werd gebruikt om kandidaten voor rekrutering en manipulatie door te lichten. Steeds stuit de dienst op dezelfde grens: mensen zijn wel te ontregelen en te breken, maar niet betrouwbaar te programmeren.</p>
+      <p>Marks concludeert dat de gezochte 'Manchurian candidate', genoemd naar de romanfiguur van Richard Condon, nooit is gerealiseerd. Wat het programma opleverde waren verhoor- en destabilisatietechnieken, een gifarsenaal en een cultuur waarin de vraag naar toestemming eenvoudig niet gesteld werd. Rond 1963 velde de eigen inspecteur-generaal al een vernietigend oordeel; de activiteiten liepen onder de naam MKSEARCH nog door tot in de vroege jaren zeventig.</p>
+      <h3>Hoe het boek er kwam</h3>
+      <p>De reconstructie zelf is onderdeel van het verhaal. In 1973 lieten CIA-directeur Richard Helms en Gottlieb de MKULTRA-archieven vernietigen. Wat bewaard bleef, waren zeven dozen financiële stukken die verkeerd waren gearchiveerd. Marks, oud-medewerker van het inlichtingenbureau van het State Department en met Victor Marchetti auteur van <i>The CIA and the Cult of Intelligence</i> (1974), kreeg deze ongeveer 16.000 pagina's in 1977 los via de Freedom of Information Act, na jaren procederen. De vondst leidde tot Senaatshoorzittingen onder Edward Kennedy en uiteindelijk tot schadeclaims van slachtoffers, onder wie patiënten van Cameron.</p>
+      <p>Marks vulde de papieren aan met honderden interviews met betrokken wetenschappers en oud-agenten. Het boek uit 1979 is daarmee de eerste samenhangende geschiedenis van het programma en de bron waarop vrijwel alle latere literatuur voortbouwt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">MKULTRA</td><td>Het in 1953 gestarte koepelprogramma van de CIA voor onderzoek naar gedragsbeheersing, met 149 deelprojecten bij externe instellingen.</td></tr>
+          <tr><td class="term">ARTICHOKE</td><td>Voorloper van MKULTRA, gericht op verhoormethoden met drugs, hypnose en dwang, voortgekomen uit project BLUEBIRD.</td></tr>
+          <tr><td class="term">Manchurian candidate</td><td>Aan Richard Condons roman ontleende aanduiding voor een geprogrammeerde moordenaar; het nooit bereikte einddoel dat het onderzoek zijn naam gaf.</td></tr>
+          <tr><td class="term">depatterning</td><td>Camerons methode om de persoonlijkheid te wissen met slaapkuren en extreem frequente elektroshocks.</td></tr>
+          <tr><td class="term">psychic driving</td><td>Camerons techniek om patiënten dagenlang dezelfde bandopnamen te laten horen om de 'gewiste' geest opnieuw te vullen.</td></tr>
+          <tr><td class="term">Operation Midnight Climax</td><td>CIA-opstelling waarin prostituees klanten naar afluisterappartementen lokten waar hun ongemerkt LSD werd toegediend.</td></tr>
+          <tr><td class="term">Human Ecology Fund</td><td>Dekmantelstichting waarmee de CIA gedragsonderzoek financierde zonder dat onderzoekers de opdrachtgever kenden.</td></tr>
+          <tr><td class="term">MKSEARCH</td><td>Het vervolgprogramma waaronder een deel van het MKULTRA-werk tot in de vroege jaren zeventig doorliep.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De bewijsvoering is voor onderzoeksjournalistiek ongewoon hard: het boek rust op interne CIA-stukken, geldstromen, memoranda en inspectierapporten, verkregen via de rechter, aangevuld met interviews met betrokkenen en met de bevindingen van de Rockefeller Commission (1975), het Church Committee (1976) en de Kennedy-hoorzittingen (1977). Namen, data en bedragen zijn per geval te herleiden; de kerngebeurtenissen, waaronder de zaak-Olson en de financiering van Cameron, zijn later door rechtszaken en vrijgegeven archieven bevestigd.</p>
+      <p>De begrenzing van dat bewijs is even feitelijk: omdat de inhoudelijke archieven in 1973 zijn vernietigd, steunt de reconstructie op boekhouding en geheugen. Over de operationele toepassing van de technieken, wat er in het veld daadwerkelijk mee is gedaan, kan Marks vaak alleen vaststellen dat documenten ontbreken. Latere geschiedschrijving, zoals Stephen Kinzers biografie van Gottlieb uit 2019 en de vrijgave van aanvullende stukken, heeft het beeld verdiept maar niet wezenlijk gecorrigeerd, wat voor de degelijkheid van het oorspronkelijke werk pleit.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De beperkingen van het boek vloeien grotendeels uit het bronmateriaal voort. Waar documenten ontbreken, moet Marks leunen op anonieme oud-agenten, en bij onderwerpen als hypnose is de grens tussen wat de dienst probeerde en wat zij bereikte niet altijd scherp te trekken; een enkele passage laat meer ruimte voor spectaculaire lezing dan het bewijs draagt. Ook is het boek geschiedenis tot 1979: over latere programma's of over wat buiten de gevonden dozen viel, zegt het per definitie niets, en die stilte is in complotkringen gretig ingevuld met claims die het boek zelf niet doet.</p>
+      <p>Daarnaast is het perspectief dat van de speurder: de institutionele analyse, hoe kon dit binnen een democratische rechtsstaat decennia doorgaan en wat betekent dat voor toezicht op diensten, blijft beperkt tot de epiloog. De medisch-ethische verwerking, met name voor de Canadese patiënten van Cameron, kwam pas na het boek op gang. Als geschiedschrijving staat het werk niettemin sterk: het wordt in de vakliteratuur als betrouwbaar en eerder terughoudend dan overtrokken aangehaald, en het onderscheidt zich juist door te benadrukken wat er niet is gelukt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik het boek als ijkpunt bij hedendaagse verhalen over gedachtenbeheersing: wat is gedocumenteerd, en waar begint de speculatie.</li>
+        <li>Let bij onderzoeksfinanciering op de herkomst van geld; het Human Ecology-mechanisme laat zien hoe een geldschieter een heel vakgebied ongemerkt kan sturen.</li>
+        <li>Weeg bij beroepen op staatsgeheim het precedent mee dat archieven ook vernietigd worden om verantwoording te ontlopen.</li>
+        <li>Behandel geïnformeerde toestemming als harde grens, ook wanneer het doel als staatsbelang wordt gepresenteerd.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Search for the "Manchurian Candidate": The CIA and Mind Control</i> (Times Books, New York, 1979, 242 blz.; paperback W.W. Norton, 1991, met ondertitel <i>The Secret History of the Behavioral Sciences</i>, ISBN 9780393307948). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl, die wel een Engelstalige pocketuitgave (Dell, 1988) vermeldt; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Standaardwerk over de geheime gedragsexperimenten van de CIA, geschreven door oud-inlichtingenanalist John Marks op basis van zo'n 16.000 pagina's documenten die hij via de Freedom of Information Act loswrikte. Marks reconstrueert hoe de dienst vanaf 1950 onder namen als BLUEBIRD, ARTICHOKE en MKULTRA zocht naar middelen om mensen te ondervragen, te programmeren en te breken: LSD-proeven op nietsvermoedende burgers, de dood van legerwetenschapper Frank Olson, bordelen als proefopstelling in Operation Midnight Climax en de verwoestende 'depatterning'-behandelingen van psychiater Ewen Cameron in Montreal.</p><p>De slotsom is nuchter: een echte 'Manchurian candidate', een geprogrammeerde moordenaar, heeft de CIA nooit weten te maken, maar onderweg werden proefpersonen zonder medeweten of instemming beschadigd. Gedocumenteerde geschiedschrijving, met als erkende beperking dat de dienst het meeste archief in 1973 liet vernietigen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>geheime diensten</li><li>geschiedenis</li><li>onderzoeksjournalistiek</li><li>ethiek</li><li>psychologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="384"><a href="384.html">The Rape of the Mind</a>. The Rape of the Mind is de tijdgenoot: Meerloo beschrijft in 1956 de hersenspoelingsangst die het CIA-programma in gang zette.</li>
+          <li value="215"><a href="215.html">Obedience to Authority</a>. Obedience to Authority toont langs experimentele weg hetzelfde mechanisme dat de uitvoerders van MKULTRA gaande hield: gewone mensen die bevelen volgen.</li>
+          <li value="275"><a href="275.html">How to Change Your Mind</a>. How to Change Your Mind vertelt hoe hetzelfde middel, LSD, na de geheime dienstjaren opnieuw onderwerp van open wetenschappelijk onderzoek werd.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
