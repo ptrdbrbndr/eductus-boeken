@@ -1,6 +1,7 @@
 /**
  * Bouwt index.html en boekenlijst.md uit data/boeken-*.json.
- * Gebruik: node scripts/build.mjs [--datum "29 juli 2026"]
+ * Gebruik: node scripts/build.mjs [--datum "21 augustus 2026"]
+ * Zonder --datum wordt de datum van vandaag gebruikt.
  */
 import { readFileSync, writeFileSync, readdirSync, mkdirSync } from "node:fs";
 import { join, dirname } from "node:path";
@@ -11,7 +12,8 @@ const lees = p => readFileSync(join(root, p), "utf8");
 const leesJson = p => JSON.parse(lees(p));
 
 const datumArg = process.argv.indexOf("--datum");
-const DATUM = datumArg > -1 ? process.argv[datumArg + 1] : "29 juli 2026";
+const vandaag = new Date().toLocaleDateString("nl-NL", { day: "numeric", month: "long", year: "numeric" });
+const DATUM = datumArg > -1 ? process.argv[datumArg + 1] : vandaag;
 
 /* ---------- inlezen ---------- */
 const bestanden = readdirSync(join(root, "data"))
