@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Road to Eleusis: Unveiling the Secret of the Mysteries &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De drie auteurs stellen dat de kykeon, de gerstedrank die inwijdelingen in Eleusis dronken voordat zij de nacht in het Telesterion doorbrachten, een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-765">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">765 &middot; Filosofie en mystiek</p>
+    <h1>The Road to Eleusis: Unveiling the Secret of the Mysteries</h1>
+    <p class="lede">R. Gordon Wasson, Albert Hofmann en Carl A.P. Ruck, 1978</p>
+    <p class="stats">
+      <span><b>2015</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="765"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De drie auteurs stellen dat de kykeon, de gerstedrank die inwijdelingen in Eleusis dronken voordat zij de nacht in het Telesterion doorbrachten, een psychoactieve stof uit moederkoren bevatte, en dat de visioenen die Griekse bronnen aan die nacht toeschrijven daarom een farmacologische oorzaak hadden. Wasson levert het cultuurhistorische kader, Hofmann de scheikundige haalbaarheid, Ruck de filologische steun. Daarmee keren zij de gangbare verklaring om: waar oudheidkundigen het tweeduizend jaar volgehouden zwijgen van de ingewijden aan een religieus taboe toeschrijven, zoeken deze auteurs de oorzaak in een ervaring die zonder middel niet te herhalen viel en die daarom ook niet in woorden was door te geven.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Drie stemmen in één boekje</h3>
+      <p>Het boek bestaat uit drie zelfstandige opstellen met een gezamenlijke conclusie. Wasson opent met <i>The Wasson Road to Eleusis</i>, een verhalende inleiding waarin hij een Athener op weg naar de inwijding volgt en zijn eigen route naar de vraagstelling beschrijft. Hofmann volgt met <i>A Challenging Question and My Answer</i>, waarin hij Wassons vraag beantwoordt of de priesters van Eleusis technisch in staat waren een werkzame stof uit moederkoren te halen. Ruck sluit af met <i>Solving the Eleusinian Mystery</i>, plus een reeks documenten en losse gegevens.</p>
+      <p>Daarnaast bevat de uitgave een vertaling van de Homerische hymne aan Demeter door Danny Staples en veertien platen. De opzet met drie auteurs is geen toevalligheid, want de these hangt op de aansluiting tussen de drie vakgebieden: valt de scheikundige schakel weg, dan blijft er een literaire speculatie over.</p>
+      <h3>Wie Wasson was en waarom hij dit vroeg</h3>
+      <p>Wasson (1898-1986) was vicepresident bij J.P. Morgan en bedreef daarnaast wat hij zelf etnomycologie noemde: de studie van de plaats van paddenstoelen in cultuur en religie. In 1955 nam hij in Huautla de Jiménez in Mexico deel aan een nachtelijke ceremonie van de Mazateekse genezeres María Sabina met psilocybinepaddenstoelen, en zijn verslag daarvan in het tijdschrift Life uit 1957 maakte die praktijk in het Westen bekend. In 1968 verscheen <i>Soma: Divine Mushroom of Immortality</i>, waarin hij de soma uit de Rigveda met de vliegenzwam vereenzelvigde.</p>
+      <p>Uit die reeks komt de vraag naar Eleusis logisch voort. Wasson meende dat de ontmoeting met werkzame planten aan de wieg van religieuze ervaring staat, en zijn nacht in Mexico is voor hem het model geweest: een gezamenlijk gedronken middel, visioenen, en achteraf de onmacht om de ervaring in woorden te vangen.</p>
+      <h3>Wat er over de rite bekend is</h3>
+      <p>De mysteriën van Eleusis draaiden om Demeter en haar dochter Persephone, geroofd door Hades en jaarlijks terugkerend. De Homerische hymne aan Demeter vertelt hoe de rouwende godin in Eleusis onderdak vindt en weigert te eten of te drinken tot haar een mengsel wordt aangeboden van gerstemeel, water en polei, een muntsoort die in het Grieks glechon heet. Dat mengsel is de kykeon, en dezelfde drank werd door de inwijdelingen genomen na een vastenperiode en een tocht van ruim twintig kilometer over de Heilige Weg van Athene naar Eleusis.</p>
+      <p>De rite kende kleine mysteriën in het voorjaar bij Agrai en grote mysteriën in de maand Boedromion, ruwweg september en oktober. Het hoogtepunt vond plaats in het Telesterion, een grote zaal met banken langs de wanden, onder leiding van de hiërofant uit het geslacht der Eumolpiden. Wie was ingewijd mocht op straffe des doods niets prijsgeven over de epopteia, het aanschouwen. In 415 v.Chr. werd Alcibiades met anderen aangeklaagd omdat hij de mysteriën in privéhuizen zou hebben nagespeeld, wat aantoont dat de handeling buiten het heiligdom herhaalbaar was.</p>
+      <p>Aristoteles vatte de rite samen als iets dat ondergaan werd in plaats van geleerd. Antieke getuigen spreken van angst, beven, zweten en daarna een groot licht. Wat er precies gebeurde is nooit opgeschreven, en juist dat volgehouden zwijgen van vele duizenden ingewijden over bijna tweeduizend jaar vormt het vertrekpunt van de auteurs.</p>
+      <h3>Het scheikundige antwoord van Hofmann</h3>
+      <p>Wasson legde Hofmann de vraag voor of de Grieken uit een schimmel een werkzame stof hadden kunnen isoleren die vergelijkbaar is met psilocybine of LSD. Hofmann wees op Claviceps purpurea, het moederkoren dat op gerst en rogge groeit, en op het gegeven dat de Rarische vlakte pal naast Eleusis in de oudheid als graanland gold. Het alkaloïdenmengsel van moederkoren bevat vaatvernauwende en giftige verbindingen als ergotamine en ergotoxine die niet in water oplossen, en daarnaast wateroplosbare verbindingen als ergonovine, ook ergometrine genoemd, en ergine, oftewel lysergzuuramide.</p>
+      <p>Daarmee is een eenvoudige scheiding denkbaar: wie het gemalen moederkoren in water laat trekken en de vaste rest weggooit, houdt de wateroplosbare fractie over en laat het merendeel van de giftige stoffen achter. Hofmann meldt dat hij ergonovine op zichzelf beproefde en er een psychische werking bij vaststelde. Als tweede mogelijkheid noemde hij Claviceps paspali, een moederkoornsoort op wilde grassen, waarvan het alkaloïdenpatroon dichter bij lysergzuuramide ligt.</p>
+      <p>Hofmann had het gezag om dit te zeggen. Hij maakte LSD-25 in 1938 bij Sandoz, ontdekte in 1943 de werking, isoleerde in 1958 psilocybine uit Psilocybe mexicana en toonde in 1960 aan dat de Mexicaanse ololiuqui-zaden lysergzuuramide bevatten. Die laatste vondst steunt de these, want zij bewees dat een van nature voorkomend lysergzuuramide in een rituele context werd gebruikt.</p>
+      <h3>Wat Ruck uit de teksten haalt</h3>
+      <p>Ruck, classicus aan Boston University, verzorgt de filologische kant. Hij wijst op de samenstelling van de kykeon, op het feit dat het om een mengsel gaat waarvan de bestanddelen zorgvuldig zijn overgeleverd, en op de Griekse aandacht voor graanbrand, in het Grieks erysibe, die tot cultische maatregelen leidde. Hij leest de mythologische stof rond Demeter als een verhaal over de omgang met graan en met datgene wat op graan groeit, en hij plaatst de Griekse voorkeur voor het mengen van dranken in het licht van een farmacologische praktijk.</p>
+      <p>Ook het schandaal van 415 v.Chr. speelt in zijn betoog een rol: als de mysteriën in een huiskamer nagespeeld konden worden, dan zat de werking blijkbaar in iets meeneembaars. Ruck heeft deze lijn na 1978 uitgebreid naar andere Griekse en later ook christelijke riten, wat de ontvangst van het oorspronkelijke boek geen goed heeft gedaan.</p>
+      <h3>Wat er sinds 1978 bij is gekomen</h3>
+      <p>Rond 2000 rapporteerde de Spaanse archeobotanicus Juan Juan-Tresserras resten van moederkoren in een rituele vaas op de vindplaats Mas Castellar de Pontós bij Girona, samen met sporen van bier en gist, en daarnaast in het tandsteen van een begraven man. De plaats is Iberisch, met Griekse contacten via de nabije handelskolonie Emporion, en er zijn aanwijzingen voor een cultus rond de beide Eleusinische godinnen. Dat is de dichtstbijzijnde materiële aanwijzing die bestaat, en zij komt niet uit Eleusis.</p>
+      <p>In februari 2026 publiceerde Scientific Reports een scheikundig onderzoek waarin gemalen moederkoren werd gekookt in loog gemaakt van houtas, bij verschillende zuurgraden. Onder de gunstigste omstandigheden braken de giftige ergopeptiden volledig af terwijl lysergzuuramide en iso-lysergzuuramide ontstonden. Dat is een haalbaarheidsproef met oude middelen, geen vondst uit een heiligdom. De studie laat zien dat het recept technisch kon; zij zegt niets over de vraag of het in Eleusis is toegepast.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">kykeon</td><td>De drank van gerstemeel, water en polei die volgens de Homerische hymne aan Demeter werd aangeboden en die de inwijdelingen na het vasten dronken.</td></tr>
+          <tr><td class="term">Telesterion</td><td>De grote inwijdingszaal in het heiligdom van Eleusis waar de nachtelijke handeling plaatsvond.</td></tr>
+          <tr><td class="term">epopteia</td><td>Het aanschouwen, de hoogste graad van inwijding, waarover geen ingewijde iets mocht prijsgeven.</td></tr>
+          <tr><td class="term">hiërofant</td><td>De priester die de rite leidde en de heilige voorwerpen toonde, geleverd door het geslacht der Eumolpiden.</td></tr>
+          <tr><td class="term">moederkoren</td><td>De schimmel Claviceps purpurea die op graanaren harde donkere sclerotia vormt en alkaloïden bevat die verwant zijn aan lysergzuur.</td></tr>
+          <tr><td class="term">ergonovine</td><td>Een wateroplosbaar lysergzuuramide uit moederkoren, ook ergometrine genoemd, dat Hofmann als werkzaam bestanddeel van de kykeon voorstelde.</td></tr>
+          <tr><td class="term">Rarische vlakte</td><td>Het graanland naast Eleusis dat in de mythe als eerste akker geldt en waar volgens Hofmann het moederkoren vandaan kwam.</td></tr>
+          <tr><td class="term">entheogeen</td><td>Term voor een stof die het goddelijke in iemand opwekt, in 1979 voorgesteld door een groep waartoe Ruck en Wasson behoorden en dus van net na dit boek.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing bestaat uit drie ongelijksoortige delen. De scheikundige schakel is de sterkste: moederkoren bevat inderdaad wateroplosbare lysergzuurverbindingen naast niet-wateroplosbare giftige verbindingen, en een scheiding met water is denkbaar. Hofmann sprak hier vanuit een positie die moeilijk te betwisten valt, want hij had de betrokken stoffen zelf beschreven. Het onderzoek in Scientific Reports van februari 2026 heeft die schakel verstevigd door met houtaslogen te laten zien dat de giftige ergopeptiden afbreken terwijl lysergzuuramide ontstaat.</p>
+      <p>De historische schakel is zwakker. Vast staat dat er een kykeon was, dat er gevast werd, dat er een nachtelijke handeling in het Telesterion plaatsvond en dat het geheim vrijwel volledig bewaard bleef. Wat er op de avond van de inwijding in de beker zat is niet vastgelegd, want geen enkele bron noemt een toevoeging. De auteurs leiden die toevoeging af uit de aard van de ervaring, wat een redenering van het gevolg naar de oorzaak is.</p>
+      <p>Materieel bewijs uit Eleusis zelf ontbreekt. Er is nooit een systematische analyse van vaatresten uit het heiligdom gepubliceerd. De dichtstbijzijnde vondst komt uit Mas Castellar de Pontós in Catalonië, gerapporteerd door één onderzoeker en niet in een tweede laboratorium herhaald. Die vondst toont aan dat moederkoren in een cultische context in de Griekse invloedssfeer voorkwam, en verder niets.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De zwaarste bedenking is methodisch. Het betoog is een keten van mogelijkheden waarvan elke schakel op zichzelf redelijk is, terwijl de keten als geheel niet sterker wordt dan het zwakste onderdeel. Dat de Grieken de scheiding hadden kunnen uitvoeren betekent niet dat zij haar hebben uitgevoerd, en dat een ervaring hevig was betekent niet dat er een middel aan te pas kwam. Vasten, slaapgebrek, een lange tocht, duisternis, geluid en plotseling vuurlicht zijn samen ruim voldoende om de overgeleverde reacties te verklaren, zonder dat er een stof bij nodig is.</p>
+      <p>Classici hebben het boek overwegend afgewezen, zonder het te weerleggen. Het gangbare oordeel luidt dat de these onbewezen is en dat de filologische steun van Ruck de teksten meer laat zeggen dan er staat. Het probleem blijft dat het ontbreken van bewijs voor een geheime handeling iets anders is dan bewijs voor een geheim middel.</p>
+      <p>Op de details is ook het nodige aangemerkt. Hofmanns tweede kandidaat, Claviceps paspali, is later als bron uitgesloten omdat de grassoorten waarop die schimmel groeit pas in de negentiende eeuw in Europa ingeburgerd raakten. Verder is de dosering een open punt: moederkoren varieert sterk in alkaloïdengehalte, en een rite die jaarlijks honderden mensen tegelijk bediende zou een betrouwbaarheid vragen die met natuurlijk materiaal moeilijk haalbaar is. Ergotisme, de vergiftiging met stuipen en versterf die in de middeleeuwen hele streken trof, laat zien wat de prijs van een misser was.</p>
+      <p>Wat het boek niet doet is de eigen these toetsbaar maken. Er wordt geen voorspelling geformuleerd waarvan de uitkomst de zaak zou beslissen, en er wordt niet aangedrongen op residuonderzoek in Eleusis. Daarnaast is de these in later populair werk uitgebreid tot een verklaring van vrijwel de hele westerse religieuze geschiedenis, onder meer in <i>The Immortality Key</i> van Brian Muraresku uit 2020. Die uitbreiding rust op dunner materiaal en heeft de oorspronkelijke, veel bescheidener hypothese in een slechter daglicht gesteld dan zij verdient.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het boek als een hypothese met een goed scheikundig hoofdstuk en een zwakke historische bewijsvoering, en houd die twee delen uit elkaar.</li>
+        <li>Let bij dit soort betogen op het verschil tussen kon hebben gebeurd en is gebeurd; de meeste overtuigingskracht zit in het eerste, de meeste conclusies staan in het tweede.</li>
+        <li>Controleer bij verwijzingen naar archeochemische steun altijd de vindplaats: Mas Castellar de Pontós ligt in Catalonië en niet in Attica.</li>
+        <li>Gebruik de Homerische hymne aan Demeter zelf als tegenwicht; die tekst is kort, staat in de uitgave afgedrukt en laat zien hoeveel er wel en niet in staat.</li>
+        <li>Neem het onderzoek uit 2026 voor wat het is: een proef die laat zien dat het recept met oude middelen uitvoerbaar was, zonder een uitspraak over Eleusis.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Road to Eleusis: Unveiling the Secret of the Mysteries</i> (Harcourt Brace Jovanovich, New York en Londen, 1978, 126 blz. met 14 platen). Latere uitgaven: Hermes Press, 1998, jubileumeditie na twintig jaar, ISBN 0-915148-20-X, en North Atlantic Books, 2008, met een voorwoord van Huston Smith en een nawoord van Peter Webster, ISBN 9781556437526. In de catalogus van bibliotheek.nl is geen Nederlandse vertaling te vinden; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Drie auteurs met drie vakgebieden leggen in dit dunne boek één hypothese op tafel: de kykeon, de gerstedrank die inwijdelingen in Eleusis dronken voordat zij de nacht in het Telesterion doorbrachten, bevatte een psychoactieve stof uit moederkoren. R. Gordon Wasson, bankier bij J.P. Morgan en amateur-etnomycoloog, schetst de weg die hem naar die vraag bracht. Albert Hofmann, de scheikundige die in 1938 LSD-25 maakte en in 1943 de werking ervan ontdekte, beantwoordt de vraag of Grieken uit de oudheid een werkzame stof uit moederkoren hadden kunnen winnen. De classicus Carl A.P. Ruck zoekt de steun in de Griekse teksten. Het geheel telt 126 bladzijden en bevat daarnaast een vertaling van de Homerische hymne aan Demeter en een documentatiebijlage.</p><p>Het boek is invloedrijk geworden buiten de klassieke oudheidkunde en is daarbinnen grotendeels afgewezen. Wat de auteurs aandragen is een keten van mogelijkheden: moederkoren groeide in de buurt, de scheikunde laat zich denken, de teksten laten zich zo lezen. Materieel bewijs uit Eleusis zelf ontbreekt tot op heden. Latere vondsten en een scheikundig onderzoek uit 2026 hebben de haalbaarheid van het recept verstevigd zonder de zaak te beslissen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>eleusis</li><li>mysteriecultus</li><li>moederkoren</li><li>psychedelica</li><li>oudheid</li><li>etnobotanie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="275"><a href="275.html">How to Change Your Mind</a>. How to Change Your Mind behandelt dezelfde stoffen in de moderne tijd en laat zien hoe onderzoek naar psychedelica wel toetsbaar wordt opgezet.</li>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. The Demon-Haunted World levert de maatstaf waarmee een keten van mogelijkheden als deze te beoordelen valt.</li>
+          <li value="410"><a href="410.html">the hero with a thousand faces</a>. the hero with a thousand faces geeft de andere verklaringsrichting: de mysteriën als verhaalstructuur en inwijdingspatroon, zonder farmacologie.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

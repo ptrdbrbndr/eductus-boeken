@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Art of Memory &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Yates stelt dat de geheugenkunst, het stelsel waarin men gegevens onthoudt door ze als opvallende beelden in de opeenvolgende ruimten van een denkbeeldig…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-766">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">766 &middot; Geschiedenis en samenleving</p>
+    <h1>The Art of Memory</h1>
+    <p class="lede">Frances Yates, 1966</p>
+    <p class="stats">
+      <span><b>1788</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="766"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Yates stelt dat de geheugenkunst, het stelsel waarin men gegevens onthoudt door ze als opvallende beelden in de opeenvolgende ruimten van een denkbeeldig gebouw te plaatsen, geen bijkomstige retorische truc is geweest maar een doorlopende draad in de Europese cultuurgeschiedenis. In de oudheid diende zij de redenaar, in de middeleeuwen werd zij tot een onderdeel van de deugd voorzichtigheid en daarmee tot een vorm van zedelijke vorming, en in de renaissance groeide zij uit tot een poging om de hele kosmos in het geheugen af te beelden. Die laatste stap verbindt zij met het hermetisme en met de vroege pogingen om kennis stelselmatig te ordenen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Simonides en de drie Latijnse bronnen</h3>
+      <p>Het boek begint bij de stichtingsanekdote die Cicero overlevert. De dichter Simonides van Keos droeg voor tijdens een banket bij Skopas in Thessalië, werd naar buiten geroepen en zag daarna het dak instorten. De lijken waren onherkenbaar verminkt, maar Simonides kon iedereen aanwijzen omdat hij zich herinnerde waar aan tafel elke gast had gezeten. Uit die ervaring, zo luidt het verhaal, leidde hij de regel af dat ordelijke plaatsing het onthouden mogelijk maakt.</p>
+      <p>Yates werkt vervolgens de drie Latijnse teksten uit waarin de techniek is overgeleverd: de anonieme <i>Rhetorica ad Herennium</i> uit de eerste eeuw v.Chr., die als enige de regels volledig geeft, Cicero's <i>De oratore</i> en Quintilianus' <i>Institutio oratoria</i>. De kern bestaat uit loci, de plaatsen in een goed gekend gebouw die men in vaste volgorde afloopt, en imagines, de beelden die men daarin neerzet. De ad Herennium beveelt imagines agentes aan, beelden die opvallen door beweging, schoonheid of afzichtelijkheid, omdat gewone dingen niet blijven hangen.</p>
+      <h3>Van redekunst naar deugd</h3>
+      <p>In de middeleeuwen verdwijnt de klassieke redenaar en blijft de techniek over in een andere omgeving. Albertus Magnus en Thomas van Aquino behandelen het kunstmatige geheugen in hun commentaren en plaatsen het onder de deugd voorzichtigheid, waarvan Cicero het geheugen als deel had genoemd. Daarmee verschuift het doel: onthouden gaat niet langer over een pleidooi voor de rechtbank maar over het paraat houden van deugden, ondeugden en de laatste dingen.</p>
+      <p>Yates verbindt die verschuiving met de beeldcultuur van de late middeleeuwen, met voorstellingen van hemel en hel en met geschilderde reeksen van deugden en ondeugden. Zij behandelt daarnaast een reeks laatmiddeleeuwse geheugentractaten die de regels van de ad Herennium doorgeven en aanvullen. De redenering is dat het opgeslagen beeldmateriaal van de middeleeuwse cultuur mede door de geheugenkunst gevormd is.</p>
+      <h3>Het geheugentheater van Camillo</h3>
+      <p>Het middelste deel van het boek draait om Giulio Camillo Delminio, die in de eerste helft van de zestiende eeuw in Venetië en later in Frankrijk een houten bouwsel liet maken waarin een toeschouwer op het toneel stond en de zaal in keek. De oplopende rangen waren beladen met beelden en laden vol teksten, geordend naar zeven planeten en zeven grondslagen die Camillo aan de zeven zuilen van het huis van Salomo ontleende. Frans I van Frankrijk stak er geld in.</p>
+      <p>Yates reconstrueert het theater uit brieven van tijdgenoten, onder wie Viglius Zuichemus die er Erasmus over schreef, en uit het postuum uitgegeven <i>L'Idea del Theatro</i> van 1550. Haar punt is de omkering die hier plaatsvindt. Waar de klassieke geheugenkunst een gebouw gebruikte om een tekst in op te bergen, wordt het gebouw bij Camillo zelf de inhoud: een model van de wereldorde, waarin de bezitter met één blik het geheel zou overzien.</p>
+      <h3>Llull, Bruno en de magische wending</h3>
+      <p>Naast de klassieke lijn loopt een tweede traditie: de ars van Ramon Llull uit de dertiende eeuw, met draaiende schijven en letters die goddelijke eigenschappen aanduiden en die in combinatie nieuwe uitspraken opleveren. Llull werkt niet met opvallende beelden maar met een logische figuur, en juist die combinatorische inslag maakt hem later aantrekkelijk voor wie kennis wil voortbrengen in plaats van bewaren.</p>
+      <p>Giordano Bruno brengt beide lijnen samen. Yates leest zijn Latijnse geheugengeschriften, met name <i>De umbris idearum</i> uit 1582 en <i>Sigillus sigillorum</i> uit 1583, teksten die tot dan als duister terzijde lagen. Bruno vult zijn geheugenrad met beelden van de decanen en van sterrenbeelden en bedoelt daarmee meer dan een opslagtechniek: door de hemelse orde in het geheugen af te drukken zou de beoefenaar innerlijk aan die orde deel krijgen. Yates plaatst dat programma in het hermetisme dat zij eerder in <i>Giordano Bruno and the Hermetic Tradition</i> uit 1964 had beschreven.</p>
+      <h3>Ramus en het conflict over het beeld</h3>
+      <p>Tegenover Bruno zet Yates Petrus Ramus, die de geheugenkunst met beelden afschaft en vervangt door dialectische ordening: stof indelen in tweedelingen, van algemeen naar bijzonder, en die indeling als schema onthouden. Dat sloot aan bij de protestantse afkeer van beelden en werd in Engeland breed onderwezen.</p>
+      <p>Het conflict tussen Bruno en de Ramisten in Oxford en Londen is voor Yates het scharnier van de zestiende eeuw. De ene partij wil de wereld in beelden in zich opnemen, de andere wil haar in schema's uiteenleggen. Beide streven naar overzicht over de gehele kennis, en beide leveren bouwstenen voor wat later methode gaat heten.</p>
+      <h3>Fludd en de weg naar de methode</h3>
+      <p>Het laatste deel behandelt Robert Fludd, wiens <i>Utriusque Cosmi Historia</i> uit 1617 en volgende jaren een geheugensysteem bevat dat op theaters is gebouwd. Yates betoogt dat Fludds houtsneden een werkelijk bestaand Londens theater weergeven en gebruikt ze voor een reconstructie van het Globe. Dat is het meest gewaagde onderdeel van het boek en zij geeft zelf aan dat het om een gissing gaat.</p>
+      <p>Zij besluit met de doorwerking bij Francis Bacon, Descartes en Leibniz. Leibniz kende de Lullische combinatoriek en zocht een tekenstelsel waarmee gedachten berekend konden worden; Yates ziet daar de geheugenkunst overgaan in iets anders. Haar slotgedachte luidt dat de zoektocht naar een volledig, geordend, in één blik te overzien beeld van de kennis van de geheugenkunst is overgegaan op de wetenschappelijke methode, waarna de oude techniek als curiositeit achterbleef.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">loci</td><td>De plaatsen in een goed gekend gebouw die men in vaste volgorde afloopt en waarin de te onthouden beelden worden gezet.</td></tr>
+          <tr><td class="term">imagines agentes</td><td>Werkzame beelden: opvallende, bewegende, mooie of afzichtelijke voorstellingen, omdat alledaagse beelden volgens de ad Herennium niet blijven hangen.</td></tr>
+          <tr><td class="term">ars memoriae</td><td>De kunstmatige geheugenkunst als vak, tegenover het natuurlijke geheugen waarmee iemand geboren wordt.</td></tr>
+          <tr><td class="term">Rhetorica ad Herennium</td><td>Het anonieme Latijnse handboek dat als enige klassieke tekst de volledige regels van de geheugenkunst overlevert.</td></tr>
+          <tr><td class="term">geheugentheater</td><td>Camillo's houten bouwsel waarin de toeschouwer op het toneel staat en de geordende beelden van de wereldorde overziet.</td></tr>
+          <tr><td class="term">ars combinatoria</td><td>De Lullische kunst waarin draaiende figuren met letters voor goddelijke eigenschappen nieuwe uitspraken voortbrengen.</td></tr>
+          <tr><td class="term">occult geheugen</td><td>Yates' aanduiding voor de renaissancevorm waarin het geheugenstelsel de hemelse orde afdrukt en zo werking op de beoefenaar zou hebben.</td></tr>
+          <tr><td class="term">ramisme</td><td>De methode van Petrus Ramus die beelden uitbant en de stof onthoudt via tweedelingen en schema's.</td></tr>
+          <tr><td class="term">hermetisme</td><td>Het complex van teksten toegeschreven aan Hermes Trismegistus dat in de renaissance voor oeroud werd gehouden en dat volgens Yates de renaissancegeheugenkunst haar inzet gaf.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op eerstehands werk met de bronnen. Yates werkte aan het Warburg Institute, dat over een bibliotheek beschikte die op beeldtradities was ingericht, en zij las de Latijnse geheugengeschriften van Bruno, de tractaten van laatmiddeleeuwse auteurs en de zeldzame drukken van Camillo en Fludd zelf. Waar zij een bouwsel reconstrueert, drukt zij de bronnen af of vat ze uitvoerig samen, zodat de lezer haar stappen kan nalopen.</p>
+      <p>De sterkte van het betoog verschilt per hoofdstuk. Voor de klassieke en middeleeuwse delen is de basis stevig, want de teksten liggen er en zeggen wat zij zegt. Voor Camillo is de basis dunner: het theater is nooit gevonden, de beschrijving komt uit brieven en uit een postume tekst. Voor Bruno leunt zij op eigen vertaling en uitleg van moeilijke Latijnse werken, waar interpretatieruimte groot is. Voor Fludd en het Globe is het openlijk een reconstructie.</p>
+      <p>Yates geeft haar voorgangers de ruimte. Zij verwijst naar <i>Clavis universalis</i> van Paolo Rossi uit 1960, dat hetzelfde terrein eerder in kaart had gebracht, en zij bouwt op haar eigen boek over Bruno uit 1964. De feitelijke gegevens die zij aandraagt zijn in latere vakliteratuur zelden weerlegd; de discussie gaat vrijwel altijd over de duiding.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar geldt niet dit boek alleen maar de stelling waar het deel van uitmaakt. Yates betoogde dat het hermetisme, en daarbinnen deze geheugenkunst, de aanloop vormde naar de wetenschappelijke omwenteling van de zeventiende eeuw. Historici van de wetenschap als Brian Vickers, Robert Westman en Charles Schmitt hebben die lijn afgewezen: de hermetische en de mathematisch-experimentele weg naar kennis lopen inhoudelijk uiteen, en de personen die Yates als schakel opvoert blijken bij nader inzien weinig door te geven. Wat overblijft is een boeiende parallelle traditie zonder aantoonbaar oorzakelijk verband.</p>
+      <p>Voor het middeleeuwse deel is Yates ingehaald door Mary Carruthers, die in <i>The Book of Memory</i> uit 1990 liet zien dat de geheugenkunst in kloosters en scholen vooral een ambacht van lezen, ordenen en zelf schrijven was. Carruthers verwijt Yates dat zij het middeleeuwse materiaal te veel door een renaissancebril leest en dat zij de techniek te sterk tot een onderwerp van occulte belangstelling maakt. Op dit punt geldt Yates niet meer als de eerst aangewezen bron.</p>
+      <p>De reconstructie van het Globe Theatre uit Fludds houtsneden is door theaterhistorici verworpen. De houtsneden blijken eerder ontleend aan een systeem van standaardvormen dan aan waarneming van een bestaand gebouw. Ook haar beeld van Bruno als in de eerste plaats hermetisch magiër is bijgesteld, onder meer door Hilary Gatti, die aantoonde dat Bruno's belangstelling voor de sterrenkunde van Copernicus en voor natuurfilosofie zelfstandig gewicht heeft.</p>
+      <p>Wat het boek niet doet is de techniek uitleggen als iets dat te beoefenen valt. Yates schrijft een geschiedenis, geeft geen oefeningen en toetst nergens of het stelsel werkt. Wie de geheugenpaleismethode wil leren, moet elders zijn. Dat is geen gebrek van het boek, wel een reden waarom veel latere verwijzingen ernaar berusten op iets dat er niet in staat.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees dit als geschiedschrijving van een techniek en niet als handleiding; oefenstof staat er niet in.</li>
+        <li>Houd de twee lagen van Yates uit elkaar: de beschrijving van teksten en bouwsels, die overeind staat, en de grote verklaring over hermetisme en wetenschap, die dat niet doet.</li>
+        <li>Neem bij het middeleeuwse hoofdstuk het werk van Mary Carruthers erbij, dat op dat punt het geldende beeld levert.</li>
+        <li>Gebruik het idee van de imagines agentes bij het maken van eigen aantekeningen: opvallende, ongewone voorstellingen blijven beter hangen dan neutrale.</li>
+        <li>Let bij de hoofdstukken over Camillo en Fludd op de zinnen waarin Yates zelf aangeeft te gissen; die grens is in latere navertellingen vaak verdwenen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Art of Memory</i> (Routledge &amp; Kegan Paul, Londen, 1966, ca. 400 blz.; latere edities bij University of Chicago Press, ISBN 9780226950013, en bij Pimlico/Bodley Head, ISBN 9781847922922). Er bestaat een Nederlandse vertaling: <i>De geheugenkunst</i> (Prometheus, vertaald door Jacob Groot, 460 blz., ISBN 9789035104280), in de catalogus van bibliotheek.nl opgenomen met jaartal 1988.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Academisch standaardwerk van de Britse historica Frances Yates (1899-1981), verbonden aan het Warburg Institute in Londen. Zij volgt de klassieke geheugenkunst, het onthouden door beelden in denkbeeldige plaatsen te zetten, van de Romeinse retorica via de middeleeuwse scholastiek naar de renaissance, waar de techniek versmelt met hermetische en magische denkbeelden. Onderweg komen het geheugentheater van Giulio Camillo in Venetië, de combinatorische kunst van Ramon Llull, de Latijnse geheugengeschriften van Giordano Bruno, het schemadenken van Petrus Ramus en de kosmische bouwsels van Robert Fludd aan bod. Yates werkte uit eerste hand met handschriften en zeldzame drukken en bracht materiaal boven water dat daarvoor nauwelijks was gelezen.</p><p>Het boek heeft een heel vakgebied geopend en is tegelijk het meest omstreden werk van een omstreden historica. De grote lijn, dat de geheugenkunst een doorlopende en onderschatte draad in het Europese denken vormt, houdt stand. De zwaardere claim, dat het hermetisme via deze weg aan de wieg van de moderne wetenschap stond, is door historici van de wetenschap grotendeels verworpen. Ook haar reconstructie van het Globe Theatre naar Fludd geldt inmiddels als achterhaald.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>geheugen</li><li>renaissance</li><li>retorica</li><li>hermetisme</li><li>ideeëngeschiedenis</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="81"><a href="81.html">Building a Second Brain</a>. Building a Second Brain behandelt dezelfde behoefte, een geordende buitenboordopslag van kennis, met de middelen van nu.</li>
+          <li value="175"><a href="175.html">Limitless</a>. Limitless leert de geheugenpaleismethode als praktische techniek, wat Yates uitdrukkelijk niet doet.</li>
+          <li value="269"><a href="269.html">The Story of Philosophy</a>. The Story of Philosophy geeft de bredere ideeëngeschiedenis waarbinnen de figuren uit Yates' renaissancehoofdstukken hun plaats krijgen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

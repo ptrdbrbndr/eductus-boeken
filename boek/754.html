@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mystiek &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Underhill betoogt dat mystiek te beschrijven valt als een geordend groeiproces van het bewustzijn en niet als een reeks losse buitengewone ervaringen. Wie…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-754">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">754 &middot; Filosofie en mystiek</p>
+    <h1>Mystiek</h1>
+    <p class="lede">Evelyn Underhill, 1911</p>
+    <p class="stats">
+      <span><b>1676</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="754"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Underhill betoogt dat mystiek te beschrijven valt als een geordend groeiproces van het bewustzijn en niet als een reeks losse buitengewone ervaringen. Wie de getuigenissen uit veertien eeuwen naast elkaar legt, ziet volgens haar telkens dezelfde vijf fasen terugkeren, in dezelfde volgorde en met dezelfde crises. Daaruit trekt zij een verstrekkende conclusie: de mysticus verkeert niet in een uitzonderingstoestand maar doorloopt in versterkte vorm wat in aanleg tot de mens behoort, en zijn getuigenis is daarom bruikbaar bewijsmateriaal over de werkelijkheid en niet louter over hemzelf. Mystiek noemt zij de kunst van de vereniging met de werkelijkheid, waarbij het gaat om liefde en niet om kennis.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het vertrekpunt</h3>
+      <p>Het eerste deel, dat zij het mystieke feit noemt, opent met de vraag hoe het bewustzijn de werkelijkheid benadert. Underhill zet drie houdingen naast elkaar: die van de natuurwetenschapper, die van de wijsgeer en die van de mysticus, en betoogt dat de laatste niet minder ernstig te nemen valt omdat zijn methode een andere is. Zij verwerpt daarbij zowel de opvatting dat mystieke verschijnselen op ziekte berusten als de opvatting dat zij zonder toetsing te aanvaarden zijn.</p>
+      <p>Zij komt tot vier kenmerken waaraan echte mystiek volgens haar herkenbaar is: zij is werkzaam en praktisch en geen theorie, zij is geheel gericht op het bovenzinnelijke, haar methode is liefde, en zij brengt een bepaalde omvorming van de persoon met zich mee. Daaraan voegt zij toe dat mystiek nooit uit is op eigen gewin.</p>
+      <h3>Mystiek naast vitalisme en psychologie</h3>
+      <p>Twee hoofdstukken plaatsen het onderwerp in de denkwereld van 1911. Underhill leest de levensdrang van Henri Bergson en de wijsbegeerte van Rudolf Eucken als bondgenoten, omdat beide de werkelijkheid als beweging opvatten waarin de mens kan meegroeien. In het hoofdstuk over psychologie gebruikt zij het toen gangbare model van een bewuste en een onderliggende laag van de geest, ontleend aan Frederic Myers en aan Franse psychologen van die periode.</p>
+      <p>Die keuze heeft gevolgen voor het hele boek. Zij verklaart met dat model waarom stemmen, gezichten en automatisch schrift optreden: het zijn volgens haar vertaalvormen waarmee de diepere laag zich aan het waakbewustzijn meedeelt. Dat maakt zulke verschijnselen tot begeleidende omstandigheden en niet tot de kern, en het is een van de redenen waarom haar boek in kerkelijke kring aanvaardbaar bleef.</p>
+      <h3>Godgeleerdheid, symbool en magie</h3>
+      <p>In het hoofdstuk over godgeleerdheid onderscheidt zij twee bewegingen die zij bij alle mystici terugvindt: de weg naar buiten en omhoog, waarin de werkelijkheid als volstrekt boven de mens verheven verschijnt, en de weg naar binnen, waarin zij in de ziel zelf gezocht wordt. De tradities verschillen volgens haar in nadruk, niet in richting.</p>
+      <p>Het hoofdstuk over symboliek behandelt de drie beelden waarin mystici hun weg vatten: de pelgrimstocht, het huwelijk en de omvorming van het onedele tot goud. Het hoofdstuk over magie is het scherpst. Underhill trekt daar een grens die zij overal aanhoudt: magie wil verwerven en macht uitoefenen, mystiek wil zich overgeven. Zij had zelf enige tijd belangstelling voor hermetische genootschappen, en dat verklaart de nauwkeurigheid waarmee zij het onderscheid maakt.</p>
+      <h3>De vijf fasen</h3>
+      <p>Het tweede deel beschrijft de weg zelf. Het ontwaken is de plotselinge omslag waarin een mens zich bewust wordt van een werkelijkheid die hij eerder niet opmerkte, vaak scherp gedateerd door de betrokkene zelf. De loutering volgt als pijnlijk gevolg: het besef van afstand leidt tot versobering, boete en het loslaten van bezit en aanzien. De verlichting brengt een langdurige toestand van helderheid en vreugde, met een sterk vermeerderd besef van de aanwezigheid van God in de wereld.</p>
+      <p>Daarna beschrijft zij de donkere nacht van de ziel, ontleend aan Johannes van het Kruis: het wegvallen van alle troost, waarin de verworven zekerheid weer verdwijnt en de mysticus zich verlaten weet. Underhill behandelt die fase als noodzakelijk en niet als terugval, omdat er volgens haar iets wordt afgebroken dat nog aan de persoon zelf toebehoorde. Het slot is het verenigde leven, dat zij nadrukkelijk niet als rust beschrijft: de mystici die haar overtuigen zijn juist degenen die daarna stichtten, schreven, hervormden en organiseerden.</p>
+      <h3>Tussenliggende hoofdstukken</h3>
+      <p>Tussen de fasen door behandelt zij afzonderlijke onderwerpen. Twee hoofdstukken gaan over inkeer, verdeeld in de oefening van de aandacht en de eigenlijke beschouwing, met beschrijvingen van de gebedsvormen die in de kloostertraditie zijn ontwikkeld. Een hoofdstuk gaat over stemmen en gezichten, een over vervoering en extase, waarbij zij lichamelijke verschijnselen nuchter behandelt en waarschuwt tegen de neiging ze als bewijs op te vatten.</p>
+      <p>Het boek sluit af met een historisch overzicht van de Europese mystiek als bijlage, dat als beknopte gids door de teksten dient. De opbouw maakt dat de lezer het werk zowel als betoog kan lezen als naslagwerk kan gebruiken.</p>
+      <h3>De schrijfster en het latere oordeel</h3>
+      <p>Underhill had geen theologische opleiding en werkte buiten de universiteit. Zij schreef het boek in haar midden dertig, na jaren van eigen zoeken. In 1921 kwam zij onder geestelijke leiding van Friedrich von Hügel te staan en verlegde haar aandacht naar het gewone kerkelijke leven, naar eredienst en naar het begeleiden van retraites. In het voorwoord bij de twaalfde druk van 1930 schreef zij zelf dat de studie van de mystiek sinds 1911 was veranderd en dat de wijsgerige lijst waarin zij haar onderwerp had gezet, niet meer voorop stond.</p>
+      <p>Die zelfcorrectie is het eerlijkste kompas bij het boek. Underhill zag later dat haar nadruk op de mysticus als uitzonderlijke figuur op gespannen voet stond met de gedachte dat heiligheid zich juist in gewone dienstbaarheid toont.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">mystiek</td><td>Door Underhill omschreven als de kunst van de vereniging met de werkelijkheid, een levenspraktijk die op liefde berust en niet op kennisverwerving.</td></tr>
+          <tr><td class="term">de mystieke weg</td><td>Het geordende verloop in vijf fasen dat zij bij uiteenlopende mystici meent te herkennen.</td></tr>
+          <tr><td class="term">ontwaken van het zelf</td><td>De eerste fase, waarin het besef van een omvattende werkelijkheid doorbreekt, meestal plotseling en scherp herinnerd.</td></tr>
+          <tr><td class="term">loutering</td><td>De tweede fase, waarin gehechtheden worden afgelegd omdat de afstand tot het geziene pijnlijk wordt.</td></tr>
+          <tr><td class="term">donkere nacht van de ziel</td><td>De fase waarin alle troost en zekerheid wegvallen, door haar aan Johannes van het Kruis ontleend en als noodzakelijke doorgang behandeld.</td></tr>
+          <tr><td class="term">verenigd leven</td><td>De slotfase, die zij niet als rust maar als vruchtbaarheid opvat: de mysticus wordt in de wereld werkzaam.</td></tr>
+          <tr><td class="term">magie tegenover mystiek</td><td>Haar scheidslijn tussen het willen verwerven van kennis en macht en het willen overgeven van het eigen ik.</td></tr>
+          <tr><td class="term">onderbewuste laag</td><td>Het psychologische model van haar tijd waarmee zij stemmen, gezichten en schriftverschijnselen als vertaalvormen verklaart.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing bestaat uit een grote hoeveelheid primaire teksten. Underhill citeert Plotinus, Augustinus, Ruusbroec, Eckhart, Suso, Angela van Foligno, Richard Rolle, Julian van Norwich, Catharina van Genua, Teresa van Ávila, Johannes van het Kruis, Jacob Böhme, Broeder Laurentius en de soefidichters, vaak in eigen vertaling. Dat materiaal is de blijvende waarde van het boek.</p>
+      <p>De redenering is vergelijkend van aard: zij legt getuigenissen naast elkaar en wijst overeenkomsten aan. Die methode toont patronen, maar zij toont niet aan dat de overeenkomst uit dezelfde bron komt. Mystici lazen elkaar, stonden in dezelfde traditie en gebruikten een gedeeld vocabulaire, en dat verklaart een deel van de gelijkenis.</p>
+      <p>De psychologische verklaringen berusten op modellen die in 1911 gangbaar waren en sindsdien zijn losgelaten. Bergsons levensdrang en de leer van een onderliggende bewustzijnslaag hebben geen plaats meer in de huidige psychologie, en Underhill erkende dat later zelf.</p>
+      <p>Het aandeel van niet-westers materiaal is klein. Buiten de soefitraditie en de neoplatoonse voorlopers put zij vrijwel uitsluitend uit het westerse christendom, terwijl haar conclusie over alle mystici gaat.</p>
+      <p>De keuze van bronnen is niet neutraal. Zij selecteert de getuigenissen die in haar schema passen en behandelt afwijkende gevallen als onvolgroeid, wat het gevaar van een gesloten redenering met zich meebrengt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar geldt haar aanname dat alle mystici in de kern hetzelfde beschrijven. Sinds de jaren zeventig verdedigen godsdienstwetenschappers de tegenovergestelde opvatting: er bestaat geen onbemiddelde ervaring, en wat een boeddhistische monnik, een joodse kabbalist en een karmelietes meemaken wordt gevormd door de leer waarin zij staan. Underhills eenheidsgedachte is daarmee een aanname geworden waar zij haar als vondst presenteerde.</p>
+      <p>Haar samengestelde beeld van de mysticus vlakt eeuwen en culturen af. Teksten uit de veertiende eeuw worden gelezen alsof zij dezelfde vragen beantwoorden als teksten uit de zestiende, en de sociale omstandigheden waarin zij ontstonden blijven grotendeels buiten beeld.</p>
+      <p>Het perspectief is christelijk en het boek verhult dat niet, maar het presenteert de christelijke vorm wel als de maatstaf. Wie een neutrale godsdienstwetenschappelijke beschrijving zoekt, krijgt hier een pleidooi mee dat zich als beschrijving aandient.</p>
+      <p>De nadruk op de mysticus als heldenfiguur is later door haarzelf tegengesproken. Zij verlegde na 1921 het accent naar eredienst, gemeenschap en het gewone leven, en dat ondergraaft de aanleg van het boek uit 1911 op het punt waar het het meest indruk maakt.</p>
+      <p>De toon neigt naar het immanente denken dat in haar jaren in de mode was, waarbij God en wereld dicht bij elkaar komen. Die neiging is meermalen aangewezen als een zwakke plek, omdat zij het onderscheid tussen schepper en schepping laat vervagen zonder daar rekenschap van te geven.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het boek in de eerste plaats als toegang tot de bronteksten; de citaten wijzen naar werken die op zichzelf te lezen zijn.</li>
+        <li>Houd bij het volgen van de vijf fasen in de gaten dat het om een ordening achteraf gaat en niet om een programma dat te doorlopen valt.</li>
+        <li>Vergelijk haar hoofdstuk over magie met haar hoofdstuk over de mystieke weg om te zien hoe zij het verschil tussen verwerven en loslaten hanteert.</li>
+        <li>Neem bij de psychologische passages het jaartal 1911 mee; de waarnemingen blijven bruikbaar, de verklaringen niet.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Mysticism: A Study in the Nature and Development of Man's Spiritual Consciousness</i> (Methuen, Londen, 1911; twaalfde, herziene druk 1930 met een nieuw voorwoord). Nederlandse uitgave: <i>Mystiek. Hoe God werkt in de mens</i>, vertaald en bewerkt door Jean Jacques Suurmond (Skandalon, Middelburg, 2022, 512 blz., ISBN 9789493220263).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Studie van de Engelse schrijfster Evelyn Underhill (1875-1941) over de mystieke traditie, in 1911 verschenen en sindsdien onafgebroken in druk. Het eerste deel bepaalt wat mystiek volgens haar is en zet haar af tegen godgeleerdheid, symboliek, psychologie en magie. Het tweede deel beschrijft de weg die mystici volgens haar afleggen, in vijf fasen: ontwaken, loutering, verlichting, de donkere nacht van de ziel en het verenigde leven. Underhill bouwt haar betoog op met citaten uit honderden bronnen, van Plotinus en Ruusbroec tot Teresa van Ávila, Johannes van het Kruis, Julian van Norwich en Jacob Böhme.</p><p>Haar uitgangspunt is dat mystiek geen randverschijnsel is en geen ziekte, maar een aanleg die bij enkelingen tot volle ontwikkeling komt. Het boek maakte de teksten van de mystici toegankelijk voor lezers buiten de kloosters. De psychologie waarop zij leunt is verouderd, en haar aanname dat alle mystici hetzelfde beschrijven wordt sinds de jaren zeventig betwist.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>mystiek</li><li>christendom</li><li>spiritualiteit</li><li>godsdienstpsychologie</li><li>klassieker</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="528"><a href="528.html">An Introduction to Zen Buddhism</a>. Suzuki beschrijft een traditie die Underhill nauwelijks behandelt en die haar aanname over de eenheid van alle mystiek op de proef stelt.</li>
+          <li value="394"><a href="394.html">Tao Te Ching</a>. De Tao Te Ching biedt een taal van overgave die dicht bij haar beschrijving komt, uit een wereld die zij niet in haar bronnen opnam.</li>
+          <li value="341"><a href="341.html">The Wisdom of Insecurity</a>. Watts brengt dezelfde stof vier decennia later naar een lezerspubliek buiten de kerk, met wel de ervaring en niet de leerstellige inbedding.</li>
+          <li value="359"><a href="359.html">Het Rode Boek</a>. Jung legde in dezelfde jaren zijn eigen innerlijke doorgang vast, waarbij hij de verschijnselen psychologisch duidde die Underhill godsdienstig las.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

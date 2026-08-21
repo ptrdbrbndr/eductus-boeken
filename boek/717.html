@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Argonauts of the Western Pacific &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Malinowski betoogt dat een instelling pas begrepen is wanneer zij van binnenuit is beschreven, en hij kiest daarvoor een verschijnsel dat van buiten…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-717">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">717 &middot; Geschiedenis en samenleving</p>
+    <h1>Argonauts of the Western Pacific</h1>
+    <p class="lede">Bronisław Malinowski, 1922</p>
+    <p class="stats">
+      <span><b>1894</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="717"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Malinowski betoogt dat een instelling pas begrepen is wanneer zij van binnenuit is beschreven, en hij kiest daarvoor een verschijnsel dat van buiten gezien nergens op slaat: mannen ondernemen levensgevaarlijke zeereizen om sieraden uit te wisselen die niemand draagt, niemand verkoopt en niemand houdt. Zijn antwoord luidt dat de kula een stelsel is dat honderden kilometers en tientallen gemeenschappen aaneenbindt zonder centraal gezag, en dat het bezit van de stukken tijdelijk aanzien verschaft terwijl het doorgeven de band met de partner bevestigt. Daaruit volgt zijn aanval op het beeld van de mens als rekenaar: wie meent dat de zogenaamde primitieve mens handelt uit zuinigheid en eigenbelang, heeft geen enkele samenleving van dichtbij bekeken. De methode en de stelling hangen samen, want alleen langdurige aanwezigheid maakt zichtbaar dat een handeling die op ruilhandel lijkt in werkelijkheid iets anders doet.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De methode in de inleiding</h3>
+      <p>Het openingshoofdstuk is de meest geciteerde tekst over antropologisch veldwerk. Malinowski schrijft dat de onderzoeker zijn tent tussen de huizen moet opslaan en niet bij de missiepost of de handelaar mag blijven wonen, dat hij de taal moet leren en het gezelschap van andere Europeanen moet vermijden, en dat hij pas dan gewoon genoeg wordt om het dagelijks leven te zien zoals het is.</p>
+      <p>Hij zet drie sporen uit. Het eerste is het skelet van de samenleving: regels, indelingen en verwantschapsverhoudingen, vast te leggen met tellingen, stambomen en overzichtstabellen. Het tweede zijn de onweegbare bijzonderheden van het werkelijke leven, de omgangsvormen, de toon en de gewoontes waarover niemand uit zichzelf vertelt, en die alleen een dagboek van de waarnemer kan vasthouden. Het derde is een verzameling uitspraken, formules en verhalen in de oorspronkelijke bewoordingen. Zijn slotzin over het doel, het bestaan begrijpen zoals de deelnemer het ziet, is een van de bekendste van het vak geworden.</p>
+      <h3>Het decor: de Trobriands</h3>
+      <p>Daarna schetst Malinowski het land en de mensen: koraaleilanden ten noordoosten van Nieuw-Guinea, tuinen met yams als grondslag van het bestaan, dorpen rond een centraal plein, en een erfelijk hoofdmanschap dat in Omarakana zijn zwaartepunt heeft. Hij beschrijft rang, de rechten van hoofden op meerdere echtgenotes en de daaruit volgende toevoer van yams.</p>
+      <p>Deze hoofdstukken leggen de basis voor het vervolg, want de kula rust op wat de tuinen opleveren en op het gezag waarmee een hoofdman een expeditie kan organiseren. Malinowski laat zien dat de ruil van sieraden een bovenbouw is op een landbouwsamenleving die zichzelf ruim voedt.</p>
+      <h3>De kring en zijn regels</h3>
+      <p>De kula verbindt een reeks eilandengroepen in een gesloten kring. Halssnoeren van rode schelp, soulava, bewegen in de ene richting; armbanden van witte schelp, mwali, in de andere. Elke man heeft een vast aantal partners, dichtbij enkele, verder weg soms honderden, en die verhoudingen duren levenslang.</p>
+      <p>De regels zijn strikt. Een stuk mag worden gehouden, maar niet lang; er wordt niet onderhandeld en niet afgedwongen; de tegengift volgt later en de grootte ervan is een erezaak. De beroemdste stukken hebben namen en een bekende geschiedenis van eigenaren, en het bezit ervan verleent tijdelijk aanzien in het hele gebied. Gewone ruilhandel bestaat ook, gimwali genaamd, met loven en bieden, en die wordt op dezelfde reizen bedreven; de deelnemers houden de twee scherp uit elkaar en beschouwen het verwijt dat iemand de kula als gimwali bedrijft als een belediging.</p>
+      <h3>Kano's, magie en werk</h3>
+      <p>Een groot deel van het boek gaat over de bouw van de zeekano. Malinowski volgt het uithollen van de romp, het samenbinden, het beschilderen en het te water laten, en laat zien dat elke stap door magische formules wordt begeleid die net zo goed tot het werk behoren als het snijden zelf.</p>
+      <p>Daaruit trekt hij een algemene gevolgtrekking over magie. Zij is geen vervanging van techniek en geen bijgeloof van mensen die de natuur niet begrijpen; de Trobrianders weten wel degelijk hoe een kano wordt gebouwd en hoe men vaart. De magie wordt ingezet waar de uitkomst onzeker en het risico groot is, zoals bij het weer op zee en bij de vraag of de partner scheutig zal zijn. Op het rustige binnenwater van de lagune, waar het vissen zeker resultaat oplevert, ontbreekt zij nagenoeg.</p>
+      <h3>De tocht naar Dobu</h3>
+      <p>Het middendeel volgt een expeditie stap voor stap: het verzamelen van de vloot, de afvaart, de tussenstops, de gevaren van rif en storm, en de verhalen over vliegende kano's en over vrouwen die schipbreukelingen verslinden. Op het strand van Sarubwoyna maken de opvarenden zich mooi en spreken zij de mwasila-formules uit, bedoeld om de gastheren gunstig te stemmen.</p>
+      <p>De aankomst zelf verloopt volgens vaste vormen: geblaas op schelphoorns, een gespeelde terughoudendheid, het aanbieden van kleine geschenken vooraf en pas daarna de ceremoniële overhandiging, waarbij de gever het stuk met misprijzen wegwerpt om zijn vrijgevigheid te tonen. Naast de plechtige ruil vindt de gewone handel plaats in aardewerk, voedsel en gereedschap, waarmee de reis ook in stoffelijk opzicht loont.</p>
+      <h3>Wat de kula doet</h3>
+      <p>In de slothoofdstukken vat Malinowski op wat het stelsel oplevert. Het schept een netwerk van bondgenoten over zeeën heen, waardoor reizen door vijandig gebied mogelijk wordt en gewone handelswaar meelift op de ceremoniële ruil. Het verdeelt aanzien zonder dat iemand duurzaam rijk wordt, want alles moet weer door. En het bindt tientallen gemeenschappen zonder gemeenschappelijk gezag, vergelijkbaar met de manier waarop een gedeeld gebruik dat kan doen.</p>
+      <p>Daaraan koppelt hij zijn aanval op de veronderstelde rekenende natuurmens. De Trobriander werkt harder dan nodig is, laat yams in de opslag verrotten omdat de aanblik van een volle schuur aanzien geeft, en geeft het waardevolste weg. Wie dat gedrag wil verklaren uit zuinigheid, komt er niet uit. Marcel Mauss zou dit materiaal drie jaar later gebruiken voor zijn eigen betoog over de gift.</p>
+      <h3>Wat het boek in het vak deed</h3>
+      <p><i>Argonauts</i> maakte langdurig verblijf met taalbeheersing tot norm en maakte een einde aan de antropologie die op reisverslagen en vragenlijsten dreef. Het legde de grondslag voor het functionalisme, de leer dat elk gebruik moet worden verklaard uit wat het in het geheel doet, en het leverde een schrijfvorm waarin de aanwezigheid van de onderzoeker het gezag van de tekst draagt.</p>
+      <p>Malinowski's veldwerk viel samen met de Eerste Wereldoorlog. Als onderdaan van Oostenrijk-Hongarije bevond hij zich op Brits gebied in een lastige positie en kreeg hij toestemming om zijn onderzoek in Melanesië voort te zetten, met verblijven op de Trobriands in 1915 en 1916 en opnieuw in 1917 en 1918.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">kula</td><td>De kring van ceremoniële ruil waarin schelpsieraden tussen vaste partners over een groot eilandgebied worden doorgegeven.</td></tr>
+          <tr><td class="term">soulava</td><td>Halssnoer van rode schelp, een van de twee soorten kula-stukken, dat in de ene richting door de kring beweegt.</td></tr>
+          <tr><td class="term">mwali</td><td>Armband van witte schelp, de tegenhanger van de soulava, die de tegenovergestelde richting op gaat.</td></tr>
+          <tr><td class="term">vaygu'a</td><td>Verzamelnaam voor kostbaarheden die aanzien verlenen zonder in het dagelijks leven te worden gebruikt.</td></tr>
+          <tr><td class="term">gimwali</td><td>Gewone ruilhandel met afdingen, die naast de kula plaatsvindt en er scherp van wordt onderscheiden.</td></tr>
+          <tr><td class="term">mwasila</td><td>De magie van de kula, uitgesproken om de partner gunstig te stemmen en de eigen verschijning aantrekkelijk te maken.</td></tr>
+          <tr><td class="term">waga</td><td>De zeewaardige kano met uitlegger, waarvan de bouw en de inwijding een aanzienlijk deel van het boek beslaan.</td></tr>
+          <tr><td class="term">onweegbare bijzonderheden</td><td>Malinowski's aanduiding voor de gewoonten en omgangsvormen van alledag die niemand vertelt en die alleen door meeleven zichtbaar worden.</td></tr>
+          <tr><td class="term">het standpunt van de deelnemer</td><td>Het door hem geformuleerde doel van het vak: begrijpen hoe iemand zijn eigen wereld ziet, in zijn eigen verhoudingen.</td></tr>
+          <tr><td class="term">functionalisme</td><td>De uit dit werk voortgekomen leer dat elk gebruik verklaard moet worden uit de rol die het vervult in het geheel van de samenleving.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De grondslag is ongeveer twee jaar veldwerk op de Trobriands, in twee lange perioden tussen 1915 en 1918, voorafgegaan door een kortere periode op Mailu. Malinowski beheerste de taal van Kiriwina en woonde in het dorp. Het boek bevat kaarten van de kula-kring, foto's van kano's en ceremoniën, en formules in de oorspronkelijke taal met vertaling en toelichting. Hij noemt personen bij naam, dateert expedities en beschrijft gevallen waarin het gebruik werd overtreden, wat de tekst een dichtheid geeft die eerdere etnografie miste.</p>
+      <p>Tegelijk is de bewijsvoering minder streng dan zijn eigen inleiding belooft. De aangekondigde overzichtstabellen zijn beperkt in aantal, tellingen van transacties ontbreken, en het is meestal niet na te gaan welk deel van een beschrijving berust op waarneming en welk deel op wat zegslieden vertelden. Ook geeft hij zelf toe dat hij nooit een volledige kula-cyclus heeft kunnen volgen, aangezien die zich over jaren en over vele eilanden uitstrekt.</p>
+      <p>Wat het boek sterk maakt, is de innerlijke samenhang: de kano, de magie, de mythe, de rangorde en de ruil grijpen in de beschrijving op elkaar in en verklaren elkaar. Wat het zwak maakt, is dat de lezer voor de juistheid daarvan op het woord van de schrijver is aangewezen, precies de positie waarin latere lezers hem hebben aangesproken.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De zwaarste klap kwam postuum. In 1967 gaf zijn weduwe zijn persoonlijke veldwerkdagboek uit, geschreven in het Pools en vertaald als <i>A Diary in the Strict Sense of the Term</i>. Daarin staat een man die zich verveelt, verlangt naar Europese romans en vrouwen, ziek en somber is, en die over de dorpelingen in ergernis en met racistische scheldwoorden schrijft. Het beeld van de invoelende onderzoeker die in de leefwereld van anderen opgaat, kreeg daarmee een tegenbeeld, en het vak heeft sindsdien blijvend gedebatteerd over de afstand tussen de voorgeschreven en de werkelijk beoefende werkwijze.</p>
+      <p>Inhoudelijk is het gewicht van Annette Weiners heronderzoek groter. In <i>Women of Value, Men of Renown</i> (1976) liet zij zien dat Malinowski een hele economie over het hoofd had gezien: de bundels bananenblad en de rokken waarmee vrouwen bij sterfgevallen ruilen, en die in de Trobriandse samenleving als rijkdom gelden. Zijn beschrijving van rang, erfopvolging en ruil is daardoor eenzijdig, doordat hij vrijwel alleen met mannen sprak en vrouwenzaken als bijkomstig behandelde.</p>
+      <p>Verder is het functionalisme bekritiseerd om zijn tijdloosheid. In de jaren van het veldwerk waren op de eilanden bestuursambtenaren, missionarissen, parelhandelaren en arbeidswervers werkzaam, en die komen in het boek nauwelijks voor. De samenleving wordt beschreven als een sluitend geheel waarin elk gebruik zijn nut heeft, wat verandering, conflict en machtsverhoudingen buiten beeld houdt. Edmund Leach en anderen hebben bovendien bezwaar gemaakt tegen het gemak waarmee uit één samenleving algemene uitspraken over de mens werden afgeleid.</p>
+      <p>Ten slotte is de tekst zelf onderwerp van onderzoek geworden. Clifford Geertz analyseerde in <i>Works and Lives</i> (1988) hoe Malinowski met stijlmiddelen het gezag van de ooggetuige opbouwt, en liet zien dat de overtuiging van de lezer voor een deel op literaire techniek berust. Dat maakt de beschrijving niet onwaar, maar het verplaatst de vraag naar de betrouwbaarheid naar een plek waar de lezer haar zelf niet kan beantwoorden.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beschrijf een gewoonte eerst volledig voordat er een verklaring aan wordt gehangen; de verklaring die vooropgaat, stuurt de waarneming.</li>
+        <li>Onderzoek bij ruil wie er aanzien wint en welke verplichting ontstaat, naast wat er van eigenaar wisselt.</li>
+        <li>Noteer bij observatie apart wat is waargenomen, wat is verteld en wat is afgeleid.</li>
+        <li>Ga bij handelingen die onlogisch lijken na welk onzeker risico eromheen zit; daar zit vaak de reden voor het ritueel.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Argonauts of the Western Pacific: An Account of Native Enterprise and Adventure in the Archipelagoes of Melanesian New Guinea</i> (George Routledge &amp; Sons, Londen, en E.P. Dutton, New York, 1922, 527 blz., met een voorwoord van James George Frazer; heruitgave in de reeks Routledge Classics, 2014, ISBN 9780415738644; de tekst is ook vrij beschikbaar via Project Gutenberg). De catalogus van bibliotheek.nl vermeldt uitsluitend Engelstalige uitgaven van Malinowski; een Nederlandse vertaling is niet gevonden, zodat deze samenvatting op de Engelse editie berust.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Malinowski beschrijft de kula, een kring van ceremoniële ruil tussen de eilanden ten oosten van Nieuw-Guinea. Halskettingen van rode schelp reizen met de klok mee, armbanden van witte schelp gaan de andere kant op, en beide worden van partner op partner doorgegeven zonder ooit gebruikt of verkocht te worden. Wie een stuk ontvangt, houdt het een tijd, geniet het aanzien en geeft het dan door. Rond die ruil hangt een heel bedrijf: kano's bouwen, magische formules, gevaarlijke zeetochten en verhalen.</p><p>Het boek is even beroemd om zijn eerste hoofdstuk, waarin Malinowski de werkwijze vastlegt die het vak zou gaan bepalen: jarenlang in het dorp wonen, de taal leren, alles noteren wat gewoon lijkt, en proberen het bestaan te zien vanuit het standpunt van de deelnemer. Zijn tweede stelling gaat tegen de economie van zijn tijd in: het handelen van de Trobrianders volgt aanzien en verplichting, geen berekening van eigen voordeel.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>antropologie</li><li>klassieker</li><li>veldwerk</li><li>ruil</li><li>melanesië</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="56"><a href="56.html">Sapiens</a>. Sapiens gebruikt hetzelfde uitgangspunt op wereldschaal: ruil en samenwerking tussen vreemden rusten op gedeelde voorstellingen.</li>
+          <li value="521"><a href="521.html">Indigenous and Popular Thinking in América</a>. Indigenous and Popular Thinking in América draait de blikrichting om en beschrijft inheems denken van binnenuit, zonder Europese ordening.</li>
+          <li value="453"><a href="453.html">The Evolution of Cooperation</a>. The Evolution of Cooperation laat met speltheorie zien hoe herhaalde ontmoetingen samenwerking belonen, de rekenkundige tegenhanger van de kula-partner.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

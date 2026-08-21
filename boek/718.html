@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Gift &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Mauss betoogt dat het geschenk in oude en niet-westerse samenlevingen alleen in schijn vrijwillig is en in werkelijkheid drie verplichtingen oplegt:…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-718">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">718 &middot; Geschiedenis en samenleving</p>
+    <h1>The Gift</h1>
+    <p class="lede">Marcel Mauss, 1925</p>
+    <p class="stats">
+      <span><b>1827</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="718"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Mauss betoogt dat het geschenk in oude en niet-westerse samenlevingen alleen in schijn vrijwillig is en in werkelijkheid drie verplichtingen oplegt: geven, aannemen en teruggeven. Wie geeft, dwingt de ander tot een tegengift, en de weigering te ontvangen of te vergelden staat gelijk aan het opzeggen van de betrekking. Daarmee bestrijdt hij het beeld dat ruilhandel het oudste ruilverkeer zou zijn en dat de markt met vrije, losse contracten de natuurlijke vorm van het menselijk economisch verkeer is. In die samenlevingen ruilen groepen, geen personen, en zij ruilen niet alleen goederen, maar ook eer, vrouwen, feesten, dansen en rituelen, alles ineen. Zijn slotstelling reikt naar het heden: ook een moderne samenleving heeft vormen van geven en vergelden nodig, en de zuivere koop met kwijting op hetzelfde moment is een late uitzondering, geen grondvorm.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De vraag en de opzet</h3>
+      <p>Het essay opent met de vraag die het hele stuk draagt: wat is de regel van recht en eigenbelang die maakt dat de ontvangen gift verplicht wordt vergolden, en welke kracht zit er in het gegeven ding dat de ontvanger doet teruggeven? Mauss kondigt aan die vraag te beantwoorden met vergelijking van uiteenlopende samenlevingen, en beperkt zich uitdrukkelijk tot wat hij archaïsche samenlevingen noemt.</p>
+      <p>Hij zet meteen twee stellingen neer. In deze samenlevingen zijn het groepen die zich tegenover elkaar verbinden, families, clans en stammen, en zijn het niet de losse personen. En wat er wordt uitgewisseld beperkt zich niet tot bezit: gastvrijheid, feesten, militaire hulp, kinderen, vrouwen en rituele voorrechten gaan mee in dezelfde stroom. Voor dat samenvallen bedenkt hij de term totale prestatie.</p>
+      <h3>Polynesië en de hau</h3>
+      <p>Het eerste hoofdstuk gaat over Samoa en Nieuw-Zeeland. In Samoa vindt Mauss een onderscheid tussen twee soorten bezit die bij huwelijk en geboorte tussen families circuleren, en hij ziet daarin het geschenk als grondslag van verwantschapsbanden.</p>
+      <p>De beroemdste passage betreft de Maori. De Britse verzamelaar Elsdon Best had een verklaring opgetekend van de Maori-zegsman Tamati Ranaipiri over het hau, de geest van het gegeven ding, dat naar zijn plaats van herkomst terug wil en de ontvanger schade doet als hij het achterhoudt. Mauss neemt die uitleg over als antwoord op zijn openingsvraag: het ding zelf is niet neutraal, het draagt iets van de gever met zich mee. Deze passage is later het meest bestreden onderdeel van het essay geworden.</p>
+      <h3>Melanesië en de kula</h3>
+      <p>Voor Melanesië leunt Mauss op het werk van Malinowski, dat drie jaar eerder was verschenen. Hij neemt de kula-kring over als voorbeeld van ruil waarin het aanzien belangrijker is dan het bezit, en waarin verplichtingen levenslang tussen partners bestaan.</p>
+      <p>Op één punt spreekt hij Malinowski tegen. Waar die een categorie zuivere gift onderscheidde, waarbij niets terugkomt, betoogt Mauss dat er ook daar wordt vergolden, alleen op langere termijn en in een andere vorm. Geen enkele gift staat volgens hem los; het onderscheid tussen belangeloos geven en ruilen berust op de blik van de Europese waarnemer.</p>
+      <h3>De potlatch aan de noordwestkust</h3>
+      <p>Het tweede hoofdstuk behandelt de Kwakiutl, Haida en Tlingit aan de kust van Brits-Columbia en Alaska, met materiaal van Franz Boas en George Hunt. Bij hun feesten, aangeduid als potlatch, geven hoofden op grote schaal weg: dekens, kano's, olie en koperen platen met een eigen naam en geschiedenis.</p>
+      <p>Hier krijgt de ruil een strijdvorm. Wie ontvangt moet ruimer teruggeven, en wie dat niet kan verliest zijn rang. In het uiterste geval wordt bezit vernietigd, olie in het vuur gegoten of een koperen plaat gebroken, om de tegenstander te overtreffen. Mauss noemt dit de totale prestatie van strijdlustige aard en ziet er de zuiverste vorm van zijn onderwerp in: de gift als wapen, en aanzien als inzet.</p>
+      <h3>Sporen in oude rechtsstelsels</h3>
+      <p>Het derde hoofdstuk zoekt dezelfde verhoudingen in de geschreven rechtsbronnen van Rome, India en de Germaanse volkeren. In het oude Romeinse recht wijst hij op de nexum en op de rol van het overgedragen voorwerp, dat de partijen bindt en waarvan de overdracht met woord en gebaar moet worden bezegeld.</p>
+      <p>In de Indiase teksten bespreekt hij de dana, de gift aan brahmanen, die zowel verdienste als gevaar met zich meedraagt, omdat er iets van de gever in meekomt. Bij de Germaanse volkeren wijst hij op het dubbele woord: gift betekent in het Duits gave en vergif tegelijk, en dat oude verband tussen geschenk en gevaar past bij zijn hele betoog. Zo probeert hij aannemelijk te maken dat het contract van het moderne recht uit een oudere vorm van geven en vergelden is voortgekomen.</p>
+      <h3>Het totale sociale feit</h3>
+      <p>In de slotbeschouwing formuleert Mauss het begrip waaraan zijn naam vooral verbonden is. Verschijnselen als de potlatch en de kula zijn totale sociale feiten: zij zetten tegelijk het recht, de godsdienst, de economie, de verwantschap, de politiek en de esthetiek in beweging, en de gebruikelijke opdeling van de wetenschap in vakken snijdt er dwars doorheen.</p>
+      <p>Daaruit volgt een methodische aanwijzing die tot vandaag wordt aangehaald: bestudeer het geheel dat in werking is, en niet één afgezonderd aspect ervan. Mauss stelt bovendien dat een samenleving pas te begrijpen valt wanneer men haar in beweging waarneemt, in de concrete gebeurtenis waarin al die draden samenkomen.</p>
+      <h3>De politieke slotsom</h3>
+      <p>Het essay eindigt met gevolgtrekkingen voor de eigen tijd. Mauss ziet in de opkomende sociale wetgeving, in onderlinge fondsen en in beroepsverenigingen een terugkeer van het beginsel dat wie ontvangt ook gebonden is, en dat wie gegeven heeft aanspraak verwerft. De werkgever die arbeid ontvangt, is volgens hem meer verschuldigd dan het loon dat de markt vaststelt.</p>
+      <p>Die conclusie past bij zijn positie als socialist en medewerker van de coöperatieve beweging, en bij het werk van zijn oom en leermeester Émile Durkheim over de beroepsgroepen. Het slot van het essay is daarmee een pleidooi voor een economie waarin de band tussen mensen niet met de betaling ophoudt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">de drie verplichtingen</td><td>Geven, aannemen en teruggeven: de keten waaraan volgens Mauss niemand in deze samenlevingen kan ontsnappen zonder gezichtsverlies.</td></tr>
+          <tr><td class="term">hau</td><td>Maori-begrip voor de geest van het gegeven ding, die volgens de door Mauss aangehaalde uitleg terug wil naar zijn herkomst.</td></tr>
+          <tr><td class="term">potlatch</td><td>Feest aan de noordwestkust van Amerika waarbij hoofden bezit weggeven of vernietigen om rang te bevestigen en rivalen te overtreffen.</td></tr>
+          <tr><td class="term">totale prestatie</td><td>Uitwisseling waarin groepen elkaar tegelijk goederen, diensten, eer, feesten en rituele voorrechten leveren.</td></tr>
+          <tr><td class="term">totaal sociaal feit</td><td>Verschijnsel dat recht, godsdienst, economie, verwantschap en kunst in één handeling in werking zet en daarom niet per vak te onderzoeken is.</td></tr>
+          <tr><td class="term">kula</td><td>De Melanesische ruilkring die Mauss van Malinowski overneemt als voorbeeld van ruil waarin aanzien de inzet vormt.</td></tr>
+          <tr><td class="term">dana</td><td>De gift aan brahmanen in de Indiase rechtsteksten, die de ontvanger zowel verdienste als gevaar oplevert.</td></tr>
+          <tr><td class="term">nexum</td><td>Oud-Romeinse bindende overeenkomst waarin het overgedragen voorwerp zelf de partijen aan elkaar verbindt.</td></tr>
+          <tr><td class="term">agonistische ruil</td><td>Ruil met een wedstrijdkarakter, waarin ruimer teruggeven een middel is om de ander te overtreffen.</td></tr>
+          <tr><td class="term">homo oeconomicus</td><td>Het door Mauss bestreden beeld van de mens als rekenende ruilhandelaar, dat hij een recente uitvinding van westerse economen noemt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Mauss deed zelf geen veldwerk. Zijn materiaal komt uit tweede hand: Malinowski voor Melanesië, Franz Boas en George Hunt voor de noordwestkust, Elsdon Best voor de Maori, missionarissen en reizigers voor Polynesië, en filologische en juridische studies voor Rome, India en het Germaanse recht. Het essay draagt een uitzonderlijk zware voetnootlast, waarin een groot deel van de eigenlijke redenering zit.</p>
+      <p>De sterkte van die opzet is de reikwijdte: dat in zulke uiteenlopende samenlevingen dezelfde verplichtingen terugkomen, is een waarneming die zonder vergelijking niet te maken valt. De zwakte is dat elke schakel steunt op de vertaling en de vraagstelling van iemand anders. Waar de bronnen zelf gekleurd of onvolledig waren, neemt Mauss die kleur over, en dat geldt in het bijzonder voor de passage over het hau, die volledig rust op één afgeluisterde uitleg van één zegsman in de vertaling van één verzamelaar.</p>
+      <p>Wat het essay overtuigend maakt, is dat de kern van de stelling ook stand houdt zonder de omstreden onderdelen. Ook wie de uitleg van het hau laat vallen, houdt over dat gift en tegengift in deze samenlevingen bindend zijn, dat weigeren gevolgen heeft en dat het tijdsverloop tussen gift en tegengift de betrekking in stand houdt. Dat deel is sindsdien in tientallen veldstudies teruggevonden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De bekendste tegenwerping komt van Claude Lévi-Strauss, die in zijn inleiding bij Mauss' verzameld werk (1950) betoogde dat Mauss zich door de inheemse verklaring liet meeslepen. Door het hau als antwoord te aanvaarden, verklaart hij een sociaal verschijnsel met de theorie die de betrokkenen er zelf op nahouden, terwijl de opdracht van de socioloog is die theorie zelf te verklaren. Volgens Lévi-Strauss is wederkerigheid een onbewuste structuur van de menselijke geest, en heeft er geen geest in het voorwerp aan te pas te komen.</p>
+      <p>Filologisch is de passage eveneens aangevochten. Raymond Firth en later Marshall Sahlins keerden terug naar de oorspronkelijke tekst van Tamati Ranaipiri en betoogden dat het hau daar sloeg op de opbrengst of de aanwas van het gegevene, in een redenering over jachtbuit en bosrituelen, en dat Mauss er een mystieke terugkeerdrang van heeft gemaakt die er niet in staat. Sahlins gaf in <i>Stone Age Economics</i> (1972) een eigen vertaling en las de passage als een uitspraak over het delen van opbrengst tussen drie partijen.</p>
+      <p>Ook het feitelijke materiaal is bijgesteld. Helen Codere liet in <i>Fighting with Property</i> (1950) zien dat de vernietigende potlatch die Mauss als grondvorm beschrijft grotendeels een verschijnsel van de negentiende eeuw was: door epidemieën vielen veel rangen open, terwijl handel met Europeanen uitzonderlijk veel goederen beschikbaar maakte, waardoor het feest opgeblazen raakte tot een vorm die het eerder niet had. Wat als oertoestand werd gelezen, was mede een gevolg van de koloniale ontwrichting.</p>
+      <p>Latere lezers hebben er nog twee dingen bij gelegd. Annette Weiner betoogde in <i>Inalienable Possessions</i> (1992) dat Mauss de aandacht te veel op het gegevene richtte en te weinig op wat juist buiten de omloop wordt gehouden: de stukken die een groep nooit weggeeft, dragen de identiteit die het geven mogelijk maakt. En Jacques Derrida stelde in <i>Donner le temps</i> (1991) dat een gift die vergelding oproept per definitie geen gift is, zodat het zuivere geven in Mauss' schema onmogelijk wordt. Daarbij komt het bezwaar tegen de verzamelterm archaïsch, die samenlevingen met heel verschillende geschiedenissen op één hoop veegt en op een lagere trede van een ontwikkelingsladder plaatst.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Bekijk geschenken en gunsten in werk en handel als het aangaan van een verplichting die later wordt ingelost.</li>
+        <li>Let op het tijdsverloop: onmiddellijk terugbetalen weigert de band, uitstel houdt hem in stand.</li>
+        <li>Weeg bij kortingen, gastvrijheid en sponsoring wat er stilzwijgend tegenover komt te staan en voor wie dat aanzien oplevert.</li>
+        <li>Onderzoek bij vrijwilligerswerk, mantelzorg en donaties welke tegenprestatie wordt verwacht, ook wanneer niemand die uitspreekt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Essai sur le don. Forme et raison de l'échange dans les sociétés archaïques</i>, verschenen in <i>L'Année sociologique</i>, nieuwe reeks deel 1 (jaargang 1923 en 1924), uitgegeven in 1925; later opgenomen in <i>Sociologie et anthropologie</i> (Presses Universitaires de France, Parijs, 1950). Engelse vertalingen door Ian Cunnison (1954), door W.D. Halls als <i>The Gift: The Form and Reason for Exchange in Archaic Societies</i> (Routledge, Londen, 1990; Routledge Classics, ISBN 9780415267496) en door Jane I. Guyer (Hau Books, Chicago, 2016). Nederlandse vertaling: <i>Essay over de gift</i>, vertaald door Jeanne Holierhoek en Willemijn Schretlen (Boom, Amsterdam, 2014, 156 blz., ISBN 9789089533470, reeks Grote Klassieken).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Mauss stelt één vraag: welke kracht in een gegeven voorwerp maakt dat de ontvanger het moet vergelden? Om die te beantwoorden legt hij verslagen uit Polynesië, Melanesië en de noordwestkust van Amerika naast oud Romeins, Germaans en Indiaas recht. Overal vindt hij dezelfde drie verplichtingen: geven, aannemen en teruggeven. Wat op vrijwilligheid lijkt is in werkelijkheid gebonden, en wie weigert verklaart de oorlog of geeft toe dat hij de mindere is.</p><p>Uit dat materiaal komt zijn begrip van het totale sociale feit: één handeling waarin recht, godsdienst, economie, verwantschap en esthetiek tegelijk werkzaam zijn. Het essay eindigt met een politieke slotsom over sociale zekerheid en onderlinge verzekering. Het is een van de meest geciteerde teksten van de sociale wetenschappen, terwijl Mauss zelf nooit veldwerk deed en volledig van het werk van anderen afhing.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>antropologie</li><li>klassieker</li><li>ruil</li><li>wederkerigheid</li><li>economie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="280"><a href="280.html">Influence</a>. Influence beschrijft dezelfde verplichting als beïnvloedingsregel: een klein geschenk vooraf verhoogt de kans op instemming achteraf.</li>
+          <li value="565"><a href="565.html">Simulacres et simulation</a>. Simulacres et simulation bouwt voort op de Franse denklijn over symbolische ruil die met Mauss begint.</li>
+          <li value="246"><a href="246.html">The Go-Giver</a>. The Go-Giver brengt het geven als zakelijke leefregel, en laat zien hoe ver de moderne versie van Mauss' inzicht afstaat van zijn oorsprong.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

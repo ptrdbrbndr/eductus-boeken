@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Purity and Danger &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Douglas stelt dat reinheidsregels en taboes geen resten van bijgeloof of primitieve angst voor ziektekiemen zijn, maar uitingen van de behoefte aan orde.…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-719">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">719 &middot; Geschiedenis en samenleving</p>
+    <h1>Purity and Danger</h1>
+    <p class="lede">Mary Douglas, 1966</p>
+    <p class="stats">
+      <span><b>1796</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="719"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Douglas stelt dat reinheidsregels en taboes geen resten van bijgeloof of primitieve angst voor ziektekiemen zijn, maar uitingen van de behoefte aan orde. Vuil is materie op de verkeerde plaats: de aanduiding zegt niets over de stof zelf en alles over het stelsel van indelingen waarin die stof niet past. Elke samenleving ordent haar wereld in categorieën, en verschijnselen die tussen de categorieën in vallen brengen die ordening in gevaar. Zulke afwijkingen worden daarom omgeven met verboden, met rituelen of met een heilige status. Uit die stelling volgt dat de moderne westerse hygiëne wel een andere verklaring hanteert dan de Israëlitische spijswetten of de Lele-taboes, maar dat de handeling dezelfde is: het gladstrijken van een indeling die anders zou gaan rammelen. Reinheid en gevaar hangen daarmee samen, want wat het stelsel bedreigt, is tegelijk de plek waar macht zit.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Vuil als wanorde</h3>
+      <p>Het boek opent met de vraag wat vuil is. Douglas neemt de formule over dat vuil materie op de verkeerde plaats is en werkt uit wat daaruit volgt: er bestaat geen vuil op zichzelf, alleen wanorde ten opzichte van een ordening. Eten is niet vies, eten op kleding wel; schoenen zijn niet vies, schoenen op tafel wel.</p>
+      <p>Uit die vaststelling trekt zij de gevolgtrekking dat het bestuderen van reinheidsregels een omweg is naar het ordeningsstelsel van een samenleving. Wie wil weten hoe een groep haar wereld indeelt, kan het beste kijken naar wat zij niet wil aanraken, eten of mengen. De opdracht van het boek luidt dan ook dat verontreiniging bestudeerd moet worden als een stelsel van betekenissen.</p>
+      <h3>Tegen de scheiding tussen wij en zij</h3>
+      <p>In de daaropvolgende hoofdstukken rekent Douglas af met de negentiende-eeuwse voorstelling waarin andere volkeren uit angst en onwetendheid rituelen zouden volgen, terwijl de moderne westerling uit inzicht handelt. Zij bestrijdt de scheiding tussen magie en godsdienst die bij James Frazer en anderen gangbaar was en die de een tot een lagere trap van de ander maakte.</p>
+      <p>Haar tegenargument is dat ook westerse reinheid maar ten dele op ziektekiemen berust. De kennis van bacteriën is nauwelijks anderhalve eeuw oud, terwijl de afkeer van bepaalde vermengingen veel ouder is en zich ook nu voordoet waar geen enkel besmettingsgevaar bestaat. De vergelijking is daarmee geopend: er is één verschijnsel, en dat verschijnsel heet ordening.</p>
+      <h3>De verboden dieren van Leviticus</h3>
+      <p>Het derde hoofdstuk is het bekendste van het boek. Douglas vraagt waarom de spijswetten in Leviticus en Deuteronomium juist deze dieren verbieden, en verwerpt de gangbare verklaringen uit gezondheid, uit afkeer van naburige godsdiensten of uit willekeur.</p>
+      <p>Haar antwoord luidt dat heiligheid in deze teksten heelheid en volledigheid betekent, en dat een dier rein is wanneer het volledig beantwoordt aan de soort waartoe het behoort. Landdieren horen te herkauwen en gespleten hoeven te hebben; het varken heeft de hoeven maar herkauwt niet, de kameel en de haas herkauwen maar hebben de hoeven niet. Waterdieren horen vinnen en schubben te hebben, zodat schaaldieren afvallen. Dieren die kruipen of wemelen passen in geen van de drie gebieden, lucht, water en land, en zijn daarom een gruwel. Onreinheid is in deze lezing een gevolg van het doorkruisen van een indeling.</p>
+      <h3>De schubbendrager van de Lele</h3>
+      <p>Tegenover dat geval zet Douglas haar eigen veldwerkmateriaal uit Congo. De Lele kennen een dier dat alle indelingen tart: de schubbendrager, een zoogdier met schubben als een vis, dat in bomen leeft, één jong tegelijk werpt zoals mensen en dat zich bij gevaar oprolt in plaats van te vluchten.</p>
+      <p>Waar de logica van Leviticus zou voorspellen dat zo'n dier onrein is, gebeurt het omgekeerde: rond het dier bestaat een cultus, het vlees wordt door ingewijden gegeten en het dier geldt als bron van vruchtbaarheid en jachtgeluk. Douglas gebruikt dat geval om te laten zien dat wat de indeling doorkruist niet vanzelf verworpen wordt; het kan ook worden opgenomen als drager van heilige macht. De omgang met de afwijking is een keuze van de gemeenschap.</p>
+      <h3>Wat een samenleving met afwijkingen doet</h3>
+      <p>Uit die tegenstelling komt een van de bruikbaarste stukken van het boek: een opsomming van manieren waarop met dubbelzinnige gevallen wordt omgegaan. Zij kunnen in één categorie worden ondergebracht door de dubbelzinnigheid weg te definiëren, zij kunnen fysiek worden uitgeschakeld, zij kunnen worden vermeden, zij kunnen gevaarlijk worden verklaard, en zij kunnen in het ritueel worden opgezocht om daar de grens van de ordening te tonen.</p>
+      <p>Douglas gebruikt dat schema om verschijnselen te verbinden die los van elkaar leken te staan: spijswetten, hekserijbeschuldigingen, angst voor tweelingen, en de behandeling van mensen die tussen twee statussen in verkeren. In elk geval gaat het om een indeling die aan haar randen bewaakt of overschreden wordt.</p>
+      <h3>Het lichaam als beeld van de samenleving</h3>
+      <p>In de latere hoofdstukken verschuift de aandacht naar het lichaam. Douglas betoogt dat het lichaam als beeld dient voor de samenleving, waarbij alles wat de lichaamsgrens passeert, speeksel, bloed, melk, uitwerpselen, met gevaar wordt omgeven omdat het de grens zelf zichtbaar maakt.</p>
+      <p>Daaruit volgt een voorspelling die in later onderzoek vaak is aangehaald: hoe sterker een groep zich aan de buitenkant bedreigd voelt, hoe strenger zij de openingen van het lichaam bewaakt. Zij past dat toe op de Israëlieten als kleine gemeenschap onder druk, op kastenverhoudingen in India en op regels rond seksualiteit en vermenging. De reinheidsregels doen daarmee politiek werk: zij houden de omtrek van de groep in stand.</p>
+      <h3>Macht aan de randen</h3>
+      <p>De slothoofdstukken gaan over de gevaren en de macht die aan de randen van een ordening horen. Wie zich buiten de indeling bevindt, de vreemdeling, de weduwe, degene die tussen twee posities in verkeert, krijgt onberekenbare vermogens toegeschreven, ten goede of ten kwade.</p>
+      <p>Douglas besluit met de gedachte dat rituelen niet alleen orde bevestigen, maar ook de wanorde toelaten die de ordening buitensluit. In het ritueel wordt het uitgeslotene onder toezicht binnengehaald, waarmee de gemeenschap erkent dat haar indeling de werkelijkheid nooit volledig dekt. Dat maakt van reinheid een dynamisch verschijnsel, en van vervuiling een noodzakelijke tegenhanger.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">vuil als materie op de verkeerde plaats</td><td>De formule waarmee Douglas vuil bepaalt als een verhouding tot een ordening en niet als eigenschap van een stof.</td></tr>
+          <tr><td class="term">classificatiestelsel</td><td>Het geheel van indelingen waarmee een samenleving haar wereld ordent en waaraan reinheidsregels de randen bewaken.</td></tr>
+          <tr><td class="term">anomalie</td><td>Verschijnsel dat tussen de categorieën in valt en daarom als gevaarlijk, onrein of juist als heilig wordt behandeld.</td></tr>
+          <tr><td class="term">verontreiniging</td><td>Het overschrijden van een grens in de ordening, waarvan de gevolgen als besmetting worden ervaren en met rituelen worden hersteld.</td></tr>
+          <tr><td class="term">taboe</td><td>Verbod dat de overschrijding van zo'n grens moet voorkomen en dat zijn kracht ontleent aan de indeling die het beschermt.</td></tr>
+          <tr><td class="term">heiligheid als heelheid</td><td>Douglas' lezing van het Hebreeuwse begrip voor heilig: volledig zijn en beantwoorden aan de soort waartoe men behoort.</td></tr>
+          <tr><td class="term">lichaamsgrens</td><td>De rand van het lichaam die als beeld van de groepsgrens fungeert, waardoor alles wat haar passeert met regels wordt omgeven.</td></tr>
+          <tr><td class="term">marge</td><td>De plaats buiten of tussen de categorieën, waar volgens Douglas gevaar en macht samenvallen.</td></tr>
+          <tr><td class="term">ritueel</td><td>Handeling die de ordening bevestigt en tegelijk de uitgesloten wanorde onder toezicht toelaat.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het sterkste materiaal is Douglas' eigen veldwerk bij de Lele in het gebied van de Kasai in Belgisch Congo, uitgevoerd rond 1950 en 1953. Daar beschrijft zij uit eerste hand hoe de indelingen van dieren, gebieden en mensen samenhangen met de cultus rond de schubbendrager. Dat geval draagt het boek, omdat zij er zowel de indeling als de omgang met de afwijking kan tonen.</p>
+      <p>De overige gevallen komen uit tweede hand: de bijbelteksten in vertaling met commentaren, de kastenverhoudingen bij de Coorg uit het werk van M.N. Srinivas, materiaal van Evans-Pritchard, bij wie zij in Oxford studeerde, en van andere Britse veldwerkers. Het boek voert geen enkele telling of proef aan; de bewijsvoering bestaat uit uitleg die het ene geval met het andere in verband brengt.</p>
+      <p>Daarmee is de aard van het bewijs helder: de theorie is aantrekkelijk doordat zij losse gebruiken begrijpelijk maakt en verbanden legt die zonder haar onzichtbaar blijven. Zij wint niet doordat zij is getoetst. Douglas zelf is daar tamelijk open over en presenteert haar tekst als een poging tot begrijpen, in een schrijfstijl die eerder essayistisch dan systematisch is.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het meest sprekende bezwaar komt van de schrijfster zelf. In <i>Leviticus as Literature</i> (1999) en in haar voorwoord bij de uitgave van 2002 nam zij afstand van het beroemde derde hoofdstuk. Zij oordeelde dat zij de verboden dieren ten onrechte als gruwelijk had voorgesteld, dat de tekst van Leviticus die dieren nergens veracht, en dat de spijswetten eerder samenhangen met de indeling van de tabernakel en met een beperking op het doden van dieren dan met afkeer van afwijkende vormen. Zij verving daarmee een verklaring uit anomalie door een verklaring uit analogie tussen tekst, tempel en schepping.</p>
+      <p>Onafhankelijk daarvan hebben bijbelgeleerden haar lezing bestreden. Jacob Milgrom betoogde in zijn commentaar op Leviticus dat de spijswetten een eerbied voor het leven uitdrukken en het aantal eetbare dieren zo klein mogelijk houden, waarbij bloed en doding de sleutel vormen. Ook is opgemerkt dat het indelingsschema dat Douglas in de tekst leest daar niet met zoveel woorden staat en van buitenaf wordt opgelegd.</p>
+      <p>Vakinhoudelijk is het zwaarste punt dat de theorie te veel toelaat. Een afwijking kan onrein worden verklaard, zoals het varken, of juist heilig, zoals de schubbendrager van de Lele, en het boek geeft geen regel waarmee vooraf te bepalen valt welke van beide zich zal voordoen. Daardoor past de verklaring op vrijwel elk geval, wat haar tegelijk moeilijk weerlegbaar maakt. Wie iets wil voorspellen, heeft er weinig aan.</p>
+      <p>Ten slotte hangt over het boek dezelfde vraag als over de hele Britse antropologie van die jaren. De vergelijking loopt langs samenlevingen die als vaste toestanden worden beschreven, het veldwerk in Congo vond plaats onder koloniaal bestuur dat in de tekst nauwelijks voorkomt, en de meeste gevallen zijn ontleend aan de verslagen van andere Europeanen. Dat het boek de scheiding tussen primitief en modern juist wilde opheffen, neemt niet weg dat het materiaal langs die scheiding was verzameld.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Zoek bij een onverklaarbaar verbod eerst de indeling waarvan het verbod de rand bewaakt.</li>
+        <li>Let in organisaties op de gevallen die in geen enkel hokje passen; daar ontstaat de meeste onrust en daar zit vaak ook de vernieuwing.</li>
+        <li>Onderscheid hygiëne die op besmetting berust van hygiëne die op orde berust; alleen de eerste laat zich met kennis over ziektekiemen bijstellen.</li>
+        <li>Vraag bij groepen die als besmet gelden welke indeling daarmee overeind wordt gehouden en wie daar belang bij heeft.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Purity and Danger: An Analysis of Concepts of Pollution and Taboo</i> (Routledge &amp; Kegan Paul, Londen, 1966; heruitgave in de reeks Routledge Classics, 2002, 272 blz., ISBN 9780415289955, met een nieuw voorwoord van de schrijfster). Nederlandse vertaling: <i>Reinheid en gevaar</i> (Het Spectrum, Utrecht, 1976, Aula-boeken 579, 236 blz., ISBN 9027453330).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Douglas begint bij een alledaagse waarneming: schoenen op tafel zijn vies, schoenen in de gang niet. Vuil is materie op de verkeerde plaats, en die uitspraak veronderstelt een ordening die geschonden wordt. Uit dat inzicht bouwt zij een theorie over reinheidsregels en taboes: zij markeren de randen van het stelsel waarmee een samenleving haar wereld indeelt. Wat zich niet laat inpassen, geldt als gevaarlijk.</p><p>Haar bekendste toepassing is het derde hoofdstuk over de spijswetten in Leviticus, waarin het varken en andere verboden dieren onrein zijn omdat zij de indeling van land-, water- en luchtdieren doorkruisen. Daarnaast beschrijft zij uit eigen veldwerk de schubbendrager van de Lele in Congo, een dier dat evenzeer alle indelingen doorkruist en juist daarom heilig is. Douglas heeft haar lezing van Leviticus later zelf herroepen; het boek geldt niettemin als de invloedrijkste antropologische studie over reinheid.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>antropologie</li><li>klassieker</li><li>ritueel</li><li>taboe</li><li>classificatie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="405"><a href="405.html">The Denial of Death</a>. The Denial of Death behandelt dezelfde randen van de ordening vanuit de angst voor de dood, met het lichaam als plaats waar het onbeheersbare doorbreekt.</li>
+          <li value="357"><a href="357.html">De mens en zijn symbolen</a>. De mens en zijn symbolen zoekt de betekenis van symbolen in de psyche, waar Douglas haar juist in de sociale indeling zoekt.</li>
+          <li value="410"><a href="410.html">the hero with a thousand faces</a>. the hero with a thousand faces vertoont dezelfde reikwijdte en dezelfde zwakte: één verklaringsschema over zeer uiteenlopend materiaal.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

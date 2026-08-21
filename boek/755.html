@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Embodied Mind &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Cognitie is volgens Varela, Thompson en Rosch geen afspiegeling van een wereld die al klaarligt, en evenmin de projectie van een geest die zijn wereld…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-755">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">755 &middot; Brein en lichaam</p>
+    <h1>The Embodied Mind</h1>
+    <p class="lede">Francisco Varela, Evan Thompson en Eleanor Rosch, 1991</p>
+    <p class="stats">
+      <span><b>1740</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="755"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Cognitie is volgens Varela, Thompson en Rosch geen afspiegeling van een wereld die al klaarligt, en evenmin de projectie van een geest die zijn wereld verzint. Waarnemen en handelen brengen elkaar voort: een organisme legt in zijn omgang met de omgeving vast wat voor dit soort lichaam telt als kleur, als voedsel of als hindernis, en die omgeving legt tegelijk vast wat het organisme worden kan. Dat noemen zij enactie. Daaraan koppelen zij een tweede stelling die in de cognitiewetenschap van 1991 zeldzaam was: een wetenschap van de geest die de geleefde ervaring buiten de deur houdt ondermijnt zichzelf, en de boeddhistische aandachtstraditie biedt een geoefende manier om die ervaring te onderzoeken waarover de westerse filosofie niet beschikt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De cirkel waarin het onderzoek staat</h3>
+      <p>Het eerste deel, The Departing Ground, opent met wat de auteurs een fundamentele cirkel noemen. Wie de geest onderzoekt doet dat met een geest, zodat instrument en onderwerp samenvallen. De cognitiewetenschap van de jaren tachtig had daar volgens hen geen antwoord op: die beschreef denken als informatieverwerking en liet de vraag hoe ervaring van binnenuit is liggen, of verklaarde haar tot bijproduct. Het boek probeert dat gat te vullen met een geoefende manier van kijken in plaats van met nog een theorie.</p>
+      <p>Husserl en de fenomenologie komen langs als de westerse poging die het dichtst in de buurt kwam. Het bezwaar van de auteurs luidt dat Husserls reflectie een theoretische bezigheid bleef, uitgevoerd aan een schrijftafel, zonder oefening die het waarnemen zelf verandert. Daartegenover plaatsen zij de aandachtstraditie, waarin het onderzoeken van ervaring een vaardigheid is die jaren kost en die volgens hen tot andere bevindingen leidt dan de leunstoel.</p>
+      <h3>Het cognitivisme en het zelf dat niet gevonden wordt</h3>
+      <p>Het tweede deel behandelt de heersende leer: de geest als symboolverwerkend systeem, cognitie als berekening over representaties van een gegeven wereld. De auteurs erkennen wat die aanpak heeft opgeleverd en wijzen op het punt waar zij naar hun oordeel vastloopt. Het hoofdstuk The I of the Storm confronteert die leer met een oude waarneming uit het boeddhisme. Wie in de eigen ervaring zoekt naar een blijvend zelf, vindt gewaarwordingen, gevoelens, waarnemingen, neigingen en bewustzijn, de vijf skandha's, en geen drager daarachter.</p>
+      <p>Uit die twee bronnen halen de auteurs dezelfde conclusie: het samenhangende zelf is een voortdurende constructie. De westerse wetenschap komt er langs analytische weg, de aandachtstraditie langs oefening. Waar de wetenschap volgens hen tekortschiet, is in het omgaan met de ontdekking. Zij laat de bevinding op papier staan en verandert er niets door, terwijl de aandachtstraditie er een praktijk aan verbindt.</p>
+      <h3>Emergentie en netwerken</h3>
+      <p>Het derde deel bespreekt het connectionisme, dat in de jaren tachtig het cognitivisme uitdaagde. In neurale netwerken zit geen centrale plek waar de betekenis wordt vastgesteld; wat als eigenschap verschijnt komt op uit de samenwerking van eenvoudige eenheden. Varela had die gedachte al biologisch uitgewerkt in de theorie van autopoiese: een levend systeem is een netwerk dat voortdurend zijn eigen bestanddelen en zijn eigen grens voortbrengt.</p>
+      <p>Het hoofdstuk Selfless Minds trekt de lijn door naar de geest. Als er geen centrale instantie is, ontstaat het gevoel van een ik uit een samenspel van deelprocessen, ongeveer zoals een golfpatroon uit water ontstaat. De auteurs noemen dat een emergent zelf: werkzaam en aanwijsbaar in gedrag, zonder vaste kern waar het aan vastzit.</p>
+      <h3>De middenweg: enactie</h3>
+      <p>Het vierde deel bevat de eigenlijke voorstelling van zaken. De auteurs lenen van Richard Bernstein de uitdrukking cartesiaanse angst voor het gevoel dat er alleen keus is tussen een vaste buitenwereld die kennis draagt en een innerlijke leegte waarin alles subjectief wordt. Enactie is hun poging om die keuze te ontlopen. Kleur dient als proefgeval: kleurcategorieën laten zich niet aflezen uit golflengten alleen, en evenmin uit taalgewoonte alleen. Zij komen tot stand in de wisselwerking tussen een zenuwstelsel met een bepaalde bouw en een omgeving met een geschiedenis.</p>
+      <p>Het evolutionaire hoofdstuk zet daar natuurlijke drift naast, een lezing van de evolutie waarin niet elke eigenschap een oplossing voor een gesteld probleem is. Wat overleeft, is wat toereikend blijft; binnen die ruime marge legt een soort al lopend een pad vast. De omgeving is dan geen vast gegeven waar organismen zich naar voegen, want de organismen bepalen door hun aanwezigheid mee welke omgeving er is.</p>
+      <h3>Werelden zonder grond</h3>
+      <p>Het slotdeel gaat naar Nagarjuna en de madhyamaka-school. Diens leer van sunyata, in het boek vertaald als grondeloosheid, ontkent zowel dat dingen een eigen wezen hebben als dat er niets is. Alles ontstaat in afhankelijkheid van iets anders. De auteurs zien in die redenering dezelfde beweging als in hun eigen betoog: geen geest die de wereld draagt, geen wereld die de geest draagt, en toch geen leegte waarin niets telt.</p>
+      <p>Het laatste hoofdstuk, Laying Down a Path in Walking, trekt daar een ethische lijn uit. Grondeloosheid leidt in het westen makkelijk tot nihilisme, schrijven zij, en zij verwijzen naar Nishitani en de Kyoto-school voor een andere afloop. Wie de grondeloosheid geoefend meemaakt in plaats van haar te bedenken, zou volgens hen minder aan zichzelf vastzitten en daardoor beschikbaarder worden voor anderen. Dat is de zwakst onderbouwde en tegelijk meest uitgesproken claim van het boek.</p>
+      <h3>Wat er daarna van kwam</h3>
+      <p>Het boek is het beginpunt geworden van wat nu enactivisme heet, een van de stromingen binnen de belichaamde cognitie. Varela werkte de methodische kant uit in zijn voorstel voor neurofenomenologie uit 1996, waarin geschoolde eerste-persoonsverslagen en hersenmetingen elkaar wederzijds zouden moeten beperken. Thompson zette de biologische lijn voort in <i>Mind in Life</i> (2007). De term belichaamde cognitie raakte in de jaren negentig ingeburgerd, mede door dit boek.</p>
+      <p>In 2016 verscheen een herziene editie waarin Thompson en Rosch elk een nieuwe inleiding schreven; Varela was in 2001 overleden. Thompson nam daar en in <i>Why I Am Not a Buddhist</i> (2020) afstand van de manier waarop wetenschap en boeddhisme in de tussenliggende jaren aan elkaar waren gekoppeld, ook in het eigen werk. Die zelfcorrectie hoort bij de ontvangst van dit boek.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">enactie</td><td>Het voortbrengen van een wereld in de omgang ermee: waarnemen en handelen bepalen elkaar in plaats van elkaar op te volgen.</td></tr>
+          <tr><td class="term">autopoiese</td><td>Varela's term met Maturana voor een systeem dat zijn eigen bestanddelen en zijn eigen grens voortdurend voortbrengt.</td></tr>
+          <tr><td class="term">structurele koppeling</td><td>De geschiedenis van wederzijdse aanpassing tussen een organisme en zijn omgeving, waardoor beide worden wat zij zijn.</td></tr>
+          <tr><td class="term">natuurlijke drift</td><td>Hun lezing van evolutie waarin overleven alleen toereikendheid vraagt, zodat vorm binnen ruime marges ook door toeval en geschiedenis wordt bepaald.</td></tr>
+          <tr><td class="term">cartesiaanse angst</td><td>Van Richard Bernstein geleende naam voor de vrees dat er alleen keus is tussen een vaste grond buiten ons en willekeur.</td></tr>
+          <tr><td class="term">grondeloosheid</td><td>Hun vertaling van sunyata: niets heeft een eigen, op zichzelf staand wezen, en alles ontstaat in afhankelijkheid van iets anders.</td></tr>
+          <tr><td class="term">mindfulness en awareness</td><td>De boeddhistische oefening in opmerkzaamheid die zij voorstellen als geschoolde methode om ervaring te onderzoeken.</td></tr>
+          <tr><td class="term">skandha's</td><td>De vijf verzamelingen van gewaarwording, gevoel, waarneming, neiging en bewustzijn waarin de ervaring uiteenvalt zonder dat er een zelf achter verschijnt.</td></tr>
+          <tr><td class="term">afhankelijk ontstaan</td><td>Het boeddhistische pratityasamutpada: verschijnselen komen op in onderlinge afhankelijkheid, zonder eerste of dragende oorzaak.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is voor het grootste deel een betoog en geen verslag van eigen proeven. Waar het op empirie steunt, gaat het om bestaand werk: het onderzoek naar kleurcategorisering waarin fysiologie en taalgebruik elkaar niet dekken, de klassieke proef van Held en Hein uit 1963 waarin jonge katten die zelf liepen wel normaal leerden zien en katten die passief werden meegereden niet, het connectionistische modelleerwerk van de jaren tachtig, en Rosch' eigen onderzoek naar categorisering. De biologische onderbouwing komt uit de theorie van autopoiese die Maturana en Varela in de jaren zeventig hadden gepubliceerd.</p>
+      <p>De boeddhistische kant rust op teksten en op praktijk, en dat zeggen de auteurs ook. Zij lezen Nagarjuna via de commentaartraditie en beroepen zich op de Abhidharma-analyse van de ervaring. Metingen aan mediterenden komen er niet aan te pas; die kwamen pas in de jaren daarna op gang. Voor de centrale claim, dat geoefende zelfwaarneming andere gegevens oplevert dan gewone introspectie, levert het boek geen gegevens maar een programma. Varela heeft dat programma later zelf als openstaande opgave benoemd.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar betreft de koppeling tussen twee soorten aanspraken. Dat er in de ervaring geen blijvend zelf te vinden is, en dat de cognitiewetenschap geen centrale instantie in de hersenen aantreft, zijn twee verschillende bevindingen; de gelijkenis tussen beide is geen argument voor een van beide. Kenners van de boeddhistische tekstgeschiedenis hebben er bovendien op gewezen dat het boek een aandachtsoefening uit de theravada-traditie combineert met de filosofie van de madhyamaka alsof het één leer betreft, en dat de weergave van sunyata dichter bij twintigste-eeuwse westerse lezingen staat dan bij de oorspronkelijke discussies.</p>
+      <p>Methodisch belooft het boek meer dan het levert. Het bepleit geschoolde eerste-persoonsverslagen en voert die zelf niet uit. De neurofenomenologie die Varela in 1996 voorstelde is daarna wel beproefd, maar het bekende bezwaar bleef staan: een correlatie tussen een verslag van binnenuit en een patroon in hersenactiviteit legt uit dat twee dingen samen optreden, en verklaart nog niet waarom het ene met het andere gepaard gaat.</p>
+      <p>Vakinhoudelijk zijn er twee andere klachten. Evolutiebiologen namen natuurlijke drift niet over, omdat het de rol van selectie sterker terugdringt dan de gegevens vragen. En de term enactie is zo ruim geworden dat er inmiddels heel verschillende stellingen onder vallen: dat cognitie lichamelijk is, dat zij situatie-afhankelijk is, en dat zij zonder inwendige representaties beschrijfbaar is. Dat laatste is het meest omstreden. Wie met voorspellende modellen van de hersenen werkt, houdt vast aan inwendige modellen en beschouwt de afwijzing daarvan als een stap die uit de argumenten van het boek niet volgt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees deel vier en vijf als het eigenlijke betoog; de eerste drie delen zijn de stand van zaken uit 1991 en zijn deels ingehaald.</li>
+        <li>Houd de twee sporen uit elkaar bij het beoordelen: het cognitiewetenschappelijke voorstel staat of valt niet met de boeddhistische lezing.</li>
+        <li>Gebruik het kleurvoorbeeld als toets bij andere debatten over waarneming: welk aandeel komt van de bouw van het zenuwstelsel, welk aandeel van de geschiedenis van de omgeving.</li>
+        <li>Neem bij belangstelling voor de methodische kant het latere werk over neurofenomenologie erbij, want dit boek geeft daarvoor alleen de opdracht.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Embodied Mind: Cognitive Science and Human Experience</i> (MIT Press, Cambridge MA, 1991, 308 blz., ISBN 9780262720212). Herziene editie 2016 met nieuwe inleidingen van Thompson en Rosch en een voorwoord van Jon Kabat-Zinn (ISBN 9780262529365). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; van Varela staat daar wel <i>De boom der kennis</i>, geschreven met Humberto Maturana (Contact, Amsterdam, 1989). De samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Drie auteurs met verschillende achtergronden schreven samen het boek dat de term enactie in de cognitiewetenschap heeft gebracht: de Chileense bioloog Francisco Varela, bekend van de theorie van autopoiese, de filosoof Evan Thompson en de psycholoog Eleanor Rosch, die eerder de prototypetheorie van categorisering ontwikkelde. Hun voorstel luidt dat kennen ontstaat in de omgang van een lichaam met zijn omgeving, en dat waarnemen en handelen elkaar voortbrengen in plaats van elkaar op te volgen.</p><p>Wat het boek in 1991 ongebruikelijk maakte, was het tweede spoor. De auteurs betogen dat een wetenschap van de geest de geleefde ervaring nodig heeft, en dat de boeddhistische aandachtstraditie daarvoor een geschoolde methode aanbiedt. Die combinatie leverde zowel invloed als bezwaar op: enactivisme groeide uit tot een onderzoeksprogramma, terwijl de boeddhistische component tot op vandaag betwist wordt, onder meer door Thompson zelf in later werk.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>cognitiewetenschap</li><li>enactivisme</li><li>belichaamde cognitie</li><li>boeddhisme</li><li>fenomenologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="333"><a href="333.html">Altered Traits</a>. Goleman en Davidson brengen in kaart wat meditatieonderzoek na dit boek daadwerkelijk heeft gemeten, en waar de metingen tegenvallen.</li>
+          <li value="528"><a href="528.html">An Introduction to Zen Buddhism</a>. Suzuki's inleiding laat zien hoe het zenboeddhisme in het westen werd gepresenteerd, de traditie waarop dit boek voortbouwt.</li>
+          <li value="322"><a href="322.html">An Immense World</a>. Ed Yong beschrijft hoe verschillende dierlijke zintuigstelsels verschillende werelden voortbrengen, het biologische materiaal achter de stelling van enactie.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
