@@ -46341,9 +46341,9 @@ voldoening van status of bezit.
 **De stelling.** Shetty stelt dat de onrust van het moderne leven voortkomt
 uit een omgeving die voortdurend afleiding, vergelijking en de mening van
 anderen aanbiedt, en dat monniken al eeuwen een systematische methode hebben
-om daar los van te komen. Dat systeem, samengevat in de stappen loslaten,
-groeien en geven, is volgens hem overdraagbaar naar een leven buiten het
-klooster, mits iemand bereid is dagelijkse gewoontes rond stilte,
+om daar los van te komen. Dat systeem, dat hij terugbrengt tot de stappen
+loslaten, groeien en geven, is volgens hem overdraagbaar naar een leven buiten
+het klooster, mits iemand bereid is dagelijkse gewoontes rond stilte,
 dienstbaarheid en zelfonderzoek in te voeren. De claim steunt vrijwel volledig
 op Shetty's eigen ervaring in een ashram en op zijn latere werk als coach,
 niet op onderzoek naar de effecten van die specifieke aanpak.
@@ -46462,7 +46462,7 @@ Waar het boek meditatie en ademhaling aanbeveelt, sluit dat aan bij een breder
 onderzoeksveld naar mindfulness, maar Shetty citeert dat onderzoek niet
 systematisch en onderscheidt zijn eigen kloosteroefeningen niet expliciet van
 wat in die literatuur is getoetst. Verwijzingen naar de Bhagavad Gita en
-andere Vedische teksten worden doorgaans kort samengevat zonder
+andere Vedische teksten worden doorgaans kort weergegeven zonder
 paginaverwijzing, waardoor een lezer die de bron zelf wil naslaan weinig
 houvast heeft en op Shetty's herformulering moet vertrouwen.
 
@@ -55198,7 +55198,7 @@ geboren in 1954 en 1955 toevallig de juiste leeftijd hadden toen de
 computerindustrie op gang kwam. De 10.000-uurregel is na verschijning van het
 boek het meest bediscussieerde onderdeel gebleken: Anders Ericsson, wiens
 onderzoek Gladwell als bron gebruikt, heeft zelf gesteld dat Gladwell zijn
-bevindingen te grofmazig heeft samengevat tot een vaste drempel die het
+bevindingen te grofmazig heeft teruggebracht tot een vaste drempel die het
 onderzoek niet als zodanig claimde.
 
 ### Uitgebreide samenvatting
@@ -56855,7 +56855,7 @@ weergeeft.
 #### Wat je hierna leest
 
 - 94. Het tijdperk van onzekerheid. Hürter beschrijft de geschiedenis van de
-kwantummechanica die hier in enkele hoofdstukken wordt samengevat, met meer
+kwantummechanica die hier in enkele hoofdstukken wordt afgehandeld, met meer
 aandacht voor de mensen achter de ontdekkingen.
 - 262. A Brief History of Time. Hawking behandelt dezelfde twee revoluties,
 relativiteit en kwantummechanica, met de nadruk op kosmologie in plaats van op
@@ -57642,10 +57642,11 @@ wijsheden.
 
 Ook de omvang van het boek is een keuze met gevolgen: veertien gesprekken van
 elk enkele uren worden teruggebracht tot enkele bladzijden per onderwerp,
-waardoor complexe thema's als vergeving of huwelijk in enkele uitspraken
-worden samengevat. Dat maakt het boek toegankelijk, maar het verschil tussen
-een gesprek van een middag en de destillatie ervan tot een citaat van twee
-zinnen is groot, en de lezer krijgt geen manier om dat verschil te beoordelen.
+waardoor complexe thema's als vergeving of huwelijk tot enkele uitspraken
+worden teruggebracht. Dat maakt het boek toegankelijk, maar het verschil
+tussen een gesprek van een middag en de destillatie ervan tot een citaat van
+twee zinnen is groot, en de lezer krijgt geen manier om dat verschil te
+beoordelen.
 
 #### Wat je hierna leest
 
@@ -58363,7 +58364,7 @@ weggelopen.
 | Begrip | Wat de auteur ermee bedoelt |
 | --- | --- |
 | Eerste deur | De hoofdingang waar de meeste mensen in de rij staan en op hun beurt wachten. |
-| Tweede deur | De ingang voor wie al connecties, geld of naam heeft en zo wordt binnengelaten. |
+| Tweede deur | De ingang voor wie al connecties, geld of naam heeft en daarom wordt binnengelaten. |
 | Derde deur | De onofficiële weg naar binnen die uit improvisatie, aandrang en lef bestaat, en die niemand aanwijst. |
 | De pool | Tim Ferriss' aanpak om eerst kleine wederdiensten te bewijzen aan gevestigde mensen voordat je zelf iets vraagt. |
 | Rocky steps | Banayans beeld voor de opeenvolgende, telkens iets grotere overwinningen die momentum opbouwen richting een groter doel. |
@@ -59366,10 +59367,10 @@ overstappen naar iets anders lastiger. Die investering laadt ook de volgende
 trigger op: hoe meer een gebruiker in een product heeft gestopt, hoe eerder
 een melding daarover weer aandacht trekt.
 
-Zo wordt de cyclus na een paar rondes zelfvoorzienend: trigger, actie en
-beloning van de vorige ronde bepalen mede hoe sterk de trigger van de volgende
-ronde is. Eyal verwijst hierbij naar het Ikea-effect, het verschijnsel dat
-mensen iets meer waarderen zodra zij er zelf werk in hebben gestoken, en naar
+De cyclus wordt na een paar rondes zelfvoorzienend: trigger, actie en beloning
+van de vorige ronde bepalen mede hoe sterk de trigger van de volgende ronde
+is. Eyal verwijst hierbij naar het Ikea-effect, het verschijnsel dat mensen
+iets meer waarderen zodra zij er zelf werk in hebben gestoken, en naar
 verliesaversie, de neiging om het vooruitzicht van verlies zwaarder te wegen
 dan een even grote winst. Beide effecten verklaren volgens hem waarom
 opgebouwde volgers, punten of inhoud iemand aan een product binden, ook als
@@ -60372,7 +60373,7 @@ patroon".
 
 De eerste dwaalweg is wat Rieder zuiverheidsethiek noemt: de eis om volledig
 buiten elk schadelijk systeem te blijven, geen vlees, geen vliegtuig, geen
-product waarvan de herkomst besmet is. Hij vindt dat onhaalbaar in een wereld
+product waarvan de herkomst besmet is. Hij vindt dat onhaalbaar in een tijd
 waarin vrijwel elke aankoop ergens in een keten zit die schade doet, en
 waarschuwt dat de eis tot uitputting en tot een leven vol boekhouding leidt
 zonder dat de wereld er merkbaar beter van wordt.
@@ -61423,8 +61424,8 @@ overkomen, maar juist meer invloed krijgen.
 zo overtuigend mogelijk overkomen en zo veel mogelijk feiten aandragen,
 averechts werkt: wie zich niet gehoord voelt, graaft zich in, ongeacht hoe
 sterk het tegenargument is. Haar onderzoek naar wat zij conversational
-receptiveness noemt laat zien dat een klein aantal taalkeuzes, samengevat in
-het ezelsbruggetje HEAR, bepaalt of een gesprekspartner zich openstelt of
+receptiveness noemt laat zien dat een klein aantal taalkeuzes, bijeengebracht
+in het ezelsbruggetje HEAR, bepaalt of een gesprekspartner zich openstelt of
 dichtklapt. Ontvankelijkheid is bij haar geen kwestie van toegeven aan de
 ander, maar een aparte vaardigheid die losstaat van wie er gelijk heeft, en
 die net als elke andere vaardigheid te leren en te meten is.
@@ -63277,10 +63278,10 @@ voortdurend genot najagen.
 Lembke sluit af met de vraag hoe deze individuele mechanismen zich verhouden
 tot een samenleving die producten steeds sterker, toegankelijker en
 persoonlijker maakt, van variabele beloning in apps tot voedsel dat
-industrieel zo wordt samengesteld dat het zo sterk mogelijk smaakt. Haar
-conclusie is dat zelfbinding op individueel niveau nodig blijft zolang de
-industrieën die deze producten maken, geen reden hebben om de sterkte van de
-prikkel te beperken.
+industrieel wordt samengesteld op een zo sterk mogelijke smaak. Haar conclusie
+is dat zelfbinding op individueel niveau nodig blijft zolang de industrieën
+die deze producten maken, geen reden hebben om de sterkte van de prikkel te
+beperken.
 
 #### Kernbegrippen
 
@@ -65288,7 +65289,7 @@ uitslagen op het Ultraman-wereldkampioenschap in 2008 en 2009, de EPIC5 in mei
 het boek om.
 
 De claim die het boek het minst onderbouwt, is de causale: dat het
-plantaardige dieet de sleutel tot zijn herstel was. Roll levert daarvoor geen
+plantaardige dieet de oorzaak van zijn herstel was. Roll levert daarvoor geen
 onderzoek en geen vergelijking met andere mogelijke verklaringen; hij levert
 één geval, zichzelf, waarin voeding, training, slaap en het wegvallen van
 werkstress tegelijk veranderden.
@@ -68421,11 +68422,11 @@ boek zelf te bespreken. Wie het boek zonder die achtergrond leest, mist een
 deel van de context waarin de methode is ontstaan.
 
 Ook los van die herkomst blijft de onderbouwing dun. Er staan geen namen,
-cijfers of gecontroleerde uitkomsten in, alleen samengevatte gesprekken die
-Goss zelf heeft gevoerd en geïnterpreteerd. Voor wie al vertrouwd is met de
-taal van coaching en Landmark oogt het overtuigend; voor wie dat niet is, kan
-dezelfde tekst aandoen als jargon voor een simpel advies: kijk naar het eigen
-vaste patroon en probeer iets anders.
+cijfers of gecontroleerde uitkomsten in, alleen verkorte weergaven van
+gesprekken die Goss zelf heeft gevoerd en geïnterpreteerd. Voor wie al
+vertrouwd is met de taal van coaching en Landmark oogt het overtuigend; voor
+wie dat niet is, kan dezelfde tekst aandoen als jargon voor een simpel advies:
+kijk naar het eigen vaste patroon en probeer iets anders.
 
 Het advies is bovendien geschreven voor een smalle groep: bestuurders met de
 positie, het budget en de speelruimte om zichzelf zo ingrijpend te
@@ -72839,7 +72840,7 @@ Jim Murphy, 2020. Voluit *Inner Excellence: Train Your Mind for Extraordinary
 Performance and the Best Possible Life*. Murphy publiceerde in 2009 bij
 McGraw-Hill al een zakelijk gericht boek onder dezelfde hoofdtitel, *Inner
 Excellence: Achieve Extraordinary Business Success through Mental Toughness*.
-De hier samengevatte, herschreven versie verscheen in 2020 in eigen beheer
+De hier besproken, herschreven versie verscheen in 2020 in eigen beheer
 (Academy of Excellence, ISBN 9781734654806) en werd in 2025 door Grand Central
 Publishing (Hachette) opnieuw uitgebracht, zonder inhoudelijke koerswijziging.
 Geen Nederlandse uitgave. Rubriek: moed en karakter.
@@ -73706,7 +73707,7 @@ alleen herhaald in steeds nieuwe formuleringen.
 **De overige zes principes**
 
 Correspondentie stelt dat wat op het ene niveau van bestaan geldt, ook op de
-andere geldt, samengevat in de zin "zo boven, zo beneden". Trilling stelt dat
+andere geldt, verwoord in de zin "zo boven, zo beneden". Trilling stelt dat
 niets stilstaat en dat verschillen tussen materie, geest en energie enkel
 verschillen in trillingsgetal zijn. Polariteit stelt dat tegengestelden in
 werkelijkheid twee uitersten van hetzelfde zijn, zodat haat in liefde kan
@@ -73749,7 +73750,7 @@ geeft.
 | --- | --- |
 | Het Al | De universele Geest waarvan volgens het boek de hele werkelijkheid een mentale voortbrengsel is. |
 | Mentalisme | Het eerste en dragende principe: dat het Universum mentaal van aard is en dus door gedachte te beïnvloeden valt. |
-| Correspondentie | Het principe dat wetmatigheden op het ene niveau van bestaan ook op andere niveaus gelden, samengevat als "zo boven, zo beneden". |
+| Correspondentie | Het principe dat wetmatigheden op het ene niveau van bestaan ook op andere niveaus gelden, verwoord als "zo boven, zo beneden". |
 | Trilling | Het principe dat niets stilstaat en dat materie, geest en energie enkel in trillingsgetal verschillen. |
 | Polariteit | Het principe dat tegengestelden gradaties van hetzelfde zijn, waardoor de ene toestand in de andere kan worden omgezet. |
 | Mentale transmutatie | De toepassing van de principes: een ongewenste gemoedstoestand omzetten door haar op de polariteitsschaal te verschuiven. |
@@ -81692,10 +81693,10 @@ de endocannabinoïden, die verantwoordelijk zijn voor het genieten van wat er
 op dit moment al is: een aanraking, een maaltijd, het gezelschap van een
 vriend.
 
-Dat onderscheid is volgens hen de sleutel tot verschijnselen die anders los
-van elkaar lijken te staan: waarom een verliefdheid vervaagt zodra een relatie
-zeker is, waarom een verslaving telkens een grotere dosis nodig heeft, en
-waarom een bereikte ambitie zelden blijvende voldoening geeft.
+Dat onderscheid verklaart volgens hen verschijnselen die anders los van elkaar
+lijken te staan: waarom een verliefdheid vervaagt zodra een relatie zeker is,
+waarom een verslaving telkens een grotere dosis nodig heeft, en waarom een
+bereikte ambitie zelden blijvende voldoening geeft.
 
 **De ontdekking van de voorspellingsfout**
 
@@ -85271,7 +85272,7 @@ hoofdstuk.
 
 Het boek voert geen betoog en verdedigt geen these buiten de bruikbaarheid van
 logica zelf. Het is een leermiddel, opgebouwd van de eenvoudigste begrippen
-naar de formele systemen, en wordt hier daarom anders samengevat dan een essay
+naar de formele systemen, en wordt hier daarom anders behandeld dan een essay
 of verhaal: als een overzicht van wat het onderwijst en wat een student ermee
 wint en mist.
 
@@ -87544,7 +87545,7 @@ Als beeld voor die opeenstapeling gebruikt Keller de dominosteen: een steen
 kan er een omvergooien die tot vijftig procent groter is, en een reeks van
 zulke stenen bouwt zich exponentieel op tot een omvang die met het blote oog
 niet meer voorstelbaar is. Het ene ding is in dat beeld de eerste steen, klein
-genoeg om aan te pakken en tegelijk de sleutel tot de rest van de rij.
+genoeg om aan te pakken en tegelijk bepalend voor de rest van de rij.
 
 De metafoor moet vooral geruststellen: wie zich afvraagt hoe een klein begin
 tot iets groots kan leiden, ziet in het beeld dat de opbouw niet lineair
@@ -87622,7 +87623,7 @@ doelstellingstheorie van Locke en Latham voor het effect van scherp
 geformuleerde doelen, en een studie naar de tijd die een nieuwe gewoonte nodig
 heeft om zich vast te zetten, gemiddeld rond de zesenzestig dagen. Die
 verwijzingen onderbouwen afzonderlijke stappen, maar het overkoepelende
-domino-beeld en de claim dat één ding de sleutel tot al het overige is, worden
+domino-beeld en de claim dat één ding al het overige in gang zet, worden
 nergens met onderzoek gestaafd en blijven een metafoor.
 
 #### Wat er tegen in te brengen valt
@@ -88716,16 +88717,16 @@ tegenhoudt.
 ### Uitgebreide samenvatting
 
 **De stelling.** Poundstone betoogt dat de speltheorie van John von Neumann
-niet zomaar een wiskundig hulpmiddel was, maar het denkkader werd waarmee een
-generatie strategen de kernwapenwedloop begreep en vormgaf. Het
-minimax-theorema, dat voor tweepersoons nulsomspellen een rationele, veilige
-strategie garandeert, gaf de illusie dat een oorlog tussen twee grootmachten
-net zo doorrekenbaar was als een pokerspel. Het dilemma van de gevangene
-ondermijnt diezelfde illusie: het laat zien dat twee volstrekt rationele
-spelers elkaar met open ogen in een uitkomst kunnen manoeuvreren die voor
-beiden slechter is dan samenwerking. Het boek stelt dat deze twee inzichten,
-de een geruststellend en de ander verontrustend, in dezelfde RAND-gangen zijn
-ontstaan en tot op vandaag naast elkaar blijven bestaan.
+uitgroeide van wiskundig hulpmiddel tot het denkkader waarmee een generatie
+strategen de kernwapenwedloop begreep en vormgaf. Het minimax-theorema, dat
+voor tweepersoons nulsomspellen een rationele, veilige strategie garandeert,
+gaf de illusie dat een oorlog tussen twee grootmachten net zo doorrekenbaar
+was als een pokerspel. Het dilemma van de gevangene ondermijnt diezelfde
+illusie: het laat zien dat twee volstrekt rationele spelers elkaar met open
+ogen in een uitkomst kunnen manoeuvreren die voor beiden slechter is dan
+samenwerking. Het boek stelt dat deze twee inzichten, de een geruststellend en
+de ander verontrustend, in dezelfde RAND-gangen zijn ontstaan en tot op
+vandaag naast elkaar blijven bestaan.
 
 #### De gang van het boek
 
@@ -94384,8 +94385,8 @@ overleeft, verdient de dure vervolgstappen.
 De belangrijkste validatiestap is de walk-forward-analyse. Het systeem wordt
 afgesteld op een stuk historie en vervolgens beoordeeld op het aansluitende,
 ongeziene stuk; daarna schuift het venster op en herhaalt de procedure zich
-over de hele geschiedenis. Zo wordt nagebootst wat er in het echt gebeurt:
-handelen in een toekomst die het systeem niet kent.
+over de hele geschiedenis. Daarmee wordt nagebootst wat er in het echt
+gebeurt: handelen in een toekomst die het systeem niet kent.
 
 Alleen de resultaten op de ongeziene stukken tellen. De methode is strenger
 dan de gebruikelijke enkele splitsing in een afstel- en een toetsdeel, omdat
@@ -94812,12 +94813,12 @@ enkel backtestcijfer weinig zegt.
 
 Naast de permutatietests behandelt het boek de walk-forward-analyse: het model
 wordt getraind op een venster uit het verleden, vervolgens getoetst op de
-periode direct daarna, waarna het venster opschuift en alles zich herhaalt. Zo
-wordt elk oordeel geveld op gegevens die het model nog niet had gezien, wat de
-gang van zaken bij echt handelen nabootst. De auteurs zetten deze aanpak af
-tegen kruisvalidatie, waarbij de data in blokken worden verdeeld en elk blok
-een keer als toets dient, en bespreken wanneer welke methode past bij
-tijdreeksen.
+periode direct daarna, waarna het venster opschuift en alles zich herhaalt.
+Elk oordeel wordt daarmee geveld op gegevens die het model nog niet had
+gezien, wat de gang van zaken bij echt handelen nabootst. De auteurs zetten
+deze aanpak af tegen kruisvalidatie, waarbij de data in blokken worden
+verdeeld en elk blok een keer als toets dient, en bespreken wanneer welke
+methode past bij tijdreeksen.
 
 De slothoofdstukken gaan over het samenstellen van portefeuilles uit meerdere
 systemen, het zoeken naar deelmarkten of marktomstandigheden waarin wél
@@ -96168,8 +96169,8 @@ van zijn ranglijsten bestaat niet.
 
 #### Wat er tegen in te brengen valt
 
-Dit is een zuiver handboek en zo is het hier ook samengevat: de kerngedachte
-is in enkele pagina's verteld, de omvang zit in de catalogus van varianten,
+Dit is een zuiver handboek en zo is het hier ook behandeld: de kerngedachte is
+in enkele pagina's verteld, de omvang zit in de catalogus van varianten,
 tabellen en simulaties. Wie het betoog wil, kan bij *Trade Your Way to
 Financial Freedom* terecht; dit boek is voor wie daarna wil doorrekenen. Het
 is bovendien herhalend geschreven en alleen tegen een stevige prijs via het
@@ -98671,7 +98672,7 @@ posities dagen tot maanden aanhoudt, kan geen snelheidsvoordeel uitbuiten en
 heeft dus een aantoonbare prijsfout nodig. Sinclair inventariseert waar die te
 vinden is, met de premie op impliciete volatiliteit als hoofdbron.
 
-Het is een gevorderd boek: de prijstheorie wordt in één hoofdstuk samengevat
+Het is een gevorderd boek: de prijstheorie wordt in één hoofdstuk afgehandeld
 en daarna bekend verondersteld. De tweede helft gaat over wat de meeste
 optieboeken overslaan: hoeveel je inzet, hoe de winstverdeling van een
 constructie er werkelijk uitziet en welke risico's buiten het model vallen.
@@ -99625,7 +99626,7 @@ voorbeelden en oefeningen, geschreven voor mensen die zakelijke teksten maken.
 piramide zijn geordend onder één boodschap: de conclusie eerst, daaronder de
 argumenten die haar dragen, en onder elk argument de onderbouwing daarvan.
 Elke laag beantwoordt de vraag die de laag erboven bij de lezer oproept,
-punten binnen één groep zijn van dezelfde soort en samengevat in het punt
+punten binnen één groep zijn van dezelfde soort en gaan op in het punt
 erboven, en de inleiding brengt de lezer via situatie en complicatie bij de
 vraag waarop de tekst het antwoord is. Minto's onderliggende claim is dat
 schrijfproblemen vrijwel altijd denkproblemen zijn: wie zijn piramide niet kan
@@ -102641,7 +102642,7 @@ is bij de *Kimiya* aan het goede adres.
 | --- | --- |
 | Kimiya (alchemie) | Het beeld voor de omzetting van de ziel: dierlijke eigenschappen worden door discipline en kennis omgewerkt tot eigenschappen die het hart voor God geschikt maken. |
 | Qalb (hart) | Het geestelijke centrum van de mens, in het boek zowel koning van het lichaamsrijk als spiegel waarin God gekend kan worden. |
-| Zelfkennis | Het onderzoek naar wat de mens is, waar hij vandaan komt en waartoe hij er is; volgens al-Ghazali de sleutel tot de kennis van God. |
+| Zelfkennis | Het onderzoek naar wat de mens is, waar hij vandaan komt en waartoe hij er is; volgens al-Ghazali de toegang tot de kennis van God. |
 | De vier naturen | Beest, roofdier, duivel en engel: de eigenschappen die in ieder mens samenwonen en waarvan er één gaat overheersen. |
 | Muhasaba (zelfonderzoek) | De dagelijkse afrekening met de eigen ziel, naar het beeld van de koopman die elke avond met zijn compagnon de boeken doorneemt. |
 | Dhikr (gedenken) | Het voortdurend gedenken van God, als oefening die het hart gericht houdt en de spiegel schoon. |
@@ -103550,11 +103551,11 @@ een heidense wereld.
 
 **De stelling.** Beowulf zet twee beelden naast elkaar: de jonge held die
 monsters met blote handen verslaat en de oude koning die aan zijn laatste
-monster sterft. In een wereld waarin het lot niemand spaart, is het enige
-houdbare bezit de naam die iemand nalaat; het gedicht eindigt letterlijk met
-het woord lofgeornost, het meest begerig naar roem. Tegelijk kijkt een
-christelijke verteller over de schouder van die heidense wereld mee en weet
-dat ook roem, zalen en goud vergaan. Daardoor gaat het gedicht evenzeer over
+monster sterft. Waar het lot niemand spaart, is het enige houdbare bezit de
+naam die iemand nalaat; het gedicht eindigt letterlijk met het woord
+lofgeornost, het meest begerig naar roem. Tegelijk kijkt een christelijke
+verteller over de schouder van die heidense wereld mee en weet dat ook roem,
+zalen en goud vergaan. Daardoor gaat het gedicht evenzeer over
 vergankelijkheid als over heldendom: elke overwinning wordt verteld met de
 ondergang al in zicht.
 
@@ -106883,7 +106884,7 @@ teken van eigen angst en niet als informatie over de ander.
 
 Het tweede deel bestaat uit twaalf lessen, elk met een cartoon en een
 dagoefening. De titels zijn programmatisch: alles wat ik geef, geef ik aan
-mijzelf; vergeving is de sleutel tot geluk; ik ben nooit van streek om de
+mijzelf; *forgiveness is the key to happiness*; ik ben nooit van streek om de
 reden die ik denk; ik ben vastbesloten de dingen anders te zien; ik kan de
 wereld die ik zie ontvluchten door aanvalsgedachten op te geven; dit moment is
 de enige tijd die er is; ik zou vrede kunnen zien in plaats van dit; ik ben
@@ -106910,7 +106911,7 @@ van Carlos Santana, houden de tekst vrijwel ongewijzigd.
 | Houdingsgenezing | Het herstellen van innerlijke vrede door de eigen houding te veranderen, los van de vraag of de omstandigheden of het lichaam veranderen. |
 | Liefde en angst | De twee grondhoudingen waartoe Jampolsky alle gemoedstoestanden herleidt; angst is aangeleerd, liefde geldt als de natuurlijke staat. |
 | Innerlijke vrede | De toestand die in dit boek als gezondheid geldt, ook bij lichamelijke ziekte. |
-| Vergeving | Het opgeven van oordelen en grieven over anderen en zichzelf; in het boek de sleutel tot geluk. |
+| Vergeving | Het opgeven van oordelen en grieven over anderen en zichzelf; in het boek de weg naar geluk. |
 | Aanvalsgedachten | Oordelende, verwijtende gedachten die angst in stand houden en de waargenomen wereld kleuren. |
 | Geestestraining | Het dagelijks herhalen van één les om een oude denkgewoonte door een nieuwe te vervangen. |
 | Het enige moment | De stelling dat alleen het nu bestaat en dat schuld en zorg constructies zijn van verleden en toekomst. |
@@ -108030,10 +108031,10 @@ wanneer zij zich aandient in de gestalte van een junkie.
 
 Jan trouwt met Helen. Zij valt terug, keert terug naar Lutz, komt weer thuis,
 en dat herhaalt zich. Hier wordt de Hosea-parallel expliciet: zoals de profeet
-moest trouwen met een overspelige vrouw om Israël Gods trouw te tonen, zo
-wordt Jans huwelijk een beeld van Gods geduld met wie hem telkens verlaat.
-Lutz voert ondertussen de druk op; zijn obsessie met Helen groeit uit tot een
-jacht op Jan zelf.
+moest trouwen met een overspelige vrouw om Israël Gods trouw te tonen, is Jans
+huwelijk een beeld van Gods geduld met wie hem telkens verlaat. Lutz voert
+ondertussen de druk op; zijn obsessie met Helen groeit uit tot een jacht op
+Jan zelf.
 
 **De prijs**
 
@@ -108877,7 +108878,7 @@ als grondtoon.
 
 Tegenover de bedelaar staat Mozes, die als prins aan het Egyptische hof werd
 opgevoed en daardoor volgens Vallotton het leiderschap over een volk kon
-dragen. Opvoeding en zelfbeeld worden zo de sleutel tot bestemming.
+dragen. Opvoeding en zelfbeeld bepalen zo iemands bestemming.
 
 **Het eigen verhaal als bewijsstuk**
 
@@ -109677,8 +109678,8 @@ attracties gaan inrichten naar het beeld dat de toerist al meebrengt.
 
 Ook kunstvormen lossen op in hun afgeleiden. Boorstin beschrijft de keten van
 bewerkingen: de roman wordt film, de film wordt trailer, het boek wordt
-uittreksel en het uittreksel wordt samengevat. *Reader's Digest* is zijn
-hoofdvoorbeeld: het blad begon met samenvatten en ging er later toe over
+uittreksel en het uittreksel wordt nog eens ingekort. *Reader's Digest* is
+zijn hoofdvoorbeeld: het blad begon met samenvatten en ging er later toe over
 artikelen zelf te bestellen om ze te kunnen samenvatten; de afgeleide ging aan
 het origineel voorafgaan.
 
@@ -114926,13 +114927,12 @@ volgt.
 
 Hoofdstuk vier tot en met zeven bouwen de kosmologie op. De werkelijkheid valt
 uiteen in een subjectief en een objectief rijk, en de schepping verloopt in
-trappen die worden samengevat in de Paut Neteru, de levensboom: elf sferen,
-van Amen (het verborgene, sfeer nul) via Ausar, Tehuti, Seker, Maat,
-Herukhuti, Heru, Het-Heru, Sebek en Auset tot Geb, de aarde. Elke godheid
-staat voor een vermogen van de menselijke geest: goddelijke wil, wijsheid,
-ordening, levenskracht, verbeelding, verstand, geheugen. De boom is daarmee
-tegelijk scheppingsverhaal en zielkundige kaart: de geestelijke anatomie van
-de mens.
+trappen die de Paut Neteru bijeenbrengt, de levensboom: elf sferen, van Amen
+(het verborgene, sfeer nul) via Ausar, Tehuti, Seker, Maat, Herukhuti, Heru,
+Het-Heru, Sebek en Auset tot Geb, de aarde. Elke godheid staat voor een
+vermogen van de menselijke geest: goddelijke wil, wijsheid, ordening,
+levenskracht, verbeelding, verstand, geheugen. De boom is daarmee tegelijk
+scheppingsverhaal en zielkundige kaart: de geestelijke anatomie van de mens.
 
 **Drie typen mensen en de Ausarische weg**
 
@@ -115756,7 +115756,7 @@ van het Egyptisch bij de Afro-Aziatische taalfamilie en stelt er een eigen
 familie voor in de plaats, het négro-égyptien, die het Egyptisch met talen als
 het Wolof en het Yoruba zou verbinden. Denkstelsels van de Dogon in Mali, de
 Vai in West-Afrika en de Yoruba in Nigeria voert hij op als levende
-voortzettingen van hetzelfde erfgoed. Zo wordt de faraonische filosofie geen
+voortzettingen van hetzelfde erfgoed. De faraonische filosofie is daarmee geen
 dood verleden; zwart Afrika kan er volgens Obenga zijn eigen klassieke oudheid
 in herkennen, zoals Europa dat in Griekenland doet.
 
@@ -118238,10 +118238,10 @@ persoonlijke reflectie over wat dat verhaal oproept: mysterie, dankbaarheid,
 eerbied.
 
 Die houding noemt zij religieus naturalisme: geen bovennatuur, wel religieuze
-gevoelens bij het wetenschappelijke wereldbeeld, samengevat in een verbond met
-het mysterie en een credo van voortzetting. De tweede editie uit 2023 voegt
-hoofdstukken over menselijke evolutie en ecomoraliteit toe en werkt het begrip
-emergentie verder uit. Het boek geldt als grondtekst van de
+gevoelens bij het wetenschappelijke wereldbeeld, bijeengebracht in een verbond
+met het mysterie en een credo van voortzetting. De tweede editie uit 2023
+voegt hoofdstukken over menselijke evolutie en ecomoraliteit toe en werkt het
+begrip emergentie verder uit. Het boek geldt als grondtekst van de
 religieus-naturalistische beweging. De wetenschap is degelijk; de reflecties
 zijn beleden, geen betoog, en wie een argument verwacht voor de stap van feit
 naar eerbied vindt dat niet.
@@ -118791,7 +118791,7 @@ van het christelijk anarchisme en pacifisme.
 ### Uitgebreide samenvatting
 
 **De stelling.** Tolstoj stelt dat de leer van Christus geen mystiek stelsel
-is maar een uitvoerbare levensleer, samengevat in de Bergrede en toegespitst
+is maar een uitvoerbare levensleer, die in de Bergrede staat en is toegespitst
 in het gebod om het kwaad niet met geweld te weerstaan. Kerk en staat hebben
 die leer onschadelijk gemaakt: de kerk door haar achter dogma's en sacramenten
 te verstoppen, de staat door gehoorzaamheid, eed en dienstplicht tot plicht te
@@ -118855,8 +118855,8 @@ hongerende boeren in het gouvernement Toela af te ranselen vanwege een
 grondgeschil met een landheer. Tolstoj ontleedt hoe ieder in die trein, van
 gouverneur tot soldaat, zijn aandeel voor zichzelf verontschuldigt met
 dienstplicht, bevel of gezinsbelang, terwijl niemand de daad als geheel zou
-willen verdedigen. Zo wordt zichtbaar wat het boek beweert: het kwaad in de
-wereld draait niet op slechte bedoelingen, het draait op gehoorzaamheid.
+willen verdedigen. Daarmee wordt zichtbaar wat het boek beweert: het kwaad in
+de wereld draait niet op slechte bedoelingen, het draait op gehoorzaamheid.
 
 **Het koninkrijk binnen in u**
 
@@ -120003,8 +120003,8 @@ economische colleges die het verhaal stilleggen, en Avis is als vertelster
 vooral een bewonderaarster, waardoor Everhard meer standbeeld dan mens wordt.
 Critici wijzen ook op de spanning tussen Londons socialisme en zijn verering
 van de sterke man: Everhard wordt met Nietzscheaanse trekken neergezet, en
-Orwell zag daarin de sleutel tot het boek, de schrijver die het fascisme
-begreep omdat de hang naar kracht hem zelf vertrouwd was.
+Orwell zag daarin de kern van het boek, de schrijver die het fascisme begreep
+omdat de hang naar kracht hem zelf vertrouwd was.
 
 Politiek is het boek eenzijdig: de tegenstander bestaat vrijwel geheel uit
 cynici en gekochte zielen, en de mogelijkheid dat democratische instellingen
@@ -122648,7 +122648,7 @@ lijn en cirkel, en dat zijn zelfontworpen teken, de monade, die voortbrenging
 zichtbaar samenvat: de zon als cirkel om een punt, daarboven de halve maan,
 daaronder het kruis van de vier elementen en het vuurteken Ram. Wie het teken
 meetkundig en symbolisch ontleedt, vindt er volgens Dee de tekens van alle
-planeten en metalen in terug, en daarmee de sleutel tot een hervormde
+planeten en metalen in terug, en daarmee de grondslag voor een hervormde
 sterrenkunde, een 'lagere sterrenkunde' (alchemie) en zelfs de ware herkomst
 van de letters. Het traktaat belooft niets minder dan een herschikking van
 alle wetenschappen rond dit ene teken.
@@ -125087,12 +125087,12 @@ als bezwaren het dichte vakjargon en de herhaling in de tweede helft.
 
 #### Waar het argument op rust
 
-De onderbouwing bestaat uit casuïstiek: droomreeksen en behandelverlopen uit
-de eigen praktijk, gelezen door een alchemistische bril en aangevuld met
-alchemistische teksten, mythen en het werk van Jung en Von Franz. Dat is
-binnen de jungiaanse traditie een gangbare werkwijze, en Wikmans klinische
-ervaring, waaronder het droomonderzoek bij stervenden aan een universitair
-medisch centrum, geeft het materiaal gewicht.
+De onderbouwing bestaat uit casuïstiek: droomreeksen en verlopen van
+behandelingen uit de eigen praktijk, gelezen door een alchemistische bril en
+aangevuld met alchemistische teksten, mythen en het werk van Jung en Von
+Franz. Dat is binnen de jungiaanse traditie een gangbare werkwijze, en Wikmans
+klinische ervaring, waaronder het droomonderzoek bij stervenden aan een
+universitair medisch centrum, geeft het materiaal gewicht.
 
 Onderzoek in de gebruikelijke zin ontbreekt: er is geen controlegroep, geen
 toetsbare voorspelling en geen poging de duiding tegen een alternatieve
@@ -126989,7 +126989,7 @@ dat eerlijk.
 
 | Begrip | Wat de auteur ermee bedoelt |
 | --- | --- |
-| zelfreferentie | Het verschijnsel dat een zin, programma of systeem naar zichzelf verwijst, bij Hofstadter de sleutel tot Gödel, zelfreproductie en bewustzijn. |
+| zelfreferentie | Het verschijnsel dat een zin, programma of systeem naar zichzelf verwijst, bij Hofstadter de verbindende draad tussen Gödel, zelfreproductie en bewustzijn. |
 | quine | Een programma of zin die exact de eigen beschrijving voortbrengt, als kleinste model van zelfreproductie. |
 | meem | Een idee als zichzelf verspreidende eenheid, door Dawkins gemunt en door Hofstadter uitgewerkt aan de hand van virale zinnen. |
 | glijden | Het gedachte-experiment waarin één element van een situatie wordt gevarieerd, volgens Hofstadter de kernbewerking van analogie en creativiteit. |
@@ -130424,9 +130424,9 @@ volgt, en beschrijft hoe hij in Los Angeles een taxibonnetje krijgt dat met
 leert hoe makkelijk betekenis zich opdringt. Hij documenteert Human Individual
 Metamorphosis, de groep waarmee Marshall Applewhite en Bonnie Nettles in 1975
 volgelingen wierven met de belofte van een lichamelijke overgang naar een
-hoger niveau, en de beweging rond de Franse journalist Claude Vorilhon, die
-zich Raël noemt. Het patroon dat hij optekent: een gewone sekte-structuur, met
-de ufo als modern gewaad voor een oude belofte.
+hogere zijnsvorm, en de beweging rond de Franse journalist Claude Vorilhon,
+die zich Raël noemt. Het patroon dat hij optekent: een gewone sekte-structuur,
+met de ufo als modern gewaad voor een oude belofte.
 
 De waarschuwing bleek achteraf raak. De groep van Applewhite en Nettles ging
 verder als Heaven's Gate; in 1997 beroofden 39 leden zich van het leven om een
@@ -164370,7 +164370,7 @@ Er is geen enkelvoudig boek met die titel. Dogen ordende zelf een verzameling
 van zestig delen en een van vijfenzeventig. Daarnaast is er een verzameling
 van twaalf delen, waarvan het bestaan pas in 1936 met een handschrift uit
 Yokoji zeker werd, en een van achtentwintig delen uit het midden van de
-veertiende eeuw die wel de geheime Shobogenzo wordt genoemd. De
+veertiende eeuw die ook wel bekendstaat als de geheime Shobogenzo. De
 vijfennegentigdelige Honzan-editie gaat terug op de samenstelling van Hangyo
 Kozen aan het eind van de zeventiende eeuw, werd in 1815 gedrukt en in 1906
 herzien. Die editie, met de delen op volgorde van ontstaan, volgen de meeste
@@ -164392,9 +164392,9 @@ De bekendste passage luidt dat de boeddhaweg bestuderen het zelf bestuderen
 is, dat het zelf bestuderen het zelf vergeten is, en dat het zelf vergeten
 betekent dat men door de tienduizend dingen bevestigd wordt. Even bepalend is
 het beeld van het brandhout: brandhout wordt geen as, want brandhout staat in
-zijn eigen stand en as in de zijne, en zo wordt een mens na de dood ook geen
-leven weer. Verder de boot waarvan de oever lijkt te bewegen, en de vis die
-het water nooit uitzwemt en de vogel die de lucht nooit uitvliegt.
+zijn eigen stand en as in de zijne, en op dezelfde wijze wordt een mens na de
+dood niet opnieuw leven. Verder de boot waarvan de oever lijkt te bewegen, en
+de vis die het water nooit uitzwemt en de vogel die de lucht nooit uitvliegt.
 
 Wat die beelden gemeen hebben is de afwijzing van tijd als doorgaande lijn
 waarin iets van de ene toestand in de andere overgaat. Elk moment staat op
@@ -165342,7 +165342,7 @@ bundel laat zien in wat voor omgeving die liederen feitelijk klonken.
 | trekchö | doorsnijden, de oefening waar deze liederen over gaan: het bouwsel van begrippen loslaten in plaats van bestrijden. |
 | rigpa | wakend gewaarzijn dat zichzelf kent, in de liederen aangeduid als de helderheid van de geest zelf. |
 | garoeda | de mythische vogel die volgroeid uit het ei komt en meteen vliegt, het beeld voor een weg die geen trappen nodig heeft. |
-| de drie kenmerken | leeg van kern, helder van natuur, onbelemmerd in uitdrukking; samengevat in het beeld van de vlekkeloze kristallen bol. |
+| de drie kenmerken | leeg van kern, helder van natuur, onbelemmerd in uitdrukking; bijeengebracht in het beeld van de vlekkeloze kristallen bol. |
 | rang grol | zelfbevrijding, ook het tweede deel van Shabkars naam: het vanzelf oplossen van wat opkomt zodra er niets mee wordt gedaan. |
 | PHAT | de uitgestoten lettergreep waarmee de beoefenaar volgens de liederen de suffigheid doorbreekt. |
 | bardo | de tussentoestand na de dood, waar volgens het slotlied wie het in dit leven niet haalt alsnog bevrijd kan worden. |
@@ -170735,9 +170735,9 @@ Daaruit volgt zijn hele boek: onthouding buiten en grote matiging binnen het
 huwelijk, geen anticonceptie, en vooral een levenslange strijd tegen
 zelfbevrediging, die hij aanwijst als oorzaak van spijsverteringsklachten,
 tering, hartziekte, epilepsie, ruggenmergprikkeling, krankzinnigheid,
-baarmoederkanker en onvruchtbaarheid. De sleutel tot beheersing ligt volgens
-hem in het bord: prikkelend voedsel maakt kuisheid onmogelijk, flauwe granen
-en fruit maken haar bereikbaar.
+baarmoederkanker en onvruchtbaarheid. De beheersing begint volgens hem bij het
+bord: prikkelend voedsel maakt kuisheid onmogelijk, flauwe granen en fruit
+maken haar bereikbaar.
 
 #### De gang van het boek
 
@@ -171206,7 +171206,7 @@ de bevalling weer op pad ging. In het eerste decennium gingen er minstens
 honderdvijftigduizend exemplaren uit; een advertentie in *The Woman's Tribune*
 uit 1892 claimde er tweehonderdduizend.
 
-De hier samengevatte herziene editie telt drieëntwintig hoofdstukken, gevolgd
+De hier besproken herziene editie telt drieëntwintig hoofdstukken, gevolgd
 door bijna tweehonderd recepten, een woordenlijst en drie registers. Achterin
 staat bovendien een toegevoegd stuk, *A Familiar Letter to the Reader from the
 Author*, waarin Stockham vragen beantwoordt die de eerste druk had opgeroepen.
@@ -177450,8 +177450,8 @@ onderscheidt gebruik van misbruik, maar de bladzijden over wat er misgaat
 blijven kort naast de bladzijden over wat er te winnen valt. In het voorwoord
 van 1985 erkent hij dat niemand in 1971 de cocaïnegolf voorzag en dat
 sigarettenverslaving de hardnekkigste van alle bleek. Dat zijn geen kleine
-correcties op een boek dat beweert de sleutel tot het drugsprobleem in handen
-te hebben.
+correcties op een boek dat beweert de oplossing voor het drugsprobleem in
+handen te hebben.
 
 #### Wat er concreet mee te doen is
 
@@ -215330,9 +215330,9 @@ techniek die het werk in voorgeschreven stappen opdeelt, en laat zien dat die
 keuze een samenlevingsvorm meebrengt. Burke (1270) volgt uitvindingen langs
 zijketens waarin niemand het einddoel voor ogen had. Simon (1258) levert het
 begrippenkader met zijn onderscheid tussen het natuurlijke en het gemaakte, en
-met het satisficen: goed genoeg in plaats van optimaal. Jacobs (1269) laat
-zien wat er misgaat als twee zedelijke stelsels, dat van de handel en dat van
-het bestuur, in elkaar overlopen.
+met het satisficen: goed genoeg in plaats van de best mogelijke uitkomst.
+Jacobs (1269) laat zien wat er misgaat als twee zedelijke stelsels, dat van de
+handel en dat van het bestuur, in elkaar overlopen.
 
 **Het leven zelf als vraag** (1273, 1275, 1259, 1262, 1263). 
 Lane (1273) zoekt de oorsprong van de ingewikkelde cel bij de protonenstroom
