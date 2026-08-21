@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Pregnant Darkness &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Wikman betoogt dat de donkerste levensfasen, crisis, verlies, ziekte en depressie, in potentie 'zwanger' zijn: in het duister rijpt een vernieuwing van…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-646">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">646 &middot; Filosofie en mystiek</p>
+    <h1>The Pregnant Darkness</h1>
+    <p class="lede">Monika Wikman, 2004</p>
+    <p class="stats">
+      <span><b>1235</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="646"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Wikman betoogt dat de donkerste levensfasen, crisis, verlies, ziekte en depressie, in potentie 'zwanger' zijn: in het duister rijpt een vernieuwing van het bewustzijn die het ik niet zelf kan maken. De alchemie levert volgens haar, in het spoor van Jung, de beeldtaal waarmee dat proces te volgen is: de zwarte fase van de nigredo, het gesloten vat, de vereniging van tegendelen. Wie via dromen, meditatie en actieve verbeelding in verbinding blijft met wat zich in het donker aandient, kan uit een crisis komen met een ruimer bewustzijn, waarin het ik zich verhoudt tot een groter centrum, het Zelf, in plaats van zichzelf voor de bron te houden.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een analytica uit de school van Von Franz</h3>
+      <p>Monika Wikman is jungiaans analytica en astrologe, opgeleid aan het Jung-Von Franz Centrum voor dieptepsychologie in Zürich. Eerder deed zij aan het UCSD Medical Center onderzoek naar dromen van stervende patiënten en doceerde zij in een psychologieopleiding in Los Angeles; zij praktiseert in New Mexico. Dit boek uit 2004 is haar enige monografie en verscheen bij Nicolas-Hays, een kleine uitgeverij voor dieptepsychologische en esoterische titels. Het is opgezet in twee delen die samen de weg van een ingewijde in het alchemistische proces volgen.</p>
+      <h3>Alchemie als spiegel van de psyche</h3>
+      <p>Het uitgangspunt is Jungs duiding van de alchemie: de laboranten van weleer projecteerden onbewuste zielsprocessen in hun stoffen en vaten, waardoor hun teksten en gravures te lezen zijn als kaarten van innerlijke omvorming. De prima materia, het onaanzienlijke uitgangsmateriaal, staat voor wat in een mensenleven veracht en weggestopt wordt; het opus, het grote werk, voor de individuatie, de wording tot wie iemand ten diepste is. Wikman neemt dit kader over en schrijft er vanuit de behandelkamer mee verder.</p>
+      <p>Anders dan een historische studie wil het boek laten zien dat dit proces vandaag doorloopt. De alchemistische beelden dienen als leessleutel voor wat zich in dromen, meditatie en lichamelijke symptomen aandient; de oude beeldtaal geeft volgens Wikman woorden aan ervaringen waarvoor de hedendaagse psychologische taal te vlak is.</p>
+      <h3>De zwangere duisternis</h3>
+      <p>Het titelbeeld keert de gangbare waardering van het donker om. Depressie, rouw en ziekte gelden in het boek als nigredo: een zwarte, vormeloze fase waarin oude zekerheden ontbonden worden en die tegelijk de kiem van iets nieuws draagt. Wikman illustreert dat met droomreeksen van cliënten en met beelden uit mythen en alchemistische teksten waarin midden in het zwart een eerste glans verschijnt. De duisternis vraagt in deze lezing vooral aandacht: wat daar groeit, laat zich alleen in het donker dragen.</p>
+      <p>Het zwaartepunt ligt bij ervaringen rond sterven en doodsnabijheid. Uit haar droomonderzoek bij stervende patiënten haalt Wikman de waarneming dat de psyche in de laatste levensfase beelden van overgang en voortgang blijft aanmaken; diezelfde beeldenstroom ziet zij bij mensen die door een crisis heen een symbolische dood doormaken. De dood van een oude ik-houding en de geboorte van een nieuwe verhouding tot het leven vormen in het boek één doorlopend patroon.</p>
+      <h3>Werken in het vat</h3>
+      <p>Praktisch draait het boek om het alchemistische vat: een afgegrensde ruimte, in therapie of in eigen beoefening, waarin het proces zijn hitte kan opbouwen zonder weg te lekken. Dromen worden genoteerd en ernstig genomen; actieve verbeelding, Jungs methode om wakend met droombeelden in gesprek te gaan, houdt de verbinding met het onbewuste open. Wikman waarschuwt voor twee ontsporingen: een ik dat het proces wil regisseren, en een ik dat erin verdrinkt. Het vat dient om de spanning tussen beide uit te houden.</p>
+      <h3>Coniunctio: de wedergeboorte van bewustzijn</h3>
+      <p>De beweging loopt uit op de coniunctio, de vereniging van tegendelen: bewust en onbewust, licht en donker, ik en Zelf. De wedergeboorte van bewustzijn uit de ondertitel betekent hier een ik dat zijn centrale plaats heeft afgestaan en zich voortaan laat voeden door een bron die groter is dan het ik. Wikman beschrijft dat uitdrukkelijk als religieuze ervaring in psychologische taal: het numineuze dat zich in dromen en verbeelding meldt, vraagt om een antwoord in het geleefde leven.</p>
+      <h3>Ontvangst</h3>
+      <p>Het boek kreeg besprekingen in jungiaanse tijdschriften als Psychological Perspectives en geldt in die kring als doorleefde bijdrage over alchemie na Jung en Von Franz. Buiten de jungiaanse wereld is het vrijwel onopgemerkt gebleven. Lezersbesprekingen prijzen de rijkdom aan droommateriaal en noemen als bezwaren het dichte vakjargon en de herhaling in de tweede helft.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">zwangere duisternis</td><td>Het titelbeeld voor een donkere levensfase die de kiem van vernieuwing in zich draagt.</td></tr>
+          <tr><td class="term">nigredo</td><td>De zwarte beginfase van het alchemistische werk, psychologisch gelezen als de ontbinding van oude vormen in crisis of depressie.</td></tr>
+          <tr><td class="term">prima materia</td><td>Het onaanzienlijke uitgangsmateriaal van het grote werk, staand voor wat in een leven veracht en weggestopt is.</td></tr>
+          <tr><td class="term">vat (vas)</td><td>De afgesloten ruimte waarin het proces zich voltrekt, in therapie de beschermde werkrelatie.</td></tr>
+          <tr><td class="term">coniunctio</td><td>De vereniging van tegendelen waaruit een nieuwe bewustzijnstoestand geboren wordt.</td></tr>
+          <tr><td class="term">actieve verbeelding</td><td>Jungs methode om wakend met beelden uit droom en fantasie in gesprek te gaan.</td></tr>
+          <tr><td class="term">individuatie</td><td>De levenslange wording tot de eigen gestalte, in het boek gelijkgesteld aan het alchemistische opus.</td></tr>
+          <tr><td class="term">het Zelf</td><td>Het ordenende centrum van de totale psyche, waartoe het ik zich leert verhouden.</td></tr>
+          <tr><td class="term">opus</td><td>Het grote werk van de alchemisten, in het boek de naam voor het hele omvormingsproces.</td></tr>
+          <tr><td class="term">het numineuze</td><td>De overweldigende, als heilig ervaren kwaliteit van bepaalde dromen en verbeeldingen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing bestaat uit casuïstiek: droomreeksen en behandelverlopen uit de eigen praktijk, gelezen door een alchemistische bril en aangevuld met alchemistische teksten, mythen en het werk van Jung en Von Franz. Dat is binnen de jungiaanse traditie een gangbare werkwijze, en Wikmans klinische ervaring, waaronder het droomonderzoek bij stervenden aan een universitair medisch centrum, geeft het materiaal gewicht.</p>
+      <p>Onderzoek in de gebruikelijke zin ontbreekt: er is geen controlegroep, geen toetsbare voorspelling en geen poging de duiding tegen een alternatieve verklaring af te wegen. De bewijskracht reikt daarmee tot de vaststelling dat deze processen er in deze praktijk zo uitzagen, gelezen met dit kader.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De kernclaims vallen buiten elke empirische toetsing. Dat dromen een objectief, doelgericht proces van het Zelf uitdrukken is een leerstelling van de school, geen vaststelling; wie het kader niet deelt, kan hetzelfde materiaal lezen als betekenisgeving achteraf. Ook de historische basis is wankel: wetenschapshistorici van de alchemie, onder wie Lawrence Principe en William Newman, hebben laten zien dat alchemisten in de eerste plaats laboratoriumonderzoekers waren en dat Jungs projectiethese de teksten anachronistisch verpsychologiseert. Wikman bouwt op die betwiste lezing voort zonder haar te verdedigen.</p>
+      <p>Er zijn ook praktischer bezwaren. Het boek veronderstelt vertrouwdheid met jungiaans vakjargon en met astrologische en mythologische verwijzingen; wie die bagage mist, blijft buiten. En de raad om een depressie als zinvolle nigredo te dragen kan ernstige klachten romantiseren; het boek stelt die grens zelf nauwelijks aan de orde.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Houd in donkere periodes een droomjournaal bij en neem terugkerende beelden serieus als materiaal, wat de verklaring ook zij.</li>
+        <li>Gebruik het beeld van het vat: geef een crisis een begrensde plek, in therapie of in vaste eigen tijd, in plaats van haar door alles heen te laten lopen.</li>
+        <li>Beschouw het boek als verdieping na Jung zelf; als eerste kennismaking met jungiaanse alchemie is het te zwaar.</li>
+        <li>Zoek bij aanhoudende depressieve klachten reguliere hulp; symboolduiding vervangt geen behandeling.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Pregnant Darkness: Alchemy and the Rebirth of Consciousness</i> (Nicolas-Hays, Berwick (Maine), 2004, 309 blz., ISBN 9780892540785). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De jungiaanse analytica en astrologe Monika Wikman, opgeleid aan het Jung-Von Franz Centrum voor dieptepsychologie in Zürich, betoogt dat donkere levensfasen, crisis, verlies, ziekte en depressie, een 'zwangere' duisternis kunnen zijn: een broedplaats waarin het bewustzijn zich vernieuwt. Zij gebruikt daarvoor de beeldtaal van de alchemie zoals Jung die duidde, met stadia als de nigredo en de coniunctio, en illustreert het proces met droommateriaal uit haar praktijk en met haar eerdere onderzoek naar dromen van stervenden aan het UCSD Medical Center.</p><p>Het boek is binnen de jungiaanse wereld goed ontvangen, maar de onderbouwing bestaat uit casuïstiek en symboolduiding; empirische toetsing ontbreekt en de jungiaanse lezing van de alchemie is onder wetenschapshistorici omstreden. Voor lezers die met jungiaans werk vertrouwd zijn een rijke verdieping, voor anderen zware kost vol vakjargon.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>alchemie</li><li>jung</li><li>dromen</li><li>dieptepsychologie</li><li>individuatie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="357"><a href="357.html">De mens en zijn symbolen</a>. De mens en zijn symbolen is de toegankelijke inleiding tot het jungiaanse kader dat Wikman bekend veronderstelt.</li>
+          <li value="359"><a href="359.html">Het Rode Boek</a>. Het Rode Boek toont Jungs eigen afdaling in de duisternis, de oerscène waarop dit soort werk teruggaat.</li>
+          <li value="409"><a href="409.html">Ego and Archetype</a>. Ego and Archetype van Edinger werkt de verhouding tussen ik en Zelf uit die bij Wikman de inzet van het proces is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

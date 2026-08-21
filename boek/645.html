@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Rosicrucian Cosmo-Conception &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Heindel legt een volledig esoterisch stelsel op tafel waarin kosmos, mens en geschiedenis één samenhangend geheel vormen. De mens is in de kern een geest…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-645">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">645 &middot; Filosofie en mystiek</p>
+    <h1>The Rosicrucian Cosmo-Conception</h1>
+    <p class="lede">Max Heindel, 1909</p>
+    <p class="stats">
+      <span><b>1238</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="645"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Heindel legt een volledig esoterisch stelsel op tafel waarin kosmos, mens en geschiedenis één samenhangend geheel vormen. De mens is in de kern een geest die met meerdere lichamen of voertuigen aan een lange evolutie deelneemt: via wedergeboorte en onder een strikte wet van oorzaak en gevolg ontwikkelt hij langzaam goddelijke scheppingsvermogens. Het christendom is in deze lezing de openbare kant van een mysterieschool, met Christus als een verheven geestelijk wezen dat de aardse evolutie een beslissende impuls gaf. De kennis hierover zou berusten op bovenzinnelijk onderzoek dat door scholing in beginsel voor ieder mens toegankelijk te maken is.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Herkomst en pretentie</h3>
+      <p>Max Heindel is het pseudoniem van de Deens-Amerikaanse Carl Louis von Grasshoff (1865-1919). Hij publiceerde dit boek van ruim zevenhonderd bladzijden in november 1909 als grondtekst van de Rosicrucian Fellowship, de school die hij datzelfde jaar in Oceanside, Californië stichtte. De inhoud presenteert hij als westerse wijsheidsleer die hem door 'Oudere Broeders' van de Rozenkruisersorde zou zijn toevertrouwd, met de opdracht haar openbaar te maken.</p>
+      <p>De ontstaansgeschiedenis is aardser. Heindel was jarenlang actief in de theosofische beweging en woonde in 1907 in Duitsland voordrachten van Rudolf Steiner bij. De eerste druk droeg een opdracht aan Steiner als gewaardeerde leraar; in latere drukken verdween die opdracht en werd de ondertitel aangepast. Het boek is sindsdien vrijwel ongewijzigd herdrukt en dient tot op heden als basistekst voor de cursussen van de Fellowship.</p>
+      <h3>Werelden en voertuigen (deel een)</h3>
+      <p>Deel een beschrijft zeven werelden die geen plaatsen zijn maar toestanden van materie met verschillende dichtheid: van de stoffelijke wereld met haar chemisch en etherisch gebied, via de begeertewereld en de gedachtewereld, tot de wereld van God. Die werelden doordringen elkaar; onzichtbaar betekent hier alleen dat de bijbehorende zintuigen nog niet ontwikkeld zijn.</p>
+      <p>De mens heeft in dit schema vier voertuigen: het dichte lichaam, het levenslichaam dat groei en levensprocessen draagt, het begeertelichaam als zetel van gevoel en drift, en het verstand als verbindende schakel. Daarin woont een drieledige geest, het Ego. Slaap, dood en het bestaan na de dood, met onder meer een terugblikpanorama en een louteringsfase, worden binnen ditzelfde kader beschreven.</p>
+      <h3>Wedergeboorte en de wet van gevolg</h3>
+      <p>De motor van de ontwikkeling is wedergeboorte: de geest keert telkens in nieuwe lichamen terug om ervaring op te doen. De wet van gevolg, Heindels term voor karma, zorgt dat oorzaken uit vorige levens als aanleg, omstandigheden en ontmoetingen terugkeren. Aangeboren verschillen tussen mensen, voor Heindel een hoofdargument, krijgen zo een morele logica: zij gelden als oogst van eerdere levens. Epigenese houdt daarbij de vrijheid open: naast wat uit het verleden volgt, voegt de mens eigen scheppende daden toe.</p>
+      <h3>Kosmogenese (deel twee)</h3>
+      <p>Deel twee schetst de evolutie in het groot. De ontwikkelingsgolf doorloopt zeven perioden, naar hemellichamen genoemd: Saturnus, Zon, Maan, Aarde, Jupiter, Venus en Vulcanus. In elke periode wordt een levensgolf een trap verder gebracht; wat nu mineraal, plant en dier heet, staat op eerdere treden van dezelfde ladder. Binnen de aardeperiode volgen tijdperken elkaar op, van het Polarische via het Lemurische en het Atlantische naar het huidige, dat Heindel in navolging van de theosofie het Arische noemt.</p>
+      <p>Achterblijvers en nieuwkomers verklaren de verschillen binnen en tussen de rijken. Het geheel wordt bestuurd door hiërarchieën van geestelijke wezens, en de scheppingsverhalen uit Genesis leest Heindel als gecodeerde verslagen van deze kosmogenese.</p>
+      <h3>Christus en zijn missie (deel drie)</h3>
+      <p>Deel drie behandelt het mystieke christendom. Christus is in dit stelsel een verheven geestelijk wezen van een andere orde dan de mens Jezus, wiens lichamen hij bij de doop betrok. Zijn dood op Golgotha werkte volgens Heindel kosmisch door: zij reinigde de begeertewereld van de aarde en opende een nieuwe ontwikkelingsfase voor de mensheid. Jehova en de Lucifergeesten krijgen elk hun plaats als eerdere en dwarse impulsen in dezelfde geschiedenis. Het christendom geldt als de godsdienst die een komend tijdperk van broederschap moet dragen.</p>
+      <h3>Inwijding en scholing</h3>
+      <p>Het slot beschrijft de scholingsweg: concentratie, meditatie en vooral de avondlijke terugblik, waarin de dag in omgekeerde volgorde wordt doorlopen en beoordeeld. Daarnaast staan leefregels, waaronder vegetarische voeding, en waarschuwingen tegen mediumschap, hypnose en betaalde helderziendheid. Het doel is wat Heindel positief helderzien noemt: waarnemen in de hogere werelden met behoud van wil en oordeel, uitmondend in inwijding onder leiding van de broederschap.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">levenslichaam</td><td>Het etherische voertuig dat groei, voeding en voortplanting draagt en het dichte lichaam in stand houdt.</td></tr>
+          <tr><td class="term">begeertelichaam</td><td>De drager van gevoelens en driften, na de dood het toneel van de loutering.</td></tr>
+          <tr><td class="term">wet van gevolg</td><td>Heindels term voor karma: elke oorzaak uit een vorig leven keert als omstandigheid of aanleg terug.</td></tr>
+          <tr><td class="term">wedergeboorte</td><td>De terugkeer van de geest in opeenvolgende lichamen om ervaring te verzamelen.</td></tr>
+          <tr><td class="term">epigenese</td><td>Het vermogen van de geest om iets werkelijk nieuws toe te voegen in plaats van alleen oude oorzaken uit te werken.</td></tr>
+          <tr><td class="term">perioden</td><td>Zeven grote ontwikkelingsfasen van het stelsel, van Saturnusperiode tot Vulcanusperiode.</td></tr>
+          <tr><td class="term">tijdperken</td><td>Onderverdelingen van de aardeperiode, waaronder het Lemurische, het Atlantische en het huidige Arische tijdperk.</td></tr>
+          <tr><td class="term">retrospectie</td><td>Avondoefening waarin de dag in omgekeerde volgorde wordt herbeleefd en beoordeeld.</td></tr>
+          <tr><td class="term">Oudere Broeders</td><td>De verheven leraren van de Rozenkruisersorde van wie Heindel de leer zegt te hebben ontvangen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek beroept zich op bovenzinnelijk onderzoek: eigen waarneming in hogere werelden en overdracht door de Oudere Broeders. Die bron is voor buitenstaanders op geen enkele wijze te controleren, en het stelsel doet geen voorspellingen die het kwetsbaar maken. Wie om toetsing vraagt, wordt verwezen naar jarenlange scholing binnen het stelsel zelf, waarmee de cirkel zich sluit.</p>
+      <p>Wel aantoonbaar is de herkomst van het bouwwerk. De perioden, tijdperken, lichamen en hiërarchieën volgen in grote lijnen de theosofie van Blavatsky en de kosmologie die Rudolf Steiner in die jaren doceerde; de opdracht aan Steiner in de eerste druk erkende die schatplichtigheid. Als document van de esoterische stromingen rond 1900 is het boek dus goed geworteld; als kennisbron over kosmos en mens staat en valt alles met het gezag dat de lezer aan de auteur toekent.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het voornaamste bezwaar geldt de status van de claims: zij vallen buiten elke empirische toets. Etherische lichamen, begeertewerelden en periodenreeksen zijn zo geformuleerd dat geen waarneming ze kan weerleggen, en de natuurwetenschappelijke aanknopingspunten die Heindel gebruikt, zoals de ether, zijn sinds 1909 door de fysica verlaten. Heindel noemt zijn methode tientallen keren occulte wetenschap, maar de kern van een wetenschap, controleerbaarheid door anderen, ontbreekt volledig.</p>
+      <p>Daarnaast is de originaliteit beperkt: tijdgenoten uit de kring rond Steiner beschouwden het werk als een bewerking van diens voordrachten, en de verwantschap met de theosofie is op vrijwel elke bladzijde zichtbaar. Het raamwerk van tijdperken stamt bovendien uit de theosofische wortelrassenleer, met een rangorde van 'rassen' die naar huidige maatstaven beladen is en die latere esoterische rassenleer mede heeft gevoed. Wie het boek leest, leest die erfenis mee.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het als primaire bron bij de geschiedenis van theosofie, rozenkruisers en new age, naast wetenschappelijke studies over die stromingen.</li>
+        <li>Herken het stramien: veel later esoterisch aanbod, van aura's tot vorige-levenstherapie, gebruikt begrippen die hier al kant-en-klaar staan.</li>
+        <li>De avondlijke terugblik is als seculiere reflectieoefening bruikbaar, los van het leerstellige kader.</li>
+        <li>Vraag bij elke stellige bewering naar de bron: eigen waarneming van de auteur is hier het hele fundament.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Rosicrucian Cosmo-Conception, or Mystic Christianity: An Elementary Treatise upon Man's Past Evolution, Present Constitution and Future Development</i> (The Rosicrucian Fellowship, Oceanside, eerste druk november 1909, ruim 700 blz.; gangbare herdruk ISBN 9780911274349). Een oudere Nederlandse vertaling verscheen in de jaren dertig als <i>De wereldbeschouwing der Rozekruisers of mystiek christendom</i> en staat in de catalogus van bibliotheek.nl; deze samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Grondtekst van de Rosicrucian Fellowship, de esoterische school die Max Heindel (pseudoniem van de Deens-Amerikaanse Carl Louis von Grasshoff) in 1909 in Californië stichtte. Het boek van ruim zevenhonderd bladzijden beschrijft een volledig stelsel: zichtbare en onzichtbare werelden, de mens als geest met meerdere voertuigen, wedergeboorte onder een wet van oorzaak en gevolg, een kosmische evolutie in zeven perioden en een esoterisch uitgelegd christendom. Het slot beschrijft een scholingsweg met concentratie- en terugblikoefeningen.</p><p>Heindel presenteerde de inhoud als westerse wijsheidsleer, overgedragen door 'Oudere Broeders' van de Rozenkruisersorde; aantoonbaar is vooral de schatplichtigheid aan de theosofie en aan Rudolf Steiner, aan wie de eerste druk was opgedragen. De claims vallen buiten elke empirische toets. Als historisch document van de Amerikaanse esoterie rond 1900 is het boek wel van betekenis: het wordt tot op heden herdrukt en bestudeerd.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>esoterie</li><li>rozenkruisers</li><li>theosofie</li><li>kosmologie</li><li>reïncarnatie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="378"><a href="378.html">The Kybalion</a>. The Kybalion verscheen een jaar eerder uit dezelfde Amerikaanse esoterische golf en verpakt hermetische leer in zeven wetten.</li>
+          <li value="518"><a href="518.html">The Life Divine</a>. The Life Divine van Sri Aurobindo bouwt een vergelijkbaar allesomvattend evolutiestelsel op, maar dan vanuit de Indiase traditie.</li>
+          <li value="242"><a href="242.html">Autobiography of a Yogi</a>. Autobiography of a Yogi laat zien hoe in dezelfde periode een andere esoterische leer het Westen bereikte en school maakte.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

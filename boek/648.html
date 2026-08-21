@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Warped Passages &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Randall betoogt dat er naast de drie vertrouwde ruimtelijke dimensies extra dimensies kunnen bestaan die aan de waarneming ontsnappen, en dat die…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-648">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">648 &middot; Natuur en wetenschap</p>
+    <h1>Warped Passages</h1>
+    <p class="lede">Lisa Randall, 2005</p>
+    <p class="stats">
+      <span><b>1211</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="648"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Randall betoogt dat er naast de drie vertrouwde ruimtelijke dimensies extra dimensies kunnen bestaan die aan de waarneming ontsnappen, en dat die mogelijkheid een serieus antwoord biedt op het hiërarchieprobleem: de vraag waarom de zwaartekracht onvoorstelbaar veel zwakker is dan de overige natuurkrachten. In de modellen die zij met Raman Sundrum ontwikkelde is het waarneembare universum een driedimensionaal membraan in een hoger-dimensionale ruimte waarvan de geometrie zo gekromd is dat de zwaartekracht bij ons sterk verdund aankomt. Dat is speculatief, en tegelijk toetsbare fysica: als deze modellen kloppen, moeten deeltjesversnellers er sporen van kunnen vinden.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Aanpak en opzet</h3>
+      <p>Warped Passages verscheen in 2005, in de aanloop naar de start van de Large Hadron Collider, en wil een breed publiek meenemen tot aan het front van de theoretische deeltjesfysica. Randall, hoogleraar aan Harvard en in de jaren voor verschijnen de meest geciteerde theoretisch natuurkundige ter wereld, schrijft zonder formules; elk hoofdstuk opent met een allegorisch verhaaltje dat het komende idee aankondigt. Het boek is nadrukkelijk ook een verslag van eigen onderzoek: de lezer krijgt de modellen uit de eerste hand.</p>
+      <h3>Fundament: relativiteit en kwantum</h3>
+      <p>Het eerste deel legt de basis. De speciale en algemene relativiteitstheorie laten zien dat ruimte en tijd rekbaar zijn en dat massa de ruimtetijd kromt; de kwantummechanica beschrijft de wereld op de kleinste schaal. Randall introduceert daarbij het denkgereedschap van de effectieve theorie: elke natuurkundige beschrijving geldt op een bepaalde schaal en hoeft de details daaronder niet te kennen. Dat begrip draagt de rest van het boek, want het maakt begrijpelijk hoe extra dimensies verborgen kunnen blijven.</p>
+      <h3>Het standaardmodel en het hiërarchieprobleem</h3>
+      <p>Daarna volgt het standaardmodel van de deeltjesfysica: quarks, leptonen, de krachtvoerende deeltjes en het Higgs-mechanisme dat deeltjes massa geeft. Het raadsel dat Randall centraal stelt is de hiërarchie: tussen de zwakke kernkracht en de zwaartekracht gaapt een kloof van ongeveer zestien ordes van grootte, en niets in het standaardmodel verklaart die afstand. Supersymmetrie, lange tijd de favoriete oplossing, krijgt een eerlijke behandeling, met inbegrip van haar eigen moeilijkheden.</p>
+      <h3>Dimensies, Kaluza-Klein en branen</h3>
+      <p>Het idee van extra dimensies is ouder dan de snaartheorie: Theodor Kaluza en Oskar Klein probeerden er in de jaren twintig zwaartekracht en elektromagnetisme mee te verenigen, met opgerolde, onzichtbaar kleine dimensies. De snaartheorie bracht in de jaren negentig de branen: membranen waarop deeltjes en krachten gebonden kunnen zitten, terwijl alleen de zwaartekracht de volledige ruimte, de bulk, voelt. Daarmee werd denkbaar dat wij op zo'n braan leven en dat extra dimensies zelfs groot kunnen zijn zonder op te vallen.</p>
+      <p>Randall bespreekt ook het voorstel van Arkani-Hamed, Dimopoulos en Dvali uit 1998, waarin relatief grote vlakke extra dimensies de zwakte van de zwaartekracht verklaren doordat die kracht over meer ruimte wordt uitgesmeerd. Dat scenario voorspelt afwijkingen van de zwaartekrachtswet op korte afstanden, en precisiemetingen hebben de toegestane ruimte ervoor sindsdien flink ingeperkt. Tegen die achtergrond presenteert zij haar eigen route: kromming in plaats van omvang.</p>
+      <h3>Gekromde passages: Randall-Sundrum</h3>
+      <p>De kern van het boek zijn de twee modellen die Randall in 1999 met Raman Sundrum publiceerde. In het eerste liggen twee branen in een vijfdimensionale, sterk gekromde ruimte; de kromming verzwakt de zwaartekracht exponentieel tussen de ene braan en de andere, waardoor de hiërarchie vanzelf ontstaat. Het tweede model laat zien dat een extra dimensie zelfs oneindig groot kan zijn terwijl de zwaartekracht toch bij de braan gelokaliseerd blijft. Beide artikelen behoren tot de meest geciteerde uit de deeltjesfysica. Als vingerafdruk voorspellen de modellen Kaluza-Klein-deeltjes: zware evenknieën van bekende deeltjes die in een versneller als resonanties zouden verschijnen.</p>
+      <h3>Ontvangst en stand van zaken</h3>
+      <p>Het boek werd gunstig besproken, onder meer in Physics Today, en geldt als een van de betere populaire inleidingen in de deeltjesfysica van zijn decennium. De empirische stand is sindsdien verschoven: de LHC vond in 2012 het Higgs-deeltje, maar tot op heden geen Kaluza-Klein-resonanties, geen supersymmetrische partners en geen andere sporen van extra dimensies. De eenvoudigste varianten van de modellen zijn daarmee naar steeds hogere energieën gedrongen. Als theoretisch gereedschap blijft de gekromde geometrie in gebruik, onder meer in verwante beschrijvingen van sterk wisselwerkende systemen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">hiërarchieprobleem</td><td>De onverklaarde kloof van circa zestien ordes van grootte tussen de zwaartekracht en de overige krachten.</td></tr>
+          <tr><td class="term">braan</td><td>Membraanachtig object waarop deeltjes en krachten gebonden kunnen zijn; het waarneembare universum zou zo'n driedimensionale braan kunnen zijn.</td></tr>
+          <tr><td class="term">bulk</td><td>De volledige hoger-dimensionale ruimte waarin branen liggen en waar alleen de zwaartekracht vrij doorheen reikt.</td></tr>
+          <tr><td class="term">gekromde (warped) geometrie</td><td>Ruimtetijd waarvan de schaal exponentieel verandert langs de extra dimensie, de kern van de Randall-Sundrum-modellen.</td></tr>
+          <tr><td class="term">Kaluza-Klein-deeltjes</td><td>Zware kopieën van bekende deeltjes die ontstaan doordat velden in een extra dimensie staande golven vormen; de voorspelde vingerafdruk van extra dimensies.</td></tr>
+          <tr><td class="term">effectieve theorie</td><td>Beschrijving die geldig is op één schaal zonder de onderliggende details te hoeven kennen.</td></tr>
+          <tr><td class="term">standaardmodel</td><td>De grondig geteste theorie van alle bekende deeltjes en krachten behalve de zwaartekracht.</td></tr>
+          <tr><td class="term">supersymmetrie</td><td>Veronderstelde symmetrie die elk deeltje een partner geeft en het hiërarchieprobleem zou kunnen temmen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek populariseert werk dat via vakbladen en collegiale toetsing is gegaan; de Randall-Sundrum-artikelen uit 1999 behoren tot de meest geciteerde publicaties van het vakgebied. Waar het over gevestigde fysica gaat, relativiteit, kwantummechanica en het standaardmodel, is de tekst gedekt door een eeuw metingen. Voor het speculatieve deel is de status eerlijk aangegeven: extra dimensies zijn wiskundig consistente mogelijkheden die een echt probleem oplossen, met voorspellingen die versnellers kunnen toetsen. Het onderscheid tussen wat gemeten is en wat model is, wordt in het boek consequent bewaakt.</p>
+      <p>De toetsing is er inmiddels geweest en viel tot nu toe negatief uit: de LHC heeft de voorspelde resonanties niet gezien. Dat sluit extra dimensies niet uit; wel beperkt het de varianten die het hiërarchieprobleem op de oorspronkelijk beoogde schaal oplossen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het inhoudelijke hoofdbezwaar is na twintig jaar empirisch: geen enkel experiment heeft een spoor van extra dimensies gevonden, en de LHC heeft de eenvoudigste Randall-Sundrum- en supersymmetrievarianten naar energieën gedrongen waar hun oplossing van het hiërarchieprobleem aan overtuigingskracht verliest. Critici van het snaartheorieprogramma, onder wie Peter Woit en Lee Smolin, plaatsten dit soort theoretische bouwwerken in 2006 in een bredere discussie over toetsbaarheid; Randalls modellen deden in elk geval voorspellingen, en juist die zijn tot op heden uitgebleven.</p>
+      <p>Als leeservaring vraagt het boek meer dan de gemiddelde populaire titel: de tweede helft is dicht en veronderstelt dat de lezer de begrippen uit de eerste helft paraat houdt. De allegorische openingsverhaaltjes vielen niet bij alle recensenten in de smaak. En wie het boek nu leest, moet de kennis van na 2005 er zelf bij denken: het Higgs-deeltje is gevonden, de gehoopte nieuwe fysica vooralsnog niet.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de eerste helft als zelfstandige inleiding in relativiteit, kwantummechanica en het standaardmodel; dat deel blijft geldig.</li>
+        <li>Gebruik het begrip effectieve theorie ook buiten de fysica: beschrijf een systeem op de schaal die ertoe doet, zonder alle onderliggende details mee te slepen.</li>
+        <li>Houd bij elk speculatief model de vraag paraat welke waarneming het zou kunnen weerleggen; dit boek laat zien hoe dat hoort.</li>
+        <li>Vul het boek aan met de stand van na 2012: Higgs gevonden, extra dimensies en supersymmetrie vooralsnog zonder spoor.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Warped Passages: Unraveling the Mysteries of the Universe's Hidden Dimensions</i> (Ecco/HarperCollins, New York, 2005, 512 blz., ISBN 9780060531089). Nederlandse vertaling: <i>De verborgen dimensies van ons heelal</i> (Het Spectrum, 2006, 496 blz., ISBN 9789002222535), aanwezig in de catalogus van bibliotheek.nl.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Populair-wetenschappelijk debuut van Lisa Randall, theoretisch natuurkundige aan Harvard en rond de eeuwwisseling de meest geciteerde theoretisch fysicus ter wereld. Het boek bouwt van relativiteit, kwantummechanica en het standaardmodel op naar de vraag waarom de zwaartekracht zoveel zwakker is dan de andere natuurkrachten. Als mogelijk antwoord beschrijft Randall branenwerelden met verborgen extra dimensies, waaronder de gekromde modellen die zij in 1999 met Raman Sundrum ontwikkelde en die tot de meest geciteerde ideeën van de deeltjesfysica behoren.</p><p>Het is serieuze fysica, helder uitgelegd en eerlijk over de speculatieve status: de modellen doen voorspellingen voor deeltjesversnellers. De LHC heeft die signalen tot op heden niet gevonden, waarmee de eenvoudigste varianten onder druk staan. Als inleiding in het moderne deeltjesdenken en het hiërarchieprobleem blijft het boek waardevol; het verscheen in het Nederlands als De verborgen dimensies van ons heelal.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>natuurkunde</li><li>deeltjesfysica</li><li>kosmologie</li><li>extra dimensies</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="262"><a href="262.html">A Brief History of Time</a>. A Brief History of Time is de klassieke voorloper over ruimtetijd en kosmologie, geschreven vóór het branentijdperk.</li>
+          <li value="281"><a href="281.html">Reality Is Not What It Seems</a>. Reality Is Not What It Seems beschrijft de concurrerende route naar kwantumzwaartekracht via lusquantumgravitatie.</li>
+          <li value="94"><a href="94.html">Het tijdperk van onzekerheid</a>. Het tijdperk van onzekerheid vertelt de menselijke geschiedenis van de kwantumfysica waarop dit werk voortbouwt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

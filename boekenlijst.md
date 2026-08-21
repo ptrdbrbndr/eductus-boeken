@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 21
-augustus 2026: 636 titels in 20 rubrieken.
+augustus 2026: 640 titels in 20 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -27,10 +27,10 @@ bij de volgende build verloren.
 | Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140, 174, 189, 194, 229, 247, 248, 286, 289, 323, 324, 372, 373, 374, 375, 389, 457, 460, 467, 470, 513, 545 |
 | Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49, 285, 447 |
 | Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537, 568, 588, 589, 591, 592, 593, 594, 595, 597, 598, 599, 600, 601, 602 |
-| Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347, 383, 413, 539, 555, 649, 650, 651, 653, 654, 655, 656, 657, 658, 659, 660, 661, 662 |
+| Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347, 383, 413, 539, 555, 648, 649, 650, 651, 653, 654, 655, 656, 657, 658, 659, 660, 661, 662 |
 | Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102, 108, 117, 127, 128, 129, 130, 131, 132, 136, 139, 179, 184, 188, 190, 196, 259, 340, 362, 378, 380, 403, 433, 543, 548, 549, 559, 560 |
 | Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122, 327, 421, 437, 456, 477, 478, 493, 495, 497, 498, 500, 504, 506, 507 |
-| Filosofie en mystiek | wijsgerige hoofdwerken en mystieke teksten over wat werkelijk is en hoe te leven | 572, 573, 574, 576, 577, 578, 580, 581, 582, 584, 587, 590, 596, 603, 604, 605, 606, 608, 609, 610, 611, 612, 613, 614, 615, 630, 631, 632, 633, 634, 635, 636, 637, 638, 639, 652 |
+| Filosofie en mystiek | wijsgerige hoofdwerken en mystieke teksten over wat werkelijk is en hoe te leven | 572, 573, 574, 576, 577, 578, 580, 581, 582, 584, 587, 590, 596, 603, 604, 605, 606, 608, 609, 610, 611, 612, 613, 614, 615, 630, 631, 632, 633, 634, 635, 636, 637, 638, 639, 645, 646, 647, 652 |
 | Staat en vrijheid | politieke denkers over macht, gezag en het vrije individu | 616, 617, 619, 620, 621, 622, 623, 624, 625, 626, 627, 628, 629 |
 
 Een titel kan in één rubriek staan en toch tags uit een andere dragen. De tags
@@ -123865,6 +123865,743 @@ overbleef toen de twintigste eeuw haar hervond.
 wetenschappelijk denken zich van dit soort correspondentiedenken heeft
 losgemaakt.
 
+## 645. The Rosicrucian Cosmo-Conception
+
+Max Heindel, 1909. *The Rosicrucian Cosmo-Conception, or Mystic Christianity:
+An Elementary Treatise upon Man's Past Evolution, Present Constitution and
+Future Development* (The Rosicrucian Fellowship, Oceanside, eerste druk
+november 1909, ruim 700 blz.; gangbare herdruk ISBN 9780911274349). Een oudere
+Nederlandse vertaling verscheen in de jaren dertig als *De wereldbeschouwing
+der Rozekruisers of mystiek christendom* en staat in de catalogus van
+bibliotheek.nl; deze samenvatting is op de Engelse editie gebaseerd. Rubriek:
+filosofie en mystiek.
+Tags: `esoterie`, `rozenkruisers`, `theosofie`, `kosmologie`, `reïncarnatie`
+
+Grondtekst van de Rosicrucian Fellowship, de esoterische school die Max
+Heindel (pseudoniem van de Deens-Amerikaanse Carl Louis von Grasshoff) in 1909
+in Californië stichtte. Het boek van ruim zevenhonderd bladzijden beschrijft
+een volledig stelsel: zichtbare en onzichtbare werelden, de mens als geest met
+meerdere voertuigen, wedergeboorte onder een wet van oorzaak en gevolg, een
+kosmische evolutie in zeven perioden en een esoterisch uitgelegd christendom.
+Het slot beschrijft een scholingsweg met concentratie- en terugblikoefeningen.
+
+Heindel presenteerde de inhoud als westerse wijsheidsleer, overgedragen door
+'Oudere Broeders' van de Rozenkruisersorde; aantoonbaar is vooral de
+schatplichtigheid aan de theosofie en aan Rudolf Steiner, aan wie de eerste
+druk was opgedragen. De claims vallen buiten elke empirische toets. Als
+historisch document van de Amerikaanse esoterie rond 1900 is het boek wel van
+betekenis: het wordt tot op heden herdrukt en bestudeerd.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Heindel legt een volledig esoterisch stelsel op tafel waarin
+kosmos, mens en geschiedenis één samenhangend geheel vormen. De mens is in de
+kern een geest die met meerdere lichamen of voertuigen aan een lange evolutie
+deelneemt: via wedergeboorte en onder een strikte wet van oorzaak en gevolg
+ontwikkelt hij langzaam goddelijke scheppingsvermogens. Het christendom is in
+deze lezing de openbare kant van een mysterieschool, met Christus als een
+verheven geestelijk wezen dat de aardse evolutie een beslissende impuls gaf.
+De kennis hierover zou berusten op bovenzinnelijk onderzoek dat door scholing
+in beginsel voor ieder mens toegankelijk te maken is.
+
+#### De gang van het boek
+
+**Herkomst en pretentie**
+
+Max Heindel is het pseudoniem van de Deens-Amerikaanse Carl Louis von
+Grasshoff (1865-1919). Hij publiceerde dit boek van ruim zevenhonderd
+bladzijden in november 1909 als grondtekst van de Rosicrucian Fellowship, de
+school die hij datzelfde jaar in Oceanside, Californië stichtte. De inhoud
+presenteert hij als westerse wijsheidsleer die hem door 'Oudere Broeders' van
+de Rozenkruisersorde zou zijn toevertrouwd, met de opdracht haar openbaar te
+maken.
+
+De ontstaansgeschiedenis is aardser. Heindel was jarenlang actief in de
+theosofische beweging en woonde in 1907 in Duitsland voordrachten van Rudolf
+Steiner bij. De eerste druk droeg een opdracht aan Steiner als gewaardeerde
+leraar; in latere drukken verdween die opdracht en werd de ondertitel
+aangepast. Het boek is sindsdien vrijwel ongewijzigd herdrukt en dient tot op
+heden als basistekst voor de cursussen van de Fellowship.
+
+**Werelden en voertuigen (deel een)**
+
+Deel een beschrijft zeven werelden die geen plaatsen zijn maar toestanden van
+materie met verschillende dichtheid: van de stoffelijke wereld met haar
+chemisch en etherisch gebied, via de begeertewereld en de gedachtewereld, tot
+de wereld van God. Die werelden doordringen elkaar; onzichtbaar betekent hier
+alleen dat de bijbehorende zintuigen nog niet ontwikkeld zijn.
+
+De mens heeft in dit schema vier voertuigen: het dichte lichaam, het
+levenslichaam dat groei en levensprocessen draagt, het begeertelichaam als
+zetel van gevoel en drift, en het verstand als verbindende schakel. Daarin
+woont een drieledige geest, het Ego. Slaap, dood en het bestaan na de dood,
+met onder meer een terugblikpanorama en een louteringsfase, worden binnen
+ditzelfde kader beschreven.
+
+**Wedergeboorte en de wet van gevolg**
+
+De motor van de ontwikkeling is wedergeboorte: de geest keert telkens in
+nieuwe lichamen terug om ervaring op te doen. De wet van gevolg, Heindels term
+voor karma, zorgt dat oorzaken uit vorige levens als aanleg, omstandigheden en
+ontmoetingen terugkeren. Aangeboren verschillen tussen mensen, voor Heindel
+een hoofdargument, krijgen zo een morele logica: zij gelden als oogst van
+eerdere levens. Epigenese houdt daarbij de vrijheid open: naast wat uit het
+verleden volgt, voegt de mens eigen scheppende daden toe.
+
+**Kosmogenese (deel twee)**
+
+Deel twee schetst de evolutie in het groot. De ontwikkelingsgolf doorloopt
+zeven perioden, naar hemellichamen genoemd: Saturnus, Zon, Maan, Aarde,
+Jupiter, Venus en Vulcanus. In elke periode wordt een levensgolf een trap
+verder gebracht; wat nu mineraal, plant en dier heet, staat op eerdere treden
+van dezelfde ladder. Binnen de aardeperiode volgen tijdperken elkaar op, van
+het Polarische via het Lemurische en het Atlantische naar het huidige, dat
+Heindel in navolging van de theosofie het Arische noemt.
+
+Achterblijvers en nieuwkomers verklaren de verschillen binnen en tussen de
+rijken. Het geheel wordt bestuurd door hiërarchieën van geestelijke wezens, en
+de scheppingsverhalen uit Genesis leest Heindel als gecodeerde verslagen van
+deze kosmogenese.
+
+**Christus en zijn missie (deel drie)**
+
+Deel drie behandelt het mystieke christendom. Christus is in dit stelsel een
+verheven geestelijk wezen van een andere orde dan de mens Jezus, wiens
+lichamen hij bij de doop betrok. Zijn dood op Golgotha werkte volgens Heindel
+kosmisch door: zij reinigde de begeertewereld van de aarde en opende een
+nieuwe ontwikkelingsfase voor de mensheid. Jehova en de Lucifergeesten krijgen
+elk hun plaats als eerdere en dwarse impulsen in dezelfde geschiedenis. Het
+christendom geldt als de godsdienst die een komend tijdperk van broederschap
+moet dragen.
+
+**Inwijding en scholing**
+
+Het slot beschrijft de scholingsweg: concentratie, meditatie en vooral de
+avondlijke terugblik, waarin de dag in omgekeerde volgorde wordt doorlopen en
+beoordeeld. Daarnaast staan leefregels, waaronder vegetarische voeding, en
+waarschuwingen tegen mediumschap, hypnose en betaalde helderziendheid. Het
+doel is wat Heindel positief helderzien noemt: waarnemen in de hogere werelden
+met behoud van wil en oordeel, uitmondend in inwijding onder leiding van de
+broederschap.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| levenslichaam | Het etherische voertuig dat groei, voeding en voortplanting draagt en het dichte lichaam in stand houdt. |
+| begeertelichaam | De drager van gevoelens en driften, na de dood het toneel van de loutering. |
+| wet van gevolg | Heindels term voor karma: elke oorzaak uit een vorig leven keert als omstandigheid of aanleg terug. |
+| wedergeboorte | De terugkeer van de geest in opeenvolgende lichamen om ervaring te verzamelen. |
+| epigenese | Het vermogen van de geest om iets werkelijk nieuws toe te voegen in plaats van alleen oude oorzaken uit te werken. |
+| perioden | Zeven grote ontwikkelingsfasen van het stelsel, van Saturnusperiode tot Vulcanusperiode. |
+| tijdperken | Onderverdelingen van de aardeperiode, waaronder het Lemurische, het Atlantische en het huidige Arische tijdperk. |
+| retrospectie | Avondoefening waarin de dag in omgekeerde volgorde wordt herbeleefd en beoordeeld. |
+| Oudere Broeders | De verheven leraren van de Rozenkruisersorde van wie Heindel de leer zegt te hebben ontvangen. |
+
+#### Waar het argument op rust
+
+Het boek beroept zich op bovenzinnelijk onderzoek: eigen waarneming in hogere
+werelden en overdracht door de Oudere Broeders. Die bron is voor
+buitenstaanders op geen enkele wijze te controleren, en het stelsel doet geen
+voorspellingen die het kwetsbaar maken. Wie om toetsing vraagt, wordt verwezen
+naar jarenlange scholing binnen het stelsel zelf, waarmee de cirkel zich
+sluit.
+
+Wel aantoonbaar is de herkomst van het bouwwerk. De perioden, tijdperken,
+lichamen en hiërarchieën volgen in grote lijnen de theosofie van Blavatsky en
+de kosmologie die Rudolf Steiner in die jaren doceerde; de opdracht aan
+Steiner in de eerste druk erkende die schatplichtigheid. Als document van de
+esoterische stromingen rond 1900 is het boek dus goed geworteld; als
+kennisbron over kosmos en mens staat en valt alles met het gezag dat de lezer
+aan de auteur toekent.
+
+#### Wat er tegen in te brengen valt
+
+Het voornaamste bezwaar geldt de status van de claims: zij vallen buiten elke
+empirische toets. Etherische lichamen, begeertewerelden en periodenreeksen
+zijn zo geformuleerd dat geen waarneming ze kan weerleggen, en de
+natuurwetenschappelijke aanknopingspunten die Heindel gebruikt, zoals de
+ether, zijn sinds 1909 door de fysica verlaten. Heindel noemt zijn methode
+tientallen keren occulte wetenschap, maar de kern van een wetenschap,
+controleerbaarheid door anderen, ontbreekt volledig.
+
+Daarnaast is de originaliteit beperkt: tijdgenoten uit de kring rond Steiner
+beschouwden het werk als een bewerking van diens voordrachten, en de
+verwantschap met de theosofie is op vrijwel elke bladzijde zichtbaar. Het
+raamwerk van tijdperken stamt bovendien uit de theosofische wortelrassenleer,
+met een rangorde van 'rassen' die naar huidige maatstaven beladen is en die
+latere esoterische rassenleer mede heeft gevoed. Wie het boek leest, leest die
+erfenis mee.
+
+#### Wat er concreet mee te doen is
+
+- Lees het als primaire bron bij de geschiedenis van theosofie, rozenkruisers
+en new age, naast wetenschappelijke studies over die stromingen.
+- Herken het stramien: veel later esoterisch aanbod, van aura's tot
+vorige-levenstherapie, gebruikt begrippen die hier al kant-en-klaar staan.
+- De avondlijke terugblik is als seculiere reflectieoefening bruikbaar, los
+van het leerstellige kader.
+- Vraag bij elke stellige bewering naar de bron: eigen waarneming van de
+auteur is hier het hele fundament.
+
+#### Wat je hierna leest
+
+- 378. The Kybalion. The Kybalion verscheen een jaar eerder uit dezelfde
+Amerikaanse esoterische golf en verpakt hermetische leer in zeven wetten.
+- 518. The Life Divine. The Life Divine van Sri Aurobindo bouwt een
+vergelijkbaar allesomvattend evolutiestelsel op, maar dan vanuit de Indiase
+traditie.
+- 242. Autobiography of a Yogi. Autobiography of a Yogi laat zien hoe in
+dezelfde periode een andere esoterische leer het Westen bereikte en school
+maakte.
+
+## 646. The Pregnant Darkness
+
+Monika Wikman, 2004. *Pregnant Darkness: Alchemy and the Rebirth of
+Consciousness* (Nicolas-Hays, Berwick (Maine), 2004, 309 blz., ISBN
+9780892540785). Geen Nederlandse vertaling gevonden in de catalogus van
+bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd. Rubriek:
+filosofie en mystiek.
+Tags: `alchemie`, `jung`, `dromen`, `dieptepsychologie`, `individuatie`
+
+De jungiaanse analytica en astrologe Monika Wikman, opgeleid aan het Jung-Von
+Franz Centrum voor dieptepsychologie in Zürich, betoogt dat donkere
+levensfasen, crisis, verlies, ziekte en depressie, een 'zwangere' duisternis
+kunnen zijn: een broedplaats waarin het bewustzijn zich vernieuwt. Zij
+gebruikt daarvoor de beeldtaal van de alchemie zoals Jung die duidde, met
+stadia als de nigredo en de coniunctio, en illustreert het proces met
+droommateriaal uit haar praktijk en met haar eerdere onderzoek naar dromen van
+stervenden aan het UCSD Medical Center.
+
+Het boek is binnen de jungiaanse wereld goed ontvangen, maar de onderbouwing
+bestaat uit casuïstiek en symboolduiding; empirische toetsing ontbreekt en de
+jungiaanse lezing van de alchemie is onder wetenschapshistorici omstreden.
+Voor lezers die met jungiaans werk vertrouwd zijn een rijke verdieping, voor
+anderen zware kost vol vakjargon.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Wikman betoogt dat de donkerste levensfasen, crisis, verlies,
+ziekte en depressie, in potentie 'zwanger' zijn: in het duister rijpt een
+vernieuwing van het bewustzijn die het ik niet zelf kan maken. De alchemie
+levert volgens haar, in het spoor van Jung, de beeldtaal waarmee dat proces te
+volgen is: de zwarte fase van de nigredo, het gesloten vat, de vereniging van
+tegendelen. Wie via dromen, meditatie en actieve verbeelding in verbinding
+blijft met wat zich in het donker aandient, kan uit een crisis komen met een
+ruimer bewustzijn, waarin het ik zich verhoudt tot een groter centrum, het
+Zelf, in plaats van zichzelf voor de bron te houden.
+
+#### De gang van het boek
+
+**Een analytica uit de school van Von Franz**
+
+Monika Wikman is jungiaans analytica en astrologe, opgeleid aan het Jung-Von
+Franz Centrum voor dieptepsychologie in Zürich. Eerder deed zij aan het UCSD
+Medical Center onderzoek naar dromen van stervende patiënten en doceerde zij
+in een psychologieopleiding in Los Angeles; zij praktiseert in New Mexico. Dit
+boek uit 2004 is haar enige monografie en verscheen bij Nicolas-Hays, een
+kleine uitgeverij voor dieptepsychologische en esoterische titels. Het is
+opgezet in twee delen die samen de weg van een ingewijde in het alchemistische
+proces volgen.
+
+**Alchemie als spiegel van de psyche**
+
+Het uitgangspunt is Jungs duiding van de alchemie: de laboranten van weleer
+projecteerden onbewuste zielsprocessen in hun stoffen en vaten, waardoor hun
+teksten en gravures te lezen zijn als kaarten van innerlijke omvorming. De
+prima materia, het onaanzienlijke uitgangsmateriaal, staat voor wat in een
+mensenleven veracht en weggestopt wordt; het opus, het grote werk, voor de
+individuatie, de wording tot wie iemand ten diepste is. Wikman neemt dit kader
+over en schrijft er vanuit de behandelkamer mee verder.
+
+Anders dan een historische studie wil het boek laten zien dat dit proces
+vandaag doorloopt. De alchemistische beelden dienen als leessleutel voor wat
+zich in dromen, meditatie en lichamelijke symptomen aandient; de oude
+beeldtaal geeft volgens Wikman woorden aan ervaringen waarvoor de hedendaagse
+psychologische taal te vlak is.
+
+**De zwangere duisternis**
+
+Het titelbeeld keert de gangbare waardering van het donker om. Depressie, rouw
+en ziekte gelden in het boek als nigredo: een zwarte, vormeloze fase waarin
+oude zekerheden ontbonden worden en die tegelijk de kiem van iets nieuws
+draagt. Wikman illustreert dat met droomreeksen van cliënten en met beelden
+uit mythen en alchemistische teksten waarin midden in het zwart een eerste
+glans verschijnt. De duisternis vraagt in deze lezing vooral aandacht: wat
+daar groeit, laat zich alleen in het donker dragen.
+
+Het zwaartepunt ligt bij ervaringen rond sterven en doodsnabijheid. Uit haar
+droomonderzoek bij stervende patiënten haalt Wikman de waarneming dat de
+psyche in de laatste levensfase beelden van overgang en voortgang blijft
+aanmaken; diezelfde beeldenstroom ziet zij bij mensen die door een crisis heen
+een symbolische dood doormaken. De dood van een oude ik-houding en de geboorte
+van een nieuwe verhouding tot het leven vormen in het boek één doorlopend
+patroon.
+
+**Werken in het vat**
+
+Praktisch draait het boek om het alchemistische vat: een afgegrensde ruimte,
+in therapie of in eigen beoefening, waarin het proces zijn hitte kan opbouwen
+zonder weg te lekken. Dromen worden genoteerd en ernstig genomen; actieve
+verbeelding, Jungs methode om wakend met droombeelden in gesprek te gaan,
+houdt de verbinding met het onbewuste open. Wikman waarschuwt voor twee
+ontsporingen: een ik dat het proces wil regisseren, en een ik dat erin
+verdrinkt. Het vat dient om de spanning tussen beide uit te houden.
+
+**Coniunctio: de wedergeboorte van bewustzijn**
+
+De beweging loopt uit op de coniunctio, de vereniging van tegendelen: bewust
+en onbewust, licht en donker, ik en Zelf. De wedergeboorte van bewustzijn uit
+de ondertitel betekent hier een ik dat zijn centrale plaats heeft afgestaan en
+zich voortaan laat voeden door een bron die groter is dan het ik. Wikman
+beschrijft dat uitdrukkelijk als religieuze ervaring in psychologische taal:
+het numineuze dat zich in dromen en verbeelding meldt, vraagt om een antwoord
+in het geleefde leven.
+
+**Ontvangst**
+
+Het boek kreeg besprekingen in jungiaanse tijdschriften als Psychological
+Perspectives en geldt in die kring als doorleefde bijdrage over alchemie na
+Jung en Von Franz. Buiten de jungiaanse wereld is het vrijwel onopgemerkt
+gebleven. Lezersbesprekingen prijzen de rijkdom aan droommateriaal en noemen
+als bezwaren het dichte vakjargon en de herhaling in de tweede helft.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| zwangere duisternis | Het titelbeeld voor een donkere levensfase die de kiem van vernieuwing in zich draagt. |
+| nigredo | De zwarte beginfase van het alchemistische werk, psychologisch gelezen als de ontbinding van oude vormen in crisis of depressie. |
+| prima materia | Het onaanzienlijke uitgangsmateriaal van het grote werk, staand voor wat in een leven veracht en weggestopt is. |
+| vat (vas) | De afgesloten ruimte waarin het proces zich voltrekt, in therapie de beschermde werkrelatie. |
+| coniunctio | De vereniging van tegendelen waaruit een nieuwe bewustzijnstoestand geboren wordt. |
+| actieve verbeelding | Jungs methode om wakend met beelden uit droom en fantasie in gesprek te gaan. |
+| individuatie | De levenslange wording tot de eigen gestalte, in het boek gelijkgesteld aan het alchemistische opus. |
+| het Zelf | Het ordenende centrum van de totale psyche, waartoe het ik zich leert verhouden. |
+| opus | Het grote werk van de alchemisten, in het boek de naam voor het hele omvormingsproces. |
+| het numineuze | De overweldigende, als heilig ervaren kwaliteit van bepaalde dromen en verbeeldingen. |
+
+#### Waar het argument op rust
+
+De onderbouwing bestaat uit casuïstiek: droomreeksen en behandelverlopen uit
+de eigen praktijk, gelezen door een alchemistische bril en aangevuld met
+alchemistische teksten, mythen en het werk van Jung en Von Franz. Dat is
+binnen de jungiaanse traditie een gangbare werkwijze, en Wikmans klinische
+ervaring, waaronder het droomonderzoek bij stervenden aan een universitair
+medisch centrum, geeft het materiaal gewicht.
+
+Onderzoek in de gebruikelijke zin ontbreekt: er is geen controlegroep, geen
+toetsbare voorspelling en geen poging de duiding tegen een alternatieve
+verklaring af te wegen. De bewijskracht reikt daarmee tot de vaststelling dat
+deze processen er in deze praktijk zo uitzagen, gelezen met dit kader.
+
+#### Wat er tegen in te brengen valt
+
+De kernclaims vallen buiten elke empirische toetsing. Dat dromen een
+objectief, doelgericht proces van het Zelf uitdrukken is een leerstelling van
+de school, geen vaststelling; wie het kader niet deelt, kan hetzelfde
+materiaal lezen als betekenisgeving achteraf. Ook de historische basis is
+wankel: wetenschapshistorici van de alchemie, onder wie Lawrence Principe en
+William Newman, hebben laten zien dat alchemisten in de eerste plaats
+laboratoriumonderzoekers waren en dat Jungs projectiethese de teksten
+anachronistisch verpsychologiseert. Wikman bouwt op die betwiste lezing voort
+zonder haar te verdedigen.
+
+Er zijn ook praktischer bezwaren. Het boek veronderstelt vertrouwdheid met
+jungiaans vakjargon en met astrologische en mythologische verwijzingen; wie
+die bagage mist, blijft buiten. En de raad om een depressie als zinvolle
+nigredo te dragen kan ernstige klachten romantiseren; het boek stelt die grens
+zelf nauwelijks aan de orde.
+
+#### Wat er concreet mee te doen is
+
+- Houd in donkere periodes een droomjournaal bij en neem terugkerende beelden
+serieus als materiaal, wat de verklaring ook zij.
+- Gebruik het beeld van het vat: geef een crisis een begrensde plek, in
+therapie of in vaste eigen tijd, in plaats van haar door alles heen te laten
+lopen.
+- Beschouw het boek als verdieping na Jung zelf; als eerste kennismaking met
+jungiaanse alchemie is het te zwaar.
+- Zoek bij aanhoudende depressieve klachten reguliere hulp; symboolduiding
+vervangt geen behandeling.
+
+#### Wat je hierna leest
+
+- 357. De mens en zijn symbolen. De mens en zijn symbolen is de toegankelijke
+inleiding tot het jungiaanse kader dat Wikman bekend veronderstelt.
+- 359. Het Rode Boek. Het Rode Boek toont Jungs eigen afdaling in de
+duisternis, de oerscène waarop dit soort werk teruggaat.
+- 409. Ego and Archetype. Ego and Archetype van Edinger werkt de verhouding
+tussen ik en Zelf uit die bij Wikman de inzet van het proces is.
+
+## 647. The Forbidden Universe
+
+Lynn Picknett en Clive Prince, 2011. *The Forbidden Universe: The Occult
+Origins of Science and the Search for the Mind of God* (Constable, Londen,
+2011; Amerikaanse editie Skyhorse, New York, 2011, 336 blz., ISBN
+9781616080280; paperback Constable, 2016, ISBN 9781472124784). Geen
+Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de
+samenvatting is op de Engelse editie gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `hermetisme`, `wetenschapsgeschiedenis`, `esoterie`, `kosmologie`
+
+Picknett en Prince, bekend van speculatieve geschiedenisboeken als The Templar
+Revelation, betogen dat de pioniers van de wetenschappelijke revolutie, van
+Copernicus tot Newton, werkten vanuit het hermetisme: de filosofie van het
+Corpus Hermeticum, waarin de kosmos één bezield geheel is en de mens
+goddelijke vermogens heeft. De kerk zou die traditie hebben onderdrukt en de
+latere geschiedschrijving zou haar hebben weggeschreven. Het tweede deel voert
+fine-tuning en zelforganisatie aan als tekenen dat het heelal op bewustzijn is
+aangelegd.
+
+Het historische deel leunt op een echt vakdebat, de Yates-these en Newtons
+gedocumenteerde alchemie, maar rekt het op met onbewezen schakels zoals een
+geheim genootschap rond Galilei. Het tweede deel presenteert een geloofskeuze
+als wetenschappelijke conclusie. Bruikbaar als aanleiding om de echte
+wetenschapsgeschiedenis in te duiken; als geschiedschrijving onbetrouwbaar.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Picknett en Prince betogen dat de wetenschappelijke revolutie
+is aangedreven door het hermetisme: de filosofie uit het Corpus Hermeticum,
+toegeschreven aan de Egyptische wijze Hermes Trismegistus, waarin de kosmos
+één levend, bezield geheel is en de mens als beeld van God scheppende
+vermogens heeft. Copernicus, Kepler, Galilei, Bacon, Leibniz en Newton zouden
+uit die bron hebben geput; de kerk onderdrukte de traditie en de latere
+geschiedschrijving schreef haar weg. Daaruit volgt hun tweede these: het
+materialisme van de moderne wetenschap is een korte afwijking binnen een
+langere spirituele lijn, en hedendaagse vondsten als de fine-tuning van
+natuurconstanten en zelforganisatie wijzen opnieuw op een heelal dat op
+bewustzijn is aangelegd, zoals het hermetisme altijd leerde.
+
+#### De gang van het boek
+
+**Hermes in de renaissance**
+
+Het boek opent bij de herontdekking van het Corpus Hermeticum: in 1463 liet
+Cosimo de' Medici de teksten door Marsilio Ficino vertalen, nog vóór Plato. De
+hermetica golden als oeroude Egyptische wijsheid, ouder dan Mozes, en voedden
+bij renaissancedenkers de gedachte van een prisca theologia, een
+oorspronkelijke theologie waarvan alle godsdiensten afstammen. Isaac Casaubon
+dateerde de teksten in 1614 op de eerste eeuwen van onze jaartelling, wat hun
+gezag ondergroef. Picknett en Prince betogen dat die datering de kern niet
+raakt, omdat de teksten volgens hen echte Egyptische tempeltheologie
+doorgeven.
+
+**Hermetische pioniers**
+
+Vervolgens lopen de auteurs de canon van de wetenschappelijke revolutie langs.
+Copernicus haalt in De revolutionibus Hermes Trismegistus aan waar hij de zon
+de bestuurder van het heelal noemt; Giordano Bruno predikte openlijk een
+hermetische zonnereligie en eindigde in 1600 op de brandstapel; Kepler
+verweefde zijn astronomie met harmonieleer; Newton liet naast de Principia een
+omvangrijk alchemistisch archief na, met onder meer een eigenhandige vertaling
+van de Tabula Smaragdina. Rond Galilei gaan de auteurs verder dan de bronnen:
+zij voeren een geheim genootschap van Bruno-aanhangers op, de Giordanisti,
+waartoe hij zou hebben behoord.
+
+De lijn wordt doorgetrokken naar de zeventiende-eeuwse geleerde
+genootschappen. Francis Bacon en de kringen waaruit de Royal Society voortkwam
+krijgen bij Picknett en Prince een stamboom die via rozenkruisersmanifesten en
+het zogeheten onzichtbare college op dezelfde hermetische onderstroom
+teruggaat. Ook hier geldt: de afzonderlijke verbindingen zijn deels
+gedocumenteerd, het beeld van een doorlopende geheime agenda is de toevoeging
+van de auteurs.
+
+**Egypte als bron**
+
+Een eigen accent legt het boek bij de Egyptische wortels. In het spoor van
+egyptologen die overeenkomsten zagen tussen de hermetica en Egyptische
+tempelteksten, betogen de auteurs dat de scheppingsleer van Heliopolis, waarin
+de kosmos zichzelf uit het oerwater tot bewustzijn brengt, in het Corpus
+Hermeticum voortleeft. De renaissancemagiërs die de teksten voor Egyptisch
+hielden, hadden in deze lezing dus gelijk, ook al vergisten zij zich in de
+ouderdom van de handschriften.
+
+**Onderdrukking en vergetelheid**
+
+De kerk bestreed het hermetisme, zo betogen de auteurs, omdat het de mens
+rechtstreeks goddelijke vermogens toekende en daarmee het kerkelijk gezag
+ondermijnde. De veroordeling van Bruno en de zaak-Galilei krijgen in dat licht
+een tweede laag: het heliocentrisme was mede verdacht door zijn hermetische
+lading. Toen de wetenschap zich in de zeventiende en achttiende eeuw
+respectabel maakte, werd de esoterische herkomst weggepoetst; het materialisme
+was in deze lezing een onbedoeld bijproduct van die schoonmaak.
+
+**De zoektocht naar de geest van God**
+
+Het tweede deel verlaat de geschiedenis en betoogt dat de natuurwetenschap
+zelf weer op hermetische denkbeelden stuit. De auteurs voeren de fine-tuning
+van natuurconstanten op, het antropisch principe, zelforganisatie in
+scheikunde en biologie en James Lovelocks Gaia-hypothese, en lezen dat alles
+als aanwijzing dat het heelal op leven en bewustzijn is aangelegd. Tegenover
+het uitgesproken atheïsme van auteurs als Richard Dawkins plaatsen zij een
+doelgericht, zichzelf bewust wordend heelal waarin de mens als waarnemer en
+medeschepper een hoofdrol speelt.
+
+**Ontvangst**
+
+Picknett en Prince vormen sinds de jaren negentig een vast schrijversduo in
+het genre van de alternatieve geschiedenis; hun The Templar Revelation uit
+1997 leverde Dan Brown materiaal voor The Da Vinci Code. Dat verklaart de toon
+van dit boek: goed leesbaar, breed belezen en steeds gericht op het grote
+verborgen verhaal achter de officiële versie.
+
+Het boek kreeg besprekingen in de populaire pers en in esoterisch
+georiënteerde media; Publishers Weekly noemde de redenering over bewustzijn en
+heelal veeleisend maar helder gepresenteerd. Academische wetenschapshistorici
+hebben het grotendeels genegeerd. Kritische lezers wezen op selectief citeren
+en op de stilzwijgende sprong van historische observaties naar metafysische
+conclusies.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Corpus Hermeticum | Verzameling Griekse filosofisch-religieuze teksten uit de eerste eeuwen van onze jaartelling, toegeschreven aan Hermes Trismegistus. |
+| Hermes Trismegistus | Legendarische 'driewerf grote' Egyptische wijze die lang als auteur van de hermetica gold. |
+| prisca theologia | Renaissancedenkbeeld van een oeroude oorspronkelijke theologie waarvan alle religies en filosofieën zouden afstammen. |
+| zo boven, zo beneden | Hermetische grondformule voor de overeenkomst tussen macrokosmos en microkosmos. |
+| Giordanisti | Door de auteurs opgevoerd geheim genootschap van volgelingen van Giordano Bruno, waartoe ook Galilei zou hebben behoord. |
+| antropisch principe | De vaststelling dat de waargenomen natuurconstanten verenigbaar moeten zijn met het bestaan van waarnemers. |
+| fine-tuning | De observatie dat kleine veranderingen in natuurconstanten leven onmogelijk zouden maken. |
+| Tabula Smaragdina | Beknopte hermetische kerntekst die Newton eigenhandig vertaalde. |
+
+#### Waar het argument op rust
+
+Het historische deel steunt op echt materiaal. Dat Copernicus Hermes aanhaalt,
+dat Bruno een hermetische missie had, dat Newton decennia aan alchemie
+besteedde en dat Ficino's vertaling de renaissance kleurde, is gedocumenteerd
+en wordt door vakhistorici erkend. De auteurs volgen hier in grote lijnen de
+these die Frances Yates in 1964 in Giordano Bruno and the Hermetic Tradition
+uiteenzette: het hermetisme gaf de vroege wetenschap motieven en
+zelfvertrouwen. Ook de verwantschap tussen hermetica en Egyptische theologie
+heeft steun in een deel van de egyptologie.
+
+Daarbovenop bouwen de auteurs schakels van eigen makelij: het genootschap van
+de Giordanisti met Galilei als lid kent geen serieuze bronbasis, en het tweede
+deel leunt op een selectieve lezing van fysica en biologie, waarbij
+openstaande vragen als bewijs voor een hermetische kosmos worden geboekt. De
+bewijslast verschuift daar van documenten naar duiding.
+
+#### Wat er tegen in te brengen valt
+
+Vakhistorici laten van de sterke versie van deze these weinig heel. De
+Yates-these is sinds de jaren zeventig grondig bijgesteld: hermetisme en
+alchemie kleurden de motivatie van sommige pioniers, maar de wiskundige en
+experimentele methode waaraan de wetenschap haar succes dankt, kwam daar niet
+uit voort, en Casaubons datering van de hermetica staat nog altijd overeind.
+Historici als Robert Westman hebben bovendien laten zien dat de hermetische
+invloed op Copernicus veel dunner is dan het ene citaat suggereert. Waar de
+vakliteratuur nuanceert, verdikken Picknett en Prince: van invloed naar
+geheime agenda, van leesspoor naar broederschap.
+
+Het tweede deel is van andere aard. Fine-tuning is een echt vraagstuk in de
+fysica, maar er bestaan gangbare alternatieven, van multiversumscenario's tot
+de kanttekening dat een selectie-effect geen ontwerp aantoont. De keuze voor
+een geest van God als verklaring is een geloofsstandpunt dat als uitkomst van
+onderzoek wordt gepresenteerd. Recensenten wezen daarnaast op citaten van
+wetenschappers die buiten hun verband een andere strekking krijgen.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik het boek als aanleiding en lees de vakliteratuur ernaast, te
+beginnen bij Frances Yates en bij studies over Newtons alchemie.
+- Scheid per hoofdstuk wat gedocumenteerd is van wat de auteurs eraan
+vastknopen; de overgangen zijn vaak stilzwijgend.
+- Herken het patroon van onderdrukte kennis als verkoopformule in populaire
+geschiedschrijving.
+- Behandel fine-tuning als open vraagstuk en ga na welke verklaringen er naast
+ontwerp bestaan.
+
+#### Wat je hierna leest
+
+- 63. The Demon-Haunted World. The Demon-Haunted World geeft het tegenwicht:
+Sagans pleidooi voor sceptisch denken bij precies dit soort claims.
+- 378. The Kybalion. The Kybalion laat zien hoe hermetische denkbeelden rond
+1900 opnieuw werden verpakt voor een breed publiek.
+- 340. The Holographic Universe. The Holographic Universe maakt een
+vergelijkbare sprong van speculatieve fysica naar een bezield wereldbeeld.
+
+## 648. Warped Passages
+
+Lisa Randall, 2005. *Warped Passages: Unraveling the Mysteries of the
+Universe's Hidden Dimensions* (Ecco/HarperCollins, New York, 2005, 512 blz.,
+ISBN 9780060531089). Nederlandse vertaling: *De verborgen dimensies van ons
+heelal* (Het Spectrum, 2006, 496 blz., ISBN 9789002222535), aanwezig in de
+catalogus van bibliotheek.nl. Rubriek: natuur en wetenschap.
+Tags: `natuurkunde`, `deeltjesfysica`, `kosmologie`, `extra dimensies`
+
+Populair-wetenschappelijk debuut van Lisa Randall, theoretisch natuurkundige
+aan Harvard en rond de eeuwwisseling de meest geciteerde theoretisch fysicus
+ter wereld. Het boek bouwt van relativiteit, kwantummechanica en het
+standaardmodel op naar de vraag waarom de zwaartekracht zoveel zwakker is dan
+de andere natuurkrachten. Als mogelijk antwoord beschrijft Randall
+branenwerelden met verborgen extra dimensies, waaronder de gekromde modellen
+die zij in 1999 met Raman Sundrum ontwikkelde en die tot de meest geciteerde
+ideeën van de deeltjesfysica behoren.
+
+Het is serieuze fysica, helder uitgelegd en eerlijk over de speculatieve
+status: de modellen doen voorspellingen voor deeltjesversnellers. De LHC heeft
+die signalen tot op heden niet gevonden, waarmee de eenvoudigste varianten
+onder druk staan. Als inleiding in het moderne deeltjesdenken en het
+hiërarchieprobleem blijft het boek waardevol; het verscheen in het Nederlands
+als De verborgen dimensies van ons heelal.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Randall betoogt dat er naast de drie vertrouwde ruimtelijke
+dimensies extra dimensies kunnen bestaan die aan de waarneming ontsnappen, en
+dat die mogelijkheid een serieus antwoord biedt op het hiërarchieprobleem: de
+vraag waarom de zwaartekracht onvoorstelbaar veel zwakker is dan de overige
+natuurkrachten. In de modellen die zij met Raman Sundrum ontwikkelde is het
+waarneembare universum een driedimensionaal membraan in een hoger-dimensionale
+ruimte waarvan de geometrie zo gekromd is dat de zwaartekracht bij ons sterk
+verdund aankomt. Dat is speculatief, en tegelijk toetsbare fysica: als deze
+modellen kloppen, moeten deeltjesversnellers er sporen van kunnen vinden.
+
+#### De gang van het boek
+
+**Aanpak en opzet**
+
+Warped Passages verscheen in 2005, in de aanloop naar de start van de Large
+Hadron Collider, en wil een breed publiek meenemen tot aan het front van de
+theoretische deeltjesfysica. Randall, hoogleraar aan Harvard en in de jaren
+voor verschijnen de meest geciteerde theoretisch natuurkundige ter wereld,
+schrijft zonder formules; elk hoofdstuk opent met een allegorisch verhaaltje
+dat het komende idee aankondigt. Het boek is nadrukkelijk ook een verslag van
+eigen onderzoek: de lezer krijgt de modellen uit de eerste hand.
+
+**Fundament: relativiteit en kwantum**
+
+Het eerste deel legt de basis. De speciale en algemene relativiteitstheorie
+laten zien dat ruimte en tijd rekbaar zijn en dat massa de ruimtetijd kromt;
+de kwantummechanica beschrijft de wereld op de kleinste schaal. Randall
+introduceert daarbij het denkgereedschap van de effectieve theorie: elke
+natuurkundige beschrijving geldt op een bepaalde schaal en hoeft de details
+daaronder niet te kennen. Dat begrip draagt de rest van het boek, want het
+maakt begrijpelijk hoe extra dimensies verborgen kunnen blijven.
+
+**Het standaardmodel en het hiërarchieprobleem**
+
+Daarna volgt het standaardmodel van de deeltjesfysica: quarks, leptonen, de
+krachtvoerende deeltjes en het Higgs-mechanisme dat deeltjes massa geeft. Het
+raadsel dat Randall centraal stelt is de hiërarchie: tussen de zwakke
+kernkracht en de zwaartekracht gaapt een kloof van ongeveer zestien ordes van
+grootte, en niets in het standaardmodel verklaart die afstand. Supersymmetrie,
+lange tijd de favoriete oplossing, krijgt een eerlijke behandeling, met
+inbegrip van haar eigen moeilijkheden.
+
+**Dimensies, Kaluza-Klein en branen**
+
+Het idee van extra dimensies is ouder dan de snaartheorie: Theodor Kaluza en
+Oskar Klein probeerden er in de jaren twintig zwaartekracht en
+elektromagnetisme mee te verenigen, met opgerolde, onzichtbaar kleine
+dimensies. De snaartheorie bracht in de jaren negentig de branen: membranen
+waarop deeltjes en krachten gebonden kunnen zitten, terwijl alleen de
+zwaartekracht de volledige ruimte, de bulk, voelt. Daarmee werd denkbaar dat
+wij op zo'n braan leven en dat extra dimensies zelfs groot kunnen zijn zonder
+op te vallen.
+
+Randall bespreekt ook het voorstel van Arkani-Hamed, Dimopoulos en Dvali uit
+1998, waarin relatief grote vlakke extra dimensies de zwakte van de
+zwaartekracht verklaren doordat die kracht over meer ruimte wordt uitgesmeerd.
+Dat scenario voorspelt afwijkingen van de zwaartekrachtswet op korte
+afstanden, en precisiemetingen hebben de toegestane ruimte ervoor sindsdien
+flink ingeperkt. Tegen die achtergrond presenteert zij haar eigen route:
+kromming in plaats van omvang.
+
+**Gekromde passages: Randall-Sundrum**
+
+De kern van het boek zijn de twee modellen die Randall in 1999 met Raman
+Sundrum publiceerde. In het eerste liggen twee branen in een vijfdimensionale,
+sterk gekromde ruimte; de kromming verzwakt de zwaartekracht exponentieel
+tussen de ene braan en de andere, waardoor de hiërarchie vanzelf ontstaat. Het
+tweede model laat zien dat een extra dimensie zelfs oneindig groot kan zijn
+terwijl de zwaartekracht toch bij de braan gelokaliseerd blijft. Beide
+artikelen behoren tot de meest geciteerde uit de deeltjesfysica. Als
+vingerafdruk voorspellen de modellen Kaluza-Klein-deeltjes: zware evenknieën
+van bekende deeltjes die in een versneller als resonanties zouden verschijnen.
+
+**Ontvangst en stand van zaken**
+
+Het boek werd gunstig besproken, onder meer in Physics Today, en geldt als een
+van de betere populaire inleidingen in de deeltjesfysica van zijn decennium.
+De empirische stand is sindsdien verschoven: de LHC vond in 2012 het
+Higgs-deeltje, maar tot op heden geen Kaluza-Klein-resonanties, geen
+supersymmetrische partners en geen andere sporen van extra dimensies. De
+eenvoudigste varianten van de modellen zijn daarmee naar steeds hogere
+energieën gedrongen. Als theoretisch gereedschap blijft de gekromde geometrie
+in gebruik, onder meer in verwante beschrijvingen van sterk wisselwerkende
+systemen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| hiërarchieprobleem | De onverklaarde kloof van circa zestien ordes van grootte tussen de zwaartekracht en de overige krachten. |
+| braan | Membraanachtig object waarop deeltjes en krachten gebonden kunnen zijn; het waarneembare universum zou zo'n driedimensionale braan kunnen zijn. |
+| bulk | De volledige hoger-dimensionale ruimte waarin branen liggen en waar alleen de zwaartekracht vrij doorheen reikt. |
+| gekromde (warped) geometrie | Ruimtetijd waarvan de schaal exponentieel verandert langs de extra dimensie, de kern van de Randall-Sundrum-modellen. |
+| Kaluza-Klein-deeltjes | Zware kopieën van bekende deeltjes die ontstaan doordat velden in een extra dimensie staande golven vormen; de voorspelde vingerafdruk van extra dimensies. |
+| effectieve theorie | Beschrijving die geldig is op één schaal zonder de onderliggende details te hoeven kennen. |
+| standaardmodel | De grondig geteste theorie van alle bekende deeltjes en krachten behalve de zwaartekracht. |
+| supersymmetrie | Veronderstelde symmetrie die elk deeltje een partner geeft en het hiërarchieprobleem zou kunnen temmen. |
+
+#### Waar het argument op rust
+
+Het boek populariseert werk dat via vakbladen en collegiale toetsing is
+gegaan; de Randall-Sundrum-artikelen uit 1999 behoren tot de meest geciteerde
+publicaties van het vakgebied. Waar het over gevestigde fysica gaat,
+relativiteit, kwantummechanica en het standaardmodel, is de tekst gedekt door
+een eeuw metingen. Voor het speculatieve deel is de status eerlijk aangegeven:
+extra dimensies zijn wiskundig consistente mogelijkheden die een echt probleem
+oplossen, met voorspellingen die versnellers kunnen toetsen. Het onderscheid
+tussen wat gemeten is en wat model is, wordt in het boek consequent bewaakt.
+
+De toetsing is er inmiddels geweest en viel tot nu toe negatief uit: de LHC
+heeft de voorspelde resonanties niet gezien. Dat sluit extra dimensies niet
+uit; wel beperkt het de varianten die het hiërarchieprobleem op de
+oorspronkelijk beoogde schaal oplossen.
+
+#### Wat er tegen in te brengen valt
+
+Het inhoudelijke hoofdbezwaar is na twintig jaar empirisch: geen enkel
+experiment heeft een spoor van extra dimensies gevonden, en de LHC heeft de
+eenvoudigste Randall-Sundrum- en supersymmetrievarianten naar energieën
+gedrongen waar hun oplossing van het hiërarchieprobleem aan overtuigingskracht
+verliest. Critici van het snaartheorieprogramma, onder wie Peter Woit en Lee
+Smolin, plaatsten dit soort theoretische bouwwerken in 2006 in een bredere
+discussie over toetsbaarheid; Randalls modellen deden in elk geval
+voorspellingen, en juist die zijn tot op heden uitgebleven.
+
+Als leeservaring vraagt het boek meer dan de gemiddelde populaire titel: de
+tweede helft is dicht en veronderstelt dat de lezer de begrippen uit de eerste
+helft paraat houdt. De allegorische openingsverhaaltjes vielen niet bij alle
+recensenten in de smaak. En wie het boek nu leest, moet de kennis van na 2005
+er zelf bij denken: het Higgs-deeltje is gevonden, de gehoopte nieuwe fysica
+vooralsnog niet.
+
+#### Wat er concreet mee te doen is
+
+- Lees de eerste helft als zelfstandige inleiding in relativiteit,
+kwantummechanica en het standaardmodel; dat deel blijft geldig.
+- Gebruik het begrip effectieve theorie ook buiten de fysica: beschrijf een
+systeem op de schaal die ertoe doet, zonder alle onderliggende details mee te
+slepen.
+- Houd bij elk speculatief model de vraag paraat welke waarneming het zou
+kunnen weerleggen; dit boek laat zien hoe dat hoort.
+- Vul het boek aan met de stand van na 2012: Higgs gevonden, extra dimensies
+en supersymmetrie vooralsnog zonder spoor.
+
+#### Wat je hierna leest
+
+- 262. A Brief History of Time. A Brief History of Time is de klassieke
+voorloper over ruimtetijd en kosmologie, geschreven vóór het branentijdperk.
+- 281. Reality Is Not What It Seems. Reality Is Not What It Seems beschrijft
+de concurrerende route naar kwantumzwaartekracht via lusquantumgravitatie.
+- 94. Het tijdperk van onzekerheid. Het tijdperk van onzekerheid vertelt de
+menselijke geschiedenis van de kwantumfysica waarop dit werk voortbouwt.
+
 ## 649. The Man Who Knew Infinity
 
 Robert Kanigel, 1991. *The Man Who Knew Infinity: A Life of the Genius
@@ -126544,7 +127281,7 @@ Alfabetisch, met de nummers van de titels die de tag dragen.
 535 · `afrika` 589, 591, 593, 594, 595, 596, 597, 599, 600, 602 · `afrikaanse
 diaspora` 601 · `afrocentrisme` 588, 589, 591, 592, 593, 595, 597 · `afscheid
 nemen` 285 · `afschrikking` 217 · `afvallen` 557 · `afwezige-vader` 4 ·
-`agenda` 512 · `agressie` 223, 339 · `alchemie` 631, 633 · `alcohol` 4 ·
+`agenda` 512 · `agressie` 223, 339 · `alchemie` 631, 633, 646 · `alcohol` 4 ·
 `algoritmen` 476, 477, 479 · `alledaags` 89 · `allegorie` 222, 524, 631 ·
 `allocatie` 507 · `amazon` 257 · `ambacht` 6, 12, 13, 17, 18 · `ambitie` 75 ·
 `amerika` 600 · `Amerika` 114, 431 · `amerikaans` 117, 118, 120, 132, 133,
@@ -126616,23 +127353,24 @@ geven` 356 · `concentratie` 70, 441 · `concurrentie` 293 · `conditionering`
 286, 579 · `dagboekaantekeningen` 226 · `dagboekmethode` 78 ·
 `dagboekonderzoek` 472 · `dagelijkse gewoontes` 205 · `dagelijkse praktijk`
 442 · `dankbaarheid` 129, 433 · `darmbacteriën` 417 · `dataïsme` 236 · `daten`
-166 · `de ander` 574 · `debat` 28 · `debuutboek` 226 · `degrowth` 298 ·
-`dekoloniaal denken` 521 · `delegeren` 434 · `deliberate practice` 376 ·
-`dementie` 84, 85, 225 · `democratie` 98, 562, 619, 628 · `denken` 310, 509 ·
-`denkfouten` 55, 59, 142, 396, 437, 510, 514 · `denkmethode` 471 ·
-`denkmodellen` 426 · `depressie` 403 · `derivaten` 494, 495 · `design
-thinking` 150 · `destructiviteit` 223 · `deugd` 247, 459, 581 · `diagnose` 104
-· `dialoog` 335, 572 · `dichotomie van controle` 194 · `dichtwerk` 524 ·
-`dictatuur` 221 · `dienstbaarheid` 230, 245, 535 · `diepe-tijd` 239 · `dieren`
-555 · `dierenzintuigen` 322 · `dierlijke-cognitie` 383 · `dierproeven` 330 ·
-`differentiatie` 165 · `digitaal` 81 · `diplomatie` 243 · `direct response`
-350 · `DISC` 156, 429 · `discipline` 12, 13, 22, 30, 106, 133, 137, 146, 445,
-462, 480, 481, 482, 487, 488, 545 · `discours` 628 · `disruptie` 293 · `DNA`
-419 · `docenten` 116 · `doelen` 58, 136, 158, 542 · `doelen stellen` 367, 427,
-448 · `doelgericht-oefenen` 50 · `doelgroep` 446 · `doelstellingen` 256 ·
+166 · `de ander` 574 · `debat` 28 · `debuutboek` 226 · `deeltjesfysica` 648 ·
+`degrowth` 298 · `dekoloniaal denken` 521 · `delegeren` 434 · `deliberate
+practice` 376 · `dementie` 84, 85, 225 · `democratie` 98, 562, 619, 628 ·
+`denken` 310, 509 · `denkfouten` 55, 59, 142, 396, 437, 510, 514 ·
+`denkmethode` 471 · `denkmodellen` 426 · `depressie` 403 · `derivaten` 494,
+495 · `design thinking` 150 · `destructiviteit` 223 · `deugd` 247, 459, 581 ·
+`diagnose` 104 · `dialoog` 335, 572 · `dichotomie van controle` 194 ·
+`dichtwerk` 524 · `dictatuur` 221 · `dienstbaarheid` 230, 245, 535 ·
+`diepe-tijd` 239 · `dieptepsychologie` 646 · `dieren` 555 · `dierenzintuigen`
+322 · `dierlijke-cognitie` 383 · `dierproeven` 330 · `differentiatie` 165 ·
+`digitaal` 81 · `diplomatie` 243 · `direct response` 350 · `DISC` 156, 429 ·
+`discipline` 12, 13, 22, 30, 106, 133, 137, 146, 445, 462, 480, 481, 482, 487,
+488, 545 · `discours` 628 · `disruptie` 293 · `DNA` 419 · `docenten` 116 ·
+`doelen` 58, 136, 158, 542 · `doelen stellen` 367, 427, 448 ·
+`doelgericht-oefenen` 50 · `doelgroep` 446 · `doelstellingen` 256 ·
 `donkere-triade` 124 · `dood` 98, 169, 292, 535 · `doodsangst` 405 ·
 `doorzetten` 20 · `doorzettingsvermogen` 185, 249, 289, 324 · `dopamine` 314,
-418 · `drogredenen` 421 · `dromen` 52, 357, 358, 359, 360 · `drugs` 568 ·
+418 · `drogredenen` 421 · `dromen` 52, 357, 358, 359, 360, 646 · `drugs` 568 ·
 `dummies` 112 · `durfkapitaal` 47 · `duurzaamheid` 92 · `dystopie` 61, 618 ·
 `e-commerce` 257 · `e-mail` 70, 512 · `e-mailmarketing` 309 · `ecologie` 298 ·
 `economie` 65, 98, 217, 251, 297, 347, 423, 450, 452, 478, 625, 627 ·
@@ -126648,14 +127386,15 @@ zelf` 409 · `ego-depletie` 382 · `egypte` 591, 594, 595, 596, 597, 599, 602 ·
 `energie` 92, 195, 291, 377 · `energiewerk` 432 · `entropie` 539 ·
 `epigenetica` 208, 415 · `epos` 5, 530, 531, 532 · `erfelijkheid` 419 ·
 `erfenis` 39 · `erkenningszucht` 406 · `erotiek` 113, 164 · `esoterie` 378,
-590, 603, 605, 606, 613, 630, 631, 632, 633, 634, 635 · `essay` 3, 9, 21, 57,
-59, 63, 64, 68, 96, 197, 232 · `essaybundel` 390, 425, 620 · `essays` 523, 656
-· `eten` 103 · `ethiek` 282, 299, 413, 574, 612 · `evangelisatie` 201 ·
-`evolutie` 56, 66, 89, 90, 91, 239, 318, 322, 323, 332, 339, 347, 383, 518,
-609 · `evolutiebiologie` 452, 453 · `evolutionaire-psychologie` 67 ·
-`excellentie` 553 · `executives` 344 · `existentialisme` 405 · `expeditie` 36
-· `experiment` 79, 215 · `experimenten` 280, 424 · `experimenteren` 265 ·
-`expertise` 283, 320, 376 · `extraversie` 361 · `fabel` 8, 42, 135, 167, 252 ·
+590, 603, 605, 606, 613, 630, 631, 632, 633, 634, 635, 645, 647 · `essay` 3,
+9, 21, 57, 59, 63, 64, 68, 96, 197, 232 · `essaybundel` 390, 425, 620 ·
+`essays` 523, 656 · `eten` 103 · `ethiek` 282, 299, 413, 574, 612 ·
+`evangelisatie` 201 · `evolutie` 56, 66, 89, 90, 91, 239, 318, 322, 323, 332,
+339, 347, 383, 518, 609 · `evolutiebiologie` 452, 453 ·
+`evolutionaire-psychologie` 67 · `excellentie` 553 · `executives` 344 ·
+`existentialisme` 405 · `expeditie` 36 · `experiment` 79, 215 · `experimenten`
+280, 424 · `experimenteren` 265 · `expertise` 283, 320, 376 · `extra
+dimensies` 648 · `extraversie` 361 · `fabel` 8, 42, 135, 167, 252 ·
 `facilitatie` 304 · `falen` 23, 72, 75, 312, 422 · `familie` 45, 325, 466 ·
 `familieconflict` 178 · `familiegeschiedenis` 114, 235 · `familieroman` 10 ·
 `fantasy` 192, 203 · `FBI` 154, 271 · `FBI-onderzoek` 431 · `federalisme` 619
@@ -126716,7 +127455,7 @@ stellen` 151, 204, 406, 429 · `Griekenland` 537 · `Griekse literatuur` 536 ·
 `hedendaags India` 202 · `hedgefondsen` 505 · `heelal` 99, 262 · `heldendom`
 532 · `heldenreis` 410 · `helderheid` 82, 436 · `herhaling` 125, 134 ·
 `herkomst` 127 · `hermetische filosofie` 378 · `hermetisme` 613, 631, 632,
-633, 638, 639 · `heroverwegen` 28 · `hersenen` 51, 84, 85, 86, 327 ·
+633, 638, 639, 647 · `heroverwegen` 28 · `hersenen` 51, 84, 85, 86, 327 ·
 `hersenonderzoek` 330, 333 · `hersenspoeling` 384 · `herstel` 87, 552, 583 ·
 `het gesprek` 416 · `Himalaya` 191 · `hindoeïsme` 169, 199, 527, 569 ·
 `Hindoeïstische mythologie` 192, 202 · `hindoemythologie` 203 · `Hinge` 166 ·
@@ -126732,8 +127471,8 @@ stellen` 151, 204, 406, 429 · `Griekenland` 537 · `Griekse literatuur` 536 ·
 327 · `imitatie` 11 · `imperfectionisme` 442 · `import` 20 · `india` 649 ·
 `India` 163, 171, 172, 180, 189, 191, 196, 199, 203, 226, 242, 365, 370, 518,
 520, 527 · `individualisme` 9, 96, 624 · `individualiteit` 263 ·
-`individuatie` 359, 360, 408, 409 · `individuele-verantwoordelijkheid` 299 ·
-`industrie` 348 · `inheems denken` 521 · `initiatie` 407, 408, 522 ·
+`individuatie` 359, 360, 408, 409, 646 · `individuele-verantwoordelijkheid`
+299 · `industrie` 348 · `inheems denken` 521 · `initiatie` 407, 408, 522 ·
 `inleiding` 452, 456 · `innerlijk-kind` 109 · `innerlijk-werkleven` 472 ·
 `innerlijke stem` 377 · `innerlijke vrede` 548 · `innovatie` 206, 251, 293,
 306, 471 · `instagram` 129 · `instemming` 616 · `instituties` 392 · `integraal
@@ -126749,82 +127488,82 @@ non-fictie` 211 · `Italië` 155 · `jaloezie` 19 · `Japan` 77, 205, 261, 335,
 257 · `jeugd` 53, 104, 115 · `jodendom` 630 · `John Harrison` 321 · `joint
 ventures` 348 · `jonge liefde` 180 · `jongeren` 25 · `jongvolwassenen` 569 ·
 `jongvolwassenenroman` 295 · `joodse filosofie` 572, 574 · `journaling` 147 ·
-`journalistiek` 4, 7, 46, 82, 238, 257, 285, 401, 499, 566 · `Jung` 143, 358,
-359 · `Jungiaanse psychologie` 404, 407, 408, 409, 410 · `kaakontwikkeling`
-332 · `kabbala` 630, 634 · `Kabul` 184 · `Kaïn-en-Abel` 10 · `kalmte` 248, 389
-· `kameraadschap` 529 · `kanker` 419 · `kans` 64 · `kansdenken` 487 · `kansen`
-137 · `kansrekening` 282, 456, 484, 490, 496, 504, 505 · `kapitalisme` 298 ·
-`karakter` 97, 537 · `Karel de Grote` 534 · `karma` 184 · `karmel` 573 ·
-`Kasjmir` 180 · `keegan` 110 · `Kelly-criterium` 504 · `keltische traditie`
-611 · `kennis` 81, 508 · `kennisleer` 525, 587 · `kennistheorie` 654 ·
-`kenniswerk` 6, 50, 400, 472 · `kernwaarden` 245 · `kernwapens` 454 · `keuzes`
-51, 71, 72, 510 · `Kierkegaard` 405 · `kinderboek` 167 · `kinderjaren` 152 ·
-`kinesiologie` 449 · `klantcontact` 182, 186 · `klantpsychologie` 367 ·
-`klantrelaties` 246 · `klantvalidatie` 265 · `klantwaarde` 309 ·
-`klassenverschil` 284 · `klassieke bronnen` 286 · `klassieke tekst` 219, 394 ·
-`klassieker` 10, 24, 38, 48, 61, 83, 127, 135, 144, 173, 213, 254, 351, 420,
-520, 537, 616, 617, 618, 619, 620, 626 · `klein-beginnen` 40 ·
-`kleine-bedrijven` 172 · `kleine-stappen` 22, 133 · `kleurboek` 327 ·
-`klimaatfictie` 203 · `klimaatverandering` 299 · `klinische psychologie` 460 ·
-`klokkenmakerij` 321 · `kolonialisme` 298, 592 · `korea` 111 · `kort` 59, 99,
-100, 101, 110, 140 · `kort-boek` 11, 13, 16, 27, 38, 57, 445 · `kort-stuk` 19,
-30 · `korte-teksten` 111 · `korte-vorm` 473 · `kosmologie` 239, 262, 281, 651,
-655 · `koude oorlog` 217, 220, 384, 454, 456 · `krijgsgevangenschap` 31 ·
-`krijgskunde` 212, 218, 219, 272 · `krijgskunst` 346 · `kritiek` 24, 41, 50 ·
-`kritiek geven` 356 · `kritisch denken` 420, 421 · `kroeg` 4 ·
-`kruistochtgeest` 534 · `kunst` 11, 445 · `kunstenaars` 312 ·
-`kunstgeschiedenis` 241, 312 · `kunstmatig leven` 347 · `kunstmatige
-intelligentie` 236, 237, 297, 652 · `kwaad` 404 · `kwaliteit` 1, 400 ·
-`kwantificering` 392 · `kwantitatief handelen` 506 · `kwantitatieve analyse`
-498 · `kwantitatieve financiën` 485, 503 · `kwantumfysica` 208, 340, 432, 433
-· `kwantummechanica` 362, 655 · `kwantumzwaartekracht` 281 · `kwetsbaarheid`
-32, 44, 470 · `kyotoschool` 576 · `landbouw` 56, 98 · `landmark forum` 344 ·
-`leadgeneratie` 308 · `lean manufacturing` 265 · `leefstijl` 86, 103, 138, 171
-· `leertijd` 320 · `leger` 106, 180, 222 · `leiderschap` 36, 41, 44, 46, 97,
-106, 157, 170, 183, 218, 222, 231, 260, 273, 344, 353, 364, 370, 389, 434,
-465, 468, 475, 536, 544, 551 · `leidinggeven` 156 · `leren` 175, 296, 349,
-397, 422, 441, 509, 538 · `lesmateriaal` 116 · `leugendetectie` 154, 338 ·
-`levensinrichting` 334 · `levenskeuzes` 150, 546 · `levenskunst` 27, 199, 216,
-227, 586 · `levenslessen` 285, 447 · `levensloop` 91 · `levensverhaal` 385 ·
-`levenswijsheid` 473 · `lezen` 18, 420 · `lezing` 436 · `lezingen` 169 ·
-`libertarisme` 546, 623, 627, 629 · `lichaam` 80 · `lichaamsgericht werken`
-386 · `lichaamstaal` 125, 126, 154, 303, 338, 399 · `lichaamswerk` 432 ·
-`licht` 525 · `liefde` 3, 131, 160, 295 · `liefdesroman` 180 · `lifestyle` 278
-· `lijden` 48, 73, 160, 310, 390 · `list` 531 · `literair` 110 · `literatuur`
-49 · `logica` 421, 437 · `logotherapie` 48 · `Long-Island` 4 · `longevity` 415
-· `loopbaan` 50, 51, 150, 349, 515, 547 · `loslaten` 377, 449 · `losmaken` 45
-· `lotsbestemming` 261 · `luchtvaart` 422 · `luisteren` 24, 35, 305, 444 ·
-`machinaal leren` 484, 485, 486, 503 · `macht` 212, 250, 263, 381, 388, 440,
-617, 622 · `machtspolitiek` 220 · `machtstheorie` 221 · `machtsverhoudingen`
-155 · `magie` 613, 632, 634, 637, 638, 639 · `magisch realisme` 261 ·
-`management` 42, 47, 170, 183, 256, 350, 353, 364, 472 · `managementtheorie`
-547 · `manifest` 629 · `manifesteren` 128, 129, 130, 131, 132, 190, 196, 433,
-543, 560 · `manipulatie` 123, 124, 125, 126, 212, 213, 381, 384, 429 ·
-`mannelijkheid` 3, 406, 407, 408 · `mannen` 7 · `mannenbeweging` 407 ·
-`mantelzorg` 225 · `mantra` 403 · `manuscript` 359 · `maria magdalena` 614 ·
-`marketing` 13, 40, 60, 172, 183, 279, 280, 307, 308, 309, 350, 443, 446 ·
-`marktmicrostructuur` 477, 478 · `marxisme` 564 · `McKinsey` 511 · `media` 54,
-60, 100, 562, 563, 564, 565, 566 · `medische ethiek` 416 · `meditatie` 111,
-141, 149, 169, 205, 208, 228, 230, 237, 242, 333, 377, 401, 431, 527, 528,
-590, 630, 638 · `meesterschap` 296, 320, 553 · `meetprobleem` 650, 653 ·
-`meetsystemen` 392 · `memento mori` 286 · `memoir` 4, 7, 18, 20, 26, 45, 49,
-62, 95, 106, 178, 185, 191, 226, 229, 242, 289, 324, 325, 348, 385, 402, 403,
-431, 447, 505 · `mens en dier` 584 · `menselijk gedrag` 155 · `mensenkennis`
-126, 356 · `mentale gezondheid` 315 · `mentale helderheid` 148 · `mentale
-weerbaarheid` 229, 323, 372, 373, 374, 545 · `mentalisme` 378, 399 ·
-`mentorschap` 4, 285, 289, 320, 402 · `merken` 279 · `metabolisme` 313 ·
-`metafysica` 102, 518, 584, 587 · `meten` 69, 133 · `methode` 81 ·
-`microbedrijf` 40, 172 · `microbioom` 417 · `middelbare-leeftijd` 7 ·
-`middeleeuwen` 534, 632 · `midlife` 324 · `militaire geschiedenis` 568 ·
-`militaire strategie` 220 · `millennials` 159 · `minderheden` 68 · `mindful`
-103 · `mindfulness` 141, 147, 149, 177, 333, 401 · `mindset` 146, 181, 188,
-387, 458 · `minimalisme` 181 · `misdaad` 254 · `misleiding` 219, 272 ·
-`mislukking` 516 · `missie` 567 · `mitochondriën` 313 · `modellen` 300 ·
-`modelleren` 139 · `modellering` 455 · `moed` 44, 529 · `moeder-en-zoon` 26 ·
-`momentum` 481 · `monniksleven` 230 · `monomythe` 410 · `monopolie` 306 ·
-`monsters` 532 · `Monty-Python` 16 · `moraal` 9, 57, 67, 263 ·
-`moraalfilosofie` 581 · `moraalkritiek` 391 · `moreel` 36 · `mormonisme` 560 ·
-`motivatie` 117, 139, 146, 183, 200, 207, 315, 427, 468, 469, 472 · `Motley
+`journalistiek` 4, 7, 46, 82, 238, 257, 285, 401, 499, 566 · `jung` 646 ·
+`Jung` 143, 358, 359 · `Jungiaanse psychologie` 404, 407, 408, 409, 410 ·
+`kaakontwikkeling` 332 · `kabbala` 630, 634 · `Kabul` 184 · `Kaïn-en-Abel` 10
+· `kalmte` 248, 389 · `kameraadschap` 529 · `kanker` 419 · `kans` 64 ·
+`kansdenken` 487 · `kansen` 137 · `kansrekening` 282, 456, 484, 490, 496, 504,
+505 · `kapitalisme` 298 · `karakter` 97, 537 · `Karel de Grote` 534 · `karma`
+184 · `karmel` 573 · `Kasjmir` 180 · `keegan` 110 · `Kelly-criterium` 504 ·
+`keltische traditie` 611 · `kennis` 81, 508 · `kennisleer` 525, 587 ·
+`kennistheorie` 654 · `kenniswerk` 6, 50, 400, 472 · `kernwaarden` 245 ·
+`kernwapens` 454 · `keuzes` 51, 71, 72, 510 · `Kierkegaard` 405 · `kinderboek`
+167 · `kinderjaren` 152 · `kinesiologie` 449 · `klantcontact` 182, 186 ·
+`klantpsychologie` 367 · `klantrelaties` 246 · `klantvalidatie` 265 ·
+`klantwaarde` 309 · `klassenverschil` 284 · `klassieke bronnen` 286 ·
+`klassieke tekst` 219, 394 · `klassieker` 10, 24, 38, 48, 61, 83, 127, 135,
+144, 173, 213, 254, 351, 420, 520, 537, 616, 617, 618, 619, 620, 626 ·
+`klein-beginnen` 40 · `kleine-bedrijven` 172 · `kleine-stappen` 22, 133 ·
+`kleurboek` 327 · `klimaatfictie` 203 · `klimaatverandering` 299 · `klinische
+psychologie` 460 · `klokkenmakerij` 321 · `kolonialisme` 298, 592 · `korea`
+111 · `kort` 59, 99, 100, 101, 110, 140 · `kort-boek` 11, 13, 16, 27, 38, 57,
+445 · `kort-stuk` 19, 30 · `korte-teksten` 111 · `korte-vorm` 473 ·
+`kosmologie` 239, 262, 281, 645, 647, 648, 651, 655 · `koude oorlog` 217, 220,
+384, 454, 456 · `krijgsgevangenschap` 31 · `krijgskunde` 212, 218, 219, 272 ·
+`krijgskunst` 346 · `kritiek` 24, 41, 50 · `kritiek geven` 356 · `kritisch
+denken` 420, 421 · `kroeg` 4 · `kruistochtgeest` 534 · `kunst` 11, 445 ·
+`kunstenaars` 312 · `kunstgeschiedenis` 241, 312 · `kunstmatig leven` 347 ·
+`kunstmatige intelligentie` 236, 237, 297, 652 · `kwaad` 404 · `kwaliteit` 1,
+400 · `kwantificering` 392 · `kwantitatief handelen` 506 · `kwantitatieve
+analyse` 498 · `kwantitatieve financiën` 485, 503 · `kwantumfysica` 208, 340,
+432, 433 · `kwantummechanica` 362, 655 · `kwantumzwaartekracht` 281 ·
+`kwetsbaarheid` 32, 44, 470 · `kyotoschool` 576 · `landbouw` 56, 98 ·
+`landmark forum` 344 · `leadgeneratie` 308 · `lean manufacturing` 265 ·
+`leefstijl` 86, 103, 138, 171 · `leertijd` 320 · `leger` 106, 180, 222 ·
+`leiderschap` 36, 41, 44, 46, 97, 106, 157, 170, 183, 218, 222, 231, 260, 273,
+344, 353, 364, 370, 389, 434, 465, 468, 475, 536, 544, 551 · `leidinggeven`
+156 · `leren` 175, 296, 349, 397, 422, 441, 509, 538 · `lesmateriaal` 116 ·
+`leugendetectie` 154, 338 · `levensinrichting` 334 · `levenskeuzes` 150, 546 ·
+`levenskunst` 27, 199, 216, 227, 586 · `levenslessen` 285, 447 · `levensloop`
+91 · `levensverhaal` 385 · `levenswijsheid` 473 · `lezen` 18, 420 · `lezing`
+436 · `lezingen` 169 · `libertarisme` 546, 623, 627, 629 · `lichaam` 80 ·
+`lichaamsgericht werken` 386 · `lichaamstaal` 125, 126, 154, 303, 338, 399 ·
+`lichaamswerk` 432 · `licht` 525 · `liefde` 3, 131, 160, 295 · `liefdesroman`
+180 · `lifestyle` 278 · `lijden` 48, 73, 160, 310, 390 · `list` 531 ·
+`literair` 110 · `literatuur` 49 · `logica` 421, 437 · `logotherapie` 48 ·
+`Long-Island` 4 · `longevity` 415 · `loopbaan` 50, 51, 150, 349, 515, 547 ·
+`loslaten` 377, 449 · `losmaken` 45 · `lotsbestemming` 261 · `luchtvaart` 422
+· `luisteren` 24, 35, 305, 444 · `machinaal leren` 484, 485, 486, 503 ·
+`macht` 212, 250, 263, 381, 388, 440, 617, 622 · `machtspolitiek` 220 ·
+`machtstheorie` 221 · `machtsverhoudingen` 155 · `magie` 613, 632, 634, 637,
+638, 639 · `magisch realisme` 261 · `management` 42, 47, 170, 183, 256, 350,
+353, 364, 472 · `managementtheorie` 547 · `manifest` 629 · `manifesteren` 128,
+129, 130, 131, 132, 190, 196, 433, 543, 560 · `manipulatie` 123, 124, 125,
+126, 212, 213, 381, 384, 429 · `mannelijkheid` 3, 406, 407, 408 · `mannen` 7 ·
+`mannenbeweging` 407 · `mantelzorg` 225 · `mantra` 403 · `manuscript` 359 ·
+`maria magdalena` 614 · `marketing` 13, 40, 60, 172, 183, 279, 280, 307, 308,
+309, 350, 443, 446 · `marktmicrostructuur` 477, 478 · `marxisme` 564 ·
+`McKinsey` 511 · `media` 54, 60, 100, 562, 563, 564, 565, 566 · `medische
+ethiek` 416 · `meditatie` 111, 141, 149, 169, 205, 208, 228, 230, 237, 242,
+333, 377, 401, 431, 527, 528, 590, 630, 638 · `meesterschap` 296, 320, 553 ·
+`meetprobleem` 650, 653 · `meetsystemen` 392 · `memento mori` 286 · `memoir`
+4, 7, 18, 20, 26, 45, 49, 62, 95, 106, 178, 185, 191, 226, 229, 242, 289, 324,
+325, 348, 385, 402, 403, 431, 447, 505 · `mens en dier` 584 · `menselijk
+gedrag` 155 · `mensenkennis` 126, 356 · `mentale gezondheid` 315 · `mentale
+helderheid` 148 · `mentale weerbaarheid` 229, 323, 372, 373, 374, 545 ·
+`mentalisme` 378, 399 · `mentorschap` 4, 285, 289, 320, 402 · `merken` 279 ·
+`metabolisme` 313 · `metafysica` 102, 518, 584, 587 · `meten` 69, 133 ·
+`methode` 81 · `microbedrijf` 40, 172 · `microbioom` 417 ·
+`middelbare-leeftijd` 7 · `middeleeuwen` 534, 632 · `midlife` 324 · `militaire
+geschiedenis` 568 · `militaire strategie` 220 · `millennials` 159 ·
+`minderheden` 68 · `mindful` 103 · `mindfulness` 141, 147, 149, 177, 333, 401
+· `mindset` 146, 181, 188, 387, 458 · `minimalisme` 181 · `misdaad` 254 ·
+`misleiding` 219, 272 · `mislukking` 516 · `missie` 567 · `mitochondriën` 313
+· `modellen` 300 · `modelleren` 139 · `modellering` 455 · `moed` 44, 529 ·
+`moeder-en-zoon` 26 · `momentum` 481 · `monniksleven` 230 · `monomythe` 410 ·
+`monopolie` 306 · `monsters` 532 · `Monty-Python` 16 · `moraal` 9, 57, 67, 263
+· `moraalfilosofie` 581 · `moraalkritiek` 391 · `moreel` 36 · `mormonisme` 560
+· `motivatie` 117, 139, 146, 183, 200, 207, 315, 427, 468, 469, 472 · `Motley
 Fool` 474 · `motoren` 6 · `motorfietsen` 325 · `muziek` 17, 85 · `mystiek`
 340, 390, 524, 525, 573, 578, 603, 604, 606, 610, 630, 636 · `mythe` 608 ·
 `mythevorming` 615 · `mythologie` 73, 143, 357, 360, 407, 408, 409, 599, 611 ·
@@ -126832,8 +127571,8 @@ Fool` 474 · `motoren` 6 · `motorfietsen` 325 · `muziek` 17, 85 · `mystiek`
 `nalatenschap` 178 · `napoleontische oorlogen` 235 · `narcisme` 258, 404 ·
 `naslag` 99, 112 · `naslagwerk` 59, 225, 426, 477, 478, 486, 491, 500, 504,
 661, 662 · `nationalisme` 237 · `natuur` 191, 323, 609 · `natuurkunde` 62, 94,
-240, 262, 281, 300, 326, 650, 651, 653, 655, 657 · `navigatie` 321 · `navy
-seals` 229, 364 · `nazisme` 223 · `necrofilie` 223 · `nederland` 96 ·
+240, 262, 281, 300, 326, 648, 650, 651, 653, 655, 657 · `navigatie` 321 ·
+`navy seals` 229, 364 · `nazisme` 223 · `necrofilie` 223 · `nederland` 96 ·
 `nederlands` 93, 97, 100, 101, 102, 103, 104, 105, 106, 107, 108, 128, 130,
 131, 141 · `nederlands-auteur` 140 · `nederlandstalig` 113 · `negatieve
 emoties` 176 · `negentig dagen` 188 · `neopaganisme` 611, 637 · `nepnieuws`
@@ -126923,7 +127662,7 @@ functies` 361 · `psychopathie` 429 · `psychotherapie` 164, 227, 386, 406 ·
 transparantie` 270 · `RAND` 454, 456 · `Rat-Pack` 178 · `rationaliteit` 454 ·
 `rationele keuze` 455 · `recht` 393 · `rechtspraak` 69 · `rechtvaardigheid`
 623 · `reclame` 206, 279, 443, 446, 563 · `reeks` 114, 192 ·
-`regimeverandering` 220 · `reïncarnatie` 202 · `reïnventie` 344 ·
+`regimeverandering` 220 · `reïncarnatie` 202, 645 · `reïnventie` 344 ·
 `reisverhaal` 1 · `reizen` 278 · `relaties` 34, 51, 101, 120, 122, 145, 152,
 162, 164, 166, 167, 195, 213, 334, 335, 381, 398, 406, 466 · `relatietherapie`
 165 · `relativiteitstheorie` 240, 281 · `religie` 56, 572, 596, 599, 626 ·
@@ -126936,69 +127675,69 @@ transparantie` 270 · `RAND` 454, 456 · `Rat-Pack` 178 · `rationaliteit` 454 �
 608 · `rituelen` 304 · `rivier als symbool` 287 · `roem-en-eenzaamheid` 178 ·
 `roeping` 8, 9, 12, 160 · `roman` 61, 113, 114, 115, 254, 554 · `Rome` 537 ·
 `romeinse oudheid` 232 · `rouw` 95, 467 · `rouwverwerking` 204 ·
-`rozenkruisers` 631 · `ruimte en tijd` 281 · `ruimtevaart` 266 · `russische
-literatuur` 235 · `rust` 32 · `SaaS` 434 · `sadisme` 223 · `saga` 533 ·
-`Salinas` 10 · `samenleving` 90, 98, 319 · `samenwerken` 25 · `samenwerking`
-453 · `samoerai` 346, 462, 517, 535 · `Sanskriet` 520 · `Santa Fe Institute`
-347 · `satire` 155 · `satori` 528 · `scepsis` 63, 585 · `schaalgroei` 434 ·
-`schaalvergroting` 350 · `schaamte` 32, 44, 317, 470 · `schaarste` 92, 249 ·
-`schaduw` 404 · `scheiding` 556 · `scheikunde` 92 · `school` 53, 84 ·
-`schrijven` 11, 12, 14, 18, 19, 81, 436, 511 · `schrijverschap` 191, 325 ·
-`schuld` 254 · `schulden` 20, 38, 121, 159, 464 · `seksualiteit` 100, 145,
-164, 165, 316 · `selectoraattheorie` 221 · `seminar` 139, 543 · `Shaolin` 389
-· `Silicon Valley` 306 · `simulatie` 565 · `sirtuïnen` 415 · `situationisme`
-564 · `slaap` 52, 87, 88, 171, 181, 316, 329, 414 · `slaapapneu` 332 ·
-`slavernij` 68 · `smartphone` 53, 288 · `sociale besmetting` 303 · `sociale
-media` 53, 70, 194, 198, 204, 288, 365 · `sociale psychologie` 215, 280, 302,
-319 · `sociale-vaardigheden` 398 · `socialisme` 618 · `sociologie` 300, 622 ·
-`soefisme` 524, 526 · `software` 276, 484 · `somberheid` 119 · `spanning` 101
-· `sparen` 21, 38, 159, 233, 464 · `Sparta` 529 · `specialisatie` 349 ·
-`speedreading` 175 · `spel` 550 · `spelen` 32 · `spellen` 392 · `speltheorie`
-217, 221, 450, 451, 452, 453, 454, 455, 456, 656 · `spiegelneuronen` 303 ·
-`spiegeloefening` 380 · `spiegelogie` 108 · `spieropbouw` 316 · `spijt` 447 ·
-`spiritualiteit` 8, 14, 27, 102, 108, 141, 149, 160, 169, 184, 190, 195, 196,
-199, 242, 310, 358, 377, 431, 435, 449, 519, 526, 556, 583, 590, 596, 603,
-604, 614 · `spirituele zoektocht` 287, 524 · `sport` 20, 349 ·
-`sportpsychologie` 372, 374, 441 · `sportwetenschap` 461 · `spreekangst` 253 ·
-`spreker` 117, 134 · `staartrisico` 494, 496 · `staat` 612 · `staatsgezag` 616
-· `staatsgreep` 220 · `staatskritiek` 621, 622, 623 · `staatsvorming` 622 ·
-`stalking` 214 · `standaarden` 396 · `Stanford` 150, 388, 458 · `start-ups`
-306 · `startups` 265 · `statistiek` 55, 65, 69, 234, 268, 300, 426, 476, 479,
-483, 484, 485, 497, 500, 502, 503, 507 · `statistiek van uitzonderingen` 274 ·
-`status` 39, 66, 463 · `stereotypen` 562 · `sterfelijkheid` 2, 71, 232, 295,
-416, 516 · `sterrenkunde` 99 · `sterven` 49, 95, 275, 447 · `stijl` 18, 436 ·
-`stoicijns` 75, 140, 142 · `stoïcijnse filosofie` 153, 228, 232, 286, 423, 459
-· `stoïcijnse levenshouding` 402 · `stoïcijnse-houding` 462 · `stoïcisme` 2,
-30, 194, 247, 248, 292, 516, 586 · `stommiteit` 155 · `storytelling` 253, 279
-· `strategie` 212, 217, 218, 219, 249, 250, 260, 272, 293, 306, 346, 353, 370,
-426, 440, 443, 450, 451, 456 · `streken` 112 · `stress` 80, 87, 106, 118, 187,
-387, 458 · `stressmanagement` 153 · `stressregulatie` 372 · `strip` 452 ·
-`structuur` 82, 511 · `studieboek` 421, 437, 497, 498, 507 · `studietechniek`
-420 · `succes` 75, 76, 274 · `superkrachten` 203 · `supplementen` 171, 316 ·
-`surveillance` 393 · `syllogismen` 437 · `symboliek` 357, 360, 522, 605, 608,
-610, 633, 635, 636 · `symmetrie` 659 · `synchroniciteit` 362 ·
-`synchronisatie` 303 · `systeem` 22, 142 · `systeemtheorie` 165 ·
-`systematisch handelen` 482, 502 · `taal` 26, 27, 436, 594 · `taal en macht`
-344 · `tactische empathie` 271 · `talent` 23, 29, 274 · `taoïsme` 341, 394 ·
-`tarieven` 121 · `teams` 42, 273, 364, 468 · `teamvorming` 260 · `teamwork`
-156, 256 · `techniek` 1, 6, 43, 61, 92 · `technische analyse` 483, 500 ·
-`technologie` 160, 288, 294, 306, 393, 499 · `technologiebedrijven` 293 ·
-`technologiegeschiedenis` 231, 267 · `technologiekritiek` 297, 539 ·
-`tegen-productiviteit` 71 · `tegenslag` 30, 111, 174, 570 · `tekenen` 15 ·
-`tekstkwaliteit` 124 · `televisie` 54 · `temperament` 33 · `tempo` 552 ·
-`termijnmarkten` 480, 482 · `testament` 462 · `tevredenheid` 463 · `Texas` 5,
-385 · `The Secret` 433 · `theeceremonie` 379 · `theologie` 578, 587 ·
-`theosofie` 605, 606 · `therapie` 51, 107, 118, 119, 120, 121, 122, 145, 466 ·
-`Thermopylae` 529 · `thriller` 101, 202 · `thuiskomst` 531 · `thuiszorg` 225 ·
-`tieners` 193 · `tijd` 71, 232, 262, 292, 334, 442, 655 · `tijdmanagement` 434
-· `tijdsbeleving` 326 · `timemanagement` 311, 448 · `tirannie` 617 ·
-`toekomst` 236 · `toeval` 21, 64, 93, 137, 274, 362, 483 · `Tolteeks` 27 ·
-`toon` 72, 118, 119, 121, 132, 145 · `topprestatie` 374 · `topsport` 422, 460,
-545 · `totalitarisme` 384 · `trading` 492, 493, 495 · `training` 376 ·
-`transpersoonlijke psychologie` 583 · `trauma` 104, 119, 195, 229, 317, 386 ·
-`trendvolgen` 480, 501 · `trilling` 127 · `trilogie` 202, 203, 248 · `TRIZ`
-471 · `Troje` 530 · `tuinontwerp` 205 · `tumoronderdrukker` 419 ·
-`twaalf-weken` 14 · `twaalfde eeuw` 525 · `tweede-wereldoorlog` 115 ·
+`rozenkruisers` 631, 645 · `ruimte en tijd` 281 · `ruimtevaart` 266 ·
+`russische literatuur` 235 · `rust` 32 · `SaaS` 434 · `sadisme` 223 · `saga`
+533 · `Salinas` 10 · `samenleving` 90, 98, 319 · `samenwerken` 25 ·
+`samenwerking` 453 · `samoerai` 346, 462, 517, 535 · `Sanskriet` 520 · `Santa
+Fe Institute` 347 · `satire` 155 · `satori` 528 · `scepsis` 63, 585 ·
+`schaalgroei` 434 · `schaalvergroting` 350 · `schaamte` 32, 44, 317, 470 ·
+`schaarste` 92, 249 · `schaduw` 404 · `scheiding` 556 · `scheikunde` 92 ·
+`school` 53, 84 · `schrijven` 11, 12, 14, 18, 19, 81, 436, 511 ·
+`schrijverschap` 191, 325 · `schuld` 254 · `schulden` 20, 38, 121, 159, 464 ·
+`seksualiteit` 100, 145, 164, 165, 316 · `selectoraattheorie` 221 · `seminar`
+139, 543 · `Shaolin` 389 · `Silicon Valley` 306 · `simulatie` 565 ·
+`sirtuïnen` 415 · `situationisme` 564 · `slaap` 52, 87, 88, 171, 181, 316,
+329, 414 · `slaapapneu` 332 · `slavernij` 68 · `smartphone` 53, 288 · `sociale
+besmetting` 303 · `sociale media` 53, 70, 194, 198, 204, 288, 365 · `sociale
+psychologie` 215, 280, 302, 319 · `sociale-vaardigheden` 398 · `socialisme`
+618 · `sociologie` 300, 622 · `soefisme` 524, 526 · `software` 276, 484 ·
+`somberheid` 119 · `spanning` 101 · `sparen` 21, 38, 159, 233, 464 · `Sparta`
+529 · `specialisatie` 349 · `speedreading` 175 · `spel` 550 · `spelen` 32 ·
+`spellen` 392 · `speltheorie` 217, 221, 450, 451, 452, 453, 454, 455, 456, 656
+· `spiegelneuronen` 303 · `spiegeloefening` 380 · `spiegelogie` 108 ·
+`spieropbouw` 316 · `spijt` 447 · `spiritualiteit` 8, 14, 27, 102, 108, 141,
+149, 160, 169, 184, 190, 195, 196, 199, 242, 310, 358, 377, 431, 435, 449,
+519, 526, 556, 583, 590, 596, 603, 604, 614 · `spirituele zoektocht` 287, 524
+· `sport` 20, 349 · `sportpsychologie` 372, 374, 441 · `sportwetenschap` 461 ·
+`spreekangst` 253 · `spreker` 117, 134 · `staartrisico` 494, 496 · `staat` 612
+· `staatsgezag` 616 · `staatsgreep` 220 · `staatskritiek` 621, 622, 623 ·
+`staatsvorming` 622 · `stalking` 214 · `standaarden` 396 · `Stanford` 150,
+388, 458 · `start-ups` 306 · `startups` 265 · `statistiek` 55, 65, 69, 234,
+268, 300, 426, 476, 479, 483, 484, 485, 497, 500, 502, 503, 507 · `statistiek
+van uitzonderingen` 274 · `status` 39, 66, 463 · `stereotypen` 562 ·
+`sterfelijkheid` 2, 71, 232, 295, 416, 516 · `sterrenkunde` 99 · `sterven` 49,
+95, 275, 447 · `stijl` 18, 436 · `stoicijns` 75, 140, 142 · `stoïcijnse
+filosofie` 153, 228, 232, 286, 423, 459 · `stoïcijnse levenshouding` 402 ·
+`stoïcijnse-houding` 462 · `stoïcisme` 2, 30, 194, 247, 248, 292, 516, 586 ·
+`stommiteit` 155 · `storytelling` 253, 279 · `strategie` 212, 217, 218, 219,
+249, 250, 260, 272, 293, 306, 346, 353, 370, 426, 440, 443, 450, 451, 456 ·
+`streken` 112 · `stress` 80, 87, 106, 118, 187, 387, 458 · `stressmanagement`
+153 · `stressregulatie` 372 · `strip` 452 · `structuur` 82, 511 · `studieboek`
+421, 437, 497, 498, 507 · `studietechniek` 420 · `succes` 75, 76, 274 ·
+`superkrachten` 203 · `supplementen` 171, 316 · `surveillance` 393 ·
+`syllogismen` 437 · `symboliek` 357, 360, 522, 605, 608, 610, 633, 635, 636 ·
+`symmetrie` 659 · `synchroniciteit` 362 · `synchronisatie` 303 · `systeem` 22,
+142 · `systeemtheorie` 165 · `systematisch handelen` 482, 502 · `taal` 26, 27,
+436, 594 · `taal en macht` 344 · `tactische empathie` 271 · `talent` 23, 29,
+274 · `taoïsme` 341, 394 · `tarieven` 121 · `teams` 42, 273, 364, 468 ·
+`teamvorming` 260 · `teamwork` 156, 256 · `techniek` 1, 6, 43, 61, 92 ·
+`technische analyse` 483, 500 · `technologie` 160, 288, 294, 306, 393, 499 ·
+`technologiebedrijven` 293 · `technologiegeschiedenis` 231, 267 ·
+`technologiekritiek` 297, 539 · `tegen-productiviteit` 71 · `tegenslag` 30,
+111, 174, 570 · `tekenen` 15 · `tekstkwaliteit` 124 · `televisie` 54 ·
+`temperament` 33 · `tempo` 552 · `termijnmarkten` 480, 482 · `testament` 462 ·
+`tevredenheid` 463 · `Texas` 5, 385 · `The Secret` 433 · `theeceremonie` 379 ·
+`theologie` 578, 587 · `theosofie` 605, 606, 645 · `therapie` 51, 107, 118,
+119, 120, 121, 122, 145, 466 · `Thermopylae` 529 · `thriller` 101, 202 ·
+`thuiskomst` 531 · `thuiszorg` 225 · `tieners` 193 · `tijd` 71, 232, 262, 292,
+334, 442, 655 · `tijdmanagement` 434 · `tijdsbeleving` 326 · `timemanagement`
+311, 448 · `tirannie` 617 · `toekomst` 236 · `toeval` 21, 64, 93, 137, 274,
+362, 483 · `Tolteeks` 27 · `toon` 72, 118, 119, 121, 132, 145 · `topprestatie`
+374 · `topsport` 422, 460, 545 · `totalitarisme` 384 · `trading` 492, 493, 495
+· `training` 376 · `transpersoonlijke psychologie` 583 · `trauma` 104, 119,
+195, 229, 317, 386 · `trendvolgen` 480, 501 · `trilling` 127 · `trilogie` 202,
+203, 248 · `TRIZ` 471 · `Troje` 530 · `tuinontwerp` 205 · `tumoronderdrukker`
+419 · `twaalf-weken` 14 · `twaalfde eeuw` 525 · `tweede-wereldoorlog` 115 ·
 `tweelingonderzoek` 417 · `twintigers` 51 · `typologie` 361 · `ufo's` 615 ·
 `uitdaging-vaardigheid` 200 · `uitgeven` 463 · `uitleg` 99, 102 · `uitleggen`
 82 · `uitstel` 71, 140 · `uitstelgedrag` 12, 311, 513 · `uitstellen` 16 ·
@@ -127050,18 +127789,18 @@ wil` 10, 236, 339 · `vrijheid` 61, 546, 620, 621, 626 · `vrijmetselarij` 605,
 5 · `westerse filosofie` 269, 341 · `wet van aantrekking` 127, 190, 433, 543 ·
 `wetenschap` 63, 66, 93, 94, 328, 485 · `wetenschap en religie` 609 ·
 `wetenschappers` 239 · `wetenschapsfilosofie` 483, 650, 653, 654 ·
-`wetenschapsgeschiedenis` 239, 240, 321, 347, 413, 419, 633, 649, 651, 654,
-657, 658, 659, 660, 661, 662 · `wetenschapsjournalistiek` 387, 412 · `wijn`
-112 · `wijsheid` 596 · `wilskracht` 238 · `Wired` 473 · `wiskunde` 116, 454,
-456, 490, 505, 509, 649, 656, 657, 658, 659, 660, 661, 662 · `wisselstroom`
-267 · `woede` 119, 120 · `woestijn` 8 · `Wolfgang Pauli` 362 · `wraak` 101,
-533 · `WRAP` 510 · `wrok` 530 · `wu wei` 394 · `Yale` 215 · `yin-yang` 394 ·
-`yoga` 195, 242, 518 · `young adult` 192 · `youtube` 245 · `zakelijk` 307 ·
-`zakelijke communicatie` 182 · `zakendoen` 348, 367, 465, 508 · `zeereis` 36 ·
-`zeevaart` 321 · `zeldzaam` 144 · `zelfacceptatie` 176, 335, 561 ·
-`zelfbedrog` 66 · `zelfbeeld` 25, 27, 105, 107, 108, 129, 138, 197, 367, 372,
-411, 439, 538, 540, 559, 575 · `zelfbeheersing` 75, 148, 212, 248, 286, 314,
-382, 389, 396 · `zelfbescherming` 214 · `zelfcompassie` 32, 551 ·
+`wetenschapsgeschiedenis` 239, 240, 321, 347, 413, 419, 633, 647, 649, 651,
+654, 657, 658, 659, 660, 661, 662 · `wetenschapsjournalistiek` 387, 412 ·
+`wijn` 112 · `wijsheid` 596 · `wilskracht` 238 · `Wired` 473 · `wiskunde` 116,
+454, 456, 490, 505, 509, 649, 656, 657, 658, 659, 660, 661, 662 ·
+`wisselstroom` 267 · `woede` 119, 120 · `woestijn` 8 · `Wolfgang Pauli` 362 ·
+`wraak` 101, 533 · `WRAP` 510 · `wrok` 530 · `wu wei` 394 · `Yale` 215 ·
+`yin-yang` 394 · `yoga` 195, 242, 518 · `young adult` 192 · `youtube` 245 ·
+`zakelijk` 307 · `zakelijke communicatie` 182 · `zakendoen` 348, 367, 465, 508
+· `zeereis` 36 · `zeevaart` 321 · `zeldzaam` 144 · `zelfacceptatie` 176, 335,
+561 · `zelfbedrog` 66 · `zelfbeeld` 25, 27, 105, 107, 108, 129, 138, 197, 367,
+372, 411, 439, 538, 540, 559, 575 · `zelfbeheersing` 75, 148, 212, 248, 286,
+314, 382, 389, 396 · `zelfbescherming` 214 · `zelfcompassie` 32, 551 ·
 `zelfdiscipline` 2, 158, 229, 244, 311, 544 · `zelfevaluatie` 270 ·
 `zelfexperiment` 316, 318, 417 · `zelfhaat` 575 · `zelfhulp` 15, 22, 25, 34,
 58, 72, 76, 79, 83, 117, 134, 135, 136, 146, 147, 148, 149, 150, 151, 152,
