@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Man Who Tasted Shapes &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Cytowic betoogt dat synesthesie een echte waarneming is en geen beeldspraak, geen herinnering en geen inbeelding: bij een klein deel van de mensen roept…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1311">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1311 &middot; Brein en lichaam</p>
+    <h1>The Man Who Tasted Shapes</h1>
+    <p class="lede">Richard E. Cytowic, 1993</p>
+    <p class="stats">
+      <span><b>1756</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1311"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Cytowic betoogt dat synesthesie een echte waarneming is en geen beeldspraak, geen herinnering en geen inbeelding: bij een klein deel van de mensen roept een prikkel voor het ene zintuig gedwongen een ervaring in een ander zintuig op, en die koppeling ligt jarenlang vast. Uit zijn metingen leidt hij af dat de ervaring niet uit de hersenschors komt maar uit de dieper gelegen delen die met gevoel en geheugen te maken hebben, en dat de schors tijdens zo'n ervaring juist minder actief is. Daaruit trekt hij de brede gevolgtrekking waar het hem om te doen is: het gevoelsleven is de grondlaag van het kennen en het redeneren is daarvan afgeleid. Wij zijn volgens hem allemaal synesthetisch, maar bij de meesten blijft dat onder de drempel van het bewustzijn.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het etentje van 10 februari 1980</h3>
+      <p>Het boek begint met de zin waarmee alles begon. Cytowic was te gast bij Michael Watson, die van de saus proefde en zich verontschuldigde omdat er te weinig punten aan de kip zaten. Op doorvragen bleek dat Watson bij elke smaak een vorm voelde, met gewicht, temperatuur en oppervlak, alsof hij die met zijn handen en zijn gezicht betastte. Munt was een koele glazen zuil; andere smaken waren bollen, hoeken of ruwe vlakken.</p>
+      <p>Cytowic beschrijft zijn eigen eerste reactie eerlijk: verbazing, gevolgd door de verdenking dat de man iets uit de literatuur napraatte. Watson had er nooit iets over gelezen en had geleerd er niet over te praten, omdat de weinige keren dat hij het probeerde slecht waren afgelopen.</p>
+      <h3>Een verschijnsel dat uit de wetenschap was verdwenen</h3>
+      <p>Het eerste deel van het boek is opgezet als een speurtocht. Cytowic zoekt uit dat synesthesie in de negentiende eeuw uitvoerig was beschreven en daarna vrijwel uit de tijdschriften verdween. Zijn verklaring is dat het onderwerp niet paste bij een wetenschap die alleen waarde hechtte aan wat van buitenaf te meten viel en die uitspraken van proefpersonen over hun eigen ervaring wantrouwde. Wie het toch onderzocht, kreeg te horen dat hij zijn loopbaan schaadde.</p>
+      <p>Onderweg legt hij uit hoe de hersenen zijn ingedeeld. Hij leunt daarvoor op het model van Paul MacLean, die de hersenen beschreef als drie lagen die na elkaar in de evolutie zijn ontstaan, met een oude kern voor overleving, een middenlaag voor gevoel en geheugen en een schors voor taal en redeneren. Dat model bepaalt de vorm van zijn hele betoog.</p>
+      <h3>De vijf kenmerken</h3>
+      <p>Uit gesprekken met Watson en later met ruim veertig andere synestheten stelt Cytowic vijf kenmerken op. De ervaring is gedwongen maar wordt opgeroepen: zij komt vanzelf en alleen na een prikkel. Zij heeft een plaats in de ruimte, buiten of tegen het lichaam. Zij is generiek, waarmee hij bedoelt dat het om eenvoudige vormen, kleuren of texturen gaat en niet om uitgewerkte tafereeltjes. Zij is opvallend goed te onthouden, vaak beter dan de prikkel zelf. En zij gaat gepaard met een sterk gevoel van zekerheid dat wat er ervaren wordt echt is.</p>
+      <p>Bij dat laatste hoort het woord dat Cytowic aan de mystieke literatuur ontleent: noetisch, het besef iets rechtstreeks te weten zonder te kunnen zeggen waarvandaan. De toets op bestendigheid, iemand na maanden opnieuw dezelfde koppelingen laten noemen zonder waarschuwing vooraf, is uit dit werk voortgekomen en is nog steeds de gebruikelijke manier om echte synesthesie van bedenksels te onderscheiden.</p>
+      <h3>De proeven met Watson</h3>
+      <p>Cytowic beschrijft wat hij met Watson deed. Middelen die de hersenschors aanjagen, zoals amfetamine, maakten de vormen zwakker; middelen die de schors dempen, zoals amylnitriet, maakten ze sterker. De glazen zuil van munt werd onder amylnitriet groter en gladder. Dat wijst er volgens hem op dat de schors de ervaring normaal gesproken onderdrukt.</p>
+      <p>De belangrijkste meting deed hij met een methode waarbij de doorbloeding van hersengebieden wordt gevolgd met behulp van ingeademd xenon. Tijdens de synesthetische ervaring daalde de doorbloeding van de hersenschors bij Watson sterk, terwijl die in de dieper gelegen gebieden juist toenam. Dat is de waarneming waar het hele boek op steunt en waarop Cytowic zijn stelling bouwt dat het limbisch systeem, de middenlaag rond hippocampus en amygdala, het verschijnsel voortbrengt.</p>
+      <h3>Opstellen over het primaat van de emotie</h3>
+      <p>Het tweede deel bestaat uit opstellen waarin Cytowic de gevolgtrekking uitwerkt. Als het gevoelsleven vooraf gaat aan het redeneren, dan is het gebruikelijke beeld van de mens omgekeerd: de rede is niet de bestuurder maar de woordvoerder achteraf. Hij verbindt daaraan uitspraken over geheugen, over metafoor als iets wat aan de taal voorafgaat, over de aard van kennis en over de grenzen van kunstmatige intelligentie, die volgens hem niet kan bestaan zolang machines geen lichaam en geen gevoel hebben.</p>
+      <p>In het slotstuk gaat hij in op de verhouding tussen wetenschap en het religieuze. Hij betoogt dat een wetenschap die alleen erkent wat van buitenaf meetbaar is, een deel van de werkelijkheid wegdefinieert, en dat de ervaring van de synestheet daar een aanwijzing voor is.</p>
+      <h3>Wat er van het boek is geworden</h3>
+      <p>Cytowic vertelt hoe hij aan zijn onderzoeksgroep kwam. Een stuk over zijn werk in een sensatieblad, iets wat naar zijn eigen zeggen een loopbaan geen goed doet, bracht hem in contact met tientallen mensen die hun ervaring nooit eerder aan iemand hadden verteld. Hun beschrijvingen vormen het materiaal onder zijn vakwetenschappelijke boek uit 1989.</p>
+      <p>Sinds de jaren negentig is het onderwerp uit de marge gehaald en breed onderzocht, met beeldvormend hersenonderzoek en met bevolkingsonderzoek naar hoe vaak het voorkomt. Cytowic zelf schreef er later nog over, onder meer een boek met neurowetenschapper David Eagleman uit 2009. Zijn eigen verklaring is in dat onderzoek terzijde geschoven; zijn beschrijving van het verschijnsel niet.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Synesthesie</td><td>Het gedwongen samengaan van twee zintuiglijke ervaringen, waarbij bijvoorbeeld een klank een kleur oproept of een smaak een vorm.</td></tr>
+          <tr><td class="term">Gedwongen maar opgeroepen</td><td>Cytowics eerste kenmerk: de ervaring is niet te sturen of te onderdrukken en treedt alleen op na een prikkel.</td></tr>
+          <tr><td class="term">Generiek</td><td>Zijn aanduiding voor het eenvoudige karakter van de ervaringen: vlakken, hoeken, kleuren en texturen in plaats van uitgewerkte beelden.</td></tr>
+          <tr><td class="term">Noetisch</td><td>Het gevoel van rechtstreekse zekerheid dat de ervaring vergezelt, een woord dat hij ontleent aan beschrijvingen van mystieke ervaring.</td></tr>
+          <tr><td class="term">Limbisch systeem</td><td>De laag hersengebieden rond hippocampus en amygdala die met gevoel, geheugen en waardering te maken heeft, en waarin Cytowic de oorsprong van het verschijnsel legt.</td></tr>
+          <tr><td class="term">Drielagig brein</td><td>Het model van Paul MacLean waarin de hersenen bestaan uit drie na elkaar ontstane lagen, dat Cytowic als kader gebruikt.</td></tr>
+          <tr><td class="term">Corticale onderdrukking</td><td>Zijn verklaring dat de hersenschors de synesthetische ervaring normaal gesproken afremt, zodat zij zichtbaar wordt als de schors minder actief is.</td></tr>
+          <tr><td class="term">Primaat van de emotie</td><td>De stelling dat gevoel en waardering aan het redeneren voorafgaan en dat de rede daarvan is afgeleid.</td></tr>
+          <tr><td class="term">Toets op bestendigheid</td><td>Het na maanden onaangekondigd herhalen van dezelfde vragen, om te zien of iemands koppelingen ongewijzigd terugkomen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De basis is één geval, aangevuld met gesprekken met ruim veertig anderen. De sterkste onderdelen daarvan zijn de bestendigheid van Watsons antwoorden over lange tijd en de overeenkomsten tussen de beschrijvingen van mensen die elkaar niet kenden en niets over het onderwerp hadden gelezen. Dat maakt het aannemelijk dat er iets werkelijks wordt beschreven en niet iets nagepraat.</p>
+      <p>De metingen zijn zwakker dan de tekst suggereert. De proeven met middelen zijn niet blind uitgevoerd: Watson wist wat hij kreeg en Cytowic wist het ook. De doorbloedingsmeting is één meting bij één persoon, gedaan in 1987 met een methode die alleen grove verschillen tussen grote gebieden kan laten zien. Zo'n uitkomst kan een aanwijzing zijn en kan geen verklaring dragen.</p>
+      <p>Wat wel is blijven staan, is de manier waarop Cytowic het verschijnsel afgrensde. Zijn kenmerken en zijn toets op bestendigheid worden nog steeds gebruikt om deelnemers aan onderzoek te selecteren, en de bevindingen daaruit hebben zijn beschrijving bevestigd: synesthesie komt bij enkele procenten van de bevolking voor, loopt in families en ligt vanaf jonge leeftijd vast.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de verklaring van het boek niet meer wordt aangehangen. Sinds 2001 zijn er twee verklaringen die het veld beheersen, en geen van beide is de zijne. De eerste stelt dat er bij synestheten meer verbindingen bestaan tussen hersengebieden die naast elkaar liggen, bijvoorbeeld tussen het gebied dat lettervormen herkent en het gebied dat kleur verwerkt, allebei in dezelfde windingen van de onderkant van de hersenen. De tweede stelt dat de verbindingen normaal zijn maar dat de terugkoppeling van hogere naar lagere gebieden minder wordt afgeremd. Beide leggen het zwaartepunt in de hersenschors, precies de plaats waar Cytowic het weghaalde.</p>
+      <p>Zijn eigen waarneming is nooit herhaald. Een daling van de doorbloeding van de hersenschors bij één man in één sessie is later door niemand teruggevonden, en beeldvormend onderzoek bij grotere groepen laat tijdens synesthetische ervaringen juist extra activiteit in schorsgebieden zien. Ook het drielagige model van MacLean waarop hij zijn indeling bouwt, geldt inmiddels niet meer als houdbare beschrijving van hoe de hersenen in de evolutie zijn ontstaan.</p>
+      <p>Het tweede deel van het boek maakt bovendien een sprong die uit de gegevens niet volgt. Dat één man smaken als vormen voelt, en dat daarbij mogelijk dieper gelegen gebieden betrokken zijn, draagt niet het gewicht van uitspraken over de aard van kennis, over de onmogelijkheid van kunstmatige intelligentie en over de grenzen van de wetenschap. Dat zijn filosofische stellingen die Cytowic aanhing, en het geval van Watson dient hier als aanleiding en niet als bewijs. Zijn stelling dat wij allemaal synesthetisch zijn zonder het te merken, is in die vorm niet te toetsen.</p>
+      <p>Daar staat tegenover dat het boek een verschijnsel dat als aanstellerij gold weer bespreekbaar heeft gemaakt, en dat de mensen om wie het gaat er voor het eerst een beschrijving in vonden die klopte met wat zij meemaakten. De heropleving van het onderzoek in de jaren negentig is er rechtstreeks mee verbonden.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Onderscheid bij een verhaal over ongewone waarneming de beschrijving van het verschijnsel van de verklaring die eraan wordt gehangen; het eerste kan houdbaar zijn en het tweede niet.</li>
+        <li>Vraag bij een opzienbarende meting hoeveel personen eraan te pas kwamen, hoe vaak zij is herhaald, en of de onderzoeker wist wat hij toediende.</li>
+        <li>Gebruik de toets op bestendigheid, onaangekondigd herhalen na maanden, als eenvoudige manier om vaste koppelingen van bedachte te scheiden.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Man Who Tasted Shapes</i> verscheen in 1993 bij Putnam in New York (xii + 249 blz., ISBN 0-87477-738-0), gevolgd door een pocket bij Warner Books in 1994. MIT Press bracht het boek in 1998 opnieuw uit en in 2003 in een herziene versie met een nieuw nawoord (Cambridge, Massachusetts, 275 blz., ISBN 0-262-53255-7). Het vakwetenschappelijke tegenstuk is Cytowics <i>Synesthesia: A Union of the Senses</i> (1989). Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd. Van Cytowic is in het Nederlands niets verschenen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Op een etentje in februari 1980 verontschuldigde de gastheer zich bij neuroloog Richard Cytowic: er zaten niet genoeg punten aan de kip. Michael Watson proefde smaken als vormen die hij in zijn handen voelde. Cytowic ging het onderzoeken en schreef er dertien jaar later dit boek over, half verslag van dat onderzoek en half betoog.</p><p>Synesthesie, het gedwongen samenvallen van twee zintuiglijke ervaringen, was in de negentiende eeuw beschreven en daarna uit de wetenschappelijke literatuur verdwenen. Cytowic stelt vijf kenmerken op waaraan een echte synestheet te herkennen is en beschrijft zijn proeven met Watson, waaronder metingen van de doorbloeding van de hersenschors.</p><p>Uit die metingen leidt hij een verstrekkende stelling af: de ervaring komt uit dieper gelegen delen van de hersenen, en het gevoelsleven gaat vooraf aan het redeneren. Het tweede deel van het boek bestaat uit opstellen over die gevolgtrekking. De verklaring die hij geeft is door later onderzoek achterhaald; zijn beschrijving van het verschijnsel en zijn toets op bestendigheid zijn blijven staan.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>synesthesie</li><li>neurowetenschap</li><li>waarneming</li><li>emoties</li><li>bewustzijn</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1319"><a href="1319.html">The Feeling of What Happens: Body and Emotion in the Making of Consciousness</a>. Antonio Damasio bouwt de stelling dat gevoel aan het redeneren voorafgaat op klinisch en experimenteel werk in plaats van op één geval.</li>
+          <li value="1307"><a href="1307.html">An Anthropologist on Mars</a>. Oliver Sacks werkt in hetzelfde genre van de neurologische gevalsbeschrijving, en houdt zijn verklaringen dichter bij wat het geval toelaat.</li>
+          <li value="1310"><a href="1310.html">In the Mind's Eye</a>. Thomas West stelt eveneens een andere manier van waarnemen centraal en loopt tegen dezelfde bewijsvraag aan.</li>
+          <li value="1312"><a href="1312.html">Thinking in Numbers</a>. Daniel Tammet beschrijft van binnenuit hoe getallen voor hem vormen en kleuren hebben.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

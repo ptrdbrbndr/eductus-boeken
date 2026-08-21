@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Art of Doing Science and Engineering &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Hamming stelt dat de vakinhoud die een ingenieur of onderzoeker in zijn opleiding meekrijgt binnen ongeveer tien jaar is achterhaald, terwijl een loopbaan…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1278">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1278 &middot; Natuur en wetenschap</p>
+    <h1>The Art of Doing Science and Engineering</h1>
+    <p class="lede">Richard W. Hamming, 1997</p>
+    <p class="stats">
+      <span><b>1728</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1278"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Hamming stelt dat de vakinhoud die een ingenieur of onderzoeker in zijn opleiding meekrijgt binnen ongeveer tien jaar is achterhaald, terwijl een loopbaan er veertig duurt, zodat het enige duurzame rendement van studeren een manier van denken is en geen voorraad kennis. Daaraan koppelt hij een tweede stelling die hij scherper maakt naarmate het boek vordert: het verschil tussen keurig werk en werk dat ertoe doet ligt niet in aanleg maar in de keuze van het probleem, in de bereidheid om jaren aan die keuze vast te houden, en in het vermogen om het resultaat aan anderen te verkopen. Wie dat laatste nalaat, levert werk af dat niemand oppakt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een college als boek</h3>
+      <p>Het boek is de neerslag van het afsluitende college dat Hamming gaf aan afgestudeerden van de Naval Postgraduate School, na dertig jaar Bell Labs. Hij heeft de colleges in de volgorde laten staan waarin hij ze gaf, met de zijsporen erin, zodat de lezer zowel het onderwerp krijgt als de manier waarop hij erover praat.</p>
+      <p>Hij waarschuwt in het eerste hoofdstuk dat hij zijn eigen oordeel geeft en dat het aan de lezer is om te bepalen wat ervan bruikbaar is. Het doel noemt hij stijl van denken: het vermogen om in een nieuw vak snel te bepalen wat de kern is. De studenten moesten in zijn college zelf voordrachten houden, want uitleggen hoort volgens hem bij het werk.</p>
+      <h3>Waarom de inhoud veroudert</h3>
+      <p>Het tweede motief is de groei van de techniek. Hamming rekent voor hoeveel het rekenvermogen in zijn eigen loopbaan is toegenomen en trekt daaruit de les dat elk oordeel over wat praktisch haalbaar is een houdbaarheidsdatum heeft. Wie de grondslagen kent, kan meebewegen; wie alleen de gangbare methoden kent, staat stil zodra die verouderen.</p>
+      <p>Zijn eigen misser illustreert het. Hij had bij Bell Labs de snelle fouriertransformatie binnen bereik, verwierp die aanpak als onpraktisch op de machines van dat moment, en vergat later dat oordeel te herzien toen de machines waren veranderd. In 1965 publiceerden James Cooley en John Tukey het algoritme dat sindsdien overal in de signaalverwerking zit. Hamming gebruikt het voorval om te laten zien dat een eenmaal gevormd oordeel gevaarlijker is dan onwetendheid.</p>
+      <h3>De geschiedenis van het rekenen als leerstof</h3>
+      <p>Enkele hoofdstukken behandelen de geschiedenis van machines, van programmatuur en van toepassingen. Hamming vertelt die grotendeels uit eigen ervaring: het rekenwerk voor het Manhattanproject, de eerste relaismachines bij Bell Labs, de opkomst van programmeertalen en de weerstand daartegen bij mensen die machinetaal beheersten.</p>
+      <p>De les die hij eruit trekt keert steeds terug: elke generatie hield de eigen stand van de techniek voor de natuurlijke eindtoestand, en elke generatie had het mis. Zijn hoofdstukken over kunstmatige intelligentie zijn in die geest geschreven, met scepsis over de aanspraken van dat moment en zonder de stelling dat het niet zou kunnen.</p>
+      <h3>De technische kern</h3>
+      <p>Het middendeel is wiskunde. Het hoofdstuk over ruimten met veel dimensies laat zien dat de meetkundige intuïtie daar niet deugt: bij een toenemend aantal dimensies zit vrijwel het hele volume van een bol vlak onder het oppervlak, en steken de hoeken van een kubus ver buiten de ingeschreven bol uit. Wie met veel variabelen werkt, moet zijn gevoel opnieuw ijken.</p>
+      <p>Daarna volgen de coderingstheorie met zijn eigen foutcorrigerende codes uit 1950 en het begrip Hamming-afstand, de compressie volgens Huffman, en de informatietheorie van zijn collega Claude Shannon. Bij dat laatste plaatst hij een waarschuwing: de keuze van het woord entropie geeft de theorie een gezag dat zij op andere terreinen niet verdient, en over betekenis zegt zij niets. Vier hoofdstukken over digitale filters en twee over simulatie vragen echt rekenwerk van de lezer. Zijn regel uit een eerder leerboek loopt overal doorheen: het doel van rekenen is inzicht en niet getallen.</p>
+      <h3>Systemen, experts en meten</h3>
+      <p>Naar het eind toe verschuift het boek naar oordeelsvorming. In de systeemtechniek betoogt hij dat het apart verbeteren van onderdelen het geheel slechter kan maken, en dat de opdracht bijna nooit is wat de opdrachtgever zegt dat zij is. Het hoofdstuk over experts verzamelt gevallen waarin deskundigen zich op hun eigen vakgebied vergisten, met als les dat gezag geen bewijs is.</p>
+      <p>In het hoofdstuk over meten staat de zin die het vaakst uit dit boek wordt aangehaald: u krijgt wat u meet. Zodra een maatstaf tot doel wordt gemaakt, verandert het gedrag van de gemeten mensen en meet de maatstaf iets anders dan bedoeld. Het hoofdstuk over onbetrouwbare gegevens gaat over hetzelfde probleem in de meetketen zelf.</p>
+      <h3>You and Your Research</h3>
+      <p>Het laatste hoofdstuk is de lezing die Hamming in 1986 hield en die los van het boek een eigen leven leidt. Hij vraagt daarin waarom sommige mensen bij Bell Labs werk deden dat dertig jaar meeging en anderen niet, terwijl die tweede groep niet minder slim was. Zijn antwoord bestaat uit een aantal punten: werk aan problemen die ertoe doen, want een belangrijk probleem kost niet meer moeite dan een onbelangrijk; houd de deur van je kamer open, ook al kost dat aandacht, omdat je dan hoort wat er in het gebouw speelt; en zet elke week tijd apart voor werk zonder opdracht.</p>
+      <p>Daarbij hoort zijn beeld van samengestelde rente: kleine hoeveelheden extra inspanning die zich opstapelen tot een verschil dat achteraf op talent lijkt. En zijn stelling over richting: met een duidelijk doel groeit de opbrengst van inspanning ongeveer evenredig met de tijd, zonder doel als de wortel daarvan, zoals bij een dronkemanswandeling. Het slot gaat over verkopen: helder schrijven, goed voordragen, en het werk kunnen uitleggen aan iemand van buiten het vak.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">leren leren</td><td>Hammings doel met het college: het vermogen ontwikkelen om je een nieuw vak eigen te maken zodra het oude veroudert, in plaats van de stof van vandaag te beheersen.</td></tr>
+          <tr><td class="term">stijl van denken</td><td>De manier waarop iemand een probleem aanpakt, die volgens hem overdraagbaar is tussen vakgebieden terwijl vakkennis dat niet is.</td></tr>
+          <tr><td class="term">belangrijke problemen</td><td>De problemen waarvan de oplossing een vakgebied verzet; Hamming stelt dat de meeste onderzoekers er nooit aan beginnen omdat zij geen aanval kunnen bedenken.</td></tr>
+          <tr><td class="term">Hamming-afstand</td><td>Het aantal posities waarin twee codewoorden van elkaar verschillen, de maat waarmee te bepalen valt hoeveel fouten een code kan opvangen.</td></tr>
+          <tr><td class="term">foutcorrigerende code</td><td>Een code die zoveel redundantie meestuurt dat de ontvanger een fout niet alleen opmerkt maar ook herstelt.</td></tr>
+          <tr><td class="term">ruimte met veel dimensies</td><td>Het gebied waar het meetkundig gevoel misleidt, omdat volume en afstand zich daar anders gedragen dan in drie dimensies.</td></tr>
+          <tr><td class="term">systeemtechniek</td><td>Het ontwerpen van het geheel, waarbij het los verbeteren van onderdelen de prestatie van het geheel kan verslechteren.</td></tr>
+          <tr><td class="term">opendeurbeleid</td><td>Zijn waarneming dat collega's met een open deur vaker werden gestoord en toch belangrijker werk afleverden, omdat zij hoorden wat er speelde.</td></tr>
+          <tr><td class="term">u krijgt wat u meet</td><td>De regel dat een maatstaf die tot doel wordt verheven het gedrag verandert en daarmee ophoudt te meten wat zij zou meten.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De technische hoofdstukken staan op vaste grond: coderingstheorie, informatietheorie en digitale filters zijn vakgebieden waarin Hamming zelf publiceerde en waarvan de resultaten in leerboeken zijn na te slaan. Zijn foutcorrigerende codes uit 1950 zijn in gebruik gebleven en de bijbehorende afstandsmaat draagt zijn naam.</p>
+      <p>De historische hoofdstukken rusten op eigen waarneming: Los Alamos tijdens de oorlog, en dertig jaar Bell Labs in de periode waarin daar de transistor, de informatietheorie en de eerste programmeertalen ontstonden. Hij werkte in dezelfde gang als Claude Shannon en John Tukey, en de anekdotes over hen zijn uit de eerste hand.</p>
+      <p>De hoofdstukken over loopbaan en onderzoek hebben een ander soort onderbouwing, of eigenlijk geen. Zij berusten op zijn observatie van collega's in dat ene laboratorium, zonder telling, zonder vergelijkingsgroep en zonder poging om de gevallen te verzamelen die zijn regel tegenspreken. Hamming zegt dat ook zelf: hij geeft zijn mening en nodigt tot tegenspraak uit. Zijn vergelijking tussen groei evenredig met de tijd en groei met de wortel daarvan is een beeld en geen meting.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar betreft de plaats waar de adviezen vandaan komen. Bell Labs tussen 1946 en 1976 werd betaald uit een telefoonmonopolie, kende lange horizonnen en liet onderzoekers hun eigen agenda kiezen. Vrijwel elke raadgeving uit het slothoofdstuk veronderstelt zo'n werkgever: een open deur, jaren aan één probleem, weigeren wat onbelangrijk is. In een laboratorium dat van driejarige subsidies leeft of in een jong bedrijf kost dezelfde houding iemand zijn plaats. Hamming bespreekt dat verschil niet.</p>
+      <p>Daarmee hangt het probleem van de overlevenden samen. Hij keek naar de mensen bij wie het lukte en leidde daaruit regels af. Wie zich aan dezelfde regels hield en toch niets bereikte, komt in het boek niet voor, zodat er geen manier is om te zien of de regels werken of alleen achteraf passen. Geluk krijgt één alinea, waarna de rest van het boek uitkomsten als keuzes behandelt.</p>
+      <p>Het derde bezwaar is de opbouw. De reputatie van het boek berust op het slothoofdstuk, terwijl het middendeel wiskunde vraagt die veel lezers niet hebben. Wie voor de levenswijsheid komt, slaat de filters over, en wie voor de techniek komt, vindt hoofdstukken die als leerboek te dun zijn. De toekomstverkenningen over kunstmatige intelligentie en over onderwijs met de computer dateren uit het midden van de jaren negentig en lezen ook zo.</p>
+      <p>Ten slotte is zijn beeld van wetenschap dat van de enkeling. Over samenwerking in grote groepen, financiering, beoordeling door vakgenoten en het herhalen van resultaten staat er weinig, terwijl juist dat de omgeving is waarin de meeste onderzoekers nu werken. Het boek helpt bij het inrichten van een eigen werkweek en niet bij het inrichten van een laboratorium.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf de belangrijke problemen van je eigen vakgebied op en zet er per probleem bij waarom je er niet aan werkt; dat is de oefening waarmee Hamming zijn collega's overviel.</li>
+        <li>Reserveer vaste tijd voor werk zonder opdracht en houd die tijd vrij, ook in drukke weken.</li>
+        <li>Toets bij elke nieuwe maatstaf welk gedrag zij beloont voordat zij wordt ingevoerd.</li>
+        <li>Herzie met enige regelmaat je oordelen over wat technisch onhaalbaar is; zo'n oordeel veroudert sneller dan het feit.</li>
+        <li>Behandel het uitleggen en opschrijven van werk als onderdeel van het werk en niet als sluitstuk.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Art of Doing Science and Engineering: Learning to Learn</i> (Gordon and Breach, 1997), gebaseerd op het afsluitende college dat Hamming in de jaren negentig gaf aan de Naval Postgraduate School in Monterey. Heruitgegeven door Stripe Press (San Francisco, 2020, 403 blz., ISBN 9781732265172), met een voorwoord van Bret Victor en opnieuw getekende grafieken. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd. Ook zijn leerboeken, waaronder <i>Numerical Methods for Scientists and Engineers</i> uit 1962, zijn niet in het Nederlands verschenen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Richard Hamming rekende tijdens het Manhattanproject in Los Alamos en werkte van 1946 tot 1976 bij Bell Labs, waar hij de foutcorrigerende codes bedacht die zijn naam dragen. Dit boek is de uitgeschreven versie van het college dat hij daarna aan officieren en ingenieurs in Monterey gaf. Zijn uitgangspunt: de feitenkennis die iemand in een opleiding opdoet veroudert binnen een decennium, terwijl een loopbaan veertig jaar duurt. Wat blijft is een manier van werken, en die valt volgens hem te onderwijzen.</p><p>De dertig hoofdstukken lopen van de geschiedenis van het rekenen via ruimten met veel dimensies, coderingstheorie, informatietheorie, digitale filters en simulatie naar hoofdstukken over experts, onbetrouwbare gegevens, systeemtechniek en meten. Het slot is zijn lezing uit 1986 over onderzoek doen, met de twee vragen die hij zijn collega's bij Bell Labs stelde: wat zijn de belangrijke problemen van uw vak, en waarom werkt u er niet aan.</p><p>Hamming schrijft dat hij zijn eigen mening geeft en dat de lezer die maar moet wegen. Dat is eerlijk, en het is tegelijk het zwakke punt: zijn regels komen uit één laboratorium in één periode.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>leren</li><li>onderzoek</li><li>techniek</li><li>carrière</li><li>wiskunde</li><li>informatietheorie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1258"><a href="1258.html">The Sciences of the Artificial</a>. Simon behandelt hetzelfde grensgebied tussen wetenschap en ontwerpen, maar bouwt er een theorie omheen waar Hamming bij de praktijk van de werkvloer blijft.</li>
+          <li value="1272"><a href="1272.html">The Mathematical Theory of Communication</a>. De informatietheorie die Hamming in twee hoofdstukken samenvat, staat hier in het origineel van zijn collega Shannon.</li>
+          <li value="70"><a href="70.html">Deep Work</a>. Newport bepleit zeventig jaar later dezelfde onverdeelde aandacht en lange concentratie, met verwijzing naar onderzoek dat Hamming niet had.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

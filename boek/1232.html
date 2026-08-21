@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Egyptian Magic &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Farr stelt dat de Egyptische magie geen bijgeloof was maar een sluitend stelsel van overeenkomsten, waarin het stoffelijke zich verhoudt tot het…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1232">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1232 &middot; Filosofie en mystiek</p>
+    <h1>Egyptian Magic</h1>
+    <p class="lede">Florence Farr, onder de initialen S.S.D.D., 1896</p>
+    <p class="stats">
+      <span><b>1875</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1232"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Farr stelt dat de Egyptische magie geen bijgeloof was maar een sluitend stelsel van overeenkomsten, waarin het stoffelijke zich verhoudt tot het geestelijke zoals een afdruk zich verhoudt tot de vorm waaruit hij komt. Wie dat stelsel kent kan ermee werken, want de mens is in haar voorstelling geen ondeelbaar wezen maar een samenstel van delen die elk apart kunnen bestaan, en de ingewijde leert die delen bewust ordenen in plaats van erdoor geleefd te worden. Wie dat niet leert, gaat na de dood op in het niets. De priesterkoningen van Egypte waren volgens haar de geslaagden van die school, en de gnostische leraren van Alexandrië zetten met andere namen hetzelfde werk voort. Het boekje wil aantonen dat het om één doorlopende leer gaat.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een ordetekst in boekvorm</h3>
+      <p><i>Egyptian Magic</i> is deel acht van de <i>Collectanea Hermetica</i>, een reeks studieteksten die W. Wynn Westcott uitgaf. Westcott was lijkschouwer van beroep en een van de stichters van de Hermetic Order of the Golden Dawn, het Londense genootschap dat vanaf 1888 rituele magie beoefende. Florence Farr, actrice, bekend van rollen die George Bernard Shaw voor haar schreef en van haar samenwerking met W.B. Yeats, trad in 1890 tot de orde toe en werd er in 1894 Praemonstratrix, de lerares die de graden onderwees. Zij publiceerde onder haar ordemotto, S.S.D.D.</p>
+      <p>Dat verklaart de opzet. Het boekje is geen verslag van onderzoek maar een leestekst voor mensen die zelf iets met de stof willen doen. Farr zegt dat ook met zoveel woorden: zij geeft een lijst met naslagwerken voor wie de gangbare theorieën wil kennen, en zet daarna zonder omhaal haar eigen denkbeelden neer zonder eerst de egyptologen aan te halen.</p>
+      <h3>De delen van de mens</h3>
+      <p>Het eerste en langste betoog gaat over de indeling van de mens. Het khat is het lichaam, het voertuig. De sahu is de astrale vorm, het patroon waarnaar de stof zich schikt. De hati is het geërfde deel, de instincten en de lichamelijke functies. De ab, het hart, is de wil. De ka is het eigenlijke ik, in de hiërogliefen weergegeven door twee opgeheven armen, wat Farr leest als de houding van het verlangen. De baie of ba is de doordringende geest, afgebeeld als havik, ram of bennoevogel, en elke vogel staat voor een andere soort ziel. De khaibt is de uitstraling, de sfeer om iemand heen. De khu is de schitterende ziel, het deel dat magie verricht.</p>
+      <p>Aan het begin daarvan staat de hammemit, de ongeboren ziel. Farr leest op de obelisk van Hatsjepsoet dat die honderdtwintig jaar om de zon cirkelt voordat zij afdaalt, en dat de krachten die haar in die tijd omgeven haar aanleg bepalen. Daarin ziet zij de verklaring van de horoscoop: het geboortemoment legt vast wat al gevormd was. Wie zijn ka in dit leven niet tot ontwikkeling brengt, keert terug naar de hammemit en wacht op een volgende kans, of wordt omgesmolten in de gietlepel van Ptah.</p>
+      <h3>Waarom zij magie een wetenschap noemt</h3>
+      <p>Farr zet uiteen waarom de Egyptische magie haar bevalt: er zijn geen vage theorieën, er zijn precieze aanwijzingen, en elke vierkante duim van de boven- en onderwereld is in kaart gebracht. De grondslag is een leer van overeenkomsten waarin geest en stof twee kanten van dezelfde zaak zijn, zodat gedachte, streven, gesproken woord en lichaamsfunctie elkaars tegenhangers worden en samen een leefregel opleveren. Dat het stelsel deugde, bewijst volgens haar de lange duur van de Egyptische beschaving.</p>
+      <p>Bij die redenering hoort de stelling dat alleen ingewijden gebalsemd werden. Mummificatie verhinderde in haar lezing de wedergeboorte, en dat was alleen wenselijk voor wie de proeven had doorstaan; hun lichaam bleef bewaard als een soort talisman. Wie zakte voor de proeven werd door de priesters in onwetendheid gelaten, want een half ontwikkeld mens met formules in handen zou een kwaadaardige khu worden. Op het langs slinkse weg bemachtigen van formules stond de dood.</p>
+      <h3>De teksten die zij afdrukt</h3>
+      <p>Ongeveer de helft van het boekje bestaat uit vertaalde bronnen met commentaar. Uit het dodenboek geeft zij het vierenzestigste hoofdstuk, met de rubriek die de lezer voorschrijft de tekst geheim te houden en hem in reine staat op te zeggen, en met de regels waarin de spreker zichzelf Gisteren, Vandaag en Morgen noemt. Uit de magische papyrus Harris, die zij via de Franse uitgave van Chabas kent, neemt zij het Boek der Liederen tegen de bewoners van de wateren op, hymnen aan Sjoe en aan Amon-Ra, en een banvloek die naar zuid, noord, west en oost wordt uitgesproken en een waakhond oproept.</p>
+      <p>Daarnaast staan de indeling van verschijningen door baron Textor de Ravisi, die per soort spookverschijning aangeeft uit welke delen zij bestaat, en de legende van Ra en Isis, waarin Isis de oude zonnegod een slangenbeet bezorgt en hem zo dwingt zijn ware naam prijs te geven. Die legende dient Farr om de leer van de ren, de geheime naam, in te voeren: wie de naam kent, heeft macht over de drager.</p>
+      <h3>De gnostische helft</h3>
+      <p>Het tweede deel verplaatst zich naar Alexandrië in de tweede en derde eeuw. Farr laat de <i>Pistis Sophia</i> liggen omdat G.R.S. Mead daar juist een vertaling van had gemaakt, en kiest in plaats daarvan een Koptische papyrus die James Bruce uit Boven-Egypte had meegenomen. Van dat handschrift, nu bekend als de Bruce-codex, geeft zij lange stukken in het Engels, naar eigen zeggen voor het eerst.</p>
+      <p>Ze legt eerst uit wat gnosis in haar ogen inhoudt: geen persoonlijke oppergod maar een lichtwezen waaruit vader, moeder en aeonen voortkomen, een pleroma dat aan zijn rand in gebrek overgaat, en een demiurg die de stoffelijke wereld maakt. Uit de papyrus drukt zij vooral de drie doopformules af, die zij naast de sacramenten van de Griekse kerk legt, plus reeksen namen, zegels en getallen. Haar slotstuk wijst op de overeenkomsten met Egypte: de poortwachters van het achttiende en honderdzesenveertigste hoofdstuk van het dodenboek, de goden die aan lichaamsdelen worden toegewezen, en het geloof dat een herhaald woord werkelijk iets uitricht.</p>
+      <h3>Het slot: instinct tegen onderscheidingsvermogen</h3>
+      <p>Farr eindigt bij het honderdvijfentwintigste hoofdstuk van het dodenboek, waar het hart tegen de veer van de waarheid wordt gewogen. Het hart is in de oude stelsels de zetel van het instinct, en het instinct misleidt: de drenkeling gooit zijn armen omhoog, de kwade man verkrampt en verliest zijn woorden, de jongeren plukken onrijpe vruchten, de ouderen sluiten zich af en verstarren. Onderscheidingsvermogen is wat daartegen helpt, en het kweken daarvan noemt zij het doel van de inwijding.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">khat</td><td>Het stoffelijke lichaam, bij Farr alleen het voertuig waarmee het ik op aarde werkt.</td></tr>
+          <tr><td class="term">sahu</td><td>De astrale of vormgevende gestalte, het patroon waarnaar de stof zich volgens haar bij de ontwikkeling van een lichaam schikt.</td></tr>
+          <tr><td class="term">ka</td><td>Het eigenlijke ik of de dubbelganger, in het hiëroglief weergegeven als twee opgeheven armen, wat Farr als houding van verlangen leest.</td></tr>
+          <tr><td class="term">baie</td><td>De doordringende geest, afgebeeld als gekroonde havik, mensenhoofdige havik, bennoevogel of ram, waarbij elke gedaante een andere orde van ziel aanduidt.</td></tr>
+          <tr><td class="term">khu</td><td>De schitterende ziel, het deel dat in de verhalen de eigenlijke magische handelingen verricht en dat bij verval een kwelgeest wordt.</td></tr>
+          <tr><td class="term">khaibt</td><td>De uitstraling of sfeer om een mens heen, bij Farr het deel dat bij mediamieke verschijningen zichtbaar wordt.</td></tr>
+          <tr><td class="term">hammemit</td><td>De ongeboren ziel, die volgens haar lezing van de obelisk van Hatsjepsoet honderdtwintig jaar om de zon cirkelt voor zij incarneert.</td></tr>
+          <tr><td class="term">ren</td><td>De ware of geheime naam, waarvan de kennis in de Egyptische opvatting macht geeft over de drager ervan.</td></tr>
+          <tr><td class="term">pleroma</td><td>In de gnostische stelsels de volheid van het goddelijke licht met de aeonen daarin, waarbuiten het gebrek en dus de stof begint.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het feitelijke materiaal is echt en controleerbaar. Het dodenboek, de papyrus Harris en de Bruce-codex bestaan, en Farr geeft haar bronnen: Chabas voor de Harris-teksten, Renouf, Pierret, Maspero, Wiedemann en Flinders Petrie in de boekenlijst achterin, Mead voor de gnostische parallellen. Haar vertalingen zijn grotendeels vertalingen van vertalingen, in het geval van Harris uit het Frans van Chabas, en haar weergave van het Koptische handschrift is haar eigen werk zonder tekstkritische verantwoording.</p>
+      <p>De redenering die zij daaromheen bouwt is van een andere orde. Zij zegt zelf dat zij de denkbeelden geeft waartoe haar studie haar heeft gebracht, zonder eerst de hypothesen van de egyptologen aan te halen. Dat is een eerlijke aanduiding van de status van het boek: waar zij een tekst citeert kan de lezer meekijken, waar zij de zielsleer, de omloop van honderdtwintig jaar of het verband tussen mummificatie en inwijding uiteenzet, staat er geen bron onder.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat het stelsel dat Farr aan Egypte toeschrijft grotendeels het stelsel van haar eigen orde is. De negenledige indeling van de mens is een negentiende-eeuwse ordening van losse Egyptische woorden die in de teksten zelf nergens als vaste leer optreden, en zij komt via E.A. Wallis Budge bij haar terecht, wiens omzettingen en duidingen in de egyptologie allang zijn achterhaald. De wedergeboorte, de leerschool met examens en de tegenstelling tussen een uiterlijke volksgodsdienst en een innerlijke leer voor ingewijden zijn geen Egyptische gegevens maar denkbeelden uit de latere hermetische en vrijmetselaarstraditie, deels teruggaand op Apuleius en op de achttiende-eeuwse roman <i>Sethos</i>. De bewering dat alleen ingewijden gebalsemd werden is bovendien aantoonbaar onjuist: mummificatie werd in Egypte breed toegepast, in zeer verschillende uitvoeringen naar wat iemand kon betalen, en had met inwijding niets te maken.</p>
+      <p>Ook de datering klopt niet. Farr plaatst het vierenzestigste hoofdstuk van het dodenboek in de vierde dynastie, omstreeks 3733 voor Christus, maar dat getal komt uit de rubriek van de tekst zelf, die het stuk aan een vroege koning toeschrijft om het gezag te geven. Het dodenboek zoals wij het kennen hoort bij het Nieuwe Rijk, vanaf ongeveer 1550 voor Christus, met voorlopers in de sarcofaagteksten en de piramideteksten. Wie het boekje als bron over Egypte leest, leest het verkeerd.</p>
+      <p>Daar staat een verdienste tegenover die zelden wordt genoemd. Farr drukte omvangrijke passages uit de Bruce-codex in het Engels af op een moment dat het handschrift buiten een kleine kring van geleerden vrijwel onbekend was; een wetenschappelijke Engelse uitgave van die tekst kwam pas decennia later. Als tijdsbeeld van hoe Londense occultisten omstreeks 1896 met egyptologische en gnostische vondsten omgingen, is het boekje een goede eerstehandsbron, mits men het als zodanig behandelt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het als document van de Golden Dawn en van de Britse belangstelling voor Egypte omstreeks 1900, niet als inleiding op de Egyptische godsdienst.</li>
+        <li>Wie de aangehaalde teksten wil kennen, kan beter naar moderne uitgaven grijpen: het dodenboek in een hedendaagse vertaling, de Griekse magische papyri in de uitgave van Betz, de gnostische geschriften in de Nag Hammadi-uitgave.</li>
+        <li>Let bij het lezen op de plaatsen waar zij een bron aanhaalt en op de plaatsen waar zij haar eigen stelsel uiteenzet; het verschil tussen die twee bepaalt wat de tekst waard is.</li>
+        <li>Vergelijk haar indeling van de menselijke delen met wat egyptologen over ka, ba en achoe schrijven, en let erop hoeveel losser en minder stelselmatig het Egyptische spraakgebruik was.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Egyptian Magic</i>, deel VIII van de reeks <i>Collectanea Hermetica</i> onder redactie van W. Wynn Westcott (Theosophical Publishing Society, Londen, 1896, 88 blz., gedrukt door de Women's Printing Society). Het verscheen onder de initialen S.S.D.D., voor <i>Sapientia Sapienti Dona Data</i>, het ordemotto van Florence Farr in de Hermetic Order of the Golden Dawn. Er is een latere herdruk met een inleiding van Timothy d'Arch Smith bij Aquarian Press (ISBN 9780850302776); de oorspronkelijke druk is gescand vrij te lezen bij het Internet Archive. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd. Van Farr is voor zover bekend niets in het Nederlands verschenen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Een boekje van 88 bladzijden uit 1896, geschreven door de Londense actrice Florence Farr, die in de Hermetic Order of the Golden Dawn de rang van Praemonstratrix bekleedde en er tarot en Enochiaanse magie onderwees. Het verscheen anoniem, onder haar ordemotto, in een reeks studieteksten die de arts en ordestichter W. Wynn Westcott uitgaf voor leden en belangstellenden.</p><p>Farr betoogt dat de Egyptenaren de mens niet als ziel en lichaam zagen maar als een reeks te onderscheiden delen, ka, ba, khu, khaibt, sahu en enkele andere, elk met een eigen mate van zelfstandigheid. Wie die delen leert ordenen, wordt volgens haar wat de teksten een Schitterende noemen; wie het nalaat, verdwijnt. Ze illustreert dat met het vierenzestigste hoofdstuk van het dodenboek, met de magische papyrus Harris in de Franse vertaling van Chabas, met de legende van Ra en Isis over de macht van de geheime naam, en met lange stukken uit een Koptisch gnostisch handschrift dat zij als eerste in het Engels weergaf.</p><p>Het is een ordegeschrift, geen egyptologie. De negenledige zielsleer, de voorgeboortelijke omloop van honderdtwintig jaar en de gedachte dat alleen ingewijden gebalsemd werden, staan niet in de bronnen die zij aanhaalt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>esoterie</li><li>occultisme</li><li>egypte</li><li>gnostiek</li><li>magie</li><li>hermetisme</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="641"><a href="641.html">The Greek Magical Papyri in Translation</a>. The Greek Magical Papyri in Translation geeft het laatantieke Egyptische toverboekmateriaal in een wetenschappelijke uitgave, waar Farr uit tweede hand werkte.</li>
+          <li value="1229"><a href="1229.html">Women of the Golden Dawn</a>. Women of the Golden Dawn beschrijft de kring waarin Farr werkte en de plaats die zij als Praemonstratrix innam.</li>
+          <li value="1223"><a href="1223.html">The Nag Hammadi Library in English</a>. The Nag Hammadi Library maakt de gnostische geschriften toegankelijk waarvan Farr alleen de Bruce-codex en de Pistis Sophia kende.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

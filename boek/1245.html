@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Witching Culture &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Magliocco stelt dat het moderne neopaganisme geen restant is van een voorchristelijke religie, maar een nieuwe religie die is opgebouwd uit folklore: uit…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1245">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1245 &middot; Geschiedenis en samenleving</p>
+    <h1>Witching Culture</h1>
+    <p class="lede">Sabina Magliocco, 2004</p>
+    <p class="stats">
+      <span><b>2044</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1245"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Magliocco stelt dat het moderne neopaganisme geen restant is van een voorchristelijke religie, maar een nieuwe religie die is opgebouwd uit folklore: uit wat negentiende- en twintigste-eeuwse geleerden over volksgeloof schreven, uit populaire bronnen, en uit tradities die de beweging sinds de jaren zestig zelf voortbrengt. Dat maakt haar volgens Magliocco niet minder echt. Haar tweede stelling is dat de kern van deze religie niet in leerstellingen zit maar in ervaring, en dat magie het best te begrijpen is als kunstvorm: een geoefend gebruik van verbeelding dat de wereld opnieuw bezield laat voelen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een folklorist die zich laat inwijden</h3>
+      <p>De inleiding heet "The Ethnography of Magic and the Magic of Ethnography" en vertelt hoe Magliocco erin rolde. In februari 1995 bezocht zij de eerste Pantheacon, een bijeenkomst van paganen en academici in San Jose, en nam zij deel aan een ritueel van de Reclaiming-traditie dat haar naar eigen zeggen sterk raakte. Zij was er aanvankelijk als onderzoeker van een folkloristische herleving, met belangstelling voor het gebruik van wetenschappelijke bronnen, voor toe-eigening en voor de constructie van authenticiteit.</p>
+      <p>Van 1995 tot 1997 woonde zij in Berkeley, in een straat die in de gemeenschap "Witch Row" heette. Zij raakte bevriend met folkloriste en balladezangeres Holly Tannen, kwam via haar in contact met de plaatselijke covens, en liet zich inwijden in Coven Trismegiston, geleid door Don Frew en Anna Korn. Zij noemt zelf waarom: zij wilde de rituelen ondergaan in plaats van ernaar kijken, omdat zij anders zou missen hoe belangrijk religieuze extase in deze beweging is.</p>
+      <h3>Hoe het vak de religie hielp maken</h3>
+      <p>Het eerste hoofdstuk, "The Study of Folklore and the Reclamation of Paganism", zet de voorgeschiedenis uiteen: de klassieke oudheid, het neoplatonisme, de renaissancemagie, en daarna de breuk waarin de Verlichting het hele westerse mystieke erfgoed afschreef. Vervolgens laat Magliocco zien hoe de romantiek en de opkomende folkloristiek dat erfgoed weer beschikbaar maakten: Rousseau, de gebroeders Grimm, James Frazer.</p>
+      <p>Het scharnier is dat drie auteurs die als wetenschap schreven het bouwmateriaal leverden voor een religie. Charles Leland met zijn Italiaanse heksenevangelie, Margaret Murray met haar heksencultus, en Gerald Gardner die beide gebruikte. Magliocco noemt het neopaganisme daarom een volkstraditie in twee betekenissen: het zet de spirituele tradities van de westerse esoterie voort, en het functioneert als verzetscultuur tegen dominante trekken van de westerse cultuur. Van de Franse socioloog Michel de Certeau leent zij de term "textual poaching": paganen stropen in andermans teksten en zetten het buitgemaakte materiaal tot iets nieuws samen.</p>
+      <h3>Wie hoort erbij</h3>
+      <p>Het tweede hoofdstuk, "Boundaries and Borders: Imagining Community", gaat over grenstrekking. Magliocco beschrijft eerst hoe paganen zich van elkaar en van de omringende samenleving onderscheiden en waarom folklore daarbij het bindmiddel is. Daarna volgt een beschrijving van de gemeenschap zelf: herkomst, opleidingsniveau, sekse en seksuele voorkeur.</p>
+      <p>Vervolgens kijkt zij naar de tekens waarmee identiteit zichtbaar wordt gemaakt: kleding, sieraden en taalgebruik, waarbij zij onderscheidt of dat openlijk, half verhuld of alleen voor ingewijden gebeurt. Zij behandelt de verschillende stromingen en de interne scheidslijn tussen wie zichzelf heks noemt en wie dat woord juist mijdt. Het hoofdstuk sluit met de verantwoording van haar veldwerk in de Bay Area tussen 1995 en 2000 en met een beschrijving van de groepen die zij daar aantrof: gardnerianen, Reclaiming en de New Reformed Orthodox Order of the Golden Dawn.</p>
+      <h3>Magie als kunstvorm</h3>
+      <p>Het derde hoofdstuk, "Making Magic: Training the Imagination", bevat het theoretische hart van het boek. Magliocco stelt dat wat de beweging bijeenhoudt de rituele ervaring is en niet een leerstelsel. Paganen beoefenen magie volgens haar niet om aan de rede te ontsnappen, maar om manieren van kennen terug te winnen waarin verbeelding meetelt. In deze kringen gelden kunstenaars als magiërs, en zij draait dat om: magie is een kunstvorm, met hetzelfde doel als kunst, namelijk een verandering in gevoel en bewustzijn teweegbrengen.</p>
+      <p>Zij zet dat af tegen de gangbare Noord-Amerikaanse betekenis van magie als bijgeloof en onredelijkheid, en tegen de antropologische definities die het vak zelf heeft gehanteerd. Opvallend is dat haar gesprekspartners de magie zelf rationaliseren: zij spreken liever over energie in een samenhangend heelal die aan natuurwetten gehoorzaamt dan over een bovennatuurlijke kracht. Het hoofdstuk behandelt verder het idee van een heilig heelal, het jaarfeestenrad, en de ethische regels die in omloop zijn, de Wiccan Rede en de Law of Threefold Return, waarna zij laat zien hoe volksmagie in de rituele praktijk is teruggehaald.</p>
+      <h3>Ritueel en de wegen naar extase</h3>
+      <p>Het vierde hoofdstuk, "Ritual, Between the Worlds", behandelt het ritueel zelf als samengestelde vorm: teksten, gebaren en beelden uit uiteenlopende culturele en historische bronnen worden tot één handeling gemonteerd, en die handeling wordt uitgevoerd in een ruimte die de deelnemers uitdrukkelijk buiten de gewone tijd plaatsen.</p>
+      <p>Het vijfde, "The Juice of Ritual: Pathways to Ecstasy", gaat over wat een ritueel doet werken. Magliocco neemt de veranderde bewustzijnstoestanden serieus als onderzoeksgegeven, in twee richtingen: zij deed er zelf aan mee, en zij behandelt de verslagen van haar gesprekspartners als materiaal in plaats van als vergissing. Zij verwijst daarvoor naar het werk van David Young en Jean-Guy Goulet, <i>Being Changed: The Anthropology of Extraordinary Experience</i> (1994), die vaststelden dat zulke ervaringen onder antropologen veel voorkomen maar zelden gepubliceerd worden uit vrees voor spot, en naar collega's die dat wel deden: Bruce Grindal bij de Sisala in Ghana, Raymond Lee bij Maleisische bezetenheidsriten, Edith Turner bij een genezingsritueel bij de Ndembu.</p>
+      <h3>Tegencultuur en herkomst</h3>
+      <p>Het zesde hoofdstuk heet "The Romance of Subdominance: Creating Oppositional Culture". Daar behandelt Magliocco hoe de beweging zichzelf plaatst tegenover de dominante cultuur en zich verwant verklaart aan wie in de geschiedenis aan het kortste eind trokken. Dat zelfbeeld is volgens haar zelf een stuk folklore: het bindt en het geeft betekenis, los van de vraag of de geschiedenis waarop het rust klopt.</p>
+      <p>Het zevende en laatste hoofdstuk, "The Heart Is the Only Nation: Neo-Paganism, Ethnic Identity, and the Construction of Authenticity", stelt de moeilijkste vraag van het boek. Amerikaanse paganen zoeken hun spiritualiteit vaak in een voorouderlijke herkomst, Keltisch, Noors, Italiaans, en lenen tegelijk uit tradities die niet de hunne zijn, in het bijzonder uit die van de inheemse volken van Noord-Amerika. Magliocco behandelt zowel het verlangen naar afstamming als het probleem van de ontlening, en de vraag wie mag uitmaken wat authentiek is.</p>
+      <h3>De positie van de onderzoeker</h3>
+      <p>Door het hele boek loopt een methodische verantwoording. Op de vraag of zij insider of outsider is antwoordt Magliocco: geen van beide en allebei. Zij vergelijkt het met de vraag die haar als Italiaans-Amerikaans kind werd gesteld, of zij nu Italiaans was of Amerikaans, waarop zij beide antwoordde. Etnografie is volgens haar niet het innemen van een objectieve buitenpositie, maar het tegelijk vasthouden van meerdere kaders en het vermogen om vlot van het ene naar het andere over te stappen.</p>
+      <p>Zij sluit daarmee aan bij Jone Salomonsen, die in <i>Enchanted Feminism</i> (2002) over de Reclaiming-heksen van San Francisco schreef en haar aanpak de "method of compassion" noemde: niet alles omhelzen en niet voortdurend bestrijden, maar de trance-inductie werkelijk laten werken en het ritueel serieus nemen als datgene wat het wil zijn.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">textual poaching</td><td>Term van Michel de Certeau, door Magliocco op paganen toegepast: het stropen in andermans teksten en het samenstellen van het buitgemaakte materiaal tot iets eigens.</td></tr>
+          <tr><td class="term">volkstraditie</td><td>Haar aanduiding voor het neopaganisme in twee betekenissen: voortzetting van westerse esoterische tradities, en verzetscultuur tegen dominante trekken van de eigen samenleving.</td></tr>
+          <tr><td class="term">oppositionele cultuur</td><td>Het zelfbeeld waarin de beweging zich verwant verklaart aan wie in de geschiedenis onderlagen, en dat volgens Magliocco zelf een stuk folklore is.</td></tr>
+          <tr><td class="term">magie als kunst</td><td>Haar stelling dat magisch handelen dezelfde structuur en hetzelfde doel heeft als kunst: een geoefend gebruik van verbeelding dat gevoel en bewustzijn verandert.</td></tr>
+          <tr><td class="term">veranderde bewustzijnstoestand</td><td>De trance- en visioenervaringen in rituelen, die Magliocco als onderzoeksgegeven behandelt en waaraan zij zelf deelnam.</td></tr>
+          <tr><td class="term">Wiccan Rede</td><td>De ethische stelregel dat men doen mag wat men wil zolang men niemand schaadt, in de beweging in omloop als gedragsnorm bij magisch werk.</td></tr>
+          <tr><td class="term">Law of Threefold Return</td><td>Het idee dat wat iemand magisch uitzendt in drievoud bij hem terugkeert, in de praktijk gebruikt als rem op schadelijk werk.</td></tr>
+          <tr><td class="term">insider en outsider</td><td>Het methodische paar waarmee etnografen hun positie bepalen; Magliocco weigert de keuze en houdt beide kaders tegelijk aan.</td></tr>
+          <tr><td class="term">method of compassion</td><td>Salomonsens aanduiding voor een onderzoekshouding tussen omhelzing en bestrijding in, waarbij de onderzoeker zich werkelijk door het ritueel laat raken.</td></tr>
+          <tr><td class="term">authenticiteit</td><td>De vraag wat als echt erfgoed mag gelden, die in deze kringen speelt zodra spiritualiteit aan afstamming wordt gekoppeld of aan andere culturen wordt ontleend.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De basis is vijf jaar veldwerk in één gebied: de Bay Area, tussen 1995 en 2000, met gardneriaanse, Reclaiming- en NROOGD-groepen, gesprekken, festivalbezoek en deelname aan rituelen. Magliocco publiceert veldnotities en laat gesprekspartners bij naam en met hun eigen woorden aan het woord. Voor de beschrijving van wat mensen doen, zeggen en ervaren is dat een sterke basis, en juist dat is waar de recensenten haar om prijzen.</p>
+      <p>Het historische deel is van andere aard. Daar vat zij bestaande wetenschap samen: de folkloristiek van de negentiende eeuw, en voor de ontstaansgeschiedenis van Wicca het werk van Ronald Hutton. Recensente Stefanie von Schnurbein merkte in <i>History of Religions</i> op dat het historische betoog niet verder komt dan Huttons <i>The Triumph of the Moon</i>. Wie de geschiedenis zoekt, is bij Hutton beter af; het eigene van Magliocco zit in het heden.</p>
+      <p>Voor het meest omstreden onderdeel, de veranderde bewustzijnstoestanden, kan zij geen onafhankelijk bewijs leveren en beweert zij dat ook niet. Zij verantwoordt haar keuze door zich te scharen bij antropologen die hun eigen buitengewone ervaringen in het veld hebben beschreven. Dat is een methodische keuze, geen meting: wat zij aantoont is dat mensen deze ervaringen hebben en wat zij ermee doen, en niet wat er tijdens die ervaringen gebeurt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is in de vakbladen meermalen genoemd en betreft de prijs van haar dubbele positie. Gary Alan Fine noemde het boek in de <i>Journal of American Folklore</i> een rijk geschakeerde etnografie, en schreef tegelijk dat de auteur te weinig afstand neemt om analytische grip te krijgen. Zijn formulering is scherp: geen onderzoeker hoeft het geloof van een groep te minachten, maar er hoeft ook niet tegenaan geschurkt te worden. Volgens hem leidt die gehechtheid ertoe dat seksualiteit, drugsgebruik en aanstellerij in de gemeenschap onderbelicht blijven, waardoor haar gesprekspartners preutser overkomen dan zij zijn.</p>
+      <p>Von Schnurbein legt de vinger op hetzelfde punt vanuit een andere hoek: omdat Magliocco zelf praktiserend pagaan is, onderzoekt zij niet door tot op de ideologisch problematische herkomst van een aantal begrippen die de beweging heeft overgenomen. In haar boek zijn kunst, creativiteit en verbeelding uitsluitend positieve krachten, en dat is zelf een aanname die om onderzoek vraagt.</p>
+      <p>Fine noemt nog een gevolg: de strijd over toe-eigening uit inheems Noord-Amerikaanse tradities krijgt minder gewicht dan zij in de gemeenschap heeft. Magliocco behandelt het onderwerp in haar slothoofdstuk, maar meer als spanningsveld dan als conflict met partijen en verliezers.</p>
+      <p>Praktischer is de opmerking van James R. Lewis in <i>The Pomegranate</i>, die het boek verder het beste overzicht tot dan toe noemde: solitaire beoefenaars en jonge tieners in de beweging komen er nauwelijks in voor, terwijl dat grote groepen zijn, en de interne ruzies binnen de wiccagemeenschap worden niet genoemd. Daar komt een steekproefprobleem bij dat het boek zelf niet oplost: de Bay Area is een van de oudste, dichtste en meest geletterde pagane gemeenschappen van het land, en de ondertitel belooft Amerika.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik het als model voor de vraag hoe een nieuwe religieuze beweging haar eigen verleden samenstelt uit wetenschappelijke en populaire bronnen.</li>
+        <li>Neem de historische hoofdstukken als samenvatting en ga voor de ontstaansgeschiedenis van Wicca terug naar Hutton.</li>
+        <li>Let er bij het lezen op waar Magliocco als onderzoeker spreekt en waar als deelnemer; zij markeert dat zelf, maar niet altijd.</li>
+        <li>Lees hoofdstuk zeven apart wanneer het onderwerp toe-eigening en herkomst van spirituele praktijken aan de orde is.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Witching Culture: Folklore and Neo-Paganism in America</i> (University of Pennsylvania Press, Philadelphia, 2004, 280 blz., ISBN 9780812218794 voor de paperback, 9780812238037 gebonden), verschenen in de reeks Contemporary Ethnography onder redactie van Kirin Narayan en Paul Stoller. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd. Magliocco publiceerde twee jaar eerder <i>Neo-Pagan Sacred Art and Altars: Making Things Work</i> (2002), dat evenmin vertaald is.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Sabina Magliocco is folklorist en antropoloog. Tussen 1995 en 2000 deed zij veldwerk onder de neopaganen van de San Francisco Bay Area, een van de oudste en dichtste gemeenschappen van het land. Onderweg liet zij zich inwijden in de gardneriaanse coven Trismegiston en begon zij een opleiding in de Reclaiming-traditie. Dat is de vorm die het boek zijn eigen karakter geeft: zij schrijft als onderzoeker en als deelnemer tegelijk en verdedigt die dubbele positie uitdrukkelijk.</p><p>De centrale vraag is hoe deze religie is gemaakt van folklore. Magliocco laat zien dat het vak zelf, de negentiende- en vroeg twintigste-eeuwse folkloristiek en antropologie van Frazer, Leland en Murray, bouwmateriaal leverde voor Gardner en zijn opvolgers, en dat de beweging daarna eigen folklore is gaan voortbrengen op festivals, in covens en op internet. Zij noemt de neopaganen "textual poachers", stropers in andermans teksten, die uit uiteenlopende bronnen iets nieuws samenstellen.</p><p>Daarna volgen hoofdstukken over magie als kunstvorm, over ritueel, over de wegen naar extase, over de zelfbeleving van de beweging als tegencultuur, en over etnische identiteit en de vraag wat authentiek mag heten. Het boek werd in vakbladen goed ontvangen; de terugkerende kanttekening is dat de auteur als deelnemer te weinig afstand houdt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>antropologie</li><li>folklore</li><li>neopaganisme</li><li>hekserij</li><li>etnografie</li><li>verenigde staten</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1244"><a href="1244.html">Lid Off the Cauldron</a>. Crowther beschrijft van binnenuit wat Magliocco van buitenaf onderzoekt, en levert het materiaal waarover de vraag naar herkomst gaat.</li>
+          <li value="1233"><a href="1233.html">The Witch-Cult in Western Europe</a>. Murrays heksencultus, een van de wetenschappelijke bronnen waaruit de beweging volgens Magliocco haar verleden heeft samengesteld.</li>
+          <li value="1227"><a href="1227.html">Drawing Down the Moon</a>. Margot Adlers <i>Drawing Down the Moon</i>, het eerdere en journalistieke overzicht van dezelfde Amerikaanse beweging.</li>
+          <li value="1254"><a href="1254.html">Esotericism and the Academy</a>. Hanegraaff over de vraag hoe de academie met esoterie omgaat, de andere kant van de verhouding die Magliocco onderzoekt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

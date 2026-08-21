@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Massa en macht &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Canetti keert de gebruikelijke volgorde om: hij begint niet bij de staat, de klasse of het belang, maar bij het lichaam dat bang is om te worden…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1289">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1289 &middot; Geschiedenis en samenleving</p>
+    <h1>Massa en macht</h1>
+    <p class="lede">Elias Canetti, 1960; vert. Jenny Tuin</p>
+    <p class="stats">
+      <span><b>1949</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1289"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Canetti keert de gebruikelijke volgorde om: hij begint niet bij de staat, de klasse of het belang, maar bij het lichaam dat bang is om te worden aangeraakt. Die angst wijkt volgens hem op één plaats, in de dichte massa, en de opluchting daarover verklaart waarom mensen zich er telkens weer in storten. Massa en macht zijn in zijn opvatting elkaars keerzijde. De heerser is degene die de massa's om zich heen laat groeien en sterven en zelf blijft staan, want macht is bij Canetti in de grond het overleven van anderen. Het bevel is daarvan het dagelijkse werktuig: het draagt een dreiging met de dood in zich en laat in de gehoorzame een rest achter die zich ophoopt tot zij ergens ontlaadt. Wie dat aanvaardt, leest de twintigste eeuw niet langer als een politiek ongeluk maar als de uitkomst van een oud mechanisme.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De aanraking en de ontlading</h3>
+      <p>Het boek opent met de vaststelling dat de mens voor niets zo terugschrikt als voor de aanraking door het onbekende. Wie in het donker wordt aangeraakt, schrikt. Alle afstand die mensen om zich heen houden, van kleding tot huizen tot omgangsvormen, dient volgens Canetti die angst.</p>
+      <p>In de massa slaat het om. Zodra de menigte dicht genoeg is, valt het verschil tussen de mensen weg en verdwijnt de schrik voor het lichaam van de ander. Canetti noemt dat de ontlading. Het is bij hem het stichtende ogenblik van elke massa, en tegelijk het ogenblik waarnaar mensen terugverlangen. Wat na de ontlading komt, is verval: de massa kan niet blijven bestaan en valt uiteen zodra de gelijkheid ophoudt.</p>
+      <h3>Eigenschappen en soorten massa</h3>
+      <p>Canetti geeft de massa vier eigenschappen. Zij wil groeien, binnen haar heerst gelijkheid, zij houdt van dichtheid en zij heeft een richting nodig. Verliest zij die richting, dan valt zij uiteen. Hij onderscheidt de open massa, die kan groeien tot zij ophoudt, van de gesloten massa met een grens en een ingang, zoals een zaal of een kerk, die daarvoor duurzaamheid terugkrijgt.</p>
+      <p>Daarnaast bestaat het massakristal: een kleine, vaste en zichtbaar afgetekende groep die de massa als het ware doet neerslaan. Een groep monniken, een orkest, een afdeling soldaten. Het kristal verandert niet, en juist daarom kan er telkens weer een massa omheen ontstaan.</p>
+      <p>De soorten die hij beschrijft zijn onder meer de jachtmassa, die zich met een gemeenschappelijke moord ontlaadt en waarvoor de openbare terechtstelling het schoolvoorbeeld is; de vluchtmassa; de verbodsmassa van de staking; de omkeringsmassa, die het bevelenstelsel van zich af wil schudden; en de feestmassa, waar overvloed in het midden ligt. Bij oorlog en spel spreekt hij van dubbele massa's, twee massa's die elkaar in stand houden.</p>
+      <h3>De meute en de massasymbolen</h3>
+      <p>Ouder dan de massa is voor Canetti de meute: de kleine groep die zich opwindt en beweegt terwijl zij niet groeien kan, en die daarom voortdurend doet alsof zij groter is. Hij onderscheidt de jachtmeute, de oorlogsmeute, de klaagmeute en de vermeerderingsmeute. In de klaagmeute rond een dode ziet hij de wortel van veel godsdienstig gedrag; hij behandelt de sjiitische rouwstoeten van Muharram uitvoerig.</p>
+      <p>Massasymbolen zijn verschijnselen die als een massa worden herkend zonder uit mensen te bestaan: vuur, zee, regen, woud, koren, wind, zand en schat. In een apart deel koppelt hij die aan volkeren, de zee voor de Engelsen en het optrekkende woud voor de Duitsers. Dat deel is het meest gedateerde van het boek en leest als een reeks nationale karakterschetsen.</p>
+      <h3>De overlevende</h3>
+      <p>Het scharnier van het boek is het deel over de overlevende. Wie een gevecht of een epidemie doorstaat en om zich heen doden ziet, ervaart volgens Canetti een gevoel dat hij nergens goedpraat maar wel als grondtrek beschrijft: de bevrediging dat de ander ligt en men zelf staat. Uit die ervaring komt de wens haar te herhalen.</p>
+      <p>De heerser is in deze lezing de overlevende bij uitstek. Hij verzamelt doden zoals anderen bezit verzamelen, hij overleeft zijn generaals en zijn eigen volk, en hij wantrouwt iedereen die na hem zou kunnen komen. Canetti haalt er verhalen bij over vorsten die hun broers laten doden en over veldheren die tellingen van gesneuvelden bijhouden.</p>
+      <h3>Het bevel en zijn angel</h3>
+      <p>Canetti leidt het bevel af uit de vluchtdreiging bij dieren: het oudste bevel is de doodsdreiging van het roofdier waarvoor de prooi wegrent. Het menselijke bevel is daarvan de getemde vorm, waarin de dreiging inbegrepen blijft ook als niemand haar uitspreekt.</p>
+      <p>Zijn eigen begrip is de angel van het bevel. Wie een bevel uitvoert, doet iets dat niet uit hemzelf komt; wat er van dat bevel achterblijft, laat zich niet verteren en zet zich vast als een vreemd lichaam. Het verdwijnt pas wanneer de gehoorzame datzelfde bevel in dezelfde vorm aan iemand anders doorgeeft, van boven naar beneden. Bij wie lang gehoorzaamt, hopen die angels zich op. Canetti gebruikt dat om te verklaren waarom mensen die jarenlang bevelen opvolgden zich later kunnen uitleven, en waarom bevelsketens langer blijven werken dan de dwang die ze ooit vestigde.</p>
+      <p>Daarnaast staat de gedaanteverandering, het menselijke vermogen om in een ander wezen te kruipen, dat hij terugvindt bij de jager die zijn prooi nabootst en in de mythen die hij aanhaalt. Macht bestaat er volgens hem mede in dat vermogen bij anderen te verbieden en het voor zichzelf te houden.</p>
+      <h3>Heerschappij en paranoia</h3>
+      <p>Het slotdeel bespreekt de <i>Denkwürdigkeiten eines Nervenkranken</i> uit 1903 van Daniel Paul Schreber, rechter in Dresden, dezelfde tekst waarop Freud in 1911 zijn studie over paranoia bouwde. Canetti behandelt Schrebers waanwereld niet als ziektebeeld maar als de blootgelegde structuur van de macht: één man die de ondergang van de mensheid overleeft, omringd door geesten die aan hem gebonden zijn en door zielen die hij overleeft.</p>
+      <p>De vergelijking die hij daarna trekt met Hitler blijft grotendeels tussen de regels. Canetti noemt de gebeurtenissen van zijn eigen eeuw zelden bij naam. Zijn stelling is dat hij het bouwplan levert waarmee de lezer die gebeurtenissen zelf kan lezen. In het naschrift bepleit hij dat het overleven zijn aantrekkingskracht verliest zodra mensen doorhebben wat zij eraan ontlenen.</p>
+      <h3>Aanleiding en vorm</h3>
+      <p>Canetti kwam op het onderwerp door drie ervaringen: de rouwstoet na de moord op Walther Rathenau in 1922, de Duitse geldontwaarding van 1923, en vooral 15 juli 1927 in Wenen, toen hij zelf in de menigte liep die het Justizpalast in brand stak en de politie ongeveer negentig mensen doodschoot. Hij bestudeerde daarna jarenlang bronnen, begon in 1948 te schrijven en voltooide het boek in 1959.</p>
+      <p>De vorm is opzettelijk niet die van een studie. Er zijn geen voetnoten, geen overzicht van eerder onderzoek en geen tegenwerpingen die worden weerlegd. Canetti zet zich uitdrukkelijk af tegen Gustave Le Bon en tegen Freuds massapsychologie, die hij verwijt de massa vanuit afkeer te beschrijven en haar terug te brengen tot de band met een leider.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">aanrakingsangst</td><td>De schrik voor aanraking door het onbekende, die volgens Canetti alle afstand tussen mensen verklaart en alleen in de dichte massa wegvalt.</td></tr>
+          <tr><td class="term">ontlading</td><td>Het ogenblik waarop de mensen in een menigte hun onderlinge verschillen kwijtraken; voor Canetti het begin van elke echte massa.</td></tr>
+          <tr><td class="term">massakristal</td><td>Een kleine, vaste en duidelijk begrensde groep waaromheen telkens opnieuw een massa kan ontstaan, zoals een orkest of een afdeling soldaten.</td></tr>
+          <tr><td class="term">massasymbool</td><td>Een verschijnsel dat de sensatie van de massa oproept zonder uit mensen te bestaan, zoals vuur, zee, woud of koren.</td></tr>
+          <tr><td class="term">jachtmassa</td><td>De massa die zich verzamelt om samen iemand te doden en zich met die moord ontlaadt, waarvan de openbare terechtstelling het model is.</td></tr>
+          <tr><td class="term">verbodsmassa</td><td>De massa die zich vormt rond het gezamenlijk weigeren van iets, met de staking als zuiverste vorm.</td></tr>
+          <tr><td class="term">meute</td><td>De kleine, oudere groep die zich opwindt zonder te kunnen groeien, in vier vormen: jacht, oorlog, rouw en vermeerdering.</td></tr>
+          <tr><td class="term">de overlevende</td><td>Wie staande blijft terwijl anderen dood liggen; voor Canetti de kern van macht en het model van de heerser.</td></tr>
+          <tr><td class="term">angel van het bevel</td><td>De onverteerde rest die een uitgevoerd bevel achterlaat in wie gehoorzaamde en die pas verdwijnt door het bevel door te geven.</td></tr>
+          <tr><td class="term">gedaanteverandering</td><td>Het vermogen om in de gedaante van een ander wezen te treden, dat de machthebber voor zichzelf houdt en aan zijn onderdanen ontzegt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Canetti's materiaal bestaat uit etnografische verslagen, mythen, kronieken, reisbeschrijvingen en psychiatrische teksten. Hij gebruikt onder meer waarnemingen over Australische groepen, over de Bosjesmannen, over Azteekse offerpraktijken, over de Mongolen en over de sjiitische rouwstoeten. Voor het slotdeel gebruikt hij één gepubliceerde bron, de memoires van Schreber, die hij zorgvuldig doorwerkt.</p>
+      <p>Wat hij met dat materiaal doet, is iets anders dan wat een onderzoeker ermee zou doen. Hij vergelijkt de gevallen niet stelselmatig, hij weegt de betrouwbaarheid van de verslaggevers niet, en hij zoekt geen tegenvoorbeelden. De voorbeelden staan er om een beschrijving aanschouwelijk te maken die hij zelf al heeft neergezet.</p>
+      <p>Voor twee dingen staat hij zelf borg. Het eerste is de Weense brand van 15 juli 1927, waarbij hij aanwezig was. Het tweede is de geldontwaarding van 1923, die hij als massaverschijnsel behandelt: de nul die aan het bedrag wordt toegevoegd en de waardeloosheid die zich op mensen overdraagt. Dat zijn geen bewijzen voor de theorie, maar ze verklaren waar zij vandaan komt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat het boek zich niet laat toetsen. Begrippen als de overlevende en de angel van het bevel worden gesteld, met gekozen voorbeelden verduidelijkt en nergens blootgesteld aan een geval dat ze zou kunnen weerleggen. Wat zou er moeten gebeuren opdat de angel niet bestaat? Canetti geeft geen antwoord, en zonder dat antwoord blijft er een beeld over dat overtuigend kan zijn zonder waar te hoeven zijn. Vakgenoten hebben het boek daarom vaak buiten hun terrein geplaatst; de waardering ervoor komt overwegend uit de letteren.</p>
+      <p>Een tweede bezwaar betreft de bronnen. Veel van het antropologische materiaal komt uit koloniale verslaglegging van rond 1900, die latere veldstudies op punten hebben bijgesteld, en Canetti behandelt gegevens over samenlevingen die eeuwen en werelddelen uit elkaar liggen als onderling verwisselbare aanwijzingen voor één menselijke constante.</p>
+      <p>Inhoudelijk is er de kritiek dat zijn beeld van de massa dichter bij Le Bon staat dan hij toegeeft. Ook bij Canetti verliest het individu zich in een lichaam dat zijn eigen wetten volgt. Het onderzoek naar menigten sinds de jaren tachtig, onder meer van Stephen Reicher en Clifford Stott, wijst een andere kant op: mensen in menigten raken hun oordeel niet kwijt, zij gaan handelen naar een gedeelde groepsidentiteit, en het geweld dat ontstaat hangt vaak samen met de manier waarop zij van buitenaf worden behandeld. Dat vervangt de ontlading door iets dat wel te meten valt.</p>
+      <p>Verder ontwijkt Canetti het onderwerp dat hij eigenlijk behandelt. Nationaalsocialisme, stalinisme en oorlog komen nauwelijks bij naam voor. Wie in een boek over macht uit 1960 een verantwoording zoekt van hoe het gegaan is, krijgt een tijdloos bouwplan aangeboden en moet de toepassing zelf maken.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Let bij een menigte op de vier eigenschappen die Canetti noemt, en vooral op wat er als richting wordt aangeboden; het verdwijnen van de richting gaat aan het uiteenvallen vooraf.</li>
+        <li>Zoek bij een beweging die zich groot voordoet naar de kleine vaste kern waaromheen zij zich telkens verzamelt.</li>
+        <li>Kijk bij een bevelsketen waar de doorgegeven druk terechtkomt bij wie niets meer heeft om aan door te geven.</li>
+        <li>Onderscheid bij een bijeenkomst of iedereen meedoet of dat de meesten toekijken; dat verschil bepaalt bij Canetti wat voor massa het is.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Masse und Macht</i> (Claassen, 1960). Nederlandse vertaling <i>Massa en macht</i> door Jenny Tuin, voor het eerst verschenen in 1976 in de Baskerville-reeks; zesde herziene druk met een voorwoord van Casper Thomas (Athenaeum-Polak &amp; Van Gennep, Amsterdam, 2022, 599 blz., ISBN 9789025315696). Er is ook een e-boek (ISBN 9789025304775). Canetti kreeg in 1981 de Nobelprijs voor literatuur; van hem verschenen in het Nederlands verder de roman <i>Het martyrium</i> en een driedelige autobiografie die begint met <i>De geredde tong</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Canetti werkte ruim dertig jaar aan dit boek en publiceerde het in 1960. Hij begint bij de angst om door het onbekende te worden aangeraakt en stelt dat die angst alleen omslaat in het gedrang van een massa, op het ogenblik dat iedereen zich gelijk voelt. Van daaruit ordent hij massavormen: de vluchtmassa, de jachtmassa die iemand wil doden, de verbodsmassa van de staking, de omkeringsmassa van de opstand en de feestmassa. Kleiner en ouder is de meute, de groep die jaagt, oorlog voert, rouwt of zich wil vermeerderen.</p><p>De tweede helft gaat over macht. De kern daarvan is voor Canetti de overlevende: wie overeind blijft terwijl anderen liggen, en die ervaring wil herhalen. Een bevel draagt volgens hem altijd een oude doodsdreiging met zich mee en laat bij wie gehoorzaamt een angel achter, die pas verdwijnt als hij het bevel aan een volgende doorgeeft. Het slotdeel leest de memoires van rechter Daniel Paul Schreber als het blootgelegde bouwplan van de heerser. Canetti schrijft zonder voetnoten, zonder statistiek en zonder betoogvorm, in korte beschrijvende hoofdstukken.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>macht</li><li>sociale psychologie</li><li>antropologie</li><li>klassieker</li><li>geweld</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="935"><a href="935.html">The Origins of Totalitarianism</a>. Arendt behandelt hetzelfde tijdvak met bronnen, jaartallen en een betoog, en laat daarmee zien wat Canetti's aanpak wint aan zeggingskracht en verliest aan controleerbaarheid.</li>
+          <li value="215"><a href="215.html">Obedience to Authority</a>. Milgram legt in het laboratorium vast wat Canetti over het bevel beweert, en levert daarmee het soort toetsing dat in <i>Massa en macht</i> ontbreekt.</li>
+          <li value="1291"><a href="1291.html">Dancing in the Streets: A History of Collective Joy</a>. Ehrenreich beschrijft de andere kant van dezelfde menigte, het gezamenlijke feest, en verwijt de traditie waarin Canetti staat dat zij daar geen plaats voor heeft.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

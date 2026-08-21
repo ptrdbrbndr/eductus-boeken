@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sophia: Goddess of Wisdom &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Matthews stelt dat de westerse traditie haar vrouwelijke godheid nooit is kwijtgeraakt, maar haar heeft ondergebracht in figuren die als iets anders…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1237">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1237 &middot; Filosofie en mystiek</p>
+    <h1>Sophia: Goddess of Wisdom</h1>
+    <p class="lede">Caitlín Matthews, 1991</p>
+    <p class="stats">
+      <span><b>1459</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1237"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Matthews stelt dat de westerse traditie haar vrouwelijke godheid nooit is kwijtgeraakt, maar haar heeft ondergebracht in figuren die als iets anders werden gepresenteerd: de wijsheid uit de spreuken van Salomo, de Shekinah van de kabbala, de gnostische Sophia, de zwarte madonna's, de graalbrengster, de heilige wijsheid van Constantinopel en de wereldziel van de sophiologen. Al die gedaanten zijn volgens haar één figuur in wisselende kleuren, en het herkennen van die figuur is voor haar tegelijk een historische en een godsdienstige daad. Het boek doet daardoor twee dingen tegelijk: het geeft een overzicht van drieduizend jaar wijsheidstraditie en het nodigt uit om die traditie opnieuw te beoefenen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Drie kleuren als indeling</h3>
+      <p>Matthews ordent haar stof in drie delen die zij naar kleur noemt: de zwarte meesteres, de witte maagd en de rode koningin. Die volgorde is ruwweg chronologisch. Zwart staat voor de oudste laag, de godin van aarde en onderwereld; wit voor de wijsheid die in joodse, gnostische en christelijke teksten als maagdelijke figuur verschijnt; rood voor de late en moderne gedaanten, van de vroegmoderne tijd tot nu.</p>
+      <p>Zwart, wit en rood zijn ook de drie kleuren van het alchemistische werk, en de indeling roept dat schema op. Matthews gebruikt het losjes, als ordening en als beeld, zonder te beweren dat de geschiedenis zich eraan hield.</p>
+      <h3>De zwarte meesteres</h3>
+      <p>Het eerste deel behandelt de oudste lagen: de godin van aarde en onderwereld in Anatolië, Mesopotamië en Egypte. Aan de orde komen onder meer Inanna en Ishtar, Isis en Cybele, en het heilig huwelijk waarin een godin een koning tot koning maakt.</p>
+      <p>Twee thema's uit dit deel keren in de rest van het boek terug. Het eerste is die heilige bruiloft, het verbond tussen godin en mens dat het land vruchtbaar houdt. Het tweede is de reddende godin: de figuur die afdaalt en terugkeert en daarmee doet wat later aan mannelijke verlossers wordt toegeschreven.</p>
+      <h3>De witte maagd</h3>
+      <p>Het middendeel is het langste en het meest op teksten gebaseerd. Matthews begint bij de wijsheid van de Griekse filosofen en bij de joodse wijsheidsliteratuur. In Spreuken 8 spreekt de Wijsheid in de eerste persoon en zegt dat zij er was voordat de aarde werd gemaakt; in Jezus Sirach bouwt zij haar huis; in het boek Wijsheid van Salomo heet zij de adem van Gods kracht.</p>
+      <p>Vandaar loopt de lijn naar de gnostische Sophia, die in de geschriften van Nag Hammadi valt en gered wordt en zo de aanleiding van de stoffelijke schepping vormt; naar de Shekinah van de kabbala; naar Maria als zetel van de wijsheid; naar de zwarte madonna's; naar de graalbrengster in de middeleeuwse romans; en naar Hildegard van Bingen, bij wie het groenen van de schepping viriditas heet.</p>
+      <h3>De rode koningin</h3>
+      <p>Het derde deel loopt tot in de twintigste eeuw. Hier komen de gesluierde godin aan bod, de vrouw bekleed met de zon uit het boek Openbaring, de heilige Sophia van Constantinopel, de apocalyptische maagd en wat Matthews het sophiaanse millennium noemt.</p>
+      <p>Het zwaartepunt ligt bij de sophiologie: denkers die aan het eind van de negentiende en het begin van de twintigste eeuw, vooral binnen de Russisch-orthodoxe wereld, Sophia opvatten als de ziel van de wereld en als de kant van God die zich naar de schepping keert. Het boek eindigt bij het heden, met de vraag wat er met die figuur gebeurt in een cultuur die haar was vergeten.</p>
+      <h3>Beschrijving en devotie door elkaar</h3>
+      <p>Het boek beschrijft niet alleen. Tussen de hoofdstukken door staan meditaties, litanieën en aanwijzingen om met de besproken gedaanten te werken, en achterin staan een verklarende woordenlijst voor de vaktermen, noten en een bibliografie. Matthews schrijft als iemand die de traditie beoefent en niet alleen bestudeert.</p>
+      <p>Dat legt bij de lezer een onderscheid neer dat het boek zelf niet altijd maakt. Waar Matthews laat zien dat een tekst uit de derde eeuw een vrouwelijke wijsheidsfiguur kent, is dat na te gaan. Waar zij die figuur vereenzelvigt met een godin uit Anatolië van tweeduizend jaar eerder, is dat een aanname over doorwerking waarvoor geen bron wordt gegeven.</p>
+      <h3>De redenering achter de verzameling</h3>
+      <p>De draad die het geheel bijeenhoudt, is een lezing van de westerse godsdienstgeschiedenis als een geschiedenis van verdringing en verkleding. Sophia werd volgens Matthews nooit vernietigd. Zij werd hernoemd, aan een mannelijke godheid ondergeschikt gemaakt of tot een eigenschap teruggebracht.</p>
+      <p>Daaruit trekt zij een gevolg voor het heden. Een cultuur die de wijsheid ziet als een eigenschap van God en niet als een aanwezigheid in de wereld, verliest volgens haar het vermogen om de aarde als bezield te behandelen. Op dat punt sluit het boek aan bij de milieutheologie van de jaren tachtig en negentig.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Sophia</td><td>Het Griekse woord voor wijsheid, in joodse en christelijke teksten als vrouwelijke figuur voorgesteld en bij Matthews de naam voor de godin achter al haar gedaanten.</td></tr>
+          <tr><td class="term">Shekinah</td><td>In de joodse traditie de inwoning of aanwezigheid van God, in de kabbala als vrouwelijk opgevat.</td></tr>
+          <tr><td class="term">gnostische Sophia</td><td>In de gnostische scheppingsverhalen de laagste van de hemelse wezens, wier val de stoffelijke wereld voortbrengt.</td></tr>
+          <tr><td class="term">heilig huwelijk</td><td>Het verbond tussen godin en koning dat in het oude Nabije Oosten ritueel werd voltrokken, in de literatuur hieros gamos genoemd.</td></tr>
+          <tr><td class="term">zwarte madonna</td><td>Middeleeuws Mariabeeld met een donker gezicht, door Matthews gelezen als voortzetting van een oudere donkere godin.</td></tr>
+          <tr><td class="term">viriditas</td><td>Het woord van Hildegard van Bingen voor de groenende, levenwekkende kracht van de schepping.</td></tr>
+          <tr><td class="term">wereldziel</td><td>De gedachte dat de kosmos zelf bezield is, in het Latijn anima mundi, door Matthews met Sophia vereenzelvigd.</td></tr>
+          <tr><td class="term">sophiologie</td><td>De denkrichting die Sophia een eigen plaats geeft in de leer over God en schepping, vooral ontwikkeld in de Russisch-orthodoxe theologie.</td></tr>
+          <tr><td class="term">Hagia Sophia</td><td>De aan de heilige wijsheid gewijde kerk in Constantinopel, voor Matthews het teken dat de christelijke traditie die wijsheid openlijk vereerde.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De stevigste kant van het boek is de hoeveelheid tekst die het bijeenbrengt. Matthews citeert uit Spreuken, Jezus Sirach, de Wijsheid van Salomo, gnostische geschriften, kerkvaders, middeleeuwse mystiek en moderne theologie, en zij geeft noten en een bibliografie. Wie wil nagaan of een bepaalde tekst werkelijk een vrouwelijke wijsheidsfiguur kent, kan dat aan de hand van haar verwijzingen doen.</p>
+      <p>De zwakke kant zit in de stap van gelijkenis naar samenhang. Dat twee figuren uit verschillende eeuwen en culturen dezelfde eigenschappen hebben, betekent niet dat de ene uit de andere is voortgekomen. Matthews geeft zelden een overleveringsweg aan: geen tekst die de ene met de andere verbindt, geen cultus waarvan de voortzetting aantoonbaar is. De samenhang wordt gedragen door herkenning.</p>
+      <p>Matthews is schrijver en beoefenaar en geen academisch onderzoeker; het boek verscheen bij een spirituele uitgeverij en heeft geen wetenschappelijke beoordeling doorlopen. Dat maakt de citaten niet onjuist, maar het betekent dat de keuze eruit door niemand anders is nagelopen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is de eenheidsaanname. Godsdiensthistorici zien in de wijsheidsfiguur van Spreuken een dichterlijke personificatie binnen een streng monotheïstische tekst, in de gnostische Sophia een gestalte uit een laatantiek denkstelsel met eigen wortels, en in de Mariaverering een christelijke ontwikkeling. Die drie tot gedaanten van dezelfde godin verklaren vraagt om bewijs dat het boek niet levert.</p>
+      <p>De zwarte madonna's zijn daarvan het duidelijkste voorbeeld. De gangbare verklaring voor hun donkere kleur is prozaïsch: kaarsroet, verouderd hout en verkleurd pigment, plus in enkele gevallen een bewuste keuze op grond van het vers uit het Hooglied over de bruid die zwart is en lieflijk. Doorlopende verering van een voorchristelijke donkere godin is bij vrijwel geen enkel beeld aangetoond.</p>
+      <p>Het boek deelt bovendien de aannames van de godinnenliteratuur van de jaren zeventig en tachtig over een voorpatriarchale godinnencultuur. Die aannames zijn in de archeologie sindsdien grotendeels verlaten. Matthews behandelt ze als achtergrond die geen verdediging nodig heeft.</p>
+      <p>Ten slotte maakt de vermenging van beschrijving en devotie het boek lastig te gebruiken. Voor wie de traditie wil beoefenen is dat de aantrekkelijke kant. Voor wie wil weten wat er historisch vaststaat is het een last, omdat de toon tussen die twee registers niet verandert.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik het boek als ingang tot de bronnen en lees de aangehaalde teksten zelf; de verwijzingen zijn bruikbaar, de verbindingen ertussen zijn de stelling van de schrijfster.</li>
+        <li>Houd bij het lezen de vraag of een figuur in een tekst voorkomt gescheiden van de vraag of die figuur dezelfde is als een andere.</li>
+        <li>Wie zich op de zwarte madonna's wil beroepen, controleert eerst de bouwgeschiedenis en de restauratieverslagen van het beeld in kwestie.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Sophia, Goddess of Wisdom: The Divine Feminine from Black Goddess to World-Soul</i> (Mandala, een imprint van HarperCollins, Londen, 1991, 378 blz., ISBN 0-04-440590-1); een uitgave bij Aquarian Press en Thorsons volgde in 1992 (ISBN 1-85538-275-X). In 2001 verscheen een herziene Amerikaanse editie onder de titel <i>Sophia: Goddess of Wisdom, Bride of God</i> (Quest Books, Theosophical Publishing House, Wheaton, Illinois, 430 blz., ISBN 0-8356-0801-8), met een elektronische uitgave in 2013. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Caitlín Matthews is een Britse schrijfster over Keltische en westerse esoterische tradities, met tientallen boeken en orakelkaartsets op haar naam. In dit boek volgt zij één figuur door drieduizend jaar westerse godsdienstgeschiedenis: Sophia, het Griekse woord voor wijsheid, dat in joodse en christelijke teksten telkens als vrouwelijke gestalte terugkeert.</p><p>De opzet is in drie kleuren verdeeld. De zwarte meesteres omvat de oudste laag, de aardgodin en de godin van de onderwereld in Anatolië, Mesopotamië en Egypte. De witte maagd loopt van de wijsheid uit Spreuken 8 en de joodse wijsheidsboeken via de gnostische Sophia, de Shekinah van de kabbala en de zwarte madonna's naar Hildegard van Bingen. De rode koningin behandelt de late en moderne gedaanten, van de vrouw bekleed met de zon uit het boek Openbaring tot de sophiologie en de wereldziel.</p><p>Tussen de hoofdstukken staan meditaties en litanieën, want Matthews schrijft als beoefenaar en niet alleen als samensteller. Binnen de godinnenbeweging is het boek een veel aangehaald overzicht van de westerse wijsheidsgestalte; buiten die kring wordt het weinig als geschiedschrijving gebruikt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>godin</li><li>esoterie</li><li>mystiek</li><li>gnostiek</li><li>christendom</li><li>mythologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="940"><a href="940.html">The Gnostic Religion</a>. Hans Jonas geeft de gnostische Sophia haar plaats in het stelsel waar zij vandaan komt, met de historische afstand die Matthews niet aanhoudt.</li>
+          <li value="611"><a href="611.html">The White Goddess</a>. Robert Graves past dezelfde werkwijze toe op de dichtkunst: één godin achter uiteenlopende mythen, herkend in plaats van bewezen.</li>
+          <li value="614"><a href="614.html">The Gospel of Mary Magdalene</a>. Een vroegchristelijke tekst waarin een vrouwelijke figuur draagster van de kennis is, hier vertaald en toegelicht.</li>
+          <li value="1236"><a href="1236.html">Changing of the Gods</a>. Goldenberg vraagt wat er met een traditie gebeurt wanneer de vrouwelijke figuur juist niet wordt teruggevonden.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

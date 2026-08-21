@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Book of Silence &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Maitland behandelt stilte als een eigen toestand met eigen uitwerkingen, die zich laat opzoeken, inoefenen en beschrijven, en die de mens verandert in…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1205">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1205 &middot; Roman en memoir</p>
+    <h1>A Book of Silence</h1>
+    <p class="lede">Sara Maitland, 2008</p>
+    <p class="stats">
+      <span><b>1426</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1205"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Maitland behandelt stilte als een eigen toestand met eigen uitwerkingen, die zich laat opzoeken, inoefenen en beschrijven, en die de mens verandert in gunstige en in ongunstige zin. Daarmee gaat zij in tegen de westerse gewoonte om stilte gelijk te stellen met verlies, verveling en isolement, en tegen de opvatting dat stilte pas waarde krijgt als zij middel is tot iets anders. Zij houdt bovendien vol dat een vrouw die haar leven op stilte inricht iets anders doet dan terugkeren naar het zwijgen dat vrouwen eeuwenlang is opgelegd.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een luidruchtig leven en een ommekeer</h3>
+      <p>Maitland, geboren in 1950, beschrijft haar herkomst als lawaaiig: een groot gezin, een studietijd in Oxford, de vrouwenbeweging, romans en essays, een pastorie vol mensen. Stilte kwam daarin niet voor als iets goeds. Na het einde van haar huwelijk woonde zij voor het eerst alleen, en zij stelde vast dat de stilte in huis haar niet bedrukte.</p>
+      <p>Dat gegeven maakt zij tot onderzoeksvraag: wat is stilte eigenlijk, wat doet zij met een mens, en waarom vindt haar omgeving het verdacht dat iemand haar opzoekt. Zij besluit de vraag met haar eigen leven te beantwoorden en houdt daarbij aantekeningen bij.</p>
+      <h3>Veertig dagen op Skye</h3>
+      <p>De kern van het boek is een verblijf van veertig dagen in een afgelegen huis op het Schotse eiland Skye, zonder gesprek, radio of bezoek. Zij noteert dagelijks wat zij eet, doet, leest en voelt, en die aantekeningen vormen het materiaal van het tweede hoofdstuk, <i>Forty Days and Forty Nights</i>.</p>
+      <p>De uitkomst is gemengd. Zij beschrijft een steeds scherpere waarneming van smaak, geur en licht, een groeiende neiging om hardop te zingen en te vloeken, en het gevoel van de wereld losgemaakt te worden op een manier die zowel opwindend als beangstigend was.</p>
+      <h3>Acht uitwerkingen van stilte</h3>
+      <p>Uit haar eigen aantekeningen en uit de verslagen die zij las, haalt Maitland acht verschijnselen die bij langdurige stilte telkens opduiken: versterking van lichamelijke en psychische gewaarwording; ontremming; een gevoel van gegevenheid of verbondenheid; het horen van stemmen; het vervagen van de grens tussen zichzelf en de omgeving; een opgewonden besef in gevaar te zijn; onzegbaarheid; en gelukzaligheid.</p>
+      <p>Die lijst is de spil van het boek. Zij gebruikt hem om aannemelijk te maken dat stilte een werkzame toestand is die op verschillende mensen op vergelijkbare wijze inwerkt, en dus meer omvat dan een verschil in geluidsniveau.</p>
+      <h3>De schaduwkant</h3>
+      <p>Het derde hoofdstuk, <i>The Dark Side</i>, gaat over wat er misgaat. Maitland beschrijft huilbuien, achterdocht, het verlies van greep op de eigen stemming en het gemak waarmee zij na terugkeer mensen tegen zich in het harnas joeg. Zij legt die ervaringen naast de verslagen van gevangenen in afzondering en van schipbreukelingen, waarin dezelfde verschijnselen in ernstiger vorm voorkomen.</p>
+      <p>Daarmee verklaart zij ook waarom samenlevingen stilte wantrouwen. Afzondering wordt in het strafrecht als straf gebruikt, en in sprookjes en volksverhalen zijn de zwijgende figuren de heks, de kluizenaar en de betoverde. Het gaat om dezelfde toestand met een ander voorteken.</p>
+      <h3>Twee tradities</h3>
+      <p>Maitland onderscheidt twee manieren waarop het Westen stilte heeft gewaardeerd. De eerste is de kloosterlijke en eremitische: stilte als de weg waarlangs de mens leegloopt om plaats te maken voor God. Om die van dichtbij te zien reisde zij naar de Sinaï, waar de woestijnvaders vanaf de vierde eeuw hun cellen hadden.</p>
+      <p>De tweede is de romantische: stilte en afzondering als bron van het eigen zelf, van dichterschap en van natuurervaring, met Wordsworth als voorbeeld. Zij laat zien dat de twee elkaar tegenspreken. In de eerste verdwijnt de persoon, in de tweede wordt hij juist gevonden. Haar eigen voorkeur ligt bij de eerste, al gebruikt zij vaak de taal van de tweede.</p>
+      <h3>Stilte en het zwijgen van vrouwen</h3>
+      <p>Als feministe van de eerste generatie kent Maitland het bezwaar tegen haar onderwerp: vrouwen is eeuwenlang het woord ontnomen, en het loven van stilte klinkt als verraad aan dat gevecht. Zij neemt het bezwaar op en beantwoordt het met een onderscheid tussen zwijgen dat wordt opgelegd en stilte die wordt gekozen.</p>
+      <p>Zij erkent dat dit onderscheid in de praktijk niet altijd hard te maken is, en dat zij haar eigen keuze pas kon maken toen haar kinderen volwassen waren en zij van schrijven kon leven.</p>
+      <h3>Een huis op het hoogveen</h3>
+      <p>Het boek eindigt met de inrichting van een blijvend stil leven. Maitland liet een klein huis bouwen op een onbewoond stuk hoogveen in Galloway, in het zuidwesten van Schotland, zonder buren, en beschrijft de dagorde die zij daar volgt: gebed, schrijven, wandelen, een paar uur spraak per week.</p>
+      <p>De slotbewering is theologisch. Stilte is voor haar geen achtergrond waartegen God hoorbaar wordt, maar de wijze waarop God bestaat. Die stelling wordt uitgesproken en niet beargumenteerd, en zij bepaalt hoe de rest van het boek gelezen wordt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">silence</td><td>Bij Maitland een toestand met eigen werking en eigen wetten, te onderscheiden van louter afwezigheid van geluid.</td></tr>
+          <tr><td class="term">silencing</td><td>Het opgelegde zwijgen, met name van vrouwen, dat zij scherp scheidt van de stilte die iemand zelf opzoekt.</td></tr>
+          <tr><td class="term">ontremming</td><td>Het wegvallen van de gebruikelijke beheersing tijdens langdurige stilte, dat zich uit in zingen, vloeken, huilen en later in botheid tegen anderen.</td></tr>
+          <tr><td class="term">gegevenheid</td><td>Haar woord voor de ervaring dat de wereld zich aandient als geschenk in plaats van als materiaal, een van de acht verschijnselen.</td></tr>
+          <tr><td class="term">grensvervaging</td><td>Het verschijnsel dat de scheiding tussen het eigen lichaam en de omgeving onduidelijk wordt, in verslagen van kluizenaars en van gevangenen even goed beschreven.</td></tr>
+          <tr><td class="term">onzegbaarheid</td><td>De vaststelling dat wie uit een lange stilte komt de ervaring niet in woorden kan overbrengen, wat het onderzoek ernaar bemoeilijkt.</td></tr>
+          <tr><td class="term">eremitische stilte</td><td>De kloosterlijke traditie waarin stilte dient om de eigen persoon te laten verdwijnen ten gunste van God.</td></tr>
+          <tr><td class="term">romantische stilte</td><td>De traditie sinds Wordsworth waarin afzondering juist het eigen zelf en de dichterlijke stem voortbrengt.</td></tr>
+          <tr><td class="term">woestijnvaders</td><td>De christelijke kluizenaars die zich vanaf de vierde eeuw in de Egyptische en Sinaïtische woestijn vestigden en het model leverden voor westerse afzondering.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op drie soorten materiaal. Ten eerste haar eigen dagelijkse aantekeningen tijdens de veertig dagen op Skye en tijdens kortere verblijven, waarin data, duur en omstandigheden vastliggen. Ten tweede een brede lezing van verslagen uit de eerste persoon: solozeilers, poolreizigers, gevangenen in afzondering, schipbreukelingen, kluizenaars en mystici. Ten derde de tekstuele traditie van sprookjes, bijbelplaatsen en kloosterregels.</p>
+      <p>De sterkte zit in de openhartigheid over wat er misging. Maitland verzwijgt de achterdocht, de huilbuien en de sociale schade niet, en dat maakt haar verslag bruikbaarder dan de gebruikelijke retraiteliteratuur, waarin alleen de rust wordt opgetekend.</p>
+      <p>De zwakte zit in de bewijskracht van de lijst van acht. Die is afgeleid uit een zelf gekozen verzameling verhalen, waarin de gevallen die niet passen niet worden geteld. De vergelijking tussen veertig vrijwillige dagen op Skye en jaren gedwongen afzondering in een cel is bovendien scheef: de omstandigheden verschillen op alle punten die er psychisch toe doen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar geldt de methode. Maitland presenteert een patroon zonder steekproef, zonder tegenvoorbeelden en zonder maat. Er is geen manier waarop haar lijst van acht verschijnselen weerlegd zou kunnen worden, want elk verslag dat afwijkt kan worden weggezet als een andere soort stilte. De lezer krijgt een aannemelijk verhaal aangeboden op de plaats waar een toetsbare bewering wordt gesuggereerd.</p>
+      <p>Het laatste deel van het boek verlaat de beschrijving en doet een geloofsuitspraak. Wie de rooms-katholieke vooronderstelling niet deelt, houdt daar weinig over: de stelling dat stilte de bestaanswijze van God is, wordt niet verdedigd en laat zich ook niet bespreken. Recensenten buiten die traditie hebben vooral daarop afgehaakt.</p>
+      <p>De feministische kwestie wordt opgeworpen en daarna maar half afgehandeld. Het onderscheid tussen opgelegd zwijgen en gekozen stilte klopt in beginsel, maar Maitland gaat nauwelijks in op de vraag wie zich die keuze kan veroorloven. Haar eigen antwoord, volwassen kinderen en een schrijversinkomen, laat zien hoe smal de groep is voor wie haar weg openligt.</p>
+      <p>Als cultuurgeschiedenis blijft het boek aan de oppervlakte. Sprookjes, mystiek, verlichting en psychoanalyse passeren in enkele bladzijden per onderwerp, met de veralgemening die daarbij hoort. Wie het als geschiedenis van de stilte leest, krijgt aanzetten; het boek is op zijn best waar Maitland over zichzelf schrijft.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>A Book of Silence</i> verscheen in 2008 bij Granta Books in Londen (320 blz., ISBN 9781847080424); de paperback uit 2009 telt 311 bladzijden (ISBN 9781847081513). Het boek heeft acht hoofdstukken, met noten en verantwoording achterin. Maitland schreef er later een korter en praktischer vervolg op, <i>How to Be Alone</i> uit 2014. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Sara Maitland groeide op in een gezin met zes kinderen waar de maaltijden uit discussie bestonden, werd romanschrijfster in de Britse vrouwenbeweging van de jaren zeventig, trouwde met een anglicaans priester, kreeg twee kinderen en werd in 1993 rooms-katholiek. Toen haar huwelijk was gestrand, merkte zij dat zij het alleen zijn niet als verlies ervoer maar als iets waar zij meer van wilde. Dit boek is het verslag van de jaren die zij daarna aan die vraag besteedde.</p><p>Zij bracht veertig dagen vrijwel zwijgend door in een huis op Skye, reisde naar de Sinaï om de woestijnstilte te leren kennen en liet ten slotte een huis bouwen op een hoogveen in Galloway. Naast dat verslag legt zij haar eigen aantekeningen naast wat solozeilers, poolreizigers, gevangenen in afzondering, schipbreukelingen en kluizenaars over stilte hebben opgeschreven. Daaruit komt een lijst van acht uitwerkingen die telkens terugkeren, van scherpere zintuigen en ontremming tot stemmen horen en het wegvallen van de grens tussen ik en omgeving.</p><p>Het boek geeft ook de schaduwkant, en het loopt uit op een geloofsbewering: stilte is voor Maitland de wijze waarop God bestaat.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>stilte</li><li>eenzaamheid</li><li>memoir</li><li>spiritualiteit</li><li>woestijn</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1207"><a href="1207.html">Overdenkingen in eenzaamheid</a>. Merton schrijft in <i>Overdenkingen in eenzaamheid</i> van binnenuit de traditie die Maitland van buitenaf bezoekt, en houdt vol dat eenzaamheid een innerlijke toestand is en geen plaats.</li>
+          <li value="1204"><a href="1204.html">Journal of a Solitude</a>. May Sarton hield in <i>Journal of a Solitude</i> een jaar lang bij wat alleen wonen met haar deed, zonder de systematiek die Maitland zoekt.</li>
+          <li value="952"><a href="952.html">Silence: Lectures and Writings</a>. John Cage benadert stilte in <i>Silence</i> van de andere kant: als muzikaal gegeven en als vaststelling dat volstrekte stilte niet bestaat.</li>
+          <li value="1203"><a href="1203.html">De kracht van het alleenzijn</a>. Anthony Storr levert in <i>Solitude</i> de psychiatrische onderbouwing die in dit boek ontbreekt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

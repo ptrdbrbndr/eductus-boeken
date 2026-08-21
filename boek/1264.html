@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Real World of Technology &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Techniek is voor Franklin een praktijk: de manier waarop de dingen hier worden gedaan, met de arbeidsverdeling, de voorschriften, de administratie en de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1264">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1264 &middot; Geschiedenis en samenleving</p>
+    <h1>The Real World of Technology</h1>
+    <p class="lede">Ursula M. Franklin, 1990 (uitgebreide uitgave 1999)</p>
+    <p class="stats">
+      <span><b>2034</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1264"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Techniek is voor Franklin een praktijk: de manier waarop de dingen hier worden gedaan, met de arbeidsverdeling, de voorschriften, de administratie en de denkwijze die erbij horen. Binnen die praktijk trekt zij één scheiding waaraan de rest van het boek hangt. Bij holistische technieken houdt de maker het hele proces in handen en neemt hij onderweg beslissingen die van de omstandigheden afhangen. Bij voorschrijvende technieken is het werk opgedeeld in stappen die elk door een ander worden uitgevoerd volgens een plan dat ergens anders is gemaakt, met toezicht erboven. Die tweede vorm levert betrouwbaar en goedkoop werk, en daarvoor wordt volgens Franklin een prijs betaald die nergens op de rekening staat: mensen raken eraan gewend dat er voor elke taak één juiste werkwijze bestaat en dat iemand anders bepaalt welke dat is. Die gewenning blijft niet op de werkvloer, zij verplaatst zich naar bestuur, onderwijs en huishouden, en maakt een samenleving die haar eigen keuzes nauwelijks nog als keuzes herkent.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Techniek als praktijk</h3>
+      <p>Franklin begint met een omschrijving die de rest van het boek stuurt. Techniek is bij haar geen verzameling apparaten maar een praktijk: hoe het werk hier gedaan wordt. Daaronder vallen de indeling van het werk, de voorschriften, de boekhouding, de woorden die erbij zijn ontstaan en de gedachten die mensen over die werkwijze hebben. Wie techniek zo omschrijft, kan een gieterij, een ziekenhuis en een huishouden met dezelfde begrippen bekijken.</p>
+      <p>Dat vertrekpunt komt uit haar vak. Franklin promoveerde in 1948 in Berlijn op experimentele natuurkunde, week uit naar Canada en werd in Toronto hoogleraar in de metaalkunde. Zij hoorde bij de eersten die materiaalonderzoek op archeologische vondsten toepasten en las uit oude bronzen en spiegels af hoe die gegoten waren. In een voorwerp las zij dus altijd al een werkwijze en een arbeidsorganisatie mee.</p>
+      <h3>Holistisch en voorschrijvend werk</h3>
+      <p>Bij holistisch werk beheerst de maker het hele proces van begin tot eind. Een pottenbakker, een wever of een kok beslist onderweg wat het volgende moment vraagt, gebruikt daarbij verschillende vaardigheden en levert werk dat per stuk verschilt. Franklin noemt dat specialisatie naar product: de vakman staat bekend om wat hij maakt.</p>
+      <p>Bij voorschrijvende technieken is het werk opgedeeld in stappen. Elke stap wordt door een andere hand gedaan volgens een voorschrift dat niet ter plaatse is bedacht, en iemand anders bewaakt of de delen op elkaar aansluiten. Dat heet bij haar specialisatie naar proces. Zij legt de oorsprong van die werkwijze niet in de negentiende-eeuwse fabriek maar veel eerder, bij de Chinese bronsgieterij van omstreeks 1200 voor Christus, waar grote rituele vaten in mallen werden gegoten door ploegen die elk één handeling deden. Daarmee wil zij laten zien dat het om een vorm van organiseren gaat, waar machines pas later bij kwamen.</p>
+      <h3>De cultuur van naleving</h3>
+      <p>Voorschrijvende technieken doen wat zij beloven. Ze leveren veel, betrouwbaar en goedkoop. Daar staat volgens Franklin een last tegenover die zelden wordt geboekt. Wie jarenlang werk doet dat maar op één manier mag, gaat aannemen dat er voor elke vraag één goede werkwijze bestaat en dat toezicht daar vanzelf bij hoort. Zij spreekt van een cultuur van naleving: sturing van buiten en inschikkelijkheid van binnen gaan als het gewone gelden, ook op plaatsen waar niets gemaakt wordt.</p>
+      <p>Zij wijst er ook op dat een techniek van werk kan omslaan in een techniek van toezicht, zonder dat iemand daartoe besluit. De elektrische schrijfmachine hielp bij het werk. Hetzelfde werk in een netwerk van tekstverwerkers maakt het mogelijk aanslagen te tellen, opdrachten in stukken te knippen en te zien wie wanneer met wie contact had. In dezelfde beweging ziet zij ontwerpen ontstaan die zij tegen mensen gericht noemt: mensen gelden daarin als de bron van storingen en de techniek als de bron van oplossingen.</p>
+      <h3>Groei en productie</h3>
+      <p>Een tweede scheiding gaat over wat van een proces te verwachten valt. Productie laat zich plannen: bij gelijke ingrediënten en gelijke handelingen komt er een voorspelbaar aantal stuks uit, en meer inzet levert meer opbrengst. Groei werkt anders. Wie zaait maakt de grond gereed, geeft water, houdt onkruid weg en wacht af; wat er komt hangt af van omstandigheden die de zaaier niet in de hand heeft.</p>
+      <p>Het gaat volgens Franklin mis waar werk dat naar zijn aard groei is, wordt bestuurd volgens het model van productie. Zorg, onderwijs en opvoeding zijn haar voorbeelden. Wie daar tijdvakken, doelen en meetbare opbrengsten oplegt, houdt getallen over die kloppen en werk dat niet meer doet waarvoor het bestond. Taken waarin voor iemand of voor iets gezorgd wordt, verdragen het opknippen slecht, omdat de volgende stap zich pas laat bepalen als de vorige is gezien.</p>
+      <h3>Communicatie zonder tegenspraak</h3>
+      <p>Het middendeel gaat over communicatietechniek. Radio en televisie brengen boodschappen die elders zijn gemaakt, gekozen en gemonteerd. De wereld die daaruit ontstaat noemt Franklin een pseudo-werkelijkheid: een samengesteld beeld van de dingen dat met echte gebeurtenissen samenhangt en er niet mee samenvalt, en dat ondertussen bepaalt wat mensen verlangen en waar zij bang voor zijn.</p>
+      <p>Wat daarbij verdwijnt heet bij haar wederkerigheid. In een gesprek tussen mensen kan de een de ander onderbreken, iets terugvragen en de richting veranderen; de aannames waarmee begonnen werd, kunnen onderweg worden bijgesteld. Bij eenrichtingsverkeer bestaat dat middel niet. Zij trekt die redenering door naar de openbare ruimte. Het volzetten van winkels, wachtkamers en luchthavens met geluid en beeld beschrijft zij als het omheinen van de stilte, in dezelfde vorm als het afsluiten van gemeenschappelijke gronden in de Engelse geschiedenis. Stilte is bij haar, quaker en pacifiste, de ruimte waarin iets ongeplands kan gebeuren, en die ruimte wordt zonder toestemming ingenomen.</p>
+      <h3>Verdeelbare en onverdeelbare opbrengsten</h3>
+      <p>Aan het slot komt zij bij de vraag hoe over technische plannen te beslissen valt. Zij scheidt verdeelbare van onverdeelbare opbrengsten. Wie met vrienden een moestuin bewerkt en een goede oogst binnenhaalt, kan die oogst onder de helpers verdelen en bepaalt zelf wie wat krijgt. Wie met diezelfde vrienden een vervuilende fabriek tot ander gedrag beweegt, levert schone lucht op waar de buurman die niets deed evenveel aan heeft. Dat verschil bepaalt volgens haar wie zich voor iets inspant en wie het aan anderen overlaat, en het verklaart waarom werk aan het gemeenschappelijke zo moeilijk betaald krijgt.</p>
+      <p>Daaruit volgt haar reeks vragen bij elk voorstel of elke lening: bevordert het rechtvaardigheid, herstelt het wederkerigheid, levert het verdeelbare of onverdeelbare opbrengsten, geeft het voorrang aan mensen boven machines, en kiest het voor behoud boven verspilling en voor het omkeerbare boven het onomkeerbare. Voor verandering zelf gebruikt zij het beeld van de regenworm: grond losmaken, in gesprek met anderen zaad leggen, en niet weten of het opkomt.</p>
+      <h3>De vier hoofdstukken van 1999</h3>
+      <p>De uitgebreide uitgave legt haar begrippen op de tien jaar die volgden. Franklin schrijft daarin over het uithollen van privacy en van het recht op eigen werk, over wat de nieuwe techniek met overheid en bestuur doet, over de verschuiving van een economie die op consumptie draait naar een die op belegging draait, en over wat het internet met het schrijven doet.</p>
+      <p>Die hoofdstukken laten ook zien wat voor boek het is. Het zijn lezingen voor een algemeen publiek, opgeschreven zonder verwijzingen in de lopende tekst, met een betoog dat aan begrippen en voorbeelden hangt en niet aan cijfers.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">techniek als praktijk</td><td>De manier waarop het werk hier gedaan wordt, met arbeidsverdeling, voorschriften, taal en denkwijze inbegrepen, waarvan de apparatuur het zichtbare deel is.</td></tr>
+          <tr><td class="term">holistische techniek</td><td>Werkwijze waarbij de maker het hele proces beheerst en onderweg beslist, met werk dat per stuk verschilt.</td></tr>
+          <tr><td class="term">voorschrijvende techniek</td><td>Werkwijze waarbij het proces is opgeknipt in stappen die elk door een ander worden gedaan volgens een elders gemaakt plan, met toezicht op de aansluiting.</td></tr>
+          <tr><td class="term">specialisatie naar proces</td><td>Het inrichten van werk rond losse handelingen in plaats van rond het voortbrengsel, waardoor niemand nog het geheel overziet.</td></tr>
+          <tr><td class="term">cultuur van naleving</td><td>De gewenning aan sturing van buiten en inschikkelijkheid van binnen, die van de werkvloer naar bestuur en dagelijks leven overslaat.</td></tr>
+          <tr><td class="term">groeimodel tegenover productiemodel</td><td>Het verschil tussen werk waarvan de uitkomst zich laat plannen en werk dat alleen voorbereid en verzorgd kan worden, zoals zorg en onderwijs.</td></tr>
+          <tr><td class="term">pseudo-werkelijkheid</td><td>Het samengestelde beeld van de wereld dat uit eenrichtingsmedia komt en dat verlangens en angsten stuurt zonder dat iemand daarmee heeft ingestemd.</td></tr>
+          <tr><td class="term">wederkerigheid</td><td>De mogelijkheid om in een uitwisseling terug te praten en de uitgangspunten van de ander bij te stellen, die bij eenrichtingsverkeer wegvalt.</td></tr>
+          <tr><td class="term">verdeelbare opbrengst</td><td>Een resultaat dat de deelnemers onder elkaar kunnen verdelen, zoals de oogst van een gezamenlijke tuin.</td></tr>
+          <tr><td class="term">onverdeelbare opbrengst</td><td>Een resultaat dat ook toevalt aan wie niets deed, zoals schonere lucht, waardoor inspanning ervoor moeilijk te organiseren is.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het betoog rust op begripsvorming en op historische voorbeelden. Franklin voert de Chinese bronsgieterij aan, de naaimachine die thuiswerk en ateliers hertekende, de telefoniste die door automatische centrales werd vervangen, en het tijdklokje op de werkvloer. Die voorbeelden maken haar onderscheid duidelijk. Zij tonen niet aan dat het opdelen van werk werkelijk een cultuur van naleving voortbrengt, want vergelijkende gegevens over werkplaatsen, of metingen van wat mensen na jaren voorschrijvend werk aannemen, staan er niet in.</p>
+      <p>Haar gezag ligt buiten het boek. Franklin deed als metaalkundige veertig jaar materiaalonderzoek en werkte begin jaren zestig mee aan de tandenverzameling waarmee in kindergebitten strontium-90 uit kernproeven werd gemeten, onderzoek dat meewoog in het einde van de bovengrondse proeven. Dat maakt haar geen buitenstaander die zich over techniek beklaagt. Het maakt haar uitspraken over arbeidsorganisatie nog niet gemeten.</p>
+      <p>De vorm draagt daaraan bij en beperkt tegelijk. Vijf omroeplezingen dwingen tot heldere begrippen en korte voorbeelden. Ze laten weinig ruimte voor bronvermelding in de tekst, voor cijfers of voor tegenwerpingen van anderen die uitgewerkt worden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar geldt de tweedeling zelf. Holistisch en voorschrijvend zijn eerder eigenschappen van de blik dan van het proces. Een chirurg in een operatieteam werkt volgens strakke voorschriften en beslist tegelijk voortdurend; een pottenbakker die tweehonderd gelijke kommen draait werkt herhalend. Waar de grens ligt hangt af van hoe ruim de waarnemer het proces afbakent. Daardoor is de indeling goed bruikbaar om iets te laten zien en moeilijk te weerleggen, en volgt uit de vaststelling dat iets voorschrijvend is nog geen oordeel.</p>
+      <p>Daarnaast idealiseert zij de ambachtelijke kant. Het werk waar zij naar wijst kende gilden die de toegang bewaakten, leerlingschap met weinig rechten, lange dagen en armoede. Wie het holistische werk als tegenbeeld neemt, laat die kanten weg, terwijl juist het opknippen van werk het mogelijk maakte dat mensen zonder jarenlange opleiding een inkomen kregen. Franklin weegt die opbrengst wel, maar telkens als kostenpost bij een keuze die zij al heeft afgewezen.</p>
+      <p>Er zit ook een spanning in haar stelling. Zij verwerpt de gedachte dat techniek haar eigen gevolgen afdwingt en houdt vol dat het om keuzes gaat. Tegelijk is haar hoofdstelling dat voorschrijvende techniek een denkwijze voortbrengt bij wie ermee werkt. Dat is een uitspraak over gevolgen die zich vanzelf voordoen, en zij geeft niet aan onder welke omstandigheden dat gevolg uitblijft.</p>
+      <p>Ten slotte blijft het slot dun. De vragenlijst is bruikbaar zolang de antwoorden dezelfde kant op wijzen. Zodra een voorstel rechtvaardigheid dient en de opbrengst onverdeelbaar is, of mensen voorrang geeft en onomkeerbaar is, geeft Franklin geen regel om af te wegen. Het boek eindigt bij een houding en niet bij een beslissing.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beschrijf een werkproces eerst als praktijk: wie beslist wat, waar is het plan gemaakt, wie houdt toezicht op de aansluiting.</li>
+        <li>Vraag bij een nieuw hulpmiddel of het het werk ondersteunt of het werk meet, en wie de meting inziet.</li>
+        <li>Scheid taken die groeien van taken die geproduceerd worden, en leg op de eerste geen productiedoelen.</li>
+        <li>Ga bij een verandering na wie de opbrengst krijgt en of die opbrengst te verdelen valt; daar hangt van af wie zich ervoor zal inspannen.</li>
+        <li>Loop bij een voorstel haar vragen af, en let vooral op de laatste: valt dit besluit later terug te draaien.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Real World of Technology</i> berust op de vijf Massey Lectures die Franklin in november 1989 voor de Canadese omroep CBC hield en die in 1990 als boek verschenen. De uitgebreide uitgave, met vier hoofdstukken erbij, verscheen bij House of Anansi Press, Toronto, 1999, 224 blz., ISBN 978-0-88784-636-6. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd. Van Franklin is voor zover na te gaan niets in het Nederlands uitgebracht; haar verspreide opstellen en toespraken staan bij elkaar in <i>The Ursula Franklin Reader: Pacifism as a Map</i> (Between the Lines, Toronto, 2006).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Ursula Franklin was natuurkundige en metaalkundige in Toronto en onderzocht oude bronzen voorwerpen op de wijze waarop ze gemaakt waren. In deze vijf lezingen uit 1989 behandelt zij techniek op dezelfde manier: als een praktijk, met werkwijzen, arbeidsverdeling, voorschriften, woorden en een denkwijze die daarbij hoort. Apparaten zijn daarvan het zichtbare deel.</p><p>De scheiding die het boek draagt loopt tussen holistisch en voorschrijvend werk. Bij het eerste beheerst de maker het hele proces en beslist hij onderweg; bij het tweede is het werk opgeknipt in stappen die elk door een ander worden gedaan volgens een plan dat elders is bedacht. Voorschrijvende technieken leveren betrouwbaar en goedkoop, en gewennen mensen tegelijk aan de gedachte dat er één juiste werkwijze bestaat en dat toezicht daarbij hoort. Franklin noemt dat een cultuur van naleving en ziet die vorm terugkeren in bestuur, onderwijs en zorg.</p><p>Het boek eindigt met een reeks vragen die bij elk voorstel te stellen zijn: over rechtvaardigheid, over wederkerigheid, over wie de opbrengst krijgt en over de vraag of een besluit terug te draaien is. Onderzoeksmateriaal levert Franklin niet. Het betoog hangt aan haar begrippen en aan historische voorbeelden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>technologiekritiek</li><li>technologie</li><li>arbeid</li><li>automatisering</li><li>cultuurkritiek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="826"><a href="826.html">The Technological Society</a>. Ellul beschrijft hetzelfde verschijnsel twee generaties eerder en veel somberder: bij hem is de doelmatigheid een stelsel geworden waar geen keuze meer buiten valt. Franklin houdt de keuze open.</li>
+          <li value="54"><a href="54.html">Amusing Ourselves to Death</a>. Postman werkt uit wat Franklin pseudo-werkelijkheid noemt, met televisie als voorbeeld van een medium dat de vorm van het openbare gesprek bepaalt.</li>
+          <li value="1258"><a href="1258.html">The Sciences of the Artificial</a>. Simon beschrijft dezelfde wereld van ontworpen stelsels vanaf de andere kant, als ontwerper die processen juist wil opdelen en beheersen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

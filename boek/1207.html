@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Overdenkingen in eenzaamheid &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Merton stelt dat eenzaamheid geen plaats is en geen levensinrichting maar een innerlijke toestand, en dat wie haar opzoekt om er iets mee te bereiken haar…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1207">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1207 &middot; Filosofie en mystiek</p>
+    <h1>Overdenkingen in eenzaamheid</h1>
+    <p class="lede">Thomas Merton, 1958</p>
+    <p class="stats">
+      <span><b>1429</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1207"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Merton stelt dat eenzaamheid geen plaats is en geen levensinrichting maar een innerlijke toestand, en dat wie haar opzoekt om er iets mee te bereiken haar juist misloopt. Het geestelijk leven is volgens hem allereerst een leven en geen kennisgebied: het vraagt aandacht, armoede van geest en het loslaten van de woorden en begrippen die zich tussen de mens en de werkelijkheid schuiven, waarbij ook het woord God een begrip kan worden dat het zicht ontneemt. Wie zich daaraan zet, krijgt geen ervaring en geen inzicht in ruil.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar het boek vandaan komt</h3>
+      <p>Merton trad in 1941 in bij de trappisten van Gethsemani in Kentucky. Zijn autobiografie uit 1948 verkocht honderdduizenden exemplaren en maakte van hem het gezicht van het Amerikaanse kloosterleven. In de jaren vijftig werd hij novicenmeester, terwijl hij tegelijk bij zijn abt aandrong op meer eenzaamheid en overwoog naar een strenger levende orde over te stappen. Die overplaatsing werd geweigerd.</p>
+      <p>Als tussenoplossing mocht hij enkele uren per dag een oude schuur op het abdijterrein gebruiken, die hij naar Sint-Anna noemde. Daar ontstonden vanaf omstreeks 1953 deze stukken. In augustus 1955 schreef hij er ingenomen over aan de benedictijn Jean Leclercq; in oktober 1957 noemde hij het boek waardeloos. Het verscheen niettemin in 1958.</p>
+      <h3>De vorm: zevenendertig meditaties</h3>
+      <p>Het boek bestaat uit twee delen. Het eerste, over het geestelijk leven, telt negentien stukken; het tweede, over de liefde voor de eenzaamheid, achttien. De meeste beslaan één tot drie bladzijden, sommige zijn gebed, andere aantekening. Er is geen gang van argument naar besluit, en de volgorde is niet dwingend.</p>
+      <p>Dat maakt het tot een boek om in kleine porties te lezen, in de trant van de kloosterlijke lezing waarbij men een korte passage herhaalt tot zij iets doet. Wie het als betoog leest, houdt weinig meer over dan een reeks stellingen zonder verdediging.</p>
+      <h3>Eenzaamheid als innerlijke toestand</h3>
+      <p>De kern van het tweede deel is dat er geen ware eenzaamheid bestaat behalve de innerlijke. Wie zich terugtrekt in een hut en daar zijn zelfbeeld mee naartoe neemt, heeft niets gewonnen; wie in een menigte staat en van zichzelf is losgekomen, is alleen in Mertons zin. Daarmee ontneemt hij zijn eigen levensvorm het alleenrecht op het onderwerp.</p>
+      <p>Hij waarschuwt tegen eenzaamheid als onderneming van het ik: het verlangen om iemand te zijn die zich heeft teruggetrokken, hoort volgens hem tot dezelfde behoeften waar de afzondering vanaf zou moeten helpen.</p>
+      <h3>Woorden, begrippen en armoede</h3>
+      <p>Een terugkerende gedachte is dat taal afstand schept. Woorden schuiven zich tussen de geest en de dingen, en het woord God kan een begrip worden dat de plaats inneemt van datgene waarnaar het verwijst. Daarom hecht Merton aan zwijgen en aan wat hij armoede noemt: het opgeven van bezit, van aanzien en van geestelijke prestaties, met inbegrip van het bezit van juiste denkbeelden.</p>
+      <p>In dat licht wijst hij ook oefenmethodes van de hand. Gebed is bij hem geen techniek met stappen maar aandacht, en het uitblijven van resultaat hoort erbij.</p>
+      <h3>De woestijn</h3>
+      <p>Merton put uit de vroegchristelijke kluizenaars die zich vanaf de vierde eeuw in de Egyptische woestijn vestigden. De woestijn is bij hem de plaats die niets voortbrengt en die niet in bezit genomen kan worden, en juist daarom de plaats waar de mens ophoudt van zijn eigen voorraden te leven. Tegelijk laat hij staan dat het de streek van de demonen is, waar de kluizenaar op zichzelf wordt teruggeworpen.</p>
+      <p>Die dubbelheid loopt door het hele boek: de eenzaamheid is de weg en het gevaar tegelijk, en Merton geeft geen waarborg dat de weg goed afloopt.</p>
+      <h3>Het gebed dat is blijven staan</h3>
+      <p>Uit het tweede deel komt het bekendste gebed dat Merton schreef. Het begint met de vaststelling dat de bidder niet weet waar hij heen gaat en de weg voor zich niet ziet, en dat hij evenmin zeker weet of hij Gods wil doet; het eindigt met het vertrouwen dat hij nooit alleen aan zijn gevaren wordt overgelaten. Het wordt op uitvaarten en in bloemlezingen los van het boek aangehaald.</p>
+      <h3>Wat er daarna gebeurde</h3>
+      <p>In maart 1958, het jaar van verschijnen, stond Merton op een straathoek in Louisville en werd hij overvallen door het besef dat hij bij de mensen om hem heen hoorde. Hij beschreef die ervaring later in <i>Conjectures of a Guilty Bystander</i> uit 1966. Daarna schreef hij over rassenscheiding, oorlog en geweldloosheid, en verdiepte hij zich in het zenboeddhisme.</p>
+      <p>In 1965 kreeg hij alsnog een kluis op het abdijterrein; in 1968 stierf hij in Bangkok door een ongeluk met een ventilator. Dit boek staat vóór die wending en geeft niet zijn laatste woord.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">innerlijke eenzaamheid</td><td>De enige eenzaamheid die volgens Merton bestaat: losgekomen zijn van het eigen zelfbeeld, wat evengoed in gezelschap kan plaatsvinden.</td></tr>
+          <tr><td class="term">stilte</td><td>Bij hem geen afwezigheid van geluid maar het staken van het innerlijke commentaar dat de werkelijkheid overstemt.</td></tr>
+          <tr><td class="term">armoede van geest</td><td>Het opgeven van bezit, aanzien en geestelijke prestatie, met inbegrip van de zekerheid de juiste denkbeelden te hebben.</td></tr>
+          <tr><td class="term">woestijn</td><td>De onvruchtbare plaats die niets oplevert en niet in bezit te nemen is, in de christelijke traditie zowel plaats van godsontmoeting als gebied van de demonen.</td></tr>
+          <tr><td class="term">contemplatie</td><td>Aandacht zonder doel, die Merton uitdrukkelijk onderscheidt van een oefening met stappen en een te verwachten uitkomst.</td></tr>
+          <tr><td class="term">het geestelijk leven</td><td>Voor Merton allereerst een manier van leven en pas daarna een onderwerp van studie of lectuur.</td></tr>
+          <tr><td class="term">nederigheid</td><td>Het besef geen aanspraak te kunnen maken op geestelijke vooruitgang, bij hem de voorwaarde voor alles wat volgt.</td></tr>
+          <tr><td class="term">kluizenaar</td><td>De monnik die alleen leeft; Merton streefde die vorm na, kreeg haar pas in 1965 en behandelt haar hier als roeping en als verleiding tegelijk.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is een geestelijk boek en het levert geen bewijs. Wat het aanvoert is een traditie: de woestijnvaders, Augustinus, Johannes van het Kruis en de kloosterregels waarbinnen Merton leefde. Wie die traditie niet als gezaghebbend aanvaardt, houdt uitspraken over zonder steun.</p>
+      <p>Wel te controleren is Mertons eigen verslag. Zijn dagboeken uit deze jaren zijn uitgegeven als <i>A Search for Solitude</i>, dat de periode 1952 tot 1960 bestrijkt, en zijn briefwisseling met Jean Leclercq is eveneens beschikbaar. Daaruit blijkt dat de rust van deze meditaties werd opgeschreven door iemand die tegelijk in conflict lag met zijn overste, zijn orde wilde verlaten en aan zijn eigen roeping twijfelde.</p>
+      <p>Dat verzwakt het boek niet, maar het bepaalt hoe het gelezen moet worden: als de formulering van een verlangen en niet als het verslag van een bereikte toestand. Merton schrijft dan ook vrijwel nergens dat hij zelf heeft wat hij beschrijft.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat het boek uitsluitend beweert. Er is geen redenering die iemand van buiten de rooms-katholieke traditie kan volgen of betwisten, en de uitspraken over God, gebed en genade dienen als vooronderstelling. Wie die vooronderstelling niet deelt, houdt een stemming over.</p>
+      <p>Daarnaast blijft de materiële kant onbesproken. Mertons eenzaamheid rustte op een abdij met een dagorde, maaltijden, medebroeders en een inkomen uit zijn boeken. Hij verlegt de vraag naar de innerlijke eenzaamheid, en dat antwoord kan gebruikt worden om de praktische vraag te ontlopen van wie met kinderen en werk geen uur alleen krijgt.</p>
+      <p>Mertons eigen oordeel telt mee. In 1957 vond hij het boek waardeloos, en de zevenendertig stukken lijden inderdaad aan herhaling: dezelfde gedachte over stilte, woorden en armoede keert in wisselende bewoordingen terug zonder verder te komen.</p>
+      <p>Ten slotte is dit werk van vóór zijn wending naar de wereld. De afkeer van de moderne samenleving die er hier en daar in doorklinkt, heeft hij zelf herzien in zijn latere schrijven over rassenscheiding en oorlog. Wie Merton op dit boek beoordeelt, beoordeelt hem op zijn engste periode.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees één meditatie per keer en herhaal haar, in plaats van het boek achter elkaar door te nemen.</li>
+        <li>Toets bij het eigen verlangen naar afzondering of het gaat om alleen zijn of om gezien worden als iemand die zich terugtrekt.</li>
+        <li>Neem het gebed uit het tweede deel als tekst wanneer een besluit onduidelijk blijft; het is opgesteld voor een toestand van niet weten.</li>
+        <li>Lees ernaast <i>A Search for Solitude</i>, zodat de dagelijkse werkelijkheid achter deze meditaties zichtbaar wordt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Thoughts in Solitude</i> verscheen in 1958 bij Farrar, Straus and Cudahy in New York; de werktitel was <i>Thirty-seven Meditations</i>. De Nederlandse vertaling <i>Overdenkingen in eenzaamheid</i> kwam uit bij Damon (Eindhoven, 2019, 144 blz., ISBN 9789463402552). Van Merton verschenen in het Nederlands verder onder meer <i>Louteringsberg</i> (naar <i>The Seven Storey Mountain</i>), <i>Zaden van contemplatie</i> (Damon, Budel, 2015) en <i>Bespiegelingen van een schuldige toeschouwer</i> (Damon, Eindhoven, 2020).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Thomas Merton was trappist in de abdij van Gethsemani in Kentucky en na het verschijnen van zijn levensverhaal <i>The Seven Storey Mountain</i> in 1948 een beroemd schrijver. In de jaren daarna drong hij bij zijn overste aan op meer afzondering. Hij kreeg toestemming om overdag een oude gereedschapsschuur op het abdijterrein te gebruiken, en daar schreef hij vanaf ongeveer 1953 de korte stukken die dit boek vormen.</p><p>Het zijn zevenendertig meditaties in twee delen: negentien over het geestelijk leven en achttien over de liefde voor de eenzaamheid. Er staat geen betoog in en geen methode. Merton stelt dat er geen andere eenzaamheid bestaat dan de innerlijke, dat het geestelijk leven in de eerste plaats geleefd wordt en niet bestudeerd, en dat woorden en begrippen zich tussen de mens en de werkelijkheid dringen, het woord God inbegrepen.</p><p>Het bekendst is het gebed uit het tweede deel dat begint met de erkenning dat de bidder niet weet waar hij heen gaat. Het wordt sinds jaar en dag op uitvaarten gelezen door mensen die de rest van het boek niet kennen. Merton zelf noemde het werk in 1957 waardeloos en rekende het later tot zijn betere boeken.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>eenzaamheid</li><li>stilte</li><li>gebed</li><li>mystiek</li><li>monniksleven</li><li>christendom</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1205"><a href="1205.html">A Book of Silence</a>. Sara Maitland bezoekt in <i>A Book of Silence</i> de woestijn en de kloostertraditie waar Merton binnen staat, en beschrijft van buitenaf wat langdurige stilte met een mens doet.</li>
+          <li value="754"><a href="754.html">Mystiek</a>. Evelyn Underhill zet in <i>Mystiek</i> uiteen hoe de contemplatieve weg in de christelijke traditie is beschreven, waar Merton zonder toelichting op voortbouwt.</li>
+          <li value="573"><a href="573.html">De innerlijke burcht</a>. Teresa van Ávila beschrijft in <i>De innerlijke burcht</i> de weg naar binnen wel in stappen, wat het verschil laat zien met Mertons afwijzing van methode.</li>
+          <li value="1204"><a href="1204.html">Journal of a Solitude</a>. May Sarton houdt in <i>Journal of a Solitude</i> bij wat afzondering zonder klooster en zonder geloof dagelijks kost.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

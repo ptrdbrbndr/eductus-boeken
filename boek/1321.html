@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Art of Thought &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Wallas stelt dat denken een natuurlijk verlopend proces is dat door bewuste kunstgrepen te sturen valt, mits je weet op welk moment sturen zin heeft. Zijn…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1321">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1321 &middot; Maken en scheppen</p>
+    <h1>The Art of Thought</h1>
+    <p class="lede">Graham Wallas, 1926</p>
+    <p class="stats">
+      <span><b>1900</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1321"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Wallas stelt dat denken een natuurlijk verlopend proces is dat door bewuste kunstgrepen te sturen valt, mits je weet op welk moment sturen zin heeft. Zijn analyse van één afgeronde denkprestatie levert vier stadia op: voorbereiding, incubatie, illuminatie en verificatie. Bij het eerste en het laatste stadium kan de wil rechtstreeks aangrijpen, bij het tweede alleen door het te beschermen, en bij het derde alleen langs een omweg. Die omweg is zijn werkelijke vondst: aan de flits gaat een randbewust voorgevoel vooraf dat wel merkbaar is en dat, mits herkend, kan worden vastgehouden en beschermd. Wie zijn eigen denken wil verbeteren, moet dus leren letten op wat zich nog niet als gedachte heeft gevormd.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waarom het boek er is</h3>
+      <p>Het eerste hoofdstuk begint bij een tijdsdiagnose: de mens heeft zijn macht over de natuur enorm vergroot zonder de sturing van die macht door denken mee te laten groeien. Hij noemt de bewapening waarmee Londen en Parijs vernietigd kunnen worden, terwijl staatslieden geen gemeenschappelijk doel weten te vormen, en ziet dezelfde onmacht in politiek, economie en kunst.</p>
+      <p>In het voorwoord schrijft hij dat dit geen samenvatting is van zijn eerdere boeken <i>Human Nature in Politics</i> (1908), <i>The Great Society</i> (1914) en <i>Our Social Heritage</i> (1921), maar een verlenging ervan naar de minder bewuste kant van het denken. Zijn materiaal komt uit veertig jaar lesgeven en besturen, en uit verslagen van dichters, studenten en vrienden.</p>
+      <h3>Bewustzijn en wil zijn geen alles of niets</h3>
+      <p>Het tweede hoofdstuk ruimt een dagelijkse aanname op. Bewustzijn loopt van vol tot afwezig en van tamelijk eenvormig tot wat Wallas mede-bewustzijn noemt, waarin verschillende reeksen naast elkaar lopen. De wil kent dezelfde gradaties. De denker moet zichzelf trainen om ook zijn minder bewuste toestanden waar te nemen, want daar gebeurt volgens Wallas het meeste van wat ertoe doet.</p>
+      <p>Het derde hoofdstuk zoekt het natuurlijke proces dat de kunst van het denken moet bijstellen, en vindt dat in de associatieketen. Aristoteles en Hobbes bestudeerden die achteraf, in de herinnering; de Belgische psycholoog Julien Varendonck deed het in <i>The Psychology of Day-Dreams</i> (1921) tijdens het verlopen zelf. Wallas tekent er meteen bij aan dat Varendonck vrijwel al zijn dagdromen opschreef terwijl hij in slaap viel.</p>
+      <h3>De vier stadia</h3>
+      <p>Het vierde hoofdstuk, <i>Stages of Control</i>, is het bekendste. Wallas gaat uit van de toespraak die Helmholtz hield op zijn zeventigste verjaardag, op 2 november 1891, waarin die vertelde hoe zijn beste ideeën kwamen: na onderzoek van het probleem in alle richtingen, onverwacht en zonder inspanning, nooit aan de werktafel en nooit bij vermoeidheid, het gemakkelijkst bij een langzame klim over beboste heuvels op een zonnige dag. Wallas kende die passage uit tweede hand, via Rignano.</p>
+      <p>Helmholtz noemt drie fasen. Wallas voegt er een vierde aan toe die Helmholtz oversloeg, en haalt daarvoor Poincaré aan, die in <i>Science and Method</i> twee wiskundige ontdekkingen beschrijft. Beide kwamen na een periode zonder bewust wiskundig werk, in het ene geval door militaire dienst, in het andere door een reis, en beide waren voorafgegaan door hard en vruchteloos bewust werken. Poincaré benadrukt dat onbewust werk nooit een afgeronde berekening aanlevert, alleen een vertrekpunt; het narekenen vraagt tucht en wil.</p>
+      <p>Zo ontstaan de vier stadia. Wallas voegt er twee waarschuwingen bij die zelden worden meegeciteerd. De vier stadia lopen in het dagelijkse denken door elkaar heen: iemand kan tegelijk incuberen op het ene probleem, voorbereiden op het tweede en verifiëren aan het derde. En het schema past het best op afgebakende problemen; waar het doel iets is dat mooi en waar wordt gevonden, zoals bij een dichter of componist, zijn de stadia minder duidelijk te scheiden.</p>
+      <h3>Intimation, het stadium dat wegviel</h3>
+      <p>Wallas besteedt in hetzelfde hoofdstuk een reeks bladzijden aan wat hij het randbewuste noemt, met een verwijzing naar William James, die in de <i>Principles</i> sprak van de halo of penumbra rond een voorstelling. De term die Wallas invoert is intimation: het moment waarop het randbewustzijn van een associatieketen stijgt en aankondigt dat de flits eraan komt.</p>
+      <p>Zijn voorbeelden zijn alledaags. Een hoge Engelse ambtenaar vertelde hem dat hij bij een moeilijk probleem vaak weet dat de oplossing komt, zonder te weten welke. Varendonck sprak van een vaag gevoel dat zijn geest ergens op stond te pruttelen, dat overging in vreugde zodra de gedachte bovenkwam. Wallas herinnert zich zelf dat hij voorafgaand aan een verandering van politieke positie een vaag, bijna lichamelijk gevoel had alsof zijn kleren niet meer pasten. Een student meldde dat hij zichzelf zijn gewone politieke meningen hoorde uitspreken, alsof hij naar iemand anders luisterde.</p>
+      <p>De praktische winst zit hier. Duurt dat gevoel lang genoeg, dan kan de wil erop aangrijpen: de keten remmen, verlengen of afbuigen, en vooral haar beschermen tegen onderbreking. Wallas erkent meteen de tegenwerping dat ingrijpen hier meer kwaad dan goed doet, en vergelijkt die met het opgraven van een ontkiemende boon.</p>
+      <h3>Emotie, gewoonte en energie</h3>
+      <p>De hoofdstukken vijf tot en met zeven behandelen de omstandigheden waaronder dit alles verloopt. Emotie is volgens Wallas ongrijpbaarder dan zintuiglijke indruk of voorstelling, en dichters proberen haar juist daarom aan beelden vast te knopen. Hij besteedt aparte aandacht aan humor en aan wat hij het gevoel van betekenis noemt, het emotioneel gekleurde voorgevoel dat er iets van belang op komst is.</p>
+      <p>Over gewoonte is hij met opzet dubbelzinnig. Een vast tijdstip, een vaste plek en zelfs vaste bewegingen van vingers of lippen brengen het opwarmen op gang. Tegelijk breken goede bestuurders hun eigen gewoonten om een nieuw vertrekpunt te krijgen, en wie aan een rooster vastzit moet letten op de invallen die buiten werktijd komen, bijvoorbeeld tijdens het lezen van de krant. Het hoofdstuk over inspanning en energie constateert dat kunstenaars hun sterkste momenten beschrijven als momenten zonder inspanning, en dat de betrokkene zelf niet altijd kan zien of dat meer energie betekent of minder. Wallas vergelijkt het met de slag in een sport: veel mensen verspillen hun inspanning omdat zij nooit de slag hebben gevonden die bij hun werk past.</p>
+      <h3>Trance, school en onderwijsbestel</h3>
+      <p>Het negende hoofdstuk gaat over dissociatie van het bewustzijn: hypnose, monotone prikkeling en de meditatiemethoden van Ignatius van Loyola. Een geringe mate van dissociatie kan hogere denkprocessen helpen, maar het beste werk komt er volgens Wallas niet uit voort. Wat dissociatie wel oplevert is sterke overtuiging, en dat maakt haar tot een blijvend probleem voor godsdienst en wijsbegeerte, want overtuiging is nog geen geldigheid.</p>
+      <p>De laatste drie hoofdstukken vormen het doel waar het boek op afstevent: het onderwijs. Wallas vraagt zich af hoe wij een in Londen geboren Plato zouden helpen denker te worden, bepleit denkpsychologie in het leerplan, waarschuwt tegen het gelijkschakelen van het voortgezet onderwijs, en oppert een proefschool voor leerlingen uit alle klassen die tot het meest begaafde procent behoren.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Voorbereiding</td><td>Het bewuste stadium waarin kennis wordt verzameld, het veld logisch wordt verdeeld en een probleemhouding wordt aangenomen.</td></tr>
+          <tr><td class="term">Incubatie</td><td>De periode waarin bewust nadenken over het probleem uitblijft, hetzij door aan iets anders te werken, hetzij door helemaal te rusten.</td></tr>
+          <tr><td class="term">Illuminatie</td><td>Het verschijnen van het gelukkige idee, samen met de psychische gebeurtenissen die er onmiddellijk aan voorafgaan en het vergezellen.</td></tr>
+          <tr><td class="term">Verificatie</td><td>Het bewuste narekenen en uitwerken van het idee, met dezelfde regels als in de voorbereiding.</td></tr>
+          <tr><td class="term">Intimation</td><td>Het randbewuste voorgevoel binnen de illuminatie dat aankondigt dat een oplossing op komst is, zonder te zeggen welke.</td></tr>
+          <tr><td class="term">Randbewustzijn</td><td>De zone tussen vol bewustzijn en onbewustheid waarin gedachten merkbaar zijn zonder scherp te zijn.</td></tr>
+          <tr><td class="term">Associatieketen</td><td>De natuurlijke opeenvolging van gedachten die de kunst van het denken probeert bij te sturen.</td></tr>
+          <tr><td class="term">Probleemhouding</td><td>De doelbewust ingenomen instelling waarin een vraag als vraag blijft staan, ook wanneer er niet aan gewerkt wordt.</td></tr>
+          <tr><td class="term">Mede-bewustzijn</td><td>Wallas' term voor het naast elkaar lopen van meerdere reeksen bewustzijn in hetzelfde hoofd.</td></tr>
+          <tr><td class="term">Dissociatie</td><td>De toestand waarin het bewustzijn uiteenvalt, opgewekt door trance of meditatie, met sterke overtuiging als bijwerking.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek steunt op drie soorten materiaal. Ten eerste twee zelfverslagen van beroemde onderzoekers: de verjaardagstoespraak van Helmholtz uit 1891, die Wallas bovendien uit tweede hand heeft, en de lezing van Poincaré uit <i>Science and Method</i>. Beide zijn herinneringen achteraf van mannen die hun eigen werkwijze beschrijven, met alle vertekening die daarbij hoort.</p>
+      <p>Ten tweede de zelfwaarneming van Varendonck, één proefpersoon die zijn eigen gedachtenreeksen noteerde terwijl hij in slaap viel. Wallas noemt die beperking zelf en zegt dat Varendonck bovendien werkt met een te eenvoudig beeld van de verhouding tussen denken en instinctieve emotie.</p>
+      <p>Ten derde losse mededelingen van studenten en vrienden, en zijn eigen ervaring als docent en bestuurder. Er staat geen experiment in het boek en er wordt niets gemeten. Wallas presenteert het ook zo: hij hoopt een paar jonge denkers te helpen, of een psycholoog te bewegen het probleem met meer succes te onderzoeken.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat het schema beschrijft zonder te verklaren. Dat een oplossing komt na een pauze zegt niets over wat er in die pauze gebeurt; Wallas neemt onbewust werk aan omdat Poincaré dat aannam, en de latere psychologie kent voor hetzelfde verschijnsel verklaringen die geen onbewuste arbeid nodig hebben, zoals het wegzakken van een vastgelopen aanpak of het simpele feit van uitrusten. Een overzichtsstudie van Ut Na Sio en Tom Ormerod uit 2009, die honderdzeventien onderzoeken samenvatte, vond wel een positief effect van een onderbreking op het oplossen van problemen, maar een bescheiden effect dat sterk afhing van de taak en van wat er tijdens de pauze werd gedaan.</p>
+      <p>Daarnaast is de bewijsvoering smal. Vier stadia zijn afgeleid uit twee terugblikken van twee natuurwetenschappers, aangevuld met de dagdromen van één psycholoog en met anekdotes. Dat is te weinig om te weten of het schema ook geldt voor wie geen wiskundige is, iets wat Wallas zelf terloops toegeeft wanneer hij dichters en componisten als lastig geval noemt.</p>
+      <p>De ontvangst heeft het boek bovendien gehalveerd. Wat overbleef is een schema van vier stappen dat in cursusmateriaal terechtkwam, terwijl intimation, het punt waar Wallas de meeste bladzijden en de meeste praktische waarde legde, verdween. Eugene Sadler-Smith heeft in 2015 betoogd dat het model bij lezing van de tekst zelf uit vijf stadia bestaat.</p>
+      <p>Ten slotte dateert het boek zichtbaar. Het achtste hoofdstuk deelt volken denkgewoonten toe, met Franse logica tegenover Engels aanmodderen en een Amerikaans pioniersmodel, op indrukken zonder enige meting. De laatste hoofdstukken denken in termen van subnormale en supernormale leerlingen en van een proefschool voor het bovenste procent, een manier van spreken die hoort bij de intelligentiemeting en de sociale politiek van de jaren twintig.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Scheid het verzamelen van materiaal van het uitwerken ervan, en plan de onderbreking daartussen in plaats van haar te ondergaan.</li>
+        <li>Vul een pauze met werk aan iets anders wanneer tijd schaars is, en met rust wanneer het probleem zwaar is; Wallas acht die tweede vorm nodig bij het moeilijkste werk.</li>
+        <li>Let op het gevoel dat er iets aankomt zonder te weten wat, en bescherm dat moment tegen onderbreking in plaats van het te forceren.</li>
+        <li>Noteer de invallen die buiten werktijd komen, want een vast rooster laat die anders wegvallen.</li>
+        <li>Reken elk idee daarna alsnog na; volgens Poincaré levert de inval een vertrekpunt en nooit een afgerond resultaat.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Art of Thought</i> (Jonathan Cape, Londen, 1926, 320 blz.), in hetzelfde jaar in Amerika uitgebracht door Harcourt, Brace, New York. De tekst is opnieuw gezet uitgegeven door Solis Press (Tunbridge Wells, 2014, ISBN 978-1-910146-05-7) en staat integraal op het Internet Archive. Wallas was medeoprichter van de London School of Economics en lid van de Fabian Society. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Graham Wallas was achtenzestig toen hij dit boek schreef, na een leven als docent, bestuurder en politiek denker. Hij wilde weten of de psychologie van zijn tijd iets kon bijdragen aan wat hij de kunst van het denken noemde: het beter gebruiken van het eigen hoofd door wie voor zijn werk moet denken. Uit dat onderzoek komt het schema dat sindsdien overal wordt aangehaald: voorbereiding, incubatie, illuminatie en verificatie.</p><p>Dat schema beslaat één hoofdstuk van de twaalf. De rest gaat over de gradaties van bewustzijn en wil, over associatieketens, over gewoonte en werkritme, over de rol van emotie in het denken, over trance en meditatie, en in de laatste drie hoofdstukken over onderwijs. Wallas voegt aan de vier stadia een vijfde toe dat in de navertellingen meestal wegvalt: intimation, het randbewuste voorgevoel dat een invalis vlak voor hij komt.</p><p>Zijn bewijs bestaat uit zelfwaarneming, uit gesprekken met studenten en vrienden, en uit twee beroemde verslagen van eigen werk, van Hermann von Helmholtz en Henri Poincaré. Onderzoek in de zin die de psychologie er later aan gaf, staat er niet in.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>creativiteit</li><li>psychologie</li><li>onderwijs</li><li>klassieker</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1322"><a href="1322.html">The Act of Creation</a>. Koestler bouwt veertig jaar later op dezelfde verslagen van Poincaré voort en probeert wel een mechanisme te geven voor wat er tijdens incubatie gebeurt.</li>
+          <li value="16"><a href="16.html">Creativity: A Short and Cheerful Guide</a>. Cleese geeft in kort bestek de praktische kant van hetzelfde schema, inclusief het beschermen van de pauze, zonder Wallas' onderwijsprogramma.</li>
+          <li value="206"><a href="206.html">Crossover Creativity</a>. Trott werkt het idee uit dat invallen ontstaan door het combineren van gebieden die niets met elkaar te maken lijken te hebben.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

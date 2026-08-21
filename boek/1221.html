@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Een verhandeling over kosmisch vuur &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Bailey stelt dat het heelal een levend wezen is dat zich in bewustzijn ontvouwt, en dat alles wat in de stof gebeurt, van de bouw van een atoom tot de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1221">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1221 &middot; Filosofie en mystiek</p>
+    <h1>Een verhandeling over kosmisch vuur</h1>
+    <p class="lede">Alice A. Bailey, 1925; naar eigen zeggen opgetekend naar telepathisch dictaat van 'de Tibetaan', Djwhal Khul</p>
+    <p class="stats">
+      <span><b>1950</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1221"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Bailey stelt dat het heelal een levend wezen is dat zich in bewustzijn ontvouwt, en dat alles wat in de stof gebeurt, van de bouw van een atoom tot de geschiedenis van de mensheid, te lezen valt als samenspel van drie soorten vuur: het vuur van de stof, het vuur van het bewustzijn en het vuur van de geest. Wie de wet van overeenkomst toepast en van het kleine naar het grote redeneert, zou volgens haar in de mens de bouw van het zonnestelsel kunnen terugvinden en omgekeerd. Het boek wil daarmee de psychologische sleutel leveren tot het werk van Blavatsky.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Hoe het boek volgens zijn makers ontstond</h3>
+      <p>Alice Bailey, geboren in Manchester en opgegroeid in de Anglicaanse kerk, kwam via Californie bij de theosofie terecht. Volgens haar eigen verslag had zij in november 1919 haar eerste contact met de meester Djwhal Khul en werd toen dertig jaar werk afgesproken. Zij overleed in december 1949, kort na afloop van die periode. Haar man Foster Bailey schreef in 1950 de inleiding bij deze uitgave.</p>
+      <p>Daarin staat de aanspraak die het boek zijn plaats geeft: Blavatsky zou hebben voorspeld dat in de twintigste eeuw een leerling de psychologische sleutel tot <i>The Secret Doctrine</i> zou brengen, en dit boek zou die sleutel zijn. Het echtpaar Bailey richtte in 1922 een uitgeverij op onder de naam Lucifer Publishing Company, kort daarna hernoemd tot Lucis Publishing, en in 1923 de Arcane School, een schriftelijke leergang die dit boek als studiemateriaal gebruikt.</p>
+      <h3>Vijf doelen en een voorbehoud</h3>
+      <p>Het voorwoord noemt vijf doelen: een beknopt geraamte geven van kosmologie, wijsbegeerte en psychologie dat een generatie lang als naslag kan dienen; het onzichtbare in begrijpelijke taal uitdrukken; laten zien dat alles in een zonnestelsel zich samenhangend ontwikkelt; praktische gegevens leveren over de krachtcentra in het etherische lichaam van mens en zonnestelsel; en beschrijven wat de talloze bewustzijnsdragende wezens doen die volgens de tekst de zichtbare wereld uit zichzelf opbouwen.</p>
+      <p>Daarna volgt een reeks voorbehouden. Woorden verkleinen het onderwerp, alle formuleringen zijn tijdelijk, en niets wordt in dogmatische geest aangeboden. Het voorwoord sluit met een aan de Boeddha toegeschreven passage die zegt dat men niets moet geloven op gezag van overlevering, geschrift of leraar, maar alleen wat door eigen rede en bewustzijn wordt bevestigd. Bailey voegt eraan toe dat het boek zonder waarde vanzelf zal verdwijnen, en dat dat dan terecht is.</p>
+      <h3>De drie vuren</h3>
+      <p>De opdeling van het hele werk berust op drie vuren die aan drie aspecten worden gekoppeld. Het vuur door wrijving is de stof, het lichaam, de werkzame intelligentie, in christelijke termen de Heilige Geest, in hindoeistische termen Brahma. Het zonnevuur is de ziel, het bewustzijn, de liefde en wijsheid, de Zoon, Vishnu. Het elektrische vuur is de geest, de wil en het doel, de Vader, Mahadeva. Elk van de drie is zelf weer drievoudig.</p>
+      <p>Dezelfde driedeling keert terug in de mens als monade, ego en persoonlijkheid, en in het atoom als kern, elektronen en het geheel daarvan. De drie secties van het boek zijn naar deze drie vuren genoemd, met sectie een verreweg het uitvoerigst over de stoffelijke kant en sectie drie het kortst.</p>
+      <h3>Postulaten, wetten en stralen</h3>
+      <p>Voor de eigenlijke tekst staan drie inleidende postulaten, die de tekst zelf uitbreidingen noemt van de drie grondstellingen uit Blavatsky's proloog. Ten eerste is er een grenzeloos, onveranderlijk beginsel waarvan het waarneembare heelal een voorwaardelijk teken is, met daarbinnen drie kosmische logoi; elk zonnestelsel is het lichaam van een zonnelogos. Ten tweede geldt de wet van de periodiciteit, met daaronder drie kosmische wetten: economie voor de stof, aantrekking voor de ziel, synthese voor de geest, plus zeven wetten van dit stelsel zoals trilling, samenhang, ontbinding en offer. Ten derde zijn alle zielen een met de overziel, waaruit de wet van overeenkomst volgt.</p>
+      <p>De zeven stralen worden bij naam genoemd: wil of macht, liefde en wijsheid, werkzame intelligentie, harmonie en schoonheid, concrete kennis of wetenschap, toewijding of abstract idealisme, ceremoniele magie of orde. Die zeven vormen het raster waarmee de rest van het boek personen, planeten en tijdvakken indeelt.</p>
+      <h3>De stanza's van Dzyan</h3>
+      <p>Tussen de postulaten en sectie een staan dertien stanza's in verzen. Zij beschrijven hoe de Machtige AUM uitspreekt, hoe de bouwers op elk gebied vormen samenstellen, hoe het grote wiel de zeven kleinere wielen in beweging brengt en hoe de heilige steen van vuur door de opeenvolgende wielen wordt doorgegeven. De taal en de vorm volgen die van de stanza's die Blavatsky in <i>The Secret Doctrine</i> gebruikte.</p>
+      <p>In de rest van het boek keren regels uit deze stanza's terug als opschrift boven hoofdstukken en als vertrekpunt voor uitleg. Het werk eindigt met zeven zogenoemde esoterische stanza's, genummerd I, IV, VI, XVII, XXXIX, LXXVII en CXLVII, wat de suggestie wekt dat er een veel grotere verzameling bestaat waaruit hier een keuze wordt gegeven.</p>
+      <h3>Sectie een en twee: ether, kundalini en manas</h3>
+      <p>De eerste sectie behandelt de omhulsels van mens en zonnestelsel, de persoonlijkheidsstraal, prana en het etherische lichaam, kundalini en de wervelkolom, de draaiende beweging in de gebieden en centra, en de wet van economie. Hier staan de voorspellingen waarmee het boek het verst naar buiten treedt: zodra de ether wordt begrepen zullen natuurkunde, scheikunde en geneeskunde ingrijpend veranderen, en zal genezing verlopen via het etherische lichaam, straling en magnetische stromen. De tekst noemt daarbij de ontdekking van radium en het werk van Edison, en voorspelt dat binnen vijfenzeventig jaar een groep wetenschappers zal incarneren die drie verdere delen van een formule over elektriciteit zal onthullen.</p>
+      <p>De tweede sectie gaat over manas, het denkvermogen. Zij opent met negen vragen, onder meer wat bewustzijn is en waarom dit zonnestelsel zich langs de lijn van tweeheid ontwikkelt. Daarna volgen de oorsprong en de toekomst van het denken, het causale lichaam en de egoische lotus, de gedachtevormen en de deva's of bouwers, en vijftien regels voor magie waarvan de eerste luidt dat de zonneengel zich verzamelt, zijn kracht niet verstrooit en in diepe meditatie met zijn weerspiegeling spreekt. De tekst voegt er zelf aan toe dat deze regels voorlopig geen praktisch nut hebben.</p>
+      <h3>Sectie drie: de zeven kosmische paden</h3>
+      <p>De derde sectie is de kortste en de meest gesloten. Na een aantal grondstellingen beschrijft zij zeven wegen die openstaan voor wie de menselijke ontwikkeling heeft voltooid: het pad van de dienst aan de aarde, het pad van magnetisch werk, het pad van opleiding tot planetaire logos, het pad naar Sirius, het stralenpad, het pad dat de logos zelf gaat, en het pad van het volstrekte zoonschap.</p>
+      <p>Over deze paden zegt de tekst herhaaldelijk dat er meer verzwegen dan gezegd wordt en dat verdere gegevens niet veilig kunnen worden verstrekt. Het boek sluit met de zeven esoterische stanza's en een slotwoord.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Vuur door wrijving</td><td>Het innerlijke vuur van de stof, dat volgens de tekst het zichtbare zonnestelsel bezielt en in de mens als kundalini werkzaam is.</td></tr>
+          <tr><td class="term">Zonnevuur</td><td>Het vuur van het denken en het bewustzijn, dat de ziel of het tussenliggende beginsel tussen geest en stof vormt.</td></tr>
+          <tr><td class="term">Elektrisch vuur</td><td>Het vuur van de geest, de wil en het doel, dat de zonnelogos van alle andere logoi onderscheidt.</td></tr>
+          <tr><td class="term">Zonnelogos</td><td>Het kosmische wezen waarvan het hele zonnestelsel het lichaam is.</td></tr>
+          <tr><td class="term">Straal</td><td>Een van de zeven grondsoorten kracht waarin de logos zich uitdrukt en waarnaar mensen, planeten en tijdvakken worden ingedeeld.</td></tr>
+          <tr><td class="term">Manas</td><td>Het denkvermogen, opgevat als een kosmisch gegeven dat de mens tot zelfbewustzijn brengt.</td></tr>
+          <tr><td class="term">Causaal lichaam of egoische lotus</td><td>De blijvende drager op de hogere gebieden van het denken waarin de vrucht van alle levens wordt bewaard.</td></tr>
+          <tr><td class="term">Deva</td><td>Een bewustzijnsdragend wezen dat volgens de tekst uit zijn eigen substantie de vormen bouwt waarin alles verschijnt.</td></tr>
+          <tr><td class="term">Wet van overeenkomst</td><td>De veronderstelling dat het kleine en het grote dezelfde bouw hebben, zodat uit de mens het zonnestelsel te lezen valt.</td></tr>
+          <tr><td class="term">Wet van economie, aantrekking en synthese</td><td>De drie kosmische wetten die volgens het boek respectievelijk de stof, de ziel en de geest besturen.</td></tr>
+          <tr><td class="term">Stanza's van Dzyan</td><td>De verzen waarin de schepping wordt bezongen, naar het voorbeeld van de door Blavatsky aangehaalde stanza's.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Empirisch bewijs komt in dit boek niet voor en wordt ook niet beloofd. Het gezag van de tekst berust op twee dingen: de bewering dat hij telepathisch werd doorgegeven door een meester, en de interne samenhang van het stelsel. De noten verwijzen vrijwel uitsluitend naar <i>The Secret Doctrine</i>, naar commentaren op de Bhagavad Gita en naar de Pranava-Vada, dus naar teksten binnen dezelfde traditie.</p>
+      <p>Waar het boek de natuurwetenschap aanraakt, gebruikt het de natuurkunde van omstreeks 1920 als beeldspraak. Radium, radioactiviteit en het elektron komen langs als aanwijzing dat de wetenschap dezelfde kant op beweegt, zonder dat er een meting, een berekening of een toetsbare voorspelling met een getal aan te pas komt. De uitspraak dat binnen vijfenzeventig jaar een groep wetenschappers zou incarneren om drie delen van een formule te onthullen is de enige passage die zich naar tijd laat vastpinnen, en die is niet ingelost op een manier die te controleren valt.</p>
+      <p>De tekst geeft zelf de maatstaf die de lezer zou moeten aanleggen: eigen rede en eigen bewustzijn. Dat is een innerlijk criterium. Voor wie de leer aannemelijk vindt bevestigt de wet van overeenkomst haar overal, en voor wie dat niet doet levert het boek geen aanknopingspunt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat het stelsel zo is gebouwd dat niets het kan tegenspreken. De wet van overeenkomst maakt van elke gelijkenis tussen mens, atoom en zonnestelsel een bevestiging, terwijl er geen waarneming denkbaar is die zij zou uitsluiten. Wat overblijft is een geordend beeld dat samenhangend is, maar over de wereld buiten de tekst niets zegt dat te controleren valt.</p>
+      <p>De natuurwetenschappelijke laag is verouderd en was ook in 1925 al beeldspraak. De voorspelde omslag in geneeskunde en scheikunde op grond van het etherische lichaam is uitgebleven; er is geen aanwijzing gevonden dat er krachtcentra langs de wervelkolom bestaan in de zin die het boek eraan geeft. Dat is geen detail, want deze voorspellingen worden in het voorwoord juist als praktische bijdrage aangekondigd.</p>
+      <p>Het werk is bovendien in hoge mate afgeleid. De grondstellingen, de stanza's, de wortelrassen en de gebieden komen uit Blavatsky, met dezelfde onopgeloste vraag erbij: het bestaan van het Boek van Dzyan, waaruit die verzen zouden komen, is nooit aangetoond. Het boek verlengt een aanspraak in plaats van haar te onderbouwen.</p>
+      <p>Ten slotte is er de inhoud van het rassenschema. Een noot in het eerste deel geeft de theosofische reeks wortelrassen weer en deelt daarbij bestaande volken in bij oudere, minder ontwikkelde rassen; elders wordt over bewoners van de Stille Zuidzee gesproken als mensen die dichter bij het dierlijke staan. Dat is niet weg te schrijven als tijdgeest, want het stelsel zelf rangschikt mensen naar ontwikkelingsgraad en die rangorde loopt in dit boek langs herkomst. Wie het werk leest komt dit tegen, en het hoort erbij vermeld te worden.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees eerst het voorwoord en de inleidende postulaten; wie die drie beweringen niet aanvaardt, heeft aan de resterende twaalfhonderd bladzijden weinig.</li>
+        <li>Gebruik de gratis tekst en de index van Lucis Trust om een onderwerp op te zoeken in plaats van het boek van voor naar achter te lezen.</li>
+        <li>Zet elke uitspraak over natuurkunde, scheikunde of geneeskunde naast een gewoon handboek voordat je haar overneemt.</li>
+        <li>Noteer bij het lezen welke uitspraken in beginsel onjuist zouden kunnen blijken; die lijst blijft kort en dat is het punt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Een verhandeling over kosmisch vuur</i>, vertaald door A.P. Meijer-Gerhard (Servire, Wassenaar, 1973; herdrukt door Mirananda, Den Haag, ruim 1000 blz., ISBN 9789062718894). Het Engelse origineel <i>A Treatise on Cosmic Fire</i> verscheen in 1925 bij Lucis Publishing Company, New York, en telt in de huidige uitgave 1367 bladzijden; Lucis Trust stelt de volledige tekst gratis op zijn website beschikbaar. Van Bailey zijn de meeste van de vierentwintig titels in het Nederlands vertaald.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Het omvangrijkste boek van Alice Bailey (1880-1949) en volgens haar uitgever het middelpunt van haar werk. Bailey brak in 1920 met de Theosophical Society, richtte met haar man een uitgeverij en in 1923 de Arcane School op, en publiceerde vanaf 1919 boeken die zij zei te ontvangen van een meester die zij de Tibetaan noemde. Dit boek verscheen in 1925.</p><p>Het is opgezet als leerboek van een kosmologie. Alles wat bestaat wordt beschreven als werking van drie vuren: het vuur door wrijving in de stof, het zonnevuur van het bewustzijn en het elektrische vuur van de geest. Daaromheen bouwt de tekst een stelsel van zeven stralen, zeven gebieden, planetaire logoi, wetten van economie, aantrekking en synthese, en een reeks stanza's in verzen naar het model van de Stanza's van Dzyan uit <i>The Secret Doctrine</i> van Blavatsky.</p><p>Het boek biedt geen bewijs in de gewone zin en zegt dat ook. In het voorwoord staat dat er geen dogmatische aanspraak wordt gemaakt en dat de tekst moet staan of vallen op eigen waarde. Wat volgt is een sluitend beeld dat door zijn opzet niet te weerleggen valt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>esoterie</li><li>theosofie</li><li>kosmologie</li><li>channeling</li><li>occultisme</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1222"><a href="1222.html">The Cosmic Doctrine</a>. Een kosmologie uit dezelfde jaren die op dezelfde manier zou zijn ontvangen, maar die zichzelf uitdrukkelijk als oefening en niet als beschrijving aandient.</li>
+          <li value="606"><a href="606.html">Esoteric Christianity</a>. Annie Besant over esoterisch christendom, uit de theosofische kring waaruit Bailey voortkwam en waarmee zij in 1920 brak.</li>
+          <li value="645"><a href="645.html">The Rosicrucian Cosmo-Conception</a>. Max Heindels rozenkruiserskosmologie, een tijdgenoot van hetzelfde soort stelsel met dezelfde onderbouwingsvraag.</li>
+          <li value="836"><a href="836.html">The Finding of the Third Eye</a>. Een populair boek uit de jaren dertig dat het stralen- en centraschema van deze school praktisch probeert te maken.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

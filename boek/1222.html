@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Cosmic Doctrine &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De kern van het boek is dat het heelal begrijpelijk wordt zodra men het opvat als beweging die zichzelf begrenst: ruimte gaat stromen, de stroom kromt,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1222">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1222 &middot; Filosofie en mystiek</p>
+    <h1>The Cosmic Doctrine</h1>
+    <p class="lede">Dion Fortune (Violet Mary Firth), ontvangen 1923-1924, eerste uitgave 1949</p>
+    <p class="stats">
+      <span><b>1697</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1222"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De kern van het boek is dat het heelal begrijpelijk wordt zodra men het opvat als beweging die zichzelf begrenst: ruimte gaat stromen, de stroom kromt, sluit zich tot een draaiende ring, en uit de wisselwerking van twee zulke ringen komt alles voort wat verder bestaat, tot en met het kwaad, dat hier de tegendruk is waarzonder geen enkele vorm stand zou houden. Even zwaar weegt de tweede stelling: die hele voorstelling wordt uitdrukkelijk aangeboden als beeld om het denken te oefenen en niet als beschrijving van hoe het heelal in elkaar zit.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Herkomst en status van de tekst</h3>
+      <p>De inleiding meldt dat het onderricht in 1923 en 1924 werd ontvangen van de innerlijke gebieden. De gever zou een mens zijn die tot zeer hoge graad is ontwikkeld; zijn laatste persoonlijkheid is bekend maar wordt niet onthuld, met de mededeling dat het om een wereldberoemd filosoof en leraar ging. In de esoterische woordenschat, zegt de inleiding, is dit een van de grotere meesters.</p>
+      <p>Diezelfde inleiding is voorzichtiger dan men zou verwachten. Zij onderscheidt zulke meesters van gewone doorgevers die over hun eigen hiernamaals vertellen, noemt de verhalen dat meesters in afgelegen streken op aarde wonen ongegrond, en waarschuwt dat wie zelf contact meent te hebben dat met grote omzichtigheid moet behandelen en niets voor echt moet aannemen als de inhoud niet deugt. Het boek verscheen pas in 1949, als besloten uitgave voor de leden van Fortunes eigen genootschap.</p>
+      <h3>De waarschuwing in hoofdstuk een</h3>
+      <p>Nog voor de kosmologie op gang komt, schuift de tekst er een filter voor. De lezer krijgt beelden waaronder hij bepaalde zaken moet denken, en die beelden zijn niet beschrijvend maar symbolisch: zij dienen om het denken te scholen en niet om het te informeren. Het Onmanifeste mag daarom als de ruimte tussen de sterren worden gedacht, de logos als een zon met planeten, de uitstralingen van de logos als stralen.</p>
+      <p>Die zin verandert de status van alles wat volgt. Waar het grote werk van Alice Bailey uit hetzelfde decennium beweert hoe het heelal in elkaar zit, zegt dit boek dat het oefenstof aanbiedt. De tussenzin dat alles metafoor blijft, keert verderop in de tekst terug.</p>
+      <h3>Van beweging naar ringen</h3>
+      <p>Het Onmanifeste is zuiver zijn, zonder eigenschappen en zonder geschiedenis. Manifestatie begint bij tweeheid, en de eerste tweeheid is ruimte en beweging. Ruimte gaat stromen; omdat er twee neigingen werkzaam zijn, de neiging tot beweging en de neiging tot stilstand, wordt de stroom licht gebogen. Daarom bestaat er in de kosmos geen rechte lijn en keert elke beweging op den duur terug naar haar vertrekpunt. Zo ontstaat een draaiende ring.</p>
+      <p>Die ring geeft zijn beweging door, waardoor buiten hem een tweede ring ontstaat, haaks op de eerste en groter van omtrek. De wisselwerking tussen beide zet in de eerste ring een tweede draaiing op gang. Die tweede draaiing is de Ring-Pass-Not, de eerste begrenzing; de buitenste ring heet Ring-Chaos en wordt het oerkwaad genoemd, terwijl de binnenste de Ring-Cosmos is. Het kwaad is hier dus geen macht die tegenover het goede staat maar een blok waartegen de beweging kan afzetten: zonder tegendruk geen momentum, en zonder begrenzing geen vorm.</p>
+      <h3>Atomen, zonnestelsels, universa</h3>
+      <p>Dezelfde figuur wordt daarna op steeds grotere schaal herhaald. Uit de kosmische beweging komen twaalf stralen en zeven kosmische gebieden voort. Waar bewegingslijnen elkaar snijden ontstaat een wervel, en die wervel is het kosmische atoom. Uit atoomvorming op de kosmische gebieden ontstaat een zonnestelsel, uit de ontwikkeling daarvan een groot wezen, en daaruit weer een universum.</p>
+      <p>Het aantrekkelijke van deze opzet is de zuinigheid: er is maar een verklaringsbeginsel, beweging die zichzelf begrenst, en dat beginsel wordt op elk niveau opnieuw ingezet. Het lastige is dat er nooit iets bijkomt waaraan de voorstelling zich kan stoten.</p>
+      <h3>Bewustzijn, denken en de goddelijke vonken</h3>
+      <p>Halverwege verschuift het onderwerp naar het innerlijk. De hoofdstukken over het begin en de ontwikkeling van bewustzijn en van het denken leiden naar de goddelijke vonken, die in zwermen door de gebieden trekken. De eerste zwerm heeft volgens de tekst een bijzondere positie: hij bestaat uit de reizende atomen van het universum en ondergaat nog geen invloed van planetaire wezens, zodat het goddelijke beeld er onvermengd in staat.</p>
+      <p>De eerste drie zwermen worden de Lords of Flame, of Form en of Mind. Zij laten archetypen achter waarlangs latere zwermen zich ontwikkelen, en zij werken door in de menselijke ontwikkeling: de Lords of Mind treden op als inwijders. De rest van deel een beschrijft welke invloeden op de mens inwerken, vanuit de logos, vanuit het gemanifesteerde universum en vanuit de mensheid zelf.</p>
+      <h3>De acht wetten</h3>
+      <p>De laatste acht hoofdstukken zijn het toegankelijkst en worden het meest gelezen: de wet van actie en reactie, de wet van beperking in twee delen, de wet van de zeven doden, de wet van impactatie, de wet van polariteit, en twee wetten van aantrekking, naar de buitenruimte en naar het middelpunt.</p>
+      <p>De wet van beperking is daarvan de duidelijkst praktische. Beperking is volgens de tekst de eerste wet van manifestatie en daarmee de eerste wet van macht: om iets te bereiken moet men het doel omgrenzen en al het overige verwerpen, want een kracht oproepen zonder haar te richten is haar verspreiden. Het eerste vereiste voor het slagen van een onderneming is te weten wat men niet kan doen. De wet van de zeven doden bouwt een reeks op waarin sterven telkens hetzelfde blijkt als geboren worden, van de andere kant bekeken.</p>
+      <p>Deel twee, later toegevoegd, bevat losse aanvullingen bij de eerste twintig hoofdstukken en zegt zelf dat de behandeling van de eerste drie zwermen bij benadering is en op het gemiddelde verstand was afgestemd.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Het Onmanifeste</td><td>Zuiver zijn zonder eigenschappen, de bron waaruit alles opkomt en waarover niets anders te zeggen valt dan dat het is.</td></tr>
+          <tr><td class="term">Ring-Cosmos</td><td>De eerste draaiende ring die uit de stromende ruimte ontstaat en de bron is van de kracht waaruit ontwikkeling haar vaart put.</td></tr>
+          <tr><td class="term">Ring-Chaos</td><td>De haaks daarop draaiende buitenring, in de tekst het oerkwaad genoemd, die als tegendruk juist het bestaan van een kosmos mogelijk maakt.</td></tr>
+          <tr><td class="term">Ring-Pass-Not</td><td>De tweede draaiing binnen de eerste ring, die de grens vormt waarbinnen een kosmos zich afspeelt.</td></tr>
+          <tr><td class="term">Kosmisch atoom</td><td>De wervel die ontstaat waar twee bewegingslijnen elkaar snijden en die daarmee een punt van stabiliteit wordt.</td></tr>
+          <tr><td class="term">Goddelijke vonk</td><td>De kern die zich door de gebieden heen ontwikkelt en waaruit uiteindelijk een zelfbewust wezen groeit.</td></tr>
+          <tr><td class="term">Zwerm</td><td>Een groep goddelijke vonken die gezamenlijk haar ontwikkeling doorloopt onder dezelfde invloeden.</td></tr>
+          <tr><td class="term">Lords of Flame, Form and Mind</td><td>De eerste drie zwermen, die na hun eigen ontwikkeling als vormende en inwijdende invloeden op latere zwermen werken.</td></tr>
+          <tr><td class="term">Wet van beperking</td><td>De stelling dat kracht alleen werkzaam wordt door haar te omgrenzen en al het niet ter zake doende te verwerpen.</td></tr>
+          <tr><td class="term">Wet van de zeven doden</td><td>Een reeks van zeven overgangen waarin telkens hetzelfde voorval dood heet vanaf het lagere gebied en geboorte vanaf het hogere.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Bewijs in de gebruikelijke zin ontbreekt en wordt niet aangeboden. Er zijn geen noten, geen verwijzingen naar sterrenkundige of natuurkundige literatuur en geen waarnemingen. Het gezag van de tekst berust op de opgegeven herkomst en, volgens de tekst zelf, op wat het werken met de beelden bij de lezer teweegbrengt.</p>
+      <p>Wel is de tekst intern streng. De opbouw is deductief: uit ruimte en beweging volgt kromming, uit kromming de ring, uit twee ringen de begrenzing, en pas daarna komt er iets nieuws bij. Wie de eerste bladzijden aanvaardt, ziet de rest daaruit voortkomen zonder losse aannames onderweg. Die zuinigheid is de sterkte van het boek en tegelijk de reden dat er niets in staat wat kan tegenvallen.</p>
+      <p>De inleiding legt bovendien zelf een maatstaf aan die tegen het boek te keren is: doorgegeven materiaal moet niet voor echt worden gehouden als de inhoud niet deugt. Daarmee wordt de beoordeling aan de lezer overgelaten, en die heeft geen ander houvast dan de indruk die de tekst op hem maakt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat het boek zich bij voorbaat aan toetsing onttrekt. Doordat de beelden tot scholingsmiddel worden verklaard, kan geen waarneming er iets tegen inbrengen, en heeft de lezer geen manier om een vruchtbaar beeld van een willekeurig beeld te onderscheiden. De tekst vraagt vertrouwen in de bron en levert geen andere grond.</p>
+      <p>Populaire uitleg maakt dat erger. Het is gangbaar geworden om Ring-Cosmos en Ring-Chaos te lezen als vooruitlopen op de oerknal, op entropie of op chaostheorie. Zulke gelijkenissen zijn oppervlakkig: er staat geen getal in de tekst, geen mechanisme dat met de kosmologie van 1924 of van nu overeenkomt, en het boek doet die aanspraak zelf nergens. Wie de metafoor tot voorspelling opblaast, gaat voorbij aan de waarschuwing op de eerste bladzijden.</p>
+      <p>Er is ook een tekstprobleem. Van een werk dat woordelijk zou zijn gedicteerd, circuleren twee versies: de besloten tekst van 1949 en een later herziene handelsuitgave, met verschillen in formulering. Voor gewone boeken is dat onbelangrijk, voor een tekst waarvan het gezag op de precieze doorgave berust niet, en de uitgaven maken die vraag niet zichtbaar.</p>
+      <p>Ten slotte draagt het boek de aannames van zijn tijd mee waar het over groepen en polariteit gaat. Het bewustzijn van een groep heet daar negatief en vrouwelijk van aard, dat van de leider positief en bevruchtend, waarna de leden zwanger worden van zijn opvatting. Als beschrijving van hoe geestdrift in een club werkt is dat herkenbaar; als leerstuk binnen een orde geeft het aan een leider een verstrekkende rechtvaardiging, en het boek besteedt geen woord aan de vraag wat er dan misgaat.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees hoofdstuk een tot en met de zin over beelden die het denken scholen voordat je verdergaat; zonder die zin wordt de rest verkeerd gelezen.</li>
+        <li>Werk met de diagrammen achterin en teken de ringen zelf; het boek is daarop ingericht.</li>
+        <li>Markeer bij elke alinea of er iets wordt beweerd of iets wordt voorgesteld.</li>
+        <li>Begin desgewenst bij de acht wetten aan het slot; die zijn los van de kosmologie te lezen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Cosmic Doctrine</i> werd in 1949 als besloten uitgave gedrukt door de Society of the Inner Light in Londen en verscheen daarna in de handel in verschillende tekstversies, onder meer als paperback bij Red Wheel/Weiser (ISBN 9781578631605). De Nederlandse vertaling <i>De Kosmische Leer</i> van Gert Jan van der Steen kwam in 2025 uit bij Uitgeverij Hajefa (414 blz., ISBN 9789463310628). Het boek telt dertig hoofdstukken, gevolgd door een later toegevoegd tweede deel met aanvullingen en een reeks diagrammen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Dion Fortune (1890-1946), pseudoniem van Violet Mary Firth, werkte in haar jonge jaren aan een psychologische kliniek in Londen, was lid van Alpha et Omega, een tak van de Golden Dawn onder Moina Mathers, en richtte in de jaren twintig de Fraternity of the Inner Light op. Zij is vooral bekend van <i>The Mystical Qabalah</i> en van haar romans.</p><p>Dit boek is van andere aard. Het is de leertekst die zij naar eigen zeggen in 1923 en 1924 in trance ontving van een meester wiens naam niet wordt gegeven. In dertig korte hoofdstukken beschrijft het hoe uit het Onmanifeste beweging ontstaat, hoe die beweging zich tot ringen kromt, hoe daaruit atomen, zonnestelsels en universa voortkomen, en hoe bewustzijn, denken en menselijke ontwikkeling daarin hun plaats krijgen. De laatste acht hoofdstukken behandelen wetten: actie en reactie, beperking, de zeven doden, polariteit.</p><p>In het eerste hoofdstuk staat de zin die de rest bepaalt: de gegeven beelden zijn niet beschrijvend maar symbolisch en bedoeld om het denken te scholen, niet om het te informeren. Wie dat serieus neemt, leest geen kosmologie maar een oefenprogramma.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>esoterie</li><li>kosmologie</li><li>channeling</li><li>occultisme</li><li>mystiek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1221"><a href="1221.html">Een verhandeling over kosmisch vuur</a>. De grote doorgegeven kosmologie uit dezelfde jaren, die wel beweert te beschrijven wat dit boek uitdrukkelijk als beeld aanbiedt.</li>
+          <li value="1220"><a href="1220.html">Sword of Wisdom: MacGregor Mathers and the Golden Dawn</a>. De ordegeschiedenis waarin Fortune onder haar meisjesnaam Violet Firth voorkomt, met de kring waaruit zij voortkwam.</li>
+          <li value="1229"><a href="1229.html">Women of the Golden Dawn</a>. Over de vrouwen in de Golden Dawn en haar takken, de wereld waarin Fortune werd ingewijd.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

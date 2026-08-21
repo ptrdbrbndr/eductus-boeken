@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fibonacci's Liber Abaci &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Het Liber abaci is geen betoog maar een leerboek, en zijn stelling zit in de opzet: het rekenen met negen cijfers en een teken voor niets is beter dan…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1282">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1282 &middot; Natuur en wetenschap</p>
+    <h1>Fibonacci's Liber Abaci</h1>
+    <p class="lede">Leonardo van Pisa (Fibonacci), 1202 en 1228; vertaald door Laurence E. Sigler, 2002</p>
+    <p class="stats">
+      <span><b>1928</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1282"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Het <i>Liber abaci</i> is geen betoog maar een leerboek, en zijn stelling zit in de opzet: het rekenen met negen cijfers en een teken voor niets is beter dan alle bestaande alternatieven, en dat valt te bewijzen door het voor te doen. Leonardo legt eerst het schrijven en lezen van getallen uit, dan de vier hoofdbewerkingen, dan het rekenen met breuken, en past dat vervolgens honderden malen toe op de vragen waar een koopman werkelijk mee zat: wat is deze partij waard, hoe verdelen wij de winst, hoeveel zilver zit er in deze munt. De wiskundige inhoud is grotendeels ontleend aan Arabische en Griekse voorgangers. De verdienste ligt in de ordening en in de uitwerking, en in het besluit om iedere regel met tientallen doorgerekende gevallen te onderbouwen in plaats van met een bewijs.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een Pisaanse jongen in Noord-Afrika</h3>
+      <p>Leonardo van Pisa leefde ongeveer van 1170 tot 1250. Als jongen reisde hij naar Bugia, aan de kust van het huidige Algerije, waar zijn vader de handelsbelangen van Pisa behartigde. Daar zag hij islamitische kooplieden rekenen met negen tekens en een teken voor niets, in een stelsel waarin de plaats van een cijfer zijn waarde bepaalt. Hij noemde het de methode van de Indiërs, wat historisch juist is: het stelsel was in India ontwikkeld en via Arabische handelaren westwaarts gekomen.</p>
+      <p>Terug in Pisa schreef hij het boek in 1202. Van die versie is geen enkel handschrift over. In 1228 maakte hij een veel uitgebreidere tweede versie, opgedragen aan de geleerde Michael Scot; daarvan bestaan nog veertien afschriften, waarvan er zeven niet meer zijn dan brokstukken. Drie zijn vrijwel volledig en liggen in Siena, in Florence en in de Vaticaanse bibliotheek. De naam Fibonacci is van later: de historicus Guillaume Libri maakte er in 1838 een achternaam van, naar de aanduiding filius Bonacci in de openingszin.</p>
+      <h3>Eerst rekenen, dan handeldrijven</h3>
+      <p>Het boek telt vijftien hoofdstukken. De eerste zeven leren rekenen: het schrijven en lezen van getallen, de vier hoofdbewerkingen en het omgaan met breuken en gemengde getallen. In Siglers vertaling beslaan ze samen ruim honderd bladzijden; het hoofdstuk over aftrekken is met drie bladzijden het kortste van het boek.</p>
+      <p>De hoofdstukken acht tot en met elf gaan over handel. Ze behandelen het bepalen van de waarde van koopwaar met evenredigheden, de ruilhandel, de verdeling van winst onder de vennoten van een handelsgezelschap, en het legeren van munten. Dat laatste onderwerp had praktische grond: in de Italiaanse middeleeuwen sloegen achtentwintig steden hun eigen munt, waarvan het gehalte aan zilver en koper per stad en per periode verschilde, zodat wisselaars voortdurend moesten omrekenen.</p>
+      <h3>Hoofdstuk twaalf</h3>
+      <p>Het twaalfde hoofdstuk is een boek op zichzelf: honderdzevenentachtig bladzijden in de vertaling, met tweehonderdnegenenvijftig uitgewerkte opgaven. Het gaat over wat wij algebra zouden noemen, maar dan volledig in woorden. Leonardo werkt vooral met de regel van de valse positie, die hij de boommethode noemt naar een opgave over een boom waarvan een deel onder de grond zit: men neemt een willekeurig antwoord aan en stelt dat evenredig bij tot het klopt. Daarnaast toont hij de regula recta, waarbij het gezochte een ding wordt genoemd en er een vergelijking in woorden ontstaat, de werkwijze die al-Chwarizmi rond 830 beschreef.</p>
+      <p>De opgaven zijn ingekleed in verhaaltjes, omdat een koopman zich weinig gelegen liet liggen aan getallen op zichzelf. Achttien gaan over mannen die een buidel geld vinden en over elkaar beweren hoeveel rijker zij ervan zouden worden, negenentwintig over kooplieden die samen een paard willen betalen. Er zijn reisopgaven over een man die in Lucca, Florence en Pisa telkens zijn geld verdubbelt en twaalf penningen uitgeeft tot hij niets meer heeft, en er is een leeuw in een put van vijftig palmen diep, die elke dag een zevende palm klimt en een negende zakt.</p>
+      <h3>De konijnen</h3>
+      <p>Ergens in dat twaalfde hoofdstuk, op bladzijde 404 van de vertaling, staat de opgave waaraan Leonardo zijn bekendheid bij het grote publiek dankt. Een man zet een paar konijnen in een omheining; elk paar brengt vanaf de tweede maand elke maand een nieuw paar voort. Hoeveel paren zijn er na een jaar? Leonardo geeft de tabel: 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, en merkt op dat elk getal de som is van de twee voorgaande, zodat de rij zo ver valt door te trekken als men wil.</p>
+      <p>De opgave staat tussen problemen over het verdelen van voedsel en geld en krijgt geen bijzondere behandeling. Leonardo bedacht de rij ook niet. Zij komt al voor bij de Indiase geleerde Pingala, ergens tussen 450 en 200 voor onze jaartelling, in een verhandeling over versmaten, en werd later behandeld door Virahanka en rond 1150 door Hemachandra. De naam Fibonacci-rij gaf de Franse wiskundige Édouard Lucas er in de jaren zeventig van de negentiende eeuw aan.</p>
+      <h3>Wortels, meetkunde en algebra</h3>
+      <p>De laatste drie hoofdstukken zijn wiskundiger van aard. Hoofdstuk dertien behandelt de methode elchataym, Leonardo's weergave van het Arabische al-khata'ayn, de twee fouten: men begint met twee schattingen, een te lage en een te hoge, en berekent daaruit het juiste antwoord. Eenenveertig bladzijden lang past hij die toe op slangen, viervoeters, eieren, schepen en vaten die door een gat leeglopen.</p>
+      <p>Hoofdstuk veertien gaat over vierkants- en derdemachtswortels en over het rekenen met sommen en verschillen van wortels, waarvoor hij de indeling van Euclides uit het tiende boek van de <i>Elementen</i> overneemt: binomium en apotome. Hoofdstuk vijftien, vijfentachtig bladzijden lang, behandelt meetkundige regels en de algebra van al-jabr en al-muqabala, het herschikken en in evenwicht houden van beide zijden van een vergelijking, opnieuw dicht bij al-Chwarizmi.</p>
+      <h3>Hoe er toen werd geschreven</h3>
+      <p>Voor een hedendaagse lezer is de notatie het vreemdst. Breuken schreef men links van het hele getal, en samengestelde breuken van rechts naar links, waarbij elke breuk sloeg op het deel rechts ervan. Die schrijfwijze paste bij het geld van die tijd: twaalf penningen gingen in een schelling, twintig schellingen in een pond. Voor gewichten gold iets soortgelijks, met Pisaanse honderdgewichten van honderd rollen, rollen van twaalf ons, en ons die weer in kleinere eenheden uiteenvielen.</p>
+      <p>Decimale breuken kwamen er niet aan te pas. Een Arabische rekenkunde van al-Uqlidisi uit Damascus, uit 952, gebruikte ze al, maar de gedachte bleef liggen; in Europa raakten decimale breuken pas in de zestiende eeuw in gebruik.</p>
+      <h3>Wat de vertaling toevoegt</h3>
+      <p>Laurence Sigler vertaalde uit de Latijnse tekst die Boncompagni in 1857 in Rome liet drukken, gebaseerd op het volledige Florentijnse handschrift. Het is de eerste overzetting in een moderne taal, achthonderd jaar na het origineel. Sigler laat de rekenwijzen staan zoals Leonardo ze opschreef en voegt bij een deel van de opgaven de moderne algebraïsche oplossing toe, zodat te zien is hoeveel korter dezelfde redenering met tekens wordt.</p>
+      <p>De inleiding plaatst het werk in zijn tijd, en de aantekeningen achterin, op de bladzijden 617 tot 633, lichten de lastigste plaatsen toe.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Methode van de Indiërs</td><td>Leonardo's naam voor het tientallige stelsel met negen cijfers en een teken voor niets, waarin de plaats van een cijfer zijn waarde bepaalt.</td></tr>
+          <tr><td class="term">Zephir</td><td>Zijn woord voor het teken nul, ontleend aan het Arabische sifr, waaruit ook het Nederlandse woord cijfer voortkomt.</td></tr>
+          <tr><td class="term">Boommethode</td><td>De regel van de valse positie: een willekeurig antwoord aannemen en dat evenredig bijstellen tot het klopt, genoemd naar een opgave over een boom.</td></tr>
+          <tr><td class="term">Elchataym</td><td>De methode van de twee fouten, waarbij een te lage en een te hoge schatting samen het juiste antwoord opleveren.</td></tr>
+          <tr><td class="term">Regula recta</td><td>De werkwijze waarbij het gezochte getal een ding wordt genoemd, zodat er een vergelijking in woorden ontstaat.</td></tr>
+          <tr><td class="term">Binomium en apotome</td><td>De som en het verschil van twee onvergelijkbare wortels, in de indeling die Euclides in het tiende boek van de Elementen gaf.</td></tr>
+          <tr><td class="term">Al-muqabala</td><td>Het herschikken van beide zijden van een vergelijking zodat het evenwicht behouden blijft.</td></tr>
+          <tr><td class="term">Samengestelde breuk</td><td>De middeleeuwse schrijfwijze waarin breuken links van het hele getal staan en elke breuk slaat op het deel rechts ervan.</td></tr>
+          <tr><td class="term">Handelsgezelschap</td><td>De tijdelijke vennootschap van kooplieden waarvan de winst naar inleg verdeeld moest worden, onderwerp van hoofdstuk tien.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Wat hier voorligt is een bron en geen betoog, dus de vraag is vooral hoe betrouwbaar de tekst is. De vertaling berust op de gedrukte Latijnse uitgave van Boncompagni uit 1857, die zich baseerde op één volledig handschrift in Florence. Dat handschrift is niet het oudste en niet het best bewaarde; de keus viel erop omdat het compleet is. Hoofdstuktitels verschillen tussen de handschriften, wat erop wijst dat kopiisten zich vrij voelden om te verduidelijken. Van de versie uit 1202 is bovendien niets over: wie een uitspraak leest over wat Leonardo in 1202 schreef, leest in feite over de versie van 1228.</p>
+      <p>Binnen het boek is de onderbouwing van het rekenen niet het bewijs maar de herhaling. Leonardo bewijst zijn regels zelden; hij laat ze zien in tientallen gevallen achter elkaar, met steeds andere getallen en een andere inkleding. Voor lezers zonder algebraïsche notatie was dat de enige manier om een algemene werkwijze over te dragen, en het verklaart de omvang van het werk.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het gangbare verhaal luidt dat dit boek de Arabische cijfers naar Europa bracht en daarmee de handel en de boekhouding van de late middeleeuwen mogelijk maakte. Dat verhaal is te groot. Het Latijnse werk was geleerd en lang en bereikte kooplieden niet rechtstreeks; wat zij gebruikten waren de veel kortere rekenboekjes in de volkstaal, de abbaco-boeken, die vanaf de veertiende eeuw in groten getale rondgingen. Jens Høyrup betoogde in 2005 dat die traditie niet uit Leonardo's boek is voortgekomen maar uit dezelfde Arabische wereld waaruit hij zelf putte, en dat Leonardo daarvan een vroege vertegenwoordiger was in plaats van de stichter. Keith Devlin verdedigt de oudere lezing en meldt dat er in 2003 een bewijsstuk opdook dat de verbinding tussen Leonardo en die rekenboekjes wel ondersteunt. De discussie is niet gesloten.</p>
+      <p>Ook binnen het boek is de eigen bijdrage kleiner dan de omvang doet vermoeden. Hoofdstuk veertien bevat weinig dat niet al bij Euclides staat, hoofdstuk vijftien volgt al-Chwarizmi op de voet, en de konijnenrij komt uit India. De verdienste ligt in de ordening en de uitwerking.</p>
+      <p>Ten slotte is de invoering van de cijfers zelf traag gegaan. Florence verbood de nieuwe cijfers in 1299 in de boeken van de wisselaars, uit vrees voor vervalsing, en de doorbraak kwam pas met de drukpers in de zestiende eeuw. Wie in dit boek het beginpunt van een omslag zoekt, moet er drie eeuwen bij optellen. Als leeservaring is het bovendien zwaar werk: zeshonderd bladzijden voorgerekende sommen zonder betoog, waar de meeste lezers beter af zijn met een geschiedenis die eruit citeert.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees eerst de inleiding van Sigler en daarna de hoofdstukken acht tot en met twaalf; daar staat het rekenen dat de handel van die tijd werkelijk nodig had.</li>
+        <li>Gebruik het als bronuitgave naast een geschiedenis van de wiskunde. Los van context is het een reeks sommen.</li>
+        <li>Reken één buidelopgave of paardenopgave na volgens de woordelijke methode en daarna met een vergelijking; het verschil in lengte laat zien wat algebraïsche tekens hebben opgeleverd.</li>
+        <li>Kijk hoe Leonardo dezelfde werkwijze telkens in een ander verhaaltje verpakt. Wie iets uitlegt zonder notatie, moet het aantal voorbeelden opvoeren.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Fibonacci's Liber Abaci: A Translation into Modern English of Leonardo Pisano's Book of Calculation</i>, vertaald en toegelicht door Laurence E. Sigler (Springer, New York, 2002, 636 blz., ISBN 978-0-387-95419-6), in de reeks Sources and Studies in the History of Mathematics and Physical Sciences. Het is de eerste vertaling in een moderne taal en berust op de Latijnse tekst die Baldassarre Boncompagni in 1857 in Rome liet drukken, gebaseerd op een volledig Florentijns handschrift. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd. Ook van Leonardo's andere werken, zoals <i>Practica geometriae</i> en <i>Liber quadratorum</i>, bestaat geen Nederlandse uitgave.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Leonardo van Pisa schreef in 1202 een rekenboek dat het tientallige stelsel met negen cijfers en een teken voor niets aan Latijnse lezers uitlegde. Hij had ermee leren werken bij islamitische kooplieden in Bugia, in het huidige Algerije, waar zijn vader de handel van Pisa vertegenwoordigde. Van die eerste versie is niets bewaard; wat wij lezen is de uitgebreide tweede versie uit 1228.</p><p>Het werk telt vijftien hoofdstukken. De eerste zeven leren rekenen met hele getallen en met breuken; de volgende vier passen dat toe op koopmanschap, met waardebepaling, ruil, winstverdeling tussen vennoten en het legeren van munten. Hoofdstuk twaalf is met bijna tweehonderd bladzijden het langste en bevat tweehonderdnegenenvijftig uitgewerkte opgaven, waaronder de opgave over konijnen die de rij 1, 2, 3, 5, 8, 13 oplevert. De laatste drie hoofdstukken behandelen wortels, meetkundige regels en algebra, alles in woorden en zonder tekens.</p><p>Laurence Sigler vertaalde het werk in 2002 uit het Latijn van de uitgave die Boncompagni in 1857 verzorgde. Het is de enige manier om de tekst zelf te lezen zonder Latijn, en tegelijk een boek van zeshonderd bladzijden voorgerekende sommen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>wiskunde</li><li>wetenschapsgeschiedenis</li><li>middeleeuwen</li><li>getallen</li><li>handel</li><li>klassieker</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="661"><a href="661.html">A History of Mathematics</a>. Boyer plaatst in <i>A History of Mathematics</i> het Liber abaci in de lange lijn van Griekse, Indiase en Arabische wiskunde, met de context die de bron zelf niet geeft.</li>
+          <li value="657"><a href="657.html">Zero: The Biography of a Dangerous Idea</a>. Charles Seife volgt in <i>Zero</i> de reis van het teken voor niets van India via de Arabische wereld naar Europa, en beschrijft de weerstand die Leonardo's stelsel ondervond.</li>
+          <li value="662"><a href="662.html">Mathematics: From the Birth of Numbers</a>. Gullberg behandelt in <i>Mathematics: From the Birth of Numbers</i> de rekenwijzen zelf, waaronder de valse positie, zodat de methoden uit dit boek in moderne notatie te volgen zijn.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

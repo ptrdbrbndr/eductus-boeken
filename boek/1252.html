@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cardano's Cosmos &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Grafton stelt dat de astrologie van de zestiende eeuw geen randverschijnsel van het geleerde leven was maar een beroep met eigen leerboeken, rekenregels,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1252">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1252 &middot; Geschiedenis en samenleving</p>
+    <h1>Cardano's Cosmos</h1>
+    <p class="lede">Anthony Grafton, 1999</p>
+    <p class="stats">
+      <span><b>1818</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1252"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Grafton stelt dat de astrologie van de zestiende eeuw geen randverschijnsel van het geleerde leven was maar een beroep met eigen leerboeken, rekenregels, klanten en concurrenten, en dat je haar pas begrijpt wanneer je volgt hoe iemand haar dagelijks uitoefende. Girolamo Cardano is daarvoor het proefgeval. Hij wilde de astrologie op waarneming laten rusten, verzamelde honderden uitgewerkte geboortehoroscopen als gevallenmateriaal en toetste voorspellingen achteraf aan wat er werkelijk was gebeurd. Tegelijk paste hij geboortetijden aan tot de uitkomst klopte en herschreef hij zijn eigen horoscoop tussen twee drukken door. Grafton laat beide kanten naast elkaar staan en betoogt dat juist die combinatie zichtbaar maakt hoe een vak zichzelf van gezag probeert te voorzien.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wie Cardano was</h3>
+      <p>Girolamo Cardano werd in 1501 in Pavia geboren als onwettige zoon van de Milanese jurist Fazio Cardano. Hij studeerde geneeskunde, werd jarenlang geweigerd door het Milanese artsencollege en verwierf later faam met <i>De subtilitate</i> (1550) en met de <i>Ars magna</i> (1545), waarin voor het eerst de algemene oplossing van de derdegraadsvergelijking in druk verscheen. Hij schreef over kansspel, over dromen, over geneeskunde en over zichzelf. In 1560 werd zijn zoon Giambattista terechtgesteld omdat hij zijn vrouw had vergiftigd; in 1570 werd Cardano in Bologna door de inquisitie gevangengezet, waarna hij zijn laatste jaren in Rome doorbracht met een pauselijk jaargeld. Zijn autobiografie <i>De vita propria liber</i> schreef hij vlak voor zijn dood in 1576; ze verscheen pas in 1643.</p>
+      <p>Grafton gebruikt die levensloop niet als verhaal op zichzelf. Hij wil weten hoe de astrologie erin paste: als bijverdienste naast de geneeskunde, als middel om aan beschermheren te komen, en als vak waarop Cardano zijn geleerde eerzucht richtte.</p>
+      <h3>Het ambacht: horoscopen als handelswaar</h3>
+      <p>De astroloog werkte met efemeriden, gedrukte tabellen met dagelijkse planeetstanden, en met huizentabellen. Uit geboortedatum, uur en plaats berekende hij de geniture, de stand van de hemel op het geboortemoment. Daarna volgden technieken om die ene momentopname over een heel leven uit te rollen: directies, waarbij punten uit de geboortehoroscoop stap voor stap naar latere jaren worden doorgeschoven, en jaarrevoluties, waarbij de terugkeer van de zon naar haar geboortestand een voorspelling voor dat jaar oplevert. Grafton laat zien hoeveel rekenwerk daarin ging zitten en hoeveel ruimte er tegelijk overbleef voor het oordeel van de beoefenaar.</p>
+      <p>De klantenkring liep van vorsten en kardinalen tot kooplieden die wilden weten of een lading zou aankomen, en tot zieken die vroegen wanneer hun ziekte zou keren. Daarmee raakte de astrologie aan de geneeskunde: artsen gebruikten sterrenstanden om de dagen te bepalen waarop een ziekte zou omslaan. Voor Cardano waren de twee vakken geen gescheiden werelden.</p>
+      <h3>De drukpers verandert het vak</h3>
+      <p>Cardano publiceerde jaarprognosticaties, gedrukte voorspellingen over oogst, oorlog en het lot van vorsten. In 1547 verscheen in Neurenberg de <i>Libelli quinque</i>, een bundel van vijf astrologische verhandelingen. Daarin staat een commentaar op de <i>Tetrabiblos</i>, het astrologische handboek van Ptolemaeus uit de tweede eeuw, en een verzameling van ruim honderd uitgewerkte horoscopen. Grafton leest die verzameling als bedrijfsdocument. Ze bewijst dat de auteur zijn vak beheerst, ze toont welke klanten hij bediende en ze werft om de volgende opdracht.</p>
+      <p>De druk stelde ook nieuwe eisen. Een gedrukte voorspelling ligt vast en is achteraf te controleren. Grafton legt opeenvolgende drukken van hetzelfde werk naast elkaar en laat zien dat Cardano horoscopen tussen edities door bijstelde, geboortetijden verschoof en uitspraken herformuleerde nadat de geschiedenis anders was gelopen dan hij had geschreven. Dat sleutelen is bibliografisch aan te wijzen en het is een van de stevigste bevindingen van het boek.</p>
+      <h3>Botsende astrologen</h3>
+      <p>Cardano's voornaamste concurrent was Luca Gaurico (1475-1558), die het tot bisschop bracht en in 1552 een eigen horoscoopverzameling publiceerde. De twee bestreden elkaar op techniek: welke geboortetijd was de juiste, welke huizenverdeling deugde, wie had een voorspelling achteraf bijgewerkt. Grafton gebruikt die ruzies om te laten zien dat er binnen het vak wel degelijk een maatstaf van vakbekwaamheid bestond, en dat de scherpste kritiek van vakgenoten kwam en niet van buitenstaanders.</p>
+      <p>Aan Gaurico werd de waarschuwing toegeschreven dat Hendrik II van Frankrijk een tweegevecht moest mijden. Toen de koning in 1559 tijdens een toernooi dodelijk gewond raakte, gold dat als een treffer die de reputatie van het hele vak schraagde. Grafton laat zien hoe zulke verhalen ontstonden en hoe zwaar zij wogen in een beroep waarin naam het belangrijkste bezit was.</p>
+      <h3>De reis naar het noorden en de horoscoop van Eduard VI</h3>
+      <p>In 1552 reisde Cardano naar Schotland om John Hamilton, aartsbisschop van St Andrews, te behandelen voor een aandoening van de luchtwegen. De behandeling slaagde en leverde hem een groot honorarium op. Op de terugweg verbleef hij in Londen, waar hij de jonge koning Eduard VI ontmoette en voor hem een uitvoerige horoscoop opstelde, met een lange levensverwachting. Eduard stierf in juli 1553, vijftien jaar oud.</p>
+      <p>Cardano publiceerde die horoscoop naderhand alsnog, voorzien van een lange toelichting waarin hij uitlegde waarom niet de sterren maar de omstandigheden hem hadden misleid. Grafton behandelt dat stuk als het scherpste voorbeeld in het boek van hoe een astroloog een misser opving, en tegelijk als bewijs dat de misser hem niet kon worden verzwegen: het was gedrukt en iedereen wist het.</p>
+      <h3>De astroloog als toetser</h3>
+      <p>Cardano riep er herhaaldelijk toe op de astrologie te zuiveren door haar aan waarneming te onderwerpen, zoals een arts zijn kennis aan ziektegevallen toetst. Zijn horoscoopverzameling werkt als een register van gevallen, vergelijkbaar met de ziektegeschiedenissen uit de hippocratische geneeskunde waarin hij als arts thuis was. Ook las hij horoscopen van doden als een vorm van levensbeschrijving: uit de stand van de hemel bij de geboorte van Petrarca leidde hij een karakter en een loopbaan af die hij vervolgens met de bekende feiten vergeleek.</p>
+      <p>Grafton laat tegelijk zien wat die toetsing in de praktijk waard was. Klopte een geboortehoroscoop niet met een bekend leven, dan was de eerste stap het geboortemoment te corrigeren, een ingreep die in het vak rectificatie heette en die iedere uitkomst redde. De grens tussen toetsen en aanpassen lag daarmee niet in de methode besloten maar in de eerlijkheid van de beoefenaar, en die was per geval verschillend.</p>
+      <h3>Waar het boek zich tegen afzet</h3>
+      <p>Grafton plaatst zich tussen twee oudere houdingen. Historici van de natuurwetenschap hebben de astrologie lang als bijgeloof buiten hun verhaal gelaten. In de school rond Frances Yates gold het omgekeerde: de occulte vakken zouden de moderne wetenschap juist op gang hebben geholpen. Grafton kiest geen van beide. Hij behandelt astrologie als gewoon geleerd werk van haar tijd, met dezelfde bronnen, dezelfde tekstkritiek en dezelfde eerzucht als de filologie en de geneeskunde, en laat de vraag naar haar bijdrage aan de latere natuurwetenschap grotendeels open staan.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">geniture</td><td>De horoscoop van het geboortemoment, waaruit alle verdere uitspraken over een leven werden afgeleid.</td></tr>
+          <tr><td class="term">prognosticatie</td><td>De gedrukte jaarvoorspelling over oorlog, oogst, ziekte en het lot van vorsten, waarmee een astroloog naam maakte.</td></tr>
+          <tr><td class="term">Tetrabiblos</td><td>Het astrologische handboek van Ptolemaeus uit de tweede eeuw, dat Cardano van commentaar voorzag en als hoogste gezag behandelde.</td></tr>
+          <tr><td class="term">efemeride</td><td>Gedrukte tabel met dagelijkse planeetstanden, waarmee een astroloog kon rekenen zonder zelf de hemel waar te nemen.</td></tr>
+          <tr><td class="term">directie</td><td>Rekentechniek waarbij punten uit de geboortehoroscoop worden doorgeschoven om te bepalen wanneer een aanleg werkzaam wordt.</td></tr>
+          <tr><td class="term">jaarrevolutie</td><td>De terugkeer van de zon naar haar stand bij de geboorte, gebruikt als grondslag voor de voorspelling van het komende jaar.</td></tr>
+          <tr><td class="term">rectificatie</td><td>Het bijstellen van het opgegeven geboortemoment tot de horoscoop met het bekende levensverloop overeenkomt.</td></tr>
+          <tr><td class="term">Libelli quinque</td><td>Cardano's bundel van vijf astrologische verhandelingen uit 1547, waarin ook zijn verzameling uitgewerkte horoscopen staat.</td></tr>
+          <tr><td class="term">patronage</td><td>Het stelsel waarin een geleerde voor inkomen, bescherming en aanzien afhing van vorsten en prelaten, en dus schreef wat zij wilden lezen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op de gedrukte werken zelf: de jaarprognosticaties, de <i>Libelli quinque</i> in achtereenvolgende drukken, de verzamelde werken van 1663 en de autobiografie. Grafton is filoloog van huis uit en zijn sterkste argument is bibliografisch. Door dezelfde horoscoop in verschillende drukken naast elkaar te leggen kan hij aanwijzen welke getallen en welke uitspraken zijn veranderd en wanneer. Dat is controleerbaar bewijs dat niet van interpretatie afhangt.</p>
+      <p>Daarnaast gebruikt hij het werk van concurrenten, vooral Gaurico, om te tonen dat de bezwaren tegen Cardano's rekenwerk uit het vak zelf kwamen. Bij Cardano's uitspraken over zichzelf houdt Grafton uitdrukkelijk afstand: de autobiografie is geschreven door iemand met belang bij een bepaald zelfbeeld, en zij wordt hier gelezen als bron over dat zelfbeeld, niet als verslag van feiten.</p>
+      <p>Wat het boek niet levert, is een getalsmatig beeld. Hoeveel astrologen er waren, wat zij verdienden en hoe vaak hun voorspellingen uitkwamen blijft buiten bereik. Het bewaarde materiaal bestaat vrijwel geheel uit wat gedrukt is, en gedrukt werd wat een auteur wilde laten zien.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek is kort en losgebouwd. Het groeide uit lezingen en artikelen, waaronder de Rothschild Lecture die Grafton in 1995 hield en in 1998 publiceerde, en dat is merkbaar: hoofdstukken staan naast elkaar in plaats van naar één betoog toe te werken. Wie een samenhangende uiteenzetting van de renaissance-astrologie zoekt, met de leer erbij, vindt die hier niet.</p>
+      <p>De techniek blijft schetsmatig. Grafton legt uit wat een directie of een jaarrevolutie beoogt, maar niet hoe zij wordt uitgerekend, zodat de lezer op zijn woord moet aannemen dat Cardano's rekenwerk deugde of juist niet. Voor een boek dat betoogt dat astrologie vakwerk was, is dat een gemis.</p>
+      <p>Het zwaarste bezwaar betreft de rode draad over toetsing. Grafton laat Cardano telkens op waarneming aandringen en presenteert diens verzameling gevallen als een vorm van proefondervindelijk werk, terwijl hij even goed laat zien dat Cardano zijn gegevens naar de gewenste uitkomst toe schoof. Beide staan in het boek, de weging blijft achterwege. Wie de nadruk anders legt, houdt een astroloog over die zijn materiaal aanpaste en daarbij de taal van de waarneming gebruikte, wat eerder een les over retoriek is dan over methode.</p>
+      <p>Ten slotte is Cardano een slecht gemiddelde. Hij was buitengewoon productief, ruziënd en veel gedrukt; de meeste astrologen van zijn tijd lieten niets na. Wat het boek beschrijft is daarom eerder de bovenkant van het beroep dan het beroep zelf, en de uitspraken over de astrologische praktijk in het algemeen rusten op één uitzonderlijke loopbaan.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vergelijk opeenvolgende drukken van hetzelfde werk als je wilt weten wat een auteur stilletjes heeft veranderd.</li>
+        <li>Leg bij een voorspelling vast wat er vooraf beweerd werd, met datum en formulering, voordat de uitkomst bekend is.</li>
+        <li>Let bij een deskundige op de manier waarop een misser wordt uitgelegd; die uitleg zegt meer over het vak dan een treffer.</li>
+        <li>Lees een verzameling voorbeelden ook als aanprijzing: uitgewerkte gevallen worden zelden willekeurig gekozen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Cardano's Cosmos: The Worlds and Works of a Renaissance Astrologer</i> (Harvard University Press, Cambridge Massachusetts, 1999, xii + 284 blz., ISBN 9780674095557; paperback 2001, ISBN 9780674006706). Duitse vertaling in hetzelfde jaar als <i>Cardanos Kosmos. Die Welten und Werke eines Renaissance-Astrologen</i> (Berlin Verlag, Berlijn, 1999, ISBN 9783827001689). Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd. Ook het overige werk van Grafton, die als hoogleraar geschiedenis in Princeton werkt, is voor zover na te gaan niet in het Nederlands verschenen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Anthony Grafton volgt Girolamo Cardano (1501-1576), arts, wiskundige en gokker uit Milaan, in zijn tweede beroep: dat van astroloog. Cardano publiceerde vanaf de jaren dertig van de zestiende eeuw jaarvoorspellingen en bracht in 1547 de <i>Libelli quinque</i> uit, met een commentaar op Ptolemaeus' <i>Tetrabiblos</i> en een verzameling van ruim honderd uitgewerkte horoscopen van tijdgenoten en historische figuren. Grafton leest die verzameling als bedrijfsdocument. Ze laat zien hoe een astroloog aan klanten kwam, hoe hij met concurrenten als Luca Gaurico afrekende, en wat hij deed als een voorspelling niet uitkwam.</p><p>Astrologie verschijnt hier als geleerd ambacht met eigen leerboeken, rekenregels en beroepseer, beoefend door mensen die ook geneeskunde en wiskunde bedreven. Cardano drong erop aan de leer aan waarneming te toetsen en verzamelde daarvoor gevallen, maar schoof geboortetijden op tot de uitkomst klopte en herschreef zijn eigen horoscoop tussen twee drukken door. Het boek toont beide en laat de weging aan de lezer.</p><p>Het is een kort en losgebouwd boek, gegroeid uit lezingen. Wie een systematische uiteenzetting van de renaissance-astrologie zoekt, is elders beter af; wie wil weten hoe zo'n vak van binnenuit werkte, vindt hier het beste materiaal.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>renaissance</li><li>astrologie</li><li>wetenschapsgeschiedenis</li><li>biografie</li><li>ideeëngeschiedenis</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1251"><a href="1251.html">Astrology in the Renaissance</a>. Dezelfde astrologie benaderd vanuit de leer en de wijsgerige discussie erover, waar Grafton de beroepspraktijk volgt.</li>
+          <li value="1250"><a href="1250.html">The Occult Sciences in the Renaissance</a>. Een overzicht van de occulte vakken van de renaissance naast elkaar, met astrologie als een van de behandelde gebieden.</li>
+          <li value="766"><a href="766.html">The Art of Memory</a>. Yates over de geheugenkunst, geschreven vanuit de stelling dat de occulte traditie de moderne wetenschap voorbereidde; Grafton houdt tegenover die stelling afstand.</li>
+          <li value="948"><a href="948.html">The Copernican Revolution</a>. Kuhn beschrijft hoe het hemelmodel waarop de astrologische techniek steunde in dezelfde eeuw werd vervangen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

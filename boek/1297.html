@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Art of Possibility &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De Zanders stellen dat de meeste hindernissen in werk en leven voortkomen uit het kader waarmee mensen naar hun omstandigheden kijken, en dat dat kader…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1297">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1297 &middot; Samenwerken en gesprek</p>
+    <h1>The Art of Possibility</h1>
+    <p class="lede">Rosamund Stone Zander en Benjamin Zander, 2000; vert. Paul Janse</p>
+    <p class="stats">
+      <span><b>1659</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1297"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De Zanders stellen dat de meeste hindernissen in werk en leven voortkomen uit het kader waarmee mensen naar hun omstandigheden kijken, en dat dat kader zelf een verzinsel is. Wie het vervangt door een kader waarin mogelijkheden bestaan, verandert wat hij ziet en daarmee wat hij doet. Zij zetten daartegenover wat zij de wereld van het meten noemen: een blik die alles als schaarste, vergelijking en overleving opvat. De twaalf oefeningen in het boek zijn stuk voor stuk pogingen die overstap te maken en vol te houden.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Twee stemmen, twaalf oefeningen</h3>
+      <p>Het boek is geschreven op uitnodiging van Harvard Business School Press, voor lezers uit het bedrijfsleven en daarbuiten. De auteurs schrijven om beurten. Rosamund Stone Zander werkt als gezinstherapeut met de verhalen die mensen over zichzelf vertellen; Benjamin Zander werkt als dirigent en docent met grote groepen en met publiek. Zij vergelijken de opzet met een muziekstuk: één lange lijn waarop elk hoofdstuk een variatie is.</p>
+      <p>Elk hoofdstuk heet een oefening en volgt dezelfde vorm: een verhaal of een voorval, de gedachte die de auteurs daaruit halen, en aan het eind een handeling of een vraag om zelf te proberen.</p>
+      <h3>Het is allemaal verzonnen</h3>
+      <p>De eerste oefening zegt dat wij de wereld niet rechtstreeks waarnemen maar via een kaart die de hersenen tekenen. De auteurs halen daarbij het onderzoek aan waaruit bleek dat het oog van de kikker maar enkele soorten prikkels doorgeeft, en het werk over gescheiden hersenhelften waarin iemand achteraf een reden bedenkt voor een handeling die hem was ingegeven. Daarnaast staan bekende voorbeelden: de twee schoenverkopers die in hetzelfde gebied tegengestelde telegrammen sturen, en de negenpuntenpuzzel die pas oplosbaar wordt wanneer de lijnen buiten het gedachte vierkant mogen komen.</p>
+      <p>De oefening bestaat uit twee vragen. Welke aanname doe ik zonder het te beseffen die mij geeft wat ik zie? En wat kan ik verzinnen dat mij andere keuzes zou geven? De auteurs zeggen er nadrukkelijk bij dat het niet gaat om iets tevoorschijn toveren, maar om het verplaatsen van het kader waarbinnen wordt gehandeld.</p>
+      <h3>Van meten naar mogelijkheid</h3>
+      <p>De tweede oefening zet de twee werelden tegenover elkaar. In de wereld van het meten draait alles om vergelijken, rangschikken en tekort; daar hoort de angst bij om af te vallen. In het universum van mogelijkheden vraagt iemand zich af wat er kan ontstaan en hoe hij daaraan bijdraagt. De auteurs erkennen dat meten nodig blijft en beweren dat de meeste mensen er alleen te veel in wonen.</p>
+      <h3>Een tien geven</h3>
+      <p>De bekendste oefening komt uit het conservatorium. Zander merkte dat zijn studenten meer bezig waren met hun beoordeling dan met muziek, en gaf hun allen aan het begin van het jaar het hoogste cijfer. De voorwaarde was een brief, gedateerd in de maand waarin het jaar zou eindigen, waarin de student beschrijft wie hij is geworden en welke houding hem dat cijfer heeft opgeleverd. Het cijfer meet dan niet meer een prestatie, het beschrijft een mogelijkheid waar de student naartoe leeft.</p>
+      <p>In de therapiekamer heeft de oefening een tegenhanger: iemand een tien geven betekent daar hem behandelen als iemand die het al waard is, en niet meer wachten tot hij zich bewezen heeft. De auteurs noemen dat een houding tegenover de ander, geen beloning voor gedrag.</p>
+      <h3>Leiden vanaf elke plek, regel nummer 6</h3>
+      <p>Zander merkt op dat de dirigent zelf geen geluid maakt en dus geheel afhankelijk is van de mensen voor hem. Zijn maatstaf werd de vraag: wie ben ik dat de ogen van mijn spelers niet glanzen? Om te horen wat de musici zelf te zeggen hadden legde hij witte blaadjes op de lessenaars waarop zij tijdens repetities opmerkingen konden schrijven. De oefening heet leiden vanaf elke plek: iedere speler kan de richting van het geheel beïnvloeden, ongeacht zijn plaats in de rangorde.</p>
+      <p>Regel nummer 6 luidt: neem jezelf niet zo verschrikkelijk serieus. De andere regels bestaan niet. De auteurs koppelen die regel aan een onderscheid tussen het berekenende zelf, dat op zijn plaats en zijn veiligheid let, en wat zij het centrale zelf noemen, dat aan het geheel deelneemt. Lachen om het eigen berekenende zelf is bij hen een manier om weer bij dat tweede te komen.</p>
+      <h3>Aanwezig blijven, passie, vonk</h3>
+      <p>Enkele oefeningen gaan over de omgang met tegenslag. Hoe de dingen zijn vraagt om de feiten onder ogen zien zonder er meteen tegenin te gaan, met de zin dat elke tegenslag ook een gegeven is waarmee verder wordt gespeeld. Passie de ruimte geven gaat over het wegnemen van wat de uitvoering tegenhoudt; het beeld daarvoor is de pianist die zich bij een lange muzikale lijn van de ene bil op de andere beweegt in plaats van rechtop te blijven zitten tellen.</p>
+      <p>Een vonk opwekken beschrijft hoe iemand een ander in een mogelijkheid meeneemt. De auteurs schilderen dat als iets anders dan overtuigen of aansporen: wie zelf in het kader staat, brengt anderen mee zonder ze te overreden.</p>
+      <h3>Het speelbord zijn en het wij-verhaal</h3>
+      <p>De laatste oefeningen leggen de lat het hoogst. Het speelbord zijn betekent: in plaats van een stuk op het bord te zijn dat overkomen wordt, jezelf beschouwen als het bord waarop het spel zich afspeelt, en dus alles wat er gebeurt tot je eigen gebied rekenen. Het wij-verhaal vertellen behandelt het gezamenlijke als een derde partij naast de twee betrokkenen, met de vraag wat de volgende stap van dat wij zou zijn.</p>
+      <p>Het slot herhaalt de gedachte van het begin. De kaders zijn gemaakt, dus zij kunnen anders worden gemaakt, en het boek biedt de oefeningen aan als het gereedschap daarvoor.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Het is allemaal verzonnen</td><td>De stelling dat wat wij voor de werkelijkheid houden een verhaal is dat wij vertellen, en dus vervangbaar.</td></tr>
+          <tr><td class="term">De wereld van het meten</td><td>De blik waarin alles draait om vergelijken, rangschikken en tekort, met angst voor achterstand als drijfveer.</td></tr>
+          <tr><td class="term">Universum van mogelijkheden</td><td>De tegenhanger daarvan: een kader waarin de vraag is wat er kan ontstaan en wat iemand daaraan bijdraagt.</td></tr>
+          <tr><td class="term">Een tien geven</td><td>Iemand vooraf het hoogste oordeel geven en hem laten beschrijven wie hij wordt om dat waar te maken.</td></tr>
+          <tr><td class="term">Het berekenende zelf</td><td>Het deel van iemand dat op status, veiligheid en vergelijking let en zich bedreigd voelt.</td></tr>
+          <tr><td class="term">Het centrale zelf</td><td>Het deel dat zonder die bewaking meedoet en zich met het geheel verbindt.</td></tr>
+          <tr><td class="term">Regel nummer 6</td><td>De aansporing zichzelf niet te zwaar te nemen; volgens de auteurs de snelste weg terug uit het berekenende zelf.</td></tr>
+          <tr><td class="term">Leiden vanaf elke plek</td><td>Het idee dat iedere deelnemer de richting van het geheel kan beïnvloeden, ook zonder positie.</td></tr>
+          <tr><td class="term">Glanzende ogen</td><td>Zanders maatstaf voor leiderschap: of de mensen om hem heen opleven, in plaats van of hij zelf goed werk levert.</td></tr>
+          <tr><td class="term">Het speelbord zijn</td><td>Jezelf zien als het veld waarop alles gebeurt, en daarmee ook verantwoordelijkheid nemen voor wat je overkomt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing bestaat vrijwel geheel uit verhalen van de auteurs zelf: repetities, lessen, gesprekken met cliënten, ontmoetingen onderweg. Die verhalen zijn levendig en concreet, en zij zijn ook door de auteurs uitgekozen. Gevallen waarin een oefening niets opleverde komen nauwelijks voor, en er is geen enkele meting of navraag achteraf.</p>
+      <p>Waar het boek naar wetenschap verwijst, gebeurt dat op afstand. Het onderzoek naar het oog van de kikker uit 1959 en de proeven met gescheiden hersenhelften worden aangehaald via een populair boek over bewustzijn van Tor Nørretranders. Beide studies bestaan en zeggen wat de auteurs ervan navertellen, maar zij dragen niet de stap die het boek erop bouwt: dat waarneming selectief is, betekent nog niet dat een kader vrij te kiezen valt.</p>
+      <p>De praktijk waaruit de sterkste voorbeelden komen is bijzonder van aard. Zanders studenten waren toegelaten tot een conservatorium in Boston en al geselecteerd op talent en inzet; zijn orkestleden zijn beroepsmusici. Of de tien vooraf ook werkt in een klas waar leerlingen niets met het vak hebben, blijft onbesproken.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat het boek geen enkele manier biedt om te toetsen of het klopt. De oefeningen worden aanbevolen op gezag van geslaagde anekdotes, en elke uitkomst laat zich achteraf inpassen: lukt het, dan werkte de oefening; lukt het niet, dan zat de lezer nog in de wereld van het meten. Zo geformuleerd valt er niets aan te weerleggen.</p>
+      <p>Daarnaast schuift de leer over het kader gemakkelijk over materiële belemmeringen heen. Wie geen geld, geen verblijfspapieren of geen macht heeft, verandert zijn positie niet door zijn verhaal te herzien. De auteurs waarschuwen zelf tegen toveren; welke omstandigheden zich niet laten herkaderen, behandelen zij nergens.</p>
+      <p>De oefening 'het speelbord zijn' verdient een eigen waarschuwing. Volledige verantwoordelijkheid nemen voor alles wat er gebeurt is bevrijdend voor iemand met invloed en kan pijnlijk uitpakken voor iemand die is benadeeld of gepest, omdat het de schuldvraag naar hem toe schuift. Het boek stelt die grens niet.</p>
+      <p>Ten slotte is de vorm hier de zwakke plek. Twaalf slagzinnen met verhalen eromheen lezen prettig en laten zich moeilijk uit elkaar houden waar zij elkaar overlappen: het verschil tussen 'een bijdrage zijn', 'een vonk opwekken' en 'het wij-verhaal vertellen' blijft vaag. Wie iets wil weten over de werking van vooraf gegeven waardering, vindt daarover in de onderwijsliteratuur meer dan hier.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf voor een lopend conflict op welke aanname je doet zonder het te merken, en welk gedrag daaruit volgt.</li>
+        <li>Vraag bij een nieuwe groep of klas aan iedereen om vooraf te beschrijven wie hij aan het eind wil zijn geweest, in de voltooide tijd.</li>
+        <li>Leg tijdens overleggen iets neer waarop deelnemers zonder beurt hun opmerking kwijt kunnen, zoals Zanders witte blaadjes op de lessenaar.</li>
+        <li>Toets je eigen leidinggeven aan de vraag of de mensen om je heen opleven, niet aan wat je zelf hebt geleverd.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Het boek verscheen in 2000 bij Harvard Business School Press in Boston onder de titel <i>The Art of Possibility: Transforming Professional and Personal Life</i>. De Nederlandse uitgave houdt de Engelse titel aan: <i>The Art of Possibility. Transformeer je professionele en persoonlijke leven</i>, vertaald door Paul Janse, Kosmos Uitgevers, Utrecht en Antwerpen, 2021, 224 blz., ISBN 9789021582979. De hoofdstukken heten in die vertaling oefeningen, van 'Het is allemaal verzonnen' tot 'Het wij-verhaal vertellen'. Rosamund Stone Zander is gezinstherapeut en schilder; Benjamin Zander was dirigent van het Boston Philharmonic Orchestra en gaf les aan het New England Conservatory in Boston. Van Rosamund Stone Zander verscheen later <i>Pathways to Possibility</i> (2016), dat in het Nederlands niet is uitgegeven.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Een gezinstherapeut en een dirigent schreven samen twaalf oefeningen om anders naar omstandigheden te kijken. Hun uitgangspunt is dat veel van wat ons blokkeert in het kader zit waarmee wij kijken, en dat een ander kader andere handelingen mogelijk maakt. Elk hoofdstuk brengt één zo'n verschuiving, met verhalen uit de orkestpraktijk, uit de therapiekamer en uit het bedrijfsleven, en sluit af met een oefening.</p><p>De bekendste is de tien vooraf. Benjamin Zander gaf zijn conservatoriumstudenten aan het begin van het jaar het hoogste cijfer, op één voorwaarde: zij schreven hem een brief met de datum van het einde van het jaar waarin zij vertelden wie zij waren geworden om dat cijfer te verdienen. Andere oefeningen: neem jezelf niet zo verschrikkelijk serieus, leid vanaf elke plek in het orkest, meet je werk aan de vraag of de ogen van anderen gaan glanzen.</p><p>Onderzoek staat er niet in. Wat er staat zijn verhalen die goed aflopen, gekozen door de auteurs zelf, en een paar losse verwijzingen naar hersenonderzoek. Wie het boek leest als een verzameling werkvormen voor lesgeven en leidinggeven heeft er meer aan dan wie er bewijs in zoekt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>zelfhulp</li><li>leiderschap</li><li>muziek</li><li>coaching</li><li>samenwerking</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1294"><a href="1294.html">Conversation</a>. Zeldin behandelt het gesprek als iets wat de deelnemers verandert; verwant aan de gedachte dat een ander kader ander gedrag mogelijk maakt, maar met historisch materiaal erbij.</li>
+          <li value="200"><a href="200.html">Flow</a>. Csikszentmihalyi onderzocht met dagboekmetingen wanneer mensen opgaan in wat zij doen; dat levert de meetbare kant van wat de Zanders met verhalen beweren.</li>
+          <li value="273"><a href="273.html">Leaders Eat Last</a>. Sinek werkt hetzelfde thema uit voor leidinggevenden: verantwoordelijkheid nemen voor de omstandigheden waarin anderen presteren.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

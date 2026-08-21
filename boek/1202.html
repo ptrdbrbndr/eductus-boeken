@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De ringen van Saturnus &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Sebald laat een naamloze verteller een voettocht langs de kust van Suffolk maken en gebruikt elke halte als aanleiding voor een geschiedenis die ergens…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1202">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1202 &middot; Roman en memoir</p>
+    <h1>De ringen van Saturnus</h1>
+    <p class="lede">W.G. Sebald, 1995</p>
+    <p class="stats">
+      <span><b>1599</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1202"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Sebald laat een naamloze verteller een voettocht langs de kust van Suffolk maken en gebruikt elke halte als aanleiding voor een geschiedenis die ergens anders speelt. Wat die geschiedenissen delen is de afloop: een bedrijfstak verdwijnt, een landgoed verkrot, een volk wordt afgeslacht, een bos waait om. Het boek stelt dat vernietiging geen onderbreking van de geschiedenis is maar haar gewone gang, en dat wie goed kijkt de sporen ervan in een leeg duinlandschap even goed aantreft als in een archief. De vorm hoort bij die stelling: geen verhaal dat ergens naartoe loopt, wel een reeks uitweidingen die telkens op hetzelfde uitkomen, verteld in lange zinnen en onderbroken door foto's waarvan niet gezegd wordt wat ze bewijzen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een wandeling en een ziekenhuisbed</h3>
+      <p>Het boek opent met de mededeling dat de verteller in augustus 1992 door het graafschap Suffolk trok om aan een leegte na afgerond werk te ontkomen, en dat hij precies een jaar later in een ziekenhuis in Norwich lag, nauwelijks in staat zich te bewegen. Vanuit dat bed, met uitzicht door een getralied raam, begint het opschrijven.</p>
+      <p>Sebald vergelijkt zijn houding aan dat raam met die van Gregor Samsa uit Kafka's <i>Die Verwandlung</i>. Die verwijzing zet de toon: het kijken gebeurt vanuit een verstoorde staat, en het lichaam van de verteller is de eerste plek waar het verval zich voordoet. Hij spreekt van een scheur die door zijn leven loopt.</p>
+      <h3>Thomas Browne en het patroon van de quincunx</h3>
+      <p>De eerste geschiedenis geldt Thomas Browne, arts te Norwich in de zeventiende eeuw en zoon van een zijdehandelaar. Sebald gaat op zoek naar zijn schedel, die na opgraving jarenlang in een museum bewaard bleef, en leest zijn werken: <i>Hydriotaphia</i> over lijkurnen en begraven, <i>The Garden of Cyrus</i> over een figuur van vijf punten die Browne overal in de natuur meende terug te vinden, en de lijst van niet bestaande voorwerpen in <i>Musaeum Clausum</i>.</p>
+      <p>Die figuur van vijf punten, de quincunx, keert in het boek terug als beschrijving van zijn eigen werkwijze: verspreide punten die pas van een afstand een patroon vormen. In hetzelfde deel staat een beschouwing over Rembrandts anatomische les van dokter Tulp, waarin Sebald aanwijst dat de ontlede hand verkeerd is geschilderd en dat de omstanders langs het lijk heen naar het opengeslagen boek kijken.</p>
+      <h3>De kust: verlaten badplaatsen en verdwenen steden</h3>
+      <p>De tocht voert langs Lowestoft, waar de verteller in een vervallen hotel overnacht, en verder over Benacre Broad, Southwold, Dunwich, Middleton en Bungay. Lowestoft was ooit een welvarende vissershaven; Sebald beschrijft de teloorgang van de haringvangst, met opgaven over vangsten en over de sterfte van de vis, en met een uitweiding over de haring zelf.</p>
+      <p>Dunwich is het duidelijkste voorbeeld van het thema. De stad was in de middeleeuwen een havenplaats van betekenis en is sindsdien vrijwel geheel door de zee opgeslokt; wat rest zijn kliffen en een enkel graf dat op instorten staat. Bij Southwold komt de zeeslag bij Solebay van 1672 ter sprake, en de dichter Swinburne, die in de buurt zijn laatste jaren doorbracht.</p>
+      <h3>Van de kust naar Congo en China</h3>
+      <p>Op een hotelkamer ziet de verteller een uitzending over Roger Casement, de Britse consul die de dwangarbeid en de moordpartijen in Congo aan het licht bracht, later hetzelfde deed in het Amazonegebied, zich bij de Ierse zaak aansloot en in 1916 werd opgehangen. Sebald verbindt hem met Joseph Conrad, die Casement in Congo ontmoette, en geeft Conrads levensloop van Pools kind tot Engels schrijver.</p>
+      <p>Een andere uitweiding gaat over de Taiping-opstand in China, met tientallen miljoenen doden, en over het hof van keizerin-weduwe Cixi. Elders komen Bergen-Belsen en het kamp Jasenovac ter sprake. Het verband dat Sebald legt is niet oorzakelijk. Hij plaatst de gevallen naast elkaar en laat de herhaling het werk doen.</p>
+      <h3>Landhuizen, stormen en het einde van families</h3>
+      <p>Terugkerend motief is het uitdoven van geslachten en bezittingen. Somerleyton Hall, een negentiende-eeuws landhuis met een verdwenen wintertuin, is nog te bezichtigen maar leeg. In Ierland bezoekt de verteller het huis van de familie Ashbury, waar volwassen kinderen bezigheden zonder doel uitvoeren in een huis dat langzaam wordt afgebroken.</p>
+      <p>Aan het slot van dat spoor staat de storm die in oktober 1987 over Zuid-Engeland trok en in één nacht miljoenen bomen omlegde. Sebald beschrijft hoe hij de volgende ochtend een park terugvond waarin geen boom meer overeind stond, en hoe de doorgesneden stronken binnen een jaar wegrotten. Dat de vernietiging ook zonder mensen doorgaat, is voor het boek geen troost.</p>
+      <h3>De zijde als sluitstuk</h3>
+      <p>Het laatste deel volgt de zijde: de herkomst in China, de smokkel van rupsen naar het westen, de wevers die naar Norwich uitweken, en de pogingen om de teelt in Engeland en later in Duitsland te vestigen. Sebald besteedt aandacht aan het onderwijsprogramma waarmee in Duitse scholen onder het nationaalsocialisme zijderupsen werden gekweekt, met voorschriften voor het selecteren en het doden van de rupsen door verhitting.</p>
+      <p>Daarmee komt de lijn van het boek op één beeld uit: een nijverheid die berust op het uitroeien van het dier dat haar mogelijk maakt, aangeleerd aan kinderen als les in nut en orde. De slotbladzijden gaan over rouwzijde en over de gewoonte om bij een sterfgeval spiegels af te dekken.</p>
+      <h3>De foto's en de vraag wat dit boek is</h3>
+      <p>Door de tekst staan tweeënzeventig zwart-witafbeeldingen: gebouwen, kranteknipsels, portretten, een dood konijn, een landkaart. Ze hebben geen bijschrift en geen bronvermelding. Soms bevestigen ze wat er staat, vaker roepen ze de vraag op waar ze vandaan komen en of ze bij deze zin horen.</p>
+      <p>Het boek is in het Duits verschenen als proza zonder genre-aanduiding en wordt afwisselend roman, reisverslag en essay genoemd. Sebalds vriend en vertaler Michael Hamburger, die zelf in het boek voorkomt, sprak van essayistische halffictie. Die aanduiding dekt de zaak: het feitelijke en het verzonnene staan door elkaar en worden niet uit elkaar gehouden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">pelgrimage</td><td>De ondertitel noemt de tocht een pelgrimage, terwijl er geen heiligdom en geen bestemming is en de gang eindigt waar hij begon.</td></tr>
+          <tr><td class="term">de ringen van Saturnus</td><td>De titel verwijst naar brokstukken van een uiteengevallen maan die om de planeet blijven cirkelen, het beeld waarmee het boek naar het overblijfsel van vernietiging kijkt.</td></tr>
+          <tr><td class="term">quincunx</td><td>Het patroon van vijf punten dat Thomas Browne overal meende te zien, en dat Sebald gebruikt voor de manier waarop zijn losse geschiedenissen samenhangen.</td></tr>
+          <tr><td class="term">melancholie</td><td>Bij Sebald geen stemming maar een manier van waarnemen: wie melancholiek kijkt ziet in elk landschap de sporen van wat eraan voorafging.</td></tr>
+          <tr><td class="term">verval</td><td>De veronderstelling dat elke ordening, van een visserij tot een rijk, uit zichzelf naar afbraak neigt en daarin geen uitzondering kent.</td></tr>
+          <tr><td class="term">naamloze verteller</td><td>De ik-figuur draagt trekken van Sebald zelf, wordt nergens benoemd en blijft ondanks zijn ziekte en zijn oordelen op afstand.</td></tr>
+          <tr><td class="term">zijderups</td><td>Het dier waarmee het boek eindigt, tegelijk grondstof van een bedrijfstak en voorbeeld van planmatig doden.</td></tr>
+          <tr><td class="term">essayistische halffictie</td><td>De omschrijving van Michael Hamburger voor Sebalds vorm, waarin verslag, beschouwing en verzinsel niet gescheiden worden.</td></tr>
+          <tr><td class="term">foto zonder bijschrift</td><td>De afbeeldingen in het boek zijn zonder herkomst opgenomen, waardoor ze eerder twijfel oproepen dan bevestiging geven.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Veel van wat het boek vertelt is na te trekken. Browne's geschriften bestaan, Casement schreef zijn Congo-rapport, Conrad voer op de Congo, de Taiping-opstand kostte miljoenen levens, de storm van oktober 1987 richtte de beschreven schade aan. Ook de route bestaat: de plaatsen liggen op de kaart in de volgorde waarin ze worden bezocht, en lezers zijn de tocht nagelopen.</p>
+      <p>Tegelijk is de gedaante waarin dit wordt aangeboden bewerkt. Sebald heeft zelf gezegd dat er geen doorlopende voettocht was, maar een reeks korte tochten verspreid over ruim een jaar, die hij als één reis heeft opgeschreven. Hij maakte onderweg honderden kleurenfoto's als geheugensteun; in het boek staan zwart-witafbeeldingen die er ouder en onduidelijker uitzien dan het materiaal waaruit ze voortkomen.</p>
+      <p>Voor de leidende stelling, dat vernietiging de gewone gang van zaken is, levert het boek een opeenstapeling en geen bewijs. De voorbeelden liggen in de conclusie besloten: er komt geen geval langs waarin iets in stand bleef.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar betreft de eenvormige toon. De haringvangst, de val van een landgoed, de dood van tientallen miljoenen Chinezen en de vernietigingskampen krijgen dezelfde bedaarde, lange zinnen en dezelfde weemoedige belichting. Dat maakt de tekst mooi en het onderscheid tussen die gebeurtenissen kleiner dan het is. Een storm en een uitroeiing zijn niet twee gevallen van hetzelfde, en het boek biedt geen middel om dat verschil te maken.</p>
+      <p>Daarbij past de bedenking dat Sebald teksten van anderen dicht op de huid volgt, soms vrijwel woordelijk, zonder bronvermelding. Hij verwerkt reisverslagen, memoires en studies in zijn eigen zinnen. Er is verdedigd dat dit bij zijn vorm hoort, waarin alles al eerder gezegd lijkt te zijn; er is ook op gewezen dat lezers zo niet kunnen zien wiens waarneming ze lezen, en dat de mensen om wier leven het gaat daar niet in gekend zijn.</p>
+      <p>Ten slotte blijft de verteller zelf buiten schot. Hij is ziek, hij is Duits, hij woont sinds jaren in Engeland, en van dat alles wordt weinig meer gedaan dan aanduiden. De keuze om over Duitse geschiedenis te schrijven langs de omweg van Engelse duinen en Chinese opstanden heeft literaire winst, en zij laat de vraag onbeantwoord wat de verteller met die geschiedenis te maken heeft.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>De ringen van Saturnus. Een Engelse pelgrimage</i>, vertaald uit het Duits door Ria van Hengel (eerste Nederlandse uitgave Van Gennep, Amsterdam, 1996; herdruk De Bezige Bij, Amsterdam, 2019, 295 blz., ISBN 978-94-031-7540-9). Het origineel is <i>Die Ringe des Saturn. Eine englische Wallfahrt</i> (Eichborn, Frankfurt am Main, 1995, 371 blz., ISBN 3-8218-4130-3), verschenen in de reeks Die Andere Bibliothek onder redactie van Hans Magnus Enzensberger, met tweeënzeventig zwart-witafbeeldingen. De Engelse vertaling van Michael Hulse verscheen in 1998 bij New Directions.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>In augustus 1992 loopt een verteller in enkele dagen langs de kust van Suffolk. Een jaar later ligt hij in een ziekenhuis in Norwich, vrijwel verlamd, en begint hij op te schrijven wat hij onderweg zag en bedacht. Uit die opzet komt een boek in tien afdelingen, waarin elke plek een geschiedenis oproept die zelden bij die plek blijft.</p><p>Van een verlaten badplaats komt Sebald op de haringvangst, van een landhuis op het verval van Engelse landgoederen, van een Ierse diplomaat op de misdaden in Congo, van de zijdeteelt in Norwich op China en op het kweken van zijderupsen in Duitse scholen onder de nazi's. Tussen de tekst staan tweeënzeventig korrelige zwart-witfoto's zonder bijschrift.</p><p>Het boek noemt zichzelf een pelgrimage, maar er is geen heiligdom en geen bestemming. Wat de delen bindt is de vaststelling dat alles wat gemaakt is te gronde gaat, en dat de sporen daarvan overal liggen. Die eenvormige toon is ook het punt waarop het werk aangevallen wordt: hij maakt geen onderscheid tussen een uitgestorven visserij en een uitroeiing.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>duitse literatuur</li><li>melancholie</li><li>geheugen</li><li>landschap</li><li>reisverhaal</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="173"><a href="173.html">The Metamorphosis</a>. Sebald roept Gregor Samsa aan het raam letterlijk aan; Kafka's verhaal levert de houding waarin zijn verteller zijn boek begint.</li>
+          <li value="942"><a href="942.html">Het periodiek systeem</a>. Primo Levi schrijft over dezelfde eeuw met de omgekeerde inzet: een getuige die zijn eigen ervaring benoemt en de feiten scheidt van de duiding.</li>
+          <li value="1200"><a href="1200.html">Het boek der rusteloosheid</a>. Pessoa bouwt eveneens een boek uit losse stukken rond een verteller die vooral kijkt, met droom in plaats van geschiedenis als vulling.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

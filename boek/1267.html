@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Consilience &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Wilson stelt dat de scheiding tussen natuurwetenschap enerzijds en geesteswetenschap, sociale wetenschap en kunst anderzijds een gebrek in de kennis is en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1267">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1267 &middot; Natuur en wetenschap</p>
+    <h1>Consilience</h1>
+    <p class="lede">Edward O. Wilson, 1998</p>
+    <p class="stats">
+      <span><b>2108</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1267"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Wilson stelt dat de scheiding tussen natuurwetenschap enerzijds en geesteswetenschap, sociale wetenschap en kunst anderzijds een gebrek in de kennis is en geen eigenschap van de werkelijkheid. Alles wat er is, van deeltjes tot rechtsstelsels, hangt volgens hem samen door ketens van oorzaak en gevolg die dwars door de vakgrenzen lopen, en die ketens zijn in beginsel te volgen. De enige manier om die aanspraak te bevestigen of te weerleggen loopt volgens hem via de werkwijze van de natuurwetenschap: uiteenleggen tot de kleinere delen en daarna weer opbouwen. De schakel waar het om draait ligt tussen erfelijkheid en cultuur. Epigenetische regels, aangeboren regelmatigheden in de ontwikkeling van de geest, bepalen welke voorstellingen, smaken en afkeren mensen makkelijk overnemen; cultuur is wat daaruit door herhaalde keuzen ontstaat, en de erfelijke aanleg wordt op haar beurt door die cultuur geselecteerd. Ook moraal en godsdienst horen bij hem in die keten thuis, als gevolgen van natuurlijke selectie en niet als aanwijzingen van buiten de natuur.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De Ionische betovering</h3>
+      <p>Wilson opent met wat hij de Ionische betovering noemt, een uitdrukking die hij aan de wetenschapshistoricus Gerald Holton ontleent: het geloof dat de wereld ordelijk is en door een klein aantal natuurwetten te verklaren valt. Hij voert dat terug op Thales van Milete en volgt het via Newton naar de zoektocht naar één beschrijving van de natuurkrachten.</p>
+      <p>Daarna vertelt hij hoe hij er zelf bij kwam. Als student in Alabama en later in Harvard zag hij de biologie uiteenvallen in een moleculaire en een veldrichting die elkaar het bestaansrecht betwistten, en zag hij die twee daarna in de evolutieleer weer samenkomen. Die ervaring van hereniging is het model voor alles wat hij verderop voorstelt.</p>
+      <h3>De verlichting als onvoltooid plan</h3>
+      <p>Het derde hoofdstuk leest de achttiende eeuw als de eerste ernstige poging tot eenheid van kennis: Bacons opzet voor een geordend onderzoek, Newtons natuurkunde, de Franse encyclopedie, en Condorcet die in 1794 ondergedoken zijn schets van de vooruitgang van de menselijke geest schreef en kort daarna in de gevangenis stierf.</p>
+      <p>Waarom dat plan strandde, verklaart Wilson uit twee ontwikkelingen. De romantiek zette het gevoel en het onherleidbare tegenover de rede, en de wetenschap zelf viel uiteen in vakken die elk hun eigen taal, tijdschriften en beloningen kregen. Zijn boek presenteert zich als een hervatting van het verlichtingsplan met de middelen die er nu wel zijn.</p>
+      <h3>Uiteenleggen en weer opbouwen</h3>
+      <p>De hoofdstukken over de natuurwetenschappen en over de draad van Ariadne gaan over werkwijze. Uiteenleggen tot kleinere delen is volgens Wilson de manier om een stelsel binnen te komen; het echte werk begint bij de terugweg, waarin uit de delen wordt afgeleid hoe het geheel zich gedraagt. Die terugweg noemt hij de draad waarmee de onderzoeker uit het doolhof terugvindt.</p>
+      <p>Zijn eigen onderzoek dient als voorbeeld. Hij ontrafelde bij vuurmieren welke stof uit welke klier het spoor naar voedsel aanlegt, en liet zien hoe een enkele scheikundige verbinding een keten van gedragingen in gang zet die op het niveau van de kolonie op planning lijkt. Van molecuul naar samenlevingsvorm in één doorlopende beschrijving: dat is voor Wilson het bewijsstuk dat de rest van zijn betoog draagt.</p>
+      <h3>Van genen naar cultuur</h3>
+      <p>De hoofdstukken over de geest en over gen-cultuurcoëvolutie bevatten de kern. De geest is bij Wilson hersenwerking, en bewustzijn de samenhangende toestand die uit de wedijver tussen vele hersenprocessen naar boven komt. Cultuur ontstaat doordat mensen voorstellingen doorgeven, en die overdracht verloopt niet willekeurig: de epigenetische regels maken sommige voorstellingen makkelijker te leren en te onthouden dan andere. Voor de eenheid van cultuur gebruikt hij het woord meme, dat hij verbindt met een geheugenstructuur in het brein.</p>
+      <p>Zijn voorbeelden zijn steeds dezelfde vier. De kleurwoorden van talen over de hele wereld blijken zich rond ongeveer dezelfde kernkleuren te ordenen, wat op vaste eigenschappen van het gezichtszintuig wijst. Kinderen die in hun eerste jaren dicht bij elkaar opgroeien voelen zich later zelden tot elkaar aangetrokken, wat hij als de biologische bodem onder het incestverbod leest. Slangen wekken bij mensen en bij verwante apen makkelijk angst en keren in mythe en droom telkens terug. En mensen die mogen kiezen, kiezen bij voorkeur een uitzicht dat op savanne lijkt: open grond, verspreide bomen, water in de buurt.</p>
+      <h3>Sociale wetenschappen en kunst</h3>
+      <p>Wilson verwijt de sociale wetenschappen dat zij in scholen uiteenvallen die elkaar niet lezen en dat zij modellen bouwen zonder rekening te houden met wat er over de menselijke aanleg bekend is. De economie krijgt daarbij de hardste woorden: veel wiskunde, weinig verankering in gedrag zoals dat werkelijk voorkomt. Ook het cultuurrelativisme wijst hij af, met het argument dat de verschillen tussen samenlevingen variaties zijn op een gemeenschappelijke aanleg.</p>
+      <p>Voor de kunsten stelt hij hetzelfde voor. Kunst ontstond volgens hem toen de cultuur sneller ging veranderen dan de erfelijke aanleg kon volgen, en zij werkt doordat zij de epigenetische regels raakt: ritme, herhaling, symmetrie, verhaalvormen die overal terugkomen. Uitleg van kunst zou daarom volgens hem bij de biologie te rade moeten gaan in plaats van bij steeds nieuwe leesmethoden.</p>
+      <h3>Moraal en godsdienst</h3>
+      <p>Bij de ethiek zet Wilson twee opvattingen tegenover elkaar. De ene, die hij transcendentalisme noemt, houdt dat morele voorschriften buiten de mens bestaan, bij een god of in een rijk van waarden. De andere, het empirisme, houdt dat morele gevoelens in de menselijke soort zijn ontstaan doordat zij de overlevingskansen van groepen en van hun leden vergrootten. Hij kiest de tweede en geeft toe dat hij die niet kan bewijzen.</p>
+      <p>Godsdienst behandelt hij op dezelfde manier: als een verschijnsel dat door selectie in stand is gebleven omdat het groepen bindt en gedrag ordent. Hij erkent daarbij de aantrekkingskracht ervan en noemt de wetenschappelijke wereldbeschouwing een zwakke mededinger, omdat zij geen troost biedt en geen ritueel kent.</p>
+      <h3>Waarheen</h3>
+      <p>Het slothoofdstuk is een pleidooi over milieu en toekomst. De mensheid gaat volgens Wilson een engte door: de bevolking groeit en het verbruik per hoofd groeit sneller, terwijl het aantal soorten in een tempo afneemt dat aan de grote uitstervingen doet denken. Zijn stelling is dat kennis die per vak wordt bewaard, niet toereikend is om zulke vraagstukken te behandelen, omdat elk voorstel tegelijk over biologie, economie, techniek en recht gaat.</p>
+      <p>Daarnaast wijst hij vooruit naar het punt waarop mensen hun eigen erfelijk materiaal kunnen wijzigen. Zodra dat kan, wordt de vraag welke menselijke eigenschappen bewaard moeten blijven een keuze in plaats van een gegeven, en die keuze valt volgens hem alleen te maken met een samenhangend beeld van wat de mens is. Bij dat alles hoort zijn opmerking dat de mensheid in gegevens verdrinkt en tegelijk gebrek aan wijsheid lijdt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">consiliëntie</td><td>Het samenkomen van verklaringen uit verschillende vakgebieden tot één samenhangend geheel; het woord komt van William Whewell uit 1840.</td></tr>
+          <tr><td class="term">Ionische betovering</td><td>Het geloof dat de wereld ordelijk is en tot enkele natuurwetten te herleiden; uitdrukking van Gerald Holton die Wilson overneemt.</td></tr>
+          <tr><td class="term">epigenetische regels</td><td>Aangeboren regelmatigheden in de ontwikkeling van de geest die sturen welke voorstellingen, smaken en afkeren mensen makkelijk overnemen.</td></tr>
+          <tr><td class="term">gen-cultuurcoëvolutie</td><td>Het model waarin erfelijke aanleg de cultuur stuurt en de cultuur op haar beurt bepaalt welke aanleg wordt doorgegeven.</td></tr>
+          <tr><td class="term">meme</td><td>De eenheid van cultuur die wordt doorgegeven, bij Wilson gekoppeld aan een geheugenstructuur in de hersenen.</td></tr>
+          <tr><td class="term">reductie en synthese</td><td>Het uiteenleggen van een verschijnsel in kleinere delen en de terugweg waarin uit die delen het gedrag van het geheel wordt afgeleid.</td></tr>
+          <tr><td class="term">Westermarck-effect</td><td>De vaststelling dat kinderen die in hun eerste jaren samen opgroeien zich later zelden tot elkaar aangetrokken voelen; bij Wilson de bodem onder het incestverbod.</td></tr>
+          <tr><td class="term">empirisme tegenover transcendentalisme</td><td>De twee opvattingen over de herkomst van morele voorschriften: ontstaan in de menselijke soort, of bestaand buiten de mens om.</td></tr>
+          <tr><td class="term">biofilie</td><td>De aangeboren neiging van mensen om zich tot levende wezens en tot bepaalde landschappen aangetrokken te voelen.</td></tr>
+          <tr><td class="term">de engte</td><td>Wilsons naam voor de komende decennia waarin bevolking en verbruik hun hoogtepunt bereiken terwijl de verscheidenheid aan soorten snel afneemt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Binnen de biologie staat Wilsons betoog stevig. Zijn eigen werk aan de spoorstoffen van mieren laat een doorlopende keten zien van een scheikundige verbinding naar het gedrag van een hele kolonie, en de vergelijkbare ketens in de erfelijkheidsleer en de neurobiologie zijn geen belofte maar bestaand werk. Dat het samenvoegen van vakken tot betere verklaringen leidt, heeft hij bovendien zelf meegemaakt bij de hereniging van moleculaire en veldbiologie.</p>
+      <p>Het sterkste stuk buiten de biologie is het Westermarck-effect. Twee onafhankelijke reeksen waarnemingen wijzen dezelfde kant op: kinderen die in Israëlische kibboetsen in dezelfde groep opgroeiden trouwden vrijwel nooit met elkaar, en Taiwanese huwelijken waarbij het meisje als klein kind al bij de familie van de bruidegom werd opgenomen kenden minder kinderen en meer echtscheidingen dan gewone huwelijken. Dat is een geval waarin een aangeboren neiging, een breed verbreid verbod en een gedocumenteerde uitkomst op elkaar aansluiten.</p>
+      <p>Daarbuiten wordt het dunner. De kleurwoorden en de angst voor slangen zijn regelmatigheden die op zichzelf goed vastgesteld zijn, en de stap van zulke regelmatigheden naar een verklaring van recht, godsdienst of muziek is niet gezet. Het boek bevat geen nieuw onderzoek; het is een programma, opgeschreven met de voorbeelden die de auteur al had. Waar het over de sociale wetenschappen en de kunsten gaat, spreekt Wilson vooral over wat er nog moet gebeuren.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar betreft de leegte in het midden. Wilson stelt dat de keten van deeltje naar molecuul, cel, brein, geest en cultuur in beginsel doorloopt, en hij toont de eerste helft ervan. Voor de tweede helft, van hersenwerking naar een geleefd mensenleven met betekenissen, instellingen en geschiedenis, heeft hij geen enkel uitgewerkt geval. Jerry Fodor besprak het boek in 1998 in de London Review of Books en betwistte dat de aangekondigde herleiding zelfs binnen de psychologie ergens is voltooid. Dat Wilson het gat erkent, neemt het bezwaar niet weg, omdat het hele betoog erop rust dat het gat te dichten valt.</p>
+      <p>Het woord zelf is verschoven. Bij Whewell betekende consiliëntie iets nauwkeurigs: als een gevolgtrekking uit de ene soort waarnemingen samenvalt met een gevolgtrekking uit een geheel andere soort, is dat een reden om de onderliggende theorie te vertrouwen. Dat is een toets binnen de wetenschap. Wilson gebruikt het woord voor de eenheid van alle kennis, waarin de menswetenschappen hun grond bij de biologie komen halen. Stephen Jay Gould heeft hem daar in <i>The Hedgehog, the Fox, and the Magister's Pox</i> uit 2003 op aangevallen: het is verkeer in één richting, en Whewells begrip levert daar geen steun voor.</p>
+      <p>Bij de ethiek loopt Wilson tegen een oud bezwaar aan. Uit een beschrijving van hoe morele gevoelens zijn ontstaan, volgt niet wat iemand behoort te doen. Zijn antwoord is dat de andere opvatting het ook niet kan, wat een uitspraak is over de tegenstander en geen grond onder zijn eigen standpunt. Michael Ruse, die op hoofdlijnen met hem meegaat, wees erop dat Wilson de vakliteratuur over de grondslagen van de moraal sinds Moore vrijwel onbesproken laat.</p>
+      <p>Wendell Berry wijdde er een heel boek aan, <i>Life is a Miracle</i> uit 2000. Zijn punt is dat Wilson literatuur, godsdienst en gewone menselijke ervaring alleen behandelt als materiaal dat verklaard moet worden, en nooit als bron van kennis waaraan de wetenschap zich zou kunnen meten. Wie zo begint, kan de uitkomst niet anders krijgen dan hij hem krijgt.</p>
+      <p>Ten slotte weegt de voorgeschiedenis mee. Wilsons <i>Sociobiology</i> uit 1975 leverde het verwijt op dat hij menselijk gedrag tot aanleg herleidde, met politieke gevolgen die hij naar eigen zeggen niet had voorzien. <i>Consilience</i> gaat op dat verwijt in de kern niet in. Nergens staat hoeveel van de verschillen tussen mensen of tussen samenlevingen die epigenetische regels zouden verklaren, en juist dat getal bepaalt of het programma iets voorstelt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij een verklaring in welke richting zij loopt: van de kleinere delen naar het geheel, of van het geheel terug naar de delen.</li>
+        <li>Scheid bij een aanspraak op eenheid van kennis het stuk dat gedocumenteerd is van het stuk dat aangekondigd wordt.</li>
+        <li>Toets een uitspraak over aangeboren neigingen op de vraag hoeveel van de waargenomen verschillen zij verklaart.</li>
+        <li>Let er bij een uitspraak over moraal op of zij beschrijft hoe mensen oordelen of voorschrijft hoe zij zouden moeten oordelen.</li>
+        <li>Zoek bij vraagstukken die over meerdere vakken tegelijk gaan eerst de plek waar twee vakken elkaar tegenspreken; daar zit de meeste informatie.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Consilience: The Unity of Knowledge</i> (Alfred A. Knopf, New York, 1998, 332 blz., ISBN 978-0-679-45077-1). De Nederlandse vertaling verscheen als <i>Het fundament: over de eenheid van kennis en cultuur</i>, vertaald door Jan Tazelaar (Contact, Amsterdam, 1998, 352 blz., ISBN 978-90-254-1085-8; het fonds is later opgegaan in Atlas Contact). Van Wilson zijn daarnaast onder meer <i>On Human Nature</i> en <i>The Diversity of Life</i> in het Nederlands verschenen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Edward Wilson, mierendeskundige aan Harvard, betoogt dat alle kennisgebieden in beginsel met elkaar samenhangen doordat oorzaak en gevolg dwars door de vakgrenzen heen doorlopen. Het woord consiliëntie ontleent hij aan de negentiende-eeuwse wetenschapsfilosoof William Whewell: het samenspringen van verklaringen uit verschillende hoeken.</p><p>Zijn programma loopt van de natuurkunde via de scheikunde en de biologie naar de geest, en van de geest naar cultuur, kunst, moraal en godsdienst. De schakel daartussen noemt hij de epigenetische regels: aangeboren neigingen in de ontwikkeling van de geest die sturen wat mensen makkelijk leren, mooi vinden of afwijzen. Hij voert daarvoor de overeenkomst in kleurwoorden tussen talen aan, de afkeer van seks met wie men als jong kind mee opgroeide, en de terugkerende slang in mythe en droom.</p><p>Wilson erkent dat de brug tussen hersenwerking en cultuur nog niet is gebouwd, en houdt vol dat hij gebouwd zal worden. Op dat punt gaat het boek van bevinding over in verwachting, en daar richt zich ook het meeste verzet tegen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>wetenschapsfilosofie</li><li>evolutie</li><li>sociobiologie</li><li>kennisleer</li><li>cultuur</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1260"><a href="1260.html">Personal Knowledge</a>. Polanyi betoogt vanuit de scheikunde dat kennis niet volledig in regels en gegevens is over te brengen, wat precies de stap is die Wilsons programma nodig heeft.</li>
+          <li value="1266"><a href="1266.html">Philosophical Writings of Peirce</a>. Peirce bouwt een indeling van de wetenschappen en een leer van het onderzoek waarin de eenheid van kennis uit de werkwijze komt en niet uit de biologie.</li>
+          <li value="1256"><a href="1256.html">Gödel, Escher, Bach: een eeuwige gouden band</a>. Hofstadter probeert de sprong van regels naar geest van de andere kant te maken, vanuit wiskunde en muziek, en laat zien hoe lastig dat middenstuk is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

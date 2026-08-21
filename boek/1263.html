@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Physica &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Alles in de schepping heeft een werking, en die werking is op te schrijven. Dat is de aanname waaruit de Physica bestaat: een geordende lijst van planten,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1263">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1263 &middot; Natuur en wetenschap</p>
+    <h1>Physica</h1>
+    <p class="lede">Hildegard van Bingen, ca. 1151&ndash;1158</p>
+    <p class="stats">
+      <span><b>1635</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1263"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Alles in de schepping heeft een werking, en die werking is op te schrijven. Dat is de aanname waaruit de <i>Physica</i> bestaat: een geordende lijst van planten, elementen, bomen, stenen, vissen, vogels, viervoeters, kruipende dieren en metalen, waarin van elk ding wordt vastgesteld of het warm of koud is, droog of vochtig, en wat het bij de mens uitricht. Achter de lijst zit een theologisch uitgangspunt: God heeft de wereld op de mens ingericht, zodat voor elke ontregeling van het lichaam iets bestaat dat in de buurt groeit of ligt. Hildegard voert daarvoor geen bewijs aan en beroept zich, anders dan in haar theologische boeken, ook niet op openbaring. Zij stelt vast. Wie het boek vandaag leest, leest daarom geen geneeskunde maar een beschrijving van hoe de natuur er in de twaalfde eeuw uitzag voor iemand die haar op nut had geordend.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wie het schreef en wanneer</h3>
+      <p>Hildegard van Bingen (1098-1179) was benedictijnes, later abdis van het door haar gestichte klooster op de Rupertsberg bij Bingen. Zij is bekend van haar visioenenboeken <i>Scivias</i>, <i>Liber vitae meritorum</i> en <i>Liber divinorum operum</i>, van haar eenstemmige gezangen en van een omvangrijke briefwisseling. In 2012 werd zij door paus Benedictus XVI heilig verklaard en tot kerklerares uitgeroepen.</p>
+      <p>De natuurkundige en geneeskundige stof schreef zij naar men aanneemt tussen 1151 en 1158, als onderdeel van een verzameling die <i>Liber subtilitatum diversarum naturarum creaturarum</i> heette: het boek van de subtiliteiten van de verschillende naturen der schepselen. Die verzameling is in de overlevering uiteengevallen in twee werken: de <i>Physica</i>, die de dingen langsloopt, en <i>Causae et curae</i>, dat van de kwalen uitgaat.</p>
+      <h3>Negen boeken</h3>
+      <p>De indeling is die van de schepping zoals Hildegard haar ordende. Het eerste boek behandelt planten in ongeveer 230 hoofdstukken, daarna volgen de elementen met 63, de bomen met 63, de stenen met 26, de vissen met 37, de vogels met 72, de viervoeters met 45, de kruipende dieren met 18 en de metalen met 8. Bij elkaar zijn dat ruim vijfhonderd lemma's.</p>
+      <p>De volgorde binnen een boek is niet stelselmatig: er is geen alfabet, geen indeling naar geslacht of familie, geen ordening naar werking. De lijst volgt eerder wat in de streek voorkwam en wat in de kloosterkeuken en de ziekenzaal werd gebruikt. Het is een inventaris en geen leerboek.</p>
+      <h3>De vaste vorm van een lemma</h3>
+      <p>Elk lemma begint met de aard van het ding: warm of koud, vaak ook droog of vochtig. Dan komt het oordeel over het nut, waarbij Hildegard geregeld vaststelt dat iets voor de mens niet deugt, of alleen goed is voor het vee. Vervolgens de toepassing: koken in wijn, drogen tot poeder, tot pap stoten, in een doek op de huid leggen, in de mond houden.</p>
+      <p>Sommige lemma's zijn stellig en kort, andere lopen uit in een reeks kwalen. Spelt komt eruit als het beste graan voor de mens. Venkel keert bij uiteenlopende klachten terug. Bij de stenen wordt aangeraden ze vast te houden, op de huid te leggen of in water te leggen dat daarna wordt gedronken; ook daar staat geen woord uitleg bij over hoe dat zou werken.</p>
+      <h3>Waar de kennis vandaan komt</h3>
+      <p>De inleiding verankert de eigenschappen van de dingen in de schepping zelf: God legde bij het begin in elk ding zijn werking, en na de zondeval veranderde de aarde zo dat een deel van de gewassen alleen nog tegen ziekte dient. Meer verantwoording geeft de tekst niet.</p>
+      <p>Achter de lemma's is de Latijnse geneeskundige overlevering herkenbaar die in Duitse kloosters beschikbaar was, met Isidorus van Sevilla en het materiaal uit Salerno, gemengd met wat in een kloosterziekenzaal in gebruik was. Opvallend is het aandeel van de volkstaal: de tekst bewaart honderden Duitse plant- en dierennamen, en dat is de reden dat de tekstkritische uitgave door germanisten is gemaakt en niet door medisch historici.</p>
+      <h3>De overlevering en de vraag naar de auteur</h3>
+      <p>De <i>Physica</i> is overgeleverd in minstens negen handschriften vanaf de dertiende eeuw, waarvan er vijf de volledige tekst geven. Die handschriften verschillen onderling in omvang, volgorde en formulering, en de tekst is in de loop van de eeuwen aangevuld en herschikt. De uitgave van 2010 bevat daardoor ongeveer het dubbele van wat de negentiende-eeuwse editie gaf.</p>
+      <p>Dat roept de vraag op hoeveel van de overgeleverde tekst van Hildegard zelf is. De medische geschriften zijn niet in de grote verzamelhandschriften van haar werk opgenomen, ze dragen geen visionaire aanhef zoals haar theologische boeken en ze ontbreken in een deel van de vroege opsommingen van haar werk. Laurence Moulinier heeft die handschriftelijke overlevering uitgezocht; de gangbare opvatting is dat er een kern van Hildegard is die door latere handen is uitgebreid, zonder dat precies valt aan te wijzen waar de grens ligt.</p>
+      <h3>Wat er later mee gebeurde</h3>
+      <p>Vanaf de jaren zeventig van de twintigste eeuw is in Duitstalige landen een 'Hildegard-Medizin' opgekomen, opgezet door de arts Gottfried Hertzka en na hem uitgebouwd door Wighard Strehlow. Daarin worden spelt, venkel, edelstenen en een reeks vaste middelen tot een behandelwijze samengevoegd en verkocht.</p>
+      <p>Die praktijk staat los van de tekst. Zij kiest uit de lemma's wat aanspreekt, laat weg wat schadelijk of onbegrijpelijk is, en presenteert het geheel als een overgeleverd stelsel, terwijl de <i>Physica</i> geen stelsel bevat en geen aanwijzing geeft over dosering, duur of samenhang. Voor geen van de aanbevolen behandelingen bestaat klinisch onderzoek dat werking aantoont.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">subtilitas</td><td>De verborgen werking die volgens Hildegard in elk geschapen ding is gelegd; het woord staat in de titel van de verzameling waaruit het boek komt.</td></tr>
+          <tr><td class="term">viriditas</td><td>De groenkracht, de levenwekkende sapstroom die volgens Hildegard in planten, dieren en mensen werkzaam is en die bij ziekte opdroogt.</td></tr>
+          <tr><td class="term">calidum en frigidum</td><td>Warm en koud, de twee eigenschappen waarmee zij vrijwel elk lemma opent en waarmee de werking van een ding wordt bepaald.</td></tr>
+          <tr><td class="term">humores</td><td>De lichaamssappen waarvan de onderlinge menging over gezondheid en ziekte beslist.</td></tr>
+          <tr><td class="term">flegma</td><td>Het slijm dat zich bij een verstoorde menging ophoopt en waaraan zij een groot deel van de kwalen toeschrijft.</td></tr>
+          <tr><td class="term">simplicia</td><td>Enkelvoudige middelen: één plant, één steen, één dier, tegenover de samengestelde recepten van de geleerde geneeskunde.</td></tr>
+          <tr><td class="term">utilitas</td><td>Het nut van een ding voor de mens, de maatstaf waarnaar de hele inventaris is geordend.</td></tr>
+          <tr><td class="term">de val</td><td>De gedachte dat de aarde na de zondeval van Adam veranderde, zodat een deel van de gewassen sindsdien alleen nog tegen ziekte dient en niet meer tot voedsel.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>In de moderne betekenis bevat het boek geen bewijs. Er staan geen ziektegevallen in, geen waarnemingen, geen vergelijkingen tussen behandelde en onbehandelde patiënten, geen bronvermeldingen. Ook naar de maatstaven van de twaalfde eeuw is dat ongewoon: de geleerde geneeskunde van die tijd werkte met commentaar op Galenus en op de Arabische overlevering, en ontleende haar gezag aan die namen. De <i>Physica</i> stelt eenvoudig vast, en het enige gezag achter die vaststellingen is de ordening van de schepping zelf.</p>
+      <p>Wat wel is na te gaan, is de plaats van de tekst in de overlevering. De tekstkritische uitgave maakt zichtbaar welke handschriften welke lemma's geven en hoe de formuleringen verschillen. Vergelijking met Isidorus en met de Salernitaanse teksten laat zien dat Hildegard binnen een schriftelijke traditie werkte en niet vanuit eigen proefneming. Voor een aantal van de planten die zij noemt zijn later werkzame stoffen aangetoond, maar dat zegt weinig: de bereidingen, hoeveelheden en aandoeningen in de tekst komen niet overeen met wat die stoffen doen, en bij de stenen en metalen ontbreekt elk aanknopingspunt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar tegen het boek als geneeskundig werk is dat het de lezer geen enkele reden geeft om iets ervan te geloven. Wie een lemma volgt, volgt een bewering van één persoon, opgeschreven acht eeuwen geleden, zonder geval, zonder proef en zonder herkomst. Dat wordt niet minder doordat de schrijfster een belangrijke denker was. Een deel van de aanbevelingen is bovendien schadelijk, en de tekst geeft geen dosering.</p>
+      <p>Een tweede bezwaar betreft de toeschrijving. Omdat de medische werken buiten de grote verzamelhandschriften zijn gebleven en de overlevering sterk uiteenloopt, is niet uit te maken welk deel van de tekst van Hildegard zelf komt. Wie de <i>Physica</i> aanhaalt als 'wat Hildegard zei', haalt in werkelijkheid een gegroeide tekst aan.</p>
+      <p>Een derde bezwaar geldt de moderne ontvangst, in twee richtingen. De commerciële Hildegard-geneeskunde presenteert de lijst als een behandelwijze waarvoor geen klinisch bewijs bestaat. Daarnaast is er een lezing die Hildegard tot vroege natuuronderzoeker of kruidenkundige maakt die uit eigen waarneming werkte; de tekst ondersteunt dat beeld niet, want hij bevat geen enkele waarneming en past in een schriftelijke traditie.</p>
+      <p>Daar staat tegenover wat het boek wel is. Als bron voor de natuurkennis, het wereldbeeld en vooral de volkstaal van de twaalfde eeuw is het van de eerste orde, en de uitgave van 2010 behandelt het ook zo. Het is een document en geen handboek.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik voor citaten de uitgave van Hildebrandt en Gloning of de vertaling van Throop, en vermeld welke van de twee, want de tekstomvang verschilt aanzienlijk.</li>
+        <li>Lees een lemma naast het overeenkomstige artikel bij Isidorus of in de Salernitaanse traditie; het verschil laat zien wat van Hildegard komt en wat zij overnam.</li>
+        <li>Let bij een lemma op de Duitse naam die erin staat; dat is voor taalhistorici vaak de bruikbaarste informatie van de hele passage.</li>
+        <li>Neem geen enkele aanbeveling uit de tekst over als behandeling; het boek geeft geen dosering en er is geen klinisch onderzoek dat werking laat zien.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Physica</i>, ook overgeleverd onder de titel <i>Liber simplicis medicinae</i> en als onderdeel van de verzameling <i>Liber subtilitatum diversarum naturarum creaturarum</i>. De oude standaardtekst is de uitgave van 1855 in Migne, <i>Patrologia Latina</i> deel 197. De tekstkritische uitgave is <i>Hildegard von Bingen: Physica. Liber subtilitatum diversarum naturarum creaturarum</i>, bezorgd door Reiner Hildebrandt en Thomas Gloning (De Gruyter, Berlijn en New York, 2010, twee delen, 431 en 592 blz., ISBN 9783110215892); zij konden op nieuw handschriftmateriaal steunen en bieden ongeveer twee keer zoveel tekst als de editie van 1855. Engelse vertaling: <i>Hildegard von Bingen's Physica</i>, vertaald door Priscilla Throop (Healing Arts Press, Rochester, Vermont, 1998, 250 blz., ISBN 9780892816613). Er bestaat geen Nederlandse vertaling van de <i>Physica</i>; de samenvatting is op de Engelse vertaling en op de wetenschappelijke literatuur gebaseerd. Van Hildegard is wel <i>Scivias</i> in het Nederlands vertaald, door Mieke Kock-Rademakers, onder de titel <i>Ken de wegen</i> (Verloren, Hilversum, 2015).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De <i>Physica</i> is de natuurkundige en geneeskundige inventaris die de benedictijnse abdis Hildegard van Bingen omstreeks het midden van de twaalfde eeuw samenstelde. In negen boeken loopt zij planten, elementen, bomen, stenen, vissen, vogels, viervoeters, kruipende dieren en metalen langs, elk in korte lemma's van enkele regels tot een halve bladzijde.</p><p>De vorm is telkens dezelfde. Een ding is warm of koud, droog of vochtig; het is nuttig of schadelijk voor de mens; en dan volgt wat je ermee doet, met welke bereiding en tegen welke kwaal. Er wordt niet geredeneerd, er worden geen gezaghebbende auteurs aangehaald en er wordt geen enkel geval beschreven. Anders dan in haar theologische werk beroept Hildegard zich hier niet op visioenen.</p><p>Het boek is om twee redenen van belang. Het is het vroegste bewaarde werk over de natuur van de hand van een vrouw in het Latijnse westen, en het bewaart honderden Duitse plant- en dierennamen, waardoor het voor de taalgeschiedenis meer betekent dan voor de geneeskunde. In Duitstalige landen is er sinds de jaren zeventig een handel in 'Hildegard-geneeskunde' omheen ontstaan die met de tekst weinig te maken heeft.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>middeleeuwen</li><li>geneeskunde</li><li>wetenschapsgeschiedenis</li><li>naslagwerk</li><li>mystiek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="642"><a href="642.html">The Hermetic and Alchemical Writings of Paracelsus, Volume 1</a>. Paracelsus staat vierhonderd jaar later in dezelfde traditie van geneeskunde die uit de ordening van de schepping wordt afgeleid, maar hij redeneert en polemiseert waar Hildegard alleen vaststelt.</li>
+          <li value="573"><a href="573.html">De innerlijke burcht</a>. Teresa van Ávila laat zien hoe een vrouw in een kloosterorde gezag verwierf door te schrijven; bij haar is de visionaire aanhef juist het middelpunt, wat het ontbreken ervan in de <i>Physica</i> opvallend maakt.</li>
+          <li value="823"><a href="823.html">Mirage of Health: Utopias, Progress and Biological Change</a>. Dubos behandelt de vraag wat geneeskunde eigenlijk doet en hoe weinig van haar aanbevelingen ooit is getoetst; dat is de maatstaf waarlangs dit boek het aflegt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

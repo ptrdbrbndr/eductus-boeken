@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Changing of the Gods &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Goldenberg stelt dat de mannelijkheid van God geen bijkomstigheid is die uit de traditie te poetsen valt, maar de dragende constructie van jodendom en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1236">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1236 &middot; Filosofie en mystiek</p>
+    <h1>Changing of the Gods</h1>
+    <p class="lede">Naomi R. Goldenberg, 1979</p>
+    <p class="stats">
+      <span><b>1558</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1236"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Goldenberg stelt dat de mannelijkheid van God geen bijkomstigheid is die uit de traditie te poetsen valt, maar de dragende constructie van jodendom en christendom. Wie haar wegneemt, houdt geen hervormde religie over. Het feminisme voltrekt in haar lezing daarom een langzame terechtstelling van Jahweh en Christus, en de meeste hervormingsgezinde theologen beseffen volgens haar niet hoe ver hun eigen ketterij reikt. Wat ervoor in de plaats komt, zoekt het goddelijke binnen de mens: in dromen, beelden, het lichaam en de rituelen van de feministische hekserij, een denken waarvoor zij in dit boek de naam thealogie voorstelt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat er met God gebeurt</h3>
+      <p>Het boek opent met de vraag wat er met God zal gebeuren nu vrouwen zich in groten getale uit kerken en synagogen terugtrekken of ze van binnenuit veranderen. Goldenberg schrijft in 1979, midden in de eerste golf van feministische theologie, en zij ziet daar iets gebeuren dat de betrokkenen zelf onderschatten. Zij spreekt van een godenschemering die door feministen wordt aangericht.</p>
+      <p>Haar argument is eenvoudig van bouw. God is in beide tradities een vader, een heer, een koning. Die beelden zijn geen losse aankleding van een verder geslachtloze godheid; ze bepalen wie gezag heeft en wie gehoorzaamt. Een traditie die haar centrale beeld inruilt, krijgt volgens Goldenberg een andere religie terug en niet dezelfde in verbeterde vorm. Zij voorspelt dat een hele generatie zal meemaken wat er gebeurt wanneer vadergoden sterven.</p>
+      <h3>Geen feministe kan God redden</h3>
+      <p>Het langste polemische deel richt zich op theologen die de traditie willen behouden en er de seksistische lagen uit willen halen. Goldenberg noemt dat een verloren zaak. Zolang het goddelijke een hij blijft, of zolang het vrouwelijke wordt binnengehaald als aanvulling op een mannelijk midden, verandert er in de machtsverhouding niets.</p>
+      <p>Zij verklaart de hechtheid van dat beeld met psychoanalytische begrippen. Het vaderbeeld in de religie is volgens haar verankerd in wat Freud de oedipale situatie noemde: de vroege verhouding tot de vader, met haar mengsel van ontzag en angst. Zij spreekt van oedipale gevangenissen. Wanneer de vaderfiguur wegvalt, keert de aandacht naar binnen, en dat is voor haar de reden dat feministische spiritualiteit zoveel belang hecht aan dromen, lichaam en eigen ervaring.</p>
+      <h3>Jung als gereedschap en als bezwaar</h3>
+      <p>Een apart deel gaat over Carl Gustav Jung, en Goldenbergs houding daartegenover is dubbel. Wat zij overneemt is zijn methode: het serieus nemen van beelden, dromen en fantasieën als een religieus proces dat zich binnen de mens afspeelt, zonder dat daar een god buiten de mens voor nodig is.</p>
+      <p>Wat zij afwijst is de leer van de archetypen zodra die als vaste, tijdloze vormen wordt opgevat. In haar formulering wordt dat een gebod: gij zult geen archetypen scheppen. Jungianen die het vrouwelijke omschrijven als anima, als eros, als maan en aarde, leggen naar haar oordeel dezelfde beperking op als de theologen die zij bestrijdt, alleen in vriendelijker woorden. Het verschil is dat Jung de beelden aan de psyche toeschrijft en niet aan de hemel, waardoor ze in beginsel veranderlijk zijn.</p>
+      <h3>Wat er uit het lijk opstaat</h3>
+      <p>Vervolgens bespreekt Goldenberg de figuren die binnen de bijbelse traditie als alternatief worden aangedragen. Lilith als de vrouw die weigerde, Maria als de brave dochter van het christendom, de androgyn als samenvatting van man en vrouw in één gestalte, en de mogelijkheid van een vadergod die weet dat hij niet alles is.</p>
+      <p>Bij elk van die figuren komt zij tot dezelfde slotsom. Ze blijven afhankelijk van het kader dat ze zouden moeten vervangen. Maria heeft geen macht die niet van haar zoon komt, de androgyn voegt het vrouwelijke toe aan een norm die mannelijk blijft, en een bescheiden vadergod is nog altijd een vader.</p>
+      <h3>Feministische hekserij en thealogie</h3>
+      <p>Het vierde deel gaat over de godinnenbeweging die in de jaren zeventig in de Verenigde Staten opkwam: vrouwen die zichzelf heks noemden, in kleine groepen bijeenkwamen, seizoensfeesten vierden en met tarot en ritueel werkten. Goldenberg beschrijft die praktijk van dichtbij en met instemming. Zij ziet er de vorm in die godsdienst aanneemt wanneer er geen instituut, geen schrift en geen priesterschap tussen de gelovige en het heilige staat.</p>
+      <p>Hier doet zij ook het voorstel waarmee dit boek het meest is blijven hangen. Wie over de godin nadenkt, bedrijft volgens haar thealogie: thea in plaats van theos. Zij spreekt de hoop uit dat heksen en onderzoekers van vrouwenreligie zichzelf zo zullen gaan noemen. Een kort hoofdstuk vraagt waarom heksen wetenschappers afschrikken, en Goldenberg wijst daarvoor naar het ontbreken van leerstelligheid en gezag: er valt weinig te bestuderen wat op een leer lijkt.</p>
+      <h3>De spiegel en de mystiek</h3>
+      <p>Het slotdeel is het losste van vorm. Goldenberg schetst wat er in de plaats komt van openbaring uit een boek: nieuwe testamenten voor een nieuwe tijd, geschreven uit eigen dromen en fantasieën. Zij neemt een aantal verslagen op van dromen en geleide fantasieën, met titels als de schildpadkijkers en de strijd van de hagedissen en de vrouwen.</p>
+      <p>De spiegel uit de titel van dit deel staat voor het punt waar haar betoog uitkomt. Het goddelijke is in deze opvatting een naam voor wat de mens in zichzelf aantreft wanneer zij goed kijkt. Dat maakt religie tot iets wat iedere vrouw zelf kan maken, en het maakt de vraag naar de waarheid van een geloof onbeantwoordbaar, want er is niets buiten de spiegel om aan te toetsen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">thealogie</td><td>Nadenken en spreken over het goddelijke in vrouwelijke vorm, van het Griekse thea, godin, naast het gangbare theologie van theos.</td></tr>
+          <tr><td class="term">godenschemering</td><td>Goldenbergs beeld voor het aflopen van de vadergoden, ontleend aan de Germaanse mythologie via Wagner.</td></tr>
+          <tr><td class="term">oedipale gevangenis</td><td>De greep die het vroege vaderbeeld op het religieuze voorstellingsvermogen houdt, door haar in freudiaanse termen beschreven.</td></tr>
+          <tr><td class="term">archetype</td><td>Bij Jung een oervorm die in dromen en mythen terugkeert; Goldenberg gebruikt het begrip en verwerpt de opvatting dat zulke vormen vastliggen.</td></tr>
+          <tr><td class="term">feministische hekserij</td><td>De vrouwenbeweging van de jaren zeventig die zich in kleine kringen rond een godin organiseerde, zonder centrale leer of gezag.</td></tr>
+          <tr><td class="term">de androgyn</td><td>De figuur die man en vrouw in zich verenigt en in de feministische theologie werd aangedragen als uitweg uit een mannelijke godheid.</td></tr>
+          <tr><td class="term">de stervende god</td><td>Het patroon uit de vergelijkende godsdienstwetenschap waarin een mannelijke god sterft en herrijst; Goldenberg bespreekt welke plaats mannen daarin binnen een godinnenreligie krijgen.</td></tr>
+          <tr><td class="term">de spiegel</td><td>Haar beeld voor een religie waarin de gelovige het goddelijke in de eigen dromen en beelden aantreft.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een essay en geen onderzoeksverslag. De argumentatie steunt op twee soorten materiaal: teksten uit de feministische theologie en de psychoanalyse, en wat Goldenberg zelf zag en hoorde in de kringen van de godinnenbeweging. Getallen, steekproeven of vergelijkend onderzoek komen er niet in voor.</p>
+      <p>Voor de psychologische kern leunt zij op Freud en Jung. Dat is geen neutrale keuze. De oedipale verklaring van het religieuze vaderbeeld was in 1979 binnen de psychologie al omstreden en is dat gebleven, en de aanname dat een godsbeeld zich laat herleiden tot een vroegkinderlijke verhouding is nooit toetsbaar gemaakt.</p>
+      <p>Het stevigste deel van de onderbouwing is tekstueel. Waar Goldenberg de hervormingsvoorstellen van andere feministische theologen naast elkaar legt en laat zien dat het mannelijke midden telkens blijft staan, is haar redenering na te lopen aan de bronnen die zij bespreekt. Waar zij overgaat op voorspelling, houdt de onderbouwing op.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De voorspelling is niet uitgekomen. Bijna een halve eeuw later zijn het christendom en de islam wereldwijd gegroeid en zijn jodendom en christendom niet geëindigd. In Noordwest-Europa lopen de kerken leeg, maar de godinnenbeweging heeft die plaats niet ingenomen; die bleef klein. Goldenberg schreef in de stelligheid van een beweging die haar eigen omvang overschatte.</p>
+      <p>De godsdiensthistorische aannames waarop de godinnenbeweging van de jaren zeventig rustte, zijn niet houdbaar gebleken. Het beeld van een vreedzame, godinnenvererende voorgeschiedenis die door patriarchale indringers werd verdrongen, is in de archeologie en de geschiedschrijving grotendeels verlaten. Cynthia Eller heeft die bezwaren in <i>The Myth of Matriarchal Prehistory</i> (2000) bijeengebracht en Ronald Hutton deed hetzelfde voor de veronderstelde doorlopende heksenreligie. Goldenberg neemt die verhalen in dit boek zonder veel voorbehoud over.</p>
+      <p>Haar houding tegenover Jung is onvast. Zij verwerpt de archetypen als vaste vormen en houdt tegelijk vast aan het jungiaanse idee dat het religieuze proces zich in de psyche voltrekt en dat beelden uit dromen gezag hebben. Waarom het ene beeld dan wel iets zou betekenen en het andere niet, maakt zij niet duidelijk.</p>
+      <p>Het verplaatsen van het goddelijke naar het innerlijk maakt kritiek bovendien onmogelijk. Als een religie samenvalt met wat iemand in de eigen spiegel ziet, is er geen grond om welke ervaring dan ook te bestrijden, ook niet wanneer die schadelijk uitpakt. Goldenberg viert die vrijheid en gaat aan de keerzijde voorbij.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Let bij elk voorstel om een traditie te hervormen op de vraag welk beeld er in het midden blijft staan; dat is de toets die Goldenberg aanlegt.</li>
+        <li>Lees het boek als tijdsdocument uit 1979 en zoek de godsdiensthistorische beweringen na in latere literatuur voordat je ze overneemt.</li>
+        <li>Wie thealogie als vakterm tegenkomt, kan hier zien waar het woord vandaan komt en welke aanspraak eraan vastzat.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Changing of the Gods: Feminism and the End of Traditional Religions</i> (Beacon Press, Boston, 1979, ISBN 0-8070-1110-X), met een paperbackuitgave in 1980 (ISBN 0-8070-1111-8). De opgaven van de omvang lopen tussen de catalogi uiteen van 152 tot 168 bladzijden. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd. Voor zover na te gaan is geen van Goldenbergs boeken in het Nederlands verschenen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Naomi R. Goldenberg, geboren in 1947 en godsdienstpsychologe aan de universiteit van Ottawa, schreef dit boek toen de feministische theologie in de Verenigde Staten nog jong was. Haar stelling gaat verder dan die van de meeste van haar tijdgenoten. Zij meent dat het weghalen van de mannelijkheid uit het godsbeeld het jodendom en het christendom beëindigt in plaats van hervormt, omdat die tradities om een vaderfiguur heen zijn gebouwd. Wie hem wegneemt, houdt iets anders over.</p><p>Het boek bespreekt achtereenvolgens de hervormingsgezinde theologie, de psychoanalyse van Freud en Jung, de bijbelse figuren die als alternatief worden aangedragen, en de feministische hekserij die in de jaren zeventig in de Verenigde Staten opkwam. Over die laatste beweging schrijft Goldenberg van dichtbij en met instemming: daar ziet zij de vorm waarin godsdienst voortbestaat zonder instituut, schrift of priesterschap.</p><p>Het boek is vooral blijven bestaan om één woord. Goldenberg stelt hier voor om het nadenken over de godin thealogie te noemen, naar het Griekse thea, en die term is in het vakgebied ingeburgerd geraakt. Haar voorspelling dat de vadergoden binnen één generatie zouden sterven, is dat niet geworden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>feminisme</li><li>religie</li><li>godin</li><li>theologie</li><li>Jungiaanse psychologie</li><li>spiritualiteit</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1224"><a href="1224.html">The Spiral Dance</a>. Starhawks <i>The Spiral Dance</i> verscheen in hetzelfde jaar en geeft van binnenuit de praktijk die Goldenberg van een afstand beschrijft.</li>
+          <li value="1226"><a href="1226.html">Eens was God als vrouw belichaamd</a>. Merlin Stone levert het godsdiensthistorische verhaal waarop Goldenberg leunt, en laat zien hoe kwetsbaar dat verhaal is.</li>
+          <li value="360"><a href="360.html">Archetypen</a>. Jungs eigen uiteenzetting over archetypen, het begrip dat Goldenberg overneemt en tegelijk afwijst.</li>
+          <li value="1238"><a href="1238.html">Lost Goddesses of Early Greece</a>. Spretnak past een jaar eerder hetzelfde uitgangspunt toe op de Griekse mythologie.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

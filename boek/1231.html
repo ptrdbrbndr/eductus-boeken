@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Holy Book of Women's Mysteries &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Budapest stelt dat de westerse godsdiensten rond een mannelijke god zijn gebouwd en dat vrouwen daardoor geen eigen rituele taal hebben overgehouden. Haar…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1231">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1231 &middot; Filosofie en mystiek</p>
+    <h1>The Holy Book of Women's Mysteries</h1>
+    <p class="lede">Zsuzsanna Budapest, 1979-1980; volledige uitgave 1989</p>
+    <p class="stats">
+      <span><b>1455</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1231"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Budapest stelt dat de westerse godsdiensten rond een mannelijke god zijn gebouwd en dat vrouwen daardoor geen eigen rituele taal hebben overgehouden. Haar antwoord is een hekserij voor vrouwen alleen, waarin de godin de enige godheid is, elke vrouw haar eigen priesteres en het lichaam zelf het heiligdom. Het gezag voor die praktijk ontleent zij aan een familieoverlevering uit Hongarije, en het boek is bedoeld als het werkboek dat vrouwen in staat stelt zonder tussenpersoon te beginnen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het manifest</h3>
+      <p>Het openingsdeel, Feminist witchcraft, geeft de politieke grondslag. Budapest omschrijft de Dianische traditie als een op vrouwen gerichte, uitsluitend vrouwelijke verering van vrouwenmysteries, en het manifest van de Susan B. Anthony Coven No. 1 zegt dat de coven de eigen magie niet aan mannen leert zolang de gelijkheid van de seksen geen feit is. De naam van de coven komt van de Amerikaanse strijdster voor vrouwenkiesrecht Susan B. Anthony (1820-1906), van wie het antwoord wordt aangehaald dat zij na haar dood noch naar de hemel noch naar de hel zou gaan maar zou blijven om de vrouwenrevolutie af te maken.</p>
+      <p>De toon is die van de vrouwenbeweging van de jaren zeventig: religie wordt behandeld als machtsvraag, en het overnemen van rituele bevoegdheid door vrouwen zelf als politieke daad. Dat verklaart waarom dit boek bij verschijnen in kringen terechtkwam die met occultisme verder niets hadden.</p>
+      <h3>De riten van het leven</h3>
+      <p>Het tweede deel geeft de overgangsrituelen: rond geboorte, rond het volwassen worden van meisjes, rond het aangaan en beëindigen van een verbintenis, rond ziekte en rond sterven. Budapest schrijft ze uit als bruikbare teksten, met handelingen, benodigdheden en woorden.</p>
+      <p>De bekendste tekst uit haar werk hoort in deze reeks thuis: de zelfzegening, waarin een vrouw zichzelf achtereenvolgens aan voeten, knieën, schoot, borst en hoofd zegent en daarbij benoemt waartoe elk deel dient. Die tekst is buiten haar eigen kring overgenomen en is voor veel lezers het enige stuk uit het boek dat zij kennen.</p>
+      <h3>Het jaar en de feestdagen</h3>
+      <p>Twee hoofdstukken behandelen de kalender. Het eerste volgt de acht jaarfeesten die de wicca kent, van de winterzonnewende via de kruisdagen naar de zonnewende in de zomer, en vult ze in met de godin als enige hoofdpersoon. Het tweede voegt daar dagen aan toe die in deze traditie eigen zijn en die op vrouwenlevens zijn betrokken.</p>
+      <p>Wie het naast een gardneriaans ritueelboek legt, ziet het bouwplan terug: dezelfde cirkel, dezelfde vier windstreken, dezelfde jaarindeling, met de mannelijke helft weggelaten. Budapest noemt die herkomst zelf niet als bron, wat een van de terugkerende bezwaren tegen het boek is.</p>
+      <h3>Godin en god, en de namen</h3>
+      <p>Een apart hoofdstuk gaat over de verhouding tussen godin en god. In de Dianische opzet is de godin het geheel en heeft het mannelijke hoogstens een afgeleide plaats, wat het duidelijkste verschil is met de wicca waaruit de vormen komen.</p>
+      <p>Het boek sluit af met een deel dat de godin van de tienduizend namen heet: een opsomming van godinnen uit Europese, Aziatische, Afrikaanse en Amerikaanse tradities, gepresenteerd als evenzovele gedaanten van dezelfde. Dat is tegelijk de aantrekkelijkheid en de zwakte van het slot, omdat godheden uit onderling zeer verschillende culturen tot één figuur worden verklaard.</p>
+      <h3>Waarzeggerij, voedsel en sjamanisme</h3>
+      <p>Een lang hoofdstuk over profetie behandelt tarot, runen, astrologie, dromen, reïncarnatie en automatisch schrijven, telkens met praktische aanwijzingen. Budapest was hier zelf procespartij: zij werd in 1975 in Californië aangehouden en veroordeeld omdat zij tarotkaarten legde voor een agente in burger, en pas na jarenlang procederen werd die veroordeling ongedaan gemaakt en de betrokken regel geschrapt.</p>
+      <p>Daarnaast staan er een hoofdstuk over de politiek van het voedsel, geschreven door Mary Farkas, en hoofdstukken over covens, sjamanen en ritueel. De historische passages worden onder de noemer herstory gepresenteerd, een woordspel uit de vrouwenbeweging dat aangeeft dat de geschiedenis hier vanuit vrouwen wordt verteld.</p>
+      <h3>Masika's boek</h3>
+      <p>Het persoonlijkste deel gaat over haar moeder, Masika Szilagyi, beeldhouwster en medium, wier werk om godinnen draaide. Budapest voert haar op als de schakel met een Hongaarse overlevering en ontleent daaraan haar aanspraak op een geërfde praktijk in plaats van een zelf samengestelde.</p>
+      <p>Dit deel bevat het meeste materiaal dat nergens anders vandaan komt: huismiddelen, gebruiken, verhalen. Het is ook het deel dat het minst te controleren valt, omdat er buiten haar eigen weergave geen bron voor is.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Dianische traditie</td><td>De door Budapest gestichte richting binnen de moderne hekserij die alleen vrouwen toelaat en alleen de godin vereert.</td></tr>
+          <tr><td class="term">Susan B. Anthony Coven No. 1</td><td>De coven die zij in 1971 in Los Angeles stichtte en die als voorbeeld voor honderden andere groepen ging gelden.</td></tr>
+          <tr><td class="term">zelfzegening</td><td>Het ritueel waarin een vrouw zichzelf lichaamsdeel voor lichaamsdeel zegent, de meest overgenomen tekst uit haar werk.</td></tr>
+          <tr><td class="term">herstory</td><td>Haar aanduiding voor geschiedschrijving vanuit vrouwen, gevormd naar het Engelse history alsof daar his in zit.</td></tr>
+          <tr><td class="term">de godin van de tienduizend namen</td><td>Het uitgangspunt dat alle godinnen uit alle culturen gedaanten van dezelfde godheid zijn, uitgewerkt in het slotdeel.</td></tr>
+          <tr><td class="term">Pan-bijeenkomst</td><td>De werkvorm waarin de coven wel met mannen samenwerkt, namelijk met mannen die zich volgens het manifest tot broeders hebben omgevormd.</td></tr>
+          <tr><td class="term">sabbat</td><td>Elk van de acht jaarfeesten, hier ingevuld met de godin als enige hoofdpersoon.</td></tr>
+          <tr><td class="term">spreuk</td><td>Een vastgelegde handeling met woorden, kaarsen en kruiden voor een omschreven doel, waarvan het boek er tientallen geeft.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Als ritueelboek doet het wat het belooft: de teksten zijn uitgeschreven, de handelingen staan erbij en een groep kan er zonder verdere opleiding mee beginnen. Dat is de reden voor de invloed ervan. Doreen Valiente, die uit de andere hoek van de hekserij kwam, noemde dit boek en <i>The Spiral Dance</i> in feite nieuwe boeken der schaduwen, gebouwd op de overlevering zoals die van Gardner bekend was.</p>
+      <p>Als beschrijving van een godsdienstgeschiedenis levert het geen bewijs. Er zijn geen noten, geen bronvermeldingen bij de historische hoofdstukken en geen verwijzingen naar opgravingen of teksten waarop de bewering van een verdrongen godinnengodsdienst zou rusten. Het beeld komt uit de boeken die in die jaren in deze kring circuleerden, van Elizabeth Gould Davis, Merlin Stone en later Marija Gimbutas, en wordt overgenomen zonder toetsing. De aanspraak op een Hongaarse familielijn rust alleen op haar eigen mededeling.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar geldt de historische onderbouwing. Het idee van een oorspronkelijke, vreedzame en godinnengerichte samenleving die door patriarchale veroveraars zou zijn verdrongen, is in de archeologie niet houdbaar gebleken; Cynthia Eller heeft die geschiedenis in <i>The Myth of Matriarchal Prehistory</i> (2000) punt voor punt afgepeld en er bovendien op gewezen dat het verhaal politiek averechts werkt, omdat het de rechtvaardiging van vrouwenrechten laat afhangen van een verleden dat er niet was. Ook het getal dat in deze kring circuleerde, negen miljoen vrouwen omgebracht in de heksenvervolgingen, is achterhaald: archiefonderzoek komt voor heel Europa op ongeveer veertigduizend tot zestigduizend terechtstellingen, waaronder een aanzienlijk aantal mannen.</p>
+      <p>Het tweede bezwaar betreft de grondslag van de traditie zelf. Doordat de toegang aan het vrouwelijk lichaam wordt gekoppeld, wordt religieuze bevoegdheid een kwestie van biologie. Dat leidde tot de uitsluiting van transvrouwen, wat in 2011 op de bijeenkomst PantheaCon uitliep op een openlijk conflict toen Budapest een ritueel aankondigde voor uitsluitend, in haar woorden, genetische vrouwen. Sindsdien is de Dianische richting in de heidense wereld op dit punt verdeeld, met groepen die haar lijn hebben verlaten.</p>
+      <p>Het derde bezwaar is dat van de herkomst. De vormen in het boek, de cirkel, de vier windstreken, de acht jaarfeesten, de graden en de inwijding, komen aantoonbaar uit de gardneriaanse wicca van de jaren vijftig, die zelf een moderne samenstelling is. Het boek presenteert ze als geërfd goed uit een vrouwenlijn. Wie de rituelen wil gebruiken hoeft daar niet over te vallen, maar wie het als geschiedschrijving leest, wordt op het verkeerde been gezet.</p>
+      <p>Wat het boek daartegenover heeft, is dat het een werkelijk gemis benoemde. Er bestond in de westerse godsdiensten weinig ritueel voor menstruatie, bevalling, miskraam of de overgang, en Budapest schreef dat er. Dat die teksten zijn overgenomen door vrouwen die met haar historische aanspraken niets hadden, zegt iets over waar de waarde van het boek werkelijk zit.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik het als wat het is, een verzameling ritueelteksten, en niet als geschiedschrijving.</li>
+        <li>Wie de zelfzegening of de overgangsrituelen wil overnemen, kan dat los van de aanspraken op een oude lijn doen.</li>
+        <li>Leg de historische hoofdstukken naast recent werk over de heksenvervolgingen en over de prehistorie voordat er een cijfer of een bewering uit wordt overgenomen.</li>
+        <li>Let bij de Hongaarse hoofdstukken op het onderscheid tussen wat Budapest van haar moeder meekreeg en wat aan de Engelse wicca is ontleend.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Holy Book of Women's Mysteries: Feminist Witchcraft, Goddess Rituals, Spellcasting and Other Womanly Arts</i>, in twee delen verschenen in 1979 en 1980 en compleet in één band bij Wingbow Press, Berkeley, 1989 (334 blz., ISBN 0-914728-67-9). Het boek gaat terug op <i>The Feminist Book of Lights and Shadows</i> (1975). Heruitgave bij Red Wheel/Weiser, San Francisco, 2007, met nieuw voorwoord en inleiding (xxix + 343 blz., ISBN 978-1-57863-413-2). Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Zsuzsanna Budapest, geboren in 1940 in Boedapest, vluchtte na de opstand van 1956 met haar moeder naar het Westen en kwam via Wenen en Chicago in Los Angeles terecht. Daar stichtte zij op de winterzonnewende van 1971 de Susan B. Anthony Coven No. 1, de eerste coven die alleen vrouwen toeliet. Dit boek is het werkboek van die traditie, die zij de Dianische noemt.</p><p>Het is geen betoog maar een verzameling: een manifest, rituelen voor geboorte, volwassenwording, verbintenis en dood, een eigen invulling van de acht jaarfeesten en van een aantal vrouwenfeestdagen, spreuken, kruidenkennis, hoofdstukken over waarzeggerij met tarot, runen, astrologie en dromen, en een slotdeel met godinnennamen uit uiteenlopende culturen. Een apart hoofdstuk gaat over haar moeder, de beeldhouwster en spiritiste Masika Szilagyi, van wie zij zegt de traditie te hebben.</p><p>De aanspraak van het boek is dubbel. Het presenteert zich als praktisch ritueelboek en tegelijk als herstel van een godsdienst die volgens de auteur door de patriarchale religies is verdrongen. Dat tweede deel van de aanspraak is het punt waarop het boek en de traditie eromheen sindsdien zijn aangevochten.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>hekserij</li><li>feminisme</li><li>godin</li><li>ritueel</li><li>neopaganisme</li><li>spiritualiteit</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1224"><a href="1224.html">The Spiral Dance</a>. Starhawk kwam uit dezelfde kring en schreef in 1979 het boek dat naast dit boek de praktijk van de feministische hekserij bepaalde.</li>
+          <li value="1226"><a href="1226.html">Eens was God als vrouw belichaamd</a>. Merlin Stone leverde de geschiedopvatting waarop de historische hoofdstukken van dit boek leunen.</li>
+          <li value="1225"><a href="1225.html">The Language of the Goddess</a>. Marija Gimbutas gaf aan hetzelfde beeld een archeologische onderbouwing die later zwaar is bekritiseerd.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

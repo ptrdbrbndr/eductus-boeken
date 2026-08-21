@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>In the Mind's Eye &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="West betoogt dat moeite met lezen, schrijven en spellen bij een deel van de mensen samengaat met ongewoon sterk ruimtelijk en beeldend denken, en dat dit…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1310">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1310 &middot; Brein en lichaam</p>
+    <h1>In the Mind's Eye</h1>
+    <p class="lede">Thomas G. West, 1991</p>
+    <p class="stats">
+      <span><b>1608</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1310"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>West betoogt dat moeite met lezen, schrijven en spellen bij een deel van de mensen samengaat met ongewoon sterk ruimtelijk en beeldend denken, en dat dit geen toeval is maar twee kanten van dezelfde aanleg. Omdat scholen en beroepen sinds anderhalve eeuw vrijwel uitsluitend op de talige kant selecteren, met leestoetsen, schriftelijke examens en verslagen, wordt precies die groep eruit gezeefd die problemen in beelden kan zien. Daar zit volgens hem de ironie van de titel: het onderwijssysteem dat vaardigheid moet opsporen, filtert een vorm van vaardigheid weg. Zijn tweede stelling is dat computerbeelden die verhouding weer omkeren, omdat rekenwerk en tekst steeds meer aan machines worden overgelaten en het beoordelen van beelden bij mensen blijft.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Trage woorden, snelle beelden</h3>
+      <p>Het eerste hoofdstuk zet het betoog in zijn geheel neer. West beschrijft mensen die opvallend traag lezen en zich hun schooltijd herinneren als vernedering, en die tegelijk in staat blijken een machine, een gebouw of een wiskundige verhouding in één keer voor zich te zien. Hij noemt zijn onderwerp beelddenken, waarmee hij bedoelt: redeneren met voorstellingen die in de ruimte staan en die van alle kanten te bekijken zijn, in plaats van met woorden en formules in een rij.</p>
+      <p>Het tweede hoofdstuk geeft die ervaring van binnenuit weer, aan de hand van beschrijvingen door mensen met dyslexie zelf: letters die niet blijven staan, teksten die na één bladzijde verdampt zijn, en het besef in de klas dat anderen iets doen wat jij niet kunt volgen.</p>
+      <h3>De neurologische aanname</h3>
+      <p>Hoofdstuk drie draagt het gewicht van het hele betoog. West steunt daar op het werk van neuroloog Norman Geschwind en zijn medewerker Albert Galaburda over de ontwikkeling van de beide hersenhelften. Bij de meeste mensen is de linkerhelft in bepaalde gebieden groter dan de rechter, en die scheefheid hangt samen met de plaats van de taalfuncties. Bij een deel van de mensen is dat verschil kleiner.</p>
+      <p>Uit die waarneming leidt West een samenhang af: waar de gewone ordening minder scherp is uitgevallen, kunnen zowel taalproblemen als ruimtelijke vermogens ontstaan. Hij spreekt in dat verband van een groep eigenschappen die bij elkaar horen, waarin dyslexie, linkshandigheid, allergieën en bepaalde talenten in dezelfde families voorkomen. Geschwind en Galaburda hadden dat als samenhangend geheel voorgesteld en West neemt het model over als natuurwetenschappelijke grond onder zijn portretten.</p>
+      <h3>De portretten</h3>
+      <p>Drie hoofdstukken bevatten de tien portretten. Het eerste behandelt Michael Faraday, James Clerk Maxwell en Albert Einstein. Faraday is Wests beste voorbeeld: een boekbindersleerling zonder wiskundige opleiding, die het magnetisch veld als krachtlijnen in de ruimte voor zich zag en die voorstelling in de natuurkunde binnenbracht; Maxwell zette diezelfde lijnen daarna om in vergelijkingen. Bij Einstein wijst West op diens eigen uitspraken dat hij dacht in beelden en gevoelens en dat woorden er pas naderhand bij kwamen, en op zijn gedachte-experimenten met liften en meereizende lichtstralen.</p>
+      <p>Het tweede portrettenhoofdstuk behandelt Charles Dodgson, bekend als Lewis Carroll, verder Henri Poincaré, Thomas Edison, Nikola Tesla en Leonardo da Vinci. Het derde gaat over Winston Churchill, George Patton en William Butler Yeats, drie mannen van wie bekend is dat zij slecht spelden en op school achterbleven, en die West opvoert als beeldende denkers in taal en in strategie.</p>
+      <h3>Spraak, patronen en creativiteit</h3>
+      <p>In de hoofdstukken zeven en acht verlaat West de biografieën. Hij bespreekt werk over denken zonder woorden, over de rol van voorstellingen bij het oplossen van problemen, en over de vraag of taal het denken draagt of alleen verslag doet van iets wat er al is. Zijn positie is dat taal een verslagvorm is en dat het beslissende werk daaraan voorafgaat.</p>
+      <p>Daarna zoekt hij een patroon in de portretten: laat op gang komen, moeite op school, een omweg buiten de gewone opleiding, en een doorbraak op het punt waar een bestaand vakgebied vastliep op zijn eigen formalisme. Hij houdt daarbij vol dat het niet om uitzonderlijke genieën gaat maar om een manier van denken die veel breder voorkomt.</p>
+      <h3>Beelden, computers en het onderwijs</h3>
+      <p>De laatste twee hoofdstukken bevatten de voorspelling. West beschrijft de opkomst van computergrafiek en wetenschappelijke visualisatie, waarmee gegevens die eerder als tabellen of vergelijkingen bestonden zichtbaar worden gemaakt als landschappen, stromingen of driedimensionale vormen. Hij noemt het rekenwerk dat computers overnemen, en stelt dat wat er voor mensen overblijft juist het beoordelen van beelden is.</p>
+      <p>Daaruit volgt zijn aanbeveling voor onderwijs en werk: laat toelating en beoordeling minder afhangen van leestempo en schriftelijke weergave, en meer van het oplossen van problemen in vormen die ook beeldend te benaderen zijn. Hij vergelijkt de verschuiving met de invoering van de boekdrukkunst, die de verhouding tussen geheugen en geschreven tekst omkeerde.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Beelddenken</td><td>Redeneren met voorstellingen die in de ruimte staan en van meerdere kanten te bekijken zijn, in plaats van met woorden of symbolen in een rij.</td></tr>
+          <tr><td class="term">Dyslexie</td><td>Aanhoudende moeite met het herkennen en omzetten van geschreven woorden, die niet te verklaren is uit gebrek aan onderwijs of verstand.</td></tr>
+          <tr><td class="term">Hersenscheefheid</td><td>Het verschil in omvang en taak tussen de linker- en rechterhersenhelft, dat bij de meeste mensen uitgesproken is en bij sommigen minder.</td></tr>
+          <tr><td class="term">Groep samenhangende eigenschappen</td><td>Wests aanduiding voor het geheel van leesproblemen, handvoorkeur, allergieën en bijzondere talenten dat volgens Geschwind in families samen zou optreden.</td></tr>
+          <tr><td class="term">Krachtlijnen</td><td>Faradays voorstelling van het magnetisch veld als lijnen in de ruimte, door West gebruikt als voorbeeld van een beeld dat een vakgebied vooruithielp.</td></tr>
+          <tr><td class="term">Gedachte-experiment</td><td>Een redenering die wordt uitgevoerd op een voorgestelde situatie in plaats van op een echte proefopstelling, zoals Einstein die gebruikte.</td></tr>
+          <tr><td class="term">Wetenschappelijke visualisatie</td><td>Het zichtbaar maken van grote hoeveelheden gegevens als vormen, kleuren of bewegingen, zodat verbanden met het oog te beoordelen zijn.</td></tr>
+          <tr><td class="term">De ironie van creativiteit</td><td>Wests stelling dat het onderwijs precies die mensen afwijst wier manier van denken tot de grootste vondsten heeft geleid.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het bewijs bestaat uit twee soorten materiaal. Het eerste is biografisch: brieven, dagboeken, herinneringen van tijdgenoten en uitspraken van de betrokkenen zelf. Dat materiaal is per persoon van sterk wisselende kwaliteit. Bij Faraday is er veel en duidelijk: hij had weinig scholing, gaf zelf toe dat wiskunde hem ontging en werkte met tekeningen. Einsteins uitspraak dat hij in beelden en spierachtige gewaarwordingen dacht is bekend en betrouwbaar overgeleverd; dat hij dyslectisch zou zijn geweest is dat niet.</p>
+      <p>Het tweede is neurologisch en komt vrijwel geheel uit het werk van Geschwind en Galaburda over hersenscheefheid, gebundeld in hun boek uit 1987. West geeft dat model correct weer voor de stand van 1991. Hij presenteert het als een aanwijzing en niet als bewezen, en dat is in de eerste editie zichtbaar aan zijn voorbehouden.</p>
+      <p>Wat er niet is, is groepsonderzoek. West legt nergens een groep mensen met dyslexie naast een vergelijkbare groep zonder om te meten of het ruimtelijk vermogen inderdaad verschilt. Zijn betoog blijft daardoor staan op de aannemelijkheid van tien levensverhalen plus één neurologische theorie.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat de neurologische onderbouwing niet is blijven staan. Het model van Geschwind, Behan en Galaburda, waarin het mannelijk hormoon testosteron in de baarmoeder zowel de scheefheid van de hersenen als linkshandigheid, afweerziekten en leesproblemen zou beïnvloeden, is in de jaren negentig uitgebreid getoetst en overleefde die toetsing niet. Overzichtsstudies vonden nauwelijks steun voor de aannames, en waar het hormoon wel werd gemeten, wees de uitkomst de andere kant op. Het deel van Wests betoog dat het geheel bijeen moest houden is daarmee weggevallen.</p>
+      <p>Het tweede bezwaar geldt de diagnoses achteraf. Historici van wetenschap en geneeskunde wijzen die manier van werken af: bronnen over de jeugd van doden zijn onvolledig, onderwijs en spellingsnormen verschilden sterk, en hedendaagse begrippen worden zo in oude beschrijvingen teruggelezen. Voor Einstein is dat het scherpst uitgezocht. Zijn late spraak en zijn moeite met een enkel schoolvak zijn gedocumenteerd, maar leesproblemen zijn dat niet, en er is betoogd dat de claim dat hij een leerstoornis had het historisch beeld vertekent en de geloofwaardigheid van soortgelijke beweringen over anderen aantast.</p>
+      <p>Ten derde selecteert West op de uitkomst. Hij verzamelt mensen met leesproblemen die beroemd zijn geworden, en trekt daaruit een conclusie over leesproblemen in het algemeen. De veel grotere groep die eveneens moeizaam las en niet doorbrak, komt in het boek niet voor. Het latere groepsonderzoek naar ruimtelijk talent bij dyslexie levert wisselende en meestal zwakke uitkomsten op; een vaste ruil van taalvermogen tegen ruimtelijk vermogen is er niet uit gebleken.</p>
+      <p>Van de voorspelling is een deel uitgekomen en een deel niet. Beelden zijn in de wetenschap en het bedrijfsleven inderdaad overal, en visualisatie is een vak geworden. Tegelijk is het werkende leven sinds 1991 door schermwerk, elektronische post en chat juist veel talige geworden, en dat treft precies de groep waar het boek over gaat. De verwachting dat de techniek de weegschaal vanzelf zou laten kantelen, is te eenvoudig gebleken.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beoordeel bij toetsing wat iemand met een probleem doet, en scheid dat waar mogelijk van het tempo waarin hij leest en schrijft.</li>
+        <li>Behandel het onderscheid tussen beelddenkers en taaldenkers als een beschrijving van voorkeur en niet als een vaststaand type; onderwijs afstemmen op een verondersteld leertype levert volgens gecontroleerd onderzoek niets op.</li>
+        <li>Gebruik de portretten als voorbeeld van hoe beelden een vakgebied hebben vooruitgeholpen, en niet als bewijs over de hersenen van de betrokkenen.</li>
+        <li>Zoek bij aanhoudende leesproblemen naar bewezen leeshulp, en gebruik het talentverhaal daarnaast, niet in plaats daarvan.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>In the Mind's Eye: Visual Thinkers, Gifted People with Learning Difficulties, Computer Images and the Ironies of Creativity</i> verscheen bij Prometheus Books in Buffalo (1991, 359 blz., ISBN 0-87975-646-2). De bijgewerkte editie uit 1997 telt 436 bladzijden en heeft een nieuw nawoord (Prometheus Books, Amherst, ISBN 1-57392-155-6). In 2009 en 2020 kwamen versies uit onder de gewijzigde ondertitel <i>Creative Visual Thinkers, Gifted Dyslexics, and the Rise of Visual Technologies</i>. De American Library Association koos het boek in het jaar van verschijnen tot een van de beste titels in de categorie psychologie, psychiatrie en neurowetenschap. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Thomas West, zelf geen wetenschapper maar redacteur en schrijver, stelt in dit boek uit 1991 dat moeite met woorden en talent voor beelden bij dezelfde mensen kunnen samenvallen. Hij bouwt zijn betoog op met portretten van tien historische figuren die volgens hem moeizaam lazen, schreven of spelden en tegelijk in beelden dachten: Faraday, Maxwell, Einstein, Lewis Carroll, Poincaré, Edison, Tesla, Leonardo, Churchill, Patton en Yeats.</p><p>Daarnaast staat een neurologisch verhaal, ontleend aan het werk van Norman Geschwind en Albert Galaburda over de ongelijke ontwikkeling van de beide hersenhelften. West leidt daaruit af dat een minder scheve aanleg zowel taalproblemen als ruimtelijk talent kan opleveren. Het laatste deel gaat over computerbeelden en wetenschappelijke visualisatie, die volgens hem het werk en het onderwijs zullen verschuiven naar wat de beelddenker goed kan.</p><p>Het boek heeft in het onderwijs over dyslexie veel invloed gehad. De neurologische onderbouwing is sindsdien grotendeels weggevallen en de diagnoses achteraf van doden zijn omstreden, in het bijzonder die van Einstein.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>dyslexie</li><li>neurodiversiteit</li><li>creativiteit</li><li>onderwijs</li><li>wetenschapsgeschiedenis</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1311"><a href="1311.html">The Man Who Tasted Shapes</a>. Richard Cytowic beschrijft een andere afwijkende manier van waarnemen en loopt tegen dezelfde vraag aan: hoe hard is het bewijs bij een verhaal dat op enkelingen berust.</li>
+          <li value="1307"><a href="1307.html">An Anthropologist on Mars</a>. Oliver Sacks brengt bij zijn portretten van mensen met een neurologische afwijking het voorbehoud aan dat bij West ontbreekt.</li>
+          <li value="1322"><a href="1322.html">The Act of Creation</a>. Arthur Koestler zoekt het scheppende moment eveneens in het samenbrengen van twee onverenigbare voorstellingen.</li>
+          <li value="1302"><a href="1302.html">NeuroDiversity: The Birth of an Idea</a>. Judy Singer levert de politieke lezing van hetzelfde uitgangspunt: verschil in denken als variatie en niet als tekort.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

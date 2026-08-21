@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Introduction to Magic, Volumes I to III &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De UR-groep gebruikt het woord magie in de betekenis die Roger Bacon eraan gaf: praktische metafysica. Er bestaat volgens hen een kennis boven het…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1218">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1218 &middot; Filosofie en mystiek</p>
+    <h1>Introduction to Magic, Volumes I to III</h1>
+    <p class="lede">Julius Evola en de UR-groep, 1927-1929; in boekvorm 1955-1956</p>
+    <p class="stats">
+      <span><b>1873</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1218"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De UR-groep gebruikt het woord magie in de betekenis die Roger Bacon eraan gaf: praktische metafysica. Er bestaat volgens hen een kennis boven het redenerende verstand, die niet met begrippen te bereiken is maar alleen door een verandering van toestand, en die verandering is te bewerken met oefeningen die even objectief werken als proeven in de natuurkunde: dezelfde handelingen onder dezelfde voorwaarden geven dezelfde uitkomst, onafhankelijk van geloof, gevoel of zedelijkheid. Die weg is de droge weg van de wil, tegenover de natte weg van overgave en gebed. De groep zet zich daarmee even hard af tegen godsdienstige vroomheid als tegen het spiritisme, de theosofie en de antroposofie van hun eigen tijd, die zij als vervalsingen beschouwen. Wat de leer ondersteunt is geen bewijs maar een overlevering: een keten van ingewijden die de kennis van vlam op vlam doorgeeft.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Hoe het werk is ontstaan</h3>
+      <p>De voorlopers waren de tijdschriften <i>Atanor</i> (1924) en <i>Ignis</i> (1925) van Arturo Reghini, waarin Pythagorisme, tantra, kabbala en de eerste Italiaanse teksten van René Guénon verschenen. Begin 1927 vormde Evola in Rome de UR-groep, met de nadruk op het praktische werk. <i>Ur</i> verscheen in 1927 in tien afleveringen en in 1928 in acht.</p>
+      <p>In oktober 1928 probeerden Reghini en Giulio Parise, beiden verbonden met de vrijmetselarij, de leiding over te nemen. Dat mislukte, er volgden aanklachten over laster en plagiaat, en het blad ging in 1929 verder als <i>Krur</i> onder Evola alleen. In december 1929 werd de opheffing aangekondigd: het werk zou worden voortgezet op het terrein van de cultuur, in het tweemaandelijkse strijdblad <i>La Torre</i>, dat de fascistische overheid in 1930 liet verdwijnen.</p>
+      <p>De afleveringen werden door de abonnees zelf tot banden samengevoegd. Pas in 1955 en 1956 verscheen een echte boekuitgave bij Bocca in Rome, door Evola herzien, gecorrigeerd en uitgebreid; in 1971 volgde de uitgave bij Edizioni Mediterranee, opnieuw met wijzigingen.</p>
+      <h3>Anonimiteit en de schrijvers</h3>
+      <p>Alle bijdragen zijn ondertekend met een schuilnaam. De reden staat in de inleiding: de persoon van de schrijver telt niet, omdat wat hij van waarde te zeggen heeft geen vondst van hemzelf is maar een boveneigen leer weergeeft.</p>
+      <p>Achteraf zijn de meeste namen thuisgebracht. Evola schreef als Ea, Arvo, Iagla en Agarda en bewerkte bovendien het ongetekende materiaal. Pietro Negri was Reghini, Luce was Giulio Parise, Leo was Giovanni Colazza, leerling van Rudolf Steiner, Oso was de dichter Arturo Onofri, Havismat was de tot de islam bekeerde katholiek Guido De Giorgio, Sirius was de schrijver Nicola Moscardelli. Achter Abraxas gaat grotendeels Ercole Quadrelli schuil, afkomstig uit de Myriam-school van Giuliano Kremmerz. Ook Emilio Servadio, later oprichter van de Italiaanse psychoanalytische vereniging, hoorde erbij, al ontkende hij dat lange tijd.</p>
+      <p>Opvallend is dat de groep die de antroposofie in de inleiding als vervalsing wegzet, voor een aanzienlijk deel uit antroposofen bestond.</p>
+      <h3>Het eerste deel: de oefeningen</h3>
+      <p>Deel I is het meest praktische en op zichzelf te lezen. Luce beschrijft in de reeks Opus Magicum achtereenvolgens concentratie en stilte, het werken met vuur, de woorden van macht, de reukstoffen en de ketens. Leo geeft de eerste stappen naar de ervaring van het subtiele lichaam en behandelt de toestand voorbij de drempel van de slaap. Abraxas geeft aanwijzingen voor het gewaarworden van de adem, voor de hermetische caduceus en de spiegel, en voor de magie van het beeld.</p>
+      <p>Daarnaast staan er vertalingen in: het Mithrasritueel uit de Grote Toverpapyrus van Parijs, door de groep gepresenteerd als het enige gaaf overgeleverde ritueel van de antieke mysteriën, het alchemistische traktaat <i>De pharmaco catholico</i>, fragmenten uit <i>De mysteriis</i> op naam van Iamblichus, en Tibetaanse en boeddhistische teksten over de leegte en de diamanten bliksem.</p>
+      <p>De grondgedachte van de oefeningen is dat een begrip pas werkt als het ritmisch wordt herhaald tot het niet langer gedachte maar gevoel en ten slotte lichamelijke toestand is. Daarom staat in de voetnoten dat de herhalingen in de redes van Boeddha en in magische gebeden geen slordigheid zijn maar techniek.</p>
+      <h3>Het tweede en derde deel: leer en bronnen</h3>
+      <p>Deel II is zwaarder van leerstelling. Reghini schrijft over de westerse traditie en over de geheime taal van de <i>Fedeli d'amore</i>, de dichterskring rond Dante zoals Luigi Valli die had uitgelegd. Evola behandelt esoterie en ethiek, het bewustzijn van de ingewijde na de dood en de metafysica van pijn en ziekte. Aan bronnenkant staan de <i>Turba philosophorum</i>, de Gulden Verzen op naam van Pythagoras en liederen van Milarepa.</p>
+      <p>Deel III bevat meer bronnenmateriaal dan praktijk: Evola over aristocratie en het inwijdingsideaal, over de symboliek van het jaar en over het heilige in de Romeinse traditie, Arvo over orakelrekenkunde, verslagen van eigen ervaringen door Taurulus, een bijdrage van de Indiase alchemist Narayanaswami Aiyar over de omzetting van mens en metaal, en passages uit Gerhard Dorn en Plotinus. In de latere uitgaven voegde Evola stukken toe over Aleister Crowley, over de psychoanalyse en over het gebruik van middelen in de magie.</p>
+      <h3>De keten en de politiek</h3>
+      <p>De groep werkte met wat zij ketens noemde: kleine kringen in Rome, Genua en elders die individuele oefeningen combineerden met een gezamenlijke gerichtheid, om zo een gedeelde toestand op te wekken. Het doel daarvan was tweeledig. Ten eerste het versterken van het werk van de deelnemers. Ten tweede, en dat staat er onomwonden, het scheppen van een psychische werking die zich aan een hogere invloed zou laten koppelen en van waaruit achter de schermen op de omgeving kon worden ingegrepen.</p>
+      <p>Die omgeving was het fascisme. Het slothoofdstuk van deel III, ondertekend Ekatlos, vertelt over een poging om een oude inwijdingsketen in de omgeving van Rome te laten doorwerken in de fascistische beweging in haar eerste regeringsjaren. Evola schreef later dat Mussolini beducht was voor magische handelingen tegen hem en gerustgesteld werd toen hem de bedoelingen werden uitgelegd. Het Lateraans verdrag van 1929, dat het regime met de kerk verzoende, sloot de anticlericale opening die Evola zocht; kort daarna hield de groep op.</p>
+      <p>De poging mislukte. Wat overbleef was materiaal dat Evola in de jaren dertig verwerkte in <i>Rivolta contro il mondo moderno</i> en <i>La tradizione ermetica</i>, twee boeken die zijn latere invloed op radicaal-rechtse kringen dragen.</p>
+      <h3>Toon</h3>
+      <p>De inleiding richt zich uitdrukkelijk tot enkele geschikte lezers en zegt erbij dat wie het niet volgt, zich moet beperken tot lezen ter informatie. Wat als spiritualisme geldt, van seances tot theosofie en antroposofie, wordt afgedaan als een mengsel van brokstukken oude waarheid, moderne verwarring en tweederangs wijsbegeerte in een moralistische en humanitaire saus.</p>
+      <p>Die toon is niet bijkomstig. Zij bepaalt hoe het boek met tegenspraak omgaat: onbegrip is een gebrek van de lezer, nooit van de tekst.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Praktische metafysica</td><td>De opvatting van magie als werkzame techniek in plaats van als kennis of wijsheid, ontleend aan Roger Bacon en aan Kremmerz.</td></tr>
+          <tr><td class="term">Het Zelf (Io)</td><td>Het middelpunt dat door de oefeningen moet worden gevormd; in de Engelse vertaling met een hoofdletter weergegeven om verwarring met het psychoanalytische ik te vermijden.</td></tr>
+          <tr><td class="term">Verandering van toestand</td><td>De voorwaarde voor hogere kennis: niet meer weten maar anders zijn.</td></tr>
+          <tr><td class="term">Droge weg</td><td>De weg van wil, zwavel en zonnebewustzijn, tegenover de natte weg van overgave, kwik en mystieke vroomheid.</td></tr>
+          <tr><td class="term">Magische keten</td><td>Kring van beoefenaars die de eigen oefening met een gezamenlijke gerichtheid verbindt om een boveneigen werking op te wekken.</td></tr>
+          <tr><td class="term">Opus Magicum</td><td>De reeks praktische aanwijzingen van Luce over concentratie, stilte, vuur, woorden van macht, reukstoffen en ketens.</td></tr>
+          <tr><td class="term">Subtiel lichaam</td><td>De veronderstelde tweede gestalte waarvan de vorming in deel I stap voor stap wordt beschreven en die in het onsterfelijke lichaam moet uitmonden.</td></tr>
+          <tr><td class="term">Actieve onpersoonlijkheid</td><td>De regel dat bijdragen anoniem verschijnen omdat de leer niet van de schrijver is.</td></tr>
+          <tr><td class="term">Tegeninwijding</td><td>Bij Arvo de aanduiding voor stromingen die de taal van de inwijding overnemen maar in tegengestelde richting werken.</td></tr>
+          <tr><td class="term">Traditie</td><td>In de zin van Guénon: één oorspronkelijke leer die in alle beschavingen in verschillende vormen terugkeert.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen bewijs in de gewone zin. Het beroept zich op overlevering en op ervaring, en het beschouwt beide als afdoende. De inleiding maakt daar geen geheim van: de leer wordt niet doorgegeven in begrippen maar van geest op geest, en wie de bijbehorende toestand niet bereikt, kan de tekst per definitie niet beoordelen.</p>
+      <p>Waar het wel toetsbaar materiaal levert, is bij de vertalingen. Het Mithrasritueel uit de Parijse papyrus is een echte laat-antieke tekst, en de bewerkingen van Iamblichus, de <i>Turba philosophorum</i> en de Gulden Verzen zijn voor hun tijd behoorlijk verzorgd, met noten en verwijzingen. De bewering dat het Mithrasritueel het enige gaaf overgeleverde ritueel van de antieke mysteriën is, wordt in de vakliteratuur betwist: het is omstreden of de tekst überhaupt uit een mysteriecultus komt.</p>
+      <p>De verslagen van eigen ervaring, zoals dat van Pietro Negri over een plotselinge gewaarwording van onstoffelijkheid op een stoep in Florence en die van Taurulus in deel III, zijn beschrijvingen in de eerste persoon zonder enige controle. De belofte uit de inleiding, dezelfde uitkomst bij dezelfde voorwaarden, wordt nergens in het boek nagegaan.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is de politieke inzet, en dat bezwaar komt uit het boek zelf. De groep wilde niet alleen haar leden ontwikkelen maar ook, met haar eigen woorden, achter de schermen inwerken op de heersende krachten in de samenleving, en die samenleving was het Italië van Mussolini. Wie deel I als losse verzameling oefeningen leest, laat dat weg. Evola's latere loopbaan, van <i>Imperialismo pagano</i> tot zijn naoorlogse invloed op radicaal-rechts, geeft aan die inzet gewicht.</p>
+      <p>De tekst die men leest is niet de tekst die in 1927 verscheen. Evola heeft in 1955 en opnieuw in 1971 geschrapt, herschreven en toegevoegd; stukken over Crowley en over de psychoanalyse zijn decennia later geschreven en staan tussen materiaal uit de jaren twintig. Alleen de facsimile-uitgaven van Tilopa uit 1980 en 1981 geven de oorspronkelijke afleveringen. Voor een werk dat zich op onpersoonlijke overlevering beroept is dat een lastige constatering: één persoon heeft de leer achteraf naar zijn hand gezet.</p>
+      <p>De wetenschappelijke aanspraak houdt geen stand. Het boek eist voor zijn methode de objectiviteit van de exacte vakken op en wijst tegelijk elke toetsing af, omdat oordelen alleen toekomt aan wie de ervaring deelt. Daarmee meet het de theosofie en de antroposofie met een maat die het zelf niet haalt.</p>
+      <p>Ten slotte is de bruikbaarheid beperkt door de opzet. Het zijn losse maandelijkse opstellen van uiteenlopende schrijvers uit uiteenlopende scholen, later gebundeld; er is geen doorlopende gang, herhaling en tegenspraak tussen bijdragen zijn er in overvloed, en de lezer moet zelf uitzoeken welke schuilnaam waarvoor staat voordat een uitspraak op waarde te schatten is.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees deel I als je de praktijk wilt kennen; de delen II en III zijn vooral leerstellig en bronnenmateriaal.</li>
+        <li>Zoek bij elk opstel eerst op welke schuilnaam bij wie hoort en uit welke school die persoon kwam, voordat je de inhoud aan de groep als geheel toeschrijft.</li>
+        <li>Ga bij citaten na of ze uit de oorspronkelijke afleveringen komen of uit Evola's bewerking van 1955 of 1971.</li>
+        <li>Gebruik de vertaalde bronteksten alleen naast een moderne wetenschappelijke editie; de groep koos bewust voor oudere versies.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Introduzione alla magia quale scienza dell'Io</i>, drie delen (Bocca, Rome, 1955-1956), samengesteld uit de maandelijkse afleveringen van <i>Ur</i> (1927-1928) en <i>Krur</i> (1929); herziene uitgave bij Edizioni Mediterranee, Rome, 1971. Engelse vertaling in drie delen bij Inner Traditions, Rochester, Vermont: deel I <i>Rituals and Practical Techniques for the Magus</i>, vertaald door Guido Stucco en bezorgd door Michael Moynihan (2001, 376 blz., ISBN 9780892816248); deel II <i>The Path of Initiatic Wisdom</i>, vertaald door Joscelyn Godwin, met een inleiding van Hans Thomas Hakl (2019, ISBN 9781620557174); deel III <i>Realizations of the Absolute Individual</i>, vertaald door Joscelyn Godwin (2021, ISBN 9781620557198). In 2023 verschenen de drie delen samen als <i>The Complete Introduction to Magic</i> (ISBN 9781644119556). Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>In januari 1927 begon in Rome het maandblad <i>Ur</i>, gemaakt door een groep van een stuk of twaalf mensen rond Julius Evola (1898-1974) en Arturo Reghini (1878-1946). De bijdragen verschenen onder schuilnamen, omdat de leer volgens de groep niet van de schrijver was. Na ruzie over de leiding heette het blad in 1929 <i>Krur</i>; eind dat jaar hield de groep op te bestaan. Evola bundelde de afleveringen later in drie delen en bewerkte ze daarbij ingrijpend.</p><p>Magie betekent hier praktische metafysica: geen spreuken maar een techniek om het eigen Zelf te veranderen. Deel I geeft de oefeningen, over concentratie en stilte, over adem, over het subtiele lichaam, over de magische keten, samen met vertalingen van het Mithrasritueel uit de Grote Toverpapyrus van Parijs en van hermetische en boeddhistische teksten. De delen II en III zijn zwaarder van leerstelling, met opstellen over de westerse traditie, over inwijding en dood, over de symboliek van het jaar.</p><p>Het is geen neutraal handboek. De groep wilde langs magische weg invloed uitoefenen op het fascisme, en dat oogmerk staat in de teksten zelf. Wie de oefeningen leest, leest ook een politiek programma dat in de jaren daarna zijn beslag kreeg.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>esoterie</li><li>magie</li><li>hermetisme</li><li>inwijding</li><li>traditionalisme</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="638"><a href="638.html">Initiation into Hermetics</a>. Bardon geeft in dezelfde eeuw een oefenweg met een vergelijkbare aanspraak op stelselmatigheid, maar zonder politieke inzet.</li>
+          <li value="937"><a href="937.html">Eranos: An Alternative Intellectual History of the Twentieth Century</a>. Hakl, die de inleiding bij deel II schreef, beschrijft in zijn geschiedenis van Eranos hetzelfde Europese milieu waarin de UR-groep opereerde.</li>
+          <li value="641"><a href="641.html">The Greek Magical Papyri in Translation</a>. De wetenschappelijke editie van de Griekse magische papyri bevat het Mithrasritueel dat in deel I staat, met de vakdiscussie erbij.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

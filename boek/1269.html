@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Systems of Survival &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Jacobs stelt dat mensen niet over een enkele moraal beschikken maar over twee, die elk horen bij een andere manier om in het levensonderhoud te voorzien.…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1269">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1269 &middot; Geschiedenis en samenleving</p>
+    <h1>Systems of Survival</h1>
+    <p class="lede">Jane Jacobs, 1992</p>
+    <p class="stats">
+      <span><b>1575</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1269"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Jacobs stelt dat mensen niet over een enkele moraal beschikken maar over twee, die elk horen bij een andere manier om in het levensonderhoud te voorzien. Wie neemt, dus grond bewaakt, bestuurt, rechtspreekt of vecht, is aangewezen op het wachterssyndroom; wie ruilt is aangewezen op het handelssyndroom. Beide verzamelingen voorschriften hangen intern samen en beide werken, zolang zij gescheiden blijven. Het gevaar zit in de vermenging: wanneer voorschriften uit het ene stelsel worden gebruikt in werk dat bij het andere hoort, ontstaat geen verstandig midden maar een vorm die aan twee kanten bederft, en daarin ziet zij de oorzaak van corruptie, van georganiseerde misdaad en van het vastlopen van hele staatshuishoudingen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een gesprek in plaats van een betoog</h3>
+      <p>Het boek bestaat uit veertien bijeenkomsten. Armbruster, een gepensioneerde uitgever, roept vijf bekenden bijeen omdat hij wil begrijpen waar het verval van de eerlijkheid in het openbare leven vandaan komt. De anderen heten Kate, Jasper, Hortense, Ben en Quincy, en zij brengen ieder een eigen beroepsachtergrond en een eigen weerzin mee.</p>
+      <p>Jacobs schrijft zichzelf uit het boek weg. Zij laat Kate de eerste lijst opstellen, laat de anderen tegenwerpingen maken en gebruikt de bezwaren om het schema aan te scherpen. De hoofdstuktitels zijn naar de sprekers vernoemd, en achterin staat een bijlage waarin beide reeksen voorschriften onder elkaar zijn afgedrukt.</p>
+      <h3>Het handelssyndroom</h3>
+      <p>De eerste lijst die Kate presenteert bevat vijftien voorschriften voor wie van ruilen leeft: mijd geweld, ga vrijwillige overeenkomsten aan, kom afspraken na, wees eerlijk, wees zuinig, wees vlijtig, wees ondernemend, sta open voor vindingrijkheid en het nieuwe, werk samen met vreemden en buitenstaanders, wees doelmatig, investeer in wat iets voortbrengt, bevorder gemak en welbevinden, wees het oneens omwille van de taak, wees optimistisch, en gebruik eigen initiatief.</p>
+      <p>Dat deze punten bij elkaar horen is volgens Jacobs geen toeval. Handel drijven met onbekenden vereist dat je hen niet berooft, dat je je woord houdt en dat je je niet stoort aan hun afkomst. Wie een van deze regels overtreedt, ondergraaft de mogelijkheid om zaken te doen.</p>
+      <h3>Het wachterssyndroom</h3>
+      <p>Daartegenover staat een even lange lijst voor wie van nemen en bewaken leeft: mijd handel, toon dapperheid, wees gehoorzaam en gedisciplineerd, houd vast aan de traditie, eerbiedig de rangorde, wees trouw, neem wraak, misleid omwille van de taak, maak rijkelijk gebruik van vrije tijd, wees opzichtig, deel gaven uit, wees exclusief, toon standvastigheid, wees fatalistisch en koester eer.</p>
+      <p>Wat in de ene lijst een gebrek is, geldt in de andere als deugd. Een leger dat de vijand zijn plannen meedeelt is nutteloos, terwijl een handelaar die zijn afnemer misleidt zijn markt vernielt. Meningsverschil omwille van de zaak hoort bij de handel en ondermijnt een bevelsketen. Jacobs leidt uit die spiegeling af dat er twee stelsels zijn en geen enkel.</p>
+      <p>Waarom er precies twee zijn, is de vraag van een apart hoofdstuk. Haar antwoord luidt dat er maar twee manieren zijn om aan middelen te komen: nemen wat er is, of ruilen met een ander. Elk van beide brengt zijn eigen eisen mee, en die eisen zijn in de loop van de tijd tot een moraal gestold.</p>
+      <h3>Monsterlijke hybriden</h3>
+      <p>Het middelste deel van het boek gaat over wat er misgaat bij vermenging. Een politiekorps dat gaat handelen in bescherming verandert in een afpersingsbedrijf. Een misdaadorganisatie leent de wachtersvoorschriften van trouw, wraak en eer en gebruikt ze om een ruilbedrijf af te schermen; het resultaat is de maffia. Een bestuur dat zelf gaat ondernemen krijgt belang bij zijn eigen toezicht.</p>
+      <p>Armbruster brengt daar het begrip systeemgebonden bederf bij in: zodra de vermenging in de opzet van een organisatie zit, is het probleem niet meer op te lossen door slechte mensen te vervangen. In een hoofdstuk over anomalieen komen bedrijfstakken en beroepen ter sprake die zich in geen van beide lijsten laten onderbrengen, en de deelnemers geven toe dat het schema daar niet sluit.</p>
+      <h3>Kasten, uitvindingen en flexibiliteit</h3>
+      <p>Hoe houden samenlevingen de twee stelsels dan uit elkaar? Jacobs noemt twee manieren. De eerste is scheiding door wet en gewoonte, waarbij bepaalde groepen bij geboorte aan een van beide worden toegewezen en de andere kant hun verboden is. Dat werkt, maar het legt de samenleving vast en verspilt talent.</p>
+      <p>De tweede noemt zij syndroomvriendelijke uitvindingen: regelingen waarmee de ene kant iets kan doen wat normaal bij de andere hoort, zonder de bijbehorende moraal over te nemen. Hortense verdedigt daarnaast wat zij morele flexibiliteit noemt: dezelfde persoon beweegt op een dag meermalen tussen beide stelsels, en dat gaat goed zolang hij weet in welk stelsel hij op dat moment werkt. Wie het onderscheid niet ziet, glijdt vanzelf naar de hybride.</p>
+      <h3>De valkuilen van de eigen methode</h3>
+      <p>Tegen het slot laat Jacobs haar personages het schema aanvallen. Zij sommen op hoe het misbruikt kan worden: als vrijbrief voor liegende bestuurders, als excuus om alles wat men afkeurt een hybride te noemen, en als sjabloon dat over elke geschiedenis heen te leggen valt.</p>
+      <p>Het laatste hoofdstuk laat het gezelschap uiteengaan zonder sluitend eindoordeel. Wat overblijft zijn twee lijsten, een handvol vuistregels over het gebruik ervan, en het advies om bij ieder vraagstuk eerst vast te stellen om welk soort werk het gaat.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Wachterssyndroom</td><td>De vijftien voorschriften die horen bij werk dat berust op nemen en bewaken: besturen, rechtspreken, vechten en toezicht houden.</td></tr>
+          <tr><td class="term">Handelssyndroom</td><td>De vijftien voorschriften die horen bij werk dat berust op ruilen, met eerlijkheid, zuinigheid en het nakomen van afspraken als kern.</td></tr>
+          <tr><td class="term">Voorschrift</td><td>Een enkele gedragsregel uit een van beide lijsten, die volgens Jacobs alleen betekenis heeft in samenhang met de andere veertien.</td></tr>
+          <tr><td class="term">Nemen en ruilen</td><td>De twee manieren waarop mensen aan hun levensonderhoud komen, en volgens Jacobs de wortel van de twee moraalstelsels.</td></tr>
+          <tr><td class="term">Monsterlijke hybride</td><td>Een organisatie of praktijk waarin voorschriften uit beide lijsten door elkaar lopen, wat volgens haar geen tussenvorm oplevert maar bederf.</td></tr>
+          <tr><td class="term">Systeemgebonden bederf</td><td>Corruptie die in de opzet van een organisatie zit en dus niet verdwijnt door de betrokken personen te vervangen.</td></tr>
+          <tr><td class="term">Kaste</td><td>Een scheiding waarbij groepen bij geboorte aan een van beide stelsels worden toegewezen en het andere hun verboden is.</td></tr>
+          <tr><td class="term">Syndroomvriendelijke uitvinding</td><td>Een regeling waarmee de ene kant iets kan doen wat normaal bij de andere hoort, zonder de daarbij horende voorschriften over te nemen.</td></tr>
+          <tr><td class="term">Morele flexibiliteit</td><td>Het geordende heen en weer bewegen van dezelfde persoon tussen beide stelsels, dat volgens Hortense goed gaat zolang hij weet in welk stelsel hij werkt.</td></tr>
+          <tr><td class="term">Anomalie</td><td>Een beroep of bedrijfstak die zich in geen van beide lijsten laat onderbrengen en waar het schema dus niet sluit.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing bestaat uit brede lectuur in geschiedenis, antropologie, recht en gewoonterecht, aangevuld met eigen waarneming. Het literatuuroverzicht beslaat achttien bladzijden. Er is geen enquete, geen dataverzameling en geen telling. De twee lijsten zijn door Jacobs zelf samengesteld door voorschriften te sorteren, en zij geeft geen werkwijze waarmee een ander tot dezelfde twee lijsten zou komen.</p>
+      <p>Waar het betoog wel sterk staat is in de samenhang. Zij voorspelt dat vermenging bepaalde herkenbare gebreken oplevert, en georganiseerde misdaad, omkoopbare politie en staatshandelsmonopolies vertonen inderdaad de patronen die zij beschrijft. Dat de voorbeelden door haar zijn uitgezocht, blijft daarbij staan.</p>
+      <p>De gespreksvorm doet dubbel werk. Zij laat zien dat Jacobs de tegenwerpingen kende, want haar personages brengen ze zelf naar voren. Tegelijk schrijft zij ook de antwoorden, en een bezwaar dat in de mond van een verzonnen tegenstander wordt gelegd is makkelijker te weerleggen dan een bezwaar van een echte.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat het schema zich nauwelijks laat weerleggen. Wat past geldt als bevestiging, wat niet past heet een anomalie of een hybride. Jacobs noemt geen geval dat, als het zich zou voordoen, haar indeling zou omverwerpen. Daarmee verschuift het werk van een theorie naar een manier van kijken, wat het bruikbaar kan maken maar het aan toetsing onttrekt.</p>
+      <p>De redenering is bovendien functioneel van aard: de voorschriften bestaan omdat zij het bijbehorende werk mogelijk maken. Zulke verklaringen komen altijd achteraf en voorspellen niets. Waarom juist deze vijftien, en niet twaalf of twintig, blijft onbeantwoord.</p>
+      <p>De wachterslijst leest als de erecode van een krijgersaristocratie. Voor een moderne ambtenarij, waar onpartijdigheid, openbaarheid en verantwoording de kern vormen en wraak en opzichtigheid juist ontslaggronden zijn, past zij slecht. Dat roept de vraag op of het wel om een enkel stelsel gaat dat drieduizend jaar hetzelfde is gebleven. Grote delen van het moderne leven vallen daarnaast buiten beide lijsten: huishouden, zorg, onderwijs, wetenschap en het verenigingsleven.</p>
+      <p>Ten slotte de vorm. Het bedachte gezelschap is veel besproken en weinig geprezen; Kirkus Reviews noemde het bij verschijning een hinderlijke vorm bij een theorie die de moeite waard is. Wie het boek om de gedachte leest, moet zich door tientallen bladzijden gemaakte gezelligheid werken, en de personages blijven doorgeefluiken van de auteur.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Stel bij een integriteitsvraagstuk eerst vast om welk soort werk het gaat, voordat er een gedragscode wordt geschreven.</li>
+        <li>Ga bij samenwerking tussen overheid en bedrijf na welke voorschriften over en weer worden geleend en wat daarvan de voorspelbare gevolgen zijn.</li>
+        <li>Gebruik de bijlage met de twee lijsten als toetslijst bij het beoordelen van een verzelfstandiging of een aanbesteding.</li>
+        <li>Let bij het beoordelen van misstanden op het onderscheid tussen falende personen en een opzet die het falen uitlokt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Systems of Survival: A Dialogue on the Moral Foundations of Commerce and Politics</i> (Random House, New York, 1992). Meestgebruikt is de paperback van Vintage Books (New York, 1994, xiii + 236 blz., ISBN 9780679748168), met een literatuuroverzicht op blz. 217 tot 234. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd. Van Jacobs verscheen wel haar bekendste boek in het Nederlands: <i>The Death and Life of Great American Cities</i> als <i>Dood en leven van grote Amerikaanse steden</i>, vertaald door Maarten Polman (SUN Trancity, 2009, ISBN 9789085067849).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Jane Jacobs, bekend geworden met haar boek over Amerikaanse steden, zoekt hier de herkomst van bedrog in het openbare leven. Haar antwoord is dat er in elke samenleving twee morele stelsels naast elkaar bestaan, elk gebonden aan een manier om in het levensonderhoud te voorzien. Wie neemt, dus grond bewaakt, jaagt, bestuurt of vecht, leeft naar het wachterssyndroom: gehoorzaamheid, rangorde, trouw, wraak, misleiding als de taak dat vraagt, en eer boven alles. Wie ruilt leeft naar het handelssyndroom: geweld mijden, afspraken nakomen, eerlijk zijn, zuinig zijn, samenwerken met vreemden, openstaan voor het nieuwe.</p><p>Beide lijsten tellen vijftien voorschriften, en beide zijn volgens haar samenhangend en werkzaam binnen hun eigen gebied. Problemen ontstaan wanneer voorschriften uit de ene lijst in de andere terechtkomen. Zo ontstaat wat zij een monsterlijke hybride noemt: geen tussenvorm, maar een gestel dat aan beide kanten bederft. De maffia, omkoopbare politie en handeldrijvende overheden zijn haar voorbeelden.</p><p>Het boek is geschreven als gesprek. Zes personen komen bijeen op uitnodiging van de gepensioneerde uitgever Armbruster en werken de twee lijsten in veertien bijeenkomsten uit, inclusief de bezwaren ertegen. Een bijlage zet beide syndromen naast elkaar.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>economie</li><li>ethiek</li><li>politiek</li><li>handel</li><li>corruptie</li><li>dialoog</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1290"><a href="1290.html">The Elementary Forms of Religious Life</a>. Durkheim onderzoekt hoe morele voorstellingen door een groep worden gedragen, het begrippenapparaat waar Jacobs indirect uit put.</li>
+          <li value="1264"><a href="1264.html">The Real World of Technology</a>. Franklin laat zien hoe techniek de praktijken van bestuur en werk hervormt, met dezelfde aandacht voor wat een manier van doen aan moraal meebrengt.</li>
+          <li value="1280"><a href="1280.html">Risk, Uncertainty and Profit</a>. Knight ontleedt wat de ondernemer onderscheidt van de bestuurder, en vult daarmee de handelskant van Jacobs' tweedeling aan.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

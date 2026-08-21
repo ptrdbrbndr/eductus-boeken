@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Education of a Speculator &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Niederhoffer betoogt dat speculeren een vak is dat je leert zoals je een spel leert: door te tellen wat er werkelijk gebeurt en door je niets aan te…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1283">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1283 &middot; Geld en ondernemen</p>
+    <h1>The Education of a Speculator</h1>
+    <p class="lede">Victor Niederhoffer, 1997</p>
+    <p class="stats">
+      <span><b>1667</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1283"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Niederhoffer betoogt dat speculeren een vak is dat je leert zoals je een spel leert: door te tellen wat er werkelijk gebeurt en door je niets aan te trekken van wie beweert het te weten. Beurscommentaar, koersdoelen en de verhalen van deskundigen zijn volgens hem vermaak dat statistisch niets voorstelt, terwijl een geoefend oog in bordspelen, gokhuizen, paardenrennen, muziek en het gedrag van dieren wel bruikbare regelmaat aantreft. Markten zijn in zijn beschrijving een ecologie waarin verschillende soorten deelnemers elkaar voeden en waarin misleiding een normale, evolutionair verklaarbare handelwijze is. De opvoeding uit de titel is die van hemzelf, van de zwembadtrappen van Brighton Beach tot de handelsvloer, en dient als bewijsvoering: dit is hoe iemand leert kijken.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Brighton Beach</h3>
+      <p>Het boek begint bij de wandelpromenade van Brighton Beach in Brooklyn, waar Niederhoffer opgroeide. Zijn vader Arthur was politieman en later socioloog, en hield hem voor dat je zelf moet kijken in plaats van te geloven wat anderen zeggen. Op het strand en op de handbaltrappen leerde hij de omgangsvormen van spelers die om geld spelen: hoe je een tegenstander taxeert, hoe je een zwakte verbergt en hoe je verlies neemt.</p>
+      <p>Die herinneringen zijn geen inleiding maar de dragende laag van het boek. Elk onderwerp keert uiteindelijk terug naar een figuur van het strand of naar zijn vader. Het slothoofdstuk is een eerbetoon aan hem, gevolgd door adviezen aan wie zelf wil speculeren.</p>
+      <h3>Tellen in plaats van geloven</h3>
+      <p>Niederhoffer studeerde economie aan Harvard, promoveerde aan de universiteit van Chicago en doceerde daarna financiering aan de universiteit van Californië in Berkeley. In 1966 publiceerde hij met de natuurkundige M. F. M. Osborne in de Journal of the American Statistical Association een stuk over de vorming van koersen op de effectenbeurs, waarin zij lieten zien dat opeenvolgende transactieprijzen vaker van richting wisselen dan bij zuiver toeval zou passen.</p>
+      <p>Uit dat werk komt zijn houding voort. De leer van de doelmatige markt, die zegt dat koersen alle bekende gegevens al bevatten, wijst hij af omdat zij naar zijn oordeel te weinig is nagerekend. Zijn eigen aanpak is het tellen van gevallen: hoe vaak volgt een stijging op een daling van deze omvang, wat gebeurt er in de week na een groot verlies, welke dagen van de maand wijken af. Het boek staat vol van zulke tellingen, meestal in de vorm van een mededeling.</p>
+      <h3>Orakels, deskundigen en misleiding</h3>
+      <p>Een van de scherpste hoofdstukken vergelijkt de hedendaagse beursdeskundige met het orakel van Delphi. De priesteres gaf antwoorden die achteraf altijd klopten omdat ze twee kanten op te lezen waren, en de instelling verdiende aan de giften van wie kwam vragen. Niederhoffer ziet hetzelfde bedrijfsmodel bij beleggingsadviseurs, marktcommentatoren en de financiële pers: uitspraken die nooit fout kunnen zijn, betaald door partijen met een belang bij handelen.</p>
+      <p>Misleiding behandelt hij niet als misstand maar als verschijnsel. In de natuur komt zij overal voor, van vlinders die op bladeren lijken tot dieren die zich groter voordoen dan zij zijn. Op de beurs werkt het net zo: grote partijen verbergen hun bedoelingen, en een koersbeweging die een uitbraak lijkt, is vaak bedoeld om anderen op het verkeerde been te zetten. Hij noemt dat laatste een val, en beschrijft naar het voorbeeld van olifanten die telkens hetzelfde pad teruglopen hoe zulke vallen op vaste plaatsen worden gezet.</p>
+      <h3>Wat spel, sport en natuur leren</h3>
+      <p>Het middendeel is een reeks uitstapjes. Bordspelen als schaken en dammen leveren volgens hem lessen over het lezen van een stelling en over het aanvaarden van een klein nadeel om een groot te vermijden. Gokhuizen laten zien hoe een klein voordeel voor het huis over veel herhalingen een zekere uitkomst wordt, en paardenrennen hoe publieke verwachtingen in een koers verwerkt raken. Muziek gebruikt hij als beeld voor vorm en herhaling in het koersverloop.</p>
+      <p>De ecologie van de markt is het bekendste beeld uit het boek. Beleggers in obligaties gedragen zich als planteneters, hedgefondsen als roofdieren, tussenpersonen en handelaren die van de marge leven als opruimers die opeten wat overblijft. Het beeld is aardig en verklaart weinig, maar het geeft hem wel een manier om te vragen wie er in een bepaalde markt aan wie verdient.</p>
+      <h3>Verliezen</h3>
+      <p>Verlies is een terugkerend onderwerp. Niederhoffer vertelt over zijn eigen misgrepen, over paniek en beurskrach en over de neiging van speculanten om na een verlies groter in te zetten. Hij beschouwt tegenslag als leergeld en presenteert die houding als deugd.</p>
+      <p>Wat het boek daarbij niet doet, is dat leergeld begroten. Er staat nergens hoeveel van je vermogen in één positie mag, hoe je een reeks verliezen doorstaat of wanneer je een positie sluit omdat de aanname niet meer geldt. De lezer krijgt een manier van kijken en geen huishoudboekje, en juist op dat punt is het boek later ingehaald door de werkelijkheid.</p>
+      <h3>De schrijver en zijn handel</h3>
+      <p>Niederhoffer was geen buitenstaander. Hij richtte met Richard Zeckhauser een zakenbank op die overnames bemiddelde, beheerde in de jaren tachtig een deel van het geld van George Soros, die hem openlijk prees, en handelde daarna voor eigen rekening in termijncontracten en valuta.</p>
+      <p>Het boek verscheen op het hoogtepunt van die loopbaan. In de zomer van 1997 verloor hij ongeveer de helft van het beheerde vermogen op posities in Thailand, toen de Aziatische crisis losbrak. Om dat verlies goed te maken verkocht hij ongedekte verkoopopties op de Amerikaanse aandelenindex, waarmee hij premie ontving in ruil voor de belofte aandelen tegen de oude prijs over te nemen als de markt zou dalen. Op 27 oktober 1997 daalde die markt fors, kwamen alle tegenpartijen tegelijk langs, en was het fonds weg.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Speculeren</td><td>Bij Niederhoffer een vak dat berust op het tellen van gevallen en op zelfstandig kijken, niet op vooruitzien.</td></tr>
+          <tr><td class="term">Tellen</td><td>Zijn werkwijze om elke bewering over de markt om te zetten in een frequentie die na te gaan valt.</td></tr>
+          <tr><td class="term">Ecologie van de markt</td><td>Het beeld waarin obligatiebeleggers planteneters zijn, hedgefondsen roofdieren en tussenpersonen opruimers.</td></tr>
+          <tr><td class="term">Misleiding</td><td>Het verbergen van bedoelingen, dat hij in de natuur en op de beurs als normale handelwijze beschrijft.</td></tr>
+          <tr><td class="term">Val</td><td>Een koersbeweging die een uitbraak nabootst om deelnemers tot een positie te verleiden die meteen daarna misloopt.</td></tr>
+          <tr><td class="term">Orakel van Delphi</td><td>Zijn beeld voor de beursdeskundige, wiens uitspraken zo zijn ingericht dat zij achteraf altijd kloppen.</td></tr>
+          <tr><td class="term">Leer van de doelmatige markt</td><td>De opvatting dat koersen alle bekende gegevens al bevatten, die hij afwijst omdat zij te weinig is nagerekend.</td></tr>
+          <tr><td class="term">Leergeld</td><td>Het verlies dat een speculant betaalt om iets over de markt te weten te komen, door hem als noodzakelijke kostenpost opgevat.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing is ongelijk. Waar Niederhoffer op zijn eigen academische werk teruggrijpt, staat er iets stevigs: het onderzoek met Osborne uit 1966 is gepubliceerd, nagerekend en tot op heden aangehaald in de literatuur over marktmicrostructuur. Zijn stelling dat opeenvolgende koersen niet volledig onafhankelijk zijn, is inmiddels gemeengoed.</p>
+      <p>Voor het overige moet de lezer hem geloven. Het boek meldt telkens dat hij iets geteld heeft en wat eruit kwam, zonder de reeks, de periode of de bewerking te geven. Er staan geen tabellen waarin het na te rekenen valt en geen verwijzingen naar gegevensbestanden. Verbanden die op enkele tientallen gevallen berusten en achteraf zijn gezocht, leveren bijna altijd iets op; dat probleem benoemt hij niet.</p>
+      <p>De uitstapjes naar spel, sport en natuur zijn beeldspraak en geen bewijs. Dat een dammer positioneel leert denken, zegt niets over de verdeling van beursrendementen; de lezer moet zelf bijhouden waar zo'n vergelijking ophoudt te dragen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar wordt door de geschiedenis geleverd. Het boek verscheen in het voorjaar van 1997 en beschrijft een schrijver die door een vakblad als een van de beste fondsbeheerders ter wereld werd gerekend. In augustus van dat jaar verloor hij ongeveer de helft van het beheerde vermogen in Thailand, en op 27 oktober werd hij door de val van de Amerikaanse index en de ongedekte opties die hij daarop had verkocht in één dag weggevaagd. In 2007 sloot hij opnieuw een fonds na zeer zware verliezen. Een boek over de opvoeding van een speculant dat geen enkele bladzijde besteedt aan de omvang van posities, aan leengeld of aan wat er gebeurt bij een beweging van zeven procent op één dag, mist daarmee precies datgene waar het vak op stukloopt.</p>
+      <p>Dat is ook een inhoudelijk bezwaar en niet alleen een kwestie van pech. Zijn methode telt hoe vaak iets gebeurt en weegt niet hoeveel het kost als het misgaat. Wie opties verkoopt, wint in bijna alle gevallen een klein bedrag en verliest zelden een zeer groot bedrag; een telling van gevallen laat dat gunstig ogen tot het misgaat. Nassim Taleb heeft die redeneerfout tot kern van <i>Fooled by Randomness</i> gemaakt en verwijst daarin naar deze zaak.</p>
+      <p>Los daarvan is het boek slordig van bouw. Het springt tussen herinnering, natuurgeschiedenis, beurstheorie en anekdote zonder dat de lezer een lijn krijgt aangereikt, en de belofte van de titel wordt niet ingelost: er staat geen werkwijze in die iemand kan overnemen. Recensenten die het bij verschijnen prezen, prezen vooral de belezenheid van de schrijver. Wat overblijft is een eigenzinnig zelfportret met verstandige waarschuwingen tegen deskundigen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Zet elke bewering over de markt om in een telling: hoeveel gevallen, over welke periode, met welke uitkomst. Zonder die drie is het een mening.</li>
+        <li>Weeg naast de frequentie ook de omvang. Een aanpak die negentig keer een klein bedrag wint en één keer alles verliest, ziet er in een telling van gevallen goed uit.</li>
+        <li>Leg vooraf vast hoeveel van het vermogen in één positie mag en wanneer je eruit stapt. Dit boek doet dat niet, en dat is te zien aan de afloop.</li>
+        <li>Lees beurscommentaar met de vraag wie eraan verdient dat u handelt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">John Wiley &amp; Sons, New York, 1997, xviii en 444 blz. met een fotokatern, ISBN 0-471-13747-2; de paperback verscheen in 1998 bij dezelfde uitgever, ISBN 0-471-24948-3. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd. Ook het vervolg dat Niederhoffer in 2003 samen met Laurel Kenner schreef, <i>Practical Speculation</i>, verscheen niet in het Nederlands.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Niederhoffer, geboren in 1943 en opgegroeid in Brighton Beach in Brooklyn, was universitair docent, vijfvoudig Amerikaans kampioen squash, handelaar voor George Soros en daarna beheerder van zijn eigen fonds. Zijn boek is deels levensverhaal en deels betoog. De rode draad is dat wie iets over markten beweert, het hoort te tellen. Deskundigen, adviseurs en beurscommentatoren doen dat volgens hem niet; hij vergelijkt hen met het orakel van Delphi, dat gelijk kreeg doordat zijn uitspraken alle kanten op konden.</p><p>Om te laten zien hoe markten werken haalt hij zijn voorbeelden overal vandaan: bordspelen, gokhuizen, paardenrennen, muziek, sport en het weer. Hij tekent de markt als een ecologie, met obligatiebeleggers als planteneters, hedgefondsen als roofdieren en tussenpersonen als opruimers, en besteedt een groot deel van het boek aan misleiding, in de natuur en op de beurs.</p><p>Het boek verscheen in het voorjaar van 1997. Op 27 oktober van dat jaar was het fonds van de schrijver in één handelsdag weg. Wie het nu leest, leest het onvermijdelijk met die afloop erbij.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>beleggen</li><li>speculatie</li><li>memoir</li><li>statistiek</li><li>financiële markten</li><li>risico</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="64"><a href="64.html">Fooled by Randomness</a>. Taleb behandelt in <i>Fooled by Randomness</i> de denkfout waar Niederhoffer op stukliep: het verwarren van een hoge kans op een kleine winst met een gunstige verwachting.</li>
+          <li value="483"><a href="483.html">Evidence-Based Technical Analysis</a>. Aronson laat in <i>Evidence-Based Technical Analysis</i> zien hoe je koerspatronen wel toetsbaar onderzoekt, met correctie voor het zoeken achteraf dat Niederhoffer buiten beschouwing laat.</li>
+          <li value="490"><a href="490.html">The Mathematics of Money Management</a>. Ralph Vince behandelt in <i>The Mathematics of Money Management</i> de vraag naar de omvang van posities, het onderwerp dat in dit boek ontbreekt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

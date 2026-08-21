@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Predictive Mind &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Hohwy verdedigt dat één rekenprincipe volstaat om waarneming, aandacht, handelen en bewustzijn te verklaren: het verkleinen van voorspellingsfouten. De…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1320">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1320 &middot; Brein en lichaam</p>
+    <h1>The Predictive Mind</h1>
+    <p class="lede">Jakob Hohwy, 2013</p>
+    <p class="stats">
+      <span><b>1769</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1320"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Hohwy verdedigt dat één rekenprincipe volstaat om waarneming, aandacht, handelen en bewustzijn te verklaren: het verkleinen van voorspellingsfouten. De hersenen bezitten een model van de oorzaken in de wereld, leiden daaruit af welke zintuiglijke prikkels zullen binnenkomen, en gebruiken het verschil tussen die voorspelling en de werkelijke prikkel als enige leidraad om het model bij te stellen of om het lichaam te bewegen. Alles wat de geest doet volgt volgens hem uit dat ene principe. De prijs die hij daarvoor betaalt, en die hij zelf uitdrukkelijk benoemt, is dat de geest van de wereld gescheiden raakt door een scherm van bewijs: wat wij ervaren is het model, niet de oorzaak.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waarnemen als gevolgtrekking over oorzaken</h3>
+      <p>Het boek opent bij een oud probleem: het beeld op het netvlies is verenigbaar met oneindig veel opstellingen van de wereld die het zouden kunnen hebben veroorzaakt. Hohwy illustreert dat met een parkiet: dezelfde prikkeling van het oog past bij een vogel dichtbij en bij een grotere vogel verder weg. Waarnemen kan dus geen aflezen zijn, het moet een gok zijn over welke oorzaak het waarschijnlijkst is.</p>
+      <p>Hij grijpt daarvoor terug op Hermann von Helmholtz, die waarneming in de negentiende eeuw al een onbewuste gevolgtrekking noemde, en giet die gedachte in de vorm van kansrekening. Het model levert een verwachting op, de zintuigen leveren bewijs, en de uitkomst is de hypothese die het bewijs het best verklaart. Hohwy noemt dat empirische Bayes: het model levert zijn eigen verwachtingen aan, omdat er niemand van buitenaf is die de hersenen vertelt hoe de wereld in elkaar zit.</p>
+      <h3>De hiërarchie en het foutsignaal</h3>
+      <p>Het mechanisme werkt in lagen. Elke laag voorspelt wat de laag eronder zal doorgeven; wat niet voorspeld was, gaat als foutsignaal omhoog en stelt daar het model bij. Hohwy ordent die lagen op twee manieren: naar rekenafstand tot de zintuigen, en naar de tijdschaal van de regelmaat die ze vastleggen. Lage lagen voorspellen wat er in milliseconden gebeurt, hoge lagen dat een voorwerp blijft bestaan.</p>
+      <p>Zijn voorbeeld is een stuiterende bal. Onderin wordt de plaats van de rand van moment tot moment voorspeld, hogerop dat het dezelfde bal is die blijft stuiteren, en nog hoger dat ballen in het algemeen zwaartekracht volgen. Dat verklaart waarom waarneming rijk en gelaagd aanvoelt terwijl de prikkels zelf arm zijn: het meeste van wat wij zien komt uit het model, en de zintuigen doen niet meer dan corrigeren.</p>
+      <h3>Precisie en aandacht</h3>
+      <p>Een foutsignaal is pas nuttig als bekend is hoe betrouwbaar het is. Bij mist, schemer of ruis moet het zintuiglijke bewijs minder gewicht krijgen dan het model, bij helder daglicht andersom. Hohwy noemt die weging precisie, en hij laat haar door het systeem zelf schatten: de hersenen voorspellen niet alleen wat er komt, maar ook hoe scherp dat bewijs zal zijn.</p>
+      <p>Daarmee geeft hij aandacht een plaats in de theorie. Aandacht is bij hem geen aparte schijnwerper maar het opschroeven van de verwachte precisie van bepaalde foutsignalen. Dat verklaart in één beweging waarom aandacht de waarneming scherper maakt en waarom zij ook kan misleiden, want een te hoog ingeschatte precisie laat ruis doorgaan voor bewijs.</p>
+      <h3>Handelen als voorspelling die zichzelf waarmaakt</h3>
+      <p>Een fout kan op twee manieren verdwijnen: door het model bij te stellen, of door de wereld te veranderen tot zij bij het model past. Die tweede weg noemt Hohwy actieve gevolgtrekking. Wie de arm optilt, voorspelt de zintuiglijke gevolgen van een opgetilde arm en laat de reflexen de rest doen. Handelen is dan geen aparte functie naast waarnemen, maar hetzelfde mechanisme in omgekeerde richting.</p>
+      <p>Hier komt de bekendste tegenwerping meteen boven, en Hohwy behandelt haar zelf: als het doel het verkleinen van verrassing is, waarom kruipt een dier dan niet voor altijd in een donkere, stille kamer, waar niets nog verrast? Zijn antwoord is dat het model van een levend wezen zichzelf voorspelt als etend, bewegend en onderzoekend, zodat stilzitten in het donker juist een grote fout oplevert. Of dat antwoord meer is dan een herformulering van de vraag, is een strijdpunt gebleven.</p>
+      <h3>Wat het mechanisme moet verklaren</h3>
+      <p>Het tweede en derde deel zijn een reeks proefgevallen. Het bindingsprobleem, de vraag hoe kleur, vorm en beweging tot één voorwerp worden samengevoegd, wordt bij Hohwy geen apart probleem meer: samenvoegen is gewoon de gevolgtrekking dat één oorzaak al die prikkels tegelijk verklaart. Bij cognitieve doordringbaarheid, de vraag of kennis de waarneming verandert, gebruikt hij het feit dat de Müller-Lyer-lijnen ongelijk blijven ogen ook als je weet dat ze even lang zijn. Zijn verklaring is dat het zintuiglijke bewijs daar zo precies is dat kennis van hogerop er niet tegenop kan.</p>
+      <p>Verder komen wanen, autisme, emotie, het gevoel van aanwezigheid en het zelf aan bod. Wanen ontstaan wanneer de precisie van foutsignalen verkeerd wordt geschat, zodat het model wordt bijgesteld op bewijs dat dat gewicht niet verdient. Autisme verklaart hij uit een systeem dat foutsignalen te veel gewicht geeft, waardoor voorspellingen van hogerop de wereld minder gladstrijken.</p>
+      <h3>De geest achter het scherm van bewijs</h3>
+      <p>Het slotdeel trekt de wijsgerige rekening op. Als de hersenen alleen hun eigen foutsignalen zien, dan ligt er tussen geest en wereld wat Hohwy een bewijsgrens noemt. Wat wij ervaren is de best passende hypothese, en dat is geen doorkijk naar de dingen zelf. Hij aanvaardt die gevolgtrekking en noemt de geest afgezonderd, met de klassieke twijfel over de buitenwereld erbij als reële mogelijkheid in plaats van als denkoefening.</p>
+      <p>Hij bestrijdt daarmee de belichaamde en verlengde lezingen van dezelfde theorie, waarin het lichaam en de omgeving deel uitmaken van het systeem en de scheiding tussen binnen en buiten juist vervaagt. Hohwy houdt de scheiding vast omdat het mechanisme volgens hem alleen te formuleren is als er een grens is waarover bewijs binnenkomt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Voorspellingsfout</td><td>Het verschil tussen de prikkel die het model verwachtte en de prikkel die werkelijk binnenkwam.</td></tr>
+          <tr><td class="term">Generatief model</td><td>De interne beschrijving van hoe oorzaken in de wereld zintuiglijke prikkels voortbrengen, waaruit voorspellingen worden afgeleid.</td></tr>
+          <tr><td class="term">Empirische Bayes</td><td>Kansrekening waarbij het systeem zijn eigen verwachtingen uit ervaring haalt in plaats van ze van buitenaf te krijgen.</td></tr>
+          <tr><td class="term">Hiërarchie</td><td>De ordening van lagen waarin elke laag voorspelt wat de laag eronder doorgeeft, van korte naar lange tijdschalen.</td></tr>
+          <tr><td class="term">Precisie</td><td>Het gewicht dat aan een foutsignaal wordt gegeven, gebaseerd op hoe betrouwbaar het systeem dat signaal verwacht.</td></tr>
+          <tr><td class="term">Actieve gevolgtrekking</td><td>Het verkleinen van een fout door te handelen, dus door de wereld naar de voorspelling toe te bewegen.</td></tr>
+          <tr><td class="term">Verrassing</td><td>De onwaarschijnlijkheid van een prikkel gegeven het model, de grootheid die het systeem op de lange duur klein probeert te houden.</td></tr>
+          <tr><td class="term">Cognitieve doordringbaarheid</td><td>De vraag of wat iemand gelooft of weet de waarneming zelf verandert en niet alleen het oordeel erover.</td></tr>
+          <tr><td class="term">Bindingsprobleem</td><td>De vraag hoe losse eigenschappen als kleur, vorm en beweging tot de waarneming van één ding worden samengevoegd.</td></tr>
+          <tr><td class="term">Bewijsgrens</td><td>De denkbeeldige scheidslijn waarlangs de hersenen alleen prikkels ontvangen en nooit de oorzaken zelf.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het argument rust op drie soorten grond. De eerste is wiskundig: de formele uitwerking van voorspellingsfoutminimalisatie die Karl Friston sinds het begin van deze eeuw heeft ontwikkeld en waaraan Hohwy zijn begrippen ontleent. Die uitwerking is intern samenhangend, maar zij zegt op zichzelf nog niet dat hersenen zo werken.</p>
+      <p>De tweede is de waarnemingspsychologie. Hohwy leunt op verschijnselen waarin waarneming aantoonbaar meer is dan het aflezen van prikkels: gezichtsbedrog, bistabiele figuren en binoculaire rivaliteit, het verschijnsel dat de waarneming heen en weer springt wanneer beide ogen een ander beeld krijgen. Naar dat laatste heeft hij zelf onderzoek gedaan, en hij gebruikt het als proefgeval omdat het laat zien dat de waarneming een keuze tussen hypothesen maakt.</p>
+      <p>De derde is de klinische literatuur over waan, hallucinatie en autisme. Die verbanden zijn indirect: het gaat om verschijnselen die goed in het schema passen, niet om metingen van foutsignalen zelf. Hohwy is daar redelijk open over. Directe hersenmetingen die aantonen dat afzonderlijke cellen of lagen precies de rol vervullen die het model hun toebedeelt, ontbreken in 2013 grotendeels, en het boek presenteert de theorie dan ook als het verkennen van een mogelijkheid.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat de theorie te veel verklaart. Zij past op waarneming, op handelen, op emotie, op waan en op autisme, en juist die breedte maakt moeilijk aanwijsbaar welke waarneming haar zou weerleggen. De bespreking in Notre Dame Philosophical Reviews zet dat concreet: bij autisme berust Hohwy's verklaring op het gewicht van gegevens van onderop tegenover verwachtingen van bovenaf, en die tegenstelling wordt ook gebruikt door verklaringen die van het voorspellingsmechanisme niets nodig hebben. De theorie is dan verenigbaar met het verschijnsel, wat iets anders is dan het verklaren ervan.</p>
+      <p>Dezelfde bespreking wijst op een spanning binnen het model zelf. Hohwy ordent de lagen zowel naar rekenafstand tot de zintuigen als naar de omvang van de tijdschaal, en die twee vallen uit elkaar bij kennis over zeer kleine of zeer snelle verschijnselen: die staat ver van de zintuigen af en gaat toch over kleine schalen. Ook het onderscheid tussen wanneer het systeem zijn model bijstelt en wanneer het gaat handelen blijft onderbepaald.</p>
+      <p>De omstredenste stap is de wijsgerige. Andy Clark, die dezelfde theorie voorstaat, heeft in <i>Busting Out</i> (2017) betoogd dat de indirectheid van het mechanisme geen afgezonderde geest oplevert: dat het model tussen zintuig en oordeel staat betekent niet dat het model het voorwerp van ervaring is. Het verschil tussen Hohwy en Clark is niet empirisch te beslechten met de gegevens die het boek aandraagt, en dat toont hoe los de wijsgerige gevolgtrekking van het mechanisme staat.</p>
+      <p>Ten slotte is het antwoord op het probleem van de donkere kamer zwak. Dat een organisme zichzelf voorspelt als bewegend en etend, is precies wat verklaard moest worden; het als aanname invoeren verplaatst de vraag naar waar het model vandaan komt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Behandel elke waarneming als een gok over een oorzaak, en vraag bij twijfel welke andere oorzaak hetzelfde beeld zou opleveren.</li>
+        <li>Weeg bij tegenstrijdige informatie eerst hoe betrouwbaar de bron is voordat je je model bijstelt; ruis die als bewijs geldt, verplaatst overtuigingen zonder reden.</li>
+        <li>Bedenk bij hardnekkig gezichtsbedrog en bij hardnekkige indrukken over mensen dat kennis het beeld niet automatisch corrigeert.</li>
+        <li>Wie de theorie wil beoordelen, leest deel één en daarna de kritiek van Clark; het verschil tussen mechanisme en wijsgerige gevolgtrekking wordt dan zichtbaar.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Predictive Mind</i> (Oxford University Press, Oxford, 2013, 286 blz., ISBN 978-0-19-968273-7; paperback 2014, ISBN 978-0-19-968673-5). Hohwy is filosoof aan Monash University in Melbourne en werkt zowel met filosofische argumenten als met eigen experimenteel onderzoek naar waarneming. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Jakob Hohwy verdedigt in dit boek uit 2013 één verklaring voor vrijwel alles wat de hersenen doen. Zij dragen een model van de wereld met zich mee, leiden daaruit af welke prikkels binnen zullen komen, en houden zich verder bezig met het verkleinen van het verschil tussen die voorspelling en wat er werkelijk binnenkomt. Waarnemen is dan het toetsen van een gok over de oorzaken buiten het lichaam. Handelen is de tegenovergestelde beweging: de wereld zo veranderen dat zij bij de gok past.</p><p>Het boek werkt dat rekenprincipe eerst technisch uit, met begrippen als hiërarchie, precisie en actieve gevolgtrekking, en past het daarna toe op onderwerpen die in de cognitiewetenschap los van elkaar werden behandeld: hoe kleur, vorm en beweging tot één ding worden samengevoegd, wat aandacht is, waarom gezichtsbedrog niet verdwijnt als je weet dat het bedrog is, en hoe wanen, autisme, emotie en het gevoel dat de wereld werkelijk aanwezig is in hetzelfde schema passen.</p><p>Het is vakfilosofie, geschreven voor lezers die bekend zijn met kansrekening en met het debat over waarneming. Hohwy trekt er een gevolgtrekking uit die veel weerstand heeft opgeroepen: als de hersenen alleen hun eigen voorspellingsfouten zien, dan zit de geest achter een scherm van bewijs en heeft hij nooit rechtstreeks contact met de dingen zelf.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>bewustzijn</li><li>waarneming</li><li>neurowetenschap</li><li>wetenschapsfilosofie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="541"><a href="541.html">Behavior: The Control of Perception</a>. Powers bouwde al in 1973 een besturingsmodel waarin gedrag dient om waarneming op een gewenste waarde te houden, de spiegelbeeldige voorloper van actieve gevolgtrekking.</li>
+          <li value="767"><a href="767.html">The Case Against Reality: Why Evolution Hid the Truth from Our Eyes</a>. Hoffman trekt uit dezelfde indirectheid van waarneming een veel verdergaande conclusie, namelijk dat de waargenomen wereld helemaal niet op de werkelijke lijkt.</li>
+          <li value="1317"><a href="1317.html">Consciousness Explained</a>. Dennett verdedigt een andere weg naar dezelfde vraag: bewustzijn zonder innerlijk toneel, maar zonder het mechanisme van Hohwy.</li>
+          <li value="755"><a href="755.html">The Embodied Mind</a>. Varela, Thompson en Rosch verdedigen de belichaamde lezing die Hohwy in zijn slotdeel uitdrukkelijk afwijst.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

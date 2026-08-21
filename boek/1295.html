@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Power of Others &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Michael Bond stelt dat het gedrag van mensen veel minder uit hun karakter volgt dan uit de groep waarin zij zich bevinden, en dat wij die invloed…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1295">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1295 &middot; Gewoontes en denken</p>
+    <h1>The Power of Others</h1>
+    <p class="lede">Michael Bond, 2014</p>
+    <p class="stats">
+      <span><b>1574</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1295"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Michael Bond stelt dat het gedrag van mensen veel minder uit hun karakter volgt dan uit de groep waarin zij zich bevinden, en dat wij die invloed stelselmatig onderschatten omdat wij onszelf zien als personen die zelfstandig beslissen. De mens is een dier dat overleeft door bij anderen te horen, en die aanleg werkt door in alles: van de houding die iemand onbewust overneemt tot de bereidheid om te doden of zichzelf op te offeren. Kwaad en heldendom komen bij Bond uit dezelfde bron, namelijk de binding aan een groep en aan wat die groep van iemand verwacht. Zijn gevolgtrekking is dat wie zijn eigen gedrag wil begrijpen eerst naar zijn gezelschap moet kijken. Daar valt tegen in te brengen dat een deel van het onderzoek waarop hij bouwt sinds de verschijning zwaar is aangevallen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De aanname die het boek aanvalt</h3>
+      <p>Bond opent met de gewoonte om gedrag te verklaren uit iemands aard: wie iets ergs doet is een slecht mens, wie iets moedigs doet een held. Die neiging is in de sociale psychologie beschreven en goed gedocumenteerd, en zij houdt volgens hem stand omdat zij eenvoudig is en ons het idee geeft dat wij zelf anders zouden hebben gehandeld.</p>
+      <p>Daartegenover zet hij de stelling dat de omstandigheden en het gezelschap het meeste werk doen. De rest van het boek is een aaneenschakeling van gevallen waarin gewone mensen iets deden wat zij vooraf van zichzelf niet verwachtten.</p>
+      <h3>Nabootsing en besmetting</h3>
+      <p>Het eerste terrein is de onbewuste nabootsing. Mensen nemen houding, gebaren, spreektempo en stemming van hun gezelschap over zonder het te merken, en dat helpt hen aanvoelen wat de ander voelt. Bond behandelt dat als de onderlaag van alle latere verschijnselen: voordat iemand doet wat de groep wil, is hij al gaan lijken op de groep.</p>
+      <p>Hij breidt dat uit naar gedrag dat zich door netwerken van bekenden lijkt te verspreiden, van eetgewoonten tot stemming. Dat is het deel van zijn materiaal dat het minst stevig staat, omdat zulke netwerkbevindingen moeilijk te scheiden zijn van het feit dat mensen die op elkaar lijken elkaar opzoeken.</p>
+      <h3>Gehoorzaamheid en het kwaad</h3>
+      <p>Het bekendste deel gaat over Stanley Milgram, die aan Yale proefpersonen liet geloven dat zij een ander steeds zwaardere elektrische schokken toedienden, en over de vraag wat zijn uitkomsten verklaart. Bond zet daar het proces tegen Adolf Eichmann naast, de organisator van de deportaties die zichzelf als uitvoerend ambtenaar presenteerde.</p>
+      <p>Zijn conclusie is dat blinde gehoorzaamheid een te simpele uitleg is. Wat proefpersonen over de streep trok was eerder het idee dat zij aan iets van belang meewerkten en dat de leiding de verantwoordelijkheid droeg. Hij verbindt dat met het gevangenisonderzoek van Philip Zimbardo in Stanford en met de mishandelingen door Amerikaanse militairen in Abu Ghraib.</p>
+      <h3>Menigten zijn niet gek</h3>
+      <p>Een groot deel van het boek keert zich tegen het beeld van de menigte die haar verstand verliest. Bond loopt langs onderzoek naar rampen en aanslagen waarin overlevenden zijn ondervraagd, waaronder de verdrukking in het Hillsborough-stadion in 1989. Wat daar gebeurde was overwegend hulpvaardig gedrag tussen vreemden en geen ieder-voor-zich.</p>
+      <p>Hij wijst op de gevolgen van het verkeerde beeld: hulpdiensten en beheerders die op paniek rekenen houden informatie achter en behandelen een menigte als een probleem in plaats van als deelnemer aan de redding. Bij Hillsborough werkte het beeld van de losgeslagen supporter bovendien door in de schuldvraag, die pas veel later is rechtgezet.</p>
+      <h3>Groepsdenken, teams en cellen</h3>
+      <p>Vervolgens komt de groep die zichzelf gelijk geeft. Bond beschrijft hoe hechte groepen tegenspraak kwijtraken, hoe leden zwijgen omdat zij denken de enige twijfelaar te zijn, en hoe dat leidt tot besluiten die achteraf niemand kan verdedigen. Hij haalt voorbeelden uit legers, bedrijven en overheidsteams.</p>
+      <p>Dezelfde werking gebruikt hij om jeugdgroepen, supportersgroepen en terreurcellen te verklaren. Wie een aanslag pleegt doet dat volgens dit onderzoek zelden vanuit een uitgewerkte leer en meestal vanuit de kleine groep waarin hij zit; de overtuiging komt vaak met de groep mee. Daaruit volgt zijn advies om bij radicalisering naar de vriendenkring te kijken en niet alleen naar wat er gepreekt wordt.</p>
+      <h3>Helden uit dezelfde bron</h3>
+      <p>Om te voorkomen dat het boek een aanklacht tegen groepen wordt, behandelt Bond ook de goede kant. Mensen die tijdens de bezetting joden verborgen of die bij een ongeluk hun leven wagen, blijken vooraf zelden herkenbaar aan hun karakter. Ook zij handelen vanuit binding: aan een gemeenschap die het normaal vond, aan iemand die het vroeg, aan een beeld van zichzelf dat de groep bevestigde.</p>
+      <p>Dat maakt zijn boodschap dubbel. Dezelfde gevoeligheid voor het oordeel van anderen die mensen laat meedoen aan wreedheid, laat hen ook ingrijpen. Wat het verschil maakt is welke groep op dat moment de maat aangeeft.</p>
+      <h3>Wat isolatie doet</h3>
+      <p>Het slotdeel keert de vraag om. Bond beschrijft mensen die van gezelschap zijn afgesneden: gevangenen in eenzame opsluiting, gegijzelden, bemanningen van poolstations en nagebootste ruimtevluchten, eenzame zeilers. Zij melden geheugenverlies, vervorming van het tijdsbesef, hallucinaties en het verlies van het vermogen om een gewoon gesprek te voeren.</p>
+      <p>Daaruit trekt hij zijn slotsom: het gezelschap van anderen is niet de versiering bij een verder zelfstandig bestaan, het is het middel waarmee mensen hun greep op de werkelijkheid ijken. Zijn scherpste toepassing is de eenzame opsluiting in gevangenissen, die hij op grond van dit materiaal als schadelijk beoordeelt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">sociale nabootsing</td><td>het onbewust overnemen van houding, gebaren en stemming van het gezelschap waarin iemand verkeert.</td></tr>
+          <tr><td class="term">sociale besmetting</td><td>de verspreiding van gedrag en gemoedstoestand door een netwerk van bekenden.</td></tr>
+          <tr><td class="term">conformisme</td><td>het aanpassen van het eigen oordeel aan dat van de groep, ook wanneer de groep aantoonbaar ongelijk heeft.</td></tr>
+          <tr><td class="term">gehoorzaamheid aan gezag</td><td>het uitvoeren van opdrachten van iemand die als bevoegd geldt, in Milgrams onderzoek tot ver voorbij wat proefpersonen vooraf aanvaardbaar noemden.</td></tr>
+          <tr><td class="term">groepsdenken</td><td>het verdwijnen van tegenspraak in hechte groepen, waardoor besluiten vallen die de leden afzonderlijk niet zouden verdedigen.</td></tr>
+          <tr><td class="term">sociale identiteit</td><td>het deel van iemands zelfbeeld dat aan een groep is ontleend en dat bepaalt naar welke maatstaf hij zich richt.</td></tr>
+          <tr><td class="term">de-individuatie</td><td>het oude idee dat mensen in een menigte hun zelfbeheersing verliezen, dat Bond weergeeft en op grond van rampenonderzoek verwerpt.</td></tr>
+          <tr><td class="term">de ander</td><td>de groep die na een aanslag of crisis buiten de eigen kring wordt geplaatst en daarmee vogelvrij raakt.</td></tr>
+          <tr><td class="term">eenzame opsluiting</td><td>het afsnijden van gevangenen van gezelschap, waarvan Bond de gevolgen naast die van poolstations en gijzelingen legt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Bond is journalist en werkt als journalist: hij las het onderzoek, sprak met de onderzoekers en met betrokkenen, en zette het naast elkaar. De verantwoording beslaat ruim veertig bladzijden aan bronnen. Dat is voor een boek van deze soort ruim bemeten en het maakt navolgbaar waar elke bewering vandaan komt.</p>
+      <p>De stevigheid loopt per onderdeel uiteen. Het onderzoek naar menigten in rampen staat er het best voor: het berust op ondervraging van grote aantallen overlevenden van verschillende gebeurtenissen, en de uitkomst wijst telkens dezelfde kant op. Het werk over radicalisering in kleine groepen steunt op dossieronderzoek en gesprekken en heeft sindsdien standgehouden.</p>
+      <p>Het zwakst zijn de klassieke laboratoriumproeven, die tegelijk de meeste indruk maken. Bond schrijft er kritischer over dan de meeste populariserende boeken, maar hij bouwt zijn hoofdlijn er wel op.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het grootste bezwaar is de leeftijd van het fundament. Het boek verscheen in 2014, aan de vooravond van de herhalingscrisis in de psychologie. Zimbardo's gevangenisonderzoek, dat Bond nog serieus behandelt, is sindsdien uit de archieven ontmanteld: Thibault Le Texier liet in 2019 zien dat de bewakers instructies kregen en dat het verloop deels was geregisseerd, waarmee die proef als bewijs is vervallen. Ook de bevindingen over onbewuste nabootsing komen uit een hoek van het vak waar herhaling vaak mislukt.</p>
+      <p>Bij Milgram had Bond scherper kunnen zijn. Gina Perry publiceerde in 2012, twee jaar voor dit boek, haar archiefonderzoek waaruit blijkt dat de proefleider veel vaker aandrong dan het draaiboek toestond, dat een deel van de proefpersonen doorhad dat de schokken nep waren, en dat de bekende percentages uit een selectie van varianten komen. Wie dat onderzoek als hoeksteen gebruikt, moet die bezwaren verwerken.</p>
+      <p>Inhoudelijk is het boek meer een geordend overzicht dan een betoog. Het levert weinig dat wie de vakliteratuur volgt nog niet wist, iets wat ook in besprekingen is opgemerkt. De ondertitel belooft bovendien handvatten tegen groepsdenken, en juist dat deel is dun: de aanbevelingen komen niet veel verder dan tegenspraak organiseren en iemand van buiten laten meekijken.</p>
+      <p>Ten slotte blijft de verklaring rekbaar. Als binding aan de groep zowel wreedheid als heldendom verklaart, is de vraag wanneer zij niet opgaat. Bond noemt wel wat het verschil maakt, namelijk welke groep op dat moment de maatstaf levert, maar dat wordt nergens vooraf voorspeld en achteraf getoetst.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij een besluit waarover een hechte groep het snel eens is welke informatie ontbreekt, en laat iemand van buiten meelezen.</li>
+        <li>Reken bij ontruimingen en drukte niet op paniek: geef mensen zo snel mogelijk juiste informatie, want zij helpen elkaar eerder dan zij elkaar vertrappen.</li>
+        <li>Kijk bij zorgelijk gedrag van een jongere eerst naar zijn vriendenkring en daarna pas naar zijn opvattingen.</li>
+        <li>Behandel langdurige afzondering, ook in werk of zorg, als een ingreep met gevolgen voor geheugen en oordeelsvermogen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>Peer Pressure, Groupthink, and How the People Around Us Shape Everything We Do</i>. Oneworld Publications, Londen, 2014, xviii + 300 blz., ISBN 9781780743448; paperback 2015, ISBN 9781780746531. Het boek kreeg in 2015 de boekprijs van de British Psychological Society. De auteur is de wetenschapsjournalist Michael Shaw Bond, vaste medewerker van <i>New Scientist</i>, en niet de gelijknamige schrijver van de Paddington-boeken. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Bond verzamelt in een proloog en acht hoofdstukken wat de sociale psychologie te melden heeft over de invloed van anderen op wat mensen doen. Hij begint bij onbewuste nabootsing: houding, toon en stemming worden overgenomen zonder dat iemand het merkt. Daarna komen de bekende gevallen. Milgrams gehoorzaamheidsonderzoek en het proces tegen Eichmann gebruikt hij om te laten zien hoe gezag, groepsdruk en omstandigheden samen gewone mensen tot schadelijk gedrag brengen.</p><p>Een groot deel gaat over menigten. Uit ondervraging van overlevenden van rampen, waaronder de verdrukking in het Hillsborough-stadion, komt een beeld dat afwijkt van het gangbare: mensen in nood helpen elkaar en raken zelden in blinde paniek. Verder behandelt hij groepsdenken in teams en legers, de vorming van jeugdgroepen en van terreurcellen, en de vraag waarom sommige mensen anderen redden terwijl anderen meedoen aan het kwaad.</p><p>Het slot gaat over het omgekeerde: wat er gebeurt met mensen die van gezelschap worden afgesneden, in eenzame opsluiting of op een expeditie. Het boek is een geordend overzicht van bestaand onderzoek; eigen onderzoek doet Bond niet.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>sociale psychologie</li><li>groepsgedrag</li><li>groepsdenken</li><li>gehoorzaamheid</li><li>conformisme</li><li>eenzaamheid</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="215"><a href="215.html">Obedience to Authority</a>. Milgrams eigen verslag van de proeven die Bond als hoeksteen gebruikt, met de varianten die in samenvattingen wegvallen.</li>
+          <li value="280"><a href="280.html">Influence</a>. Cialdini beschrijft dezelfde gevoeligheid voor anderen, maar dan vanuit de vraag hoe zij te gebruiken is.</li>
+          <li value="1289"><a href="1289.html">Massa en macht</a>. Canetti schreef het tegendeel van Bonds hoofdstuk over menigten, zonder onderzoek en met meer nadruk op het onbeheersbare.</li>
+          <li value="1293"><a href="1293.html">Tribe</a>. Junger gebruikt dezelfde binding aan de groep om te verklaren waarom veteranen thuis vastlopen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

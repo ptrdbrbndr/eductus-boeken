@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Anxiety of Influence &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Bloom stelt dat een gedicht in de eerste plaats een reactie is op een ander gedicht en niet op de wereld of op het leven van de dichter. Wie na Milton…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1330">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1330 &middot; Schrijfambacht</p>
+    <h1>The Anxiety of Influence</h1>
+    <p class="lede">Harold Bloom, 1973</p>
+    <p class="stats">
+      <span><b>1623</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1330"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Bloom stelt dat een gedicht in de eerste plaats een reactie is op een ander gedicht en niet op de wereld of op het leven van de dichter. Wie na Milton schrijft, komt te laat: de grote mogelijkheden zijn benut en de voorganger bezet de ruimte. Een sterke dichter maakt zich vrij door zijn voorganger opzettelijk verkeerd te lezen, dat wil zeggen door hem zo te vervormen dat er een opening ontstaat die het nieuwe gedicht kan vullen. De invloedsangst is daarmee geen persoonlijk gevoel dat je aan een dichter kunt vragen, maar de vorm van de verhouding tussen twee gedichten. Daaruit volgt Blooms scherpste gevolgtrekking: de betekenis van een gedicht is een ander gedicht, en literatuurkritiek die de bron netjes naast het werk legt om overeenkomsten te tellen, mist precies waar het om gaat.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat voor boek dit wil zijn</h3>
+      <p>Het boek opent met een proloog in gnostische toonzetting, 'It Was A Great Marvel That They Were In The Father Without Knowing Him', gevolgd door een inleiding die Bloom 'A Meditation upon Priority and a Synopsis' noemt. Daar zet hij de inzet uiteen: dit is geen literatuurgeschiedenis en geen bronnenonderzoek, maar wat hij antithetische kritiek noemt.</p>
+      <p>Bloom keert zich tegen twee gangbare praktijken. De eerste is de studie van invloed als kwestie van ontleningen, waarin de criticus vaststelt dat de ene dichter van de andere een beeld overnam. De tweede is de close reading van het gedicht als op zichzelf staand voorwerp. Beide missen volgens hem het gevecht dat het gedicht heeft voortgebracht.</p>
+      <h3>Achterstand en de sterke dichter</h3>
+      <p>De hoofdtermen komen vroeg. De ephebe is de beginnende dichter. De precursor is de voorganger die het veld bezet houdt. Misprision is de misinterpretatie waarmee de ephebe zich vrijvecht. Belatedness is het besef te laat te zijn geboren.</p>
+      <p>Bloom beperkt zijn theorie uitdrukkelijk tot sterke dichters, en dat zijn de dichters die deze strijd aandurven. Wie zich in bewondering bij zijn voorbeeld voegt, blijft klein en valt buiten het boek. Het gevolg is een selectie die de theorie voedt en die de theorie tegelijk moeilijk weerlegbaar maakt.</p>
+      <h3>De zes ratio's</h3>
+      <p>Clinamen, ontleend aan de onvoorspelbare afwijking van de atomen bij Lucretius, is de zwenking: de latere dichter volgt zijn voorganger tot een punt en buigt dan af, alsof hij zegt dat het gedicht tot daar klopte en verder een andere kant op had gemoeten. Tessera, naar de scherf waarmee ingewijden zich bij elkaar konden voegen, is voltooiing door tegenspraak: de latere dichter houdt de woorden van de voorganger aan maar geeft ze een andere strekking, alsof het oude gedicht niet ver genoeg ging.</p>
+      <p>Kenosis, het woord waarmee Paulus de zelfontlediging van Christus beschrijft, is een breuk: de dichter maakt zichzelf klein en leeg, maar sleept in die beweging de voorganger mee, die daardoor zijn goddelijke maat verliest. Daemonization, of tegensublieme, is het aansluiten bij een macht die volgens de latere dichter achter de voorganger schuilgaat en groter is dan hij, zodat de voorganger van bron tot doorgeefluik wordt teruggebracht.</p>
+      <p>Askesis is zelfbeperking: de dichter snoeit in zijn eigen vermogens om zich af te zonderen, en snoeit daarmee ook in wat hij van zijn voorganger heeft meegekregen. Apophrades, genoemd naar de Atheense dagen waarop de doden terugkeerden naar de huizen waar zij hadden gewoond, is de omkering aan het eind van een dichterlijk leven: het late werk laat de voorganger weer binnen, en het effect is dat de lezer het oudere gedicht gaat lezen alsof de latere dichter het had kunnen schrijven.</p>
+      <h3>De interchapter</h3>
+      <p>Halverwege, na kenosis, staat een 'Interchapter: A Manifesto for Antithetical Criticism'. Bloom formuleert daar in stellingen wat hij van kritiek verwacht. De kern is dat er geen zuivere teksten bestaan en geen zuiver lezen, alleen sterkere en zwakkere misinterpretaties, en dat ook de criticus dus een misinterpreteerder is.</p>
+      <p>Deze passage is de meest geciteerde van het boek en de meest omstreden. Zij maakt van Blooms leer een gesloten stelsel: wie hem tegenspreekt, kan als zwakke lezer worden afgedaan.</p>
+      <h3>Waar de theorie ophoudt</h3>
+      <p>Bloom trekt zelf een grens. De invloedsangst hoort volgens hem bij de tijd na de Verlichting, met Milton als het grote obstakel voor de Engelse romantici. Voor Shakespeare geldt zij niet: diens verhouding tot Marlowe verliep anders, en Bloom laat hem buiten het schema. Dat is een eerlijke inperking en meteen een probleem, want zij maakt van een theorie over poëzie een theorie over ongeveer tweehonderd jaar Engelstalige poëzie.</p>
+      <p>De voorbeelden komen vrijwel allemaal uit die periode: Wordsworth en Coleridge, Shelley en Keats, Browning en Tennyson, later Yeats, Wallace Stevens en John Ashbery. Bloom leest zelden een heel gedicht; hij haalt regels aan en plaatst ze in het schema.</p>
+      <h3>Wat erop volgde</h3>
+      <p>Bloom werkte het stelsel de jaren erna uit in <i>A Map of Misreading</i> (1975), <i>Kabbalah and Criticism</i> (1975) en <i>Poetry and Repression</i> (1976), waarin hij de zes ratio's koppelt aan de joodse mystiek en aan retorische figuren. Daarna verschoof zijn werk naar de verdediging van de westerse canon en werd hij vooral bekend als bestrijder van de literatuurtheorie waarmee hij aan Yale ooit in één adem werd genoemd.</p>
+      <p>In het voorwoord bij de tweede editie van 1997 verbindt hij de leer nadrukkelijk met Shakespeare en met zijn eigen leesgeschiedenis. De uitdrukking 'anxiety of influence' is intussen een cliché geworden dat vaak zonder de theorie wordt gebruikt, meestal in de betekenis 'bang zijn te lijken op je voorbeeld', wat niet is wat Bloom bedoelde.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">anxiety of influence</td><td>De verhouding waarin een dichter tot zijn voorganger staat wanneer die het veld al heeft bezet, bij Bloom een eigenschap van gedichten en niet van personen.</td></tr>
+          <tr><td class="term">ephebe</td><td>De beginnende dichter, met een woord uit het oude Athene voor de jongeman die net volwassen is.</td></tr>
+          <tr><td class="term">precursor</td><td>De voorganger wiens werk de latere dichter zowel voortbrengt als in de weg zit.</td></tr>
+          <tr><td class="term">misprision</td><td>De opzettelijke of onvermijdelijke misinterpretatie waarmee de latere dichter ruimte voor zichzelf maakt.</td></tr>
+          <tr><td class="term">strong poet</td><td>De dichter die de strijd met zijn voorganger aangaat en wint; alleen deze dichters vallen onder Blooms theorie.</td></tr>
+          <tr><td class="term">belatedness</td><td>Het besef te laat te komen in een traditie waarin het beste al geschreven lijkt.</td></tr>
+          <tr><td class="term">revisionary ratio</td><td>Een van de zes vormen waarin de latere dichter zich tot zijn voorganger verhoudt.</td></tr>
+          <tr><td class="term">Covering Cherub</td><td>Beeld dat Bloom aan Blake ontleent voor de macht die de doorgang blokkeert, hier de voorganger die het uitzicht wegneemt.</td></tr>
+          <tr><td class="term">antithetische kritiek</td><td>Blooms eigen leeswijze, die het gedicht leest als afweer tegen een ander gedicht in plaats van als uiting of als voorwerp.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Bewijs in gangbare zin komt er niet aan te pas. Bloom voert geen archiefonderzoek aan, geen brieven of leeslijsten waaruit blijkt wat een dichter van zijn voorganger las of wat hij ervan vond, en geen enkele uitspraak van een dichter over zijn eigen angst. Hij zou zoiets ook niet als bewijs aanvaarden, omdat de angst volgens hem in het gedicht zit en niet in het hoofd van de schrijver.</p>
+      <p>Wat hij wel biedt zijn lezingen: korte passages waarin hij laat zien hoe een regel van Shelley zich verhoudt tot een regel van Wordsworth, of hoe Stevens Emerson bijstelt. Het gewicht van het boek hangt dus af van de vraag of die lezingen overtuigen. Daarnaast leunt hij op analogie: de zes ratio's zijn geënt op Freuds afweermechanismen en op de klassieke retorische figuren, en de verhouding tussen dichters is gemodelleerd naar de oedipale strijd tussen vader en zoon. Een analogie kan verhelderen; onderbouwen doet zij niet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat de theorie zich niet laat weerleggen. Er zijn zes ratio's en geen regel die bepaalt welke in een gegeven geval van toepassing is, zodat vrijwel elke verhouding tussen twee gedichten achteraf in het schema past. Daarbij komt een kringloop in de opzet: de theorie geldt alleen voor sterke dichters, en sterk is de dichter die zich volgens de theorie gedraagt. De interchapter versterkt dat nog, want wie het niet ziet, leest zwak.</p>
+      <p>Sandra Gilbert en Susan Gubar brachten in <i>The Madwoman in the Attic</i> (1979) het bekendste inhoudelijke bezwaar in. Blooms model is een strijd tussen vaders en zonen om een erfenis. Vrouwelijke schrijvers in de negentiende eeuw hadden nauwelijks voorgangers om zich tegen af te zetten en worstelden met een andere vraag, namelijk of zij überhaupt mochten schrijven. Zij noemden dat de angst voor het auteurschap. Blooms model beschrijft dan een bijzonder geval en niet de poëzie als zodanig.</p>
+      <p>Een derde bezwaar is historisch en materieel. Dichters schrijven ook onder invloed van uitgevers, beschermheren, tijdschriften, onderwijs, geld en publiek. Bloom sluit dat alles uit en houdt een tweegevecht over. Daarbij is het bereik smal: de theorie geldt naar zijn eigen zeggen pas na Milton, hij zondert Shakespeare uit, en vrijwel al zijn voorbeelden zijn Engelstalig. Vijftig jaar later is de balans dat de uitdrukking overal wordt gebruikt terwijl de zes ratio's buiten Blooms eigen boeken nauwelijks toepassing hebben gevonden, wat aangeeft dat vakgenoten de losse gedachte bruikbaar vonden en het stelsel niet.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees bij een gedicht dat je treft eerst het werk waartegen het zich afzet, en let op de plaats waar het afbuigt.</li>
+        <li>Onderzoek bij eigen werk welke schrijver je in de weg zit, en schrijf op waar je hem opzettelijk verkeerd zou willen lezen.</li>
+        <li>Houd Blooms begrippen uit elkaar van het alledaagse gebruik van 'invloedsangst'; hij bedoelt een verhouding tussen teksten, geen gevoel.</li>
+        <li>Gebruik de zes ratio's als kijkrichtingen bij het lezen en niet als indeling waarin elk geval moet passen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Anxiety of Influence: A Theory of Poetry</i> (Oxford University Press, New York, 1973, 157 blz., ISBN 9780195016130). In 1997 verscheen een tweede editie met een nieuw voorwoord onder de titel 'The Anguish of Contamination' (ISBN 9780195112214). Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd. Van Bloom is wel <i>How to Read and Why</i> vertaald, als <i>De kunst van het lezen</i> (Ambo, Amsterdam, 2002, vertaling V. Verduin).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Harold Bloom (1930-2019) betoogt dat de geschiedenis van de poëzie sinds Milton bestaat uit dichters die zich uit de greep van hun voorgangers proberen te wringen. Een jonge dichter, bij Bloom de 'ephebe', leest een groot voorganger, ontdekt dat het beste al gezegd is en kan alleen ruimte voor zichzelf maken door dat werk verkeerd te lezen. Die vruchtbare misinterpretatie noemt hij 'misprision'. Zwakke dichters vereren hun voorbeeld en herhalen het; sterke dichters vervormen het zo dat er plaats voor hun eigen gedicht ontstaat.</p><p>Bloom werkt zes vormen van zo'n vervorming uit, de 'revisionary ratios', met namen uit Lucretius, het vroege christendom, de neoplatoonse wijsbegeerte en de Atheense kalender: clinamen, tessera, kenosis, daemonization, askesis en apophrades. Elk hoofdstuk behandelt er een, met korte lezingen van onder anderen Wordsworth, Shelley, Keats, Browning, Yeats en Stevens.</p><p>Het boek is smal, oraculair geschreven en levert geen bewijs in de gebruikelijke zin. De uitdrukking 'anxiety of influence' is een staande term geworden; de zes ratio's zijn buiten Blooms eigen werk vrijwel niet gebruikt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>literatuur</li><li>poëzie</li><li>creativiteit</li><li>psychoanalyse</li><li>kritiek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1210"><a href="1210.html">Brieven aan een jonge dichter</a>. Rilkes brieven aan een beginnend dichter, die precies het ontzag aanbevelen waaraan Bloom de zwakke dichter herkent.</li>
+          <li value="1323"><a href="1323.html">Art and Artist</a>. Otto Ranks psychoanalytische studie van de kunstenaar, waaruit Blooms oedipale model zichtbaar voortkomt.</li>
+          <li value="1322"><a href="1322.html">The Act of Creation</a>. Koestlers theorie van het scheppende moment, die het nieuwe uit botsende denkkaders verklaart in plaats van uit strijd met een voorganger.</li>
+          <li value="18"><a href="18.html">On Writing</a>. Stephen Kings praktijkboek, dat lezen en navolgen juist als het gewone leerpad van de schrijver beschrijft.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

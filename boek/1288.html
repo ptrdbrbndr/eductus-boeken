@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adaptive Markets: Financial Evolution at the Speed of Thought &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De efficiënte-marktenhypothese en de gedragseconomie spreken elkaar al veertig jaar tegen, en Lo stelt dat die ruzie onbeslist blijft zolang beide…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1288">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1288 &middot; Geld en ondernemen</p>
+    <h1>Adaptive Markets: Financial Evolution at the Speed of Thought</h1>
+    <p class="lede">Andrew W. Lo, 2017</p>
+    <p class="stats">
+      <span><b>1875</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1288"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De efficiënte-marktenhypothese en de gedragseconomie spreken elkaar al veertig jaar tegen, en Lo stelt dat die ruzie onbeslist blijft zolang beide partijen de mens als een vast gegeven behandelen: de een als rekenmachine, de ander als bundel afwijkingen. Zijn voorstel is om rationaliteit op te vatten als een aanpassing aan een omgeving. Vuistregels zijn geslepen door herhaald gedrag met terugkoppeling, ze werken zolang de omstandigheden lijken op die waarin ze zijn ontstaan, en ze richten schade aan zodra de omstandigheden verschuiven. Markten zijn dan geen natuurkundige systemen met een evenwicht, maar ecosystemen waarin soorten deelnemers om een beperkte hoeveelheid winst concurreren. Efficiëntie is in die opvatting een kwestie van graden en van momenten, afhankelijk van hoeveel partijen er meedoen en hoezeer ze op elkaar lijken.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Twee scholen die allebei bewijs hebben</h3>
+      <p>De eerste hoofdstukken zetten de twee posities zo sterk mogelijk neer. Het hoofdstuk dat vraagt waarom je niet rijk bent als je zo slim bent, verdedigt de efficiënte markt: koersen bewegen grotendeels onvoorspelbaar, actieve beheerders halen na kosten zelden de index, en wie een patroon vindt en erop handelt, laat het patroon verdwijnen. Het volgende hoofdstuk keert de vraag om en verzamelt het tegenbewijs: verliesaversie, ankering, overmoed, het vasthouden aan verliesposities en het te vroeg verkopen van winstposities.</p>
+      <p>Lo weigert daarna te kiezen. Hij wijst erop dat beide reeksen waarnemingen echt zijn en dat de theorieën vooral botsen omdat ze zwijgen over de vraag waar menselijk gedrag vandaan komt. De efficiënte markt behandelt rationaliteit als uitgangspunt, de gedragseconomie behandelt de afwijkingen ervan als een lijst zonder ordening.</p>
+      <h3>Waar keuzegedrag vandaan komt</h3>
+      <p>De brug die Lo legt loopt via Herbert Simon. Die stelde dat mensen niet het beste zoeken maar het eerste dat voldoet, omdat rekentijd en aandacht beperkt zijn. Simon liet in het midden waar de grenzen precies liggen. Lo vult dat aan met selectie: het gedrag dat blijft, is het gedrag dat in een bepaalde omgeving iets opleverde.</p>
+      <p>Hij werkt dat uit met een model dat hij samen met Thomas Brennan opstelde over een populatie die keuzes maakt met gevolgen voor voortplanting. Daaruit komt onder meer de waarschijnlijkheidsafstemming: proefpersonen die moeten raden welke van twee gebeurtenissen optreedt, verdelen hun gokken in de verhouding van de kansen in plaats van steeds de meest waarschijnlijke te kiezen. Voor het individu is dat, afgemeten aan de verwachte opbrengst, een fout. Voor een groep waarvan de leden dezelfde risico's lopen, valt het gunstig uit. Lo gebruikt dat om te laten zien dat wat in het laboratorium irrationeel heet, elders een verklaarbare herkomst kan hebben.</p>
+      <h3>Angst en hebzucht als meetbare grootheden</h3>
+      <p>Een hoofdstuk gaat over het lichaam. Lo verwijst naar de patiënten van Antonio Damasio bij wie de verbinding tussen gevoel en oordeel beschadigd raakte en die daarna slechter gingen kiezen, niet beter. Emotie is in die lezing geen storing in het rekenwerk maar een onderdeel ervan.</p>
+      <p>Zelf mat hij samen met Dmitry Repin de huidgeleiding, hartslag en lichaamstemperatuur van beroepshandelaren tijdens hun werk. Bij koersuitslagen liepen de metingen op, en bij de minder ervaren handelaren sterker dan bij de ervaren. Hij verbindt dat met angstconditionering en met de rol van de amygdala. De sprong van dit soort metingen naar het gedrag van hele markten is groot, en hij is daar in het boek duidelijk over.</p>
+      <p>Het hoofdstuk over verhalen voegt de menselijke bijzonderheid toe: mensen leren via taal en voorbeeld en hoeven een aanpassing niet over generaties te laten uitkristalliseren. Vandaar de ondertitel over de snelheid van het denken. Een marktvorm kan in weken verschuiven omdat alle deelnemers hetzelfde verhaal horen.</p>
+      <h3>De hypothese zelf en het ecosysteem</h3>
+      <p>In het middendeel formuleert Lo de adaptieve-marktenhypothese. Deelnemers volgen hun eigen belang, maken fouten, leren van die fouten, en de concurrentie tussen hen bepaalt welke aanpakken blijven bestaan. Efficiëntie ontstaat wanneer veel verschillende partijen om dezelfde winst vechten en verdwijnt wanneer die partijen op elkaar gaan lijken of wegvallen.</p>
+      <p>Het hoofdstuk over de Galapagoseilanden van de financiële wereld werkt dat beeld uit. Pensioenfondsen, hedgefondsen, marktmakers, particulieren en indexbeleggers zijn soorten met een eigen nis, eigen prooi en een eigen gevoeligheid. Nieuwe niches ontstaan door regelgeving, techniek en productinnovatie. Wie wil weten hoe efficiënt een markt is, moet volgens Lo eerst kijken hoe die bevolking eruitziet.</p>
+      <h3>Crises als aanpassingsgedrag dat misging</h3>
+      <p>Twee hoofdstukken passen dit toe. Het eerste behandelt de week van 6 augustus 2007, toen kwantitatieve aandelenfondsen die marktneutraal heetten te zijn binnen enkele dagen zwaar verlies leden en daarna grotendeels herstelden. Lo onderzocht dat met Amir Khandani en reconstrueerde het als een gedwongen afbouw van een grote portefeuille die via gelijkgestemde posities bij andere fondsen werd doorgegeven. De soorten waren te veel op elkaar gaan lijken.</p>
+      <p>Het tweede gaat over de kredietcrisis. Lo introduceert daar wat hij de Grote Demping noemt: een lange periode vanaf de jaren dertig waarin regelgeving, depositogarantie en een stijgende huizenmarkt de uitslagen dempten. Wie in die omgeving leerde beleggen, leerde dat huizenprijzen niet landelijk dalen en dat schuld goedkoop is. Toen dat niet meer gold, bleven de vuistregels staan. Hij weigert de crisis aan hebzucht alleen toe te schrijven en wijst op de opeenstapeling van gedrag dat in de vorige omgeving verstandig was.</p>
+      <h3>Toezicht en een ander gebruik van financiering</h3>
+      <p>Het slot is beleidsmatig. Lo bepleit toezicht dat zich aanpast in plaats van vaste regels, met een onderzoeksinstantie naar het model van de Amerikaanse raad voor transportveiligheid: na elk ongeval een openbaar feitenonderzoek, zodat de volgende partij ervan leert. Hij wijst op variabele margeverplichtingen bij beurzen als voorbeeld van regels die met de omstandigheden meebewegen, en op de behoefte aan betere gegevens over posities in het stelsel als geheel.</p>
+      <p>Het laatste hoofdstuk laat zien wat hij zelf met dat gereedschap wil doen. Zijn voorstel voor een groot kankerfonds bundelt tientallen tot honderden geneesmiddelkandidaten in één portefeuille en financiert die deels met verhandelbaar schuldpapier. Elk medicijn afzonderlijk heeft een kleine kans van slagen; over een grote portefeuille wordt de spreiding zo groot dat gewone beleggers kunnen instappen. Lo rekende dat met Jose Maria Fernandez en Roger Stein door in een artikel uit 2012.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">adaptieve-marktenhypothese</td><td>Lo's stelling dat gedrag op financiële markten bestaat uit aanpassingen aan een omgeving, zodat efficiëntie varieert met de samenstelling van de deelnemers.</td></tr>
+          <tr><td class="term">efficiënte-marktenhypothese</td><td>De oudere theorie dat koersen alle beschikbare informatie verwerken, zodat er geen voorspelbare winst overblijft.</td></tr>
+          <tr><td class="term">begrensde rationaliteit</td><td>Simons begrip voor beslissen met beperkte tijd, kennis en rekenvermogen, waarbij mensen zoeken tot iets voldoet in plaats van tot iets het beste is.</td></tr>
+          <tr><td class="term">waarschijnlijkheidsafstemming</td><td>De neiging om gokken te verdelen in de verhouding van de kansen in plaats van steeds op de grootste kans in te zetten.</td></tr>
+          <tr><td class="term">financieel ecosysteem</td><td>De bevolking van marktpartijen met hun eigen niches, waarvan de samenstelling bepaalt hoeveel winst er te halen valt.</td></tr>
+          <tr><td class="term">de Grote Demping</td><td>Lo's naam voor de decennia van betrekkelijke rust op de Amerikaanse markten na de jaren dertig, waarin beleggers gewoonten aanleerden die later misliepen.</td></tr>
+          <tr><td class="term">aanpassing die misgaat</td><td>Gedrag dat in de vorige omgeving loonde en in de nieuwe schade aanricht, zoals geleend geld dat veilig leek zolang huizenprijzen stegen.</td></tr>
+          <tr><td class="term">raad voor marktveiligheid</td><td>Lo's voorstel voor een instantie die na elke financiële ramp openbaar feitenonderzoek doet, naar het voorbeeld van de onderzoeksraad voor transportongevallen.</td></tr>
+          <tr><td class="term">kankerfonds</td><td>Een portefeuille van veel geneesmiddelkandidaten tegelijk, gefinancierd met verhandelbaar schuldpapier, zodat de spreiding het risico per belegger draaglijk maakt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het sterkste materiaal in het boek is Lo's eigen empirische werk. De reconstructie van de quantweek van augustus 2007 berust op rendementsreeksen van kwantitatieve strategieën en op een nagebouwde marktneutrale portefeuille, en de uitkomst is te controleren. Hetzelfde geldt voor zijn werk aan hedgefondsindices en aan het meten van verhandelbaarheid in gerapporteerde rendementen.</p>
+      <p>De laag daaronder is zwakker. De metingen aan handelaren betroffen een kleine groep beroepsmensen bij één handelshuis, over een korte periode; dat is een verkenning, geen bewijs voor een mechanisme in markten. De evolutionaire kern rust op een formeel model over een populatie met voortplanting, dat vooral laat zien dat afgestemd gokken onder bepaalde aannames houdbaar is. Dat het gedrag van beurshandelaren op dezelfde manier is ontstaan, blijft een gelijkenis.</p>
+      <p>Voor de historische delen leunt Lo op bekende gevallen: het faillissement van Long-Term Capital Management in 1998, de hypotheekmarkt van 2004 tot 2008, de rol van kredietbeoordelaars. Hij voegt daar weinig nieuw bronnenonderzoek aan toe en gebruikt ze als illustratie van zijn kader. De beleidsvoorstellen aan het slot staan los van de hypothese en zijn ook zonder haar te verdedigen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat de adaptieve-marktenhypothese moeilijk te weerleggen valt. De efficiënte markt was bruikbaar doordat zij iets verbood: geen voorspelbare overwinst. Lo's kader verbiedt niets. Ziet een markt er efficiënt uit, dan is de bevolking divers; ziet zij er inefficiënt uit, dan is de bevolking verschraald of de omgeving verschoven. Wie vooraf wil weten welk van beide gaat gebeuren, krijgt geen antwoord. Zonder toetsbare beperking blijft er een verhaal over dat achteraf altijd past.</p>
+      <p>Daarnaast is de biologie eerder een metafoor dan een mechanisme. Voor selectie zijn erfelijkheid, variatie en verschil in nakomelingschap nodig. Handelsstrategieën planten zich niet voort, ze worden gekopieerd en aangepast door mensen die nadenken. Lo weet dat en noemt het leren via taal en verhaal, maar daarmee verdwijnt juist het deel van de evolutietheorie dat voorspelkracht heeft. Wat overblijft is de gewone waarneming dat concurrentie winst wegneemt en dat gewoonten achterlopen op de omstandigheden.</p>
+      <p>Er is ook een bezwaar tegen de opzet. Het boek is tegelijk populariserend overzicht, herinnering aan een loopbaan, onderzoeksverslag en beleidspleidooi, en de delen ondersteunen elkaar minder dan de opbouw suggereert. De praktische gevolgtrekkingen, meer aandacht voor risicobeheer, minder vertrouwen in vaste verdelingen over beleggingscategorieën en meer sturing op omstandigheden, liggen dicht bij wat actief beheerde fondsen toch al aanprijzen. Lo is zelf oprichter van een vermogensbeheerder die dat soort producten aanbiedt en vermeldt dat, maar de lezer moet er wel rekening mee houden.</p>
+      <p>Tot slot de dekking. Voor gedrag in het laboratorium en voor het gedrag van beroepsbeleggers geeft Lo veel materiaal. Voor de stap naar prijsvorming op de hele markt, waar zijn hypothese over gaat, veel minder. Waar de gedragseconomie inmiddels last heeft van experimenten die bij herhaling zwakker uitvielen, erft Lo een deel van dat probleem, zonder dat het boek daarop ingaat.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij elke strategie in welke omstandigheden zij is bedacht, en welke van die omstandigheden nog gelden.</li>
+        <li>Kijk bij een positie niet alleen naar het eigen risico maar naar hoeveel andere partijen dezelfde positie hebben; gelijkheid in de bevolking is zelf een risico.</li>
+        <li>Behandel rendementsreeksen van fondsen met slecht verhandelbare bezittingen met wantrouwen: gladde reeksen kunnen komen uit waarderingen in plaats van uit stabiliteit.</li>
+        <li>Leg vast welke vuistregels je gebruikt en wanneer je ze zou loslaten, zodat die beslissing niet in het uur zelf hoeft te vallen.</li>
+        <li>Reken bij projecten met een kleine kans van slagen door of bundeling het risico genoeg spreidt om financierbaar te worden.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Adaptive Markets: Financial Evolution at the Speed of Thought</i> (Princeton University Press, Princeton en Oxford, 2017, 483 blz., ISBN 9780691135144). Paperback met een nieuw voorwoord in 2019 (ISBN 9780691191362). Lo is hoogleraar aan de MIT Sloan School of Management en bouwt in dit boek voort op zijn artikel over de adaptieve-marktenhypothese uit 2004. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd. In de Nederlandse catalogi is van Lo ook geen ander boek in vertaling te vinden, ook zijn eerdere <i>A Non-Random Walk Down Wall Street</i> (1999, met A. Craig MacKinlay) niet.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Lo probeert de twee kampen in de financiële theorie bij elkaar te brengen. Aan de ene kant staat de efficiënte-marktenhypothese, die zegt dat koersen alle beschikbare informatie al bevatten. Aan de andere kant staat de gedragseconomie, die laat zien dat mensen stelselmatig verkeerd rekenen. Volgens Lo zijn beide gedeeltelijk waar en is de biologie de plaats waar ze samenkomen. Menselijk gedrag op de beurs bestaat uit vuistregels die in een bepaalde omgeving goed werkten. Verandert de omgeving, dan blijven de vuistregels even hangen en gaan ze schade doen.</p><p>Daaruit volgt zijn stelling dat marktefficiëntie geen eigenschap is die een markt heeft of niet heeft, maar iets dat wisselt met het aantal deelnemers, hun onderlinge verschillen en de winst die er te halen valt. Hij noemt dat een financieel ecosysteem, met soorten en niches. De onderbouwing komt uit eigen onderzoek naar hedgefondsen, uit metingen aan handelaren tijdens het werk, uit de afwikkeling van de quantcrisis van augustus 2007 en uit de kredietcrisis. Het laatste deel van het boek gaat over toezicht en over het financieren van geneesmiddelenonderzoek.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>financiële markten</li><li>beleggen</li><li>evolutie</li><li>gedragseconomie</li><li>risicobeheer</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="811"><a href="811.html">The (Mis)Behaviour of Markets</a>. Mandelbrot bestrijdt hetzelfde bouwwerk van een andere kant: de normale verdeling onder de standaardmodellen deugt niet, waardoor extreme uitslagen stelselmatig worden onderschat.</li>
+          <li value="268"><a href="268.html">The Black Swan</a>. Taleb trekt uit dezelfde waarnemingen over zeldzame gebeurtenissen een strengere gevolgtrekking dan Lo, die zijn kader juist bruikbaar wil houden voor beleid.</li>
+          <li value="807"><a href="807.html">Manias, Panics, and Crashes</a>. Kindleberger beschrijft het terugkerende patroon van zeepbel en instorting historisch; Lo's Grote Demping is te lezen als de uitzonderingsperiode in die reeks.</li>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Kahneman levert het gedragsmateriaal waarop Lo bouwt, zonder de vraag te stellen waar de vuistregels vandaan komen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

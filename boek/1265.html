@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Last Man Who Knew Everything: Thomas Young &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Robinson houdt vol dat Thomas Young de laatste is geweest die aan de voorste rand van vrijwel alle vakken tegelijk kon meewerken, en dat hij daarna uit…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1265">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1265 &middot; Natuur en wetenschap</p>
+    <h1>The Last Man Who Knew Everything: Thomas Young</h1>
+    <p class="lede">Andrew Robinson, 2006 (herziene uitgave 2023)</p>
+    <p class="stats">
+      <span><b>1876</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1265"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Robinson houdt vol dat Thomas Young de laatste is geweest die aan de voorste rand van vrijwel alle vakken tegelijk kon meewerken, en dat hij daarna uit het geheugen verdween om redenen die met zijn karakter te maken hebben. Young bewees dat licht zich als een golf gedraagt en ondergroef daarmee de gezaghebbende opvatting van Newton, hij verklaarde hoe het oog scherpstelt en waarom mensen kleuren zien, hij gaf de stijfheid van materialen een maat die nog zijn naam draagt, en hij bracht het lezen van het Egyptische schrift een beslissende stap verder. Dat hij bij dat alles maar zelden zijn naam onder een stuk zette, telkens naar een nieuw onderwerp overstapte voordat het vorige rond was, en een proza schreef waar tijdgenoten geen doorkomen aan hadden, verklaart volgens Robinson waarom de eer meestal aan anderen toeviel. Het boek is daarmee tegelijk een levensbeschrijving en een betoog over wat er gebeurt met iemand die weigert zich tot één vak te beperken.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wonderkind uit een quakergezin</h3>
+      <p>Young werd in 1773 geboren in Milverton in Somerset, in een quakergezin van bescheiden welstand. Hij las al op zeer jonge leeftijd, leerde als schooljongen Grieks en Latijn en daarnaast Hebreeuws, Arabisch en Perzisch, en hield zich met wiskunde, plantkunde en instrumentmakerij bezig. Robinson gebruikt die jaren om te laten zien dat Youngs veelzijdigheid geen latere gril was maar zijn gewone manier van doen.</p>
+      <p>Op eenentwintigjarige leeftijd werd hij lid van de Royal Society, op grond van een verhandeling over de manier waarop het oog scherpstelt. Een erfenis van zijn oudoom, de arts Richard Brocklesby, maakte hem financieel onafhankelijk, zodat hij zich nooit hoefde te schikken naar een broodheer. Hij studeerde geneeskunde in Londen, Edinburgh en Göttingen, promoveerde in 1796 en ging daarna naar Cambridge, waar medestudenten hem Phenomenon Young noemden.</p>
+      <h3>De arts van het zien</h3>
+      <p>Youngs eerste eigen terrein was het oog. Hij liet zien dat scherpstellen gebeurt doordat de lens van vorm verandert, een strijdvraag waarover destijds drie opvattingen bestonden. Bij zichzelf stelde hij vast dat zijn oog in de ene richting anders breekt dan in de andere, en beschreef daarmee astigmatisme.</p>
+      <p>Belangrijker op de lange duur was zijn voorstel over kleur. Uit de vaststelling dat elke kleur uit drie grondkleuren te mengen valt, leidde hij af dat het netvlies waarschijnlijk drie soorten ontvangers heeft en dat de kleur voortkomt uit de verhouding waarin die drie worden geprikkeld. Hermann von Helmholtz nam die gedachte een halve eeuw later op, waardoor zij als de theorie van Young en Helmholtz bekendstaat. Rechtstreekse metingen aan de drie soorten kegeltjes in het netvlies volgden pas in de tweede helft van de twintigste eeuw.</p>
+      <h3>Licht als golf</h3>
+      <p>Van 1801 tot 1803 was Young hoogleraar natuurfilosofie aan de Royal Institution in Londen. De lezingen die hij daar hield verschenen in 1807 als een tweedelig werk over natuurfilosofie en de werktuigelijke kunsten, waarin onder veel meer de maat voor de rekbaarheid van materialen staat die nu zijn naam draagt.</p>
+      <p>In dezelfde jaren voerde hij zijn bekendste redenering. Wanneer licht uit één bron langs twee nauwe openingen gaat en op een scherm terechtkomt, ontstaan lichte en donkere strepen. Young verklaarde die met het begrip interferentie: twee golven die elkaar ontmoeten versterken elkaar of doven elkaar uit, afhankelijk van de weg die zij hebben afgelegd. Hij paste dezelfde gedachte toe op de kleuren in dunne olielagen en zeepvliezen. In Groot-Brittannië viel dat slecht, omdat het inging tegen Newtons opvatting dat licht uit deeltjes bestaat. Henry Brougham haalde het werk in de Edinburgh Review anoniem en hardhandig onderuit, en Youngs antwoord daarop vond nauwelijks lezers. Pas toen Augustin Fresnel in Frankrijk vanaf 1815 dezelfde weg met wiskunde afliep, kreeg de golfopvatting voet aan de grond.</p>
+      <h3>De praktijk van een geneesheer</h3>
+      <p>Young was vanaf 1811 verbonden aan het St George's Hospital in Londen en bleef zijn leven lang arts. Die kant van zijn loopbaan verliep moeizaam. Hij had weinig patiënten, miste de omgang aan het ziekbed die een praktijk toen opbouwde, en zijn geneeskundige geschriften kregen weinig navolging. In 1815 verscheen zijn verhandeling over tering, waarin hij de kennis over die ziekte ordende zonder haar te kunnen verklaren.</p>
+      <p>Robinson gebruikt dit deel om te laten zien wat veelzijdigheid kost. Collega's wantrouwden een arts die tegelijk over golven en over Egyptisch schrift publiceerde, en Young zelf hield zijn natuurkundige werk daarom een tijd buiten zijn naam om zijn praktijk niet te schaden.</p>
+      <h3>De steen van Rosetta</h3>
+      <p>Vanaf 1814 werkte Young aan de drietalige tekst op de steen van Rosetta. Hij stelde vast dat het demotische schrift en het hiëroglifische schrift met elkaar samenhangen en dat het hiëroglifische niet louter uit beeldtekens bestaat. Zijn beslissende stap zat in de omkaderde tekengroepen: hij nam aan dat daar koningsnamen in stonden, dat die klank voor klank waren geschreven, en las op die manier de naam van Ptolemaeus. Ook stelde hij een reeks tekens en hun waarde vast en gaf hij een lijst van betekenissen die grotendeels standhield.</p>
+      <p>Wat hij niet deed, was het stelsel als geheel doorzien. Jean-François Champollion, die het Koptisch beheerste en daarmee een levende afstammeling van de taal in handen had, zette vanaf 1822 de stap naar een leesbaar schrift voor alle namen en woorden. Robinson beschrijft de ruzie die daarop volgde: Champollion erkende zijn schuld aan Young nauwelijks, Young eiste erkenning en publiceerde ondertussen zijn eigen bijdrage weer anoniem, in een aanvulling op de Encyclopaedia Britannica.</p>
+      <h3>Een wandelende encyclopedie in overheidsdienst</h3>
+      <p>Young schreef tientallen artikelen voor die aanvulling, over uiteenlopende onderwerpen als bruggen, getijden, taalverwantschap, egyptologie en het leven van tijdgenoten, vrijwel altijd zonder naam. Robinson laat aan dat werk zien hoe breed zijn lezen was en hoe weinig Young erom gaf wie de eer kreeg.</p>
+      <p>Daarnaast deed hij overheidswerk. Vanaf 1818 was hij secretaris van de commissie die zich met de lengtebepaling op zee bezighield en verantwoordelijk voor de zeevaartkundige almanak, waarover hij met sterrenkundigen in aanvaring kwam. Hij adviseerde over de sterkte van scheepshout, over de vorm van een voorgestelde brug en over de rekenkunde van levensverzekeringen. Dat laatste leverde hem een vast inkomen op en de gewoonte om sterftecijfers te ordenen.</p>
+      <h3>Waarom hij Newton niet werd</h3>
+      <p>In het slot komt Robinson terug op zijn vraag. Hij noemt vier redenen. Young publiceerde veel zonder naam. Hij hield een onderwerp zelden vast tot het uitgewerkt was, en liet aan anderen over wat het meeste opzien baarde. Hij schreef beknopt en zonder toeschietelijkheid, waardoor tijdgenoten hem lastig konden volgen. En hij vormde geen school: er waren geen leerlingen die zijn werk voortzetten en zijn naam eraan verbonden hielden.</p>
+      <p>In de uitgave van 2023 volgt daarop een nawoord over de vraag of veelweterij vandaag nog kan. Robinson wijst erop dat het aantal beoefenaars per vak sinds Young met een factor van vele duizenden is gegroeid, en dat de kans om in twee vakken tegelijk iets nieuws te vinden daarmee zeer klein is geworden, zonder dat hij het uitgesloten noemt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">interferentie</td><td>Het versterken of uitdoven van twee golven die elkaar ontmoeten, afhankelijk van het verschil in afgelegde weg; het begrip waarmee Young de lichte en donkere strepen achter twee spleten verklaarde.</td></tr>
+          <tr><td class="term">golfopvatting van het licht</td><td>De gedachte dat licht zich als een trilling in een medium gedraagt, tegenover Newtons opvatting dat het uit deeltjes bestaat.</td></tr>
+          <tr><td class="term">tweespletenproef</td><td>De opstelling waarin licht uit één bron langs twee nauwe openingen valt en op een scherm een streeppatroon vormt.</td></tr>
+          <tr><td class="term">accommodatie</td><td>Het scherpstellen van het oog, dat volgens Young gebeurt doordat de lens van vorm verandert.</td></tr>
+          <tr><td class="term">astigmatisme</td><td>De afwijking waarbij een oog het licht in de ene richting anders breekt dan in de andere; Young beschreef die aan zijn eigen oog.</td></tr>
+          <tr><td class="term">driekleurenwaarneming</td><td>Het voorstel dat het netvlies drie soorten ontvangers heeft en dat kleur volgt uit de verhouding waarin die worden geprikkeld.</td></tr>
+          <tr><td class="term">elasticiteitsmodulus</td><td>De maat voor hoe sterk een materiaal zich tegen rekken verzet, uit Youngs lezingen van 1807 en nog naar hem genoemd.</td></tr>
+          <tr><td class="term">cartouche</td><td>De omkaderde tekengroep in Egyptische opschriften waarin volgens Young een koningsnaam stond, klank voor klank geschreven.</td></tr>
+          <tr><td class="term">demotisch schrift</td><td>Het gewone Egyptische schrift van de middelste tekst op de steen van Rosetta, dat Young met het hiëroglifische wist te verbinden.</td></tr>
+          <tr><td class="term">veelweter</td><td>Iemand die in meer dan één vak op het hoogste niveau meedoet; het begrip waarmee Robinson Youngs leven en de titel van het boek verantwoordt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Robinson werkt met Youngs eigen gedrukte werk, met zijn brieven en met de negentiende-eeuwse uitgave van zijn verspreide geschriften en de levensbeschrijving die George Peacock in 1855 bezorgde. Daarnaast gebruikt hij Youngs anonieme artikelen voor de aanvulling op de Encyclopaedia Britannica, die deels pas later aan hem zijn toegeschreven. Dat is het gebruikelijke materiaal voor een leven uit deze periode en het is toereikend voor de feiten.</p>
+      <p>Sterker staat het boek waar de wetenschap zelf spreekt. Dat licht zich als golf gedraagt, dat de lens van vorm verandert, dat kleur op drie soorten ontvangers berust en dat de omkaderde tekengroepen koningsnamen bevatten, is alle vier later bevestigd, in het laatste geval binnen enkele jaren en in het derde geval pas na anderhalve eeuw. Robinson hoeft die uitkomsten niet te bepleiten; hij hoeft ze alleen te dateren.</p>
+      <p>Zwakker is de dragende stelling van het boek. Dat Young onbekend bleef door zijn anonieme publiceren, zijn springen van onderwerp en zijn stijl, is een verklaring na afloop. Robinson maakt haar plausibel met voorbeelden, en geeft geen vergelijking met tijdgenoten die even breed werkten en wel bekend bleven, waardoor de verklaring niet te toetsen valt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De titel is een leus. Diezelfde woorden zijn eerder gebruikt voor Leibniz, voor Athanasius Kircher, voor de Amerikaanse anatoom Joseph Leidy in een levensbeschrijving uit 1998, en later voor Enrico Fermi in een boek van David Schwartz uit 2017. Wie de laatste alleskenner was, hangt af van hoe men kennis afbakent en van welke vakken men meetelt. Robinson erkent dat in het nawoord van 2023 en houdt de titel toch aan, omdat die verkoopt.</p>
+      <p>Robinson neemt in de twist met Champollion vrijwel steeds Youngs kant. De heersende opvatting onder egyptologen is dat Champollion de beslissende stap zette en dat Young die nooit had kunnen zetten, omdat hij het Koptisch niet beheerste en het Egyptisch bleef behandelen als een raadsel in tekens in plaats van als een taal. Robinson noemt dat wel, en de weging in zijn tekst blijft in het voordeel van zijn hoofdpersoon.</p>
+      <p>Zestien hoofdstukken over ruim tweehonderdzestig bladzijden moeten natuurkunde, geneeskunde, taalkunde, egyptologie en overheidswerk bedienen. Dat gaat ten koste van de diepte. De optica komt zonder wiskunde langs, waardoor de lezer wel het beeld van twee golven krijgt en niet ziet waarom Fresnels uitwerking het pleit beslechtte. Ook Youngs vergissingen en doodlopende sporen komen er bekaaid af, terwijl juist die zouden laten zien hoe hij werkte.</p>
+      <p>Ten slotte blijft de mens op afstand. Van Youngs huwelijk, zijn quakerachtergrond die hij losliet, zijn geldzaken en zijn omgang met tegenslag krijgt de lezer weinig. Het boek is een lijst van prestaties met een verklaring erachteraan, en niet een leven waarin die prestaties hun plaats krijgen.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Last Man Who Knew Everything: Thomas Young, the Anonymous Polymath Who Proved Newton Wrong, Explained How We See, Cured the Sick and Deciphered the Rosetta Stone</i> verscheen in 2006 bij Oneworld in Oxford (ISBN 978-1-85168-494-6) en in de Verenigde Staten bij Pi Press; de pocket kwam bij Plume/Penguin, ISBN 978-0-452-28805-8. Voor Youngs tweehonderdvijftigste geboortejaar bracht Open Book Publishers in Cambridge een herziene uitgave uit: <i>The Last Man Who Knew Everything: Thomas Young</i> (2023, xxx + 266 blz., ISBN 978-1-80511-018-7), met een voorwoord van Martin Rees en een nawoord over veelweterij toen en nu. Die editie is vrij online te lezen. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Thomas Young (1773-1829) toonde aan dat licht zich als een golf gedraagt, beschreef hoe het oog scherpstelt, stelde voor dat kleurwaarneming op drie soorten ontvangers berust, en zette de eerste stappen in het lezen van de hiërogliefen op de steen van Rosetta. Hij deed daarnaast dienst als arts, als verzekeringsadviseur en als secretaris van de Britse commissie voor de lengtebepaling op zee.</p><p>Andrew Robinson volgt dat leven in zestien hoofdstukken, ongeveer op volgorde van tijd, en stelt telkens dezelfde vraag: waarom is iemand met zoveel treffers zo weinig bekend. Zijn antwoord ligt in Youngs manier van werken. Young publiceerde veel zonder naam, sprong naar het volgende onderwerp voordat het vorige af was, schreef ondoordringbaar proza en liet geen leerlingen na.</p><p>Het boek gebruikt Youngs eigen publicaties, zijn anonieme bijdragen aan de Encyclopaedia Britannica en de negentiende-eeuwse uitgave van zijn verspreide werk. Het is geschreven voor lezers zonder wiskunde, wat betekent dat de natuurkunde wordt beschreven en niet doorgerekend.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>biografie</li><li>wetenschapsgeschiedenis</li><li>natuurkunde</li><li>egypte</li><li>taal</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1267"><a href="1267.html">Consilience</a>. Wilson bepleit de eenheid van kennis als programma voor de toekomst; Young is het geval waarin die eenheid nog in één hoofd paste.</li>
+          <li value="321"><a href="321.html">Longitude: The True Story of a Lone Genius Who Solved the Greatest Scientific Problem of His Time</a>. Sobel beschrijft dezelfde Britse wereld van de lengtebepaling op zee, de commissie waarvan Young later secretaris werd.</li>
+          <li value="240"><a href="240.html">Einstein: His Life and Universe</a>. Isaacson schrijft over een natuurkundige die wel wereldberoemd werd; het verschil in nawerking is precies wat Robinson probeert te verklaren.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

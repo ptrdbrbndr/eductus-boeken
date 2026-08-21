@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Morels uitvinding &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Bioy Casares bouwt een verhaal rond één bedenksel: een apparaat dat een stuk werkelijkheid met alle zintuigen tegelijk vastlegt en eindeloos afspeelt, ten…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1209">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1209 &middot; Roman en memoir</p>
+    <h1>Morels uitvinding</h1>
+    <p class="lede">Adolfo Bioy Casares, 1940; vert. Mariolein Sabarte Belacortu</p>
+    <p class="stats">
+      <span><b>1422</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1209"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Bioy Casares bouwt een verhaal rond één bedenksel: een apparaat dat een stuk werkelijkheid met alle zintuigen tegelijk vastlegt en eindeloos afspeelt, ten koste van het leven van wie is opgenomen. De vraag die hij daarmee stelt is of een volmaakte weergave van een mens die mens ook bewaart, en of iemand die van een beeld houdt daarmee van iemand houdt. Zijn verteller beantwoordt beide vragen bevestigend en handelt ernaar, met een uitkomst die het boek zonder commentaar laat staan. De roman is tegelijk een liefdesgeschiedenis waarin de geliefde geen enkel woord tegen de verliefde zegt, en die onmogelijkheid is niet het obstakel in het verhaal maar de voorwaarde ervan.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Een dagboek van een voortvluchtige</h3>
+      <p>Het boek bestaat uit het dagboek van een naamloze verteller, een Venezolaan die tot levenslang is veroordeeld en is gevlucht. Een Italiaanse tapijthandelaar in Calcutta, Dalmacio Ombrellieri, wijst hem een eiland in de Stille Oceaan waar niemand komt omdat er een ziekte zou heersen die van buiten naar binnen doodt: eerst de nagels en het haar, dan de huid.</p>
+      <p>Hij landt, leeft in de moerassige laagte, eet wortels en vis en houdt de gebouwen op de heuvel in de gaten. Onder de tekst staan voetnoten van een uitgever die de verteller op onnauwkeurigheden betrapt en op een enkel punt zijn tijdsrekening bestrijdt. Die noten vormen het enige tegenwicht in het boek tegen de stem van de verteller.</p>
+      <h3>De gasten</h3>
+      <p>Zonder aankondiging verschijnt een gezelschap op de heuvel. Ze dansen op de rand van het zwembad, zetten steeds dezelfde platen op, waaronder Valencia en Tea for Two, en houden gesprekken die de verteller na verloop van tijd woord voor woord kan meezeggen. Twee zonnen en twee manen staan tegelijk aan de hemel.</p>
+      <p>Eén vrouw, Faustine, gaat elke avond met een hoofddoek en een boek naar de rotsen kijken hoe de zon ondergaat. De verteller richt zijn hele bestaan op haar in. Hij spreekt haar aan en zij hoort hem niet. Hij legt een tuin van bloemen aan waar zij langs moet lopen en niemand ziet hem. Een man die Morel heet zoekt haar op de rotsen op; de verteller houdt hem voor een rivaal.</p>
+      <h3>De machine</h3>
+      <p>In de kelder van het museum vindt de verteller machinerie en twee schachten die de getijden aftappen. Morels toespraak aan zijn vrienden vormt het midden van het boek. Hij heeft hen een week lang opgenomen met een apparaat dat niet alleen beeld en geluid vastlegt maar alle zintuiglijke gegevens, zodat de opname zich van de werkelijkheid niet onderscheidt. Zolang de getijden lopen zal zij zich blijven herhalen, en dat noemt hij onsterfelijkheid.</p>
+      <p>Wat hij zijn vrienden niet meteen vertelt is de prijs. Wie is opgenomen, gaat dood; de ziekte van het eiland is de werking van het apparaat zelf. Morel heeft de week uitgekozen zonder iemand om toestemming te vragen, en zijn beweegreden is Faustine, die hem niet wilde.</p>
+      <h3>Het besluit van de verteller</h3>
+      <p>De verteller begrijpt dat hij nooit contact zal krijgen en dat ook hij is aangetast. Hij leert de opname uit zijn hoofd, richt de machines opnieuw in en speelt zijn eigen aanwezigheid tussen de opgenomen week in: hij loopt naast Faustine, hij reageert op wat zij zegt, hij richt zijn blik zo dat een toeschouwer zal denken dat zij samen zijn.</p>
+      <p>Terwijl zijn beeld begint te draaien, tekent hij op hoe zijn lichaam verdwijnt. De laatste bladzijden bevatten een verzoek aan wie ooit een apparaat maakt dat bewustzijn kan aflezen: zoek mij op in Faustine.</p>
+      <h3>Het voorwoord van Borges</h3>
+      <p>Borges gebruikt zijn voorwoord voor een standpunt. De psychologische roman heeft volgens hem elke vorm afgeschaft en laat alles toe, terwijl het avonturenverhaal zich aan zijn eigen bouw moet houden. Hij noemt het boek een verhaal van redelijke verbeelding en verklaart de intrige volmaakt, een oordeel dat sindsdien op vrijwel elke uitgave staat.</p>
+      <p>Bioy Casares was toen zesentwintig en had al enkele boeken gepubliceerd die hij later niet meer wilde laten herdrukken. Hij rekende dit als zijn eerste. De titel verwijst naar <i>The Island of Doctor Moreau</i> van H.G. Wells, waar eveneens een eiland, een uitvinder en proefnemingen op levende wezens voorkomen. De verschijning van Faustine bracht hij zelf in verband met de filmster Louise Brooks, van wie op dat moment alleen nog de films over waren.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Villings</td><td>Het verzonnen eiland waar het verhaal speelt, door de verteller bij de Ellice-eilanden geplaatst.</td></tr>
+          <tr><td class="term">het museum</td><td>Het hoofdgebouw op de heuvel, met bibliotheek, aquarium en machinekamers, waar de opname wordt afgespeeld.</td></tr>
+          <tr><td class="term">de opname</td><td>De week die Morel met zijn apparaat heeft vastgelegd en die zich sindsdien afspeelt alsof zij zich voor het eerst voordoet.</td></tr>
+          <tr><td class="term">de getijdenmolen</td><td>De aandrijving in de kelder die de opname draaiende houdt zolang de zee beweegt, waardoor het apparaat geen bediening nodig heeft.</td></tr>
+          <tr><td class="term">de ziekte</td><td>De aantasting van huid, haar en nagels die aan een besmetting wordt toegeschreven en die in werkelijkheid de werking van het apparaat is.</td></tr>
+          <tr><td class="term">de eeuwigheid</td><td>Morels naam voor de eindeloze herhaling van de opname, die hij zijn vrienden als een geschenk voorstelt.</td></tr>
+          <tr><td class="term">de uitgever</td><td>De stem in de voetnoten die het dagboek van commentaar voorziet en de verteller op tegenspraken wijst.</td></tr>
+          <tr><td class="term">Faustine</td><td>De vrouw op de rotsen, in het boek uitsluitend zichtbaar en hoorbaar als opname en nooit als aanspreekbare persoon.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De roman doet geen aanspraak op wetenschappelijke houdbaarheid en bouwt zijn geloofwaardigheid anders op. De verteller houdt zijn dagboek bij als iemand die zich vergist: hij denkt eerst aan een luchtspiegeling, dan aan waanzin door honger, dan aan geesten, en pas als hij die verklaringen heeft afgewerkt komt hij bij het apparaat uit. Doordat de lezer die volgorde meeloopt, dwingt het boek weinig af.</p>
+      <p>Het technische materiaal is krap gehouden en dat is opzet. Morels toespraak bevat geen uitleg die te toetsen valt; hij spreekt over het opvangen van alles wat de zintuigen aanspreekt en over het naijlen van beelden, en verder gaat hij niet. De verteller noteert daarentegen wel waarnemingen die binnen het verhaal controleerbaar zijn: de twee zonnen, de vissen die dood in het aquarium liggen en toch zwemmen, de gesprekken die na afloop opnieuw beginnen. Het bewijs binnen de roman is waarneming van herhaling en geen verklaring.</p>
+      <p>De voetnoten van de uitgever doen het omgekeerde. Zij ondermijnen de verteller op onderdelen, bijvoorbeeld waar hij zich in de ligging van het eiland vergist, en houden de mogelijkheid open dat zijn slotdaad niet is gelukt en dat wat wij lezen het verslag is van iemand die zich tot het einde toe heeft vergist.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het bezwaar dat het vaakst wordt gemaakt is dat het boek een mechaniek is met personen erin. Morel, Faustine en de gasten hebben nauwelijks een binnenkant; wat zij zeggen dient het raadsel. Borges rekende de gaafheid van de intrige tot de verdiensten, maar diezelfde gaafheid betekent dat er niets in het boek staat wat niet aan de constructie bijdraagt, en dat maakt herlezen minder lonend dan bij romans waarin naast de bouw nog iets anders gebeurt.</p>
+      <p>Faustine is het scherpste geval. Zij spreekt in het hele boek geen enkele keer tot de verteller en heeft geen wil, geen verleden en geen mening die de lezer bereikt. Twee mannen richten hun leven op haar in en beiden nemen haar zonder haar iets te vragen: Morel legt haar vast en de verteller schuift zich in het beeld naast haar. Het boek laat die overeenkomst zien en veroordeelt haar niet; wie daar kritiek van de auteur in leest, leest iets in wat er niet staat.</p>
+      <p>Verder is de onsterfelijkheid die Morel aanbiedt bij nadere beschouwing leeg, en het boek trekt die conclusie niet met zoveel woorden. Een opname die zich herhaalt heeft geen nieuwe ervaring, geen herinnering aan de vorige ronde en geen mogelijkheid om iets anders te doen. De verteller weet dat, schrijft het op en gaat toch de machine in. Wie het slot als een tragische liefdesdaad opvat, gaat voorbij aan het feit dat er niemand is die van die daad kan weten.</p>
+      <p>Ten slotte de bouw. Het middendeel met Morels toespraak legt in enkele bladzijden uit wat de eerste helft heeft opgebouwd. Wie het raadsel eenmaal kent, houdt een verhaal over dat op de helft zijn spanning verliest.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Morels uitvinding</i>, vertaald uit het Spaans door Mariolein Sabarte Belacortu (Meulenhoff, Amsterdam, 1972, 148 blz., ISBN 90-290-0485-1), verschenen als deel 32 van de Meulenhoffreeks en later herdrukt. De oorspronkelijke uitgave, <i>La invención de Morel</i>, kwam in 1940 uit bij Editorial Losada in Buenos Aires, met een voorwoord van Jorge Luis Borges; het boek kreeg in 1941 de eerste gemeentelijke literatuurprijs van Buenos Aires. Van Bioy Casares zijn in het Nederlands verder onder meer <i>Een plan om te ontsnappen</i> en verhalenbundels verschenen, en met Borges schreef hij onder schuilnaam de verhalen over Isidro Parodi.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Een voortvluchtige Venezolaan verbergt zich op een verlaten eiland waar volgens de verhalen een dodelijke ziekte heerst. Op de heuvel staan een museum, een kapel en een zwembad, gebouwd door een gezelschap dat er in de jaren twintig verbleef. Op een dag zijn er ineens mensen: ze dansen, spelen dezelfde grammofoonplaten en zeggen dezelfde dingen. Ze reageren niet op hem.</p><p>De verteller houdt een dagboek bij en wordt verliefd op een vrouw die iedere avond bij zonsondergang naar de rotsen loopt. Wat hij ontdekt is een machine die op getijdenkracht loopt en een week uit het leven van het gezelschap zintuiglijk heeft vastgelegd. De opname herhaalt zich al jaren en zal zich blijven herhalen. Wie erin is opgenomen, is bij de opname gestorven.</p><p>Borges noemde de intrige in zijn voorwoord volmaakt en gebruikte het boek om zijn voorkeur voor het verzonnen verhaal boven de psychologische roman kracht bij te zetten. Het staat aan het begin van een reeks verhalen over vastgelegde werkelijkheid; Alain Robbe-Grillet noemde het bij zijn scenario voor de film <i>L'Année dernière à Marienbad</i>.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>roman</li><li>Argentinië</li><li>onsterfelijkheid</li><li>eenzaamheid</li><li>verlangen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1200"><a href="1200.html">Het boek der rusteloosheid</a>. Ook bij Pessoa schrijft iemand een dagboek zonder lezer, met dit verschil dat daar de wereld doorgaat en hier de wereld een opname blijkt.</li>
+          <li value="1212"><a href="1212.html">Het leven een gebruiksaanwijzing</a>. Perec bouwt zijn roman eveneens als een apparaat met vaste regels; wie de constructie van Bioy Casares aantrekkelijk vindt, vindt daar de uiterste vorm ervan.</li>
+          <li value="405"><a href="405.html">The Denial of Death</a>. Ernest Becker beschrijft hoe mensen bouwsels optrekken om de dood te ontlopen; Morels machine is daar een letterlijke uitvoering van.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

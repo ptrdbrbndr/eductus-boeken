@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>An Anthropologist on Mars &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Sacks keert de gewone kijk op neurologische aandoeningen om. Een uitval in de hersenen is in zijn boeken zelden alleen verlies: het brein herschikt zich…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1307">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1307 &middot; Brein en lichaam</p>
+    <h1>An Anthropologist on Mars</h1>
+    <p class="lede">Oliver Sacks, 1995</p>
+    <p class="stats">
+      <span><b>1973</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1307"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Sacks keert de gewone kijk op neurologische aandoeningen om. Een uitval in de hersenen is in zijn boeken zelden alleen verlies: het brein herschikt zich eromheen, en die herschikking brengt vermogens en manieren van leven voort die er zonder de aandoening niet waren geweest. Ziekte is bij hem daarom ook een bestaanswijze, iets waarin een mens zich inricht en waarmee hij zich vereenzelvigt, en niet alleen iets wat hem overkomt. Om dat te laten zien verlaat hij de spreekkamer: hij bezoekt zeven mensen thuis, in hun atelier, in de operatiekamer en op de veehouderij, vaak jarenlang, omdat de aanpassing die hem interesseert zich alleen in een heel leven laat aflezen en niet in een test van een uur.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De paradox in het voorwoord</h3>
+      <p>Sacks zet in het voorwoord uiteen waarom hij de zeven verhalen paradoxaal noemt. De klassieke neurologie beschrijft wat er wegvalt bij schade aan een bepaald gebied. Hij wil laten zien dat bij de patiënt daarna iets nieuws ontstaat, een andere ordening van waarneming, geheugen en gedrag, die op zijn eigen voorwaarden begrepen moet worden.</p>
+      <p>Daaruit volgt zijn werkwijze. Hij bezoekt mensen op de plaatsen waar hun leven zich afspeelt, hij houdt jarenlang contact, en hij schrijft zichzelf mee het verhaal in, als reisgenoot en gesprekspartner. Dat is een keuze met gevolgen, want het maakt de betrouwbaarheid van het boek afhankelijk van hemzelf.</p>
+      <h3>De schilder die geen kleur meer zag</h3>
+      <p>Jonathan I., een vijfenzestigjarige abstracte schilder, raakt begin 1986 betrokken bij een aanrijding en ziet daarna geen kleur meer. Zijn ogen mankeren niets: de schade zit in de hersenschors, waar kleur wordt samengesteld. Sacks noemt dat cerebrale achromatopsie en bespreekt het aan de hand van de kleurentheorie van Edwin Land en het werk van Semir Zeki over het gebied V4.</p>
+      <p>Wat het geval draagt is de beschrijving van de gevolgen. Eten wordt weerzinwekkend omdat tomaten zwart zijn, mensen lijken op bewegende standbeelden van vuil grijs, en de schilder wordt een nachtmens omdat de wereld in het donker weer klopt. Na enkele jaren wil hij niet meer genezen worden: hij schildert in zwart-wit, ziet scherper dan vroeger en beschouwt zijn grijze wereld inmiddels als het zijne.</p>
+      <h3>De laatste hippie</h3>
+      <p>Greg F. gaat eind jaren zestig op in een Hare Krishna-tempel. Zijn groeiende gelijkmoedigheid en zijn innerlijke licht worden daar als geestelijke vooruitgang uitgelegd. Het waren de eerste tekenen van een langzaam uitdijende tumor die zijn oogzenuwkruising, zijn hypofyse en zijn voorhoofdskwabben aantastte. Toen de diagnose kwam was hij blind en kon hij geen nieuwe herinneringen meer vormen.</p>
+      <p>Greg blijft daardoor in zijn eigen jaren zeventig staan. Hij weet niets van wat er sindsdien gebeurd is en zijn opgewektheid heeft geen bodem meer. Sacks neemt hem in 1991 mee naar een optreden van de Grateful Dead in Madison Square Garden. Het oude werk zingt hij woord voor woord mee; het nieuwe zegt hem niets, en de volgende dag is de hele avond weg. Het is de scherpste passage van het boek over wat geheugen voor een persoon betekent.</p>
+      <h3>De chirurg met tics</h3>
+      <p>Carl Bennett, chirurg in een stadje in het westen van Canada, heeft het syndroom van Gilles de la Tourette. Thuis en op de gang schiet hij heen en weer, tikt hij tegen dingen aan en stoot hij geluiden uit. Zodra hij een patiënt aanraakt of achter de stuurknuppel van zijn vliegtuigje zit, houden de tics op.</p>
+      <p>Sacks blijft een week bij hem, gaat mee de operatiekamer in en vliegt met hem mee. Hij gebruikt het geval om te laten zien dat een neurologische aandoening niet gelijkmatig over een leven ligt: er zijn handelingen die haar buiten werking stellen. Bennett wil bovendien niet volledig van zijn tics af, omdat snelheid en gedrevenheid er volgens hem mee samenhangen.</p>
+      <h3>Zien zonder te zien, en een dorp uit het geheugen</h3>
+      <p>Virgil is vanaf zijn vroege jeugd vrijwel blind. Op ongeveer vijftigjarige leeftijd wordt hij aan staar geopereerd. Het licht komt binnen, maar er ontstaat geen wereld: hij ziet vlekken, randen en beweging zonder te weten wat hij ziet, en hij blijft op zijn handen en zijn gehoor vertrouwen. Sacks plaatst dat naast oudere gevallen uit de literatuur over herstelde blindheid en laat zien dat zien iets is wat geleerd moet worden. Als Virgil later ernstig ziek wordt en zijn gezichtsvermogen weer verliest, is dat voor hem een opluchting.</p>
+      <p>Franco Magnani verliet als jongen het Toscaanse dorp Pontito. Na een zware koorts in San Francisco begint hij het dorp te dromen, straat voor straat, en hij schildert het jarenlang uit zijn hoofd. Het Exploratorium liet een fotograaf dezelfde standpunten in Pontito vastleggen, zodat schilderij en foto naast elkaar konden hangen. De overeenkomst is groot, met steeds hetzelfde verschil: Magnani schildert de wereld vanuit de ooghoogte van een kind.</p>
+      <h3>Twee autistische levens</h3>
+      <p>In 'Prodigies' beschrijft Sacks de Britse tekenaar Stephen Wiltshire, die als autistische jongen gebouwen na één blik feilloos kan natekenen. Sacks reist met hem mee en probeert vast te stellen of er achter het talent een innerlijk leven schuilgaat dat hij zelf niet naar buiten brengt. Hij komt er niet uit, en hij schrijft dat op. Het hoofdstuk is daarmee ook een verslag van de grenzen van zijn eigen methode.</p>
+      <p>Het titelverhaal gaat over Temple Grandin, hoogleraar dierwetenschappen in Colorado, die veehouderijen ontwerpt waarin runderen rustig blijven. Zij verklaart dat zij het gedrag van dieren van binnenuit begrijpt en menselijk gedrag alleen door langdurig bestuderen. Haar knijpmachine, een apparaat dat haar met regelbare druk omklemt, bouwde zij naar het model van een dwangbox voor vee. Onder mensen, zegt zij tegen Sacks, voelt zij zich als een antropoloog op Mars. Uit die zin komt de titel van het boek.</p>
+      <h3>Hoe Sacks te werk gaat</h3>
+      <p>Elk hoofdstuk berust op maanden tot jaren omgang. Sacks reist, logeert, correspondeert en komt terug om te zien wat er veranderd is. Hij haalt er specialisten bij: bij Jonathan I. werkte hij samen met de oogarts Robert Wasserman en de neurofysioloog Ralph Siegel. De verhalen eindigen zelden met een oplossing; ze eindigen met een beschrijving van hoe iemand zich heeft ingericht.</p>
+      <p>Die vorm verklaart zowel de aantrekkingskracht als de kwetsbaarheid van het boek. De lezer krijgt een mensenleven in plaats van een dossier, en tegelijk hangt alles wat hij te weten komt af van wat één arts heeft gezien en heeft opgeschreven.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Cerebrale achromatopsie</td><td>Kleurloos zien door schade in de hersenschors, terwijl het oog zelf ongeschonden is.</td></tr>
+          <tr><td class="term">Retinex-theorie</td><td>Het idee van Edwin Land dat het brein kleur berekent uit verhoudingen tussen vlakken in plaats van uit de golflengte van het licht op één plek.</td></tr>
+          <tr><td class="term">V4</td><td>Het gebied in de hersenschors dat volgens onderzoek van Semir Zeki bij het samenstellen van kleur betrokken is.</td></tr>
+          <tr><td class="term">Anterograde amnesie</td><td>Het onvermogen om nieuwe herinneringen vast te leggen, terwijl het oude geheugen intact blijft.</td></tr>
+          <tr><td class="term">Frontaalkwabsyndroom</td><td>Het geheel van vlakheid, onverschilligheid en gebrek aan vooruitzien dat optreedt bij schade aan de voorhoofdskwabben.</td></tr>
+          <tr><td class="term">Syndroom van Gilles de la Tourette</td><td>Aandoening met onwillekeurige bewegingen en geluiden, die bij Bennett tijdens het opereren verdwijnen.</td></tr>
+          <tr><td class="term">Visuele agnosie</td><td>Wel beelden binnenkrijgen maar niet kunnen herkennen wat ze voorstellen, zoals bij Virgil na zijn operatie.</td></tr>
+          <tr><td class="term">Savant</td><td>Iemand met een verstandelijke of ontwikkelingsbeperking die op één terrein buitengewoon presteert, zoals Wiltshire in tekenen.</td></tr>
+          <tr><td class="term">Knijpmachine</td><td>Grandins apparaat dat haar lichaam met regelbare druk omvat en haar kalmeert, ontleend aan een dwangbox voor runderen.</td></tr>
+          <tr><td class="term">Een antropoloog op Mars</td><td>Grandins beschrijving van haar positie onder mensen: alles moet van buitenaf worden bestudeerd voordat het te volgen is.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek bestaat uit zeven langdurige kennismakingen, geen proeven. De kracht van die opzet zit in de duur: Sacks ziet mensen over jaren, waardoor hij kan laten zien hoe iemand zich aan zijn aandoening aanpast in plaats van hoe hij op één moment scoort. Voor een boek over aanpassing is dat de juiste tijdschaal.</p>
+      <p>Op twee plaatsen is er controle van buiten. Bij Franco Magnani liggen de schilderijen naast foto's van dezelfde standpunten in Pontito, zodat de overeenkomst en het verschil in ooghoogte te zien zijn. Bij Virgil bestaat een medisch dossier van de staaroperatie en van de latere ziekte. Bij de overige gevallen heeft de lezer het woord van Sacks.</p>
+      <p>Sacks steunt daarnaast op vakliteratuur. Bij de kleurenblinde schilder haalt hij Land en Zeki aan en werkte hij samen met Robert Wasserman en Ralph Siegel; bij Virgil verwijst hij naar de oudere gevallen van mensen die na levenslange blindheid weer licht kregen; bij Grandin naar haar eigen boek <i>Thinking in Pictures</i>, dat in hetzelfde jaar verscheen. Dat maakt de hoofdstukken navolgbaar, maar de gevalsbeschrijving zelf blijft anekdotisch bewijs.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het scherpste bezwaar tegen dit boek komt uit de gehandicaptenbeweging en werd geschreven naar aanleiding van precies deze titel. Tom Shakespeare noemde Sacks in zijn bespreking in <i>Disability and Society</i> (1996) de man die zijn patiënten voor een schrijverscarrière aanzag. G. Thomas Couser sprak in een studie over de ethiek van Sacks' werk van een deftig uitgevoerde kermisattractie. De kern is dat de verteller alle macht heeft: hij kiest de scènes, hij bepaalt de toon, en de beschreven mensen kunnen zich niet verweren tegen het beeld dat blijft hangen. Sacks erkende dat het een gevoelige zaak was en zei te hopen dat uit zijn werk eerbied blijkt en geen zucht naar effect.</p>
+      <p>Methodisch is de klacht ouder. Arthur K. Shapiro, deskundige op het gebied van Tourette, noemde Sacks' werk eigenzinnig en te veel op losse gevallen gebouwd. Zeven mensen, met alle zorg beschreven, laten geen gevolgtrekking toe over hoe vaak zoiets voorkomt, over oorzaak of over behandeling. Dat het brein zich herschikt is aannemelijk; dat de herschikking meestal iets oplevert wat de moeite waard is, laat dit boek niet zien, want Sacks koos zijn gevallen daarop uit.</p>
+      <p>Het zwaarste is pas na zijn dood gekomen. De Oliver Sacks Foundation gaf journalist Rachel Aviv toegang tot zijn dagboeken en brieven. Daaruit bleek dat Sacks onderdelen van zijn boeken zelf omschreef als pure verzinsels en vervalsingen, dat hij zijn gevalsbeschrijvingen een vorm van zelfuitdrukking noemde, en dat hij <i>De man die zijn vrouw voor een hoed hield</i> in een brief aan zijn broer een boek met sprookjes noemde en schreef over schuldgevoel om zijn leugens. Aviv publiceerde dat in <i>The New Yorker</i> van 15 december 2025. Welke passages in dit boek daaronder vallen is niet bekend. Wat wel verandert is de status van elk sprekend detail: het is niet meer vanzelfsprekend dat het er zo bij stond.</p>
+      <p>Tot slot een bezwaar dat het titelhoofdstuk zelf oproept. Temple Grandin kon en kan uitstekend voor zichzelf spreken; haar eigen boek verscheen in hetzelfde jaar. Toch is Sacks' portret voor veel lezers het beeld van haar geworden, inclusief de zin over Mars die zij terloops zei en die hij tot titel maakte.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees elk hoofdstuk als één geval en trek er geen gevolgtrekking over een aandoening uit; kijk bij elk detail of er een bron buiten Sacks om is.</li>
+        <li>Leg het titelhoofdstuk naast Grandins eigen <i>Thinking in Pictures</i> en let op wat zij anders van zichzelf zegt dan haar bezoeker.</li>
+        <li>Gebruik de hoofdstukken over Jonathan I. en over Virgil in onderwijs over waarneming: ze maken zichtbaar dat kleur zien en zien wat iets is, verrichtingen van het brein zijn en geen eigenschap van het oog.</li>
+        <li>Neem bij het schrijven over patiënten of cliënten de vraag mee die Shakespeare stelde: wie heeft toestemming gegeven, en wie herkent zich in het beeld dat blijft hangen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>An Anthropologist on Mars: Seven Paradoxical Tales</i> (Alfred A. Knopf, New York, 1995, 327 blz., ISBN 0679437851). Nederlandse vertaling: <i>Een antropoloog op Mars: zeven paradoxale verhalen</i>, uit het Engels vertaald door Han Visserman (Meulenhoff, Amsterdam, en Kritak, Antwerpen, 1995, 351 blz., ISBN 9789029042184), sindsdien meermalen herdrukt, later bij De Boekerij. Van Sacks is vrijwel het hele oeuvre in het Nederlands verschenen, waaronder <i>De man die zijn vrouw voor een hoed hield</i> (1986) en <i>Ontwaken in verbijstering</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Zeven lange gevalsbeschrijvingen, geschreven vanuit de stelling dat een neurologisch gebrek zelden alleen aftrekken is. Een schilder verliest na een botsing het vermogen kleur te zien en gaat na jaren zijn grijze wereld als winst beschouwen. Een man met een langzaam groeiende hersentumor blijft in 1970 hangen en zingt op een concert de liedjes van toen mee, terwijl hij de avond zelf de volgende dag kwijt is. Een chirurg met het syndroom van Gilles de la Tourette ziet zijn tics verdwijnen zodra hij opereert of vliegt.</p><p>Verder komen aan bod: een man die na een leven van blindheid weer licht binnenkrijgt maar er geen wereld van kan maken, een schilder die een Toscaans dorp uit zijn hoofd natekent tot op de dakpan, de autistische tekenaar Stephen Wiltshire, en Temple Grandin, van wie de titel komt. Onder mensen, zei ze tegen Sacks, voelt ze zich als een antropoloog op Mars.</p><p>Sacks bezoekt zijn onderwerpen thuis en op hun werk, soms jarenlang. Dat levert portretten op die veel verder gaan dan een dossier. Het levert ook de vraag op wie hier over wie beschikt, en na zijn dood bleek uit zijn dagboeken dat hij zelf van sommige passages in zijn boeken sprak als verzinsels.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>neurologie</li><li>waarneming</li><li>autisme</li><li>hersenen</li><li>geneeskunde</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="325"><a href="325.html">On the Move: A Life</a>. Sacks' eigen memoir laat zien hoe hij aan deze manier van werken kwam en wat hij over zichzelf wel en niet prijsgaf.</li>
+          <li value="1311"><a href="1311.html">The Man Who Tasted Shapes</a>. Richard Cytowic bouwt zijn boek over synesthesie op dezelfde manier op, rond één patiënt, en loopt tegen dezelfde grens van de gevalsbeschrijving aan.</li>
+          <li value="1313"><a href="1313.html">Twitch and Shout</a>. Lowell Handler schrijft over het syndroom van Gilles de la Tourette van binnenuit; naast het hoofdstuk over de chirurg wordt het verschil tussen bezoeker en betrokkene zichtbaar.</li>
+          <li value="1306"><a href="1306.html">Fall Down 7 Times, Get Up 8</a>. Higashida beschrijft autisme zonder tussenpersoon, en juist die tekst maakt duidelijk wat Sacks' portretten aan Grandin ontlenen en wat zij eraan toevoegen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

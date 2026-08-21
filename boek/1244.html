@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lid Off the Cauldron &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Crowther stelt dat hekserij een doorlopende religie is die ouder is dan het christendom, de kerkvervolgingen ondergronds heeft overleefd en in de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1244">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1244 &middot; Filosofie en mystiek</p>
+    <h1>Lid Off the Cauldron</h1>
+    <p class="lede">Patricia Crowther, 1981</p>
+    <p class="stats">
+      <span><b>2240</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1244"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Crowther stelt dat hekserij een doorlopende religie is die ouder is dan het christendom, de kerkvervolgingen ondergronds heeft overleefd en in de twintigste eeuw weer boven water kwam, zodat Gerald Gardner haar wel openbaar maakte maar niet uitvond. Daaruit volgt haar tweede stelling: wie zich met de juiste gezindheid laat inwijden kan de oude handelingen opnieuw uitvoeren, en die handelingen doen iets, omdat zij aansluiten bij ritmes in de natuur en bij vermogens die vroegere mensen kenden en de moderne mens is kwijtgeraakt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wie er aan het woord is</h3>
+      <p>Patricia Crowther, geboren in Sheffield in 1927 en overleden in 2025, werd op 6 juni 1960 door Gerald Gardner ingewijd. Zij was getrouwd met Arnold Crowther, een beroepsgoochelaar en buikspreker, en samen richtten zij in 1961 de coven van Sheffield op. Zij geldt met Doreen Valiente, Lois Bourne en Eleanor Bone als een van de vrouwen van het eerste uur van de moderne hekserij in Engeland.</p>
+      <p><i>Lid Off the Cauldron</i> verscheen in 1981 bij Frederick Muller met de ondertitel <i>A Handbook for Witches</i>. Het is haar vijfde boek en het meest praktische. De opzet is tweeledig: eerst vier hoofdstukken over de herkomst van de hekserij, daarna zestien hoofdstukken die uitleggen hoe het werk in een coven gaat. Zij schrijft van binnenuit, als hogepriesteres die aan buitenstaanders en aan beginners uitlegt hoe het volgens haar hoort.</p>
+      <h3>De kerk als maker van het heksbeeld</h3>
+      <p>Het eerste hoofdstuk, "Going to the Devil", stelt dat het publiek na twintig jaar herleving nog altijd hetzelfde plaatje in het hoofd heeft: een oude vrouw die in een ketel roert. Dat beeld is er volgens Crowther in gehamerd door de middeleeuwse kerk, die de hekserij tot duivelsdienst verklaarde en de vervolging als redding presenteerde.</p>
+      <p>Zij onderbouwt dat met een reeks citaten van kerkvaders en heiligen over het menselijk lichaam en over vrouwen: Augustinus ("Inter faeces et urinam nascimur"), Bernardus, Hiëronymus, Maximus en Anastasius de Sinaïet. Die citaten haalt zij naar eigen zeggen uit het <i>Directorium Sacerdotale</i>, een handleiding voor priesters. Haar verklaring voor de wreedheid van de vervolging is psychologisch: een mannelijke religie die seksualiteit had opgesloten, vond in de foltering een uitweg.</p>
+      <h3>Leylijnen en een verzwegen Brits verleden</h3>
+      <p>Hoofdstuk twee heet "The Renaissance" en dateert het verval van de esoterische kennis in Britannië vanaf de Romeinse verovering. Het voorbeeld dat zij uitwerkt zijn de leylijnen: rechte lijnen die volgens haar over de hele wereld lopen, aan de oppervlakte zichtbaar in paden, stenen kringen, monolieten en heuvelfiguren, en op de kruispunten geladen. Zij vertelt hoe Alfred Watkins, koopman te Hereford, dit netwerk in de jaren twintig ontdekte en beschreef in <i>The Old Straight Track</i>, en hoe zijn aanhangers zich verenigden in de Straight Track Postal Club. Watkins zag er paden in; Crowther voegt eraan toe dat de lijnen zelf de energie voeren die alles doet groeien, in het voorjaar en de zomer geactiveerd.</p>
+      <p>Het derde hoofdstuk keert zich tegen het schoolbeeld van de oude Britten als naakte wilden. Zij wijst op handel met Rome, op de Fenicische handelsroute en op ambachten als glasblazen, weven, pottenbakken en bronsbewerking, en verklaart het schoolbeeld uit het belang dat een veroveraar heeft bij een volk zonder eigen verleden. Wat verloren ging, zegt zij met een verwijzing naar Jung, is niet weg: het ligt opgeslagen in het collectief onbewuste van een volk.</p>
+      <h3>Gardner en de vraag naar continuïteit</h3>
+      <p>Het vierde hoofdstuk gaat over Gerald Brosseau Gardner. Crowther bestrijdt de stelling dat de moderne hekserij door hem is bedacht. Hij deed het pionierswerk en bracht de zaak in de publiciteit, schrijft zij, maar hij deed dat als ingewijd lid van de coven in het New Forest. Zij zegt brieven en contacten te bezitten die bewijzen dat de religie de vervolgingstijd heeft overbrugd en tot in de twintigste eeuw in het geheim is voortgezet, en noemt als voorbeeld een vrouw die afstamde uit een heksenfamilie bij Inverness en Gardner "of the blood" achtte, ook al waren zij het over veel oneens.</p>
+      <p>Het hoofdstuk is voor een groot deel persoonlijke herinnering. Haar man kende Gardner al vijftien jaar toen zij hem in 1956 leerde kennen; Arnold had Gardner in 1946 aan Aleister Crowley voorgesteld. Zij beschrijft het bezoek aan Gardners museum in Castletown op het eiland Man, waar hij ziek te bed lag en hen toch binnenriep.</p>
+      <h3>Inwijding en het wijden van de werktuigen</h3>
+      <p>Wie heks wil worden moet volgens hoofdstuk vijf een aanleg voelen om de oude goden te vereren; nieuwsgierigheid, machtsverlangen of de hoop op materieel gewin lopen dood. Die goden, een moedergodin en een gehoornde god, presenteert zij als oeroude archetypische beelden van de twee helften van de natuur. De ontwikkeling van de ziel verloopt in de Craft niet via gebed en meditatie alleen, maar via de acht paden van het Witches' Wheel, die zij tot de westerse mysterietraditie rekent. Een echte coven adverteert niet, dus wie erin wil moet zelf contact leggen, bijvoorbeeld via kleine occulte tijdschriften of via de uitgever van een auteur.</p>
+      <p>Hoofdstuk zes begint bij het wijden van cirkel en altaar. De werktuigen worden daarna apart gehouden, in zijde of zwart fluweel; de athame, het rituele mes, draagt men een tijd bij zich zodat het de eigen trilling opneemt. Het Book of Shadows is een schrift waarin rituelen, spreuken, gedichten en aanroepingen worden verzameld; de naam betekent volgens haar dat het slechts een bleke schaduw is van innerlijke werkelijkheden. De eerste ceremonie wordt naakt gedaan, met bij vrouwen een halssnoer, bij voorkeur van witch-stones, versteende sponzen met een natuurlijk gat erin die zij bij naam noemt: <i>Porosphaera globularis</i>.</p>
+      <h3>Plaats, getij, dans en klank</h3>
+      <p>Hoofdstuk zeven gaat over buiten werken. Zij raadt een warme kap en mantel aan in plaats van naakt in het Britse klimaat, een stormlantaarn voor de vier windstreken, een stafkaart om oude plaatsen en stenen kringen te vinden, en een verkenning bij daglicht om de route en de bodem te beoordelen. Hoofdstuk acht behandelt de getijden: de vier grote sabbats vallen precies tussen de zonnewenden en de equinoxen in, die als kleine sabbats gelden en volgens haar later zijn ingevoerd en meer feest dan magie waren. Door de overgang naar de gregoriaanse kalender lopen de huidige data twaalf dagen achter en missen zij de piek van het seizoensgetij, die op vijftien graden van de vaste dierenriemtekens ligt.</p>
+      <p>Het negende hoofdstuk behandelt de dans als de oudste manier om eenheid met het goddelijke te bereiken: de ronde dans of mill om kracht op te wekken en de leden op elkaar af te stemmen, en de spiraaldans, die zij verbindt met de oude doolhofdans en met Ariadne en de draad van Theseus. Hoofdstuk tien gaat over de calls: geïntoneerde klinkerreeksen, volgens haar de oudste vorm van aanroeping, die kippenvel opwekken en waarmee een groep contact zou maken. De precieze uitspraak geeft zij niet, omdat sommige calls sterke seksuele gevoelens oproepen en misbruikt zouden kunnen worden.</p>
+      <h3>Symbolen, spiegel en zeven planeetriten</h3>
+      <p>Hoofdstuk elf laat de bekende tekens liggen, zoals pentagram, davidster en swastika, en behandelt verwaarloosde symbolen: de Babylonische lamp van de godin Aruru, die met twee motten erbij leven en dood zou aanduiden, en een reeks oude tekens voor voortplanting en vernietiging. Hoofdstuk twaalf beschrijft waarzeggerij. In elke magische cirkel hoort volgens haar een spiegel aan de noordwand, gewijd en afgedekt met zwart fluweel of zilver. Die spiegel dient om de astrale tempel op te bouwen, een gedachte kopie van de fysieke tempel die zolang zij gebruikt wordt binnen haar eigen orde werkelijk zou zijn. Daarna volgen vier spiegelmethoden, één per element, en een korte behandeling van runen.</p>
+      <p>Het laatste blok, hoofdstuk dertien tot en met twintig, bestaat uit riten voor Saturnus, Jupiter, Mars, de zon, Venus, Mercurius en de maan, met een bijlage over de volgorde van de planeeturen. Crowther schrijft dat zij die riten in de eerste plaats voor leden van de Wicca heeft opgeschreven, maar dat de meeste magische genootschappen ze kunnen aanpassen. Hun praktische nut is volgens haar dat een coven niet koud aan het werk hoeft te beginnen: gaat het om een genezing, dan wordt de zonnerite eerst gedaan, zodat de juiste stemming er al is voordat het eigenlijke werk begint.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">de Craft</td><td>Crowthers eigen naam voor de hekserij als religie, ook wel Wicca of "the Craft of the Wise", die zij als voortzetting van een voorchristelijke godsdienst presenteert.</td></tr>
+          <tr><td class="term">athame</td><td>Het rituele mes van de heks, dat na wijding een tijd bij het lichaam wordt gedragen zodat het de eigen trilling opneemt.</td></tr>
+          <tr><td class="term">Book of Shadows</td><td>Het handgeschreven schrift met rituelen, spreuken en aanroepingen dat elke ingewijde zelf bijhoudt; de naam betekent volgens Crowther dat de tekst een bleke schaduw is van innerlijke werkelijkheden.</td></tr>
+          <tr><td class="term">sky-clad</td><td>Naakt werken in de cirkel, in Crowthers uitleg een vorm van inwijding en bij vrouwen te combineren met een halssnoer als teken van de godin.</td></tr>
+          <tr><td class="term">Sabbat en Esbat</td><td>De acht jaarfeesten van het heksenjaar tegenover de bijeenkomsten op vaste maanstanden; de vier grote sabbats liggen tussen zonnewenden en equinoxen in.</td></tr>
+          <tr><td class="term">Witches' Wheel</td><td>Het schema van acht paden waarlangs de ziel zich volgens Crowther in de Craft ontwikkelt, in plaats van via gebed en meditatie alleen.</td></tr>
+          <tr><td class="term">calls of sonics</td><td>Geïntoneerde klinkerreeksen waarmee een coven kracht opwekt en contact zou leggen; Crowther geeft de precieze uitspraak niet prijs.</td></tr>
+          <tr><td class="term">astrale tempel</td><td>Een in de verbeelding opgebouwde kopie van de werkruimte, die volgens haar in haar eigen sfeer werkelijk is zolang de groep haar gebruikt en geheimhoudt.</td></tr>
+          <tr><td class="term">leylijnen</td><td>Rechte lijnen tussen oude plaatsen die volgens Crowther niet alleen richting aangeven maar ook de energie voeren die alles doet groeien.</td></tr>
+          <tr><td class="term">seizoensgetijden</td><td>De jaarlijkse op- en afgang van kracht die volgens haar op vijftien graden van de vaste dierenriemtekens piekt, twaalf dagen voor de huidige sabbatdata.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek steunt in de eerste plaats op Crowthers eigen praktijk. Voor de rituelen, de wijdingen, de dansen en de planeetriten is zij haar eigen bron: zij beschrijft wat haar coven deed. Voor dat deel is het boek precies wat het zegt te zijn, een verslag uit de eerste hand, en dat is ook de reden dat het nog gelezen wordt.</p>
+      <p>Voor het historische deel is de basis smal. De boekenlijst achterin telt enkele tientallen titels, waaronder Margaret Murray, Alfred Watkins, Gerald Gardner, Doreen Valiente, John Michell, Guy Underwood, James Voghs <i>Arachne Rising</i> en L.A. Waddells <i>Phoenician Origin of Britons, Scots and Anglo-Saxons</i>. Dat is populaire en deels al in haar eigen tijd verworpen literatuur; archiefonderzoek naar processtukken komt er niet in voor.</p>
+      <p>De sterkste bewering van het boek, dat de hekserij als familietraditie de vervolgingen heeft overleefd, rust op brieven en contacten die Crowther zegt te bezitten maar niet afdrukt, samenvat of dateert. Er is dus niets aan na te gaan. Hetzelfde geldt voor de calls: zij noemt effecten die met een eenvoudige proef te controleren zouden zijn, en houdt tegelijk de uitspraak achter.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar geldt het historische frame. Crowther bouwt op Margaret Murray, wier <i>The Witch-Cult in Western Europe</i> (1921) en <i>The God of the Witches</i> (1931, in Crowthers lijst de Faber-uitgave van 1952) de processtukken lazen als verslagen van een echte ondergrondse godsdienst. Historici hadden dat lang voor 1981 verworpen: Keith Thomas in <i>Religion and the Decline of Magic</i> (1971) en Norman Cohn in <i>Europe's Inner Demons</i> (1975) lieten zien dat Murray selectief citeerde en bekentenissen onder foltering voor beschrijvingen aanzag. Ronald Hutton heeft later in <i>The Triumph of the Moon</i> (1999) stap voor stap gereconstrueerd waar de moderne hekserij vandaan komt: uit Gardner en zijn kring, met leningen bij Crowley, de vrijmetselarij, Charles Leland en Murray zelf, en met rituele teksten die Doreen Valiente voor Gardner schreef. Crowthers continuïteitsclaim staat daar tegenover zonder één controleerbaar document.</p>
+      <p>Het tweede bezwaar geldt de leylijnen. Watkins zag in zijn uitlijningen oude handelspaden; dat er lijnen te trekken zijn is bovendien te verwachten zodra men genoeg punten op een kaart toelaat, en archeologen aanvaarden de leylijnen niet als aangetoonde structuur. Crowther gaat een stap verder dan Watkins en maakt er energiebanen van die in voorjaar en zomer geactiveerd worden. Voor die toevoeging geeft zij geen enkele grond.</p>
+      <p>Het derde bezwaar geldt de hoofdstukken over klank. Daar staan lichamelijke beweringen die niet kloppen: hissende klanken zouden de hypofyse aanzetten tot de aanmaak van adrenaline. De hypofyse maakt geen adrenaline; dat doet de bijnier. Er staat geen verwijzing bij, en er wordt niets gemeld over hoe deze effecten zijn vastgesteld.</p>
+      <p>Ten slotte wat het boek niet doet. Het weegt geen tegenwerpingen, noemt geen enkele auteur die de continuïteitsstelling bestrijdt en overweegt nergens dat de herleving een twintigste-eeuwse schepping zou kunnen zijn. Wie wil weten wat een Britse coven omstreeks 1980 deed, vindt hier veel. Wie wil weten of het klopt wat die coven over haar eigen herkomst geloofde, moet elders zijn.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het als bron over de praktijk van een Britse coven omstreeks 1980, en niet als geschiedschrijving.</li>
+        <li>Zet de vier historische hoofdstukken naast Hutton voordat je er iets uit overneemt.</li>
+        <li>Let bij elke bewering over lichamelijke werking op de ontbrekende bronvermelding; die ontbreekt consequent.</li>
+        <li>Vergelijk de beschreven rituelen met die bij Gardner en Valiente om te zien welke teksten en handelingen in de eerste generatie vastlagen en welke per coven verschilden.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Lid Off the Cauldron: A Handbook for Witches</i> (Frederick Muller, Londen, 1981, 156 blz. plus acht platen, ISBN 9780584104219). Capall Bann gaf het boek in 1998 opnieuw uit onder de ondertitel <i>A Wicca Handbook</i> (Chieveley, 212 blz., ISBN 9781861630322); in 2020 verscheen nog een herdruk van 207 blz. (ISBN 9781913768058). Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd. Van Crowther, die tussen 1965 en 1998 nog zes andere boeken over hekserij schreef, is geen enkele titel in het Nederlands gevonden.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Patricia Crowther (1927-2025) werd op 6 juni 1960 door Gerald Gardner ingewijd en leidde vanaf 1961 met haar man Arnold de coven van Sheffield. <i>Lid Off the Cauldron</i> is haar handboek uit 1981, geschreven ruim twintig jaar na wat zij de herleving van de Craft noemt. De eerste vier hoofdstukken geven haar versie van de geschiedenis: de middeleeuwse kerk maakte het beeld van de boosaardige heks, het oude Britannië had een religieus erfgoed dat is weggedrukt, en Gardner heeft de hekserij niet bedacht maar teruggebracht in de openbaarheid.</p><p>De zestien hoofdstukken daarna zijn praktisch. Ze behandelen inwijding, het wijden van cirkel, altaar en athame, het aanleggen van een Book of Shadows, het kiezen van een buitenplek, de seizoensgetijden en de acht sabbats, dansvormen, geïntoneerde klanken, verwaarloosde symbolen, waarzeggen met een spiegel en runen, en zeven riten voor de zeven planeten.</p><p>Historisch leunt het boek op Margaret Murray en op de leylijnen van Alfred Watkins, twee bouwstenen die historici en archeologen al ruim voor 1981 hadden afgeschreven. Waar Crowther lichamelijke werkingen beschrijft, bijvoorbeeld klanken die op de hypofyse zouden inwerken, noemt zij geen enkele bron. Als getuigenis over wat een Britse coven omstreeks 1980 deed en geloofde is het boek bruikbaar; als geschiedschrijving van de hekserij houdt het geen stand.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>hekserij</li><li>wicca</li><li>neopaganisme</li><li>occultisme</li><li>ritueel</li><li>magie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1233"><a href="1233.html">The Witch-Cult in Western Europe</a>. Murrays <i>The Witch-Cult in Western Europe</i>, het boek waar Crowthers hele historische frame op steunt en waarvan zij de gevolgen laat zien.</li>
+          <li value="1228"><a href="1228.html">The Rebirth of Witchcraft</a>. Doreen Valiente over dezelfde herleving, geschreven door de vrouw die veel van Gardners rituele teksten opstelde.</li>
+          <li value="1245"><a href="1245.html">Witching Culture</a>. Magliocco onderzoekt als antropologe wat Crowther van binnenuit beschrijft, met de vraag waar het materiaal vandaan komt.</li>
+          <li value="1230"><a href="1230.html">Wicca: The Old Religion in the New Age</a>. Vivianne Crowley biedt een latere, meer psychologische uitleg van dezelfde rituele praktijk.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eros and Magic in the Renaissance &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Culianu stelt dat de magie van de renaissance een toegepaste zielkunde was, gebouwd op één leerstuk: de ziel neemt de wereld niet rechtstreeks waar maar…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1255">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1255 &middot; Geschiedenis en samenleving</p>
+    <h1>Eros and Magic in the Renaissance</h1>
+    <p class="lede">Ioan P. Couliano (Ioan Petru Culianu), 1984; Engelse vertaling 1987</p>
+    <p class="stats">
+      <span><b>1751</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1255"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Culianu stelt dat de magie van de renaissance een toegepaste zielkunde was, gebouwd op één leerstuk: de ziel neemt de wereld niet rechtstreeks waar maar uitsluitend via fantasmen, beelden die worden gevormd in de pneuma, het fijnstoffelijke tussenlichaam dat geest en stof verbindt. Wie die beelden weet te vormen, beheerst de mens bij wie ze horen. Verliefdheid is daarvan het doorzichtigste geval: zij is in deze leer een fantasma dat bezit heeft genomen van de minnaar, en de magiër doet met opzet wat de geliefde ongewild doet. Uit die gelijkstelling van eros en magie trekt Culianu een lijn naar zijn eigen tijd. De renaissancemagiër is volgens hem de voorloper van de zielkundige, de reclamemaker en de propagandist, en de kennis die in de zestiende eeuw werd onderdrukt keert in die beroepen terug.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De schrijver, het boek en het jaartal</h3>
+      <p>Ioan Petru Culianu werd in 1950 in Roemenië geboren, vluchtte in 1972 naar Italië, was tussen 1976 en 1986 aan de Rijksuniversiteit Groningen verbonden en werkte daarna in Chicago, waar Mircea Eliade zijn leermeester en beschermheer was. Het boek verscheen in 1984 in het Frans, met het jaartal 1484 als ondertitel, en in 1987 in het Engels met een voorwoord van Eliade. Op 21 mei 1991 werd Culianu doodgeschoten in een toiletruimte van de Divinity School van de Universiteit van Chicago. De zaak is nooit opgelost.</p>
+      <p>Dat jaartal in de ondertitel is een spil die hij zelf legt. In 1484 verscheen Ficino's Latijnse vertaling van Plato in druk, viel een grote samenstand van Saturnus en Jupiter waaraan tijdgenoten profetische betekenis hechtten, en vaardigde paus Innocentius VIII de bul <i>Summis desiderantes affectibus</i> uit, die de heksenvervolging in Duitsland ruim baan gaf. Culianu ziet in die samenloop het begin van zowel de bloei als de vervolging van wat hij de fantasmatische cultuur noemt.</p>
+      <h3>De leer van het fantasma</h3>
+      <p>Het eerste deel is een geschiedenis van de fantasieleer, van Aristoteles via de neoplatonisten en de Arabische geneeskunde tot de renaissance. De kern is de innerlijke zin: tussen de vijf zintuigen en het verstand zit een vermogen dat zintuiglijke gegevens tot beelden samenvoegt. Die beelden ontstaan in de pneuma, in het Latijn spiritus, een fijnstoffelijk lichaam dat volgens de leer om de ziel heen zit en haar met het grove lichaam verbindt. Omdat de ziel onstoffelijk is en het lichaam stoffelijk, kan zij het lichaam alleen via die tussenlaag bereiken. Alles wat de mens kent, kent hij dus als fantasma en niet als ding.</p>
+      <p>Culianu volgt die leer bij Synesius van Cyrene, wiens verhandeling over dromen door Ficino werd vertaald, bij de artsen die de liefdesziekte, <i>amor hereos</i>, als lichamelijke aandoening behandelden, en bij Ficino zelf. Diens commentaar op Plato's <i>Symposium</i> uit 1469 beschrijft verliefdheid als een beeld dat zich in de minnaar vastzet, hem uitteert en alleen langs die weg weer te verdrijven is.</p>
+      <h3>Eros als magie</h3>
+      <p>Uit die zielkunde volgt de magie vanzelf. Als de mens door zijn fantasmen wordt bewogen, dan is beïnvloeding het werk van iemand die fantasmen kan plaatsen. Culianu stelt dat verliefdheid en betovering hetzelfde proces zijn met hetzelfde werkzame bestanddeel; het verschil zit in de bedoeling. Van daaruit behandelt hij de technieken: de talismanmagie van Ficino's <i>De vita coelitus comparanda</i> uit 1489, waarin muziek, kleuren, geuren en voedsel worden gebruikt om de eigen spiritus op een planeet af te stemmen, en de zwaardere vormen waarin geesten worden aangeroepen. Het verschil tussen die twee, tussen werken op de pneuma en werken met demonen, was in de zestiende eeuw het verschil tussen toegestaan en strafbaar.</p>
+      <h3>Bruno als theoreticus van de band</h3>
+      <p>Het hoogtepunt van het betoog is Bruno's Latijnse verhandeling <i>De vinculis in genere</i>, over de banden in het algemeen, geschreven omstreeks 1591. Bruno beschrijft daar in bijna technische vorm hoe mensen aan personen en zaken gebonden raken, welke banden het sterkst zijn en hoe de bindende partij zelf ongebonden moet blijven. Wie zelf verliefd wordt op wie hij wil binden, verliest zijn greep.</p>
+      <p>Culianu leest dat als een handboek voor beïnvloeding. De manipulator werkt op de verbeelding, hij moet weten wat zijn doelwit begeert en vreest, en een menigte is gemakkelijker te binden dan één mens omdat zij minder tegenspraak in zichzelf draagt. De liefde noemt Bruno de band der banden, waarop alle andere bindingen teruggaan. Volgens Culianu is dit geschrift het oudste model van de onpersoonlijke stelsels van beïnvloeding waarmee de twintigste eeuw werkt.</p>
+      <h3>Het einde van de fantasmatische cultuur</h3>
+      <p>Het slotdeel verklaart waarom die kennis verdween. Volgens Culianu hebben reformatie en contrareformatie samen de verbeelding onder toezicht gesteld: beeldenstorm, wantrouwen tegen het inwendige beeld en een geloofsleer die de mens op het woord wees in plaats van op de voorstelling. Wat over de fantasie ging werd verdacht, en de natuurwetenschap die daarna opkwam werkte met getallen en niet met beelden. De kennis van het fantasma verdween daarmee uit de openbaarheid en dook volgens hem eeuwen later weer op in de zielkunde, de reclame en de massapolitiek.</p>
+      <p>Het boek eindigt bij de Faustfiguur, van de laatantieke legende van Theophilus tot de gestalte die in de zestiende eeuw vaste vorm kreeg. Culianu leest die legende als het beeld waarin een cultuur haar eigen afgestoten kennis onderbrengt: de magiër verandert van geleerde in verdoemde, en daarmee is de zaak afgehandeld.</p>
+      <h3>De methode</h3>
+      <p>Culianu werkt met wat hij een morfodynamische aanpak noemt. Hij behandelt een leerstelsel als een verzameling mogelijke combinaties, waarvan de geschiedenis er telkens enkele verwerkelijkt. Ideeëngeschiedenis wordt daarmee minder een verhaal van invloeden dan een verkenning van een logische ruimte. Die aanpak geeft het boek zijn strakke bouw en verklaart waarom Culianu zo snel van de vijftiende naar de twintigste eeuw kan springen: de tussenliggende overlevering doet er in dit model minder toe dan de vorm van het stelsel zelf. Het is tegelijk het punt waarop zijn werk zich aan toetsing onttrekt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">fantasma</td><td>Het innerlijke beeld waarin de ziel de wereld waarneemt, volgens deze leer het enige waartoe zij rechtstreeks toegang heeft.</td></tr>
+          <tr><td class="term">pneuma of spiritus</td><td>Het fijnstoffelijke tussenlichaam waarin fantasmen worden gevormd en dat ziel en lichaam met elkaar verbindt.</td></tr>
+          <tr><td class="term">innerlijke zin</td><td>Het vermogen dat de gegevens van de vijf zintuigen tot één beeld samenvoegt voordat het verstand eraan toekomt.</td></tr>
+          <tr><td class="term">voertuig van de ziel</td><td>De neoplatonische leer dat de ziel bij haar afdaling een omhulsel aanneemt, waaruit de latere pneumaleer voortkomt.</td></tr>
+          <tr><td class="term">amor hereos</td><td>De middeleeuwse artsennaam voor de liefdesziekte, behandeld als lichamelijke aandoening met een eigen ziektebeeld.</td></tr>
+          <tr><td class="term">band of vinculum</td><td>Bij Bruno de betrekking waardoor iemand aan een persoon of zaak vastzit, en het punt waarop de beïnvloeder aangrijpt.</td></tr>
+          <tr><td class="term">vinculum vinculorum</td><td>De band der banden, bij Bruno de liefde, waarop volgens hem alle andere bindingen teruggaan.</td></tr>
+          <tr><td class="term">fantasmatische cultuur</td><td>Culianu's naam voor de periode waarin kennis en beïnvloeding op beelden werden gebouwd, ruwweg tot het einde van de zestiende eeuw.</td></tr>
+          <tr><td class="term">censuur van het imaginaire</td><td>Zijn aanduiding voor het onder toezicht stellen van die beeldcultuur door reformatie en contrareformatie.</td></tr>
+          <tr><td class="term">magie als algemene psychosociologie</td><td>Zijn omschrijving van wat de renaissancemagiër deed: werken met de drijfveren van afzonderlijke mensen en van groepen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het historische deel rust op teksten die er werkelijk zijn en die Culianu in de oorspronkelijke talen las: Ficino's commentaar op het <i>Symposium</i> en <i>De vita libri tres</i>, Bruno's Latijnse geschriften, de verhandeling over dromen van Synesius, de medische literatuur over liefdesziekte en de neoplatonische leer van het zielsvoertuig. Voor de stelling dat de renaissancemagie op een uitgewerkte zielkunde steunde is dat voldoende. Die stelling is in het vak breed aanvaard en gaat terug op eerder werk van D. P. Walker en Frances Yates, aan wie Culianu meer ontleent dan hij telkens aangeeft.</p>
+      <p>De doortrekking naar de eigen tijd rust op iets anders, namelijk op gelijkenis. Culianu zet Bruno's beschrijving van de band naast wat reclame en massapolitiek doen en constateert overeenkomst. Een overdrachtsketen ontbreekt en die kan ook moeilijk bestaan: <i>De vinculis in genere</i> bleef in handschrift en werd pas gedrukt in de uitgave van Bruno's Latijnse werken die tussen 1879 en 1891 verscheen. De reclamemakers van de twintigste eeuw hebben het niet gelezen.</p>
+      <p>Voor de bewering dat de reformatie de verbeelding heeft gecensureerd voert hij vooral de beeldenstorm aan en de leerstellige nadruk op het woord. Onderzoek naar wat er in protestantse gebieden werkelijk met beelden, dromen en verbeelding gebeurde komt er niet aan te pas, en tegenvoorbeelden worden niet behandeld.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar betreft de kern van het boek, de stap van de renaissance naar de moderne beïnvloedingsvakken. Culianu presenteert een overeenkomst in vorm als een geschiedkundig verband. Dat Bruno beschrijft hoe men mensen aan zich bindt en dat een reclamebureau hetzelfde beoogt, maakt het ene nog niet de voorouder van het andere. Zonder overlevering blijft er een treffende vergelijking over, en het boek verkoopt die als afstamming.</p>
+      <p>De stelling over de censuur van het imaginaire is een grote uitspraak op smalle grond. De zeventiende eeuw is niet arm aan beelden, dromen en verbeelding, van de barokke kerkkunst tot de emblematabundels en de protestantse droomliteratuur zelf. Wat verdween was eerder de leer van de pneuma, en die verdween met de aristotelische natuurkunde waarop zij steunde, niet door kerkelijk toezicht.</p>
+      <p>Het jaartal 1484 is een literaire greep. De drie gebeurtenissen die hij eronder bundelt hebben geen aanwijsbaar oorzakelijk verband, en de keuze had bij een ander jaartal even goed uitgepakt.</p>
+      <p>De morfodynamische methode is niet te weerleggen. Wie geschiedenis beschrijft als de verwerkelijking van logisch mogelijke combinaties, kan iedere uitkomst achteraf in het schema plaatsen. Het boek dankt daaraan zijn samenhang en betaalt ervoor met controleerbaarheid.</p>
+      <p>Ten slotte leunt het zwaarder op Frances Yates dan het laat blijken, en juist haar these dat de occulte traditie de moderne natuurwetenschap voortbracht is sindsdien door historici van de wetenschap grotendeels verworpen. Dat raakt de fantasmaleer zelf niet, wel het gewicht dat Culianu haar toekent.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij een gelijkenis tussen ver uiteenliggende tijden naar de overleveringsweg; zonder die weg is het een vergelijking en geen verklaring.</li>
+        <li>Let bij overtuigingswerk op welk beeld wordt aangeboden en niet alleen op welk argument wordt gevoerd.</li>
+        <li>Ga bij begeerte en vrees na waaraan iemand die verbindt; Bruno's stelling is dat de band en niet het middel het aangrijpingspunt vormt.</li>
+        <li>Houd bij het beïnvloeden van anderen in de gaten of je zelf aan de zaak gebonden raakt; volgens Bruno verliest wie dat overkomt zijn greep.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Éros et magie à la Renaissance. 1484</i> (Flammarion, Parijs, 1984). Engelse vertaling door Margaret Cook als <i>Eros and Magic in the Renaissance</i>, met een voorwoord van Mircea Eliade (University of Chicago Press, Chicago, 1987, xxi + 264 blz., ISBN 9780226123165 voor de paperback, 9780226123158 gebonden). Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd. Culianu was tussen 1976 en 1986 aan de Rijksuniversiteit Groningen verbonden en promoveerde daar, maar zijn werk verscheen in het Frans, Italiaans, Roemeens en Engels.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Ioan Petru Culianu (1950-1991), Roemeens godsdiensthistoricus, betoogt dat de magie van de renaissance een toegepaste zielkunde was. Zij rustte op één leerstuk: de ziel neemt de wereld niet rechtstreeks waar maar via fantasmen, beelden die worden gevormd in de pneuma, het fijnstoffelijke tussenlichaam dat geest en lichaam verbindt. Wie die beelden weet te plaatsen, beheerst de mens bij wie ze horen. Liefde is daarvan het duidelijkste geval, en de magiër doet met opzet wat de geliefde per ongeluk doet.</p><p>Het boek leest Ficino's commentaar op Plato's <i>Symposium</i>, zijn talismanleer, de medische literatuur over liefdesziekte en vooral Bruno's verhandeling <i>De vinculis in genere</i>, die Culianu behandelt als een handboek voor beïnvloeding van individuen en menigten. Het slotdeel stelt dat reformatie en contrareformatie de verbeelding onder toezicht plaatsten, waardoor deze kennis uit de openbaarheid verdween en pas veel later terugkwam in de zielkunde, de reclame en de massapolitiek.</p><p>Die laatste stap is een gelijkenis en geen aangetoond verband: <i>De vinculis</i> bleef in handschrift en werd pas in de negentiende eeuw gedrukt. Culianu werd in 1991 doodgeschoten in de universiteit van Chicago; de zaak is nooit opgelost.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>renaissance</li><li>magie</li><li>psychologie</li><li>manipulatie</li><li>ideeëngeschiedenis</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1249"><a href="1249.html">Giordano Bruno and the Hermetic Tradition</a>. Yates over Bruno, het werk waaraan Culianu veel ontleent en waarvan de hoofdthese sindsdien is verworpen.</li>
+          <li value="1253"><a href="1253.html">Giordano Bruno and the Kabbalah</a>. Dezelfde Bruno gelezen als kabbalist in plaats van als leermeester in beïnvloeding.</li>
+          <li value="704"><a href="704.html">The Hidden Persuaders</a>. Packard beschrijft de reclamepsychologie van de jaren vijftig waarmee Culianu de renaissancemagie vergelijkt.</li>
+          <li value="280"><a href="280.html">Influence</a>. Cialdini onderzocht met proeven wat Bruno uit ervaring en bespiegeling opschreef.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

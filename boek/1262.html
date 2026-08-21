@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De zee &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De zee heeft een eigen geschiedenis, ouder dan die van het land, en de mens komt daarin pas aan het eind voor. Carson vertelt die geschiedenis als één…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1262">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1262 &middot; Natuur en wetenschap</p>
+    <h1>De zee</h1>
+    <p class="lede">Rachel Carson, 1951 (herziene uitgave 1961); vert. Nico Groen, 2022</p>
+    <p class="stats">
+      <span><b>1826</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1262"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De zee heeft een eigen geschiedenis, ouder dan die van het land, en de mens komt daarin pas aan het eind voor. Carson vertelt die geschiedenis als één samenhangend verhaal waarin het ontstaan van de aarde, de scheikunde van het water, de bewegingen van stromingen en getijden, de opbouw van de zeebodem en het leven van plankton tot walvis onderdelen zijn van hetzelfde stelsel. Haar aanspraak is dat de zee zich zonder opsmuk laat beschrijven en dat de nauwkeurige beschrijving zelf genoeg is om de lezer zijn plaats te wijzen. In het voorwoord dat zij tien jaar later toevoegde komt daar een tweede aanspraak bij, die het boek van toon verandert: het geloof dat de zee te groot en te ver weg is om door mensen te worden bedorven, is naïef gebleken.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wie het schreef en waaruit</h3>
+      <p>Carson (1907-1964) studeerde zoölogie in Johns Hopkins en werkte vanaf de jaren dertig als bioloog en later als hoofdredacteur van de publicaties bij de Amerikaanse dienst voor visserij en wildbeheer. Het boek is samengesteld uit de literatuur die oceanografen in de jaren veertig hadden opgebouwd, veel daarvan pas na de oorlog vrijgegeven, aangevuld met ongepubliceerde gegevens die zij per brief opvroeg.</p>
+      <p>In haar dankwoord noemt zij de specialisten die hoofdstukken over hun vakgebied hebben nagelezen, onder wie Henry Bigelow van Harvard, Francis Shepard en Walter Munk van Scripps en Harald Sverdrup in Oslo. Haar eigen zeetijd was beperkt: enkele dagen aan boord van het onderzoeksschip Albatross III. Het boek bundelt dus het werk van anderen, door iemand die het vak kende, niet het verslag van eigen onderzoek.</p>
+      <h3>Het ontstaan</h3>
+      <p>Het eerste hoofdstuk gaat over de jonge aarde. Carson volgt de toen gangbare gedachte dat de maan uit de aarde is losgescheurd: door meetrillen met de zonnegetijden zouden de getijden in de nog halfvloeibare aarde zijn opgezweept tot een golf loskwam en in een baan om de aarde raakte. Het litteken daarvan zou het bekken van de Grote Oceaan zijn, waarvan de bodem uit basalt bestaat terwijl de andere oceanen op graniet rusten.</p>
+      <p>Daarna beschrijft zij hoe het water uit de wolkendek op de afkoelende aarde neersloeg, hoe het zout in zee terechtkwam door uitspoeling van het land, en hoe het eerste leven in dat water ontstond. De zoutverhouding van het bloed van landdieren voert zij aan als spoor van die afkomst.</p>
+      <h3>Het leven in het water</h3>
+      <p>De hoofdstukken twee tot en met vier gaan over het leven zelf. Het oppervlak van de zee heeft een patroon van vruchtbare en arme gebieden, bepaald door de plaatsen waar diep water met voedingsstoffen omhoogkomt. Het jaar heeft in zee zijn eigen seizoenen, met een voorjaarsbloei van eencellige algen die de rest van de voedselketen draagt.</p>
+      <p>Het hoofdstuk over de zonloze zee beschrijft de diepte: de Challenger-expeditie die als eerste liet zien dat er ook in de diepte leven is, de laag die op echoloodapparatuur als een valse bodem verschijnt en die 's nachts naar het oppervlak stijgt, en de dieren die hun eigen licht maken.</p>
+      <h3>De bodem en de eilanden</h3>
+      <p>De hoofdstukken vijf tot en met acht behandelen de vaste vormen. Het continentaal plat en de onderzeese bergen komen aan bod, en de rug die midden door de Atlantische Oceaan loopt. Het hoofdstuk over de lange sneeuwval beschrijft de gestage regen van schelpjes, stof en resten die de bodem in de loop van miljoenen jaren met sediment bedekt en die daardoor een archief vormt.</p>
+      <p>Het hoofdstuk over de geboorte van een eiland volgt vulkanische eilanden die opkomen en weer verdwijnen: de vernietiging van Krakatau in 1883, Falcon Island in de Stille Oceaan, Bogoslof bij Alaska. Carson beschrijft hoe planten en dieren zulke eilanden bereiken en hoe kwetsbaar het leven daar is voor de dieren die mensen meebrengen. Het laatste hoofdstuk van dit deel gaat over de perioden waarin de zee de continenten overspoelde en zich weer terugtrok.</p>
+      <h3>De rusteloze zee</h3>
+      <p>Het tweede deel bestaat uit drie hoofdstukken over beweging. Golven worden bepaald door windsnelheid, windduur en de strijklengte over open water; Carson vertelt hoe een officier van de U.S.S. Ramapo op 6 februari 1933 tijdens een storm in de Stille Oceaan een golf van 112 voet kon opmeten door langs de mast te peilen, en hoe branding vuurtorens heeft weggeslagen.</p>
+      <p>Daarna komen de stromingen, gevormd door wind, zonnewarmte en de draaiing van de aarde, en de getijden. Het getijverschil in de Baai van Fundy loopt op tot ongeveer vijftig voet en verplaatst honderd miljard ton water. De wrijving van de getijden remt de draaiing van de aarde, zodat de dag langzaam langer wordt.</p>
+      <h3>De mens en de zee</h3>
+      <p>Het derde deel telt drie hoofdstukken. De zee werkt als thermostaat van de aarde: zij neemt warmte op, verplaatst die en geeft haar elders af, en verschuivingen daarin veranderen het klimaat van hele kusten. Carson beschrijft de opwarming van het noordelijke deel van de Atlantische Oceaan in de eerste helft van de twintigste eeuw en de noordwaartse verschuiving van vissen en vogels die daarmee samenging.</p>
+      <p>Het hoofdstuk over rijkdom uit zout water gaat over visserij, zout, magnesium en broom. Het slothoofdstuk keert terug naar de scheikunde van het zeewater en naar de zee als de bron waaruit het leven kwam. In de tekst van 1951 klinkt daarbij nog het vertrouwen dat de oceaan groot genoeg is om alles te verdragen.</p>
+      <h3>Het voorwoord van 1961</h3>
+      <p>Tien jaar later schreef Carson een nieuw voorwoord dat de toon van het boek verandert. Zij vat eerst samen wat de jaren vijftig hadden opgeleverd: de duikboottochten onder het poolijs, de afdaling naar het diepste punt van de oceaan, de ontdekking dat de onderzeese bergketens één keten rond de aarde vormen, en het beeld van een diepzee die niet stil is maar wordt geroerd door troebelingsstromen en diepe stromingen.</p>
+      <p>Daarna komt het onderwerp waarvoor zij het voorwoord schreef. Vaten met radioactief afval, van binnen met beton bekleed, werden op aangewezen plaatsen in zee gestort, in theorie op ongeveer duizend vadem diepte en met een verwachte levensduur van tien jaar. Een vertegenwoordiger van de Amerikaanse atoomcommissie erkende in het openbaar dat de vaten die diepte waarschijnlijk niet heel bereiken; bij proeven in Californië bezweken sommige al na enkele honderden vadem. Omdat de diepzee blijkt te bewegen, gaat de aanname dat het afval blijft liggen waar het is niet op. Zeeorganismen nemen bovendien radioactieve stoffen op en kunnen die tot een miljoen keer de concentratie in het water ophopen; rond de proeven bij Bikini werd verhoogde straling gemeten in tonijn over een gebied van een miljoen vierkante mijl. Haar slotsom is dat er is gestort voordat er iets bekend was, en dat de fouten die nu worden gemaakt voorgoed zijn gemaakt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">de lange sneeuwval</td><td>Carsons naam voor de gestage neerslag van skeletjes, stof en resten die de zeebodem in de loop van miljoenen jaren met sediment bedekt.</td></tr>
+          <tr><td class="term">plankton</td><td>De zwevende plantaardige en dierlijke organismen waarvan al het andere leven in zee uiteindelijk afhangt.</td></tr>
+          <tr><td class="term">continentaal plat</td><td>De ondiepe rand van het land die onder water doorloopt tot de helling naar de diepzee begint.</td></tr>
+          <tr><td class="term">abyssale vlakte</td><td>De uitgestrekte, met sediment gevulde diepzeebodem, in 1951 nog beschouwd als een plaats van eeuwige rust.</td></tr>
+          <tr><td class="term">verticale trek</td><td>De dagelijkse beweging van kleine zeedieren die 's nachts naar het oppervlak stijgen en overdag de diepte in zakken.</td></tr>
+          <tr><td class="term">troebelingsstroom</td><td>Een met sediment beladen stroom die met hoge snelheid langs de continenthelling naar beneden gaat; in het voorwoord van 1961 gebruikt om te laten zien dat de diepzee in beweging is.</td></tr>
+          <tr><td class="term">de thermostaat van de aarde</td><td>De rol van de oceaan in het opnemen, verplaatsen en afgeven van warmte, waardoor zij het klimaat van kusten bepaalt.</td></tr>
+          <tr><td class="term">biologische ophoping</td><td>Het verschijnsel dat organismen stoffen uit het water opnemen en zo sterk concentreren dat de gemeten stralingswaarde in het water niets zegt over het risico verderop in de voedselketen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek bundelt het werk van anderen en Carson maakt dat zichtbaar. In het dankwoord staan de vakmensen die per hoofdstuk hebben meegelezen, achterin staat een lijst met bronnen per hoofdstuk. Waar zij een getal noemt, noemt zij ook waar het vandaan komt: het schip, de datum, de plaats. De golf van 112 voet krijgt de naam van het schip, de datum en de meetwijze mee. Dat maakt het grootste deel van het boek naspeurbaar, ook al staan er geen noten in de tekst.</p>
+      <p>De onderbouwing is het zwakst waar de wetenschap zelf het zwakst stond. Het eerste hoofdstuk over het ontstaan van aarde en maan geeft een verhaal dat in 1951 één van de mogelijkheden was en dat zij niet als zodanig markeert. Ook de hoofdstukken over de zeebodem rusten op metingen die nog maar net waren begonnen. De vijftien aantekeningen uit 1961 werken een aantal van die passages bij, met name over de ouderdom van de aarde, de diepzeeduiken en de onderzeese bergketens, maar zij laten de geologie van het eerste hoofdstuk staan.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de aardwetenschap in dit boek is achterhaald op punten waar het boek stellig is. Carson laat de maan uit het bekken van de Grote Oceaan losscheuren, een gedachte van George Darwin die in de jaren zeventig is vervangen door het inslagmodel. Belangrijker is dat zij de continentendrift uitdrukkelijk afwijst: het gewicht van het geologische bewijs zou zijn dat de oceaanbekkens en de continenten sinds zeer vroege tijd ongeveer liggen waar zij liggen. Binnen vijftien jaar besliste de plaattektoniek dat tegen haar, mede op grond van de onderzeese bergketen die zij in het voorwoord van 1961 nog als nieuwe ontdekking beschrijft zonder de betekenis ervan te zien.</p>
+      <p>Een tweede bezwaar betreft de vorm. De taal is beheerst en dichterlijk, en dat is de reden dat het boek nog wordt gelezen, maar de lezer kan aan de zinnen niet zien welke uitspraak op meting rust en welke op de verbeelding van de schrijver. Een vaststaand feit en een aannemelijk verhaal krijgen dezelfde toon en hetzelfde ritme. Dat is precies wat later ook aan <i>Silent Spring</i> is verweten.</p>
+      <p>Ten derde is het beeld van de bedreiging gedateerd. Het voorwoord van 1961 gaat vrijwel geheel over radioactief afval, dat achteraf niet de grootste aanslag op de oceaan is geworden. Het hoofdstuk over rijkdom uit zout water spreekt over de visserij met een vertrouwen dat de leegvissing van de decennia daarna niet heeft gerechtvaardigd, en plastic, verzuring en opwarming komen niet voor. Dat valt Carson niet aan te rekenen, maar het betekent wel dat het boek als beschrijving van de toestand van de zee niet meer bruikbaar is; als geschiedenis van hoe de zee werd begrepen, en als voorbeeld van hoe je daarover schrijft, blijft het dat wel.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>De zee</i>, vertaald door Nico Groen (Athenaeum, Amsterdam, 2022, 288 blz., ISBN 9789025314088), verschenen in de Paradigma-reeks die Athenaeum samen met <i>De Groene Amsterdammer</i> uitgeeft. Het origineel, <i>The Sea Around Us</i>, verscheen op 2 juli 1951 bij Oxford University Press, nadat negen van de veertien hoofdstukken vanaf 2 juni 1951 in <i>The New Yorker</i> waren voorgepubliceerd. In 1961 bracht Carson een herziene uitgave uit met een nieuw voorwoord en vijftien aantekeningen achterin. Van Carson is ook <i>Silent Spring</i> (1962) in het Nederlands vertaald, als <i>Dode lente</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Rachel Carson was zeebioloog en schrijver bij de Amerikaanse dienst voor visserij en wildbeheer toen zij dit boek 's avonds bij elkaar schreef. Het vertelt de geschiedenis van de oceaan in drie delen: het ontstaan van de zee en het leven erin, de bewegingen van golven, stromingen en getijden, en de betrekking tussen mens en zee. Het verscheen in 1951, bleef zesentachtig weken op de bestsellerlijst van <i>The New York Times</i> en kreeg de National Book Award.</p><p>Carson schrijft zonder vaktaal en zonder noten in de lopende tekst, met een reeks nauwkeurige voorbeelden: de golf van 112 voet die in februari 1933 vanaf de U.S.S. Ramapo werd opgemeten, de vernietiging van Krakatau in 1883, het getij in de Baai van Fundy. De ondergrond is de oceanografie die tijdens de Tweede Wereldoorlog snel was gegroeid en pas daarna openbaar werd.</p><p>In het voorwoord bij de herziene uitgave van 1961 herroept zij het geloof dat de zee te groot is om door mensen te worden bedorven, en behandelt zij het storten van radioactief afval in zee. Het boek maakte haar bekend en gaf haar het gezag waarmee zij een jaar later <i>Silent Spring</i> kon publiceren.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>natuur</li><li>biologie</li><li>populair-wetenschappelijk</li><li>klassieker</li><li>evolutie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1273"><a href="1273.html">The Vital Question</a>. Nick Lane behandelt het onderwerp van Carsons eerste hoofdstuk, het ontstaan van leven in zee, met de kennis van zeventig jaar later.</li>
+          <li value="760"><a href="760.html">Other Minds: The Octopus, the Sea, and the Deep Origins of Consciousness</a>. Godfrey-Smith schrijft over hetzelfde water vanuit één diersoort en komt daarmee dichter bij de vraag hoe het is om in zee te leven.</li>
+          <li value="322"><a href="322.html">An Immense World</a>. Ed Yong doet voor de zintuigen van dieren wat Carson voor de oceaan deed: vakliteratuur omzetten in leesbaar Nederlands zonder de nauwkeurigheid op te geven.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

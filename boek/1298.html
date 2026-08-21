@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Homo ludens &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Huizinga betoogt dat het spel geen bijverschijnsel van de cultuur is maar de vorm waarin cultuur ontstaat. Recht, oorlogvoering, dichtkunst, wijsbegeerte…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1298">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1298 &middot; Geschiedenis en samenleving</p>
+    <h1>Homo ludens</h1>
+    <p class="lede">Johan Huizinga, 1938</p>
+    <p class="stats">
+      <span><b>1926</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1298"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Huizinga betoogt dat het spel geen bijverschijnsel van de cultuur is maar de vorm waarin cultuur ontstaat. Recht, oorlogvoering, dichtkunst, wijsbegeerte en kunst zijn volgens hem in aanleg wedkampen: handelingen binnen een afgebakende ruimte, naar regels die vrijwillig zijn aanvaard en daarna volstrekt binden, met de spanning en de ernst die daarbij horen. Zijn ondertitel spreekt daarom van het spelelement van de cultuur en niet in de cultuur, een verschil waaraan hij hechtte omdat hij het spel niet naast de andere cultuurverschijnselen wilde zetten maar erin.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat het boek wil</h3>
+      <p>In de voorrede zet Huizinga de spelende mens naast de makende. Hij zegt sinds 1903 sporen van dit inzicht in zijn werk te vinden, hield er in 1933 zijn rede als rector van de Leidse universiteit over, en bewerkte die twee keer voor buitenlandse voordrachten. Zijn gastheren maakten van de titel telkens 'in de cultuur'; hij herstelde telkens de tweede naamval, omdat de vraag voor hem was in hoeverre de cultuur zelf spelkarakter draagt.</p>
+      <p>Hij grenst zijn aanpak af. Het spel wordt behandeld als cultuurverschijnsel en niet in de eerste plaats als biologische of psychologische functie. Voor het bijvoeglijk naamwoord dat hij nodig had voerde hij het woord ludiek in. In dezelfde voorrede erkent hij dat wie cultuurproblemen behandelt zich steeds op terreinen waagt die hij niet beheerst, en dat hij het zich met de verantwoording van details gemakkelijk heeft gemaakt.</p>
+      <h3>Het spel bepaald</h3>
+      <p>Het eerste hoofdstuk zoekt de kenmerken. Spel is een vrije handeling, staat buiten het gewone leven, is naar tijd en plaats begrensd, schept orde, brengt spanning mee, kent regels die binnen de speelduur volstrekt gelden, en vormt groepen die zich graag met geheimhouding of vermomming omringen. In het tweede hoofdstuk vat hij dat samen tot één omschrijving: een vrijwillige handeling binnen vastgestelde grenzen van tijd en plaats, naar vrijwillig aanvaarde doch volstrekt bindende regel, met haar doel in zichzelf, begeleid door spanning en vreugde en door het besef anders te zijn dan het gewone leven.</p>
+      <p>Twee figuren maken de bepaling scherp. De spelbreker onttrekt zich aan de regels en laat daarmee zien hoe broos de afgesproken wereld is; hij ontneemt het spel zijn illusie, een woord waarin Huizinga het Latijnse inlusio, inspeling, hoort. De valse speler veinst de regels te volgen en houdt de spelwereld daarmee in schijn overeind; de gemeenschap vergeeft hem eerder. Huizinga haalt Valéry aan: tegenover de regels van een spel is geen twijfel mogelijk, want zodra ze worden overtreden valt de spelwereld ineen.</p>
+      <p>Hij trekt de lijn door naar het gewijde. De heilige handeling voltrekt zich formeel als een spel, op een afgeperkte plek en naar vaste regels, en het onderscheid tussen wijding en spel blijft wankel. Dat het spel ernst kan zijn en toch spel blijft, draagt zijn hele betoog.</p>
+      <h3>Het spel in de taal</h3>
+      <p>Het tweede hoofdstuk vergelijkt de woorden voor spel in het Grieks, het Sanskriet, het Chinees, het Japans, de Semitische talen, het Latijn, de Germaanse talen en het Blackfoot. Het algemene begrip spel komt in veel talen laat of helemaal niet in één woord samen, en de grenzen ervan lopen overal anders: soms valt de wedstrijd eronder, soms de dans, soms het bespelen van een instrument.</p>
+      <p>Uit die vergelijking haalt hij een stelling die zijn boek draagt: ernst is het jongere en afgeleide begrip. Talen vormen een woord voor ernst als tegendeel van spel, terwijl het spel zichzelf niet als tegendeel van iets hoeft te bepalen.</p>
+      <h3>Wedijver als cultuurscheppende functie</h3>
+      <p>Het derde hoofdstuk gaat over de wedkamp. Huizinga verzamelt gevallen waarin het winnen zelf de inzet is en niet de buit: de potlatch bij de Kwakiutl aan de kust van Brits-Columbia, waarbij een groep bezit weggeeft of vernietigt om de andere te overtreffen en die andere verplicht is het feest binnen zekere tijd te overtreffen; de kula-ruil; de schimptoernooien en de oud-Arabische eerekampen; de wedstrijden in het oude China rond de seizoensfeesten.</p>
+      <p>Hij verbindt dat met het begrip deugd zoals dat in oude samenlevingen gold: geschikt zijn voor je taak, en dat in de kamp laten zien. Het Griekse woord arete en het Latijnse virtus wijzen die kant op. Van Burckhardt neemt hij de gedachte van een agonaal tijdperk over, met de kanttekening dat het verschijnsel veel wijder verbreid is dan alleen in Griekenland.</p>
+      <h3>Recht, oorlog, weten, dichtkunst</h3>
+      <p>In de middenhoofdstukken wijst Huizinga speltrekken aan in vier gebieden. Het rechtsgeding voert hij terug op de wedstrijd, het orakel en het lot: de weegschaal van het recht komt bij Homerus voort uit de schaal van de kans, en van een zege van de zedelijke waarheid is daar nog geen sprake. De oorlog kende een stelsel van vormen, oorlogsverklaring, wapenstilstand, ridderlijk gedrag, dat volgens hem alleen te begrijpen is als een geheel van spelregels.</p>
+      <p>Het weten komt aan bod via de raadselwedstrijd, waarin het antwoord soms om het hoofd van de verliezer gaat, en de dichtkunst via de improvisatiewedstrijd en de vaste vormen van de dichterlijke taal. In beide gevallen is de vraag niet of er ook ernst in het spel zat: die was er, en juist daarom telt het als spel in Huizinga's zin.</p>
+      <h3>Wijsbegeerte en kunst</h3>
+      <p>De sofist volgt op de raadselstellende ziener, en de openbare woordenstrijd van de Griekse denkers zet volgens Huizinga de wedkamp met andere middelen voort; de middeleeuwse disputatie is er de latere vorm van. In de kunsten scheidt hij de musische kunsten, waar het uitvoeren zelf al binnen tijd en regels valt, van de beeldende, waar de speltrekken eerder in de wedstrijd om de opdracht zitten.</p>
+      <h3>Sub specie ludi en de eigen tijd</h3>
+      <p>In het elfde hoofdstuk loopt Huizinga de tijdperken langs op hun spelgehalte: Rome met brood en spelen, de middeleeuwen, de renaissance, de barok met pruik en gebaar, de achttiende eeuw als tijd van vorm en vernuft. De negentiende eeuw komt er slecht af: nut, arbeid en ernst verdringen volgens hem het ludieke, tot in de kleding toe.</p>
+      <p>Het laatste hoofdstuk beoordeelt de eigen tijd. De sport is door regeldwang, systematiek en de scheiding tussen beroeps- en liefhebberssport uit de spelsfeer weggedreven en staat naast het cultuurproces in plaats van erin. Het zakenleven neemt speltrekken aan in records en concurrentie. Het openbare leven wordt beheerst door wat Huizinga puerilisme noemt, een houding met de gewoonten van de knapenclub: behoefte aan grove sensatie, clubtekens en groetvormen, gebrek aan gevoel voor humor, onverdraagzaamheid tegenover wie er niet bij hoort. Hij weigert dat spel te noemen, want de wijding en de vrijheid ontbreken eraan.</p>
+      <p>Het slot legt de maat bij de zedelijkheid. Volkenrecht werkt volgens hem als een stelsel van spelregels dat samenhangt met de wil om mee te spelen, en de staat die zich eraan onttrekt is een spelbreker. Maar wie zijn recht en zijn vrijheid verdedigt, speelt niet: waar zedelijke waarde in het geding is, verliest het woord spel zijn zin. Zijn laatste zin luidt dat één druppel medelijden genoeg is om de vraag naar spel of ernst tot zwijgen te brengen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Spel</td><td>Een vrijwillige handeling binnen vastgestelde grenzen van tijd en plaats, naar vrijwillig aanvaarde maar volstrekt bindende regels, met haar doel in zichzelf.</td></tr>
+          <tr><td class="term">Ludiek</td><td>Het bijvoeglijk naamwoord dat Huizinga in dit boek invoert voor wat tot het spel behoort, omdat 'speels' hem te beperkt was.</td></tr>
+          <tr><td class="term">Toverkring</td><td>De afgebakende ruimte waarbinnen de spelregels gelden, van de arena tot de rechtszaal en de gewijde plek.</td></tr>
+          <tr><td class="term">Spelbreker</td><td>Wie zich aan de regels onttrekt en daarmee de afgesproken wereld zelf vernietigt; hij wordt uitgestoten.</td></tr>
+          <tr><td class="term">Valse speler</td><td>Wie de regels overtreedt maar doet alsof hij ze volgt; hij houdt de spelwereld in schijn overeind en wordt eerder vergeven.</td></tr>
+          <tr><td class="term">Agon</td><td>De wedkamp; volgens Huizinga de vorm waarin recht, oorlog, weten en kunst zich hebben ontwikkeld.</td></tr>
+          <tr><td class="term">Potlatch</td><td>Het feest waarbij een groep bezit weggeeft of vernietigt om de andere te overtreffen, die verplicht wordt het te beantwoorden.</td></tr>
+          <tr><td class="term">Sub specie ludi</td><td>Een tijdperk of een cultuur bekeken op haar spelgehalte.</td></tr>
+          <tr><td class="term">Puerilisme</td><td>Huizinga's woord voor het volwassen gedrag naar de maatstaven van de knapenleeftijd, dat hij nadrukkelijk van spel onderscheidt.</td></tr>
+          <tr><td class="term">Fair play</td><td>De houding waarin de regels gelden ook zonder toezicht; volgens hem de spelvorm van goede trouw en de kern van beschaving.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing is vergelijkend. Huizinga zet materiaal naast elkaar uit de taalkunde, de klassieke oudheid, de middeleeuwse geschiedenis en de etnografie van zijn tijd, en laat zien dat er in elk van die gebieden geregelde, afgebakende, met spanning geladen handelingen te vinden zijn. De reeks is indrukwekkend en de belezenheid ook, maar de redenering is aanwijzend: zij toont overeenkomst en sluit geen andere verklaring uit.</p>
+      <p>Voor de etnografie leunt hij op het onderzoek van zijn tijd, met Frobenius als terugkerende bron, en op de beschrijvingen van de potlatch en de kula. Die literatuur is deels achterhaald, en de begrippen waarmee zij werkt, met inbegrip van het woord natuurvolken dat Huizinga gebruikt, zijn dat ook.</p>
+      <p>Zijn eerlijkheid over de eigen grenzen is opvallend. In de voorrede schrijft hij dat velen het boek een onvolledig gedocumenteerde improvisatie zullen vinden, en dat hij zijn beweringen niet overal met verwijzingen heeft gestaafd.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar kwam van Roger Caillois, die in <i>Les jeux et les hommes</i> (1958) liet zien dat Huizinga's bepaling te veel buitensluit. Door het spel belangeloos te noemen valt het kansspel eruit, en juist gokken is over de hele wereld een van de wijdst verbreide spelvormen; Huizinga behandelt de dobbelsteen wel bij het orakel maar niet als spel om geld. Caillois voegde naast de wedkamp de categorieën kans, verbeelding en roes toe en verweet Huizinga dat hij het begrip tegelijk te ruim neemt, want alle cultuur, en te eng, want alleen de edele, belangeloze wedstrijd.</p>
+      <p>Daar komt bij dat de stelling zich nauwelijks laat weerleggen. Elke geregelde, afgebakende handeling vertoont speltrekken, dus wie ze zoekt vindt ze in het recht, in de politiek en in de wetenschap. Wat Huizinga niet levert is een geval waarin zijn beschrijving niet past en dat zijn stelling zou kunnen ondermijnen.</p>
+      <p>Zijn materiaal is bovendien vooral aristocratisch en archaïsch. Hofcultuur, ridderschap, priesterschap en dichterlijke wedstrijden voeren de boventoon; boerenarbeid, handel, huishouden en het spel van kinderen komen er bekaaid af, terwijl juist daar de vraag naar spel en ernst even goed te stellen valt.</p>
+      <p>De cultuurkritiek in het laatste hoofdstuk is het zwakst onderbouwde deel. Puerilisme is een oordeel over de eigen tijd zonder maatstaf: Huizinga noemt voorbeelden uit de pers van 1935 en uit de massabewegingen van zijn jaren, maar geeft geen manier om vast te stellen of het vroeger anders was. Zijn eigen erkenning dat pueriele trekken ook in oudere tijdperken ruimschoots voorkwamen, ondergraaft de neergangsgedachte die het hoofdstuk draagt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kijk bij een vastgelopen samenwerking na welke regels iedereen stilzwijgend aanvaardt, en wat er gebeurt zodra iemand zich eraan onttrekt.</li>
+        <li>Onderscheid in een conflict de valse speler van de spelbreker: de eerste bedriegt binnen het stelsel, de tweede ontkent het stelsel.</li>
+        <li>Gebruik Huizinga's kenmerken, afgebakende tijd en plaats, eigen regels, doel in zichzelf, als toets of een bijeenkomst werkelijk een oefening is of gewoon werk in een ander jasje.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Huizinga schreef dit boek in het Nederlands. <i>Homo ludens. Proeve eener bepaling van het spel-element der cultuur</i> verscheen in 1938 bij H.D. Tjeenk Willink &amp; Zoon in Haarlem, met een voorrede gedateerd Leiden, 15 juni 1938. In december 1939 kwam bij Pantheon in Amsterdam een Duitse uitgave uit, waaraan Huizinga meewerkte en waarvoor hij de tekst op veel plaatsen aanvulde; die aanvullingen staan in de tweede, herziene druk van 1940 (338 blz.), waarvan een scan bij de DBNL te lezen is. De Engelse vertaling uit 1949 draagt de ondertitel <i>A Study of the Play-Element in Culture</i>, terwijl Huizinga bij zijn Zürichse, Weense en Londense voordrachten het voorzetsel telkens schrapte en de tweede naamval herstelde: het ging hem om het spelelement van de cultuur, niet om de plaats van het spel binnen de cultuur. Een hedendaagse Nederlandse uitgave werd bezorgd door Anton van der Lem, met ruim honderd afbeeldingen, de rectorale rede van 1933 en een toelichtend essay (Querido Facto, Amsterdam, 464 blz., ISBN 9789021489421). Zijn <i>Herfsttij der Middeleeuwen</i> staat in deze lijst als nummer 822.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Naast homo sapiens en homo faber zet Huizinga de spelende mens. Zijn stelling is dat beschaving opkomt en zich ontplooit in spel en als spel: recht, oorlog, dichtkunst, wijsbegeerte en kunst dragen alle de vorm van een wedstrijd met regels binnen een afgebakende ruimte. Spel is bij hem ouder dan cultuur, want ook dieren spelen, en het laat zich niet herleiden tot nut of biologische functie.</p><p>Hij bepaalt het spel als een vrijwillige handeling binnen vastgestelde grenzen van tijd en plaats, naar vrijwillig aanvaarde maar volstrekt bindende regels, met haar doel in zichzelf, begeleid door spanning en vreugde en door het besef anders te zijn dan het gewone leven. Wie zich aan de regels onttrekt, de spelbreker, breekt de spelwereld zelf; de valse speler doet dat niet, want die erkent de regels in schijn en wordt daarom eerder vergeven.</p><p>Het materiaal komt uit taalvergelijking, klassieke filologie en de etnografie van zijn tijd: de potlatch bij de Kwakiutl, schimptoernooien, raadselwedstrijden, het rechtsgeding als kansbepaling. De laatste hoofdstukken beoordelen de eigen tijd, waarin de sport volgens hem de spelsfeer heeft verlaten en het openbare leven wordt beheerst door wat hij puerilisme noemt, kinderachtigheid die zich als spel voordoet.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>cultuurgeschiedenis</li><li>spel</li><li>antropologie</li><li>ritueel</li><li>cultuurfilosofie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="822"><a href="822.html">Herfsttij der Middeleeuwen</a>. Huizinga's eigen boek over de veertiende en vijftiende eeuw, waarin het hoofse leven al als een stelsel van vormen wordt gelezen; <i>Homo ludens</i> maakt van die vormen een algemene stelling.</li>
+          <li value="1296"><a href="1296.html">Lachen</a>. Bergson beschrijft het lachen als de correctie die een groep uitdeelt aan wie zich niet naar haar vormen voegt, een verwante gedachte over regel en afwijking.</li>
+          <li value="1290"><a href="1290.html">The Elementary Forms of Religious Life</a>. Durkheim zoekt de oorsprong van godsdienst in de samengekomen groep en haar riten; naast Huizinga leesbaar als een andere verklaring voor dezelfde gewijde handelingen.</li>
+          <li value="550"><a href="550.html">Playful</a>. Holman schrijft over spel vanuit het ontwerpen van speelgoed en speelplekken, en toetst wat Huizinga over vrijheid en regels beweert aan de praktijk van spelende kinderen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

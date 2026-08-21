@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Act of Creation &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Koestler betoogt dat alle scheppende daden, hoe ver de gebieden ook uit elkaar liggen, één en hetzelfde patroon volgen. Gewoon denken speelt zich af…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1322">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1322 &middot; Maken en scheppen</p>
+    <h1>The Act of Creation</h1>
+    <p class="lede">Arthur Koestler, 1964</p>
+    <p class="stats">
+      <span><b>1863</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1322"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Koestler betoogt dat alle scheppende daden, hoe ver de gebieden ook uit elkaar liggen, één en hetzelfde patroon volgen. Gewoon denken speelt zich af binnen één kader van regels en verwachtingen; scheppend denken laat één gegeven tegelijk binnen twee kaders vallen die elk op zichzelf samenhangend zijn maar zich normaal niet met elkaar verdragen. Dat noemt hij bisociatie. Het verschil tussen een mop, een ontdekking en een gedicht ligt volgens hem niet in de logische vorm van die gebeurtenis, die is dezelfde, maar in het emotionele klimaat: agressief bij de nar, onthecht bij de wijze, meelevend bij de kunstenaar. Daarmee claimt hij één psychologie voor humor, wetenschap en kunst tegelijk.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het drieluik</h3>
+      <p>Het boek opent met een drieluik: humor, ontdekking en kunst als drie panelen die in elkaar overlopen, met de wijze in het midden en de nar en de kunstenaar aan weerszijden. Elke horizontale lijn door het drieluik staat voor hetzelfde patroon in drie gedaanten: de komische vergelijking, de wetenschappelijke analogie en het dichterlijke beeld. Alle drie berusten op het opmerken van een verborgen overeenkomst.</p>
+      <p>Koestler betoogt dat de grenzen tussen de panelen niet te trekken zijn. Wiskundigen spreken van elegante oplossingen, chirurgen van een mooie ingreep. Hij zet een reeks vakken op een rij van scheikunde via biologie, geneeskunde, psychologie en geschiedschrijving naar de roman, en laat zien dat controleerbaarheid geleidelijk afneemt en het esthetische toeneemt, zonder ergens een breuk.</p>
+      <h3>De logica van de lach</h3>
+      <p>Het eerste deel behandelt humor omdat het gelach een meetbaar teken geeft van het moment waarop de botsing plaatsvindt. Koestler ontleedt anekdotes en woordgrappen en komt tot zijn formule: een idee of gebeurtenis wordt plotseling gebisocieerd met twee gewoonlijk onverenigbare matrices, en als het verhaal de juiste emotionele spanning heeft opgebouwd, ontsnapt die spanning in gelach.</p>
+      <p>Twee werkbegrippen doen hier het werk. Een matrix is een geheel van gedachten of vaardigheden dat als eenheid werkt; de code is de vaste regel volgens welke die matrix verloopt. Koestler stelt uitdrukkelijk dat matrix en code preciezer zijn dan begrippen als set of Aufgabe uit de toenmalige psychologie, en verwijst naar het feit dat het woord set in de vakliteratuur al in tientallen betekenissen werd gebruikt.</p>
+      <p>Zijn verklaring van waarom er gelachen wordt en niet iets anders gebeurt, ligt in de traagheid van emotie. Gedachten kunnen in een oogwenk omschakelen naar het tweede kader; de lichamelijke spanning die het verhaal had opgewekt kan dat niet en moet ergens heen.</p>
+      <h3>Het moment van de ontdekking</h3>
+      <p>Het tweede deel begint bij de chimpansees van Wolfgang Köhler, die leerden een stok te gebruiken om iets buiten hun bereik te pakken, en bij Archimedes in het bad. Koestler ontleedt beide op dezelfde manier: twee vaardigheden die elk al goed geoefend waren, worden onder druk aan elkaar geknoopt.</p>
+      <p>Daaruit volgt zijn begrip rijpheid. De kans op een ontdekking is groter naarmate de afzonderlijke vaardigheden die erin samenkomen steviger zijn ingeslepen. Dat verklaart volgens hem waarom dezelfde ontdekking vaak door meer mensen tegelijk wordt gedaan. Rijpheid is een noodzakelijke voorwaarde, geen voldoende: er moet ook een toevallige gelegenheid zijn, zoals een stok die op het juiste ogenblik binnen bereik ligt.</p>
+      <h3>Drie uitgewerkte gevallen</h3>
+      <p>Het zesde hoofdstuk werkt drie voorbeelden uit. Gutenberg wilde de Bijbel vermenigvuldigen; hij kende het drukken van speelkaarten met wrijfblokken en het slaan van munten en zegels met een stempel, maar het wrijven leverde geen bruikbare afdruk van hele bladzijden. Volgens de brieven die Koestler aanhaalt gaf de wijnoogst de doorslag: de pers die niets weerstaat, toegepast op het zegel, is de boekdrukkunst.</p>
+      <p>Kepler koppelde natuurkunde aan sterrenkunde door de zon een kracht toe te kennen die de planeten voortdrijft, wat in een vak dat alleen met cirkels rekende geen legitieme gedachte was. Darwin verbond biologische verandering aan de strijd om het bestaan na het lezen van Malthus. Koestler voegt daar de opmerking aan toe dat Darwin Malthus in zekere zin verkeerd begreep: wat bij Malthus een ramp en een rem op vooruitgang was, werd bij Darwin de motor van verbetering.</p>
+      <p>Het patroon dat hij eruit haalt: als een probleem vastloopt, helpt rechtdoor denken niet meer en moet er een hulpkader worden binnengehaald dat nooit eerder voor dit soort werk is gebruikt. Dat noemt hij denken opzij.</p>
+      <h3>Denken opzij en de onderstroom</h3>
+      <p>De hoofdstukken zeven tot en met elf gaan over wat er gebeurt in de periode dat het probleem geblokkeerd is. Koestler zoekt daar de rol van dromen, van beeldend in plaats van talig denken en van tijdelijk terugvallen op een eerdere manier van werken, waarvoor hij de uitdrukking reculer pour mieux sauter gebruikt: terugwijken om beter te kunnen springen.</p>
+      <p>Hij steunt op de enquête van Jacques Hadamard onder vooraanstaande wiskundigen in Amerika, van wie vrijwel niemand tijdens het beslissende deel van het werk in woorden of tekens zei te denken, en op Poincaré, die het onbewuste beschreef als een plek waar losse gedachten als haakjes aan elkaar blijven hangen. Zijn conclusie is dat de rol van strikt redelijk denken bij ontdekkingen sinds de Verlichting sterk is overschat.</p>
+      <p>Het tiende hoofdstuk plaatst dat in de geschiedenis van de wetenschap: perioden van opsplitsing worden gevolgd door hersamenvoeging, en vakken die te lang gescheiden blijven raken onvruchtbaar. Het elfde behandelt de drijfveren van onderzoekers, waaronder de wens tot verwondering en de sublimatie van magisch denken.</p>
+      <h3>De kunstenaar</h3>
+      <p>Het derde deel is het minst geciteerd en het langst. Koestler behandelt eerst de meelevende emoties, waaronder huilen, medelijden en zelfmedelijden, die hij tegenover de agressieve emoties van de nar zet. Daarna volgen hoofdstukken over illusie, over ritme en rijm, over het beeld en de verborgen analogie, over inpakking, over karakter en verhaallijn, en over het motief van de reis door de duisternis dat hij de buik van de walvis noemt.</p>
+      <p>De verbindende gedachte is dat de kunstenaar de twee kaders niet laat samenvallen zoals de wetenschapper, maar ze allebei in stand houdt, zodat de lezer of kijker de werkelijkheid tegelijk op twee vlakken ervaart. Het slothoofdstuk over verwarring en steriliteit is een aanval op de kunstkritiek van zijn tijd, op snobisme en op wat hij het antiquarische misverstand noemt.</p>
+      <p>Boek twee, ruim driehonderd bladzijden, zoekt hier een biologische bodem onder. Het gaat over de vroegste ontwikkeling van weefsel, over hiërarchieën in het zenuwstelsel, over regeneratie, instinct, inprenting, drijfveren, spel, waarneming, geheugen en motorische vaardigheid, en eindigt met twee hoofdstukken die de leertheorie van het behaviorisme en de gestaltpsychologie stuk voor stuk tekortkomingen verwijten. Het argument is dat gewoonte en oorspronkelijkheid twee polen zijn van hetzelfde geordende systeem, op elk niveau van het levende.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Bisociatie</td><td>Het waarnemen van één gegeven binnen twee samenhangende maar gewoonlijk onverenigbare denkkaders tegelijk.</td></tr>
+          <tr><td class="term">Matrix</td><td>Een geheel van gedachten of vaardigheden dat als één samenhangend kader werkt.</td></tr>
+          <tr><td class="term">Code</td><td>De vaste regel die bepaalt hoe een matrix verloopt, en die bij een botsing zichtbaar wordt doordat hij wordt geschonden.</td></tr>
+          <tr><td class="term">Drieluik</td><td>Koestlers ordening van humor, ontdekking en kunst als drie in elkaar overlopende gebieden met hetzelfde patroon en een verschillend gevoelsklimaat.</td></tr>
+          <tr><td class="term">Rijpheid</td><td>De mate waarin de afzonderlijke vaardigheden die een ontdekking vereist al zijn ingeslepen, wat de kans op die ontdekking bepaalt.</td></tr>
+          <tr><td class="term">Denken opzij</td><td>Het zoeken van een hulpkader buiten het vastgelopen probleemgebied, wanneer rechtdoor redeneren niet meer werkt.</td></tr>
+          <tr><td class="term">Reculer pour mieux sauter</td><td>Het tijdelijk terugvallen op een eerdere, minder gevorderde manier van werken als voorwaarde voor een sprong vooruit.</td></tr>
+          <tr><td class="term">Traagheid van emotie</td><td>Het gegeven dat gedachten sneller van kader wisselen dan lichamelijke spanning, wat volgens Koestler het lachen verklaart.</td></tr>
+          <tr><td class="term">Hiërarchie</td><td>De gelaagde ordening waarin levende systemen volgens hem zijn opgebouwd, van cel tot gedrag, met op elk niveau vaste codes en vrije speelruimte.</td></tr>
+          <tr><td class="term">Zelfbevestigende en zelfoverstijgende emoties</td><td>De twee klassen gevoelens waarmee Koestler het verschil tussen het lachen en het meeleven verklaart.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het materiaal bestaat uit twee soorten. Ten eerste een zeer grote verzameling gevallen: grappen en woordspelingen, verhalen uit de geschiedenis van de wetenschap, passages uit literatuur en beeldende kunst. Koestler is daarin belezen en nauwkeurig in het navertellen, en het boek besluit met een uitgebreide lijst van geraadpleegd werk.</p>
+      <p>Ten tweede leunt hij op bestaand experimenteel onderzoek van anderen, vooral op Köhlers werk met chimpansees, op de leertheorie en de gestaltpsychologie waarmee hij afrekent, en op de zelfverslagen van wiskundigen die Hadamard verzamelde. Eigen onderzoek doet hij niet.</p>
+      <p>Wat ontbreekt is een toetsing van de kernstelling. Bisociatie wordt aangetoond door telkens een nieuw geval te tonen waarin twee kaders samenkomen, wat gemakkelijk lukt omdat vrijwel elke nieuwe gedachte achteraf in twee eerdere gebieden te ontleden valt. Er wordt nergens een geval genoemd dat de stelling zou weerleggen, en er wordt geen voorspelling gedaan die mis kan gaan.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De vakwereld reageerde hard. Peter Medawar wees het boek in de <i>New Statesman</i> af, met als voornaamste bezwaar dat Koestler het gewone werk van onderzoek doen nooit van binnenuit had meegemaakt en daardoor een romantisch beeld van ontdekken schetste. De psycholoog Howard Gruber schreef in de <i>American Journal of Psychology</i> dat het boek volstond met verwarrende nieuwvormingen, gezochte spreuken en zware woordmystiek. De bioloog John Maynard Smith noemde het indrukwekkend, maar geen wetenschap. In de dagbladen kreeg het lovende besprekingen, wat het verschil tussen beide ontvangsten des te scherper maakt.</p>
+      <p>Het inhoudelijke bezwaar dat daaronder ligt: bisociatie is een herbeschrijving. Dat een nieuwe gedachte twee eerder gescheiden gebieden verbindt, is bijna per definitie waar, want anders zou zij niet nieuw zijn. Het begrip zegt niet waarom die twee gebieden bij deze persoon op dit moment samenkomen en bij anderen niet, en het onderscheidt de vruchtbare verbinding niet van de talloze nutteloze. Koestler was zich daarvan bewust en probeerde het met rijpheid en toeval op te vangen, maar die aanvullingen zijn zelf niet meetbaar gemaakt.</p>
+      <p>De bronnen zijn niet altijd betrouwbaar. De brieven aan Frère Cordelier waarop het Gutenberg-verhaal rust, noemt Koestler zelf alleen authentiek klinkend, en meer dan dat is er niet over te zeggen: van Gutenberg is vrijwel niets bewaard behalve stukken uit rechtszaken. Het beeld van de wijnpers als het beslissende inzicht is daarmee een verhaal, geen gedocumenteerde gebeurtenis. Ook zijn stelling dat Darwin Malthus verkeerd las, is onder wetenschapshistorici omstreden.</p>
+      <p>Ten slotte de omvang en de opzet. Boek twee vraagt kennis van biologie en experimentele psychologie en is inmiddels grotendeels verouderd; de leertheorie waar Koestler tegen vecht, is niet meer de leertheorie van nu, zodat driehonderd bladzijden polemiek hun tegenstander hebben verloren. Wie het boek nu leest, leest vooral boek één.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Zoek bij een vastgelopen probleem opzettelijk naar een vakgebied dat er niets mee te maken heeft en vraag hoe men het daar zou oplossen.</li>
+        <li>Investeer eerst in het inslijpen van afzonderlijke vaardigheden; volgens Koestler is de kans op een verbinding evenredig met hoe stevig elk van beide onderdelen zit.</li>
+        <li>Let op waar een grap over een onderwerp precies zit: de botsing legt de regel bloot die het gewone denken over dat onderwerp volgt.</li>
+        <li>Neem een tussenperiode zonder bewust werk niet als verlies maar als onderdeel van het werk, en verwacht er een vertrekpunt uit, geen afgerond antwoord.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Act of Creation</i>, met een voorwoord van de psycholoog Cyril Burt (Hutchinson, Londen, 1964, 751 blz.; Macmillan, New York, 1964). Het boek is daarna herhaaldelijk als paperback herdrukt, onder meer in de Arkana-reeks van Penguin (Londen, 1989). Er bestaat geen Nederlandse vertaling; van Koestler verscheen wel de roman <i>Darkness at Noon</i> in het Nederlands, als <i>Nacht in de middag</i>, vertaald door Koos Schuur (De Bezige Bij, Amsterdam, 1946).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Koestler wil in dit boek van 751 bladzijden aantonen dat de grap, de wetenschappelijke ontdekking en het kunstwerk hetzelfde patroon volgen. Hij noemt dat patroon bisociatie: één gegeven wordt plotseling waargenomen binnen twee denkkaders die normaal niet samengaan. Bij de grap ontlaadt de botsing zich in gelach, bij de ontdekking in inzicht, bij het kunstwerk in een blijvende spanning tussen beide kaders.</p><p>Boek één werkt dat uit in drie delen, over de nar, de wijze en de kunstenaar. Het middendeel bevat de bekendste bladzijden: Archimedes in het bad, Gutenberg die de wijnpers met het zegel verbindt, Kepler die natuurkunde aan sterrenkunde koppelt, Darwin die Malthus leest. Boek twee zoekt daar een biologische onderbouwing bij, met hoofdstukken over regeneratie, instinct, spel, waarneming en een lange afrekening met het behaviorisme en met de gestaltpsychologie.</p><p>Het boek werd in de kranten geprezen en in de vaktijdschriften afgebrand. Wat blijft is een rijk gedocumenteerde verzameling gevallen uit de geschiedenis van wetenschap en kunst, met daaromheen een begrip dat vooral beschrijft wat het zegt te verklaren.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>creativiteit</li><li>psychologie</li><li>wetenschapsgeschiedenis</li><li>humor</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1321"><a href="1321.html">The Art of Thought</a>. Wallas beschreef veertig jaar eerder dezelfde verslagen van Poincaré, maar hield het bij een schema van stadia zonder mechanisme.</li>
+          <li value="938"><a href="938.html">The Sleepwalkers</a>. Koestlers eigen geschiedenis van de astronomie werkt het Kepler-voorbeeld uit dit boek over honderden bladzijden uit.</li>
+          <li value="1298"><a href="1298.html">Homo ludens</a>. Huizinga zet spel als grondvorm van cultuur neer, wat raakt aan Koestlers hoofdstukken over spelen en doen alsof.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connections &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Burke betoogt dat de moderne techniek niet is voortgekomen uit een keten van vooruitziende uitvinders die stap voor stap naar het heden toewerkten, maar…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1270">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1270 &middot; Natuur en wetenschap</p>
+    <h1>Connections</h1>
+    <p class="lede">James Burke, 1978</p>
+    <p class="stats">
+      <span><b>1541</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1270"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Burke betoogt dat de moderne techniek niet is voortgekomen uit een keten van vooruitziende uitvinders die stap voor stap naar het heden toewerkten, maar uit een web van gebeurtenissen waarin mensen handelden om redenen die met de latere uitkomst niets te maken hadden. Wie een willekeurig modern apparaat terugvolgt, komt uit bij een klimaatverandering, een geldwissel, een belegering of een religieus voorschrift die geen van alle op dat apparaat gericht waren. Daaruit trekt hij een gevolgtrekking over het heden: omdat niemand het net overziet waarvan wij afhangen, en omdat het tempo van verandering toeneemt, staat de zeggenschap van gewone mensen over hun eigen omstandigheden onder druk.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De stroomstoring als opening</h3>
+      <p>Het boek begint met de avond van 9 november 1965, toen het noordoosten van de Verenigde Staten en een deel van Canada zonder stroom kwamen te zitten. Liften bleven steken, verkeerslichten vielen uit, mensen zaten uren in het donker. Burke gebruikt dat voorval om te laten zien hoe weinig iemand weet van het net waarvan hij afhangt en hoe snel het dagelijks leven stilvalt als een schakel wegvalt.</p>
+      <p>Dat noemt hij het aanjaageffect. Een verandering krijgt pas gevolgen als zij op een bestaande toestand inwerkt, en die gevolgen lopen daarna verder dan iemand had bedoeld. De rest van het boek zoekt datzelfde effect op in de geschiedenis.</p>
+      <h3>Verandering zonder plan</h3>
+      <p>Burke zet zijn aanpak tegenover de schoolboekgeschiedenis van de techniek, waarin de ene vinding netjes op de andere volgt en iedere uitvinder verder bouwt op zijn voorganger. Zo is het volgens hem nooit gegaan. Wie iets bedacht, deed dat om een probleem van dat moment op te lossen, en het gebruik dat er later van gemaakt werd stond daarvan los.</p>
+      <p>De vorm van het boek volgt daaruit. Elke keten begint bij een herkenbaar modern voorwerp en loopt terug naar een startpunt dat er niets mee te maken lijkt te hebben; daarna wordt de weg vooruit opnieuw afgelegd. De lezer ziet zo dat elke stap begrijpelijk is en dat het geheel toch door niemand is ontworpen.</p>
+      <h3>Goud, geld en de weg over zee</h3>
+      <p>Een van de ketens begint bij de toetssteen, het donkere steentje waarmee een handelaar aan de streep kon aflezen hoeveel goud er in een munt zat. Betrouwbaar keuren maakte betalen met munten mogelijk, en daarmee handel over grotere afstand tussen partijen die elkaar niet kenden.</p>
+      <p>Van die handel loopt de lijn naar de vraag hoe je op open zee je plaats bepaalt, en dus naar sterrenkunde, instrumentmakerij en kaarten. Burke laat zien dat een middel om bedrog te voorkomen aan het begin staat van een reeks die eeuwen later heel andere vruchten afwerpt.</p>
+      <h3>Drukpers, sterrenkunde en precisie</h3>
+      <p>Een tweede keten loopt door de overgang van middeleeuwen naar nieuwe tijd. Handel, klimaat en de boekdrukkunst komen daarin samen: gedrukte tekst maakt het mogelijk dat iemand op afstand precies naleest wat een ander heeft opgeschreven, een voorwaarde voor herhaalbaar onderzoek.</p>
+      <p>Een derde keten begint bij de sterrenkunde. Wie hemellichamen wil volgen heeft instrumenten nodig die nauwkeuriger zijn dan het blote oog, en wie die instrumenten wil maken moet metaal op maat kunnen bewerken. Uit die werkplaatsen komt de gedachte van onderling verwisselbare onderdelen voort, en daaruit de lopende band.</p>
+      <h3>Kou, stoom en de lange keten van de scheikunde</h3>
+      <p>De koude eeuwen van de kleine ijstijd dwongen tot beter stoken. Burke volgt de weg van de schoorsteen via het gebruik van steenkool naar de mijnbouw, de behoefte om water uit die mijnen te pompen, en zo naar de stoommachine en uiteindelijk de auto.</p>
+      <p>Een verwante keten begint bij de zeventiende-eeuwse Nederlandse vrachtvaart en loopt via goedkoop vervoer naar de steenkoolgasfabrieken van de negentiende eeuw. Het restproduct daarvan, steenkoolteer, gold eerst als afval; er bleken kunstmatige kleurstoffen uit te maken, en langs diezelfde chemische weg kwamen later de kunststoffen, tot en met nylon.</p>
+      <h3>Bewaren, koelen en de raket</h3>
+      <p>De keten van het voedsel begint bij kredietvormen die het mogelijk maakten grote hoeveelheden te verhandelen, gaat via het inblikken naar de kunstmatige koeling, en van daar naar het beheersen van zeer lage temperaturen. Die kennis komt terug bij vloeibare brandstoffen en dus bij de raket.</p>
+      <p>Een laatste keten begint bij de vestingbouw. Muren die tegen kanonnen bestand moesten zijn dwongen tot rekenen aan vormen en aan de baan van projectielen; het richten van geschut leidde tot instrumenten voor het vastleggen van beweging, en daaruit komt de film met geluid voort.</p>
+      <h3>De slotvraag</h3>
+      <p>Het laatste deel keert terug naar het heden. Burke stelt vast dat het tempo van verandering toeneemt en dat de afstand groeit tussen wat een samenleving gebruikt en wat haar leden ervan begrijpen. Wie het net niet doorziet, kan er ook niet over meebeslissen.</p>
+      <p>Hij trekt daar geen technische conclusie uit maar een politieke: inzicht geven in hoe verandering werkt is volgens hem de voorwaarde voor zeggenschap erover. Het boek eindigt met die vraag, en met de vaststelling dat de geschiedenis geen aanwijzing geeft dat iemand het geheel ooit in de hand heeft gehad.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Aanjaageffect</td><td>Burkes term voor de werking waarbij een verandering pas gevolgen krijgt als zij op een bestaande toestand inwerkt, waarna die gevolgen verder lopen dan iemand bedoelde.</td></tr>
+          <tr><td class="term">Verbinding</td><td>De aanwijsbare stap waarmee de ene vinding of gebeurtenis een volgende mogelijk maakte, ook wanneer die twee niets met elkaar te maken lijken te hebben.</td></tr>
+          <tr><td class="term">Web van gebeurtenissen</td><td>Zijn beeld voor de geschiedenis van de techniek, waarin elke uitkomst uit veel losse draden voortkomt en geen draad op zichzelf de uitkomst verklaart.</td></tr>
+          <tr><td class="term">De andere kijk op verandering</td><td>Burkes aanduiding voor zijn alternatief voor de geschiedschrijving die de techniek voorstelt als een rechte lijn van grote uitvinders.</td></tr>
+          <tr><td class="term">Toetssteen</td><td>Het donkere steentje waarmee handelaren het goudgehalte van een munt konden aflezen aan de streep die zij erop achterlieten.</td></tr>
+          <tr><td class="term">Kleine ijstijd</td><td>De koude periode vanaf de late middeleeuwen die volgens Burke het stoken en daarmee een reeks vervolgvindingen in gang zette.</td></tr>
+          <tr><td class="term">Steenkoolteer</td><td>Het restproduct van de gasfabriek waaruit in de negentiende eeuw de eerste kunstmatige kleurstoffen werden gemaakt en langs die weg de kunststoffen.</td></tr>
+          <tr><td class="term">Verwisselbare onderdelen</td><td>Het idee dat onderdelen zo nauwkeurig worden gemaakt dat elk exemplaar past, de voorwaarde voor serieproductie en de lopende band.</td></tr>
+          <tr><td class="term">Versnelling</td><td>De vaststelling dat de tijd tussen opeenvolgende veranderingen korter wordt, waardoor de kloof tussen gebruik en begrip groeit.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek steunt op een grote hoeveelheid gangbare techniekgeschiedenis, sterk ingedikt. Er staan geen noten in de lopende tekst; achterin staan een literatuurlijst van drie bladzijden en een register. Een lezer die een bepaalde schakel wil natrekken, kan dat langs de tekst zelf niet doen.</p>
+      <p>De afzonderlijke feiten kloppen doorgaans. De toetssteen bestond, steenkoolteer leverde de eerste kunstmatige kleurstoffen op, en de stroomstoring van november 1965 heeft zich voorgedaan zoals beschreven. Wat het boek daarbovenop beweert is dat de ene stap de volgende mogelijk maakte, en dat is een bewering van een andere orde.</p>
+      <p>Het geheel is geschreven naast een televisiereeks van tien afleveringen en deelt daarmee de tien lijnen en het tempo. Het doel is een groot publiek iets te laten zien en geen vakinhoudelijk geschil te beslechten, en het boek doet ook geen poging zich als dat laatste voor te doen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat een keten die vanaf het einde is uitgezet niets bewijst over hoe verandering werkt. Wie genoeg tussenstappen toestaat, kan vrijwel elk modern voorwerp met vrijwel elk middeleeuws voorval verbinden. Zolang niet wordt onderzocht of het latere ook zonder de eerdere stap was gekomen, blijft de verbinding een verteltruc en geen oorzaak.</p>
+      <p>Daar komt bij dat de vorm het tegenovergestelde uitstraalt van wat Burke beweert. Hij zegt dat niets gepland was, maar doordat elke stap in het verhaal precies op tijd arriveert, leest het geheel als een ontwikkeling die zo moest lopen. De toevalligheid die hij aantoont, verdwijnt in de gladheid van de vertelling.</p>
+      <p>Verder ontbreekt vrijwel alles wat bepaalt of een vinding wordt overgenomen: wie ervoor betaalde, welke markt er was, welke staat er belang bij had, welke arbeid ervoor nodig was, wie er het slachtoffer van werd. Burkes ketens lopen van voorwerp naar voorwerp, en de samenleving komt daarin vooral voor als publiek.</p>
+      <p>Ten slotte de indikking. Elke schakel krijgt een zin of een alinea, terwijl er over de meeste een vakliteratuur bestaat die het beeld ingewikkelder maakt. En het boek is van 1978: het slothoofdstuk over versnelling en over burgers die het niet meer volgen dateert van voor de personal computer, wat de vraag interessant houdt maar de voorbeelden verouderd maakt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Volg bij een technische vinding de vraag welke gebruikers, geldstromen en regels haar mogelijk maakten, en niet alleen welke vinding eraan voorafging.</li>
+        <li>Toets een historische keten door na te gaan of de latere stap ook zonder de eerdere denkbaar was.</li>
+        <li>Gebruik de opbouw van het boek als werkvorm: kies een alledaags voorwerp en werk terug tot een punt waar de herkomst verrast.</li>
+        <li>Breng bij vraagstukken over afhankelijkheid van infrastructuur in kaart welke schakel het geheel stillegt als hij wegvalt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Connections</i> (Macmillan, Londen, 1978, 304 blz., ISBN 0333248279), gelijktijdig in de Verenigde Staten bij Little, Brown (Boston, 1978, ISBN 0316116815). Het is een rijk geillustreerd boek op groot formaat, met een literatuurlijst op blz. 296 tot 298 en een register. Het hoort bij de gelijknamige televisiereeks van tien afleveringen die de BBC in 1978 uitzond. Latere herdrukken verschenen onder meer bij Simon &amp; Schuster (New York, 2007, 320 blz., ISBN 9780743299558). Er is geen Nederlandse vertaling gevonden; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>James Burke was wetenschapsjournalist bij de BBC en versloeg onder meer de maanlandingen. In dit boek, geschreven bij zijn televisiereeks uit 1978, keert hij de gebruikelijke geschiedschrijving van de techniek om. Uitvindingen komen bij hem niet voort uit een reeks grote geesten die naar het heden toewerkten, maar uit een web van gebeurtenissen waarin mensen iets deden om hun eigen redenen: winst, oorlog, nieuwsgierigheid, geloof.</p><p>Hij opent met de stroomstoring die in november 1965 het noordoosten van de Verenigde Staten stillegde, om te laten zien hoe afhankelijk de moderne samenleving is van een net dat niemand overziet. Daarna volgt hij tien ketens door de geschiedenis heen. De toetssteen waarmee handelaren goud konden keuren leidt via muntgeld en handel naar de zeevaart; de sterrenkunde leidt via nauwkeurig gereedschap naar de lopende band; koude winters leiden via de schoorsteen naar de stoommachine; steenkoolteer leidt via kunstmatige kleurstoffen naar nylon.</p><p>Het slot stelt de vraag die het hele boek draagt: als verandering zo werkt, wie beslist er dan eigenlijk over, en kan een burger die het niet meer volgt daar nog iets over zeggen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>wetenschapsgeschiedenis</li><li>techniek</li><li>technologie</li><li>geschiedenis</li><li>innovatie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="820"><a href="820.html">The Ascent of Man</a>. Bronowski schreef in dezelfde jaren een boek bij een televisiereeks over dezelfde geschiedenis, met meer aandacht voor het denken en minder voor de keten van apparaten.</li>
+          <li value="826"><a href="826.html">The Technological Society</a>. Ellul beschrijft de techniek als een stelsel met een eigen logica, en biedt daarmee de tegenpool van Burkes nadruk op toeval en losse draden.</li>
+          <li value="1264"><a href="1264.html">The Real World of Technology</a>. Franklin vraagt naar de sociale ordening die techniek meebrengt, precies het onderdeel dat bij Burke buiten beeld blijft.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

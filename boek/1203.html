@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De kracht van het alleenzijn &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Storr betwist de gedachte, in zijn eigen vak lang de norm, dat intieme betrekkingen de voornaamste en misschien enige bron van menselijk geluk zijn en dat…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1203">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1203 &middot; Brein en lichaam</p>
+    <h1>De kracht van het alleenzijn</h1>
+    <p class="lede">Anthony Storr, 1988</p>
+    <p class="stats">
+      <span><b>1753</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1203"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Storr betwist de gedachte, in zijn eigen vak lang de norm, dat intieme betrekkingen de voornaamste en misschien enige bron van menselijk geluk zijn en dat het vermogen tot zulke betrekkingen de maatstaf van gezondheid vormt. Hij houdt daartegenover dat mensen zich ook alleen kunnen ontwikkelen en herstellen, dat afzondering nodig is om ervaring te verwerken en samenhang aan te brengen, en dat er mensen zijn voor wie het werk de plaats inneemt die anderen aan hun naasten geven. Daarmee wil hij die tweede weg niet als beter aanmerken maar als even legitiem, en wil hij de psychiatrie beletten om een leven zonder veel gezelschap zonder meer als tekort te boeken.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het bezwaar tegen de heersende leer</h3>
+      <p>Het boek begint met de vaststelling dat de psychoanalyse en de latere hechtingstheorie de mens vooral hebben beschreven als iemand die betrekkingen aangaat, en dat het geslaagd aangaan daarvan de maat van welbevinden is geworden. Storr aanvaardt de waarde van dat werk en wijst op de eenzijdigheid ervan: wie de vraag zo stelt, kan het leven van een teruggetrokken schrijver of geleerde alleen als gebrek beschrijven.</p>
+      <p>Hij voert daartegen aan dat de zwaarste ervaringen van een mens zich binnen afspelen. Rouw, geloofsverlies, het besef ouder te worden, het opnieuw ordenen van een levensloop: geen daarvan wordt door gezelschap opgelost, en voor alle geldt dat er tijd alleen voor nodig is.</p>
+      <h3>Het vermogen alleen te zijn</h3>
+      <p>Het begrip dat Storr van de kinderarts en psychoanalyticus Donald Winnicott overneemt, is het vermogen alleen te zijn. Winnicott beschreef hoe een kind dat leert door alleen te spelen terwijl de moeder aanwezig is maar zich er niet mee bemoeit. Uit die ervaring, herhaald en verinnerlijkt, groeit het vermogen om ook zonder haar rustig te blijven.</p>
+      <p>Storr verbindt dat vermogen met zelfkennis: wie alleen kan zijn, komt in aanraking met wat hij werkelijk voelt en wil, in plaats van met de reacties die het gezelschap bij hem oproept. Hij haalt in dat verband ook Winnicotts overgangsobject aan, het knuffeldier of het stuk stof dat tussen kind en moeder in staat, en de hechtingstheorie van John Bowlby, wiens nadruk op de band hij tegelijk als te uitsluitend beschouwt.</p>
+      <h3>Waar afzondering goed voor is, en waar niet</h3>
+      <p>Een hoofdstuk gaat over het nut van alleen zijn in het gewone leven: slaap en droom, het verwerken van indrukken, het herzien van een opvatting, het toelaten van verveling waaruit iets nieuws kan komen. Storr merkt op dat het moderne leven weinig gelegenheid biedt om ongestoord te zijn en dat verveling eerder wordt bestreden dan benut.</p>
+      <p>Daartegenover zet hij het hoofdstuk over opgelegde afzondering. Eenzame opsluiting maakt mensen kapot; wie tegen zijn wil geïsoleerd wordt, verliest houvast en gaat afwijkend waarnemen. Het onderscheid dat hij daarmee maakt is de kern van zijn positie: het gaat om afzondering die iemand kiest en kan beëindigen, en die is van een andere orde dan de eenzaamheid die iemand overkomt.</p>
+      <h3>De honger van de verbeelding</h3>
+      <p>Storr ontleent de uitdrukking honger van de verbeelding aan Samuel Johnson. Ze duidt op de menselijke onmogelijkheid tevreden te blijven: het denken loopt vooruit op de toestand waarin iemand verkeert, bedenkt een andere en maakt daarmee de huidige onvoldoende.</p>
+      <p>Hij behandelt dat als aanleg met twee kanten. Zij verklaart de rusteloosheid en de ontevredenheid die geen omstandigheid wegneemt, en zij verklaart waarom mensen dingen maken die er nog niet waren. Wetenschap, kunst en godsdienst komen in zijn voorstelling uit dezelfde onvrede voort, en alle drie vragen ze om tijd waarin niemand anders meepraat.</p>
+      <h3>Temperament, en herstel door werk</h3>
+      <p>Storr gebruikt Jungs onderscheid tussen naar binnen en naar buiten gerichte aard, en de gedachte van Howard Gardner dat er meer soorten begaafdheid bestaan dan de school meet, om te betogen dat mensen verschillend in elkaar zitten en dat één norm voor een geslaagd leven niet past. Wie naar binnen gericht is, ontleent zijn houvast eerder aan wat hij maakt dan aan wie hij kent.</p>
+      <p>In de biografische hoofdstukken werkt hij dat uit. Bij Rudyard Kipling en bij Beatrix Potter verbindt hij vroege scheiding en een ongelukkige jeugd met een verbeelding die daarna het werk voedde. Bij verlies en somberte wijst hij op werk dat uit rouw ontstond, zoals Tennysons <i>In Memoriam</i>, geschreven na de dood van zijn vriend. Zijn stelling luidt dat scheppend werk niet alleen uitdrukking is van pijn maar ook het middel waarmee iemand zich weer in elkaar zet.</p>
+      <h3>Samenhang zoeken, en de derde periode</h3>
+      <p>Twee slothoofdstukken trekken de lijn door. Het eerste gaat over de behoefte om samenhang aan te brengen: Kant, Newton en Wittgenstein worden opgevoerd als mensen die hun leven aan één sluitend geheel besteedden en daarvoor betrekkingen opgaven. Storr ziet in dat streven dezelfde beweging als bij de kunstenaar: door orde in het werk te leggen ontstaat orde in het hoofd.</p>
+      <p>Het tweede gaat over de laatste levensfase, door hem de derde periode genoemd naar de indeling van Beethovens werk. Ouderen hebben volgens hem minder behoefte aan gezelschap, wat hij als een voorbereiding op de dood opvat. Voor makers ziet hij daar een winst: de druk om te behagen valt weg, en het late werk wordt strakker en eigenzinniger. De aanwijzing daarvoor haalt hij uit levens en werken van musici en schrijvers, niet uit onderzoek onder ouderen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">het vermogen alleen te zijn</td><td>Winnicotts term voor het vermogen om rustig te blijven zonder gezelschap, dat een kind leert door alleen te spelen in aanwezigheid van de moeder.</td></tr>
+          <tr><td class="term">overgangsobject</td><td>Het voorwerp waaraan een kind zich hecht en dat de plaats van de moeder gedeeltelijk inneemt bij het zelfstandig worden.</td></tr>
+          <tr><td class="term">gekozen afzondering</td><td>Alleen zijn dat iemand zelf zoekt en kan beëindigen, door Storr scherp onderscheiden van de eenzaamheid die iemand wordt opgelegd.</td></tr>
+          <tr><td class="term">opgelegde afzondering</td><td>Isolement dat buiten iemands wil om ontstaat, zoals eenzame opsluiting, met aantoonbaar schadelijke gevolgen.</td></tr>
+          <tr><td class="term">honger van de verbeelding</td><td>Storrs aan Samuel Johnson ontleende aanduiding voor het menselijk onvermogen tevreden te blijven met de bestaande toestand.</td></tr>
+          <tr><td class="term">zelfverwerkelijking</td><td>Het tot ontwikkeling brengen van wat iemand in aanleg is, volgens Storr ook bereikbaar door werk in plaats van door betrekkingen.</td></tr>
+          <tr><td class="term">naar binnen gerichte aard</td><td>Jungs introversie, bij Storr de aanleg om houvast te ontlenen aan de eigen bezigheid in plaats van aan de omgang met anderen.</td></tr>
+          <tr><td class="term">de derde periode</td><td>De late levensfase, genoemd naar de indeling van Beethovens werk, waarin de behoefte aan gezelschap afneemt en het werk soberder wordt.</td></tr>
+          <tr><td class="term">integratie</td><td>Het samenbrengen van uiteenlopende ervaringen tot een geheel, waarvoor Storr afzondering en het maken van iets als de aangewezen weg ziet.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing bestaat uit twee soorten materiaal. Het eerste is theorie uit de eigen school: Winnicott over het vermogen alleen te zijn en over overgangsobjecten, Bowlby over hechting, Jung over aard, en Gardner over verschillende soorten begaafdheid. Storr geeft die opvattingen getrouw weer en zet ze tegen elkaar in stelling; toetsing van die opvattingen is niet zijn onderwerp.</p>
+      <p>Het tweede is levensbeschrijving. Beethoven, Kant, Newton, Wittgenstein, Kipling, Beatrix Potter, Henry James, P.G. Wodehouse en Kafka komen langs, gelezen door brieven, dagboeken en biografieën heen. Storr diagnosticeert daarbij op afstand: hij leidt uit het werk en de correspondentie af hoe iemand in elkaar zat. Die werkwijze levert leesbare hoofdstukken en heeft geen middel om zichzelf te corrigeren, omdat de betrokkenen niet meer kunnen tegenspreken.</p>
+      <p>Wat ontbreekt is onderzoek dat iets kan uitwijzen. Er zijn geen groepen die vergeleken worden, geen metingen van welbevinden bij mensen die veel of weinig alleen zijn, en geen manier om te zien of het verband omgekeerd loopt: dat wie in zijn jeugd moeilijk contact legde daardoor alleen ging werken, en niet dat het alleen werken hem vormde. Storr geeft in zijn woordkeus toe dat hij aanwijzingen aandraagt, en trekt in zijn conclusies verder dan die aanwijzingen dragen.</p>
+      <p>Over de gevolgen van ongewenste eenzaamheid voor gezondheid en sterfte is na 1988 veel onderzoek gedaan, met steeds dezelfde uitkomst: het is schadelijk. Dat weerlegt Storr niet, want dat onderzoek gaat over de eenzaamheid die hij juist afzet tegen gekozen afzondering. Zijn onderscheid tussen die twee is in dat vakgebied inmiddels standaard.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar zit in de sprong die het boek maakt. Uit het gegeven dat een aantal buitengewone makers grotendeels alleen werkte, volgt niet dat afzondering aan het welbevinden van een gemiddelde lezer bijdraagt. De voorbeelden zijn achteraf gekozen op de uitkomst, en er zijn evenveel makers aan te wijzen die in gezelschap, in werkplaatsen of in kringen tot hun werk kwamen. Storr stelt die tegenvoorbeelden niet aan de orde.</p>
+      <p>Daar komt bij dat zijn psychobiografieën van doden een omstreden werkwijze volgen. Een levensloop wordt gelezen alsof brieven en romans betrouwbaar verslag doen van een innerlijke toestand, en de uitleg die de auteur kiest laat zich niet onderscheiden van uitleggen die hij niet koos. Bij Kipling en Beatrix Potter is de verbinding tussen een ongelukkige jeugd en de latere verbeelding aannemelijk gemaakt, niet aangetoond.</p>
+      <p>Een derde punt betreft wat het boek weglaat. Storr geeft geen geschiedenis van de afzondering: kluizenaars, kloosterorden, de woestijnvaders en de regels waarmee die tradities het alleen zijn omgaven blijven buiten beeld, terwijl daar eeuwen ervaring met het onderwerp liggen. Het boek blijft binnen de twintigste-eeuwse westerse psychologie en de Europese kunstgeschiedenis.</p>
+      <p>Ten slotte staan er passages in die weinig meer doen dan een gemeenplaats bevestigen, zoals de vaststelling dat mensen zich hun leven lang blijven ontwikkelen. En de verklaring die hij bij de ouderdom geeft, dat de behoefte aan gezelschap afneemt als voorbereiding op het sterven, is een veronderstelling waarvoor hij geen onderzoek aanvoert.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Scheid bij het beoordelen van een teruggetrokken levenswijze eerst de vraag of iemand het zelf zo wil van de vraag of hij eronder lijdt.</li>
+        <li>Ruim in een werkweek blokken in waarin niemand meekijkt of onderbreekt, en behandel die niet als restpost achter het overleg.</li>
+        <li>Laat verveling bij kinderen af en toe staan in plaats van haar meteen op te vullen; het spelen dat daaruit komt hoort bij het leren alleen te zijn.</li>
+        <li>Kijk bij een rouwproces of er ruimte is om alleen te zijn, naast de gebruikelijke aandacht voor praten en steun zoeken.</li>
+        <li>Wees terughoudend met het overnemen van Storrs voorbeelden als aanbeveling; wat bij Beethoven werkte, is geen voorschrift voor een leven.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>De kracht van het alleenzijn</i>, vertaald door Ton Maas (Contact, Amsterdam, 1990; derde druk 2002, 238 blz., ISBN 90-254-1318-8), met literatuuropgave en register. Het origineel verscheen in 1988 in Groot-Brittannië bij André Deutsch onder de titel <i>The School of Genius</i> en in de Verenigde Staten bij The Free Press als <i>Solitude: A Return to the Self</i>, 246 blz.; latere Britse en Amerikaanse drukken heten <i>Solitude</i>. Van Storr, psychiater te Oxford, zijn in het Nederlands ook boeken over agressie en over de menselijke destructiviteit verschenen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Storr, psychiater en psychotherapeut in Oxford, keert zich tegen een aanname die in zijn vak lange tijd vanzelf sprak: dat de kwaliteit van iemands persoonlijke betrekkingen de maat is van zijn geestelijke gezondheid. Hij houdt daar tegenover dat alleen zijn een eigen bijdrage levert aan zelfkennis en aan het ordenen van ervaring, en dat sommige mensen daar het meeste van hun leven mee ophouden.</p><p>Zijn argument loopt langs twee lijnen. De eerste is theoretisch: hij leunt op Winnicotts begrip van het vermogen alleen te zijn, dat een kind volgens die opvatting eerst ontwikkelt in aanwezigheid van de moeder. De tweede is biografisch: hoofdstukken over Beethoven, Kant, Newton, Wittgenstein, Kipling, Beatrix Potter en anderen laten zien hoe mensen zich door hun werk staande hielden.</p><p>De zwakke plek zit in de stap van die levensbeschrijvingen naar een algemene uitspraak. Dat een aantal beroemde makers alleen werkte, zegt weinig over wat afzondering voor een willekeurige lezer doet, en systematisch onderzoek voert Storr niet aan. Zijn onderscheid tussen gekozen afzondering en ongewilde eenzaamheid is wel overgenomen in het onderzoek dat daarna kwam.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>eenzaamheid</li><li>creativiteit</li><li>psychoanalyse</li><li>introversie</li><li>zelfonderzoek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="33"><a href="33.html">Quiet</a>. Susan Cain behandelt hetzelfde onderscheid met onderzoek erbij, gericht op introversie in scholen en op de werkvloer.</li>
+          <li value="1204"><a href="1204.html">Journal of a Solitude</a>. May Sarton beschrijft van binnenuit wat Storr van buitenaf betoogt: een dagboek van een jaar alleen wonen en werken.</li>
+          <li value="1205"><a href="1205.html">A Book of Silence</a>. Sara Maitland zoekt de geschiedenis van de stilte op die Storr laat liggen, met kluizenaars en kloosterregels erbij.</li>
+          <li value="1206"><a href="1206.html">Party of One: The Loners' Manifesto</a>. Een verdediging van de alleenganger tegen het vermoeden dat er iets mis met hem is, in essayvorm en zonder klinische inzet.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

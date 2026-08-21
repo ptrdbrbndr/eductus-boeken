@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Descent to the Goddess &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Perera stelt dat vrouwen in een door mannen geordende cultuur een ik ontwikkelen dat is opgebouwd uit wat die orde erkent, en dat geen hoeveelheid succes…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1235">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1235 &middot; Filosofie en mystiek</p>
+    <h1>Descent to the Goddess</h1>
+    <p class="lede">Sylvia Brinton Perera, 1981</p>
+    <p class="stats">
+      <span><b>1918</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1235"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Perera stelt dat vrouwen in een door mannen geordende cultuur een ik ontwikkelen dat is opgebouwd uit wat die orde erkent, en dat geen hoeveelheid succes binnen die orde het ontbrekende goedmaakt, omdat het gezag waaraan zij zich meten buiten henzelf ligt. De weg naar een eigen innerlijk gezag loopt volgens haar niet omhoog maar omlaag, door een afdaling waarin de aangeleerde gestalte stuk voor stuk wordt afgelegd tot er niets meer over is om zich mee te verdedigen. Wat daar wacht is niet de milde moedergodin maar Ereshkigal, de zuster die doodt met haar blik, en die staat voor woede, rouw, onvruchtbaarheid en stilstand. Wie de afdaling doorstaat komt terug met iets wat vooraf niet te bedenken was, en betaalt daar een prijs voor die het gedicht met zoveel woorden noemt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar het boek vandaan komt</h3>
+      <p>Perera schrijft als praktiserend analytica en als opleider aan het C.G. Jung-instituut in New York. Zij staat in de lijn van Jung, Erich Neumann, Esther Harding en Edward Whitmont, met wie zij haar leven deelde. Van die lijn erft zij de gedachte dat mythen beelden bevatten die ook in dromen opduiken, en dat de weg van iemands ontwikkeling zich in zulke beelden laat aflezen.</p>
+      <p>Haar aanleiding is klinisch. Zij ziet vrouwen die naar de maatstaven van hun omgeving geslaagd zijn en zich niettemin ongeldig voelen, en zij herkent daarin een patroon dat zij het animus-ik noemt. Zulke vrouwen hebben, in haar formulering, een gestalte ontwikkeld die past bij wat vaders, leraren en instellingen goedkeuren, en het lukt hun niet die gestalte los te laten omdat er in hun beleving niets onder zit.</p>
+      <h3>Het gedicht</h3>
+      <p>De Sumerische tekst waarop het boek rust is bekend van kleitabletten en behoort tot de oudste overgeleverde verhalende poëzie. Inanna, godin van hemel en aarde, richt haar oor naar het grote beneden en daalt af naar het rijk van haar zuster Ereshkigal. Zij treft voorzorgen: haar dienares Ninshubur krijgt opdracht alarm te slaan als zij niet terugkomt.</p>
+      <p>Bij elk van de zeven poorten wordt haar een sieraad of kledingstuk afgenomen. Naakt en gebogen komt zij bij haar zuster aan; de rechters van de onderwereld spreken hun oordeel uit, Ereshkigal richt de blik van de dood op haar, en haar lijk wordt aan een haak gehangen. Ninshubur zoekt hulp. De grote goden weigeren; alleen Enki, god van het water en de vindingrijkheid, doet iets. Hij maakt uit het vuil onder zijn nagel twee wezens, de kurgarra en de galatur, die man noch vrouw zijn, en stuurt ze naar beneden met het water en het voedsel van het leven.</p>
+      <p>Hun opdracht is merkwaardig en Perera hecht er het meeste aan. Zij mogen niets eisen en niets aanbieden. Ereshkigal ligt te kreunen als een barende, en de twee doen niets anders dan haar klacht herhalen: als zij haar binnenste beklaagt, beklagen zij het hunne. Door dat meegaan wordt Ereshkigal zachter en biedt zij hun een geschenk aan; zij vragen het lijk. Inanna staat op. De galla, de wachters, laten haar echter alleen gaan als er iemand voor in de plaats komt, en die iemand wordt Dumuzi, haar echtgenoot, die tijdens haar afwezigheid onbekommerd op zijn troon zat.</p>
+      <h3>De godin met twee gezichten</h3>
+      <p>Perera leest Inanna en Ereshkigal als twee kanten van hetzelfde. Boven staat de zichtbare, werkzame, begeerde kant; beneden staat wat geen vorm en geen erkenning krijgt. Ereshkigal is niet de boze zuster van het sprookje maar het gebied waar rouw, woede, onvruchtbaarheid en stilstand thuishoren, en haar blik is dodelijk omdat zij geen enkele voorstelling ontziet.</p>
+      <p>Daar hangt een klinische stellingname aan vast. Somberheid en verlamming zijn in haar lezing niet altijd een klacht die moet verdwijnen; soms zijn ze de plaats waar iemand hoort te zijn. De analytica die te snel te hulp schiet, haalt de patiënt weg bij wat zij nodig heeft. Dat is de reden waarom Perera de rol van Enki zo nauwkeurig uitwerkt: hij grijpt niet in en hij redt niet, hij stuurt twee getuigen.</p>
+      <h3>Uitkleden als inwijding</h3>
+      <p>De zeven poorten vormen bij Perera de kern van het inwijdingskarakter. Wat Inanna moet afleggen is precies datgene waaraan zij haar aanzien ontleent: de kroon, de maatstaf en meetlijn, de sieraden, het gewaad. Bij elke poort protesteert zij en telkens luidt het antwoord dat de wegen van de onderwereld volmaakt zijn en niet ter discussie staan.</p>
+      <p>Perera onderscheidt dat van instorten. Een afdaling heeft een vorm: er is een reden om te gaan, er is iemand boven die weet dat je weg bent, er is een afgesproken termijn van drie dagen en nachten, en er is een terugkeer voorzien. Zonder die vorm is er alleen verval. Het onderscheid tussen de twee, en de vraag hoe je weet in welke van beide je zit, is het lastigste punt van het boek en zij lost het niet volledig op.</p>
+      <h3>Meekermen als werkzame houding</h3>
+      <p>Het middel dat werkt is in het gedicht geen list en geen strijd, maar het weerkaatsen van de klacht. Perera maakt daar een houding van die zij tegenover de gangbare hulpvormen zet: geen troost, geen uitleg, geen oplossing, maar getuige zijn en de pijn erkennen zoals hij zich voordoet. Dat de kurgarra en de galatur man noch vrouw zijn, past in haar lezing bij die rol; zij horen bij geen van beide kampen en hebben in de tweestrijd niets te verdedigen.</p>
+      <p>Zij past dit toe op twee niveaus tegelijk: op wat een analytica in de spreekkamer doet en op wat een vrouw met haar eigen donkere kant kan doen. In beide gevallen is de gedachte dezelfde: erkenning maakt beweeglijk wat door bestrijding vastzit.</p>
+      <h3>De terugkeer en de rekening</h3>
+      <p>Het slot van het boek gaat over de prijs. Inanna komt niet vrij zonder plaatsvervanger, en het gedicht wijst Dumuzi aan. Perera leest dat als de onvermijdelijke rekening van elke werkelijke verandering: wie terugkomt met een eigen innerlijk gezag, kan niet ook nog alle betrekkingen, rollen en verwachtingen intact houden die op de oude gestalte waren gebouwd. Iets of iemand komt in de kou te staan.</p>
+      <p>Zij noemt de plaatsvervanger de zondebok-geliefde en houdt de dubbelheid van die aanduiding vast: het is iemand die tegelijk wordt liefgehad en geofferd. In dat spoor werkte zij het onderwerp later verder uit in een afzonderlijke studie over het zondebokcomplex. Het gedicht zelf laat het niet bij Dumuzi's ondergang: zijn zuster Geshtinanna biedt aan de helft van het jaar zijn plaats in te nemen, waarmee de last wordt gedeeld in plaats van afgewenteld.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">animus-ik</td><td>Perera's naam voor een ik dat zijn maatstaven ontleent aan de goedkeuring van de vaderorde en daardoor geen eigen innerlijk gezag ontwikkelt.</td></tr>
+          <tr><td class="term">dochters van de vader</td><td>Vrouwen die hun bekwaamheid en aanzien binnen mannelijke instellingen hebben verworven en de bijbehorende maatstaven verinnerlijkt hebben.</td></tr>
+          <tr><td class="term">Ereshkigal</td><td>De godin van de onderwereld, bij Perera de weggedrukte kant van het vrouwelijke, met rouw, woede en stilstand als haar gebied.</td></tr>
+          <tr><td class="term">het oog van de dood</td><td>De blik waarmee Ereshkigal doodt, door Perera gelezen als het onthullende zien dat geen zelfbeeld ontziet.</td></tr>
+          <tr><td class="term">de bipolaire godin</td><td>De opvatting dat Inanna en Ereshkigal geen tegenstanders zijn maar twee polen van één gestalte, waarvan alleen de bovenste erkend wordt.</td></tr>
+          <tr><td class="term">kurgarra en galatur</td><td>De twee wezens die Enki uit het vuil onder zijn nagel maakt, man noch vrouw, die Inanna terughalen door Ereshkigals klacht mee te kermen.</td></tr>
+          <tr><td class="term">afdaling</td><td>De geordende gang omlaag met een reden, een termijn en iemand die weet dat je weg bent, die Perera onderscheidt van instorten.</td></tr>
+          <tr><td class="term">zondebok-geliefde</td><td>De plaatsvervanger die bij de terugkeer wordt achtergelaten, tegelijk bemind en geofferd, in het gedicht Dumuzi.</td></tr>
+          <tr><td class="term">Enki</td><td>De god van water en vindingrijkheid die niet zelf ingrijpt maar getuigen stuurt, bij Perera het beeld van wat een therapeut behoort te doen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Perera heeft twee soorten materiaal. Het eerste is een werkelijke oude tekst: het gedicht over Inanna's afdaling is bekend van Oud-Babylonische kleitabletten, is in redelijke staat overgeleverd en behoort tot de vroegste verhalende poëzie die wij bezitten. Wat zij navertelt staat er ook. De stap die zij zet, van een religieuze tekst uit het derde en tweede millennium voor Christus naar de innerlijke ontwikkeling van vrouwen in de twintigste eeuw, staat er niet in en volgt er ook niet uit; het is een duiding.</p>
+      <p>Het tweede is klinisch: dromen en uitspraken van vrouwen in analyse, plus haar eigen ervaring. Die zijn geanonimiseerd, door de analytica gekozen en door niemand anders na te trekken, wat in dit genre gebruikelijk is maar in de gewone zin geen bewijs oplevert. Er staat geen enkele meting in, geen vergelijking met een andere aanpak, geen navraag hoe het de beschreven vrouwen later verging. Wie het boek op zijn beweringen over werkzaamheid wil beoordelen, vindt daarvoor geen aanknopingspunt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar geldt de grondslag. De hele redenering rust op Jungs archetypen en het collectief onbewuste, en daarvoor bestaat geen empirische steun; het is een stelsel dat achteraf op elk materiaal past en zich daardoor niet laat weerleggen. Zodra men die aanname wegneemt, blijft er een fijnzinnige literaire lezing over van een Sumerisch gedicht plus een aantal klinische indrukken, en niet een aantoonbare weg van inwijding.</p>
+      <p>Daaraan vast zit een historische aanname die Perera van Neumann en van de godinnenarcheologie overneemt: dat de kracht van het vrouwelijke duizenden jaren in ballingschap zou zijn geweest sinds een vaderorde een oudere godinnenwereld verdrong. Dat beeld, dat vooral met de naam van Marija Gimbutas verbonden is, is door archeologen grotendeels verlaten. Sumerië was geen matriarchaat, en Inanna was een godin van een staatscultus met tempels, priesters en offergaven, geen onderdrukt vrouwelijk beginsel. De tekst getuigt van de godsdienst van een stadstaat, niet van een verloren vrouwenwijsheid.</p>
+      <p>Een derde bezwaar komt uit de feministische hoek zelf. Perera vult het vrouwelijke in met ontvankelijkheid, donkerte, lichamelijkheid en de maan, en het mannelijke met daadkracht, ordening en helderheid. Daarmee blijft precies de tweedeling staan die de feministische kritiek van die jaren aan het afbreken was, en haar begrip animus-ik kan de verstandelijke eerzucht van een vrouw wegzetten als een vermomming in plaats van als iets van haarzelf. Auteurs als Naomi Goldenberg en Demaris Wehr hebben dat bezwaar tegen de jungiaanse vrouwenpsychologie in het algemeen uitgewerkt.</p>
+      <p>Tot slot een praktisch punt. Somberheid als inwijding lezen kan verhelderend zijn voor iemand die in behandeling is en iemand naast zich heeft, wat de omstandigheid is waarvoor Perera schrijft. Buiten die omstandigheid, en het boek is ver buiten de spreekkamer gelezen, kan diezelfde lezing ertoe leiden dat een behandelbare aandoening als een noodzakelijke gang wordt opgevat en dat hulp te lang uitblijft. Het boek waarschuwt daar niet voor.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het gedicht zelf eerst in een moderne vertaling voordat je Perera's duiding erbij pakt; het verschil tussen tekst en lezing is dan later goed te zien.</li>
+        <li>Gebruik haar onderscheid tussen afdaling en instorten als toetsvraag: is er een reden, een termijn en iemand die weet waar je bent.</li>
+        <li>Wie met mensen werkt kan de houding van de kurgarra en de galatur overwegen als tegenwicht tegen de neiging om te troosten of op te lossen: eerst erkennen wat er is.</li>
+        <li>Zoek bij de terugkeer uit wie de rekening betaalt. Perera's zondebok-geliefde is een bruikbare vraag bij elke ingrijpende verandering in werk of betrekkingen.</li>
+        <li>Behandel de veronderstelde voorgeschiedenis van een verdrongen godinnenwereld als beeldspraak en niet als geschiedenis.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Descent to the Goddess: A Way of Initiation for Women</i> (Inner City Books, Toronto, 1981, 111 blz., ISBN 9780919123052), deel 6 in de reeks <i>Studies in Jungian Psychology by Jungian Analysts</i>. Het boek is sindsdien onafgebroken in druk gebleven. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd. Ook Perera's vervolgstudie <i>The Scapegoat Complex</i>, die het slotthema van dit boek uitwerkt, is niet in het Nederlands verschenen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Een boekje van ruim honderd bladzijden waarin de Amerikaanse jungiaanse analytica Sylvia Brinton Perera het Sumerische gedicht over Inanna's afdaling naar de onderwereld leest als beschrijving van een innerlijke weg. Inanna, koningin van hemel en aarde, daalt af naar haar zuster Ereshkigal, moet bij elk van zeven poorten een sieraad of kledingstuk afgeven, komt naakt aan, wordt door de blik van haar zuster gedood en als lijk aan een haak gehangen. Twee wezens die de god Enki uit vuil onder zijn nagel maakt, halen haar terug, niet met wapens maar door Ereshkigals gekerm mee te kermen.</p><p>Perera's uitgangspunt is dat vrouwen zijn grootgebracht als dochters van de vaderorde, met wat zij een animus-ik noemt: een ik dat zijn maat ontleent aan wat mannen als goed erkennen. De afdaling is in haar lezing de weg terug naar wat daaronder is weggedrukt, met inbegrip van woede, rouw en somberte, die zij niet als klachten behandelt die weg moeten maar als het gebied zelf.</p><p>Het boek werd veel gelezen in de vrouwenbeweging en in analytische kringen. De onderbouwing is die van haar vak: een oude tekst, dromen van cliënten, en de archetypenleer van Jung, met alle beperkingen die daaraan vastzitten.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>Jungiaanse psychologie</li><li>godin</li><li>feminisme</li><li>mythologie</li><li>initiatie</li><li>dieptepsychologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="360"><a href="360.html">Archetypen</a>. Archetypen geeft de leer van Jung waarop Perera haar hele redenering bouwt, in zijn eigen bewoordingen.</li>
+          <li value="1226"><a href="1226.html">Eens was God als vrouw belichaamd</a>. When God Was a Woman levert de historische aanname over een verdrongen godinnenwereld die Perera als vanzelfsprekend overneemt.</li>
+          <li value="646"><a href="646.html">The Pregnant Darkness</a>. The Pregnant Darkness werkt binnen dezelfde jungiaanse traditie de gedachte uit dat het donkere gebied vruchtbaar is en niet weggewerkt hoort te worden.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

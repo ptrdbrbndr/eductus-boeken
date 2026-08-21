@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De nachtbruid &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Van Eeden laat zijn verteller beweren dat de oplossing van het raadsel van het leven in de droom ligt. Vico Muralto stelt dat de natuuronderzoekers in een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1327">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1327 &middot; Roman en memoir</p>
+    <h1>De nachtbruid</h1>
+    <p class="lede">Frederik van Eeden, 1909</p>
+    <p class="stats">
+      <span><b>1599</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1327"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Van Eeden laat zijn verteller beweren dat de oplossing van het raadsel van het leven in de droom ligt. Vico Muralto stelt dat de natuuronderzoekers in een doodlopende richting graven, omdat de waarnemingen van het dagleven ophouden bij de dood van het lichaam, terwijl die van de slaap juist beginnen waar de ogen niets meer zien en de huid niets meer voelt. Wie zijn zelfbesef door de slaapgrens heen weet vast te houden, ontdekt volgens hem dat de droomwereld geordend is in herkenbare lagen, dat hij daarin een tweede lichaam heeft met een eigen gevoelsgeheugen, en dat de overgang tussen beide lichamen bij het ontwaken waarneembaar is. Daaruit leidt hij af dat het verval van het zichtbare lichaam niet het einde hoeft te zijn. Die leer staat in een levensverhaal waarin dezelfde man zijn gezin verlaat en zijn tweede vrouw verliest.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Een dode die het woord neemt</h3>
+      <p>De roman begint met een man die zijn eigen begrafenis beschrijft: twaalf bidders, de koets met zwarte pluimen van de tweede klasse, een krans van de burgemeestersvrouw. Wanneer u dit leest, zegt hij, ben ik begraven. Hij woont in een klein Hollands stadje dat ooit een korte glorietijd kende, en doet alles om niet op te vallen, zelfs niet als zonderling.</p>
+      <p>Die opzet is berekend. Hij wil pas gelezen worden als zijn persoon niet meer in de weg staat, want een tijdgenoot met zulke gedachten wordt volgens hem opgesloten of aanbeden. Daarna spreekt hij de lezer rechtstreeks aan: alleen wie niets op gezag aanneemt is de lezer voor wie dit geschreven is.</p>
+      <h3>Vader, moeder, Emmy en Lucia</h3>
+      <p>Vico groeit op tussen een Italiaanse moeder met een diep katholiek geloof en een vader die in de christelijke verheerlijking van het lijden een gif ziet. Die strijd loopt uit op het eerste keerpunt van het boek. Tijdens een zeiltocht op de Noordzee zet de vader zijn zoon voor de keus, Vico weigert zijn moeder af te zweren, de vader vervloekt hem en voert daarna een verkeerde manoeuvre uit. De boot zinkt; Vico wordt na uren door een visser opgepikt, zijn vader verdwijnt in zee.</p>
+      <p>Emmy Tenders, dochter van een Engels-Schotse koopman, is de eerste vrouw die hem geheel inneemt. Zijn huwelijk sluit hij met Lucia del Bono, de pleegdochter van zijn moeder, vroom op de middeleeuwse manier; Vico erkent het echte van dat geloof maar plaatst het aan een oudere tak van de mensheid dan de zijne. Het uiterlijk voorspoedige tijdperk dat volgt, met een loopbaan in de Italiaanse diplomatieke dienst en een standplaats in Den Haag, zijn de jaren waarin de kern van zijn leven elders lag.</p>
+      <h3>Het twaalfde hoofdstuk</h3>
+      <p>Voordat hij over zijn huwelijk vertelt, onderbreekt Vico zijn levensverhaal voor een uiteenzetting over zijn nachtelijke waarnemingsleven. Wie droomt is volgens hem wakkerder dan wie slaapt, en zijn oefening begint bij verontwaardiging: hij verdraagt het niet dat hij nacht na nacht wordt beetgenomen en dingen doet waarvoor hij zich schaamt. Dus neemt hij zich elke avond voor om tijdens het dromen te weten dat hij droomt. Het lukt voor het eerst in een droom over een bloeiende boomgaard in Italië, waarin hij zwevend tussen de takken opmerkt hoe nauwkeurig de schijnbeweging van duizend gekruiste twijgen wordt weergegeven, en midden in de droom overweegt dat hij, die geen boom kan natekenen, dit onmogelijk zelf gemaakt kan hebben.</p>
+      <p>Daarna volgt zijn indeling van de droomwereld in vaste lagen. Er is een sfeer waarin de wereld van de dag vervormd terugkeert, altijd hetzelfde droommeer en dezelfde droomstad. Er is een gelukssfeer met wijde, scherp geziene landschappen, waarin het zelfbesef het sterkst is en het droomlijf licht is en kan zweven, met blauw als kenmerkende kleur. En vlak voor het ontwaken ligt de demonensfeer, met scherpe contouren en spookachtig licht, waar de meeste dromers volgens hem verblijven zonder het te weten.</p>
+      <h3>Twee lichamen</h3>
+      <p>De waarneming waar het boek op steunt is de overgang. Het droomlijf staat met geheven armen te zingen terwijl het slapende lichaam stil op de rechterzijde ligt met de armen over de borst, en beide lichamen hebben een eigen gevoelsherinnering. Een duizelig ogenblik lang gaan zij in elkaar over. Wie dat honderden malen heeft waargenomen, schrijft Vico, kan de gedachte niet meer botweg afwijzen dat er iets is wat na het vergaan van het waarneembare lichaam kan blijven bestaan.</p>
+      <p>In de demonensfeer voert hij een strijd die hij als leerschool beschrijft. Hij waarschuwt daarbij voor de zwakke plek van het droomlijf: in fijnheid van waarneming overtreft het het waaklijf, maar in het beheersen van de hartstochten is het zwakker, en daarom moeten die overdag getemd worden.</p>
+      <h3>Elsje</h3>
+      <p>In het Hollandse stadje ontmoet hij Elsje van Vianen. Bij haar keert de helderheid van zijn dromen terug en heeft hij voor het eerst iemand aan wie hij ze kan vertellen; zij vraagt hem zelfs of hij haar in zijn dromen wil oproepen. Voor haar geeft hij zijn gezin en zijn loopbaan op.</p>
+      <p>Het geluk houdt geen stand. Terwijl Elsje kleertjes zit te maken voor het kind dat komt, weet hij met sombere zekerheid dat hem een beeld van geluk wordt voorgehouden dat hem zal worden ontnomen. Elsje sterft. In het nieuwe land waarheen zij zijn uitgeweken heeft hij geen vredig ogenblik meer, en met zijn wanhoop verdwijnt ook de helderheid van zijn dromen.</p>
+      <h3>Terug in het stadje, en het slot</h3>
+      <p>Wat hem redt is een bericht. Zijn moeder is gestorven en zijn dochter Emilia staat erop haar erfdeel aan haar vader af te staan. Lucia is intussen als abdis in een klooster gegaan. Met dat geld keert hij terug naar het stadje waar hij Elsje vond, en wordt de onopvallende oude heer uit het eerste hoofdstuk.</p>
+      <p>Het einde is het scherpste stuk vertelkunst van het boek. De gedenkschriften breken midden in een zin af: vooreerst, gevolgd door een rij puntjes. Daaronder staat een krantenbericht uit juni 1908 over een brand op het jachtje Elsje voor de haven, waarbij een oude heer overboord sprong om een schippersjongen die niet zwemmen kon op een paar planken naar de haven te brengen. De jongen werd gered, de heer M. verdronk.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Nachtbruid</td><td>De geliefde die in de nachtelijke sfeer wordt ontmoet; het woord komt in de tekst zelf niet voor.</td></tr>
+          <tr><td class="term">Zelfbesef in de droom</td><td>Het weten, tijdens het dromen, dat men droomt, met behoud van de herinnering aan het dagleven; de kern van Van Eedens latere begrip lucide droom.</td></tr>
+          <tr><td class="term">Gelukssfeer</td><td>De laag met wijde, scherp waargenomen landschappen waarin het zelfbesef het sterkst is en gebeden volgens hem met tekens in het landschap worden beantwoord.</td></tr>
+          <tr><td class="term">Droomlijf</td><td>Het tweede lichaam waarin de dromer in die lagen verkeert, met eigen zintuigen en het vermogen te zweven.</td></tr>
+          <tr><td class="term">Demonensfeer</td><td>De laag vlak voor het ontwaken, met wezens die de dromer beetnemen, onder meer met een schijnbaar ontwaken.</td></tr>
+          <tr><td class="term">Reïntegratie</td><td>Het weer samengaan van ziel en waaklichaam bij het ontwaken, door Vico als grond voor zijn verwachting van voortbestaan gebruikt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is een roman en geen verhandeling, maar het middenstuk doet een aanspraak op waarheid. Wat Vico in het twaalfde hoofdstuk beschrijft, komt vrijwel woordelijk overeen met wat Van Eeden vier jaar later publiceerde in <i>A Study of Dreams</i>, waar hij 352 gevallen uit de jaren 1898 tot en met 1912 beschrijft en de term lucide droom invoert.</p>
+      <p>De waarnemingen zelf houden stand. Het weten dat men droomt, het zwevende gevoel en het schijnbare ontwaken in het eigen slaapvertrek zijn verschijnselen die in later slaaponderzoek herkenbaar zijn beschreven. Dat een dromer kan weten dat hij droomt is in het laboratorium aangetoond met vooraf afgesproken oogbewegingen tijdens de remslaap.</p>
+      <p>De gevolgtrekking houdt geen stand op dezelfde manier. Van de vaststelling dat twee lichamen elk hun eigen gevoelsherinnering hebben, gaat Vico rechtstreeks naar de verwachting dat het onwaarneembare deel het waarneembare overleeft. Dat er in de droom een lichaamsbeeld bestaat dat losstaat van de houding van het slapende lichaam, zegt iets over hoe de hersenen een lichaam voorstellen, niet over wat er na de dood gebeurt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het grootste bezwaar is dat het boek uiteenvalt in twee soorten tekst die elkaar in de weg zitten. Het levensverhaal is meeslepend en de slotbladzijden met het afgebroken handschrift en het krantenbericht zijn meesterlijk, maar het middenstuk is een verhandeling in de mond van een personage, die de vertelling tientallen bladzijden stilzet. Wie het om de droomleer doet, kan beter Van Eedens opstel van 1913 lezen.</p>
+      <p>Ten tweede de toon van de verteller. Vico spreekt zijn lezer aan als de enige die zelfstandig denkt, en iedereen die hem niet volgt heet filister of slaaf van de rede. Die vleierij van de instemmende lezer werkt als een schild tegen bezwaren.</p>
+      <p>Ten derde de plaats van de vrouwen. Emmy, Lucia en Elsje worden ieder aan een fase van de mensheid toegewezen en dienen zo de geestelijke ontwikkeling van de verteller; zij krijgen zelden een eigen wil die tegen hem in gaat. Dat Vico zijn gezin verlaat wordt gedragen door zijn overtuiging dat hij in Elsje zijn ware vrouw gevonden heeft, en de gevolgen voor Lucia en de kinderen blijven onbesproken. <i>De nachtbruid</i> wordt zelden bij Van Eedens beste werk gerekend en tegenwoordig vooral gelezen als document uit de voorgeschiedenis van het onderzoek naar lucide dromen.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>De nachtbruid. De gedenkschriften van Vico Muralto</i> (W. Versluys, Amsterdam, 1909, 431 blz.). De volledige tekst van de eerste druk staat op dbnl.org; er is ook een e-boek via de openbare bibliotheek. Engelse vertaling als <i>The Bride of Dreams</i>, door Mellie von Auw (Mitchell Kennerley, New York en Londen, 1913); onder die titel is het boek buiten Nederland bekend. Van dezelfde schrijver zijn <i>De kleine Johannes</i> (1887) en <i>Van de koele meren des doods</i> (1900) veel bekender gebleven.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Frederik van Eeden (1860-1932) was arts, dichter, romanschrijver en stichter van de mislukte kolonie Walden. Hij hield decennialang een droomdagboek bij en publiceerde in 1913 in de Proceedings van de Society for Psychical Research het opstel <i>A Study of Dreams</i>, waarin hij de term lucide droom muntte voor de droom waarin de slaper weet dat hij droomt. Vier jaar eerder had hij diezelfde waarnemingen in een roman ondergebracht.</p><p><i>De nachtbruid</i> heet in ondertitel de gedenkschriften van Vico Muralto, een Italiaanse edelman en diplomaat die als oude man in een vergeten Hollands havenstadje woont en zijn leven opschrijft om pas na zijn dood gelezen te worden. Hij vertelt over zijn vrome moeder en zijn ongelovige vader, over Emmy Tenders, over zijn huwelijk met Lucia del Bono en over Elsje van Vianen, voor wie hij zijn gezin en zijn loopbaan opgeeft.</p><p>Het middelpunt is het twaalfde hoofdstuk, waarin Vico zijn nachtelijke waarnemingsleven uiteenzet: de sferen die hij onderscheidt, het droomlijf dat kan zweven, en de demonen die de dromer beetnemen. Daaruit leidt hij zijn overtuiging af dat iets van de mens het lichaam overleeft.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>roman</li><li>dromen</li><li>nederlands</li><li>bewustzijn</li><li>spiritualiteit</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1325"><a href="1325.html">Les rêves et les moyens de les diriger</a>. Hervey de Saint-Denys beschreef veertig jaar eerder dezelfde oefening, maar weigerde er conclusies over voortbestaan na de dood aan te verbinden.</li>
+          <li value="1326"><a href="1326.html">Studies in Dreams</a>. Arnold-Forster hield in dezelfde jaren aan de andere kant van de Noordzee een droomdagboek bij en kwam tot vergelijkbare handgrepen.</li>
+          <li value="1161"><a href="1161.html">Human Personality and Its Survival of Bodily Death</a>. Myers leverde het begrippenkader waarin Van Eeden zijn waarnemingen plaatste, met dezelfde stap van slaap naar voortbestaan.</li>
+          <li value="358"><a href="358.html">Herinneringen, dromen, gedachten</a>. Jung deed een halve eeuw later hetzelfde in memoirvorm: een leven verteld langs de dromen die het denken van de schrijver vormden.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

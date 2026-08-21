@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NeuroDiversity: The Birth of an Idea &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Singer betoogt dat verschillen in de werking van het zenuwstelsel een eigen sociale en politieke categorie vormen, naast klasse, sekse, etniciteit en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1302">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1302 &middot; Brein en lichaam</p>
+    <h1>NeuroDiversity: The Birth of an Idea</h1>
+    <p class="lede">Judy Singer, scriptie 1998, uitgegeven 2016</p>
+    <p class="stats">
+      <span><b>1411</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1302"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Singer betoogt dat verschillen in de werking van het zenuwstelsel een eigen sociale en politieke categorie vormen, naast klasse, sekse, etniciteit en seksuele geaardheid, en dat autisme daarom niet volledig te vatten is als medische stoornis. Zij stelt tegelijk dat het gangbare sociale model van beperking, dat het nadeel geheel bij de samenleving legt, tekortschiet voor beperkingen die onzichtbaar zijn en waarvan een deel in de persoon zelf zit. Neurologische verscheidenheid biedt volgens haar een derde weg, waarin het verschil erkend wordt zonder als gebrek te worden geboekt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het voorwoord uit 2016</h3>
+      <p>Singer opent met een terugblik op hoe de scriptie ontstond en hoe zij aankijkt tegen de beweging die er later omheen groeide. Haar toon is gereserveerd. Zij stelt vast dat de term inmiddels een veel breder gebied bestrijkt dan waarvoor zij hem bedacht en dat zij zich niet herkent in alles wat er onder haar naam wordt beweerd.</p>
+      <p>De hoofdtekst laat zij ongewijzigd. De lezer heeft daarmee een studentenscriptie uit 1998 voor zich, met de literatuur en de terminologie van dat jaar.</p>
+      <h3>Een korte geschiedenis van autisme</h3>
+      <p>Het eerste inhoudelijke deel schetst hoe de diagnose is ontstaan. Leo Kanner beschreef in 1943 een groep kinderen in Baltimore, Hans Asperger publiceerde in 1944 in Wenen over een verwante groep. Het werk van Asperger bleef decennia onbekend in de Engelstalige wereld tot Lorna Wing er in 1981 een artikel over schreef en de term autismespectrum introduceerde. In 1994 werd Aspergers beschrijving in het Amerikaanse handboek voor psychiatrische diagnostiek opgenomen.</p>
+      <p>Singer gebruikt die geschiedenis om te laten zien dat de grenzen van de categorie in korte tijd sterk verschoven en dat er telkens beroepsbelangen en ouderorganisaties bij betrokken waren. Voor haar volgt daaruit dat autisme evengoed als sociale constructie te beschrijven valt als biologisch feit.</p>
+      <h3>Het sociale model en zijn grens</h3>
+      <p>Vervolgens behandelt zij de theorie van beperking zoals die in Groot-Brittannië was ontwikkeld: een scherp onderscheid tussen de lichamelijke aandoening en de handicap die de samenleving daaraan toevoegt, met de conclusie dat de samenleving moet veranderen. Singer erkent de waarde daarvan voor rolstoelgebruikers en blinden.</p>
+      <p>Haar bezwaar is dat het model geen plaats heeft voor aandoeningen die onzichtbaar zijn, die het denken en het contact zelf raken, en waarbij de betrokkene ook zonder drempels last houdt. Bij autisme leidt de zuivere sociale lezing volgens haar tot ontkenning van wat mensen werkelijk moeilijk vinden.</p>
+      <h3>Drie generaties en de methode</h3>
+      <p>Een aanzienlijk deel van de tekst is autobiografisch. Singer beschrijft haar moeder, een Hongaars-joodse overlevende van de oorlog, zichzelf en haar dochter, en hoe kenmerken die zij op het spectrum plaatst door de drie generaties heen lopen. Zij verantwoordt die keuze met de feministische onderzoekstraditie waarin de positie van de onderzoeker onderdeel van het onderzoek is.</p>
+      <p>De methode is deelnemende observatie: zij was zelf lid van de e-maillijst die zij bestudeerde en citeert berichten van deelnemers. Er zijn geen aantallen, geen steekproef en geen systematische codering.</p>
+      <h3>InLv en het ontstaan van een gemeenschap</h3>
+      <p>Het kernhoofdstuk gaat over Independent Living on the Autistic Spectrum, in 1996 opgezet door Martijn Dekker. Voor het eerst konden mensen met een autismediagnose met elkaar praten zonder de belasting van oogcontact en gezichtsuitdrukking. Singer laat zien hoe daar in korte tijd een eigen woordenschat en een politiek zelfbeeld ontstonden.</p>
+      <p>Zij vergelijkt dat met eerdere bewegingen rond sekse en seksuele geaardheid: eerst een gedeelde ervaring zonder naam, dan een naam, dan een aanspraak op erkenning. Haar formulering dat dit de laatste voorpost van de identiteitspolitiek zou zijn, keert in latere literatuur vaak terug.</p>
+      <h3>Neurologische verscheidenheid als begrip</h3>
+      <p>In het slotdeel voert zij de term in. De verscheidenheid van zenuwstelsels binnen de menselijke soort valt volgens haar te bekijken zoals de verscheidenheid van soorten in een ecosysteem: als een gegeven met waarde en niet als afwijking van een norm. Wat de norm is, is zelf een historische en sociale keuze.</p>
+      <p>Zij werkt het begrip niet uit tot een theorie met toetsbare uitspraken. Het blijft een voorstel voor een andere manier van kijken, met gevolgen voor onderwijs, arbeidsmarkt en zorg die zij aanstipt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Neurodiversiteit</td><td>De verscheidenheid aan zenuwstelsels binnen de menselijke soort, opgevat als een gegeven met waarde in plaats van een verzameling afwijkingen.</td></tr>
+          <tr><td class="term">Neurologische verscheidenheid</td><td>Verschillen in hersenwerking behandeld als sociale indeling naast klasse, sekse en etniciteit.</td></tr>
+          <tr><td class="term">Medisch model</td><td>De opvatting dat het nadeel van een beperking uit de aandoening zelf voortkomt en dat behandeling daarop gericht moet zijn.</td></tr>
+          <tr><td class="term">Sociaal model van beperking</td><td>De opvatting dat het nadeel voortkomt uit drempels die de samenleving opwerpt, door Singer als ontoereikend voor autisme aangemerkt.</td></tr>
+          <tr><td class="term">Autismespectrum</td><td>De door Lorna Wing ingevoerde gedachte dat autistische kenmerken in graden voorkomen en geen scherpe grens hebben.</td></tr>
+          <tr><td class="term">InLv</td><td>De e-maillijst Independent Living on the Autistic Spectrum, in 1996 door Martijn Dekker opgezet en door autistische mensen zelf beheerd.</td></tr>
+          <tr><td class="term">Deelnemende observatie</td><td>Onderzoeksvorm waarbij de onderzoeker zelf lid is van de groep die zij beschrijft.</td></tr>
+          <tr><td class="term">Identiteitspolitiek</td><td>Politiek waarin een groep erkenning claimt op grond van een gedeeld kenmerk, door Singer op de autistische beweging toegepast.</td></tr>
+          <tr><td class="term">Sociale constructie</td><td>De gedachte dat een categorie als autisme mede door beroepsgroepen en handboeken wordt gevormd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing is die van een afstudeerscriptie op bachelorniveau. Het empirische deel bestaat uit deelnemende observatie op een enkele e-maillijst, aangevuld met haar eigen familiegeschiedenis. Er is geen steekproef, geen vergelijkingsgroep en geen systematische analyse. Hoe representatief de beschreven ervaringen zijn, blijft onbesproken.</p>
+      <p>Het theoretische deel is degelijker. Het overzicht van de geschiedenis van de diagnose en van het debat tussen het medische en het sociale model is correct, en de bezwaren tegen het zuivere sociale model zijn ook door anderen geformuleerd. Het boek is vooral waardevol als tijdsdocument: het laat zien hoe een idee ontstond in een vroege internetgemeenschap, geschreven door iemand die erbij zat.</p>
+      <p>De aanspraak dat Singer de term muntte is inmiddels betwist. Een artikel van Botha en collega's in het tijdschrift <i>Autism</i> uit 2024 laat zien dat de woorden neurologische verscheidenheid en neurodiversiteit al tussen 1996 en 1998 op autistische e-maillijsten en in stukken van journalist Harvey Blume voorkwamen, en dat Blume de herkomst zelf bij de online gemeenschap legde. De auteurs concluderen dat het begrip collectief tot stand kwam en dat de toeschrijving aan een enkele persoon een correctie behoeft.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar tegen dit boek is dat het als document van een idee wordt aangeboden terwijl het een ongewijzigde studentenscriptie is die achttien jaar na dato verscheen. De literatuur is die van 1998, de terminologie is verouderd en naar huidige maatstaven soms kwetsend, en het onderzoek zou in deze vorm geen tijdschrift halen. Het nieuwe voorwoord herziet daar niets van.</p>
+      <p>Daar komt de vraag naar het auteurschap van het begrip bij. Als het idee in de autistische internetgemeenschap ontstond en Singer het optekende, dan is haar bijdrage die van een verslaggeefster met academische scholing en is de gemeenschap zelf de auteur. Singer heeft dat deels erkend door veel lijstleden aan te halen.</p>
+      <p>Inhoudelijk is de kern van het voorstel, de vergelijking met biologische verscheidenheid, meer beeld dan begrip. Bij soorten in een ecosysteem is er een aanwijsbare functie voor verscheidenheid; bij verschillen tussen menselijke zenuwstelsels is die functie niet vastgesteld, en de vergelijking zegt niets over de vraag hoeveel steun iemand nodig heeft. Dat is ook het bezwaar dat sinds de jaren negentig tegen de bredere beweging is ingebracht, vaak door ouders van kinderen met een ernstige verstandelijke beperking of zonder spraak: een taal die verschil viert, geeft weinig houvast waar dagelijkse zorg nodig is. Voorstanders antwoorden dat erkenning van verschil en zorg elkaar niet uitsluiten. Het boek voert dat debat niet, omdat het eraan voorafgaat.</p>
+      <p>Tot slot heeft Singer zich na de heruitgave in het openbaar afgezet tegen delen van de beweging waaraan haar naam is verbonden, met uitspraken over gender die veel kritiek kregen. Dat raakt de inhoud van 1998 niet, maar het verklaart waarom het boek inmiddels vaak met voetnoten wordt aangeraden.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het als bronmateriaal bij de geschiedenis van de beweging en niet als inleiding op autisme; daarvoor is de literatuur ingehaald.</li>
+        <li>Leg het naast het artikel van Botha en collega's uit 2024 als de vraag naar de herkomst van de term aan de orde is.</li>
+        <li>Vraag bij het inrichten van werk of onderwijs naar de aanpassing die iemand zelf noemt, in plaats van naar wat bij de diagnose hoort.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>NeuroDiversity: The Birth of an Idea</i>, in eigen beheer uitgegeven, eerst als e-boek in 2016 en in 2017 als gedrukt boek van 82 blz., ISBN 9780648154709. Het bevat de ongewijzigde tekst van Singers scriptie uit 1998 aan de University of Technology Sydney, getiteld <i>Odd People In: The Birth of Community Amongst People on the Autistic Spectrum</i>, met een nieuw voorwoord van de auteur. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd. Een verkorte versie van de scriptie verscheen in 1999 als hoofdstuk in de bundel <i>Disability Discourse</i> onder redactie van Mairian Corker en Sally French.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Dit dunne boek is de afstudeerscriptie sociologie die Judy Singer in 1998 in Sydney schreef, achttien jaar later ongewijzigd uitgegeven met een nieuw voorwoord. De scriptie wordt aangehaald als de plaats waar het woord neurodiversiteit voor het eerst in een academische tekst opdook, als naam voor het idee dat verschillen in hersenwerking op dezelfde manier bekeken kunnen worden als biologische verscheidenheid.</p><p>Singer schrijft vanuit drie posities tegelijk. Zij is sociologe, zij beschrijft zichzelf als middelste van drie generaties vrouwen die ergens op het autismespectrum vallen, en zij deed veldwerk als deelnemer op InLv, een e-maillijst die Martijn Dekker in 1996 in Nederland begon en die door autistische mensen zelf werd beheerd. Het grootste deel van de tekst gaat over wat daar gebeurde toen mensen die elkaar in de fysieke wereld nooit zouden vinden, elkaar via het internet vonden.</p><p>Haar theoretische inzet is een bezwaar tegen het sociale model van beperking zoals Britse gehandicaptenactivisten dat hadden geformuleerd. Dat model legt alle nadeel bij de omgeving. Singer betoogt dat het tekortschiet voor beperkingen die onzichtbaar zijn en deels in de persoon zelf zitten, en stelt neurologische verscheidenheid voor als een eigen categorie naast klasse, sekse en etniciteit.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>autisme</li><li>sociologie</li><li>identiteit</li><li>internet</li><li>zelfuitgegeven</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1303"><a href="1303.html">Nobody Nowhere</a>. De autobiografie die het genre opende waarop Singers deelnemers voortbouwden.</li>
+          <li value="1307"><a href="1307.html">An Anthropologist on Mars</a>. Sacks beschrijft dezelfde jaren van buitenaf, met de klinische blik waartegen de beweging zich richtte.</li>
+          <li value="1305"><a href="1305.html">Songs of the Gorilla Nation</a>. Een memoir uit de vroege autistische zelforganisatie, waarin die gemeenschap van binnenuit zichtbaar wordt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

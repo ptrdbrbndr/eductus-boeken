@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Giordano Bruno and the Hermetic Tradition &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Yates betoogt dat de renaissance een religieuze en magische kern had die de latere geschiedschrijving heeft weggepoetst. Toen Marsilio Ficino in 1463 het…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1249">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1249 &middot; Geschiedenis en samenleving</p>
+    <h1>Giordano Bruno and the Hermetic Tradition</h1>
+    <p class="lede">Frances A. Yates, 1964</p>
+    <p class="stats">
+      <span><b>1955</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1249"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Yates betoogt dat de renaissance een religieuze en magische kern had die de latere geschiedschrijving heeft weggepoetst. Toen Marsilio Ficino in 1463 het <i>Corpus Hermeticum</i> vertaalde, meende hij een leer in handen te hebben die ouder was dan Plato en gelijktijdig met Mozes, opgeschreven door een Egyptische priester die Hermes Trismegistus heette. Die vermeende ouderdom gaf sterrenmagie, talismannen en de gedachte dat de mens de wereld mag bewerken een eerbiedwaardigheid die zij anders nooit hadden gekregen. Giordano Bruno is voor Yates het uiterste punt van die beweging: geen voorloper van de moderne wetenschap, maar een magiër die de Egyptische godsdienst wilde herstellen en die daarvoor in 1600 op de brandstapel eindigde. In haar slotstelling legt zij de aandrift om de natuur te bewerken bij deze traditie, waarmee het hermetisme de doorbraak van de zeventiende-eeuwse natuurwetenschap zou hebben voorbereid.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een vertaling die voorrang kreeg</h3>
+      <p>Het boek opent met een voorval dat Yates herhaaldelijk aanhaalt. Cosimo de' Medici had Ficino aan het werk gezet om Plato in het Latijn te vertalen. Toen er een Grieks handschrift uit Macedonië arriveerde met de geschriften van Hermes Trismegistus, liet Cosimo de Plato liggen en gaf Hermes voorrang. Ficino leverde de vertaling in 1463; zij verscheen in 1471 onder de naam <i>Pimander</i> en beleefde tientallen drukken.</p>
+      <p>De reden voor die voorrang was de datering. Kerkvaders als Lactantius en Augustinus hadden Hermes als een zeer oude Egyptische wijze behandeld, en men las de teksten als een heidense voorbode van het christendom. Yates spreekt van prisca theologia, een oeroude godsleer die via een keten van wijzen zou zijn doorgegeven. Dat de geschriften uit de tweede en derde eeuw na Christus stammen en dus juist door platoonse, joodse en christelijke denkbeelden zijn gekleurd, wist niemand.</p>
+      <h3>Ficino's sterrenmagie</h3>
+      <p>Het derde deel van Ficino's <i>De vita libri tres</i> uit 1489, getiteld <i>De vita coelitus comparanda</i>, is het scharnier van Yates' verhaal. Ficino beschrijft daar hoe iemand de gunstige invloed van de planeten kan opvangen door voedsel, muziek, geuren, kleuren en beelden op de juiste planeet af te stemmen. De drager van die werking is de spiritus, een fijnstoffelijke tussenlaag tussen lichaam en ziel die ook de wereld als geheel zou doortrekken.</p>
+      <p>Yates laat zien waar dat materiaal vandaan komt: uit het Arabische magieboek dat in het Latijn <i>Picatrix</i> heet, en uit de passage in de <i>Asclepius</i> waarin Egyptische priesters beelden bezielen zodat er goden in wonen. Ficino gaat behoedzaam te werk, houdt vol dat het om natuurlijke werkingen gaat en zwijgt over het aanroepen van geesten. Toch staat er in beginsel een magiër in zijn boek.</p>
+      <h3>Pico, de kabbala en het handboek van Agrippa</h3>
+      <p>Giovanni Pico della Mirandola voegde er in 1486 een tweede laag aan toe. In zijn negenhonderd stellingen staat de zin dat geen wetenschap sterker van de goddelijkheid van Christus overtuigt dan magie en kabbala. Pico gebruikte joodse letter- en namenleer om christelijke leerstukken te bewijzen en verbond die met de hermetische wijsheid tot één oeroude overlevering.</p>
+      <p>Yates volgt de verspreiding daarvan naar het noorden, via Johannes Reuchlin naar Heinrich Cornelius Agrippa, wiens <i>De occulta philosophia</i> uit 1533 het geheel in drie boeken ordent en zo tot handboek maakt. Zij besteedt ook aandacht aan de tegenbeweging: dezelfde eeuw waarin de magie geleerd werd, is de eeuw waarin de heksenvervolging op gang kwam, en de scheidslijn tussen toegestane en verboden magie werd steeds moeilijker te trekken.</p>
+      <h3>Bruno als magiër</h3>
+      <p>De tweede helft van het boek gaat over Giordano Bruno uit Nola, die zijn dominicanenklooster ontvluchtte en van Genève naar Parijs, Londen, Wittenberg, Praag en ten slotte Venetië trok. Yates leest zijn Italiaanse dialogen als de geschriften van iemand met een zending. In <i>Spaccio de la bestia trionfante</i> uit 1584 ziet zij een oproep tot hervorming die uitloopt op de klaagzang uit de <i>Asclepius</i> over het verdwijnen van de Egyptische eredienst, met de belofte dat die zal terugkeren.</p>
+      <p>Op die lezing berust haar omstreden uitleg van Bruno's copernicanisme. In <i>La cena de le ceneri</i> uit 1584 verdedigt Bruno de zon in het middelpunt, maar volgens Yates leest hij dat stelsel als een teken, een aankondiging van de terugkeer van de zonnegodsdienst, en interesseert de meetkundige onderbouwing hem nauwelijks. Zij wijst erop dat Bruno Copernicus op punten verkeerd weergeeft en zich vrolijk maakt over de wiskundigen.</p>
+      <p>Ook Bruno's geheugenboeken horen bij dat beeld. In <i>De umbris idearum</i> uit 1582 vult hij een geheugenrad met beelden van sterrenbeelden en decanen, wat volgens Yates meer is dan een onthoudtechniek: door de hemelse orde in zich af te drukken zou de beoefenaar aan die orde deel krijgen.</p>
+      <h3>Het proces en de brandstapel</h3>
+      <p>Bruno keerde in 1591 naar Italië terug, werd in 1592 in Venetië aangegeven en na een lang proces op 17 februari 1600 op het Campo de' Fiori in Rome verbrand. Yates gebruikt de samenvatting van het Romeinse procesdossier die Angelo Mercati in 1942 uitgaf, omdat de stukken zelf verloren zijn.</p>
+      <p>Haar gevolgtrekking gaat tegen de negentiende-eeuwse traditie in. Bruno stierf volgens haar niet als voorvechter van de vrije wetenschap; hij werd veroordeeld als afvallige die een eigen godsdienst verkondigde. Het standbeeld dat vrijdenkers in 1889 op het Campo de' Fiori oprichtten, berust in haar lezing op een misverstand over wie hij was.</p>
+      <h3>Casaubon en het einde van de ouderdom</h3>
+      <p>In 1614 toonde de Zwitserse geleerde Isaac Casaubon met taalkundige argumenten aan dat de hermetische geschriften niet uit het oude Egypte kunnen komen: hun Grieks, hun begrippen en hun verwijzingen horen bij de late oudheid. Yates behandelt dat als een scherpe cesuur. De hele bouw van gezag die op de vermeende ouderdom rustte, verloor daarmee haar grond.</p>
+      <p>Zij laat tegelijk zien dat de gevolgen traag doorwerkten. Wie al in de traditie stond, bleef erin staan, en in de zeventiende eeuw ontstonden nieuwe vormen ervan. Haar eigen vervolg daarop, <i>The Rosicrucian Enlightenment</i> uit 1972, gaat over die nadagen.</p>
+      <h3>De slotstelling over magie en wetenschap</h3>
+      <p>In de laatste hoofdstukken formuleert Yates de gedachte die als de Yates-these bekend is geworden. De magiër, zo betoogt zij, is de eerste die de natuur behandelt als iets waarop de mens mag ingrijpen, terwijl de aristotelische geleerde haar beschouwt. Die verandering van houding zou de voorwaarde zijn geweest waaronder de zeventiende-eeuwse natuurwetenschap kon opkomen, ook al zijn de middelen van beide volstrekt verschillend.</p>
+      <p>Zij formuleert dat voorzichtiger dan haar navolgers het later hebben overgenomen, en spreekt van een geestelijke voorbereiding en niet van een rechtstreekse oorzaak. In de ontvangst van het boek is dat onderscheid grotendeels weggevallen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Corpus Hermeticum</td><td>De verzameling Griekse geschriften over godskennis en wereldbeschouwing die aan Hermes Trismegistus werd toegeschreven en die Ficino in 1463 vertaalde.</td></tr>
+          <tr><td class="term">Hermes Trismegistus</td><td>De vermeende Egyptische priester en wetgever die als schrijver van die teksten gold en die men een tijdgenoot of voorganger van Mozes achtte.</td></tr>
+          <tr><td class="term">prisca theologia</td><td>De aanname van een oeroude godsleer die via een keten van wijzen aan Plato en aan het christendom vooraf zou zijn gegaan.</td></tr>
+          <tr><td class="term">Asclepius</td><td>De Latijnse hermetische tekst met de passage over het bezielen van godenbeelden en de klaagzang over de ondergang van de Egyptische godsdienst, voor Yates de sleuteltekst achter Bruno's zending.</td></tr>
+          <tr><td class="term">spiritus</td><td>De fijnstoffelijke tussenlaag tussen lichaam en ziel waarlangs volgens Ficino de invloed van de planeten wordt opgevangen.</td></tr>
+          <tr><td class="term">talisman</td><td>Een beeld of voorwerp dat onder de juiste hemelstand is gemaakt en daardoor een planeetinvloed zou vasthouden.</td></tr>
+          <tr><td class="term">magus</td><td>Yates' aanduiding voor de renaissancefiguur die zich als vroom bewerker van de natuur opstelt, tegenover de beschouwende geleerde.</td></tr>
+          <tr><td class="term">hiëroglief</td><td>Een teken dat een waarheid in één beeld samenvat; Yates leest Bruno's copernicaanse schema als zo'n teken en niet als sterrenkundig model.</td></tr>
+          <tr><td class="term">Casaubon-datering</td><td>Het taalkundige bewijs uit 1614 dat de hermetische geschriften uit de late oudheid stammen, waarmee hun gezag als oeroude wijsheid wegviel.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Yates werkte aan het Warburg Institute, dat over de handschriften en oude drukken beschikte die zij nodig had, en zij las Ficino, Pico, Agrippa en Bruno in de oorspronkelijke talen. Grote stukken van het boek bestaan uit vertaalde en toegelichte passages, zodat de lezer haar redenering kan volgen en kan zien wat er werkelijk staat. Voor het proces tegen Bruno gebruikt zij de in 1942 uitgegeven samenvatting van het Romeinse dossier.</p>
+      <p>De reconstructie van de vertaalgeschiedenis en van de invloed van Ficino op Pico, Reuchlin en Agrippa is grotendeels overeind gebleven. Ook de vaststelling dat Bruno's Latijnse geheugenwerken vol magische beelden staan en dat hij zijn zending in religieuze termen beschreef, is door latere onderzoekers niet weerlegd.</p>
+      <p>Zwakker is de stap van tekst naar drijfveer. Dat Bruno hermetische taal gebruikt, staat vast; dat die taal zijn eigenlijke bedoeling weergeeft en zijn sterrenkundige uitspraken slechts zinnebeeld zijn, is een uitleg die Yates aannemelijk maakt zonder haar te bewijzen. Voor de laatste stap, van hermetisme naar wetenschappelijke omwenteling, draagt zij vooral overeenkomsten in houding aan en geen aantoonbare lijnen tussen personen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De slotstelling is in het vakgebied verworpen. Robert Westman liet in 1977 in het opstel <i>Magical Reform and Astronomical Reform: The Yates Thesis Reconsidered</i> zien dat de sterrenkundigen die er werkelijk toe deden hun werk niet aan hermetische bronnen ontleenden, en de bundel <i>Occult and Scientific Mentalities in the Renaissance</i> die Brian Vickers in 1984 uitgaf, bracht bezwaren uit verschillende hoeken samen. De ene verwijzing naar Hermes Trismegistus in het boek van Copernicus uit 1543 is een sierlijke wending in een tekst die verder op meetkunde en waarneming rust.</p>
+      <p>Brian Copenhaver heeft erop gewezen dat de wijsgerige verhandelingen van het <i>Corpus Hermeticum</i> vrijwel geen magie bevatten. De magie komt uit de <i>Asclepius</i> en uit Arabische handboeken, dus Yates' beeld van één hermetische traditie waarin godskennis en magie samenvallen, is voor een deel haar eigen bouwsel. Wouter Hanegraaff heeft later beschreven hoe de term hermetisme in de twintigste eeuw tot verzamelnaam uitgroeide en welke gevolgen dat had.</p>
+      <p>Het beeld van Bruno is bijgesteld. Hilary Gatti liet in <i>Giordano Bruno and Renaissance Science</i> uit 1999 zien dat zijn belangstelling voor het oneindige heelal, de beweging van de aarde en de atoomleer zelfstandig gewicht heeft en niet in magie opgaat. De aanklachten in het procesdossier zijn bovendien in hoofdzaak geloofsleerstellig: de drie-eenheid, de menswording, de verandering van brood en wijn, de zielsverhuizing en de meerheid van werelden. Dat Bruno voor een Egyptische godsdiensthervorming zou zijn verbrand, gaat verder dan de stukken toelaten.</p>
+      <p>Het boek is geschreven door iemand die haar zaak bepleit. Yates schrijft meeslepend en laat de lezer weinig ruimte om af te slaan; de overgangen tussen wat een bron zegt, wat zij eruit afleidt en wat zij vermoedt, zijn niet altijd aangegeven. Wie het gebruikt, doet er goed aan die drie lagen zelf uit elkaar te houden. Wat het boek daarnaast niet doet, is uitzoeken wie deze teksten lazen en in welke aantallen; het is een geschiedenis van denkbeelden en niet van lezers.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het als de beste beschikbare ingang tot de renaissancemagie en niet als geldende verklaring voor de opkomst van de natuurwetenschap.</li>
+        <li>Houd de drie lagen uit elkaar: wat de bronnen zeggen, wat Yates eruit afleidt en wat zij vermoedt.</li>
+        <li>Neem bij de hoofdstukken over Bruno het werk van Hilary Gatti erbij voor zijn sterrenkundige en natuurfilosofische kant.</li>
+        <li>Gebruik de datering van Casaubon als toets bij latere schrijvers die de hermetische teksten opnieuw voor oud-Egyptisch verklaren.</li>
+        <li>Let bij navertellingen van de Yates-these op de sprong van geestelijke voorbereiding naar oorzaak; die sprong zit niet in dit boek maar wel in de ontvangst ervan.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Giordano Bruno and the Hermetic Tradition</i> (Routledge &amp; Kegan Paul, Londen, en University of Chicago Press, Chicago, 1964, ca. 466 blz., ISBN 9780226950075). Nederlandse vertaling: <i>Giordano Bruno en de hermetische traditie</i>, vertaald door Jos Rijnders, eindredactie Karin Leeuwenhoek (Synthese, Rotterdam, 2011, 438 blz., ISBN 9789062719723). Van Yates verscheen ook <i>De geheugenkunst</i> in het Nederlands.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Het boek waarmee Frances Yates (1899-1981) van het Warburg Institute in Londen het onderzoek naar de renaissance van richting veranderde. Haar vertrekpunt is een vergissing. In 1463 onderbrak Marsilio Ficino in Florence zijn vertaling van Plato om eerst een pas aangekomen Grieks handschrift om te zetten: de teksten die aan Hermes Trismegistus werden toegeschreven. Men hield die voor Egyptische wijsheid uit de tijd van Mozes of ouder. In werkelijkheid zijn ze in de tweede en derde eeuw na Christus geschreven, wat Isaac Casaubon in 1614 aantoonde. In de anderhalve eeuw daartussen konden magie, sterrenleer en talismannen als eerbiedwaardig oud gelden.</p><p>Yates volgt die lijn van Ficino via Pico della Mirandola en Agrippa naar Giordano Bruno, die in 1600 in Rome werd verbrand. Zij leest Bruno als godsdiensthervormer die de Egyptische eredienst uit de hermetische geschriften wilde herstellen, en zijn instemming met Copernicus als een teken van goddelijke waarheden eerder dan als sterrenkunde. Daarmee bestrijdt zij het negentiende-eeuwse beeld van Bruno als martelaar van de wetenschap.</p><p>Het boek werd meteen gezaghebbend en is nog altijd leesbaar en goed gedocumenteerd. De grote gevolgtrekking, dat de hermetische magie de weg vrijmaakte voor de moderne natuurwetenschap, is door wetenschapshistorici afgewezen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>hermetisme</li><li>renaissance</li><li>magie</li><li>wetenschapsgeschiedenis</li><li>ideeëngeschiedenis</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="766"><a href="766.html">The Art of Memory</a>. The Art of Memory van dezelfde schrijfster werkt de geheugenkunst van Bruno uit die hier maar één hoofdstuk krijgt.</li>
+          <li value="948"><a href="948.html">The Copernican Revolution</a>. The Copernican Revolution geeft de sterrenkundige inhoud van het copernicaanse stelsel, waarmee de lezer kan nagaan hoeveel daarvan bij Bruno terugkomt.</li>
+          <li value="1254"><a href="1254.html">Esotericism and the Academy</a>. Esotericism and the Academy behandelt hoe de term hermetisme na Yates in het onderzoek is gaan werken en wat daar mis mee ging.</li>
+          <li value="1250"><a href="1250.html">The Occult Sciences in the Renaissance</a>. The Occult Sciences in the Renaissance neemt hetzelfde materiaal door en komt tot een tegengesteld oordeel over de waarde ervan.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

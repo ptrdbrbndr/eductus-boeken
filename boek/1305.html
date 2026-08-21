@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Songs of the Gorilla Nation &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Prince-Hughes betoogt dat zij menselijke omgang niet van mensen heeft geleerd maar van gorilla's, en dat dit geen curiositeit is maar volgt uit de aard…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1305">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1305 &middot; Overleven en getuigen</p>
+    <h1>Songs of the Gorilla Nation</h1>
+    <p class="lede">Dawn Prince-Hughes, 2004</p>
+    <p class="stats">
+      <span><b>1361</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1305"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Prince-Hughes betoogt dat zij menselijke omgang niet van mensen heeft geleerd maar van gorilla's, en dat dit geen curiositeit is maar volgt uit de aard van haar autisme. Menselijk sociaal verkeer verloopt via snelle blikken, taal met dubbele bodems en onuitgesproken regels die zij niet kan aflezen. Gorilla's doen het trager, lijfelijker en met gebaren die zich laten leren: elkaar niet aanstaren, zijdelings naderen, aanwezigheid toestaan voordat er contact komt. Door twaalf jaar lang een groep in de dierentuin van Seattle te bestuderen kreeg zij toegang tot begrippen als geduld, rouw en genegenheid die haar in menselijk gezelschap ontgingen. Daaruit trekt zij ook een zedelijke gevolgtrekking: wie zo behandeld wordt door dieren, kan die dieren geen persoonschap ontzeggen.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Een kindertijd zonder naam voor het probleem</h3>
+      <p>Prince-Hughes werd in 1964 geboren in Carbondale, Illinois. Haar vader onderhield verwarmings- en koelinstallaties, haar moeder was thuis. Ze beschrijft een kind dat licht, geluid, geuren en aanraking ondraaglijk sterk binnenkrijgt, dat urenlang naar draaiende dingen kan kijken en dat de bedoeling van andere kinderen niet vat.</p>
+      <p>Op de middelbare school werd ze zwaar gepest en mishandeld. Ze haakte af zonder diploma en raakte, in haar eigen woorden, technisch gesproken dakloos. In die jaren dronk ze veel en gebruikte ze drugs. In Seattle hield ze zich in leven met werk als danseres in een stripclub. Er was in die periode geen diagnose en geen woord voor wat er misging.</p>
+      <h3>Het eerste bezoek aan de dierentuin</h3>
+      <p>Op haar twintigste ging ze naar Woodland Park Zoo in Seattle en kwam bij de gorilla's terecht. De ontmoeting is het scharnier van het boek. Wat ze zag was een samenleving die zich langzaam genoeg voltrok om te volgen: dieren die oogcontact vermijden omdat aanstaren een dreiging is, die van opzij naderen, die uren naast elkaar zitten zonder iets te doen.</p>
+      <p>Ze kwam dag na dag terug en begon te noteren wie wat deed en in welke volgorde. Die schriften vielen de onderzoeksleider van de dierentuin op, en dat leidde ertoe dat ze er ging werken. In totaal bestudeerde ze de groep twaalf jaar.</p>
+      <h3>Congo</h3>
+      <p>De zilverrug Congo krijgt in het boek de rol die in andere memoires een leraar of therapeut heeft. Hij liet haar toe, hield haar in de gaten, zocht haar op als zij van streek was. Zijn dood is de zwaarste passage van het boek en levert haar het besef op dat verdriet om een dier niet minder is dan verdriet om een mens.</p>
+      <p>Prince-Hughes gebruikt die verhouding om iets over zichzelf duidelijk te maken. Bij mensen kwam ze niet toe aan gevoelens omdat ze bezig was met het ontcijferen van de vorm; bij de gorilla's viel die last weg en bleef de inhoud over.</p>
+      <h3>Wat de gorilla's haar leerden</h3>
+      <p>Ze beschrijft de gorillagroep als een stelsel met regels dat te leren valt. Begroetingen verlopen volgens een vaste volgorde. Rang wordt zichtbaar gemaakt zonder geweld. Kinderen worden verdragen. Verzoening gebeurt door aanraking, niet door woorden. Dat alles noemt zij een grammatica, en zij zegt die grammatica te hebben overgezet naar de omgang met mensen.</p>
+      <p>Daar zit haar antropologische claim. Als sociaal gedrag bij gorilla's een leerbaar stelsel is, dan is menselijk sociaal gedrag dat in beginsel ook, en dan is het probleem van een autistisch mens minder een gebrek aan gevoel dan een gebrek aan toegang tot de code. Het is een stelling over autisme die zij niet toetst maar aan zichzelf laat zien.</p>
+      <h3>Terug naar de mensenwereld</h3>
+      <p>In 1987 begon ze aan een bachelor. Ze promoveerde daarna in interdisciplinaire antropologie via een afstandsopleiding aan een instelling in Zwitserland en werd in 2000 buitengewoon docent aan Western Washington University. In datzelfde jaar, op haar zesendertigste, kreeg ze de diagnose Asperger-syndroom.</p>
+      <p>Het slot van het boek laat een leven zien dat er van buiten gewoon uitziet: een partner, een zoon, een aanstelling. Ze houdt erbij staande dat de moeilijkheden niet verdwenen zijn. Gesprekken blijven zwaar, aanraking blijft ingewikkeld, en de rust die zij bij de gorilla's vond keert bij mensen zelden terug.</p>
+      <h3>Gorilla's als personen</h3>
+      <p>In het laatste deel wordt de memoir een pleidooi. Prince-Hughes spreekt van gorilla people en stelt dat gorilla's aan de gangbare voorwaarden voor persoonschap voldoen: zelfbesef, geheugen, gevoelsleven, een sociale geschiedenis. Daaruit volgt volgens haar dat zij grondrechten toekomen en dat de dierentuin waaraan zij haar leven te danken heeft, in die vorm niet zou moeten bestaan.</p>
+      <p>Ze schrijft dat spanning niet weg. Het boek dankt zijn kern aan dieren in gevangenschap en verzet zich tegelijk tegen die gevangenschap.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Asperger-syndroom</td><td>De diagnose die zij op haar zesendertigste kreeg, in het toen gangbare onderscheid binnen het autismespectrum voor mensen zonder taalachterstand.</td></tr>
+          <tr><td class="term">Gorilla people</td><td>Haar aanduiding voor gorilla's als personen in plaats van als dieren, bedoeld als beschrijving en niet als beeldspraak.</td></tr>
+          <tr><td class="term">Persoonschap</td><td>Het geheel van eigenschappen, zoals zelfbesef en gevoelsleven, waaraan een wezen volgens haar moet voldoen om rechten toe te komen.</td></tr>
+          <tr><td class="term">Zilverrug</td><td>Volwassen mannetjesgorilla met grijs rugvel die de groep leidt; in haar verhaal is dat Congo.</td></tr>
+          <tr><td class="term">Deelnemende observatie</td><td>De antropologische werkwijze waarbij de onderzoeker meedoet in de groep die zij beschrijft, hier toegepast op een gorillagroep in een dierentuin.</td></tr>
+          <tr><td class="term">Sensorische overprikkeling</td><td>Het te sterk binnenkomen van licht, geluid, geur en aanraking, dat volgens haar aan haar sociale onvermogen voorafgaat.</td></tr>
+          <tr><td class="term">Zijdelings naderen</td><td>De gorillagewoonte om niet frontaal en niet starend op een ander af te gaan, die zij overneemt in de omgang met mensen.</td></tr>
+          <tr><td class="term">Ethnografie van het dagboek</td><td>De vorm van haar eerdere gorillaboek, waarin zij een jaar lang per dag noteerde wat de groep deed.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een memoir en steunt in de eerste plaats op haar eigen herinnering. Daar hoort de gebruikelijke beperking bij: zij herleest haar hele jeugd door een diagnose die zij pas op haar zesendertigste kreeg, en de tekst kan niet scheiden wat zij toen voelde van wat zij nu begrijpt.</p>
+      <p>Achter de memoir liggen wel twaalf jaar aantekeningen. Die vormden de grondstof voor haar eerdere boek <i>Gorillas Among Us</i> (2001), waarin zij een jaar lang per dag beschrijft wat de gorillagroep deed. Wie wil nagaan hoe zorgvuldig zij waarnam, moet dat boek erbij nemen; in de memoir zelf staan de waarnemingen in verhaalvorm.</p>
+      <p>De persoonlijke essay die zij schreef voor <i>Aquamarine Blue 5</i> (2002), een bundel met stukken van autistische studenten, groeide uit tot deze memoir. Dat verklaart de opbouw: het boek is geschreven als getuigenis binnen een reeks getuigenissen, niet als onderzoeksverslag.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat het boek als kennis aanbiedt wat methodisch niet gecontroleerd is. Vicki K. Bentley-Condit noemde haar eerdere gorillaboek in het <i>Journal of Anthropological Research</i> nogal antropomorf en onwetenschappelijk, met de aantekening dat Prince-Hughes ook geen wetenschappelijk overzicht wilde schrijven maar een verhaal. In de memoir weegt datzelfde bezwaar zwaarder, want hier zijn de gorilla's de bron van haar zedelijke vorming. Als de gevoelens die zij bij hen afleest deels haar eigen invulling zijn, verandert de betekenis van het hele boek.</p>
+      <p><i>Kirkus Reviews</i>, verder welwillend, zette vraagtekens bij twee dingen: haar herinneringen aan haar eigen geboorte, en haar bewering dat zij met de dieren communiceerde. Dat zijn precies de plaatsen waar de lezer alleen haar woord heeft. In <i>Library Journal</i> merkte Corey Seeman op dat de lange beschrijvingen van gorillagedrag het verhaal laten vastlopen.</p>
+      <p>De doctorstitel op het omslag doet meer werk dan hij kan dragen. De promotie kwam tot stand via een afstandsopleiding bij een instelling in Zwitserland, buiten het gewone Amerikaanse universitaire stelsel. Dat maakt haar waarnemingen niet minder waard, maar het gezag dat de titel bij een lezer oproept staat er niet los van.</p>
+      <p>Ten slotte laat het boek de spanning tussen dankbaarheid en dierenrechten onopgelost. Zij pleit voor grondrechten voor mensapen en beschrijft tegelijk hoe een leven in een dierentuin haar redde. Dat is eerlijk opgeschreven, maar het is geen antwoord.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Songs of the Gorilla Nation: My Journey Through Autism</i> (Harmony Books, New York, 2004, 225 blz., ISBN 9781400050581); paperback bij Three Rivers Press (New York, 2005, 240 blz., ISBN 9781400082155) en bij Souvenir Press (Londen, 2004). Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd. Ook haar eerdere boeken <i>Gorillas Among Us: A Primate Ethnographer's Book of Days</i> (University of Arizona Press, 2001) en de door haar samengestelde bundel <i>Aquamarine Blue 5: Personal Stories of College Students with Autism</i> (2002) zijn niet in het Nederlands verschenen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Dawn Prince-Hughes groeide op in Carbondale, Illinois, zonder dat iemand wist wat er met haar aan de hand was. Ze verdroeg licht, geluid en aanraking slecht, begreep niet wat andere kinderen van haar wilden, werd op school mishandeld, verliet de middelbare school zonder diploma en leefde daarna een tijd op straat in Seattle. Ze hield zich staande met werk in een stripclub.</p><p>Op haar twintigste liep ze de gorillaverblijven van Woodland Park Zoo binnen. Wat ze daar zag herkende ze: dieren die elkaar niet aankijken, die traag naderen, die met kleine gebaren duidelijk maken wat ze willen. Ze kwam terug, ging aantekeningen maken, en die aantekeningen vielen de onderzoeksleider van de dierentuin op. Twaalf jaar lang bestudeerde ze de groep, met de zilverrug Congo als naaste.</p><p>Het boek beschrijft hoe ze via die dieren leerde wat woede, zorg en genegenheid zijn, en hoe ze daarna terugkeerde naar de school en promoveerde in de antropologie. Op haar zesendertigste kreeg ze de diagnose Asperger-syndroom. De gorilla's noemt ze personen met rechten. Die stap van waarneming naar zedelijk oordeel is het punt waarop de lezer zelf moet beslissen hoe ver hij meegaat.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>autisme</li><li>memoir</li><li>antropologie</li><li>dieren</li><li>eenzaamheid</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1303"><a href="1303.html">Nobody Nowhere</a>. Donna Williams schrijft over dezelfde ontdekking op latere leeftijd dat er een naam bestaat voor wat er aan de hand is, zonder de omweg via dieren.</li>
+          <li value="1302"><a href="1302.html">NeuroDiversity: The Birth of an Idea</a>. Judy Singer leverde het woord waarmee Prince-Hughes haar eigen verhaal later kon plaatsen; haar boek geeft de begripsgeschiedenis die in deze memoir ontbreekt.</li>
+          <li value="1304"><a href="1304.html">The Mind Tree</a>. Tito Mukhopadhyay beschrijft van binnenuit dezelfde kloof tussen willen en doen, maar als kind dat niet spreekt en dus zonder de omgang die Prince-Hughes uiteindelijk bereikte.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Esotericism and the Academy &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Hanegraaff stelt dat westerse esoterie geen samenhangende traditie is die zichzelf zo noemde, maar een verzamelbak die door anderen is aangelegd. Vanaf de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1254">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1254 &middot; Geschiedenis en samenleving</p>
+    <h1>Esotericism and the Academy</h1>
+    <p class="lede">Wouter J. Hanegraaff, 2012</p>
+    <p class="stats">
+      <span><b>1959</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1254"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Hanegraaff stelt dat westerse esoterie geen samenhangende traditie is die zichzelf zo noemde, maar een verzamelbak die door anderen is aangelegd. Vanaf de renaissance bouwden geleerden een verhaal over oeroude wijsheid die van Zarathoestra en Hermes Trismegistus naar Plato en het christendom zou lopen. Vanaf de zeventiende eeuw bouwden protestantse theologen en verlichte filosofen daar het spiegelbeeld van: een geschiedenis van dwaling waarin magie, alchemie, astrologie en gnosis de plaats kregen van alles wat de westerse cultuur niet wilde zijn. Dat afstoten is volgens Hanegraaff geen bijzaak in de geschiedenis van het westerse denken maar de manier waarop dat denken zichzelf heeft afgebakend. Zijn boek is daarom geen geschiedenis van de esoterie maar een geschiedenis van de herinnering eraan.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat het boek wel en niet is</h3>
+      <p>Het boek behandelt niet wat alchemisten, astrologen of theosofen deden en geloofden. Het behandelt wat geleerden en denkers over hen hebben gezegd, van de vijftiende eeuw tot vandaag. Hanegraaff ontleent daarvoor aan de egyptoloog Jan Assmann het begrip mnemohistorie: de geschiedenis van wat een cultuur meent dat er gebeurd is, tegenover de geschiedenis van wat er gebeurde. Westerse esoterie bestaat volgens hem grotendeels als voortbrengsel van zo'n herinnering, en het onderzoek ernaar moet daarom bij het uitzoeken van die herinnering beginnen.</p>
+      <p>De opzet volgt vier stappen met titels die op elkaar zijn gebouwd: de geschiedenis van de waarheid, de geschiedenis van de dwaling, de dwaling van de geschiedenis en de waarheid van de geschiedenis, gevolgd door een slothoofdstuk over het herstellen van de herinnering.</p>
+      <h3>De geschiedenis van de waarheid</h3>
+      <p>In de renaissance ontstond het denkbeeld dat er een oorspronkelijke godskennis had bestaan, ouder dan Plato, overgeleverd via Zarathoestra, Hermes Trismegistus, Orpheus en Pythagoras, en dat het christendom daarvan de vervulling was. Hanegraaff onderscheidt drie varianten die vaak door elkaar worden gehaald. De <i>prisca theologia</i>, de oorspronkelijke godgeleerdheid, gaat uit van verval sinds die oorsprong en hoopt op herstel. De <i>philosophia perennis</i> benadrukt juist onafgebroken voortbestaan en algemene geldigheid. De <i>pia philosophia</i> denkt in groei: alle volken kregen glimpen van de waarheid, die in het christendom tot rijpheid kwam. Wie die drie uit elkaar houdt, begrijpt waarom esoterische denkers tegelijk terugkijken naar een verloren oertijd en vooruit naar een komende vervulling.</p>
+      <p>Voor het geheel van die wijsheidsverhalen gebruikt hij de term platoons oriëntalisme: een lezing van Plato waarin die zelf schatplichtig heet aan oosterse leraren, en waaronder alchemie, astrologie, theürgie, getallenleer en kabbala als één familie kunnen worden ondergebracht. Marsilio Ficino is er het duidelijkste voorbeeld van. Met Pico della Mirandola kwam daar het denkbeeld bij dat deze wijsheid verborgen is en voor de menigte niet toegankelijk, en dat maakte haar in de ogen van tegenstanders meteen verdacht.</p>
+      <h3>De geschiedenis van de dwaling</h3>
+      <p>Tegen dat verhaal ontstond onmiddellijk verzet. George van Trebizonde, Savonarola en Gianfrancesco Pico bestreden het platonisme als heidens. Johann Weyer, ooit leerling van Agrippa, maakte er in <i>De praestigiis daemonum</i> (1563) een geschiedenis van demonische besmetting van, met een stamboom van duivelaanbidders die van Simon Magus via Porphyrius en Proclus naar de auteur van de <i>Picatrix</i> loopt. Hanegraaff noemt dat platoons oriëntalisme met omgekeerd teken. Pico's negenhonderd stellingen verschenen in 1486, hetzelfde jaar waarin de <i>Malleus maleficarum</i> uitkwam, en de eeuw daarna liep het slecht af met wie de oude wijsheid bleef verdedigen: Francesco Patrizi's <i>Nova de universis philosophia</i> uit 1591 belandde op de Index.</p>
+      <p>De beslissende wending kwam van protestantse zijde. Wie de kerkvaders van heidens platonisme beschuldigt, maakt hen tot voorwerp van geschiedenis in plaats van gezaghebbende gidsen. Jacob Thomasius (1622-1684) bracht de tegenstelling terug tot twee punten die volgens hem heidendom en christendom onverenigbaar maakten: de gedachte dat de wereld even eeuwig is als God, tegenover schepping uit het niets, en de gedachte dat de mens wordt gered door kennis van zijn eigen goddelijke aard, tegenover verlossing door openbaring. Uit Thomasius kwam <i>Das Platonisch-Hermetisches Christenthum</i> van Ehregott Daniel Colberg (1690-1691) voort, volgens Hanegraaff de eerste eigenlijke studie van westerse esoterie, geschreven als aanklacht tegen paracelsisme, rozenkruisers en de theosofie van Jakob Böhme.</p>
+      <h3>De dwaling van de geschiedenis</h3>
+      <p>In de achttiende eeuw kreeg het afstoten zijn blijvende vorm. Christoph August Heumann (1681-1764), die als grondlegger van de moderne geschiedschrijving van de wijsbegeerte geldt, stelde zes kenmerken op van onechte wijsbegeerte: onvruchtbare bespiegeling, beroep op gezag in plaats van bewijs, steunen op overlevering in plaats van rede, vermenging met bijgeloof, duistere beeldtaal, en zedelijk bederf. Alle zes wees hij toe aan de stroom die Hanegraaff platoons oriëntalisme noemt. Jacob Brucker nam het over in zijn grote filosofiegeschiedenis, en daarmee lag de indeling voor twee eeuwen vast.</p>
+      <p>In de negentiende eeuw werden magie en het occulte de tegenpool van wetenschap en rede. Hanegraaff volgt hoe het woord occult van betekenis verschoof: van verborgen werkzame eigenschappen in de aristotelische natuurleer, via geheime kennis voor ingewijden, naar de occulte wetenschappen als verzamelnaam voor het achterhaalde. Het terrein raakte uit de universiteit verdreven en werd het domein van liefhebbers en van sensatielectuur. Collin de Plancy's <i>Dictionnaire infernal</i> verscheen tussen 1846 en 1848 als deel van de encyclopedie van Migne, wat laat zien hoe ver het onderwerp toen al van de wetenschap af stond.</p>
+      <h3>De waarheid van de geschiedenis</h3>
+      <p>De terugkeer kwam uit Duitsland. De romantiek en het mesmerisme, met hun leer van een levensvloeistof die geest en stof verbindt, gaven aan helderziendheid, droom en slaapwandelen een plaats binnen de natuurkennis in plaats van erbuiten. Wat de Verlichting had weggezet als bijgeloof werd nu gelezen als werking van de ziel, en de romantische schrijvers over het slaapwandelen bouwden daar een tegenleer op tegen het verlichtingsdenken. Joseph Ennemoser goot dat in zijn <i>Geschichte der Magie</i> in de vorm van een ontwikkelingsgang waarin de oude wijsheid zich geleidelijk ontvouwt.</p>
+      <p>In de twintigste eeuw kreeg dat een vervolg in de kring rond de Eranos-bijeenkomsten in Ascona, met Carl Gustav Jung, Henry Corbin, Mircea Eliade en, op afstand, Gershom Scholem. Hanegraaff noemt hun houding religionisme: de aanname dat achter de historische vormen een tijdloze religieuze kern schuilt, waardoor de geschiedenis ondergeschikt raakt aan de zoektocht naar die kern. Scholem is voor hem de gedeeltelijke uitzondering, omdat die de filologie niet opgaf. Het eigenlijke geschiedkundige onderzoek begint volgens hem bij Will-Erich Peuckert, Lynn Thorndike en Frances Yates, en groeit vanaf de late twintigste eeuw uit tot een vak met leerstoelen en tijdschriften, mede door het werk van Antoine Faivre.</p>
+      <h3>Het slot: bestaat het onderwerp?</h3>
+      <p>In de conclusie stelt Hanegraaff de vraag of westerse esoterie iets is dat bestond of iets dat door onderzoekers is gemaakt. Zijn antwoord is beide. De categorie is een constructie, maar geen willekeurige: zij verwijst naar een samenhangend geheel van denkbeelden dat de westerse cultuur eeuwenlang eerst heeft gevoed en daarna heeft afgestoten. De breuklijn eronder noemt hij die tussen kosmotheïsme, waarin het goddelijke met de kosmos samenvalt, en het bijbelse monotheïsme, waarin God en schepping gescheiden blijven. Wie dat conflict wegdenkt, houdt een geschiedenis van het westerse denken over waarin de helft van de partijen ontbreekt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">mnemohistorie</td><td>De geschiedenis van wat een cultuur meent dat er gebeurd is, tegenover de geschiedenis van wat er gebeurde.</td></tr>
+          <tr><td class="term">verworpen kennis</td><td>De verzameling onderwerpen die niet door eigen samenhang bij elkaar hoort maar doordat zij gezamenlijk buiten de wetenschap zijn gezet.</td></tr>
+          <tr><td class="term">prisca theologia</td><td>Het denkbeeld van een oorspronkelijke godskennis die sinds haar oorsprong is vervallen en hersteld moet worden.</td></tr>
+          <tr><td class="term">philosophia perennis</td><td>Het denkbeeld van een altijd geldige wijsbegeerte die door de eeuwen heen onafgebroken voortbestaat.</td></tr>
+          <tr><td class="term">pia philosophia</td><td>Het denkbeeld dat alle tijden en volken glimpen van de waarheid kregen, die in het christendom tot volgroeiing kwam.</td></tr>
+          <tr><td class="term">platoons oriëntalisme</td><td>De lezing van Plato als erfgenaam van oosterse wijsheidsleraren, die alchemie, astrologie, hermetisme en kabbala tot één familie maakt.</td></tr>
+          <tr><td class="term">religionisme</td><td>De houding waarin een onderzoeker achter de historische vormen een tijdloze religieuze kern zoekt en de geschiedenis daaraan ondergeschikt maakt.</td></tr>
+          <tr><td class="term">kosmotheïsme</td><td>De opvatting dat het goddelijke met de kosmos samenvalt, door Hanegraaff aangewezen als de breuklijn met het bijbelse monotheïsme.</td></tr>
+          <tr><td class="term">Verlichtingsparadigma</td><td>De door Heumann en Brucker vastgelegde indeling waarin echte wijsbegeerte zich ontwikkelt en onechte wijsbegeerte in bijgeloof blijft steken.</td></tr>
+          <tr><td class="term">occulte wetenschappen</td><td>De negentiende-eeuwse verzamelnaam voor alchemie, astrologie, magie en waarzeggerij, gemunt om ze buiten de wetenschap te plaatsen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op vijf eeuwen bronnen die grotendeels in het Latijn en het Duits zijn geschreven en die zelden eerder in samenhang zijn gelezen: polemieken, kerkgeschiedenissen, geschiedenissen van de wijsbegeerte en woordenboeken. Hanegraaff citeert ze in de oorspronkelijke taal en werkt met een omvangrijk notenapparaat en een bibliografie van tientallen bladzijden.</p>
+      <p>De kracht van het betoog zit in de aantoonbare overdracht. Hij laat niet zien dat er een tijdgeest heerste, maar wie wie las: Thomasius bij Colberg, Colberg bij Heumann, Heumann bij Brucker, Brucker in de negentiende-eeuwse handboeken. Die keten is met citaten en verwijzingen na te lopen, en dat maakt de hoofdlijn moeilijk te weerleggen. Wie het beeld wil kantelen, moet aantonen dat een van die schakels anders ligt.</p>
+      <p>Zwakker is het bewijs waar hij zelf begrippen invoert. Platoons oriëntalisme is een term van de auteur. Of de door hem samengebrachte stromingen werkelijk één familie vormen, dan wel door zijn categorie tot familie worden gemaakt, is met dezelfde bronnen niet uit te maken. Dat is het spiegelbeeld van zijn eigen bezwaar tegen anderen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek levert niet wat de titel bij veel lezers oproept. Wie wil weten wat westerse esoterie inhoudt, wat alchemisten deden of wat theosofen leerden, vindt hier vrijwel niets. Hanegraaff zegt dat zelf, maar het gevolg blijft dat het onderwerp door het hele boek heen alleen in spiegelbeeld verschijnt, in de woorden van wie het bestreed of verdedigde.</p>
+      <p>De categorie blijft negatief bepaald. Verworpen kennis zegt wat er met deze onderwerpen gebeurde, niet wat zij gemeen hebben. Binnen het vakgebied is dat een aanhoudend punt van discussie: als de samenhang van het onderwerp uit de uitsluiting voortkomt, bestudeert het vak strikt genomen de uitsluiting en niet de stof. Hanegraaff heeft in later werk zelf naar een andere afbakening gezocht.</p>
+      <p>Het is een geschiedenis van geleerden. Wat gewone mensen deden met horoscopen, amuletten of geestesverschijningen komt nauwelijks aan bod, en vrouwen ontbreken vrijwel geheel in de polemieken die hij volgt. Bij een begrip dat oriëntalisme heet valt bovendien op hoe weinig het boek toekomt aan de Perzische, Arabische en joodse teksten waaraan die naam is ontleend; het oosten blijft hier vooral een voorstelling van westerse geleerden.</p>
+      <p>De verdeling is scheef. De zeventiende en achttiende eeuw krijgen honderden bladzijden, de twintigste eeuw wordt in kort bestek afgehandeld, en juist daar wordt het betoog het meest strijdlustig. De afrekening met het religionisme van Jung, Eliade en Corbin leest als een stellingname binnen het eigen vak, waarbij de lezer de tegenargumenten van die kant nauwelijks te horen krijgt.</p>
+      <p>Ten slotte is het een boek voor vakgenoten. Het veronderstelt kennis van de vroegmoderne theologische twisten, laat veel Latijn en Duits onvertaald staan en gaat ervan uit dat de lezer weet wie Patrizi, Colberg of Peuckert was.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga bij een vakgebied na welke onderwerpen het buiten de deur zet, en sinds wanneer; die grens is vaak jonger dan zij lijkt.</li>
+        <li>Onderscheid wat er gebeurd is van wat een vak zich daarvan herinnert; de tweede vraag heeft een eigen bronnenreeks.</li>
+        <li>Let op verzamelnamen die alleen door uitsluiting samenhangen, zoals pseudowetenschap of het occulte; ze grenzen af waar ze lijken te beschrijven.</li>
+        <li>Zoek bij een gevestigd oordeel de tekst waarin het voor het eerst werd geformuleerd, en kijk wie het daarna heeft overgeschreven.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Esotericism and the Academy: Rejected Knowledge in Western Culture</i> (Cambridge University Press, Cambridge, 2012, x + 468 blz., ISBN 9780521196215; paperback 2014, ISBN 9781107680975). Er verscheen een Turkse vertaling in 2022; een Nederlandse vertaling bestaat niet, de samenvatting is op de Engelse editie gebaseerd. Hanegraaff bekleedt in Amsterdam de leerstoel voor geschiedenis van de hermetische filosofie en verwante stromingen en publiceerde ook in het Nederlands, onder meer de KNAW-uitgave <i>Swedenborg en de andere Kant</i> (2009).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Wouter Hanegraaff, hoogleraar in Amsterdam, schreef geen geschiedenis van de westerse esoterie maar een geschiedenis van de manier waarop geleerden erover hebben gesproken. Zijn stelling is dat alchemie, astrologie, magie, gnosis en verwante onderwerpen niet bij elkaar horen door een gedeelde leer, maar doordat ze gezamenlijk zijn afgestoten. In de renaissance bouwden Ficino en Pico een verhaal over oeroude wijsheid; vanaf de zeventiende eeuw bouwden protestantse theologen en verlichte filosofen daar het spiegelbeeld van, een geschiedenis van dwaling waarin al die onderwerpen terechtkwamen.</p><p>Het boek volgt die keten met de teksten in de hand: Jacob Thomasius, Ehregott Daniel Colberg, Christoph August Heumann en Jacob Brucker, die elkaar aantoonbaar lazen en overschreven en zo de indeling vastlegden die twee eeuwen zou standhouden. Daarna beschrijft het de terugkeer via de Duitse romantiek en het mesmerisme, de Eranos-kring rond Jung, Corbin en Eliade, en het geschiedkundige onderzoek dat met Thorndike, Peuckert en Yates begon.</p><p>Het is een dicht en zwaar toegerust boek van bijna vijfhonderd bladzijden, geschreven voor vakgenoten. Wie wil weten wat esoterici geloofden, komt er niet aan zijn trekken; het onderwerp verschijnt hier alleen in spiegelbeeld.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>esoterie</li><li>wetenschapsgeschiedenis</li><li>hermetisme</li><li>geschiedschrijving</li><li>godsdienstwetenschap</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1249"><a href="1249.html">Giordano Bruno and the Hermetic Tradition</a>. Het Bruno-boek van Yates, waarvan de these over de hermetische oorsprong van de moderne wetenschap in Hanegraaffs verhaal een hoofdrol speelt.</li>
+          <li value="1250"><a href="1250.html">The Occult Sciences in the Renaissance</a>. Een overzicht van de occulte vakken zelf, waar Hanegraaff de geschiedenis van hun ontvangst geeft.</li>
+          <li value="640"><a href="640.html">Kabbalah</a>. Scholem geldt in dit boek als de onderzoeker die het religionisme naderde zonder de filologie op te geven.</li>
+          <li value="639"><a href="639.html">Three Books of Occult Philosophy</a>. Agrippa's handboek, in Hanegraaffs verhaal telkens weer het werk dat als het af te stoten andere moet dienen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

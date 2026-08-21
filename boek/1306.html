@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fall Down 7 Times, Get Up 8 &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Higashida stelt dat autisme geen omhulsel is waarbinnen een gewoon mens gevangen zit, maar een manier van bestaan met eigen goede kanten die hij niet zou…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1306">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1306 &middot; Overleven en getuigen</p>
+    <h1>Fall Down 7 Times, Get Up 8</h1>
+    <p class="lede">Naoki Higashida, 2015; vert. KA Yoshida en David Mitchell, 2017</p>
+    <p class="stats">
+      <span><b>1654</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1306"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Higashida stelt dat autisme geen omhulsel is waarbinnen een gewoon mens gevangen zit, maar een manier van bestaan met eigen goede kanten die hij niet zou willen inruilen. Tegelijk beschrijft hij het lichaam dat zijn bedoelingen doorkruist: hij wil stilzitten en loopt weg, hij wil antwoorden en er komt niets, hij wil kalm blijven en raakt in paniek van een verschoven afspraak. Wat hij van anderen vraagt is dan ook geen medelijden en geen genezing, maar de kans om buiten een gesloten instelling te wonen en van nut te zijn. Zijn boek moet die twee dingen tegelijk waarmaken: laten zien hoe zwaar het is, en laten zien dat er niets aan hem ontbreekt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wie er schrijft</h3>
+      <p>Higashida werd in 1992 geboren in Kimitsu en woont in de prefectuur Chiba. Op zijn vijfde kreeg hij de diagnose autisme. Hij ging tot de vijfde klas naar een gewone basisschool en daarna naar het speciaal onderwijs, waar hij volgens eigen zeggen voor het eerst merkte dat hij niet de enige was. Op zijn elfde en twaalfde won hij een Japanse schrijfwedstrijd voor sprookjes.</p>
+      <p>Sinds 2004 publiceerde hij meer dan twintig boeken in Japan: verhalen, kinderboeken, gedichten en essays. <i>The Reason I Jump</i> uit 2007, geschreven op zijn dertiende, is het bekendst geworden. Dit boek is de volwassen tegenhanger daarvan: dezelfde onderwerpen, gezien vanaf midden twintig.</p>
+      <h3>Wat er in het boek staat</h3>
+      <p>De vorm is los. Korte essays van één tot drie bladzijden staan gegroepeerd rond thema's, met daartussen gesprekken, gedichten en aan het slot een droomachtig kort verhaal. Het boek opent met een brief waarin hij zijn moeder bedankt, iemand met wie hij nooit een gesproken gesprek heeft gehad.</p>
+      <p>De onderwerpen lopen ver uiteen. Hij schrijft over oorlog en over religie, over getallen, over de zee en over jaargetijden. Steeds keert hij terug naar het lichaam en de tijd: waarom hij niet stil kan blijven, waarom zijn herinneringen niet op volgorde liggen, waarom een verschoven afspraak hem uit het lood slaat.</p>
+      <h3>Het lichaam dat niet luistert</h3>
+      <p>Zijn rusteloze bewegen noemt hij instinctief, als een wild dier dat over een vlakte rent. Hij beschrijft het als iets wat hem overkomt en niet als iets wat hij doet. Dat onderscheid loopt door het hele boek: hij weet wat er van hem verwacht wordt, hij ziet zichzelf ervan afwijken, en de afstand daartussen is precies waar hij het over wil hebben.</p>
+      <p>Herhaling en verzamelen houden hem overeind. Vaste volgordes, vaste routes, en voorwerpen die hij verzamelt, zoals souvenirs met Hello Kitty erop, geven hem een houvast dat hij nodig heeft om de dag door te komen. Waar een buitenstaander zinloze rituelen ziet, ziet hij het gereedschap waarmee angst hanteerbaar blijft.</p>
+      <h3>Wat hij vraagt</h3>
+      <p>Higashida schrijft zonder zelfbeklag en wijst medelijden af. Zijn verzoek is bescheiden en concreet: mensen met autisme willen buiten afgezonderde instellingen leven, zo zelfstandig als kan. De neurotypische meerderheid, schrijft hij, is misschien productiever, maar ook wij willen het leven aangrijpen en voor anderen van nut zijn.</p>
+      <p>Daarnaast staat de uitdrukking waarmee hij het boek zijn eigen kleur geeft: de onveranderlijke schoonheid van autisme. Hij bedoelt daarmee dat de manier waarop hij de wereld binnenkrijgt niet alleen last oplevert, en dat een genezing die dat zou wegnemen hem iets zou afnemen.</p>
+      <h3>Hoe de tekst tot stand komt</h3>
+      <p>Higashida legt zijn werkwijze zelf uit, en die uitleg heeft drie fasen. Eerst schreef hij met de hand terwijl een begeleider zijn hand losjes ondersteunde. Daarna tekende hij letters op de open handpalm van iemand die meelas. Nu gebruikt hij een kartonnen rooster met een qwerty-indeling plus de woorden ja, nee en klaar, zonder hulp en zonder aanraking: hij wijst letters aan en klinkt ze hardop mee, terwijl een ander opschrijft wat er staat.</p>
+      <p>Op een computer typen kan hij ook, al blijft hij daar naar eigen zeggen op letters hangen of typt hij een woord telkens opnieuw. David Mitchell schrijft dat hij Higashida binnen een minuut een samengestelde zin heeft zien maken en ook twintig minuten heeft zien doen over een regel van een paar woorden.</p>
+      <h3>De vertalers als medespelers</h3>
+      <p>De Engelse tekst komt van de romanschrijver David Mitchell en zijn vrouw Keiko Yoshida. Zij hebben zelf een zwaar autistische zoon. Yoshida stuitte destijds op het Japanse origineel van <i>The Reason I Jump</i> en vertaalde het aan de keukentafel hardop voor haar man, die het boek een uitkomst noemde omdat het hem zijn zoon anders deed zien.</p>
+      <p>Mitchell schrijft ook de inleiding en bepaalt daarmee hoe de lezer het boek binnengaat. Yoko Kamio, die beide talen leest, oordeelde over de eerdere vertaling dat die in grote lijnen getrouw was, maar dat het Engels herhalingen wegwerkt en beknopter is dan het Japans. Wie precies wil weten wat er staat, moet dus rekening houden met een tussenlaag.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Letterrooster</td><td>Kartonnen bord met een qwerty-indeling plus ja, nee en klaar, waarop hij zonder aanraking letter voor letter aanwijst.</td></tr>
+          <tr><td class="term">Hand-supported writing</td><td>Zijn vroegste manier van schrijven, waarbij een begeleider de rug van zijn hand licht ondersteunde.</td></tr>
+          <tr><td class="term">Letter-tracing</td><td>De tussenfase waarin hij letters tekende op de open handpalm van degene die meeschreef.</td></tr>
+          <tr><td class="term">Transcribent</td><td>Degene die noteert wat hij op het rooster spelt en hardop meeklinkt.</td></tr>
+          <tr><td class="term">De onveranderlijke schoonheid van autisme</td><td>Zijn aanduiding voor de kanten van zijn waarneming die hij niet als gebrek ziet en niet kwijt wil.</td></tr>
+          <tr><td class="term">Neurotypisch</td><td>Het woord dat hij gebruikt voor de meerderheid zonder autisme, zonder daar een norm van te maken.</td></tr>
+          <tr><td class="term">Nanakorobi yaoki</td><td>Het Japanse spreekwoord uit de titel, zeven keer vallen en acht keer opstaan, dat hij op zijn eigen dagen betrekt.</td></tr>
+          <tr><td class="term">Echolalie</td><td>Het herhalen van wat een ander net gezegd heeft, iets wat hij wel kan terwijl eigen spraak hem ontgaat.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Er staat geen onderzoek in dit boek en het beroept zich er ook niet op. De grond is zijn eigen waarneming, opgeschreven in korte stukken. Dat is tegelijk zijn sterkte, omdat over niet sprekend autisme van binnenuit weinig materiaal bestaat, en zijn zwakte, omdat er niets naast te leggen valt.</p>
+      <p>Wat het boek verder draagt is gezag van buiten. De naam van David Mitchell op het omslag, de inleiding, en het feit dat het eerste boek in ruim dertig talen verscheen. Dat zegt iets over de aandacht die het kreeg, niets over de juistheid van de inhoud.</p>
+      <p>Voor de vertaling bestaat wel een controle. Yoko Kamio, die Japans en Engels leest, noemde de Engelse versie van het eerdere boek in grote lijnen getrouw, met de aantekening dat het Engels beknopter is. Voor de kernvraag, of de Japanse zinnen van Higashida zelf komen, bestaat zo'n controle niet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar gaat over de manier waarop de tekst ontstaat. Higashida beschrijft zelf dat hij begon met schrijven waarbij iemand zijn hand ondersteunde en met letters tekenen op andermans handpalm. Dat zijn vormen van facilitated communication, waarvan in gecontroleerd onderzoek herhaaldelijk is gebleken dat de begeleider de boodschap stuurt zonder het zelf door te hebben; de American Academy of Pediatrics en de American Psychological Association wijzen de methode af. Deborah Fein en Yoko Kamio bekeken in 2014 in het <i>Journal of Developmental &amp; Behavioral Pediatrics</i> videobeelden en zagen dat zijn moeder doorgaans zijn schouder, rug of been aanraakte. Zij wezen erop dat een toets eenvoudig uit te voeren zou zijn en concludeerden dat er reden genoeg is om te betwijfelen of hij de zelfstandige maker van de tekst is.</p>
+      <p>William Simmons, Janyce Boynton en Todd Landman gingen in <i>Human Rights Quarterly</i> (2021) verder en betwijfelen of hij enig aan hem toegeschreven boek zelf schreef. Zij noemen het een kwestie van grondrechten: als iemand anders de zinnen maakt, wordt aan Higashida toegeschreven wat hij niet kan terugnemen. Katharine Beals zegt geen bewijs te kennen dat hij communiceert zonder dat een begeleider hem kan aansturen. Daar staat tegenover dat Temple Grandin, aanvankelijk bezorgd, zich later liet overtuigen dat het werk van hem is, met de kanttekening dat er meer had moeten worden vastgelegd, en dat Mitchell wijst op videobeelden waarop Higashida zelfstandig typt en waarop geen hand in de buurt van de zijne is. De discussie is dus niet beslecht, en zij is met een goed opgezette proef wel te beslechten.</p>
+      <p>Het tweede bezwaar betreft de vertaler. Mitchell is geen doorgeefluik. Hij is de vader van een zwaar autistische zoon, hij heeft gezegd dat het eerste boek hem zijn zoon anders deed zien, en hij schrijft de inleiding die de lezer meeneemt. Sallie Tisdale merkte over dat eerste boek op dat het eerder als een breekbaar bewijsstuk van bewustzijn werd behandeld dan als een boek, en zij nam aanstoot aan het gebruik van wij en ons, waarmee een enkele schrijver namens alle autistische mensen lijkt te spreken; zij bracht dat mede in verband met de keuzes van de vertalers. Dat bezwaar geldt onverkort voor dit boek.</p>
+      <p>Wat er ook waar is van het auteurschap, de stukken zijn ongelijk van kwaliteit. Enkele essays leveren een beeld op dat blijft hangen, andere blijven bij algemeenheden die in elk boek over autisme hadden kunnen staan. Recensenten noemden het boek levendig maar wisselend, en dat is een eerlijke beschrijving.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het als het verslag van één mens. Higashida schrijft geregeld wij, terwijl hij alleen over zichzelf kan spreken.</li>
+        <li>Zoek bij elke uitspraak die je wilt overnemen eerst op hoe de tekst tot stand kwam, en wees terughoudend met citaten waar beleid of behandeling op wordt gebouwd.</li>
+        <li>Vraag bij begeleiding van iemand die spelt om een eenvoudige onafhankelijke toets: laat de speller iets doorgeven wat de begeleider niet weet.</li>
+        <li>Zet het naast wat autistische mensen zeggen die wel spreken; het verschil laat zien welke uitspraken over autisme in het algemeen gaan en welke over deze schrijver.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Fall Down 7 Times Get Up 8: A Young Man's Voice from the Silence of Autism</i>, uit het Japans vertaald door KA Yoshida en David Mitchell (Random House, New York, 2017, 206 blz., ISBN 9780812997392; Britse editie Sceptre bij Hodder &amp; Stoughton, Londen, 2017, 288 blz.). Het origineel verscheen als <i>Nanakorobi yaoki</i> (七転び八起き, 2015), de titel van een Japans spreekwoord. De Nederlandse vertaling heet <i>Zeven keer vallen, acht keer opstaan</i> (J.M. Meulenhoff, Amsterdam, 2018, 240 blz., ISBN 9789029092814). Zijn eerdere boek verscheen in het Nederlands als <i>Waarom ik soms op en neer spring</i> (Nieuw Amsterdam, Amsterdam, 2014, 143 blz.).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Naoki Higashida (1992) kreeg op zijn vijfde de diagnose autisme en spreekt vrijwel niet. Hij spelt zijn zinnen op een kartonnen letterrooster met een qwerty-indeling, waarbij hij de letters hardop meeklinkt terwijl een ander noteert. Op zijn dertiende schreef hij <i>The Reason I Jump</i>, dat na de Engelse vertaling van David Mitchell en KA Yoshida in ruim dertig talen verscheen. Dit boek schreef hij als jongvolwassene.</p><p>Het bestaat uit korte essays, gesprekken, gedichten en een droomachtig kort verhaal. Hij schrijft over dwangmatige gewoonten, over de paniek bij een kleine wijziging in de dagindeling, over herinneringen die zich niet op volgorde laten leggen en over wat hij de onveranderlijke schoonheid van autisme noemt. Het opent met een dankbrief aan zijn moeder, met wie hij nooit een gesprek heeft gevoerd. Medelijden wijst hij af; hij vraagt om een leven buiten een instelling.</p><p>Rondom het boek loopt een discussie die de lezer moet meenemen. Higashida gebruikte in zijn jeugd methoden waarbij een begeleider zijn hand ondersteunde, en onderzoekers als Deborah Fein en Yoko Kamio betwijfelen op grond daarvan of de teksten van hem zijn. Een gecontroleerde toets is nooit uitgevoerd.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>autisme</li><li>Japan</li><li>memoir</li><li>communicatie</li><li>neurodiversiteit</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1304"><a href="1304.html">The Mind Tree</a>. Tito Mukhopadhyay schrijft met een vergelijkbaar letterbord en roept precies dezelfde vraag over auteurschap op, met een moeder in dezelfde rol.</li>
+          <li value="1303"><a href="1303.html">Nobody Nowhere</a>. Donna Williams schreef zelfstandig en zonder tussenpersoon over autisme van binnenuit; dat maakt haar boek tot de nuchtere vergelijkingsmaat.</li>
+          <li value="1302"><a href="1302.html">NeuroDiversity: The Birth of an Idea</a>. Judy Singer levert de begrippen waarmee de discussie rond dit boek gevoerd wordt, inclusief de vraag wie namens wie mag spreken.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

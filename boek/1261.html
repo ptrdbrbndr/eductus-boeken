@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Nature of the Physical World &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De natuurkunde van 1927 beschrijft de wereld niet meer als een verzameling dingen met een bekende inborst, maar als een net van meetbare betrekkingen. Wat…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1261">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1261 &middot; Natuur en wetenschap</p>
+    <h1>The Nature of the Physical World</h1>
+    <p class="lede">Arthur Stanley Eddington, 1928</p>
+    <p class="stats">
+      <span><b>1717</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1261"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De natuurkunde van 1927 beschrijft de wereld niet meer als een verzameling dingen met een bekende inborst, maar als een net van meetbare betrekkingen. Wat de natuurkundige uiteindelijk in handen heeft, zijn aflezingen op instrumenten en de structuur die daaruit valt af te leiden. Eddington trekt daaruit twee conclusies. De eerste is dat de wereld van de dagelijkse ervaring, met haar vaste tafels en haar verstrijkende tijd, door de natuurkunde niet is weerlegd, omdat de natuurkunde over die inborst nu eenmaal niets zegt. De tweede is dat de stof waaruit de wereld bestaat, voor zover wij haar ergens van binnenuit kennen, van dezelfde aard is als bewustzijn. Met het wegvallen van het strikte determinisme is volgens hem bovendien de mechanische wereldbeschouwing van de negentiende eeuw vervallen, en daarmee ook het bezwaar dat zij tegen een religieuze houding opwierp.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Twee tafels</h3>
+      <p>Het boek opent met een schrijver die aan twee tafels tegelijk gaat zitten. De ene is de tafel die hij altijd heeft gekend: gekleurd, duurzaam, dragend. De tweede is de wetenschappelijke tafel, die voor het overgrote deel leegte is, met daarin verspreid elektrische ladingen die met grote snelheid rondgaan. Eddington ontkent niet dat de eerste tafel bestaat. Hij stelt vast dat de natuurkunde over de tweede gaat en dat de tweede een stelsel van symbolen is. De natuurkundige wereld noemt hij een wereld van schaduwen; wat die schaduwen tot ervaring maakt, gebeurt in het bewustzijn.</p>
+      <h3>De ineenstorting van de klassieke natuurkunde</h3>
+      <p>De eerste hoofdstukken vertellen wat er tussen 1900 en 1927 met de natuurkunde was gebeurd. Eddington was daar zelf bij betrokken: hij bracht de algemene relativiteitstheorie tijdens en na de Eerste Wereldoorlog in Engeland onder de aandacht en leidde in 1919 de expeditie naar het eiland Principe die tijdens een zonsverduistering de afbuiging van sterlicht bij de zon opmat.</p>
+      <p>Hij legt uit hoe lengte en duur van de bewegingstoestand van de waarnemer afhangen, en hoe zwaartekracht wordt beschreven als kromming van de ruimtetijd. De twee hoofdstukken over zwaartekracht scheiden nadrukkelijk de wet van de verklaring: de wet zegt hoe de meetkundige vorm van de beschrijving in elkaar zit, en dat is iets anders dan een werkende oorzaak aanwijzen.</p>
+      <h3>De pijl van de tijd</h3>
+      <p>In het hoofdstuk over de aflopende wereld voert Eddington de uitdrukking 'the arrow of time' in. Van alle grootheden in de natuurkunde is er volgens hem één die een richting in de tijd aanwijst: de entropie, die hij het toevalselement noemt. De wetten van de mechanica werken achteruit even goed als vooruit; het door elkaar schudden van een geordende toestand doet dat niet. Alles wat de tijd van de ruimte onderscheidt, hangt daarom aan de tweede hoofdwet van de warmteleer.</p>
+      <p>Hij schrijft dat die wet naar zijn oordeel de hoogste plaats onder de natuurwetten inneemt, en dat wie een theorie heeft die ermee in strijd is, geen hoop hoeft te koesteren. In het hoofdstuk daarna betoogt hij dat het worden, het feit dat er iets gebeurt in plaats van dat alles er ineens is, in de natuurkunde uitsluitend langs deze weg binnenkomt.</p>
+      <h3>Kwantum en onbepaaldheid</h3>
+      <p>De hoofdstukken over de kwantumtheorie beschrijven de omslag van 1925 tot 1927: de matrixmechanica van Heisenberg, de golfvergelijking van Schrödinger en de onbepaaldheidsrelatie. Eddington legt uit dat plaats en impuls van een deeltje zich niet tegelijk scherp laten vastleggen en dat de theorie daarom uitspraken over kansen doet. Zijn conclusie is dat het strikte determinisme uit de natuurkunde is verdwenen, en dat dit geen tijdelijk gebrek aan kennis is maar de vorm van de theorie zelf. Hij wist dat er andere lezingen mogelijk waren en koos openlijk partij.</p>
+      <h3>Wijzerstanden</h3>
+      <p>Het twaalfde hoofdstuk maakt de balans op van wat de natuurkunde eigenlijk levert. Neem een willekeurige natuurkundige grootheid en volg de definitie terug, dan eindig je bij een aflezing op een schaal. De natuurkunde beschrijft de betrekkingen tussen zulke aflezingen; over wat er wordt afgelezen zegt zij niets.</p>
+      <p>Eddington maakt dat aanschouwelijk met een stukje onzinpoëzie waarin de zinsbouw compleet is terwijl de woorden leeg blijven. Precies zo staat het volgens hem met de vergelijkingen van de natuurkunde: zij geven de vorm van de wereld en niet haar inhoud. Wie meent dat de natuurkunde de werkelijkheid heeft weggeredeneerd, verwart die vorm met een uitspraak over de inhoud.</p>
+      <h3>Werkelijkheid en geeststof</h3>
+      <p>Als de natuurkunde alleen structuur geeft, blijft de vraag open waarvan die structuur de structuur is. Op één plaats kennen we volgens Eddington de inhoud wel: in ons eigen bewustzijn, dat we van binnenuit meemaken in plaats van te meten. Daaruit trekt hij de gevolgtrekking waar het boek om bekend staat, dat de stof van de wereld geeststof is.</p>
+      <p>Hij bedoelt daarmee niet dat de wereld door waarneming wordt voortgebracht, en ook niet dat stenen denken. Hij bedoelt dat het enige model van 'inhoud' waarover wij beschikken aan het bewustzijn is ontleend, en dat de natuurkunde geen grond biedt om iets anders aan te nemen. Het is een gevolgtrekking uit één analogie, en hij presenteert haar ook als zodanig.</p>
+      <h3>Oorzaak, vrijheid en mystiek</h3>
+      <p>De laatste hoofdstukken zijn de gevoeligste. Uit het wegvallen van het determinisme leidt Eddington af dat de natuurbeschrijving ruimte heeft gekregen voor het ingrijpen van de geest, en daarmee voor verantwoordelijkheid.</p>
+      <p>Vervolgens verdedigt hij dat religieuze en mystieke ervaring, als ervaring, van dezelfde orde zijn als de zintuiglijke waarneming waarop de natuurwetenschap steunt: allebei zijn ze gegeven en allebei laten ze zich niet van buitenaf rechtvaardigen. Hij schrijft dat een redelijk denkend natuurwetenschapper pas omstreeks 1927 weer religieus kon zijn zonder met zijn vak in botsing te komen. Wat hij verdedigt is een houding en geen leerstelling: over de inhoud van enig geloof spreekt hij zich niet uit.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">de twee tafels</td><td>Eddingtons beeld van de gewone tafel en de wetenschappelijke tafel, bedoeld om te laten zien dat natuurkunde en dagelijkse ervaring over verschillende dingen spreken.</td></tr>
+          <tr><td class="term">wijzerstanden</td><td>De aflezingen op instrumenten waartoe elke natuurkundige grootheid uiteindelijk is terug te voeren; volgens Eddington het enige waarover de natuurkunde beschikt.</td></tr>
+          <tr><td class="term">wereld van schaduwen</td><td>Zijn aanduiding voor de symbolische wereld van de natuurkunde, die de vorm van de werkelijkheid weergeeft zonder haar inhoud te noemen.</td></tr>
+          <tr><td class="term">de pijl van de tijd</td><td>De richting die de tijd heeft en de ruimte niet; door Eddington in dit boek ingevoerd en aan de toename van de entropie gekoppeld.</td></tr>
+          <tr><td class="term">het toevalselement</td><td>Zijn omschrijving van de entropie als de mate waarin een toestand door elkaar geschud is.</td></tr>
+          <tr><td class="term">worden</td><td>Het gebeuren van gebeurtenissen, dat in de natuurkunde volgens hem alleen via de tweede hoofdwet van de warmteleer een plaats krijgt.</td></tr>
+          <tr><td class="term">onbepaaldheidsrelatie</td><td>De grens die de kwantumtheorie stelt aan het tegelijk scherp vastleggen van plaats en impuls van een deeltje.</td></tr>
+          <tr><td class="term">geeststof</td><td>Zijn stelling dat de stof waaruit de wereld bestaat van dezelfde aard is als bewustzijn, omdat dat het enige is wat wij van binnenuit kennen.</td></tr>
+          <tr><td class="term">structuur</td><td>Het geheel van meetbare betrekkingen dat de natuurkunde vastlegt, los van de vraag waaraan die betrekkingen toekomen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De natuurkundige hoofdstukken staan op vaste grond. Eddington was in 1927 de vooraanstaande astrofysicus van Groot-Brittannië, auteur van <i>The Internal Constitution of the Stars</i> (1926), en hij beschrijft theorieën die toen al waren getoetst: de afbuiging van sterlicht bij de zon, de verschijnselen die de kwantumtheorie in de spectra verklaarde, de statistische afleiding van de warmteleer. De uitleg is nauwkeurig en hij geeft aan waar de theorie nog niet af was.</p>
+      <p>De wijsgerige hoofdstukken staan op iets anders. De redenering over de wijzerstanden is een ontleding van begrippen en geen bevinding. De stap naar de geeststof rust op één analogie. De stap van onbepaaldheid naar wilsvrijheid rust op de aanname dat een opening in de natuurwetten hetzelfde is als een aangrijpingspunt voor de geest. Eddington doet niet alsof dit metingen zijn, maar hij markeert de overgang ook nergens scherp, en juist daar ligt de aantrekkingskracht van het boek voor lezers die een natuurwetenschappelijke steun voor een levensbeschouwing zoeken.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het scherpste bezwaar kwam in 1937 van de logicus Susan Stebbing in <i>Philosophy and the Physicists</i>. Zij nam de twee tafels onder handen en liet zien dat de zin 'de tafel is niet vast' haar betekenis ontleent aan het gewone spraakgebruik, waarin vast tegenover vloeibaar staat en waarin niets wordt beweerd over de tussenruimte tussen atomen. Eddington gebruikt het woord daarmee in een gebied waar het geen werk doet, en wekt de indruk van een ontdekking waar het om twee beschrijvingsniveaus gaat. Haar bezwaren tegen zijn behandeling van het verstrijken van de tijd lopen langs dezelfde lijn. Eddington heeft geantwoord, maar haar boek geldt nog steeds als de standaardweerlegging van dit soort populaire natuurkunde.</p>
+      <p>De stap van onbepaaldheid naar wilsvrijheid is een tweede zwakke plek. Toeval in de elementaire processen levert geen handelend wezen op: een keuze die door een kwantumsprong wordt bepaald is niet meer van mij dan een keuze die door een klok wordt bepaald. Eddington gaat aan dat bezwaar voorbij.</p>
+      <p>Ten derde is de natuurkunde van het boek juist gedateerd op het punt waarop de conclusies rusten. Dat de onbepaaldheid het einde van de oorzakelijkheid betekent, is één uitleg van de kwantumtheorie; sinds het werk van Bell in de jaren zestig zijn er andere die met de proeven overeenkomen. En Eddingtons eigen latere werk, waarin hij natuurconstanten uit getalsverhoudingen probeerde af te leiden, is door natuurkundigen verworpen. Dat maakt zijn oordeel over wat de natuurkunde kan uitmaken minder gezaghebbend dan de toon van dit boek doet vermoeden.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Zoek bij een populair-natuurkundig betoog de plaats waar de meting ophoudt en de uitleg begint; bij Eddington ligt die overgang rond het twaalfde hoofdstuk.</li>
+        <li>Ga bij zinnen als 'de natuurkunde bewijst dat de wereld niet vast is' na of het sleutelwoord in twee betekenissen tegelijk wordt gebruikt.</li>
+        <li>Lees het boek als tijdsdocument: het laat zien wat natuurkundigen in 1928 dachten dat de kwantumtheorie betekende, en hoeveel daarvan uitleg was.</li>
+        <li>Neem de bezwaren van Stebbing ernaast; de twee teksten samen vormen een oefening in het lezen van wetenschappelijke populariseringen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Nature of the Physical World</i> (Cambridge University Press, Cambridge, 1928, xix + 361 blz.), de bewerkte tekst van de Gifford Lectures die Eddington van januari tot maart 1927 aan de universiteit van Edinburgh hield. Cambridge University Press bracht de tekst opnieuw uit in de reeks Cambridge Library Collection (ISBN 9781107663855). Een geannoteerde uitgave, bezorgd door H.G. Callaway, verscheen in 2014 bij Cambridge Scholars Publishing (ISBN 9781443863865). Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Eddington was in 1927 de bekendste astrofysicus van Groot-Brittannië. In deze Gifford Lectures probeert hij uit te leggen wat de relativiteitstheorie, de kwantumtheorie en de warmteleer betekenen voor het beeld dat een mens van de wereld heeft. Het boek opent met de twee tafels: de tafel waaraan hij schrijft, gekleurd en vast, en de wetenschappelijke tafel, die vrijwel geheel leegte is met daarin snel bewegende elektrische ladingen. Beide zijn volgens hem echt, en de natuurkunde gaat alleen over de tweede.</p><p>Van daaruit komt hij tot zijn hoofdgedachte: de natuurkunde levert wijzerstanden en de structuur die daaruit is af te leiden, en zegt niets over de aard van datgene wat wordt gemeten. In dit boek voert hij ook de uitdrukking 'the arrow of time' in, de pijl van de tijd, die hij aan de toename van de entropie ophangt.</p><p>De laatste hoofdstukken zijn het omstredenst. Eddington leidt uit het wegvallen van het strikte determinisme af dat er ruimte is voor wilsvrijheid, en verdedigt dat religieuze ervaring van dezelfde orde is als zintuiglijke waarneming. Het boek werd in 1937 door de logicus Susan Stebbing scherp aangevallen en geldt sindsdien als het schoolvoorbeeld van natuurkundigen die buiten hun vak treden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>natuurkunde</li><li>wetenschapsfilosofie</li><li>kwantumfysica</li><li>tijd</li><li>kosmologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="655"><a href="655.html">The End of Time</a>. Barbour neemt de vraag naar de richting van de tijd op waar Eddington haar met de entropie beantwoordde, en komt tot een tegengesteld antwoord.</li>
+          <li value="262"><a href="262.html">A Brief History of Time</a>. Hawking schrijft zestig jaar later hetzelfde soort boek voor een breed publiek, met dezelfde neiging om aan het slot een stap buiten de natuurkunde te zetten.</li>
+          <li value="761"><a href="761.html">Mindful Universe: Quantum Mechanics and the Participating Observer</a>. Stapp werkt de gedachte dat het bewustzijn in de kwantumtheorie een plaats heeft verder uit; daar is te zien waar Eddingtons redenering toe leidt als zij wordt doorgetrokken.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

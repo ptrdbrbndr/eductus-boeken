@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gödel, Escher, Bach: een eeuwige gouden band &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Hofstadter vraagt hoe uit levenloze stof een wezen kan ontstaan dat naar zichzelf verwijst, en zoekt het antwoord in één figuur: de vreemde lus, een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1256">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1256 &middot; Natuur en wetenschap</p>
+    <h1>Gödel, Escher, Bach: een eeuwige gouden band</h1>
+    <p class="lede">Douglas R. Hofstadter, 1979</p>
+    <p class="stats">
+      <span><b>2030</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1256"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Hofstadter vraagt hoe uit levenloze stof een wezen kan ontstaan dat naar zichzelf verwijst, en zoekt het antwoord in één figuur: de vreemde lus, een beweging die door de niveaus van een systeem loopt en toch op haar beginpunt terugkomt. Zijn stelling is dat betekenis, en uiteindelijk het besef een ik te zijn, ontstaat zodra een systeem rijk genoeg wordt om over zichzelf te spreken. Gödels bewijs laat volgens hem zien dat zulke zelfverwijzing onvermijdelijk is in elk formeel systeem dat de rekenkunde omvat, en de hersenen zijn zo'n systeem: onderin vuren neuronen, bovenin bewegen symbolen, en het ik is de lus die de twee niveaus aan elkaar knoopt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een boek dat zijn eigen vorm meeneemt in het betoog</h3>
+      <p>Het boek bestaat uit twintig hoofdstukken, verdeeld over twee delen, en voor elk hoofdstuk staat een dialoog. De sprekers zijn Achilles en de Schildpad, ontleend aan het stukje <i>What the Tortoise Said to Achilles</i> dat Lewis Carroll in 1895 schreef en dat op zijn beurt op Zeno teruggaat. Later voegen zich een Krab en een Miereneter bij hen.</p>
+      <p>Die dialogen zijn geen versiering. Elke dialoog is gebouwd volgens de muzikale vorm waarnaar hij heet, en oefent zo de figuur die het hoofdstuk erna uitlegt. De Krabcanon levert dezelfde tekst op als je hem van achteren naar voren leest, de Contracrostipunctus verbergt een acrostichon in de beginletters, en het slotstuk volgt de zesstemmige ricercar uit het <i>Musikalisches Opfer</i> dat Bach in 1747 op een thema van Frederik de Grote schreef. Wie de dialogen overslaat, mist de helft van het argument.</p>
+      <h3>Formele systemen en het MU-raadsel</h3>
+      <p>Hofstadter begint met een spelletje. Er is een systeem met de beginregel MI en vier regels om die reeks letters te herschrijven. De vraag luidt of je zo ooit bij MU kunt uitkomen. Wie binnen het systeem blijft en regels blijft toepassen, komt er nooit achter. Wie een stap terug doet en naar de reeksen zelf kijkt, ziet dat het aantal I's nooit door drie deelbaar kan worden, en dat MU dus buiten bereik ligt.</p>
+      <p>Dat kleine raadsel draagt twee dingen die het hele boek door meegaan. Ten eerste het verschil tussen werken binnen een systeem en redeneren over dat systeem. Ten tweede het idee van isomorfisme: dezelfde structuur die in twee verschillende gedaanten opduikt, hier de letterreeksen en de rekenkundige eigenschap. Betekenis, zegt Hofstadter, zit in zulke overeenkomsten van structuur en niet in de tekens zelf.</p>
+      <h3>Gödel: een systeem dat over zichzelf begint te spreken</h3>
+      <p>De kern van het wiskundige deel is een uitleg van Gödels bewijs uit 1931. Hofstadter bouwt daarvoor een eigen formeel systeem, de typografische getaltheorie, waarin uitspraken over gehele getallen af te leiden zijn. Vervolgens laat hij zien hoe je elke reeks tekens uit dat systeem een getal kunt geven. Omdat het systeem over getallen praat, praat het vanaf dat moment ook over zijn eigen formules.</p>
+      <p>Daarmee is een zin te bouwen die zegt: deze zin is geen stelling van dit systeem. Is het systeem tegenspraakvrij, dan is die zin niet af te leiden en zijn ontkenning evenmin. De poging om alle waarheden van de rekenkunde in één sluitend regelsysteem te vangen loopt dus stuk, en niet door een gebrek aan vernuft maar door de bouw van elk systeem dat sterk genoeg is.</p>
+      <p>In de dialoog ervoor staat hetzelfde in een beeld. Voor elke platenspeler bestaat een plaat die, afgespeeld op juist die speler, trillingen opwekt die hem kapotmaken. De plaat is een boodschap die de machine over zichzelf laat struikelen, en dat is precies wat Gödels zin met een formeel systeem doet.</p>
+      <h3>Escher en Bach als tweede en derde stem</h3>
+      <p>Escher levert de zichtbare versie van dezelfde figuur. In <i>Tekenen</i> tekenen twee handen elkaar, in <i>Prentententoonstelling</i> zit de kijker in de prent die hij bekijkt, in <i>Klimmen en dalen</i> gaat een trap eeuwig omhoog. Hofstadter noemt dit verstrengelde hiërarchieën: niveaus die keurig geordend lijken tot je merkt dat het bovenste in het onderste uitkomt.</p>
+      <p>Bach levert de hoorbare versie: canons waarin een thema tegen zichzelf klinkt, in omkering, in vergroting, of in een modulatie die na zes stappen een octaaf hoger op haar beginpunt terugkeert. De drie namen in de titel staan voor drie gedaanten van één patroon. Dat is tegelijk de zwakste schakel in het boek, want dat een patroon in muziek, prent en bewijs herkenbaar is zegt op zichzelf nog niets over de hersenen.</p>
+      <h3>Niveaus: mieren, neuronen en symbolen</h3>
+      <p>In de Mierenfuga voert Hofstadter Tante Hillary op, een mierenkolonie waarmee een gesprek te voeren valt. Geen enkele mier weet iets van dat gesprek. Wat de kolonie doet is op verschillende hoogten te beschrijven: losse mieren, teams van mieren die elkaar aansturen, en daarboven grotere eenheden die zich als begrippen gedragen. Het gesprek speelt zich op het bovenste niveau af, en op dat niveau geldt niets van wat de mieren zelf uitvoeren.</p>
+      <p>Dat beeld draagt hij over op de hersenen. Neuronen zijn de mieren, symbolen de hoogste laag, en de vraag is niet welk niveau echt is maar hoe de niveaus elkaar bepalen. Hofstadter kiest daarmee positie in het oude twistpunt tussen reductie en holisme door beide half gelijk te geven: de lagere laag legt de bovenste volledig vast, en tegelijk is de bovenste laag de enige waarop een gedachte te herkennen valt.</p>
+      <h3>Machines die denken, en de grenzen daarvan</h3>
+      <p>In de tweede helft komen de gereedschappen van de informatica langs. Hofstadter bouwt twee speeltaaltjes, BlooP met alleen lussen waarvan de lengte vooraf vaststaat en FlooP met lussen die mogen doorlopen tot ze klaar zijn, om te laten voelen waarom er berekeningen bestaan waarvan niet vooraf te zeggen is of ze eindigen. Daarna volgen Church, Turing en Tarski, en de vraag of denken op een machine kan draaien.</p>
+      <p>Zijn antwoord is ja, maar niet op de manier die de kunstmatige intelligentie van 1979 voor ogen had. Programma's als SHRDLU van Terry Winograd beheersen een speelgoedwereld en houden buiten die wereld op. Wat een geest kenmerkt, denkt Hofstadter, is dat hij zijn eigen regels kan bekijken en verlaten, en dat vraagt om een systeem met genoeg lagen om zichzelf weer te geven.</p>
+      <h3>De vreemde lus als antwoord op de vraag naar het ik</h3>
+      <p>Het slothoofdstuk bindt de draden samen. Een ik is volgens Hofstadter geen ding en geen extra bestanddeel, maar een patroon: de lus die ontstaat wanneer een systeem symbolen krijgt voor zijn eigen toestanden en die symbolen op elkaar laat inwerken. Het gevoel een centrum te hebben is dan echt in dezelfde zin waarin het gesprek met Tante Hillary echt is, terwijl er alleen mieren zijn.</p>
+      <p>In het voorwoord uit 1999 schrijft Hofstadter dat de ontvangst hem tegenviel. Het boek werd gelezen als een verzameling over wiskunde, kunst en muziek, terwijl het volgens hem één vraag stelt: hoe komt iets bezields voort uit onbezielde stof. Dat hij die vraag in 2007 nog eens los uitschreef in <i>I Am a Strange Loop</i>, zegt iets over hoe goed het betoog in deze vorm overkwam.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">vreemde lus</td><td>Een beweging door de niveaus van een systeem die, zonder ergens om te keren, toch op haar beginpunt uitkomt.</td></tr>
+          <tr><td class="term">verstrengelde hiërarchie</td><td>Een ordening in lagen waarin de hoogste laag alsnog in de laagste blijkt te liggen, zoals bij Eschers tekenende handen.</td></tr>
+          <tr><td class="term">isomorfisme</td><td>Een overeenkomst van structuur tussen twee verschillende zaken, waardoor het ene het andere kan betekenen.</td></tr>
+          <tr><td class="term">formeel systeem</td><td>Een verzameling tekens met beginregels en herschrijfregels, waarin afleiden puur mechanisch gebeurt en betekenis er niet aan te pas komt.</td></tr>
+          <tr><td class="term">Gödelnummering</td><td>De ingreep om elke formule van een systeem een eigen getal te geven, zodat uitspraken over getallen tegelijk uitspraken over het systeem worden.</td></tr>
+          <tr><td class="term">typografische getaltheorie</td><td>Het formele systeem dat Hofstadter zelf opzet om de rekenkunde in te vangen en waarop hij Gödels bewijs voordoet.</td></tr>
+          <tr><td class="term">niveaus van beschrijving</td><td>Het idee dat één systeem tegelijk op meerdere hoogten te beschrijven valt en dat wat op de ene hoogte geldt op de andere geen betekenis heeft.</td></tr>
+          <tr><td class="term">uit het systeem springen</td><td>De stap waarin je ophoudt de regels toe te passen en over de regels zelf gaat nadenken, zoals bij het MU-raadsel nodig is.</td></tr>
+          <tr><td class="term">zelfreproductie</td><td>Het vermogen van een reeks tekens om zichzelf te laten uitschrijven, bij programma's en bij DNA, dat Hofstadter naast Gödels constructie legt.</td></tr>
+          <tr><td class="term">BlooP en FlooP</td><td>Twee door hem verzonnen programmeertaaltjes, het ene met lussen die vooraf begrensd zijn en het andere zonder, om het verschil tussen berekenbare en onbeslisbare vragen voelbaar te maken.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het wiskundige deel rust op vaststaand werk en is zorgvuldig uitgevoerd. Gödels stelling uit 1931, de stelling van Tarski over waarheid, het stopprobleem van Turing en de these van Church zijn geen aannames maar bewezen resultaten, en Hofstadter leidt ze stap voor stap af in een systeem dat hij voor de lezer opbouwt. Wie het boek uitleest heeft het bewijs gezien en hoeft de auteur niet op zijn woord te geloven.</p>
+      <p>De overgang naar de geest heeft een andere status. Dat mierenkolonies gedrag vertonen dat op geen enkele mier terug te voeren is, is waarneembaar; dat neuronen en symbolen twee beschrijvingshoogten van hetzelfde weefsel zijn, is een aannemelijke stelling. Maar dat een vreemde lus voldoende is om een ik te laten ontstaan, wordt nergens aangetoond. Het is een voorstel, aangeprezen door de kracht van de overeenkomst.</p>
+      <p>De verbanden met Escher en Bach zijn illustratie. Ze maken zichtbaar en hoorbaar wat het bewijs abstract doet, en ze houden het boek leesbaar, maar ze voegen niets toe aan de grond onder de stelling. Hofstadter zegt dat ook zelf door zijn boek een metaforische fuga te noemen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de sprong van Gödel naar bewustzijn een analogie blijft. Zelfverwijzing komt in talloze systemen voor, van een spiegel tot een boekhoudprogramma dat zijn eigen bestanden telt, zonder dat er ook maar iets van een ik verschijnt. Hofstadter geeft geen voorwaarde die aangeeft wanneer een lus wel en wanneer hij geen zelfbesef oplevert, en zonder zo'n voorwaarde is de stelling niet te weerleggen en dus ook niet te toetsen.</p>
+      <p>De voorspellingen over kunstmatige intelligentie zijn niet uitgekomen op de manier die het boek verwachtte. In het hoofdstuk met tien vragen en gissingen antwoordt Hofstadter op de vraag of er ooit een schaakprogramma komt dat iedereen verslaat, dat er zulke programma's kunnen komen maar dat het dan geen schaakprogramma's zullen zijn: een machine die op dat niveau speelt zou volgens hem een algemene geest moeten hebben, die desgevraagd liever iets anders doet. Deep Blue versloeg Kasparov in 1997 met zoeken en stellingbeoordeling, zonder iets algemeens. De redenering dat menselijke vaardigheid alleen uit begrip kan voortkomen, is daarmee op een pijnlijk punt onderuitgehaald.</p>
+      <p>Verder staat er geen enkel empirisch gegeven in het boek. Geen hersenonderzoek, geen proefopstelling, geen getal dat de these steunt of tegenspreekt. De symbolische opvatting van denken die eronder ligt, hoorde bij de kunstmatige intelligentie van de jaren zeventig en is sindsdien opzijgeschoven door lerende netwerken die het zonder expliciete symbolen doen. Dat maakt de wiskundige hoofdstukken niet minder waard, maar de psychologie is een tijdsbeeld.</p>
+      <p>Ten slotte de omvang. Achthonderd bladzijden woordspel, verzonnen taaltjes en dialogen vragen veel van de lezer, en de speelsheid maskeert dat het eigenlijke betoog in een handvol bladzijden past. Dat Hofstadter het achtentwintig jaar later nog eens beknopt moest overdoen omdat vrijwel niemand had gezien waar het boek over ging, is de kritiek die hij zelf levert.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Doe het MU-raadsel voordat je verder leest; het verschil tussen redeneren binnen een systeem en redeneren over een systeem staat daarna vast.</li>
+        <li>Sla de dialogen niet over: elke dialoog oefent de figuur die het hoofdstuk erna uitlegt.</li>
+        <li>Gebruik het onderscheid tussen beschrijvingsniveaus bij het praten over systemen die je zelf bouwt of beheert, en let op uitspraken die twee niveaus door elkaar halen.</li>
+        <li>Wie alleen de stelling over het ik wil, kan beter <i>I Am a Strange Loop</i> lezen; wie Gödels bewijs wil begrijpen zonder wiskundige vooropleiding, zit hier goed.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Gödel, Escher, Bach: An Eternal Golden Braid</i> (Basic Books, New York, 1979, 777 blz., ISBN 9780465026562), met op het omslag de ondertitel <i>a metaphorical fugue on minds and machines in the spirit of Lewis Carroll</i>; in 1999 verscheen dezelfde tekst opnieuw met een voorwoord bij het twintigjarig bestaan. Nederlands als <i>Gödel, Escher, Bach: een eeuwige gouden band</i>, vertaald door Ronald Jonkers, voor het eerst bij Contact (Amsterdam, 1985) en sindsdien herdrukt bij Olympus (904 blz., ISBN 9789046706862).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Hofstadter wil weten hoe uit materie die zelf niets van zichzelf weet een wezen kan ontstaan dat "ik" zegt. Zijn antwoord draait om wat hij een vreemde lus noemt: een beweging die door de niveaus van een systeem omhoog loopt en toch weer op haar beginpunt uitkomt. Hij vindt die lus in de onvolledigheidsstelling die Kurt Gödel in 1931 bewees, in de prenten van Escher waarin twee handen elkaar tekenen, en in de canons van Bach die naar hun eigen begin terugkeren.</p><p>Het boek telt twintig hoofdstukken in twee delen, en voor elk hoofdstuk staat een dialoog tussen Achilles en de Schildpad, figuren die Hofstadter van Lewis Carroll leende. Die dialogen zijn zelf gebouwd als de muziekstukken waarnaar ze heten: de Krabcanon leest voor- en achterstevoren hetzelfde. Tussendoor leert de lezer met een klein formeel systeem werken, ziet hij hoe Gödel een systeem over zichzelf laat praten, en volgt hij het argument naar mierenkolonies, neuronen en computerprogramma's.</p><p>Het boek kreeg in 1980 de Pulitzerprijs voor non-fictie en de National Book Award in de categorie wetenschap. Hofstadter klaagde later dat vrijwel iedereen het las als een boek over wiskunde, kunst en muziek, terwijl het over het ontstaan van een ik gaat; in 2007 schreef hij dat betoog nog eens los op in <i>I Am a Strange Loop</i>.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>wiskunde</li><li>logica</li><li>kunstmatige intelligentie</li><li>bewustzijn</li><li>muziek</li><li>klassieker</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1271"><a href="1271.html">De stelling van Gödel</a>. Nagel en Newman leggen hetzelfde bewijs uit in honderd bladzijden zonder de omweg langs kunst en muziek; het boekje dat Hofstadter naar eigen zeggen op het spoor zette.</li>
+          <li value="656"><a href="656.html">Metamagical Themas</a>. Hofstadters eigen kolommenbundel, waarin zelfverwijzing, patroon en betekenis losser en korter terugkomen.</li>
+          <li value="1318"><a href="1318.html">The Emperor's New Mind: Concerning Computers, Minds and the Laws of Physics</a>. Penrose gebruikt Gödel voor de tegenovergestelde conclusie: dat de geest juist geen machine kan zijn.</li>
+          <li value="1317"><a href="1317.html">Consciousness Explained</a>. Dennett bouwt een verklaring van bewustzijn zonder centrum, waar Hofstadters lus dicht tegenaan ligt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

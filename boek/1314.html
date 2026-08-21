@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Positive Disintegration &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Dąbrowski keert de gangbare verhouding tussen klacht en gezondheid om. Angst, innerlijke conflicten, schuldgevoel en neurotische symptomen zijn bij hem…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1314">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1314 &middot; Brein en lichaam</p>
+    <h1>Positive Disintegration</h1>
+    <p class="lede">Kazimierz Dąbrowski, 1964</p>
+    <p class="stats">
+      <span><b>1454</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1314"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Dąbrowski keert de gangbare verhouding tussen klacht en gezondheid om. Angst, innerlijke conflicten, schuldgevoel en neurotische symptomen zijn bij hem geen gebreken die weggenomen moeten worden, maar het werk van ontwikkeling zelf: zonder het uiteenvallen van de eerste, aangeleerde persoonlijkheidsstructuur komt niemand verder dan aanpassing aan zijn omgeving. Geestelijke gezondheid meet hij aan het vermogen om zich te ontwikkelen en niet aan de afwezigheid van klachten, en een aangepast, tevreden mens staat in deze theorie laag.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een theorie van buiten de westerse lijn</h3>
+      <p>Dąbrowski ontwikkelde zijn theorie in Polen, grotendeels buiten het zicht van de Amerikaanse en Britse psychiatrie en in een land dat na 1945 weinig ruimte liet voor zijn vak. Deze uitgave uit 1964 is de eerste keer dat het geheel in het Engels wordt gepresenteerd, met een inleiding van Jason Aronson, destijds verbonden aan Harvard Medical School en redacteur van het <i>International Journal of Psychiatry</i>.</p>
+      <p>De achtergrond van de theorie ligt bij de negentiende-eeuwse neuroloog Hughlings Jackson, die het zenuwstelsel als een opeenstapeling van niveaus beschreef waarbij ziekte de hoogste laag als eerste uitschakelt, en bij Piaget. Dąbrowski neemt die gelaagdheid over en past haar toe op het geestelijk leven.</p>
+      <h3>Wat desintegratie is</h3>
+      <p>Desintegratie is het losraken van de samenhang in de psychische structuur: wat vanzelfsprekend was, is het niet meer, en de mens raakt in conflict met zichzelf. Dąbrowski onderscheidt daarbinnen twee vormen. Bij eenniveaudesintegratie strijden gelijkwaardige impulsen en stemmingen met elkaar, zonder dat iemand kan zeggen welke hoger staat; dat kan uitlopen op vastlopen, ziekte of zelfdoding.</p>
+      <p>Bij meerniveaudesintegratie ontstaat er een verticale ordening: de mens ziet in zichzelf wat lager is en wat hoger, en kiest tegen zijn eigen neigingen in. Die tweede vorm noemt hij positief, omdat er iets uit voortkomt. Dat oordeel valt achteraf, wat het zwakke punt van de hele constructie is.</p>
+      <h3>De vijf niveaus</h3>
+      <p>Het eerste niveau is primaire integratie: een sluitende persoonlijkheid, gestuurd door driften en door wat de omgeving verlangt, zonder innerlijk conflict. Daarboven liggen drie niveaus van desintegratie, van eenniveau via spontane meerniveau naar georganiseerde meerniveau, waarin de mens steeds meer greep krijgt op zijn eigen ontwikkeling. Het vijfde niveau is secundaire integratie: een leven dat samenvalt met zelfgekozen waarden.</p>
+      <p>Het zijn geen stadia die iedereen doorloopt. De meeste mensen blijven volgens Dąbrowski op het eerste niveau, terugval is mogelijk, en het vijfde niveau is volgens hem zeldzaam; hij heeft naar eigen zeggen niemand ontmoet die er was.</p>
+      <h3>Dynamismen</h3>
+      <p>Dynamismen zijn de innerlijke krachten die de afbraak en de heropbouw doen. Dąbrowski beschrijft er een reeks, meestal in de vorm van pijnlijke gevoelens: verbazing over zichzelf, onrust over zichzelf, schaamte, schuld, en het gevoel van minderwaardigheid tegenover zichzelf, waaraan hij een heel hoofdstuk wijdt. Dat laatste slaat niet op een vergelijking met anderen: het gaat om achterblijven bij wat iemand zelf hoger acht.</p>
+      <p>Verderop komen dynamismen die de mens sturen in plaats van hem opbreken: positieve onaangepastheid, het waarnemen van zichzelf als voorwerp, het persoonlijkheidsideaal en autopsychotherapie, waarbij iemand zijn eigen behandelaar wordt. Het geheel wordt bij elkaar gehouden door wat hij het sturende en beschikkende centrum noemt.</p>
+      <h3>Ontwikkelingspotentieel en overprikkelbaarheid</h3>
+      <p>Of iemand die weg kan gaan, hangt af van zijn ontwikkelingspotentieel: de som van psychische overprikkelbaarheid, bijzondere talenten en de derde factor. Overprikkelbaarheid is een zenuwstelsel dat sterker reageert dan gemiddeld, in vijf vormen: psychomotorisch, zintuiglijk, verbeeldend, verstandelijk en emotioneel. Wie op meerdere van die vormen hoog zit, leeft heftiger en loopt eerder vast, en juist dat vastlopen is bij Dąbrowski de opening.</p>
+      <p>De derde factor is het vermogen om in de eigen ontwikkeling positie te kiezen, los van aanleg en opvoeding. Dąbrowski schrijft dat het ontwikkelingspotentieel erfelijk is en bij de geboorte vastligt: de omgeving kan het remmen of ruimte geven, maar niet vergroten.</p>
+      <h3>Wat het voor de kliniek betekent</h3>
+      <p>Uit deze opvatting volgt een andere houding in de spreekkamer. De behandelaar helpt de patiënt door het symptoom heen in plaats van het weg te nemen, en zoekt uit of het conflict op één niveau speelt of op meer. De twee gevalsbeschrijvingen, Ella en Jan, zijn bedoeld om te laten zien hoe dat onderscheid in de praktijk wordt gemaakt.</p>
+      <p>Dąbrowski waarschuwt daarbij zelf dat niet elke afbraak goed afloopt. Negatieve desintegratie eindigt in psychose, verval of zelfdoding, en het is niet vooraf te zeggen welke kant het opgaat.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">positieve desintegratie</td><td>Het uiteenvallen van de bestaande psychische structuur op een manier die tot een hogere ordening leidt.</td></tr>
+          <tr><td class="term">primaire integratie</td><td>De sluitende, conflictvrije persoonlijkheid van het eerste niveau, gestuurd door driften en door aanpassing aan de omgeving.</td></tr>
+          <tr><td class="term">secundaire integratie</td><td>Het vijfde en hoogste niveau, waarin iemand leeft naar waarden die hij zelf heeft gekozen.</td></tr>
+          <tr><td class="term">eenniveaudesintegratie</td><td>Een conflict tussen gelijkwaardige impulsen zonder hoger en lager, dat vaak niet tot ontwikkeling leidt.</td></tr>
+          <tr><td class="term">meerniveaudesintegratie</td><td>Een conflict waarin de mens in zichzelf onderscheidt wat hoger en wat lager is en daarnaar handelt.</td></tr>
+          <tr><td class="term">dynamisme</td><td>Een innerlijke kracht, meestal een gevoel zoals schaamte of schuld, die de afbraak of de heropbouw van de structuur aandrijft.</td></tr>
+          <tr><td class="term">derde factor</td><td>Het vermogen om in de eigen ontwikkeling te kiezen, naast de twee factoren erfelijkheid en omgeving.</td></tr>
+          <tr><td class="term">ontwikkelingspotentieel</td><td>De aangeboren som van overprikkelbaarheid, talenten en derde factor, die bepaalt hoe ver iemand kan komen.</td></tr>
+          <tr><td class="term">psychische overprikkelbaarheid</td><td>Een bovengemiddeld reagerend zenuwstelsel, in psychomotorische, zintuiglijke, verbeeldende, verstandelijke en emotionele vorm.</td></tr>
+          <tr><td class="term">positieve onaangepastheid</td><td>Het weigeren van wat de omgeving verlangt op grond van een eigen waardeoordeel, bij Dąbrowski een teken van ontwikkeling.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing bestaat uit klinische waarneming. Dąbrowski beschrijft wat hij bij patiënten zag, ordent dat in begrippen en laat twee gevallen uitvoerig aan het woord. Er staan geen metingen in, geen vergelijkingsgroepen en geen manier om vast te stellen op welk niveau iemand zich bevindt anders dan het oordeel van de beschrijver.</p>
+      <p>De keuze van de gevallen werkt in het voordeel van de stelling. Wie patiënten beschrijft bij wie een crisis in groei is uitgemond, laat zien dat crises tot groei kunnen leiden; hoe vaak dat niet gebeurt, en of het bij mensen zonder behandeling anders loopt, valt uit dit materiaal niet af te leiden.</p>
+      <p>In de zestig jaar sinds de uitgave is dat niet veel beter geworden. Het empirisch werk heeft zich vrijwel volledig gericht op één onderdeel, de overprikkelbaarheid, gemeten met een vragenlijst die daarvoor is gemaakt. De niveaus, de dynamismen en de erfelijkheid van het ontwikkelingspotentieel zijn nooit op een manier onderzocht die de theorie kan weerleggen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de theorie zichzelf niet kan tegenspreken. Loopt een crisis uit op groei, dan was zij positief; loopt zij uit op verval, dan was zij negatief. Het onderscheid wordt achteraf toegekend op grond van de uitkomst, en daarmee verklaart de theorie niets wat je niet al wist toen je de uitkomst zag. Hetzelfde geldt voor de niveaus: er is geen onafhankelijke maat waarmee iemand op de ladder te plaatsen valt.</p>
+      <p>Ten tweede is de ladder een morele en geen psychologische. Wie zich aanpast staat laag, wie lijdt onder zijn eigen tekortschieten staat hoog, en het hoogste niveau is per definitie bijna onbereikbaar. Dat is een waardeoordeel over levens, gepresenteerd als ontwikkelingsleer. De bewering dat het ontwikkelingspotentieel erfelijk is en bij de geboorte vastligt, maakt het scherper: sommige mensen zouden nooit boven het eerste niveau uit kunnen komen, en voor die claim levert het boek geen genetisch bewijs.</p>
+      <p>Ten derde is er het gebruik dat er sinds de jaren tachtig van wordt gemaakt. In het onderwijs aan hoogbegaafde kinderen wordt overprikkelbaarheid ingezet om intensiteit, felheid en somberheid te duiden als kenmerk van een hoog ontwikkelingspotentieel. Dat is aantrekkelijk voor ouders en kind en het gaat verder dan de theorie draagt: overprikkelbaarheid is bij Dąbrowski geen kenmerk van begaafdheid, en een verklaring die de klacht tot voorrecht maakt, kan behandeling in de weg staan wanneer die nodig is.</p>
+      <p>Tot slot is dit boek van 132 bladzijden een samenvatting van een groter stelsel. Wie de theorie wil kennen, moet naar de latere delen, waar de begrippen zijn uitgewerkt. Het Engels is dicht en de termen zijn vertalingen van vertalingen, wat de lezing zwaarder maakt dan de gedachte zelf is.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kijk bij een eigen crisis welke waarden na afloop terugkomen en welke wegblijven; dat onderscheid is het enige praktische stuk van de theorie.</li>
+        <li>Vraag bij elk oordeel over een niveau wie het vaststelt en waarmee. Zonder maat is het een mening.</li>
+        <li>Lees overprikkelbaarheid als een beschrijving van gedrag en niet als verklaring ervan.</li>
+        <li>Weeg bij een vastgelopen jongere of het aanbod van deze duiding de last verlicht of het uitstellen van hulp goedpraat.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Positive Disintegration</i>, bezorgd en ingeleid door Jason Aronson (Little, Brown and Company, Boston, 1964, xxviii en 132 blz.). Het is de eerste Engelstalige presentatie van een theorie die Dąbrowski vanaf de jaren dertig in het Pools ontwikkelde; hij werkte haar daarna uit in <i>Personality-shaping through Positive Disintegration</i> (1967), <i>Mental Growth through Positive Disintegration</i> (1970) en <i>Psychoneurosis Is Not An Illness</i> (1972). Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Kazimierz Dąbrowski (1902-1980) was een Poolse psychiater en psycholoog die zijn hele beroepsleven bezig was met één omkering: de klachten waarvoor mensen bij hem kwamen, angst, schaamte, innerlijke strijd en neurotische symptomen, hield hij voor het werk van ontwikkeling zelf, eerder dan voor een stoornis.</p><p>Zijn redenering gaat zo. Een mens begint met een structuur die hij van erfelijkheid en omgeving heeft meegekregen en waarin hij goed functioneert zolang hij zich aanpast. Ontwikkeling begint pas als die structuur het begeeft. Wie in dat afbrokkelen blijft steken, komt uit bij ziekte of zelfdoding; wie het uithoudt, kan zich opnieuw ordenen rond waarden die hij zelf heeft gekozen. Dat afbreken noemt hij positieve desintegratie.</p><p>Het boek van 132 bladzijden zet in negen hoofdstukken de begrippen uiteen die daarbij horen: niveaus van ontwikkeling, dynamismen zoals schaamte, schuld en het gevoel van minderwaardigheid tegenover zichzelf, de derde factor, en het ontwikkelingspotentieel waarmee iemand geboren wordt. Twee patiëntbeschrijvingen, Ella en Jan, dragen het klinische deel. De theorie is buiten de psychiatrie blijven hangen en heeft haar publiek gevonden in het onderwijs aan hoogbegaafde kinderen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>psychiatrie</li><li>persoonlijkheid</li><li>persoonlijke ontwikkeling</li><li>emoties</li><li>hoogbegaafdheid</li><li>kort-boek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1315"><a href="1315.html">Touched with Fire</a>. Jamison doet iets vergelijkbaars met de manisch-depressieve aanleg en stuit op dezelfde bewijsproblemen.</li>
+          <li value="1302"><a href="1302.html">NeuroDiversity: The Birth of an Idea</a>. Singer beschrijft hoe een neurologisch verschil een politieke identiteit wordt, waar Dąbrowski er een ontwikkelingsniveau van maakt.</li>
+          <li value="1292"><a href="1292.html">Gifts Differing</a>. Myers deelt mensen ook in typen in op grond van innerlijke voorkeuren, met dezelfde vraag naar de maat erachter.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

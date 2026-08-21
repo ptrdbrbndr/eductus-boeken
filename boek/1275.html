@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toeval en onvermijdelijkheid &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Monod stelt dat de moleculaire biologie het laatste toevluchtsoord voor doelgerichtheid in de natuur heeft opgeruimd. Levende wezens vertonen doelgericht…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1275">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1275 &middot; Natuur en wetenschap</p>
+    <h1>Toeval en onvermijdelijkheid</h1>
+    <p class="lede">Jacques Monod, 1970; vert. Aldert Walrecht, 1971</p>
+    <p class="stats">
+      <span><b>1769</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1275"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Monod stelt dat de moleculaire biologie het laatste toevluchtsoord voor doelgerichtheid in de natuur heeft opgeruimd. Levende wezens vertonen doelgericht gedrag, bouwen zichzelf en planten zich onveranderd voort, en die drie eigenschappen zijn volgens hem volledig te herleiden tot de vorm van eiwitten en tot de manier waarop de erfelijke tekst wordt gekopieerd. Wat aan die tekst verandert, verandert door toeval, en de selectie die daarop volgt bewaart alleen wat werkt. Daaruit volgt dat er geen bedoeling achter de levende wereld zit en dat elke leer die er wel een veronderstelt, godsdienstig of marxistisch, in strijd is met wat de wetenschap laat zien. Wetenschap kan echter zelf geen waarden funderen, en dus eindigt het boek bij de vraag welke ethiek er dan nog overblijft.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Drie kenmerken van levende voorwerpen</h3>
+      <p>Monod begint met een gedachtenproef. Stel dat een sonde naar een andere planeet wordt gestuurd met een programma aan boord dat moet uitmaken welke voorwerpen door levende wezens zijn gemaakt en welke door natuurkrachten. Wat zou zo'n programma moeten meten? Regelmaat en symmetrie zijn ontoereikend, want kristallen hebben die ook.</p>
+      <p>Zijn antwoord bestaat uit drie eigenschappen: teleonomie, het gedrag alsof er een project wordt uitgevoerd; autonome morfogenese, het opbouwen van de eigen vorm van binnenuit; en invariante voortplanting, het onveranderd doorgeven van die vorm. Meteen daarna wijst hij op de spanning waar het boek van leeft: doelgericht gedrag lijkt in tegenspraak met de afspraak dat de natuur niet met bedoelingen wordt verklaard.</p>
+      <h3>Vitalisme en animisme</h3>
+      <p>Het tweede hoofdstuk ruimt de tegenstanders op. Vitalisten nemen aan dat er in het levende iets werkzaam is dat de natuurkunde niet kent; Monod noemt Bergson met zijn levensdrang, en de gedachte aan afzonderlijke wetten voor het levende. Animisten projecteren een bedoeling in het heelal als geheel: Spencer, Teilhard de Chardin, het dialectisch materialisme.</p>
+      <p>Tegenover beide zet hij het postulaat van de objectiviteit, de afspraak dat verschijnselen niet met een doel worden verklaard. Die afspraak dateert hij bij Galilei en Descartes, en hij benadrukt dat zij onbewijsbaar is. Het is een keuze, geen ontdekking, en de hele moderne wetenschap staat erop.</p>
+      <h3>Eiwitten als demonen van Maxwell</h3>
+      <p>Waar wordt teleonomie scheikunde? In het eiwit. Een enzym herkent uit een mengsel van duizenden soorten moleculen precies één vorm, houdt die met zwakke bindingen vast en versnelt daar een bepaalde reactie. Monod noemt dat stereospecificiteit en vergelijkt het enzym met de demon van Maxwell: het verricht zelf geen arbeid, het kiest.</p>
+      <p>Daarmee is het doelgerichte gedrag van een cel teruggebracht tot vorm. Wat een cel doet, hangt af van welke eiwitten zij bezit en welke vormen die eiwitten herkennen.</p>
+      <h3>Microscopische cybernetica en de gratuïteit</h3>
+      <p>Het vierde hoofdstuk gaat over Monods eigen vak. Allosterische eiwitten hebben behalve de plek waar de reactie plaatsvindt een tweede plek waar een regelend molecuul kan binden, waardoor de vorm van het eiwit en daarmee zijn werkzaamheid verandert. Zo ontstaan terugkoppelingen: het eindproduct van een keten kan de eerste stap van diezelfde keten stilzetten.</p>
+      <p>Het punt dat Monod hieruit haalt, noemt hij de gratuïteit. Tussen het regelende molecuul en de gereguleerde reactie hoeft scheikundig geen enkel verband te bestaan. De koppeling is willekeurig, en juist daardoor kan de evolutie in beginsel alles aan alles verbinden. Hier ligt volgens hem de vrijheid waarmee levende systemen nieuwe vormen van regeling ontwikkelen.</p>
+      <h3>Zelfbouw</h3>
+      <p>Het vijfde hoofdstuk gaat over de manier waarop structuur zonder bouwtekening ontstaat. Een eiwitketen vouwt zichzelf op tot de vorm die haar volgorde toelaat; virusdeeltjes zetten zich uit losse onderdelen in elkaar. De informatie zit in de volgorde, maar niet in een vorm die eruit is af te lezen: zij komt pas te voorschijn tijdens het bouwen, in samenspel met de omstandigheden.</p>
+      <h3>Invariantie en verstoring</h3>
+      <p>Het zesde hoofdstuk zet DNA neer als de drager van de invariantie. De code was in 1966 uitgeschreven en de stroom loopt één kant op: van DNA via RNA naar eiwit, nooit terug. Daaruit volgt dat wat een organisme tijdens zijn leven meemaakt, niet in de erfelijke tekst kan worden bijgeschreven.</p>
+      <p>Verandering komt dus alleen van fouten in het kopiëren. Monod behandelt die als gebeurtenissen op het niveau waarop de kwantummechanica geldt, en hij benadrukt dat het toeval hier geen dekmantel is voor onwetendheid maar een eigenschap van de zaak zelf. Het toeval levert, de selectie kiest, en de uitkomst ziet er achteraf uit alsof zij bedoeld was.</p>
+      <h3>Evolutie, grenzen en de mens</h3>
+      <p>In het zevende en achtste hoofdstuk trekt hij de lijn door. Selectie werkt op wat een organisme doet, zodat gedrag mede bepaalt welke erfelijke veranderingen kans maken. Over de oorsprong van het leven is hij uitgesproken terughoudend: de kans op het eerste zichzelf verdubbelende systeem valt niet te berekenen en kan vrijwel nul zijn geweest.</p>
+      <p>Het heelal was niet zwanger van het leven, schrijft hij, en de biosfeer niet van de mens. Wat er over het zenuwstelsel, het bewustzijn en de taal te zeggen valt, houdt hij bewust open; hij neigt naar een aangeboren taalvermogen en noemt de verhouding tussen hersenwerking en beleving een onopgelost vraagstuk.</p>
+      <h3>Het koninkrijk en de duisternis</h3>
+      <p>Het slothoofdstuk verlaat de biologie. Het oude verbond, het gevoel thuis te horen in een zinvolle wereld, is volgens Monod door de wetenschap opgezegd, en de moderne samenlevingen leven met een tegenstrijdigheid: zij danken hun welvaart aan een kennis waarvan zij de gevolgen voor hun waarden niet aanvaarden.</p>
+      <p>Zijn voorstel is de ethiek van de kennis: erken de keuze voor objectiviteit als waarde en bouw daarop. Het boek eindigt met de vaststelling dat de mens alleen staat in een onverschillig heelal waaruit hij bij toeval is voortgekomen, en dat noch zijn lot noch zijn plicht ergens is opgeschreven.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">teleonomie</td><td>De eigenschap van organismen dat zij zich gedragen alsof zij een project uitvoeren, zonder dat iemand een doel stelt; Monod nam het woord over van Colin Pittendrigh.</td></tr>
+          <tr><td class="term">invariante voortplanting</td><td>Het vermogen om de eigen geordende bouw ongewijzigd aan volgende generaties door te geven.</td></tr>
+          <tr><td class="term">autonome morfogenese</td><td>Het opbouwen van de eigen vorm van binnenuit, zonder aanwijzing van buitenaf.</td></tr>
+          <tr><td class="term">stereospecificiteit</td><td>Het vermogen van een eiwit om uit een mengsel precies één molecuulvorm te herkennen en vast te houden.</td></tr>
+          <tr><td class="term">allosterie</td><td>De regeling van een eiwit door een molecuul dat op een tweede plek bindt en daarmee de vorm van het eiwit verandert.</td></tr>
+          <tr><td class="term">gratuïteit</td><td>Het ontbreken van enig scheikundig verband tussen het regelende molecuul en de reactie die het regelt, waardoor de koppeling willekeurig kan zijn.</td></tr>
+          <tr><td class="term">postulaat van de objectiviteit</td><td>De afspraak om de natuur niet met bedoelingen te verklaren, door Monod als grondslag van de wetenschap genoemd en als onbewijsbaar erkend.</td></tr>
+          <tr><td class="term">animisme</td><td>Monods verzamelnaam voor elke leer die de mens een bedoelde plaats in een gerichte kosmos toekent.</td></tr>
+          <tr><td class="term">oude verbond</td><td>Het gevoel thuis te horen in een zinvolle wereld, dat volgens Monod door de wetenschap is opgezegd.</td></tr>
+          <tr><td class="term">ethiek van de kennis</td><td>Monods voorstel om de keuze voor objectiviteit zelf als waarde te aanvaarden en daar een moraal op te bouwen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Waar Monod over eiwitten en genen schrijft, schrijft hij over zijn eigen vak en over resultaten die op dat moment vers en stevig waren. De allosterische regeling en de werking van repressoren zijn zijn eigen laboratoriumwerk met François Jacob en André Lwoff, waarvoor het drietal in 1965 de Nobelprijs kreeg. De genetische code was in 1966 uitgeschreven en de eenrichtingsstroom van DNA naar eiwit gold als vaststaand. Het essay heeft technische bijlagen waarin die scheikunde wordt uitgelegd, wat voor een filosofisch boek ongebruikelijk is.</p>
+      <p>De filosofische helft is van een andere soort. Het postulaat van de objectiviteit noemt Monod zelf onbewijsbaar; hij presenteert het als de keuze die de wetenschap sinds Galilei heeft gemaakt en waaraan zij haar opbrengst dankt. De stap van dat postulaat naar de uitspraak dat er geen bedoeling in de natuur zit, volgt dus uit een afspraak en niet uit een meting.</p>
+      <p>Over de oorsprong van het leven is hij zo terughoudend dat zijn argument daar niet te toetsen valt. Hij stelt dat de kans op het eerste verdubbelende systeem onbekend is en misschien verdwijnend klein was, en dat wij daarover niets kunnen zeggen omdat wij het ene geval zijn dat is opgetreden. Dat is eerlijk gezegd, en het maakt de uitspraak tegelijk onaantastbaar op een manier die hij bij anderen zou afkeuren.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het scherpste bezwaar geldt de bouw van het slot. Monod betoogt eerst dat wetenschap geen waarden oplevert en dat elke poging om een moraal uit de natuur af te leiden een denkfout is. Daarna stelt hij voor de keuze voor objectiviteit tot grondslag van een moraal te maken. Waarom die keuze wel bindend zou zijn en de keuzes van zijn tegenstanders niet, staat er niet. De ethiek van de kennis is naar zijn eigen maatstaf een sprong.</p>
+      <p>Zijn beeld van mutatie is grover dan het beeld van nu. Monod behandelt erfelijke verandering als toeval zonder meer, terwijl sindsdien is gebleken dat mutatiesnelheden systematisch verschillen tussen delen van het genoom en dat herstelmechanismen die verdeling mede bepalen. Ook de neutrale theorie van Motoo Kimura uit 1968, waarin het grootste deel van de moleculaire verandering noch nuttig noch schadelijk is en door toevallige drift wordt vastgelegd, past slecht bij Monods sterk op selectie gerichte verhaal.</p>
+      <p>Zijn afrekening met tegenstanders is polemisch en op zijn eigen tijd gericht. Het dialectisch materialisme en Teilhard de Chardin worden in enkele bladzijden afgedaan, en van de mogelijkheid dat ordening ook uit natuurkundige neigingen kan voortkomen, buiten selectie om, wil hij niets weten. Dat standpunt is later bestreden door onder anderen Prigogine en Stuart Kauffman. Die discussie is niet beslecht; in dit boek wordt zij niet gevoerd.</p>
+      <p>Ten slotte is de toon van het laatste hoofdstuk eerder die van een manifest dan van een betoog. Jeffrey Wicken noemde het boek een manifest van de materialistische biologie in haar meest reductionistische vorm, en dat oordeel valt te verdedigen: de mens verschijnt hier als de uitkomst van een loterij, en wat er verder over hem gezegd wordt, komt uit Monods eigen overtuigingen en niet uit zijn laboratorium.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Scheid het scheikundige betoog van de wereldbeschouwing; de eerste zes hoofdstukken zijn vakwerk, het laatste is een geloofsbelijdenis.</li>
+        <li>Gebruik het begrip teleonomie wanneer je doelgericht gedrag wilt beschrijven zonder een doelsteller aan te nemen.</li>
+        <li>Let op het verschil tussen toeval als uitdrukking van onwetendheid en toeval als eigenschap van de zaak zelf; Monod bedoelt het tweede, en zijn hele betoog hangt daarvan af.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Toeval en onvermijdelijkheid: proeve van een natuurfilosofie van de moderne biologie</i>, vertaald door Aldert Walrecht (A.W. Bruna &amp; Zoon, Utrecht, 1971, 183 blz., ISBN 90-229-7180-5). Oorspronkelijk <i>Le Hasard et la Nécessité: Essai sur la philosophie naturelle de la biologie moderne</i> (Éditions du Seuil, Parijs, 1970); de Engelse vertaling van Austryn Wainhouse verscheen in 1971 als <i>Chance and Necessity</i>. De Nederlandse uitgave is alleen nog antiquarisch te vinden.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Jacques Monod (1910-1976) kreeg in 1965 de Nobelprijs voor zijn werk aan de regeling van genen in bacteriën. Vijf jaar later schreef hij een essay waarin hij uit de moleculaire biologie een wereldbeeld afleidt. Levende wezens onderscheiden zich volgens hem door drie eigenschappen: ze gedragen zich alsof ze een project uitvoeren, ze bouwen hun eigen vorm zonder aanwijzing van buiten, en ze geven dat bouwplan onveranderd door. Die drie zijn met scheikunde te verklaren, betoogt hij, zonder ergens een bedoeling in de natuur binnen te halen.</p><p>Daaruit trekt Monod een conclusie die het boek in Frankrijk tot twistpunt maakte. Als de erfelijke verandering waar alles op teruggaat werkelijk toevallig is, dan zit er geen plan achter de mens en geen richting in de geschiedenis. Hij gebruikt dat om zowel het christendom als het dialectisch materialisme en de kosmische evolutieleer van Teilhard de Chardin af te wijzen.</p><p>Het slothoofdstuk is een pleidooi voor wat hij een ethiek van de kennis noemt. De keuze voor objectiviteit is zelf geen wetenschappelijke uitspraak, erkent Monod, en juist daarom moet zij als keuze worden uitgesproken en niet als vanzelfsprekendheid worden meegedragen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>biologie</li><li>evolutie</li><li>genetica</li><li>wetenschapsfilosofie</li><li>klassieker</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="818"><a href="818.html">What Is Life? The Physical Aspect of the Living Cell</a>. Schrödinger vroeg in 1944 om een aperiodiek kristal dat erfelijkheid draagt; Monod beschouwt die vraag hier als beantwoord.</li>
+          <li value="1273"><a href="1273.html">The Vital Question</a>. Lane zoekt de verklaring voor de vorm van het leven in de energiehuishouding, waar Monod haar volledig in de erfelijke tekst legt.</li>
+          <li value="1274"><a href="1274.html">Order Out of Chaos</a>. Prigogine en Stengers noemden hun boek een nieuw verbond, als rechtstreeks antwoord op Monods uitspraak dat het oude verbond verbroken is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thinking in Numbers &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Tammet stelt dat wiskunde geen apart vak is maar een vorm van verbeelding die uit dezelfde bron komt als poëzie: telwoorden, verhoudingen, oneindigheid en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1312">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1312 &middot; Roman en memoir</p>
+    <h1>Thinking in Numbers</h1>
+    <p class="lede">Daniel Tammet, 2012</p>
+    <p class="stats">
+      <span><b>1257</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1312"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Tammet stelt dat wiskunde geen apart vak is maar een vorm van verbeelding die uit dezelfde bron komt als poëzie: telwoorden, verhoudingen, oneindigheid en toeval zitten in taal, in gezinnen, in kalenders en in het gevoel voor tijd, en wie ze daar herkent, kijkt anders naar zijn eigen leven. Daaruit volgt dat het schoolvak het onderwerp eerder verbergt dan opent, en dat een essay over IJslandse telwoorden meer over getallen kan zeggen dan een som.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een gezin als verzameling</h3>
+      <p>Het boek opent met het huis waarin Tammet opgroeide: elf mensen, negen kinderen, één badkamer. Hij beschrijft hoe hij als kind zijn broers en zussen ordende in groepen die elkaar overlappen, en hoe het begrip verzameling voor hem eerder een huiselijke ervaring was dan een definitie. Wie in zo'n gezin opgroeit, weet wat het verschil is tussen een aantal en een geheel.</p>
+      <p>Het tweede essay gaat over de paradox van Zeno, waarin Achilles de schildpad niet zou kunnen inhalen omdat hij eerst het halve stuk moet afleggen, dan de helft daarvan, en zo door. Tammet gebruikt hem om te laten zien dat een optelling van oneindig veel steeds kleinere stukken een eindige uitkomst kan hebben, en verbindt dat met de duur van een middag in de kindertijd.</p>
+      <h3>Tellen in andere talen</h3>
+      <p>In het IJslands verbuigen de telwoorden een tot en met vier mee met het geslacht van het gestelde. Tammet leerde de taal in een week voor een televisieprogramma en gebruikt die ervaring om te betogen dat getallen in een taal thuishoren voordat ze in een som thuishoren. Kinderen leren tellen zoals ze rijmpjes leren.</p>
+      <p>Een verwant essay legt spreekwoorden naast tafels van vermenigvuldiging. Beide zijn korte, geritmeerde formules die iemand voor het leven onthoudt zonder ze te hoeven begrijpen, en beide leveren een vaste zin op waarmee je in het dagelijks verkeer vooruit kunt.</p>
+      <h3>Het klaslokaal en de wiskundige</h3>
+      <p>In <i>Classroom Intuitions</i> zet Tammet zijn schoolmeester Baxter naast de Franse wiskundige Alain Connes. De eerste gaf regels om te onthouden, de tweede beschrijft wiskunde als een landschap dat bestaat en dat je verkent. Tammet vindt het treurig dat wiskunde bij de meeste volwassenen is teruggebracht tot de herinnering aan een klasseregel.</p>
+      <p>Een ander essay plaatst de nul in de tijd van Shakespeare. Engeland rekende in diens jeugd nog maar kort met Arabische cijfers, en het teken dat zelf niets telt maar de waarde van alle andere tekens bepaalt was voor die generatie nieuw. Tammet leest het spel met leegte en niets in de stukken tegen die achtergrond.</p>
+      <h3>Grote getallen, priemgetallen, sneeuw</h3>
+      <p>Een reeks essays gaat over aantallen die het voorstellingsvermogen te boven gaan: het aantal mogelijke boeken van een gegeven lengte, het aantal vormen dat een sneeuwvlok kan aannemen, de rij priemgetallen die nooit ophoudt en waarin geen regelmaat te vinden is. Tammet laat de rekensom achterwege en zoekt telkens een beeld waarmee de orde van grootte voelbaar wordt.</p>
+      <p>De priemgetallen brengt hij bij het schrijven van gedichten: allebei laten ze zich niet afleiden uit wat eraan voorafging, en allebei blijven ze verrassen wie er lang naar kijkt. Het is de plek waar zijn hoofdgedachte het duidelijkst staat en tegelijk het minst wordt bewezen.</p>
+      <h3>Pi als gedicht</h3>
+      <p>Het essay over pi ontleent zijn titel aan een gedicht van Wisława Szymborska. Tammet beschrijft hoe hij de decimalen als een landschap onthield, met kleuren, hellingen en overgangen, en hoe hij ze in 2004 in het Museum of the History of Science in Oxford opzegde. Van de prestatie zelf maakt hij weinig ophef; wat hij wil laten zien is dat een oneindige, zich niet herhalende reeks voor hem een vorm heeft.</p>
+      <h3>Statistiek, tijd en de rest van de wereld</h3>
+      <p>In de latere essays keert hij zich tegen de negentiende-eeuwse figuur van de gemiddelde mens: een gemiddelde beschrijft niemand, en toch wordt eraan gerekend alsof het om een persoon gaat. Een ander stuk verklaart waarom een jaar korter voelt naarmate iemand ouder wordt: elk volgend jaar is een kleiner deel van het geleefde leven.</p>
+      <p>Het boek eindigt bij vragen die alleen met schattingen te beantwoorden zijn, zoals de vraag of er elders leven is. Elke factor in zo'n schatting is zelf een gok, en Tammet gebruikt dat om te laten zien wat een getal waard is dat uit gissingen is opgebouwd.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">synesthesie</td><td>Het door elkaar lopen van zintuiglijke indrukken, waardoor Tammet elk getal met een vorm, een kleur en een structuur ervaart.</td></tr>
+          <tr><td class="term">verzameling</td><td>Een groep dingen die als één geheel wordt beschouwd, het begrip waarmee hij zijn gezin van elf beschrijft.</td></tr>
+          <tr><td class="term">oneindige reeks</td><td>Een optelling van oneindig veel steeds kleinere termen die toch een eindige uitkomst kan hebben, de uitweg uit de paradox van Zeno.</td></tr>
+          <tr><td class="term">nul</td><td>Het teken dat zelf niets telt maar de waarde van de andere cijfers bepaalt, en dat in Engeland pas rond Shakespeares jeugd gewoon werd.</td></tr>
+          <tr><td class="term">priemgetal</td><td>Een getal dat alleen deelbaar is door zichzelf en door één, en waarvan de opeenvolging geen formule kent.</td></tr>
+          <tr><td class="term">decimalen van pi</td><td>De oneindige, zich niet herhalende cijferreeks achter de komma die Tammet tot 22.514 plaatsen uit het hoofd opzegde.</td></tr>
+          <tr><td class="term">de gemiddelde mens</td><td>De statistische figuur die uit een bevolking wordt afgeleid en met wie volgens Tammet niemand samenvalt.</td></tr>
+          <tr><td class="term">wiskundige intuïtie</td><td>Het vermoeden dat aan een bewijs voorafgaat en dat hij vergelijkt met de eerste regel van een gedicht.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is een essaybundel en geen betoog met bronnen. Wat Tammet aandraagt zijn eigen ervaringen, taalkundige voorbeelden en gelezen geschiedenis. Op de plekken waar hij iets beweert dat na te trekken valt, houdt het stand: de IJslandse telwoorden verbuigen inderdaad, de nul kwam in Engeland laat in het rekenonderwijs terecht, en de opzegprestatie in Oxford is vastgelegd, met datum, plaats en duur.</p>
+      <p>De verbindende gedachte, dat wiskunde en poëzie uit dezelfde bron komen, krijgt geen bewijs en kan dat waarschijnlijk ook niet krijgen. Tammet legt de twee naast elkaar en laat de lezer beslissen of de gelijkenis meer is dan een gelijkenis. Wie een argument verwacht dat je kunt narekenen, vindt dat in dit boek niet, ook niet in de essays over priemgetallen en over grote getallen, waar de wiskunde op het niveau van de middelbare school blijft.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat het boek voor een deel op de reputatie van de schrijver draait. Tammet wordt tot de kleine groep van uitzonderlijke savanten gerekend, en die status geeft zijn opmerkingen over getallen een gezag dat ze op eigen kracht niet zouden hebben. Joshua Foer heeft betoogd dat zijn prestaties net zo goed te verklaren zijn uit jarenlang geoefende geheugentechniek als uit een afwijkend brein. Dat maakt Tammets waarnemingen niet onwaar, maar het boek gaat de vraag uit de weg, terwijl het er wel van profiteert.</p>
+      <p>Ten tweede is de bundel ongelijk. Een aantal essays komt niet verder dan een aardig beeld van drie bladzijden, en de historische passages worden in de tekst niet verantwoord, zodat een lezer die wil weten waar iets vandaan komt met lege handen staat. De ondertitel belooft dat wiskunde ons leven verheldert; verschillende stukken verhelderen vooral het leven van Tammet.</p>
+      <p>Ten derde blijft de wiskunde zelf zacht. Er staat geen enkele afleiding in, geen enkel bewijs, en dat is een keuze die de bundel toegankelijk maakt en tegelijk het onderwerp ontloopt waar het over gaat. Wie het boek uit heeft, heeft geen wiskunde geleerd en weet wel dat er iets te leren valt.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Thinking in Numbers: How Maths Illuminates Our Lives</i> (Hodder &amp; Stoughton, Londen, 2012, ISBN 9781444737448). De Amerikaanse editie draagt de ondertitel <i>On Life, Love, Meaning, and Math</i> en verscheen bij Little, Brown (New York, 2013), met een pocket bij Back Bay Books (2014, 271 blz., ISBN 9780316187367). Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd. Van Tammet verschenen wel <i>Op een blauwe dag geboren</i> (2007) en <i>De wijde lucht omvatten</i> (2009), beide bij Nieuwezijds.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Daniel Tammet groeide op als oudste van negen kinderen in Oost-Londen, had als kind epileptische aanvallen en kreeg op zijn vijfentwintigste van Simon Baron-Cohen de diagnose syndroom van Asperger. Getallen ziet hij als vormen, kleuren en texturen. In maart 2004 zegde hij in Oxford 22.514 decimalen van pi op, in vijf uur en negen minuten. <i>Thinking in Numbers</i> is zijn derde boek en bestaat uit vijfentwintig korte essays.</p><p>Elk essay begint bij iets alledaags en komt bij een wiskundig idee uit, of andersom. Een gezin van elf mensen levert een stuk over verzamelingen op. Het leren van IJslands in een week levert een stuk op over de eerste vier telwoorden, die in die taal meebuigen met het geslacht van wat geteld wordt. Een gedicht van Wisława Szymborska over pi loopt uit op zijn eigen opzegprestatie. Verder gaan de essays over de nul in de tijd van Shakespeare, over sneeuwvlokken, priemgetallen, het schaakspel, de kalender van Omar Khayyam en over de vraag waarom een jaar korter voelt naarmate iemand ouder wordt.</p><p>Wiskunde is in dit boek geen schoolvak maar een manier van kijken die naast lezen en schrijven staat. Tammet rekent bijna nergens iets voor. Hij vertelt, en laat de rekenkundige gedachte in het verhaal zitten.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>essaybundel</li><li>wiskunde</li><li>getallen</li><li>autisme</li><li>taal</li><li>memoir</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1311"><a href="1311.html">The Man Who Tasted Shapes</a>. Cytowic beschrijft synesthesie van de kant van de neuroloog; Tammet beschrijft haar van binnenuit.</li>
+          <li value="1302"><a href="1302.html">NeuroDiversity: The Birth of an Idea</a>. Singer levert de term waaronder Tammets manier van denken tegenwoordig wordt geschaard.</li>
+          <li value="1310"><a href="1310.html">In the Mind's Eye</a>. West betoogt dat een afwijkende denkstijl in het onderwijs een gebrek heet en daarbuiten een voordeel kan zijn.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

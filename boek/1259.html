@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Lives of a Cell &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Thomas betoogt dat het beeld van het losstaande organisme niet klopt en dat samenwerking de grondvorm van het leven is. Zijn eigen cellen bevatten…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1259">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1259 &middot; Natuur en wetenschap</p>
+    <h1>The Lives of a Cell</h1>
+    <p class="lede">Lewis Thomas, 1974</p>
+    <p class="stats">
+      <span><b>1583</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1259"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Thomas betoogt dat het beeld van het losstaande organisme niet klopt en dat samenwerking de grondvorm van het leven is. Zijn eigen cellen bevatten afstammelingen van vrij levende bacteriën, een mierenkolonie gedraagt zich als één denkend geheel, en de aarde met haar atmosfeer lijkt volgens hem nog het meest op een enkele cel. Uit die opvatting volgt ook zijn kijk op ziekte: de meeste ellende bij een besmetting komt voort uit de heftigheid van onze eigen afweer en niet uit kwaadaardigheid van microben, want de overgrote meerderheid van hen leeft rustig met ons mee.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat voor boek dit is</h3>
+      <p>Het gaat om negenentwintig stukken van elk een paar bladzijden, geschreven tussen 1971 en 1973 voor een vaste rubriek in <i>The New England Journal of Medicine</i>. Thomas mocht schrijven waarover hij wilde, zonder redactie en zonder verwijzingen, en dat is te merken: er staat geen bronnenlijst in en vrijwel geen cijfer.</p>
+      <p>Thomas was op dat moment een gevestigd man in de Amerikaanse geneeskunde. Hij had de medische faculteiten van Yale en New York University geleid en werd in 1973 bestuursvoorzitter van het kankercentrum Memorial Sloan-Kettering. De stukken zijn geschreven voor vakgenoten en gaan uit van een lezer die de biologie kent, maar ze vragen geen voorkennis.</p>
+      <h3>Wij zijn geen eenheid</h3>
+      <p>Het titelstuk keert zich tegen het beeld van de mens als afgeronde eenheid met een eigen binnenkant. De mitochondriën die in elke cel de energie leveren, hebben hun eigen erfelijk materiaal, delen zich op hun eigen moment en stammen volgens de toen nog omstreden theorie van Lynn Margulis af van bacteriën die ooit zelfstandig leefden. Hetzelfde geldt voor de bladgroenkorrels in planten.</p>
+      <p>Thomas trekt daaruit een conclusie die door het hele boek doorwerkt: hij is geen eigenaar van zijn cellen maar een gedeelde ruimte, en de vraag wie hier het organisme is, valt niet zomaar te beantwoorden. In het stuk over organellen werkt hij dat verder uit.</p>
+      <h3>Samenlevingen als organismen</h3>
+      <p>Verschillende stukken gaan over sociale insecten. Een termietenkolonie noemt hij een brein op een miljoen pootjes, waarin de losse termiet zich als een zenuwcel gedraagt: op zichzelf doet hij weinig, met genoeg soortgenoten om zich heen komt bouwgedrag op gang dat geen enkel dier overziet. Er is ook een stuk over een kolonie bladsnijdersmieren die in een galerie in Manhattan werd tentoongesteld.</p>
+      <p>Diezelfde vergelijking past hij op mensen toe, en dan vooral op de wetenschap. Onderzoekers schrijven, praten, verbeteren elkaar en bouwen samen iets op dat niemand van hen alleen bedenkt. Hij merkt daarbij zelf op dat biologen ongemakkelijk worden van deze vergelijking, en gebruikt haar vervolgens gewoon door.</p>
+      <h3>Ziekte en afweer</h3>
+      <p>Het stuk over ziektekiemen bevat zijn scherpste medische stelling. De meeste bacteriën zijn niet uit op ons; ziekmakende soorten zijn zeldzame uitzonderingen, en veel besmettingen lopen mis doordat het lichaam zijn alarmsystemen te ver laat doorschieten. Endotoxine, het stofje in de wand van bepaalde bacteriën, is op zichzelf niet giftig, maar zet de afweer zo hard aan dat de schade van binnenuit komt. Wij lopen, schrijft hij, meer gevaar van onze eigen verdediging dan van de indringer.</p>
+      <p>In een ander stuk deelt hij de medische techniek in drie soorten in. Er is niet-techniek: verzorging en aandacht bij ziekten waaraan niets te doen valt. Er is halve techniek: transplantaties, kunstnieren en kunstharten, spectaculair en duur, en nodig juist omdat we de ziekte niet begrijpen. En er is de techniek die telt, zoals entstoffen en antibiotica, die goedkoop en eenvoudig is omdat zij op begrip van de oorzaak berust. De kosten van de gezondheidszorg lopen volgens hem op door de halve techniek, en de weg eruit loopt via onderzoek.</p>
+      <h3>Sterven, taal en geluid</h3>
+      <p>In het stuk over de dood in de openbaarheid valt hem op dat dieren vrijwel nooit dood worden aangetroffen; ze verdwijnen. Mensen hebben het sterven eveneens uit het zicht gehaald, naar ziekenhuizen, waardoor de dood iets uitzonderlijks lijkt terwijl hij het gewoonste is dat er is. In een verwant stuk betwijfelt hij of sterven pijnlijk is, en haalt hij het verslag aan van David Livingstone, die door een leeuw werd gegrepen en naderhand schreef geen pijn en geen angst te hebben gevoeld.</p>
+      <p>Andere stukken gaan over woorden en hun herkomst, over de geluiden die dieren maken en over de vraag wat een boodschap aan een andere beschaving zou moeten bevatten. Zijn antwoord daarop is Bach, alles van Bach, aan één stuk door uitgezonden, met de opmerking dat we dan wel aan het opscheppen zijn.</p>
+      <h3>Onderzoek en de waarde van vergissingen</h3>
+      <p>In de stukken over wetenschapsbeleid verzet Thomas zich tegen onderzoek dat op bestelling naar een vastgesteld doel toewerkt. Het bruikbare komt volgens hem vrijwel altijd van opzij, uit werk dat om zichzelf werd gedaan, en een planner die vooraf weet wat er gevonden gaat worden, plant het vinden weg.</p>
+      <p>Daarbij hoort zijn waardering voor de fout. Een systeem dat nooit een vergissing maakt, kan niets nieuws voortbrengen; de evolutie draait op kopieerfouten, en het denken volgens hem ook. Het slotstuk gaat over de atmosfeer als het vlies van de aarde: door het leven zelf gemaakt, en het enige wat de planeet van de ruimte scheidt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">endosymbiose</td><td>De theorie dat mitochondriën en bladgroenkorrels afstammen van vrij levende bacteriën die ooit in andere cellen zijn opgenomen.</td></tr>
+          <tr><td class="term">organel</td><td>Een onderdeel binnen de cel dat volgens Thomas beter als medebewoner dan als werktuig te begrijpen is.</td></tr>
+          <tr><td class="term">endotoxine</td><td>Een stof uit de celwand van bepaalde bacteriën die zelf weinig doet maar de afweer zo hard aanzet dat het lichaam zichzelf beschadigt.</td></tr>
+          <tr><td class="term">halve techniek</td><td>Kostbare medische ingrepen die de gevolgen van een ziekte opvangen zonder de oorzaak te kennen, zoals transplantaties en dialyse.</td></tr>
+          <tr><td class="term">beslissende techniek</td><td>Eenvoudige en goedkope middelen zoals entstoffen en antibiotica, die mogelijk werden doordat het ziekteproces begrepen was.</td></tr>
+          <tr><td class="term">samenleving als organisme</td><td>De vergelijking waarin een kolonie insecten of een gemeenschap van onderzoekers zich gedraagt als één wezen dat meer weet dan zijn leden.</td></tr>
+          <tr><td class="term">het grootste vlies</td><td>Thomas' naam voor de atmosfeer, die hij beschrijft als het door het leven gemaakte celmembraan van de aarde.</td></tr>
+          <tr><td class="term">symbiose</td><td>Het samenleven van soorten dat volgens hem eerder regel is dan uitzondering, met parasitisme als afwijking daarvan.</td></tr>
+          <tr><td class="term">de bruikbare vergissing</td><td>Het idee dat kopieerfouten en denkfouten de bron van vernieuwing zijn, in de erfelijkheid en in het onderzoek.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Thomas schrijft zonder bronvermelding en zonder onderzoek van eigen hand in het boek zelf. Wat hij aandraagt is de biologie die hij als immunoloog en patholoog kende, en de lezer moet hem op zijn woord geloven of het zelf nazoeken.</p>
+      <p>Op twee punten is die gok goed uitgepakt. De endosymbiose van Margulis werd in 1974 nog door veel biologen afgewezen en geldt sinds het moleculaire bewijs van de jaren tachtig als vaststaand. Zijn beschrijving van de shock bij een bloedvergiftiging als een ontsporing van de eigen afweer is eveneens de gangbare opvatting geworden, met de kanttekening dat de geneeskunde daarna vooral heeft geleerd hoe moeilijk het is die reactie te remmen zonder de patiënt slechter af te maken.</p>
+      <p>Op een derde punt leunt hij op materiaal dat niet houdbaar bleek. Zijn stuk over de Ik in Oeganda bouwt geheel op Colin Turnbulls <i>The Mountain People</i> uit 1972, een boek waarvan de werkwijze en het beeld van dat volk daarna door antropologen scherp zijn bestreden. Thomas gebruikt het weliswaar om te betogen dat de Ik zich gedragen zoals landen zich tegenover elkaar gedragen, en niet als bewijs van de menselijke aard, maar de grond onder het stuk is weggevallen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de kernbeelden niets uitsluiten. De aarde als cel, de atmosfeer als vlies, de mensheid als kolonie: het zijn vergelijkingen waar geen waarneming tegenin kan gaan, en waaruit ook geen voorspelling volgt. Thomas merkt zelf op dat biologen zich bij zulke beelden ongemakkelijk voelen, geeft toe dat het niet klopt om de aarde een organisme te noemen, en gaat dan verder met een vergelijking die net zo weinig te toetsen valt. Wie het boek uitheeft, heeft een stemming opgedaan en geen stelling die te weerleggen is.</p>
+      <p>Ten tweede is het beeld van de natuur eenzijdig. Symbiose en samenwerking krijgen vrijwel alle aandacht, terwijl roof, concurrentie en parasitisme nauwelijks aan bod komen, ook al zijn dat evenzeer grondvormen van het leven. Zijn eigen betoog over ziektekiemen heeft ziekteverwekkers nodig die in zijn wereldbeeld eigenlijk niet thuishoren.</p>
+      <p>Ten derde is die medische stelling te ruim genomen. Dat de schade bij een besmetting vaak van de afweer komt, klopt voor bloedvergiftiging en voor een deel van de ontstekingsziekten, maar niet voor cholera, tuberculose of een virus dat cellen kapotmaakt, waar de verwekker het weefsel rechtstreeks vernielt. Als algemene regel over ziekte is zijn stelling onhoudbaar; als correctie op het beeld van de microbe als vijand is zij waardevol.</p>
+      <p>Ten slotte is een deel van het boek een tijdsbeeld. Zijn vertrouwen dat de halve techniek vanzelf plaats zou maken voor goedkope, beslissende middelen zodra het onderzoek zijn werk deed, is in de vijftig jaar daarna niet uitgekomen: de dure tussenoplossingen zijn eerder talrijker geworden. Ook zijn optimisme over de ruimte die onderzoekers kregen, past bij een periode van ruime Amerikaanse financiering die kort daarna eindigde.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Lives of a Cell: Notes of a Biology Watcher</i> (The Viking Press, New York, 1974, 153 blz.), een bundeling van negenentwintig stukken die Thomas tussen 1971 en 1973 schreef voor zijn rubriek in <i>The New England Journal of Medicine</i>. Het boek kreeg in 1975 de National Book Award in twee categorieën tegelijk, letteren en wetenschap. Nederlands als <i>Een brein op een miljoen pootjes</i> (Contact, Amsterdam, 1987, 144 blz., ISBN 9789025466510); Open Library noemt het een vertaling van dit boek maar vermeldt geen vertaler.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Thomas was arts, immunoloog en bestuurder, en schreef deze stukken van elk drie tot vijf bladzijden voor een medisch vakblad. Ze gaan over mitochondriën, mieren, geuren, taal, sterven, ziekenhuizen en de vraag wat we naar andere sterrenstelsels zouden moeten sturen. Wat ze bij elkaar houdt is een enkele gedachte: dat een levend wezen niet los staat maar uit samenwerkende delen bestaat die ooit zelfstandig waren, en dat dezelfde verhouding zich op elke schaal herhaalt.</p><p>Het titelstuk begint met de vaststelling dat hij zelf geen afgesloten eenheid is. De mitochondriën in zijn cellen stammen af van vrij levende bacteriën, hebben eigen erfelijk materiaal en delen op hun eigen tempo. Elders staat zijn bekendste medische argument: dat de meeste schade bij een besmetting niet van de ziekteverwekker komt maar van het eigen afweersysteem dat te heftig reageert.</p><p>De stukken zijn kort, associatief en zonder bronvermelding geschreven. Ze leverden hem in 1975 de National Book Award in twee categorieën op, en het boek bleef daarna in druk.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>biologie</li><li>essaybundel</li><li>geneeskunde</li><li>evolutie</li><li>natuur</li><li>klassieker</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="818"><a href="818.html">What Is Life? The Physical Aspect of the Living Cell</a>. Schrödinger stelt dezelfde vraag naar wat een levende cel bijeenhoudt, maar dan vanuit de natuurkunde en met een scherper omlijnd betoog.</li>
+          <li value="1273"><a href="1273.html">The Vital Question</a>. Nick Lane werkt de opname van bacteriën in andere cellen uit tot een verklaring van waarom ingewikkeld leven zo zeldzaam is.</li>
+          <li value="1275"><a href="1275.html">Toeval en onvermijdelijkheid</a>. Monod trekt uit dezelfde celbiologie de tegenovergestelde stemming: toeval en noodzaak in plaats van samenhang en samenwerking.</li>
+          <li value="1262"><a href="1262.html">De zee</a>. Rachel Carson schrijft in dezelfde traditie van de wetenschapper die voor een breed publiek over de levende wereld vertelt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

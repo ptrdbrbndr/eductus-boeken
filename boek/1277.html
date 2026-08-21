@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Information &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Gleick betoogt dat informatie de grondstof is waarin taal, techniek en erfelijkheid zich alle drie laten beschrijven, in plaats van een bijverschijnsel…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1277">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1277 &middot; Natuur en wetenschap</p>
+    <h1>The Information</h1>
+    <p class="lede">James Gleick, 2011</p>
+    <p class="stats">
+      <span><b>1803</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1277"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Gleick betoogt dat informatie de grondstof is waarin taal, techniek en erfelijkheid zich alle drie laten beschrijven, in plaats van een bijverschijnsel daarvan te zijn. De draai die hij volgt is die van 1948, toen Claude Shannon een maat voor informatie gaf die uitsluitend telt hoeveel onzekerheid een bericht wegneemt en die niets zegt over de inhoud. Die abstractie maakte betrouwbare communicatie over ruizige verbindingen berekenbaar en werd daarna overgezet naar de natuurkunde, de biologie en de cultuurwetenschap. Gleick houdt vol dat de prijs van dat succes de betekenis is: wat de theorie meet is verrassing, en de overvloed waarin lezers nu leven is de uitkomst van een techniek die inhoud buiten haakjes zet.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De trommel als proefmodel</h3>
+      <p>Het boek opent met de sprekende trommels van het Congobekken, beschreven door de Britse zendeling en taalkundige John Carrington, die er in 1949 een studie over publiceerde. De trommels bootsen de toonhoogten van het Kele na. Omdat de klinkers en medeklinkers wegvallen, blijft er veel onzekerheid over, en trommelaars vangen die op door vaste, langere formules te gebruiken in plaats van losse woorden.</p>
+      <p>Gleick gebruikt dat om vóór alle theorie te laten zien wat redundantie is: extra lengte die geen nieuwe inhoud draagt maar de kans op verstaan vergroot. Europese bezoekers hoorden alleen geroffel, omdat zij niet wisten dat de taal in de toonhoogte zat.</p>
+      <h3>Schrift, lijst en woordenboek</h3>
+      <p>Daarna volgt het schrift, en de stelling dat schrijven niet alleen bewaart wat men denkt maar ook verandert hoe men denkt. Gleick haalt het veldwerk aan dat Aleksandr Loeria in de jaren dertig in Oezbekistan deed, waarbij ongeletterde boeren redeneringen met twee gegeven premissen afwezen omdat zij alleen wilden zeggen wat zij zelf hadden gezien. Lijsten, tabellen en alfabetische ordening komen in beeld als denkgereedschap dat pas met schrift mogelijk wordt.</p>
+      <p>Het woordenboek krijgt een apart hoofdstuk: van de eerste Engelse woordenlijst van Robert Cawdrey uit 1604 tot de <i>Oxford English Dictionary</i>, met de vaststelling dat spelling en woordbetekenis pas vastheid kregen toen iemand ze opschreef, en dat het woordenboek daarmee vormde wat het beweerde te beschrijven.</p>
+      <h3>Machines en draden</h3>
+      <p>Charles Babbage ontwierp in de negentiende eeuw eerst een rekenmachine voor tabellen en daarna een machine die in beginsel elke berekening kon uitvoeren. Ada Lovelace schreef in 1843 bij haar vertaling van een Italiaanse verhandeling de aantekeningen waarin zij als eerste beschrijft hoe zo'n machine ook iets anders dan getallen zou kunnen bewerken.</p>
+      <p>De telegraaf volgt: de code van Samuel Morse, de tariefstructuur die telegrammen kort maakte, en de commerciële codeboeken waarin één woord voor een hele zin stond. Gleick laat zien dat compressie en versleuteling in de praktijk bestonden lang voordat iemand ze kon berekenen, en dat het netwerk van draden het spreken losmaakte van het vervoeren van een voorwerp.</p>
+      <h3>Shannon</h3>
+      <p>De kern van het boek is Claude Shannon. In zijn afstudeerwerk aan het MIT uit 1937 verbond hij de logica van George Boole aan schakelingen van relais, waarmee rekenen en redeneren op dezelfde schakelaars konden draaien. In 1948 publiceerde hij in het <i>Bell System Technical Journal</i> het artikel dat de maat voor informatie gaf; de eenheid heet bit, een woord dat zijn collega John Tukey had voorgesteld.</p>
+      <p>Shannon rekent met de kansverdeling van een bron. Hoe onvoorspelbaarder de volgende letter, hoe meer informatie zij draagt; hij noemde die grootheid entropie. Uit dezelfde opzet volgt de kanaalcapaciteit en de stelling dat over een verbinding met ruis toch met een willekeurig kleine foutkans te communiceren valt, mits de zender genoeg codering toevoegt. Gleick benadrukt dat Shannon betekenis uitdrukkelijk buiten zijn theorie hield en dat juist die beperking het bereik van het idee bepaalde. Ook de ontmoeting van Shannon en Alan Turing in 1943 aan de theetafel van Bell Labs komt langs, terwijl beiden aan versleuteling werkten.</p>
+      <h3>Van natuurkunde naar erfelijkheid</h3>
+      <p>Na Shannon volgt het boek de reis van het begrip. In de natuurkunde keert het terug bij de duivel die James Clerk Maxwell in 1867 bedacht: een wezentje dat moleculen sorteert en zo warmte lijkt te scheppen uit niets. Leó Szilárd liet in 1929 zien dat het meten zelf iets kost, en Rolf Landauer stelde in 1961 dat het wissen van één bit ten minste een bepaalde hoeveelheid warmte moet afgeven. Informatie bleek daarmee niet vrij van natuurkunde te zijn.</p>
+      <p>In de biologie werd erfelijk materiaal na 1953 gelezen als een boodschap met een alfabet, een leesraam en een vertaalslag; Gleick verbindt dat met het boek van Erwin Schrödinger uit 1944, waarin een aperiodische kristalstructuur als drager van een code werd voorgesteld. Richard Dawkins trok in 1976 de lijn door naar cultuur met het meme, een eenheid die zich net als een gen kopieert en varieert.</p>
+      <h3>Toeval en het kortste programma</h3>
+      <p>Een apart hoofdstuk gaat over de vraag wat toeval is. Ray Solomonoff, Andrej Kolmogorov en Gregory Chaitin kwamen los van elkaar op hetzelfde antwoord: een rij tekens is toevallig als er geen kortere beschrijving van bestaat dan de rij zelf. Informatie wordt dan gemeten in de lengte van het kortste programma dat haar voortbrengt.</p>
+      <p>Gleick verbindt dat met de onvolledigheidsstelling van Kurt Gödel en met het werk van Turing over onbeslisbaarheid: van de meeste rijen valt niet te bewijzen dat zij toevallig zijn. Wat als grootheid in de telefonie begon, raakt hier aan de grenzen van de wiskunde.</p>
+      <h3>De vloed</h3>
+      <p>Het laatste deel gaat over de gevolgen. Gleick zet de klacht over te veel informatie in historisch perspectief: zij is even oud als de boekdrukkunst en keerde terug bij elke sprong in opslagcapaciteit. De bibliotheek van Babel van Jorge Luis Borges dient als beeld voor een verzameling die alles bevat en daarom niets zegt.</p>
+      <p>Wikipedia krijgt een uitvoerige behandeling, met de onderlinge twisten over wat opgenomen mag worden en wat weg moet, als voorbeeld van hoe betekenis alsnog door mensen wordt toegevoegd. Het slot komt uit bij zoeken, filteren en vergeten als het eigenlijke werk, en bij de vaststelling dat de theorie die de vloed mogelijk maakte over de inhoud ervan niets te zeggen heeft.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">informatie-entropie</td><td>Shannons maat voor de gemiddelde onzekerheid die een bron per teken wegneemt, uitgedrukt in bits.</td></tr>
+          <tr><td class="term">bit</td><td>De eenheid van informatie, gelijk aan de keuze tussen twee even waarschijnlijke mogelijkheden; het woord is van John Tukey.</td></tr>
+          <tr><td class="term">redundantie</td><td>Het deel van een bericht dat voorspelbaar is en dus geen nieuwe informatie draagt, maar wel bescherming biedt tegen fouten.</td></tr>
+          <tr><td class="term">ruis</td><td>Alles wat een verbinding aan het bericht toevoegt zonder dat de zender het heeft verstuurd.</td></tr>
+          <tr><td class="term">kanaalcapaciteit</td><td>De bovengrens aan het aantal bits per seconde dat een verbinding met een gegeven ruisniveau betrouwbaar kan doorgeven.</td></tr>
+          <tr><td class="term">duivel van Maxwell</td><td>Het gedachte-experiment waarin een sorterend wezentje de tweede hoofdwet lijkt te breken, opgelost door de kosten van meten en wissen mee te rekenen.</td></tr>
+          <tr><td class="term">principe van Landauer</td><td>De stelling dat het onomkeerbaar wissen van één bit ten minste een bepaalde hoeveelheid warmte moet afgeven, zodat informatie een fysische prijs heeft.</td></tr>
+          <tr><td class="term">algoritmische informatie</td><td>De maat van Solomonoff, Kolmogorov en Chaitin: de informatie in een reeks is de lengte van het kortste programma dat haar voortbrengt.</td></tr>
+          <tr><td class="term">meme</td><td>Dawkins' term voor een cultuurelement dat zich door kopiëren verspreidt en waarop selectie zou werken zoals op genen.</td></tr>
+          <tr><td class="term">it from bit</td><td>De formule van John Archibald Wheeler waarin de natuurkundige werkelijkheid uiteindelijk uit ja-neevragen zou bestaan.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Gleick doet geen eigen onderzoek maar werkt uit gepubliceerd werk en archiefmateriaal, waaronder de nagelaten papieren van Shannon en de correspondentie rond Babbage en Lovelace. De aantekeningen en literatuurlijst achterin beslaan vijfenzeventig bladzijden, en waar het over de wiskunde gaat blijft hij dicht bij de originelen: de stellingen van Shannon staan er juist in, zij het zonder afleiding.</p>
+      <p>De hoofdstukken over de trommels, het woordenboek en de telegraaf rusten op bronnen die zich laten narekenen, zoals Carringtons studie uit 1949 en de tariefpraktijk van de telegraafmaatschappijen. Voor de natuurkundige lijn van Maxwell via Szilárd naar Landauer bestaat een vakliteratuur die het verhaal draagt.</p>
+      <p>Zwakker staat het bewijs waar hij het begrip meeneemt naar erfelijkheid en cultuur. Dat erfelijk materiaal zich als code laat lezen is een werkbare voorstelling die veel heeft opgeleverd, maar de gelijkstelling van een gen met een boodschap is een keuze en geen bevinding. Bij memes ontbreekt zelfs die basis: er is geen bron, geen verbinding en geen kansverdeling waarmee de maat te berekenen valt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar richt zich op de doorlopende lijn die het boek trekt. De grootheid van Shannon is alleen gedefinieerd ten opzichte van een bron met bekende kansen en een verbinding met bekende ruis. Buiten die opzet is er niets te rekenen. Door trommels, alfabetten, genen, memes en qubits achter elkaar te zetten alsof het steeds hetzelfde is, wekt Gleick de indruk van één grootheid die overal geldt, terwijl het om verwante beelden gaat. Het hoofdstuk over memes is daarvan het duidelijkste geval: als onderzoeksrichting heeft de memetica in vijftig jaar weinig opgeleverd en is zij grotendeels verlaten, wat in het boek nauwelijks doorklinkt.</p>
+      <p>Het tweede bezwaar gaat over wat buiten beeld blijft. Dit is een geschiedenis van ideeën en van personen; geld, macht en instellingen staan in de schaduw. Bell Labs is het toneel van het halve boek zonder dat de monopoliepositie van de telefoonmaatschappij die dat laboratorium betaalde wordt onderzocht. De rechtsgeleerde Tim Wu miste in zijn recensie de economie van informatie, en Ian Pindar wees erop dat censuur en propaganda, de plekken waar informatie en macht elkaar raken, vrijwel ontbreken.</p>
+      <p>Het derde bezwaar is de vorm van het laatste deel. Waar de hoofdstukken tot en met Shannon strak zijn opgebouwd, worden de hoofdstukken over de vloed essayistisch en herhalen zij elkaar. De klacht over overvloed is zelf een oud genre, wat Gleick ook laat zien, en zijn eigen bijdrage komt daar niet ver bovenuit.</p>
+      <p>Er zit ook een spanning in het betoog. Gleick legt overtuigend uit dat de theorie van Shannon met betekenis niets van doen heeft, en gebruikt daarna tweehonderd bladzijden om de betekenis alsnog terug te halen. Wie alleen de wiskunde wil, is met het oorspronkelijke artikel sneller klaar; wie de geschiedenis van het begrip wil, krijgt hier het beste beschikbare overzicht in één band.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij elk gebruik van het woord informatie of het over verrassing gaat, in de zin van Shannon, of over inhoud; de twee laten zich niet met dezelfde maat wegen.</li>
+        <li>Behandel redundantie als bescherming tegen ruis en niet als verspilling; dat geldt voor gegevensopslag, voor formulieren en voor het herhalen van afspraken.</li>
+        <li>Lees het hoofdstuk over Shannon naast diens oorspronkelijke artikel uit 1948, dat korter en toegankelijker is dan zijn reputatie.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>The Information: A History, a Theory, a Flood</i> (Pantheon Books, New York, 2011, 526 blz., ISBN 9780375423727). Nederlands als <i>Informatie. Van tamtam tot internet</i>, vertaald door Ronald Jonkers (De Bezige Bij, Amsterdam, 2011, 528 blz., ISBN 9789023466178). Het boek won in 2012 de Royal Society Winton Prize en de PEN/E.O. Wilson Award voor wetenschappelijk schrijven.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Gleick schrijft de geschiedenis van een begrip. Hij begint bij de sprekende trommels van Centraal-Afrika, die een toontaal nabootsen en berichten met veel omhaal versturen omdat die omhaal de fouten opvangt, en eindigt bij zoekmachines en Wikipedia. Daartussen liggen het schrift, het woordenboek, de rekenmachines van Charles Babbage met de aantekeningen van Ada Lovelace, de telegraaf, en de gebeurtenis waar het boek om draait: het artikel waarmee Claude Shannon in 1948 een maat voor informatie gaf die losstaat van betekenis.</p><p>Die maat, uitgedrukt in bits, telt hoeveel verrassing een bericht wegneemt en zegt niets over de inhoud ervan. Gleick laat zien wat er daarna met dat idee gebeurde: het dook op in de natuurkunde bij de duivel van Maxwell en bij de vraag wat het wissen van een bit aan warmte kost, in de biologie bij het lezen van erfelijk materiaal als code, en in de cultuurbeschouwing bij het meme van Richard Dawkins.</p><p>Het laatste deel gaat over de vloed: de ervaring van te veel, en de vraag wie er nog betekenis geeft aan wat er wordt opgeslagen. Het boek is een geschiedenis van ideeën en niet van instellingen, en dat merkt de lezer aan wat er ontbreekt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>informatietheorie</li><li>wetenschapsgeschiedenis</li><li>communicatie</li><li>cybernetica</li><li>taal</li><li>entropie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1272"><a href="1272.html">The Mathematical Theory of Communication</a>. Het artikel van Shannon zelf, met de inleiding van Warren Weaver, is de bron waarop het middendeel van dit boek rust; het leest korter dan Gleicks navertelling.</li>
+          <li value="539"><a href="539.html">The Human Use of Human Beings</a>. Wiener trok in 1950 als eerste de maatschappelijke gevolgen uit dezelfde wiskunde, waar Gleick de geschiedenis van het begrip volgt.</li>
+          <li value="1256"><a href="1256.html">Gödel, Escher, Bach: een eeuwige gouden band</a>. Hofstadter behandelt dezelfde knoop van code, zelfverwijzing en onbeslisbaarheid, maar dan als samenhangend betoog in plaats van als geschiedschrijving.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

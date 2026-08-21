@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De dramaturgie van het dagelijks leven &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Goffman behandelt het dagelijkse omgangsverkeer alsof het toneel is, en meent dat die vergelijking meer laat zien dan een metafoor gewoonlijk doet. In…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1201">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1201 &middot; Geschiedenis en samenleving</p>
+    <h1>De dramaturgie van het dagelijks leven</h1>
+    <p class="lede">Erving Goffman, 1956; herziene uitgave 1959</p>
+    <p class="stats">
+      <span><b>1685</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1201"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Goffman behandelt het dagelijkse omgangsverkeer alsof het toneel is, en meent dat die vergelijking meer laat zien dan een metafoor gewoonlijk doet. In elkaars aanwezigheid geven mensen een voorstelling: ze houden een bepaalde indruk op met kleding, inrichting, houding en toon, en ze zorgen dat wat ze doen bij die indruk past. Dat gebeurt zelden alleen; medewerkers, gezinsleden en collega's vormen ploegen die samen een schijn hoog houden en elkaars fouten dekken. De verstrekkende stap komt aan het eind. Het zelf is in dit model geen innerlijke bron waaruit de voorstelling voortkomt, maar het gevolg ervan: een figuur die door de scène wordt voortgebracht en die verdwijnt zodra de scène ophoudt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De voorstelling en de bepaling van de situatie</h3>
+      <p>Het boek begint bij de vraag wat er gebeurt zodra mensen elkaar zien. Ieder van hen probeert vast te stellen wat voor situatie dit is en wat er van hem verwacht wordt, en ieder van hen levert daar zelf gegevens voor aan. Goffman scheidt daarbij de indruk die iemand geeft van de indruk die hij afgeeft: het eerste is wat hij zegt en toont, het tweede is wat anderen uit zijn houding opmaken en waar hij minder greep op heeft.</p>
+      <p>Zodra de aanwezigen een gezamenlijke bepaling van de situatie hebben aanvaard, ontstaat er een belang bij het handhaven ervan. Wie de bepaling doorbreekt, brengt de anderen in verlegenheid. Daarom werken ook toeschouwers mee aan het overeind houden van een voorstelling die ze niet geloven, en daarom bestaan er beleefdheidsvormen die een misstap wegwerken zonder hem te benoemen.</p>
+      <h3>Façade: decor, uiterlijk en manier van doen</h3>
+      <p>Voor de middelen waarmee iemand een indruk vestigt gebruikt Goffman het woord façade. Die valt uiteen in het decor, de vaste omgeving waarin de voorstelling plaatsvindt, en de persoonlijke façade: de dingen die iemand met zich meedraagt, zoals kleding, insignes, lichaamsbouw, spraak en gebaren.</p>
+      <p>Binnen die persoonlijke façade onderscheidt hij uiterlijk en manier van doen. Het uiterlijk zegt iets over iemands stand of rol op dat moment; de manier van doen kondigt aan welke rol hij in het gesprek gaat spelen, leidend of volgend. Wanneer die twee elkaar tegenspreken, bijvoorbeeld bij iemand met hoge stand die zich terughoudend opstelt, ontstaat er ongemak, en Goffman gebruikt zulke botsingen om de regel zichtbaar te maken.</p>
+      <h3>Voortoneel en achtertoneel</h3>
+      <p>De bekendste onderscheiding uit het boek is die tussen de streek waar de voorstelling wordt gegeven en de streek waar dat niet hoeft. Op het voortoneel geldt de indruk; op het achtertoneel worden hulpmiddelen klaargezet, wordt gerepeteerd, wordt gevloekt over het publiek en mag de houding los. Het voorbeeld dat hij uitwerkt is de keuken van het hotel op Shetland, waar personeel dat in de eetzaal beheerst en beleefd optreedt zijn voeten op tafel legt en de gasten bespot.</p>
+      <p>Het onderscheid is niet aan gebouwen gebonden maar aan het publiek. Dezelfde ruimte is voortoneel voor de een en achtertoneel voor de ander, en een deur, een balie of een gordijn markeert de overgang. Goffman wijst erop dat het beheer van die overgang werk kost: wie plotseling van streek wisselt zonder houding te veranderen, verraadt de voorstelling.</p>
+      <h3>Ploegen en afwijkende rollen</h3>
+      <p>Voorstellingen worden meestal in groepsverband gegeven. Een ploeg is bij Goffman een verzameling mensen die samen één indruk moeten volhouden en die daarom van elkaar afhankelijk zijn: één lid dat uit de rol valt, beschadigt het geheel. Binnen zo'n ploeg gelden eigen regels, waaronder de plicht om geheimen van het achtertoneel niet aan het publiek te verklappen.</p>
+      <p>Daarnaast beschrijft hij posities die niet in het schema van speler en publiek passen. De verrader is lid van de ploeg en levert informatie aan het publiek. De handlanger doet zich voor als publiek maar hoort bij de ploeg. Er is de bemiddelaar die voor twee ploegen tegelijk werkt en aan beide een andere kant laat zien, en er zijn mensen die aanwezig zijn zonder mee te tellen, zoals bedienend personeel, dat behandeld wordt alsof het er niet is.</p>
+      <h3>Uit de rol praten</h3>
+      <p>Een apart hoofdstuk gaat over gedrag dat de voorstelling doorkruist zonder haar te breken. Ploegleden praten over het publiek in zijn afwezigheid, ze wisselen tijdens het optreden tekens uit die het publiek niet mag oppikken, en ze houden onderling gesprekken over de voorstelling zelf: wat werkte, wie deed het slecht.</p>
+      <p>Goffman behandelt ook het verschijnsel dat speler en publiek gezamenlijk de fictie doorbreken zonder haar op te geven, bijvoorbeeld met ironie of met een terzijde. Zulke handelingen halen de spanning uit de verhouding en herstellen haar tegelijk, omdat na afloop iedereen zijn plaats weer inneemt.</p>
+      <h3>Het beheer van indrukken en het zelf als uitkomst</h3>
+      <p>Het laatste inhoudelijke deel verzamelt de technieken waarmee mensen fouten voorkomen en herstellen. Aan de kant van de speler zijn dat trouw aan de ploeg, beheersing van de eigen uitingen en het vooruit bedenken van wat mis kan gaan. Aan de kant van het publiek zijn dat tact en het vermijden van plaatsen en momenten waar de ander betrapt zou kunnen worden.</p>
+      <p>In de slotbeschouwing trekt Goffman de conclusie die het boek zijn gewicht geeft. De persoon die uit een geslaagde voorstelling naar voren komt, is een gevolg van de vertoning en geen oorzaak ervan; het zelf is een werking van de scène. Hij relativeert daarbij zijn eigen beeldspraak: het toneel is een steiger, opgetrokken met de bedoeling hem naderhand weer af te breken. Dat voorbehoud is in de latere ontvangst van het boek weinig opgemerkt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">voorstelling</td><td>Al het gedrag van iemand in de aanwezigheid van bepaalde anderen, voor zover het invloed heeft op wat die anderen van hem denken.</td></tr>
+          <tr><td class="term">bepaling van de situatie</td><td>De uitleg van wat er aan de hand is waar de aanwezigen zich stilzwijgend bij neerleggen, en die zij daarna gezamenlijk overeind houden.</td></tr>
+          <tr><td class="term">façade</td><td>Het geheel van decor, uiterlijk en manier van doen waarmee iemand een bepaalde indruk vestigt en vasthoudt.</td></tr>
+          <tr><td class="term">voortoneel</td><td>De streek waar de voorstelling voor het publiek plaatsvindt en waar de opgehouden indruk geldt.</td></tr>
+          <tr><td class="term">achtertoneel</td><td>De streek waar het publiek geen toegang heeft, waar wordt voorbereid en waar de rol mag worden losgelaten.</td></tr>
+          <tr><td class="term">ploeg</td><td>Een groep die samen één voorstelling geeft en waarvan elk lid de indruk van de anderen kan bederven.</td></tr>
+          <tr><td class="term">afwijkende rol</td><td>Een positie die de scheiding tussen speler en publiek doorkruist, zoals de verrader, de handlanger of de bemiddelaar.</td></tr>
+          <tr><td class="term">beheer van indrukken</td><td>Het geheel van handelingen waarmee mensen sturen wat anderen over hen denken en waarmee zij misstappen herstellen.</td></tr>
+          <tr><td class="term">cynische en oprechte speler</td><td>Goffmans onderscheid tussen iemand die zijn eigen voorstelling niet gelooft en iemand die er zelf van overtuigd is.</td></tr>
+          <tr><td class="term">mystificatie</td><td>Het op afstand houden van het publiek, waardoor de rol ontzag krijgt doordat er niet aan te komen valt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De empirische kern is Goffmans veldwerk op Unst, een van de Shetlandeilanden, tussen december 1949 en mei 1951. Hij verbleef daar voor zijn promotieonderzoek, volgde het leven van pachtboeren en het werk in een hotel, en gebruikt in het boek de eetzaal en de keuken van dat hotel als lopend voorbeeld. De naam van het eiland houdt hij achterwege.</p>
+      <p>Daaromheen ligt materiaal van heel andere aard: etiquetteboeken, handleidingen voor verkopers, memoires van dienstpersoneel, romans, krantenstukken en studies van andere onderzoekers naar restaurants, ziekenhuizen en beroepsgroepen. Goffman zegt in zijn inleiding zelf dat deze voorbeelden van ongelijke waarde zijn en dat sommige eerder ter illustratie dienen dan als getuigenis.</p>
+      <p>Wat het boek daarmee levert is een begrippenstelsel en geen toetsing. Er zijn geen metingen, geen vergelijkingsgroepen en geen voorspellingen die kunnen mislukken. De overtuigingskracht rust op herkenning: de lezer legt de begrippen op zijn eigen omgeving en ziet of ze passen. Dat is een reële vorm van steun, maar het is een andere dan bewijs, en Goffman doet ook niet alsof het dat is.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar richt zich op wat er van de persoon overblijft. Als het zelf de uitkomst van een scène is, dan is er geen instantie meer die de voorstelling kiest of ervoor verantwoordelijk is. Alasdair MacIntyre beschrijft in <i>After Virtue</i> (1981) het zelf dat uit Goffmans werk naar voren komt als een kapstok waar de kleren van de rol aan hangen, zonder eigen inhoud. Wie dat bezwaar aanvaardt, houdt een beschrijving over waarin trouw, oprechtheid en zelfbedrog moeilijk uit elkaar te houden zijn.</p>
+      <p>Een tweede bezwaar betreft de reikwijdte. Het boek kijkt naar wat er tussen aanwezigen gebeurt en laat weg wat die ontmoeting mogelijk maakt: bezit, wet, arbeidsverhoudingen, de ongelijke verdeling van de mogelijkheid om een voorstelling af te dwingen. Een portier en een gast spelen niet met dezelfde inzet, en dat verschil komt in het model alleen als rolverdeling terug, niet als macht.</p>
+      <p>Methodisch is de klacht dat het toneelbeeld nergens kan stranden. Elk gedrag laat zich als voorstelling beschrijven, ook oprechtheid, ook spontaniteit, en er is geen waarneming denkbaar die het schema weerlegt. Daar komt de veelgehoorde bedenking bij dat het boek de mens als berekenend voorstelt. Goffman verweert zich daartegen met het onderscheid tussen de speler die zijn rol gelooft en de speler die dat niet doet, maar zijn begrippen zijn beter toegesneden op de tweede dan op de eerste.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Bekijk bij een dienstverlenend proces waar de grens tussen voortoneel en achtertoneel ligt, en of medewerkers een plek hebben waar ze die grens veilig kunnen passeren.</li>
+        <li>Let bij het inrichten van kantoren en balies op wat er zichtbaar wordt gemaakt: een open werkvloer haalt het achtertoneel weg en verhoogt de last van het voortdurend optreden.</li>
+        <li>Onderzoek bij een misgelopen gesprek of het om onenigheid ging of om een gebroken bepaling van de situatie, waarbij iemand voor gek stond.</li>
+        <li>Houd bij videovergaderingen rekening met de vermenging van streken: de huiskamer op de achtergrond is achtertoneel dat als decor gaat werken.</li>
+        <li>Beschouw bij het invoeren van meekijken of opnemen wie daarmee tot publiek wordt gemaakt, en welk gedrag dat op het voortoneel drijft.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>De dramaturgie van het dagelijks leven. Schijn en werkelijkheid in sociale interacties</i>, vertaald door P. Nijhoff en G.J. Johannes (Erven J. Bijleveld, Utrecht, 287 blz., ISBN 978-90-6131-463-9). De Nederlandse uitgave beleefde meerdere drukken; de meest recente verscheen in 2025. Het origineel verscheen in 1956 als monografie van het Social Sciences Research Centre van de universiteit van Edinburgh en in 1959 in herziene en uitgebreide vorm als <i>The Presentation of Self in Everyday Life</i> bij Doubleday Anchor, New York, 251 blz. Het boek kreeg in 1961 de MacIver Award van de American Sociological Association.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Goffman beschrijft het gewone omgangsverkeer met begrippen uit het toneel. Mensen geven in elkaars bijzijn een voorstelling: ze houden een bepaalde indruk op, met kleding, houding en toon, en ze doen dat meestal samen met anderen die er belang bij hebben dat de voorstelling doorgaat. Hij onderscheidt een voortoneel waar de indruk wordt volgehouden en een achtertoneel waar dat niet hoeft.</p><p>De empirische kern komt uit zijn veldwerk op een van de Shetlandeilanden, waar hij tussen 1949 en 1951 het leven van pachtboeren en het werk in een hotel volgde. Daaromheen legt hij een verzameling voorbeelden uit etiquetteboeken, romans, krantenberichten en andere veldstudies. Systematisch onderzoek in de zin van meten en toetsen bevat het boek niet.</p><p>Het slot bevat de zwaarste stelling: het zelf is volgens Goffman geen bron van de voorstelling maar een uitkomst ervan. Wie iemand is, komt tot stand in de scène en niet erachter. Die gedachte maakte het boek invloedrijk en leverde ook het voornaamste bezwaar op, dat er in dit model niets overblijft achter de rol.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>sociologie</li><li>identiteit</li><li>interactie</li><li>rolgedrag</li><li>dramaturgie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="721"><a href="721.html">The Structures of the Life-World</a>. Schutz en Luckmann werken de vraag uit hoe mensen de alledaagse wereld als vanzelfsprekend ervaren, de laag onder Goffmans ontmoetingen.</li>
+          <li value="723"><a href="723.html">Outline of a Theory of Practice</a>. Bourdieu geeft aan hetzelfde gedrag een verklaring uit stand en aangeleerde neiging, en vult daarmee aan wat Goffman weglaat.</li>
+          <li value="215"><a href="215.html">Obedience to Authority</a>. Milgram laat met proeven zien hoe ver mensen gaan om een gedefinieerde situatie niet te verstoren, met harde uitkomsten in plaats van voorbeelden.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

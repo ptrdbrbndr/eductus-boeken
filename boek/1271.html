@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De stelling van Gödel &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Het boek wil de gedachtegang van Gödels artikel uit 1931 begrijpelijk maken zonder hem te vervalsen. De inzet is de stelling zelf: elk formeel stelsel dat…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1271">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1271 &middot; Natuur en wetenschap</p>
+    <h1>De stelling van Gödel</h1>
+    <p class="lede">Ernest Nagel en James R. Newman, 1958</p>
+    <p class="stats">
+      <span><b>1569</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1271"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Het boek wil de gedachtegang van Gödels artikel uit 1931 begrijpelijk maken zonder hem te vervalsen. De inzet is de stelling zelf: elk formeel stelsel dat rijk genoeg is om de gewone rekenkunde te bevatten, is ofwel tegenstrijdig ofwel onvolledig, en het kan zijn eigen weerspreekvrijheid niet met eigen middelen aantonen. Daarmee is het programma van Hilbert, dat de zekerheid van de wiskunde wilde vastleggen met een eindig bewijs dat de rekenkunde zichzelf niet tegenspreekt, niet uitvoerbaar in de vorm die hij voor ogen had. Nagel en Newman voegen daaraan toe dat wat wiskundigen doen wanneer zij bewijzen dus niet samenvalt met het volgen van een van tevoren vastgelegde reeks regels.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waarom de vraag opkwam</h3>
+      <p>De eerste hoofdstukken schetsen de aanleiding. Zolang de axioma's van Euclides voor vanzelfsprekend waar doorgingen, was er geen reden aan hun onderlinge verenigbaarheid te twijfelen. Met de niet-euclidische meetkunden van de negentiende eeuw verviel die vanzelfsprekendheid, en werd de vraag of een stelsel zichzelf niet tegenspreekt een echte vraag.</p>
+      <p>De gangbare oplossing was een model: men liet de vlakke meetkunde van Riemann uitkomen op het oppervlak van een bol, zodat de eerste weerspreekvrij is als de euclidische meetkunde het is. Zulke bewijzen zijn betrekkelijk en schuiven de vraag door. Voor de rekenkunde helpt de aanpak bovendien niet, omdat er oneindig veel getallen zijn en een eindig model dus niet volstaat.</p>
+      <h3>Het plan van Hilbert</h3>
+      <p>Daarom wilde Hilbert een absoluut bewijs: een aantoning dat de rekenkunde weerspreekvrij is die niet leunt op de weerspreekvrijheid van iets anders. Zijn middel daartoe was volledige formalisering. De wiskunde wordt opgeschreven als een stelsel van tekens zonder betekenis, met regels om de ene rij tekens in de andere om te zetten.</p>
+      <p>Over dat betekenisloze spel kan vervolgens in gewone taal gesproken worden. Uitspraken binnen het stelsel heten formules, uitspraken erover metawiskundig. Dat onderscheid is de spil van het hele boek.</p>
+      <h3>Een geslaagd voorbeeld</h3>
+      <p>Om te laten zien dat een absoluut bewijs mogelijk is, voeren de auteurs er zelf een uit voor een klein stelsel: de logica van hele uitspraken. Zij kiezen als eigenschap het altijd waar zijn ongeacht de waarde van de onderdelen, en tonen aan dat de axioma's die eigenschap hebben, dat de omzettingsregels haar doorgeven aan alles wat eruit volgt, en dat er een formule bestaat die haar niet heeft.</p>
+      <p>Die formule is dus niet af te leiden, en daarmee kan het stelsel geen twee elkaar tegensprekende formules opleveren. Het bewijs gebruikt alleen tellen en het nagaan van eindig veel gevallen, precies wat Hilbert toelaatbaar achtte.</p>
+      <h3>Afbeelding en Gödelnummering</h3>
+      <p>Het idee waarop Gödel voortbouwt is de afbeelding: de betrekkingen in het ene gebied nabootsen in een ander, zoals de coordinatenmeetkunde figuren als vergelijkingen behandelt. Gödel past dat toe op het formele stelsel zelf.</p>
+      <p>Aan de tien vaste tekens worden de getallen 1 tot en met 10 toegekend, en aan de soorten variabelen andere getallen. Een formule krijgt het getal dat ontstaat door de opeenvolgende priemgetallen te verheffen tot machten gelijk aan de nummers van de opeenvolgende tekens en die met elkaar te vermenigvuldigen. Een bewijs, dat een rij formules is, krijgt op dezelfde manier zijn getal. Elk teken, elke formule en elke afleiding heeft daarmee een eigen getal, waaruit de bijbehorende uitdrukking is terug te vinden.</p>
+      <p>Daarmee worden uitspraken over het stelsel uitspraken over getallen. De metawiskundige zin dat de rij met nummer x een bewijs is van de formule met nummer z, krijgt binnen het stelsel een tegenhanger, door de auteurs genoteerd als Dem(x, z).</p>
+      <h3>De kern van het argument</h3>
+      <p>Gödel bouwt vervolgens een formule G die van zichzelf zegt dat zij niet bewijsbaar is, met een uitdrukking die de invulling van een getal in een formule beschrijft, toegepast op haar eigen nummer. Nagel en Newman leggen de constructie naast de paradox die Jules Richard in 1905 opstelde, met het verschil dat Gödels versie geheel binnen het stelsel blijft en dus geen paradox oplevert.</p>
+      <p>Is het stelsel weerspreekvrij, dan is G niet af te leiden, en toch is G waar, want zij zegt juist dat zij niet af te leiden is. Het toevoegen van G als extra axioma helpt niet, want in het uitgebreide stelsel is dezelfde constructie opnieuw uit te voeren. Tot slot laten de auteurs zien dat de formule die de weerspreekvrijheid uitdrukt de formule G met zich meebrengt, zodat ook die weerspreekvrijheid binnen het stelsel niet te bewijzen is.</p>
+      <p>In een noot bekennen zij dat de tekst niet Gödels eigen formulering geeft, maar een aanpassing van een stelling die J. Barkley Rosser in 1936 bewees, gekozen omdat zij eenvoudiger uit te leggen is.</p>
+      <h3>Slotbeschouwing</h3>
+      <p>Het laatste hoofdstuk telt op wat er volgens de auteurs uit volgt. Er zijn oneindig veel ware rekenkundige uitspraken die uit geen enkele vaste verzameling axioma's met vaste regels zijn af te leiden, zodat een axiomatische aanpak de rekenkundige waarheid niet uitput.</p>
+      <p>Daarna gaan zij verder dan de stelling draagt. Rekenmachines werken volgens vaste ingebouwde voorschriften, schrijven zij, en het menselijk brein lijkt over werkregels te beschikken die veel sterker zijn dan die van de machines die men zich nu kan voorstellen. Tegelijk waarschuwen zij tegen misbruik: het gaat niet om waarheden die voor altijd onkenbaar zijn en het is geen pleidooi voor mystiek.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Weerspreekvrijheid</td><td>De eigenschap van een stelsel dat er geen formule in af te leiden is waarvan ook de ontkenning af te leiden is.</td></tr>
+          <tr><td class="term">Formeel stelsel</td><td>Een verzameling tekens zonder betekenis, met axioma's en regels om de ene rij tekens in een andere om te zetten.</td></tr>
+          <tr><td class="term">Metawiskunde</td><td>Het spreken over een formeel stelsel, in gewone taal, onderscheiden van het rekenen binnen dat stelsel.</td></tr>
+          <tr><td class="term">Absoluut bewijs</td><td>Een aantoning van weerspreekvrijheid die niet leunt op de weerspreekvrijheid van een ander stelsel, het doel van Hilberts programma.</td></tr>
+          <tr><td class="term">Overerfbare eigenschap</td><td>Een eigenschap die alle axioma's bezitten en die door de omzettingsregels wordt doorgegeven aan alles wat eruit volgt.</td></tr>
+          <tr><td class="term">Afbeelding</td><td>Het nabootsen van de betrekkingen uit het ene gebied in een ander, zoals de coordinatenmeetkunde figuren als vergelijkingen behandelt.</td></tr>
+          <tr><td class="term">Gödelnummer</td><td>Het getal dat aan een teken, formule of bewijs wordt toegekend, opgebouwd uit machten van opeenvolgende priemgetallen.</td></tr>
+          <tr><td class="term">De formule G</td><td>De binnen het stelsel opgebouwde formule die uitdrukt dat zij zelf niet af te leiden is.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing van dit boek is het boek zelf: het beweert de stelling niet, het bouwt in ruim honderd bladzijden het toestel op waarmee zij te volgen is. De technische voorbehouden staan in een aanhangsel met noten.</p>
+      <p>Op een punt zijn de auteurs zichtbaar eerlijk over de prijs van de eenvoud. In een noot bij het beslissende hoofdstuk staat dat de tekst niet weergeeft wat Gödel bewees, maar een aanpassing van Rossers stelling uit 1936, en de sterkere aanname die Gödels eigen redenering nodig had wordt daar uitgelegd in plaats van weggelaten.</p>
+      <p>Voor het slothoofdstuk geldt dat niet. De uitspraken over rekenmachines en het menselijk brein volgen niet uit de stelling; zij zijn de mening van de auteurs, met de stelling als aanleiding. Het boek maakt dat onderscheid zelf niet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar geldt die slotbladzijden. Uit de onvolledigheidsstelling volgt niet dat het menselijk brein sterker is dan enige machine. De vergelijking gaat mank omdat de stelling geldt voor stelsels waarvan de weerspreekvrijheid wordt aangenomen, terwijl van het brein niet vaststaat dat het zichzelf niet tegenspreekt; en een wiskundige die binnen een vaste methode werkt, loopt tegen precies dezelfde grens aan. Gödel zelf trok een voorzichtiger gevolgtrekking, in de vorm van een keuze tussen twee mogelijkheden. Solomon Feferman wijdde later een artikel aan Nagel en Newmans redenering op dit punt, onder de titel <i>Gödel, Nagel, minds and machines</i>. De verdergaande argumenten die John Lucas en Roger Penrose op deze lijn hebben gebouwd, worden door de meeste logici verworpen.</p>
+      <p>Een tweede bezwaar is dat de leesbaarheid met onnauwkeurigheid wordt betaald. De vervanging van Gödels aanname door die van Rosser staat in een noot, en in de hoofdtekst blijven de woorden waar en onbewijsbaar losjes gebruikt. Juist die losheid voedt de wijdverbreide misvatting dat Gödel waarheden zou hebben aangewezen die buiten het bereik van de rede vallen, een misvatting waartegen het boek zich op dezelfde bladzijden verzet.</p>
+      <p>Ten derde is het boek na bijna zeventig jaar op onderdelen achterhaald. De veelgehoorde tegenwerping dat de formule G een gekunstelde constructie is die in de wiskundige praktijk nooit voorkomt, is sindsdien beantwoord met gewone wiskundige uitspraken die om dezelfde reden onbewijsbaar blijken, zoals het resultaat van Paris en Harrington uit 1977 en de stelling van Goodstein, waarvan Kirby en Paris in 1982 lieten zien dat zij binnen de gebruikelijke rekenkunde niet te bewijzen is. Daarvan staat hier niets, en ook de herziene uitgave van 2001 voegt er in de tekst niets over toe.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Houd bij elke uitspraak over een stelsel scherp of zij binnen dat stelsel valt of erover gaat; het boek laat zien hoeveel verwarring op dat onderscheid berust.</li>
+        <li>Wantrouw gevolgtrekkingen uit de onvolledigheidsstellingen buiten de wiskunde en vraag telkens welk stelsel bedoeld is en of het rijk genoeg is voor de rekenkunde.</li>
+        <li>Lees het aanhangsel met noten mee; daar staan de voorbehouden die de hoofdtekst omwille van de leesbaarheid laat liggen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk <i>Gödel's Proof</i> (New York University Press, New York, 1958, ix + 118 blz.), een uitwerking van het artikel dat beide auteurs in juni 1956 in <i>Scientific American</i> publiceerden. Nederlands als <i>De stelling van Gödel</i>, vertaald door J.M. Debrot, in de reeks Aula-boeken (nr. 540) bij Het Spectrum, Utrecht, 1975; herdruk 1986 (112 blz., ISBN 9027462895). Van de Engelse tekst verscheen in 2001 een herziene uitgave, bezorgd en van een voorwoord voorzien door Douglas Hofstadter (New York University Press, ISBN 9780814758373).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Kurt Gödel bewees in 1931 dat elk formeel stelsel waarin de gewone rekenkunde is uit te drukken ofwel tegenstrijdig is ofwel onvolledig: er bestaat dan een ware rekenkundige uitspraak die er niet in te bewijzen valt. Bovendien kan zo'n stelsel zijn eigen weerspreekvrijheid niet aantonen. Ernest Nagel, wetenschapsfilosoof aan Columbia, en James R. Newman, jurist en wiskundepopularisator, maakten daar in ruim honderd bladzijden een uitleg van die de gedachtegang zelf laat zien.</p><p>Zij bouwen het toestel van de grond af op. Eerst waarom de weerspreekvrijheid van de rekenkunde een vraag werd, met de niet-euclidische meetkunde en het programma van Hilbert. Dan het onderscheid tussen uitspraken binnen een formeel stelsel en uitspraken erover. Vervolgens de gedachte van afbeelding, waarmee de betrekkingen in het ene gebied in het andere zijn na te bootsen. Daarna de nummering waarmee Gödel elk teken, elke formule en elk bewijs een getal geeft, zodat uitspraken over het stelsel rekenkundige uitspraken worden.</p><p>Het slot gaat over wat er wel en niet uit volgt. Daar wagen de auteurs zich ook aan de vraag of een machine het menselijk brein kan evenaren, en juist dat hoofdstuk is later het meest bestreden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>wiskunde</li><li>logica</li><li>wetenschapsfilosofie</li><li>klassieker</li><li>kort-boek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1256"><a href="1256.html">Gödel, Escher, Bach: een eeuwige gouden band</a>. Hofstadter werkt dezelfde stelling uit tot een boek over zelfverwijzing en bewustzijn, en bezorgde later de herziene uitgave van Nagel en Newman.</li>
+          <li value="1318"><a href="1318.html">The Emperor's New Mind: Concerning Computers, Minds and the Laws of Physics</a>. Penrose bouwt op de onvolledigheidsstelling een argument dat het menselijk denken geen berekening kan zijn, de gedachte waar het slothoofdstuk hier op vooruitloopt.</li>
+          <li value="660"><a href="660.html">Journey through Genius</a>. Dunham loopt beroemde bewijzen uit de wiskunde stap voor stap na, met dezelfde bedoeling om de redenering zelf te laten zien.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

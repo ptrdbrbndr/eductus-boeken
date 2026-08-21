@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Personal Knowledge &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Wetenschappelijke kennis is niet het onpersoonlijke resultaat van regels die iedereen kan navolgen. Achter elke waarneming, elke keuze van een probleem en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1260">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1260 &middot; Natuur en wetenschap</p>
+    <h1>Personal Knowledge</h1>
+    <p class="lede">Michael Polanyi, 1958</p>
+    <p class="stats">
+      <span><b>2025</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1260"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Wetenschappelijke kennis is niet het onpersoonlijke resultaat van regels die iedereen kan navolgen. Achter elke waarneming, elke keuze van een probleem en elke aanvaarding van een theorie zit een oordeel dat de onderzoeker zelf velt en dat hij niet volledig kan verantwoorden, omdat hij steunt op vaardigheden en aanwijzingen waarvan hij zich maar half bewust is. Polanyi noemt dat stilzwijgend kennen. Het ideaal van onpersoonlijke objectiviteit is volgens hem onhaalbaar en bovendien schadelijk: het dwingt onderzoekers te doen alsof hun beste instrument, hun eigen oordeel, er niet is. Daartegenover zet hij persoonlijke kennis, een kennen waarin de kenner zich met huid en haar in zijn onderwerp inleeft en tegelijk zijn uitspraak doet met de bedoeling dat zij voor iedereen geldt. Dat brengt hem tot een filosofie waarin geloof, traditie en gezag geen resten van bijgeloof zijn maar de voorwaarden waaronder kennis überhaupt ontstaat.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar het boek vandaan komt</h3>
+      <p>Polanyi werkte als fysisch chemicus in Berlijn, aan het Kaiser Wilhelm Institut, tot hij in 1933 na de machtsovername van de nazi's naar Manchester vertrok. Daar bleef hij eerst scheikundige; in 1948 ruilde hij zijn leerstoel in voor een aanstelling in de sociale wetenschappen. In 1951 en 1952 hield hij in Aberdeen de Gifford Lectures, en het duurde nog zes jaar voordat hij die tot dit boek had omgewerkt.</p>
+      <p>De aanleiding lag in de jaren dertig, toen zowel in Groot-Brittannië als in de Sovjet-Unie werd bepleit dat onderzoek van bovenaf op maatschappelijk nut moest worden gestuurd. Polanyi bestreed dat in <i>The Logic of Liberty</i> (1951) en kwam tot de slotsom dat het geschil niet over beleid ging maar over de vraag wat kennen eigenlijk is. Wie meent dat wetenschap uit regels bestaat, kan die regels ook door een bureau laten uitvoeren.</p>
+      <h3>Objectiviteit als misvatting</h3>
+      <p>Het eerste hoofdstuk opent met Copernicus. Het gangbare verhaal wil dat zijn stelsel won omdat het beter bij de waarnemingen paste, maar in 1543 deed het dat niet: het Ptolemeïsche stelsel voorspelde de standen van de planeten even goed. Wat Copernicus en zijn navolgers bewoog was een oordeel over redelijkheid en vorm. Polanyi trekt daaruit de conclusie dat een keuze tussen theorieën niet uit de gegevens volgt en er ook nooit uit heeft gevolgd.</p>
+      <p>De hoofdstukken over waarschijnlijkheid en over orde verscherpen dat. Een uitspraak in kansen wordt door geen enkele afzonderlijke uitkomst weerlegd, dus is er een persoonlijk oordeel nodig om te beslissen wanneer een theorie is afgeschreven. En de vaststelling dat een rangschikking geordend is en niet toevallig, is geen meting: als de kiezels op een strand een naam vormen, is het de waarnemer die besluit dat dit om verklaring vraagt.</p>
+      <h3>Vaardigheid en kennerschap</h3>
+      <p>Het hoofdstuk over vaardigheden is het bekendste van het boek. Polanyi geeft de regel waarmee een fietser overeind blijft: hij stuurt in de richting van zijn val, met een kromming die omgekeerd evenredig is met het kwadraat van zijn snelheid. Geen fietser kent die regel en niemand leert er ooit mee fietsen. Zo werkt volgens hem ook het vak van de onderzoeker: het bestaat uit handelingen die alleen door meedoen worden overgedragen. Valt die overdracht weg, dan verdwijnt het vak; hij wijst op de vioolbouw van Cremona, waarvan de werkwijze verloren ging toen de opvolging stokte.</p>
+      <p>Kennerschap is het tweede voorbeeld. Wie leert wijn te proeven of röntgenbeelden te lezen, krijgt geen sluitende definities maar oefening onder toezicht van iemand die het al kan. Het oordeel dat daaruit groeit is bruikbaar en betrouwbaar zonder dat het volledig in woorden is te brengen. Polanyi ziet daarin geen tijdelijk gebrek dat betere handboeken kunnen verhelpen, maar de gewone gedaante van kennis.</p>
+      <h3>Wat we weten zonder het te kunnen zeggen</h3>
+      <p>Polanyi ontleedt dat kennen in twee soorten besef. In het subsidiaire besef steunen we op aanwijzingen waar we niet naar kijken: de blinde voelt niet de stok in zijn hand maar het plaveisel aan het uiteinde ervan. In het focale besef richten we ons op het geheel dat die aanwijzingen samen dragen. Verplaats je de aandacht naar de aanwijzingen zelf, dan valt de betekenis uiteen; de pianist die naar zijn vingers gaat kijken, struikelt. Het toe-eigenen van aanwijzingen tot ze deel van jezelf worden noemt hij inwoning.</p>
+      <p>In de hoofdstukken over intellectuele hartstochten laat hij zien dat gevoelens voor schoonheid en belang in de wetenschap geen sierwerk zijn maar zeefwerk: zij bepalen welk probleem de moeite waard heet en welke oplossing overtuigt. Daarmee beantwoordt hij ook de oude vraag uit Plato's <i>Menoon</i>, hoe iemand kan zoeken naar wat hij nog niet kent. Hij kent het stilzwijgend, als een vermoeden van samenhang dat hij nog niet kan uitspreken.</p>
+      <h3>De wetenschap als gemeenschap</h3>
+      <p>Een leerling kan pas oordelen nadat hij het vak heeft aangenomen, en om het aan te nemen moet hij zijn leermeester geloven voordat hij daar redenen voor heeft. Zo komt gezag binnen in Polanyi's beeld van de wetenschap: een gemeenschap van vaklieden die elkaars werk toelaten of afwijzen en daarmee bepalen wat als kennis geldt.</p>
+      <p>Dat stelsel werkt en het kost wat. Wie iets brengt dat te ver van het aanvaarde afligt, krijgt geen gehoor, hoe goed zijn zaak ook is. Polanyi wist waarover hij sprak: zijn potentiaaltheorie van de adsorptie werd omstreeks 1914 door vooraanstaande vakgenoten van de hand gewezen en pas decennia later in ere hersteld. Hij heeft die geschiedenis in 1963 in <i>Science</i> uitvoerig beschreven, met de conclusie dat gezag in de wetenschap zowel nut als gevaar heeft.</p>
+      <h3>De kritiek op de twijfel</h3>
+      <p>Het derde deel keert zich tegen de gedachte dat twijfel de veilige uitgangspositie is. Twijfelen aan een bewering komt volgens Polanyi neer op het aanhangen van iets anders, en de stelselmatige twijfel van Descartes is dus zelf een geloofshouding die zich als het tegendeel voordoet.</p>
+      <p>Daarna beschrijft hij hoe overtuigingsstelsels zich staande houden: door circulariteit, doordat elk bezwaar binnen het stelsel wordt uitgelegd; door uitdijing, doordat er telkens een bijstelling wordt toegevoegd; en door onderdrukte kiemvorming, doordat de taal om een alternatief te formuleren eenvoudig ontbreekt. Zijn voorbeelden zijn het giforakel van de Azande, beschreven door de antropoloog Evans-Pritchard, en daarnaast het marxisme en de psychoanalyse. Het ongemakkelijke van die analyse is dat de natuurwetenschap zich met precies dezelfde middelen verdedigt. Polanyi's uitweg is dat we onze verbintenissen openlijk uitspreken in plaats van te doen alsof we ze niet hebben. Hij noemt dat het fiduciaire programma en zet als aanhef boven zijn kennisleer: ik geloof.</p>
+      <h3>Kennen en zijn</h3>
+      <p>Het slotdeel maakt van de kennisleer een leer over de werkelijkheid. Een machine kan volledig uit natuurkunde en scheikunde bestaan en toch niet uit natuurkunde en scheikunde worden begrepen, want wat haar tot machine maakt is haar werkingsprincipe, en dat legt alleen randvoorwaarden op die de natuurwetten open laten. Zo staan volgens Polanyi de niveaus van de werkelijkheid op elkaar: het lagere begrenst het hogere zonder het vast te leggen. Levende wezens leest hij op dezelfde manier, en de opkomst van de mens beschrijft hij als een reeks van zulke opklimmingen. Dit deel is bespiegelend en Polanyi geeft dat ook toe; het is tegelijk het deel waar de meeste latere lezers afhaken.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">persoonlijke kennis</td><td>Kennis waarin het oordeel van de kenner meespeelt zonder dat zij daardoor willekeurig wordt, omdat de kenner haar uitspreekt met de bedoeling dat zij algemeen geldt.</td></tr>
+          <tr><td class="term">stilzwijgend kennen</td><td>Het kunnen dat niet volledig in woorden of regels is te brengen; de kern van Polanyi's zegswijze dat we meer weten dan we kunnen zeggen.</td></tr>
+          <tr><td class="term">subsidiair besef</td><td>Het half bewuste steunen op aanwijzingen waar we niet naar kijken, zoals de tastindrukken in de hand van iemand die met een stok voelt.</td></tr>
+          <tr><td class="term">focaal besef</td><td>De volle aandacht voor het geheel dat de aanwijzingen samen dragen, bijvoorbeeld het plaveisel in plaats van de stok.</td></tr>
+          <tr><td class="term">inwoning</td><td>Het je zo eigen maken van aanwijzingen, gereedschap of een begrippenkader dat je er niet meer naar kijkt maar ermee kijkt.</td></tr>
+          <tr><td class="term">kennerschap</td><td>Het door oefening onder toezicht verworven vermogen om te beoordelen wat niet in regels is vast te leggen, zoals bij proeven of diagnosticeren.</td></tr>
+          <tr><td class="term">heuristische hartstocht</td><td>De gerichtheid op een vermoede oplossing die bepaalt welk probleem een onderzoeker aanpakt en hoelang hij volhoudt.</td></tr>
+          <tr><td class="term">algemene strekking</td><td>De bedoeling waarmee de kenner zijn overtuiging uitspreekt: als iets dat voor iedereen waar is, niet als persoonlijke smaak.</td></tr>
+          <tr><td class="term">fiduciair programma</td><td>Polanyi's voorstel om de verbintenissen waarop kennis rust openlijk te erkennen in plaats van ze achter een schijn van onpersoonlijkheid te verbergen.</td></tr>
+          <tr><td class="term">onderdrukte kiemvorming</td><td>De manier waarop een gesloten stelsel tegenspraak buiten de deur houdt doordat er geen taal beschikbaar is om het alternatief te formuleren.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het betoog rust op drie soorten materiaal. Ten eerste op de geschiedenis van de wetenschap: Copernicus en de aanvaarding van het heliocentrisme, Kepler, de opkomst van de relativiteitstheorie. Ten tweede op Polanyi's eigen werkzame leven in het laboratorium, waar hij over röntgendiffractie, reactiesnelheden en adsorptie publiceerde en waar hij zelf ondervond wat het betekent als vakgenoten een theorie afwijzen. Ten derde op de gestaltpsychologie, waaraan hij ontleent dat een geheel eerder wordt gezien dan zijn delen, en op de antropologie van Evans-Pritchard.</p>
+      <p>Wat er niet in zit is onderzoek dat de stelling zelf op de proef stelt. De voorbeelden zijn gekozen omdat ze de these tonen. Op één punt is Polanyi ook aantoonbaar te stellig: hij beweert dat de proef van Michelson en Morley in Einsteins redenering van 1905 geen rol van betekenis speelde en dat het leerboekverhaal daarover verzonnen is. Wetenschapshistorici hebben die kwestie later uitgezocht; het beeld blijkt ingewikkelder dan het leerboekverhaal, maar ook ingewikkelder dan Polanyi's stellige formulering toelaat.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar betreft het fiduciaire programma. Polanyi vraagt van de onderzoeker dat hij zijn overtuiging uitspreekt met de bedoeling dat zij algemeen geldt, en beschouwt dat als het onderscheid met willekeur. Maar die bedoeling heeft de dwaas ook. Het boek levert geen maatstaf waarmee een goed gefundeerde verbintenis van koppigheid valt te onderscheiden, en juist zo'n maatstaf hoorde een kennisleer op te leveren. Wie Polanyi's analyse van zelfsluitende stelsels op zijn eigen positie toepast, komt in een kring terecht die hij nergens verbreekt.</p>
+      <p>Een tweede bezwaar is dat hij het onderscheid tussen ontdekken en verantwoorden te snel opzijzet. Zijn voorbeelden laten overtuigend zien dat ontdekken persoonlijk werk is. Dat de toetsing achteraf even persoonlijk zou zijn, volgt daar niet uit, en veel lezers vinden dat hij dat nergens hard maakt.</p>
+      <p>Een derde bezwaar betreft het vierde deel. Polanyi schreef zijn betoog dat leven zich niet tot natuurkunde en scheikunde laat herleiden precies in de jaren waarin de moleculaire biologie op gang kwam. Wat hij principieel onbegaanbaar noemde, is in de praktijk voor een groot deel begaan. Verder is de empirische onderbouwing van het stilzwijgend kennen pas na hem geleverd, en anders dan hij dacht: Harry Collins liet in de jaren zeventig aan de hand van laboratoria die een nieuw type laser probeerden na te bouwen zien dat de overdracht van niet-uitgesproken kennis vooral een sociaal proces tussen groepen is, terwijl Polanyi haar bij de afzonderlijke kenner legt.</p>
+      <p>Ten slotte is het boek lang en herhalend. Veel lezers houden het bij het veel kortere <i>The Tacit Dimension</i> (1966), dat dezelfde kern in honderd bladzijden geeft. In de bedrijfskunde is het begrip bovendien verschraald tot kennis die nog niet is opgeschreven, wat het omgekeerde is van wat Polanyi bedoelde: bij hem gaat het om kennis die zich juist niet laat opschrijven.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Reken er bij het vastleggen van werkwijzen op dat het deel dat niet op papier komt vaak het deel is waar het op aankomt; zorg dat er iemand meekijkt en meedoet.</li>
+        <li>Laat beginners meelopen met ervaren vaklieden voordat je ze regels geeft; de regels worden pas begrijpelijk als de handeling er al is.</li>
+        <li>Beoordeel een afwijkende bevinding twee keer: één keer op inhoud, één keer op de vraag of de afwijzing vooral op vertrouwdheid met het bestaande berust.</li>
+        <li>Schrijf bij een oordeel op welke aanwijzingen je hebt gebruikt, ook de aanwijzingen die je niet hard kunt maken.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Personal Knowledge: Towards a Post-Critical Philosophy</i> (Routledge &amp; Kegan Paul, Londen, 1958, xiv + 428 blz.; herziene druk 1962). Latere uitgaven bij University of Chicago Press (1974, ISBN 9780226672885; nieuwe editie 2015, ISBN 9780226232621) en bij Routledge (1998, ISBN 9780415151498). Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd. Let op de naamsverwarring: dit boek is van Michael Polanyi (1891-1976), scheikundige en filosoof. Zijn oudere broer Karl Polanyi schreef <i>The Great Transformation</i>, in deze lijst nummer 933.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Michael Polanyi was fysisch chemicus voordat hij filosoof werd, en <i>Personal Knowledge</i> is het boek waarin hij die twee levens bij elkaar bracht. Zijn stelling is dat het beeld van wetenschap als onpersoonlijke afleiding uit feiten niet klopt met wat onderzoekers werkelijk doen. Wie een patroon herkent, een meting vertrouwt of een theorie mooi vindt, velt een persoonlijk oordeel, en dat oordeel laat zich niet in regels vatten. Polanyi noemt dat stilzwijgend kennen: we weten meer dan we kunnen zeggen.</p><p>Het boek loopt van vaardigheden als fietsen en wijnproeven, via het leerlingschap in het laboratorium, naar de vraag hoe kennis die persoonlijk is toch voor iedereen kan gelden. Polanyi's antwoord is dat de onderzoeker zijn overtuiging uitspreekt met de bedoeling dat zij algemeen geldt, en dat hij daar zelf voor instaat. Geloof, traditie en gezag zijn in dat beeld geen restanten van bijgeloof maar de voorwaarden waaronder kennis tot stand komt.</p><p>Het boek komt voort uit de Gifford Lectures die Polanyi in 1951 en 1952 in Aberdeen hield. Het begrip stilzwijgende kennis is er de bekendste vrucht van en heeft ver buiten de filosofie doorgewerkt, tot in het onderwijs, de bedrijfskunde en het onderzoek naar kunstmatige intelligentie.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>wetenschapsfilosofie</li><li>kennisleer</li><li>filosofie</li><li>wetenschapsgeschiedenis</li><li>vakmanschap</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="654"><a href="654.html">Against Method</a>. Feyerabend bestrijdt eveneens dat er één wetenschappelijke methode bestaat, maar verbindt daaraan een politieke conclusie die Polanyi niet zou hebben onderschreven.</li>
+          <li value="948"><a href="948.html">The Copernican Revolution</a>. Kuhn behandelt in <i>The Copernican Revolution</i> hetzelfde voorbeeld waarmee Polanyi opent, met aanzienlijk meer historisch materiaal.</li>
+          <li value="933"><a href="933.html">The Great Transformation</a>. <i>The Great Transformation</i> is van Karl Polanyi, de oudere broer van Michael; de twee dachten over markt en samenleving sterk uiteenlopend.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

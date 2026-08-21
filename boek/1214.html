@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Source Magic &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Abrahamsson stelt dat magie geen afgesloten hoofdstuk uit de voorgeschiedenis van de wetenschap is maar een manier van waarnemen die in alle menselijk…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1214">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1214 &middot; Filosofie en mystiek</p>
+    <h1>Source Magic</h1>
+    <p class="lede">Carl Abrahamsson, 2023</p>
+    <p class="stats">
+      <span><b>1464</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1214"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Abrahamsson stelt dat magie geen afgesloten hoofdstuk uit de voorgeschiedenis van de wetenschap is maar een manier van waarnemen die in alle menselijk doen doorwerkt. Magie is bij hem een houding tegenover informatie: een filter dat op meerdere lagen tegelijk werkt, een gerichte wil, en een vormgegeven erkenning van het belang van het onredelijke en gevoelsmatige deel van de geest. Uit dat filter kwamen volgens hem de scheikunde uit de alchemie, de sterrenkunde uit de sterrenwichelarij, de geneeskunde uit de kruidenkennis, het toneel uit het ritueel en het schrijven uit de bezwering. Wie die invalshoek niet meeneemt, schrijft hij, komt in geen enkel deel van de cultuur onder de oppervlakte. De bewering is breed genoeg om overal bevestiging te vinden, en daarmee ook moeilijk te weerleggen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat de schrijver onder magie verstaat</h3>
+      <p>Het boek opent met een voorwoord van Nicholaj de Mattos Frisvold en een inleiding van de schrijver zelf. Daarin staat de omschrijving waar de rest op leunt. Magie is geen goochelarij en ook geen leerstelsel, maar een manier waarop een mens binnenkomende indrukken filtert en er richting aan geeft. Het onredelijke en het gevoelsmatige worden daarbij niet als storing behandeld maar als bron.</p>
+      <p>Daaruit volgt de tweede stap: als dat filter altijd al heeft gewerkt, dan is elk latere vak eruit voortgekomen en draagt het er sporen van. Abrahamsson noemt de reeks alchemie, sterrenwichelarij, kruidenkennis en ritueel, met scheikunde, sterrenkunde, geneeskunde en toneel als hun latere gedaanten. Het woord bronmagie in de titel staat voor die onderlaag.</p>
+      <h3>Occultuur</h3>
+      <p>De term occultuur, uit zijn vorige boek, betekent de manier waarop occulte denkbeelden door de gewone cultuur bewegen: in romans, films, muziek en beeldende kunst, meestal zonder dat het publiek de herkomst kent. Abrahamsson beschrijft zichzelf niet als godsdienstwetenschapper maar als iemand die vanuit die wereld verslag doet, en hij noemt zijn aanpak magisch-antropologisch.</p>
+      <p>Dat verklaart de vorm van het boek. Het bestaat uit afzonderlijke stukken die elk een eigen geval behandelen en die door de omschrijving uit het begin bij elkaar worden gehouden, niet door een betoog dat van hoofdstuk tot hoofdstuk wordt opgebouwd.</p>
+      <h3>Van Noordse stof tot hedendaagse magiërs</h3>
+      <p>De reeks gevallen loopt van oud Noord-Europees sjamanisme tot de tegencultuur van de late twintigste eeuw. De Fenriswolf uit de Noordse verhalen komt langs als beeld van een kracht die zich niet laat vastleggen; die naam draagt ook het jaarboek dat Abrahamsson uitgeeft.</p>
+      <p>Aan de andere kant van de reeks staan Genesis P-Orridge en Thee Temple ov Psychick Youth, het netwerk rond de muziekgroep Psychic TV dat in de jaren tachtig ritueel en popcultuur door elkaar liet lopen, en de Master Musicians of Joujouka in Marokko, wier langdurige trommel- en fluitrituelen sinds de jaren zestig westerse musici en schrijvers hebben aangetrokken. Ook hekserij en psychedelica krijgen elk een stuk.</p>
+      <h3>Kunstenaars als magiërs</h3>
+      <p>Een tweede groep stukken gaat over makers. De knipmethode van William Burroughs en Brion Gysin, waarbij tekst wordt doorgeknipt en opnieuw gerangschikt, wordt behandeld als een werkwijze om de wil van de maker uit te schakelen en iets anders aan het woord te laten. De films van Derek Jarman komen langs als een tweede geval van bewust magisch werken.</p>
+      <p>Abrahamsson legt daarnaast de dichter Ezra Pound en de tekenaar en magiër Austin Osman Spare naast elkaar en betoogt dat hun manier van werken psychologisch op elkaar lijkt. Het magisch realisme in de literatuur en het werk van Ernst Jünger krijgen elk een eigen beschouwing.</p>
+      <h3>Individuatie, bedevaart en sterfelijkheid</h3>
+      <p>De psychologische lijn in het boek komt van Jung. Individuatie, het proces waarin iemand de losse en tegenstrijdige delen van zichzelf tot een geheel maakt, gebruikt Abrahamsson als de eigenlijke inzet van magisch werk: niet macht over de wereld, maar wording van de persoon.</p>
+      <p>Daarbij horen twee praktische onderwerpen. De eerste is de bedevaart, het zelf gekozen reizen naar plaatsen die voor de reiziger betekenis dragen. De tweede is de omgang met de eigen dood, die hij als voorwaarde voor de rest behandelt.</p>
+      <h3>Waar het misgaat</h3>
+      <p>Het boek eindigt niet in aanbeveling van alles wat het beschrijft. Abrahamsson stelt dat de aantrekkingskracht van magie zowel door kerkelijke organisaties als door occulte genootschappen wordt bedorven: zodra er een instelling omheen groeit, verschuift het werk van de enkeling naar gezag, lidmaatschap en rangen.</p>
+      <p>Daarmee komt hij uit bij een positie die in deze hoek vaker voorkomt: het werk moet bij de persoon blijven, en elke poging het te organiseren haalt eruit wat het waard was.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">occultuur</td><td>Samentrekking van occult en cultuur: de manier waarop verborgen leer doorwerkt in literatuur, film, muziek en beeldende kunst.</td></tr>
+          <tr><td class="term">bronmagie</td><td>Abrahamssons naam voor de onderlaag van magisch waarnemen waaruit volgens hem kunst, wetenschap en religie zijn voortgekomen.</td></tr>
+          <tr><td class="term">magisch-antropologisch</td><td>Zijn omschrijving van de eigen aanpak: beschrijven hoe magie in mensengroepen werkt, vanuit de kring zelf en niet vanuit de universiteit.</td></tr>
+          <tr><td class="term">individuatie</td><td>Term van Jung voor het proces waarin iemand de losse delen van zichzelf tot een geheel maakt; bij Abrahamsson de eigenlijke inzet van magisch werk.</td></tr>
+          <tr><td class="term">knipmethode</td><td>De werkwijze van Burroughs en Gysin waarbij bestaande tekst wordt doorgesneden en opnieuw gerangschikt, hier gelezen als een manier om de eigen wil uit te schakelen.</td></tr>
+          <tr><td class="term">Thee Temple ov Psychick Youth</td><td>Netwerk rond Genesis P-Orridge en de groep Psychic TV, dat vanaf de jaren tachtig ritueel en popcultuur vermengde.</td></tr>
+          <tr><td class="term">The Fenris Wolf</td><td>Het jaarboek over magie en cultuur dat Abrahamsson zelf uitgeeft en waaruit een deel van zijn onderwerpen komt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek steunt op wat de schrijver zelf heeft meegemaakt en gelezen. Hij voert ruim dertig jaar omgang met deze kring aan, met genoemde gevallen: Thee Temple ov Psychick Youth, de musici van Joujouka, Jarman, Burroughs en Gysin, Spare, Jünger. In de beschikbare beschrijvingen en besprekingen wordt geen onderzoek genoemd waarop de stellingen rusten; het gezag komt uit nabijheid tot het onderwerp.</p>
+      <p>Eén onderdeel van de stelling staat los van hem overeind. Dat de scheikunde uit de alchemie is voortgekomen en de sterrenkunde uit de sterrenwichelarij is gewone wetenschapsgeschiedenis en goed gedocumenteerd; Newton en Boyle waren beiden met alchemie bezig. De verdergaande stap, dat er onder al die vakken één magische onderlaag doorwerkt die er nog steeds in zit, is van een andere soort. Daar is geen waarneming denkbaar die haar zou weerleggen.</p>
+      <p>De ontvangst zegt weinig. Het boek is bij een uitgever verschenen die zich op dit onderwerp toelegt, het voorwoord is van een auteur uit hetzelfde fonds, en de aanbevelingen komen uit dezelfde kring. Op Goodreads stonden er ruim twee jaar na verschijnen enkele tientallen beoordelingen en een handvol besprekingen. Er is dus nauwelijks tegenspraak van buiten om het boek aan te toetsen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat de hoofdstelling niet te weerleggen is. Magie wordt zo ruim omschreven, als filter, wil en erkenning van het onredelijke, dat kunst, wetenschap, religie, ritueel en psychotherapie er allemaal onder vallen. Elk voorbeeld bevestigt haar dan, en een geval dat haar zou tegenspreken is niet te bedenken. Wat als verklaring wordt aangeboden is eerder een manier van kijken.</p>
+      <p>Het historische deel blijft ondiep waar het ertoe doet. Dat scheikunde uit alchemie is voortgekomen is bekend; wat het vak interessant maakt is hoe die overgang verliep, wat er werd meegenomen en wat juist werd afgestoten. In het onderzoek naar westerse esoterie is die vraag het onderwerp zelf, met bronnenwerk erbij. Hier dient de continuïteit vooral als opstap naar de bredere stelling en wordt zij niet onderzocht.</p>
+      <p>De onderbouwing is persoonlijk. Ontmoetingen, kennissen en eigen ervaringen dragen het betoog. Dat levert waarde op als verslag uit de eerste hand over een tegencultuur die slecht gedocumenteerd is, maar het maakt de beweringen over werking en herkomst niet controleerbaar. Waar het over rituelen gaat, zoals bij Joujouka, ontbreekt de vraag wat deelnemers ervaren en wat daarbuiten aantoonbaar verandert.</p>
+      <p>Ten slotte is de kring klein. Schrijver, voorwoordschrijver, uitgever en lovende lezers komen grotendeels uit hetzelfde gezelschap. Wie het boek als geschiedschrijving wil gebruiken, heeft er werk naast nodig dat wel aan buitenstaanders verantwoording aflegt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Houd de twee beweringen uit elkaar. Dat vakken uit magische praktijken zijn voortgekomen is te toetsen aan bronnen; dat magie er nog altijd onder doorwerkt is dat niet.</li>
+        <li>Lees het als verslag uit een tegencultuur en niet als geschiedschrijving. Voor de historische lijnen is vakliteratuur nodig die haar bronnen laat zien.</li>
+        <li>Gebruik de namenlijst als ingang. Spare, Jünger, Jarman, Burroughs en Gysin zijn elders uitvoeriger en beter gedocumenteerd beschreven.</li>
+        <li>Neem de waarschuwing over instellingen serieus, ook tegenover het boek zelf: ze geldt evengoed voor de kring waaruit het komt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Source Magic: The Origin of Art, Science, and Culture</i>, met een voorwoord van Nicholaj de Mattos Frisvold (Inner Traditions, Rochester, Vermont, 2023, 256 blz., ISBN 9781644115015; e-boek ISBN 9781644115022). Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd. Van Abrahamsson is voor zover na te gaan niets in het Nederlands verschenen. Zijn voorafgaande boek is <i>Occulture: The Unseen Forces That Drive Culture Forward</i> (Park Street Press, 2018).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Carl Abrahamsson is een Zweedse schrijver en uitgever die al decennia over occultuur schrijft, het samenspel van verborgen leer met literatuur, film, muziek en beeldende kunst. Hij geeft de reeks <i>The Fenris Wolf</i> uit en leidt de uitgeverij Trapart. <i>Source Magic</i> uit 2023 volgt op <i>Occulture</i> uit 2018.</p><p>Het boek voert één gedachte door: magie is geen voorstadium van de wetenschap maar een manier van waarnemen die er nog altijd onder ligt. Uit de alchemie kwam de scheikunde, uit de sterrenwichelarij de sterrenkunde, uit de kruidenkennis de geneeskunde, uit het ritueel het toneel. Volgens Abrahamsson blijft dat oudere filter in al die latere vormen werkzaam, en wie het weglaat blijft aan de oppervlakte van wat mensen maken.</p><p>De onderwerpen liggen ver uiteen: Noord-Europees sjamanisme, hekserij, psychedelica, de trancerituelen van de Master Musicians of Joujouka in Marokko, Thee Temple ov Psychick Youth van Genesis P-Orridge, de knipmethode van William Burroughs en Brion Gysin, de films van Derek Jarman, het werk van Ernst Jünger en het aanvaarden van de eigen sterfelijkheid. Het gezag berust op ruim dertig jaar eigen omgang met die wereld.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>esoterie</li><li>occultisme</li><li>tegencultuur</li><li>antropologie</li><li>kunst</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1254"><a href="1254.html">Esotericism and the Academy</a>. Hanegraaff beschrijft hoe westerse esoterie als onderzoeksveld werd afgebakend, met het bronnenwerk dat hier ontbreekt.</li>
+          <li value="608"><a href="608.html">Het gewijde en het profane</a>. Eliade bouwde eerder een brede stelling over gewijde ruimte en tijd, met dezelfde kracht en dezelfde zwakte in de toetsbaarheid.</li>
+          <li value="637"><a href="637.html">Real Magic</a>. Bonewits probeerde magie juist wel als toetsbaar vak te behandelen en komt daardoor tot andere uitspraken.</li>
+          <li value="357"><a href="357.html">De mens en zijn symbolen</a>. De bundel van Jung en zijn medewerkers levert de begrippen individuatie en symbool waarop Abrahamsson steunt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

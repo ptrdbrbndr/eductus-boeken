@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Journal of a Solitude &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Sarton behandelt het alleen leven als de voorwaarde waaronder haar werk en haar gevoelsleven pas werkelijk worden, en zij wil in dit dagboek de rekening…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1204">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1204 &middot; Roman en memoir</p>
+    <h1>Journal of a Solitude</h1>
+    <p class="lede">May Sarton, 1973</p>
+    <p class="stats">
+      <span><b>1379</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1204"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Sarton behandelt het alleen leven als de voorwaarde waaronder haar werk en haar gevoelsleven pas werkelijk worden, en zij wil in dit dagboek de rekening laten zien die daarbij hoort: woede, neerslachtigheid en een aanhoudende behoefte aan bezoek en post. Het boek is opgezet als correctie op <i>Plant Dreaming Deep</i> uit 1968, waarin zij van hetzelfde huis en hetzelfde bestaan volgens haar eigen oordeel een paradijs had gemaakt dat het nooit is geweest.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een correctie op het vorige boek</h3>
+      <p>In 1968 verscheen <i>Plant Dreaming Deep</i>, Sartons verslag van de aankoop en de inrichting van een achttiende-eeuws huis in Nelson, New Hampshire. Lezers schreven haar dat zij er rust in vonden en een voorbeeld van hoe een vrouw alleen kon leven. Sarton schrok van dat onthaal en stelde vast dat de kwelling en de razernij van dat bestaan er nauwelijks in voorkwamen.</p>
+      <p><i>Journal of a Solitude</i> is de tegenzet. Zij begon in september 1970 een dagboek bij te houden met de bedoeling het uit te geven, en ditmaal op te schrijven wat er misging. Daardoor is het boek van meet af aan dubbel: een verslag van een jaar en tegelijk een herziening van een eerder boek, geschreven met de lezer erbij.</p>
+      <h3>Het jaar en zijn vorm</h3>
+      <p>Het dagboek loopt tot 30 september 1971 en telt vijfentachtig ingangen, van een enkele alinea tot enkele bladzijden. De ordening is die van de kalender en van het weer. Sarton noteert de eerste vorst, de bollen die zij plant, de vogels bij het voederhuis, de bloemen die zij op tafel zet, wie er op bezoek komt en wanneer het huis weer leeg is.</p>
+      <p>Onder die laag ligt een vaste dagorde. De ochtend is voor het schrijven, daarna komen de post, de tuin en het huishouden. Sarton leefde van haar boeken en optredens, en het dagboek houdt bij hoeveel tijd de brieven van lezers opeten en hoezeer zij die brieven tegelijk nodig heeft.</p>
+      <h3>Woede, neerslachtigheid en X</h3>
+      <p>De aanleiding voor veel van wat er staat is een verhouding met een vrouw die zij alleen met de letter X aanduidt. Wie zij is en wat er tussen hen voorvalt blijft buiten beeld; het dagboek geeft de uitwerking: dagen van hoop, dan een brief die uitblijft, dan een uitbarsting. Sarton is streng over die uitbarstingen en praat ze niet goed.</p>
+      <p>Daarnaast staan de perioden van neerslachtigheid, waarvoor zij geen oorzaak aanwijst. Zij beschrijft hoe het huis zich dan tegen haar keert, hoe kleine tegenslagen onhanteerbaar worden en hoe zij zichzelf met werk en tuinieren weer op gang brengt. Die passages hebben het boek zijn lezerspubliek bezorgd, omdat ze concreet zijn waar veel schrijvers over neerslachtigheid vaag blijven.</p>
+      <h3>Eenzaamheid tegenover verlatenheid</h3>
+      <p>Sarton onderscheidt het gekozen alleen zijn van de verlatenheid die haar overkomt. Het eerste is bij haar de toestand waarin zij toegang heeft tot haar eigen leven: pas als het huis leeg is kan zij verwerken wat vriendschap en liefde met haar hebben gedaan. Het tweede is armoede aan zichzelf, en dat treedt op wanneer het werk stilligt.</p>
+      <p>Daarmee blijft haar eenzaamheid een arbeidsvoorwaarde en wordt zij geen leer. Bezoek is welkom en kost haar dagen; zij is even openhartig over haar verlangen naar gezelschap als over de opluchting wanneer de deur weer dichtvalt. Het dagboek geeft geen voorschrift, het houdt de rekening bij.</p>
+      <h3>Het bedrijf van het schrijven</h3>
+      <p>Een tweede lijn is Sartons plaats in het literaire bedrijf. Zij zag zichzelf in de eerste plaats als dichter, terwijl haar romans en dagboeken het geld opbrachten. Zij formuleert dat verschil als het onderscheid tussen wat verdiend wordt en wat gegeven wordt: proza is dagwerk, een gedicht komt of komt niet. Zij keert herhaaldelijk terug naar critici die haar overslaan en naar de vrees dat haar werk na haar dood verdwijnt.</p>
+      <p>Ook haar positie als vrouw en als lesbienne staat erin. Met de roman <i>Mrs. Stevens Hears the Mermaids Singing</i> uit 1965 had zij openlijk over een lesbische dichteres geschreven, wat haar uitnodigingen en lezers kostte. In het dagboek weegt zij wat die openheid heeft opgeleverd en wat zij ervoor heeft betaald.</p>
+      <h3>Wat er van het boek geworden is</h3>
+      <p><i>Journal of a Solitude</i> werd Sartons meest gelezen boek en vond in de jaren zeventig zijn publiek in de vrouwenbeweging en in het universitaire onderwijs over vrouwenstudies. Er volgden meer dagboeken: <i>The House by the Sea</i> uit 1977 over haar verhuizing naar de kust van Maine, <i>Recovering</i> uit 1980, <i>At Seventy</i> uit 1984, en na haar beroerte in 1990 de gedicteerde delen <i>Endgame</i> en <i>Encore</i>. Sarton stierf in 1995 in York, Maine.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">solitude</td><td>Sartons woord voor het gekozen alleen zijn waarin zij toegang krijgt tot haar eigen ervaring en waarin haar werk ontstaat.</td></tr>
+          <tr><td class="term">verlatenheid</td><td>Het ongewilde alleen zijn dat zij als armoede aan zichzelf beschrijft en dat bij haar samenvalt met vastgelopen werk.</td></tr>
+          <tr><td class="term">X</td><td>De letter waarmee zij haar geliefde aanduidt; de verhouding levert de heftigste ingangen op en blijft verder onbeschreven.</td></tr>
+          <tr><td class="term">het valse paradijs</td><td>Haar aanduiding voor het beeld dat lezers uit <i>Plant Dreaming Deep</i> hadden overgehouden en dat zij met dit dagboek wilde bijstellen.</td></tr>
+          <tr><td class="term">de muze</td><td>De figuur, meestal een vrouw op wie zij verliefd is, die volgens haar het gedicht op gang brengt en het schrijven losmaakt.</td></tr>
+          <tr><td class="term">woede</td><td>Bij Sarton geen incident maar een vast bestanddeel van haar bestaan, dat zij noteert in plaats van verklaart.</td></tr>
+          <tr><td class="term">het huis in Nelson</td><td>Het achttiende-eeuwse huis met tuin dat in het dagboek als graadmeter dient: hoe zij het huis ervaart, verraadt hoe het met haar gaat.</td></tr>
+          <tr><td class="term">verdiend en gegeven</td><td>Haar onderscheid tussen proza, dat met werk wordt afgedwongen, en poëzie, die zich aandient of uitblijft.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Een dagboek levert geen bewijs maar een verslag, en de waarde ervan hangt af van de getrouwheid. Sarton heeft de lat daar zelf hoog gelegd door het boek als correctie op te zetten. Controleerbaar is de vorm: gedateerde ingangen over een jaar waarvan zij de afloop bij het beginnen niet kende, met concrete data, namen van planten en bezoekers, en bedragen.</p>
+      <p>Tegelijk is dit een dagboek dat voor publicatie is geschreven en daarna bewerkt. Sarton koos wat erin kwam, en de gestalte die zij daarmee neerzet, de vrouw die haar woede toegeeft, is ook een constructie. Openheid over woede is iets anders dan volledigheid.</p>
+      <p>Margot Peters schreef in 1997 een biografie van Sarton op grond van brieven, papieren en gesprekken met betrokkenen. Daaruit komt een moeilijker en meer op zichzelf gerichte vrouw naar voren dan de dagboeken laten zien. Het beeld dat Sarton van haar verhoudingen geeft, is niet het beeld dat de anderen ervan hadden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de klacht over miskenning zo vaak terugkeert dat zij op zelfbeklag gaat lijken. Sarton komt telkens uit bij critici die haar overslaan en bij het uitblijven van erkenning, en zij onderzoekt zelden of het werk zelf daar aanleiding toe geeft. Wie het boek achter elkaar leest, ziet die groef dieper worden.</p>
+      <p>Verder rust de eenzaamheid die zij beschrijft op omstandigheden die zij nauwelijks benoemt: een eigen huis, een inkomen uit boeken, hulp in de huishouding, vrienden die komen en weer vertrekken. Het dagboek gaat over de innerlijke kosten van alleen leven en laat de voorwaarden buiten beschouwing die het mogelijk maakten.</p>
+      <p>De centrale verhouding blijft leeg. X is een letter zonder stem, en de lezer krijgt alleen het weer dat zij bij Sarton veroorzaakt. Daardoor valt de belangrijkste bron van de woede niet te beoordelen en moet de lezer haar oordeel overnemen.</p>
+      <p>Ten slotte is de dagboekvorm zowel de winst als het gebrek. Er staan ingangen in die weinig meer doen dan het weer en de bloemen noteren, en wie na afloop zoekt naar een gedachtegang over eenzaamheid vindt losse formuleringen die zich niet tot een betoog laten samenvoegen.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Journal of a Solitude</i> verscheen in 1973 bij W.W. Norton in New York, 208 bladzijden; de gangbare herdruk is de Norton-paperback uit 1992 (ISBN 9780393309287). Het dagboek beslaat de periode van 15 september 1970 tot 30 september 1971 en telt vijfentachtig ingangen. Er bestaat een Nederlandse vertaling, <i>Eenzaamheid</i>, door Marie Luyten (Nijgh &amp; Van Ditmar, Amsterdam, 1988), die al lang niet meer in de handel is en die het boek onder een titel plaatst waaronder niemand het zoekt; deze samenvatting volgt de Engelse tekst. Van Sarton verscheen in het Nederlands verder onder meer <i>Zoals wij nu zijn</i>, de vertaling van haar roman <i>As We Are Now</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>May Sarton was achtenvijftig toen zij dit dagboek begon. Zij woonde alleen in een achttiende-eeuws huis in het dorp Nelson in New Hampshire, leefde van haar gedichten, romans en lezingen, en had vijf jaar eerder in <i>Plant Dreaming Deep</i> beschreven hoe zij zich daar had gevestigd. Lezers hadden dat boek als een idylle opgevat. Sarton vond dat zij hun een gladde versie van zichzelf had voorgezet en begon op 15 september 1970 een dagboek waarin de woede en de neerslachtigheid wel zouden staan.</p><p>Wat volgt is een jaar in vijfentachtig ingangen: het weer, de bollen die zij plant, de bloemen op tafel, de post van lezers, het werk dat wel of niet vlot, en een liefdesverhouding met een vrouw die zij alleen X noemt. Zij houdt bij wat bezoek haar kost en wat het lege huis haar teruggeeft, en zij scheidt het alleen zijn dat zij zoekt van de verlatenheid die haar overvalt.</p><p>Het boek werd haar meest gelezen werk en kreeg in de jaren zeventig een publiek in de vrouwenbeweging. Er volgden nog vijf dagboeken, tot en met de delen die zij na haar beroerte van 1990 dicteerde.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>dagboek</li><li>eenzaamheid</li><li>schrijverschap</li><li>woede</li><li>memoir</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1203"><a href="1203.html">De kracht van het alleenzijn</a>. Anthony Storr behandelt in <i>Solitude</i> hetzelfde onderscheid dat Sarton in de praktijk brengt, maar vanuit de psychiatrie en met verwijzing naar onderzoek en levensverhalen.</li>
+          <li value="1200"><a href="1200.html">Het boek der rusteloosheid</a>. Pessoa's <i>The Book of Disquiet</i> is de tegenpool: eveneens het aantekenboek van een alleenlevende, zonder huis, tuin en jaargetijden om zich aan vast te houden.</li>
+          <li value="830"><a href="830.html">Pilgrim at Tinker Creek</a>. Annie Dillard hield in <i>Pilgrim at Tinker Creek</i> ook een jaar lang bij wat één plek haar liet zien, met dezelfde wisseling van verrukking en ontzetting.</li>
+          <li value="1205"><a href="1205.html">A Book of Silence</a>. Sara Maitland zoekt in <i>A Book of Silence</i> de stilte doelbewust op en meet wat die met haar doet; bij Sarton gebeurt dat terloops en over een langere tijd.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

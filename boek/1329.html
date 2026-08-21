@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Creative Dreaming &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Garfield stelt dat de droom geen toestand is die je ondergaat maar een vaardigheid die je oefent. Wie zijn dromen opschrijft, voor het slapen een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1329">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1329 &middot; Brein en lichaam</p>
+    <h1>Creative Dreaming</h1>
+    <p class="lede">Patricia Garfield, 1974</p>
+    <p class="stats">
+      <span><b>1493</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1329"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Garfield stelt dat de droom geen toestand is die je ondergaat maar een vaardigheid die je oefent. Wie zijn dromen opschrijft, voor het slapen een duidelijk voornemen formuleert en dat volhoudt, kan volgens haar bepalen waarover hij droomt, tijdens de droom merken dat hij droomt en de gang van zaken bijsturen. Zij onderbouwt dat met het argument dat verschillende samenlevingen dit al doen: Noord-Amerikaanse volken met hun visioenzoektocht, Tibetaanse beoefenaren van droomyoga en vooral de Senoi in Maleisië, van wie zij aanneemt dat zij hun kinderen van jongs af aan leren droombeelden te confronteren en om te buigen. De opbrengst is in haar voorstelling niet beperkt tot een aangenamer nachtleven; zij belooft ook minder angst overdag en meer invallen voor werk waarop iemand is vastgelopen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Opzet en toonzetting</h3>
+      <p>Het boek is opgebouwd rond de gedachte dat andere tijden en plaatsen al weten wat de westerse lezer nog moet leren. De hoofdstukken dragen daarom titels van het type 'Learn from creative dreamers', 'Learn from American Indian dreamers' en 'Learn from Senoi dreamers'. Een tweede deel gaat over de vraag hoe je tijdens je droom tot bewustzijn komt, met hoofdstukken over dromers die dat kunnen en over beoefenaren van droomyoga.</p>
+      <p>Garfield schrijft als deelnemer. Zij put voortdurend uit haar eigen droomdagboek, dat zij op het moment van schrijven al ruim twintig jaar bijhield, en beschrijft haar eigen dromen met evenveel gewicht als haar bronnen. Dat maakt het boek leesbaar en tegelijk moeilijk te toetsen.</p>
+      <h3>Dromen als bron van vondsten</h3>
+      <p>Het openingsgedeelte verzamelt gevallen waarin schrijvers, componisten en geleerden een idee aan een droom toeschreven. Garfield gebruikt die reeks om aannemelijk te maken dat de droom werk verzet dat het wakende denken niet af kreeg, en zij leidt er een voorwaarde uit af: zulke dromen komen bij mensen die zich overdag lang en aandachtig met het onderwerp hebben beziggehouden.</p>
+      <p>De verhalen zelf zijn overgeleverd via de betrokkenen zelf, vaak jaren na dato en soms in een versie die het ontstaan mooier maakt dan het was. Garfield behandelt ze als bewijs, terwijl het aanwijzingen zijn van wisselende hardheid.</p>
+      <h3>De visioenzoektocht</h3>
+      <p>Het hoofdstuk over Noord-Amerikaanse volken beschrijft de gewoonte waarbij een jongere zich terugtrekt, vast en waakt tot een droom of visioen komt, en aan dat visioen een beschermgeest, een lied of een naam ontleent. Garfield leest dat als een cultureel geregelde vorm van droomincubatie: de gemeenschap bepaalt wat een goede droom is en de dromer richt zich daarnaar.</p>
+      <p>Zij ontleent er de gedachte aan dat verwachting de droominhoud vormt. Waar een samenleving een bepaald soort droom verwacht en beloont, komt dat soort droom vaker voor. Die stelling past zij vervolgens ook op de lezer toe.</p>
+      <h3>De Senoi</h3>
+      <p>Het vijfde hoofdstuk is aan de Senoi gewijd en draagt het boek. Garfield baseert zich op het werk van Kilton Stewart, die in 1934 bij dit volk in het Maleisische binnenland verbleef, en op haar eigen bezoek in 1972 aan het ziekenhuis voor inheemse bewoners in Gombak, waar zij Senoi over hun dromen sprak.</p>
+      <p>In de weergave die zij overneemt, bespreken de Senoi elke ochtend hun dromen aan het ontbijt en later op de dag in de dorpsraad, en leren zij hun kinderen drie regels: ga in de droom het gevaar tegemoet en overwin het, ga in de droom door naar het aangename in plaats van halverwege te stoppen, en zorg dat de droom iets oplevert dat je meeneemt, een lied, een dans of een vondst. Garfield stelt dat dit een samenleving oplevert met opvallend weinig geweld en weinig geestelijke ziekte.</p>
+      <h3>Yogi's en heldere dromers</h3>
+      <p>In het zevende hoofdstuk behandelt Garfield de Tibetaanse droomyoga, waarin de beoefenaar leert de droomtoestand te herkennen en de droombeelden bewust te veranderen, met als doel te ondervinden dat ook de waaktoestand van dezelfde aard is. Zij put daarbij uit de westerse weergaven van deze traditie die in haar tijd beschikbaar waren.</p>
+      <p>Het hoofdstuk over heldere dromers sluit aan bij het werk van Celia Green en bij oudere dagboekhouders. Garfield voegt haar eigen ervaringen toe, met inbegrip van erotische heldere dromen, wat destijds ongebruikelijk was in een boek voor een breed publiek. Zij beschrijft de heldere droom als het punt waarop droomsturing volledig binnen bereik komt.</p>
+      <h3>De werkwijze</h3>
+      <p>Het slot vat de methode samen. Houd een dagboek bij en schrijf onmiddellijk na het ontwaken op wat er was. Bepaal voor het slapengaan in korte, bevestigend geformuleerde bewoordingen waarover je wilt dromen en herhaal dat tot je indommelt. Spreek met jezelf af wat je in de droom zult doen wanneer er iets dreigends gebeurt. Bespreek je dromen met anderen, want dat vergroot volgens Garfield zowel het onthouden als de opbrengst.</p>
+      <p>De belofte die zij eraan verbindt is ruim: minder nachtmerries, minder angst, meer invallen en een gevoel van zeggenschap. Bewijsvoering voor die uitkomsten ontbreekt; wat het boek biedt is een verzameling verslagen, waaronder veel van haarzelf.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">droomdagboek</td><td>Het direct na het ontwaken opschrijven van dromen, bij Garfield de eerste voorwaarde voor elke vorm van droomwerk.</td></tr>
+          <tr><td class="term">droomincubatie</td><td>Het voor het slapengaan formuleren en herhalen van een voornemen over de inhoud van de komende droom.</td></tr>
+          <tr><td class="term">heldere droom</td><td>Droom waarin de slaper weet dat hij droomt en daardoor kan besluiten wat hij doet.</td></tr>
+          <tr><td class="term">droomcontrole</td><td>De vaardigheid om de gang van een droom te sturen, die Garfield als oefenbaar en in graden opklimmend beschrijft.</td></tr>
+          <tr><td class="term">Senoi-droomtheorie</td><td>Het stelsel van droomregels dat Kilton Stewart aan de Senoi toeschreef en dat Garfield als leermodel overnam.</td></tr>
+          <tr><td class="term">de droomvijand tegemoet gaan</td><td>De regel om in de droom niet te vluchten voor een aanvaller maar hem aan te vallen en te verslaan.</td></tr>
+          <tr><td class="term">droomgeschenk</td><td>Het idee dat een droom iets bruikbaars moet opleveren dat de dromer mee terugneemt, zoals een lied of een ontwerp.</td></tr>
+          <tr><td class="term">visioenzoektocht</td><td>De gewoonte waarbij iemand zich terugtrekt en vast tot een droom komt die richting geeft aan zijn leven.</td></tr>
+          <tr><td class="term">droomyoga</td><td>Tibetaanse oefenweg waarin de beoefenaar de droomtoestand herkent en de beelden verandert om de aard van waarneming te doorzien.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op drie soorten materiaal. Ten eerste etnografische verslagen, waarvan het Senoi-hoofdstuk vrijwel geheel op de publicaties van Kilton Stewart teruggaat, aangevuld met Garfields eigen bezoek van enkele weken in 1972. Ten tweede historische anekdotes over dromen die tot een boek, een muziekstuk of een vondst zouden hebben geleid. Ten derde haar eigen droomdagboek, waaruit zij honderden voorbeelden haalt.</p>
+      <p>Wat ontbreekt is elke vorm van gecontroleerd onderzoek. Er is geen vergelijkingsgroep, geen onafhankelijke waarnemer en geen manier om vast te stellen of de beschreven oefeningen bij anderen werken. Garfield is in dit opzicht proefpersoon, waarnemer en beoordelaar tegelijk. Zij verwijst wel naar het slaaponderzoek van haar tijd, waaronder het werk van Celia Green, maar dat onderzoek onderbouwt haar praktische aanwijzingen niet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar treft het hoofdstuk dat het boek zijn faam gaf. De Senoi-droomtheorie is niet in het veld teruggevonden. G. William Domhoff bracht in <i>The Mystique of Dreams: A Search for Utopia Through Senoi Dream Theory</i> (University of California Press, 1985) het werk bijeen van antropologen die langdurig bij de Senoi verbleven, onder wie Robert Knox Dentan en Clayton Robarchek. Zij stelden vast dat dromen ertoe deden en soms werden verteld, maar vonden geen dagelijkse droombijeenkomsten, geen opvoeding in droomregels en geen aanwijzing dat kinderen leerden hun droomaanvallers te verslaan. Domhoffs conclusie is dat de leer vooral iets zegt over Amerikaanse verwachtingen in de jaren zestig en zeventig. Garfield heeft die kritiek in latere edities gedeeltelijk verwerkt, maar de opbouw van het boek blijft erop leunen.</p>
+      <p>Een tweede bezwaar is de bewijskracht van de anekdotes over dromen die een kunstwerk of een ontdekking opleverden. Zulke verhalen komen bijna zonder uitzondering van de betrokkene zelf, jaren later opgeschreven, en het is niet na te gaan hoeveel van het werk al klaar was voordat de droom kwam. Als groep tonen ze aan dat mensen betekenis aan dromen hechten, niet dat dromen het denkwerk deden.</p>
+      <p>Ten derde is het deel dat wel standhield bescheidener dan het boek suggereert. Dat droomherinnering verbetert door op te schrijven, dat incubatie de droominhoud enigszins beïnvloedt en dat helder dromen bestaat en te oefenen valt, is later inderdaad vastgesteld. Maar de bekende inductietechnieken slagen bij een minderheid van de deelnemers en niet betrouwbaar per nacht, en er is geen aangetoond verband tussen droomsturing en de bredere uitkomsten die Garfield belooft, zoals minder angst of meer invallen. Het boek leest daardoor als een bruikbare aanzet met een te ruime rekening.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Leg papier binnen handbereik en schrijf voor je opstaat op wat je nog hebt, ook als het losse flarden zijn.</li>
+        <li>Formuleer een voornemen in korte bevestigende bewoordingen en herhaal het tot je in slaap valt; toets zelf over een maand of het iets deed.</li>
+        <li>Spreek met jezelf af wat je gaat doen als je in een droom achterna wordt gezeten, en noteer of dat lukte.</li>
+        <li>Behandel de Senoi-hoofdstukken als tijdsdocument en niet als etnografie.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Creative Dreaming</i> (Simon and Schuster, New York, 1974, ruim 200 blz.); de veelgelezen pocket verscheen bij Ballantine Books (ISBN 9780345298164) en in 1995 kwam een herziene uitgave uit. De Nederlandse vertaling heet <i>Creatief dromen</i> en verscheen bij Het Spectrum in Utrecht, eerste Nederlandse druk 1976, later herdrukt bij Kosmos (ISBN 9789021518879) en opnieuw uitgebracht onder ISBN 9789031505500.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Patricia Garfield (1934-2021), klinisch psycholoog en later medeoprichter van de International Association for the Study of Dreams, hield vanaf haar veertiende een droomdagboek bij. In dit boek uit 1974 betoogt zij dat dromen te sturen zijn en dat die vaardigheid te leren valt. De hoofdstukken heten steeds 'Learn from ...': van dromers die aan een droom een vondst ontleenden, van Noord-Amerikaanse volken met hun visioenzoektocht, van de Senoi in Maleisië, van Tibetaanse droomyoga en van mensen die weten dat zij dromen.</p><p>Het praktische deel geeft een werkwijze: houd een dagboek bij, formuleer voor het slapen een voornemen, herhaal dat, ga in de droom de dreiging tegemoet in plaats van te vluchten, en verwacht een goede afloop. Het boek werd een bestseller en bracht het heldere dromen bij een groot publiek onder de aandacht.</p><p>De kern van het betoog is echter blijven steken. Het hoofdstuk over de Senoi berust op het verslag van Kilton Stewart, en veldwerk van antropologen die daarna bij dit volk woonden heeft de beschreven droombijeenkomsten en droomopvoeding niet teruggevonden. G. William Domhoff bracht dat in 1985 bijeen in <i>The Mystique of Dreams</i>.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>dromen</li><li>slaap</li><li>zelfhulp</li><li>antropologie</li><li>bewustzijn</li><li>omstreden</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1328"><a href="1328.html">Lucid Dreams</a>. Greens studie uit 1968, de nuchtere ordening waaraan Garfield haar begrippen ontleende.</li>
+          <li value="1325"><a href="1325.html">Les rêves et les moyens de les diriger</a>. Het negentiende-eeuwse droomdagboek waarop de gedachte van oefenbaar dromen teruggaat.</li>
+          <li value="1159"><a href="1159.html">Altered States of Consciousness</a>. Tarts bundel uit 1969 die dezelfde onderwerpen bijeenbracht, met meer aandacht voor methode.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

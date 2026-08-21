@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Party of One: The Loners' Manifesto &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Rufus betoogt dat er mensen zijn voor wie alleen zijn een voorkeur is en geen tekort, dat die voorkeur vroeg vastligt en blijvend is, en dat de westerse…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1206">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1206 &middot; Levenskunst</p>
+    <h1>Party of One: The Loners' Manifesto</h1>
+    <p class="lede">Anneli Rufus, 2003</p>
+    <p class="stats">
+      <span><b>1407</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1206"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Rufus betoogt dat er mensen zijn voor wie alleen zijn een voorkeur is en geen tekort, dat die voorkeur vroeg vastligt en blijvend is, en dat de westerse cultuur haar stelselmatig als stoornis of als dreiging behandelt. Uit die stelling volgt haar aanklacht: het spraakgebruik waarin de dader van een schietpartij altijd een einzelgänger heet en waarin sociaal verkeer met gezondheid wordt gelijkgesteld, beschrijft niets maar velt een oordeel, en de alleenlevende doet er goed aan dat oordeel af te wijzen in plaats van zich eraan aan te passen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het onderscheid waar alles op rust</h3>
+      <p>Het boek begint met een scheiding. De eenling is degene die het gezelschap van anderen kan missen en er in de regel ook liever van afziet; de eenzame is degene die gezelschap wil en het niet krijgt. Rufus voegt daar een derde groep aan toe die zij uitsluit: de verlegene, die anderen zoekt maar bang voor hen is. Verlegenheid is angst, zegt zij, terwijl haar eenling geen angst kent maar smaak heeft.</p>
+      <p>Met dezelfde beweging verwijdert zij een aantal beroemde gevallen uit haar categorie. Wie een aanslag pleegt om een boodschap uit te dragen of wie volgelingen om zich heen verzamelt, is volgens haar een schijn-eenling. Zij noemt in dat verband Theodore Kaczynski, de bommenlegger die als kluizenaar leefde, en zij rekent zelfs Jezus tot degenen die te goed waren in het aanvoeren van menigten.</p>
+      <h3>De aanklacht per domein</h3>
+      <p>De hoofdstukken zijn per gebied ingedeeld. Rufus behandelt achtereenvolgens de populaire cultuur, de film, de reclame, vriendschap, liefde en seks, de techniek, de kunst, de literatuur, de religie, de geestelijke gezondheidszorg, de misdaad, de excentriciteit, kleding, de omgeving waarin men woont, alleen reizen en de kindertijd.</p>
+      <p>Haar werkwijze is telkens dezelfde. Zij verzamelt uitspraken, films, reclamebeelden en gebruiken waaruit blijkt dat het samenzijn als norm geldt, en laat zien hoe de alleenlevende daarin voorkomt: als verdachte, als zielenpoot of als iemand die genezen moet worden. Zij vult dat aan met gesprekken met alleenlevenden en met haar eigen ervaringen op school, op het werk en op feesten.</p>
+      <h3>De eenling als verdachte</h3>
+      <p>Het sterkste hoofdstuk gaat over misdaad. Rufus laat zien hoe pers en politie na een geweldsdaad standaard melden dat de dader een einzelgänger was, alsof daarmee iets verklaard is. Zij wijst erop dat de meeste alleenlevenden niemand kwaad doen en dat veel geweld juist in groepsverband plaatsvindt, zodat het woord vooral een sfeer oproept.</p>
+      <p>De schade daarvan is volgens haar dagelijks merkbaar. Kinderen die liever alleen spelen worden naar de schoolpsycholoog gestuurd, volwassenen die niet aan bedrijfsuitjes meedoen krijgen een aantekening, en de alleenlevende leert zich te verontschuldigen voor iets waar niets mis mee is.</p>
+      <h3>De erelijst</h3>
+      <p>Om te laten zien dat alleen zijn vruchtbaar kan zijn, voert Rufus een lange rij namen op uit kunst, muziek en film, van Michelangelo tot Kurt Cobain en John Lennon, aangevuld met verzonnen figuren als de Lone Ranger. Het betoog luidt dat de cultuur haar hoogtepunten dankt aan mensen die veel tijd doorbrachten waar niemand bij was.</p>
+      <p>Diezelfde erelijst is meteen het zwakste onderdeel. Wie iemand op grond van anekdotes en biografische flarden achteraf tot eenling verklaart, kan bij vrijwel elke naam uitkomen, en de meeste van deze mensen hadden werkkringen, geliefden en leerlingen.</p>
+      <h3>Manifest of hartenkreet</h3>
+      <p>De ondertitel belooft een manifest en de toon lost dat in: kort, fel, met een duidelijk wij tegenover zij. <i>Publishers Weekly</i> schreef bij verschijning dat het meer een hartenkreet is dan een manifest en dat het geheel aandoet als veel losse informatie die aaneengeplakt is. Dat oordeel is goed te volgen.</p>
+      <p>De keerzijde van die toon is dat het boek zijn lezers juist heeft gevonden omdat het geen therapeutische bedoelingen heeft. Rufus wil de alleenlevende niet beter laten meedraaien, zij wil dat hij met rust wordt gelaten, en dat standpunt was in 2003 zeldzaam.</p>
+      <h3>Wat er daarna kwam</h3>
+      <p>Negen jaar later verscheen <i>Quiet</i> van Susan Cain, dat de introverte mens in het openbare gesprek plaatste met verwijzing naar persoonlijkheidsonderzoek. Het verschil met Rufus is leerzaam. Cain bepleit erkenning binnen bestaande organisaties en wijst op wat stille mensen aan bedrijven en scholen te bieden hebben.</p>
+      <p>Rufus wil dat niet. Haar eenling hoeft zijn nut niet te bewijzen om ongemoeid gelaten te worden. Dat maakt haar boek principiëler en tegelijk minder bruikbaar voor wie binnen een organisatie iets wil veranderen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">loner</td><td>Rufus' woord voor wie het gezelschap van anderen zonder gemis kan missen; in het Nederlands het dichtst benaderd door eenling.</td></tr>
+          <tr><td class="term">schijn-eenling</td><td>Iemand die als eenling te boek staat maar volgens Rufus juist volgelingen of publiek zoekt, zoals de aanslagpleger met een boodschap.</td></tr>
+          <tr><td class="term">eenzaamheid</td><td>Het gemis van gezelschap, dat zij scherp scheidt van het alleen zijn dat haar eenling verkiest.</td></tr>
+          <tr><td class="term">verlegenheid</td><td>Angst voor anderen, die bij Rufus buiten de categorie eenling valt omdat de verlegene wel contact wil.</td></tr>
+          <tr><td class="term">party of one</td><td>De formule waarmee een gastheer in een restaurant vraagt met hoevelen men is; de titel maakt van dat kleine ongemak het uitgangspunt van het boek.</td></tr>
+          <tr><td class="term">de gezelligheidsplicht</td><td>Haar aanduiding voor de ongeschreven regel dat deelnemen aan groepen als teken van gezondheid geldt en afzijdigheid uitleg behoeft.</td></tr>
+          <tr><td class="term">het etiket einzelgänger</td><td>Het woord dat in misdaadberichtgeving als verklaring dienstdoet en volgens haar een hele groep in een kwaad daglicht stelt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek steunt op drie bronnen: gesprekken met alleenlevenden en met deskundigen, een grote hoeveelheid voorbeelden uit films, boeken, reclame en kranten, en de ervaring van de schrijfster zelf. Er is geen enquête, geen steekproef en geen meting. De gesprekken worden niet als onderzoek gepresenteerd, maar dienen wel als grond voor algemene uitspraken over een groep.</p>
+      <p>De sterkste passage is die over de misdaadberichtgeving, want daar is de bewering feitelijk en te controleren: het woord einzelgänger komt inderdaad vast voor in de eerste berichten na geweldsdaden, en het verklaart niets. Dat deel van het betoog houdt stand.</p>
+      <p>De kern van het boek berust echter op de bewering dat de eenling zo geboren wordt. Rufus stelt dat, en levert er niets voor aan. De psychologie beschikt over gemeten persoonlijkheidstrekken, waaronder extraversie, en over tweelingonderzoek waaruit blijkt dat ongeveer de helft van de verschillen daarin erfelijk is. Dat materiaal had haar stelling kunnen dragen of bijstellen; zij gebruikt het niet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat het onderscheid waar het hele betoog op rust van buitenaf niet vast te stellen is. Wie zegt liever alleen te zijn, heet eenling; wie eronder lijdt, heet eenzaam. Daarmee kan geen enkel geval de stelling weerleggen, want elk tegenvoorbeeld wordt tot een andere categorie gerekend. Dat Rufus de bommenlegger Kaczynski op deze manier uit haar groep verwijdert, laat zien hoe makkelijk dat gaat.</p>
+      <p>Daarbij komt het spiegelbeeld van het vooroordeel dat zij bestrijdt. De eenling verschijnt in dit boek als de scheppende, beschouwende, eerlijke mens, tegenover een luidruchtige meerderheid die zichzelf niet kent. Dat is vleiend voor de lezer, berust op niets, en maakt het boek tot een tegenhanger van de sortering die het aanklaagt.</p>
+      <p>Rufus gaat voorbij aan de gezondheidskant van de zaak. In 2010 vatte Julianne Holt-Lunstad met collega's honderdachtenveertig onderzoeken samen en vond dat mensen met meer sociale banden aanzienlijk langer leven. Zij zou tegenwerpen dat dat over gemis gaat en niet over gekozen afzondering, maar juist die scheiding is het punt in geschil, en het boek doet geen poging haar hard te maken.</p>
+      <p>Ten slotte de vorm. Vijftien hoofdstukken met dezelfde bouw, telkens voorbeelden uit een nieuw gebied gevolgd door dezelfde gevolgtrekking, leveren herhaling op. Wie het eerste kwart heeft gelezen, kent het betoog; de rest bestaat uit bewijsplaatsen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Scheid in het eigen geval de voorkeur van het gemis: houd een week bij welke afspraken energie kostten en welke energie opleverden, voordat u een verklaring kiest.</li>
+        <li>Let op het woordgebruik in nieuwsberichten na een geweldsdaad en ga na wat de aanduiding einzelgänger daar feitelijk toevoegt.</li>
+        <li>Gebruik het onderscheid bij het inrichten van werk: vraag om taken die alleen af te maken zijn, in plaats van te proberen prettiger in groepen te functioneren.</li>
+        <li>Lees het boek naast onderzoek naar introversie en naar sociale banden, omdat Rufus zelf geen gegevens levert.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Party of One: The Loners' Manifesto</i> verscheen in 2003 bij Marlowe &amp; Company in New York (xxx en 286 blz., ISBN 9781569245132); latere drukken tellen ruim driehonderd bladzijden. Rufus is journalist in Berkeley, Californië, en schreef eerder onder meer over rouw en over reliekverering. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Anneli Rufus schrijft voor mensen die het liefst alleen zijn en die daar geen probleem in zien. Haar Engelse woord daarvoor is <i>loner</i>; in het Nederlands komt eenling er het dichtst bij. Haar uitgangspunt is dat de eenling iets anders is dan de eenzame: de eerste heeft genoeg aan zichzelf, de tweede mist gezelschap. Wie dat verschil niet maakt, zegt zij, behandelt een voorkeur als een gebrek.</p><p>Het boek loopt de terreinen af waarop de cultuur die verwarring in stand houdt: reclame, mode, film, vriendschap, liefde en seks, techniek, kunst, literatuur, religie, psychiatrie, misdaad, excentriciteit en de kindertijd. Steeds is het patroon hetzelfde: gezelligheid geldt als gezondheid, en wie zich terugtrekt moet zich verantwoorden. Het scherpst wordt zij bij de misdaadberichtgeving, waarin de dader standaard een einzelgänger heet en het woord dus als aanklacht dienstdoet.</p><p>De toon is die van een strijdschrift, met alle winst en alle verlies van dien. Er staat geen eigen onderzoek in, en het onderscheid waar alles op rust laat zich van buitenaf niet vaststellen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>eenzaamheid</li><li>introversie</li><li>individualisme</li><li>cultuurkritiek</li><li>identiteit</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="33"><a href="33.html">Quiet</a>. Susan Cain behandelt in <i>Quiet</i> hetzelfde onderwerp met verwijzing naar persoonlijkheidsonderzoek, en met de bedoeling introverte mensen binnen organisaties beter tot hun recht te laten komen.</li>
+          <li value="1203"><a href="1203.html">De kracht van het alleenzijn</a>. Anthony Storr onderbouwt in <i>Solitude</i> vanuit de psychiatrie wat Rufus als stelling poneert: dat het vermogen alleen te zijn een teken van gezondheid kan zijn.</li>
+          <li value="1204"><a href="1204.html">Journal of a Solitude</a>. May Sarton laat in <i>Journal of a Solitude</i> zien wat een leven op deze voorwaarden dagelijks kost, inclusief de neerslachtigheid die Rufus buiten beschouwing laat.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

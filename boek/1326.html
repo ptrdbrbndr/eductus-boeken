@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Studies in Dreams &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Arnold-Forster bestrijdt de aanname dat dromen ons overkomen zonder dat wij er iets aan kunnen doen. Volgens haar zijn geheugen, verbeelding en redenering…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1326">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1326 &middot; Brein en lichaam</p>
+    <h1>Studies in Dreams</h1>
+    <p class="lede">Mary Arnold-Forster, 1921</p>
+    <p class="stats">
+      <span><b>1879</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1326"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Arnold-Forster bestrijdt de aanname dat dromen ons overkomen zonder dat wij er iets aan kunnen doen. Volgens haar zijn geheugen, verbeelding en redenering in de slaap gewoon aan het werk, alleen met minder feiten om mee te rekenen, en reikt onze zeggenschap over de eigen gedachten verder dan de dag. Wie een korte formule vaak genoeg herhaalt, overdag en vlak voor het inslapen, krijgt die formule op het beslissende moment vanzelf in de droom aangereikt, en kan daarmee een angstdroom afbreken en een gewenste droom voortzetten. Zij bouwt daar een tweede stelling op: als dat kan, dan is het dromen zelf een vermogen dat te ontwikkelen valt, en dan is het de moeite waard het aan kinderen te leren voordat de angst voor nachtmerries zich vastzet. De aanname die zij verwerpt, dat het gebied van de droom volledig buiten onze wil ligt, schrijft zij toe aan de school van Freud, waarmee zij het boek door in gesprek blijft.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar zij zich plaatst</h3>
+      <p>Het eerste hoofdstuk zet haar tegenover twee partijen. De negentiende-eeuwse geneeskunde wilde dromen uit lichamelijke oorzaken verklaren; zij haalt een gezondheidsvoordracht uit de jaren tachtig aan waarin de toehoorders werd voorgehouden dat er niets in dromen zit wat niet lichamelijk te verklaren is. Die tijd is voorbij, stelt zij vast, en nu is het moeilijke juist dat er al zoveel geleerde boeken over dromen zijn.</p>
+      <p>Haar eigen vragen zijn smal en helder. Welke vermogens zijn werkzaam in de droom? Veranderen die vermogens van aard zodra we slapen? En houdt onze greep op onze gedachten in de slaap helemaal op? Wat zij bijdraagt is haar eigen materiaal, jarenlang opgeschreven, en zij vraagt om een verzamelplaats waar zulke verslagen van veel mensen zouden samenkomen.</p>
+      <h3>De eerste formule</h3>
+      <p>De vondst kwam uit een ervaring die volgens haar bijna iedereen kent: het besef, midden in een akelige droom, dat het maar een droom is. Als dat besef betrouwbaar op te roepen was, redeneerde zij, dan is er altijd een uitweg. Zij koos daarom een vaste zin en herhaalde die overdag en bij het naar bed gaan, altijd in dezelfde woorden, soms hardop: onthoud dat dit een droom is, je hoeft niet verder te dromen.</p>
+      <p>Het werkte in twee fasen. Aanvankelijk werd zij door de formule meteen wakker. Later hoefde dat niet meer: de angstdroom werd, zoals zij het noemt, uitgeschakeld, en het verhaal liep zonder het verontrustende deel door. Zij benadrukt dat er niets bijzonders aan de woorden is; het gaat om de herhaling, tot de zin een gewoonte van de geest is geworden en vanzelf opkomt zodra de nood er is.</p>
+      <h3>Vliegdromen en de tweede formule</h3>
+      <p>Het derde hoofdstuk gaat over haar vliegdromen, die zij haar leven lang had en waarin zij zweefde en gleed dicht boven de grond. Toen er vliegtuigen kwamen, kreeg zij ook dromen waarin zij een toestel bestuurde, maar bij pech liet zij dat gewoon in de steek en ging weer over op haar eigen manier van vliegen.</p>
+      <p>De tweede formule kwam uit een droom die zij lang geleden had opgeschreven. Op een ontvangst in de Royal Society, met Lord Kelvin, Lord Rayleigh en Sir William Ramsay onder de gasten, vroeg haar zwager haar uit te leggen hoe zij vloog. Zij kon het niet uitleggen en liet het zien. Kelvin merkte in de droom op dat de zwaartekracht in dit geval kennelijk tijdelijk was opgeheven. Sindsdien zegt zij tegen zichzelf, zodra zij in een vlucht begint te zakken, dat de wet van de zwaartekracht hier geen vat op haar heeft en dat zij vertrouwen moet hebben. Vertrouwen is volgens haar de hele voorwaarde voor het vliegen, en het weten dat zij kan wegvliegen maakt haar ook in andere dromen minder bang.</p>
+      <h3>Optekenen en de vermogens in de droom</h3>
+      <p>Het vierde hoofdstuk gaat over de praktijk van het onthouden en opschrijven, met de moeilijkheid van dromen waarin de dromer van gedaante wisselt en de vaststelling dat de dromen van de vroege ochtend het best bewaard blijven.</p>
+      <p>De hoofdstukken daarna ontleden de vermogens. Het geheugen is bij haar de bouwer van de droom, de verbeelding de bouwmeester; de wereld van de droom blijft de bekende wereld, maar de wetten van tijd en ruimte gelden er niet. Over het redeneren doet zij een opmerking die haar hele opvatting samenvat: in dromen wordt vaak goed geredeneerd en toch onzinnig geconcludeerd, omdat het redenerende vermogen te weinig feiten tot zijn beschikking heeft. Apart zet zij de superdroom, waarin alle vermogens op hun hoogst werken en die zij vergelijkt met de bekende gevallen van Condorcet en Robert Louis Stevenson.</p>
+      <h3>Het grensgebied en de figuren in de droom</h3>
+      <p>Twee hoofdstukken gaan over wat zij het grensgebied noemt, de toestand tussen waken en slapen. Zij onderscheidt daarin twee fasen, een vroegere die het verst van de slaap af ligt en een latere vlak voor de slaapgrens. In de eerste beschrijft zij een toestand van stilte die zij vergelijkt met wat een kunstenaar nodig heeft om te kunnen werken, en zij houdt de mogelijkheid open van gedachteoverdracht buiten de zintuigen om, met een verwijzing naar Oliver Lodge en het onderzoek van de Society for Psychical Research. In de tweede fase ziet zij hoe de gewone geest en de droomgeest even naast elkaar werken, met gedachten die elkaar kruisen.</p>
+      <p>Het hoofdstuk over de figuren in de droom stelt de vraag hoe die hun rol volhouden in dromen waarin wordt geredetwist. Haar antwoord is dat zij maaksels van de dromende geest zijn, ook de gids die in haar eigen dromen terugkeert. Het laatste hoofdstuk gaat over het morele besef, dat in dromen anders werkt doordat het gevoel van verantwoordelijkheid ontbreekt; ook daar past zij de methode toe, met een proef op dromen van woede.</p>
+      <h3>Kinderen en nachtangst</h3>
+      <p>Het praktische deel van het boek is haar advies over kinderen. De formule moet voor hen zo kort en eenvoudig mogelijk zijn, iets in de trant van: dit is maar een droom, het moet ophouden. Zij moet vaak worden herhaald, vooral bij het naar bed gaan, tot de woorden zo vertrouwd zijn dat ze tegelijk met de nare droom opkomen.</p>
+      <p>Zij raadt aan de methode niet als les te brengen maar als verhaal over andere kinderen en hun dromen. Haar verwachting is bescheiden geformuleerd: als het klopt dat wij door aan onze dromen te denken hun aard veranderen, dan zou het droomleven van een kind daarmee te verbeteren zijn, en zou het leren dromen zonder de angst die het vooruitzicht nu vaak bederft. Getallen of gevallen van andere kinderen geeft zij daarbij niet.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Droombeheersing</td><td>Haar overkoepelende term voor het opzettelijk beïnvloeden van de inhoud en de afloop van dromen.</td></tr>
+          <tr><td class="term">De formule</td><td>Een korte, altijd gelijkluidende zin die overdag en voor het slapen wordt herhaald tot hij vanzelf in de droom opkomt.</td></tr>
+          <tr><td class="term">Vrijwillig dromen</td><td>Het van tevoren kiezen waarover men wil dromen, bij haar vooral beproefd op vliegdromen.</td></tr>
+          <tr><td class="term">Superdroom</td><td>Haar naam voor de droom waarin geheugen, verbeelding en redenering op hun hoogst werken en waaruit soms bruikbaar werk voortkomt.</td></tr>
+          <tr><td class="term">Grensgebied</td><td>De toestand tussen waken en slapen, door haar in twee fasen verdeeld en apart van de eigenlijke droom behandeld.</td></tr>
+          <tr><td class="term">De gids</td><td>Een terugkerende figuur in haar dromen die haar begeleidt en die zij uitdrukkelijk als maaksel van de eigen droomgeest beschouwt.</td></tr>
+          <tr><td class="term">Zintuiglijke en psychische dromen</td><td>Haar onderscheid tussen dromen die door een prikkel van buiten worden opgewekt en dromen die uit de geest zelf voortkomen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het materiaal is haar eigen droomdagboek, aangevuld met verslagen van vrienden en bekenden en met citaten uit de literatuur, van Charles Lamb en De Quincey tot Kipling en Havelock Ellis. Zij telt niet: er staat nergens hoeveel nachten zij noteerde, hoe vaak de formule werkte of hoe vaak niet. Wat zij wel doet is haar mislukkingen benoemen, zoals de vluchten waarin zij begint te zakken, en aangeven dat het effect van de formule in de loop van de jaren veranderde.</p>
+      <p>De opzet is die van een geoefende getuige en niet van een proef. Er is geen vergelijkingsgroep, geen tweede beoordelaar en geen manier om haar verslagen te toetsen. Morton Prince verdedigt dat uitdrukkelijk in zijn voorwoord: nauwkeurig waargenomen feiten zijn volgens hem meer waard dan theorieën die op een beperkte selectie zijn gebouwd. Dat is een verdediging van het genre en geen weerlegging van het bezwaar.</p>
+      <p>Wat er sindsdien is gekomen, valt in twee delen uiteen. Dat een dromer kan weten dat hij droomt, is later in het slaaplaboratorium vastgesteld met vooraf afgesproken oogbewegingen tijdens de remslaap. En haar praktische kern, het van tevoren instuderen van een andere afloop voor een terugkerende nachtmerrie, is decennia later als behandeling onderzocht en werkzaam bevonden. Haar boek bevat dus een goede gok, zonder het onderzoek dat de gok kon dragen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat het bewijs volledig uit een persoon bestaat die tegelijk de belanghebbende is. Zij beschrijft een methode die bij haar werkt en beveelt die aan voor kinderen, zonder een geval van een kind te melden dat het geprobeerd heeft. Voor een boek dat de klemtoon legt op nauwkeurig waarnemen is dat een gat: precies waar zij het meest belooft, houdt haar materiaal op.</p>
+      <p>Ten tweede haar omgang met de tegenpartij. Zij zet haar bevindingen af tegen de psychoanalyse, maar geeft die school niet haar sterkste vorm. De censuurtheorie behandelt zij als de bewering dat dromen buiten onze macht liggen, wat een vereenvoudiging is, en haar tegenwerping is dat zij het tegendeel heeft ervaren. Prince gebruikt zijn voorwoord bovendien om het vak waar hij zelf toe behoort af te serveren, wat het boek een polemische toon geeft die de waarnemingen niet nodig hebben.</p>
+      <p>Ten derde de vermenging van soorten waarneming. In de hoofdstukken over het grensgebied laat zij gedachteoverdracht en contact met overledenen toe als onderwerpen die nader onderzoek verdienen, met verwijzing naar Oliver Lodge en de Society for Psychical Research. Zij houdt die zaken apart van haar dromen, maar door ze in hetzelfde boek te behandelen koppelt zij haar bruikbare methode aan aanspraken die niet zijn uitgekomen. Tot slot wist zij niets van haar voorganger Hervey de Saint-Denys, die vijftig jaar eerder dezelfde handgrepen beschreef met meer cijfers erbij, wat laat zien hoe geïsoleerd dit soort werk destijds tot stand kwam.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kies een zin en verander die niet meer. Haar eigen ervaring is dat de vaste bewoording het werk doet, niet de betekenis.</li>
+        <li>Herhaal de zin vlak voor het inslapen, hardop als dat kan, tot hij zonder nadenken beschikbaar is.</li>
+        <li>Verwacht dat de eerste keren met wakker worden eindigen; dat de droom later doorloopt zonder het angstige deel is bij haar pas na langere tijd gekomen.</li>
+        <li>Leer een kind een zo kort mogelijke zin, en breng die als verhaal over andere kinderen in plaats van als opdracht.</li>
+        <li>Noteer bij het wakker worden eerst een enkel beeld en werk pas daarna uit; de dromen van de vroege ochtend blijven volgens haar het langst bewaard.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Studies in Dreams</i>, met een voorwoord van Morton Prince (George Allen &amp; Unwin, Londen, 1921; Amerikaanse uitgave The Macmillan Company, New York, april 1921, xxxv + 178 blz.). Het boek is rechtenvrij en staat volledig op archive.org; er zijn verder alleen herdrukken van uitgevers die rechtenvrij werk opnieuw laten drukken. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd. Arnold-Forster (1861-1951) schreef geen tweede boek over dit onderwerp.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Mary Arnold-Forster was geen onderzoeker van beroep. Zij beschrijft zichzelf als iemand die haar eigen dromen optekent, en de Amerikaanse psychiater Morton Prince, die het voorwoord schreef, noemt haar juist daarom van waarde: nauwkeurig vastgelegde waarnemingen zijn volgens hem meer waard dan weer een theorie die op een handvol gevallen is gebouwd.</p><p>Haar boek draait om een enkele vraag: hoeveel greep heeft een mens op zijn eigen dromen? Haar antwoord is een formule die zij overdag en bij het inslapen herhaalde, tot hij vanzelf in de droom opkwam: onthoud dat dit een droom is, je hoeft niet verder te dromen. Nachtmerries braken daarmee af, en later hoefde zij er niet eens meer voor wakker te worden; de droom liep door zonder het beangstigende deel.</p><p>Daarnaast beschrijft zij haar vliegdromen, die zij met een tweede formule leerde volhouden, de grens tussen waken en slapen, de rol van geheugen, verbeelding en redenering in de droom, en het morele besef dat in dromen anders werkt. Zij raadt aan de methode aan kinderen met nachtangst te leren, in de vorm van een verhaaltje over andere kinderen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>dromen</li><li>slaap</li><li>introspectie</li><li>zelfexperiment</li><li>psychologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1325"><a href="1325.html">Les rêves et les moyens de les diriger</a>. Hervey de Saint-Denys beschreef vijftig jaar eerder dezelfde handgrepen, met tellingen van geslaagde en mislukte pogingen die bij haar ontbreken.</li>
+          <li value="1324"><a href="1324.html">An Experiment with Time</a>. Dunne hield in dezelfde jaren een droomdagboek bij met een tegenovergesteld doel: hij zocht de toekomst in zijn dromen, zij zocht greep erop.</li>
+          <li value="1329"><a href="1329.html">Creative Dreaming</a>. Garfield bracht dit soort handgrepen een halve eeuw later bij een breed publiek, met de zwakke plekken die daarbij horen.</li>
+          <li value="52"><a href="52.html">Why We Sleep</a>. Walker beschrijft de slaapfasen waarin dit soort dromen thuishoort en wat er sindsdien over de functie ervan is vastgesteld.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

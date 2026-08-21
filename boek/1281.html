@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Alchemy of Finance &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Soros stelt dat de sociale werkelijkheid, en de financiële markt in het bijzonder, geen toestand is die los van de waarnemer bestaat. Deelnemers proberen…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1281">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1281 &middot; Geld en ondernemen</p>
+    <h1>The Alchemy of Finance</h1>
+    <p class="lede">George Soros, 1987</p>
+    <p class="stats">
+      <span><b>1834</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1281"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Soros stelt dat de sociale werkelijkheid, en de financiële markt in het bijzonder, geen toestand is die los van de waarnemer bestaat. Deelnemers proberen te begrijpen wat er gaande is en handelen tegelijk op grond van dat gebrekkige begrip, waardoor zij de toestand veranderen die zij wilden beoordelen. Dat noemt hij reflexiviteit. De gevolgtrekking is dat de gangbare economie, die uitgaat van vraag en aanbod als onafhankelijke grootheden en van een neiging tot evenwicht, de markt op de verkeerde manier beschrijft. Koersen zijn geen schattingen van een onafhankelijk bestaande waarde maar mede de oorzaak ervan, en daarom kan een markt zich lange tijd van de werkelijkheid verwijderen en dan in korte tijd omslaan. Wetenschappelijke voorspelling, zegt Soros erbij, is in zulke stelsels niet mogelijk.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een filosoof die geld verdiende</h3>
+      <p>George Soros, geboren in Boedapest in 1930, studeerde aan de London School of Economics, waar Karl Popper doceerde. Popper hield vol dat wetenschappelijke uitspraken hun waarde ontlenen aan de mogelijkheid ze te weerleggen, en dat een open samenleving berust op het besef dat niemand de waarheid bezit. Soros werkte jarenlang aan een eigen wijsgerig werk, legde het weg en ging de handel in.</p>
+      <p>In 1969 begon hij het fonds dat later Quantum Fund ging heten. <i>The Alchemy of Finance</i> is zijn poging alsnog te laten zien dat achter zijn handelen een denkbeeld zit. Hij schrijft in de inleiding dat hij het boek belangrijker vindt dan het geld, en dat de lezer die het alleen om beleggingsadvies te doen is beter iets anders kan pakken.</p>
+      <h3>Reflexiviteit</h3>
+      <p>De kern staat in het theoretische deel. Deelnemers aan een markt hebben twee betrekkingen tot de werkelijkheid tegelijk. In de kennende functie proberen zij te begrijpen wat er aan de hand is; in de deelnemende functie handelen zij naar dat begrip en veranderen daarmee de toestand die zij wilden begrijpen. Zolang beide tegelijk werken, kan geen van beide zuiver zijn.</p>
+      <p>Daaruit volgt zijn bezwaar tegen de gangbare economie. Die behandelt de markt als een stelsel dat naar evenwicht neigt, met vraag en aanbod die onafhankelijk van elkaar bestaan. Als de verwachtingen van deelnemers de onderliggende werkelijkheid mee veranderen, is dat evenwicht hooguit een punt dat af en toe gepasseerd wordt. Soros meet daarom liever hoe ver een markt van dat punt af staat: dicht bij evenwicht gedraagt zij zich zoals de leerboeken beschrijven, ver ervandaan raakt zij in een beweging die zichzelf versterkt.</p>
+      <h3>Hoogte en val</h3>
+      <p>In de aandelenmarkt tekent Soros die beweging als een reeks stappen. Een ontwikkeling in de werkelijke economie en een heersende voorkeur onder beleggers versterken elkaar. Koersen stijgen, en die stijging maakt de onderneming werkelijk sterker, omdat zij goedkoper geld kan ophalen en overnames met eigen aandelen kan betalen. Op enig moment loopt de verwachting verder vooruit dan de werkelijkheid kan waarmaken, volgt een periode van twijfel, en keert de reeks om, waarbij dezelfde versterking de andere kant op werkt.</p>
+      <p>Zijn voorbeelden zijn de conglomeraten van eind jaren zestig, die met hun hoge koers ten opzichte van de winst andere bedrijven opkochten en zo hun winst per aandeel opdreven tot het niet langer ging, en de Amerikaanse vastgoedfondsen van begin jaren zeventig. Aan beide had hij verdiend, bij de vastgoedfondsen ook aan de val. Hij vertelt erbij dat hij zijn eigen analyse destijds publiceerde en dat die publicatie de zeepbel mee heeft opgeblazen, wat zijn theorie in het klein illustreert.</p>
+      <h3>Valuta, krediet en toezicht</h3>
+      <p>Twee hoofdstukken breiden het model uit. Vrij zwevende wisselkoersen, betoogt Soros, zoeken geen evenwicht maar bewegen in trends die zichzelf een tijd lang waarmaken: een stijgende munt trekt kapitaal aan, wat de munt verder doet stijgen, tot het effect op de handelsbalans te groot wordt. In de kredietcyclus geldt hetzelfde tussen leningen en onderpand. Ruimere kredietverlening drijft de waarde van het onderpand op, waardoor er nog meer geleend kan worden, tot de beweging kantelt en de onderpandwaarde met de kredietverlening meedaalt.</p>
+      <p>Daarnaast loopt een cyclus in het toezicht. Na een misstand komt er regelgeving, die na verloop van tijd als hinderlijk wordt ervaren en wordt afgebouwd, waarna de volgende misstand volgt. Markt en toezicht zijn in die beschrijving geen tegenpolen die om voorrang strijden, maar twee delen van dezelfde beweging.</p>
+      <h3>Het historische deel</h3>
+      <p>Het tweede deel past het model toe op de jaren tachtig. De internationale schuldencrisis van 1982, waarin Mexico en andere landen hun leningen niet meer konden aflossen, verklaart Soros uit de kredietcyclus: het gezamenlijke leenstelsel van de banken had jarenlang steeds ruimere leningen mogelijk gemaakt op onderpand dat door diezelfde leningen in waarde steeg.</p>
+      <p>Zijn bekendste beeld uit dit deel is de Imperial Circle. De Amerikaanse regering onder Reagan liet grote begrotingstekorten lopen, de rente bleef hoog, buitenlands kapitaal kwam daarop af, de dollar werd sterk, de invoer goedkoop en het handelstekort groot. Het geheel hield zichzelf een tijd in stand en kon dat naar zijn oordeel niet blijven doen. Verder beschrijft hij de opbouw van het Amerikaanse bankwezen en wat hij de oligopolarisering van de Amerikaanse economie noemt, de gang naar markten met enkele grote aanbieders.</p>
+      <h3>Het experiment in de tijd</h3>
+      <p>Het derde deel is het ongewoonste. Van augustus 1985 tot november 1986 hield Soros een dagboek bij waarin hij zijn verwachtingen en zijn posities noteerde voordat hij wist hoe het afliep. Hij verdeelde de periode in een eerste fase, een controleperiode van januari tot juli 1986 waarin hij zich rustig hield, en een tweede fase. Het akkoord van het Plaza Hotel in september 1985, waarin de grote industrielanden afspraken de dollar omlaag te brengen, viel midden in de eerste fase.</p>
+      <p>De opzet is bedoeld als toets: wie zijn verwachting vooraf opschrijft, kan haar achteraf nalopen. In de praktijk staan er ook koerswijzigingen in, vergissingen en posities die om andere redenen werden aangepast dan de theorie voorschrijft. Dat maakt het dagboek als bewijsstuk zwak en als leesstof sterk, want zichtbaar wordt hoe iemand met veel geld in de markt werkelijk redeneert, twijfelt en van gedachten verandert.</p>
+      <h3>Evaluatie en voorschriften</h3>
+      <p>In het vierde deel beoordeelt Soros zijn eigen proef. Zijn conclusie valt voorzichtig uit: de theorie levert geen voorspellingen op, alleen een manier om te zien waar een beweging zichzelf voedt. Het verschil tussen natuurwetenschap en de studie van de samenleving noemt hij een blijvende moeilijkheid, omdat de onderzoeker in het tweede geval deel uitmaakt van wat hij onderzoekt en zijn uitspraken de uitkomst mee bepalen.</p>
+      <p>Het laatste deel bevat aanbevelingen: over de verhouding tussen vrije markten en regelgeving, over een internationale centrale bank die als kredietverstrekker in laatste instantie zou optreden, en over de tegenstrijdigheid dat hervorming van het stelsel in rustige tijden politiek niet haalbaar is en in tijden van crisis te laat komt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Reflexiviteit</td><td>De wisselwerking waarin de opvattingen van deelnemers de werkelijkheid veranderen die zij proberen te begrijpen.</td></tr>
+          <tr><td class="term">Kennende functie</td><td>De poging van een deelnemer om de toestand van de markt te doorgronden.</td></tr>
+          <tr><td class="term">Deelnemende functie</td><td>Het handelen op grond van dat begrip, waardoor de toestand zelf verandert.</td></tr>
+          <tr><td class="term">Feilbaarheid</td><td>Soros' uitgangspunt dat het begrip van deelnemers altijd onvolledig en vertekend is.</td></tr>
+          <tr><td class="term">Heersende voorkeur</td><td>De opvatting die op een bepaald moment de koersvorming beheerst.</td></tr>
+          <tr><td class="term">Onderliggende ontwikkeling</td><td>De gang van zaken in de werkelijke economie waarop die opvatting betrekking heeft.</td></tr>
+          <tr><td class="term">Reeks van hoogte en val</td><td>Het patroon waarin verwachting en werkelijkheid elkaar eerst opdrijven en daarna samen omslaan.</td></tr>
+          <tr><td class="term">Krediet- en reguleringscyclus</td><td>De beweging waarin leningen en onderpandwaarde elkaar versterken, gevolgd door toezicht dat later weer wordt afgebouwd.</td></tr>
+          <tr><td class="term">Imperial Circle</td><td>Het samenstel van Amerikaans begrotingstekort, hoge rente, sterke dollar en kapitaalinvoer dat zichzelf in de jaren tachtig een tijd lang in stand hield.</td></tr>
+          <tr><td class="term">Ver van evenwicht</td><td>De toestand waarin een markt zich niet meer volgens de leerboeken gedraagt maar in een zichzelf versterkende beweging zit.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek biedt drie soorten onderbouwing, en geen ervan is sterk in de gebruikelijke zin. De eerste is de gevalsbeschrijving achteraf: de conglomeraten, de vastgoedfondsen, de schuldencrisis van 1982. Die passen in het model, maar ze zijn ook na afloop gekozen, waardoor de vraag open blijft hoeveel gevallen er niet in passen.</p>
+      <p>De tweede is het dagboek. Dat is wel vooraf geschreven en daarom eerlijker dan een reconstructie, maar het beslaat één doorlopende periode van vijftien maanden met één deelnemer, en er staan geen afgebakende voorspellingen in die achteraf goed of fout te noemen zijn. Soros erkent dat in zijn evaluatie en noemt de uitkomst gemengd.</p>
+      <p>De derde is zijn rendement. Quantum Fund behaalde over decennia uitkomsten die met toeval lastig te verklaren zijn. Dat zegt weinig over de theorie: een resultaat kan uit veel oorzaken voortkomen, en Soros heeft zelf verteld dat hij bij twijfel ook op lichamelijke signalen let, waaronder rugpijn. Wie het rendement als bewijs voor de theorie leest, gebruikt precies het soort argument dat het boek elders afwijst.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het hoofdbezwaar is dat de theorie in haar algemene vorm bijna niets uitsluit. Dat verwachtingen invloed hebben op de werkelijkheid ontkent nauwelijks iemand; het gaat om de vraag wanneer en hoe sterk. Daarop geeft het boek geen antwoord dat vooraf bruikbaar is. Soros zegt zelf dat hij niet kan aangeven wanneer een reeks omslaat. Een leer die zich niet laat weerleggen is een wrange uitkomst voor een leerling van Popper, die weerlegbaarheid tot maatstaf maakte.</p>
+      <p>Het wijsgerige deel houdt geen gelijke tred met de rest. De begrippen worden ingevoerd en herhaald zonder scherper te worden, en het beroep op Popper blijft bij een verwijzing. Vakgenoten hebben hetzelfde terrein preciezer bewerkt: Hyman Minsky beschreef in de jaren zeventig en tachtig hoe rust in het kredietstelsel de kiem legt voor instabiliteit, en Robert Shiller liet in 1981 met gegevens zien dat aandelenkoersen sterker bewegen dan de latere dividenden rechtvaardigen.</p>
+      <p>Verder is het boek moeilijk leesbaar, wat Soros in zijn inleiding zelf toegeeft. De zinsbouw is omslachtig, de voorbeelden zijn gebonden aan de politiek en de markten van 1985 en 1986, en de lezer die een handelsmethode zoekt vindt die niet: over de omvang van posities, spreiding of het begrenzen van verlies staat er niets. De waarde van het boek zit in de manier van kijken, en die is in enkele bladzijden samen te vatten.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kijk bij een sterke koersbeweging of de koers zelf de onderliggende zaak verandert, via goedkoper kapitaal, hoger onderpand of meer klanten. Waar die terugkoppeling bestaat, houdt een beweging langer aan dan de cijfers rechtvaardigen.</li>
+        <li>Schrijf een verwachting op voordat de uitkomst bekend is, met de redenering erbij. Achteraf weet iedereen wat hij dacht.</li>
+        <li>Behandel het moment van omslag als onbekend. Wie gelijk krijgt over de richting en niets afspreekt over het tijdstip, kan alsnog kopje-onder gaan.</li>
+        <li>Let bij snelle kredietgroei op de herkomst van de onderpandwaarde: stijgt die door dezelfde leningen die erop rusten, dan meet de dekking zichzelf.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Eerste druk bij Simon &amp; Schuster, New York, 1987. De gangbare editie is de heruitgave in de reeks Wiley Investment Classics (John Wiley &amp; Sons, Hoboken, 2003, ongeveer 370 blz., ISBN 978-0-471-44549-4), met een voorwoord van Paul A. Volcker, oud-voorzitter van het Amerikaanse stelsel van centrale banken, een voorwoord van hedgefondsbeheerder Paul Tudor Jones II en een nieuwe inleiding van Soros zelf; de tekst van 1987 bleef daarbij ongewijzigd. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd. Wel verscheen in het Nederlands <i>De internationale kredietcrisis</i> (Business Contact, Amsterdam, 2008), waarin Soros dezelfde theorie van reflexiviteit op de kredietcrisis van 2007 en 2008 toepast.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Soros beschrijft financiële markten als stelsels waarin de waarnemer meedoet. Deelnemers proberen te begrijpen wat er gebeurt en handelen op grond van dat begrip; dat handelen verandert de toestand die zij probeerden te begrijpen. Die wisselwerking noemt hij reflexiviteit. Zij verklaart waarom koersen zich soms losmaken van de onderliggende cijfers: een stijgende koers maakt een onderneming werkelijk sterker doordat zij goedkoper geld ophaalt, wat de koers verder opdrijft, tot de verwachting te ver vooruitloopt en de beweging kantelt.</p><p>Het boek bestaat uit vijf delen. Eerst de theorie, met toepassingen op aandelen, valuta en krediet. Dan een historisch deel over de jaren tachtig, met de internationale schuldencrisis van 1982 en wat Soros de Imperial Circle noemt: het samenstel van Amerikaans begrotingstekort, hoge rente, sterke dollar en instromend buitenlands kapitaal.</p><p>Het derde deel is een dagboek dat hij van augustus 1985 tot november 1986 bijhield als proef op de som, met verwachtingen en posities opgeschreven voordat hij wist hoe het afliep. Daarna volgt zijn eigen beoordeling van die proef, die voorzichtiger uitvalt dan de lezer verwacht, en een deel met aanbevelingen over toezicht en over een internationale kredietverstrekker in laatste instantie.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>financiële markten</li><li>beleggen</li><li>speculatie</li><li>economie</li><li>wetenschapsfilosofie</li><li>onzekerheid</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1288"><a href="1288.html">Adaptive Markets: Financial Evolution at the Speed of Thought</a>. Andrew Lo werkt in <i>Adaptive Markets</i> hetzelfde onbehagen over de evenwichtsleer uit, maar dan met een biologische inslag en met onderzoeksgegevens erbij.</li>
+          <li value="807"><a href="807.html">Manias, Panics, and Crashes</a>. Kindleberger beschrijft in <i>Manias, Panics, and Crashes</i> de kredietcyclus die Soros theoretisch behandelt, over vier eeuwen en tientallen gevallen.</li>
+          <li value="268"><a href="268.html">The Black Swan</a>. Taleb gaat in <i>The Black Swan</i> uit van dezelfde grens aan de voorspelbaarheid van markten en trekt er een andere gevolgtrekking uit: bouw posities die tegen een verrassing kunnen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

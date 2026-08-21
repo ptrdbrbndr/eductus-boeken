@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brieven aan een jonge dichter &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Rilke weigert de vraag te beantwoorden die hem is gesteld. Kappus wil weten of zijn gedichten deugen; Rilke schrijft dat een oordeel van buiten waardeloos…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1210">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1210 &middot; Schrijfambacht</p>
+    <h1>Brieven aan een jonge dichter</h1>
+    <p class="lede">Rainer Maria Rilke, brieven 1903 tot 1908, uitgegeven 1929; vert. Theodor Duquesnoy</p>
+    <p class="stats">
+      <span><b>1585</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1210"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Rilke weigert de vraag te beantwoorden die hem is gesteld. Kappus wil weten of zijn gedichten deugen; Rilke schrijft dat een oordeel van buiten waardeloos is en dat de enige toetssteen de vraag is of iemand zou moeten sterven als het schrijven hem werd verboden. Daaruit vloeit alles voort wat er verder in de tien brieven staat: dat een dichter zijn stof in zijn eigen jeugd en dagelijks leven vindt, dat wachten en rijpen zich niet met tijdrekening laten versnellen, en dat eenzaamheid geen tekort is dat verholpen moet worden maar de toestand waarin werk ontstaat. Het is een leer zonder methode, gericht op de houding van de schrijver en vrijwel zonder aandacht voor het maken zelf.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Hoe de brieven ontstonden</h3>
+      <p>Kappus zat op de Theresiaanse militaire academie in Wiener Neustadt en las Rilke onder de les. Van een leraar hoorde hij dat Rilke jaren eerder op een soortgelijke militaire school had gezeten en die opleiding als een kwelling had ervaren. Dat gaf hem de aanleiding om te schrijven: hier was iemand die dezelfde weg was ingeslagen en er weer uit was gestapt.</p>
+      <p>Rilke antwoordde vanuit Parijs, waar hij aan zijn boek over Auguste Rodin werkte en zelf in geldnood en onzekerheid verkeerde. De brieven lopen van februari 1903 tot december 1908 en zijn vanaf steeds andere adressen geschreven. Kappus bleef intussen officier, publiceerde later verhalen en romans en werd journalist. De dichter waarvoor hij zich hield is hij nooit geworden.</p>
+      <h3>De eerste raad: naar binnen</h3>
+      <p>De eerste brief zet de toon. Rilke zegt de ingesloten gedichten niet te kunnen beoordelen, wijst kritiek als soort af en raadt Kappus aan geen werk meer naar tijdschriften te sturen en zich niet met anderen te vergelijken. In plaats daarvan moet hij in het stilste uur van de nacht nagaan of hij moet schrijven.</p>
+      <p>Daarop volgt een aanwijzing die de rest van het boek stuurt. Wie meent niets te hebben om over te schrijven, moet zijn onderwerpen niet in liefdesgedichten zoeken, want daar drukt de overlevering het zwaarst. Hij moet schrijven over wat hij dagelijks ziet, over zijn dromen en over zijn jeugd, want die is een rijkdom die niemand hem kan afnemen. Ook in een gevangenis zou een schrijver stof genoeg hebben.</p>
+      <h3>Geduld, ironie en de vragen</h3>
+      <p>De tweede brief gaat over ironie. Rilke waarschuwt dat ironie een middel is dat van bovenaf gebruikt moet worden en dat wie er eenmaal onder staat er niet meer uit komt. De derde brief beveelt twee voorbeelden aan, de Deense schrijver Jens Peter Jacobsen en de beeldhouwer Rodin, en werkt het beeld uit van de kunstenaar als boom die in het voorjaar niets forceert. Rijpen laat zich niet meten, en zomers komen ook voor wie ze niet aftelt.</p>
+      <p>De vierde brief bevat de bekendste passage. Rilke raadt Kappus aan geduld te hebben met alles wat in zijn hart onopgelost is en de vragen zelf lief te hebben, als gesloten kamers of als boeken in een taal die hij nog niet kent. Antwoorden zouden hem toch niet baten omdat hij ze niet zou kunnen leven. Misschien leeft hij op een dag ongemerkt het antwoord binnen.</p>
+      <h3>Eenzaamheid</h3>
+      <p>Vanuit Rome schrijft Rilke twee brieven over eenzaamheid, waaronder een op tweede kerstdag 1903. De strekking is dat de eenzaamheid groot is en groot moet blijven, en dat wie haar met gezelschap tracht te verlichten daarmee alleen goedkope overeenstemming koopt. Hij vergelijkt de mensen met kinderen die bang zijn in het donker en zich aan elkaar vastklampen, terwijl het duister waarin zij staan het werkelijke is.</p>
+      <h3>Seksualiteit en liefde</h3>
+      <p>De vierde en de zevende brief gaan over lichamelijkheid en liefde. Rilke wil de seksualiteit uit de sfeer van de schande halen en behandelt haar als een moeilijkheid die met de eigen aard te maken heeft en niet met voorschriften. Scheppen en verwekken noemt hij twee vormen van hetzelfde.</p>
+      <p>In de zevende brief heet de liefde de zwaarste opgave die een mens is gegeven, waarvoor al het andere voorbereiding is. Jonge mensen kunnen haar volgens hem nog niet aan en storten zich in gemeenschappelijkheid om aan zichzelf te ontkomen. Zijn formule is dat liefde bestaat in twee eenzaamheden die elkaar beschermen, begrenzen en groeten.</p>
+      <h3>Verdriet, twijfel en het slot</h3>
+      <p>De achtste brief, uit Zweden, gaat over droefgeestigheid. Rilke leest verdriet als het binnentreden van iets nieuws waarvoor nog geen plaats is ingeruimd; wie zich in die tijd afzondert in plaats van afleiding te zoeken, laat het nieuwe zijn werk doen. In dezelfde brief staat de zin dat misschien alles wat ons beangstigt in zijn diepste wezen iets hulpeloos is dat onze hulp wil, en het beeld van draken die zich op het laatste ogenblik als prinsessen ontpoppen.</p>
+      <p>De negende brief maakt van twijfel een werktuig: zet hem aan het werk als een toetser die van elke bewering vraagt waarom zij lelijk zou zijn, tot hij bekwaam wordt. De tiende en laatste brief, uit Parijs, kerst 1908, is korter; Kappus is dan officier geworden en Rilke zegt dat ook daar het eigen werk kan doorgaan.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">moet ik schrijven</td><td>De vraag die volgens Rilke de enige toets is: zou ik moeten sterven als het schrijven mij werd verboden.</td></tr>
+          <tr><td class="term">Einsamkeit</td><td>Eenzaamheid, bij Rilke geen gebrek dat verholpen wordt maar de ruimte waarin werk en groei plaatsvinden.</td></tr>
+          <tr><td class="term">de vragen liefhebben</td><td>Zijn raad om onopgeloste vragen te bewonen als gesloten kamers, omdat een antwoord dat men nog niet kan leven niets uitricht.</td></tr>
+          <tr><td class="term">ironie</td><td>Voor hem een middel dat alleen deugt zolang men erboven staat, en een valkuil zodra het een gewoonte wordt.</td></tr>
+          <tr><td class="term">de zwaarste opgave</td><td>Zijn omschrijving van de liefde, waarvoor al het andere werk volgens hem voorbereiding is.</td></tr>
+          <tr><td class="term">twee eenzaamheden</td><td>Zijn beeld van een goede verhouding: twee mensen die elkaars afzondering beschermen, begrenzen en groeten in plaats van in elkaar op te gaan.</td></tr>
+          <tr><td class="term">de draken</td><td>Het beeld uit de achtste brief dat wat ons beangstigt zich op het laatste moment als iets hulpbehoevends of als een prinses kan ontpoppen.</td></tr>
+          <tr><td class="term">rijpen</td><td>Het niet te versnellen verlopen van tijd in de kunstenaar, door hem vergeleken met een boom die in het voorjaar niets afdwingt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De brieven voeren geen bewijs aan en beroepen zich niet op iemand anders. Wat er staat rust op Rilkes eigen ervaring en op het gezag dat Kappus hem toekende. Er staat geen redenering in die zonder dat gezag overeind blijft: de bewering dat kritiek van buitenaf waardeloos is, wordt niet onderbouwd en is als algemene regel ook moeilijk vol te houden, aangezien Rilke zelf in die jaren gretig las wat anderen over zijn werk schreven.</p>
+      <p>Wat wel te toetsen valt is de samenhang met de rest van zijn leven. De aanbeveling van Jacobsen en van Rodin komt overeen met wat hij in dezelfde jaren aan anderen schreef en met zijn Rodin-monografie uit 1903. De nadruk op waarnemen en op het gemaakte ding is de leer die hij aan Rodin ontleende en die zijn eigen gedichten in de jaren daarna veranderde. De brieven laten dus zien wat hij op dat moment aan het leren was en niet wat hij al kon.</p>
+      <p>Sinds de uitgave van Kappus zijn brieven in 2019 is te zien wat er aan de andere kant stond. Hij stelde concrete vragen, over publiceren, over de keuze tussen dienst en schrijverschap en over zijn eigen verzen, en Rilke gaat op vrijwel geen daarvan rechtstreeks in. De tien brieven zijn daarmee eerder een uiteenzetting van zijn eigen positie dan een raad die op deze correspondent was toegesneden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat het boek adviseert zonder verantwoording. Rilke ontraadt oordeel van buitenaf, ontraadt vergelijking en ontraadt publiceren, en zet daar de eigen binnenwereld voor in de plaats. Voor iemand met aanleg kan dat werken; voor iemand zonder, en Kappus is daar het geval van, betekent het jarenlang doorgaan zonder ooit te horen wat hem verder had geholpen. De raad bevat geen enkele voorziening voor de mogelijkheid dat het antwoord op de vraag moet ik schrijven ten onrechte bevestigend uitvalt.</p>
+      <p>Er staat vrijwel niets in over het maken zelf. Geen woord over hoe een regel wordt herzien, hoe een vorm wordt gekozen, wat er met een mislukt gedicht moet gebeuren. Wie het boek in de rubriek schrijfambacht opzoekt, vindt een leer over de houding van de schrijver en niet over zijn werk. Handboeken die dat wel behandelen zijn ruim voorhanden en de vergelijking valt in dat opzicht ongunstig uit.</p>
+      <p>De eenzaamheidsleer heeft een prijs die het boek niet noemt. Rilke schreef de vroege brieven kort nadat hij zijn vrouw Clara Westhoff en hun dochter Ruth grotendeels aan anderen had overgelaten om te kunnen werken, en dat patroon heeft hij zijn leven lang volgehouden. De aanbeveling om de eigen afzondering te beschermen is bij hem in praktijk gebracht op kosten van mensen die daar niet om hadden gevraagd. Dat maakt het advies niet onwaar, maar wel eenzijdiger dan de toon doet vermoeden.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de brieven op volgorde en achter elkaar; de losse citaten die in omloop zijn geven een andere strekking dan het geheel.</li>
+        <li>Neem de raad om niet te publiceren niet over als algemene regel. Rilke schreef hem aan één beginner die te vroeg om erkenning vroeg.</li>
+        <li>Wie de brieven serieus wil wegen, leest ze naast de Duitse editie van 2019, waarin de vragen van Kappus staan die Rilke onbeantwoord liet.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Brieven aan een jonge dichter</i>, vertaald door Theodor Duquesnoy (Balans, Amsterdam, 96 blz., ISBN 978-94-6003-405-3). De vertaling verscheen voor het eerst in 1985 en is sindsdien vele malen herdrukt, in latere drukken met een voorwoord van Jean Pierre Rawie. De Duitse uitgave, <i>Briefe an einen jungen Dichter</i>, kwam in 1929 uit bij Insel Verlag in Leipzig, drie jaar na Rilkes dood, bezorgd door de geadresseerde Franz Xaver Kappus. Wallstein Verlag gaf de briefwisseling in 2019 opnieuw uit, bezorgd en toegelicht door Erich Unglaub, met daarin voor het eerst ook de brieven van Kappus zelf; die zijn in het Nederlands niet in druk.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>In 1902 stuurde Franz Xaver Kappus, negentien jaar en cadet aan de militaire academie in Wiener Neustadt, gedichten aan Rainer Maria Rilke met de vraag of ze iets waard waren. Rilke, zelf zesentwintig, ging niet op de gedichten in. Hij schreef dat niemand van buitenaf kan oordelen en dat Kappus zichzelf één vraag moest stellen: moet ik schrijven.</p><p>Er volgden tien brieven, geschreven tussen 1903 en 1908 vanuit Parijs, Viareggio, Worpswede, Rome en twee Zweedse landhuizen. Ze gaan over eenzaamheid, geduld, verdriet, twijfel, seksualiteit en liefde. Rilke raadt aan de onopgeloste vragen zelf lief te hebben in plaats van naar antwoorden te zoeken, en beschrijft de liefde als het zwaarste werk dat een mens kan worden opgedragen.</p><p>Kappus publiceerde de brieven in 1929, na Rilkes dood, zonder zijn eigen brieven erbij. Die zijn pas in 2017 in het familiearchief teruggevonden en in 2019 uitgegeven. Sindsdien is te zien wat Rilke beantwoordde en wat hij liet liggen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>brieven</li><li>schrijverschap</li><li>eenzaamheid</li><li>poëzie</li><li>advies</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="18"><a href="18.html">On Writing</a>. Stephen King behandelt precies wat Rilke overslaat: het schrappen, het herzien en het aantal uren per dag.</li>
+          <li value="1207"><a href="1207.html">Overdenkingen in eenzaamheid</a>. Thomas Merton schrijft over afzondering vanuit een kloosterregel, waar Rilke haar aan de kunstenaar toeschrijft.</li>
+          <li value="1203"><a href="1203.html">De kracht van het alleenzijn</a>. Anthony Storr onderzoekt wat alleen zijn psychologisch doet en levert de toetsing die bij Rilke ontbreekt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

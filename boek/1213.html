@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>'t Manco &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Perec schreef een roman van ruim driehonderd bladzijden waarin de letter e geen enkele keer voorkomt, in een taal waarin dat de meest gebruikte letter is.…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1213">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1213 &middot; Roman en memoir</p>
+    <h1>'t Manco</h1>
+    <p class="lede">Georges Perec, 1969</p>
+    <p class="stats">
+      <span><b>1794</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1213"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Perec schreef een roman van ruim driehonderd bladzijden waarin de letter e geen enkele keer voorkomt, in een taal waarin dat de meest gebruikte letter is. De beperking blijft geen truc aan de buitenkant. Het weggelaten teken wordt het onderwerp: de figuren voelen dat er iets ontbreekt, kunnen niet zeggen wat, en gaan dood zodra zij de waarheid naderen. Het boek stelt daarmee dat een tekort in het materiaal van de taal een verhaal kan voortbrengen, en dat een verlies waarover niet gesproken kan worden juist in die onmogelijkheid vorm krijgt. Perecs moeder werd in 1943 gedeporteerd en kwam niet terug; hoe zwaar dat hier meeweegt is de vraag waarover de uitleggers het tot vandaag oneens zijn.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>De regel en wat die kost</h3>
+      <p>Het boek telt ongeveer 78.000 woorden en zo'n 297.000 tekens, geen ervan een e. Lipogrammen bestonden al, ook lange: <i>Gadsby</i> van Ernest Vincent Wright uit 1939 beslaat ruim vijftigduizend Engelse woorden zonder die letter. Een Franse roman van deze omvang onder deze regel was er niet.</p>
+      <p>De regel schrapt in het Frans niet alleen woorden maar hele grammaticale gewoonten. Perec kon vader noch moeder schrijven, en zijn eigen voor- en achternaam evenmin. Hij vond het werk niettemin licht gaan: de dwangregel hief volgens hem een stelsel van remmingen op dat hem anders bij het beginnen en vertellen in de weg zat. Hij schreef acht regels per uur, acht uur per dag, vier dagen per week, en had na een jaar het boek.</p>
+      <h3>Voorwoord en verdwijning</h3>
+      <p>Het boek opent met een ongedateerd voorwoord over een land in ontbinding, waar volgens de verteller de Verdoemenis begon: er werd geplunderd, verkracht en verminkt, en erger nog, er werd vernederd, verraden en verzwegen, tot niemand zijn naaste nog vertrouwde. Op dat voorwoord komt de rest van het boek nooit meer terug.</p>
+      <p>Dan volgt Anton Voyl, in het Nederlands Anton Vocalis, die niet kan slapen en voelt dat er iets ontbreekt. Zijn naam is het Franse woord voor klinker zonder zijn e's. Aan het slot van hoofdstuk vier verdwijnt hij. Het vijfde hoofdstuk is er niet. De man die de zoektocht overneemt heet Amaury Conson, het Franse woord voor medeklinker zonder de laatste letter.</p>
+      <h3>De zoektocht en de stamboom</h3>
+      <p>De zoekers stuiten op een familiegeschiedenis. De hoofdfiguren stammen af van een clan van zesentwintig leden, één per letter. Om het bezit bijeen te houden erft alleen de oudste zoon, wat tot moorden leidt; daarna geldt de regel dat een gezin één kind mag hebben en de rest moet worden gedood. Een moeder brengt buiten haar man om een drieling ter wereld en laat er twee door de min wegbrengen. Twintig jaar later ontdekt de vader, de Baard van Ankara, het bedrog en zweert wraak op de vluchtelingen en hun nageslacht.</p>
+      <p>Amaury Conson en Arthur Wilburg Savorgnan zijn de twee weggebrachte kinderen. Amaury's zes zoons heten Adam, Aignan, Ivan, Odilon, Urbain en Yvon: elke klinker komt in die namen voor behalve de verboden. Zij sterven de een na de ander onder onduidelijke omstandigheden. Savorgnan bracht zijn kinderen elders onder, Anton Voyl bij een lord in Dublin, Hassan Ibn Abbou bij een moeder wier naam onbekend blijft. Een van de familieleden, Maximin, doodt zijn broers in alfabetische volgorde: Nicias, Optat, Parfait, Quasimodo, Romuald en Sabin. Niemand van hen weet van wie hij afstamt.</p>
+      <h3>De aanwijzingen in de tekst</h3>
+      <p>Perec liet de lezer zelf uitzoeken wat er ontbrak, maar strooide sporen. Het boek telt vijfentwintig hoofdstukken, genummerd 1 tot 4 en 6 tot 26, wat in het register achterin zichtbaar is. Het is verdeeld in zes delen, evenveel als het Frans klinkers heeft, en het tweede deel is er niet, zoals de e de tweede is in de rij a, e, i, o, u, y.</p>
+      <p>Het verdwenen ding wordt in het boek omschreven als een rondje dat niet helemaal gesloten is en met een tamelijk rechte streep wordt afgemaakt. De hoofdletter komt terug als een drietand of een eendenpoot. Anton Voyl ziet een boekenkast met zesentwintig delen waarvan het vijfde ontbreekt, en een wedren waar paard nummer vijf niet start.</p>
+      <h3>Herschreven literatuur</h3>
+      <p>Een groot deel van het boek bestaat uit bestaande teksten die aan de regel zijn aangepast. Booz endormi van Victor Hugo wordt Booz assoupi. Brise marine van Mallarmé wordt Bris Marin van ene Mallarmus. Voyelles van Rimbaud, dat begint met A noir, E blanc, I rouge, U vert, O bleu, wordt Vocalisations: A noir (un blanc), I roux, U safran, O azur. <i>Moby-Dick</i> ondergaat talrijke bewerkingen.</p>
+      <p>Daarnaast staan er een lipogram binnen het lipogram, een palindroom, liedjes, een aftelrijmpje, een variatie op het Hooglied en een omgewerkte oefening uit een typecursus. Voor de Nederlandse uitgave moest dat allemaal opnieuw worden bedacht in het Nederlands; Van de Wiel deed er acht jaar over en legde zijn oplossingen vast in twee begeleidende boekjes.</p>
+      <h3>Naschrift, titel en nasleep</h3>
+      <p>In het naschrift beschrijft Perec hoe het boek ontstond en waar hij het plaatste tussen de Franse romans van zijn tijd. Hij noemt het daar zelf een vermoeiende roman. David Bellos, zijn biograaf, wijst erop dat disparition ook het stijve ambtelijke woord is voor iemand die vermist wordt en dood wordt geacht; voor Perecs moeder, Cyrla Perec, geboren Szulewicz, is in 1947 zo'n verklaring afgegeven door het ministerie voor oud-strijders.</p>
+      <p>Zes jaar later verscheen <i>W of de jeugdherinnering</i>, met de opdracht Pour E. Die is gelezen als voor E, maar in het Frans klinkt het ook als voor hen, dus voor de ouders. Die lezing werd lange tijd als vaststaand aangenomen en is later betwist. In 1972 keerde Perec de regel om in <i>Les Revenentes</i>, waarin e de enige gebruikte klinker is. Een paar maanden na de roman publiceerde hij een opstel over de geschiedenis van het lipogram, waarin hij het weglaten van één letterteken de nultoestand van de dwangregel noemt, het punt vanwaar alles mogelijk wordt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">lipogram</td><td>Tekst waaruit een bepaalde letter met opzet volledig is weggelaten.</td></tr>
+          <tr><td class="term">Oulipo</td><td>Frans gezelschap van schrijvers en wiskundigen uit 1960 dat werkt onder zelf gekozen regels; Perec werd er in 1967 lid van.</td></tr>
+          <tr><td class="term">dwangregel</td><td>De vooraf gekozen beperking waaraan de tekst zich houdt, hier het verbod op de letter e.</td></tr>
+          <tr><td class="term">Anton Voyl</td><td>De verdwenen hoofdpersoon; zijn naam is het Franse voyelle, klinker, zonder de e's, in het Nederlands Anton Vocalis.</td></tr>
+          <tr><td class="term">Amaury Conson</td><td>De man die de zoektocht overneemt; zijn naam is het Franse consonne, medeklinker, zonder de slotletter.</td></tr>
+          <tr><td class="term">de Verdoemenis</td><td>De naamloze ramp uit het voorwoord waar het boek daarna nooit meer op terugkomt en die als los stuk blijft staan.</td></tr>
+          <tr><td class="term">herschrijving</td><td>Het omwerken van bestaande gedichten en romans zodat zij aan de regel voldoen, bij Perec zowel noodzaak als methode om nieuw materiaal binnen te halen.</td></tr>
+          <tr><td class="term">Les Revenentes</td><td>Perecs tegenhanger uit 1972, waarin de e de enige klinker is die hij zichzelf toestaat.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De regel zelf is letter voor letter na te rekenen en dat is de enige bewering in het boek die geen uitleg nodig heeft: ongeveer 78.000 woorden en zo'n 297.000 tekens zonder e. Het handschrift, dat in november 2024 door de familie van Suzanne Lipinska te koop werd aangeboden, bevat een paar over het hoofd geziene e's. Dat laat zien hoe het gemaakt is en haalt het werk niet onderuit.</p>
+      <p>Perec heeft zijn werkwijze zelf vastgelegd, in het naschrift en in het opstel over de geschiedenis van het lipogram dat in juni en juli 1969 in Les Lettres nouvelles verscheen. Daarin plaatst hij het middel in een lange westerse traditie van vormspel. Zijn opmerking dat het schrijven hem juist licht viel is een uitspraak achteraf en niet te toetsen, maar zij spreekt de gangbare voorstelling tegen dat zo'n boek uit martelend puzzelen bestaat.</p>
+      <p>De biografische lezing rust op een document. Bellos stelt vast dat disparition de ambtelijke term is voor vermist en vermoedelijk overleden, en dat een dergelijke verklaring in 1947 voor Perecs moeder is afgegeven. Daarmee staat de dubbele betekenis van de titel vast. Dat het boek over de vernietiging van de Joden zou gaan volgt daar niet uit: deportatie en kamp komen er niet in voor, en maar twee korte plaatsen verwijzen rechtstreeks naar Perecs eigen geschiedenis.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De ontvangst in 1969 was lauw. De kunstgreep wekte verbazing, het nut ervan werd betwijfeld en het boek belandde in de hoek van de stijloefening. Les Lettres françaises vond dat het ongewone in hoge dosis eentonig wordt; L'Express noemde het een boek dat vergezichten opent en nergens uitkomt; Les Échos vond de speurtocht lang en vermoeiend. De criticus van Les Nouvelles littéraires, R.-M. Albérès, merkte de ontbrekende letter niet op en las de roman als een naklank van een politieke affaire. Dat laatste wordt navertelt als anekdote, maar het zegt ook iets over hoe weinig de oppervlakte prijsgeeft.</p>
+      <p>Perec zelf vond het boek te systematisch. Doordat het middel wordt getoond, zei hij, ontstaat een barrière: de lezer kan het gevoel krijgen dat er eerder met hem dan met hem samen wordt gespeeld. In het naschrift noemt hij zijn eigen roman vermoeiend. Marc Parayre omschreef het boek als een gebouw met verdiepingen maar zonder begane grond, en merkte op dat weinigen het geduldig van voor tot achter hebben gelezen: losse bladzijden zijn te volgen, een doorlopende lijn is lastig vast te houden.</p>
+      <p>Over de betekenis is geen overeenstemming. Ali Magoudi hield vol dat het enige onderwerp de vernietiging van de Joden is, in het boek even afwezig als de letter. Anderen brengen daartegen in dat Perec hier juist de autobiografie verlaat, dat kampen en deportaties nergens voorkomen, en dat wie het boek alleen zo leest het taalspel wegdrukt dat er van begin tot eind in zit. Marcel Bénabou, die een sociologische, een autobiografische, een oulipiaanse, een joodse en een metatekstuele sleutel telde, merkte op dat iedere vinder van een sleutel de zijne tot loper verheft.</p>
+      <p>Stella Béhar wees er in 1995 op dat het schrappen van de e het vrouwelijke in het Frans vrijwel onzegbaar maakt. De familiegeschiedenis is een mannenlijn, de nakomelingen zijn zoons, en wat werkelijk verdwijnt is de vrouw. Die tegenwerping is daarna door niemand opgepakt.</p>
+      <p>Voor de Nederlandse uitgave geldt een eigen bezwaar. Van de Wiel hield de regel ruim driehonderd bladzijden vol, maar het Nederlands zonder e leunt zwaar op de weglatingsstreep. De recensent van 8weekly haalde zinnen aan als 't is 'm 'n doorn in 't oog, noemde een passage over Vocalis ronduit onbegrijpelijk en vond de vertaling het Nederlands geweld aandoen: waar Perec zijn beperking nog kon laten meelopen in gewoon Frans, staat zij hier op elke regel te zien.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>'t Manco</i>, vertaald uit het Frans door Guido van de Wiel (De Arbeiderspers, Amsterdam, april 2009, ruim 300 blz., ISBN 9789029567664; heruitgave 2022, ISBN 9789029547437). Bij de eerste Nederlandse uitgave verschenen twee begeleidende boekjes van de vertaler met achtergronden bij en verklaringen van het boek. Oorspronkelijk <i>La Disparition</i> (Denoël, reeks Les Lettres nouvelles, Parijs, 1969, 320 blz.; herdruk Gallimard, reeks L'Imaginaire, 1989). De Engelse vertaling van Gilbert Adair heet <i>A Void</i> (Harvill, Londen, 1994); daarnaast bestaan onuitgegeven Engelse versies van John Lee, Ian Monk en Julian West.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p><i>La Disparition</i> uit 1969 is een roman van ruim driehonderd bladzijden waarin de letter e geen enkele keer voorkomt, terwijl dat in het Frans de meest gebruikte letter is. Perec schreef het als lid van Oulipo, het gezelschap van schrijvers en wiskundigen dat teksten maakt onder zelf gekozen regels. Op het omslag van de eerste druk stond een grote letter E; verder werd nergens uitgelegd wat er aan de hand was.</p><p>Anton Vocalis, in het Frans Anton Voyl, heeft het gevoel dat er iets ontbreekt zonder te kunnen zeggen wat. Aan het eind van het vierde hoofdstuk verdwijnt hij. Het vijfde hoofdstuk ontbreekt, want de e is de vijfde letter van het alfabet. Daarna zoeken anderen naar hem, ontdekken dat zij familie van elkaar zijn, en sterven zodra zij de zaak te dicht naderen.</p><p>Perecs vader sneuvelde in 1940 en zijn moeder werd in 1943 gedeporteerd en kwam niet terug. Hoe zwaar dat in dit boek meeweegt is onder uitleggers omstreden. Guido van de Wiel werkte van 2001 tot 2009 aan de Nederlandse vertaling en hield zich aan dezelfde regel.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>roman</li><li>Oulipo</li><li>taal</li><li>Holocaust</li><li>klassieker</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1212"><a href="1212.html">Het leven een gebruiksaanwijzing</a>. Perecs grote roman uit 1978, waarin het regelstelsel juist onzichtbaar blijft en het boek er wel toe uitnodigt.</li>
+          <li value="942"><a href="942.html">Het periodiek systeem</a>. Primo Levi schrijft over dezelfde jaren met een vaste vorm als raster, maar noemt wel wat er gebeurd is.</li>
+          <li value="1202"><a href="1202.html">De ringen van Saturnus</a>. Sebald werkt eveneens met een verlies dat nergens rechtstreeks wordt benoemd en dat de vorm van het boek bepaalt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gifts Differing &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Isabel Briggs Myers stelt dat de verschillen tussen mensen een ordelijk patroon volgen dat Jung al beschreef. Wie de wereld het liefst via de zintuigen…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1292">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1292 &middot; Gewoontes en denken</p>
+    <h1>Gifts Differing</h1>
+    <p class="lede">Isabel Briggs Myers met Peter B. Myers, 1980</p>
+    <p class="stats">
+      <span><b>1856</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1292"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Isabel Briggs Myers stelt dat de verschillen tussen mensen een ordelijk patroon volgen dat Jung al beschreef. Wie de wereld het liefst via de zintuigen binnenlaat, ontwikkelt andere gewoonten dan wie eerst verbanden en mogelijkheden ziet, en wie een beslissing toetst aan een sluitende redenering komt anders uit dan wie haar toetst aan de gevolgen voor de betrokkenen. Die voorkeuren houdt zij voor aangeboren en levenslang stabiel, en zij behandelt ze als gaven die van elkaar verschillen zonder in kwaliteit te verschillen. Daarop bouwt zij een indeling in zestien typen, een vragenlijst die het type moet vaststellen, en toepassingen voor huwelijk, onderwijs en beroepskeuze. Het aanvechtbare punt is de sprong die zij maakt: van verschillen in gradatie naar zestien vakjes waar iemand in hoort.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat Myers van Jung overnam</h3>
+      <p>Jung onderscheidde twee functies van waarnemen en twee van oordelen, en twee houdingen waarin die functies zich richten. Myers vat dat samen in vier tegenstellingen. Extraversie tegenover introversie gaat over de richting van de aandacht: naar mensen en gebeurtenissen buiten, of naar begrippen en indrukken binnen. Gewaarwording tegenover intuïtie gaat over de manier van informatie opnemen, via de zintuigen en het feitelijke tegenover via patronen en mogelijkheden. Denken tegenover voelen gaat over de grond van een oordeel. Voelen staat bij haar voor het wegen van waarden en niet voor emotie.</p>
+      <p>Het vierde paar, oordelen tegenover waarnemen, is haar eigen toevoeging; bij Jung staat het niet als aparte dimensie. Het geeft aan welke soort functie iemand aan de buitenwereld toont. Wie geordend en besluitvaardig overkomt, laat een oordeelsfunctie zien; wie afwachtend en soepel overkomt een waarnemingsfunctie. Dat paar heeft Myers nodig om in de vragenlijst te kunnen bepalen welke functie de leiding heeft.</p>
+      <h3>Voorkeur is geen vaardigheid</h3>
+      <p>Myers vergelijkt een voorkeur met een voorkeurshand. Beide handen werken, één gaat vanzelf en wordt daardoor meer geoefend. Zo gebruikt volgens haar iedereen alle vier de functies, terwijl de voorkeur bepaalt waar de oefening naartoe gaat en waar iemand op den duur beter in wordt. Uit die opeenstapeling van oefening verklaart zij de verschillen die opvallen: waar iemand op let, welke woorden hij gebruikt, hoe snel hij een besluit wil nemen, welk werk hem past.</p>
+      <p>De voorkeur zelf houdt zij voor aangeboren. Opvoeding en school kunnen haar versterken of onderdrukken; vervangen kunnen zij haar volgens Myers niet. Die aanname draagt het hele boek, en zij toetst haar nergens aan gegevens over de ontwikkeling van kinderen.</p>
+      <h3>De rangorde van de functies</h3>
+      <p>Binnen elk type staan de functies in een rangorde. De dominante functie heeft de leiding en levert het meeste vertrouwen op. De hulpfunctie zorgt voor evenwicht: is de dominante een manier van waarnemen, dan is de hulpfunctie er een van oordelen, en omgekeerd. De hulpfunctie werkt bovendien in de andere houding, zodat iemand met een naar binnen gerichte dominante functie toch naar buiten kan handelen.</p>
+      <p>De tegenpool van de dominante functie noemt zij de minderwaardige functie: het minst geoefend, zichtbaar bij vermoeidheid, spanning en onhandigheid. Uit deze ordening haalt Myers haar verklaring waarom introverte mensen zo vaak verkeerd worden ingeschat. Zij tonen hun hulpfunctie aan de buitenwereld en houden hun sterkste kant binnen.</p>
+      <h3>De typetabel</h3>
+      <p>De zestien typen zet Myers in een tabel van vier bij vier, zo gerangschikt dat buurvakjes drie van de vier letters delen. Die tabel is haar werkinstrument: zij vult hem met verdelingen van groepen, bijvoorbeeld welke typen oververtegenwoordigd zijn in een opleiding of een beroep. Per type geeft zij een schets van wat te verwachten valt aan belangstelling, werkwijze en valkuilen.</p>
+      <p>Zij waarschuwt daarbij dat zo'n schets een gemiddelde is en dat mensen van hetzelfde type flink kunnen verschillen, onder meer doordat de tweede functie sterker of zwakker ontwikkeld is. In de praktijk van het boek gaat die waarschuwing wel onder in het gemak waarmee vier letters iemand aanduiden.</p>
+      <h3>Huwelijk, leren en beroep</h3>
+      <p>Het middendeel is toepassing. Over het huwelijk stelt Myers dat verschil in voorkeur zowel aanvulling als wrijving oplevert, en dat het verschil tussen gewaarwording en intuïtie het lastigst te overbruggen is, omdat partners dan letterlijk andere dingen opmerken. Haar advies luidt het verschil te benoemen in plaats van het weg te werken.</p>
+      <p>Over leren stelt zij dat kinderen met een voorkeur voor gewaarwording houvast nodig hebben aan het concrete en aan doen, terwijl kinderen met een voorkeur voor intuïtie op woorden en verbanden aanslaan en zich vervelen bij herhaling. Het schoolsysteem beloont volgens haar de tweede groep, waardoor de eerste ten onrechte als minder begaafd te boek komt te staan.</p>
+      <p>Over beroep laat zij zien dat typen zich ongelijk over opleidingen verdelen. Zij leidt daaruit af dat iemand het best werk kiest waarin zijn dominante functie de hoofdrol speelt. Dat is een gevolgtrekking uit bestaande verdelingen en geen voorspelling die zij vooraf vastlegde en later controleerde.</p>
+      <h3>Typeontwikkeling en typefalsificatie</h3>
+      <p>Het laatste deel gaat over ontwikkeling. Goede ontwikkeling betekent bij Myers een goed geoefende dominante functie plus een hulpfunctie die genoeg tegenwicht geeft, zodat iemand zowel kan waarnemen als beslissen. Blijft de hulpfunctie achter, dan ontstaat eenzijdigheid.</p>
+      <p>Daarnaast beschrijft zij typefalsificatie: een kind dat thuis of op school onder druk staat om zich anders te gedragen dan zijn voorkeur, gaat een rol spelen die niet bij hem past. De gevolgen die zij noemt zijn vermoeidheid, twijfel aan het eigen kunnen en het gevoel er niet bij te horen. Dit begrip maakt haar theorie moeilijk te weerleggen: past iemand niet bij zijn uitslag, dan kan altijd worden gezegd dat zijn type vervalst is.</p>
+      <h3>Waar de vragenlijst op berust</h3>
+      <p>In de bijlage beschrijft Myers hoe de indicator is gebouwd: vragen met twee antwoorden waartussen gekozen moet worden, waarbij elk antwoord punten oplevert voor de ene of de andere pool. Wie meer punten aan één kant haalt, krijgt die letter. Een score vlak bij het midden geeft dus dezelfde letter als een score aan de rand, met alleen een aantekening dat de voorkeur zwak is.</p>
+      <p>Zij verdedigt die keuze met de theorie: typen bestaan volgens Jung in soorten, dus moet de uitslag een soort aanwijzen. Daarmee legt zij de meetmethode vast op de aanname die het latere onderzoek juist zou aanvechten.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">voorkeur</td><td>de kant die iemand van twee mogelijkheden vanzelf kiest en daardoor meer oefent, door Myers vergeleken met een voorkeurshand.</td></tr>
+          <tr><td class="term">gewaarwording en intuïtie</td><td>de twee manieren van waarnemen: via de zintuigen en het feitelijke tegenover via verbanden en mogelijkheden.</td></tr>
+          <tr><td class="term">denken en voelen</td><td>de twee manieren van oordelen: langs een sluitende redenering tegenover langs het wegen van waarden en gevolgen voor mensen.</td></tr>
+          <tr><td class="term">houding</td><td>de richting waarin een functie werkt, naar buiten (extravert) of naar binnen (introvert).</td></tr>
+          <tr><td class="term">oordelen tegenover waarnemen</td><td>het vierde paar, door Myers aan Jung toegevoegd, dat aangeeft welke soort functie iemand aan de buitenwereld laat zien.</td></tr>
+          <tr><td class="term">dominante functie</td><td>de functie die binnen een type de leiding heeft en waar iemand het meest op vertrouwt.</td></tr>
+          <tr><td class="term">hulpfunctie</td><td>de tweede functie, die het evenwicht tussen waarnemen en oordelen levert en in de andere houding werkt dan de dominante.</td></tr>
+          <tr><td class="term">minderwaardige functie</td><td>de tegenpool van de dominante functie, het minst geoefend en vooral merkbaar bij spanning en vermoeidheid.</td></tr>
+          <tr><td class="term">typetabel</td><td>het schema van zestien vakjes waarin Myers de verdeling van groepen mensen over de typen weergeeft.</td></tr>
+          <tr><td class="term">typefalsificatie</td><td>het aannemen van gedrag dat afwijkt van de eigen voorkeur onder druk van de omgeving, volgens Myers een bron van klachten.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op drie soorten grond. De eerste is Jungs theorie, die Myers overneemt zonder haar te toetsen. De tweede is de vragenlijst zelf, waarvan de opbouw in de bijlage staat. De derde is de verzameling ingevulde lijsten die zij vanaf de jaren veertig aanlegde, onder meer bij grote groepen studenten geneeskunde en verpleegkunde en bij scholieren.</p>
+      <p>Wat zij daaruit toont zijn verdelingen: welke typen vaker in een opleiding zitten, welke vaker afhaken, welke beroepen bij welke letters horen. Dat zijn beschrijvingen van groepen die al bestonden. Experimenten staan er niet in, en er is geen voorspelling die vooraf werd vastgelegd en achteraf gecontroleerd. De uitspraken over huwelijk, school en werk zijn uit de theorie afgeleid en toegelicht met voorbeelden uit haar eigen praktijk en die van haar moeder.</p>
+      <p>Wat het boek wel goed doet, is uitleggen waarom mensen elkaars werkwijze verkeerd lezen. Die uitleg staat los van de vraag of de zestien vakjes bestaan, en verklaart een deel van de aantrekkingskracht die het instrument tot vandaag heeft.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de meting niet doet wat de theorie eist. Als er werkelijk twee soorten mensen per paar bestaan, zouden de scores zich in twee toppen moeten verdelen. Dat gebeurt niet: de scores lopen door het midden heen, waar ook de meeste mensen zitten. De knip bij dat midden maakt van een klein verschil een categorie. Robert McCrae en Paul Costa lieten in 1989 zien dat de vier schalen samenhangen met vier van de vijf factoren uit het big-fivemodel, en concludeerden dat er geen steun is voor werkelijk tweedelige voorkeuren of voor soorten mensen.</p>
+      <p>Daar komt de stabiliteit bij. Bij hertest na enkele weken krijgt een groot deel van de deelnemers een ander type; schattingen in de literatuur lopen uiteen van ruwweg een derde tot een meerderheid. Voor een eigenschap die aangeboren en levenslang heet, is dat een zwaar gegeven. Een commissie van de Amerikaanse National Research Council oordeelde in 1991 dat alleen de schaal introversie tegenover extraversie stevig staat, dat de schalen gewaarwording-intuïtie en denken-voelen zwak zijn, en dat er te weinig deugdelijk onderzoek was om gebruik in loopbaanbegeleiding te rechtvaardigen. Overzichten van David Pittenger uit 1993 en later kwamen tot hetzelfde oordeel, en de samenhang met werkprestatie is zwak.</p>
+      <p>Een derde punt is wat ontbreekt. De vijfde factor uit het big-fivemodel, emotionele stabiliteit, is precies de factor die het meest voorspelt over gezondheid, verzuim en tevredenheid, en die zit niet in de indicator. Dat is geen toeval: een schaal waarop iemand slecht kan scoren past niet bij het uitgangspunt dat alle typen gaven zijn. De louter positief geformuleerde beschrijvingen maken bovendien dat vrijwel iedereen zich in zijn uitslag herkent, het effect waarop ook horoscopen drijven.</p>
+      <p>Ten slotte de herkomst. Katharine Briggs en Isabel Myers hadden geen opleiding in de psychologie; Myers studeerde letteren en schreef detectiveromans voordat zij de vragenlijst bouwde. Dat is op zichzelf geen argument tegen haar werk, maar het verklaart waarom het instrument buiten de gebruikelijke wetenschappelijke toetsing om groot werd, langs opleiders en werkgevers. Merve Emre beschreef die geschiedenis in <i>The Personality Brokers</i> (2018) op grond van de archieven.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik de vier paren als woorden voor verschil in werkwijze en niet als uitslag over iemands geschiktheid.</li>
+        <li>Merk in overleg op wanneer het verzamelen van informatie te snel overgaat in beslissen, het onderscheid waar Myers het meest aan heeft.</li>
+        <li>Laat personeelsbeslissingen rusten op wat iemand aantoonbaar heeft gedaan; de samenhang tussen typescore en werkprestatie is zwak.</li>
+        <li>Vraag bij een uitslag door naar de ruwe scores: vier letters verbergen hoe klein het verschil met de andere pool was.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>Understanding Personality Type</i>. Consulting Psychologists Press, Palo Alto, 1980, xiii + 217 blz. (ISBN 0891060111); herdruk bij Davies-Black Publishing, Mountain View, 1995, 248 blz., ISBN 9780891060741. Het boek verscheen in het jaar waarin Isabel Briggs Myers overleed en werd afgemaakt met haar zoon Peter. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd. Nederlandstalig materiaal over de vragenlijst zelf, de Myers-Briggs Type Indicator, komt van opleiders en testuitgevers en niet van de auteurs.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p><i>Gifts Differing</i> is het boek waarin Isabel Briggs Myers uitlegt waarop de vragenlijst berust die zij samen met haar moeder Katharine Cook Briggs ontwikkelde, de Myers-Briggs Type Indicator. De indeling komt uit Jungs <i>Psychologische typen</i> van 1921: twee manieren van waarnemen, gewaarwording en intuïtie, twee manieren van oordelen, denken en voelen, en een houding die naar buiten of naar binnen gericht is. Myers voegde daar een vierde paar aan toe, oordelen tegenover waarnemen, dat aangeeft welke functie iemand aan de buitenwereld laat zien. Zo ontstaan zestien typen.</p><p>De titel komt uit de brief van Paulus aan de Romeinen en geeft de toon aan: elke voorkeur brengt eigen gaven mee en geen enkele is een gebrek. Myers werkt dat uit voor het huwelijk, voor leren op school en voor beroepskeuze, met tabellen uit de vragenlijsten die zij vanaf de jaren veertig verzamelde, onder anderen bij studenten geneeskunde en verpleegkunde.</p><p>Het boek staat aan het begin van een instrument dat wereldwijd wordt afgenomen. De stand van het psychometrisch onderzoek is ongunstig voor de kern ervan: de scores verdelen zich niet in twee toppen maar rond een midden, en een groot deel van de deelnemers krijgt bij hertest een ander type.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>persoonlijkheid</li><li>persoonlijkheidstypen</li><li>Jung</li><li>psychologie</li><li>onderzoekskritiek</li><li>beroepskeuze</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="33"><a href="33.html">Quiet</a>. Cain werkt met dezelfde tegenstelling tussen extravert en introvert, maar dan met onderzoek naar temperament erbij.</li>
+          <li value="156"><a href="156.html">Surrounded by Idiots</a>. Erikson verkoopt een vergelijkbare indeling in vier kleuren met nog minder onderbouwing; nuttig om te zien wat de markt met typologie doet.</li>
+          <li value="943"><a href="943.html">Frames of Mind</a>. Gardner deelt mensen ook in soorten in, maar dan naar vermogens, en stuit op dezelfde vraag of de indeling meetbaar is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

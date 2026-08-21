@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Against the Gods &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Bernstein stelt dat de beheersing van risico het idee is dat de moderne tijd van alles daarvoor scheidt. Zolang de toekomst gold als de wil van goden of…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1287">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1287 &middot; Geld en ondernemen</p>
+    <h1>Against the Gods</h1>
+    <p class="lede">Peter L. Bernstein, 1996</p>
+    <p class="stats">
+      <span><b>1787</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1287"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Bernstein stelt dat de beheersing van risico het idee is dat de moderne tijd van alles daarvoor scheidt. Zolang de toekomst gold als de wil van goden of als noodlot, was er niets te kiezen; pas toen mensen leerden hoe vaak iets gebeurt, wat een uitkomst waard is voor wie haar ondergaat en hoe uit veel waarnemingen een betrouwbaar gemiddelde valt te halen, werden verzekering, kredietverlening en ondernemen mogelijk in de vorm die wij kennen. Het woord risico voert hij terug op het Italiaanse risicare, dat durven betekent, en dat is zijn hele these in één woord: risico nemen is een keuze en geen lot. Daartegenover staat de vraag die het boek zelf opwerpt en niet beantwoordt, namelijk of het gereedschap van de meting standhoudt bij precies de gebeurtenissen waar het om gaat.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De opzet en de schrijver</h3>
+      <p>Bernstein, geboren in 1919 en overleden in 2009, beheerde jarenlang vermogen voordat hij ging schrijven. Dat is aan het boek te merken: hij kiest zijn onderwerpen naar wat een belegger nodig heeft, en de lijn loopt van de oudheid naar de portefeuilletheorie waarmee hij zelf werkte.</p>
+      <p>De opbouw is chronologisch, in vijf delen: tot 1200, van 1200 tot 1700, van 1700 tot 1900, van 1900 tot 1960, en een slotdeel over onzekerheid dat de eigen tijd behandelt. Elk hoofdstuk draait om een persoon en om het probleem dat die persoon oploste.</p>
+      <h3>Tot 1200: waarom de Grieken niet rekenden</h3>
+      <p>Het eerste deel gaat over de vraag waarom de kansrekening zo laat kwam. De Grieken speelden om geld, offerden aan het lot en bouwden een meetkunde van bewonderenswaardige strengheid, maar zij vroegen zich nooit af hoe vaak een worp een bepaalde uitkomst geeft. Bernstein wijst op twee oorzaken. De eerste is godsdienstig: een uitkomst was een uitspraak van de goden en dus geen onderwerp van berekening. De tweede is praktisch: met Romeinse cijfers is niet te rekenen.</p>
+      <p>Het tweede hoofdstuk, over het Indiase cijfersysteem dat via de Arabische wereld naar Europa komt en dat door Fibonacci in zijn <i>Liber Abaci</i> van 1202 wordt verspreid, is dan ook het scharnier van dit deel. Zonder een schrijfwijze waarin optellen en delen eenvoudig zijn, blijft kans een gevoelsbegrip.</p>
+      <h3>1200 tot 1700: het spel wordt uitgerekend</h3>
+      <p>Het tweede deel begint bij Girolamo Cardano, arts, gokker en wiskundige, die in de zestiende eeuw een verhandeling over kansspelen schreef waarin voor het eerst kansen op dobbelworpen worden uitgerekend. Zijn boek bleef ruim een eeuw ongepubliceerd, zodat de eer elders viel.</p>
+      <p>Het middelpunt is de briefwisseling tussen Blaise Pascal en Pierre de Fermat uit 1654 over het verdelen van de inzet bij een afgebroken spel. Hun oplossing rekent met alle mogelijke voortzettingen en levert daarmee de verwachtingswaarde. Bernstein behandelt in hetzelfde deel Pascals weddenschap over het geloof, de vroegste toepassing van kansredenering op een beslissing die geen spel is, en het werk van John Graunt, die in 1662 uit de Londense sterfteregisters afleidde hoeveel mensen op welke leeftijd stierven. Edmond Halley bouwde daar in 1693 een sterftetafel uit waarmee lijfrenten te prijzen waren, en daarmee is de verzekering als bedrijf geboren.</p>
+      <h3>1700 tot 1900: meten zonder grenzen</h3>
+      <p>Het derde deel is het rijkst. Jacob Bernoulli formuleert de wet van de grote getallen: hoe meer waarnemingen, hoe dichter het gemeten aandeel bij het werkelijke ligt, met de bijbehorende vraag hoeveel waarnemingen genoeg zijn. Zijn neef Daniel Bernoulli lost in 1738 de Sint-Petersburgparadox op met het begrip nut: de waarde van een gulden hangt af van hoeveel guldens iemand al heeft, en daarom weigeren mensen weddenschappen met een oneindige verwachte opbrengst.</p>
+      <p>Daarna komen de instrumenten die het statistische denken zijn vorm gaven. Abraham de Moivre beschrijft de klokvormige verdeling en de spreiding rond het gemiddelde, Thomas Bayes laat zien hoe een overtuiging wordt bijgesteld door nieuwe waarneming, Carl Friedrich Gauss meet en past de normale verdeling toe, en Adolphe Quetelet past haar toe op mensen met zijn gemiddelde mens. Francis Galton vindt bij het meten van erfelijke lengte de terugkeer naar het gemiddelde, het verschijnsel dat uitzonderlijke waarden gevolgd worden door gewonere. Bernstein wijst erop hoe vaak beleggers dat verschijnsel aanroepen zonder te weten waar het gemiddelde ligt of hoe lang de terugkeer duurt.</p>
+      <h3>1900 tot 1960: onzekerheid die geen kans is</h3>
+      <p>Het vierde deel gaat over de grens van de meting. In 1921 verschijnen twee boeken die dezelfde tegenwerping maken. Frank Knight scheidt risico, waarbij de kansen bekend zijn of te schatten, van onzekerheid, waarbij zij dat niet zijn, en plaatst de winst van de ondernemer in het tweede gebied. John Maynard Keynes betoogt in zijn verhandeling over waarschijnlijkheid dat kansen vaak graden van geloof zijn die zich niet in een getal laten vangen, en dat wij over veel toekomstige zaken domweg niets weten.</p>
+      <p>Daarna keert het boek terug naar de opbouw. Von Neumann en Morgenstern leggen in 1944 het nutsbegrip vast in axioma's en voegen met de speltheorie de tegenspeler toe, iemand die reageert op wat jij doet. Harry Markowitz laat in 1952 zien dat het risico van een portefeuille afhangt van de samenhang tussen de stukken, zodat spreiding meetbaar iets oplevert. Daarmee is de weg vrij naar de prijsstelling van opties en naar de financiële techniek van na de oorlog.</p>
+      <h3>Graden van geloof</h3>
+      <p>Het slotdeel gaat over wat er niet klopt. Daniel Kahneman en Amos Tversky lieten in de jaren zeventig zien dat mensen dezelfde keuze anders maken naargelang zij als winst of als verlies wordt voorgesteld, dat verlies zwaarder weegt dan een even grote winst, en dat kleine kansen stelselmatig verkeerd worden gewogen. Dat ondergraaft de aanname waarop de hele opbouw rust: dat de beslisser zich aan de rekenregels houdt.</p>
+      <p>Het laatste hoofdstuk gaat over afgeleide producten en over de vraag hoe ver het meten reikt. Bernstein beschrijft de opkomst van de optiehandel na de formule van Black en Scholes, en de rol die zogeheten portefeuilleverzekering speelde in de krach van oktober 1987, toen een strategie die per stuk verstandig leek de val van de hele markt versterkte. Zijn slotsom is voorzichtig: de wiskunde werkt zolang de wereld zich als in het verleden gedraagt, en de gebeurtenissen die er werkelijk toe doen zijn juist de gebeurtenissen zonder voorbeeld.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Risico tegenover onzekerheid</td><td>Het onderscheid van Frank Knight tussen situaties waarin de kansen bekend of te schatten zijn en situaties waarin zij dat niet zijn.</td></tr>
+          <tr><td class="term">Verwachtingswaarde</td><td>De uitkomst van een gok gewogen naar de kans op elke afloop, uitgewerkt in de briefwisseling van Pascal en Fermat in 1654.</td></tr>
+          <tr><td class="term">Wet van de grote getallen</td><td>De vaststelling van Jacob Bernoulli dat een gemeten aandeel dichter bij het werkelijke komt naarmate er meer waarnemingen zijn.</td></tr>
+          <tr><td class="term">Nut</td><td>De waarde die een uitkomst heeft voor de persoon die haar ondergaat, ingevoerd door Daniel Bernoulli om te verklaren waarom mensen gunstige weddenschappen weigeren.</td></tr>
+          <tr><td class="term">Sint-Petersburgparadox</td><td>Een kansspel met een oneindige verwachte opbrengst waarvoor niemand veel wil betalen, het voorbeeld waaruit het nutsbegrip voortkwam.</td></tr>
+          <tr><td class="term">Normale verdeling</td><td>De klokvormige verdeling van De Moivre en Gauss, waarin het gemiddelde en de spreiding samen de hele vorm vastleggen.</td></tr>
+          <tr><td class="term">Steekproef</td><td>De redenering van Graunt en Halley dat uit registers over een deel van de bevolking geldige uitspraken over het geheel volgen.</td></tr>
+          <tr><td class="term">Terugkeer naar het gemiddelde</td><td>Het verschijnsel van Galton dat uitzonderlijke waarden doorgaans door gewonere worden gevolgd, vaak aangeroepen zonder dat vaststaat waar het gemiddelde ligt.</td></tr>
+          <tr><td class="term">Spreiding</td><td>De vaststelling van Markowitz dat het risico van een portefeuille afhangt van de samenhang tussen de stukken en niet van hun risico afzonderlijk.</td></tr>
+          <tr><td class="term">Falende invariantie</td><td>De bevinding van Kahneman en Tversky dat mensen dezelfde keuze verschillend maken naargelang zij als winst of als verlies is geformuleerd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Bernstein doet geen archiefwerk. Hij leest de wetenschapsgeschiedenis en vertelt haar na, met notenapparaat en bibliografie erbij, zodat elke bewering te herleiden is naar de bron waar hij haar vandaan heeft. Voor een boek van deze soort is dat de juiste maat, en de biografische stukken zijn zorgvuldig genoeg om als eerste kennismaking te dienen.</p>
+      <p>Het boek is het sterkst waar het een wiskundig inzicht aan een praktische toepassing koppelt en laat zien wat er dankzij dat inzicht mogelijk werd: de sterftetafel die de lijfrente prijst, de steekproef die de verzekering draagt, de covariantie die spreiding meetbaar maakt. Daar is de bewijslast klein en het verhaal controleerbaar. Zwakker staat het waar Bernstein een ontwikkeling toeschrijft aan één persoon; de geschiedenis van de kansrekening kent veel gelijktijdige vondsten, en de indeling in hoofdstukken per naam maakt het beeld ordelijker dan het was.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek leest de geschiedenis achterstevoren. Elke figuur wordt gewogen naar zijn bijdrage aan het denken dat Bernstein als vermogensbeheerder zelf gebruikte, en de lijn loopt daardoor recht van de dobbelstenen naar de portefeuilletheorie. Wie zich met de zaak bezighield zonder in die richting te wijzen, komt er niet in voor, en de vele doodlopende wegen in de geschiedenis van de kans blijven onbesproken. Dat maakt het verhaal helder en de geschiedenis onbetrouwbaar.</p>
+      <p>Er staan vrijwel geen formules in, wat het boek toegankelijk maakt en tegelijk uitholt. Bij de meeste doorbraken krijgt de lezer de anekdote en het gevolg, en niet het argument. Wie na dit boek wil weten waarom de wet van de grote getallen geldt of waarom spreiding het risico verlaagt, moet elders beginnen. Het slotdeel over gedragsonderzoek is bovendien aangebouwd: het weerspreekt de aanname waarop de eerste vierhonderd bladzijden rusten, zonder dat Bernstein die eerdere bladzijden herziet.</p>
+      <p>Ten slotte is de toon van vertrouwen door de tijd ingehaald. Het boek verscheen in 1996, twee jaar voor de ineenstorting van het fonds LTCM en twaalf jaar voor de kredietcrisis. Bernstein waarschuwt in zijn laatste hoofdstuk wel dat de wiskunde bij een breuk tekortschiet, maar de bewondering voor het financiële rekenwerk die het boek doortrekt, leest nu naïever dan zij toen klonk. Dat is geen verwijt aan de schrijver en wel een reden om het slot zwaarder te wegen dan de rest.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij elke risicomaat welke gegevens haar voeden, en of het gemeten verleden lang genoeg is om iets over het bereik van de uitkomsten te zeggen.</li>
+        <li>Houd het onderscheid van Knight aan: schrijf op welk deel van een beslissing te becijferen is en welk deel niet, en behandel die delen verschillend.</li>
+        <li>Weeg een uitkomst naar wat zij voor de betrokkene betekent en niet alleen naar haar bedrag, zoals Bernoulli voorstelde.</li>
+        <li>Wees terughoudend met een beroep op terugkeer naar het gemiddelde zolang niet vaststaat waar dat gemiddelde ligt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>The Remarkable Story of Risk</i>, verschenen bij John Wiley &amp; Sons (New York, 1996, 383 blz., ISBN 9780471121046); de paperback uit 1998 draagt ISBN 9780471295631. De Nederlandse vertaling verscheen als <i>De goden verzoeken: het opmerkelijke verhaal van risico</i>, vertaald door Maarten van Vreumingen en Berber Bast (Academic Service, Schoonhoven, 1998, 430 blz., ISBN 9789052612447); die uitgave is alleen nog tweedehands te vinden. Bernstein schreef eerder <i>Capital Ideas</i> (1992) over de geschiedenis van de moderne portefeuilletheorie.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Peter Bernstein was vermogensbeheerder en economisch historicus, en de eerste hoofdredacteur van het Journal of Portfolio Management. In dit boek stelt hij dat de grens tussen de oudheid en de moderne tijd niet bij een uitvinding of een ontdekking ligt, maar bij een idee: dat de toekomst geen luim van de goden is en dat de kans op wat komen gaat te meten valt.</p><p>Hij vertelt dat als een geschiedenis van personen. Cardano schrijft in de zestiende eeuw het eerste boek over dobbelkansen, Pascal en Fermat lossen in 1654 een vraag over een afgebroken kansspel op, Graunt telt de sterfteregisters van Londen, Halley bouwt daaruit een tafel waarmee lijfrenten te prijzen zijn, Bernoulli voert het begrip nut in, Galton vindt de terugkeer naar het gemiddelde, en in de twintigste eeuw komen Knight, Keynes, Von Neumann en Markowitz aan bod.</p><p>Het slot is minder zeker van zijn zaak dan het begin. Bernstein besluit met het werk van Kahneman en Tversky over besluitvorming die zich niet aan de kansrekening houdt, en met een waarschuwing dat de wiskunde het bij een breuk laat afweten.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>risico</li><li>kansrekening</li><li>statistiek</li><li>economische geschiedenis</li><li>besluitvorming</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1280"><a href="1280.html">Risk, Uncertainty and Profit</a>. Het boek uit 1921 waarin het onderscheid tussen meetbaar risico en onmeetbare onzekerheid wordt gemaakt dat Bernstein in zijn vierde deel behandelt.</li>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Het onderzoek waarmee het slotdeel eindigt, uitgewerkt door een van de twee onderzoekers zelf.</li>
+          <li value="811"><a href="811.html">The (Mis)Behaviour of Markets</a>. De tegenwerping tegen de normale verdeling die bij Bernstein het bouwmateriaal is: koersen springen en de staarten zijn dik.</li>
+          <li value="64"><a href="64.html">Fooled by Randomness</a>. Dezelfde waarschuwing als in het slothoofdstuk, uitgewerkt tot een houding tegenover toeval en tegenover mensen die er hun beroep van maken.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

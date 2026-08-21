@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Rebirth of Witchcraft &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Valiente houdt twee dingen tegelijk staande die volgens haar critici niet samengaan: dat de moderne hekserij een echte religieuze opleving is, en dat haar…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1228">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1228 &middot; Filosofie en mystiek</p>
+    <h1>The Rebirth of Witchcraft</h1>
+    <p class="lede">Doreen Valiente, 1989</p>
+    <p class="stats">
+      <span><b>2228</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1228"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Valiente houdt twee dingen tegelijk staande die volgens haar critici niet samengaan: dat de moderne hekserij een echte religieuze opleving is, en dat haar stichtingsteksten van gisteren zijn. Gardner trof volgens haar werkelijk een bestaande kring aan in het New Forest, maar de rituelen die hij doorgaf waren voor een groot deel samengesteld uit Crowley, Leland, de vrijmetselarij en zelfs een gedicht van Kipling, en zij heeft er zelf een aanzienlijk deel van herschreven. Haar gevolgtrekking is dat de Craft sterker wordt van die openheid dan van het volhouden van een ononderbroken lijn.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een proces uit 1944 en een wet uit 1735</h3>
+      <p>Het boek opent met de vaststelling dat het laatste grote heksenproces in Groot-Brittannië niet eeuwen geleden plaatsvond maar in 1944, in de Old Bailey. Het medium Helen Duncan werd vervolgd onder de Witchcraft Act van 1735, na een proces van acht dagen veroordeeld en kreeg negen maanden gevangenisstraf. Valiente wijst erop dat de aanleiding lag in Duncans mededeling over het vergaan van de HMS Barham, gedaan voordat dat officieel bekend was.</p>
+      <p>Pas in juni 1951 verving de Fraudulent Mediums Act de oude wet, waarmee de strafbaarheid van het zich uitgeven voor heks verviel. Daar begint volgens haar de geschiedenis van dit boek: openbaarheid werd mogelijk, en met de openbaarheid kwamen de kranten. Het grootste deel van wat daarna volgt gaat over de vraag wat die openbaarheid met de beweging heeft gedaan.</p>
+      <h3>De voorlopers</h3>
+      <p>Het tweede hoofdstuk zet de auteurs op een rij op wie de opleving teruggaat. Charles Godfrey Leland publiceerde in 1899 <i>Aradia, or the Gospel of the Witches</i>, dat hij naar eigen zeggen van een Italiaanse zegsvrouw had. Margaret Murray, egyptologe aan University College London, beschreef in <i>The Witch-Cult in Western Europe</i> (1921) de heksenprocessen als de vervolging van een voorchristelijke vruchtbaarheidsgodsdienst, die zij de Dianische cultus noemde. Robert Graves voegde daar in <i>The White Goddess</i> (1946) de maangodin en de dichterlijke mythe aan toe.</p>
+      <p>Valiente neemt Murray uitdrukkelijk in bescherming. Waar vakhistorici haar denkbeeld van covens van dertien en van geofferde koningen verwierpen, schrijft Valiente dat een deel van die afwijzing te stellig was, en citeert zij instemmend de suggestie dat er jaloezie van mannelijke collega's in meespeelde. Zij noemt Murrays laatste boek, <i>The Divine King in England</i> uit 1954, wel het punt waarop de spot begrijpelijk werd.</p>
+      <h3>Gardner en de coven in het New Forest</h3>
+      <p>In september 1952 las Valiente in een tijdschrift een stuk over het heksenmuseum van Cecil Williamson op het eiland Man. Haar brief aan Williamson kwam bij Gerald Gardner terecht, die haar dat najaar in Christchurch ontmoette in gezelschap van een vrouw die in de literatuur Dafo heet. In de zomer van 1953 werd zij ingewijd, door een man die zij beschrijft als lang, wit van haar en met gevoel voor humor.</p>
+      <p>Gardner vertelde dat hij vlak voor de oorlog was ingewijd door een oudere vrouw die hij Old Dorothy noemde. Valiente is die naam later in de registers nagegaan en publiceerde het resultaat als de bijlage The Search for Old Dorothy in <i>The Witches' Way</i> van Janet en Stewart Farrar (1984): Dorothy Clutterbuck heeft bestaan en de gegevens over haar kloppen met wat Gardners biografie meldt. Daarnaast haalt zij de verklaring aan van Louis Wilkinson, een kennis van Crowley, die aan Francis King vertelde over een kring in het New Forest rond 1940 die ritueel werkte om een Duitse invasie tegen te houden.</p>
+      <h3>Waar het Boek der Schaduwen vandaan komt</h3>
+      <p>Al bij haar inwijding herkende Valiente in de gesproken tekst passages uit Crowleys <i>Liber Legis</i> en uit Lelands <i>Aradia</i>, en zij zei dat achteraf tegen Gardner, die er weinig van gediend was. Toen zij zijn boek mocht overschrijven zag zij hoeveel er van Crowley kwam, en ook een bewerking van Kiplings gedicht A Tree Song uit <i>Puck of Pook's Hill</i>. Gardner verweerde zich met twee argumenten: hij bezat een door Crowley ondertekend charter voor een loge van de Ordo Templi Orientis, waarvoor hij volgens Gerald Yorke ongeveer driehonderd pond had betaald, en de rituelen van de oude kring waren zo fragmentarisch dat hij ze wel had moeten aanvullen.</p>
+      <p>Op de naam zelf zette zij jaren later een streep. In een tweedehandswinkel vond zij nummers uit 1949 van het blad <i>The Occult Observer</i>, uitgegeven door Michael Houghton, dezelfde man die Gardners roman <i>High Magic's Aid</i> op de markt bracht. Daarin staat een artikel van de handlezer Mir Bashir over een Sanskriet-handschrift dat The Book of Shadows heette en waarmee iemands lot uit de lengte van zijn schaduw werd afgelezen. Haar gevolgtrekking is dat Gardner die naam daar heeft opgepikt, omdat grimoire te veel naar zwarte magie rook.</p>
+      <p>Op Gardners uitdaging of zij het beter kon, herschreef Valiente het ritueelboek en haalde er zoveel mogelijk Crowley-taal uit. De regels uit <i>Aradia</i> hield zij aan als grondslag voor haar eigen versie van de Aanroeping, die zij eerst op rijm zette. Zij drukt dat rijm in het boek af, met de reeks godinnennamen van Aphrodite en Arianrhod tot Diana, Brigid en Cerridwen.</p>
+      <h3>De breuk van 1957</h3>
+      <p>De coven raakte verdeeld over de omgang met de pers. Valiente en de oudere leden wilden dat Gardner ophield met interviews, omdat die alleen de heksenjacht in de landelijke kranten voedden; een groep rond Jack Bracelin zocht juist de publiciteit en benaderde op eigen houtje verslaggevers. Als laatste poging stelde de eerste groep dertien Proposed Rules for the Craft op, bedoeld om de geheimhouding te herstellen waarop iedereen bij zijn inwijding was beëdigd.</p>
+      <p>Gardner antwoordde vanaf het eiland Man met een document dat de Laws of the Craft heette, gesteld in nagemaakt oud Engels en versierd met dreigementen als So be it ardane en met de vloek van de godin. Niemand van hen had die wetten ooit eerder gezien. Eén bepaling wees Valiente meteen af: dat de goden de broeders van de Wicca liefhebben zoals een man een vrouw liefheeft, door haar te overmeesteren. Zij controleerde bovendien een bewering van Gardner bij de bedrijfsleider van zijn uitgeverij, kreeg te horen dat die niet klopte, en schreef Gardner dat er dan geen basis meer was om samen magisch te werken. In de zomer van 1957 splitste de coven.</p>
+      <p>Wat zij gevreesd had gebeurde kort daarna. Op 27 oktober 1957 opende het zondagsblad The People met een stuk van Neville Stack over een verwerpelijke heidense sekte in de Britse samenleving, met instemmende reacties van de bisschop van Exeter en van een kanunnik van St Paul's. De hoofdstukken over de perscampagne behoren tot de beter gedocumenteerde delen van het boek.</p>
+      <h3>Cochrane, Sanders en de Pickingill-papieren</h3>
+      <p>Drie hoofdstukken gaan over mannen die na Gardner de aandacht opeisten. Robert Cochrane, die Valiente in 1964 leerde kennen, leidde een coven die in zwarte gewaden werkte, bij voorkeur buiten, en die zich afzette tegen wat hij smalend de Gardnerianen noemde. Zij beschrijft hoe zijn geestelijk evenwicht in 1966 wegviel, hoe hij tegen zijn volgelingen sprak over een rituele zelfdoding met midzomer, en hoe hij dat jaar aan een inname van kruiden overleed. De lijkschouwer sprak van zelfdoding bij verstoord evenwicht van de geest. Valiente laat open of het een offerhandeling was of een misgelopen vertoning.</p>
+      <p>Alex Sanders liet zich koning van de heksen noemen en zei zijn rituelen van zijn grootmoeder te hebben gekregen. Valiente wist dat dat niet klopte: de Manchester Comet van 23 juni 1965 citeerde uit zijn ritueel zinnen die zij zelf in de jaren vijftig had geschreven, en het ritueelboek van zijn covens is op kopieerfouten na gelijk aan dat van Gardner. Zij plaatst hem tussen bedrieger en magiër in, en vindt de gewone toedracht van zijn inwijding, via een coven in Sheffield, mooier dan het verhaal dat hij zelf verspreidde.</p>
+      <p>Het twaalfde hoofdstuk behandelt de stukken die een schrijver onder de naam Lugh in de jaren zeventig verspreidde over de Essexse heks George Pickingill, die Crowley, Allan Bennett en zelfs Moina Bergson tot leerling zou hebben gehad. Valiente wijst dat af met een argument uit eigen ervaring: Crowley kan het huidige ritueelboek in 1946 niet hebben overgeschreven, omdat het in die vorm toen nog niet bestond en zij Gardner pas jaren later ontmoette. De foto en het handschrift die het verhaal moeten staven zijn nooit opgedoken.</p>
+      <h3>Feministische hekserij en het slot</h3>
+      <p>Het elfde hoofdstuk gaat over de Amerikaanse ontwikkeling, die Valiente als de belangrijkste vernieuwing van haar tijd beschouwt. Zij beschrijft Zsuzsanna Budapest, die op de winterzonnewende van 1971 de Susan B. Anthony Coven No. 1 stichtte, in 1975 in Californië werd veroordeeld voor het leggen van tarotkaarten voor een agente in burger, en die veroordeling in 1985 door het hooggerechtshof van de staat ongedaan zag gemaakt. Zij vertelt hoe Miriam Simos, later bekend als Starhawk, bij Budapest de winkel Feminist Wicca binnenliep, en noemt <i>The Spiral Dance</i> en Budapests ritueelboek in feite nieuwe boeken der schaduwen.</p>
+      <p>Zij schrijft ook op wat het feminisme haar zelf leerde, met een verwijzing naar Robin Morgans <i>Going Too Far</i> en het punt dat vrouwen geen eigen naam dragen, en naar <i>The Wise Wound</i> van Penelope Shuttle en Peter Redgrove over de menstruatie. Het boek eindigt met een hoofdstuk over de verspreiding van de hekserij buiten Groot-Brittannië en met een korte scène in het New Forest, op de plek waar het volgens haar begonnen is.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Boek der Schaduwen</td><td>Het handgeschreven ritueelboek dat elke ingewijde van zijn inwijder overschrijft; Valiente laat zien dat de naam pas rond 1949 in omloop kwam.</td></tr>
+          <tr><td class="term">Aanroeping van de Godin</td><td>De centrale tekst waarin de godin bij monde van de hogepriesteres spreekt, door Valiente herschreven uit materiaal van Leland en Crowley.</td></tr>
+          <tr><td class="term">coven</td><td>De vaste werkgroep van heksen, volgens de overlevering dertien personen, in de praktijk vaak minder.</td></tr>
+          <tr><td class="term">Sabbat en Esbat</td><td>De acht jaarfeesten tegenover de bijeenkomsten bij volle maan; het onderscheid gaat op Margaret Murray terug.</td></tr>
+          <tr><td class="term">Wicca</td><td>Oudengels voor een mannelijke heks, vrouwelijk wicce; Valiente tekent aan dat het gebruik van dit woord voor de hele godsdienst een moderne nieuwigheid is.</td></tr>
+          <tr><td class="term">de Oude Religie</td><td>De aanduiding die Gardner en zijn kring gebruikten voor de voorchristelijke natuurgodsdienst die zij meenden voort te zetten.</td></tr>
+          <tr><td class="term">Magister</td><td>De titel voor de mannelijke leider van een coven buiten de gardneriaanse lijn, zoals Cochrane die voerde.</td></tr>
+          <tr><td class="term">athame</td><td>Het ritueel mes met zwart heft; volgens de stukken van Lugh een ontlening aan de ceremoniële magie en geen oud heksengebruik.</td></tr>
+          <tr><td class="term">mediatie</td><td>De methode waarmee Valiente tussen 1964 en 1966 in wakende toestand berichten opschreef van wat zich aandiende als de geest van een oude heks.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De sterkste stukken van het boek zijn de plaatsen waar Valiente iets kan tonen. De vondst van het artikel over The Book of Shadows in <i>The Occult Observer</i> van 1949 is na te gaan. Haar onderzoek in de burgerlijke stand naar Dorothy Clutterbuck is apart gepubliceerd en door latere onderzoekers overgenomen en uitgebreid. Krantenstukken noemt zij met datum, blad en kop, zodat ze in een archief terug te vinden zijn. En bij de vraag wie de gardneriaanse rituelen schreef is zij zelf de bron, omdat zij een deel ervan geschreven heeft.</p>
+      <p>Voor de rest berust het boek op geheugen en op gesprekken onder vier ogen. Er staan geen noten in en er is geen verantwoording van archieven. Bij het hoofdstuk over de berichten van een zekere John Brakespeare zegt Valiente met zoveel woorden dat de lezer zelf moet uitmaken of die van een overleden heks komen of uit haar eigen onderbewuste; zij levert geen toetsing en houdt het bij de vraag of de inhoud iets toevoegt. Waar zij mensen beoordeelt, en dat doet zij vaak, spreekt een betrokkene die in een deel van de conflicten partij was.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar betreft de geschiedschrijving. Valiente verdedigt in 1989 nog altijd de stelling van Margaret Murray dat de heksenprocessen een georganiseerde voorchristelijke godsdienst troffen, terwijl die stelling in het vak toen al was afgeschreven, onder meer door Norman Cohn in <i>Europe's Inner Demons</i> (1975) en door Keith Thomas. Zij weegt de tegenargumenten niet en schrijft de afwijzing deels toe aan academische jaloezie, wat geen antwoord is op de bronnenkritiek.</p>
+      <p>Daarbij hoort een getal. Zij neemt de tekst over van het gedenkteken in Gardners museum, waarin sprake is van negen miljoen slachtoffers van de vervolgingen, zonder er iets tegenover te stellen. Dat cijfer gaat terug op een schatting uit de late achttiende eeuw die door archiefonderzoek is achterhaald; de gangbare raming voor heel Europa ligt tussen de veertigduizend en zestigduizend terechtstellingen, met een aanzienlijk aandeel mannen onder de slachtoffers.</p>
+      <p>Ook haar kernpunt staat er zwakker voor dan zij aanneemt. Dat er in het New Forest een kring bestond is aannemelijk gemaakt; dat die kring een oude overlevering doorgaf is dat niet. Ronald Hutton kwam tien jaar later in <i>The Triumph of the Moon</i> (1999) tot de slotsom dat die kring in de jaren dertig ontstond uit rozenkruisers en gemengde vrijmetselaars rond het Rosicrucian Theatre in Christchurch, dus uit dezelfde occulte wereld waaruit ook de teksten kwamen. Valiente heeft de bronnenkwestie eerlijker aangepakt dan haar tijdgenoten en is bij de laatste stap blijven staan.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Rebirth of Witchcraft</i> (Robert Hale, Londen, 1989, 236 blz., ISBN 0-7090-3715-5), later ook als paperback herdrukt. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd. Ook Valientes andere boeken, <i>Where Witchcraft Lives</i> (1962), <i>An ABC of Witchcraft Past and Present</i> (1973), <i>Natural Magic</i> (1975) en <i>Witchcraft for Tomorrow</i> (1978), zijn niet in het Nederlands verschenen; er bestaan wel Spaanse en Franse uitgaven.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Doreen Valiente (1922-1999) werd in de zomer van 1953 door Gerald Gardner ingewijd en werd binnen enkele jaren zijn hogepriesteres. Zij herschreef grote delen van zijn rituelen, waaronder de tekst die als de Aanroeping van de Godin bekendstaat en die nog steeds in vrijwel elke coven wordt gebruikt. In dit boek uit 1989 vertelt zij van binnenuit hoe de moderne hekserij tussen de wetswijziging van 1951 en de jaren tachtig is ontstaan.</p><p>Het verslag is opvallend openhartig over de herkomst van het materiaal. Zij beschrijft hoe zij in Gardners ritueelboek passages van Aleister Crowley en van Charles Godfrey Leland herkende, hoe zij de naam Book of Shadows terugvond in een tijdschriftartikel uit 1949 over een Sanskriet-handschrift, en hoe de coven in 1957 uiteenviel over een stel wetten die Gardner in nagemaakt oud Engels had opgesteld.</p><p>Daarnaast staan er hoofdstukken in over Robert Cochrane, die in 1966 om het leven kwam, over Alex Sanders, die zich koning van de heksen liet noemen, en over de opkomst van de feministische hekserij in Californië. Het boek heeft geen noten en berust voor een groot deel op haar eigen herinnering, op brieven en op krantenknipsels die zij wel met datum en kop noemt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>hekserij</li><li>wicca</li><li>neopaganisme</li><li>occultisme</li><li>esoterie</li><li>memoir</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1227"><a href="1227.html">Drawing Down the Moon</a>. Margot Adler beschreef dezelfde beweging van buitenaf, als verslaggever die de Amerikaanse groepen langsging en hun onderlinge verschillen optekende.</li>
+          <li value="1233"><a href="1233.html">The Witch-Cult in Western Europe</a>. Het boek van Margaret Murray uit 1921 dat Valiente blijft verdedigen; te lezen om zelf te zien waarop vakhistorici het hebben afgewezen.</li>
+          <li value="1244"><a href="1244.html">Lid Off the Cauldron</a>. Patricia Crowther, door dezelfde Gardner ingewijd, vertelt over dezelfde jaren vanuit een positie die de breuk van 1957 niet deelde.</li>
+          <li value="1245"><a href="1245.html">Witching Culture</a>. Sabina Magliocco bekijkt deze wereld met de methoden van de volkskunde en de antropologie, van buiten de eigen overlevering.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

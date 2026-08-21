@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spiritual and Demonic Magic &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Walker stelt dat de magie van de renaissance geen randverschijnsel is maar een van de kenmerkende voortbrengselen van de vijftiende en zestiende eeuw, en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1246">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1246 &middot; Geschiedenis en samenleving</p>
+    <h1>Spiritual and Demonic Magic</h1>
+    <p class="lede">D.P. Walker, 1958</p>
+    <p class="stats">
+      <span><b>2301</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1246"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Walker stelt dat de magie van de renaissance geen randverschijnsel is maar een van de kenmerkende voortbrengselen van de vijftiende en zestiende eeuw, en dat zij alleen te begrijpen valt samen met muziek, geneeskunde en religie, omdat die vier op hetzelfde begrip rusten: de spiritus. Zijn tweede stelling is dat de scheiding tussen natuurlijke en demonische magie, die voor de tijdgenoten het verschil was tussen toelaatbaar en strafbaar, in de praktijk niet houdbaar bleek. Ficino probeerde die scheiding aan te brengen en slaagde er niet in; het begrip natuurlijke magie stond bovendien voortdurend op het punt over te gaan in kunst, wetenschap, praktische psychologie of religie, en is daaraan uiteindelijk ten onder gegaan.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat Walker onderzoekt en wat niet</h3>
+      <p>Walker formuleert zijn opzet aan het begin van het tweede deel. Hij wil de geschiedenis volgen van één traditie van neoplatoonse magie, met Ficino als voorbeeld, plus haar verbindingen met andere soorten magie en met verwante bezigheden, plus de reacties ertegen. Hij zegt er meteen bij dat hij uit de omvangrijke literatuur over magie maar heel weinig werken bespreekt, in de hoop dat die genoeg zijn om de hoofdlijn zichtbaar te maken.</p>
+      <p>Het boek is dan ook geen overzicht van de renaissancemagie. Het volgt een draad: wat Ficino schreef, wat anderen ermee deden en welke tegenstand dat opriep. Het verscheen in 1958 als deel 22 van de reeks van het Warburg Institute, waar Walker werkte, en heeft de vorm die daarbij hoort: dicht betoog, met Latijnse, Griekse en Italiaanse bronteksten in de voetnoten, meestal onvertaald.</p>
+      <h3>Ficino, de geest en de muziek</h3>
+      <p>Het eerste hoofdstuk begint bij <i>De Triplici Vita</i> (Florence, 1489). Het eerste boek gaat over de gezondheid van geleerden, het tweede over verlenging van hun leven, het derde over de invloed van de sterren op hen. Door alle drie heen richt Ficino's aandacht zich niet op ziel of lichaam maar op de spiritus, die hij met de artsen van zijn tijd omschrijft als een damp van het bloed, zuiver, fijn, warm en helder, door de warmte van het hart uit het fijnere bloed gevormd en naar de hersenen gevoerd. Bloed dient de geest, de geest de zintuigen, de zintuigen ten slotte het verstand.</p>
+      <p>Uit die opvatting volgt Ficino's muziektheorie. Als muziek beweging is die door de lucht op de spiritus inwerkt, dan is zingen het meest directe middel om de eigen geest te stemmen. Walker werkt uit hoe Ficino daaruit een astrologische muziek afleidt: liederen die bij een planeet horen, gezongen op het juiste ogenblik. Het hoofdstuk sluit met de vraag wat latere muziektheoretici daarmee deden.</p>
+      <h3>Is deze magie demonisch</h3>
+      <p>Het tweede hoofdstuk behandelt Ficino's magie zelf: zijn leerling Francesco Cattani da Diacceto, de bronnen waaruit hij put, en de verhouding tot Giovanni Pico della Mirandola. Het scharnier is paragraaf drie, "Ficino and the demons". Walker stelt de vraag rechtstreeks: was de magie van <i>De vita coelitus comparanda</i>, met inbegrip van het orfische zingen, gericht op goede demonen of engelen? Zijn antwoord is dat Ficino dat juist heeft willen vermijden. In dat werk worden demonen zelden genoemd; de voorgestelde handelingen moeten werken door de invloed van een onpersoonlijke planetaire geest op de geest en het lichaam van de mens, en niet hoger, dus niet op de redelijke ziel.</p>
+      <p>Toch, schrijft Walker, staan er sporen van een gevaarlijker magie in. Saturnus beïnvloedt het verstand; engelen of <i>animae celestes</i> kunnen rechtstreeks op onze ziel inwerken; er is de afgoderij uit de <i>Asclepius</i>; en uit het hoofdstuk over de eigen genius blijkt dat die samenvalt met de beschermengel en met de heersende planeet. Uit Ficino's overige werk blijkt bovendien duidelijk dat hij in goede en kwade planeetdemonen geloofde, zijn neoplatoonse bronnen waren demonisch, en de magie van zijn leerling Diacceto is onmiskenbaar demonisch. Het derde hoofdstuk plaatst Ficino naast twee tijdgenoten die dezelfde grens overschreden, Pletho en Lazzarelli.</p>
+      <h3>Een schema voor de theorie van de natuurlijke magie</h3>
+      <p>De inleiding op het tweede deel is het theoretische midden van het boek. Walker stelt vast dat de bezigheden die men natuurlijke magie noemde voortdurend op het punt stonden over te gaan in iets anders: in kunst, in wetenschap, in praktische psychologie, en vooral in religie. Het gaat hem daarbij niet om een vaag woordgebruik. <i>Magia naturalis</i> was soms letterlijk hetzelfde als <i>philosophia naturalis</i>, zoals bij het meeste van wat Della Porta magie noemt. Het probleem zit dieper: de velden overlappen werkelijk, en juist die overlap maakte de positie van het begrip onhoudbaar en heeft het uiteindelijk doen verdwijnen.</p>
+      <p>Omdat de theorieën zelf, zoals hij het zegt, zowel los als duister in elkaar zitten, stelt Walker een eigen schema voor. De planetaire invloed kan rechtstreeks op de verbeelding van de handelende persoon werken of langs andere krachten; de <i>vis imaginativa</i>, het vermogen tot verbeelding, is bijna altijd aanwezig en is de centrale kracht, terwijl de rest dient om haar te versterken of over te brengen. Het gewone overbrengende middel is de geest, kosmisch en menselijk. De uitwerking kan subjectief blijven, binnen de handelende persoon zelf, of overgaan op een ander; zij kan psychologisch blijven of via de verbeelding op het lichaam ingrijpen. Hetzelfde schema past op demonische magie zodra men de onpersoonlijke planetaire invloeden vervangt door engelen of demonen.</p>
+      <h3>Navolgers en veroordelaars in de zestiende eeuw</h3>
+      <p>Het vierde hoofdstuk behandelt schrijvers die magie en astrologie gunstig gezind waren: Trithemius, Agrippa, Paracelsus en Gohory, Pomponazzi, Francesco Giorgi, Pontus de Tyard en Guy Le Fèvre de La Boderie, en ten slotte Fabio Paolini met de Accademia degli Uranici in Venetië.</p>
+      <p>Het vijfde hoofdstuk zet daar de veroordelingen tegenover, en die zijn even verscheiden. Gianfrancesco Pico bestrijdt de magie vanuit een sceptische inslag, Johann Wier verdedigt beschuldigde vrouwen door hun daden als inbeelding te verklaren, Thomas Erastus schrijft als protestantse arts, Symphorien Champier en Lefèvre d'Étaples nemen afstand van wat zij eerder zelf hadden aangeprezen, en Jean Bodin en Martin Del Rio schrijven als demonologen die vervolging voorstaan. Walker laat daarmee zien dat de tegenstand niet uit één hoek kwam en dat de inzet steeds hetzelfde was: waar loopt de grens tussen toelaatbaar en verboden.</p>
+      <h3>Telesio, Bacon en Campanella</h3>
+      <p>Het derde deel begint bij de Telesianen: Bernardino Telesio en zijn volgelingen Agostino Doni en Antonio Persio, die de geest als een stoffelijk beginsel opvatten. Daarop volgt een korte paragraaf over Francis Bacon. Zijn <i>Historia Vitae et Mortis</i> (1623) gaat over levensverlenging door de juiste behandeling van de geesten, en zijn opvatting van de menselijke geest komt van Telesio en Doni, al is hij te rechtzinnig om geest en verstand gelijk te stellen. Bacon had <i>De Triplici Vita</i> gelezen en verwijst er drie of vier keer naar, maar zijn middelen zijn geheel anders dan die van Ficino, wellicht met opzet: hij moest niets hebben van magische of astrologische praktijken en veegt astrologisch bereide geneesmiddelen en talismannen minachtend van tafel.</p>
+      <p>Het slothoofdstuk gaat over Tommaso Campanella. In 1628 gingen er hardnekkige voorspellingen rond dat paus Urbanus VIII spoedig zou sterven; Walker laat met diplomatieke berichten uit Rome zien dat die geruchten door Spaanse zijde werden aangewakkerd, uit ergernis over de Franse koers van de paus. Uit dezelfde berichten blijkt dat paus en monnik veelvuldig samen achter gesloten deuren zaten, dat er sprake was van astrologisch werk en zelfs van necromantie, en dat zij in één document nachtelijke riten met brandende kaarsen vieren. Hoe bezorgd de paus was blijkt uit zijn bul tegen de astrologie (Rome, 1631), die alleen het voorspellen van de dood van vorsten en met name van pausen uitdrukkelijk strafbaar stelt, als majesteitsschennis, op straffe van dood en verbeurdverklaring. Walker sluit af met Campanella's verdediging van zijn eigen magie, met diens engelenleer en met de rol van muziek en woorden daarin.</p>
+      <h3>Wat er met de traditie gebeurde</h3>
+      <p>De lijn die Walker trekt loopt uit op een splitsing. Ficino liet twee soorten magie na: de natuurlijke, geestelijke magie van <i>De vita coelitus comparanda</i>, en de demonische die daarin alleen wordt aangeduid maar uit zijn overige werk goed op te maken valt. De traditie moest dus wel in twee richtingen uiteengaan, en dat deed zij.</p>
+      <p>De demonische tak liep samen met de middeleeuwse planeetmagie uit op de openlijk demonische en roekeloos onrechtzinnige magie van Agrippa en Paracelsus. De geestelijke tak neigde ertoe in iets anders op te lossen: in muziek en poëzie bij La Boderie, in rechtzinnig christendom bij Giorgi, in onrechtzinnig christendom bij Persio. Aan het einde van de zestiende eeuw komen beide takken weer bij elkaar, in het planetaire oratorium van Paolini en in de magie die Campanella daadwerkelijk uitvoerde.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">spiritus</td><td>De fijne damp die volgens de geneeskunde van die tijd uit het bloed wordt gevormd en tussen lichaam en ziel bemiddelt; het begrip waarop Ficino's magie, muziektheorie en geneeskunde alle drie rusten.</td></tr>
+          <tr><td class="term">spiritus mundi</td><td>Dezelfde stof op wereldschaal, de kosmische geest die de invloed van de planeten overbrengt en zo de verbinding legt tussen hemel en mens.</td></tr>
+          <tr><td class="term">De vita coelitus comparanda</td><td>Het derde boek van Ficino's <i>De Triplici Vita</i> (1489), waarin hij beschrijft hoe men door leefwijze, muziek, geuren en beelden de gunstige planetaire invloeden binnenhaalt.</td></tr>
+          <tr><td class="term">magia naturalis</td><td>Natuurlijke magie: werken met verborgen maar natuurlijke krachten, in beginsel toegestaan, en volgens Walker in de praktijk vrijwel niet te onderscheiden van natuurfilosofie, geneeskunde of kunst.</td></tr>
+          <tr><td class="term">demonische magie</td><td>Magie die haar werking dankt aan wezens met een eigen wil, engelen of demonen, en die daarmee onder het verbod op afgoderij en omgang met duivelen viel.</td></tr>
+          <tr><td class="term">vis imaginativa</td><td>Het vermogen tot verbeelding, in Walkers schema de centrale kracht in de natuurlijke magie, waar de overige middelen alleen toe dienen om haar te versterken of over te brengen.</td></tr>
+          <tr><td class="term">orfisch zingen</td><td>Het zingen van hymnen op een planeet, begeleid op de lier, waarmee Ficino zijn eigen geest op een hemelse invloed afstemde.</td></tr>
+          <tr><td class="term">talisman</td><td>Een op het juiste astrologische ogenblik vervaardigd beeld of voorwerp dat een planetaire invloed zou vasthouden; het meest omstreden onderdeel van Ficino's voorstellen en door Bacon uitdrukkelijk verworpen.</td></tr>
+          <tr><td class="term">prisca theologia</td><td>De aanname dat er een oude, ware godsdienst was die via Hermes, Orpheus en Zoroaster op Plato is overgegaan en waarmee de magie haar eerbiedwaardigheid ontleende.</td></tr>
+          <tr><td class="term">subjectieve en overgaande werking</td><td>Walkers onderscheid tussen magie die binnen de beoefenaar zelf blijft en magie die op een ander is gericht; beide kunnen zuiver psychisch zijn of via de verbeelding op het lichaam ingrijpen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Walker werkt uitsluitend met teksten, en hij laat zien welke. De voetnoten geven de Latijnse en Griekse passages waarop hij steunt, met vindplaats: Ficino wordt geciteerd naar de <i>Opera Omnia</i> (Bazel, 1576) met paginanummer, de vergelijkbare precisie geldt voor Agrippa, Pomponazzi, Wier, Erastus, Bodin en Campanella. Wie zijn lezing wil betwisten, kan bij dezelfde plaats terecht.</p>
+      <p>Voor het Campanella-hoofdstuk verlaat hij de filosofische teksten en gebruikt hij ander materiaal: diplomatieke berichten uit Rome uit 1628 en een handschriftelijke bron over de pausen, beide via het bronnenwerk van Luigi Amabile, plus de bul van Urbanus VIII uit 1631 en Campanella's eigen verweerschrift daartegen. Daardoor is dit hoofdstuk het enige waar niet alleen een leer maar ook een gebeurtenis wordt aangetoond.</p>
+      <p>De duurzaamheid van het boek is zelf een aanwijzing. Brian Copenhaver, die de heruitgave van 2000 inleidde, schrijft dat het de grondslag blijft van het wetenschappelijke begrip van de magische theorie in het na-middeleeuwse Europa. Frances Yates bouwde in <i>Giordano Bruno and the Hermetic Tradition</i> (1964) rechtstreeks op Walkers analyse van Ficino's spiritusmagie voort.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat dit een boek over theorie is en zich als zodanig aandient. Walker onderzoekt wat er over magie werd beweerd en beredeneerd. Wie ernaast wil weten wie deze dingen deden, in wiens opdracht, met welk geld en met welk gevolg, vindt dat hier vrijwel alleen in het slothoofdstuk over Campanella. De sociale geschiedenis van de magie, de hoven, de artsenpraktijk, de drukkers en de rechtbanken blijven buiten beeld.</p>
+      <p>Daar komt de smalle keuze bij, die Walker zelf aankondigt: hij bespreekt heel weinig werken uit een omvangrijke literatuur. Dat maakt zijn lijn scherp en zijn conclusies kwetsbaar voor de tegenwerping dat andere auteurs een ander verloop zouden hebben laten zien. De eenheid van de "ficiniaanse traditie" is deels een gevolg van zijn selectie.</p>
+      <p>Een derde punt is praktisch en zwaarwegend. De bronteksten in de noten en veel citaten in de lopende tekst staan onvertaald in het Latijn, Grieks en Italiaans. Zonder die talen leest men het betoog wel, maar controleert men het niet, en juist de controleerbaarheid is de kracht van dit boek.</p>
+      <p>Ten slotte een gevolg dat Walker niet valt aan te rekenen maar dat het lezen wel stuurt. Zijn analyse werd de bouwsteen voor de stelling van Frances Yates dat de hermetische magie de wetenschappelijke revolutie mede mogelijk maakte. Die stelling is sindsdien sterk bestreden, onder meer door Brian Vickers in <i>Occult and Scientific Mentalities in the Renaissance</i> (1984), die betoogde dat het om twee gescheiden denkwijzen gaat. Walker zelf beweert dat verband nergens; hij laat het bij de vaststelling dat het begrip natuurlijke magie zichzelf heeft opgeheven door met kunst, wetenschap en religie samen te vallen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de inleiding op het tweede deel eerst; daar staat het schema dat de rest van het boek bruikbaar maakt.</li>
+        <li>Gebruik het als naslagwerk bij Ficino, Agrippa, Paracelsus, Bodin of Campanella: de betreffende paragrafen zijn los te lezen.</li>
+        <li>Neem het onderscheid tussen natuurlijke en demonische magie mee bij het lezen van elke renaissancetekst over verborgen krachten; het bepaalde wat een auteur wel en niet mocht opschrijven.</li>
+        <li>Zet het naast Yates om te zien waar een voorzichtige tekststudie ophoudt en een grotere stelling begint.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Spiritual and Demonic Magic from Ficino to Campanella</i> verscheen in 1958 als deel 22 van de Studies of the Warburg Institute (The Warburg Institute, Londen, vii + 244 blz.). Er volgden herdrukken bij University of Notre Dame Press (1975) en sinds 2000 bij Penn State University Press in de reeks Magic in History, met een nieuwe inleiding van Brian P. Copenhaver (256 blz., ISBN 9780271020457). Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd. Van Daniel Pickering Walker (1914-1985), die aan het Warburg Institute in Londen werkte, is voor zover na te gaan geen enkel boek in het Nederlands verschenen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Walker volgt één traditie van magie van omstreeks 1489 tot omstreeks 1630: die van Marsilio Ficino, arts, priester en vertaler van Plato, en van wat na hem met zijn ideeën gebeurde. Zijn uitgangspunt is Ficino's <i>De vita coelitus comparanda</i>, het derde boek van <i>De Triplici Vita</i> (Florence, 1489), waarin muziek, geneeskunde, astrologie en religie samenkomen rond één begrip: de spiritus, een fijne damp die volgens de artsen van die tijd uit het bloed wordt gevormd en tussen lichaam en ziel bemiddelt.</p><p>Het boek vraagt telkens hetzelfde: is deze magie natuurlijk, dus een werking van onpersoonlijke planetaire invloeden op de menselijke geest, of demonisch, dus een beroep op wezens met een eigen wil. Ficino hield vol dat de zijne het eerste was; Walker laat aan de hand van zijn overige werk zien dat de scheiding niet houdt. Daarna splitst de traditie zich: bij Agrippa en Paracelsus wordt de magie openlijk demonisch, bij anderen lost zij op in muziek, poëzie of theologie.</p><p>In het tweede deel komen de bestrijders aan bod, van Gianfrancesco Pico tot Jean Bodin en Del Rio, en in het derde deel Telesio, Francis Bacon en Campanella, die in 1628 met paus Urbanus VIII nachtelijke riten uitvoerde tegen voorspellingen van diens dood. Copenhaver noemt het boek nog altijd de grondslag van ons begrip van de magische theorie na de middeleeuwen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>wetenschapsgeschiedenis</li><li>renaissance</li><li>magie</li><li>hermetische filosofie</li><li>ideeëngeschiedenis</li><li>muziek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1249"><a href="1249.html">Giordano Bruno and the Hermetic Tradition</a>. Yates bouwt op Walkers analyse voort en trekt er de veel bredere stelling uit die sindsdien omstreden is.</li>
+          <li value="1247"><a href="1247.html">Francis Bacon: From Magic to Science</a>. Rossi behandelt de andere kant van Walkers Bacon-paragraaf: wat Bacon met de magische erfenis deed die hij verwierp.</li>
+          <li value="639"><a href="639.html">Three Books of Occult Philosophy</a>. Agrippa's <i>Three Books of Occult Philosophy</i>, het werk waarin de demonische tak van de traditie die Walker beschrijft openlijk werd uitgeschreven.</li>
+          <li value="1250"><a href="1250.html">The Occult Sciences in the Renaissance</a>. Shumaker geeft het brede overzicht van de occulte wetenschappen dat Walker uitdrukkelijk niet wil geven.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

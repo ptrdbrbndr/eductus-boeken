@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Touched with Fire &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Jamison betoogt dat de manisch-depressieve aanleg onder dichters, componisten en schilders veel vaker voorkomt dan in de bevolking, en dat die samenhang…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1315">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1315 &middot; Brein en lichaam</p>
+    <h1>Touched with Fire</h1>
+    <p class="lede">Kay Redfield Jamison, 1993</p>
+    <p class="stats">
+      <span><b>1707</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1315"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Jamison betoogt dat de manisch-depressieve aanleg onder dichters, componisten en schilders veel vaker voorkomt dan in de bevolking, en dat die samenhang oorzakelijk is: de verschijnselen van hypomanie, snelheid van denken, ruime associaties, weinig slaap en durf, sluiten aan bij wat scheppend werk vraagt, terwijl de neerslachtige fase het tegenwicht en de zelfkritiek levert. Tegelijk houdt zij vol dat de ziekte een dodelijke ziekte is die behandeld hoort te worden, en dat het beeld van de waanzinnige kunstenaar mensen het leven kost.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een oud vermoeden en de valkuil erin</h3>
+      <p>Het boek begint bij de lange geschiedenis van het idee. In de aan Aristoteles toegeschreven <i>Problemata</i> staat de vraag waarom alle uitzonderlijke mannen in de filosofie, de dichtkunst en de kunsten melancholisch zijn, en de Engelse renaissance sprak over de fijne waanzin die een dichtershoofd hoort te bezitten. Jamison zet meteen de grens: zij spreekt over één omschreven ziektebeeld en niet over waanzin in het algemeen of over schizofrenie.</p>
+      <p>Zij noemt ook wat er mis kan gaan met haar eigen onderneming. Van de meeste kunstenaars is niets bekend dat op ziekte wijst, de meeste zieken maken niets, en een verband op groepsniveau zegt niets over een individueel geval.</p>
+      <h3>Wat de ziekte is</h3>
+      <p>Het tweede hoofdstuk beschrijft het ziektebeeld van binnenuit: manie met versnelde gedachten, verhoogde zelfwaardering, slapeloosheid en overmoed, hypomanie als lichtere vorm die vaak productief is, depressie met traagheid en zelfverwijt, en de gemengde toestand waarin beide tegelijk optreden. Daarnaast cyclothymie, de lichte maar chronische wisseling van stemming.</p>
+      <p>Jamison beschrijft het beloop: aanvallen die terugkomen, vaak seizoensgebonden, met tussenpozen waarin iemand normaal functioneert. En zij noemt het sterftecijfer dat de ziekte onbehandeld heeft, in de orde van één op de vijf patiënten die door zelfdoding om het leven komt.</p>
+      <h3>Het onderzoek</h3>
+      <p>Het derde hoofdstuk zet het bewijs op een rij. Nancy Andreasen onderzocht dertig schrijvers van de schrijversopleiding in Iowa en vond dat tachtig procent ooit een stemmingsstoornis had doorgemaakt, tegen dertig procent in een vergelijkingsgroep; drieënveertig procent had een manisch-depressief beeld. Jamison zelf onderzocht 47 Britse schrijvers en beeldend kunstenaars die belangrijke prijzen hadden gewonnen: achtendertig procent was ooit behandeld voor een stemmingsstoornis. Dichters staken eruit: zij waren als enigen opgenomen geweest en met lithium of elektroshock behandeld.</p>
+      <p>Daarnaast bespreekt zij onderzoek dat bij de patiënten begint in plaats van bij de kunstenaars. Ruth Richards vond dat manisch-depressieve patiënten en hun gezonde broers en zussen hoger scoorden op maten voor scheppend werk in het dagelijks leven dan een vergelijkingsgroep, wat suggereert dat het voordeel bij de aanleg zit en niet bij de ziekte zelf.</p>
+      <h3>Temperament en verbeelding</h3>
+      <p>Het vierde hoofdstuk legt uit hoe de ziekte volgens Jamison in het werk terechtkomt. In hypomanie neemt het aantal gedachten toe, komen woorden sneller, worden verbanden losser en durft iemand meer; in depressie wordt hetzelfde materiaal streng gewogen en herschreven. Zij citeert kunstenaars die dat zelf beschrijven, van Byron en Coleridge tot Woolf en Van Gogh.</p>
+      <p>Het aardigste bewijsstuk is een grafiek van het aantal werken dat Robert Schumann per jaar voltooide. De pieken vallen in de jaren waarin hij naar de beschrijvingen in een opgewonden toestand verkeerde, met 1840 als hoogste, en in de neerslachtige jaren komt er bijna niets. Jamison gebruikt de reeks als aanwijzing dat de fasen het verschil maken en niet de aanleg op zichzelf.</p>
+      <h3>Byron</h3>
+      <p>Het langste hoofdstuk gaat over George Gordon, Lord Byron. Jamison behandelt hem als een geval dat zij zo volledig mogelijk documenteert: de brieven en dagboeken waarin hij zijn eigen stemmingswisselingen beschrijft, de waarnemingen van vrienden en artsen, zijn drinken, zijn dieet, zijn perioden van uitputting en van roekeloosheid.</p>
+      <p>Daar hoort een stamboom bij die generaties teruggaat, met zijn vader, die als Mad Jack bekend stond, en verwanten met beschreven aanvallen van zwaarmoedigheid en gewelddadigheid. Byron is het scharnier van het boek: als er ergens genoeg materiaal is om de stelling te toetsen, is het hier.</p>
+      <h3>Erfelijkheid</h3>
+      <p>Het zesde hoofdstuk gaat over de overerving. Jamison vat samen wat uit familie-, tweeling- en adoptieonderzoek bekend is over de manisch-depressieve ziekte, en dat deel staat op stevige grond: de aandoening loopt aantoonbaar in families en de overeenkomst tussen eeneiige tweelingen is veel hoger dan tussen twee-eiige.</p>
+      <p>Daarna tekent zij stambomen van kunstenaarsfamilies waarin over meer generaties stemmingsziekte en zelfdoding voorkomen, met onder anderen de families van Tennyson, Melville, Woolf en Hemingway. Die stambomen berusten op biografisch materiaal en niet op diagnostiek, wat het verschil in hardheid met de vorige alinea groot maakt.</p>
+      <h3>Medicijn en kunst</h3>
+      <p>Het slothoofdstuk gaat over de vraag die het boek bij lezers oproept: of behandeling het werk kost. Jamison bespreekt de klacht van kunstenaars dat lithium hun scherpte afvlakt, neemt die serieus en houdt tegelijk staande dat de onbehandelde ziekte carrières en levens beëindigt, en dat dosering en middelenkeuze bespreekbaar zijn.</p>
+      <p>In de bijlagen staan de diagnostische criteria voor de stemmingsstoornissen en lijsten van schrijvers, beeldend kunstenaars en componisten bij wie zij op grond van biografisch materiaal een stemmingsstoornis aanneemt. Die lijsten hebben het boek zijn grootste bekendheid bezorgd en zijn tegelijk het meest omstreden onderdeel ervan.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">manisch-depressieve ziekte</td><td>De aandoening met terugkerende perioden van manie en van depressie, tegenwoordig meestal bipolaire stoornis genoemd; Jamison houdt vast aan de oude term.</td></tr>
+          <tr><td class="term">hypomanie</td><td>De lichte vorm van manie, waarin iemand sneller denkt, minder slaapt en meer durft zonder de greep op zijn leven te verliezen.</td></tr>
+          <tr><td class="term">cyclothymie</td><td>Een chronische, lichte wisseling van stemming die onder de ernst van de volledige ziekte blijft en het temperament wel kleurt.</td></tr>
+          <tr><td class="term">gemengde toestand</td><td>Een periode waarin verschijnselen van manie en van depressie tegelijk optreden, met de hoogste kans op zelfdoding.</td></tr>
+          <tr><td class="term">artistiek temperament</td><td>Het samenstel van stemmingswisseling, intensiteit en gevoeligheid dat volgens Jamison bij kunstenaars vaker voorkomt en met de aanleg samenhangt.</td></tr>
+          <tr><td class="term">vlucht van gedachten</td><td>Het versneld opkomen van ideeën met losse verbanden ertussen, in de manie een symptoom en in het werk een bron.</td></tr>
+          <tr><td class="term">seizoenspatroon</td><td>De neiging van de aanvallen om aan de jaargetijden gebonden te zijn, die Jamison ook in de productieperioden van kunstenaars terugvindt.</td></tr>
+          <tr><td class="term">lithium</td><td>Het middel dat de stemmingswisselingen dempt en waarvan kunstenaars vrezen dat het hun werk vervlakt.</td></tr>
+          <tr><td class="term">retrospectieve diagnose</td><td>Het toekennen van een ziektebeeld aan een gestorven persoon op grond van brieven, dagboeken en biografieën in plaats van onderzoek.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op drie soorten materiaal van heel ongelijke hardheid. Het stevigst is wat er over de erfelijkheid van de ziekte bekend is: dat komt uit tweeling- en familieonderzoek dat losstaat van Jamisons stelling en dat sindsdien alleen maar bevestigd is.</p>
+      <p>Daarna komen de onderzoeken onder levende kunstenaars. Die wijzen alle dezelfde kant op, en ze zijn klein: dertig schrijvers bij Andreasen, 47 bij Jamison zelf. Andreasens groep bestond uit docenten van één schrijversopleiding, de interviews waren niet blind afgenomen, en de vergelijkingsgroep verschilde in beroep en leefwijze. Jamisons eigen groep is samengesteld uit winnaars van prijzen en had helemaal geen vergelijkingsgroep; zij baseert zich op wat mensen zelf over hun behandeling opgaven. De percentages liggen ver boven wat in de bevolking wordt gevonden, maar de opzet laat niet toe die getallen als schatting van een verschil te lezen.</p>
+      <p>Het zwakst is de biografische kant, en dat is het grootste deel van het boek. Bij Byron is het materiaal rijk genoeg om iets te wegen. Bij de honderden namen in de bijlagen berust de toekenning op wat biografen hebben opgetekend, geselecteerd door mensen die belangstelling hadden voor het pittoreske, en de criteria zijn ontworpen voor een gesprek met een levende patiënt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar betreft het diagnosticeren van doden. Wat bij Byron of Van Gogh in de brieven staat, laat zich onder meer dan één hypothese lezen: drankgebruik, lichamelijke ziekte, epilepsie, of het schrijversbedrijf van de romantiek, waarin het beschrijven van eigen zieleroerselen tot het vak hoorde. Jamison erkent het probleem en gaat er daarna aan voorbij, en de naamlijsten in de bijlagen zijn sindsdien overgenomen alsof het gegevens waren.</p>
+      <p>Daar komt een cirkel bij. Intensiteit van gevoel geldt in dit boek zowel als symptoom van de ziekte als bewijs van kunstenaarschap, waardoor het lastig wordt de twee uit elkaar te houden. Wie voor de zekerheid alleen naar gedocumenteerde opnames en behandelingen kijkt, houdt een veel kleinere groep over dan de bijlagen suggereren.</p>
+      <p>Verder is het beeld sinds 1993 smaller geworden. Zweeds bevolkingsonderzoek op nationale registers, waarin ruim een miljoen patiënten met hun beroepen zijn gekoppeld, vond dat mensen met een psychiatrische diagnose als geheel niet vaker in scheppende beroepen werken. De uitzondering zijn schrijvers, die wel oververtegenwoordigd zijn en die bovendien een hogere kans op zelfdoding hebben, en de gezonde broers en zussen van patiënten met een bipolaire stoornis. Dat is een verband dat bestaat, maar veel enger dan het brede beeld van dit boek.</p>
+      <p>Critici hebben daar de vraag aan toegevoegd waarom het idee zo goed blijft verkopen. Judith Schlesinger heeft in <i>The Insanity Hoax</i> (2012) betoogd dat de koppeling van waanzin en genie zich handhaaft omdat zij aantrekkelijk is voor beide partijen: de kunstenaar krijgt er verhevenheid bij, de gewone lezer troost. Albert Rothenberg wijst er al langer op dat scheppend werk juist gedisciplineerd, helder denken vraagt en dat de onderzoeken naar het tegendeel klein en zwak zijn.</p>
+      <p>Tot slot is er de ethische kant, die Jamison zelf aansnijdt en niet oplost. Een boek dat de ziekte aan groot werk verbindt, geeft patiënten een reden om hun medicijnen te laten staan, hoe vaak de schrijfster ook waarschuwt. Dat Jamison zelf de ziekte heeft, maakte zij pas twee jaar later bekend, in <i>An Unquiet Mind</i>; wie dit boek in 1993 las, wist niet dat de schrijfster ook over zichzelf schreef.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij elke bewering over een gestorven kunstenaar wat de bron is: een medisch dossier weegt anders dan een brief die een biograaf citeerde.</li>
+        <li>Let bij onderzoek naar kunstenaars op de vergelijkingsgroep. Ontbreekt die, dan is een percentage geen bevinding.</li>
+        <li>Onderscheid de aanleg van de aandoening: het onderzoek dat iets vindt, vindt het vaak bij familieleden zonder ziekte.</li>
+        <li>Neem de klacht dat medicatie het werk vervlakt serieus als aanleiding om dosering en middel te bespreken, niet om behandeling te staken.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Touched with Fire: Manic-Depressive Illness and the Artistic Temperament</i> (The Free Press, New York, 1993, 370 blz., ISBN 9780029160305); de paperback verscheen bij Free Press Paperbacks (ISBN 9780684831831). Nederlands als <i>De verzengende muze: manisch-depressiviteit en het artistieke temperament</i>, vertaald door H. Vlaanderen (Candide, 338 blz.). Van Jamison verscheen ook haar eigen ziektegeschiedenis, <i>An Unquiet Mind</i> (1995).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Kay Redfield Jamison is hoogleraar psychiatrie aan Johns Hopkins en heeft haar loopbaan aan de manisch-depressieve ziekte gewijd. In dit boek onderzoekt zij het oude vermoeden dat kunstenaars vaker dan anderen aan die ziekte lijden, en zij komt tot de slotsom dat het vermoeden klopt en dat het geen toeval is.</p><p>Haar redenering is tweeledig. De verschijnselen van een lichte manie, snel denken, ruime associaties, weinig slaap, uitbundige stemming en durf, lijken op wat scheppend werk vraagt. En de afwisseling met neerslachtigheid levert een tweede kijk op hetzelfde materiaal, plus het geheugen aan beide toestanden. Het bereik ontstaat volgens haar uit de wisseling.</p><p>Het bewijs komt uit twee bronnen. Er zijn de moderne onderzoeken onder levende schrijvers en kunstenaars, waaronder haar eigen onderzoek onder 47 bekroonde Britse auteurs en beeldend kunstenaars, en er zijn de brieven, dagboeken en artsenverslagen van gestorven dichters, componisten en schilders. Byron krijgt een heel hoofdstuk, met zijn familiegeschiedenis erbij. Jamison waarschuwt tegelijk tegen het romantische beeld: de ziekte doodt mensen, en wie haar mooi maakt, praat het weigeren van behandeling goed.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>psychiatrie</li><li>creativiteit</li><li>bipolaire stoornis</li><li>biografie</li><li>onderzoek</li><li>kunstenaars</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1323"><a href="1323.html">Art and Artist</a>. Rank verklaart het kunstenaarschap uit een psychisch conflict, waar Jamison het uit een ziektebeeld verklaart.</li>
+          <li value="1322"><a href="1322.html">The Act of Creation</a>. Koestler zoekt het scheppende moment in de botsing van twee gedachtekaders en heeft de ziekte daar niet voor nodig.</li>
+          <li value="1314"><a href="1314.html">Positive Disintegration</a>. Dąbrowski maakt van psychisch lijden een ontwikkelingsniveau en loopt tegen dezelfde bewijsproblemen op.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

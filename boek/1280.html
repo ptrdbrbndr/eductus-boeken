@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Risk, Uncertainty and Profit &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Knight stelt dat winst alleen bestaat doordat de toekomst op een bepaalde manier onbekend is. Meetbare onzekerheid, die hij risico noemt, laat zich via…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1280">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1280 &middot; Geld en ondernemen</p>
+    <h1>Risk, Uncertainty and Profit</h1>
+    <p class="lede">Frank H. Knight, 1921</p>
+    <p class="stats">
+      <span><b>1814</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1280"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Knight stelt dat winst alleen bestaat doordat de toekomst op een bepaalde manier onbekend is. Meetbare onzekerheid, die hij risico noemt, laat zich via verzekering en het samenvoegen van gelijksoortige gevallen omzetten in een gewone kostenpost en levert daarom op den duur niets op. Wat overblijft is de onmeetbare soort, waarvoor geen groep vergelijkbare gevallen bestaat en dus geen kansverdeling. Die soort valt niet af te wentelen; iemand moet haar op zich nemen door anderen een vast bedrag te garanderen en zelf het restant te aanvaarden. Dat is de ondernemer, en dat restant is de winst. Winst is bij Knight dus geen beloning voor een productiefactor, maar het gevolg van een oordeel over iets wat niemand kan weten.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een proefschrift dat een prijsvraag won</h3>
+      <p>Frank Knight, die leefde van 1885 tot 1972, promoveerde in 1916 aan Cornell University op een verhandeling over de winst. Een bewerking daarvan diende hij in bij de essaywedstrijd van de kledingfabrikanten Hart, Schaffner &amp; Marx; in 1917 kreeg het stuk daar de tweede prijs in zijn klasse, en in 1921 verscheen het als boek. Knight was toen zesendertig.</p>
+      <p>Hij doceerde daarna decennialang aan de universiteit van Chicago, waar Milton Friedman, George Stigler en James Buchanan bij hem college liepen. Zijn naam is verbonden gebleven aan één onderscheiding uit dit boek. De rest, ruim tweehonderd bladzijden waarde- en prijstheorie, wordt zelden meer gelezen.</p>
+      <h3>Het raadsel van de winst</h3>
+      <p>Het eerste deel stelt de vraag. In de theorie van volkomen mededinging drukt concurrentie de prijs tot de kosten, en verdwijnt de winst. In de praktijk verdienden ondernemingen jaar in jaar uit meer dan hun kosten. De gangbare verklaringen wijst Knight af. Winst als beloning voor het nemen van risico klopt niet, want een risico dat te berekenen valt, komt gewoon in de prijs terecht zoals de premie van een brandverzekering. Winst als gevolg van verandering klopt evenmin: verandering die iedereen ziet aankomen, levert niemand iets op.</p>
+      <p>Wat verandering wel winstgevend maakt, is dat zij onwetendheid over de toekomst meebrengt. Daarmee verschuift de vraag van verandering naar kennis, en op die zet draait het hele boek.</p>
+      <h3>Eerst een wereld zonder onzekerheid</h3>
+      <p>Het tweede deel bouwt in vier hoofdstukken het model van volkomen mededinging in volle omvang op: keuze en ruil, gezamenlijke productie en kapitalisatie, verandering en vooruitgang zonder onzekerheid, en de kleinere voorwaarden waaraan mededinging moet voldoen. Knight laat daarin zien dat zelfs voortdurende verandering geen winst oplevert zolang iedereen weet wat er komt, omdat de productie zich dan van tevoren aanpast.</p>
+      <p>Die opbouw is bedoeld. Door het volmaakte geval eerst helemaal uit te tekenen kan hij daarna precies één aanname wegnemen en aanwijzen wat er dan verschijnt. Het zijn de traagste bladzijden van het boek en tegelijk de reden dat het argument sluit.</p>
+      <h3>Drie soorten waarschijnlijkheid</h3>
+      <p>Hoofdstuk zeven bevat de onderscheiding waar het boek bekend om is. Knight splitst waarschijnlijkheid in drieën. De a-priorikans volgt uit de opzet van het geval zelf: een zuivere dobbelsteen geeft één kans op zes, en daar hoeft niemand voor te tellen. De statistische kans komt uit waarneming van veel gelijksoortige gevallen: een producent weet uit ervaring welk deel van zijn champagneflessen springt en verwerkt dat als kostenpost in de prijs, net als arbeid en grondstoffen. De derde soort noemt hij een schatting, het oordeel over een geval dat zich niet in een groep gelijke gevallen laat plaatsen.</p>
+      <p>Een fabrikant die overweegt zijn fabriek uit te breiden, zit in dat derde geval. Er is geen reeks vergelijkbare uitbreidingen waaruit een kans valt af te leiden; er is alleen zijn oordeel, plus een oordeel over de betrouwbaarheid van dat oordeel. De eerste twee soorten noemt Knight meetbare onzekerheid, oftewel risico. Alleen de derde is in zijn woorden echte onzekerheid, en die is per definitie niet te meten.</p>
+      <h3>Wat een economie tegen onzekerheid doet</h3>
+      <p>Hoofdstuk acht loopt de uitwegen langs. De eerste is groeperen: door veel gelijksoortige gevallen samen te voegen wordt het gemiddelde voorspelbaar, wat het beginsel achter verzekering is. De tweede is beter voorspellen, dus meer weten. De derde is de zaak zo inrichten dat er minder voorzien hoeft te worden, met voorraden en reservecapaciteit. De vierde, voor Knight de belangrijkste, is specialisatie: de onzekerheid komt terecht bij de mensen die er het meeste vertrouwen in hebben en er het beste tegen kunnen.</p>
+      <p>Daarmee is meteen de onderneming als vorm verklaard. Wie zeker inkomen wil, verhuurt zijn arbeid of zijn kapitaal tegen een vast bedrag. Wie het aandurft, garandeert die vaste bedragen aan de anderen en houdt wat er overblijft.</p>
+      <h3>De ondernemer en het restant</h3>
+      <p>De hoofdstukken negen en tien werken dat uit. De ondernemer doet twee dingen tegelijk: hij beslist wat er gemaakt wordt en hij staat in voor het inkomen van de anderen. Winst is het verschil tussen de opbrengst en die gegarandeerde bedragen, en kan dus net zo goed negatief zijn. Omdat het een restant is, hoort het bij geen enkele productiefactor thuis en stelt er zich ook geen prijs voor in.</p>
+      <p>Knight ziet hier een dubbel oordeel aan het werk. Iemand beoordeelt een situatie en beoordeelt daarnaast zijn eigen vermogen om zulke situaties te beoordelen. Het tiende hoofdstuk vraagt wat er gebeurt als de beslisser een aangestelde bestuurder met een salaris is. Het antwoord luidt dat het probleem zich verplaatst naar de keuze van die bestuurder, want oordeel inhuren vergt zelf een oordeel waarvoor geen verzekering bestaat. Daarmee raakt Knight, ruim tien jaar voor Berle en Means erover schreven, de scheiding tussen eigendom en zeggenschap.</p>
+      <h3>Onzekerheid en samenleving</h3>
+      <p>De laatste twee hoofdstukken kijken naar de gevolgen. Onzekerheid maakt vooruitgang mogelijk, want zonder haar zou niemand iets nieuws hoeven proberen. Tegelijk vraagt Knight of ondernemers als groep wel terugkrijgen wat zij inzetten. Hij vermoedt van niet: mensen overschatten hun eigen kunnen en worden aangetrokken door het gokken zelf, zodat de som van alle bedrijfswinsten lager kan uitvallen dan de som van wat erin is gestoken, zoals bij een loterij.</p>
+      <p>Politieke conclusies trekt hij er niet uit. Het boek eindigt bij de vaststelling dat winst uit onwetendheid voortkomt, en dat een samenleving die de onwetendheid zou opheffen ook de winst zou opheffen, met alles wat daaraan vastzit.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Risico</td><td>Meetbare onzekerheid, waarvan de kans uit de opzet van het geval volgt of uit voldoende waarnemingen van gelijksoortige gevallen.</td></tr>
+          <tr><td class="term">Echte onzekerheid</td><td>De situatie waarin geen groep vergelijkbare gevallen bestaat, zodat er geen kansverdeling te maken valt.</td></tr>
+          <tr><td class="term">A-priorikans</td><td>Een kans die uit de aard van het geval zelf volgt, zoals de zes uitkomsten van een zuivere dobbelsteen.</td></tr>
+          <tr><td class="term">Statistische kans</td><td>Een verhouding die blijkt uit het tellen van veel gelijksoortige gevallen, zoals het aandeel champagneflessen dat springt.</td></tr>
+          <tr><td class="term">Schatting</td><td>Het oordeel over een geval dat te bijzonder is om in een reeks onder te brengen, waarop de meeste zakelijke beslissingen berusten.</td></tr>
+          <tr><td class="term">Groepering</td><td>Het samenvoegen van gelijksoortige gevallen waardoor het gemiddelde voorspelbaar wordt; het beginsel achter verzekering.</td></tr>
+          <tr><td class="term">Ondernemer</td><td>Degene die anderen een vast inkomen garandeert, de leiding neemt en zelf het restant aanvaardt.</td></tr>
+          <tr><td class="term">Winst</td><td>Het restant dat na betaling van alle vooraf vastgelegde beloningen overblijft, dat positief of negatief kan zijn.</td></tr>
+          <tr><td class="term">Volkomen mededinging</td><td>Het modelgeval waarin iedereen alles weet en de prijs samenvalt met de kosten, zodat er geen winst kan bestaan.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Knight bewijst niets met cijfers. Het boek bevat geen tabellen en geen onderzoeksgegevens; het is een redenering, opgezet volgens de methode van de theoretische economie van zijn tijd. Hij bouwt een model waarin alle onzekerheid ontbreekt, laat zien dat daarin geen winst kan ontstaan, voert vervolgens één element opnieuw in en kijkt wat er verschijnt. De illustraties, de dobbelsteen, de champagneflessen en de fabrieksuitbreiding, dienen om het onderscheid duidelijk te maken en niet om het te staven.</p>
+      <p>De sterkte van het argument zit in hoeveel het verklaart met weinig middelen: waarom winst blijft bestaan, waarom verzekeraars sommige zaken wel en andere niet dekken, waarom er ondernemingen zijn en waarom sommige mensen loon krijgen en anderen een restant. Ronald Coase bouwde in 1937 op die laatste lijn voort in zijn stuk over het bestaan van de onderneming.</p>
+      <p>Steun van buiten kwam later. Dat mensen bekende en onbekende kansen verschillend behandelen, bleek ook in het laboratorium: Daniel Ellsberg liet in 1961 zien dat proefpersonen stelselmatig kiezen voor een gok met bekende verhoudingen boven een gok met onbekende, ook wanneer dat rekenkundig niets oplevert. Dat bevestigt Knights winsttheorie niet, wel zijn stelling dat de twee soorten onzekerheid zich anders gedragen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar raakt de onderscheiding zelf. Volgens de school die met Leonard Savage in de jaren vijftig doorbrak, spreekt iedereen die een keuze maakt daarmee al een persoonlijke kansinschatting uit, zodat een toestand van kennis zonder kansverdeling niet bestaat. Knight geeft bovendien geen maatstaf voor de vraag wanneer een groep gevallen gelijksoortig genoeg is om een statistische kans op te leveren. Wie dat moet beoordelen, staat opnieuw voor een schatting, en de grens verschuift dus met de waarnemer.</p>
+      <p>Stephen LeRoy en Larry Singell voerden in 1987 in de Journal of Political Economy aan dat de gangbare lezing van Knight op een misverstand berust. Volgens hen ging het hem niet om het ontbreken van kansen maar om verzekerbaarheid: verzekeringsmarkten vallen weg zodra de verzekerde het risico zelf kan beïnvloeden of meer weet dan de verzekeraar. In die lezing gaat het boek over moreel risico en averechtse selectie, begrippen die pas decennia later hun naam kregen. George Stigler wees er in reactie op dat Knight daar maar kort over schrijft, en waarschuwde tegen te welwillend lezen van een tekst die op dit punt niet is uitgedacht.</p>
+      <p>Er is ook een bezwaar dat losstaat van de uitleg. Als echte onzekerheid per definitie niet meetbaar is, valt de theorie niet te toetsen: winst wordt dan verklaard uit iets wat alleen aan de winst zelf te herkennen valt. Wie het boek als handleiding openslaat, vindt niets bruikbaars. En de leeservaring is zwaar: de beroemde onderscheiding staat in één hoofdstuk, met daarvoor ruim tweehonderd bladzijden waardetheorie in de vaktaal van 1921.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij elk kanspercentage op welke reeks gelijksoortige gevallen het rust. Ontbreekt die reeks, dan is het getal een oordeel in cijfervorm.</li>
+        <li>Scheid in een besluit de onderdelen die zich vaak herhalen van de onderdelen die eenmalig zijn; alleen de eerste laten zich verzekeren of doorrekenen.</li>
+        <li>Reken erop dat wat niemand wil verzekeren, bij de beslisser blijft liggen. Daar zit het rendement en daar valt ook het verlies.</li>
+        <li>Weeg bij het aanstellen van mensen met beslissingsbevoegdheid ook hoe goed zij hun eigen oordeel weten in te schatten.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Oorspronkelijk verschenen bij Houghton Mifflin, Boston, 1921, 381 blz., in de reeks prijsessays van Hart, Schaffner &amp; Marx. Het boek gaat terug op het proefschrift dat Knight in 1916 aan Cornell University verdedigde en dat in 1917 in die essaywedstrijd de tweede prijs in zijn klasse won. Nog goed verkrijgbaar zijn de herdrukken van University of Chicago Press en van Dover Publications, Mineola, 2006, 381 blz., ISBN 978-0-486-44775-9; de volledige tekst staat ook vrij toegankelijk bij de Library of Economics and Liberty. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd. Ook Knights latere bundels zijn niet in het Nederlands verschenen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Knight begint bij een raadsel uit de economische theorie van zijn tijd. Onder volkomen mededinging zou winst moeten wegconcurreren tot nul, want elke opbrengst boven de kosten trekt nieuwe aanbieders aan. In de Amerikaanse economie van 1921 was winst juist overal. Zijn verklaring is dat de theorie uitgaat van een wereld waarin iedereen weet wat er komt, en die wereld bestaat niet.</p><p>Om dat precies te maken splitst hij het onbekende in tweeën. Risico is onzekerheid die te meten valt, met een kans die uit de opzet van het geval volgt, zoals bij een dobbelsteen, of uit voldoende gelijksoortige waarnemingen, zoals bij brandschade. Dat soort onzekerheid is te bundelen, te verzekeren en daarmee in de kostprijs te verwerken. Echte onzekerheid is het geval waarvoor geen bruikbare groep gelijke gevallen bestaat: een fabrikant die overweegt een nieuwe fabriek te bouwen, staat voor een situatie die zich niet herhaalt.</p><p>Die tweede soort valt niet weg te verzekeren, en daarom moet iemand haar dragen. Winst is volgens Knight de opbrengst van dat dragen: het restant dat overblijft nadat de ondernemer alle vooraf vastgelegde beloningen heeft betaald, en dus iets anders dan loon, rente of pacht. Uit die gedachte komt de term knightiaanse onzekerheid voort, die in de economie nog steeds wordt gebruikt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>economie</li><li>risico</li><li>onzekerheid</li><li>ondernemerschap</li><li>kansrekening</li><li>klassieker</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1287"><a href="1287.html">Against the Gods</a>. Peter Bernstein vertelt in <i>Against the Gods</i> de geschiedenis van het meten van risico, van de eerste kansrekening tot de moderne portefeuilleleer, met Knights onderscheiding als een van de scharnierpunten.</li>
+          <li value="268"><a href="268.html">The Black Swan</a>. Nassim Taleb werkt in <i>The Black Swan</i> dezelfde grens uit, met nadruk op gebeurtenissen die buiten elke gemeten reeks vallen en toch de uitkomst bepalen.</li>
+          <li value="807"><a href="807.html">Manias, Panics, and Crashes</a>. Kindleberger laat in <i>Manias, Panics, and Crashes</i> zien hoe financiële crises verlopen in gevallen die zich telkens net iets anders voordoen, precies het soort onzekerheid dat zich niet in een kansverdeling laat vangen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

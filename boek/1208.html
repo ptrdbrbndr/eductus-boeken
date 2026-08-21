@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De essays &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Montaigne neemt zichzelf als onderwerp en houdt vol dat dat geen bescheiden keuze is. Wie één mens tot op de bodem beschrijft, met zijn wisselingen, zijn…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1208">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1208 &middot; Levenskunst</p>
+    <h1>De essays</h1>
+    <p class="lede">Michel de Montaigne, 1580, 1588 en 1595 (postuum); vert. Hans van Pinxteren</p>
+    <p class="stats">
+      <span><b>1840</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1208"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Montaigne neemt zichzelf als onderwerp en houdt vol dat dat geen bescheiden keuze is. Wie één mens tot op de bodem beschrijft, met zijn wisselingen, zijn traagheid en zijn kwalen erbij, beschrijft daarmee de menselijke staat, want ieder mens draagt daarvan de hele vorm. Uit die stelling volgt zijn schrijfwijze: geen betoog dat naar een besluit toewerkt, maar een proef waarin het oordeel zich aan een onderwerp meet en zich daarbij laat betrappen. En eruit volgt zijn wantrouwen tegen wie zeker weet. De vraag die hij op een penning liet slaan, wat weet ik eigenlijk, is bij hem geen geleerde pose maar een werkregel voor het dagelijks leven, met gevolgen voor de rechtspraak, de opvoeding, de omgang met vreemde volken en het sterven.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een boek van hetzelfde vlees als de schrijver</h3>
+      <p>Het voorwoord aan de lezer waarschuwt dat er niets te halen valt: Montaigne zegt te schrijven voor familie en vrienden, over huiselijke en geringe zaken, en hij is zelf de stof van zijn boek. Die aankondiging is half beleefdheid en half programma. Wat volgt is geen leerstelsel en geen verhandeling, maar honderdzeven hoofdstukken van zeer ongelijke lengte, waarin het onderwerp van een gewoonte naar een oorlogsvoorval en van daar naar een lichaamskwaal kan springen.</p>
+      <p>De rechtvaardiging staat in het derde boek, in het hoofdstuk over berouw. Ieder mens draagt de hele vorm van de menselijke staat in zich, schrijft Montaigne daar, en wie zichzelf nauwkeurig genoeg beschrijft, met de gaten en de tegenspraken erbij, raakt daarmee aan iets algemeens. Hij noemt zijn boek van hetzelfde vlees als de schrijver: het verandert met hem mee, en hij verandert doordat hij eraan werkt.</p>
+      <h3>Drie boeken, drie lagen</h3>
+      <p>Boek I en II verschenen in 1580 bij Simon Millanges in Bordeaux. Boek I telt zevenenvijftig hoofdstukken, boek II zevenendertig, waaronder het langste van allemaal, de verdediging van Raymond Sebond. In 1588 kwam in Parijs een uitgave met daarin een derde boek van dertien lange hoofdstukken, plus honderden toevoegingen in de oudere tekst. Daarna bleef Montaigne bijschrijven in zijn eigen doorschoten exemplaar, dat in Bordeaux bewaard is en de bron vormt voor moderne edities. De postume uitgave van 1595 werd bezorgd door Marie de Gournay, die hij zijn pleegdochter noemde.</p>
+      <p>Die aangroei is geen bijzaak. Montaigne schrapte vrijwel nooit en zette nieuwe zinnen naast oude die hij intussen was ontgroeid, zodat een hoofdstuk zich over twintig jaar tegenspreekt zonder dat de tegenspraak wordt opgelost. Franse edities merken de drie lagen met A, B en C, en pas met die markering is te volgen hoe zijn oordeel verschoof, weg van de stoïcijnse strengheid van de vroege stukken en naar een groter vertrouwen in het gewone lichamelijke leven.</p>
+      <h3>Wat weet ik eigenlijk</h3>
+      <p>Het tweede boek bevat de verdediging van Raymond Sebond, een vijftiende-eeuwse Catalaanse theoloog wiens werk Montaigne op verzoek van zijn vader had vertaald. Die verdediging draait halverwege om in een aanval op het menselijk kenvermogen als zodanig. Montaigne haalt het arsenaal van de antieke twijfelaars binnen: de zintuigen bedriegen, de rede kan geen maat vinden buiten zichzelf, dieren doen dingen die wij niet kunnen, en de volken spreken elkaar over het hoogste goed en over god volledig tegen.</p>
+      <p>De uitkomst is geen ontkenning maar een opschorting van het oordeel. Wie ziet dat hij geen grond heeft, houdt op met beslissen en blijft bij het gewone leven en het overgeleverde geloof. Of Montaigne dat laatste meende of als dekmantel gebruikte, is onder onderzoekers nooit uitgemaakt. In 1676 kwam het boek op de kerkelijke lijst van verboden werken.</p>
+      <h3>Gewoonte, wet en de kannibalen</h3>
+      <p>Een terugkerende figuur in het boek is de gewoonte. Wat een volk vanzelfsprekend vindt, is elders ondenkbaar, en de kracht waarmee wij aan onze zeden hechten zegt volgens Montaigne meer over gewenning dan over waarheid. Hij past dat toe op het strafrecht: bekentenissen onder foltering leveren wat de folteraar wil horen, en heksenprocessen berusten op getuigenissen die hij niet zwaar genoeg vindt om iemand voor te verbranden.</p>
+      <p>Het bekendste geval is het hoofdstuk over de kannibalen. Montaigne beschrijft de Tupinambá in Brazilië, hun oorlogvoering en het eten van gevangenen, en zet daar het Frankrijk van de godsdienstoorlogen naast, waar levende mensen op de pijnbank werden gelegd en verscheurd. Zijn gegevens komen van een dienaar die jaren in Brazilië had gewoond en van drie Tupinambá die hij in 1562 in Rouen sprak. Het hoofdstuk is minder etnografie dan een spiegel die hij zijn eigen landgenoten voorhoudt, en dat is ook wat latere lezers erin hebben gezien.</p>
+      <h3>Het lichaam, de pijn en het sterven</h3>
+      <p>In de vroege hoofdstukken oefent Montaigne zich in de dood volgens antiek voorschrift: het denken erover zou de schrik wegnemen. Een val van zijn paard, waarbij hij bewusteloos raakte en zichzelf van buitenaf leek te bekijken, brengt hem op iets anders. Het sterven verzorgt zichzelf, schrijft hij, en de natuur leidt de mens er zachter heen dan de filosofie voorspiegelt.</p>
+      <p>Zijn nierstenen leveren de proef op de som. Hij beschrijft de aanvallen zonder verheffing, met de duur van de pijn en de omvang van de steen erbij, en hij beschrijft ook wat hij ondertussen dacht. De ziekte wordt bij hem een leermeester in het aanvaarden van een lichaam dat zijn eigen gang gaat. Hetzelfde geldt voor het hoofdstuk over verzen van Vergilius, waarin hij op zestigjarige leeftijd over seksualiteit schrijft met een openhartigheid die in zijn tijd zeldzaam was.</p>
+      <h3>Over ervaring</h3>
+      <p>Het slothoofdstuk van het derde boek zet de balans op. Kennis uit boeken heeft haar grenzen, en ervaring ook, want geen twee gevallen zijn gelijk en juist daarom stapelen juristen wet op wet en commentaar op commentaar zonder ooit klaar te komen. Montaigne besluit dat de oefening in zelfkennis het enige onderzoek is waarin iemand werkelijk vooruit kan komen.</p>
+      <p>Daaruit volgt zijn maat: leven volgens de eigen aard, eten en slapen wanneer het lichaam dat vraagt, en het gewone bestaan niet inruilen voor een verheven roeping. De laatste bladzijden bevatten zijn spot met wie boven de mens uit wil stijgen en op stelten gaat lopen, want ook op stelten moet men op de eigen benen staan.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">essai</td><td>Een proef of poging: een stuk waarin het oordeel zich aan een onderwerp beproeft, zonder de verplichting tot een sluitend besluit.</td></tr>
+          <tr><td class="term">jugement</td><td>Het oordeelsvermogen, bij Montaigne het instrument dat geoefend moet worden en dat hij hoger aanslaat dan geheugen of geleerdheid.</td></tr>
+          <tr><td class="term">Que sais-je?</td><td>Zijn wapenspreuk, wat weet ik eigenlijk, met opzet als vraag geformuleerd omdat een uitspraak al te veel zou beweren.</td></tr>
+          <tr><td class="term">coutume</td><td>De gewoonte: de macht van het gewende, die volgens hem verklaart waarom mensen hun eigen zeden voor natuur aanzien.</td></tr>
+          <tr><td class="term">forme maistresse</td><td>De grondvorm van een karakter, de blijvende aanleg die onder alle wisselingen van stemming en omstandigheid doorloopt.</td></tr>
+          <tr><td class="term">consubstantieel</td><td>Zijn woord voor de verhouding tussen boek en schrijver: ze zijn van dezelfde zelfstandigheid gemaakt en veranderen met elkaar mee.</td></tr>
+          <tr><td class="term">branloire perenne</td><td>Het gestadige wiegen: zijn beeld voor een wereld waarin alles beweegt, zodat een beschrijving alleen een overgang kan vastleggen.</td></tr>
+          <tr><td class="term">diversion</td><td>Afleiding: het wegleiden van de aandacht als middel tegen verdriet en angst, dat hij zonder gêne aanbeveelt omdat het werkt.</td></tr>
+          <tr><td class="term">oisiveté</td><td>De ledigheid van zijn eerste jaren in de toren, die volgens hem wanordelijke inbeeldingen voortbracht en de aanleiding werd om te gaan schrijven.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op twee soorten materiaal. Het eerste is Montaignes eigen leven: zijn ziekte, zijn geheugen, zijn reis naar Italië, zijn twee ambtstermijnen als burgemeester van Bordeaux tussen 1581 en 1585 en zijn bemiddeling tussen Hendrik van Navarra en de katholieke partij tijdens de godsdienstoorlogen. Dat materiaal is eerstehands en hij behandelt het met een precisie die voor zijn tijd ongebruikelijk was, tot en met de afmetingen van zijn nierstenen.</p>
+      <p>Het tweede is de antieke overlevering, vooral Plutarchus in de Franse vertaling van Jacques Amyot, verder Seneca, Lucretius en de twijfelaars via Sextus Empiricus. Die bronnen levert hij als voorbeeld en niet als bewijs, en hij zegt zelf dat hij namen weglaat en verhalen naar zijn hand zet. Veel van zijn anekdoten zijn tweedehands en een deel ervan is historisch niet houdbaar; wie ze als feiten leest, leest hem verkeerd.</p>
+      <p>Er is één soort bewijs dat het boek ongewild oplevert. Doordat het exemplaar met zijn handschrift bewaard is gebleven, valt de groei van zijn denken te volgen: welke zin uit 1580 stamt, welke uit 1588 en welke uit zijn laatste jaren. Uitspraken over de ontwikkeling van Montaigne zijn daardoor toetsbaar aan de tekst, wat bij weinig auteurs uit die eeuw het geval is.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat het boek zich niet laat vastpinnen. Montaigne spreekt zichzelf op vrijwel elk hoofdpunt ergens tegen, deels doordat hij oude lagen liet staan, en die eigenschap maakt hem bruikbaar voor lezers met tegengestelde bedoelingen. Hij is ingelijfd door katholieke apologeten en door vrijdenkers, door aanhangers van de bestaande orde en door hun bestrijders. Elk van die lezingen kan zich op tekst beroepen, wat betekent dat de tekst als geheel weinig stuurt.</p>
+      <p>Politiek is hem quiëtisme verweten. In een land waar in 1572 duizenden protestanten werden vermoord, komt zijn raad om het oordeel op te schorten en de bestaande wetten te volgen omdat ze de bestaande zijn, neer op berusting bij wat er is. Zijn verdediging is dat verandering in burgeroorlog meestal meer kost dan zij opbrengt, en die verdediging is aanvechtbaar.</p>
+      <p>Ook de scepsis zelf staat ter discussie. De verdediging van Sebond eindigt bij de gedachte dat de mens alleen door genade boven zichzelf uit kan komen. Of dat een oprecht geloofsstandpunt is of een manier om een verregaande twijfel binnen de kerk te kunnen publiceren, is een vraag waarover de vakliteratuur al meer dan een eeuw verdeeld is; het boek geeft geen middel om die vraag te beslissen.</p>
+      <p>Tot slot de vorm. Montaigne citeert honderden verzen en zegswijzen uit de oudheid, vaak zonder bronvermelding en niet zelden in stapels, en de moderne lezer ploegt door hoofdstukken die grotendeels uit andermans zinnen bestaan. De veelgeprezen losheid van het genre is bij hem soms ook gewoon een gebrek aan ordening.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees niet van voren naar achteren. Begin bij het derde boek, dat de langste en best geschreven hoofdstukken bevat, en ga daarna terug naar de vroege stukken.</li>
+        <li>Let bij een uitgave op de vermelding van de tekstlagen A, B en C; zonder die aanduiding valt een tegenspraak binnen één hoofdstuk niet te plaatsen.</li>
+        <li>Neem een anekdote uit de oudheid niet over als feit. Montaigne gebruikt ze als voorbeeld en heeft ze naar eigen zeggen bijgeschaafd.</li>
+        <li>Wie het boek als levensleer gebruikt, doet er goed aan de tegengestelde uitspraak op te zoeken die er vrijwel altijd bij hoort.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>De essays</i>, vertaald en toegelicht door Hans van Pinxteren (Athenaeum-Polak &amp; Van Gennep, Amsterdam, 1480 blz., ISBN 978-90-253-1046-2). Van Pinxteren kreeg de opdracht in 1991, publiceerde vanaf 1993 deel na deel en had de vertaling in 2004 rond; sindsdien verschijnt zij in één band. Er zijn twee andere volledige Nederlandse vertalingen: een zeventiende-eeuwse van J.H. Glazemaker en een van Frank de Graaff (Boom, Amsterdam, 1993). De Franse standaardeditie is die van Pierre Villey en Verdun-Louis Saulnier, die de tekstlagen van 1580, van 1588 en van na 1588 met de letters A, B en C uit elkaar houdt.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Michel de Montaigne trok zich in 1571 terug op zijn landgoed bij Bordeaux en begon te schrijven over wat hem toevallig bezighield: een gewoonte, een oorlogsverhaal, zijn nierstenen, de opvoeding van kinderen, de dood van zijn vriend Étienne de La Boétie. Uit die stukken groeiden in twintig jaar drie boeken met samen honderdzeven hoofdstukken.</p><p>De verantwoording staat in het boek zelf. Montaigne stelt dat ieder mens de hele vorm van de menselijke staat in zich draagt, en dat een nauwkeurige beschrijving van één particuliere man daarom iets algemeens oplevert. Hij bewijst niets en besluit zelden. Zijn hoofdstukken zijn proeven: het oordeel meet zich aan een onderwerp en laat zich intussen zelf zien.</p><p>Het boek gaf een naam aan een genre en is sindsdien in alle richtingen aangehaald, door gelovigen en ongelovigen, door verdedigers van de bestaande orde en door hun bestrijders. Dat het zich zo laat gebruiken is een gevolg van de manier waarop het is geschreven: Montaigne schrapte vrijwel niets en liet oude zinnen staan naast nieuwe die er niet mee kloppen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>essays</li><li>zelfonderzoek</li><li>scepsis</li><li>klassieker</li><li>renaissance</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2"><a href="02.html">Overpeinzingen</a>. Marcus Aurelius schrijft eveneens voor zichzelf en over zichzelf, met dit verschil dat hij een vaste leer als richtsnoer houdt waar Montaigne die juist opgeeft.</li>
+          <li value="292"><a href="292.html">Letters from a Stoic</a>. Seneca is na Plutarchus Montaignes meest geplunderde bron; wie de brieven leest, herkent hele redeneringen terug in de vroege essays.</li>
+          <li value="586"><a href="586.html">Oefeningen van de geest</a>. Pierre Hadot leest de antieke filosofie als een reeks geestelijke oefeningen en levert daarmee het kader waarin Montaignes werkwijze te plaatsen valt.</li>
+          <li value="1200"><a href="1200.html">Het boek der rusteloosheid</a>. Pessoa schrijft eveneens een boek dat uit losse stukken over de eigen persoon bestaat, maar bij hem lost die persoon in het schrijven op.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Vital Question &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Lane stelt dat de vorm van het leven op aarde bepaald wordt door de manier waarop cellen aan energie komen. Alle bekende cellen gebruiken een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1273">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1273 &middot; Natuur en wetenschap</p>
+    <h1>The Vital Question</h1>
+    <p class="lede">Nick Lane, 2015</p>
+    <p class="stats">
+      <span><b>1798</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1273"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Lane stelt dat de vorm van het leven op aarde bepaald wordt door de manier waarop cellen aan energie komen. Alle bekende cellen gebruiken een protonengradiënt over een membraan om ATP te maken, een mechanisme dat zo omslachtig is dat het volgens hem alleen te verklaren valt als het al bij de oorsprong aanwezig was. Uit die aanname leidt hij af waar het leven begon, waarom bacteriën en archaea vier miljard jaar lang eenvoudig bleven, waarom de ingewikkelde cel maar één keer ontstond, en waarom die cel met seks, twee geslachten, een kiembaan en veroudering opgescheept zit. De beperking is telkens dezelfde: het aantal genen dat een cel zich kan veroorloven hangt af van de energie die zij per gen beschikbaar heeft.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het gat in het midden van de biologie</h3>
+      <p>Lane opent met de vaststelling dat het uitlezen van genomen de grote vraag niet heeft beantwoord. Sinds Carl Woese in 1977 de archaea afsplitste, kent de biologie drie domeinen: bacteriën, archaea en eukaryoten. De eerste twee blijven al miljarden jaren klein en eenvoudig gebouwd. De derde groep, waartoe schimmels, planten en dieren behoren, gaat terug op één gebeurtenis waarbij een archaeon een bacterie opnam die het mitochondrion werd.</p>
+      <p>Wat ontbreekt zijn tussenvormen. Er is geen halve eukaryoot, niet nu en niet in het gesteente. Lane noemt dat geen detail maar een gat, en de rest van het boek is een poging het te vullen met natuurkundige beperkingen in plaats van met genen.</p>
+      <h3>Wat elke cel doet</h3>
+      <p>De gedeelde eigenaardigheid is de chemiosmose, in 1961 voorgesteld door Peter Mitchell en jarenlang niet geloofd, tot hij er in 1978 de Nobelprijs voor kreeg. De ademhalingsketen pompt protonen naar buiten; de terugstroom drijft ATP-synthase aan, een eiwit dat als een turbine ronddraait. Over een membraan van een paar nanometer staat een spanning van rond de 150 millivolt, wat neerkomt op een veldsterkte in de orde van dertig miljoen volt per meter.</p>
+      <p>Daarnaast wijst Lane op een scheve verdeling die zelden wordt opgemerkt. De kern van de koolstofstofwisseling is bij bacteriën en archaea gelijk, terwijl de machinerie voor het kopiëren van DNA bij beide groepen verschilt. Dat patroon vraagt om een gemeenschappelijke voorouder die al chemiosmose had maar nog geen behoorlijk eigen membraan.</p>
+      <h3>Waar het begon</h3>
+      <p>De plek die aan die eisen voldoet, is de alkalische hydrothermale bron, in de jaren negentig voorgesteld door Michael Russell en in 2000 in de Atlantische Oceaan gevonden als het Lost City-veld. Zeewater dringt in mantelgesteente, reageert met olivijn en komt er als warme, waterstofrijke en sterk alkalische vloeistof weer uit. In het poreuze carbonaat van de schoorsteen ontmoet die vloeistof het zure, koolstofdioxiderijke oceaanwater van de vroege aarde.</p>
+      <p>Daarmee ligt er vanzelf een protonengradiënt over dunne wandjes van ijzer- en zwavelmineralen, en die mineralen lijken op de ijzer-zwavelclusters waarmee cellen nog altijd waterstof aan koolstofdioxide koppelen. Koolstof, energie, katalysator en gradiënt zitten in dit verhaal op dezelfde plaats, wat volgens Lane geen enkel ander voorstel biedt.</p>
+      <h3>Van bron naar vrijlevende cel</h3>
+      <p>De prijs van dat begin is gebondenheid. Een cel die de bron verlaat, moet haar eigen gradiënt maken en dus zelf pompen, en pompen loont alleen over een membraan dat niet lekt. Lane werkt een route uit waarin een antiporter die natrium tegen protonen uitwisselt de tussenstap vormt: die maakt een lekkend membraan bruikbaar en maakt vervolgens een dichter membraan lonend.</p>
+      <p>Zo verklaart hij ook de lipidenscheiding, het gegeven dat archaea en bacteriën membranen van chemisch verschillende bouw hebben. Beide groepen sloten hun membraan onafhankelijk van elkaar af, nadat ze zich al van hun gemeenschappelijke voorouder hadden losgemaakt. Dat verklaart in één keer waarom de stofwisseling gedeeld is en het membraan en het kopieerapparaat niet.</p>
+      <h3>Waarom bacteriën eenvoudig bleven</h3>
+      <p>Een bacterie pompt over haar buitenste membraan. Haar energieaanbod schaalt daarmee met oppervlak, terwijl de kosten van een genoom met inhoud meegroeien. Een eukaryote cel heeft inwendige membranen met honderden of duizenden mitochondriën, elk met een klein eigen genoom dat zijn eigen ademhalingsketen ter plaatse bijstuurt, een taakverdeling die John Allen als voorwaarde beschreef.</p>
+      <p>In een artikel dat Lane in 2010 met William Martin schreef, komt daar een getal bij: per gen beschikt een eukaryote cel over in de orde van honderdduizenden malen meer energie dan een bacterie. Daaruit volgt volgens hem waarom een eukaryoot tienduizenden genen kan dragen en een bacterie er een paar duizend heeft, en waarom er geen geleidelijke weg van het een naar het ander loopt.</p>
+      <h3>Seks, twee geslachten en de kiembaan</h3>
+      <p>Ademhaling berust op eiwitten die door twee genomen tegelijk worden gecodeerd, het celkerngenoom en het mitochondriale. Passen die niet op elkaar, dan hapert de keten. Uit die eis leidt Lane een reeks kenmerken af die anders los van elkaar staan: de overerving van mitochondriën via één ouder, waaruit eerst twee paringstypen en later twee geslachten met een grote en een kleine geslachtscel volgen, en een kiembaan die vroeg wordt afgezonderd zodat mitochondriën er rustig liggen en op kwaliteit geselecteerd kunnen worden.</p>
+      <p>Ook het ontstaan van soortgrenzen krijgt hier een plaats. Zodra de combinatie van kerngenen en mitochondriale genen bij kruising niet meer werkt, is er een barrière, ook zonder dat er aan de rest van het genoom iets verandert.</p>
+      <h3>Veroudering, ziekte en de voorspellingen</h3>
+      <p>Het laatste hoofdstuk gaat over de keerzijde. Een ademhalingsketen lekt reactieve zuurstofdeeltjes, en Lane leest die lekstroom als een signaal over de toestand van de keten in plaats van als louter schade. Stokt de keten, dan komt cytochroom c vrij en gaat de cel in geprogrammeerde dood. Dat verklaart volgens hem waarom antioxidanten als aanvulling niets opleveren en waarom ouderdomsziekten in groepen tegelijk opkomen.</p>
+      <p>Hij eindigt met voorspellingen die te toetsen zijn: een verband tussen de nauwkeurigheid van de mitochondriale koppeling en de levensduur, de lange levens van vogels en vleermuizen ondanks hun hoge stofwisseling, en wat dit alles zou betekenen voor leven elders.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">chemiosmose</td><td>Het maken van ATP door protonen over een membraan te pompen en ze via een eiwitturbine te laten terugstromen.</td></tr>
+          <tr><td class="term">protonmotorische kracht</td><td>De combinatie van ladingsverschil en zuurgraadverschil over een membraan die de terugstroom van protonen aandrijft.</td></tr>
+          <tr><td class="term">ATP-synthase</td><td>Het draaiende eiwit dat de terugstromende protonen omzet in de energiedrager ATP.</td></tr>
+          <tr><td class="term">LUCA</td><td>De laatste gemeenschappelijke voorouder van al het bekende leven, in Lanes reconstructie nog gebonden aan het gesteente van een bron.</td></tr>
+          <tr><td class="term">serpentinisatie</td><td>De reactie van zeewater met olivijnrijk mantelgesteente, waarbij waterstof en een alkalische vloeistof vrijkomen.</td></tr>
+          <tr><td class="term">alkalische hydrothermale bron</td><td>Een poreuze carbonaatschoorsteen op de oceaanbodem waar warm alkalisch water het zure oceaanwater ontmoet.</td></tr>
+          <tr><td class="term">endosymbiose</td><td>Het proces waarbij een cel een andere opneemt en die als onderdeel van zichzelf laat voortbestaan.</td></tr>
+          <tr><td class="term">energie per gen</td><td>Lanes maat voor de hoeveelheid energie die een cel per gen tot haar beschikking heeft.</td></tr>
+          <tr><td class="term">mitonucleaire coevolutie</td><td>De eis dat eiwitten uit het kerngenoom en uit het mitochondriale genoom op elkaar blijven passen.</td></tr>
+          <tr><td class="term">lipidenscheiding</td><td>Het gegeven dat bacteriën en archaea membranen bezitten die chemisch verschillend zijn opgebouwd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing valt in twee stukken uiteen. Het eerste is standaardbiochemie. Dat cellen ATP maken met een protonengradiënt is sinds de jaren zestig gemeten en gold in 1978 al een Nobelprijs waard; dat het bij alle bekende cellen zo gaat, is niet omstreden. Ook het bestaan van alkalische bronnen staat vast: het Lost City-veld werd in 2000 gevonden, met matig warme vloeistof, een zuurgraad boven negen en schoorstenen die tienduizenden jaren meegaan.</p>
+      <p>Het tweede stuk is redenering. Dat zo'n bron ook werkelijk tot een cel leidt, is in het laboratorium hoogstens in losse stappen nagedaan. Lane beschrijft de reactor die zijn groep bouwde om de gradiënten na te bootsen; de opbrengst bestaat uit kleine organische moleculen, geen zelfstandig verdubbelend systeem. De sprong van waterstof en koolstofdioxide naar erfelijkheid blijft in het boek een verwachting.</p>
+      <p>De cijfermatige kern komt uit het artikel dat Lane in 2010 met William Martin in <i>Nature</i> publiceerde. Dat is een berekening op grond van gemeten stofwisselingssnelheden, celvolumes en genoomgroottes, geen proef. Wat de uitkomst waard is, hangt af van de keuze om het energieverbruik van een cel te delen door haar aantal genen, en juist die keuze is aangevochten.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar richt zich op die berekening. Michael Lynch en Georgi Marinov lieten in <i>PNAS</i> in 2015 zien dat de kosten van een gen, gerekend over DNA, RNA en eiwit, zowel bij bacteriën als bij eukaryoten dalen naarmate de cel groter wordt, en dat er dus geen energiedrempel is die een bacterie ervan weerhoudt haar genoom uit te breiden. Lane en Martin antwoordden in 2016 in hetzelfde tijdschrift, waarop Lynch en Marinov hun maat een grootheid zonder ecologische betekenis noemden, omdat zij niets zegt over wat een cel aan nakomelingen besteedt en generatietijden buiten beschouwing laat. Die uitwisseling is niet beslecht en raakt de hoeksteen van het boek.</p>
+      <p>Over de oorsprong staat een even harde tegenstem. David Deamer en Bruce Damer voeren aan dat zout zeewater de vorming van vetmembranen tegenwerkt, dat er onder water geen afwisseling van nat en droog is om moleculen aaneen te rijgen, en dat de zuurgraadsprong bij een bron over een minerale wand van micrometers ligt, duizend maal dikker dan een celmembraan, zodat er van een bruikbare gradiënt weinig overblijft. Zij plaatsen de oorsprong in vulkanische zoetwaterbronnen aan land die opdrogen en weer vollopen. Lane bespreekt hun bezwaren, maar het vakgebied is verdeeld gebleven.</p>
+      <p>Ook de aanname dat de ingewikkelde cel in één sprong ontstond, zonder tussenvormen, is sinds het verschijnen minder vanzelfsprekend. In 2015 werden de Asgard-archaea beschreven, archaea met genen die tot dan toe als typisch eukaryoot golden, en in 2020 werd er een van in kweek gebracht. Dat wijst op een gastheer die al enige structuur had voordat het mitochondrion binnenkwam, wat de scherpte van Lanes eenmaligheidsargument afzwakt.</p>
+      <p>Ten slotte is de reikwijdte een risico op zichzelf. Eén oorzaak moet hier de oorsprong van het leven verklaren, het uitblijven van bacteriële complexiteit, het ontstaan van de kern, seks, twee geslachten, de kiembaan, veroudering en de patronen van ouderdomsziekte. Naarmate die keten langer wordt, rust elke schakel op de vorige in plaats van op eigen waarneming. De hoofdstukken over seks en veroudering zijn daarom van een andere orde dan het hoofdstuk over chemiosmose.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Onderscheid bij dit boek de gemeten laag van de afgeleide laag; de grens ligt ergens tussen het vierde en het vijfde hoofdstuk.</li>
+        <li>Zoek bij een aangevochten getal het weerwoord erbij; de briefwisseling tussen Lane, Martin, Lynch en Marinov is in <i>PNAS</i> na te lezen.</li>
+        <li>Lees het tweede hoofdstuk ook als naslag: het is een bondige uitleg van chemiosmose die in de meeste leerboeken meer bladzijden kost.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Vital Question: Why Is Life the Way It Is?</i> (Profile Books, Londen, 2015); in de Verenigde Staten verschenen als <i>The Vital Question: Energy, Evolution, and the Origins of Complex Life</i> (W.W. Norton, New York, 2015, ISBN 978-0-393-08881-6). Nederlandse vertaling: <i>De belangrijkste vraag van het leven: waarom is het leven zoals het is?</i>, vertaald door Mario Molegraaf (Prometheus, Amsterdam, 2018, 420 blz., ISBN 978-90-446-3658-1).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Nick Lane, biochemicus aan University College London, vraagt waarom het leven vier miljard jaar lang bacterieel bleef en waarom de ingewikkelde cel, met kern en mitochondriën, kennelijk maar één keer is ontstaan. Zijn antwoord is energie. Alle cellen, van bacterie tot mens, halen hun energie op dezelfde omslachtige manier binnen: ze pompen protonen over een membraan en laten die terugstromen door een draaiend eiwit dat er ATP van maakt. Lane leest die gedeelde eigenaardigheid als een spoor terug naar de oorsprong, bij alkalische bronnen op de oceaanbodem waar zulke gradiënten vanzelf bestaan.</p><p>Uit dezelfde gedachte volgt de rest van het boek. Een bacterie pompt over haar buitenwand en loopt daardoor tegen een grens aan zodra haar genoom groeit. Een cel die een andere cel heeft ingelijfd, krijgt inwendige membranen met eigen kleine genomen erbij, en daarmee ruimte voor duizenden extra genen. Uit de samenwerking tussen die twee genomen leidt Lane vervolgens de twee geslachten af, de kiembaan, de veroudering en een deel van de ouderdomsziekten.</p><p>Het is één verklaring die ver wordt doorgetrokken, met scheikunde die vaststaat en gevolgtrekkingen die dat niet allemaal doen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>biologie</li><li>evolutie</li><li>energie</li><li>celbiologie</li><li>oorsprong van het leven</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="818"><a href="818.html">What Is Life? The Physical Aspect of the Living Cell</a>. Schrödinger stelde in 1944 de vraag hoe een levend systeem zich tegen verval in stand houdt; Lane beantwoordt haar met de energiehuishouding van het membraan.</li>
+          <li value="1275"><a href="1275.html">Toeval en onvermijdelijkheid</a>. Monod legt de vorm van het leven volledig in de erfelijke tekst; Lane zet er een natuurkundige beperking naast die de uitkomst mede bepaalt.</li>
+          <li value="949"><a href="949.html">What Mad Pursuit</a>. Crick beschrijft van binnenuit hoe het moleculaire beeld ontstond waarop Lane voortbouwt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Nag Hammadi Library in English &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De uitgave berust op de gedachte dat het vroege christendom pas te begrijpen valt als de verliezers zelf aan het woord komen en niet alleen worden…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1223">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1223 &middot; Filosofie en mystiek</p>
+    <h1>The Nag Hammadi Library in English</h1>
+    <p class="lede">James M. Robinson (algemeen redacteur), 1977; derde, geheel herziene druk 1988</p>
+    <p class="stats">
+      <span><b>1711</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1223"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De uitgave berust op de gedachte dat het vroege christendom pas te begrijpen valt als de verliezers zelf aan het woord komen en niet alleen worden geciteerd door de kerkvaders die hen bestreden. Wat in 1945 uit de grond kwam is de eerste omvangrijke verzameling geschriften waarin stromingen die later ketters heetten hun eigen godsbeeld, scheppingsverhaal en verlossingsleer uiteenzetten. Robinson stelt bovendien dat de vondst geen willekeurige stapel is maar een samenhangende verzameling, die volgens hem uit een klooster in de buurt afkomstig kan zijn en werd begraven toen niet-canonieke boeken in de ban werden gedaan.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat er gevonden werd</h3>
+      <p>De vondst bestaat uit dertien codices, boeken dus, niet uit rollen. Het schrift is Koptisch, de laatste vorm van het Egyptisch, geschreven met Griekse letters en een paar tekens uit het demotisch. De bladen zijn in de vierde eeuw gekopieerd; de onderliggende werken zijn grotendeels vertalingen uit het Grieks en dateren uit de tweede en derde eeuw, sommige mogelijk vroeger.</p>
+      <p>In de leren banden was afvalpapyrus verwerkt om de kaften stevigheid te geven. Dat materiaal bevat dateerbare stukken uit het midden van de vierde eeuw en is daarmee het harde aanknopingspunt voor de ouderdom van de boeken zelf.</p>
+      <h3>Dertig jaar tot de uitgave</h3>
+      <p>Tussen de vondst en deze band ligt een geschiedenis van verdeling, verkoop en wetenschappelijke twist. Delen van de vondst raakten verspreid, een codex belandde in 1952 in Zurich en werd naar Carl Gustav Jung de Jung-codex genoemd. Toegang tot de teksten bleef jarenlang voorbehouden aan een kleine kring, wat andere onderzoekers hoog opnamen.</p>
+      <p>De doorbraak kwam met de fotografische uitgave onder auspicien van de Unesco, die in 1977 werd voltooid en de teksten voor iedereen beschikbaar maakte. Robinson leidde het Coptic Gnostic Library Project in Claremont, dat de vertalingen verzorgde. De eendelige Engelse uitgave verscheen eind 1977 en stelde in een keer de hele vondst beschikbaar, ook aan lezers zonder Koptisch.</p>
+      <h3>Wat er in de band staat</h3>
+      <p>De teksten zijn per codex geordend, in de volgorde waarin ze in de boeken staan, en niet naar onderwerp. Zo blijft zichtbaar wat de samenstellers van de codices bij elkaar hebben gezet. Het Geheime Boek van Johannes komt in drie exemplaren voor, wat iets zegt over het belang dat eraan werd gehecht.</p>
+      <p>De bekendste stukken zijn het Evangelie van Thomas, een verzameling van honderdveertien uitspraken zonder verhaallijn, het Evangelie van Filippus, het Evangelie van de Waarheid, de Hypostase van de Archonten, Over de oorsprong van de wereld, en de Donder, het volmaakte verstand, waarin een vrouwelijke stem in louter tegenstellingen over zichzelf spreekt. Daarnaast staan er teksten uit de Sethiaanse en platoniserende hoek zoals Zostrianos, Allogenes en de Drie Stelen van Seth.</p>
+      <p>Niet alles is gnostisch. In codex zes staan drie hermetische teksten, waaronder het Dankgebed en een deel van de Asclepius, en een gedeelte uit de <i>Politeia</i> van Plato dat de kopiist blijkbaar niet goed begreep. Ook de Spreuken van Sextus, een christelijke spreukenverzameling, is zonder bezwaar rechtzinnig te lezen. De derde druk voegde uit de Berlijnse codex het Evangelie van Maria en de Handeling van Petrus toe, teksten die geen deel van de vondst zijn maar er inhoudelijk bij horen.</p>
+      <h3>Het apparaat</h3>
+      <p>Voor elke tekst staat een korte inleiding van de vertaler over datering, herkomst, stroming en de staat van het handschrift. In de vertaling geven vierkante haken aan waar het papyrus is weggevallen en wat de vertaler daar aanvult, en punten waar niets meer te reconstrueren viel. Sommige teksten zijn zo beschadigd dat er meer haken dan woorden staan.</p>
+      <p>Dat apparaat is de reden dat de band ook voor niet-vakmensen bruikbaar blijft. Het maakt op elke bladzijde zichtbaar hoeveel van de tekst gissing is, iets wat in populaire bloemlezingen van dezelfde geschriften vaak wegvalt.</p>
+      <h3>Het verhaal van de vondst en de herkomstvraag</h3>
+      <p>Robinsons inleiding vertelt hoe boeren onder leiding van Muhammad Ali al-Samman bij het graven naar meststof op een kruik stuitten, hoe een deel van de bladen verloren ging, en hoe de vondst in de handel terechtkwam. Dat verhaal is opgebouwd uit gesprekken die tientallen jaren na dato zijn gevoerd.</p>
+      <p>Voor de herkomst oppert Robinson dat de boeken van een Pachomiaans klooster in de buurt kwamen en werden begraven nadat bisschop Athanasius in zijn paasbrief van 367 het gebruik van niet-canonieke boeken had veroordeeld. Hij voegt eraan toe dat er in de Pachomiaanse kloosterwereld genoeg speelruimte kan zijn geweest voor uiteenlopende opvattingen om zulk bezit te verklaren.</p>
+      <h3>Wat de teksten leren</h3>
+      <p>In een deel van de teksten keert hetzelfde patroon terug: boven alles staat een onkenbare God, ver van de stoffelijke wereld. Die wereld is gemaakt door een lagere maker, vaak Jaldabaoth genoemd, die niet weet dat er iets boven hem is en zichzelf voor de enige God houdt. In de mens zit een vonk uit de hoogste wereld, en verlossing bestaat in het kennen van die herkomst. Het scheppingsverhaal uit Genesis wordt daarbij herhaaldelijk tegen de haren in gelezen, met de slang als brenger van kennis.</p>
+      <p>Dat patroon geldt echter niet overal. Valentiniaanse teksten werken met een uitgebreid stelsel van uitstromingen binnen de volheid, Sethiaanse teksten met het nageslacht van Seth en met opstijgingsvisioenen, het Evangelie van Thomas met korte uitspraken zonder enige kosmologie. De uitgave laat die verschillen staan in plaats van ze glad te strijken.</p>
+      <p>Het nawoord van Richard Smith in de derde druk volgt de sporen van gnostische denkbeelden in de latere Europese cultuur, van vroegmoderne lezers tot de negentiende en twintigste eeuw. Het maakt zichtbaar dat de belangstelling voor deze teksten er al was voordat de teksten er waren.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Codex</td><td>Een boek van gevouwen en genaaide katernen, in tegenstelling tot de rol; alle dertien Nag Hammadi-handschriften hebben deze vorm.</td></tr>
+          <tr><td class="term">Koptisch</td><td>De laatste fase van het Egyptisch, geschreven met het Griekse alfabet aangevuld met enkele demotische tekens, waarin deze vertalingen zijn overgeleverd.</td></tr>
+          <tr><td class="term">Gnosis</td><td>Kennis van de eigen goddelijke herkomst, in deze teksten de weg waarlangs de mens uit de stoffelijke wereld wordt verlost.</td></tr>
+          <tr><td class="term">Demiurg</td><td>De lagere maker van de zichtbare wereld, in veel van deze teksten Jaldabaoth geheten, onwetend van wat boven hem is.</td></tr>
+          <tr><td class="term">Pleroma</td><td>De volheid, het geheel van goddelijke wezens boven de zichtbare wereld waaruit de vonk in de mens afkomstig is.</td></tr>
+          <tr><td class="term">Sethiaans</td><td>Aanduiding voor een groep teksten die het geslacht van Seth als drager van het goddelijke zaad opvoert en sterk platoniserend is.</td></tr>
+          <tr><td class="term">Valentiniaans</td><td>Aanduiding voor teksten in de lijn van de tweede-eeuwse leraar Valentinus, met een uitgewerkte leer over de val en het herstel van Sophia.</td></tr>
+          <tr><td class="term">Hermetica</td><td>Griekse geschriften op naam van Hermes Trismegistus; drie ervan staan in codex zes en zijn niet christelijk.</td></tr>
+          <tr><td class="term">Kartonnage</td><td>Het afvalpapyrus dat in de leren banden werd verwerkt en dat door zijn dateerbare inhoud de ouderdom van de boeken vastlegt.</td></tr>
+          <tr><td class="term">Apocryphon</td><td>Geheim boek; in deze verzameling de aanduiding voor onderricht dat volgens de tekst na de opstanding in besloten kring werd gegeven.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De uitgave levert bronnen, geen betoog. De vertalingen berusten op de kritische Koptische edities uit de reeks Nag Hammadi Studies, gemaakt door dezelfde onderzoekers. Voor wie de argumentatie wil nagaan is de weg terug naar het handschrift dus open, en de fotografische uitgave maakt dat sinds 1977 voor iedereen mogelijk.</p>
+      <p>De datering rust op twee soorten bewijs. De boeken zelf zijn te dateren via de kartonnage in de banden, die uit het midden van de vierde eeuw stamt. De onderliggende werken zijn ouder en worden gedateerd op grond van taalkenmerken en op grond van citaten bij tegenstanders: Irenaeus vat omstreeks 180 in zijn <i>Adversus Haereses</i> een leer samen die opvallend overeenkomt met het Geheime Boek van Johannes, wat aantoont dat die tekst in de tweede eeuw in omloop was.</p>
+      <p>Zwakker onderbouwd zijn het verhaal van de vondst en de bewering over de herkomst. Beide berusten op mondelinge overlevering en op gevolgtrekking, niet op documenten uit die tijd. Robinson presenteert de kloosterhypothese ook als voorstel, maar de inleiding leest voor veel lezers als vaststelling.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar geldt de indeling die de titel zelf oplegt. Michael Williams betoogde in <i>Rethinking Gnosticism</i> (1996) en Karen King in <i>What Is Gnosticism?</i> (2003) dat de categorie gnostiek grotendeels een constructie is van de kerkvaders die deze stromingen bestreden, later overgenomen door onderzoekers. De teksten in deze band verschillen onderling zo sterk in godsbeeld, houding tegenover het lichaam en literaire vorm dat een enkel etiket meer verhult dan verheldert. De inleidingen uit 1977 en 1988 gaan nog van die categorie uit.</p>
+      <p>Ook het woord library is een aanname. Dat dertien codices bij elkaar in de grond lagen maakt er nog geen bibliotheek van met een eigenaar en een bedoeling. Nicola Denzey Lewis en Justine Blount hebben betoogd dat de boeken eerder grafgiften of afval uit een stad waren dan kloosterbezit; Hugo Lundhaug en Lance Jenott hebben de kloosterherkomst juist op nieuwe gronden verdedigd. Het punt is dat de vraag open ligt, terwijl dit boek een antwoord geeft.</p>
+      <p>Het verhaal van de ontdekking, met de bloedwraak en het verbranden van bladen, is door Brent Nongbri en anderen nagelopen en blijkt in de details niet houdbaar. Het is opgebouwd uit gesprekken van decennia later, met tolken en met belanghebbenden. Wie het als vaststaand overneemt, geeft een anekdote het gewicht van een bron.</p>
+      <p>Praktisch bezwaar: de vertalingen zijn inmiddels op onderdelen achterhaald. <i>The Nag Hammadi Scriptures</i> onder redactie van Marvin Meyer (2007) en de Duitse reeks Nag Hammadi Deutsch geven op veel plaatsen een betere lezing en uitvoeriger toelichting. De inleidingen per tekst in deze band zijn kort en soms stellig over kwesties die daarna zijn heropend.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de algemene inleiding en daarna een enkele tekst helemaal, in plaats van door de band te bladeren.</li>
+        <li>Gebruik de derde druk van 1988; de eerste mist de herziene lezingen en de teksten uit de Berlijnse codex.</li>
+        <li>Leg een citaat naast de vertaling van Meyer (2007) of naast de Nederlandse uitgave van Slavenburg en Glaudemans voordat je het aanhaalt.</li>
+        <li>Let op de haken: een zin die grotendeels is aangevuld, draagt geen argument.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Nag Hammadi Library in English</i>, vertaald en ingeleid door leden van het Coptic Gnostic Library Project van het Institute for Antiquity and Christianity te Claremont (E.J. Brill, Leiden, en Harper &amp; Row, New York, 1977, 493 blz.). De derde, geheel herziene druk verscheen in 1988 bij HarperSanFrancisco, met een nawoord van Richard Smith (549 blz., ISBN 9780060669355). Van hetzelfde tekstcorpus bestaat een Nederlandse uitgave: <i>De Nag Hammadi-geschriften</i>, bezorgd door Jacob Slavenburg en Willem Glaudemans, in twee delen bij Ankh-Hermes (Deventer, 1994-1995) en sinds 2004 in een band van ruim twaalfhonderd bladzijden (ISBN 9789020219647).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>In december 1945 werden bij Nag Hammadi in Boven-Egypte dertien in leer gebonden papyruscodices gevonden, in het Koptisch geschreven en in de vierde eeuw gekopieerd. De meeste teksten erin zijn vertalingen van Griekse werken uit de tweede en derde eeuw. Het duurde tot december 1977 voordat de hele vondst in een leesbare vertaling beschikbaar kwam, in dit boek.</p><p>De band bevat tweeenvijftig teksten, waarvan er ongeveer vijfenveertig van elkaar verschillen. Bekend zijn het Evangelie van Thomas met zijn honderdveertien uitspraken, het Evangelie van Filippus, het Geheime Boek van Johannes en de Donder, het volmaakte verstand. Daarnaast staat er materiaal in dat met gnosis weinig te maken heeft: een stuk uit Plato's <i>Politeia</i>, drie hermetische teksten en de Spreuken van Sextus. De derde druk voegde twee teksten uit de Berlijnse codex toe, waaronder het Evangelie van Maria.</p><p>Robinson schreef een algemene inleiding en elke tekst kreeg een korte eigen inleiding. Haakjes en punten in de vertaling laten zien hoeveel van het papyrus is weggevallen. Het boek maakte in een keer toegankelijk wat tot dan toe in vaktijdschriften en fotoedities verspreid lag.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>gnostiek</li><li>vroeg christendom</li><li>bronnenuitgave</li><li>godsdienstwetenschap</li><li>egypte</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="940"><a href="940.html">The Gnostic Religion</a>. Hans Jonas' studie die de gnosis als geestesgesteldheid beschreef, geschreven voordat deze teksten beschikbaar waren.</li>
+          <li value="614"><a href="614.html">The Gospel of Mary Magdalene</a>. Een aparte uitgave van het Evangelie van Maria, dat pas in de derde druk van deze band werd opgenomen.</li>
+          <li value="641"><a href="641.html">The Greek Magical Papyri in Translation</a>. Een vergelijkbare bronnenuitgave van laatantiek Egyptisch materiaal, met dezelfde vragen over herkomst en samenhang.</li>
+          <li value="666"><a href="666.html">TechGnosis</a>. Over de manier waarop gnostische denkbeelden in de twintigste eeuw opnieuw werden opgepakt, het onderwerp van het nawoord in de derde druk.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

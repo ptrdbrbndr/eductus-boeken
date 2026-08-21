@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lachen &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Bergson behandelt het lachen als een handeling van de samenleving, met een taak erin. Overal waar wij lachen, zegt hij, ligt iets mechanisch over iets…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1296">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1296 &middot; Filosofie en mystiek</p>
+    <h1>Lachen</h1>
+    <p class="lede">Henri Bergson, 1900; vert. Eric de Marez Oyens</p>
+    <p class="stats">
+      <span><b>1414</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1296"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Bergson behandelt het lachen als een handeling van de samenleving, met een taak erin. Overal waar wij lachen, zegt hij, ligt iets mechanisch over iets levends: een lichaam, een geest of een karakter dat star doorgaat waar de omstandigheden aanpassing vragen. De groep beantwoordt die starheid met spot, en die spot vernedert de bespotte en houdt de anderen wakker. Het komische valt zo onder de sociale verschijnselen, en de vraag wat het lachen betekent wordt de vraag welk nut het heeft voor het samenleven.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Drie vaststellingen vooraf</h3>
+      <p>Bergson begint zonder definitie. Hij noteert drie feiten over het gebied waarin het komische zich ophoudt. Ten eerste bestaat het komische alleen bij de mens: een landschap kan mooi of lelijk zijn, lachwekkend is het nooit, en om een dier of een hoed lachen wij omdat wij er iets menselijks in herkennen.</p>
+      <p>Ten tweede gaat lachen samen met een gebrek aan gevoel. Wie zich laat meenemen door medelijden of genegenheid, lacht niet; het komische vraagt een kortstondige verdoving van het hart en richt zich tot het verstand. Ten derde heeft het lachen een echo nodig. Het is altijd het lachen van een groep, met een stilzwijgende verstandhouding tussen de lachers; wie buiten de kring staat lacht niet mee.</p>
+      <h3>Het mechanische over het levende</h3>
+      <p>De man die over een steen struikelt is komisch omdat zijn spieren dezelfde beweging bleven maken toen de omstandigheden iets anders vroegen. Hetzelfde geldt voor het slachtoffer van een poets, met dit verschil dat daar iemand de steen heeft neergelegd. In beide gevallen ziet de toeschouwer starheid op de plek waar hij levende soepelheid verwachtte.</p>
+      <p>Dieper komt het komische wanneer die starheid uit de persoon zelf voortkomt. De verstrooide handelt naar een toestand die al voorbij is. Bergson noemt La Bruyère, die in zijn figuur Menalque merkte dat hij een recept in handen had en het overdreef, en Don Quichot als het volledigste geval. Uit dezelfde bron komt volgens hem het lachwekkende van kleding en mode: een vorm die zich over het levende lichaam legt en de bewegingen ervan nabootst.</p>
+      <h3>Lachen als sociaal gebaar</h3>
+      <p>De samenleving vraagt van haar leden voortdurende onderlinge aanpassing en wantrouwt elke stroefheid van lichaam, geest of karakter, omdat die op afzondering wijst. Met dwang kan zij daar niet tegen optreden; zij antwoordt met een gebaar, en dat gebaar is het lachen. Bergson noemt het openlijk een straf, bedoeld om te vernederen, die haar doel zou missen als zij vriendelijk klonk.</p>
+      <p>Rechtvaardig is die straf niet. Het lachen gaat vanzelf af, treft soms onschuldigen en spaart schuldigen, en bereikt hooguit gemiddeld iets nuttigs.</p>
+      <h3>Situaties: het duiveltje, de marionet, de sneeuwbal</h3>
+      <p>Het tweede opstel zoekt in het blijspel de beelden waaruit de komische verbeelding werkt. Het duiveltje in het doosje staat voor de kracht die omhoogspringt zodra zij is weggedrukt, zoals in de woordherhalingen bij Molière waarin een onderdrukte gedachte steeds terugkeert. De marionet aan draden staat voor de figuur die zich vrij waant terwijl een ander hem beweegt. De sneeuwbal staat voor het gevolg dat aangroeit: in <i>Un chapeau de paille d'Italie</i> van Labiche jaagt een opgegeten strohoed het hele stuk voort.</p>
+      <p>Daaruit haalt hij drie procedés van de komedie: herhaling van een scène, omkering van de rollen, en het kruisen van twee onafhankelijke reeksen gebeurtenissen die tegelijk in twee betekenissen te lezen zijn.</p>
+      <h3>Woorden</h3>
+      <p>Bij het komische van de taal staat de overzetting voorop: iets wat in een bepaalde toon hoort uitspreken in een andere. Van plechtig naar alledaags levert parodie op, de omgekeerde weg grootspraak. Ironie is bij hem het uitspreken van wat behoort te zijn alsof het zo is; humor noemt hij de tegenhanger, het koel beschrijven van wat er is alsof het zo hoort.</p>
+      <p>Ook het vakjargon hoort hier: rechter, arts en soldaat die de taal van hun vak op het gewone leven toepassen. Bergson leest dat als beroepsstarheid, verwant aan de gevoelloosheid van de rechter Perrin Dandin, die het toekijken bij een foltering een aardig tijdverdrijf noemt.</p>
+      <h3>Het karakter</h3>
+      <p>Het derde opstel gaat over de komische figuur zelf. Die is komisch voor zover hij een kant van zichzelf niet ziet: de leraar wijsbegeerte van meneer Jourdain die in woede uitbarst na een betoog tegen de woede. Onoplettendheid tegenover zichzelf komt bij Bergson neer op ongezelligheid, en de wortel van de komische ondeugden is de ijdelheid.</p>
+      <p>Daarom richt de komedie zich op algemene typen terwijl de tragedie individuen tekent; Bergson wijst erop dat blijspelen naar hun hoofdfiguur heten, zoals <i>De vrek</i> en <i>De misantroop</i>, en treurspelen naar een eigennaam. De komedie staat volgens hem op de grens van kunst en leven. Het boek eindigt met het beeld van schuim op de golven: het kind dat er een handvol van opraapt houdt een paar druppels over, bitterder dan zeewater.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Starheid</td><td>De mechanische stroefheid van lichaam, geest of karakter op een plek waar de omstandigheden aanpassing vragen; voor Bergson de bron van al het komische.</td></tr>
+          <tr><td class="term">Het mechanische over het levende</td><td>Bergsons formule voor de komische indruk: iets levends gedraagt zich als een apparaat.</td></tr>
+          <tr><td class="term">Verdoving van het hart</td><td>De korte ongevoeligheid die het lachen mogelijk maakt, omdat medelijden en genegenheid het in de weg staan.</td></tr>
+          <tr><td class="term">Echo</td><td>Het lachen klinkt door van de een naar de ander en veronderstelt een groep met gedeelde gewoonten en taal.</td></tr>
+          <tr><td class="term">Sociaal gebaar</td><td>Het lachen als antwoord van de samenleving op afwijking, dat door vernedering soepelheid afdwingt.</td></tr>
+          <tr><td class="term">Verstrooidheid</td><td>Het handelen naar een toestand die al voorbij is, voor Bergson de zuiverste vorm van komische starheid.</td></tr>
+          <tr><td class="term">Duiveltje in het doosje</td><td>Beeld voor de komische kracht die terugkeert zodra zij is weggedrukt, zoals bij herhaalde woorden op het toneel.</td></tr>
+          <tr><td class="term">Sneeuwbal</td><td>Beeld voor het gevolg dat bij elke stap aangroeit en soms bij zijn beginpunt terugkomt.</td></tr>
+          <tr><td class="term">Kruising van reeksen</td><td>Een scène die tegelijk in twee onafhankelijke reeksen gebeurtenissen past en daardoor twee betekenissen draagt.</td></tr>
+          <tr><td class="term">Overzetting</td><td>Het uitspreken van iets in een toon die er niet bij hoort, bron van parodie, grootspraak, ironie en humor.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het materiaal bestaat uit toneelstukken en alledaagse waarnemingen. Bergson analyseert scènes uit Molière, blijspelen van Labiche en Regnard en typen uit La Bruyère, aangevuld met voorvallen op straat. Proeven of tellingen komen er niet aan te pas, en hij beweert dat ook nergens.</p>
+      <p>De kracht van het betoog zit in de reeks: sterk uiteenlopende gevallen passen op dezelfde beschrijving. Hij waarschuwt zelf dat zijn formule geen definitie is maar een leidmotief. Voorspellen kan zij niets: uit het mechanische over het levende volgt niet welke scène zal werken.</p>
+      <p>Zijn keuze voor het Franse blijspel stuurt de uitkomst: herhaling, rolomkering en misverstand zijn de bouwstenen van juist dat genre.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is de reikwijdte. Bergson behandelt het komische en het lachen als één zaak, terwijl er ook wordt gelachen bij kietelen, bij opluchting en uit verlegenheid, en daar valt geen starheid aan te wijzen. Woordspel en onzin, waar de botsingstheorie van Kant en Schopenhauer op mikt, komen bij hem zijdelings aan bod. Freuds boek over de mop uit 1905 en het latere humoronderzoek werken met betekenissen die botsen en achteraf toch kloppen, en dat dekt meer gevallen.</p>
+      <p>De sociale functie is verder eerder een aanname dan een bevinding. Dat spot aanpassing afdwingt is aannemelijk; dat het lachen daarom bestaat volgt er niet uit. De stelling laat zich bovendien moeilijk weerleggen, omdat elke lach die niets corrigeert als randgeval kan worden weggezet.</p>
+      <p>In het betoog zit verder een normatieve kant waar Bergson weinig mee doet. Wie afwijkt van wat de groep soepel vindt wordt door het lachen op zijn plaats gezet, en dat treft ook mensen die om een gebrek of een afkomst opvallen. Dat het boek over toneel uit één taalgebied gaat, terwijl hij zelf opmerkt dat komiek zich slecht laat vertalen, verzwakt de aanspraak op een algemene wet.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Let bij het beoordelen van een komische scène op de plek waar iets stroef wordt gedaan; daar zit meestal de motor van het effect.</li>
+        <li>Ga in een organisatie na waar de spot naartoe gaat: dat wijst aan welk gedrag de groep als afwijking behandelt.</li>
+        <li>Houd bij grappen op de werkvloer in de gaten dat het lachen ook vernedert, ook waar niemand dat bedoelt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">De drie opstellen verschenen begin 1900 in de <i>Revue de Paris</i> en nog datzelfde jaar als boek bij Félix Alcan in Parijs, onder de titel <i>Le rire. Essai sur la signification du comique</i>; aan een latere druk voegde Bergson een voorwoord toe waarin hij zijn werkwijze verdedigt. De eerste Nederlandse vertaling, <i>Het lachen. Studie over de betekenis van het komische</i> van A. Moresco, kwam in 1920 uit bij Querido in Amsterdam. De courante uitgave is <i>Lachen. Essay over de betekenis van het komische</i>, vertaald en van aantekeningen voorzien door Eric de Marez Oyens, verschenen bij Boom in Amsterdam in de reeks klassieken (druk 2010, 135 blz., ISBN 9789085069027). Van Bergson zijn ook zijn werk over materie en herinnering en over de tijdservaring in het Nederlands verschenen; de Engelse vertaling <i>Laughter</i> van Cloudesley Brereton en Fred Rothwell uit 1911 is vrij te lezen via Project Gutenberg.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Bergson vraagt wat het lachen betekent en zoekt het antwoord in de samenleving in plaats van in de enkeling. Hij begint met drie vaststellingen: er valt alleen te lachen om het menselijke, het lachen vraagt een korte ongevoeligheid van het hart, en het heeft een groep nodig om weerklank in te vinden. Daaruit volgt zijn formule: wij lachen om het mechanische dat over het levende is gelegd, om starheid waar soepelheid werd verwacht. De man die struikelt, de verstrooide die op zijn oude gewoonte doorloopt, de vakman die zijn regel toepast zonder te kijken.</p><p>De drie opstellen behandelen achtereenvolgens vormen en bewegingen, situaties en woorden, en het karakter. Het toneel levert het materiaal: Molière, Labiche, Regnard. Bergson brengt de komische procedés terug tot herhaling, omkering en het kruisen van twee onafhankelijke reeksen gebeurtenissen. Lachen noemt hij een sociaal gebaar dat vernedert en daardoor corrigeert: het houdt de leden van een samenleving soepel.</p><p>De onderbouwing bestaat uit toneelanalyse en eigen waarneming, zonder onderzoek. Daar zit ook het hoofdbezwaar: de theorie past goed op de zedenkomedie en laat woordgrappen, kinderlach en het lachen uit vreugde grotendeels onverklaard. Het boek eindigt met het beeld van schuim op de branding, waarvan een handvol bittere druppels overblijft.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>filosofie</li><li>humor</li><li>esthetiek</li><li>cultuurfilosofie</li><li>groepsgedrag</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1298"><a href="1298.html">Homo ludens</a>. Huizinga leest de cultuur zelf als spel; waar Bergson het lachen als correctiemiddel van de groep beschrijft, gaat Huizinga na welke geregelde vormen die groep aan zichzelf oplegt.</li>
+          <li value="1322"><a href="1322.html">The Act of Creation</a>. Koestler behandelt de grap als een van de gebieden waarin twee onverenigbare kaders elkaar raken, en werkt daarmee de botsingsgedachte uit die bij Bergson ontbreekt.</li>
+          <li value="1289"><a href="1289.html">Massa en macht</a>. Canetti onderzoekt hoe een menigte haar leden meeneemt, bruikbaar naast Bergsons stelling dat het lachen alleen in een groep werkt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

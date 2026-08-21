@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seventy-Eight Degrees of Wisdom &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Pollack stelt dat de tarot geen waarzeggerij is en evenmin een geheime leer uit de oudheid, maar een verzameling beelden die in de loop van vijf eeuwen…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1234">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1234 &middot; Filosofie en mystiek</p>
+    <h1>Seventy-Eight Degrees of Wisdom</h1>
+    <p class="lede">Rachel Pollack, 1980 en 1983</p>
+    <p class="stats">
+      <span><b>1883</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1234"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Pollack stelt dat de tarot geen waarzeggerij is en evenmin een geheime leer uit de oudheid, maar een verzameling beelden die in de loop van vijf eeuwen zoveel betekenis heeft aangetrokken dat zij als samenhangend verhaal over een menselijk leven te lezen valt. De tweeëntwintig troeven vormen in haar lezing een doorlopende gang in drie fasen: het opbouwen van een plaats in de samenleving, het afbreken daarvan bij de gang naar binnen, en het openstellen voor krachten die groter zijn dan het ik. De kaarten voorspellen daarbij niets, ze tonen de gesteldheid waarin iemand op dit moment verkeert, en de waarde van een legging zit in wat de lezer erin herkent en niet in het uitkomen van de voorspelling.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De historische vraag, eerlijk gesteld</h3>
+      <p>Pollack begint waar de meeste tarotboeken van haar tijd overheen stapten: bij de vraag waar het spel vandaan komt. Omstreeks het midden van de vijftiende eeuw schilderde Bonifacio Bembo een reeks ongenummerde en naamloze kaarten voor de familie Visconti in Milaan, bedoeld voor het spel tarocchi: vier kleuren van veertien kaarten plus tweeëntwintig prenten. De meeste van die prenten zijn te lezen als middeleeuwse standenlijst of als zedenles.</p>
+      <p>De occulte herkomst is later bedacht. In de achttiende eeuw verklaarde Antoine Court de Gébelin de kaarten tot overblijfsel van het Boek van Thoth; in de negentiende koppelde Éliphas Lévi ze aan de kabbala. Pollack somt de tegenargumenten zelf op: in duizenden bladzijden kabbalistische literatuur staat geen woord over tarot, tarotschrijvers noemen de kabbala pas in de negentiende eeuw, en de namen en nummers waar alle uitleg op steunt kwamen na de prenten. Zij houdt daartegenover dat Bembo een oerbeeld heeft geschapen, bewust of uit diep instinct, maar geeft toe dat de precieze overeenkomsten met de kabbala zelfs voor een beroep op het collectief onbewuste veel gevraagd zijn.</p>
+      <h3>Waarom juist het Rider-spel</h3>
+      <p>Als grondslag kiest Pollack het spel dat Arthur Edward Waite in 1910 liet uitgeven en dat Pamela Colman Smith tekende. De belangrijkste vernieuwing daarvan was dat ook de genummerde kaarten van de vier kleuren een tafereel kregen in plaats van louter een aantal zwaarden of bekers. Pollack merkt op dat Smiths taferelen dikwijls meer zeggen dan de betekenis die Waite er in zijn eigen boek aan gaf, en dat onbeslist is wie de prenten bedacht.</p>
+      <p>Haar keuze is uitdrukkelijk werkgericht. Het beeld moet genoeg te zien geven om er iets in te herkennen; het spel van Marseille geeft daar volgens haar te weinig voor. Waar een andere versie meer oplevert, haalt zij die erbij, onder meer de tekeningen van Oswald Wirth.</p>
+      <h3>Vier kaarten en drie rijen</h3>
+      <p>Voor de ordening van de troeven gebruikt Pollack eerst een figuur van vier kaarten: de dwaas met nummer nul, de magiër en de hogepriesteres als eerste paar, en de wereld als eenentwintig. Nul is geen getal maar de afwezigheid van een getal en dus alle mogelijkheden tegelijk; een en twee zijn het eerste paar tegenstellingen, mannelijk en vrouwelijk, licht en donker; eenentwintig zet die twee cijfers weer samen. De danseres op de wereldkaart houdt de twee staven die magiër en hogepriesteres apart droegen.</p>
+      <p>Zet je de dwaas apart, dan blijven eenentwintig kaarten over, drie rijen van zeven. Pollack voert daar getallenspel voor aan, onder meer dat tweeëntwintig gedeeld door zeven de verhouding pi benadert. Sterker is haar argument uit de prenten zelf: de eerste kaart van elke rij, de magiër, de kracht en de duivel, toont dezelfde houding met één arm omhoog en één omlaag, waarbij de duivel zich als spotbeeld van de magiër laat lezen, en die verticale samenhang loopt door de hele reeks.</p>
+      <h3>Wat de drie rijen betekenen</h3>
+      <p>De eerste rij noemt zij de wereld van het bewustzijn: liefde, gezag, opvoeding, de zaken waar romans en scholen over gaan. Iemand kan een heel leven leiden en door zijn omgeving geslaagd worden genoemd zonder ooit verder te komen dan de zegewagen, kaart zeven, en velen halen dat punt niet eens.</p>
+      <p>De tweede rij gaat naar binnen. Die begint met het terugtrekken van de kluizenaar, gaat via het rad, de gerechtigheid en de gehangene naar de dood, en eindigt bij de gematigdheid. Dit is het gebied van de dieptepsychologie: het gaat om het afsterven van de aangeleerde persoonlijkheid. Pollack leest de doodskaart zonder omhaal: omgekeerd wijst zij op vastzitten in gewoonten, en verveling, sleur en somberheid zijn in haar lezing vaak de manier waarop het ik verhindert dat de noodzaak van verandering doordringt.</p>
+      <p>De derde rij, van duivel tot wereld, gaat over het opengaan voor krachten die het ik te boven gaan. De duivel staat daar niet voor het kwaad maar voor levensenergie die opgesloten zit in delen van de mens waar langs gewone weg niet bij te komen is; wie er niet op voorbereid is, ziet er monsters in of raakt eraan verslaafd.</p>
+      <h3>De kleine arcana</h3>
+      <p>Het tweede deel behandelt de vier kleuren, staven, bekers, zwaarden en pentakels, elk met tien genummerde kaarten en vier hofkaarten. Waar de troeven over grote overgangen gaan, gaan deze kaarten over de dagelijkse gesteldheid: welke houding iemand aanneemt, waar hij aan vasthoudt, wat hij vreest.</p>
+      <p>Pollack behandelt ze op dezelfde manier als de troeven, uitgaand van het tafereel dat Smith tekende. Dat verklaart mede waarom zij het Rider-spel koos: bij een spel zonder taferelen op de genummerde kaarten valt er over de tien van zwaarden weinig anders te zeggen dan het getal.</p>
+      <h3>Het leggen</h3>
+      <p>Het derde deel gaat over de praktijk. Pollack behandelt de gebruikelijke keltische kruislegging, met de bijbehorende plaatsen voor het onderwerp, de tegenwerkende kaart, de grondslag, het verleden, de toekomst, en hoop en vrees. Daarnaast geeft zij een legpatroon van eigen hand, de werkcyclus, dat de plaatsen anders benoemt zodat de vraag niet is wat er gaat gebeuren maar waar de vrager iets te doen heeft.</p>
+      <p>Over voorspellen is zij duidelijk. De vraag of kaarten die het gedrag voorzien de vrije wil ontkennen berust volgens haar op een misverstand over vrije wil. Wie zegt dat hij de voorspelling zal weerstaan en vervolgens precies doet wat er lag, heeft die vrije wil juist niet gebruikt; het beroep erop diende als excuus. De kaarten laten waarschijnlijkheden zien, en de waarde van een legging blijkt uit wat de vrager erna anders doet.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">grote arcana</td><td>De tweeëntwintig troefkaarten, bij Pollack de doorlopende gang van een leven in drie rijen van zeven met de dwaas apart.</td></tr>
+          <tr><td class="term">kleine arcana</td><td>De zesenvijftig kaarten van de vier kleuren, die volgens haar de dagelijkse gesteldheden en houdingen weergeven.</td></tr>
+          <tr><td class="term">Rider-spel</td><td>Het in 1910 uitgegeven kaartspel van Arthur Edward Waite en Pamela Colman Smith, waarin voor het eerst ook de genummerde kaarten een tafereel dragen.</td></tr>
+          <tr><td class="term">de vier-kaartsfiguur</td><td>De opstelling van dwaas, magiër, hogepriesteres en wereld waarmee zij laat zien hoe eenheid, tweeheid en hereniging in de reeks zijn ingebouwd.</td></tr>
+          <tr><td class="term">de drie rijen</td><td>Haar indeling van de troeven in de wereld van de samenleving, de weg naar binnen en de omgang met wat het ik te boven gaat.</td></tr>
+          <tr><td class="term">omgekeerde kaart</td><td>Een kaart die op zijn kop in de legging valt, bij haar meestal een gestremde of nog niet erkende vorm van dezelfde betekenis.</td></tr>
+          <tr><td class="term">keltisch kruis</td><td>De gangbare legging van tien kaarten met vaste plaatsen voor onderwerp, tegenwerking, grondslag, verleden, toekomst en hoop en vrees.</td></tr>
+          <tr><td class="term">werkcyclus</td><td>Het legpatroon van Pollacks eigen hand waarin de plaatsen niet vragen wat er gebeurt maar waar de vrager zelf iets te doen heeft.</td></tr>
+          <tr><td class="term">significator</td><td>De kaart die vooraf wordt gekozen om de vrager voor te stellen en waar de legging zich omheen ordent.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert voor zijn kern geen bewijs aan en doet ook niet alsof. Wat wel controleerbaar is, is de geschiedenis, en daarin is Pollack zorgvuldiger dan de meeste tarotliteratuur van haar tijd. Zij noemt de vroegste vindplaatsen, plaatst de Egyptische en kabbalistische herkomstverhalen in de achttiende en negentiende eeuw, en somt de tegenargumenten tegen die verhalen zelf op in plaats van ze weg te laten.</p>
+      <p>Voor de duiding steunt zij op twee dingen: op het tafereel dat de tekenaar heeft gemaakt, dat iedereen kan navolgen, en op de archetypenleer van Jung, die dat niet is. Waar zij het over samenvallende gebeurtenissen heeft die zin lijken te dragen, beroept zij zich op Jungs synchroniciteit. Dat is een verklaring die zich per definitie niet laat toetsen: er is geen uitkomst denkbaar die haar zou weerleggen. Onderzoek naar de trefzekerheid van leggingen komt in het boek niet voor, en bestaat ook nauwelijks.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar raakt het mechanisme zelf. Pollack beschrijft nauwkeurig hoe een legging werkt: een beeld valt op tafel, de lezer betrekt het op de eigen situatie, er komt iets aan het licht. Dat mechanisme werkt echter even goed met willekeurige prenten, met wolkenvormen of met een boek dat op een willekeurige bladzijde opengaat. Zij overweegt die mogelijkheid nergens, en juist omdat zij zo goed beschrijft wat de lezer zelf inbrengt, dringt de vraag zich op wat de kaarten er nog aan toevoegen.</p>
+      <p>Daar komt bij dat de gegeven betekenissen zo ruim zijn dat vrijwel elke situatie eronder valt. Elke kaart heeft een rechtopstaande en een omgekeerde uitleg, en beide zijn breed geformuleerd, zodat een vrager altijd iets herkent. Dat verschijnsel is in de psychologie bekend als het barnumeffect en het is de gangbare verklaring voor de indruk van rake beschrijvingen bij horoscopen, handlijnkunde en tarot. Het boek gaat er niet op in.</p>
+      <p>Ook binnen het eigen stelsel valt iets aan te merken. De verdeling in drie rijen van zeven is Pollacks eigen ordening en zij geeft dat toe, maar zij onderbouwt hem deels met getallenspel dat niets aantoont: dat tweeëntwintig gedeeld door zeven ongeveer pi geeft, dat tweeëntwintig maal zeven honderdvierenvijftig is en die cijfers samen tien. Zulke redeneringen kunnen elk getal met elk ander verbinden. Het argument uit de prenten zelf, met de terugkerende houdingen aan het begin van elke rij, is aanmerkelijk sterker en had het getallenspel overbodig gemaakt.</p>
+      <p>Tot slot wringt de eerlijke inleiding met de rest. Als het spel een Italiaans kaartspel uit de vijftiende eeuw is dat pas na 1780 van een occulte betekenis is voorzien, dan is de wijsheid die Pollack uitvouwt de opgestapelde uitleg van de laatste tweehonderd jaar, grotendeels van Waite, Smith en haarzelf. Dat is een legitiem onderwerp, maar het boek trekt die gevolgtrekking niet en blijft spreken van de tarot alsof de betekenis in de kaarten zit en niet in de traditie die eromheen is gegroeid.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het als handboek bij het Rider-spel: de kaartbesprekingen zijn de kern en de rest is inleiding.</li>
+        <li>Wie een legging doet, kan de vragen van de werkcyclus gebruiken in plaats van die van het keltisch kruis; die verschuiven de aandacht van wat er komt naar wat er te doen valt.</li>
+        <li>Toets bij elke uitspraak die raak lijkt of zij ook op iemand anders zou passen; dat is de eenvoudigste controle op het barnumeffect.</li>
+        <li>Voor wie de beeldtaal wil gebruiken zonder de leer: bekijk eerst het tafereel en beschrijf wat er te zien is, en pak pas daarna de gegeven betekenis erbij.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Seventy-Eight Degrees of Wisdom: A Book of Tarot</i> verscheen in twee delen bij The Aquarian Press in Wellingborough: deel 1, <i>The Major Arcana</i> (1980, 128 blz., ISBN 9780850302202) en deel 2, <i>The Minor Arcana and Readings</i> (1983). Sinds de jaren negentig is het in één band verkrijgbaar; de huidige uitgave heet <i>Seventy-Eight Degrees of Wisdom: A Tarot Journey to Self-Awareness</i> (Weiser Books, Newburyport, 2019, ISBN 9781578636655). De kaartafbeeldingen komen uit het Rider-spel van Arthur Edward Waite en Pamela Colman Smith. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd. Van Pollack is in het Nederlands wel de roman <i>Onblusbaar vuur</i> verschenen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Rachel Pollack (1945-2023) was schrijfster van romans en stripverhalen, transgender vrouw, en woonde toen zij dit boek schreef in Amsterdam. Het verscheen in twee delen, in 1980 en 1983, en geldt sindsdien in de tarotwereld als het standaardwerk. Het behandelt alle achtenzeventig kaarten van het Rider-spel van Waite en Pamela Colman Smith, kaart voor kaart: eerst wat er op de prent te zien is, dan wat het beeld volgens haar betekent, dan wat de kaart in een legging aanduidt, rechtop en omgekeerd.</p><p>De inleiding is opvallend eerlijk over de herkomst. Het spel gaat terug op vijftiende-eeuwse Italiaanse speelkaarten; het verhaal dat het uit Egypte stamt komt van Court de Gébelin in de achttiende eeuw, en de koppeling aan de kabbala van Éliphas Lévi in de negentiende. In de kabbalistische literatuur staat over tarot niets, merkt Pollack op, en tarotschrijvers noemden de kabbala pas na 1850.</p><p>Haar eigen ordening legt de tweeëntwintig troeven neer als drie rijen van zeven, met de dwaas apart, en leest die rijen als de wereld van de samenleving, de weg naar binnen en de omgang met wat groter is dan het ik. Het slotdeel behandelt het leggen zelf, waaronder een legpatroon van haar eigen hand.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>tarot</li><li>symboliek</li><li>esoterie</li><li>Jungiaanse psychologie</li><li>zelfontplooiing</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="644"><a href="644.html">Tarot of Ceremonial Magick</a>. Tarot of Ceremonial Magick geeft de tegenovergestelde benadering: de kaarten als sluitstuk van een occult stelsel in plaats van als beeldenreeks om in te lezen.</li>
+          <li value="357"><a href="357.html">De mens en zijn symbolen</a>. De mens en zijn symbolen geeft de archetypenleer waar Pollack haar duidingen op laat rusten, in de bewoordingen van Jung zelf.</li>
+          <li value="640"><a href="640.html">Kabbalah</a>. Kabbalah van Scholem laat zien wat de Joodse mystiek werkelijk inhoudt, en daarmee hoe los de negentiende-eeuwse koppeling aan de tarot ervan staat.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
