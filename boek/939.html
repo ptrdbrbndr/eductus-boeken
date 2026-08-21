@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Het civilisatieproces &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Elias betoogt dat de verandering van de menselijke persoonlijkheid en de verandering van de samenlevingsvorm twee kanten van hetzelfde proces zijn, en dat…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-939">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">939 &middot; Geschiedenis en samenleving</p>
+    <h1>Het civilisatieproces</h1>
+    <p class="lede">Norbert Elias, 1939</p>
+    <p class="stats">
+      <span><b>1607</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="939"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Elias betoogt dat de verandering van de menselijke persoonlijkheid en de verandering van de samenlevingsvorm twee kanten van hetzelfde proces zijn, en dat dit proces te reconstrueren valt uit alledaags materiaal over eten, slapen, spugen en geweld. Naarmate staten het geweld en de belastingheffing in één hand krijgen en de ketens van wederzijdse afhankelijkheid langer worden, wordt de dwang die eerst van buiten kwam omgezet in dwang van binnenuit. Wat als beschaving geldt is volgens hem dus geen zedelijke verworvenheid en geen plan van wie dan ook, maar de onbedoelde neerslag van machtsverhoudingen in de gevoelshuishouding van afzonderlijke mensen. Het verschil tussen beschaafd en ruw is daarmee een verschil in de tijd en niet in aanleg.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Beschaving en cultuur als woorden met een geschiedenis</h3>
+      <p>Elias begint bij het woord en niet bij het proces. Hij laat zien hoe het Franse <i>civilisation</i> en het Duitse <i>Kultur</i> uit verschillende maatschappelijke posities voortkomen. Het eerste hoort bij een hofadel die zich op omgangsvormen liet voorstaan en zijn eigen maatstaf voor de menselijke maatstaf hield; het tweede bij een Duitse burgerlijke laag van ambtenaren en geleerden die zich juist tegen die hofmanieren afzette met innerlijkheid, oprechtheid en prestatie.</p>
+      <p>De strekking van dat openingsdeel is methodisch. Wie het woord beschaving gebruikt, gebruikt een strijdterm uit een bepaalde standenverhouding, en de eerste taak van de socioloog is die herkomst zichtbaar te maken in plaats van het woord als vanzelfsprekend te hanteren.</p>
+      <h3>Wat de omgangsboeken laten zien</h3>
+      <p>Het langste stuk van het eerste deel bestaat uit geciteerde voorschriften, chronologisch geordend. Erasmus schrijft in 1530 nog dat men een afgekloven bot niet in de gemeenschappelijke schaal terug moet leggen en dat het onbetamelijk is een ander aan te bieden waarvan men zelf al gegeten heeft; drie eeuwen later wordt zulk gedrag niet meer besproken, omdat het ondenkbaar is geworden. Dezelfde lijn tekent zich af bij het snuiten van de neus, het spugen, het gebruik van vork en zakdoek, het naakt slapen en de aanwezigheid van anderen bij lichamelijke verrichtingen.</p>
+      <p>Elias leest die reeks nauwkeurig. De verandering verloopt in de regel van boven naar beneden: een gebruik onderscheidt eerst de hoogste laag, wordt vervolgens nagevolgd, verliest daardoor zijn onderscheidende waarde en wordt ten slotte vanzelfsprekend. De motiveringen schuiven mee, van hoffelijkheid via gezondheid naar hygiëne, terwijl het voorschrift telkens ouder is dan de reden die ervoor wordt aangevoerd.</p>
+      <h3>Schaamte, gêne en de psychische omvorming</h3>
+      <p>Wat verandert is het gedrag, en met het gedrag het gevoel. Elias noemt dat het opschuiven van de schaamte- en gênedrempel: handelingen die eerst zonder omhaal plaatsvonden gaan zelfverwijt en afkeer oproepen, en de aandriften worden daarbij anders geregeld en niet zwakker. Hij spreekt van een omzetting van uitwendige dwang in zelfdwang, met als eindpunt een gedragsregeling die zo automatisch werkt dat zij als natuur wordt ervaren en de geschiedenis erachter onzichtbaar blijft.</p>
+      <p>Die omzetting heeft een prijs. Elias beschrijft de toename van innerlijke spanning, van beklemming en van de afstand tussen wat een mens doet en wat hij verlangt. De burgerlijke geremdheid die Freud in zijn spreekkamer aantrof, is bij Elias het gevolg van een eeuwenlange maatschappelijke ontwikkeling en niet van een tijdloos conflict tussen driften en cultuur.</p>
+      <h3>Het monopolie op geweld en belasting</h3>
+      <p>Het tweede deel legt de maatschappelijke motor bloot. Uit de strijd tussen ongeveer gelijke ridderlijke heren komt volgens Elias vrijwel dwingend een winnaar voort, omdat elke overwinning de kansen op de volgende vergroot; hij noemt dat het monopoliemechanisme. Het eindpunt is een centrale macht die als enige geweld mag uitoefenen en belasting mag heffen, waarna de beheerders van dat monopolie zelf van talloze anderen afhankelijk worden en hun bezit een openbare zaak wordt.</p>
+      <p>Aan de Franse ontwikkeling laat hij dat in detail zien: de opkomst van de Capetingers, de verdringing van rivaliserende huizen en het ontstaan van een koningschap dat boven de partijen staat. Het koningsmechanisme houdt in dat de vorst zijn speelruimte ontleent aan het evenwicht tussen groepen die elkaar in bedwang houden; verdwijnt dat evenwicht, dan verdwijnt zijn positie.</p>
+      <h3>Het hof als oefenschool</h3>
+      <p>Zodra de adel zijn wapens kwijt is, verplaatst de strijd zich naar aanzien, gunst en manieren. Aan het hof levert het permanente toezicht van gelijken een gedwongen vooruitzien op: wie een blunder maakt verliest positie, dus moet men de eigen uitingen beheersen en de bedoelingen van anderen aflezen. Elias beschrijft het hof daarom als de kweekplaats van de psychologische blik, een vorm van mensenkennis die pas ontstaat waar zij nodig is. Hij werkte dat later uit in <i>Die höfische Gesellschaft</i>.</p>
+      <h3>Ontwerp voor een theorie</h3>
+      <p>Het slot vat de bevindingen samen als een richting en niet als een wet. Langere ketens van afhankelijkheid vragen om verder vooruitzien en gelijkmatiger gedrag; de verhouding tussen dwang van buiten en zelfdwang verschuift; het verschil in gedragsstandaard tussen bovenlagen en de rest van de bevolking neemt af naarmate afhankelijkheden wederkeriger worden.</p>
+      <p>Elias tekent er uitdrukkelijk bij aan dat de beweging niet alleen vooruit gaat. Waar monopolies wankelen, waar onzekerheid en gevaar toenemen, kunnen verworven remmen terugvallen. Die aantekening is later het aanknopingspunt geworden voor het onderzoek naar wat lezers van Elias ontcivilisering zijn gaan noemen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">sociogenese</td><td>Het onderzoek naar hoe een verschijnsel, zoals een staat of een omgangsvorm, uit maatschappelijke verhoudingen is ontstaan.</td></tr>
+          <tr><td class="term">psychogenese</td><td>Het onderzoek naar hoe de bijbehorende gedrags- en gevoelshuishouding van mensen zich in dezelfde beweging heeft gevormd.</td></tr>
+          <tr><td class="term">affecthuishouding</td><td>Het geheel van aandriften, remmingen en gevoelsregels waarmee een mens zijn gedrag stuurt; bij Elias historisch veranderlijk en niet vast.</td></tr>
+          <tr><td class="term">zelfdwang</td><td>De uit gewoonte werkende innerlijke rem die de plaats inneemt van dwang door anderen naarmate afhankelijkheden toenemen.</td></tr>
+          <tr><td class="term">schaamte- en gênedrempel</td><td>De grens waarboven gedrag afkeer of zelfverwijt oproept; die grens verschuift volgens Elias in een aanwijsbare richting.</td></tr>
+          <tr><td class="term">monopoliemechanisme</td><td>De neiging van vrije mededinging tussen ongeveer gelijke machthebbers om in steeds minder handen te eindigen.</td></tr>
+          <tr><td class="term">koningsmechanisme</td><td>De positie van een centrale heerser die zijn speelruimte ontleent aan het evenwicht tussen groepen die elkaar in bedwang houden.</td></tr>
+          <tr><td class="term">interdependentieketen</td><td>De reeks van mensen van wie iemands handelen afhangt; hoe langer de keten, hoe verder vooruit gerekend moet worden.</td></tr>
+          <tr><td class="term">figuratie</td><td>Elias' term voor het samenstel van onderling afhankelijke mensen, bedoeld als vervanging van de tegenstelling tussen individu en samenleving.</td></tr>
+          <tr><td class="term">hoofse samenleving</td><td>De hofwereld waarin aanzien en manieren de plaats innemen van wapengeweld als middel in de strijd om positie.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het bewijsmateriaal bestaat vrijwel geheel uit voorschriftenliteratuur: omgangsboeken, hofregels en opvoedkundige tractaten uit de dertiende tot de negentiende eeuw, aangevuld met het staatkundige verhaal van de Franse koningsmacht. De reeks citaten is uitgebreid en het patroon dat Elias eruit haalt is met eigen ogen na te lopen. Daardoor blijft het eerste deel ook nu leesbaar als bronnenboek, los van de theorie die erop volgt.</p>
+      <p>Het lastige punt zit in de gevolgtrekking. Omgangsboeken beschrijven wat wenselijk werd geacht en niet wat mensen deden, en zij zijn geschreven door en voor een dunne bovenlaag. Uit het feit dat een voorschrift uit de handleidingen verdwijnt, leidt Elias af dat het gedrag vanzelfsprekend is geworden; even goed mogelijk is dat het onderwerp niet langer in het genre paste. Voor de gevoelskant, de schaamte zelf, bestaat helemaal geen rechtstreekse bron. Elias werkte bovendien in ballingschap zonder onderzoeksapparaat, en het boek bleef na 1939 twee decennia vrijwel onbesproken; de toetsing aan later archiefonderzoek is pas na de herdruk van 1969 begonnen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste tegenoffensief kwam van de antropoloog Hans Peter Duerr, die tussen 1988 en 2002 vijf delen publiceerde onder de titel <i>Der Mythos vom Zivilisationsprozeß</i>. Duerr voert etnografisch en historisch materiaal aan waaruit blijkt dat middeleeuwse en niet-westerse samenlevingen wel degelijk uitgewerkte regels kenden voor naaktheid, seksualiteit en lichamelijke afzondering, en dat het verschil met later dus eerder in de vorm zit dan in de mate van beheersing. Klopt dat, dan verliest de reeks van Elias haar richting. Onderzoekers in het spoor van Elias hebben daartegen ingebracht dat Duerr voorbeelden stapelt zonder verandering over tijd te meten; beslecht is het debat niet.</p>
+      <p>Een tweede bezwaar betreft de reikwijdte. Het materiaal is West-Europees, grotendeels Frans en Duits, en betreft de bovenlagen; het patroon wordt niettemin gepresenteerd als richting van de menselijke ontwikkeling in het algemeen. Daarmee komt de theorie dicht bij het schema van beschaafd tegenover ruw dat zij juist wilde ontleden, ook al bedoelde Elias dat uitdrukkelijk niet en waarschuwde hij tegen die lezing.</p>
+      <p>Het derde punt is de plaats van het georganiseerde geweld in de twintigste eeuw. Een theorie over toenemende beheersing moet iets kunnen zeggen over de vernietiging die Elias zelf ontvluchtte en waarin zijn moeder is omgekomen. Het boek uit 1939 doet dat niet; Elias kwam er pas een halve eeuw later op terug in <i>Studien über die Deutschen</i> (1989), waar hij van een terugval binnen hetzelfde proces spreekt. Die aanvulling redt de theorie, maar tegen de prijs dat zij vrijwel elke uitkomst kan opvangen en daardoor moeilijk te weerleggen is.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Zoek bij een vraag over gedragsverandering naar voorschriften uit opeenvolgende perioden, en let vooral op wat er ophoudt te worden opgeschreven.</li>
+        <li>Lees een gedragsnorm terug naar de machtsverhouding die haar draagt, in plaats van naar de reden die er in de tekst bij wordt gegeven.</li>
+        <li>Reken bij plotselinge verruwing niet meteen op verval van normen, maar kijk eerst wat er met monopolies en afhankelijkheden is gebeurd.</li>
+        <li>Behandel individu en samenleving als één samenstel van afhankelijke mensen wanneer een verklaring anders blijft steken in de keuze tussen die twee.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Über den Prozeß der Zivilisation: Soziogenetische und psychogenetische Untersuchungen</i> verscheen in twee delen bij Haus zum Falken in Bazel in 1939 en bleef vrijwel onopgemerkt tot de herdruk bij Suhrkamp in 1969. De Engelse titel luidt <i>The Civilizing Process</i>. De Nederlandse vertaling van Willem Kranendonk en Han Israëls kwam in 1982 uit bij Het Spectrum in Utrecht; de herziene versie, gebaseerd op de Duitse wetenschappelijke uitgave van 1997 en de Engelse editie van 2000, is verkrijgbaar als <i>Het civilisatieproces: sociogenetische en psychogenetische onderzoekingen</i> (Boom, Amsterdam, druk 2023, 776 blz., ISBN 9789024452101).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Elias schreef dit boek als banneling in Londen, grotendeels in de leeszaal van het British Museum, en publiceerde het in 1939 bij een kleine Zwitserse uitgever. Hij vertrekt van een onopvallend soort bron: omgangsboeken uit de late middeleeuwen en de vroegmoderne tijd, van Erasmus' <i>De civilitate morum puerilium</i> uit 1530 tot Franse handleidingen uit de zeventiende eeuw. Wat daarin wordt voorgeschreven over tafelmanieren, neus snuiten, spugen, slapen en naaktheid verandert in de loop van eeuwen op een regelmatige manier: de drempel van schaamte en gêne schuift op, en steeds meer gedrag verdwijnt achter de schermen van het openbare leven.</p><p>Het tweede deel verklaart die verschuiving uit de machtsverhoudingen. Waar heersers gebied veroveren en het geweld en de belastingheffing in één hand komen, ontstaat een hof waar de adel niet meer met wapens maar met omgangsvormen om positie strijdt. Naarmate mensen in langere en dichtere ketens van afhankelijkheid komen te staan, moeten zij hun gedrag verder vooruit berekenen; de dwang van buiten wordt zelfdwang, en die zelfdwang gaat op den duur als tweede natuur voelen. Elias bedoelt daarmee geen vooruitgang in zedelijkheid, maar een verandering in de bouw van samenleving en persoonlijkheid tegelijk.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>sociologie</li><li>geschiedenis</li><li>omgangsvormen</li><li>beschaving</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="933"><a href="933.html">The Great Transformation</a>. Polanyi beschrijft in dezelfde jaren en over dezelfde eeuwen hoe markt en staat de samenleving hebben omgevormd, met een tegengestelde waardering van de uitkomst.</li>
+          <li value="935"><a href="935.html">The Origins of Totalitarianism</a>. Arendt behandelt precies de terugval die Elias' theorie het moeilijkst kan opnemen, en zoekt de verklaring in andere richtingen.</li>
+          <li value="250"><a href="250.html">The 48 Laws of Power</a>. Greene put uit dezelfde hofwereld, maar leest haar als voorraadkast van slimmigheden waar Elias er een machtsstructuur in ziet.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

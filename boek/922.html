@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Earth Will Shake &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Wilson keert de complotroman om. Waar het genre uitgaat van één verborgen groep die de geschiedenis stuurt, laat hij zien wat er gebeurt met een jongen om…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-922">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">922 &middot; Roman en memoir</p>
+    <h1>The Earth Will Shake</h1>
+    <p class="lede">Robert Anton Wilson, 1982</p>
+    <p class="stats">
+      <span><b>1348</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="922"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Wilson keert de complotroman om. Waar het genre uitgaat van één verborgen groep die de geschiedenis stuurt, laat hij zien wat er gebeurt met een jongen om wie een half dozijn zulke groepen vecht, die elk oprecht menen dat zij de geschiedenis sturen en die elkaar vooral in de weg zitten. De les die Sigismundo uiteindelijk meeneemt gaat dan ook niet over macht maar over waarneming: iedereen loopt rond met een beeld van de wereld dat op onvolledige gegevens berust, en de enige bruikbare voorzorg is het besef dat men zelf voortdurend een dwaas is. Dat is de kern van wat Wilson elders het Cosmic Schmuck-principe noemt, en de roman is de omslachtige manier om het aan te tonen in plaats van het te beweren.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Een moord in de kerk</h3>
+      <p>Het boek begint met de moord op Leonardo Malatesta, oom van Sigismundo, neergestoken in een Napolitaanse kerk op het ogenblik dat hij de mis gaat opdragen. Wilson bouwt de scène naar het voorbeeld van de aanslag op Giuliano de' Medici in de dom van Florence in 1478, de mislukte samenzwering van de Pazzi, en laat een van de personages die geschiedenis ook noemen.</p>
+      <p>De opening zet de toon voor de rest: geweld dat op een religieuze vorm wordt geënt, waarbij niemand achteraf kan vaststellen wie de opdracht gaf. De familie Malatesta stamt in het boek af van de heren van Rimini, wat Wilson gelegenheid geeft de eeuwenoude ruzies uit Dante en Boccaccio te laten meeklinken.</p>
+      <h3>De school van oom Pietro</h3>
+      <p>Pietro Malatesta neemt de opvoeding van de jongen over, en die opvoeding is de eigenlijke inhoud van het boek. Hij legt uit hoe eer en wraak in Napels en Sicilië werken, waarom die stelsels zichzelf in stand houden en wat ze kosten. Hij legt daarnaast een leer uit over de zielen: een plantaardige ziel die wil groeien, een dierlijke die wil eten en vechten, een menselijke die redeneert, en een vierde die alleen zegt: ik ben.</p>
+      <p>Het eerste deel heet De Dwaas, en in dat deel komt Sigismundo tot de slotsom dat hij zelf een dwaas is. Dat is bij Wilson geen vernedering maar een werkregel: wie ervan uitgaat dat hij zich vergist, ziet zijn eigen vergissingen eerder.</p>
+      <h3>De genootschappen</h3>
+      <p>Om Sigismundo heen bewegen de vrijmetselaars, in Napels verboden en vervolgd, de Carbonari, de alumbrados uit Spanje, een kring die in het boek de Rossi heet, de Inquisitie en de mannen die de eer van Sicilië bewaken. Wilson laat een personage de gangbare verklaring van het woord maffia geven als letterwoord van een leus tegen de Franse overheersing.</p>
+      <p>Elke groep biedt Sigismundo een verhaal aan waarin hij een rol heeft, en elk verhaal sluit even goed op de feiten aan. Dat is de leerzaamste kant van het boek: de lezer merkt dat de keuze tussen die verklaringen niet op bewijs berust maar op de vraag bij wie iemand hoort.</p>
+      <h3>De muziek</h3>
+      <p>Sigismundo is vóór alles musicus. De eerste bladzijden staan al vol namen van componisten, Domenico Scarlatti voorop, en Wilson beschrijft het componeren als de ervaring die hem in beweging houdt, ook wanneer zijn eigen opvattingen over volmaaktheid hem later belachelijk gaan voorkomen.</p>
+      <p>Die keus heeft gevolgen voor de opbouw. Het boek dankt zijn ritme aan de sonate die niet af komt en niet aan de samenzwering, en de bladzijden waarin Sigismundo aan een compositie werkt zijn de best geschreven van het geheel.</p>
+      <h3>De Engelse lijn</h3>
+      <p>Naast Napels loopt een verhaal in Engeland rond Sir Edward Babcock en zijn zoon John, voorouders van de Sir John Babcock uit <i>Masks of the Illuminati</i>. Daar gaat het om een andere vorm van onvrijheid: het strafrecht en het fatsoen in plaats van de Inquisitie, in een geschiedenis rond Geoffrey Wildeblood waarin John moet kiezen tussen bekennen en zwijgen.</p>
+      <p>Wilson gebruikt die lijn om zijn begrip van vrijheid te verbreden. Sir Edward legt aan de hand van Jonathan Swift uit dat vrijheid van denken meer omvat dan vrijheid van politiek debat, en het hoofdstuk dat daarop volgt gaat over seksuele onderdrukking.</p>
+      <h3>Maria, het duel, Parijs</h3>
+      <p>De verwikkeling die het boek besluit is een liefdesgeschiedenis met Maria Maldonado, dochter uit een vijandige familie, en het duel waartoe die leidt. Wilson beschrijft het duelleren zonder enige romantiek, als een dom stelsel dat mensen doodt om redenen die zij zelf al belachelijk vinden, en laat Sigismundo achteraf vaststellen dat één dag dwaasheid een leven lang kan doorwerken.</p>
+      <p>Het gevolg is verbanning. Het boek eindigt met Sigismundo in Parijs in 1770, waar hij muziektheorie studeert en waar het tweede deel hem zal oppakken, en met een passage waarin hij zichzelf in steeds wijdere kringen plaatst: in zijn slaapkamer, in Napels, op aarde, in een draaiende spiraal, halverwege bestaan en niet-bestaan.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Cosmic Schmuck-principe</td><td>Wilsons werkregel dat wie er dagelijks van uitgaat zelf de dwaas te zijn, minder vaak dwaas handelt.</td></tr>
+          <tr><td class="term">de vierde ziel</td><td>Boven de plantaardige, dierlijke en menselijke ziel de laag die alleen ik ben zegt en die de andere drie kan gadeslaan.</td></tr>
+          <tr><td class="term">Carbonari</td><td>Zuid-Italiaans geheim genootschap met vrijmetselaarsvormen, in het boek een van de partijen die Sigismundo willen werven.</td></tr>
+          <tr><td class="term">alumbrados</td><td>Spaanse verlichten, door de Inquisitie vervolgd, die Wilson opvoert als schakel tussen de Spaanse en de Italiaanse geheime kringen.</td></tr>
+          <tr><td class="term">de Rossi</td><td>De kring die in de roman achter de moord op Leonardo Malatesta wordt vermoed en die Sigismundo als erfgenaam beschouwt.</td></tr>
+          <tr><td class="term">magick</td><td>In het boek omschreven als de kunst om de aandacht van het bewustzijn naar believen te verplaatsen, niet als het bewerken van de buitenwereld.</td></tr>
+          <tr><td class="term">tarotdelen</td><td>De zeven delen van de roman dragen namen van tarotkaarten, waarmee Wilson de opvoeding van Sigismundo als reeks inwijdingsgraden ordent.</td></tr>
+          <tr><td class="term">Napolitaanse eercode</td><td>Het stelsel van wraak en respect dat oom Pietro uitlegt en dat in het boek zowel de misdaad als de geheime genootschappen draagt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De historische omlijsting is grotendeels controleerbaar en Wilson heeft er werk van gemaakt. Napels onder de Bourbons, het verbod op de vrijmetselarij, de Inquisitie in Spanje, de Carbonari, de alumbrados en de genoemde componisten bestonden alle, en de verwijzingen naar de Malatesta van Rimini en naar de Pazzi-samenzwering kloppen. De verhouding tussen adel, kerk en armoede is met zorg gebouwd, en waar Sigismundo door Spanje reist stemt de beschrijving van de armoede en van de macht van de Inquisitie overeen met wat reizigers uit die tijd meldden.</p>
+      <p>Er zitten ook fouten in. De kerk waarin de openingsmoord plaatsvindt, San Francesco di Paola in Napels, is pas in de negentiende eeuw gebouwd. Belangrijker is dat de ondertitel over de geschiedenis van de vroege Illuminati niet waargemaakt kan worden: het genootschap van Adam Weishaupt werd in 1776 opgericht, twaalf jaar na de opening van het boek, zodat wat het verhaal als Illuminati opvoert een samenstelling van Wilson zelf is.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de achttiende eeuw hier vooral kostuum is. Sigismundo en zijn oom denken in termen die Wilson in de jaren zeventig bij Timothy Leary en in de eigen praktijk had opgedaan: circuits van het zenuwstelsel, aandacht die verlegd kan worden, hersenen die te programmeren zijn. Die begrippen worden in achttiende-eeuwse woorden gestoken, maar ze horen daar niet, en het boek doet geen moeite om te laten zien hoe iemand in 1764 werkelijk over de ziel dacht.</p>
+      <p>Daarnaast gebeurt er weinig. Het boek is voor het grootste deel een leerschool met gesprekken, en de gebeurtenissen die het verhaal vooruit zouden moeten duwen komen pas in de laatste honderd bladzijden. De vrouwen dienen daarbij vrijwel uitsluitend als aanleiding voor wat de mannen overkomt. Ten slotte is de reeks nooit afgemaakt: aan het eind van het derde deel kondigde Wilson een vierde aan, hij sprak over vijf delen, en na zijn dood in 2007 bleef het bij drie, zodat het geduld dat dit eerste deel van de lezer vraagt uiteindelijk niet wordt beloond.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Earth Will Shake</i>, eerste deel van <i>The Historical Illuminatus Chronicles</i> (J.P. Tarcher, Los Angeles, 1982, 369 blz., ISBN 0874772117). Daarna verschenen edities bij Bluejay Books, New York, 1984, bij Lynx Books, 1988, bij Roc, 1991, bij New Falcon Publications, ISBN 1561841625, en in 2018 bij Hilaritas Press, 397 blz., ISBN 9780998713434, met zeven nieuwe tekeningen van Bobby Campbell. Er is een Duitse vertaling, <i>Und die Erde wird beben</i> (Sphinx, Basel, 1987; later Rowohlt, Reinbek). Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Napels, 1764. De veertienjarige Sigismundo Celine ziet met Pasen hoe zijn oom Leonardo Malatesta bij het altaar wordt vermoord. Vanaf dat ogenblik wordt hij door verschillende partijen gezocht: de vrijmetselaars, de Carbonari, de alumbrados, een kring die de Rossi heet, en de mannen die later maffia zullen heten. Elk genootschap wil hem hebben, elk heeft een eigen uitleg van dezelfde gebeurtenissen, en zijn oom Pietro leert hem ondertussen dat hij vooral moet aannemen dat hij zelf de dwaas is.</p><p>Wilson schreef deze reeks na <i>Illuminatus!</i>, ditmaal alleen en met historische stof. Sigismundo Celine is een voorvader van Hagbard Celine uit die eerdere trilogie, en het boek volgt hem van zijn veertiende jaar tot Parijs in 1770, waar hij muziektheorie studeert. Muziek is de motor van het geheel: Sigismundo componeert, en de namen van Scarlatti, Vivaldi, Jommelli, Pergolesi en Telemann komen vaker langs dan die van de genootschappen. Het boek heeft zeven delen, elk genoemd naar een tarotkaart, te beginnen bij de Dwaas.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>historische roman</li><li>vrijmetselarij</li><li>initiatie</li><li>verlichting</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="923"><a href="923.html">The Widow's Son</a>. Het vervolg, waarin Sigismundo in Parijs terechtkomt en Wilson een tweede boek in de voetnoten begint.</li>
+          <li value="924"><a href="924.html">Nature's God</a>. Het slotdeel, dat Sigismundo naar de Amerikaanse wildernis brengt en de reeks onafgemaakt achterlaat.</li>
+          <li value="921"><a href="921.html">Masks of the Illuminati</a>. Dezelfde stof honderdvijftig jaar later, met een nakomeling van de Babcocks uit dit boek als hoofdpersoon.</li>
+          <li value="928"><a href="928.html">Prometheus Rising</a>. Het beschouwende boek waarin Wilson het model van de zenuwcircuits uiteenzet dat hij Sigismundo laat denken.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

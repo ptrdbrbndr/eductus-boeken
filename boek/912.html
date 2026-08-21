@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toyota Production System &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Het Toyota-productiesysteem is volgens Ohno één ding: het volstrekt uitbannen van verspilling. Alles waar de klant niet voor betaalt, van voorraad tot…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-912">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">912 &middot; Geld en ondernemen</p>
+    <h1>Toyota Production System</h1>
+    <p class="lede">Taiichi Ohno, 1978</p>
+    <p class="stats">
+      <span><b>1830</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="912"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Het Toyota-productiesysteem is volgens Ohno één ding: het volstrekt uitbannen van verspilling. Alles waar de klant niet voor betaalt, van voorraad tot wachttijd tot herstelwerk, is kosten die eruit kunnen. Daaronder ligt een omkering van de gangbare rekenwijze. De markt bepaalt de prijs, dus winst is wat overblijft nadat de kosten eraf zijn, en de kosten zijn de enige knop waar een fabrikant zelf aan kan draaien. Het systeem dat daaruit volgt rust op twee pijlers, just-in-time en autonomatie, en is gebouwd voor een economie die niet meer groeit: kleine aantallen van veel modellen, tegen lagere kosten per stuk dan de massaproductie haalt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Uit schaarste geboren</h3>
+      <p>Op 15 augustus 1945, de dag van de Japanse capitulatie, gaf Toyota-president Kiichiro Toyoda zijn mensen de opdracht Amerika binnen drie jaar in te halen, omdat de Japanse auto-industrie het anders niet zou overleven. Ohno rekent voor waar die opdracht op neerkwam. Hij had in de weverij van de jaren dertig gehoord dat een Duitse arbeider drie keer zoveel maakte als een Japanse en een Amerikaanse drie keer zoveel als een Duitse: een verhouding van één op negen. Dat verschil kon volgens hem niet in inspanning zitten, dus zat het in verspilling.</p>
+      <p>De Amerikaanse oplossing lag bovendien buiten bereik. Massaproductie verdient zich terug op grote aantallen van weinig modellen, en de Japanse markt vroeg om kleine aantallen van veel modellen. Ohno moest een systeem bouwen dat juist bij korte series goedkoper werd. Twee pijlers dragen het: just-in-time en jidoka.</p>
+      <h3>De kanban en de omgekeerde stroom</h3>
+      <p>Just-in-time werkt alleen als de informatie tegen de productiestroom in loopt. Ohno keerde de gebruikelijke gang om. De latere bewerking haalt bij de eerdere op wat zij nodig heeft, en de eerdere maakt precies aan wat is opgehaald. Het idee ontleende hij aan de Amerikaanse supermarkt, waarover hij eerst alleen had gehoord en die hij pas in 1956 zelf bezocht: de klant neemt wat hij nodig heeft, het schap wordt bijgevuld tot het oude niveau. Vanaf 1953 draaide de machinewerkplaats van Toyota volgens dat model. Het kaartje dat de opdracht tot ophalen en aanmaken doorgeeft heet kanban.</p>
+      <p>Ohno waarschuwt uitdrukkelijk dat de kanban zonder de rest gevaarlijk is. Wie de kaartjes invoert zonder de omsteltijden te verkorten, de kwaliteit te borgen en de productie te nivelleren, legt de fabriek stil. De kanban is het hulpmiddel; het systeem zit in de gedachte erachter.</p>
+      <h3>De machine met een menselijke trek</h3>
+      <p>De tweede pijler komt uit de weverij van Sakichi Toyoda, die een weefgetouw bouwde dat vanzelf stopte zodra een draad brak. Een machine die haar eigen fout signaleert hoeft niet bewaakt te worden, maakt geen stapels afgekeurd werk en laat één bediener meerdere machines bedienen. Ohno noemt dat automatisering met een menselijke trek, om het te onderscheiden van machines die alleen harder draaien.</p>
+      <p>Hetzelfde geldt voor mensen. Bij Toyota mag en moet iedere arbeider de lijn stilleggen als er iets misgaat, met een signaalbord dat aangeeft waar het probleem zit. Een lijn die vaak stilstaat leert, en een lijn die nooit stilstaat verbergt haar problemen. Dezelfde gedachte zit achter het bewust verlagen van voorraden: Ohno vergelijkt voorraad met water dat rotsen bedekt, en het peil verlagen maakt zichtbaar waar de fabriek vastloopt.</p>
+      <h3>Zeven soorten verspilling en vijf keer waarom</h3>
+      <p>Ohno deelt verspilling in zeven soorten in: overproductie, wachten, transport, de bewerking zelf, voorraad, onnodige beweging en het maken van afgekeurd werk. Overproductie zet hij bovenaan, omdat zij de andere zes veroorzaakt en tegelijk verbergt. Wie meer maakt dan er nodig is, heeft opslag nodig, transport, mensen om het te tellen en rente over het gestolde geld, en merkt niet meer dat er iets mis is.</p>
+      <p>Om de oorzaak van een storing te vinden gebruikt hij het vijf keer waarom. Zijn voorbeeld: de machine staat stil, want de zekering is doorgeslagen, want het lager liep vast, want de smering werkte niet, want de as van de oliepomp was versleten, want er zat metaalslijpsel in de olie. Pas bij het vijfde antwoord komt de maatregel in zicht die de storing werkelijk wegneemt, een zeef op de aanzuiging. Bij het eerste antwoord vervang je een zekering en wacht je op de volgende keer.</p>
+      <h3>Standaardwerk, nivellering en de werkvloer</h3>
+      <p>Het standaardwerkblad legt drie dingen vast: de takttijd, dat wil zeggen hoeveel tijd er per stuk beschikbaar is als de vraag over de beschikbare uren wordt verdeeld, de volgorde van de handelingen, en de hoeveelheid onderhanden werk die de bewerker bij zich houdt. Ohno stelt dat de voorman dat blad zelf schrijft en zichtbaar ophangt. Een norm die door een stafafdeling is bedacht en in een la ligt, is volgens hem geen norm.</p>
+      <p>Nivellering, in het Japans heijunka, verdeelt de bestelde soorten en aantallen zo gelijkmatig mogelijk over de dag, zodat elke voorgaande schakel een egale vraag ziet. Dat vraagt korte omsteltijden: het wisselen van perswerktuigen ging bij Toyota van uren naar minuten. Verder verlangt het systeem meerprocesbediening, waarbij één werker een reeks verschillende machines langsloopt in de volgorde van het product, wat U-vormige opstellingen nodig maakt. Ohno's manier van leidinggeven hoort daarbij: cijfers uit het kantoor zijn afgeleiden, de plek waar het werk gebeurt is de bron.</p>
+      <h3>Ford, en het leven na de groei</h3>
+      <p>Een apart hoofdstuk gaat over Henry Ford. Ohno verdedigt Ford tegen diens eigen navolgers. De lopende band was in de kern hetzelfde streven naar stroming zonder onderbreking, en de latere Amerikaanse industrie heeft daar grote series en grote voorraden van gemaakt, wat Ford volgens Ohno zelf niet gedaan zou hebben. Het verschil zit in wat als vaststaand geldt: in Amerika werd de omsteltijd als vaste kostenpost genomen en daarom over grote series uitgesmeerd, bij Toyota werd de omsteltijd zelf aangevallen.</p>
+      <p>Het slot plaatst het systeem in zijn tijd. Na de olieschok van 1973 groeide de Japanse economie niet meer zoals daarvoor, en Toyota hield als een van de weinige bedrijven zijn winst op peil. Pas toen kwamen de anderen kijken. Ohno stelt dat zijn systeem daar ook voor gemaakt is: massaproductie heeft groei nodig om haar voorraden kwijt te raken, terwijl een fabriek die alleen maakt wat verkocht is bij nulgroei nog steeds geld verdient.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">just-in-time</td><td>Elk onderdeel bereikt de volgende bewerking precies op het moment dat het nodig is en in precies de benodigde hoeveelheid.</td></tr>
+          <tr><td class="term">jidoka (autonomatie)</td><td>Machines en mensen die zelf een afwijking opmerken en het werk stilleggen, zodat fouten zich niet vermenigvuldigen.</td></tr>
+          <tr><td class="term">kanban</td><td>Het kaartje dat van de latere naar de eerdere bewerking loopt en tegelijk de opdracht tot ophalen en tot aanmaken doorgeeft.</td></tr>
+          <tr><td class="term">muda</td><td>Verspilling: alles in het proces waar de klant niet voor betaalt, door Ohno in zeven soorten ingedeeld.</td></tr>
+          <tr><td class="term">overproductie</td><td>Meer of eerder maken dan de vraag rechtvaardigt; volgens Ohno de zwaarste verspilling omdat zij alle andere verbergt.</td></tr>
+          <tr><td class="term">heijunka (nivellering)</td><td>Het gelijkmatig verdelen van soorten en aantallen over de dag, zodat de schakels ervoor geen pieken hoeven op te vangen.</td></tr>
+          <tr><td class="term">takttijd</td><td>De beschikbare productietijd gedeeld door het aantal gevraagde stuks; het ritme waarop de lijn hoort te lopen.</td></tr>
+          <tr><td class="term">standaardwerkblad</td><td>Blad met takttijd, werkvolgorde en standaardvoorraad, opgesteld door de voorman en zichtbaar opgehangen bij de plek van het werk.</td></tr>
+          <tr><td class="term">vijf keer waarom</td><td>Bij een storing vijfmaal doorvragen naar het waarom, tot de maatregel in zicht komt die de oorzaak wegneemt.</td></tr>
+          <tr><td class="term">meerprocesbediening</td><td>Eén werker bedient achtereenvolgens verschillende machines in de volgorde van het product, in plaats van één machinesoort.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is het verslag van de man die het systeem zelf heeft opgebouwd, geschreven in 1978, toen het bij Toyota al dertig jaar in ontwikkeling was. Wat als onderbouwing telt, is dat het werkt in de fabriek waar de schrijver de leiding had. Onderzoek staat er niet in. De getallen zijn schaars en meestal ontleend aan wat Ohno gehoord heeft: de verhouding één op negen komt uit een gerucht in de weverij van de jaren dertig en niet uit een meting.</p>
+      <p>De bevestiging kwam van buiten en later. Het International Motor Vehicle Program van MIT vergeleek in de jaren tachtig autofabrieken wereldwijd en vond grote verschillen in productiviteit en kwaliteit ten gunste van de Japanse fabrieken; het verslag verscheen in 1990 als <i>The Machine That Changed the World</i> en gaf het systeem de naam lean production. Wat daarmee niet is aangetoond, is dat de voorsprong van Toyota aan Ohno's methode toe te schrijven valt en niet aan leveranciersverhoudingen, arbeidsverhoudingen of wisselkoersen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar gaat over de mensen in het systeem. Ohno maakt problemen zichtbaar door bewust de rek eruit te halen: minder voorraad, minder bezetting, minder tijd. Wat dat op de werkvloer betekent, staat niet in het boek. Satoshi Kamata werkte in 1972 een seizoen als seizoenkracht in een Toyota-fabriek en beschreef dat in een dagboek dat in het Engels verscheen als <i>Japan in the Passing Lane</i>: eentonig werk in een tempo dat geen adempauze laat. De Amerikaanse vakbondsonderzoekers Mike Parker en Jane Slaughter doopten de aanpak in 1988 management-by-stress. Ohno gaat daar nergens op in.</p>
+      <p>Verder is dit een geschiedenis en geen methode. Ohno beschrijft wat er bij Toyota is gegroeid, over dertig jaar, in één land, in één bedrijfstak, met leveranciers vlak bij de fabriek en een vaste kern personeel die nergens heen kan. Wat een ander bedrijf zou moeten doen, staat er niet. De bedrijven die daarna kanbankaartjes invoerden zonder de rest deden precies waar het boek voor waarschuwt, en veel houvast om het beter te doen krijgen ze niet.</p>
+      <p>Ten slotte laat just-in-time een kwetsbaarheid zien die Ohno onbesproken laat. Een keten zonder voorraad staat stil zodra er iets breekt. De brand bij toeleverancier Aisin Seiki in 1997, de aardbeving van 2011 en de chiptekorten van 2021 dwongen Toyota telkens binnen dagen tot forse productieverlagingen. Een deel van de verspilling die de fabrikant wegneemt verhuist bovendien naar de leveranciers, die de schommelingen opvangen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij elke voorraad wat zij verbergt, en verlaag haar met opzet om te zien waar het proces vastloopt.</li>
+        <li>Stel bij een storing vijf keer de vraag waarom, en neem geen maatregel die op het eerste antwoord berust.</li>
+        <li>Reken de vraag om in een takttijd en laat de werkvolgorde daarop aansluiten, in plaats van te sturen op de bezettingsgraad van machines.</li>
+        <li>Val de omsteltijd aan voordat de seriegrootte omhoog gaat; een lange omsteltijd is de reden dat grote series aantrekkelijk lijken.</li>
+        <li>Laat de norm opschrijven door wie het werk leidt, hang hem zichtbaar op en pas hem aan zodra iemand een betere volgorde vindt.</li>
+        <li>Ga kijken waar het werk gebeurt voordat er over een rapportage wordt vergaderd.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Toyota Production System: Beyond Large-Scale Production</i> (Productivity Press, Cambridge (Massachusetts), 1988, 143 blz., ISBN 9780915299140), de Engelse vertaling van <i>Toyota seisan hoshiki</i> (Diamond, Tokio, 1978). Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Taiichi Ohno bouwde tussen 1945 en 1975 op de werkvloer van Toyota het productiesysteem dat later lean is gaan heten. Zijn boek uit 1978 is een verantwoording achteraf, geschreven toen het systeem al werkte en de rest van Japan er na de olieschok van 1973 naar was gaan kijken. Het vertrekpunt is schaarste. Japan kon na de oorlog niet met Amerikaanse aantallen concurreren, de markt vroeg kleine series van veel modellen, en het productiviteitsverschil met Amerika werd geschat op één op negen. Ohno leidde daaruit af dat dat verschil in verspilling zat en niet in inspanning.</p><p>Wat hij daarop bouwde rust op twee pijlers. Just-in-time laat elk onderdeel precies op tijd en in precies de benodigde hoeveelheid bij de volgende bewerking aankomen, aangestuurd door kanbankaartjes en afgekeken van het Amerikaanse supermarktschap. Jidoka, in het Engels autonomation, laat machine en mens de productie stilleggen zodra er iets fout gaat. Daaromheen staan de zeven soorten verspilling, met overproductie als de ergste, het vijf keer waarom om de oorzaak van een storing te vinden, de nivellering van de dagproductie en het standaardwerkblad. Het boek is dun, anekdotisch en zonder onderzoek, en het is nog steeds de bron waar alle latere lean-literatuur uit put.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>lean manufacturing</li><li>productie</li><li>management</li><li>kwaliteit</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="904"><a href="904.html">Het doel</a>. Goldratt vertelt hetzelfde inzicht als roman en legt de nadruk op de knelpuntmachine; waar Ohno voorraad als bedekking van problemen ziet, ziet Goldratt hem als gevolg van één beperkende schakel.</li>
+          <li value="265"><a href="265.html">The Lean Startup</a>. Ries haalt de term lean en het denken in kleine partijen uit Ohno's fabriek en past ze toe op ondernemingen die nog niet weten wat ze moeten maken.</li>
+          <li value="905"><a href="905.html">My Life and Work</a>. Ford schreef de verantwoording waar Ohno een heel hoofdstuk mee in gesprek gaat; dat hoofdstuk is pas te volgen naast Fords eigen tekst.</li>
+          <li value="900"><a href="900.html">My Years with General Motors</a>. Sloan beschrijft het tegenovergestelde antwoord op dezelfde vraag: beheersing via divisies, modelvariatie en jaarlijkse vernieuwing in plaats van via de werkvloer.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

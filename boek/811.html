@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The (Mis)Behaviour of Markets &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Mandelbrot betoogt dat de moderne financiële theorie op een verkeerde kansverdeling is gebouwd. Sinds Bachelier wordt aangenomen dat prijsveranderingen…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-811">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">811 &middot; Geld en ondernemen</p>
+    <h1>The (Mis)Behaviour of Markets</h1>
+    <p class="lede">Benoit B. Mandelbrot en Richard L. Hudson, 2004</p>
+    <p class="stats">
+      <span><b>1906</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="811"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Mandelbrot betoogt dat de moderne financiële theorie op een verkeerde kansverdeling is gebouwd. Sinds Bachelier wordt aangenomen dat prijsveranderingen onafhankelijk van elkaar zijn en de normale verdeling volgen, de klokvormige kromme waarbij de kans op een uitschieter razendsnel afneemt naarmate die groter wordt. Uit metingen aan katoenprijzen, wisselkoersen en aandelenindices volgt volgens hem het tegendeel: de uitschieters komen orden van grootte vaker voor dan die kromme toestaat, ze groeperen zich in tijd, en de opeenvolgende bewegingen zijn niet onafhankelijk. Daarmee zijn niet alleen de risicomaatstaven van banken en toezichthouders te laag afgesteld, maar deugt ook het bouwwerk dat op die maatstaven rust. Zijn tegenvoorstel is een beschrijving in machtswetten en fractale meetkunde, waarin schaalvergroting en zeldzame sprongen ingebouwd zitten.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Bachelier en het gebouw van de moderne financiering</h3>
+      <p>Het eerste deel is wetenschapsgeschiedenis. Louis Bachelier stelde in 1900 voor koersbewegingen op te vatten als een toevalswandeling waarin elke stap onafhankelijk is van de vorige en de stappen samen een normale verdeling opleveren. Dat idee bleef liggen tot het in de jaren vijftig en zestig werd opgepakt door de Amerikaanse economen.</p>
+      <p>Daarop verrees wat Mandelbrot het huis van de moderne financiering noemt: het portefeuillemodel van Harry Markowitz uit 1952, waarin risico wordt gelijkgesteld aan de spreiding van de rendementen; het prijsmodel voor beleggingen van William Sharpe; de leer van de doelmatige markt van Eugene Fama; en de optieformule van Fischer Black, Myron Scholes en Robert Merton uit 1973. Alle vier de bouwlagen leunen op dezelfde aanname over de verdeling, en Mandelbrot behandelt ze dan ook als één constructie.</p>
+      <h3>De aanklacht</h3>
+      <p>Het hoofdstuk waarin de aanklacht wordt opgesteld werkt met tellingen. Onder de gangbare aanname was de val van de Dow Jones-index van 6,8 procent op 31 augustus 1998 een gebeurtenis met een kans van ongeveer één op twintig miljoen, iets wat iemand die honderdduizend jaar dagelijks handelt naar verwachting nog niet één keer meemaakt. De kans op drie zulke dalingen in dezelfde maand, wat wel gebeurde, was ongeveer één op vijfhonderd miljard. Vergelijkbare rekensommen gelden voor oktober 1987.</p>
+      <p>Mandelbrot trekt daaruit de conclusie dat een model dat gebeurtenissen onmogelijk verklaart die met enige regelmaat optreden, zelf het probleem is. Zijn tweede bezwaar is dat de veronderstelde onafhankelijkheid van opeenvolgende bewegingen strijdt met wat iedere handelaar ziet: rustige en woelige perioden wisselen elkaar in blokken af.</p>
+      <h3>Beelden van het abnormale en een fractale galerij</h3>
+      <p>Het middendeel legt de meetkunde uit. Mandelbrot begint bij de vraag hoe lang de kust van Groot-Brittannië is, waarop het antwoord afhangt van de lengte van de meetlat: hoe fijner er wordt gemeten, hoe langer de kust wordt. Vormen met die eigenschap noemde hij fractals: ze zien er op elke schaal ongeveer hetzelfde uit, en hun ruwheid laat zich vangen in een getal dat de mate van vulling van de ruimte aangeeft.</p>
+      <p>Vervolgens laat hij zien hoe je met een gebroken lijn die telkens in zichzelf wordt teruggeplaatst koersgrafieken kunt maken die van echte niet te onderscheiden zijn. Grafieken uit de gangbare aanname zien er daarnaast te tam uit, en dat visuele argument draagt een groot deel van zijn overtuigingskracht.</p>
+      <h3>Het raadsel van de katoen</h3>
+      <p>Het achtste hoofdstuk vertelt hoe Mandelbrot rond 1962 bij het onderzoekslaboratorium van IBM een lange reeks katoenprijzen onderzocht, teruggaand tot de negentiende eeuw. De verdeling van de prijsveranderingen bleek geen klokkromme maar een machtswet: de kans op een uitslag neemt af met een vaste macht van de omvang van die uitslag, waardoor grote uitslagen veel zwaarder meewegen dan bij de normale verdeling.</p>
+      <p>Zulke verdelingen hebben een eigenschap die economen verontrustte: de theoretische spreiding kan oneindig zijn, waardoor de standaardafwijking, de maat waarmee de hele financiële wereld risico meet, geen stabiel getal meer oplevert. Naarmate je meer waarnemingen toevoegt, blijft dat getal veranderen. Eugene Fama nam de bevinding aanvankelijk over, maar de vakwereld liet haar na enkele jaren liggen.</p>
+      <h3>Lang geheugen, van de Nijl naar de beurs</h3>
+      <p>Het negende hoofdstuk gaat over afhankelijkheid in de tijd. Het uitgangspunt is het werk van de waterbouwkundige Harold Edwin Hurst, die de waterstanden van de Nijl over lange perioden bestudeerde om de hoogte van een stuwdam te bepalen, en die vaststelde dat natte en droge jaren zich groeperen. Hurst vatte dat in één getal, later de Hurst-exponent genoemd: bij een waarde van een half gedraagt de reeks zich als zuiver toeval, daarboven zetten bewegingen zich door, daaronder keren ze eerder om.</p>
+      <p>Mandelbrot verbindt dit met het bijbelse verhaal van Jozef, met zeven vette en zeven magere jaren, en noemt het verschijnsel het Jozef-effect. Toegepast op koersen betekent het dat de veronderstelde onafhankelijkheid van de dagelijkse bewegingen wegvalt, en daarmee ook de rekenregel die zegt dat het risico over een langere periode met de wortel van de tijd toeneemt.</p>
+      <h3>Noach, Jozef en zeepbellen</h3>
+      <p>Het tiende hoofdstuk zet de twee soorten wildheid naast elkaar. Het Noach-effect is de plotselinge sprong: de zondvloed kwam onaangekondigd en was onmiddellijk allesbepalend. In markten is dat de koers die niet glijdt maar springt, bijvoorbeeld doordat er tussen twee prijzen geen handel plaatsvindt. Het Jozef-effect is de aanhoudende trend of de aanhoudende rust.</p>
+      <p>Samen verklaren ze volgens Mandelbrot waarom zeepbellen en ineenstortingen bij markten horen en geen ziekteverschijnsel zijn dat met beter toezicht te verhelpen valt. Hij bespreekt hier ook wat zijn beeld betekent voor het idee van de intrinsieke waarde: die is in zijn ogen een grootheid die zich slecht laat vaststellen en die in het gedrag van de prijzen weinig terugkomt.</p>
+      <h3>Handelstijd, tien ketterijen en het lab</h3>
+      <p>Het elfde hoofdstuk brengt de twee effecten samen in het multifractale model. Het idee is dat de klok van de markt niet gelijkmatig loopt: op woelige dagen gebeurt er in een uur wat op rustige dagen een maand kost. Wie de prijsreeks uitzet tegen die vervormde handelstijd in plaats van tegen de kalender, krijgt een beeld dat weer op een toevalswandeling lijkt. De vervorming zelf wordt met een fractale constructie beschreven, en de ruwheid van de koers en de ruwheid van de tijd worden zo van elkaar gescheiden.</p>
+      <p>Het twaalfde hoofdstuk vat het betoog samen in tien uitspraken die Mandelbrot ketterijen noemt, waaronder dat markten turbulent zijn, dat zij veel riskanter zijn dan de gangbare theorie aanneemt, dat winst en verlies zich in weinig dagen samenpakken, dat prijzen springen in plaats van glijden, dat de tijd in markten rekbaar is, dat markten in alle tijden en op alle plaatsen op elkaar lijken, dat zeepbellen onvermijdelijk zijn, dat markten misleiden, dat het begrip waarde er weinig toe doet en dat de beweeglijkheid beter te voorspellen valt dan de prijs. Het slothoofdstuk somt tien onderzoeksvragen op die hij aan de volgende generatie overlaat.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Normale verdeling</td><td>De klokvormige kansverdeling waarbij de kans op een uitschieter razendsnel afneemt naarmate die groter wordt, en die aan vrijwel de hele financiële theorie ten grondslag ligt.</td></tr>
+          <tr><td class="term">Machtswet</td><td>Verband waarbij de kans op een gebeurtenis afneemt met een vaste macht van haar omvang, zodat zeer grote uitslagen zeldzaam blijven maar niet verwaarloosbaar worden.</td></tr>
+          <tr><td class="term">Staartrisico</td><td>Het risico dat schuilt in de uiteinden van de kansverdeling, dus in de zeldzame grote uitslagen die de meeste winst en het meeste verlies opleveren.</td></tr>
+          <tr><td class="term">Fractal</td><td>Vorm die er op elke schaal ongeveer hetzelfde uitziet, zodat een klein stuk op het geheel lijkt.</td></tr>
+          <tr><td class="term">Schaalinvariantie</td><td>De eigenschap dat een koersgrafiek van een uur, een dag en een jaar zich statistisch op dezelfde manier gedragen, zodat de tijdas geen kenmerkende maat heeft.</td></tr>
+          <tr><td class="term">Hurst-exponent</td><td>Getal dat aangeeft in hoeverre een reeks een geheugen heeft: een half betekent zuiver toeval, hoger betekent dat bewegingen zich doorzetten, lager dat zij eerder omkeren.</td></tr>
+          <tr><td class="term">Jozef-effect</td><td>Het verschijnsel dat gunstige en ongunstige perioden zich groeperen, genoemd naar de zeven vette en zeven magere jaren.</td></tr>
+          <tr><td class="term">Noach-effect</td><td>Het verschijnsel dat een prijs plotseling springt in plaats van geleidelijk te bewegen, genoemd naar de zondvloed.</td></tr>
+          <tr><td class="term">Handelstijd</td><td>Een vervormde tijdrekening waarin drukke perioden worden opgerekt en rustige ingekort, zodat de prijsreeks er weer als toeval uitziet.</td></tr>
+          <tr><td class="term">Multifractaal model</td><td>Mandelbrots eigen beschrijving van koersen, waarin de fractale ruwheid van de prijs en die van de handelstijd apart worden vastgelegd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De empirische kern is echt onderzoek en geen illustratie. De katoenreeks uit het begin van de jaren zestig, het werk van Hurst aan de Nijlstanden en de latere metingen aan wisselkoersen en aandelenindices leverden telkens hetzelfde beeld: te veel grote uitslagen voor de klokkromme en te veel groepering in de tijd voor onafhankelijkheid. Die twee vaststellingen zijn intussen algemeen aanvaard en staan ook in leerboeken over financiële statistiek.</p>
+      <p>De rekensommen over de kansen zijn controleerbaar en juist daarom overtuigend: de kans van één op twintig miljoen voor 31 augustus 1998 volgt uit de gangbare formule, en dat zulke dagen voorkomen is een kwestie van de koersen erbij pakken.</p>
+      <p>Zwakker staat het tweede deel van de stelling, namelijk dat het multifractale model de juiste vervanging is. Dat model is moeilijk te schatten uit beperkte reeksen, het levert geen gesloten formule voor de prijs van een optie of voor de samenstelling van een portefeuille, en de vakwereld heeft het na twintig jaar nauwelijks overgenomen. Wat wel is overgenomen zijn modellen die het probleem gedeeltelijk verhelpen, zoals verdelingen met zwaardere staarten, sprongprocessen en modellen die de beweeglijkheid laten variëren. Mandelbrot noemt die reparaties, en dat is een oordeel, geen bewijs.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat het boek afbreekt zonder een bruikbaar alternatief neer te zetten. Wie in een bank of bij een pensioenfonds een risicomaatstaf moet kiezen, een optie moet prijzen of een portefeuille moet samenstellen, kan met de uitkomst van dit boek weinig beginnen. Mandelbrot geeft dat ook toe: het slothoofdstuk is een lijst met onderzoeksvragen. Het gevolg is dat de lezer wordt overtuigd dat het gangbare gereedschap ondeugdelijk is, zonder dat er ander gereedschap in de kast ligt.</p>
+      <p>Het tweede bezwaar betreft de manier waarop de tegenpartij wordt neergezet. De financiële theorie van na 1970 wordt behandeld alsof niemand daar van dikke staarten had gehoord, terwijl het meten en modelleren van precies dat verschijnsel sinds de jaren tachtig een eigen vakgebied is. Ook de toon speelt op: Mandelbrot komt vaak terug op zijn eigen voorrang en op het onrecht dat hem in de jaren zestig zou zijn aangedaan.</p>
+      <p>Ten derde is de praktische raad die het boek geeft mager en op punten in strijd met zichzelf. Als de tijd rekbaar is, als markten misleiden en als waarde er weinig toe doet, blijft er voor de belegger weinig anders over dan de vaststelling dat het risico groter is dan hij dacht. Het boek beschrijft bovendien patronen in prijzen zonder te verklaren waar die vandaan komen; over het gedrag van de partijen in de markt staat er weinig in.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Reken bij elke risicoberekening na welke kansverdeling er onder zit, en vraag wat de uitkomst wordt als de staart zwaarder is dan aangenomen.</li>
+        <li>Behandel de rekenregel dat risico met de wortel van de tijd toeneemt als een aanname en niet als een natuurwet; zij vervalt zodra bewegingen samenhangen.</li>
+        <li>Kijk bij het beoordelen van een reeks rendementen apart naar de dagen met de grootste uitslagen, omdat die het grootste deel van het resultaat bepalen.</li>
+        <li>Gebruik de beweeglijkheid, die zich in blokken groepeert en daardoor enige voorspelbaarheid heeft, en niet de prijsrichting als aangrijpingspunt voor risicobeheersing.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The (Mis)Behaviour of Markets: A Fractal View of Risk, Ruin and Reward</i> (Profile Books, Londen, 2004; heruitgave 2010, 352 blz., ISBN 9781847651556). De Amerikaanse uitgave verscheen bij Basic Books als <i>The (Mis)Behavior of Markets</i> en droeg vanaf de pocket van 2006 de ondertitel <i>A Fractal View of Financial Turbulence</i> (ISBN 9780465043576). Een Nederlandse vertaling is niet gevonden; wel bestaat een Duitse, <i>Fraktale und Finanzen</i> (Piper, 2005). Deze samenvatting berust op de Engelse editie.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Mandelbrot, de wiskundige die het woord fractal bedacht, schreef dit boek samen met journalist Richard Hudson als aanklacht tegen de kansverdeling die aan vrijwel de hele financiële theorie ten grondslag ligt. Die theorie gaat ervan uit dat koersbewegingen de normale verdeling volgen, de klokvormige kromme waarbij grote uitslagen zo zeldzaam zijn dat ze verwaarloosd mogen worden. Mandelbrot laat aan de hand van katoenprijzen, wisselkoersen en aandelenkoersen zien dat grote uitslagen in werkelijkheid veel vaker voorkomen, en dat ze bovendien geneigd zijn zich te groeperen.</p><p>In plaats daarvan biedt hij een beschrijving met machtswetten en fractale meetkunde, met het Jozef-effect voor het lange geheugen van markten en het Noach-effect voor de plotselinge sprong. Het boek is voor een deel wetenschapsgeschiedenis, met Bachelier, Markowitz, Sharpe en Black-Scholes als tegenspelers, en voor een deel een pleidooi voor een ander soort risicodenken. Wat het niet biedt is een kant-en-klare vervanging van de formules die het afwijst.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>risico</li><li>statistiek</li><li>financiële markten</li><li>fractals</li><li>staartrisico</li><li>beleggen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="268"><a href="268.html">The Black Swan</a>. Taleb bouwt op dezelfde vaststelling over zeldzame grote uitslagen, maar trekt de conclusie door naar kennis en besluitvorming in het algemeen.</li>
+          <li value="496"><a href="496.html">Safe Haven: Investing for Financial Storms</a>. Spitznagel probeert wel te doen wat Mandelbrot nalaat: er een concrete beleggingsaanpak op bouwen die van grote uitslagen profiteert.</li>
+          <li value="810"><a href="810.html">Inventing Money</a>. Dunbar beschrijft een fonds dat op precies de aannames handelde die Mandelbrot verwerpt, en wat daar in 1998 van terechtkwam.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

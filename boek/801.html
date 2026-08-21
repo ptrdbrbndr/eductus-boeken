@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why We Remember &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Ranganath keert de gangbare vraag om. Mensen vragen zich af waarom zij zo veel vergeten, alsof het geheugen een opnameapparaat is dat hapert. Zijn…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-801">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">801 &middot; Brein en lichaam</p>
+    <h1>Why We Remember</h1>
+    <p class="lede">Charan Ranganath, 2024</p>
+    <p class="stats">
+      <span><b>1711</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="801"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Ranganath keert de gangbare vraag om. Mensen vragen zich af waarom zij zo veel vergeten, alsof het geheugen een opnameapparaat is dat hapert. Zijn antwoord is dat het geheugen nooit bedoeld was om een volledig verslag bij te houden. Het is ontstaan om uit ervaringen te halen wat helpt bij wat nog komen moet, en om die informatie op het juiste moment weer beschikbaar te maken. Vergeten hoort daarbij: een brein dat alles vasthield zou geen enkele ervaring van een andere kunnen onderscheiden en zou uit de opgeslagen massa niets bruikbaars kunnen halen. Herinneringen zijn bovendien geen bewaarde kopieën maar reconstructies die bij elke oproep opnieuw worden samengesteld en daarbij veranderen. Dat maakt het geheugen bruikbaar en tegelijk onbetrouwbaar, en volgens Ranganath is dat één en hetzelfde ontwerp en geen ongelukkige bijkomstigheid.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat blijft hangen en wat niet</h3>
+      <p>Het openingshoofdstuk, <i>Where Is My Mind?</i>, gaat over de vraag waarom sommige dingen blijven en andere verdwijnen. Ranganath zet de klassieke geschiedenis kort neer: Hermann Ebbinghaus, die in de negentiende eeuw zichzelf betekenisloze lettergrepen liet leren en de vergeetcurve in kaart bracht, en de patiënt die in de literatuur bekendstaat als H.M., bij wie na een hersenoperatie het vormen van nieuwe herinneringen aan gebeurtenissen wegviel terwijl hij nog wel vaardigheden kon aanleren.</p>
+      <p>Zijn eigen antwoord draait om aandacht en betekenis. Wat opvalt, wat afwijkt van de verwachting en wat aansluit bij iets dat al bekend is, wordt vastgelegd; de rest niet. Dat verklaart waarom mensen de derde dag van een reis in een vreemde stad beter onthouden dan de vijfhonderdste rit naar hun werk.</p>
+      <h3>Terug naar plaats en tijd</h3>
+      <p>Het tweede hoofdstuk, <i>Travelers of Time and Space</i>, behandelt het onderscheid dat Endel Tulving in 1972 invoerde tussen episodisch en semantisch geheugen. Episodische herinneringen brengen iemand terug naar een bepaald moment op een bepaalde plaats; semantische kennis is losgemaakt van de gelegenheid waarbij zij werd opgedaan. De hippocampus bindt de losse onderdelen van een ervaring aan de context waarin die plaatsvond, en gebruikt die context later als sleutel om alles weer bij elkaar te halen.</p>
+      <p>Daaruit volgt waarom herinneringen contextafhankelijk zijn. Terugkeren naar de plek, de stemming of de muziek van toen maakt oproepen makkelijker. Het verklaart ook alledaagse haperingen, zoals het vergeten waarvoor iemand een kamer binnenliep: het wisselen van omgeving verandert de context waarop het geheugen was aangesloten.</p>
+      <h3>Meer onthouden door minder uit het hoofd te leren</h3>
+      <p>Het derde hoofdstuk, <i>Reduce, Reuse, Recycle</i>, gaat over schema's en over het samenvoegen van losse elementen tot grotere eenheden. Iemand die al veel van een onderwerp weet, hoeft nieuwe informatie niet los op te slaan maar kan haar aan bestaande kennis hangen. Daarom onthoudt een geoefend schaker een zinnige bordopstelling in één oogopslag, terwijl hij een willekeurige opstelling niet beter onthoudt dan een beginner.</p>
+      <p>Hier staat ook Ranganaths praktische advies over leren. Foutgestuurd leren, dus zichzelf overhoren en de misslagen corrigeren, werkt beter dan herlezen, omdat het oproepen van een herinnering die herinnering zelf versterkt. Slaap, spreiding in de tijd en het opzoeken van nieuwsgierigheid dragen daaraan bij. Nieuwsgierigheid werkt volgens hem via hetzelfde dopaminesysteem dat op onverwachte gebeurtenissen reageert.</p>
+      <h3>Herinneren, verbeelden en voelen</h3>
+      <p>In <i>Just My Imagination</i> betoogt Ranganath dat herinneren en zich iets voorstellen op dezelfde hersenmachinerie draaien. Wie zich een toekomstige situatie voorstelt, zet daarvoor stukken van eerdere ervaringen in elkaar. Dat verklaart waarom mensen met schade aan de hippocampus niet alleen hun verleden kwijt zijn maar zich ook geen toekomst kunnen voorstellen. Hij grijpt hier terug op Frederic Bartlett, die al voor de Tweede Wereldoorlog stelde dat herinneren een vorm van reconstructie is en geen weergave.</p>
+      <p>Het hoofdstuk <i>More Than a Feeling</i> scheidt de herinnering aan een gebeurtenis van het gevoel dat er nu bij hoort. Dat onderscheid gebruikt hij bij trauma: bij een posttraumatische stressstoornis is het probleem eerder dat de herinnering losgeraakt is van haar context en zich opdringt dan dat er te veel of te weinig van bewaard is. Behandeling werkt dan doordat de herinnering opnieuw wordt opgeroepen in een omgeving waarin het gevaar er niet is.</p>
+      <h3>Leren zonder herinneren</h3>
+      <p>Het hoofdstuk <i>All Around Me Are Familiar Faces</i> gaat over wat mensen oppikken zonder dat zij zich de gelegenheid herinneren. Ranganath onderscheidt vertrouwdheid, het gevoel iets eerder gezien te hebben, van het werkelijk terughalen van de gelegenheid, en laat zien dat die twee op verschillende hersenprocessen berusten. Dat verschil is een van de onderwerpen waar zijn eigen laboratorium onderzoek naar doet.</p>
+      <p>De gevolgen zijn ongemakkelijk. Herhaalde blootstelling maakt een bewering vertrouwd, en vertrouwdheid voelt aan als waarheid, ook als de bron vergeten is. Reclame en herhaalde onwaarheden werken langs die weg.</p>
+      <h3>Herinneringen die veranderen</h3>
+      <p>Het slotdeel behandelt het bijstellen van herinneringen. Elke keer dat een herinnering wordt opgeroepen komt zij in een toestand waarin zij te veranderen is, en wat er op dat moment aan informatie bijkomt kan er onderdeel van worden. Daar zit het nut in: zo blijft het geheugen bij de tijd. Daar zit ook de schade: op die manier ontstaan valse herinneringen, misleide getuigen en bekentenissen van mensen die de daad niet hebben gepleegd.</p>
+      <p>In de coda stelt Ranganath vast dat na dertig jaar onderzoek veel vragen over het geheugen open blijven staan. Hij noemt daarbij ook wat mensen zelf kunnen doen, zoals slaap, beweging, aandacht en het ordenen van ervaringen in een verhaal, maar hij houdt het bescheiden: de winst zit vooral in beter kiezen waar de aandacht heen gaat.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Episodisch geheugen</td><td>Het geheugen voor gebeurtenissen, dat iemand terugbrengt naar een bepaald moment op een bepaalde plaats.</td></tr>
+          <tr><td class="term">Semantisch geheugen</td><td>Feitenkennis die losgemaakt is van de gelegenheid waarbij zij werd opgedaan en overal toepasbaar is.</td></tr>
+          <tr><td class="term">Hippocampus</td><td>Het hersengebied dat de losse onderdelen van een ervaring aan hun context bindt en die context later als sleutel gebruikt om ze terug te halen.</td></tr>
+          <tr><td class="term">Prefrontale cortex</td><td>Het voorste deel van de hersenschors dat bepaalt waar de aandacht heen gaat en welke herinnering op welk moment van pas komt.</td></tr>
+          <tr><td class="term">Schema</td><td>Een geordend geheel van eerdere kennis waaraan nieuwe informatie kan worden opgehangen, zodat er minder los onthouden hoeft te worden.</td></tr>
+          <tr><td class="term">Reconstructie</td><td>De opvatting van Frederic Bartlett dat herinneren het opnieuw samenstellen van een gebeurtenis is en geen afspelen van een opname.</td></tr>
+          <tr><td class="term">Foutgestuurd leren</td><td>Leren door zichzelf te overhoren en de misslagen te corrigeren, waarbij het oproepen zelf de herinnering versterkt.</td></tr>
+          <tr><td class="term">Contextafhankelijkheid</td><td>Het verschijnsel dat een herinnering makkelijker terugkomt in de omgeving, stemming of situatie waarin zij is ontstaan.</td></tr>
+          <tr><td class="term">Vertrouwdheid tegenover terughalen</td><td>Het onderscheid tussen het gevoel iets eerder te hebben meegemaakt en het werkelijk terughalen van de gelegenheid zelf.</td></tr>
+          <tr><td class="term">Geheugenupdating</td><td>Het opnieuw vastleggen van een opgeroepen herinnering, waarbij informatie van dit moment er onderdeel van kan worden.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek steunt op de onderzoeksliteratuur waar Ranganath zelf in werkt, en dat is te merken. Klassieke bevindingen komen met naam en jaartal: Ebbinghaus met zijn lettergrepen in de negentiende eeuw, Tulving met het onderscheid tussen episodisch en semantisch geheugen in 1972, Bartlett met het idee van reconstructie, en de patiënt H.M., wiens geval de rol van de mediale temporaalkwab vastlegde. Daarnaast bespreekt hij werk uit zijn eigen laboratorium en dat van vakgenoten, met een notenapparaat achterin.</p>
+      <p>Waar het minder stevig wordt is bij de stap van laboratorium naar dagelijks leven. Veel van wat hij aanhaalt komt uit hersenscanonderzoek met kleine groepen deelnemers en uit taken die weinig lijken op wat mensen buiten het laboratorium doen. De psychologie heeft de afgelopen vijftien jaar geleerd dat een deel van dat soort bevindingen bij herhaling niet standhoudt. Ranganath is voorzichtiger dan veel populair-wetenschappelijke auteurs en zegt in de coda uitdrukkelijk dat er veel niet bekend is, maar de lezer krijgt niet per bevinding te horen hoe vaak zij herhaald is.</p>
+      <p>Het overkoepelende idee, dat het geheugen bestaat om de toekomst te dienen, is bovendien een verklaringskader en geen toetsbare uitspraak. Het past op vrijwel elk verschijnsel dat het boek beschrijft, ook op tegengestelde: dat iets blijft hangen bewijst het nut ervan, dat iets vervalt bewijst de selectie. Als leidraad om de losse bevindingen te ordenen werkt het, als bewering die te weerleggen valt minder.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De recensie in Kirkus wijst op wat waarschijnlijk het grootste bezwaar is voor de gewone lezer: wie een handleiding voor een beter geheugen verwacht, komt bedrogen uit. Het praktische deel is klein en tamelijk voorspelbaar. Slapen, bewegen, aandacht geven, spreiden in de tijd, zichzelf overhoren en ervaringen in een verhaal ordenen; dat staat in vrijwel elk boek over leren. Het boek is een uiteenzetting over hoe het geheugen werkt met adviezen als bijproduct, terwijl de ondertitel iets anders belooft.</p>
+      <p>Ook op stijl valt iets aan te merken. In Undark stelde de recensent vast dat het boek af en toe als een studieboek leest, vol namen van onderzoekers en details van proefopstellingen, en dat de persoonlijke anekdotes, zoals de ontmoeting met zijn latere vrouw en een tochtje op een surfplank dat bij elke navertelling anders werd, er soms bijgezet lijken om die stof te verlichten. Het schuurt tussen twee registers: voor een vakgenoot staat er te veel uitleg in, voor een leek te veel apparatuur.</p>
+      <p>Inhoudelijk krijgen de omstredenste onderwerpen de minste ruimte. Verdrongen herinneringen, de betrouwbaarheid van getuigenverklaringen en valse bekentenissen worden aangestipt in het licht van de mechanismen die hij eerder heeft uitgelegd, maar het decennialange debat daarover, met de rechterlijke gevolgen die het heeft gehad, krijgt weinig plaats. Wie daarin geïnteresseerd is, heeft aan dit boek de achtergrond en niet de zaak.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Overhoor jezelf over stof die je wilt onthouden in plaats van haar opnieuw te lezen, en spreid die overhoringen over meerdere dagen.</li>
+        <li>Zorg dat er iets te verwachten valt voordat je iets leert; een vraag stellen voor het lezen maakt het antwoord beter te onthouden.</li>
+        <li>Koppel iets dat je makkelijk kwijtraakt aan een vaste plek of aan een beeld dat met de situatie te maken heeft.</li>
+        <li>Maak van een ervaring die je wilt bewaren een verhaal met plaats, volgorde en betekenis.</li>
+        <li>Wees terughoudend met de zekerheid waarmee je een oude herinnering aanhaalt; hoe vaker zij is opgehaald, hoe meer zij door latere informatie is bijgesteld.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Ondertitel <i>Unlocking Memory's Power to Hold on to What Matters</i>, bij Doubleday (20 februari 2024, 304 blz., ISBN 9780385548632); in het Verenigd Koninkrijk bij Faber &amp; Faber, in pocket bij Vintage (2025, ISBN 9780593467831). Ranganath is hoogleraar psychologie en neurowetenschap aan de University of California, Davis, en leidt daar het Dynamic Memory Lab. Een Nederlandse vertaling is niet gevonden: het boek wordt in Nederland en België in de Engelse editie verkocht en de Nederlandse boekhandels voeren geen vertaalde uitgave. Deze samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Ranganath onderzoekt al ruim vijfentwintig jaar hoe het geheugen werkt, met hersenscans, computermodellen en patiënten met geheugenstoornissen. Zijn stelling in dit boek is dat het geheugen niet is gebouwd om het verleden vast te leggen, maar om er informatie uit te halen die bruikbaar is voor wat komt. Vergeten is in die opvatting geen storing maar het gevolg van een selectie die het brein voortdurend maakt.</p><p>Het boek behandelt onder meer het verschil tussen herinneringen aan gebeurtenissen en algemene kennis, de rol van de hippocampus en de prefrontale cortex, de manier waarop herinneren en verbeelden op dezelfde machinerie draaien, en wat er misgaat bij valse bekentenissen en getuigenverklaringen. Praktische adviezen staan erin, maar ze vormen een klein deel; de nadruk ligt op hoe het geheugen in elkaar zit.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>geheugen</li><li>neurowetenschap</li><li>hersenen</li><li>leren</li><li>psychologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="414"><a href="414.html">Life Lessons from a Brain Surgeon</a>. Jandial schrijft over hetzelfde brein vanuit de operatiekamer, met meer nadruk op wat er bij schade zichtbaar wordt.</li>
+          <li value="85"><a href="85.html">Singing in the brain</a>. Scherder behandelt het geheugen bij dementie en de plaats van muziek daarin, waar Ranganath vooral het gezonde geheugen beschrijft.</li>
+          <li value="296"><a href="296.html">Get Better at Anything</a>. Young vertaalt hetzelfde geheugenonderzoek naar een leermethode, met meer aandacht voor oefening en terugkoppeling.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

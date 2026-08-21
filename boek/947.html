@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>To Explain the World &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Weinberg betoogt dat de moderne wetenschap een ontdekking is en niet een vanzelfsprekende manier van denken die alleen door bijgeloof werd tegengehouden.…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-947">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">947 &middot; Natuur en wetenschap</p>
+    <h1>To Explain the World</h1>
+    <p class="lede">Steven Weinberg, 2015</p>
+    <p class="stats">
+      <span><b>1745</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="947"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Weinberg betoogt dat de moderne wetenschap een ontdekking is en niet een vanzelfsprekende manier van denken die alleen door bijgeloof werd tegengehouden. Wat ontdekt moest worden is niet dit of dat feit maar de werkwijze zelf: dat verklaringen wiskundig moeten zijn, dat zij tegen waarnemingen worden gehouden, dat men doelen en waarden uit de natuurbeschrijving weglaat, en dat de vraag waartoe iets dient wordt vervangen door de vraag hoe het gaat. De Grieken misten dat niet uit domheid; zij bedreven dichtkunst, wiskunde en wijsbegeerte, hadden geen begrip van wat een toets zou moeten zijn en vooral geen manier om te merken dat zij het mis hadden. Weinberg beoordeelt hen daarom uitdrukkelijk naar de maat van nu, met het argument dat de geschiedenis van de wetenschap anders niet uit te leggen valt, en aanvaardt de beschuldiging van whiggisme die daaruit volgt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het uitgangspunt en het bezwaar dat het oproept</h3>
+      <p>Weinberg zet zijn methode vooraf uiteen. Hij oordeelt over het verleden met de kennis van nu, hij noemt vergissingen vergissingen, en hij zegt erbij dat hij weet dat historici dat afkeuren. Zijn verweer is dat de geschiedenis van de wetenschap over iets gaat dat wel degelijk vooruitgang kent, en dat een verslag waarin elke opvatting even goed in haar eigen tijd past, de vraag onbeantwoord laat waarom er uiteindelijk iets veranderde.</p>
+      <p>Daarbij hoort een tweede uitgangspunt: verklaren is voor Weinberg iets anders dan beschrijven of voorspellen. Een berekening die de standen van de planeten juist voorspelt zonder te zeggen wat er beweegt, is geen verklaring. Dat onderscheid stuurt zijn oordelen over de hele linie.</p>
+      <h3>Griekse natuurkunde: dichtkunst in plaats van proefneming</h3>
+      <p>Het eerste deel behandelt in vijf hoofdstukken de manieren van denken waar de wetenschap zich uit heeft moeten losmaken: dichtkunst, wiskunde, wijsbegeerte, techniek en godsdienst. De Milesiërs en Democritus stelden vragen over de grondstof van de wereld zonder een middel om tussen de antwoorden te kiezen. Plato krijgt het hardste oordeel, tot en met het woord dwaas voor de meetkundige elementenleer in de <i>Timaeus</i>. Aristoteles noemt Weinberg vervelend om te lezen, en hij verwijt hem dat hij natuurbeschrijving met doelgerichtheid en waardeoordelen vermengde.</p>
+      <p>Het laatste hoofdstuk van dit deel gaat over godsdienst. Weinberg behandelt religie en wetenschap als tegengestelde krachten en gebruikt de Hellenistische periode om te laten zien dat er ook toen mensen waren die het anders deden, zoals Straton en Archimedes. Zij bleven uitzondering, en er ontstond geen gemeenschap die hun werkwijze overnam.</p>
+      <h3>Griekse sterrenkunde: waar het wel werkte</h3>
+      <p>Het tweede deel is welwillender. In de astronomie waren er meetbare grootheden, en daardoor ontstond iets dat op de latere werkwijze lijkt. Weinberg loopt de methoden na waarmee de Grieken de verhouding tussen de afstanden tot zon en maan probeerden te bepalen, de omtrek van de aarde schatten en de precessie van de equinoxen ontdekten, en hij werkt die berekeningen in de technische noten uit, zodat de lezer kan zien hoe goed of slecht ze waren.</p>
+      <p>De kern van dit deel is het probleem van de planeten en de opdracht om de verschijnselen te redden: een model bouwen van cirkels op cirkels dat de waargenomen standen weergeeft. Ptolemaeus deed dat met epicykels en aequanten. Weinberg wijst erop dat dit rekenwerk uitstekend voorspelde en tegelijk niets verklaarde, en dat de vraag of de cirkels werkelijk bestonden of alleen een rekenhulp waren tot Copernicus en zelfs daarna onbeslist bleef.</p>
+      <h3>De middeleeuwen, Arabisch en Latijns</h3>
+      <p>Het derde deel behandelt eerst de Arabische wetenschap, met al-Chwarizmi, al-Biruni en vooral Ibn al-Haytham, wiens optica volgens Weinberg de proefneming het dichtst benadert van alles wat voor de zeventiende eeuw geschreven is. Hij stelt daarna de vraag waarom die traditie doodliep en geeft een antwoord dat hij zelf onvolledig noemt, waarin de verhouding tot de godsdienst en het ontbreken van een blijvende instelling voor onderzoek de hoofdrol spelen.</p>
+      <p>Daarna volgt het Latijnse westen: de universiteiten, de rekenaars van Merton College met hun stelling over eenparig versnelde beweging, Buridan met de impetus en Oresme met zijn grafische bewijs. Weinberg erkent dat deze mensen stukken van de latere mechanica in handen hadden, en houdt vol dat zij binnen een aristotelisch kader bleven werken waarin die stukken niet tot een samenhangende natuurkunde konden uitgroeien.</p>
+      <h3>De wetenschappelijke revolutie</h3>
+      <p>Het vierde deel bestaat uit vier hoofdstukken: het zonnestelsel opgelost, het begin van de proefneming, de methode herzien en de newtoniaanse synthese. Copernicus verplaatste het middelpunt maar hield de cirkels; Tycho leverde de waarnemingen die nauwkeurig genoeg waren om die cirkels te breken; Kepler zag dat de banen ellipsen zijn en formuleerde de drie wetten. Galilei krijgt lof voor de telescoop en de valproeven en kritiek omdat hij Keplers ellipsen negeerde en aan cirkelbanen bleef vasthouden.</p>
+      <p>Bij de methodedenkers is Weinberg streng. Bacon en Descartes hebben volgens hem minder bijgedragen dan hun reputatie doet vermoeden, en de natuurkunde van Descartes was grotendeels onjuist terwijl zijn meetkunde blijvend was. Het slot is Newton: de <i>Principia</i> van 1687 verenigt de valbeweging op aarde met de banen van de planeten en levert daarmee voor het eerst een verklaring in Weinbergs zin, met daarbij het punt dat Newton over de aard van de zwaartekracht zelf geen uitspraak wilde doen en dat de wetenschap daarmee leerde vragen open te laten.</p>
+      <h3>De grote reductie en de technische noten</h3>
+      <p>De epiloog trekt de lijn door naar het heden: de scheikunde ging op in de atoomfysica, de biologie in de scheikunde, en de natuurkunde zoekt de samenvoeging van haar eigen theorieën. Weinberg noemt dat de grote reductie en behandelt haar als het patroon dat de hele geschiedenis achteraf verklaart, zonder te beweren dat er een eindpunt in zicht is.</p>
+      <p>De bijlage met technische noten is wat het boek onderscheidt van andere populaire geschiedenissen. Weinberg werkt daar de wiskunde uit die in de hoofdtekst alleen wordt genoemd, van de meetkunde achter de schatting van Aristarchus voor de afstand tot de zon tot de afleiding van Keplers wetten uit de zwaartekrachtwet. Wie de noten overslaat leest een gewone geschiedenis met scherpe oordelen; wie ze doorwerkt kan de oordelen op hun eigen terrein narekenen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">verklaren</td><td>Bij Weinberg meer dan beschrijven of voorspellen: zeggen waarom de verschijnselen zijn zoals ze zijn, bij voorkeur door ze uit algemenere wetten af te leiden.</td></tr>
+          <tr><td class="term">whiggisme</td><td>Het beoordelen van het verleden naar de maatstaven van het heden; Weinberg noemt de beschuldiging bij naam en aanvaardt haar.</td></tr>
+          <tr><td class="term">de verschijnselen redden</td><td>De klassieke opdracht aan de astronoom om een rekenmodel te leveren dat de waargenomen standen weergeeft, zonder uitspraak over wat er werkelijk beweegt.</td></tr>
+          <tr><td class="term">epicykel</td><td>Kleine cirkel waarvan het middelpunt over een grotere cirkel loopt, het rekenmiddel waarmee Ptolemaeus de lussen in de planeetbanen weergaf.</td></tr>
+          <tr><td class="term">teleologie</td><td>Verklaring uit een doel of bestemming, bij Aristoteles het hart van de natuurbeschouwing en volgens Weinberg de zwaarste rem op de natuurkunde.</td></tr>
+          <tr><td class="term">natuurlijke plaats</td><td>Aristoteles' idee dat elk element van nature naar een bepaalde hoogte streeft, waarmee vallen en stijgen verklaard heetten te zijn.</td></tr>
+          <tr><td class="term">sublunaire wereld</td><td>Het gebied beneden de maan, in de aristotelische leer aan andere wetten onderworpen dan de hemel; het onderscheid dat Newton ophief.</td></tr>
+          <tr><td class="term">impetus</td><td>Middeleeuws begrip voor de meegegeven beweegkracht van een geworpen voorwerp, een tussenstap richting het latere traagheidsbeginsel.</td></tr>
+          <tr><td class="term">de grote reductie</td><td>Weinbergs naam voor het opgaan van hele vakgebieden in fundamentelere, waarmee de scheikunde in de natuurkunde belandde en de biologie in de scheikunde.</td></tr>
+          <tr><td class="term">technische noten</td><td>De bijlage waarin Weinberg de wiskunde van de besproken berekeningen zelf uitwerkt, zodat de lezer ze kan controleren.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Weinberg is natuurkundige en geen historicus, en dat bepaalt waar het boek sterk en zwak staat. Hij werkt met de klassieke teksten in vertaling en met de gangbare secundaire literatuur; archiefwerk doet hij niet en beweert hij ook niet te doen. Waar hij wel iets toevoegt dat andere geschiedenissen missen, is in de technische noten: hij rekent de oude methoden na, laat zien welke aannames erin zitten en hoe nauwkeurig de uitkomsten waren, en die controle kan de lezer zelf overdoen.</p>
+      <p>De feitelijke gang van zaken die hij beschrijft is niet omstreden. Wat omstreden is, is de weging: welke bijdragen tellen als wetenschap, welke niet, en waarom de doorbraak kwam waar zij kwam. Voor die weging voert Weinberg redenen aan en geen bewijs, en hij zegt dat ook. Op de plaatsen waar het antwoord ontbreekt, zoals bij de vraag waarom de Arabische traditie stilviel, geeft hij dat toe in plaats van een verklaring te construeren.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De zwaarste aanval kwam van wetenschapshistorici. Steven Shapin besprak het boek onder de kop dat natuurwetenschappers geen geschiedenis moeten schrijven, en zijn bezwaar treft de kern: wie het verleden alleen langs de meetlat van het heden legt, kan wel aanwijzen waar mensen ernaast zaten, maar verklaart niet waarom zij dachten wat zij dachten, en dus ook niet hoe verandering tot stand kwam. Weinberg beantwoordt die kritiek door het whiggisme te omarmen, wat het bezwaar erkent zonder het te weerleggen. Het gevolg is een geschiedenis waarin de hoofdvraag, waarom de doorbraak in het zeventiende-eeuwse Europa plaatsvond en niet in Alexandrië of Bagdad, blijft liggen.</p>
+      <p>Daarnaast is het oordeelsapparaat grof waar het over godsdienst gaat. Wetenschap en religie worden als tegengestelde krachten opgevoerd, terwijl juist de instellingen waarin het middeleeuwse onderzoek plaatsvond kerkelijk waren en Kepler en Newton hun natuurkunde religieus gemotiveerd bedreven. Ook de bejegening van Aristoteles is scheef: het verwijt dat hij niet toetste laat onbesproken dat hij als bioloog wel degelijk stelselmatig waarnam. En de stelling dat de wetenschap ontdekt moest worden is, hoe juist ook, weinig omstreden; wie het boek voor die these leest, krijgt vooral vijftien hoofdstukken oordeel over mensen die haar nog niet kenden.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Onderscheid bij een model of het de verschijnselen alleen weergeeft of ook zegt waarom ze zo zijn; het verschil tussen voorspellen en verklaren bepaalt wat een model waard is.</li>
+        <li>Ga bij een historisch oordeel over eerder werk na welke maatstaf wordt gehanteerd en of die maatstaf destijds bestond.</li>
+        <li>Werk de technische noten door bij de hoofdstukken die het meest overtuigen; ze laten zien hoeveel van een klassieke conclusie op meting rustte en hoeveel op aanname.</li>
+        <li>Vraag bij een verklaring die een doel of bestemming aanvoert wat er overblijft als dat doel wordt weggelaten.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>To Explain the World: The Discovery of Modern Science</i> (Harper, New York, 2015, 416 blz., ISBN 9780062346667; Britse editie Allen Lane, Londen, 2015). Nederlandse uitgave: <i>De wereld verklaard: de ontdekking van de moderne wetenschap</i>, vertaald door Ineke Mertens en Hans Zuidervaart (Athenaeum-Polak &amp; Van Gennep, Amsterdam, 2015, 449 blz., ISBN 9789025307691). Vier delen met vijftien hoofdstukken, gevolgd door een bijlage met technische noten.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Steven Weinberg, natuurkundige en Nobelprijswinnaar, schreef een geschiedenis van de wetenschap van Thales tot Newton met een stelling die de meeste vakhistorici tegen de haren in strijkt: de manier waarop wij onderzoek doen is niet vanzelfsprekend, zij moest worden ontdekt, en de Grieken en middeleeuwers waren niet bezig met slechte wetenschap maar met iets anders. Het boek beoordeelt het verleden opzettelijk naar de maatstaven van het heden, en Weinberg verdedigt die keuze zowel in de inleiding als in een naschrift.</p><p>Het eerste deel gaat over Griekse natuurkunde en oordeelt hard over Plato en Aristoteles. Het tweede deel over Griekse sterrenkunde laat zien dat het daar wel goed ging, omdat astronomen wiskundige modellen aan waarnemingen toetsten. Het derde deel behandelt de Arabische en de middeleeuws-Europese wetenschap, het vierde de weg van Copernicus via Kepler en Galilei naar Newtons <i>Principia</i>. Achterin staan technische noten waarin Weinberg de betrokken wiskunde zelf uitwerkt, van de meting van de afstand tot de zon tot de afleiding van de wetten van Kepler.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>wetenschapsgeschiedenis</li><li>oudheid</li><li>middeleeuwen</li><li>natuurkunde</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="948"><a href="948.html">The Copernican Revolution</a>. Kuhn behandelt dezelfde overgang van Ptolemaeus naar Copernicus, maar juist met de vraag waarom mensen geloofden wat zij geloofden.</li>
+          <li value="938"><a href="938.html">The Sleepwalkers</a>. Koestler vertelt het verhaal van Copernicus, Kepler en Galilei als een reeks toevalligheden en vergissingen, het tegendeel van Weinbergs rechte lijn.</li>
+          <li value="654"><a href="654.html">Against Method</a>. Feyerabend ontkent dat er zoiets als een wetenschappelijke methode bestaat en gebruikt Galilei als kroongetuige; het scherpste tegenboek bij Weinberg.</li>
+          <li value="262"><a href="262.html">A Brief History of Time</a>. Hawking pakt de draad op waar Weinberg hem loslaat, bij de natuurkunde na Newton.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

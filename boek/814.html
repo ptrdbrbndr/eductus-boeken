@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anatomy of the Bear &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Napier stelt dat de vier grote bodems in de Amerikaanse aandelenmarkt, augustus 1921, juli 1932, juni 1949 en augustus 1982, veel meer met elkaar gemeen…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-814">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">814 &middot; Geld en ondernemen</p>
+    <h1>Anatomy of the Bear</h1>
+    <p class="lede">Russell Napier, 2005 (vierde editie 2016)</p>
+    <p class="stats">
+      <span><b>1773</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="814"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Napier stelt dat de vier grote bodems in de Amerikaanse aandelenmarkt, augustus 1921, juli 1932, juni 1949 en augustus 1982, veel meer met elkaar gemeen hebben dan de gangbare verhalen over paniek en beurskrach laten zien. Op alle vier momenten stond de beurswaarde van het Amerikaanse bedrijfsleven op ongeveer dertig procent van wat het zou kosten om zijn bezittingen opnieuw aan te schaffen, kwam het keerpunt tot stand doordat dalende prijzen ophielden te dalen, en verliep het herstel in een vaste volgorde van staatsobligaties naar bedrijfsobligaties naar aandelen. Wie een bodem wil herkennen, moet volgens hem naar grondstofprijzen, obligatiekoersen en waarderingsmaatstaven kijken en het nieuws links laten liggen, want goed nieuws was er telkens in overvloed en werd genegeerd.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De krant van toen als bron</h3>
+      <p>De werkwijze bepaalt het boek. Napier las de Wall Street Journal van de maanden rond elke bodem uit, bij elkaar ongeveer zeventigduizend artikelen, en citeert er honderden van. Het doel is de kennisstand van het moment terug te halen: welke cijfers stonden er in de krant, hoe werden ze geduid, en wat schreven de commentatoren op de dag dat de markt keerde. Daarmee omzeilt hij de gebruikelijke vertekening van beursgeschiedenis, waarin achteraf altijd duidelijk lijkt wat er stond te gebeuren.</p>
+      <p>Elk van de vier delen heeft dezelfde indeling. Eerst de weg naar de bodem, met het verloop van de Dow Jones-index en de economische achtergrond, dan de structuur van de markt en de stand van de aandelen- en obligatiemarkt, en daarna een reeks vaste thema's: goed nieuws en de beer, prijsstabiliteit en de beer, liquiditeit en de beer, de stieren en de beer, en obligaties en de beer. Die herhaling maakt vergelijking mogelijk en maakt het boek tegelijk voorspelbaar in zijn opbouw.</p>
+      <h3>Augustus 1921</h3>
+      <p>De Dow bereikte op 24 augustus 1921 een slotstand van 63,90, na een daling van bijna de helft. De achtergrond is de scherpe naoorlogse deflatie van 1920 en 1921, waarin groothandelsprijzen met tientallen procenten wegzakten en de nog jonge Federal Reserve haar eerste zware beleidskeuzes maakte. Napier laat zien dat de omslag samenviel met het moment waarop de grondstofprijzen ophielden te dalen, en dat de obligatiemarkt al maanden eerder was gekeerd.</p>
+      <h3>Juli 1932</h3>
+      <p>De bodem van 8 juli 1932, met de Dow op 41,22, ligt ongeveer negenentachtig procent onder de top van 1929. Napier gebruikt dit geval om een hardnekkig misverstand te ontkrachten: die bodem kwam niet aan het eind van de crisis, maar midden in de bankencrisis en nog voordat Roosevelt aantrad. De koersen stegen daarna hard terwijl de economie nog kromp. Ook hier ging de obligatiemarkt voor, en ook hier stonden er in de krant volop berichten over herstellende bedrijfstakken die de lezers van dat moment niet meer geloofden.</p>
+      <h3>Juni 1949</h3>
+      <p>Het geval van 13 juni 1949, met de Dow op 161,60, wijkt af omdat er geen krach aan voorafging. De daling bedroeg maar ongeveer zestien procent, en toch was de markt naar de maatstaven van Napier even goedkoop als in 1932. De verklaring is dat de koersen jarenlang achterbleven bij sterk stijgende bedrijfswinsten, doordat beleggers een terugkeer van de jaren dertig vreesden. Dit deel bevat het inzicht dat lage waardering ook kan ontstaan zonder dat de koersen dalen, wat het gebruikelijke zoeken naar een krach als koopsignaal ondergraaft.</p>
+      <h3>Augustus 1982</h3>
+      <p>Op 12 augustus 1982 sloot de Dow op 776,92, het eindpunt van een periode van zestien jaar waarin de index per saldo niets had opgeleverd terwijl de inflatie de koopkracht wegat. Het keerpunt viel samen met het moment waarop duidelijk werd dat de renteverhogingen van Paul Volcker de inflatie hadden gebroken. De obligatiemarkt keerde die zomer eerst en met kracht, waarna de aandelen volgden. Napier merkt zelf op dat dit geval het minst goed te beoordelen is, omdat er decennia van naderhand nodig zijn om vast te stellen waar zo'n langjarige omslag precies begon.</p>
+      <h3>Wat de vier gemeen hebben</h3>
+      <p>Uit de vergelijking komt een reeks kenmerken. De q-ratio, de beurswaarde van het bedrijfsleven gedeeld door de vervangingswaarde van zijn bezittingen, stond telkens rond de dertig procent. De cyclisch aangepaste koers-winstverhouding lag tussen ongeveer 4,7 en 11,7. Grondstofprijzen, en binnen die groep vooral de koperprijs, stabiliseerden voordat de aandelen keerden. Obligaties van bedrijven met de laagste nog beleggingswaardige beoordeling van Moody's trokken eerder aan dan aandelen, met een marge van enkele maanden. De handelsomzet liep terug tijdens de laatste dalingen en nam toe bij opleving, wat Napier omschrijft als het sterven van de beer op lage omzet.</p>
+      <p>De rode draad die hij eronder legt is de omslag in de prijsontwikkeling. Alle vier bodems vallen samen met het punt waarop de richting die beleggers vreesden, ophoudt. In 1921, 1932 en 1949 was dat het einde van dalende prijzen; in 1982 juist het breken van een inflatie die zestien jaar had geduurd. Napier houdt eraan vast dat deze reeks nog niet af is en dat er een volgende bodem van dit soort komt, en gebruikt de q-ratio als de maatstaf om die te herkennen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">berenmarkt</td><td>Een langdurige daling van de aandelenkoersen; in dit boek de fase waarin de waardering naar een historisch dieptepunt zakt, ongeacht hoe sterk de koersen zelf zijn gedaald.</td></tr>
+          <tr><td class="term">q-ratio</td><td>De beurswaarde van het bedrijfsleven gedeeld door wat het zou kosten om al zijn bezittingen opnieuw aan te schaffen; onder de één is de beurs goedkoper dan de fabrieken zelf, en Napier zoekt naar waarden rond de 0,3.</td></tr>
+          <tr><td class="term">koers-winstverhouding</td><td>De prijs van een aandeel gedeeld door de winst per aandeel, dus hoeveel jaarwinsten een belegger voor een bedrijf betaalt.</td></tr>
+          <tr><td class="term">cyclisch aangepaste koers-winstverhouding</td><td>Dezelfde verhouding, maar berekend op de voor inflatie gecorrigeerde gemiddelde winst over tien jaar, zodat één uitzonderlijk goed of slecht jaar de maatstaf niet vertekent.</td></tr>
+          <tr><td class="term">vervangingswaarde</td><td>Het bedrag dat nodig zou zijn om de bezittingen van een bedrijf vandaag opnieuw aan te schaffen, de noemer van de q-ratio.</td></tr>
+          <tr><td class="term">deflatie</td><td>Een aanhoudende daling van het algemene prijspeil, die schulden zwaarder maakt en beleggers doet wachten met kopen.</td></tr>
+          <tr><td class="term">BAA-obligaties</td><td>Leningen van bedrijven met de laagste beoordeling die bij Moody's nog als beleggingswaardig geldt, in dit boek de voorloper die eerder keert dan de aandelenmarkt.</td></tr>
+          <tr><td class="term">terugkeer naar het gemiddelde</td><td>De neiging van waarderingsmaatstaven om na jaren van extreme uitslag terug te bewegen naar hun historische middenwaarde.</td></tr>
+          <tr><td class="term">langjarige berenmarkt</td><td>Een periode van vijftien tot twintig jaar waarin aandelen per saldo niets opleveren, opgebouwd uit kortere stijgingen en dalingen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De sterkte van de onderbouwing zit in het bronmateriaal. De Wall Street Journal van 1921, 1932, 1949 en 1982 is een primaire bron uit de tijd zelf, en het uitlezen ervan sluit het achteraf gelijk krijgen grotendeels uit. Napier citeert ruim, met datum, zodat een lezer de context kan controleren. Voor de waarderingskant leunt hij op de reeksen voor de q-ratio, in het spoor van het werk van Andrew Smithers en Stephen Wright, en op de cyclisch aangepaste koers-winstverhouding zoals Robert Shiller die heeft samengesteld.</p>
+      <p>De koersgegevens zelf zijn hard: de Dow sloot op 24 augustus 1921 op 63,90, op 8 juli 1932 op 41,22, op 13 juni 1949 op 161,60 en op 12 augustus 1982 op 776,92. Ook de volgorde van herstel, eerst staatsobligaties, dan bedrijfsobligaties, dan aandelen, is uit maandcijfers na te lopen.</p>
+      <p>De statistische status van het geheel blijft echter beperkt. Vier gevallen laten geen toetsing toe, en de vier zijn bovendien geselecteerd op de q-ratio, precies de maatstaf waarvan de conclusie afhangt. Wat het boek levert is een geordende beschrijving van vier gebeurtenissen met terugkerende kenmerken, geen aangetoond verband. Napier is daar zelf open over en noemt zijn boek een veldgids in plaats van een model.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is het aantal waarnemingen in combinatie met de selectie. Napier koos zijn vier gevallen omdat de q-ratio er onder ongeveer 0,3 stond, en concludeert vervolgens dat een q-ratio rond 0,3 het kenmerk van een grote bodem is. Dat de andere kenmerken, de stabiliserende koperprijs, de voorlopende bedrijfsobligaties, de teruglopende omzet, in alle vier gevallen terugkomen, is een echte vondst, maar vier keer hetzelfde zien is iets anders dan een regelmaat aantonen.</p>
+      <p>Er is een praktisch bezwaar dat sinds de eerste druk zwaarder is gaan wegen. Sinds 2009 is de q-ratio nooit meer in de buurt van 0,3 gekomen, terwijl de Amerikaanse aandelenmarkt in die periode sterk steeg. Een belegger die het boek strikt zou hebben gevolgd, had ruim vijftien jaar aan de kant gestaan. Dat maakt de analyse van het verleden niet onjuist, maar het legt bloot dat het boek geen antwoord geeft op de vraag wat te doen wanneer de gezochte omstandigheden zich decennialang niet voordoen.</p>
+      <p>De q-ratio zelf is bovendien omstreden als maatstaf. De vervangingswaarde komt uit de nationale rekeningen en meet vooral tastbare bezittingen. In een economie waarin een groeiend deel van het kapitaal bestaat uit programmatuur, merken, onderzoek en octrooien, meet die noemer steeds minder van wat een bedrijf waard maakt, en drijft de verhouding structureel omhoog. Napier gaat op die kritiek nauwelijks in.</p>
+      <p>Ook de vaststelling dat er bij elke bodem volop goed nieuws in de krant stond, is kwetsbaar. In een dagblad vol berichten valt achteraf altijd wel een reeks positieve items aan te wijzen, zeker wanneer bekend is welke ontwikkelingen er daarna toe deden. De methode kan die selectie niet volledig uitsluiten, al versterkt het feit dat het patroon vier keer terugkeert de bewering wel.</p>
+      <p>Ten slotte is het een boek over kopen en niet over verkopen. Wanneer een positie weer moet worden afgebouwd, blijft buiten beschouwing. En al is de schrijfstijl beheerst en droog, de vaste indeling die vier keer wordt doorlopen en de dichtheid aan koersen, citaten en tabellen maken het geen boek dat in één ruk uit te lezen valt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Meet de waardering van een markt met een maatstaf die de conjunctuur uitmiddelt, zoals de cyclisch aangepaste koers-winstverhouding of de q-ratio, en niet met de winst van het lopende jaar.</li>
+        <li>Volg grondstofprijzen, en binnen die groep vooral koper, als eerste teken dat een dalende prijsontwikkeling tot stilstand komt.</li>
+        <li>Kijk naar de koersen van bedrijfsobligaties met een lage beoordeling voordat er naar aandelen wordt gekeken; die markt keerde in alle vier gevallen eerder.</li>
+        <li>Zoek bij een beursdaling de berichtgeving van dat moment zelf op in plaats van het latere oordeel erover, om te zien hoe onherkenbaar een bodem van binnenuit is.</li>
+        <li>Reken erop dat het proces jaren duurt en dat de omzet tijdens de laatste dalingen laag is.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Anatomy of the Bear: Lessons from Wall Street's Four Great Bottoms</i> (Harriman House, Petersfield, 2005). De vierde editie verscheen op 18 januari 2016, met een nieuw voorwoord van de auteur en een inleiding van de financieel journalist Merryn Somerset Webb (336 blz., ISBN 9780857195227); daarop is deze samenvatting gebaseerd. Er is geen Nederlandse vertaling gevonden; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Russell Napier, beursstrateeg en oprichter van de Library of Mistakes in Edinburgh, onderzocht de vier momenten waarop Amerikaanse aandelen het goedkoopst van de eeuw waren: augustus 1921, juli 1932, juni 1949 en augustus 1982. Zijn bronmateriaal is de berichtgeving van dat moment zelf. Hij las ongeveer zeventigduizend artikelen uit de Wall Street Journal van voor en na elke bodem, om te reconstrueren wat een belegger destijds kon weten zonder het latere verloop te kennen.</p><p>Uit die vier gevallen komt een terugkerend beeld. De beurswaarde van het Amerikaanse bedrijfsleven stond telkens rond dertig procent van de vervangingswaarde van de bezittingen, grondstofprijzen en vooral de koperprijs hielden op te dalen voordat de aandelen keerden, obligaties van bedrijven met een lage kredietbeoordeling trokken eerder aan dan aandelen, en er was in alle vier gevallen ruim goed nieuws dat niemand geloofde. De zwakte van het boek is het aantal waarnemingen: vier gevallen, gekozen op precies de maatstaf waarvan de conclusie afhangt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>beleggen</li><li>beurs</li><li>economische geschiedenis</li><li>waardering</li><li>financiële markten</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="809"><a href="809.html">The Great Crash, 1929</a>. Galbraith beschrijft de aanloop en de klap van 1929 van dichtbij, waar Napier drie jaar later de bodem van juli 1932 uit dezelfde kranten reconstrueert.</li>
+          <li value="807"><a href="807.html">Manias, Panics, and Crashes</a>. Kindleberger geeft het algemene patroon van manie, paniek en krach, waar dit boek juist het einde van zo'n cyclus in detail uitwerkt.</li>
+          <li value="804"><a href="804.html">Triumph of the Optimists</a>. Dimson, Marsh en Staunton leveren de lange rendementsreeksen waarmee te controleren valt hoe uitzonderlijk de vier waarderingsdieptepunten waren.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Gnostic Religion &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Volgens Jonas is de gnosis een zelfstandige religieuze beweging met één herkenbare grondhouding, die in de eerste eeuwen van onze jaartelling in Syrië,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-940">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">940 &middot; Filosofie en mystiek</p>
+    <h1>The Gnostic Religion</h1>
+    <p class="lede">Hans Jonas, 1958</p>
+    <p class="stats">
+      <span><b>1659</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="940"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Volgens Jonas is de gnosis een zelfstandige religieuze beweging met één herkenbare grondhouding, die in de eerste eeuwen van onze jaartelling in Syrië, Egypte, Mesopotamië en Iran vrijwel gelijktijdig opkwam en pas achteraf door de kerkvaders tot christelijke afwijking werd verklaard. Die grondhouding is anti-kosmisch. Het heelal is geen ordening waarin de mens een plaats heeft, maar een gevangenis die door lagere machten is gebouwd en door de sterren wordt bewaakt. De ware God staat buiten die schepping en is haar vreemd. De mens draagt een vonk die daar per ongeluk terechtkwam en die wordt gered door kennis van haar herkomst. Jonas leest daarin een breuk met de Griekse ervaring van de kosmos als iets goddelijks, en herkent in diezelfde breuk de gestalte die in de twintigste eeuw als nihilisme terugkeert.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Oost en west in de hellenistische wereld</h3>
+      <p>De inleiding schetst de wereld waarin de gnosis ontstond. Na de veroveringen van Alexander verspreidde de Griekse vorm zich over het oosten, terwijl de stadstaat als politieke thuisbasis verdween en de mens zich terugvond in een rijk dat te groot was om nog een orde te heten. In die ruimte kwamen oosterse verlossingsreligies met Griekse begrippen in aanraking.</p>
+      <p>Jonas beschrijft de uitkomst als een oosterse geest in Grieks gewaad. De astrologie leverde het beeld van een noodlot dat door de planeetsferen wordt uitgeoefend, en dat noodlot werd in gnostische handen van een orde tot een dwang van vijandige bewakers.</p>
+      <h3>Wat gnosis betekent</h3>
+      <p>Kennis is hier geen theorie over voorwerpen. Gnosis is weten wie men was, waar men vandaan komt, waarin men geworpen is en waarheen men verlost wordt, en dat weten verandert degene die het ontvangt. Jonas bepaalt aan de hand daarvan de omvang van de beweging: van Simon Magus en de vroege Syrische leraren tot Marcion, de valentinianen, de hermetische geschriften, de Mandeeërs in het zuiden van Mesopotamië en het wereldrijk van Mani.</p>
+      <p>De bronnen zijn ongelijksoortig. Voor de meeste stelsels is hij aangewezen op de weergave door hun bestrijders, Irenaeus, Hippolytus en Epiphanius, die de leer citeerden om haar te weerleggen. Daarnaast staan hem de mandeese en manicheese teksten ter beschikking, die uit eigen kring komen maar later zijn opgeschreven.</p>
+      <h3>De beeldtaal</h3>
+      <p>Het meest navolgbare deel van het boek is de ontleding van de gnostische beeldspraak. Steeds keren dezelfde woorden terug: het vreemde en het buiten, de val, de vonken, de gevangenschap, het gif, de slaap, de dronkenschap en de vergetelheid, en daartegenover de roep van buiten, het ontwaken, de kleding, de opstijging langs de sferen en de wachtwoorden waarmee de archonten worden gepasseerd.</p>
+      <p>Jonas behandelt die woorden als een taal met een eigen grammatica. Wie haar eenmaal kent, herkent haar in teksten die inhoudelijk sterk uiteenlopen, en juist die herkenbaarheid is voor hem het bewijs dat er één verschijnsel achter ligt.</p>
+      <h3>De stelsels</h3>
+      <p>Daarna volgen de afzonderlijke leren. Simon Magus met zijn Helena, de gevallen gedachte van God die in een bordeel in Tyrus wordt teruggevonden. De Hymne van de Parel, waarin een koningszoon naar Egypte wordt gestuurd, daar het kleed van de vreemdelingen aantrekt, zijn opdracht vergeet, door een brief wordt gewekt en met de parel terugkeert. Marcion, die de vreemde goede God tegenover de rechtvaardige schepper van het Oude Testament stelt en als enige het geloof en niet de kennis als weg behoudt. De Poimandres uit het hermetische korpus, waarin de mens uit liefde voor zijn eigen spiegelbeeld in de natuur valt.</p>
+      <p>Het uitvoerigst is de valentiniaanse speculatie: het pleroma van aeonen, de overtreding van Sophia die buiten haar plaats wil kennen, de vorming van de demiurg uit haar hartstocht en de indeling van de mensheid in geestelijke, psychische en stoffelijke naturen. Bij Mani wordt dat verhaal tot een wereldgeschiedenis met een eigen kosmogonie, waarin licht en duisternis oorspronkelijk twee gescheiden rijken zijn en de hele schepping een apparaat is om het gemengde licht weer af te scheiden.</p>
+      <h3>Twee zeden uit één houding</h3>
+      <p>Uit dezelfde afwijzing van de wereld komen volgens Jonas twee tegengestelde levenswijzen voort. De libertijnse gnosticus acht zich boven de wet van de schepper verheven en handelt daarnaar, soms uit minachting, soms omdat hij meent alle ervaringen te moeten uitputten. De asceet onthoudt zich, om de demiurg geen nieuwe lichamen te leveren waarin licht opgesloten raakt.</p>
+      <p>Beide houdingen zijn opstand tegen dezelfde kosmische wet. Dat maakt de gnostische moraal onvergelijkbaar met de Griekse deugdleer, waarin de goede mens zich juist naar de orde van het geheel voegt.</p>
+      <h3>Grieks en gnostisch</h3>
+      <p>Twee vergelijkende hoofdstukken zetten de balans op. Kosmos betekende bij de Grieken orde, schoonheid en goddelijkheid; in gnostische teksten is het woord een scheldwoord geworden. Deugd was voor de Griek de afstemming van de ziel op die orde; voor de gnosticus behoort de ziel zelf tot het gebied van de archonten en wordt alleen de geest gered.</p>
+      <p>Jonas laat zien dat daarmee het hele zedelijke vocabulaire van betekenis verandert, ook waar dezelfde woorden blijven staan. Hier ligt de kern van zijn stelling dat de gnosis een eigen religie is en geen variant op iets anders.</p>
+      <h3>Epiloog: gnosis en nihilisme</h3>
+      <p>De slotbeschouwing vergelijkt de gnostische ervaring met het existentialisme van zijn eigen leermeester. De geworpenheid, de vervallenheid, de vreemdheid van de mens in de wereld: Jonas herkent de gnostische woorden in Heideggers begrippen en verklaart daaruit waarom hij deze teksten van binnenuit kon lezen.</p>
+      <p>De vergelijking loopt bij hem uit op een verschil dat hij zwaarder laat wegen dan de overeenkomst. De gnosticus heeft nog een elders, een God buiten de kosmos naar wie de vonk terugkan; de moderne mens staat tegenover een natuur die niets van hem wil en waarachter niets ligt. Die tweede positie noemt Jonas de radicalere. In de tweede druk voegde hij een hoofdstuk toe over de vondsten bij Nag Hammadi, die hij als bevestiging van zijn beeld las.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">gnosis</td><td>Reddende kennis van de eigen herkomst en bestemming, die de wetende verandert in plaats van hem iets te leren.</td></tr>
+          <tr><td class="term">de vreemde God</td><td>De ware God die volstrekt buiten de geschapen wereld staat en er geen deel aan heeft.</td></tr>
+          <tr><td class="term">demiurg</td><td>De lagere maker van de wereld, in veel stelsels vereenzelvigd met de God van het Oude Testament.</td></tr>
+          <tr><td class="term">archonten</td><td>De heersers van de planeetsferen, die de mens gevangen houden en de weg omhoog bewaken.</td></tr>
+          <tr><td class="term">pneuma</td><td>De goddelijke vonk in de mens, wezensvreemd aan zowel het lichaam als de ziel.</td></tr>
+          <tr><td class="term">pleroma</td><td>De volheid van goddelijke aeonen buiten de kosmos, tegenover het tekort waaruit de wereld ontstond.</td></tr>
+          <tr><td class="term">heimarmene</td><td>Het door de sterren uitgeoefende noodlot, bij de gnostici verworden tot dwang van vijandige machten.</td></tr>
+          <tr><td class="term">de roep</td><td>De boodschap van buiten die de slapende of dronken vonk wekt en aan haar afkomst herinnert.</td></tr>
+          <tr><td class="term">anti-kosmisch dualisme</td><td>De houding die de wereld niet als ordening waardeert maar als vreemd en vijandig gebied.</td></tr>
+          <tr><td class="term">geworpenheid</td><td>Het besef in de wereld te zijn beland zonder er te horen; Jonas gebruikt het woord van Heidegger om de gnostische zelfervaring te benoemen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het materiaal is ongelijk verdeeld. Voor Simon Magus, Valentinus en Basilides is Jonas grotendeels aangewezen op wat de kerkvaders van hun leer weergaven om haar te weerleggen; alleen de mandeese geschriften en de manicheese fragmenten komen uit de kring zelf, en die zijn later opgetekend dan de stelsels die hij ermee reconstrueert. De eerste versie van zijn betoog dateert bovendien uit 1934, ruim voor de vondst van de koptische codices bij Nag Hammadi in 1945. In de druk van 1963 voegde hij een hoofdstuk over die vondsten toe zonder zijn kader te herzien, omdat hij meende dat de nieuwe teksten zijn beeld ondersteunden.</p>
+      <p>De methode is uitdrukkelijk uitleggend en niet toetsend. Jonas zoekt achter de mythologische verscheidenheid één bestaanshouding, en dat maakt het betoog sterk in het aanwijzen van samenhang en zwak in het weerleggen van zichzelf: zodra het schema er ligt, past bijna elke tekst erin. Wat wel controleerbaar overeind blijft is de ontleding van de beeldtaal, die ook onderzoekers die zijn synthese verwerpen nog gebruiken.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat de eenheid die Jonas beschrijft door zijn eigen methode kan zijn voortgebracht. Sinds het colloquium van Messina in 1966 en vooral sinds Michael Williams' <i>Rethinking Gnosticism</i> uit 1996 en Karen Kings <i>What Is Gnosticism?</i> uit 2003 houdt een groot deel van het vakgebied dat 'gnostiek' een verzamelnaam is die door ketterbestrijders is gemaakt en die teksten samenvoegt welke onderling sterk verschillen. Wie de Nag Hammadi-geschriften naast elkaar legt, vindt eerder een reeks nauwelijks verwante schrijvers dan één religie met varianten.</p>
+      <p>Daarnaast kleurt Heidegger de waarneming. Jonas geeft zelf toe dat hij de teksten met existentiële begrippen benadert, maar dat kader bepaalt mede wat hij erin ziet, en de epiloog maakt van een historische studie een diagnose van de moderniteit op het punt waar het historische bewijs ophoudt. De tegenstelling tussen een oosterse en een Griekse geest, waarmee het boek opent, berust bovendien op een opvatting van cultuurzielen die de wetenschap sindsdien heeft losgelaten.</p>
+      <p>Ten slotte blijft het boek vrijwel geheel in het gebied van de denkbeelden. Wie de mensen achter de teksten zoekt, hun aantal, hun gemeenten, hun rituelen en hun verhouding tot de kerken om hen heen, vindt bij Jonas weinig houvast.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de Hymne van de Parel en de Poimandres eerst zelf; het zijn korte teksten, en Jonas' uitleg is beter te wegen met de bron ernaast.</li>
+        <li>Houd bij elk stelsel dezelfde drie vragen vast: wie maakte de wereld, wat doet de mens erin, en langs welke weg komt hij eruit.</li>
+        <li>Toets moderne uitspraken over 'de gnostiek' aan de bronnen zelf; veel van wat zo heet is negentiende- en twintigste-eeuwse toevoeging.</li>
+        <li>Behandel de epiloog als wijsbegeerte en de eerste hoofdstukken als godsdienstgeschiedenis; wie beide voor hetzelfde houdt, leest Jonas verkeerd.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Gnostic Religion: The Message of the Alien God and the Beginnings of Christianity</i> (Beacon Press, Boston, 1958; tweede, herziene en uitgebreide druk 1963, 358 blz.; derde druk 2001, 400 blz., ISBN 9780807058015). Het boek is Jonas' Engelse bewerking van zijn Duitse studie <i>Gnosis und spätantiker Geist</i> (Vandenhoeck &amp; Ruprecht, Göttingen, deel 1 1934, deel 2 1954). De Nederlandse vertaling verscheen als <i>Het gnosticisme</i> (Het Spectrum, Utrecht, 1969, Aula-boeken 429, 421 blz., vertaald door A.J.M. Baljet) en is al decennia niet meer in druk; deze samenvatting berust op de Engelse editie.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Hans Jonas, gepromoveerd bij Heidegger en Bultmann, beschreef de gnosis van de eerste eeuwen als één samenhangende religieuze houding in plaats van als een reeks losse christelijke ketterijen. Wat de stelsels van Simon Magus tot Mani volgens hem bindt is een radicaal dualisme: de wereld is het werk van lagere machten, de ware God staat er volstrekt buiten, en de mens draagt een goddelijke vonk die in de materie niet thuishoort. Redding komt van kennis over die herkomst, gnosis, en niet van geloof, wet of offer.</p><p>Het boek leest de Hymne van de Parel, Marcion, de Poimandres, de valentiniaanse speculatie en het stelsel van Mani als varianten op één grondervaring, en eindigt met een epiloog waarin Jonas het gnostische wereldgevoel naast het moderne nihilisme en het existentialisme van Heidegger legt. Die epiloog maakte het boek bekend ver buiten het vakgebied en tegelijk omstreden binnen dat vakgebied. Sinds de vondsten bij Nag Hammadi en sinds de discussie over de vraag of 'de gnostiek' wel één verschijnsel is, geldt Jonas' synthese als de klassieke ingang en niet meer als de laatste stand van zaken. Elaine Pagels noemde het decennia later nog steeds de standaardintroductie.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>gnostiek</li><li>godsdienstwetenschap</li><li>oudheid</li><li>existentialisme</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="936"><a href="936.html">The Varieties of Religious Experience</a>. James ontleedt religieuze ervaring psychologisch en per geval; Jonas ordent haar historisch en naar één onderliggende houding.</li>
+          <li value="608"><a href="608.html">Het gewijde en het profane</a>. Eliade beschrijft de kosmos als woonplaats van het heilige, precies de waardering die de gnostici omkeerden.</li>
+          <li value="932"><a href="932.html">The Passion of the Western Mind</a>. Tarnas zet dezelfde laat-antieke breuk in het langere verhaal van het westerse denken.</li>
+          <li value="937"><a href="937.html">Eranos: An Alternative Intellectual History of the Twentieth Century</a>. Hakl beschrijft de kring rond Ascona waarin de studie van gnosis, mystiek en psychologie in de twintigste eeuw bij elkaar kwam.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

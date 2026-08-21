@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Trick Top Hat &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Dit is Wilsons utopie, en zij is economisch van aard in plaats van geestelijk. De redenering luidt dat schaarste in een land dat machines kan bouwen geen…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-919">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">919 &middot; Roman en memoir</p>
+    <h1>The Trick Top Hat</h1>
+    <p class="lede">Robert Anton Wilson, 1980</p>
+    <p class="stats">
+      <span><b>1571</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="919"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Dit is Wilsons utopie, en zij is economisch van aard in plaats van geestelijk. De redenering luidt dat schaarste in een land dat machines kan bouwen geen natuurgegeven meer is maar een beleidskeuze, en dat de enige overgebleven vraag is wie de opbrengst krijgt wanneer het werk verdwijnt. Het antwoord van president Hubbard is de gedachte om te weigeren omdraaien: zij betaalt mensen om hun eigen baan af te schaffen, en zij betaalt degenen die erdoor overbodig worden genoeg om zonder werk te leven. Wilson weet dat dit als propaganda klinkt en houdt zijn utopie daarom zichtbaar onaf: er zit een hel in, gemaakt van een bestaande Amerikaanse staat, en die hel wordt niet weggeredeneerd.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Hetzelfde gezelschap, een andere tak</h3>
+      <p>Het boek bestaat uit twee delen en wordt net als het vorige onderbroken door berichten uit de ‘Galactic Archives’. De personages keren terug, maar met een ander verleden: dr. Frank Dashwood leidt weer zijn instituut voor orgasmeonderzoek, Justin Case schrijft weer over muziek, Blake Williams verveelt weer gezelschappen met een lezing, Markoff Chaney is nog dezelfde verbitterde grappenmaker.</p>
+      <p>Het bouwplan is de stelling van Bell. Wat ooit contact heeft gehad blijft samenhangen, ook op afstand, en Wilson laat dat in de vertelling gebeuren: mensen die elkaar één keer hebben ontmoet blijken elkaars afloop te bepalen zonder dat er een verband aan te wijzen valt.</p>
+      <h3>De RICH-economie</h3>
+      <p>Het uitvoerigst uitgewerkte hoofdstuk is een archiefstuk over de invoering van de RICH-economie. De vakbonden vallen uiteen zodra de premie van vijftigduizend dollar wordt aangekondigd: wie onder de twintigduizend verdient vindt het een goed plan, de bestuurders houden vast aan de aangeleerde reflex dat werk goed is en werkloosheid slecht.</p>
+      <p>Voor de tegenstand van rechts kiest Hubbard een andere weg. Zij probeert de denkers niet te overtuigen maar nodigt de bedrijfstop uit voor een reeks presentaties met acht punten: een machine werkt vierentwintig uur in plaats van acht, meldt zich niet ziek, komt niet te laat, sticht geen vakbond, neemt geen vakantie, koestert geen wrok, en de automatisering komt er hoe dan ook; bovendien heeft een land met stijgende productie kopers nodig, en wie van de bijstand leeft koopt weinig. Terwijl de directeuren nog onderling ruziën of het klopt, haalt het wetsvoorstel het Congres.</p>
+      <p>Binnen een jaar meldt zich het eerste geval van de nieuwe klasse: Starhawk, een Cherokee draaibankwerker uit Tucson, die zichzelf uit vijf fabrieksbanen wegontwierp, tweehonderdvijftigduizend dollar per jaar ontvangt en gaat schilderen. De meerderheid van de werklozen drinkt, blowt en kijkt televisie. Op het verwijt dat dit geen menswaardig bestaan is antwoordt Hubbard met de vraag wat voor bestaan het werk was dat een machine beter doet.</p>
+      <h3>Code Hubbard en de Hel</h3>
+      <p>De rechtsherziening deelt misdaad in drie soorten in. Wat alleen tegen de zeden ingaat wordt niet gestraft; er komt pas een gesprek na een klacht van minstens honderd buren, en dat gesprek eindigt meestal met het advies aan de buren zich met hun eigen zaken te bemoeien. Vermogensdelicten heten onjuiste economie: de staat vergoedt het slachtoffer en de dader werkt de schuld af tegen half loon.</p>
+      <p>Geweld levert verbanning op naar de Hel, en die is de staat Mississippi, omsloten door een laserscherm waar niemand doorheen komt. Binnen dat scherm ontstaan binnen korte tijd leenheerschap, zeeroverij, slavernij en oorlog. Een deel van de bewoners is er vrijwillig heen verhuisd, waaronder de Ku Klux Klan, de Black Panthers, de Amerikaanse nazipartij en de Hell's Angels. Het devies van het gebied luidt dat de hel de hemel is. Wilson laat de grap staan zonder haar te verzachten, en dat is het punt waarop zijn utopie het meest wringt.</p>
+      <h3>HEAD, FOREVER en de ruimtesteden</h3>
+      <p>Naast de economie loopt een tweede lijn: de HEAD-revolutie, van hedonic engineering and development, het leren gebruiken van het eigen brein. Er is een pil tegen veroudering, FOREVER geheten, en er zijn ruimtesteden op het punt L5, waar de industrie naartoe verhuist zodat de aarde park kan worden. Een deel van de nieuwe vrijgestelden studeert door en vertrekt daarheen; de verteller noemt dat het begin van het uitzwermen.</p>
+      <p>Dit materiaal komt zichtbaar uit Wilsons omgeving. De circuitpsychologie is die van Timothy Leary, met wie hij jarenlang optrok, en de ruimtesteden op L5 komen uit de plannen van de natuurkundige Gerard O'Neill, die in die jaren serieus werden besproken.</p>
+      <h3>De laag eronder</h3>
+      <p>Onder de utopie loopt een reeks kleinere verhalen die haar ondergraven. Dashwood onderzoekt de orgasme met de ernst van een deeltjesfysicus. De magiër Hugh Crane, die optreedt als Cagliostro the Great, verdwijnt in Chinatown en laat een man achter die beweert hem te hebben vermoord terwijl er geen lijk is en geen kogelgat in de gevonden kleren. Clem Cotex bestelt voor vijf dollar een bandje over de occulte techniek van het geld en is intussen scientoloog, solipsist en logisch positivist geweest.</p>
+      <p>Die verhalen dienen als tegenwicht. Zolang de politiek in dit heelal werkt, laat Wilson zien dat mensen daarmee nog niet weten wie zij zijn.</p>
+      <h3>De landing en de hoge hoed</h3>
+      <p>Op 24 december 1983 wordt Justin Case midden in Central Park uit een vliegende schotel gezet met de mededeling dat het tijd is dat zijn soort zich bij de galactische gemeenschap voegt. Bij de eerste kiosk leest hij de kop over massale landingen over de hele wereld. Enkele maanden later verklaart een psychiatrisch vakblad de golf van waanvoorstellingen uit het gegeven dat het onbewuste geen verschil maakt tussen hoge verwachtingen en hoge angst; een maand daarna trekt hetzelfde blad die verklaring half terug.</p>
+      <p>De archivaris geeft de andere lezing. In 1984 ging bij de mensheid een neurologisch vermogen open dat tot dan toe alleen bij ongeluk werkte, en zag men opeens alle mogelijke werkelijkheden tegelijk zonder de begrippen te hebben om dat te benoemen. De hoge hoed van de goochelaar, die leeg lijkt en toch alles voortbrengt wat de goochelaar wil, blijkt daarvan het oude zinnebeeld: geen truc met een konijn, maar een beeld van het brein.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">RICH-economie</td><td>Rising income through cybernetic homeostasis: premie voor wie de machine ontwerpt die zijn eigen baan overneemt, plus een inkomen voor wie daardoor vrijkomt.</td></tr>
+          <tr><td class="term">trade aids</td><td>Naam voor de tegoedbewijzen waarin het landelijk dividend wordt uitgekeerd, gekozen om het bankwezen niet met het woord geld voor het hoofd te stoten.</td></tr>
+          <tr><td class="term">Code Hubbard</td><td>Het herziene strafrecht dat misdaad in drie soorten verdeelt: zedendelicten zonder slachtoffer, vermogensdelicten en geweld.</td></tr>
+          <tr><td class="term">de Hel</td><td>De staat Mississippi achter een laserscherm, waarheen geweldplegers onherroepelijk worden verbannen en waar zij hun eigen leenstelsel opbouwen.</td></tr>
+          <tr><td class="term">HEAD-revolutie</td><td>Hedonic engineering and development, het leren bedienen van het eigen zenuwstelsel, in de roman de voorwaarde voor de sprong de ruimte in.</td></tr>
+          <tr><td class="term">FOREVER</td><td>De eerste pil tegen veroudering, die in het boek de levensduur oprekt en daarmee ook het strafrecht en de arbeidsmarkt verandert.</td></tr>
+          <tr><td class="term">biot</td><td>Woord waarmee de archivaris mensen aanduidt wanneer hij hun gedrag als geprogrammeerd wil laten zien.</td></tr>
+          <tr><td class="term">Trick Top Hat</td><td>De hoge hoed van de goochelaar, die leeg lijkt en toch alles voortbrengt; in het boek het beeld voor het menselijk brein.</td></tr>
+          <tr><td class="term">niet-lokaliteit</td><td>De samenhang tussen deeltjes die ooit contact hadden, ongeacht afstand; het bouwplan van dit deel.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderdelen van het voorstel bestonden al buiten de roman. Een gegarandeerd inkomen was in de jaren zeventig een levend politiek debat in de Verenigde Staten, de ruimtesteden op het punt L5 komen uit de plannen van de natuurkundige Gerard O'Neill, en de circuitpsychologie waarmee Wilson het menselijk brein indeelt is die van Timothy Leary, met wie hij jarenlang samenwerkte. De grondgedachte dat automatisering de winst en het werk uit elkaar trekt, is bovendien niet weerlegd; zij is sinds 1980 alleen scherper geworden.</p>
+      <p>Wat het boek als betoog niet levert, is een toets. De bedragen worden genoemd, niet berekend. De vraag hoe een land dat honderd miljoen mensen dertigduizend dollar per jaar betaalt dat opbrengt, wordt beantwoord met de opmerking dat de productie stijgt. De overgangsjaren worden afgehandeld in een alinea waarin het Congres het voorstel aanneemt terwijl de tegenstanders nog aan het ruziën zijn. Als roman mag dat; als argument is het de zwakste plek, en Wilson weet dat, want hij laat het door een archivaris vertellen die zelf onbetrouwbaar is verklaard.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is de Hel. Wilson wil straf afschaffen en houdt vervolgens een onherroepelijke gevangenis over, verpakt als grap over Mississippi, met een terloopse zin over de oorspronkelijke bewoners die elders zijn ondergebracht. Dat is precies het bestuurlijke geweld dat het boek elders aanwijst, hier voor de lach opgevoerd. Wie de utopie serieus neemt, moet dus vaststellen dat zij haar eigen uitgangspunt niet aankan zodra er geweld in het spel is.</p>
+      <p>Het tweede bezwaar is dat de utopie draait op een president die goed, slim en zonder noemenswaardige tegenstand is. Het politieke probleem dat het boek zegt op te lossen, namelijk hoe zulke voorstellen door een echte machtsverhouding heen komen, wordt opgelost door een besluit van de auteur. Daarbij komt dat dit het minst gebeurtenisrijke deel van het drieluik is: lange stukken zijn essays waar een personagenaam boven staat, en de romanhandeling die er wel is, is dunner dan in de twee andere delen.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Schrödinger's Cat II: The Trick Top Hat</i> (Pocket Books, New York, 1980, 254 blz., ISBN 0671821180). Tweede deel van een drieluik; sinds 1988 vooral te krijgen in de verzameluitgave <i>Schrödinger's Cat Trilogy</i> (Dell, New York, 1988, 558 blz., ISBN 0440500702). Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd. Een Duitse vertaling verscheen als <i>Der Zauberhut</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Tweede deel van het drieluik, met grotendeels dezelfde personages als het eerste, maar in een ander heelal. Waar deel één op de vele werelden van Everett was gebouwd, is dit deel gebouwd op niet-lokaliteit: wie elkaar ooit heeft gekruist blijft aan elkaar verbonden, hoe ver uiteen ook. Unistat wordt hier geregeerd door Eve Hubbard, en het land loopt niet af op een ramp maar op iets wat Wilson zelf een goede afloop noemt.</p><p>Haar programma heet de RICH-economie, naar rising income through cybernetic homeostasis. Wie een machine ontwerpt die zijn eigen baan overneemt krijgt vijftigduizend dollar per jaar; wie door zo'n machine wordt vervangen dertigduizend. Daarnaast komt er een landelijk dividend, uitgekeerd in tegoedbewijzen, en groeit het volwassenenonderwijs uit tot de snelst uitdijende bedrijfstak van het land. Haar wetboek deelt misdaad in drie soorten in, en voor de derde soort is er de Hel, die de staat Mississippi blijkt te zijn met een laserscherm eromheen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>roman</li><li>kwantumfysica</li><li>utopie</li><li>satire</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="918"><a href="918.html">The Universe Next Door</a>. Het eerste deel toont hetzelfde gezelschap in een heelal dat op een ramp afloopt; het verschil tussen beide is het eigenlijke betoog.</li>
+          <li value="920"><a href="920.html">The Homing Pigeons</a>. Het derde deel sluit het drieluik af met een derde lezing van de kwantummechanica en dezelfde personages.</li>
+          <li value="928"><a href="928.html">Prometheus Rising</a>. Daar zet Wilson de circuitpsychologie van Leary uiteen die achter de HEAD-revolutie in dit boek zit.</li>
+          <li value="623"><a href="623.html">Anarchy, State, and Utopia</a>. Nozick redeneert precies andersom over herverdeling; naast deze utopie gelezen legt dat de aannames van beide bloot.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

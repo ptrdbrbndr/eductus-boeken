@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Mind of the Strategist &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Strategie is volgens Ohmae geen uitkomst van een planningsproces maar van een manier van denken die bij ontleding begint. Wie een vraagstuk zo lang…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-902">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">902 &middot; Geld en ondernemen</p>
+    <h1>The Mind of the Strategist</h1>
+    <p class="lede">Kenichi Ohmae, 1982</p>
+    <p class="stats">
+      <span><b>1642</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="902"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Strategie is volgens Ohmae geen uitkomst van een planningsproces maar van een manier van denken die bij ontleding begint. Wie een vraagstuk zo lang opsplitst tot de afzonderlijke bestanddelen zichtbaar worden, ziet welk deel er werkelijk toe doet, en kan de delen daarna anders samenvoegen dan zijn bedrijfstak gewend is. Westerse ondernemingen vervangen die inspanning door modellen, procedures en afdelingen, en krijgen daar ordelijke plannen voor terug die de bestaande orde bevestigen. De Japanse bedrijven die hij bediende hadden geen planningsafdeling en wel een strateeg, en dat is volgens hem het verschil dat telt. Strategie heeft bovendien alleen betekenis tegenover een concurrent: zonder tegenstander volstaat goed werk.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Analyse als beginpunt</h3>
+      <p>Het eerste hoofdstuk zet de werkwijze neer. Een vraagstuk moet worden opgedeeld in delen die elkaar niet overlappen, net zo lang tot er onderdelen overblijven waarop iemand daadwerkelijk iets kan doen. Ohmae waarschuwt daarbij tegen de vraagstelling zelf: wie vraagt hoe de kosten omlaag kunnen, krijgt een antwoord over kosten, terwijl het onderliggende probleem elders kan liggen. De eerste taak van de strateeg is de vraag opnieuw formuleren.</p>
+      <p>De methode is die van het adviesbureau: kosten en opbrengsten per bewerking uitsplitsen, die naast de cijfers van de concurrent leggen, en kijken waar het verschil vandaan komt. Pas als dat verschil op tafel ligt, is er iets te kiezen. Ohmae onderscheidt daarbij nadrukkelijk het verschijnsel van de oorzaak; dalende winst is een verschijnsel, en een programma om de winst te verhogen is dan een antwoord op het verkeerde punt.</p>
+      <h3>Vier routes naar voordeel</h3>
+      <p>De hoofdstukken twee tot en met zes behandelen vier manieren om voorsprong te krijgen. De eerste is concentratie op de kritieke succesfactoren: bepaal welke enkele punten in een bedrijfstak de uitkomst bepalen, en zet daar de middelen op in terwijl elders middelmaat volstaat. De tweede is relatieve superioriteit: zoek het punt waarop de eigen positie sterker is dan die van de concurrent, ook als het aanbod verder gelijk is, en buit dat verschil uit.</p>
+      <p>De derde route noemt hij het nemen van agressieve initiatieven: bevraag de aannames die de hele bedrijfstak deelt en die niemand meer toetst, want daar zit meestal de ruimte. De vierde route zijn de strategische vrijheidsgraden, de assen waarlangs verbetering nog mogelijk is voordat een technische of economische grens is bereikt. Wie die assen in kaart brengt, ziet welk verbeterwerk nog wat oplevert en welk werk alleen kosten toevoegt.</p>
+      <h3>De strategische driehoek</h3>
+      <p>Het middendeel introduceert het kader waar Ohmae het bekendst mee werd. Elke strategie moet drie partijen in samenhang behandelen: de klant, het eigen bedrijf en de concurrent. Klantgerichte strategie begint bij segmentatie, naar het doel waarvoor het product wordt gebruikt en naar de vraag welk deel van de markt met de beschikbare middelen te bedienen is. Bedrijfsgerichte strategie gaat over de eigen kostenopbouw en over de keuze wat zelf te maken en wat in te kopen, met het punt dat een bedrijf niet op alle functies hoeft uit te blinken.</p>
+      <p>Concurrentgerichte strategie zoekt het verschil in prijs, in kostenstructuur, in beeldvorming of in de manier waarop winst wordt gemaakt. De drie hoeken samen leveren de toets: een plan dat aan de klant voorbijgaat, dat de eigen kostenpositie negeert of dat de reactie van de concurrent buiten beschouwing laat, is geen strategie maar een wens. Later kreeg dit kader de naam 3C-model en werd het losgeknipt van het denkwerk waarvoor het bedoeld was.</p>
+      <h3>Concern en omgeving</h3>
+      <p>Vanaf hoofdstuk twaalf verschuift het boek van de bedrijfseenheid naar het concern en van de bedrijfstak naar de economie eromheen. Ohmae schrijft in de nasleep van de oliecrises en verwacht een tijd van tragere groei, duurdere grondstoffen en duurder kapitaal, waarin volume niet meer vanzelf de kosten drukt. Strategie op concernniveau gaat dan over de vraag welke activiteiten dat klimaat aankunnen, welke moeten worden afgestoten en hoe de kostenopbouw beweeglijker te maken is.</p>
+      <p>Hier staat ook zijn behandeling van strategische verandering. Een onderneming die haar bedrijfstak ziet verschuiven, heeft weinig aan het bijstellen van doelen; zij moet opnieuw bepalen in welk vak zij zit. Ohmae dringt aan op tijdig ingrijpen, omdat de ruimte om te kiezen kleiner wordt naarmate de cijfers duidelijker worden.</p>
+      <h3>Japan: mythen en werkelijkheid</h3>
+      <p>Een apart hoofdstuk ruimt op met de verklaringen die in het Westen rondgingen. Levenslange aanstelling geldt volgens Ohmae voor een minderheid van de werkenden, vooral bij grote bedrijven; de vakbond is per onderneming georganiseerd en niet per beroep; promotie op anciënniteit heeft zijn eigen prijs in traagheid. Wat hij wel als verschil aanwijst, is dat de werknemer zichzelf als lid van het bedrijf beschouwt en niet als leverancier van arbeid, met de bijbehorende bereidheid om aan de organisatie zelf te sleutelen.</p>
+      <p>Ohmae betoogt dat er niets mystieks aan is. Het zijn praktische regelingen, met voordelen en met kosten, en zij verklaren het succes van de Japanse export maar ten dele. De rest schrijft hij toe aan de manier waarop in die bedrijven over concurrentie werd nagedacht.</p>
+      <h3>Geen formule</h3>
+      <p>De slothoofdstukken behandelen vooruitziend besluiten en eindigen bij de vraag of er een succesformule bestaat. Ohmae antwoordt van niet. Analyse is te leren, en de vier routes en de driehoek helpen bij het ordenen, maar de stap waarin iemand de bestanddelen op een nieuwe manier samenvoegt, laat zich niet vastleggen in een procedure.</p>
+      <p>Wat een organisatie wel kan doen, is ruimte maken voor mensen die zo denken: ze niet in een planningsafdeling wegzetten, ze langer laten kijken dan de begrotingscyclus toestaat, en hun voorstellen beoordelen op de redenering en niet op de mate waarin ze in het bestaande beeld passen. Daarmee eindigt het boek bij een organisatievraag in plaats van bij een schema.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">strategisch denken</td><td>Het uiteenrafelen van een vraagstuk in zijn bestanddelen en die daarna anders samenvoegen dan de bedrijfstak gewend is.</td></tr>
+          <tr><td class="term">kritieke succesfactoren</td><td>De enkele punten die in een bedrijfstak de uitkomst bepalen en waarop de middelen geconcentreerd horen te worden.</td></tr>
+          <tr><td class="term">relatieve superioriteit</td><td>Het punt waarop de eigen positie sterker is dan die van de concurrent, ook wanneer het aanbod verder gelijk oogt.</td></tr>
+          <tr><td class="term">agressieve initiatieven</td><td>Het bevragen van aannames die de hele bedrijfstak deelt en die niemand meer toetst.</td></tr>
+          <tr><td class="term">strategische vrijheidsgraden</td><td>De assen waarlangs verbetering nog mogelijk is voordat een technische of economische grens is bereikt.</td></tr>
+          <tr><td class="term">strategische driehoek</td><td>De samenhang tussen klant, eigen bedrijf en concurrent, later bekend geworden als het 3C-model.</td></tr>
+          <tr><td class="term">segmentatie naar gebruiksdoel</td><td>Het indelen van de markt naar waarvoor de klant het product inzet, in plaats van naar productkenmerken.</td></tr>
+          <tr><td class="term">product-marktstrategie</td><td>De keuze welk aanbod aan welk deel van de markt wordt gedaan, als grondslag onder alle overige keuzes.</td></tr>
+          <tr><td class="term">strategisch vergezicht</td><td>Het beeld van de toekomstige bedrijfstak dat richting geeft aan besluiten voordat de cijfers de verandering laten zien.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Ohmae schrijft vanuit adviespraktijk. Het materiaal bestaat uit gevallen die hij bij McKinsey in Japan meemaakte, deels met naam en deels geanonimiseerd, en uit vergelijkingen van kosten- en marktposities die hij voor klanten maakte. Onderzoek in de zin van hypothese, steekproef en toets komt in het boek niet voor, en de auteur beweert ook nergens dat het er is. De overtuigingskracht zit in de bewerkingen zelf: de lezer ziet hoe een vraagstuk uit elkaar wordt gehaald en welke rekensom dan zichtbaar wordt.</p>
+      <p>De centrale bewering, dat het verschil tussen Japanse en westerse ondernemingen in de denkwijze van individuele strategen zit, wordt nergens getoetst. Verklaringen die in dezelfde jaren opgeld deden, zoals goedkoop kapitaal, industriebeleid, een gunstige wisselkoers en de manier van produceren op de werkvloer, komen nauwelijks aan de orde. Het boek verscheen bovendien in de opgaande fase van de Japanse economie; de jaren na 1990 lieten zien dat dezelfde bedrijven ook langdurig konden vastlopen, wat de verklaring achteraf zwakker maakt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat Ohmae zijn eigen stelling ondermijnt. Hij verwerpt formules en procedures en levert vervolgens vier routes, een driehoek en een reeks schema's die precies zo zijn gebruikt: als invuloefening in strategiesessies. Wat het denken volgens hem laat werken, de sprong na de analyse, blijft ongedefinieerd en daarmee niet overdraagbaar. Het boek beschrijft dus wel wat strategen doen en niet hoe iemand er een wordt.</p>
+      <p>Daarnaast berust het beeld van de Japanse onderneming op een selectie van winnaars uit één periode. Ohmae bespreekt bedrijven die op dat moment voorop liepen en leidt daar de werkwijze uit af; de ondernemingen met dezelfde cultuur en dezelfde methoden die verloren, blijven buiten beeld. Het decennium na 1990 maakte duidelijk hoe tijdgebonden die verklaring was.</p>
+      <p>Ten slotte is de analytische kern minder eigen dan de presentatie doet vermoeden. Het opdelen van vraagstukken in elkaar uitsluitende delen en het vergelijken van kostenposities met die van de concurrent was in 1975 al de standaardwerkwijze van de Amerikaanse adviesbureaus. Wat Ohmae toevoegt is de nadruk op het herformuleren van de vraag, en dat is een waardevolle maar bescheidener bijdrage dan de ondertitel over Japanse bedrijfsvoering suggereert.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Formuleer de vraag opnieuw voordat er aan een antwoord wordt gewerkt, en toets of de gestelde vraag niet zelf al een oplossingsrichting oplegt.</li>
+        <li>Splits een vraagstuk in delen die elkaar niet overlappen, tot er onderdelen overblijven waarop iemand daadwerkelijk kan handelen.</li>
+        <li>Leg de eigen kostenopbouw per bewerking naast die van de concurrent en zoek de post waar het verschil ontstaat.</li>
+        <li>Benoem de twee of drie punten die in de bedrijfstak de uitkomst bepalen, en accepteer bewust middelmaat op de overige.</li>
+        <li>Toets elk plan aan alle drie de hoeken: wat het de klant oplevert, wat het het eigen bedrijf kost en wat de concurrent ertegen kan doen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Mind of the Strategist: The Art of Japanese Business</i> (McGraw-Hill, New York, 1982, 283 blz., ISBN 0070475954). Het boek gaat terug op de Japanse uitgave <i>Kigyō sanbō</i> uit 1975. De Nederlandse vertaling verscheen als <i>Het oog van de meester: de kunst van Japans management</i> (Veen, Utrecht, 1984, 244 blz.) en is alleen nog tweedehands te vinden.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Ohmae werkte vanaf 1972 voor McKinsey in Tokio en schreef dit boek om uit te leggen waarom Japanse bedrijven zonder planningsafdeling en zonder strategische modellen toch scherper opereerden dan hun westerse concurrenten. Zijn verklaring is dat strategie daar het werk is van enkelingen die een vraagstuk tot zijn bestanddelen terugbrengen en die bestanddelen daarna anders samenvoegen dan de bedrijfstak gewend is. Analyse is het beginpunt; de uitkomst komt uit een sprong die geen procedure kan afdwingen.</p><p>Het gereedschap dat hij aanreikt is bekend gebleven: vier routes naar voordeel, en de strategische driehoek van klant, bedrijf en concurrent, die later als 3C-model in de leerboeken belandde. De Japanse uitgave stamt uit 1975, de Engelse uit 1982, precies in de jaren waarin westerse managers wilden weten hoe Japan hun markten binnenkwam. Ohmae werd daarna een van de bekendste adviseurs ter wereld. Wie het boek nu leest, leest het om de denkwijze; de bedrijfstakbeschrijvingen zijn veertig jaar oud.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>strategie</li><li>management</li><li>concurrentie</li><li>japan</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="908"><a href="908.html">Good Strategy Bad Strategy</a>. Rumelt stelt dezelfde diagnose over strategie die uit doelen en schema's bestaat, met Amerikaanse voorbeelden en een scherper onderscheid tussen diagnose en beleid.</li>
+          <li value="912"><a href="912.html">Toyota Production System</a>. Ohno beschrijft van binnenuit de productiewijze die Ohmae als achtergrond van het Japanse succes veronderstelt.</li>
+          <li value="909"><a href="909.html">The Halo Effect</a>. Rosenzweig laat zien hoe verklaringen achteraf ontstaan bij bedrijven die het op dat moment goed doen, wat direct op Ohmaes voorbeelden van toepassing is.</li>
+          <li value="907"><a href="907.html">Only the Paranoid Survive</a>. Grove werkt hetzelfde vraagstuk uit vanuit de positie van de gevestigde partij die een verschuiving in haar bedrijfstak moet opmerken.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

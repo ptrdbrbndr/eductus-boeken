@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Silence: Lectures and Writings &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Cage stelt dat er geen stilte bestaat en dat daaruit een ander idee van muziek volgt. Als er altijd geluid is, dan is de taak van de componist niet om…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-952">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">952 &middot; Maken en scheppen</p>
+    <h1>Silence: Lectures and Writings</h1>
+    <p class="lede">John Cage, 1961</p>
+    <p class="stats">
+      <span><b>1399</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="952"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Cage stelt dat er geen stilte bestaat en dat daaruit een ander idee van muziek volgt. Als er altijd geluid is, dan is de taak van de componist niet om zijn gevoelens in klank uit te drukken maar om een situatie in te richten waarin geluiden gehoord worden zoals zij zijn, zonder dat zij ergens naar hoeven te verwijzen. Alles wat de smaak van de maker binnenlaat, van harmonische ontwikkeling tot persoonlijke voorkeur voor een akkoord, is in die opvatting een obstakel; vandaar de tijdstructuren en de toevalsprocedures. De inzet is niet vernieuwing van de muziek maar een andere houding tegenover de wereld: aandacht zonder oordeel, aan de klank ontleend en op de rest van het leven van toepassing verklaard.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een boek dat uitgevoerd wil worden</h3>
+      <p>De bundel verzamelt vijfentwintig stukken uit ruim twintig jaar, van het jeugdige <i>The Future of Music: Credo</i> uit de jaren dertig tot de Darmstadtse lezingen van 1958. Cage weigerde ze om te werken tot leesbare opstellen. De typografie legt vast hoe zij klonken: kolommen die het spreektempo aangeven, witregels die stiltes zijn, lettertypen die tegelijk klinkende banden aanduiden.</p>
+      <p><i>45' for a Speaker</i> is opgezet als een van zijn tijdstukken, met aanwijzingen voor de spreker op de seconde. De verhalen onder de kop <i>Indeterminacy</i> staan in de marge en moeten elk binnen een minuut worden voorgelezen, waardoor een lang verhaal gejaagd klinkt en een kort verhaal traag. De vorm is daarmee zelf een argument: betekenis komt mede uit de tijd waarin iets wordt gezegd.</p>
+      <h3>Ruis toelaten</h3>
+      <p>In het vroegste stuk kondigt Cage aan dat het gebruik van geruis om muziek te maken zal toenemen en dat elektrische instrumenten de componist toegang zullen geven tot elke hoorbare klank. Waar wij ook zijn, wat wij horen is voornamelijk geruis, schrijft hij, en dat geruis stoort ons zolang wij het negeren.</p>
+      <p>De praktijk die daarbij hoort staat in de stukken over zijn eigen werk: slagwerkorkesten uit huisraad en remtrommels, en de geprepareerde piano, waarbij schroeven, bouten en rubber tussen de snaren van een vleugel een compleet slagwerkensemble maken dat door een pianist bediend wordt. Dat begon uit noodzaak, omdat er in een danszaal geen ruimte voor een slagwerkgroep was.</p>
+      <h3>Er is geen stilte</h3>
+      <p>De bekendste passage betreft zijn bezoek aan de echovrije kamer van Harvard, rond 1951. Hij verwachtte niets te horen en hoorde twee tonen, een hoge en een lage. De technicus zei hem dat het zijn zenuwstelsel en zijn bloedsomloop waren. Cages conclusie, in <i>Experimental Music</i> uit 1957: tot aan zijn dood zullen er geluiden zijn, en daarna gaan zij door.</p>
+      <p>Daaruit volgt het stuk waarvoor hij het bekendst is. In 1952 speelde David Tudor in Woodstock <i>4'33"</i>, drie delen waarin de uitvoerder niets speelt. Wat er te horen valt is wat er toevallig gebeurt: regen op het dak, publiek dat ongemakkelijk wordt, verkeer. Cage beschrijft dat niet als grap maar als het wegnemen van de laatste laag bedoeling, zodat alleen de omlijsting overblijft.</p>
+      <h3>Structuur in plaats van smaak</h3>
+      <p>Cage onderscheidt structuur, methode, vorm en materiaal, en stelt dat de westerse traditie de structuur aan de harmonie ontleende. Zijn alternatief is de ritmische structuur: lege tijdvakken die zich op groot en klein niveau in dezelfde verhouding herhalen en die met elk materiaal gevuld kunnen worden, ook met stilte. Die opzet leerde hij mede uit de Indiase muziek, waarover hij van Gita Sarabhai hoorde.</p>
+      <p>De volgende stap is het toeval. Voor <i>Music of Changes</i> uit 1951 bepaalde hij toonhoogte, duur en dynamiek met muntworpen volgens de <i>I Tjing</i>. In de Darmstadtse lezingen scheidt hij twee zaken die vaak door elkaar lopen: compositie met toevalsprocedures, waarbij de partituur daarna vastligt, en onbepaaldheid, waarbij de partituur zo is opgezet dat elke uitvoering anders uitvalt. Ananda Coomaraswamy leverde de formule waarmee hij dat verdedigde: kunst bootst de natuur na in haar wijze van werken.</p>
+      <h3>Waartoe het dient</h3>
+      <p>Op de vraag waar muziek voor is, geeft Cage een geleend antwoord: om de geest tot bedaren te brengen en zo ontvankelijk te maken voor goddelijke invloeden. Hij hoorde het van Sarabhai, die het van haar leraar had, en het komt in de bundel meermalen terug. Van daaruit is de stap naar het zenboeddhisme klein; hij volgde in New York de lessen van D.T. Suzuki en haalt daarnaast Meester Eckhart en Huang Po aan.</p>
+      <p>De <i>Lecture on Nothing</i> zet die houding om in vorm. Ik heb niets te zeggen en ik zeg het, en dat is poëzie zoals ik haar nodig heb, luidt de bekendste regel. De stukken over Erik Satie, Edgard Varèse en Robert Rauschenberg passen dezelfde maatstaf op anderen toe.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">experimentele muziek</td><td>Bij Cage niet muziek die nieuw klinkt, maar een handeling waarvan de uitkomst niet vooraf bekend is.</td></tr>
+          <tr><td class="term">stilte</td><td>In Cages omschrijving geen afwezigheid van geluid, die niet bestaat, maar de aanwezigheid van geluid dat niemand bedoeld heeft.</td></tr>
+          <tr><td class="term">toevalsprocedures</td><td>Het vastleggen van compositorische keuzes met muntworpen volgens de <i>I Tjing</i>, om de smaak van de componist uit het resultaat te houden.</td></tr>
+          <tr><td class="term">onbepaaldheid</td><td>Een partituur die zo is opgezet dat de uitvoering per keer verschilt, te onderscheiden van compositie waarbij alleen het maakproces aan het toeval werd overgelaten.</td></tr>
+          <tr><td class="term">ritmische structuur</td><td>Een indeling in lege tijdvakken die zich op groot en klein niveau in dezelfde verhouding herhalen en die met elk materiaal gevuld kunnen worden.</td></tr>
+          <tr><td class="term">geprepareerde piano</td><td>Een vleugel met schroeven, bouten en rubber tussen de snaren, waardoor een pianist over een slagwerkensemble beschikt.</td></tr>
+          <tr><td class="term">niet-intentie</td><td>Het uitschakelen van de bedoelingen van de maker als maatstaf voor wat er in een stuk terechtkomt.</td></tr>
+          <tr><td class="term">4'33"</td><td>Het stuk uit 1952 in drie delen waarin niet gespeeld wordt, zodat het omgevingsgeluid de inhoud van de uitvoering vormt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is een verzameling standpunten en werkverslagen, geen betoog met onderbouwing. Wat controleerbaar is, is de praktijk: de stukken bestaan, de partituren en de procedures zijn gedocumenteerd, en de uitvoeringen hebben plaatsgevonden. Ook de biografische gegevens kloppen: de lessen bij Schönberg, de gesprekken met Gita Sarabhai, de lessen van Suzuki in New York en het bezoek aan de echovrije kamer zijn los van Cage gedocumenteerd.</p>
+      <p>Wat niet controleerbaar is, is de kern zelf. De bewering dat een luisteraar geluid kan horen zonder het te duiden, wordt niet aangetoond maar aangeboden als uitnodiging. Cage voert geen enkele waarneming aan over wat toehoorders werkelijk deden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat <i>4'33"</i> alleen werkt binnen de omlijsting die het zegt op te heffen. Zonder zaal, zonder programmaboekje en zonder een uitvoerder die zichtbaar niets doet, is er geen stuk maar alleen een kamer met geluid. De bedoelingloosheid berust dus op een zeer doelbewust ingerichte inrichting, en Cage gaat die tegenspraak nergens aan. Hetzelfde geldt voor de toevalsprocedures: wie bepaalt welke vragen aan de <i>I Tjing</i> worden gesteld en welke antwoordreeks in welke parameter terechtkomt, oefent smaak uit op een niveau hoger.</p>
+      <p>Het anekdotische fundament is bovendien zwakker dan het draagt. Wat Cage in de echovrije kamer hoorde was vrijwel zeker geen bloedsomloop; een lage bromtoon in stilte wijst eerder op oorsuizen of op spontane emissies van het binnenoor. Op dat verhaal rust een groot deel van zijn redenering over stilte, terwijl de conclusie ook zonder de gemankeerde fysiologie te verdedigen was geweest.</p>
+      <p>Ten slotte is de vorm een schild. Zinnen die als muziek zijn geschikt, met kolommen en witruimte, laten zich moeilijk tegenspreken: er valt geen bewering aan te wijzen die onjuist zou kunnen zijn. Tijdgenoten die het toch probeerden, met Pierre Boulez voorop, verweten Cage dat het overlaten van keuzes aan het toeval neerkomt op het afschuiven van verantwoordelijkheid voor het resultaat.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Luister een tijdlang naar de geluiden in een ruimte zonder ze te benoemen als storend of gewenst, en schrijf achteraf op wat er te horen was.</li>
+        <li>Leg bij het maken van iets eerst de tijdsindeling vast en pas daarna het materiaal, zodat de vorm niet uit de smaak van het moment voortkomt.</li>
+        <li>Voer een lot of een beperking in bij een keuze waar de eigen voorkeur telkens hetzelfde antwoord oplevert, en houd je aan de uitkomst.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Silence: Lectures and Writings</i> (Wesleyan University Press, Middletown (Connecticut), 1961, 276 blz., ISBN 9780819560285). Britse editie: Marion Boyars, Londen, 1978. Ter gelegenheid van de vijftigste verjaardag verscheen een editie met een inleiding van Kyle Gann (Wesleyan University Press, 2011; paperback 2013, 312 blz., ISBN 9780819573650). Er bestaat geen volledige Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p><i>Silence</i> bundelt lezingen en teksten die John Cage tussen 1939 en 1961 schreef. De stukken zijn niet omgewerkt tot proza maar staan er zoals hij ze voordroeg, met de bladspiegel als partituur: de <i>Lecture on Nothing</i> in vier kolommen met afgemeten witruimte, <i>Composition as Process</i> eveneens in kolommen, en <i>Where Are We Going? and What Are We Doing?</i> in vier lettertypen voor vier tegelijk afgespeelde banden. Tussen de teksten door staan korte verhalen, elk bedoeld om in een minuut voor te lezen.</p><p>De inhoud draait om een klein aantal stellingen die Cage vanuit steeds andere hoeken benadert. Stilte bestaat niet: in de dode kamer van Harvard hoorde hij nog twee tonen, en daaruit volgt dat er altijd geluid is om naar te luisteren. Muziek hoeft dus niet over gevoelens van de componist te gaan, maar kan geluiden zichzelf laten zijn. Om zijn eigen smaak buiten de deur te houden werkte hij met tijdstructuren en met toevalsprocedures uit de <i>I Tjing</i>. Erachter liggen zijn lessen bij Schönberg, zijn gesprekken over Indiase muziek en zijn kennismaking met het zenboeddhisme via D.T. Suzuki.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>creativiteit</li><li>muziek</li><li>essay</li><li>zen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="528"><a href="528.html">An Introduction to Zen Buddhism</a>. Suzuki gaf de lessen in New York waar Cage zijn zenbegrippen vandaan haalde; het boek laat zien hoeveel Cage overnam en hoeveel hij naar eigen inzicht boog.</li>
+          <li value="17"><a href="17.html">The Creative Act</a>. Rubin herhaalt zestig jaar later een groot deel van Cages houding, met dezelfde nadruk op aandacht en op het uitschakelen van bedoeling, maar zonder de strengheid van de procedures.</li>
+          <li value="14"><a href="14.html">The Artist's Way</a>. Cameron bouwt haar methode juist op het uiten van het zelf, wat een scherpe tegenpool vormt van Cages poging de maker uit het werk te halen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

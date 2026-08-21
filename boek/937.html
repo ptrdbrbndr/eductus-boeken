@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eranos: An Alternative Intellectual History of the Twentieth Century &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Hakl betoogt dat de jaarlijkse bijeenkomsten in Ascona geen zijspoor van de geestesgeschiedenis waren maar een van de plaatsen waar de twintigste-eeuwse…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-937">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">937 &middot; Filosofie en mystiek</p>
+    <h1>Eranos: An Alternative Intellectual History of the Twentieth Century</h1>
+    <p class="lede">Hans Thomas Hakl, 2001</p>
+    <p class="stats">
+      <span><b>1605</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="937"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Hakl betoogt dat de jaarlijkse bijeenkomsten in Ascona geen zijspoor van de geestesgeschiedenis waren maar een van de plaatsen waar de twintigste-eeuwse omgang met mythe, symbool en religie is gevormd, en dat de gangbare geschiedschrijving die invloed onderschat omdat de kring uit een esoterisch milieu voortkwam en zich buiten de universiteit organiseerde. Wat begon als een reeks lezingen bij een gastvrouw met theosofische belangstelling, leverde via de deelnemers en hun boeken begrippen die daarna in de godsdienstwetenschap, de dieptepsychologie en de literatuurstudie gewoon werden. Hakl wil dat verband zichtbaar maken zonder Eranos tot een geheim genootschap te maken en zonder het tot gewone academische bedrijvigheid te herleiden.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat Eranos was</h3>
+      <p>Eranos begon in 1933 bij Casa Gabriella in Moscia bij Ascona, aan het Lago Maggiore. Olga Fröbe-Kapteyn had daar eerder een zaal laten bouwen voor bijeenkomsten over geestelijke onderwerpen. Het eerste jaarthema luidde yoga en meditatie in Oost en West, in die tijd een ongebruikelijke keuze voor een gezelschap met wetenschappelijke aanspraken. De vorm bleef bijna zeventig jaar dezelfde: acht dagen, lezingen van ongeveer twee uur, deelnemers die ter plaatse aten en verbleven, en publicatie van de teksten in de Eranos-Jahrbücher.</p>
+      <p>De naam kwam van Rudolf Otto en verwijst naar een maaltijd waaraan elke gast iets bijdraagt. Hakl benadrukt dat het geen besloten gezelschap was: wie de kleine toegangsprijs betaalde kon de lezingen bijwonen. De selectie zat aan de kant van de sprekers, en die werd in de praktijk door een klein gezelschap bepaald.</p>
+      <h3>De esoterische voorgeschiedenis</h3>
+      <p>Voordat Eranos bestond was Ascona al een verzamelplaats van levenshervormers, anarchisten, vegetariërs en theosofen rond de heuvel Monte Verità. Hakl beschrijft die achtergrond uitvoerig, omdat hij meent dat zij verklaart waarom juist hier een gezelschap ontstond dat wetenschappelijke degelijkheid verbond met belangstelling voor onderwerpen die de universiteiten meden. Fröbe-Kapteyn zelf kwam uit de theosofie en had contact met de kring rond Hermann Keyserling.</p>
+      <p>Die herkomst is voor Hakl geen smet maar de verklaring van de eigen aard van de bijeenkomsten. Zij verklaart volgens hem ook waarom Eranos in de vakliteratuur lang met enige gêne is behandeld.</p>
+      <h3>Jung en de vorming van de kring</h3>
+      <p>Jung sprak vanaf het eerste jaar en bleef tot in de jaren vijftig komen. Hakl laat zien hoe zijn aanwezigheid deelnemers trok en tegelijk stempelde: archetypen, het collectieve onbewuste en de amplificatiemethode werden het gemeenschappelijke idioom waarin klassieke filologen, oriëntalisten en godsdiensthistorici hun materiaal presenteerden. Fröbe-Kapteyn legde daarnaast een archief aan van symboolafbeeldingen uit alle tijden en streken, dat als materiaal voor de lezingen diende en later als afzonderlijke verzameling verder ging.</p>
+      <p>Hakl weegt ook de verhouding tussen gastvrouw en spreker. Jung bepaalde in de praktijk een groot deel van de uitnodigingen, en toen hij wegviel moest de kring een nieuw middelpunt zoeken dat zij nooit helemaal heeft gevonden.</p>
+      <h3>De jaren dertig, de oorlog en de politieke vraag</h3>
+      <p>Een van de uitvoerigste hoofdstukken behandelt de verhouding van Eranos tot het Duitse nationaalsocialisme. Verschillende sprekers hebben in die jaren posities ingenomen die later zwaar zijn gaan wegen. Hakl bespreekt de gevallen afzonderlijk en komt in de meeste tot de slotsom dat de bijeenkomsten juist een toevlucht boden aan geleerden die in Duitsland niet meer terechtkonden, waarbij de Zwitserse neutraliteit de plaats geschikt maakte.</p>
+      <p>Tijdens de oorlogsjaren gingen de bijeenkomsten door met vrijwel alleen deelnemers die Zwitserland konden bereiken. Dat gaf de kring een geslotenheid die na 1945 weer verdween, maar het versterkte volgens Hakl ook het gevoel van een gedeelde onderneming.</p>
+      <h3>Naoorlogse bloei en de Bollingen-verbinding</h3>
+      <p>Na de oorlog volgde de bloeitijd. Henry Corbin, Mircea Eliade, Gershom Scholem, Joseph Campbell, D.T. Suzuki, Adolf Portmann, Erich Neumann, Herbert Read en Gilbert Durand behoorden tot de terugkerende sprekers. Voor de verspreiding was het geld van Paul en Mary Mellon doorslaggevend: hun Bollingen Foundation bracht vertaalde Eranos-lezingen en de verzamelde werken van Jung in het Engels uit en bezorgde de kring een Amerikaans publiek dat zij op eigen kracht nooit had bereikt.</p>
+      <p>Van daaruit volgt Hakl de doorwerking: Campbells modellen in de literatuur en later in de filmwereld, Eliade als hoogleraar in Chicago en vormgever van een hele opleiding, Corbin in de studie van de islamitische mystiek, Scholem in het onderzoek naar de kabbala. Dat zijn de kanalen waarlangs volgens hem het Eranos-denken de gewone geesteswetenschap binnenkwam.</p>
+      <h3>Gevoelige kwesties</h3>
+      <p>Een apart hoofdstuk zet de bezwaren op een rij die tegen Eranos zijn ingebracht: politieke besmetting, ongebreideld symbolisme, gebrek aan methode, en de aantijging dat hier religie tot esthetiek en tot privézaak werd gemaakt. Hakl noemt ze en weerspreekt ze grotendeels. Hij bestrijdt vooral het beeld van een samenzwering en wijst op de openbaarheid van de lezingen en op de aanzienlijke onderlinge verschillen tussen de sprekers, die elkaar in druk ook tegenspraken.</p>
+      <h3>Einde en nasleep</h3>
+      <p>Na de dood van Fröbe-Kapteyn in 1962 kwam het beheer bij een stichting. De samenstelling veranderde, de thema's werden algemener, en in de laatste decennia van de eeuw raakte de reeks haar samenhang kwijt; Hakl beschrijft de twisten over de koers en de pogingen tot een nieuwe start. Hij eindigt bij de vraag of Eranos herhaalbaar is en meent van niet. De combinatie van een gastvrouw met geld en overtuiging, een neutraal land in oorlogstijd en een generatie geleerden die elkaar buiten het eigen vakgebied opzocht, laat zich niet organiseren.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Eranos</td><td>Grieks voor een maaltijd waaraan elke gast een bijdrage levert; sinds 1933 de naam van de jaarlijkse bijeenkomsten in Ascona.</td></tr>
+          <tr><td class="term">Eranos-Jahrbuch</td><td>Het jaarboek waarin de lezingen van elke bijeenkomst werden afgedrukt, vanaf 1933 en decennialang de belangrijkste neerslag van de kring.</td></tr>
+          <tr><td class="term">Bollingen Foundation</td><td>De door Paul en Mary Mellon gefinancierde stichting die Eranos-lezingen en het werk van Jung in Engelse vertaling uitgaf.</td></tr>
+          <tr><td class="term">Monte Verità</td><td>De heuvel bij Ascona waar sinds het begin van de eeuw levenshervormers, theosofen en anarchisten samenkwamen; volgens Hakl de voedingsbodem van Eranos.</td></tr>
+          <tr><td class="term">amplificatie</td><td>Jungs werkwijze waarin een beeld wordt uitgelegd door parallellen uit mythe, religie en kunst te verzamelen; het gedeelde idioom van veel Eranos-lezingen.</td></tr>
+          <tr><td class="term">archetype</td><td>Bij Jung een aangeboren vormprincipe van de verbeelding, door veel sprekers als vanzelfsprekend uitgangspunt overgenomen.</td></tr>
+          <tr><td class="term">beeldarchief</td><td>De verzameling symboolafbeeldingen die Fröbe-Kapteyn aanlegde als materiaal voor de lezingen en die later zelfstandig werd voortgezet.</td></tr>
+          <tr><td class="term">alternatieve geestesgeschiedenis</td><td>Hakls aanduiding voor een lijn in het twintigste-eeuwse denken die buiten de universiteiten liep en de universitaire vakken toch beïnvloedde.</td></tr>
+          <tr><td class="term">westerse esoterie</td><td>Het onderzoeksveld waarin Hakl zijn onderwerp plaatst: stromingen als hermetisme, alchemie en theosofie, bestudeerd als geschiedenis en niet beleden als leer.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Hakl steunt op de Eranos-Jahrbücher zelf, op archiefmateriaal van de stichting, op briefwisselingen en op gesprekken die hij vanaf de jaren negentig met deelnemers en nabestaanden voerde. Het notenapparaat is omvangrijk en de bibliografie uitgebreid. Voor de feitelijke gang van zaken, wie wanneer sprak, waarover, en hoe de verhoudingen lagen, is dit de volledigste bron die er is; ook wie de stelling van het boek afwijst kan er als naslagwerk mee uit de voeten.</p>
+      <p>Zwakker staat het waar de stelling over invloed hard gemaakt moet worden. Dat de betrokkenen invloedrijk waren staat vast, maar dat hun invloed via Eranos liep en niet via hun leerstoelen, hun uitgevers en hun boeken, is een aanname die het boek illustreert en niet toetst. Een verzameling gedeelde aanwezigheden vormt geen bewijs van gedeelde herkomst van ideeën. Hakl schrijft bovendien vanuit sympathie voor zijn onderwerp: als uitgever, verzamelaar en tijdschriftoprichter is hij zelf onderdeel van het veld dat hij beschrijft.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar betreft de omgang met de politieke geschiedenis. Verscheidene hoofdrolspelers hadden een verleden dat verder gaat dan een ongelukkige publicatie: Eliade was in de jaren dertig verbonden met de Roemeense IJzeren Garde, en over de uitspraken en functies van Jung in diezelfde jaren bestaat een omvangrijke literatuur. Hakl behandelt die kwesties, maar zijn slotsom valt vrijwel altijd in het voordeel van de betrokkene uit, en de systematische vraag blijft liggen: hangt het denken zelf, met zijn nadruk op mythe, oervorm en bodem, met die politiek samen? Steven Wasserstrom heeft die vraag in <i>Religion after Religion</i> (1999) wel gesteld; bij Hakl krijgt dat soort kritiek eerder een afwijzing dan een inhoudelijk weerwoord.</p>
+      <p>Daarnaast is het boek zwak in de analyse. Het is voor het overgrote deel verhaal: wie er kwam, wat er werd gezegd, hoe men met elkaar omging. Wat de Eranos-benadering als kennisleer waard was, of de amplificerende methode iets aantoont, en waarom vergelijkende symboolstudie in de godsdienstwetenschap sinds de jaren zeventig aan gezag heeft ingeboet, komt nauwelijks aan bod. Ook zijn eigen positie, met jarenlang werk aan de Italiaanse traditionalist Julius Evola, wordt niet als mogelijke invalshoek op tafel gelegd.</p>
+      <p>Ten slotte de omvang en de vorm. Ruim vierhonderd dichtbedrukte bladzijden met veel namen, jaartallen en lezingtitels maken het eerder een naslagwerk dan een betoog. De lezer die de hoofdlijn zoekt moet die zelf uit het materiaal halen, en de Engelse vertaling laat de Duitse zinsbouw op veel plaatsen staan.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik het boek als naslagwerk bij de vraag wie wanneer in Ascona sprak en waarover; de jaarboeken zijn daarna de eerste bron.</li>
+        <li>Lees een auteur uit deze kring met de vraag welk deel van zijn begrippenapparaat uit Jungs idioom stamt en welk deel uit het eigen vak.</li>
+        <li>Zoek bij elke uitspraak over invloed een bewijsmiddel: een brief, een verwijzing, een overgenomen begrip, en neem gedeelde aanwezigheid niet als bewijs.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave">Het Duitse origineel verscheen als <i>Der verborgene Geist von Eranos: Unbekannte Begegnungen von Wissenschaft und Esoterik. Eine alternative Geistesgeschichte des 20. Jahrhunderts</i> (Scientia Nova, Bretten, 2001). De door de auteur herziene en bijgewerkte Engelse vertaling van Christopher McIntosh kwam uit als <i>Eranos: An Alternative Intellectual History of the Twentieth Century</i> (Equinox, Sheffield, en McGill-Queen's University Press, Montreal, 2013, 448 blz., ISBN 9781845531157 gebonden en 9780773540880 ingenaaid; latere herdruk bij Routledge, ISBN 9781781790168). Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Vanaf 1933 kwamen elk jaar in Ascona aan het Lago Maggiore geleerden bijeen die acht dagen lang lezingen hielden over religie, mythe, psychologie en natuurwetenschap. De gastvrouw was Olga Fröbe-Kapteyn, een vrouw van Nederlandse afkomst met theosofische belangstelling; de naam Eranos, Grieks voor een maaltijd waaraan elke gast bijdraagt, werd voorgesteld door de godsdienstwetenschapper Rudolf Otto. Hans Thomas Hakl volgt die bijeenkomsten van de eerste tot het einde van de eeuw, aan de hand van archiefstukken, de jaarboeken, briefwisselingen en gesprekken met deelnemers en nabestaanden.</p><p>Zijn stelling is dat deze kring een geschiedenis van het denken vormt die naast de gangbare loopt. C.G. Jung, Karl Kerényi, Mircea Eliade, Gershom Scholem, Henry Corbin, Joseph Campbell, D.T. Suzuki en Adolf Portmann werkten hier ideeën uit die via de Bollingen-reeks en de universiteiten hun weg vonden, terwijl de esoterische herkomst van het gezelschap in de officiële geschiedschrijving weinig aandacht kreeg. Hakl is zelf geen universitair onderzoeker maar zakenman, uitgever, verzamelaar en vertaler; het boek verscheen in 2001 in het Duits en in 2013 in herziene Engelse vertaling.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>esoterie</li><li>wetenschapsgeschiedenis</li><li>jung</li><li>religie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="578"><a href="578.html">Het heilige</a>. Otto bedacht de naam Eranos; zijn boek is de directe voorloper van de vergelijkende benadering die er werd beoefend.</li>
+          <li value="357"><a href="357.html">De mens en zijn symbolen</a>. Het idioom dat de Eranos-lezingen bijeenhield, in de vorm waarin Jung en zijn medewerkers het voor een breed publiek opschreven.</li>
+          <li value="608"><a href="608.html">Het gewijde en het profane</a>. Eliade was een van de vaste sprekers; dit boek laat zien wat de benadering aan begrippen opleverde en waar zij kwetsbaar is.</li>
+          <li value="932"><a href="932.html">The Passion of the Western Mind</a>. Tarnas schrijft de westerse geestesgeschiedenis vanuit een verwante belangstelling en laat zien hoe die lijn buiten Ascona doorloopt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Het doel &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Het doel van een productiebedrijf is geld verdienen, nu en later, en elke maatstaf die daar niet aantoonbaar aan bijdraagt is volgens Goldratt een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-904">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">904 &middot; Geld en ondernemen</p>
+    <h1>Het doel</h1>
+    <p class="lede">Eliyahu M. Goldratt en Jeff Cox, 1984</p>
+    <p class="stats">
+      <span><b>1637</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="904"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Het doel van een productiebedrijf is geld verdienen, nu en later, en elke maatstaf die daar niet aantoonbaar aan bijdraagt is volgens Goldratt een verkeerde maatstaf. Kostprijs per eenheid, bezettingsgraad en efficiency per afdeling belonen het bezig houden van machines en mensen, en dat levert voorraad en doorlooptijd op waar winst werd verwacht. Omdat een fabriek een keten van afhankelijke bewerkingen is waarin elke stap schommelt, bepaalt de traagste schakel wat het geheel afgeeft; capaciteit die daarbuiten wordt vrijgemaakt verdwijnt in de tussenvoorraad. De weg vooruit loopt daarom via het vinden en beheersen van die ene beperking, en pas daarna via de rest van de fabriek.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Drie maanden voor een fabriek</h3>
+      <p>Alex Rogo leidt de fabriek van UniCo in Bearington. In het eerste hoofdstuk staat divisiedirecteur Bill Peach onaangekondigd in zijn kantoor over een order die zeven weken te laat is, en geeft hem drie maanden om de fabriek winstgevend te maken. De fabriek draait ondertussen op recordcijfers: nieuwe robots hebben de efficiency van hun afdeling flink opgevoerd, en toch is bijna elke order te laat en groeit het onderhanden werk.</p>
+      <p>Op het vliegveld van Chicago loopt Alex zijn vroegere natuurkundedocent Jonah tegen het lijf. Jonah geeft geen advies maar stelt vragen, en die reeks vragen vormt de rest van het boek. Het patroon herhaalt zich: Alex belt of ziet Jonah, krijgt een wedervraag, en moet in de fabriek zelf uitzoeken wat het antwoord is.</p>
+      <h3>Wat is het doel, en hoe meet je het</h3>
+      <p>De eerste vraag van Jonah is waartoe de fabriek bestaat. Alex komt langs kwaliteit, marktaandeel, werkgelegenheid en techniek uit bij geld verdienen. Daarna moet hij dat vertalen naar iets wat op de werkvloer te zien is. Dat worden drie grootheden: doorvoer, het tempo waarin het systeem geld genereert via verkoop; voorraad, al het geld dat vastzit in dingen die het systeem wil verkopen; en operationele kosten, al het geld dat het uitgeeft om voorraad in doorvoer om te zetten.</p>
+      <p>Met die drie is elke beslissing te toetsen. Een investering die de efficiency van een afdeling verhoogt zonder de doorvoer te raken, verhoogt alleen voorraad en kosten. De boekhouding van het concern telt voorraad echter als bezit, waardoor het produceren van onverkoopbare onderdelen op papier winst oplevert. Dat conflict tussen de afdelingscijfers en het bedrijfsresultaat loopt door het hele boek.</p>
+      <h3>Afhankelijke stappen en toeval</h3>
+      <p>Op een wandeltocht met de padvinderij ziet Alex het mechanisme. De groep moet in volgorde blijven, iedereen loopt met een eigen snelheid, en de traagste jongen, Herbie, bepaalt hoe ver de hele rij komt: achter hem sluit de rij aan, voor hem rekt de afstand. Sneller lopen van de voorsten maakt de rij alleen langer. Zodra Alex de inhoud van Herbies rugzak over de anderen verdeelt, gaat de hele groep vooruit.</p>
+      <p>Thuis herhaalt hij hetzelfde met een dobbelsteen en lucifers: vijf posten die om beurten gooien en hooguit zoveel lucifers doorgeven als ze hebben. Gemiddeld gooit iedereen drieënhalf, dus zou de rij drieënhalf per beurt moeten afgeven, maar de opbrengst blijft achter en de tussenvoorraden lopen op. Afhankelijke gebeurtenissen met schommelingen middelen niet uit; ze stapelen de tegenvallers op.</p>
+      <h3>De beperking zoeken</h3>
+      <p>In de fabriek blijken twee posten de rol van Herbie te spelen: de NCX-10, een dure geautomatiseerde machine die door één man wordt bediend, en de warmtebehandelingsoven. Voor beide liggen bergen werk te wachten. De regel van Jonah is dat een uur verlies bij een beperking een uur verlies is voor de hele fabriek, terwijl een uur gewonnen bij een niet-beperking niets waard is.</p>
+      <p>Daaruit volgt een reeks maatregelen die tegen alle gewoontes ingaat. De beperkingen worden tijdens pauzes en ploegwisselingen doorbezet, de keuring gaat vóór in plaats van na de beperking zodat er geen bewerkingstijd aan afkeur opgaat, afgestoten oude machines worden teruggehaald om werk om de NCX-10 heen te leiden, en een deel van het werk gaat naar derden. De rest van de fabriek moet zich naar het tempo van de beperking schikken, ook als dat betekent dat mensen en machines stilstaan.</p>
+      <h3>Wat de rest van de fabriek moet doen</h3>
+      <p>De vrijgave van materiaal wordt gekoppeld aan het tempo van de beperking, zodat er niet meer de fabriek in gaat dan eruit kan komen. Serie- en transportgroottes worden gehalveerd, wat de doorlooptijd verder terugbrengt omdat onderdelen niet langer op hun hele partij hoeven te wachten. De doorlooptijd zakt van maanden naar weken, orders worden op tijd geleverd en de verkoop kan kortere levertijden beloven.</p>
+      <p>De boekhouding van het concern volgt niet mee. Doordat de voorraad wegloopt, drukt eerder geactiveerde kostprijs op het resultaat en lijkt de fabriek er in de cijfers slechter voor te staan dan ervoor. Dat conflict wordt in de laatste hoofdstukken uitgevochten in een beoordelingsgesprek met de divisieleiding.</p>
+      <h3>Van vondst naar methode</h3>
+      <p>In het slotdeel probeert Alex met controller Lou te formuleren wat hij eigenlijk heeft gedaan, omdat hij het als nieuwe divisiedirecteur op drie fabrieken tegelijk moet toepassen. Daaruit komt een cyclus: benoem de beperking, haal eruit wat erin zit, laat al het andere zich daaraan onderschikken, breid de beperking pas daarna uit, en begin overnieuw zodra zij verschuift, zonder de gewoontes van de vorige ronde te laten hangen. In de herziene edities staat die reeks als de vijf stappen uitgeschreven; in de eerste druk van 1984 moet de lezer hem uit het verhaal halen.</p>
+      <p>De laatste vraag van het boek is methodisch geworden: wat moet er veranderen, waarin moet het veranderen, en hoe krijg je die verandering voor elkaar. Daarmee loopt <i>Het doel</i> vooruit op Goldratts latere boeken over zijn denkgereedschap.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">doorvoer</td><td>Het tempo waarin het systeem geld genereert door verkoop, bij Goldratt de enige grootheid die je onbeperkt wilt verhogen.</td></tr>
+          <tr><td class="term">voorraad</td><td>Al het geld dat vastzit in dingen die het systeem wil verkopen, gewaardeerd tegen inkoopprijs en zonder toegevoegde arbeid.</td></tr>
+          <tr><td class="term">operationele kosten</td><td>Al het geld dat het systeem uitgeeft om voorraad in doorvoer om te zetten.</td></tr>
+          <tr><td class="term">beperking</td><td>De schakel met de kleinste capaciteit ten opzichte van de vraag; zij bepaalt wat het hele systeem kan afgeven.</td></tr>
+          <tr><td class="term">niet-beperking</td><td>Elke schakel met overcapaciteit, waar harder werken of verbeteren de doorvoer van het geheel niet verhoogt.</td></tr>
+          <tr><td class="term">afhankelijke gebeurtenissen</td><td>Bewerkingen die op elkaar moeten wachten, waardoor schommelingen zich opstapelen in plaats van uit te middelen.</td></tr>
+          <tr><td class="term">lokale efficiëntie</td><td>De bezettingsgraad per afdeling of machine, door Goldratt aangewezen als de maatstaf die fabrieken vol voorraad zet.</td></tr>
+          <tr><td class="term">Herbie</td><td>De traagste padvinder uit de wandeltocht, in het boek de naam voor de beperking van een systeem.</td></tr>
+          <tr><td class="term">de vijf stappen</td><td>De cyclus van benoemen, uitbuiten, onderschikken, uitbreiden en opnieuw beginnen die de kern van de theory of constraints vormt.</td></tr>
+          <tr><td class="term">socratische methode</td><td>De werkwijze van Jonah om uitsluitend vragen te stellen, door Goldratt gepresenteerd als de manier waarop een verandering blijft hangen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p><i>Het doel</i> is een roman en bevat geen onderzoek, geen cijfers uit andere bedrijven en geen bronvermelding. Wat het als bewijs aanbiedt is een verzonnen fabriek waarin de methode werkt, plus twee demonstraties die de lezer zelf kan nadoen: de wandeltocht en het spel met dobbelsteen en lucifers. Dat laatste is een geldige demonstratie van één punt, namelijk dat variatie in een keten van afhankelijke stappen zich opstapelt in wachttijd en tussenvoorraad. Dat punt was in de wachtrijtheorie al decennia voor 1984 vastgesteld, los van Goldratt, en het is de stevigste grond onder het boek.</p>
+      <p>De rest rust op Goldratts eigen adviespraktijk. Hij richtte in 1977 Creative Output op en verkocht daar planningssoftware onder de naam Optimized Production Technology; het boek is geschreven om de aannames weg te nemen die de invoering van die software in de weg zaten. Latere toetsing van de theory of constraints bestaat, maar zij is beperkt van omvang en vaak uitgevoerd door aanhangers; vergelijkend onderzoek tegenover andere verbetermethoden is schaars.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De fabriek in het boek heeft twee vaste beperkingen die zich netjes laten aanwijzen. In werkelijkheid verschuift een beperking zodra zij is opgeheven, zit zij vaak buiten de fabriek in de vraag of bij een leverancier, en zijn er productiemengsels waarin verschillende posten om beurten knellen. Goldratt behandelt dat pas in latere boeken; hier krijgt de lezer een probleem dat is aangelegd om de oplossing te laten passen. Ook de menselijke kant is glad: er is geen vakbond, geen leverancier die dwarsligt, geen kapitaalvraag, en de leiding boven Alex draait binnen enkele weken bij.</p>
+      <p>De aanval op de kostprijsboekhouding is scherper dan de onderbouwing toestaat. Goldratt schrijft de fouten toe aan de methode zelf, terwijl het merendeel van zijn voorbeelden gaat over het gebruik van kostprijzen als stuurmiddel op afdelingsniveau. Verder presenteert hij zijn inzichten zonder te verwijzen naar wie eerder tot hetzelfde kwam: Taiichi Ohno bouwde bij Toyota vanaf de jaren vijftig een stelsel op dezelfde waarneming over voorraad en doorlooptijd, en de wachtrijtheorie lag er al. Als roman is het boek zwak: de personages bestaan om vragen te stellen, en de huwelijksverhaallijn rond Julie leest veertig jaar later als een ongemakkelijke tijdsopname.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Meet een verbetervoorstel aan doorvoer, voorraad en operationele kosten tegelijk; raakt het er maar één, dan is het meestal geen verbetering.</li>
+        <li>Zoek de beperking daar waar het werk zich opstapelt, en tel hoeveel dagen werk ervoor ligt te wachten.</li>
+        <li>Zorg dat de beperking niet stilvalt door pauzes, ploegwisseling, storing of het bewerken van werk dat toch wordt afgekeurd.</li>
+        <li>Keur af vóór de beperking in plaats van erna.</li>
+        <li>Koppel de vrijgave van nieuw werk aan het tempo van de beperking in plaats van aan de vrije capaciteit vooraan in de keten.</li>
+        <li>Reken uit wat halvering van de seriegrootte doet met de doorlooptijd voordat er capaciteit wordt bijgekocht.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Goal: A Process of Ongoing Improvement</i> verscheen in 1984 bij North River Press in Croton-on-Hudson (New York) en is daarna drie keer herzien, in 1986, 1992 en 2004; de editie voor het dertigjarig bestaan telt 384 blz. en voegt de vijf stappen en het essay <i>Standing on the Shoulders of Giants</i> toe. De Nederlandse vertaling <i>Het doel</i> kwam in 1986 uit bij Het Spectrum in Utrecht, vertaald door medewerkers van de Nederlandse Philips-bedrijven met redactioneel advies van Patrick Hoefsmit; de 44e druk uit 2019 telt 362 blz. (Spectrum, Houten, ISBN 9789000337644).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Goldratt verpakte zijn productietheorie in een roman. Alex Rogo krijgt drie maanden om de fabriek van UniCo in Bearington winstgevend te maken, en zijn oude natuurkundedocent Jonah helpt hem uitsluitend met vragen. Het antwoord waar Alex op uitkomt is dat de fabriek bestaat om geld te verdienen, en dat de gangbare maatstaven, bezettingsgraad en kostprijs per eenheid, daar tegenin werken. In plaats daarvan meet hij doorvoer, voorraad en operationele kosten.</p><p>Het mechanisme legt Goldratt uit met een wandeltocht van de padvinderij, waarin de traagste jongen bepaalt hoe ver de hele rij komt, en met een spel met een dobbelsteen en lucifers. Een keten van afhankelijke stappen met schommelingen middelt niet uit; de tegenvallers stapelen zich op voor de traagste schakel. In de fabriek zijn dat een geautomatiseerde machine en een warmtebehandelingsoven, en zodra alles zich naar hun tempo voegt zakt de doorlooptijd en komen orders op tijd. Het boek verscheen in 1984, werd drie keer herzien, verkocht meer dan zeven miljoen exemplaren en werd door <i>Time</i> in 2011 tot de invloedrijkste managementboeken gerekend.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>management</li><li>productiviteit</li><li>organisatie</li><li>roman</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="912"><a href="912.html">Toyota Production System</a>. Ohno beschrijft hetzelfde probleem van voorraad en doorlooptijd vanuit Toyota, met een andere oplossing en zonder de romanvorm.</li>
+          <li value="908"><a href="908.html">Good Strategy Bad Strategy</a>. Rumelt eist dat een strategie begint met een diagnose van de knellende factor; dat is de beperking van Goldratt, toegepast buiten de fabriek.</li>
+          <li value="909"><a href="909.html">The Halo Effect</a>. Rosenzweig laat zien hoe verhalen over succesvolle bedrijven achteraf worden rechtgetrokken, wat bij een didactische roman als deze een nuttige tegenlezing is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

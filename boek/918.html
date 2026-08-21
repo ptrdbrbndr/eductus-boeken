@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Universe Next Door &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Wilson beweert in dit boek dat wat mensen ‘de wereld’ noemen een reality tunnel is, een doorgang die het zenuwstelsel van een primaat uit een oneindig…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-918">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">918 &middot; Roman en memoir</p>
+    <h1>The Universe Next Door</h1>
+    <p class="lede">Robert Anton Wilson, 1979</p>
+    <p class="stats">
+      <span><b>1525</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="918"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Wilson beweert in dit boek dat wat mensen ‘de wereld’ noemen een reality tunnel is, een doorgang die het zenuwstelsel van een primaat uit een oneindig veel groter geheel snijdt, en dat de kwantummechanica daar een natuurkundige in plaats van een louter psychologische lezing aan geeft. Als de toestandsvector werkelijk niet in één uitkomst instort, dan bestaan alle versies van Unistat naast elkaar en is het verschil tussen de nachtmerrie en de goede afloop geen zedelijk verschil maar een kwestie van in welke tak men zich bevindt. Het boek voert dat niet aan als stelling maar als vorm: het weigert één doorlopende werkelijkheid vast te houden, en laat personages sterven, terugkeren en van geslacht wisselen zonder verklaring.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Een vervolg dat geen vervolg is</h3>
+      <p>Markoff Chaney, Simon Moon, de Discordianen en de familie Malik komen terug uit <i>Illuminatus!</i>, maar het verhaal loopt niet door. Wilson bouwt zijn boek in twee delen, met de titels ‘Purity of Essence’ en ‘The Universe Next Door’, en onderbreekt de vertelling voortdurend met stukjes uit de ‘Galactic Archives’.</p>
+      <p>Die archieven leveren ook de zelfspot. Een van de eerste dienstmededelingen beweert dat het manuscript oorspronkelijk <i>The Universe Next Door</i> heette, dat verschillende redacteuren er een psychose van kregen en dat uitgevers voortaan elk pakket met die titel ongeopend terugstuurden. Ook wordt beweerd dat een deel van de tekst door een hondachtige intelligentie uit het stelsel van Sirius is gedicteerd. Wat volgt staat dus vanaf bladzijde tien onder voorbehoud.</p>
+      <h3>Unistat en de gedomesticeerde primaten</h3>
+      <p>De vertelstem beschrijft mensen consequent als apen die zich hebben laten temmen. Zij markeren hun gebied met uitscheiding, en daarom is het ergste dat zij elkaar kunnen noemen een verwijzing daarnaar. Zij weten niet dat zij primaten zijn en schrikken daarom van hun eigen gedrag. De beslissing om wapens te bouwen die al het leven kunnen uitroeien is genomen door een handvol alfamannetjes; de zespotige meerderheid is er niet in gekend.</p>
+      <p>Op de voorgrond schrijft Benny Benedict zijn column ‘One Month to Go’, waarin hij de wereld van december 1983 naast het boek van Orwell legt. De zin wordt binnen tien dagen een gevleugeld woord in het hele land. Dat is de manier waarop Wilson zijn samenleving toont: niet door haar te beschrijven, maar door te laten zien hoe snel een formulering zich verspreidt.</p>
+      <h3>Het verdwenen plutonium</h3>
+      <p>De hoofdintrige begint bij plutonium dat halverwege de jaren zeventig zoekraakte en waarover men na een paar jaar ophield zich zorgen te maken. Een Chicagose groep die zich de Nihilist Anarchist Horde noemt verstuurt vier jaar lang een gestencild vel met de titel ‘A Simple Atomic Bomb for the Home Craftsman’ naar de meest verbitterde mensen die zij kan vinden, als grap en waarschuwing tegelijk, en weigert onder ogen te zien dat het ook een aansporing is. Er raken naar schatting tien miljoen kopieën in omloop.</p>
+      <p>Een daarvan bereikt Purity of Essence. Aan het eind ligt er een brief bij het Witte Huis en alle grote media: vijfhonderd tactische kernbommen liggen verspreid over het land, morgenmiddag gaat de eerste af, en de eis is dat de president alle vermogens boven een miljoen dollar verbeurd verklaart.</p>
+      <h3>Markoff Chaney, de verborgen variabele</h3>
+      <p>Het deel dat de sterkste komische lijn draagt gaat over Markoff Chaney, een dwerg die tijdens een wiskundecollege in Berkeley hoort dat een reeks samenhangende gebeurtenissen in een toevalsproces een Markov-keten heet, en op dat moment de oorlog verklaart aan het gemiddelde. Hij noemt het de dwerg tegen de cijfers.</p>
+      <p>Zijn methode is het vervalsen van bedrijfsmededelingen. Hij verbergt zich in een winkel tot sluitingstijd en hangt een licht gewijzigde versie van het personeelsreglement op, ondertekend met ‘The Mgt.’ Later keert hij relais in verkeerslichten om. Wilson gebruikt hem als de verborgen variabele uit de natuurkunde: de factor buiten het model die de uitkomst toch bepaalt, en die per definitie niet in de statistiek zichtbaar wordt.</p>
+      <h3>Orgasm Research en het rondzwervende orgaan</h3>
+      <p>De tweede helft draait om het instituut van dr. Frank Dashwood, dat de menselijke orgasme onderzoekt met de apparatuur en de ernst van een deeltjesversneller. Daarheen is het geslachtsdeel gebracht dat bij de operatie van Epicene Wildeblood is weggenomen; het wordt gestolen door een rockmuzikant, in een steeg gegooid, door een kat naar huis gesleept, door een roddelcolumnist te gelde gemaakt en ten slotte door een erfgename van een oorlogsmisdadiger gekocht.</p>
+      <p>Het is een grove grap, maar hij doet werk. De handeling van het boek wordt niet gedreven door iemand die iets wil, maar door een voorwerp dat van hand tot hand gaat en waar niemand macht over heeft. Daarnaast lopen kleinere lijnen: de Fortean club rond de Mad Fishmonger, die in 1881 in Worcester kreeften en alikruiken over de straten uitstrooide, en de huurmoordenaar Starhawk, die zich uit een dubbelspel redt door de opdrachtgever de waarheid te vertellen.</p>
+      <h3>Wat het slot niet oplost</h3>
+      <p>In de laatste bladzijden blijkt de president van Unistat, Furbish Lousewart V, niet meer wie hij was. Zijn bewustzijn is verwisseld met dat van Hassan i Sabbah X, leider van een radicale zwarte sekte, en hetzelfde is met de vicepresident en een adviseur gebeurd. Zij zitten nu met het ultimatum en met het land.</p>
+      <p>Hun besluit is de eis maar in te willigen: het geld verdelen, wat toch al hun bedoeling was. Op de tegenwerping dat zij nog voor het eind van de dag vermoord zullen zijn, antwoordt Hassan dat zij het kunnen proberen, en voegt de boeddhist Ped Xing eraan toe dat er vele bewustzijnstoestanden en heelallen zijn en dat zij elders verder gaan als het hier niet lukt. Het boek eindigt dus niet, het schakelt over.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">reality tunnel</td><td>Wilsons term voor het beperkte beeld van de werkelijkheid dat een zenuwstelsel plus opvoeding samen toelaten.</td></tr>
+          <tr><td class="term">gedomesticeerde primaat</td><td>Vaste aanduiding voor de mens in dit boek, bedoeld om gedrag ethologisch te lezen in plaats van moreel.</td></tr>
+          <tr><td class="term">Unistat</td><td>De Verenigde Staten van de roman, beschreven in de taal van een toekomstige archivaris die het land als een uitgestorven rijk behandelt.</td></tr>
+          <tr><td class="term">Purity of Essence</td><td>Groep die verdwenen plutonium tot kernbommen verwerkt om herverdeling van vermogen af te dwingen; afgekort tot POE.</td></tr>
+          <tr><td class="term">verborgen variabele</td><td>Kwantumtheorie van David Bohm waarin een onderliggend stelsel de uitkomst bepaalt; in de roman de rol van Markoff Chaney.</td></tr>
+          <tr><td class="term">eigenstate</td><td>Een van de toestanden waarin een kwantumsysteem zich kan bevinden; personages wisselen in dit boek van eigenstate zoals anderen van kamer wisselen.</td></tr>
+          <tr><td class="term">Everett-Wheeler-Graham-model</td><td>Lezing van de kwantummechanica waarin alles wat met de toestandsvector kan gebeuren ook gebeurt; het bouwplan van dit deel.</td></tr>
+          <tr><td class="term">The Mgt.</td><td>Handtekening waarmee Markoff Chaney zijn vervalste bedrijfsmededelingen ondertekent, het naamloze gezag in persoon.</td></tr>
+          <tr><td class="term">Galactic Archives</td><td>Onderbrekende stukjes waarin een verteller uit de verre toekomst de gebeurtenissen van een verklaring voorziet die zelf niet te vertrouwen is.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De natuurkunde in het boek is geen sier. Achterin staat een woordenlijst die de stelling van Bell, de Kopenhaagse lezing, het effect van Einstein, Rosen en Podolsky, het model van Everett, Wheeler en Graham en de verborgen variabele van Bohm correct en beknopt uitlegt, met namen van levende natuurkundigen erbij: John Bell, David Bohm, Nick Herbert, Jack Sarfatti, Evan Harris Walker. Ook de Forteaanse inzetjes gaan op werkelijk opgetekend materiaal terug; de regen van kreeften en alikruiken in Worcester in 1881 staat bij Charles Fort.</p>
+      <p>De stap die Wilson daarna zet is geen natuurkunde meer. Van ‘de vergelijkingen beschrijven niet één uitkomst’ naar ‘waar men in gelooft bepaalt in welke wereld men leeft’ zit een sprong die geen van de genoemde natuurkundigen maakt, en die de woordenlijst zelf ook niet maakt. Wilson gebruikt de onenigheid tussen de lezingen als vrijbrief: omdat de vakmensen het oneens zijn, mag hij kiezen wat hem uitkomt. Het boek is daarmee wel eerlijk, want het geeft de lezer het gereedschap om de sprong te zien.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar betreft de seksuele stof. Wilsons parodie op de seksuologie van de jaren zeventig is onophoudelijk en het grootste deel ervan leest nu als grofheid met een theorie eromheen. Het personage Epicene Wildeblood, dat na een geslachtsoperatie het boek binnenkomt, wordt vooral gebruikt als aanleiding voor een lopende grap over het weggenomen orgaan. Wat als bevrijding werd gepresenteerd is in de praktijk de blik van de auteur op zijn personages.</p>
+      <p>Daarnaast verklaart het primatenkader te veel. Zodra elke daad valt onder gedrag van gedomesticeerde primaten, verdwijnt het verschil tussen een bomaanslag en een krantencolumn, en kan het boek niet meer uitleggen waarom het ene erger is dan het andere; het blijft toch een keuze maken, zonder daar recht op te hebben. Ten slotte is de kwantumlaag als bouwplan minder dragend dan zij lijkt. Wie de woordenlijst en de verwijzingen weghaalt, houdt een satire over die precies zo zou werken, met alleen het verlies dat de sprongen in de vertelling dan onverklaard blijven in plaats van onverklaarbaar.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Schrödinger's Cat: The Universe Next Door</i> (Pocket Books, New York, 1979, 256 blz., ISBN 0671821148). Eerste deel van een drieluik; sinds 1988 vrijwel alleen te krijgen in de verzameluitgave <i>Schrödinger's Cat Trilogy</i> (Dell, New York, 1988, 558 blz., ISBN 0440500702), waarvoor Wilson een korte voorrede en een verklarende woordenlijst van kwantumbegrippen schreef. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd. Wel bestaat een Duitse vertaling, <i>Schrödingers Katze</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Eerste deel van het drieluik dat Wilson na <i>Illuminatus!</i> schreef, met een deel van dezelfde personages. Elk deel is gebouwd op een andere lezing van de kwantummechanica; dit deel op het model van Everett, Wheeler en Graham, waarin alles wat kan gebeuren ook gebeurt, in een andere tak. De verteller is een archivaris uit een verre toekomst die de mensheid van de jaren tachtig behandelt als een diersoort: gedomesticeerde primaten op een planeet waar de zespotigen in de meerderheid zijn.</p><p>Het land heet Unistat. Een groep die zich Purity of Essence noemt bouwt kernbommen van verdwenen plutonium en een instructieblad dat anarchisten als grap hebben rondgestuurd. Columnist Benny Benedict schrijft een stuk over de maand die nog rest tot 1984 en zet daarmee een landelijke stemming aan. De dwerg Markoff Chaney voert een eenmansoorlog tegen het gemiddelde door valse bedrijfsmededelingen op te hangen. En dr. Frank Dashwood doet aan Orgasm Research, waar een afgesneden lichaamsdeel zoekraakt dat vervolgens door het hele boek blijft rondzwerven.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>roman</li><li>kwantumfysica</li><li>satire</li><li>bewustzijn</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="919"><a href="919.html">The Trick Top Hat</a>. Het tweede deel gebruikt hetzelfde gezelschap in een heelal waar de politiek juist wel deugt; samen vormen zij het echte argument.</li>
+          <li value="916"><a href="916.html">The Golden Apple</a>. De trilogie waar dit boek uit voortkomt, met dezelfde personages en dezelfde manier om verhaallijnen te laten botsen.</li>
+          <li value="930"><a href="930.html">Quantum Psychology</a>. Wilson zet daar zonder verhaal uiteen wat hij hier in beeld brengt: kwantumbegrippen toegepast op waarneming en taal.</li>
+          <li value="650"><a href="650.html">Quantum Mechanics and Experience</a>. Albert legt uit waar de lezingen van de kwantummechanica werkelijk over verschillen, en waar Wilsons gebruik ervan ophoudt te kloppen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

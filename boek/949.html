@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What Mad Pursuit &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Crick betoogt dat de doorbraken van de moleculaire biologie tussen 1953 en 1966 minder te danken waren aan geniale ingevingen dan aan een bepaalde…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-949">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">949 &middot; Natuur en wetenschap</p>
+    <h1>What Mad Pursuit</h1>
+    <p class="lede">Francis Crick, 1988</p>
+    <p class="stats">
+      <span><b>1399</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="949"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Crick betoogt dat de doorbraken van de moleculaire biologie tussen 1953 en 1966 minder te danken waren aan geniale ingevingen dan aan een bepaalde werkhouding: praten met wie iets weet, modellen bouwen die te weerleggen zijn, de bestaande gegevens wantrouwen en accepteren dat de meeste eigen invallen fout zijn. Daarbij hoort een waarschuwing die hij als de kern van zijn vak beschouwt: in de biologie is elegantie een slechte gids, omdat een levend systeem geen ontwerp is maar het bezinksel van een evolutie die geen enkele reden had om netjes te werken.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De omweg naar de biologie</h3>
+      <p>Crick werd in 1916 geboren, studeerde natuurkunde en zag zijn promotieonderzoek door de oorlog onderbroken. Hij werkte voor de Britse Admiraliteit aan het ontwerp van zeemijnen. Toen de oorlog voorbij was, was hij dertig en had hij geen vak. Zijn kennis van de natuurkunde was verouderd en zijn oude onderzoek, over de viscositeit van water bij hoge temperatuur, noemt hij zelf het saaiste probleem denkbaar.</p>
+      <p>Om te kiezen bedacht hij de roddeltest: waarover praat iemand uit zichzelf tegen anderen. Het antwoord bleek tweeledig: de grens tussen levend en niet-levend, en het werk van de hersenen. Hij koos het eerste, met de gedachte dat het tweede kon wachten. Wat hij als voordeel zag, was dat hij als nieuwkomer niets af te leren had.</p>
+      <h3>Het Cavendish en de helix</h3>
+      <p>In Cambridge kwam hij bij de groep van Max Perutz terecht en deelde hij een kamer met James Watson. Crick beschrijft hun werkwijze als praten, rekenen en modellen bouwen, tegen de gewoonte van het huis in, waar men vooral zelf gegevens verzamelde. Hij noemt de rol van de regels van Chargaff over de gelijke hoeveelheden basen, de kristallografische gegevens uit King's College en zijn eigen theorie over hoe helices een diffractiepatroon geven.</p>
+      <p>Het hoofdstuk over de aankondiging van 1953 is nuchter: twee korte stukken in <i>Nature</i>, weinig opwinding daarbuiten, en jarenlang de vraag of het model wel klopte. Pas met de proef van Meselson en Stahl over de wijze van verdubbeling werd het algemeen aanvaard. Crick besteedt een apart hoofdstuk aan boeken en films over die periode, met bezwaren tegen <i>The Double Helix</i> van Watson en tegen de televisiefilm uit 1987.</p>
+      <h3>Het centrale dogma en de code</h3>
+      <p>Het middendeel behandelt wat Crick als zijn eigenlijke werk beschouwt. Hij formuleerde de sequentiehypothese, die zegt dat de volgorde van basen de volgorde van aminozuren vastlegt, en het centrale dogma, dat zegt dat informatie wel van nucleïnezuur naar eiwit kan lopen en niet terug. Over de woordkeus is hij openhartig: hij dacht dat dogma iets betekende als een stelling zonder afdoende grond, en had beter iets anders kunnen kiezen.</p>
+      <p>Twee voorspellingen laat hij zien in hun volle ongelijkheid. De adaptorhypothese uit 1955, die een tussenmolecuul postuleerde dat het aminozuur op zijn plaats brengt, bleek te kloppen en werd het overdrachts-RNA. De kommavrije code, die hij in 1957 met John Griffith en Leslie Orgel bedacht, gaf langs zuiver wiskundige weg precies twintig bruikbare drielettergroepen voor precies twintig aminozuren. Het klopte tot op het cijfer en was volledig onjuist.</p>
+      <p>Daarna volgen het zoeken naar de ontbrekende boodschapper, dat leidde tot het boodschapper-RNA, en de proef met bacteriofagen waarmee Crick en Brenner in 1961 lieten zien dat de code in drietallen wordt gelezen. Het ontcijferen zelf gebeurde in het laboratorium van Nirenberg met biochemische middelen, niet met de codetheorie waarop Crick had gehoopt.</p>
+      <h3>Theorie in de biologie</h3>
+      <p>Het meest geciteerde hoofdstuk gaat over het verschil tussen theorievorming in de natuurkunde en in de biologie. Crick stelt dat een biologisch systeem het gevolg is van natuurlijke selectie en dus vol zit met oplossingen die om historische redenen zijn blijven zitten. Wie daarop een sierlijke theorie loslaat, heeft grote kans dat het geheel klopt behalve met de werkelijkheid.</p>
+      <p>Daarbij hoort zijn regel dat een theorie die alle bekende feiten dekt vrijwel zeker fout is, omdat een deel van die feiten fout is. De maat voor een goed model is volgens hem niet de schoonheid ervan maar de vraag of het proeven oplevert die het onderuit kunnen halen. Hij verdedigt tegelijk het bouwen van speculatieve modellen, mits ze snel worden losgelaten.</p>
+      <h3>De latere jaren</h3>
+      <p>De epiloog behandelt zijn vertrek naar het Salk Institute in Californië. Daar werkte hij eerst aan de vraag naar de oorsprong van het leven, waarbij hij met Orgel de gedachte van gerichte panspermie opperde, en daarna aan het onderwerp dat hij in 1947 had laten liggen: het bewustzijn. Zijn programma daarvoor was hetzelfde als bij de code, namelijk een concreet deelprobleem kiezen, in zijn geval het visuele bewustzijn.</p>
+      <p>Crick is er duidelijk over dat hij bij dat tweede onderwerp nog nergens was. Het boek eindigt met de constatering dat het gereedschap ontbrak en dat het te vroeg was voor een theorie.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">roddeltest</td><td>Cricks vuistregel dat werkelijke belangstelling blijkt uit de onderwerpen waarover iemand uit zichzelf tegen anderen praat.</td></tr>
+          <tr><td class="term">sequentiehypothese</td><td>De stelling dat de volgorde van basen in het DNA de volgorde van aminozuren in een eiwit vastlegt.</td></tr>
+          <tr><td class="term">centraal dogma</td><td>De stelling dat informatie van nucleïnezuur naar eiwit kan stromen en niet in omgekeerde richting; Crick noemt de woordkeus achteraf ongelukkig.</td></tr>
+          <tr><td class="term">adaptorhypothese</td><td>Cricks voorspelling uit 1955 van een tussenmolecuul dat elk aminozuur aan de juiste plaats in de code koppelt, later herkend als overdrachts-RNA.</td></tr>
+          <tr><td class="term">kommavrije code</td><td>Het wiskundig sierlijke codevoorstel van Crick, Griffith en Orgel dat exact twintig drietallen opleverde en volledig onjuist bleek.</td></tr>
+          <tr><td class="term">boodschapper-RNA</td><td>Het tussenmolecuul dat de boodschap van het DNA naar het ribosoom brengt; het ontbreken ervan in de eerste modellen noemt Crick de ontbrekende boodschapper.</td></tr>
+          <tr><td class="term">klassieke periode</td><td>Cricks aanduiding voor de jaren 1953 tot 1966, van de structuur van het DNA tot het ontcijferen van de genetische code.</td></tr>
+          <tr><td class="term">evolutie als knutselaar</td><td>Het idee dat levende systemen geen ontwerpen zijn maar opeenstapelingen van toevallige oplossingen, waardoor elegantie in de biologie eerder verdacht dan overtuigend is.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is een herinnering en geen geschiedschrijving, en Crick zegt dat er zelf bij. Hij waarschuwt dat wetenschappers hun eigen verleden onbewust bijstellen en verwijst voor de volledige reconstructie naar <i>The Eighth Day of Creation</i> van Horace Freeland Judson. De vakinhoudelijke delen zijn wel controleerbaar: de twee bijlagen vatten de stand van zaken in 1988 samen, en de beschreven proeven, van Meselson en Stahl tot het faagwerk met Brenner, staan in de gepubliceerde literatuur.</p>
+      <p>Waar het boek het sterkst is, is bij de mislukkingen, omdat die niet in het voordeel van de schrijver werken. De kommavrije code wordt in volle omvang uitgelegd voordat zij wordt afgebroken, en dat maakt de stelling over elegantie geloofwaardiger dan een reeks geslaagde voorspellingen zou doen. Waar het boek het zwakst is, is bij toewijzing van verdienste: wie wat wanneer wist, is precies het punt waarop het geheugen van betrokkenen onbetrouwbaar is.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar betreft de gegevens van Rosalind Franklin. De kristallografische metingen uit King's College, waaronder haar bepaling van de ruimtegroep en haar opname van de B-vorm, bereikten Cambridge zonder dat zij daarvoor toestemming had gegeven, deels via een verslag aan de Medical Research Council. Crick behandelt dat als een gevolg van de losse manier waarop kennis toen circuleerde en schuift een deel van de verantwoordelijkheid naar haar eigen terughoudendheid. Dat is de zwakste passage van het boek, en zij gaat over de kwestie waarop zijn reputatie het meest is aangevallen.</p>
+      <p>Daarnaast is honderdtachtig bladzijden weinig voor vijfendertig jaar. Talloze medewerkers komen niet voor, hele onderzoekslijnen ontbreken, en de verhouding tussen oordeel en onderbouwing is hoog: Crick stelt vaak vast wat belangrijk was zonder te laten zien waarom anderen er anders over dachten. Het boek is dan ook geen ingang tot de geschiedenis van het vak maar een aanvulling daarop.</p>
+      <p>Ten slotte staat het slot in een ander licht dan in 1988. Crick presenteert het bewustzijn als het volgende probleem dat met dezelfde aanpak te nemen zou zijn, een concreet deelprobleem kiezen en doorbijten. Ruim drie decennia later heeft die aanpak, ook in zijn eigen latere werk met Christof Koch, niets opgeleverd dat vergelijkbaar is met de code. Dat ondergraaft de impliciete boodschap dat de methode overdraagbaar is.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>What Mad Pursuit: A Personal View of Scientific Discovery</i> (Basic Books, New York, 1988, 182 blz., ISBN 9780465091379), verschenen in de reeks van de Alfred P. Sloan Foundation. Nederlandse uitgave: <i>Geniaal gekkenwerk</i>, met als ondertitel een persoonlijke visie op wetenschappelijke ontdekkingen (Aramith, Bloemendaal, 1989, 188 blz., ISBN 9789068340532).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Vijfendertig jaar na de dubbele helix schreef Francis Crick een kort en eigenzinnig verslag van zijn eigen werk. De titel komt uit Keats' <i>Ode on a Grecian Urn</i>. Het boek loopt van zijn oorlogswerk aan zeemijnen bij de Admiraliteit, via de keuze voor de biologie op zijn dertigste, naar het Cavendish-laboratorium, de genetische code en zijn latere jaren aan het Salk Institute.</p><p>Crick vertelt niet alleen wat er ontdekt werd maar ook hoe. Hij beschrijft de roddeltest waarmee hij zijn vakgebied koos: waarover iemand uit zichzelf roddelt, daar ligt zijn belangstelling. Hij legt uit waarom hij het woord dogma verkeerd koos, waarom de sierlijke kommavrije code die hij met Griffith en Orgel bedacht volledig fout bleek, en waarom een fraaie theorie in de biologie eerder verdacht is dan in de natuurkunde: evolutie knutselt en laat rommel achter. Het boek bevat twee bijlagen over de klassieke moleculaire biologie en over de code, en eindigt bij zijn overstap naar het onderzoek naar bewustzijn en visuele waarneming.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>memoir</li><li>biologie</li><li>onderzoek</li><li>wetenschapsgeschiedenis</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="941"><a href="941.html">The Double Helix</a>. Watson vertelt dezelfde ontdekking van binnenuit en met veel meer roddel; naast Crick gelezen wordt zichtbaar hoe verschillend twee deelnemers hetzelfde jaar onthouden.</li>
+          <li value="413"><a href="413.html">A Crack in Creation</a>. Doudna en Sternberg beschrijven wat er een halve eeuw later met dezelfde moleculen mogelijk werd, inclusief de ethische vragen die bij Crick nog niet speelden.</li>
+          <li value="62"><a href="62.html">What Do You Care What Other People Think?</a>. Feynman geeft een vergelijkbaar persoonlijk verslag van hoe een natuurkundige met problemen omgaat, met dezelfde afkeer van gezag en ceremonie.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

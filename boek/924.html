@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nature's God &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Wilson gebruikt de Amerikaanse onafhankelijkheidsoorlog om één vraag te stellen: waar komt gezag vandaan zodra het niet meer van de Kerk komt. De titel is…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-924">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">924 &middot; Roman en memoir</p>
+    <h1>Nature's God</h1>
+    <p class="lede">Robert Anton Wilson, 1991</p>
+    <p class="stats">
+      <span><b>1363</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="924"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Wilson gebruikt de Amerikaanse onafhankelijkheidsoorlog om één vraag te stellen: waar komt gezag vandaan zodra het niet meer van de Kerk komt. De titel is ontleend aan de openingszin van de Onafhankelijkheidsverklaring, waarin de opstellers zich beroepen op de wetten van de natuur en van de God van de natuur, een formule waarmee deïsten een fundament zochten buiten de openbaring om. In de roman krijgen vier personages elk hun eigen antwoord op die vraag: de loge, de rede, de heksencultus en de eenzame oefening in het bos. Wilson laat ze alle vier op hetzelfde punt vastlopen. Wie zich op een hogere instantie beroept, komt uit bij een gezag dat hij zelf heeft gemaakt en daarna is vergeten te hebben gemaakt.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Twee vluchtelingen in Amerika</h3>
+      <p>Sigismundo Celine en Seamus Muadhen zijn beiden uit Europa weggegaan omdat een wraakplan misliep. In Amerika lopen hun wegen uiteen. Muadhen, die zich James Moon noemt, treedt in dienst bij het leger van de opstandige koloniën en stijgt op tot kolonel. Sigismundo trekt de andere kant op, weg van de geschiedenis, en gaat in de bossen van Ohio wonen.</p>
+      <p>Die tweedeling draagt het boek. De ene man probeert de wereld te veranderen door mee te vechten, de andere probeert zichzelf te veranderen door zich terug te trekken. Wilson kiest niet tussen die twee wegen en laat beide op teleurstelling uitlopen.</p>
+      <h3>Het wildernisdagboek</h3>
+      <p>Het zevende hoofdstuk, dat de wildernisdagboeken van Sigismundo Celine heet en Ohio 1776 tot 1778 als plaatsbepaling draagt, staat los van de verhaallijn. Het bestaat uit dagboekaantekeningen over meditatie, ademhalingsoefeningen, honger, muggen en de gedachten die daarbij opkomen. Hier staan de zinnen die lezers van Wilson het vaakst aanhalen, waaronder de opmerking dat een mens precies zo groot is als wat hij liefheeft en precies zo groot als wat hij zich laat aandoen.</p>
+      <p>Wilson leunt in dit hoofdstuk zwaar op de <i>Confessions</i> van Aleister Crowley. Passages over het aanvaarden van insectenbeten en over het herwinnen van concentratievermogen volgen Crowleys tekst op de voet, zonder dat de roman dat vermeldt. Wie beide kent, leest hier een montage; wie alleen de roman kent, leest het als het innerlijk leven van een achttiende-eeuwse Napolitaan.</p>
+      <h3>De oorlog zoals soldaten hem meemaken</h3>
+      <p>Tegenover de mystiek in het bos zet Wilson de oorlog op grondniveau. Muadhen voert zijn mannen aan bij Monmouth in juni 1778 en houdt daarna een toespraak die wordt overstemd door het schreeuwen van gewonden. Even later komt het bloedbad bij Cherry Valley aan bod, de aanval van november 1778 waarbij loyalisten en Iroquois burgers doodden.</p>
+      <p>De stichters van de nieuwe staat komen bij Wilson binnen met hun leeftijd en hun beroep erbij vermeld: Jefferson als planter, jurist en architect, Paine als leraar, zeeman en douanebeambte. Die nuchtere aanduiding zet hun latere standbeeldstatus opzij en laat zien dat de geschiedenis door gewone mensen met gemengde beweegredenen is gemaakt.</p>
+      <h3>Maria Babcock en de heksencultus</h3>
+      <p>In Engeland wordt Maria Babcock ingewijd in een cultus die zich als overlevende voorchristelijke godsdienst presenteert. Zij publiceert onder de naam Sarah Beckersniff een boek getiteld <i>A Moistness in the Wind</i>, dat betoogt dat de leerstellige minachting voor vrouwen bij de kerkvaders geen bijzaak is maar bouwmateriaal. Zij wordt daarvoor de ergste ketter sinds Simon Magus genoemd.</p>
+      <p>Haar man, Sir John Babcock, klimt intussen op in de vrijmetselarij. Man en vrouw zoeken dus allebei buiten de kerk naar een grond voor moraal, hij in een broederschap met graden en eden, zij in een cultus die vrouwen een plaats geeft. Wilson gebruikt dat paar om te laten zien dat de achttiende-eeuwse geheime genootschappen minder samenzwering waren dan opvangplaats voor mensen die uit de kerk gevallen waren.</p>
+      <h3>Parijs, Voltaire en de Grand Orient</h3>
+      <p>Het zesde hoofdstuk is geschreven als een reeks krantenkoppen met korte scènes eronder, naar het voorbeeld van het hoofdstuk Wandering Rocks uit <i>Ulysses</i>. Adams bedelt in Europa om geld voor de opstand, Franklin doet hetzelfde in Parijs met meer succes en meer plezier, en de bejaarde Voltaire keert terug uit ballingschap om te merken dat vrijwel niemand zich nog druk maakt om zijn denkbeelden. Wilson herinnert daarbij aan de terechtstelling van de ridder de la Barre in 1766, waar Sigismundo als kind bij aanwezig was in het eerste deel van de reeks.</p>
+      <p>Het slothoofdstuk, over de Grand Orient en ander verraad, speelt op een feest van de hertog van Orléans, waar de politiechef Sartine, Beaumarchais en Sophie de Monnier praten over godsdienst, macht en de kans op een omwenteling. Wilson schrijft hier zijn beste dialoog van de reeks, en laat de lezer zelf uitmaken of het gepraat over Weishaupt en de loges ergens op slaat.</p>
+      <h3>Een verhaal dat afbreekt</h3>
+      <p>Na elf hoofdstukken houdt het op. De vete van Sigismundo, de rol van Adam Weishaupt en de vraag wat er met de personages gebeurt als de Franse omwenteling losbarst, blijven onbeantwoord. Wilson beloofde een vierde band en gaf zelfs de titel op, maar schreef die nooit; hij stierf in 2007. Wie de reeks uitleest, houdt een opzet over die halverwege stilvalt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Nature's God</td><td>De deïstische aanduiding uit de Onafhankelijkheidsverklaring voor een grond van recht die niet uit openbaring komt maar uit de natuurlijke orde.</td></tr>
+          <tr><td class="term">Wildernisdagboek</td><td>Het dagboek dat Sigismundo in Ohio bijhoudt en dat het zevende hoofdstuk volledig vult.</td></tr>
+          <tr><td class="term">Magische oefening</td><td>Sigismundo's afgezonderde training in concentratie, ademhaling en aandacht, naar het model van Crowleys beschrijving van zijn eigen retraites.</td></tr>
+          <tr><td class="term">Maheema</td><td>De verzonnen inheemse stam waartoe de medicijnman Miskasquamish behoort, tegenspeler van Sigismundo in het bos.</td></tr>
+          <tr><td class="term">Grand Orient</td><td>De Franse vrijmetselaarsobediëntie die in de roman het knooppunt vormt van politieke intrige rond de hertog van Orléans.</td></tr>
+          <tr><td class="term">A Moistness in the Wind</td><td>Het pamflet dat Maria Babcock onder de schuilnaam Sarah Beckersniff publiceert over de behandeling van vrouwen in de christelijke leer.</td></tr>
+          <tr><td class="term">Seamus Muadhen</td><td>De Ierse visser die zich in Amerika James Moon noemt en als kolonel dient in het leger van Washington.</td></tr>
+          <tr><td class="term">Chevalier de la Barre</td><td>De Franse edelman die in 1766 werd terechtgesteld wegens godslastering en in de reeks terugkeert als het beeld van kerkelijke wraak.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het historische raamwerk is nauwkeurig. De slag bij Monmouth vond plaats op 28 juni 1778, het bloedbad bij Cherry Valley op 11 november 1778, en Voltaire werd in april 1778 in de loge Les Neuf Soeurs opgenomen met Benjamin Franklin aanwezig. De terechtstelling van de ridder de la Barre in 1766 is eveneens een gedocumenteerd geval, dat Voltaire destijds als pamflettist heeft aangegrepen. Wilson verzint zijn achtergrond niet.</p>
+      <p>De verzonnen delen zijn ook als zodanig herkenbaar. De stam van Miskasquamish bestaat niet en de gebeurtenissen in het bos worden niet als geschiedenis gepresenteerd. Waar de roman leunt op andermans tekst, namelijk op Crowleys <i>Confessions</i> in het dagboekhoofdstuk, gebeurt dat zonder verantwoording. Dat valt in een roman te verdedigen, maar het verklaart wel waarom dat hoofdstuk zo weinig achttiende-eeuws klinkt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat het boek geen boek is maar een fragment. De vierde band die de vete, de Illuminati-lijn en de Franse omwenteling zou afronden, is er nooit gekomen, en Wilson laat in het slothoofdstuk de spanning juist oplopen. Lezers die de eerste twee delen hebben doorgewerkt om te weten hoe het afloopt, krijgen geen antwoord. Dat maakt de hele reeks tot een aanloop.</p>
+      <p>Daarbij komt dat de roman zichzelf onderbreekt. Het dagboekhoofdstuk staat vol aforismen die de verteller van Crowley heeft, en die de handeling vijfentwintig bladzijden stilzetten. Recensenten noemen dit deel doorgaans het zwakste van de drie, met verwijzing naar de anachronistische stem van de personages en naar het feit dat het woord Illuminatus in de reeks nauwelijks nog iets doet.</p>
+      <p>Een derde punt is de behandeling van de inheemse Amerikanen. Miskasquamish is een verzonnen sjamaan van een verzonnen stam, en Wilson gebruikt hem vooral als tegenspeler in de persoonlijke ontwikkeling van Sigismundo. Dat blijft dicht bij het romantische beeld van de wijze indiaan waar hij elders juist de spot mee zou drijven.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Nature's God</i>, deel drie van <i>The Historical Illuminatus Chronicles</i> (Roc/New American Library, New York, 1991, 256 blz., ISBN 9780451450593). Herdrukt door New Falcon Publications, Tempe, 2004, 225 blz., ISBN 9781561841646, en sindsdien uitgegeven door Hilaritas Press, ISBN 9780998713458. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Het derde deel van <i>The Historical Illuminatus Chronicles</i> zet het verhaal voort dat Wilson in 1982 begon met <i>The Earth Will Shake</i>. Sigismundo Celine, de Napolitaanse edelman en componist die na een duel uit Europa moest verdwijnen, bouwt in 1776 een hut in de bossen van Ohio en trekt zich daar terug in wat hij zijn magische oefening noemt. Zijn oude kameraad Seamus Muadhen, die zich in Amerika James Moon noemt, dient intussen als officier in het leger van Washington. In Engeland laat Maria Babcock zich inwijden in een overgeleverde heksencultus en publiceert zij onder een schuilnaam een boek over de positie van vrouwen, terwijl haar man opklimt in de vrijmetselarij.</p><p>Wilson vlecht die lijnen door een panorama van de jaren 1776 tot 1778: de slag bij Monmouth, het bloedbad bij Cherry Valley, de oude Voltaire die in Parijs in een loge wordt opgenomen met Franklin erbij, en de intriges rond de Grand Orient. Het lange middenhoofdstuk bestaat uit het wildernisdagboek van Sigismundo, een reeks aantekeningen over waarneming, angst en de vraag wat een mens voor zeker kan houden. Het boek eindigt zonder ontknoping. Wilson kondigde een vierde deel aan, <i>The World Turned Upside Down</i>, en heeft dat nooit geschreven.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>historische roman</li><li>vrijmetselarij</li><li>amerikaanse revolutie</li><li>occultisme</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="922"><a href="922.html">The Earth Will Shake</a>. Het eerste deel, waarin Sigismundo als kind in Napels de terechtstellingen en de loges leert kennen.</li>
+          <li value="923"><a href="923.html">The Widow's Son</a>. Het tweede deel, dat in Frankrijk en Engeland van vlak voor de omwenteling speelt en de vrijmetselarij van binnenuit beschrijft.</li>
+          <li value="921"><a href="921.html">Masks of the Illuminati</a>. Wilsons kortere roman over hetzelfde onderwerp, met een latere Babcock, Joyce en Einstein als personages.</li>
+          <li value="925"><a href="925.html">Cosmic Trigger I: Final Secret of the Illuminati</a>. Het autobiografische boek waarin Wilson de oefeningen beschrijft die Sigismundo in het bos doet.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

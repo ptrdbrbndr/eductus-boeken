@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inventing Money &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Dunbar betoogt dat de val van Long-Term Capital Management een gebeurtenis is in de geschiedenis van de financiële wiskunde en niet alleen in die van Wall…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-810">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">810 &middot; Geld en ondernemen</p>
+    <h1>Inventing Money</h1>
+    <p class="lede">Nicholas Dunbar, 2000</p>
+    <p class="stats">
+      <span><b>1930</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="810"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Dunbar betoogt dat de val van Long-Term Capital Management een gebeurtenis is in de geschiedenis van de financiële wiskunde en niet alleen in die van Wall Street. De handel van het fonds rustte op een reeks aannames die sinds Bachelier in de theorie zijn ingebouwd: dat prijzen zich als een toevalswandeling gedragen, dat grote sprongen zeldzaam zijn, dat een positie altijd kan worden afgebouwd en dat de posities van de handelaar de markt niet bewegen. Zolang de markten rustig waren hielden die aannames stand en leverden ze het fonds rendement op met weinig zichtbaar risico. In de zomer van 1998 vielen ze alle vier tegelijk weg, en toen bleek dat de risicomaatstaven die toezichthouders en banken toen net hadden omarmd precies dat geval niet konden beschrijven.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Bachelier en de theorie van de speculatie</h3>
+      <p>Het boek begint ver voor LTCM, met de vraag hoe je een prijs uitrekent van iets waarvan de toekomst onbekend is. Dunbar loopt van vroege vormen van rentedragende contracten naar het proefschrift dat Louis Bachelier in 1900 in Parijs verdedigde over de handel in Franse staatsleningen. Bachelier beschreef koersbewegingen als een toevalswandeling: elke volgende beweging staat los van de vorige, en de verwachte koers van morgen is de koers van vandaag. Dat idee, later een martingaal genoemd, is de bouwsteen waar alles op volgt.</p>
+      <p>Bacheliers werk bleef decennialang onopgemerkt. Dunbar gebruikt dat voor zijn eigen thema: de wiskunde is telkens ouder dan de handel die erop wordt gebouwd, en de handelaren nemen haar over zonder de voorbehouden van de wiskundige.</p>
+      <h3>De wetenschap van angst en hebzucht</h3>
+      <p>Het tweede deel behandelt de opbouw van de moderne financiële theorie. Harry Markowitz gaf in 1952 het portefeuillevraagstuk een wiskundige vorm door risico als spreiding van de opbrengsten te definiëren. Daarop bouwden onder anderen William Sharpe en de opstellers van het model dat rendement aan marktrisico koppelt.</p>
+      <p>Het zwaartepunt ligt bij Fischer Black, Myron Scholes en Robert Merton, die in 1973 lieten zien hoe de prijs van een optie te bepalen is. Een optie is het recht om iets later tegen een vooraf vastgelegde prijs te kopen of te verkopen; het is een voorbeeld van een derivaat, een contract waarvan de waarde is afgeleid van iets anders. Hun redenering was dat de uitbetaling van zo'n optie na te bootsen is door voortdurend een bepaalde hoeveelheid van het onderliggende stuk aan te houden en die hoeveelheid bij elke koersbeweging aan te passen. Wie dat kan, hoeft niet te weten waar de koers heen gaat om de optie te prijzen. Dunbar besteedt veel aandacht aan Black, die in 1995 stierf en daardoor de Nobelprijs van 1997 misliep.</p>
+      <h3>Handelen in tijd en het pad met vertakkingen</h3>
+      <p>Vervolgens beschrijft Dunbar hoe de theorie de handelsvloer bereikte. In 1973 opende in Chicago de eerste beurs voor gestandaardiseerde opties, en de formule van Black en Scholes werd op zakrekenmachines gezet. Later verscheen het binomiale model, dat de toekomst voorstelt als een boom van steeds verder vertakkende paden en dat gemakkelijker te programmeren bleek.</p>
+      <p>Tegelijk ontstond de markt voor renteswaps, waarbij twee partijen betalingsstromen ruilen, meestal een vaste rente tegen een variabele. Dunbar volgt hier de opkomst van John Meriwether bij Salomon Brothers, waar hij een groep opzette die verschillen tussen bijna identieke obligaties uitbuitte. Dat is arbitrage in de losse zin waarin de handel het woord gebruikt: verdienen aan een prijsverschil tussen twee dingen die op elkaar horen te lijken, in de verwachting dat het verschil verdwijnt.</p>
+      <h3>De waarschuwing</h3>
+      <p>Voor het fonds wordt opgericht, staat Dunbar stil bij twee gebeurtenissen die achteraf als voorwaarschuwing zijn te lezen. De eerste is de beurskrach van oktober 1987, waarbij een handelsmethode die op de replicatiegedachte van Black en Scholes was gebouwd, bekend als portefeuilleverzekering, precies op het verkeerde moment verkooporders genereerde en de daling versterkte. Dat liet zien wat er gebeurt als veel partijen dezelfde afdekstrategie volgen: het model gaat ervan uit dat de markt de handelaar niet opmerkt, en dat klopt dan niet meer.</p>
+      <p>De tweede is het schandaal bij Salomon Brothers in 1991 rond de biedingen op Amerikaans staatspapier, dat Meriwether zijn positie kostte en dat de kern van zijn team beschikbaar maakte voor iets nieuws.</p>
+      <h3>Het droomteam</h3>
+      <p>LTCM begon in 1994 met ongeveer 1,25 miljard dollar aan ingelegd vermogen, een bedrag dat voor een startend fonds ongewoon groot was, en met een vennotenlijst waarop naast Meriwether de namen van Merton, Scholes en oud-bestuurder van de centrale bank David Mullins stonden. De rendementen na kosten liepen op tot ruim veertig procent in 1995 en 1996.</p>
+      <p>Dunbar legt uit waar dat rendement vandaan kwam. De afzonderlijke posities leverden kleine verschillen op, bijvoorbeeld tussen een recent uitgegeven staatslening en een vrijwel identieke oudere, of tussen de rente op een swap en die op staatspapier. Om daar een aantrekkelijk rendement uit te halen was hefboom nodig: handelen met geleend geld, waardoor winst en verlies op de eigen inleg allebei worden uitvergroot. De balans van het fonds groeide tot ongeveer 125 miljard dollar op een eigen vermogen van rond de 4,7 miljard, en de nominale waarde van de derivatencontracten liep tot in de orde van 1,25 biljoen dollar. Ook beschrijft hij hoe LTCM in de tweede helft van zijn bestaan grote posities innam in de volatiliteit van aandelenindices, wat het fonds bij tegenpartijen de bijnaam van volatiliteitsbank opleverde.</p>
+      <h3>Uit de hand</h3>
+      <p>Eind 1997 keerde LTCM ongeveer 2,7 miljard dollar aan zijn beleggers uit, omdat de vennoten meer geld hadden dan zij konden gebruiken. Het eigen vermogen kromp daardoor terwijl de posities bleven staan, en de hefboom liep verder op. Daarna kwamen de Aziatische crisis en, in augustus 1998, het Russische betalingsverzuim.</p>
+      <p>Wat toen gebeurde is de kern van het boek. De posities van het fonds waren op papier verschillend maar bleken in de praktijk allemaal hetzelfde te zijn: een weddenschap dat prijsverschillen kleiner worden en dat rustige markten terugkeren. Toen beleggers wereldwijd naar de veiligste stukken vluchtten, liepen die verschillen juist verder uiteen, en er waren geen kopers voor wat LTCM wilde verkopen. Het fonds verloor in minder dan vier maanden ongeveer 4,6 miljard dollar.</p>
+      <h3>Het lied van een martingaal</h3>
+      <p>Op 23 september 1998 kwam onder regie van de Federal Reserve Bank of New York een groep van veertien financiële instellingen bijeen die samen 3,625 miljard dollar inlegden in ruil voor negentig procent van het fonds. De centrale bank leende zelf geen geld uit; zij bracht de partijen bij elkaar met het argument dat een gedwongen verkoop van de posities de markten verder zou ontwrichten.</p>
+      <p>In de slothoofdstukken trekt Dunbar de balans. Hij wijst op de martingaal in de tweede betekenis van het woord, het gokschema waarbij de inzet na elk verlies wordt verdubbeld, en op de risicomaatstaf die banken en toezichthouders in die jaren hadden omarmd: value at risk, het bedrag dat op een gewone dag met een gegeven waarschijnlijkheid niet wordt overschreden. Die maatstaf zegt per definitie niets over wat er in het resterende deel van de gevallen gebeurt, en juist dat deel bepaalde de uitkomst.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Derivaat</td><td>Contract waarvan de waarde is afgeleid van iets anders, bijvoorbeeld van een aandeel, een rente of een wisselkoers.</td></tr>
+          <tr><td class="term">Optie</td><td>Recht, niet de plicht, om iets later tegen een vooraf vastgelegde prijs te kopen of te verkopen.</td></tr>
+          <tr><td class="term">Arbitrage</td><td>Verdienen aan een prijsverschil tussen twee dingen die op elkaar horen te lijken, in de verwachting dat dat verschil verdwijnt.</td></tr>
+          <tr><td class="term">Convergentiehandel</td><td>De vorm van arbitrage waar LTCM van leefde: een goedkoop stuk kopen en een duur, vrijwel gelijk stuk verkopen, en wachten tot de prijzen naar elkaar toe kruipen.</td></tr>
+          <tr><td class="term">Hefboom</td><td>Handelen met geleend geld, waardoor winst en verlies op de eigen inleg allebei worden uitvergroot.</td></tr>
+          <tr><td class="term">Black-Scholes-formule</td><td>De uitkomst uit 1973 waarmee de prijs van een optie te berekenen is zonder te weten waar de koers heen gaat.</td></tr>
+          <tr><td class="term">Dynamisch afdekken</td><td>Het voortdurend bijstellen van de hoeveelheid onderliggende stukken die je aanhoudt, zodat de uitbetaling van een optie wordt nagebootst.</td></tr>
+          <tr><td class="term">Renteswap</td><td>Contract waarin twee partijen rentebetalingen ruilen, meestal een vaste rente tegen een variabele.</td></tr>
+          <tr><td class="term">Value at risk</td><td>Risicomaatstaf die aangeeft welk verlies op een gewone dag met een gegeven waarschijnlijkheid niet wordt overschreden, en die over de overige gevallen niets zegt.</td></tr>
+          <tr><td class="term">Martingaal</td><td>Kansproces waarvan de beste voorspelling van morgen de waarde van vandaag is; ook de naam van het gokschema waarbij de inzet na elk verlies wordt verdubbeld.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dunbar schreef als redacteur van een vakblad voor risicobeheer en had toegang tot de handelaren, de modelbouwers en de tegenpartijen van LTCM. Dat is te zien aan de precisie waarmee de posities worden beschreven: welke stukken tegenover elkaar stonden en wat de modellen wel en niet aankonden. De theoriehoofdstukken steunen op de oorspronkelijke artikelen en op gesprekken met de betrokken academici.</p>
+      <p>De vennoten van het fonds werkten zelf grotendeels niet mee. De reconstructie van de laatste weken leunt daardoor op tegenpartijen, op de banken die in de reddingsgroep zaten en op het openbare onderzoeksrapport dat de Amerikaanse toezichthouders in april 1999 uitbrachten. Waar het over de sfeer binnen het fonds gaat, is het boek dunner dan waar het over de posities gaat.</p>
+      <p>De cijfers die het boek noemt komen overeen met wat later uit officiële bronnen bekend is geworden. Waar het boek zich buiten die cijfers begeeft, bij de vraag hoe zwaar de theorie schuld draagt, is het een betoog en geen verslag.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat Dunbar de val te veel op het conto van de theorie schrijft. Merton en Scholes hadden hun aannames zelf voorzien van voorbehouden, en de partners van LTCM wisten dat prijzen kunnen springen. Wat het fonds fataal werd, was de omvang van de posities in verhouding tot de markt waarin ze moesten worden afgewikkeld, de navolging door andere partijen, en de beslissing om eind 1997 kapitaal terug te geven terwijl de posities bleven staan. Dat zijn keuzes over hefboom en positiegrootte, los van de vraag of de optieformule klopt.</p>
+      <p>Als verhaal is het boek zwakker dan <i>When Genius Failed</i> van Roger Lowenstein, dat in hetzelfde jaar verscheen en dat wel met betrokkenen sprak. Lowenstein geeft de personen, de onderlinge verhoudingen en de laatste dagen; Dunbar geeft de wiskunde. Wie wil begrijpen wat er gebeurde tussen de mensen in die vergaderzaal, leest het verkeerde boek. Wie wil begrijpen wat er in de modellen gebeurde, leest het juiste.</p>
+      <p>De theoriehoofdstukken vragen bovendien meer van de lezer dan de opzet suggereert. Dunbar legt de wiskunde uit in woorden en beelden, vrijwel zonder formules, wat prettig oogt maar tot gevolg heeft dat de lezer een indruk overhoudt en geen greep. Ten slotte is het boek dicht op de gebeurtenissen geschreven, in 1999 en 2000, waardoor de vergelijking met de crisis van 2008 ontbreekt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij een strategie met kleine, stabiele winsten hoeveel hefboom er nodig is om er een aantrekkelijk rendement uit te krijgen, en reken de uitkomst door bij een verdubbeling van het prijsverschil.</li>
+        <li>Behandel posities die op papier verschillend zijn als één positie zodra ze allemaal van hetzelfde afhangen, bijvoorbeeld van rustige markten of van krimpende renteverschillen.</li>
+        <li>Neem bij elke risicomaatstaf op hoeveel er verloren kan worden in de gevallen die buiten de maatstaf vallen, want dat is de vraag die value at risk niet beantwoordt.</li>
+        <li>Houd rekening met de omvang van de eigen positie in verhouding tot de dagelijkse omzet in die markt, want een positie die niet verkocht kan worden is iets anders dan een positie die verlies lijdt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Inventing Money: The Story of Long-Term Capital Management and the Legends Behind It</i> (John Wiley &amp; Sons, Chichester, 2000, ISBN 9780471899990). De pocketuitgave van november 2000 telt 280 blz. en heeft een nieuw voorwoord (ISBN 9780471498117). Er is geen Nederlandse vertaling; deze samenvatting berust op de Engelse editie. Over hetzelfde onderwerp verscheen in datzelfde jaar <i>When Genius Failed</i> van Roger Lowenstein, dat meer op de personen en minder op de wiskunde ingaat.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Dunbar, destijds redacteur bij het vakblad Risk, vertelt het verhaal van Long-Term Capital Management, het hedgefonds dat in 1994 werd opgericht door John Meriwether en dat onder meer de latere Nobelprijswinnaars Robert Merton en Myron Scholes onder zijn vennoten telde. Het fonds verdiende in zijn eerste jaren rendementen van rond de veertig procent, kwam in de zomer van 1998 in de problemen na het Russische betalingsverzuim, en werd op 23 september van dat jaar overgenomen door een groep van veertien banken.</p><p>Wat dit boek onderscheidt van andere verslagen is de plaats die de wiskunde krijgt. Ongeveer de helft gaat over de theorie waarop de handel van het fonds rustte, van het proefschrift van Louis Bachelier uit 1900 via de optieformule van Black, Scholes en Merton uit 1973 tot het rekenen met kansverdelingen dat in de jaren negentig de risicomodellen van banken vulde. De ondergang van LTCM is bij Dunbar dan ook in de eerste plaats een uitspraak over de grenzen van die modellen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>derivaten</li><li>risicobeheer</li><li>financiële markten</li><li>hedgefonds</li><li>financiële wiskunde</li><li>beleggen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="494"><a href="494.html">Dynamic Hedging</a>. Taleb schrijft over dezelfde optiewiskunde vanuit de handelaarspraktijk, met nadruk op wat de standaardmodellen bij grote bewegingen missen.</li>
+          <li value="811"><a href="811.html">The (Mis)Behaviour of Markets</a>. Mandelbrot geeft de wiskundige onderbouwing voor de stelling dat grote sprongen veel vaker voorkomen dan de gebruikte kansverdeling toestaat.</li>
+          <li value="64"><a href="64.html">Fooled by Randomness</a>. Taleb behandelt in dit eerdere boek het probleem van handelsstrategieën die jarenlang werken en daarna alles teruggeven.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

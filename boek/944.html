@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Making of the Atomic Bomb &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Rhodes behandelt de atoombom als het gevolg van de manier waarop natuurwetenschap werkt en niet als een politiek besluit dat ook anders had kunnen…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-944">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">944 &middot; Natuur en wetenschap</p>
+    <h1>The Making of the Atomic Bomb</h1>
+    <p class="lede">Richard Rhodes, 1986</p>
+    <p class="stats">
+      <span><b>1784</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="944"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Rhodes behandelt de atoombom als het gevolg van de manier waarop natuurwetenschap werkt en niet als een politiek besluit dat ook anders had kunnen uitvallen. Kernsplijting werd ontdekt in een internationale gemeenschap die haar resultaten publiceerde; zodra de mogelijkheid van een kettingreactie eenmaal in de literatuur stond, was de vraag alleen nog welke staat het eerst over genoeg geld, uranium en ingenieurs beschikte. Daaruit volgt de tweede helft van zijn betoog: een wapen dat op openbare kennis rust laat zich niet met geheimhouding beheersen, en de enige uitweg is de openheid die Niels Bohr al in 1944 bij Churchill en Roosevelt bepleitte. Rhodes draagt dat betoog niet als these voor maar als vertelling, en de lezer moet zelf vaststellen waar het verhaal ophoudt en het argument begint.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een verkeerslicht in Bloomsbury</h3>
+      <p>De openingsscene bepaalt de toon van het hele boek. Szilard staat op 12 september 1933 te wachten bij de oversteek waar Southampton Row langs Russell Square loopt, geërgerd door een krantenbericht waarin Rutherford de dag ervoor had gezegd dat praten over energie uit atoomkernen onzin is. Terwijl het licht op groen springt ziet Szilard voor zich hoe een element dat bij het opvangen van een neutron er twee uitzendt een zichzelf onderhoudende reactie kan dragen. Hij liet het idee in 1934 vastleggen en droeg het patent over aan de Britse admiraliteit om het geheim te houden.</p>
+      <p>Rhodes gebruikt die scene om zijn kernpunt vroeg neer te zetten: de gedachte ging aan elke techniek, elk budget en elk politiek besluit vooraf, en zij kwam op bij een staatloze vluchteling die nergens een aanstelling had. Wie de bom als product van de Amerikaanse oorlogsindustrie leest, mist volgens Rhodes waar de zaak begon.</p>
+      <h3>Vijftig jaar natuurkunde als voorgeschiedenis</h3>
+      <p>Het eerste deel, <i>Profound and Necessary Truth</i>, is een geschiedenis van de kernfysica van Röntgen en Becquerel tot 1939. Rhodes volgt Rutherford in Manchester en Cambridge, Bohr in Kopenhagen en de stroom jonge natuurkundigen die tussen de laboratoria heen en weer reisde. Die gemeenschap was klein, meertalig en gewend alles te publiceren; wie in Rome iets vond wist het in Berlijn binnen weken.</p>
+      <p>In 1932 vond Chadwick het neutron, het deeltje dat Szilards kettingreactie mogelijk maakte. In 1933 verdreef de Duitse ambtenarenwet een groot deel van de natuurkundigen met een joodse achtergrond uit Duitsland en Hongarije; Rhodes wijdt een heel hoofdstuk aan die uittocht en laat zien hoe zij de latere Amerikaanse en Britse programma's bemanden. In december 1938 stelden Hahn en Strassmann in Berlijn vast dat uranium onder neutronenbeschieting barium opleverde, en over de kerstdagen legden Lise Meitner en Otto Frisch in Zweden uit dat de kern gespleten was en hoeveel energie daarbij vrijkwam.</p>
+      <h3>Van laboratorium naar industrie</h3>
+      <p>Het tweede deel, <i>A Peculiar Sovereignty</i>, beschrijft hoe een natuurkundig verschijnsel een staatsproject werd. Szilard schreef in augustus 1939 de brief die Einstein ondertekende en die Roosevelt bereikte. De doorslag gaf niet die brief maar het Britse rekenwerk: het memorandum van Frisch en Peierls uit maart 1940 schatte de kritische massa van uranium-235 op enkele kilo's in plaats van tonnen, en het daaruit voortkomende rapport van het MAUD-comite overtuigde in 1941 de Amerikanen dat een bom binnen de oorlog haalbaar was.</p>
+      <p>Daarna verschuift het boek van natuurkunde naar techniek en bestuur. Fermi's stapel grafiet en uranium onder de tribune in Chicago bereikte op 2 december 1942 een zichzelf onderhoudende reactie. Generaal Groves kreeg de leiding, Oppenheimer kreeg Los Alamos, en de scheiding van uranium-235 in Oak Ridge en de productie van plutonium in Hanford werden bouwprojecten van een omvang die met de auto-industrie te vergelijken viel. Rhodes besteedt veel ruimte aan het probleem dat het project bijna deed stranden: plutonium bleek in een kanonconstructie voortijdig te ontbranden, zodat Los Alamos in twee jaar een implosiemethode moest uitwerken waarvoor de theorie nog niet bestond.</p>
+      <h3>Trinity, Hiroshima, Nagasaki</h3>
+      <p>Het derde deel, <i>Life and Death</i>, telt maar twee hoofdstukken en een epiloog, en het is het deel waar het boek zijn reputatie aan dankt. De implosiebom werd op 16 juli 1945 in de woestijn bij Alamogordo beproefd. Op 6 augustus viel een kanonbom met uranium op Hiroshima, op 9 augustus een implosiebom met plutonium op Nagasaki.</p>
+      <p>Rhodes schakelt daar over op ooggetuigen. Tientallen bladzijden lang komen overlevenden, artsen en hulpverleners aan het woord over de werking van hitte, drukgolf en straling op het lichaam, met de medische rapporten ernaast. De keuze is opzettelijk en werkt als tegenwicht: dezelfde natuurkunde die in de eerste zeshonderd bladzijden als vernuft is beschreven, wordt hier als uitkomst getoond, zonder commentaar van de schrijver.</p>
+      <h3>Bohr en de open wereld</h3>
+      <p>De ideeënlijn van het boek loopt via Bohr. Rhodes ontleent aan hem het begrip complementariteit, oorspronkelijk bedoeld voor golf en deeltje, en laat zien hoe Bohr het op de politiek toepaste: een wapen dat een land onaantastbaar lijkt te maken, maakt datzelfde land op termijn juist kwetsbaar, en de enige stabiele uitkomst is een wereld waarin staten elkaars installaties mogen inspecteren.</p>
+      <p>Bohr bracht dat pleidooi in 1944 persoonlijk bij Churchill en bij Roosevelt. Churchill wees hem af en verdacht hem van indiscretie; de aide-mémoire die Churchill en Roosevelt in september 1944 in Hyde Park tekenden bevatte de aanbeveling Bohr in de gaten te houden. Rhodes behandelt dat als het scharnierpunt waarop de wapenwedloop onvermijdelijk werd, en volgt de lijn door naar Bohrs open brief aan de Verenigde Naties uit 1950.</p>
+      <h3>Wat er na de bom overbleef</h3>
+      <p>In de laatste hoofdstukken en de epiloog komen de pogingen van de betrokken geleerden aan bod om het gebruik te beperken: het Franck-rapport van juni 1945, waarin een groep uit Chicago voorstelde de bom eerst boven onbewoond gebied te tonen, en de petitie die Szilard in juli 1945 liet rondgaan. Beide kwamen niet verder dan het bureau van de commissie die het besluit voorbereidde.</p>
+      <p>Rhodes sluit af met de stelling dat de bom de soevereiniteit van staten aantast op een manier waar geen enkel land een antwoord op heeft gevonden, en dat de wapenwedloop die in 1945 begon precies de uitkomst was die Bohr had voorspeld. Dat het Sovjetprogramma ook op spionage steunde komt in dit boek nauwelijks aan bod; dat werkte hij pas negen jaar later in <i>Dark Sun</i> uit.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">kettingreactie</td><td>Reactie waarin een gespleten kern meer neutronen uitzendt dan zij opving, zodat het proces zichzelf onderhoudt.</td></tr>
+          <tr><td class="term">kernsplijting</td><td>Het uiteenvallen van een zware atoomkern in lichtere kernen, in december 1938 gemeten door Hahn en Strassmann en verklaard door Meitner en Frisch.</td></tr>
+          <tr><td class="term">kritische massa</td><td>De kleinste hoeveelheid splijtbaar materiaal waarbij de kettingreactie zichzelf in stand houdt; het rekenwerk van Frisch en Peierls bracht die schatting van tonnen terug naar kilo's.</td></tr>
+          <tr><td class="term">moonshine</td><td>Rutherfords woord uit september 1933 voor het idee dat er bruikbare energie uit atoomkernen te halen valt; Rhodes laat het boek ermee beginnen.</td></tr>
+          <tr><td class="term">Manhattan Engineer District</td><td>De legerorganisatie onder generaal Groves die vanaf september 1942 de bouw van de bom bestuurde.</td></tr>
+          <tr><td class="term">implosie</td><td>De methode waarbij een bol plutonium door omringende explosieven gelijkmatig wordt samengeperst, in Los Alamos uitgewerkt omdat de kanonconstructie voor plutonium niet werkte.</td></tr>
+          <tr><td class="term">complementariteit</td><td>Bohrs stelling dat twee onverenigbare beschrijvingen samen nodig zijn om een verschijnsel te vatten; Rhodes gebruikt haar ook als ordening van het boek.</td></tr>
+          <tr><td class="term">open wereld</td><td>Bohrs politieke voorstel dat staten hun kerninstallaties wederzijds openstellen, omdat geheimhouding van publieke natuurkunde toch niet houdbaar is.</td></tr>
+          <tr><td class="term">Trinity</td><td>De proef met de eerste implosiebom bij Alamogordo op 16 juli 1945.</td></tr>
+          <tr><td class="term">Franck-rapport</td><td>Advies van een groep natuurkundigen uit Chicago van juni 1945 om de bom eerst te tonen in plaats van hem op een stad te gebruiken.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Rhodes is geen natuurkundige en geen vakhistoricus maar journalist, en dat bepaalt het soort onderbouwing. Hij werkte met de vrijgegeven officiële geschiedschrijving van het project, met archieven, met de gepubliceerde herinneringen van deelnemers en met gesprekken met nog levende betrokkenen; achterin staan uitvoerige noten en een literatuurlijst. Het sterkst is het boek waar Rhodes documenten en getuigenissen op lengte laat spreken, zoals het memorandum van Frisch en Peierls, het Franck-rapport en de verslagen uit Hiroshima. De natuurkundige uitleg volgt gangbare voorstellingen en gaat niet verder dan wat een geïnteresseerde lezer kan volgen.</p>
+      <p>Op feitelijk niveau is het boek na bijna veertig jaar overeind gebleven; het geldt nog steeds als de standaardbehandeling in een band. De discussie eromheen gaat over nadruk en over wat er buiten beeld blijft, niet over de vraag of de beschreven gebeurtenissen kloppen. Dat er drie grote prijzen aan werden toegekend zegt iets over de ontvangst en niets over de houdbaarheid van de these; die these steunt op de vertelling zelf en wordt nergens tegen een alternatief afgezet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het boek leest als een roman en dat is ook het bezwaar. De historicus Barton Hacker merkte op dat Rhodes zich zo op personen richt dat het institutionele kader, de aanbesteding, de arbeidsverhoudingen, de rol van het leger, voortdurend achtergrond blijft. Het gevolg is dat een bouwproject van meer dan honderdduizend werknemers wordt verteld als de geschiedenis van enkele tientallen geleerden, en dat de vraag hoe een organisatie van die omvang de uitkomst mede bepaalde niet gesteld wordt.</p>
+      <p>Het besluit om de bom op steden te gebruiken komt in het boek eerder aanrollen dan tot stand. Rhodes noemt het Franck-rapport en de petitie van Szilard, maar de historische strijd over de vraag of de bombardementen nodig waren om Japan tot overgave te brengen wordt kort afgedaan, terwijl daar het meeste over te twisten valt. Ook de stelling dat de openheid van de natuurkunde de verspreiding onvermijdelijk maakte is minder sterk dan zij oogt: het Sovjetprogramma won zijn jaren vooral via spionage in Los Alamos, iets wat Rhodes zelf pas na de opening van de Russische archieven in <i>Dark Sun</i> kon uitwerken. In dit boek staat die correctie er nog niet in.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij elke techniek die als politiek besluit wordt gepresenteerd welke kennis er al openbaar was voordat het besluit viel.</li>
+        <li>Reken bij geheimhoudingsbeleid mee hoeveel van de onderliggende kennis in de vakliteratuur staat; gepubliceerd werk is niet terug te halen.</li>
+        <li>Gebruik de reeks van 1932 tot 1945 als tijdmaat: tussen een laboratoriumvondst en toepassing op industriële schaal lag hier dertien jaar, en de helft daarvan ging op aan techniek die nog niet bestond.</li>
+        <li>Lees de hoofdstukken over Hiroshima naast elke technische bespreking van opbrengst en trefkans, en noteer welk deel van de gevolgen in de technische taal ontbreekt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Making of the Atomic Bomb</i> (Simon &amp; Schuster, New York, 1986, 886 blz., ISBN 9780671441333; jubileumuitgave met nieuw voorwoord, Simon &amp; Schuster, New York, 2012, ISBN 9781451677614). Het boek kreeg in 1987 de National Book Award en de prijs van de National Book Critics Circle en in 1988 de Pulitzerprijs voor non-fictie. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Rhodes begint op dinsdag 12 september 1933 bij een verkeerslicht aan Southampton Row in Londen, waar Leo Szilard bedenkt hoe een kernkettingreactie zou kunnen werken. Een dag eerder had Rutherford in het openbaar verklaard dat wie op energie uit atoomkernen rekent maanlicht verkoopt. Vanaf dat punt volgt het boek in 886 bladzijden de weg van dat idee naar Hiroshima: de natuurkunde van Rutherford en Bohr, de neutronen van Chadwick, de uittocht van Europese geleerden na 1933, de ontdekking van kernsplijting door Hahn en Strassmann in december 1938 en de uitleg daarvan door Meitner en Frisch, en daarna het Manhattan Project met zijn fabriekssteden in Oak Ridge en Hanford en zijn laboratorium op een mesa in New Mexico.</p><p>Rhodes schrijft die geschiedenis van binnenuit, met de natuurkundigen als hoofdpersonen, en besteedt evenveel zorg aan de uitkomst: de laatste hoofdstukken bestaan voor een groot deel uit ooggetuigenverslagen uit Hiroshima en Nagasaki. Zijn stelling is dat de bom voortkwam uit de open, grensoverschrijdende manier waarop natuurkunde bedreven werd, en dat geheimhouding daarom nooit lang kon werken. Het vervolg over de waterstofbom en het Sovjetprogramma, <i>Dark Sun</i>, verscheen in 1995.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>wetenschapsgeschiedenis</li><li>natuurkunde</li><li>kernwapens</li><li>geschiedenis</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="240"><a href="240.html">Einstein: His Life and Universe</a>. Isaacsons biografie van Einstein beschrijft dezelfde Europese natuurkunde van binnenuit, inclusief de brief van 1939 die Rhodes als scharnierpunt gebruikt.</li>
+          <li value="62"><a href="62.html">What Do You Care What Other People Think?</a>. Feynmans herinneringen bestrijken deels dezelfde jaren in Los Alamos, op persoonlijke schaal en zonder de grote lijn die Rhodes trekt.</li>
+          <li value="945"><a href="945.html">Black Holes and Time Warps</a>. Thorne beschrijft hoe het rekenwerk aan implosie en de rekenmachines uit het wapenprogramma later de astrofysica van instortende sterren mogelijk maakten.</li>
+          <li value="938"><a href="938.html">The Sleepwalkers</a>. Koestler laat aan een oudere omwenteling zien hoe rommelig wetenschappelijke doorbraken verlopen; naast Rhodes gelezen valt op hoe glad diens vertelling is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

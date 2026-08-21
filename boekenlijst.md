@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 21
-augustus 2026: 717 titels in 21 rubrieken.
+augustus 2026: 785 titels in 21 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -12,27 +12,27 @@ bij de volgende build verloren.
 
 | Rubriek | Waar de rubriek over gaat | Titels |
 | --- | --- | --- |
-| Vakmanschap en aandacht | werken met je handen, en wat kwaliteit dan is | 1, 6, 320, 346, 376, 462, 517, 535, 553 |
+| Vakmanschap en aandacht | werken met je handen, en wat kwaliteit dan is | 1, 6, 320, 346, 376, 462, 517, 535, 553, 800 |
 | Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9, 71, 72, 77, 91, 95, 105, 107, 109, 111, 134, 135, 141, 145, 149, 150, 160, 167, 169, 187, 199, 201, 204, 205, 216, 227, 228, 230, 232, 242, 255, 263, 292, 299, 334, 335, 341, 377, 379, 390, 391, 394, 405, 416, 435, 442, 449, 459, 461, 473, 515, 516, 518, 519, 520, 524, 525, 526, 527, 528, 546, 547, 556, 561, 569, 579, 586 |
 | Mannen, vriendschap, verbinding | mannenrollen en het onderhouden van vriendschap | 3, 7, 406, 407, 408 |
-| Roman en memoir | verhalend werk, autobiografisch of fictie | 4, 5, 10, 61, 100, 101, 110, 113, 114, 115, 173, 178, 180, 191, 192, 202, 203, 226, 235, 254, 261, 284, 287, 295, 325, 358, 385, 402, 431, 505, 522, 529, 530, 531, 532, 533, 534, 554, 558, 618 |
-| Maken en scheppen | aan het werk komen en blijven als maker | 11, 12, 13, 14, 15, 16, 17, 41, 206, 241, 312, 445, 471, 550 |
+| Roman en memoir | verhalend werk, autobiografisch of fictie | 4, 5, 10, 61, 100, 101, 110, 113, 114, 115, 173, 178, 180, 191, 192, 202, 203, 226, 235, 254, 261, 284, 287, 295, 325, 358, 385, 402, 431, 505, 522, 529, 530, 531, 532, 533, 534, 554, 558, 618, 914, 915, 916, 917, 918, 919, 920, 921, 922, 923, 924, 934, 942 |
+| Maken en scheppen | aan het werk komen en blijven als maker | 11, 12, 13, 14, 15, 16, 17, 41, 206, 241, 312, 445, 471, 550, 952 |
 | Werk en aandacht | concentratie, aantekeningen en het inrichten van je eigen werk | 70, 78, 81, 151, 170, 197, 200, 207, 249, 256, 276, 278, 288, 290, 311, 400, 420, 448, 472, 512, 552 |
 | Schrijfambacht | schrijven als vak, door schrijvers zelf uitgelegd | 18, 19 |
-| Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153, 157, 158, 161, 168, 176, 177, 181, 193, 209, 211, 224, 238, 244, 252, 268, 274, 282, 283, 291, 296, 310, 349, 382, 392, 396, 397, 411, 422, 423, 424, 425, 426, 436, 439, 450, 451, 452, 469, 475, 487, 488, 509, 510, 514, 538, 540, 542 |
-| Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275, 303, 313, 314, 315, 316, 317, 318, 326, 329, 330, 331, 332, 333, 339, 357, 359, 360, 361, 386, 387, 401, 404, 409, 410, 412, 414, 415, 417, 418, 419, 432, 441, 458, 541, 557, 575, 583, 585, 671, 755, 759, 763, 767 |
-| Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63, 123, 124, 125, 126, 212, 213, 215, 250, 258, 280, 381, 384, 388, 429, 440, 562, 563, 564, 565, 566, 664, 667, 668, 672, 673, 674, 686 |
+| Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153, 157, 158, 161, 168, 176, 177, 181, 193, 209, 211, 224, 238, 244, 252, 268, 274, 282, 283, 291, 296, 310, 349, 382, 392, 396, 397, 411, 422, 423, 424, 425, 426, 436, 439, 450, 451, 452, 469, 475, 487, 488, 509, 510, 514, 538, 540, 542, 803 |
+| Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275, 303, 313, 314, 315, 316, 317, 318, 326, 329, 330, 331, 332, 333, 339, 357, 359, 360, 361, 386, 387, 401, 404, 409, 410, 412, 414, 415, 417, 418, 419, 432, 441, 458, 541, 557, 575, 583, 585, 671, 755, 759, 763, 767, 801, 802, 943 |
+| Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63, 123, 124, 125, 126, 212, 213, 215, 250, 258, 280, 381, 384, 388, 429, 440, 562, 563, 564, 565, 566, 664, 667, 668, 672, 673, 674, 686, 925, 926, 927, 928, 929, 930, 931 |
 | Reclame en overtuiging | hoe reclame verkoopt en wat het vak over zijn eigen werking beweert | 443, 695, 696, 697, 698, 699, 700, 701, 702, 703, 704, 705 |
-| Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144, 159, 163, 172, 183, 185, 198, 210, 222, 231, 233, 243, 245, 246, 257, 260, 264, 265, 266, 270, 277, 279, 293, 294, 306, 307, 308, 309, 344, 348, 350, 351, 353, 365, 369, 370, 395, 427, 434, 446, 463, 464, 465, 474, 476, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 491, 492, 494, 496, 499, 501, 502, 503, 544, 567, 570 |
+| Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144, 159, 163, 172, 183, 185, 198, 210, 222, 231, 233, 243, 245, 246, 257, 260, 264, 265, 266, 270, 277, 279, 293, 294, 306, 307, 308, 309, 344, 348, 350, 351, 353, 365, 369, 370, 395, 427, 434, 446, 463, 464, 465, 474, 476, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 491, 492, 494, 496, 499, 501, 502, 503, 544, 567, 570, 804, 807, 808, 809, 810, 811, 812, 814, 900, 901, 902, 903, 904, 905, 906, 907, 908, 909, 911, 912, 913 |
 | Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156, 162, 182, 186, 253, 271, 273, 302, 304, 305, 338, 356, 364, 367, 398, 399, 438, 444, 466, 468, 508, 511, 551 |
 | Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140, 174, 189, 194, 229, 247, 248, 286, 289, 323, 324, 372, 373, 374, 375, 389, 457, 460, 467, 470, 513, 545 |
 | Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49, 285, 447 |
-| Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537, 568, 588, 589, 591, 592, 593, 594, 595, 597, 598, 599, 600, 601, 602, 665, 680, 681, 682, 683, 684, 685, 687, 688, 689, 690, 691, 692, 693, 694, 715, 716, 717, 718, 719, 720, 721, 722, 723, 750, 751, 752, 764, 766 |
-| Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347, 383, 413, 539, 555, 648, 649, 650, 651, 653, 654, 655, 656, 657, 658, 659, 660, 661, 662, 760, 761, 762 |
+| Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537, 568, 588, 589, 591, 592, 593, 594, 595, 597, 598, 599, 600, 601, 602, 665, 680, 681, 682, 683, 684, 685, 687, 688, 689, 690, 691, 692, 693, 694, 715, 716, 717, 718, 719, 720, 721, 722, 723, 750, 751, 752, 764, 766, 933, 939 |
+| Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347, 383, 413, 539, 555, 648, 649, 650, 651, 653, 654, 655, 656, 657, 658, 659, 660, 661, 662, 760, 761, 762, 805, 938, 941, 944, 945, 946, 947, 948, 949, 950, 951 |
 | Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102, 108, 117, 127, 128, 129, 130, 131, 132, 136, 139, 179, 184, 188, 190, 196, 259, 340, 362, 378, 380, 403, 433, 543, 548, 549, 559, 560, 768 |
-| Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122, 327, 421, 437, 456, 477, 478, 493, 495, 497, 498, 500, 504, 506, 507 |
-| Filosofie en mystiek | wijsgerige hoofdwerken en mystieke teksten over wat werkelijk is en hoe te leven | 572, 573, 574, 576, 577, 578, 580, 581, 582, 584, 587, 590, 596, 603, 604, 605, 606, 608, 609, 610, 611, 612, 613, 614, 615, 630, 631, 632, 633, 634, 635, 636, 637, 638, 639, 640, 641, 642, 643, 644, 645, 646, 647, 652, 663, 666, 669, 670, 675, 676, 677, 678, 679, 754, 756, 757, 758, 765, 769 |
-| Staat en vrijheid | politieke denkers over macht, gezag en het vrije individu | 616, 617, 619, 620, 621, 622, 623, 624, 625, 626, 627, 628, 629, 753 |
+| Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122, 327, 421, 437, 456, 477, 478, 493, 495, 497, 498, 500, 504, 506, 507, 806, 813 |
+| Filosofie en mystiek | wijsgerige hoofdwerken en mystieke teksten over wat werkelijk is en hoe te leven | 572, 573, 574, 576, 577, 578, 580, 581, 582, 584, 587, 590, 596, 603, 604, 605, 606, 608, 609, 610, 611, 612, 613, 614, 615, 630, 631, 632, 633, 634, 635, 636, 637, 638, 639, 640, 641, 642, 643, 644, 645, 646, 647, 652, 663, 666, 669, 670, 675, 676, 677, 678, 679, 754, 756, 757, 758, 765, 769, 932, 936, 937, 940 |
+| Staat en vrijheid | politieke denkers over macht, gezag en het vrije individu | 616, 617, 619, 620, 621, 622, 623, 624, 625, 626, 627, 628, 629, 753, 910, 935 |
 
 Een titel kan in één rubriek staan en toch tags uit een andere dragen. De tags
 zijn het fijnmazige zoekmiddel, de rubriek is de plek in de kast.
@@ -134154,9 +134154,9 @@ zonder zulke toetsing werkt, gokt met andermans geld.
 
 **Het concrete boven het algemene**
 
-Superlatieven werken niet, cijfers wel. Niet de beste kwaliteit, maar het
-aantal graden, het aantal weken, de exacte prijs. Hopkins laat zien dat een
-fabrikant die zegt dat zijn schoenen goed zijn niets zegt, en dat een
+Superlatieven werken niet, cijfers wel. Wat overtuigt is het aantal graden
+waarop iets wordt verhit of het aantal weken dat het rijpt. Hopkins laat zien
+dat een fabrikant die zegt dat zijn schoenen goed zijn niets zegt, en dat een
 fabrikant die zegt hoeveel paar hij per dag maakt iets zegt dat blijft hangen.
 
 Zijn bekendste toepassing is de Schlitz-campagne. Hij liet zich de brouwerij
@@ -134242,8 +134242,8 @@ reclamepraktijk uit 1923. Wie de houding overneemt, namelijk dat een bewering
 over wat werkt met een cijfer te onderbouwen valt, houdt er meer aan over.
 
 Ten slotte is het boek minder wetenschappelijk dan de titel belooft. Er staat
-geen controlegroep in, geen steekproefomvang, en geen onderscheid tussen
-toeval en effect.
+geen controlegroep in en geen steekproefomvang, en het onderscheid tussen
+toeval en effect komt nergens ter sprake.
 
 #### Wat er concreet mee te doen is
 
@@ -134319,7 +134319,7 @@ directeuren, niet die van een onderzoeker.
 
 De Unique Selling Proposition is bij Reeves geen slagzin en geen merkkarakter,
 maar een propositie met drie eisen. Elke advertentie moet een voorstel doen
-aan de lezer: koop dit product en u krijgt dit voordeel. Het voorstel moet er
+aan de lezer: wie dit product koopt, krijgt dit voordeel. Het voorstel moet er
 een zijn dat de concurrent niet doet, hetzij omdat hij het niet kan, hetzij
 omdat hij het niet aanbiedt. En het voorstel moet zo sterk zijn dat het grote
 aantallen mensen beweegt.
@@ -134351,8 +134351,8 @@ vampire video: beeld dat de aandacht opzuigt en het merk uitwist.
 
 Tegen de aanhangers van het merkbeeld, met David Ogilvy als bekendste, stelt
 hij dat een imago zonder claim geen reden geeft om te kopen. Het boek noemt
-geen namen, maar de reclamewereld las het als een aanval op Ogilvy en op Bill
-Bernbach van DDB.
+geen namen. De reclamewereld las het niettemin als een aanval op Ogilvy en op
+Bill Bernbach van DDB.
 
 **De voorbeelden**
 
@@ -134368,6 +134368,20 @@ zijn verkopen ruim verdrievoudigde. Het getal komt uit zijn eigen bureau en is
 niet onafhankelijk gecontroleerd. Reeves maakte in 1952 ook de
 televisiespotjes voor de campagne van Dwight Eisenhower, waarin de kandidaat
 korte antwoorden gaf op vragen van gewone kiezers.
+
+**De strijd om het vak**
+
+Het boek verscheen midden in een richtingenstrijd. Aan de ene kant stond Bates
+met herhaalde claims en spotjes die niemand mooi vond. Aan de andere kant
+stond Doyle Dane Bernbach, dat in 1959 de campagne voor de Volkswagen Kever
+begon met advertenties die de auto klein en lelijk noemden en die het publiek
+juist daarom onthield.
+
+Reeves neemt in dit boek het standpunt in dat zulke reclame haar makers
+plezier doet en haar opdrachtgevers geld kost. Hij eist dat elke bewering over
+reclame met een meting wordt onderbouwd, en die eis is terecht. Wat hij niet
+levert, is een meting die zijn eigen stijl vergelijkt met die van zijn
+tegenstanders, terwijl zijn onderzoeksapparaat dat had gekund.
 
 **De zuinigheid als beginsel**
 
@@ -134538,7 +134552,7 @@ de sterkste uit halen om te toetsen.
 De methode is het gesplitst uitvoeren van een oplage: dezelfde advertentie in
 dezelfde uitgave, maar in de ene helft van de gedrukte exemplaren versie A en
 in de andere versie B, met verschillende bonnummers. De vergelijking is dan
-zuiver op één punt na, namelijk de wijziging die je onderzoekt.
+zuiver op één punt na, namelijk de wijziging die wordt onderzocht.
 
 Caples waarschuwt tegen de meeste manieren waarop dit misgaat: te kleine
 aantallen, verschillende bladen, verschillende weken, meer dan één wijziging
@@ -134554,9 +134568,24 @@ een bon, een adres en een reden om nu te reageren. Hij is voor lange teksten
 wanneer de aankoop uitleg vraagt, en laat proeven zien waarin de langere
 versie meer verkocht.
 
-Hij hecht aan geloofwaardigheid: getuigenissen met naam en plaats, garanties
-die iets kosten, en cijfers die controleerbaar zijn. Overdrijving is volgens
-zijn metingen de snelste manier om de respons te laten dalen.
+Hij hecht aan geloofwaardigheid: getuigenissen met naam en plaats, en
+garanties die de verkoper geld kosten zodra het product tegenvalt.
+Overdrijving is volgens zijn metingen de snelste manier om de respons te laten
+dalen.
+
+**Wat de methode wel en niet meet**
+
+Een gesplitste proef meet wat er in de weken na de plaatsing gebeurt bij
+mensen die op dat moment een bon invullen. Wat er gebeurt bij mensen die de
+advertentie zagen en pas een halfjaar later iets kopen, valt buiten het
+bereik. Caples zegt dat met zoveel woorden en beperkt zijn uitspraken tot het
+gebied waarin hij mat.
+
+Die zelfbeperking is in het vak grotendeels verloren gegaan. Zijn methode is
+via direct mail en de postordercatalogus doorgegeven aan het web, waar
+dezelfde proef nu met twee versies van een pagina wordt gedaan. Het gemak
+waarmee dat kan, heeft de neiging versterkt om alleen te sturen op wat binnen
+een week zichtbaar wordt.
 
 **Wat het testen met de vakman doet**
 
@@ -134641,8 +134670,8 @@ versie haar in een proef verslaat.
 waar Caples de systematische vergelijking op bouwt.
 - 699. How to Write a Good Advertisement. Schwab werkt in hetzelfde
 postordervak en ordent de opbouw van een advertentie in vijf stappen.
-- 698. Breakthrough Advertising. Schwartz gaat een laag dieper: niet welke kop
-wint, maar in welke toestand de markt verkeert.
+- 698. Breakthrough Advertising. Schwartz gaat een laag dieper en vraagt in
+welke toestand de markt verkeert voordat de kop ertoe doet.
 - 701. Ogilvy on Advertising. Ogilvy citeert Caples herhaaldelijk en brengt
 dezelfde regels naar merkreclame.
 
@@ -134659,8 +134688,9 @@ Tags: `reclame`, `copywriting`, `verlangen`, `marktanalyse`,
 Schwartz was postordertekstschrijver en verkocht boeken, cursussen en
 nieuwsbrieven met paginagrote advertenties. Zijn uitgangspunt is dat een tekst
 geen verlangen kan maken. Wat al in mensen leeft aan hoop, angst en begeerte,
-kan alleen op een product worden gericht. De vraag is dus niet wat je over het
-product zegt, maar in welke toestand de markt verkeert.
+kan alleen op een product worden gericht. De vraag is dus eerst in welke
+toestand de markt verkeert, en pas daarna wat er over het product te zeggen
+valt.
 
 Daarvoor levert hij twee schema's die nog steeds worden gebruikt: vijf niveaus
 waarop een koper zich bewust is van zijn probleem en van het aanbod, en vijf
@@ -134750,6 +134780,20 @@ praktijk, met de tekst erbij afgedrukt. De voorbeelden gaan over afslanken,
 geheugencursussen, beleggingsnieuwsbrieven en gereedschap, en zijn zichtbaar
 van rond 1960.
 
+**Waarom het boek terugkwam**
+
+Vanaf ongeveer 2005 dook Schwartz opnieuw op in de internetmarketing. De lange
+verkooppagina met een aanloop over een probleem, een uitleg van het mechanisme
+en pas daarna het aanbod, is een rechtstreekse toepassing van zijn niveaus van
+bekendheid. Wie zulke pagina's schrijft, gebruikt zijn schema meestal zonder
+de bron te kennen.
+
+Dat verklaart ook waar de prijzen vandaan kwamen: een kleine beroepsgroep die
+met deze teksten geld verdient, wilde het boek hebben terwijl er geen druk
+beschikbaar was. Sinds het weer gewoon te koop is, wordt het minder als geheim
+behandeld en meer als wat het is, namelijk het handboek van een tekstschrijver
+uit 1966.
+
 **Waarom het boek moeilijk leest**
 
 Schwartz schrijft in korte, hamerende zinnen en gebruikt eigen termen die hij
@@ -134785,11 +134829,11 @@ uit bruikbaarheid: ze verklaren achteraf waarom een tekst die in de ene markt
 werkte in de andere niet werkte, en ze zijn sindsdien in het hele directe
 verkoopvak overgenomen, meestal zonder bronvermelding.
 
-De stelling dat reclame geen verlangen schept maar bestaand verlangen richt,
-sluit aan bij wat later in ander werk terugkomt. Byron Sharp komt met
-panelgegevens tot een verwante uitkomst: reclame verandert de voorkeuren van
-mensen nauwelijks en werkt vooral doordat een merk op het koopmoment in het
-hoofd zit.
+De stelling dat reclame bestaand verlangen richt in plaats van het te
+scheppen, sluit aan bij wat later in ander werk terugkomt. Byron Sharp komt
+met panelgegevens tot een verwante uitkomst: reclame verandert de voorkeuren
+van mensen nauwelijks en werkt vooral doordat een merk op het koopmoment in
+het hoofd zit.
 
 #### Wat er tegen in te brengen valt
 
@@ -134928,6 +134972,21 @@ te reageren. Schwab laat zien hoeveel bestellingen verdwijnen wanneer die
 vraag ontbreekt of vaag is gesteld, en behandelt de vormgeving van de bon als
 onderdeel van de tekst.
 
+**Wat de honderd koppen laten zien**
+
+De verzameling koppen is meer dan een lijst om uit te putten. Schwab gebruikt
+haar als bewijsmateriaal: door de winnaars naast elkaar te leggen wordt
+zichtbaar wat zij gemeen hebben. Er staat vrijwel altijd iets in dat de lezer
+wil bereiken of wil vermijden, er staat vaak een aanwijzing in dat het snel of
+eenvoudig kan, en er staat zelden een merknaam in van een merk dat de lezer
+nog niet kent.
+
+Wat er niet in staat is minstens zo leerzaam. Woordspelingen komen in de lijst
+nauwelijks voor, en koppen die alleen nieuwsgierig maken zonder iets te
+beloven evenmin. Schwab wijst erop dat zulke koppen wel lezers trekken, maar
+de verkeerde, en dat de kosten daarvan pas bij de bestellingen zichtbaar
+worden.
+
 **Lengte, opmaak en het toetsen**
 
 Op de vraag of lange teksten lonen, antwoordt Schwab met vergelijkingen: bij
@@ -134965,10 +135024,16 @@ steekproefomvangen bij, geen periodes en geen tegenvallende proeven. Wie de
 honderd koppen naslaat, ziet een selectie van winnaars zonder de verliezers
 ernaast.
 
-De vijf stappen zelf zijn geen meetresultaat maar een ordening van wat in het
-vak al bekend was. De waarde ervan zit in de volgorde en de volledigheid: het
-is de eerste plek waar de stap tussen geloven en bestellen apart wordt
+De vijf stappen zelf komen niet uit metingen; het is een ordening van wat in
+het vak al bekend was. De waarde ervan zit in de volgorde en de volledigheid:
+het is de eerste plek waar de stap tussen geloven en bestellen apart wordt
 behandeld.
+
+Dat het boek van een bureaubaas komt, werkt hier twee kanten op. Schwab had
+zijn hele loopbaan cijfers waarop hij werd afgerekend, wat hem behoedt voor de
+mooie beweringen die het genre kenmerken. Tegelijk publiceert hij het werk
+waar zijn bureau van leefde, en de proeven die niets opleverden blijven in de
+la.
 
 #### Wat er tegen in te brengen valt
 
@@ -134989,6 +135054,9 @@ drijft, dekt dat schema de werking niet.
 Ten slotte gaat het boek nergens in op de vraag wat een advertentie doet met
 wat mensen op de lange duur van een merk denken. Dat viel buiten zijn meting
 en daarmee buiten zijn blik.
+
+Wie het niettemin wil gebruiken, kan het beste de vijf stappen aanhouden en de
+voorbeelden overslaan. De volgorde is het bruikbare deel, de taal is van 1962.
 
 #### Wat er concreet mee te doen is
 
@@ -135059,6 +135127,19 @@ De opzet is die van een rondgang langs modellen, elk met zijn herkomst, zijn
 pleitbezorgers en zijn tekortkomingen. Feldwick citeert daarbij de opmerking
 van de statisticus George Box dat alle modellen onjuist zijn en sommige
 bruikbaar, en gebruikt die als maat voor het hele boek.
+
+**Waar de planner vandaan komt**
+
+Feldwick schrijft vanuit een Britse traditie die er in 1968 op twee plaatsen
+tegelijk kwam: Stanley Pollitt bij Boase Massimi Pollitt en Stephen King bij
+J. Walter Thompson in Londen bedachten allebei een rol voor iemand die het
+onderzoek naar consumenten inbrengt in het maken van het werk zelf.
+
+Die rol brengt met zich mee dat de planner een verklaring moet kunnen geven
+van hoe de voorgestelde reclame gaat werken. Feldwick heeft dat dertig jaar
+gedaan en merkte dat de beschikbare verklaringen elkaar tegenspraken, terwijl
+elke school haar eigen verklaring als de enige juiste presenteerde. Dat is de
+aanleiding van het boek.
 
 **Verkoopkunst op papier**
 
@@ -135298,6 +135379,20 @@ deel behandelt de vraag of bepaalde reclame verboden zou moeten worden. Ogilvy
 weigerde opdrachten voor sigaretten en schrijft dat hij zich voor eerder werk
 daarvoor schaamt.
 
+**Wat hij van Hopkins overnam en waar hij afweek**
+
+Van Hopkins nam Ogilvy de eis over dat reclame verkoopt en dat zij zich laat
+narekenen, en de voorkeur voor feiten boven bijvoeglijke naamwoorden. De
+advertentie voor de Rolls-Royce is in opzet een Hopkins-advertentie: een
+concreet gegeven in de kop, daarna feiten.
+
+Hij week op één punt af, en dat punt scheidt hem van de hele meetbare school.
+Waar Hopkins alles wat niet in bonnen te vangen was voor verspilling hield,
+stelt Ogilvy dat elke advertentie meebouwt aan iets dat pas over jaren
+zichtbaar wordt. Zijn eigen campagnes zijn daar het argument voor: het
+ooglapje bij Hathaway verkocht geen hemden door een claim, maar maakte een
+merk dat mensen jaren later nog aanwezen.
+
 **Wat er niet in staat**
 
 Het boek gaat over reclame die door een bureau wordt gemaakt en in gekochte
@@ -135426,10 +135521,9 @@ Thompson, werd er vicevoorzitter, trok zich in 1928 terug op een ranch in New
 Mexico en doceerde daarna reclame aan de universiteit van Chicago. In de
 oorlogsjaren was hij een van de oprichters van de Advertising Council.
 
-Het boekje is de uitgeschreven versie van wat hij zijn studenten vertelde. Het
-beslaat ongeveer vijftig bladzijden en is in een uur te lezen. Young zegt in
-de inleiding dat hij zich verzet tegen het idee dat de kunst van het bedenken
-niet te onderwijzen valt.
+Het boekje is de uitgeschreven versie van wat hij zijn studenten vertelde:
+ongeveer vijftig bladzijden, in een uur te lezen, geschreven tegen de
+opvatting in dat de kunst van het bedenken niet te onderwijzen valt.
 
 **De twee beginselen**
 
@@ -135448,10 +135542,13 @@ houdt vast aan wat er is.
 
 Stap één is materiaal verzamelen, en Young onderscheidt daarbij twee soorten.
 Bijzonder materiaal gaat over het product en de mensen aan wie het verkocht
-moet worden, en dat betekent het product werkelijk uitpluizen tot je iets ziet
-dat een ander niet heeft gezien. Algemeen materiaal is alles wat iemand in de
-loop van zijn leven aan kennis en ervaring opdoet, van geschiedenis tot
-toneel.
+moet worden, en dat betekent het product uitpluizen tot er iets zichtbaar
+wordt dat een ander niet heeft opgemerkt. Algemeen materiaal is alles wat
+iemand in de loop van zijn leven aan kennis en ervaring opdoet, van
+geschiedenis tot toneel. Het eerste is in dagen bijeen te brengen, het tweede
+kost jaren. Young waarschuwt dat de meeste mensen in de reclame het eerste
+doen en het tweede overslaan, en dat hun werk daaraan te herkennen valt: het
+blijft binnen de grenzen van het onderwerp.
 
 Voor het algemene materiaal beveelt hij een kaartsysteem aan, waarin losse
 waarnemingen op onderwerp worden bewaard. Stap twee is het materiaal in het
@@ -135466,8 +135563,8 @@ verbeelding prikkelt: muziek, toneel, een verhaal, of slapen. Het werk gaat
 dan volgens Young door buiten het bewustzijn om, en elke poging het te
 forceren houdt het tegen.
 
-Stap vier is de komst van het idee, meestal op een moment waarop je er niet
-mee bezig bent: in bed, onder de douche, tijdens een wandeling. Young
+Stap vier is de komst van het idee, meestal op een moment waarop de bedenker
+er niet mee bezig is: in bed, onder de douche, tijdens een wandeling. Young
 beschrijft dat als de vanzelfsprekende uitkomst van de eerste drie stappen en
 niet als een gunst van boven.
 
@@ -135559,8 +135656,8 @@ dat het onvolledig blijkt.
 voorbeelden uit de Britse reclame.
 - 701. Ogilvy on Advertising. Ogilvy komt uit hetzelfde vak en stelt de vondst
 centraal, maar dan als iets wat een campagne jaren moet dragen.
-- 13. The Practice. Godin behandelt de andere kant: niet het opvangen van een
-idee, maar het volhouden van het werk.
+- 13. The Practice. Godin behandelt wat er na het idee komt: het volhouden van
+het werk.
 - 698. Breakthrough Advertising. Schwartz laat zien dat een idee alleen werkt
 als het bij de toestand van de markt past.
 
@@ -135622,10 +135719,13 @@ vervoer maar een stuk zelfbeeld.
 
 Dichter licht dat toe met zijn bekendste bevindingen. Voor een zeepmerk
 formuleerde hij het baden als een klein ritueel waarin men de zorgen van zich
-af wast. Voor een autofabrikant beschreef hij hoe de open sportwagen in de
-toonzaal de klant binnenhaalt als een verboden verlangen, waarna hij het
-viervoudige gezinsmodel koopt, en hij vertaalde dat in de vergelijking met een
-minnares en een echtgenote.
+af wast, een gedachte die de reclame voor dat merk jarenlang heeft bepaald.
+Voor een autofabrikant beschreef hij hoe de open sportwagen in de toonzaal de
+klant binnenhaalt als een verboden verlangen, waarna hij het viervoudige
+gezinsmodel koopt, en hij vatte dat samen in de vergelijking met een minnares
+en een echtgenote. Zulke formuleringen maakten hem beroemd bij opdrachtgevers
+en verdacht bij vakgenoten, omdat zij precies zo goed klinken als zij moeilijk
+te controleren zijn.
 
 **De methode**
 
@@ -135651,6 +135751,20 @@ cultuur een puriteinse rem op het genieten, en beschouwt het als vooruitgang
 wanneer mensen zonder schuldgevoel een betere auto, een ruimer huis of een
 aangenamer leven willen. Verlangen is bij hem de motor van welvaart en van
 persoonlijke ontplooiing tegelijk.
+
+**Het verzet uit het eigen vak**
+
+De scherpste tegenstand kwam niet van moralisten maar van andere
+marktonderzoekers. Alfred Politz, die met grote steekproeven en statistiek
+werkte, vond de duidingen van Dichter onnavolgbaar en niet controleerbaar, en
+voerde dat verschil in het openbaar. Waar Dichter twintig gesprekken diep
+uitwerkte, ondervroeg Politz er duizenden en rekende hij marges uit.
+
+Dichter gaat in dit boek op dat bezwaar in met het argument dat tellen alleen
+oplevert wat mensen bereid zijn te zeggen. Dat argument snijdt hout, maar het
+beantwoordt de vraag niet die zijn tegenstanders stelden: hoe vast te stellen
+valt of een duiding juist is, en wat er zou moeten gebeuren om haar te
+verwerpen.
 
 **Van producten naar de samenleving**
 
@@ -135705,6 +135819,12 @@ laten zien hoe de reputatie van het motivatieonderzoek uitliep op de
 werkelijke invloed ervan. Veel opdrachtgevers bestelden een rapport, lieten
 het liggen en gingen op hun eigen oordeel af.
 
+Eén onderdeel van Dichters uitgangspunt heeft de tijd wel doorstaan. Dat
+mensen hun eigen beweegredenen slecht kennen en achteraf een redelijke
+verklaring bedenken, is later met proeven aangetoond in het werk over oordelen
+en beslissen. De weg naar die vaststelling liep alleen niet via de duiding van
+gesprekken; zij liep via herhaalbare experimenten met controlegroepen.
+
 #### Wat er tegen in te brengen valt
 
 De duidingen zijn niet te weerleggen. Dat mensen zeep met schuld verbinden of
@@ -135744,7 +135864,7 @@ gesprekken en de uitkomst in verkoop.
 - 704. The Hidden Persuaders. Packard schreef de aanklacht waar dit boek het
 antwoord op is.
 - 698. Breakthrough Advertising. Schwartz neemt het bestaande verlangen als
-gegeven en vraagt alleen nog hoe je het richt.
+gegeven en vraagt alleen nog hoe het te richten valt.
 - 424. Predictably Irrational. Ariely onderzoekt dezelfde vraag met proeven in
 plaats van met duiding.
 - 280. Influence. Cialdini brengt het overtuigen terug tot een klein aantal
@@ -135808,7 +135928,10 @@ beoordelen, en de aanname dat kopers hun eigen redenen niet kennen.
 Packard levert daarbij een reeks voorbeelden die sindsdien overal terugkomen:
 waarom vrouwen instantkoffie in de begintijd afwezen, wat een auto in de
 toonzaal met een koper doet, waarom sigarettenmerken op zelfbeeld verkopen. De
-voorbeelden komen uit de rapportages van de onderzoekers zelf.
+voorbeelden komen uit de rapportages van de onderzoekers zelf, en Packard
+neemt de uitkomsten over zoals zij daar staan. Dat hij daarmee de verkooppraat
+van een bedrijfstak tot bewijsmateriaal maakt, is het bezwaar dat historici
+hem later hebben voorgehouden.
 
 **Acht behoeften om op te spelen**
 
@@ -135843,9 +135966,23 @@ maat is of de beïnvloede persoon de beïnvloeding kan opmerken en zich ertegen
 kan verweren.
 
 Wat daar niet aan voldoet, valt volgens hem buiten wat een samenleving zou
-moeten toestaan. Hij komt niet met wetgeving of regels, maar met een oproep
-tot waakzaamheid, en met de opmerking dat het gemakkelijker is te weerstaan
-wat je hebt doorzien.
+moeten toestaan. Hij komt niet met wetgeving of regels. Wat hij biedt is een
+oproep tot waakzaamheid, met de opmerking dat iemand gemakkelijker weerstaat
+wat hij heeft doorzien.
+
+**Hoe de bedrijfstak reageerde**
+
+De reclamewereld verwierp het boek in het openbaar en gebruikte het in stilte.
+Voor een bureau dat zijn diensten verkocht, was de aanklacht dat het over
+geheime en werkzame technieken beschikte geen slechte reclame.
+Motivatieonderzoekers zagen hun opdrachten toenemen in de jaren na 1957.
+
+Packard schreef er twee vervolgen op. *The Status Seekers* uit 1959 gaat over
+de standsverschillen die de Amerikaanse samenleving volgens hem juist
+versterkte in plaats van ophief, en *The Waste Makers* uit 1960 over het
+bewust verkorten van de levensduur van producten. Samen maakten de drie boeken
+hem tot de bekendste criticus van de consumptiemaatschappij van zijn tijd, en
+tot mikpunt van vakgenoten die hem verweten dat hij overdreef om te verkopen.
 
 **Wat het boek teweegbracht**
 
@@ -135914,6 +136051,12 @@ is scherper geworden nu beïnvloeding per persoon wordt ingekocht en per klik
 afgerekend, in stilte en op grond van gegevens waar de betrokkene geen weet
 van heeft.
 
+Het boek verdient daarom een dubbele lezing. Als beschrijving van wat reclame
+vermag, is het onbetrouwbaar en aantoonbaar overdreven. Als eerste poging om
+een bedrijfstak ter verantwoording te roepen die tot dan toe alleen zichzelf
+recenseerde, is het van blijvend belang, en het heeft de toon gezet voor alle
+reclamekritiek die erna kwam.
+
 #### Wat er concreet mee te doen is
 
 - Vraag bij elke bewering over de macht van beïnvloeding wie er belang heeft
@@ -135952,11 +136095,12 @@ krijgen en niet door trouwere kopers, kleine merken hebben zowel minder kopers
 als iets lagere trouw, en de meeste omzet komt van mensen die maar zelden
 kopen.
 
-Daaruit volgt een andere opdracht voor reclame dan de leerboeken geven. Niet
-overtuigen en niet een klein segment bewerken, maar de hele categorie blijven
-bereiken met vaste herkenbare merktekens, zodat het merk op het koopmoment in
-het hoofd zit en in het schap ligt. Het bewijs komt vooral uit dagelijkse
-verpakte consumptiegoederen, wat ook de grens van het boek aangeeft.
+Daaruit volgt een andere opdracht voor reclame dan de leerboeken geven. De
+opdracht wordt de hele categorie blijven bereiken met vaste herkenbare
+merktekens, zodat het merk op het koopmoment in het hoofd zit en in het schap
+ligt. Overtuigen komt er niet aan te pas. Het bewijs komt vooral uit
+dagelijkse verpakte consumptiegoederen, wat ook de grens van het boek
+aangeeft.
 
 ### Uitgebreide samenvatting
 
@@ -136052,7 +136196,10 @@ kopers die hen kennen en tegenkomen.
 Prijskortingen leveren volgens de panelgegevens een piek op die vrijwel geheel
 uit bestaande kopers bestaat en die na afloop verdwijnt.
 Loyaliteitsprogramma's belonen mensen die toch al kochten. Beide staan hoog op
-de begroting en laag in de opbrengst.
+de begroting en laag in de opbrengst. Sharp erkent dat een korting op de korte
+termijn omzet binnenhaalt en dat een inkoper daarom om kortingen vraagt; zijn
+punt is dat het geld dan wordt uitgegeven aan kopers die het merk al hadden
+gevonden.
 
 Sharp trekt daaruit de conclusie dat het meeste marketinggeld naar bereik en
 beschikbaarheid moet, en dat de rest verantwoording verdient die verder gaat
@@ -143029,14 +143176,14742 @@ in veel toegankelijker taal.
 van Benoits metafysische nood, met antropologie en psychoanalyse in plaats van
 zen.
 
+## 800. The Practicing Mind
+
+Thomas M. Sterner, 2006 (herziene uitgave 2012). Eerst in eigen beheer
+verschenen bij Mountain Sage Publishing (2006, 170 blz., ISBN 9780977657209)
+onder de ondertitel *Bringing Discipline and Focus into Your Life*. De hier
+gebruikte herziene uitgave kwam bij New World Library (2012, 168 blz., ISBN
+9781608680900) met de ondertitel *Developing Focus and Discipline in Your
+Life: Master Any Skill or Challenge by Learning to Love the Process*. Geen
+Nederlandse vertaling gevonden; deze samenvatting is op de Engelse editie
+gebaseerd. Rubriek: vakmanschap en aandacht.
+Tags: `oefenen`, `aandacht`, `discipline`, `geduld`, `zelfhulp`, `zen`
+
+Sterner werkte vijfentwintig jaar als hoofdtechnicus voor concertvleugels bij
+een groot podiumkunstencentrum en bereidde instrumenten voor van pianisten als
+Van Cliburn en van musici uit de populaire muziek. Daarnaast leerde hij
+zichzelf jazzpiano en golf. Uit dat werk komt de vraag waar het boek op rust:
+waarom pakken volwassenen het aanleren van iets nieuws zo veel moeizamer op
+dan kinderen, die uren met dezelfde handeling bezig kunnen zijn zonder
+ongeduldig te worden.
+
+Zijn antwoord is dat volwassenen hun aandacht op het resultaat richten en de
+handeling zelf daardoor als oponthoud gaan zien. Daar zet hij een houding
+tegenover die hij procesgerichtheid noemt, met een handvol hulpmiddelen om die
+vast te houden: het doel alleen als richting gebruiken, het werk klein en kort
+houden, langzaam werken, en waarnemen zonder oordeel. Het boek is dun, leunt
+op zenideeën en op eigen ervaring, en bevat geen verwijzingen naar onderzoek.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Sterner stelt dat volwassenen leren en oefenen als een last
+ervaren omdat zij hun aandacht op het eindresultaat richten in plaats van op
+de handeling van dit moment. Wie een doel voor ogen houdt en zichzelf
+voortdurend afmeet aan de afstand tot dat doel, verkeert volgens hem permanent
+in een toestand van tekort: het resultaat ligt altijd in de toekomst, dus
+schiet het heden altijd tekort. Zijn tegenvoorstel is het doel te gebruiken
+als richtingaanwijzer en de aandacht volledig bij de bezigheid zelf te houden.
+Wie dat lukt, houdt vanzelf langer vol, omdat de voldoening in de handeling
+zit en niet in de afloop. Daarmee verschuift oefenen van iets dat doorstaan
+moet worden naar iets dat gewoon gedaan wordt, en verdwijnt de reden om af te
+haken.
+
+#### De gang van het boek
+
+**Waar het inzicht vandaan komt**
+
+Het openingshoofdstuk, *The Learning Begins*, beschrijft hoe Sterner tijdens
+het aanleren van muziek en golf merkte dat hij zichzelf tegenwerkte. Hij was
+ongeduldig, vergeleek zijn spel voortdurend met het niveau dat hij wilde
+bereiken, en raakte daardoor gespannen. Kinderen die hij aan het werk zag
+deden hetzelfde soort herhaling zonder die spanning. Uit dat verschil leidt
+hij af dat het probleem niet in de oefening zit maar in de houding waarmee
+volwassenen die oefening benaderen.
+
+Zijn achtergrond loopt door het hele boek heen. Als pianotechnicus werkte hij
+aan instrumenten waarbij een stemming uit honderden kleine, op zichzelf
+onbeduidende handelingen bestaat, en waarbij het eindresultaat alleen ontstaat
+als elke handeling op haar eigen moment de volledige aandacht krijgt. Dat
+beeld gebruikt hij als model voor het aanleren van elke vaardigheid.
+
+**Proces in plaats van product**
+
+Het tweede hoofdstuk, *Process, Not Product*, bevat de kern van het betoog.
+Sterner onderscheidt twee manieren om met een bezigheid om te gaan.
+Productgerichtheid richt de aandacht op het einde: het gewenste niveau, het
+afgeronde werk, de gehaalde score. Procesgerichtheid richt de aandacht op wat
+er nu gebeurt. Zijn stelling is dat productgerichtheid ontevredenheid
+ingebouwd heeft, omdat het beoogde punt per definitie nog niet bereikt is en
+het gevoel van tekortschieten dus niet ophoudt.
+
+Daar hoort een tweede stap bij die hij nadrukkelijk maakt: wie procesgericht
+bezig is, is op elk moment precies waar hij zijn moet. Het doel houdt hij aan
+als richting, zoals een koers die aangeeft welke kant het op gaat, en niet als
+een lat waaraan hij zich meet. Volgens Sterner komt het resultaat er dan
+sneller, omdat de energie die eerst in beoordelen en vergelijken ging nu in de
+handeling zelf gaat.
+
+**Waarneming, gewoontes en geduld**
+
+In *It's How You Look At It* en *Creating the Habits We Desire* werkt hij uit
+dat het verschil tussen zwaar en licht werk grotendeels in de waarneming zit.
+Dezelfde handeling voelt anders al naar gelang iemand hem als noodzakelijk
+kwaad of als bezigheid op zich beschouwt. Gewoontes ontstaan volgens hem
+doordat een manier van doen zo vaak herhaald wordt dat zij de vanzelfsprekende
+manier wordt; ze zijn daarmee ook te vervangen door een andere herhaling.
+
+Het hoofdstuk over geduld draait de gebruikelijke volgorde om. Geduld is bij
+Sterner geen karaktereigenschap die iemand oproept, maar het gevolg van een
+veranderde waarneming. Wie het proces als het werk zelf ziet, hoeft nergens op
+te wachten en heeft geen geduld meer nodig; het ongeduld verdwijnt met de
+verwachting die het voedde.
+
+**De vier S-woorden**
+
+Het praktische midden van het boek zijn vier hulpmiddelen die alle met een s
+beginnen: simplify, small, short en slow. Vereenvoudigen betekent een taak
+opdelen in overzichtelijke stukken. Klein betekent die stukken zo kiezen dat
+er met gewone aandacht aan te werken valt. Kort betekent de werksessie in tijd
+begrenzen, zodat de aandacht niet uitgeput raakt. Langzaam betekent een tempo
+aanhouden waarbij het nog mogelijk is te merken wat er gebeurt.
+
+Sterner benadrukt dat langzaam werken in de praktijk sneller blijkt, omdat er
+minder fouten ontstaan die later hersteld moeten worden. De vier woorden zijn
+bij hem geen techniek om productiever te zijn, maar hulpmiddelen om de
+aandacht bij het heden te houden.
+
+**Gelijkmoedigheid en de DOC-lus**
+
+Het hoofdstuk *Equanimity and DOC* geeft de manier waarop hij met fouten
+omgaat. DOC staat voor do, observe, correct: doen, waarnemen wat er gebeurde,
+bijstellen, en opnieuw doen. Het punt van die volgorde is dat er geen plaats
+is voor een oordeel over de eigen persoon. Wie een fout beoordeelt in plaats
+van waarneemt, voegt een emotionele reactie toe die aandacht kost en de
+correctie niet beter maakt.
+
+Gelijkmoedigheid noemt hij de houding die daarbij hoort: waarnemen zonder de
+waarneming meteen als goed of slecht te bestempelen. Hij ontleent het begrip
+aan de oosterse tradities die hij bestudeerde, en presenteert het als een
+vaardigheid die net als andere vaardigheden door herhaling groeit.
+
+**Leren van kinderen en het slot**
+
+In *Teach and Learn from Children* keert hij terug naar de openingsvraag.
+Kinderen benaderen een nieuwe bezigheid zonder het oordeel dat volwassenen
+meebrengen, en verliezen die houding volgens Sterner naarmate zij op
+resultaten worden afgerekend. Hij bespreekt wat opvoeders daaraan kunnen doen,
+en gebruikt het hoofdstuk vooral om de eerdere ideeën in het dagelijks leven
+te plaatsen.
+
+Het slothoofdstuk, *Your Skills Are Growing*, houdt vast dat de vaardigheid
+waar het boek over gaat het oefenen zelf is. Wie die vaardigheid opbouwt, kan
+haar op elk gebied inzetten, van muziek tot huishoudelijk werk tot opvoeding.
+Daarmee is het boek eerder een houdingsleer dan een leermethode.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Procesgerichtheid | De aandacht richten op de handeling van dit moment in plaats van op het resultaat dat er ooit uit moet komen. |
+| Productgerichtheid | De aandacht richten op het eindresultaat, waardoor het heden voortdurend als onvoltooid wordt ervaren. |
+| Doel als richtingaanwijzer | Het doel gebruiken om te bepalen welke kant het op moet, zonder er zich op elk moment aan af te meten. |
+| De vier S-woorden | Simplify, small, short en slow: vereenvoudig, houd het stuk klein, werk kort achtereen en werk langzaam genoeg om te merken wat er gebeurt. |
+| DOC | Do, observe, correct: doen, waarnemen wat het opleverde, bijstellen en opnieuw doen, zonder oordeel over de eigen persoon. |
+| Gelijkmoedigheid | De houding waarin iemand waarneemt wat er gebeurt zonder het meteen als goed of slecht te bestempelen. |
+| Beginnersgeest | Een aan het zen ontleende houding waarin iemand een bezigheid benadert zonder de aannames die ervaring meebrengt. |
+| Oefenen tegenover leren | Bij Sterner is oefenen de bewuste, aanwezige herhaling van een handeling, terwijl leren het gevolg daarvan is. |
+| Het oordeel | De gewoonte om eigen werk voortdurend te beoordelen, die volgens Sterner aandacht wegneemt van de handeling zelf. |
+
+#### Waar het argument op rust
+
+Het boek bevat geen verwijzingen naar onderzoek en geen notenapparaat. Wat
+Sterner aanvoert is van drie soorten: zijn eigen ervaring als pianotechnicus,
+jazzpianist en golfer; observaties van kinderen en van musici met wie hij
+werkte; en ideeën uit oosterse tradities, met name het zenboeddhisme, waar het
+onderscheid tussen handeling en resultaat en het begrip gelijkmoedigheid
+vandaan komen. Hij noemt daarnaast sportpsychologie als bron van inspiratie,
+maar zonder studies of namen te noemen die na te lopen zijn.
+
+Dat maakt het boek niet leeg, want een deel van wat hij beschrijft komt
+overeen met wat elders wel is onderzocht. Dat in kleine stukken en met
+begrensde sessies oefenen beter werkt dan lang achtereen doorgaan, dat het
+opdelen van een taak de last op het geheugen verlaagt, en dat zelfkritiek
+tijdens een handeling de uitvoering verstoort, zijn bevindingen die in de
+leer- en prestatiepsychologie herhaaldelijk zijn opgetekend. Sterner leidt ze
+alleen niet daaruit af; hij komt er langs eigen weg op uit en presenteert ze
+zonder onderbouwing. Wie wil weten hoe stevig een claim staat, moet daarvoor
+bij andere boeken zijn.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat de kernstelling niet te weerleggen valt zoals zij
+geformuleerd is. Wie procesgericht oefent is volgens Sterner op elk moment
+geslaagd, ongeacht wat het oplevert. Daarmee is er geen maatstaf meer waaraan
+vooruitgang af te lezen valt, en kan de methode ook niet falen: blijft het
+resultaat uit, dan was de houding blijkbaar nog niet procesgericht genoeg. Een
+leerleer zonder criterium voor vooruitgang is een levenshouding, en het boek
+presenteert zich toch als iets waarmee vaardigheden sneller groeien.
+
+Daarnaast staat het boek op gespannen voet met de onderzoekstraditie rond
+doelgericht oefenen, waarin juist de vergelijking met een standaard en de
+terugkoppeling op het verschil het leren aandrijven. In die traditie is
+oefening van het soort dat werkt vaak niet aangenaam en per definitie gericht
+op wat nog niet lukt. Sterner gaat op die tegenstelling niet in, en wie beide
+kanten wil wegen krijgt daar geen hulp bij.
+
+Ten slotte is het boek dun in de letterlijke en in de andere zin. In
+honderdzestig pagina's staan enkele ideeën die in wisselende bewoordingen
+terugkeren, met weinig uitgewerkte voorbeelden en vrijwel geen
+tegenvoorbeelden. Het karakter is dat van een korte houdingsleer met een paar
+praktische regels, geschreven in de zelfhulptoon van een auteur die zijn eigen
+ontdekking beschrijft. Wie een leerboek over vaardigheidsontwikkeling zoekt,
+vindt hier vooral een herformulering van aandacht die uit de
+meditatieliteratuur bekend is.
+
+#### Wat er concreet mee te doen is
+
+- Splits een taak op in stukken die in één zitting met gewone aandacht af te
+maken zijn, en begrens die zitting vooraf in tijd.
+- Kies een tempo waarbij nog te merken valt wat er gebeurt, ook als dat
+langzamer aanvoelt dan nodig.
+- Gebruik bij een fout de volgorde doen, waarnemen, bijstellen, en sla het
+oordeel over de fout over.
+- Formuleer het doel één keer, schrijf het op, en meet je er tijdens het werk
+niet meer aan af.
+- Merk op wanneer de aandacht naar het eindresultaat schuift; dat moment is
+het teken om terug te keren naar de handeling.
+
+#### Wat je hierna leest
+
+- 320. Mastery. Greene beschrijft dezelfde leertijd van jaren, maar dan als
+loopbaanmodel met mentors en fasen in plaats van als houding.
+- 376. Talent Is Overrated. Colvin geeft de onderzoekskant die bij Sterner
+ontbreekt: doelgericht oefenen met terugkoppeling tegen een standaard.
+- 296. Get Better at Anything. Young combineert zien, doen en terugkoppeling
+tot een raamwerk dat wel op onderzoek steunt en waarin Sterners aandachtspunt
+één van de factoren is.
+
+## 801. Why We Remember
+
+Charan Ranganath, 2024. Ondertitel *Unlocking Memory's Power to Hold on to
+What Matters*, bij Doubleday (20 februari 2024, 304 blz., ISBN 9780385548632);
+in het Verenigd Koninkrijk bij Faber & Faber, in pocket bij Vintage (2025,
+ISBN 9780593467831). Ranganath is hoogleraar psychologie en neurowetenschap
+aan de University of California, Davis, en leidt daar het Dynamic Memory Lab.
+Een Nederlandse vertaling is niet gevonden: het boek wordt in Nederland en
+België in de Engelse editie verkocht en de Nederlandse boekhandels voeren geen
+vertaalde uitgave. Deze samenvatting is op de Engelse editie gebaseerd.
+Rubriek: brein en lichaam.
+Tags: `geheugen`, `neurowetenschap`, `hersenen`, `leren`, `psychologie`
+
+Ranganath onderzoekt al ruim vijfentwintig jaar hoe het geheugen werkt, met
+hersenscans, computermodellen en patiënten met geheugenstoornissen. Zijn
+stelling in dit boek is dat het geheugen niet is gebouwd om het verleden vast
+te leggen, maar om er informatie uit te halen die bruikbaar is voor wat komt.
+Vergeten is in die opvatting geen storing maar het gevolg van een selectie die
+het brein voortdurend maakt.
+
+Het boek behandelt onder meer het verschil tussen herinneringen aan
+gebeurtenissen en algemene kennis, de rol van de hippocampus en de prefrontale
+cortex, de manier waarop herinneren en verbeelden op dezelfde machinerie
+draaien, en wat er misgaat bij valse bekentenissen en getuigenverklaringen.
+Praktische adviezen staan erin, maar ze vormen een klein deel; de nadruk ligt
+op hoe het geheugen in elkaar zit.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Ranganath keert de gangbare vraag om. Mensen vragen zich af
+waarom zij zo veel vergeten, alsof het geheugen een opnameapparaat is dat
+hapert. Zijn antwoord is dat het geheugen nooit bedoeld was om een volledig
+verslag bij te houden. Het is ontstaan om uit ervaringen te halen wat helpt
+bij wat nog komen moet, en om die informatie op het juiste moment weer
+beschikbaar te maken. Vergeten hoort daarbij: een brein dat alles vasthield
+zou geen enkele ervaring van een andere kunnen onderscheiden en zou uit de
+opgeslagen massa niets bruikbaars kunnen halen. Herinneringen zijn bovendien
+geen bewaarde kopieën maar reconstructies die bij elke oproep opnieuw worden
+samengesteld en daarbij veranderen. Dat maakt het geheugen bruikbaar en
+tegelijk onbetrouwbaar, en volgens Ranganath is dat één en hetzelfde ontwerp
+en geen ongelukkige bijkomstigheid.
+
+#### De gang van het boek
+
+**Wat blijft hangen en wat niet**
+
+Het openingshoofdstuk, *Where Is My Mind?*, gaat over de vraag waarom sommige
+dingen blijven en andere verdwijnen. Ranganath zet de klassieke geschiedenis
+kort neer: Hermann Ebbinghaus, die in de negentiende eeuw zichzelf
+betekenisloze lettergrepen liet leren en de vergeetcurve in kaart bracht, en
+de patiënt die in de literatuur bekendstaat als H.M., bij wie na een
+hersenoperatie het vormen van nieuwe herinneringen aan gebeurtenissen wegviel
+terwijl hij nog wel vaardigheden kon aanleren.
+
+Zijn eigen antwoord draait om aandacht en betekenis. Wat opvalt, wat afwijkt
+van de verwachting en wat aansluit bij iets dat al bekend is, wordt
+vastgelegd; de rest niet. Dat verklaart waarom mensen de derde dag van een
+reis in een vreemde stad beter onthouden dan de vijfhonderdste rit naar hun
+werk.
+
+**Terug naar plaats en tijd**
+
+Het tweede hoofdstuk, *Travelers of Time and Space*, behandelt het onderscheid
+dat Endel Tulving in 1972 invoerde tussen episodisch en semantisch geheugen.
+Episodische herinneringen brengen iemand terug naar een bepaald moment op een
+bepaalde plaats; semantische kennis is losgemaakt van de gelegenheid waarbij
+zij werd opgedaan. De hippocampus bindt de losse onderdelen van een ervaring
+aan de context waarin die plaatsvond, en gebruikt die context later als
+sleutel om alles weer bij elkaar te halen.
+
+Daaruit volgt waarom herinneringen contextafhankelijk zijn. Terugkeren naar de
+plek, de stemming of de muziek van toen maakt oproepen makkelijker. Het
+verklaart ook alledaagse haperingen, zoals het vergeten waarvoor iemand een
+kamer binnenliep: het wisselen van omgeving verandert de context waarop het
+geheugen was aangesloten.
+
+**Meer onthouden door minder uit het hoofd te leren**
+
+Het derde hoofdstuk, *Reduce, Reuse, Recycle*, gaat over schema's en over het
+samenvoegen van losse elementen tot grotere eenheden. Iemand die al veel van
+een onderwerp weet, hoeft nieuwe informatie niet los op te slaan maar kan haar
+aan bestaande kennis hangen. Daarom onthoudt een geoefend schaker een zinnige
+bordopstelling in één oogopslag, terwijl hij een willekeurige opstelling niet
+beter onthoudt dan een beginner.
+
+Hier staat ook Ranganaths praktische advies over leren. Foutgestuurd leren,
+dus zichzelf overhoren en de misslagen corrigeren, werkt beter dan herlezen,
+omdat het oproepen van een herinnering die herinnering zelf versterkt. Slaap,
+spreiding in de tijd en het opzoeken van nieuwsgierigheid dragen daaraan bij.
+Nieuwsgierigheid werkt volgens hem via hetzelfde dopaminesysteem dat op
+onverwachte gebeurtenissen reageert.
+
+**Herinneren, verbeelden en voelen**
+
+In *Just My Imagination* betoogt Ranganath dat herinneren en zich iets
+voorstellen op dezelfde hersenmachinerie draaien. Wie zich een toekomstige
+situatie voorstelt, zet daarvoor stukken van eerdere ervaringen in elkaar. Dat
+verklaart waarom mensen met schade aan de hippocampus niet alleen hun verleden
+kwijt zijn maar zich ook geen toekomst kunnen voorstellen. Hij grijpt hier
+terug op Frederic Bartlett, die al voor de Tweede Wereldoorlog stelde dat
+herinneren een vorm van reconstructie is en geen weergave.
+
+Het hoofdstuk *More Than a Feeling* scheidt de herinnering aan een gebeurtenis
+van het gevoel dat er nu bij hoort. Dat onderscheid gebruikt hij bij trauma:
+bij een posttraumatische stressstoornis is het probleem eerder dat de
+herinnering losgeraakt is van haar context en zich opdringt dan dat er te veel
+of te weinig van bewaard is. Behandeling werkt dan doordat de herinnering
+opnieuw wordt opgeroepen in een omgeving waarin het gevaar er niet is.
+
+**Leren zonder herinneren**
+
+Het hoofdstuk *All Around Me Are Familiar Faces* gaat over wat mensen oppikken
+zonder dat zij zich de gelegenheid herinneren. Ranganath onderscheidt
+vertrouwdheid, het gevoel iets eerder gezien te hebben, van het werkelijk
+terughalen van de gelegenheid, en laat zien dat die twee op verschillende
+hersenprocessen berusten. Dat verschil is een van de onderwerpen waar zijn
+eigen laboratorium onderzoek naar doet.
+
+De gevolgen zijn ongemakkelijk. Herhaalde blootstelling maakt een bewering
+vertrouwd, en vertrouwdheid voelt aan als waarheid, ook als de bron vergeten
+is. Reclame en herhaalde onwaarheden werken langs die weg.
+
+**Herinneringen die veranderen**
+
+Het slotdeel behandelt het bijstellen van herinneringen. Elke keer dat een
+herinnering wordt opgeroepen komt zij in een toestand waarin zij te veranderen
+is, en wat er op dat moment aan informatie bijkomt kan er onderdeel van
+worden. Daar zit het nut in: zo blijft het geheugen bij de tijd. Daar zit ook
+de schade: op die manier ontstaan valse herinneringen, misleide getuigen en
+bekentenissen van mensen die de daad niet hebben gepleegd.
+
+In de coda stelt Ranganath vast dat na dertig jaar onderzoek veel vragen over
+het geheugen open blijven staan. Hij noemt daarbij ook wat mensen zelf kunnen
+doen, zoals slaap, beweging, aandacht en het ordenen van ervaringen in een
+verhaal, maar hij houdt het bescheiden: de winst zit vooral in beter kiezen
+waar de aandacht heen gaat.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Episodisch geheugen | Het geheugen voor gebeurtenissen, dat iemand terugbrengt naar een bepaald moment op een bepaalde plaats. |
+| Semantisch geheugen | Feitenkennis die losgemaakt is van de gelegenheid waarbij zij werd opgedaan en overal toepasbaar is. |
+| Hippocampus | Het hersengebied dat de losse onderdelen van een ervaring aan hun context bindt en die context later als sleutel gebruikt om ze terug te halen. |
+| Prefrontale cortex | Het voorste deel van de hersenschors dat bepaalt waar de aandacht heen gaat en welke herinnering op welk moment van pas komt. |
+| Schema | Een geordend geheel van eerdere kennis waaraan nieuwe informatie kan worden opgehangen, zodat er minder los onthouden hoeft te worden. |
+| Reconstructie | De opvatting van Frederic Bartlett dat herinneren het opnieuw samenstellen van een gebeurtenis is en geen afspelen van een opname. |
+| Foutgestuurd leren | Leren door zichzelf te overhoren en de misslagen te corrigeren, waarbij het oproepen zelf de herinnering versterkt. |
+| Contextafhankelijkheid | Het verschijnsel dat een herinnering makkelijker terugkomt in de omgeving, stemming of situatie waarin zij is ontstaan. |
+| Vertrouwdheid tegenover terughalen | Het onderscheid tussen het gevoel iets eerder te hebben meegemaakt en het werkelijk terughalen van de gelegenheid zelf. |
+| Geheugenupdating | Het opnieuw vastleggen van een opgeroepen herinnering, waarbij informatie van dit moment er onderdeel van kan worden. |
+
+#### Waar het argument op rust
+
+Het boek steunt op de onderzoeksliteratuur waar Ranganath zelf in werkt, en
+dat is te merken. Klassieke bevindingen komen met naam en jaartal: Ebbinghaus
+met zijn lettergrepen in de negentiende eeuw, Tulving met het onderscheid
+tussen episodisch en semantisch geheugen in 1972, Bartlett met het idee van
+reconstructie, en de patiënt H.M., wiens geval de rol van de mediale
+temporaalkwab vastlegde. Daarnaast bespreekt hij werk uit zijn eigen
+laboratorium en dat van vakgenoten, met een notenapparaat achterin.
+
+Waar het minder stevig wordt is bij de stap van laboratorium naar dagelijks
+leven. Veel van wat hij aanhaalt komt uit hersenscanonderzoek met kleine
+groepen deelnemers en uit taken die weinig lijken op wat mensen buiten het
+laboratorium doen. De psychologie heeft de afgelopen vijftien jaar geleerd dat
+een deel van dat soort bevindingen bij herhaling niet standhoudt. Ranganath is
+voorzichtiger dan veel populair-wetenschappelijke auteurs en zegt in de coda
+uitdrukkelijk dat er veel niet bekend is, maar de lezer krijgt niet per
+bevinding te horen hoe vaak zij herhaald is.
+
+Het overkoepelende idee, dat het geheugen bestaat om de toekomst te dienen, is
+bovendien een verklaringskader en geen toetsbare uitspraak. Het past op
+vrijwel elk verschijnsel dat het boek beschrijft, ook op tegengestelde: dat
+iets blijft hangen bewijst het nut ervan, dat iets vervalt bewijst de
+selectie. Als leidraad om de losse bevindingen te ordenen werkt het, als
+bewering die te weerleggen valt minder.
+
+#### Wat er tegen in te brengen valt
+
+De recensie in Kirkus wijst op wat waarschijnlijk het grootste bezwaar is voor
+de gewone lezer: wie een handleiding voor een beter geheugen verwacht, komt
+bedrogen uit. Het praktische deel is klein en tamelijk voorspelbaar. Slapen,
+bewegen, aandacht geven, spreiden in de tijd, zichzelf overhoren en ervaringen
+in een verhaal ordenen; dat staat in vrijwel elk boek over leren. Het boek is
+een uiteenzetting over hoe het geheugen werkt met adviezen als bijproduct,
+terwijl de ondertitel iets anders belooft.
+
+Ook op stijl valt iets aan te merken. In Undark stelde de recensent vast dat
+het boek af en toe als een studieboek leest, vol namen van onderzoekers en
+details van proefopstellingen, en dat de persoonlijke anekdotes, zoals de
+ontmoeting met zijn latere vrouw en een tochtje op een surfplank dat bij elke
+navertelling anders werd, er soms bijgezet lijken om die stof te verlichten.
+Het schuurt tussen twee registers: voor een vakgenoot staat er te veel uitleg
+in, voor een leek te veel apparatuur.
+
+Inhoudelijk krijgen de omstredenste onderwerpen de minste ruimte. Verdrongen
+herinneringen, de betrouwbaarheid van getuigenverklaringen en valse
+bekentenissen worden aangestipt in het licht van de mechanismen die hij eerder
+heeft uitgelegd, maar het decennialange debat daarover, met de rechterlijke
+gevolgen die het heeft gehad, krijgt weinig plaats. Wie daarin geïnteresseerd
+is, heeft aan dit boek de achtergrond en niet de zaak.
+
+#### Wat er concreet mee te doen is
+
+- Overhoor jezelf over stof die je wilt onthouden in plaats van haar opnieuw
+te lezen, en spreid die overhoringen over meerdere dagen.
+- Zorg dat er iets te verwachten valt voordat je iets leert; een vraag stellen
+voor het lezen maakt het antwoord beter te onthouden.
+- Koppel iets dat je makkelijk kwijtraakt aan een vaste plek of aan een beeld
+dat met de situatie te maken heeft.
+- Maak van een ervaring die je wilt bewaren een verhaal met plaats, volgorde
+en betekenis.
+- Wees terughoudend met de zekerheid waarmee je een oude herinnering aanhaalt;
+hoe vaker zij is opgehaald, hoe meer zij door latere informatie is bijgesteld.
+
+#### Wat je hierna leest
+
+- 414. Life Lessons from a Brain Surgeon. Jandial schrijft over hetzelfde
+brein vanuit de operatiekamer, met meer nadruk op wat er bij schade zichtbaar
+wordt.
+- 85. Singing in the brain. Scherder behandelt het geheugen bij dementie en de
+plaats van muziek daarin, waar Ranganath vooral het gezonde geheugen
+beschrijft.
+- 296. Get Better at Anything. Young vertaalt hetzelfde geheugenonderzoek naar
+een leermethode, met meer aandacht voor oefening en terugkoppeling.
+
+## 802. Brain Hacks
+
+Lara Honos-Webb, 2018. Ondertitel *Life-Changing Strategies to Improve
+Executive Functioning*, bij Althea Press, een imprint van Callisto Media in
+Emeryville (2018, 152 blz., ISBN 9781641521604). Er bestaan meerdere boeken
+met de titel *Brain Hacks*. Het bekendste andere is *Brain Hacks: 200+ Ways to
+Boost Your Brain Power* uit de Life Hacks-reeks van uitgeverij Adams Media
+(2018), een verzameling losse tips zonder genoemde auteur, met veel aandacht
+voor voeding en supplementen. Hier is voor het boek van Honos-Webb gekozen:
+het heeft een genoemde auteur met een vakachtergrond, het bouwt een
+samenhangend model op in plaats van tips te stapelen, en het gaat over
+aandacht, planning en zelfsturing, wat aansluit bij de andere titels in deze
+reeks over leren en geheugen. Geen Nederlandse vertaling gevonden; deze
+samenvatting is op de Engelse editie gebaseerd. Rubriek: brein en lichaam.
+Tags: `aandacht`, `concentratie`, `zelfhulp`, `psychologie`, `productiviteit`,
+`gedrag`
+
+Honos-Webb is klinisch psycholoog in Californië en schreef eerder de reeks
+*The Gift of ADHD*. In dit dunne werkboek brengt zij de verzamelnaam
+executieve functies terug tot vijf gebieden: aandacht en concentratie, plannen
+en ordenen, mentale wendbaarheid, omgaan met emoties, en het beheersen van
+impulsen. Elk gebied krijgt een eigen hoofdstuk met uitleg, een zelftest en
+een reeks oefeningen.
+
+De opzet is die van een praktisch handboek: de lezer bepaalt met de zelftesten
+waar zijn zwakste gebied ligt en werkt daar gericht aan. Verwijzingen naar
+onderzoek staan er nauwelijks in en de zelftesten zijn geen getoetste
+vragenlijsten. Het boek biedt een ordening en een set aanwijzingen, geen
+wetenschappelijke verantwoording.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Honos-Webb stelt dat de meeste klachten over uitstelgedrag,
+chaos en een kort lontje geen losstaande gebreken zijn maar terug te voeren
+zijn op een beperkt aantal stuurfuncties van het brein. Zij onderscheidt er
+vijf: aandacht richten en vasthouden, plannen en ordenen, van aanpak kunnen
+wisselen, emoties reguleren, en impulsen beheersen. Wie weet welk van die vijf
+bij hem het zwakst is, kan daar gericht aan werken in plaats van in het
+algemeen te proberen meer discipline op te brengen. Haar tweede stelling, die
+uit haar eerdere werk over aandachtstekortstoornis komt, is dat een zwakke
+stuurfunctie vaak samengaat met een sterke andere eigenschap, en dat het
+aanpassen van de omgeving meestal meer oplevert dan het aanpassen van het
+karakter.
+
+#### De gang van het boek
+
+**Wat executieve functies zijn**
+
+Het boek opent met een uitleg van de term. Executieve functies zijn de
+regelfuncties waarmee iemand zijn eigen gedrag stuurt: bepalen waar de
+aandacht heen gaat, een volgorde bedenken, van koers veranderen als het niet
+werkt, een reactie inhouden en een gevoel niet meteen laten uitmonden in
+gedrag. Honos-Webb legt uit dat die functies vooral in de voorste delen van de
+hersenschors zetelen en dat zij bij iedereen verschillen in sterkte.
+
+Ze koppelt daaraan een uitgangspunt dat het hele boek draagt: een lage score
+op een van deze gebieden is een profiel en geen diagnose. Het boek richt zich
+uitdrukkelijk op iedereen, niet alleen op mensen met een
+aandachtstekortstoornis, al komt de manier van kijken uit dat vakgebied.
+
+**Zelftesten en een profiel**
+
+Voor de vijf gebieden krijgt de lezer korte zelftesten. Wie ze invult houdt
+een profiel over waarin te zien is welke functies goed werken en welke
+achterblijven. Dat profiel bepaalt in welke volgorde de rest van het boek
+nuttig is: de lezer wordt geacht bij het zwakste gebied te beginnen in plaats
+van alle hoofdstukken achter elkaar door te werken.
+
+De zelftesten bestaan uit uitspraken waarop de lezer aangeeft in hoeverre die
+op hem slaan. Er zit geen normering bij en er wordt niet verwezen naar
+bestaande, getoetste vragenlijsten. Ze zijn bedoeld als hulpmiddel om te
+kiezen waar te beginnen.
+
+**De vijf gebieden**
+
+Aandacht en concentratie is het eerste gebied. Hier gaat het over het wegnemen
+van prikkels, het werken in blokken, en het herkennen van het moment waarop de
+aandacht wegzakt. Plannen en ordenen is het tweede: het opdelen van een taak,
+en het naar buiten brengen van planning in lijsten, agenda's en vaste
+plaatsen, zodat er minder in het hoofd bewaard hoeft te worden.
+
+Mentale wendbaarheid is het derde gebied: het loskomen van een aanpak die niet
+werkt, en het verdragen van verandering. Het vierde gebied is het omgaan met
+emoties, waar zij aandacht besteedt aan het benoemen van een gevoel voordat
+erop gehandeld wordt. Het vijfde is impulsbeheersing: de tijd tussen prikkel
+en reactie oprekken met eenvoudige middelen, zoals wachten, ademen of de
+situatie verlaten.
+
+**Het soort oefening dat zij voorstelt**
+
+De oefeningen zijn kort en concreet en volgen een vast patroon: een uitleg van
+wat er misgaat, een handeling om dat te ondervangen, en een aanwijzing wanneer
+die toe te passen. Veel ervan komen neer op het veranderen van de omgeving in
+plaats van het opdrijven van wilskracht: dingen op vaste plaatsen leggen,
+taken opdelen, tijd afbakenen, een reactie uitstellen.
+
+Daarnaast staan er middelen in uit de bredere gezondheidshoek: beweging,
+slaap, ademhaling en aandachtsoefeningen. Die gelden als ondersteuning van de
+stuurfuncties, zonder dat het boek uiteenzet hoe sterk die verbanden zijn.
+
+**De houding achter het boek**
+
+In haar eerdere boeken over aandachtstekortstoornis betoogt Honos-Webb dat de
+eigenschappen die in een schoolbank of kantoortuin last geven, elders voordeel
+opleveren: snel schakelen, veel opmerken, sterk reageren op wat nieuw is. Die
+opvatting loopt hier door. Zij behandelt een zwak gebied als iets waar omheen
+te bouwen valt en niet als een gebrek dat weggewerkt moet worden.
+
+Dat maakt de toon mild en de adviezen bescheiden van omvang. Het gaat om
+kleine ingrepen die meteen toe te passen zijn, uitdrukkelijk zonder dat de
+lezer zijn leven hoeft om te gooien.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Executieve functies | De regelfuncties waarmee iemand zijn eigen gedrag stuurt: aandacht richten, plannen, wisselen van aanpak, emoties reguleren en impulsen beheersen. |
+| Aandacht en concentratie | Het vermogen de aandacht op één zaak te richten en die vast te houden terwijl er andere prikkels zijn. |
+| Plannen en ordenen | Het vermogen een taak in stappen te verdelen, er een volgorde in aan te brengen en het overzicht te bewaren. |
+| Mentale wendbaarheid | Het vermogen los te komen van een aanpak of gedachte die niet werkt en over te stappen op een andere. |
+| Emotieregulatie | Het vermogen een gevoel op te merken en te benoemen zonder er meteen naar te handelen. |
+| Impulsbeheersing | Het vermogen de tijd tussen prikkel en reactie te vergroten, zodat er iets te kiezen valt. |
+| Profiel | Het beeld dat uit de zelftesten volgt en dat aangeeft welke van de vijf gebieden aandacht behoeven. |
+| Externaliseren | Het buiten het hoofd brengen van planning en herinneringen, in lijsten, plekken en tijdsafspraken, zodat er minder onthouden hoeft te worden. |
+
+#### Waar het argument op rust
+
+Het boek voert geen onderzoek aan. Er staat geen notenapparaat in en er worden
+vrijwel geen studies of onderzoekers genoemd. Wat er staat komt uit de
+klinische praktijk van de auteur, die klinisch psycholoog is in Californië,
+twee jaar een onderzoeksaanstelling had aan de University of California in San
+Francisco en meer dan vijfentwintig vakartikelen publiceerde. Die achtergrond
+geeft haar gezag over het onderwerp, maar zij gebruikt hem in dit boek niet om
+beweringen te onderbouwen.
+
+De indeling in vijf gebieden is een vereenvoudiging van een onderwerp waarover
+in de vakliteratuur geen overeenstemming bestaat. De meest aangehaalde
+modellen onderscheiden drie basisfuncties, werkgeheugen, remming en wisselen,
+waaruit samengestelde vaardigheden zoals plannen worden opgebouwd.
+Werkgeheugen komt bij Honos-Webb niet als eigen gebied voor, terwijl het in de
+meeste modellen het hart van de zaak is. Haar vijfdeling is bruikbaar als
+ordening voor de lezer, maar zij komt niet uit de literatuur en pretendeert
+dat ook niet.
+
+De zwakste schakel is de aanname dat oefening op deze gebieden overslaat naar
+het dagelijks leven. Onderzoek naar het trainen van executieve functies, onder
+meer met computerprogramma's voor het werkgeheugen, laat herhaaldelijk zien
+dat mensen beter worden in de geoefende taak en dat die winst zelden
+overspringt naar ander gedrag. Wat wel standhoudt is precies wat het boek ook
+aanraadt en wat het minst spectaculair is: de omgeving zo inrichten dat er
+minder van de stuurfuncties gevraagd wordt.
+
+#### Wat er tegen in te brengen valt
+
+Dit is een handboek en geen betoog: honderdvijftig pagina's met uitleg,
+zelftesten en oefeningen, gemaakt om doorgebladerd en gebruikt te worden. Er
+wordt geen stelling verdedigd, er wordt geen tegenspraak behandeld, en er is
+geen ruimte besteed aan de vraag wanneer de aanpak niet werkt. Recensenten die
+het boek negatief beoordeelden noemden dan ook vooral het gebrek aan diepgang
+en het voor de hand liggende karakter van veel adviezen.
+
+Een tweede bezwaar is de plaats van de diagnose. De aanpak komt uit de zorg
+voor mensen met een aandachtstekortstoornis, maar het boek richt zich op
+iedereen en spreekt over profielen in plaats van over stoornissen. Dat is
+prettig ruimhartig en tegelijk riskant: iemand met een werkelijke stoornis kan
+met een handvol zelftesten en oefeningen wegblijven bij hulp die wel getoetst
+is, terwijl iemand zonder problemen zichzelf een tekort aanpraat dat die
+zelftesten niet kunnen vaststellen.
+
+Ten derde belooft de titel iets anders dan de inhoud. De term brain hack
+suggereert een ingreep die het brein omzeilt, terwijl vrijwel alles wat erin
+staat gewone gedragsverandering is: opdelen, opschrijven, uitstellen, bewegen,
+slapen. De verpakking belooft meer dan de inhoud, en de inhoud is redelijker
+dan de verpakking.
+
+#### Wat er concreet mee te doen is
+
+- Vul de vijf zelftesten in en werk alleen aan het gebied met de laagste
+uitkomst, in plaats van aan alles tegelijk.
+- Breng planning naar buiten: leg vaste dingen op vaste plaatsen en zet
+stappen op papier in plaats van ze te onthouden.
+- Werk in afgebakende blokken met een vooraf bepaald einde, ook als de taak
+dan nog niet af is.
+- Benoem bij oplopende irritatie eerst het gevoel voordat je reageert; dat
+rekt de tijd tussen prikkel en handeling op.
+- Ga bij een aanpak die twee keer niet werkte over op een andere in plaats van
+harder hetzelfde te proberen.
+
+#### Wat je hierna leest
+
+- 314. Dopamine Nation. Lembke behandelt dezelfde impulsbeheersing vanuit de
+verslavingszorg, met het dopaminesysteem als verklaring.
+- 84. Laat je hersenen niet zitten. Scherder onderbouwt het advies over
+beweging dat hier zonder verwijzingen blijft staan.
+- 296. Get Better at Anything. Young geeft het onderzoekskader over leren en
+oefenen dat in dit handboek ontbreekt.
+
+## 803. The Polymath
+
+Waqas Ahmed, 2018. Ondertitel *Unlocking the Power of Human Versatility*, bij
+Wiley (2018, ISBN 9781119508489). Ahmed studeerde economie aan SOAS en
+internationale betrekkingen aan de London School of Economics en werkte vijf
+jaar aan dit boek. Er bestaat een gelijknamig boek van de historicus Peter
+Burke, *The Polymath: A Cultural History from Leonardo da Vinci to Susan
+Sontag* (Yale University Press, 2020), dat hetzelfde onderwerp behandelt als
+geschiedschrijving over vijfhonderd levens uit vijf eeuwen. Hier gaat het om
+het boek van Ahmed, dat een pleidooi is voor de eigen ontwikkeling van de
+lezer en daarmee dichter staat bij de andere titels in deze lijst, zoals
+*Range* van David Epstein. Geen Nederlandse vertaling gevonden; deze
+samenvatting is op de Engelse editie gebaseerd. Rubriek: gewoontes en denken.
+Tags: `specialisatie`, `creativiteit`, `leren`, `nieuwsgierigheid`,
+`onderwijs`, `loopbaan`
+
+Ahmed betoogt dat de mens van nature veelzijdig is en dat de moderne
+inrichting van onderwijs en werk die veelzijdigheid afknijpt. Hij noemt dat de
+cultus van specialisatie: een erfenis van de arbeidsdeling uit de industriële
+revolutie, die zich heeft vastgezet in scholen, universiteiten en
+beroepsstructuren en die mensen dwingt zich tot één vak te beperken.
+
+Hij noemt iemand een veelweter wanneer die van betekenis is geweest op ten
+minste drie gebieden, en behandelt zulke figuren uit uiteenlopende culturen:
+Aristoteles, Leonardo da Vinci, Ban Zhao, Nasir al-Din al-Tusi, Suleiman de
+Grote, Florence Nightingale, Alexander von Humboldt en Muhammad Iqbal.
+Daarnaast sprak hij mensen die vandaag op meerdere gebieden werken. Het slot
+van het boek is een programma: hoe onderwijs en werk eruit zouden zien als
+veelzijdigheid het uitgangspunt was.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Ahmed stelt dat specialisatie geen natuurlijke ordening is
+maar een historisch product, ontstaan uit de arbeidsdeling van de industriële
+productie en sindsdien opgelegd door onderwijs en beroepsstructuren. Volgens
+hem is de mens van nature veelzijdig en is de beperking tot één vak een
+aangeleerde vernauwing die zowel het individu als de samenleving schaadt. Het
+individu verliest er nieuwsgierigheid, zelfstandigheid en voldoening door; de
+samenleving raakt er problemen mee kwijt die alleen over vakgrenzen heen zijn
+op te lossen, omdat niemand ze in hun geheel kan overzien. Zijn conclusie is
+dat veelzijdigheid geen zeldzame gave van genieën is maar een aanleg die
+vrijwel iedereen bezit en die door het huidige stelsel wordt afgeleerd, en dat
+er een andere inrichting van onderwijs en werk nodig is om haar terug te
+krijgen.
+
+#### De gang van het boek
+
+**Een oud verschijnsel**
+
+Het eerste deel, *A Timeless People*, laat zien dat de veelweter van alle
+tijden en werelddelen is. Ahmed haalt Aristoteles aan, Leonardo da Vinci, de
+Chinese geleerde Ban Zhao, de Perzische wetenschapper Nasir al-Din al-Tusi, de
+Ottomaanse heerser Suleiman, Florence Nightingale, Alexander von Humboldt en
+de Zuid-Aziatische dichter en filosoof Muhammad Iqbal. Hij doet dat
+uitdrukkelijk over culturen heen, omdat de bestaande literatuur over
+veelzijdigheid volgens hem te veel op de Europese renaissance leunt.
+
+De maat die hij daarbij hanteert is dat een veelweter iemand is die op ten
+minste drie verschillende gebieden werk van betekenis heeft geleverd. In
+*Shapers of Our World* voert hij aan dat mensen met dat profiel onevenredig
+vaak aan de basis van grote verschuivingen stonden, omdat zij verbanden zagen
+die binnen één vak onzichtbaar blijven.
+
+**De cultus van specialisatie**
+
+Het scharnier van het boek is *The Cult of Specialisation*. Ahmed voert de
+huidige inrichting terug op de arbeidsdeling in de fabriek, waarbij het
+opdelen van werk in kleine, herhaalbare handelingen de productie opdreef. Die
+logica breidde zich volgens hem uit naar het onderwijs, dat mensen vroeg
+klaarstoomt voor één beroep, en naar de wetenschap, die zich in steeds
+smallere vakgebieden opdeelde.
+
+Hij noemt drie gevolgen. Onwetendheid, omdat iemand buiten zijn vak niets meer
+kan beoordelen. Uitbuiting, omdat een werknemer die alleen één ding kan
+afhankelijk is van wie hem daarvoor inhuurt. En ontevredenheid, omdat de
+meeste mensen meer aankunnen en meer willen dan hun functie toelaat. Daar zit
+de scherpte van het boek: specialisatie is bij hem niet alleen ondoelmatig
+maar ook een machtsverhouding.
+
+**Het hoofd opnieuw inrichten**
+
+*Reconditioning the Mind* is het hoofdstuk dat de lezer aanspreekt. Ahmed
+beschrijft wat er volgens hem nodig is om de aangeleerde vernauwing ongedaan
+te maken: zelfkennis over waar de eigen belangstelling werkelijk ligt, het
+toelaten van nieuwsgierigheid buiten het eigen vak, het durven beginnen als
+beginner op een leeftijd waarop dat gezichtsverlies lijkt, en het zoeken naar
+verbanden tussen gebieden die los van elkaar geleerd zijn.
+
+Hij zet dat neer als een geestelijke ontwikkeling die jaren kost en niet met
+een cursus is af te doen. De grootste hindernis is volgens hem niet gebrek aan
+tijd maar de aangeleerde overtuiging dat afdwalen buiten het eigen vak
+onserieus is. Wie zichzelf toestaat een amateur te zijn, wint volgens Ahmed op
+termijn ook binnen het eigen vak, omdat hij vragen meebrengt die vakgenoten
+niet stellen.
+
+**Een ander stelsel**
+
+In *An Alternative System* gaat het over de inrichting van scholen,
+universiteiten en organisaties. Hij pleit voor onderwijs dat vakken verbindt
+in plaats van scheidt, voor loopbanen die wisseling toestaan zonder dat dat
+als gebrek aan toewijding geldt, en voor het waarderen van mensen op de
+breedte van wat zij kunnen in plaats van op één diploma.
+
+Het hoofdstuk blijft op het niveau van richtingen. Uitgewerkte voorstellen met
+kosten, overgangstermijnen en gevolgen voor beroepen waar diepe kennis
+wettelijk vereist is, staan er niet in. Ahmed beschrijft wat er zou moeten
+veranderen en laat aan anderen over hoe.
+
+**Levende voorbeelden en het slot**
+
+*Twenty-First-Century Polymaths* bestaat uit gesprekken met en portretten van
+mensen die vandaag op meerdere gebieden werken. Ahmed reisde daar vijf jaar
+voor. De portretten dienen om te laten zien dat het niet om een historisch
+verschijnsel gaat en dat het ook binnen de huidige inrichting mogelijk is, al
+kost het moeite.
+
+Het slot, *Owners of Our Future*, verbindt het betoog met de arbeidsmarkt.
+Naarmate afgebakende taken door machines worden overgenomen, verliest de
+smalle specialist volgens Ahmed juist zijn beschutting, en wordt het vermogen
+om over gebieden heen te werken de eigenschap die overblijft. Achterin staat
+nog een overzicht van veelweters door de tijd en over de wereld heen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Polymath | Bij Ahmed iemand die op ten minste drie verschillende gebieden werk van betekenis heeft geleverd. |
+| De cultus van specialisatie | De aangeleerde overtuiging dat een mens zich tot één vak hoort te beperken, die Ahmed terugvoert op de industriële arbeidsdeling. |
+| Hyperspecialisatie | Het steeds verder opdelen van vakgebieden, waardoor deskundigen elkaars werk niet meer kunnen beoordelen. |
+| Veelzijdigheid als aanleg | Ahmeds uitgangspunt dat de mens van nature meerdere kanten heeft en dat de beperking tot één daarvan is aangeleerd. |
+| Reconditioning | Het ongedaan maken van de aangeleerde vernauwing, door nieuwsgierigheid toe te laten en verbanden tussen gebieden op te zoeken. |
+| Intellectuele emancipatie | Het idee dat iemand die meerdere gebieden beheerst minder afhankelijk is van anderen om zijn wereld te beoordelen. |
+| Grensoverschrijdende vraagstukken | Problemen zoals klimaat, gezondheid of ongelijkheid die volgens Ahmed niet binnen één vakgebied op te lossen zijn. |
+| Alternatief stelsel | Ahmeds voorstel voor onderwijs en werk waarin vakken verbonden worden en wisseling van gebied als winst geldt. |
+
+#### Waar het argument op rust
+
+Het bewijs bestaat vooral uit levensbeschrijvingen. Ahmed heeft een groot
+aantal veelweters verzameld, historisch en levend, en laat aan de hand daarvan
+zien dat het verschijnsel in alle tijden en culturen voorkomt. Als weerlegging
+van de gedachte dat veelzijdigheid een westerse eigenaardigheid uit de
+renaissance is, werkt dat overtuigend. Het is een verzameling die zorgvuldig
+is aangelegd en die de literatuur op dit punt aanvult.
+
+Voor de sterkere stelling, dat veelzijdigheid tot beter werk leidt, is de
+onderbouwing zwakker. De vaakst aangehaalde bevinding is dat wetenschappers
+die de Nobelprijs wonnen aanzienlijk vaker een kunstzinnige bezigheid hebben
+dan hun vakgenoten; het getal dat rondgaat is dat zij vijfentwintig maal zo
+vaak zingen, dansen of toneelspelen. Dat is een verband en geen oorzaak. Het
+is even goed mogelijk dat aanzien, tijd en geld ruimte scheppen voor
+liefhebberijen als dat liefhebberijen tot aanzien leiden.
+
+Daarnaast selecteert het boek op uitkomst. Wie honderden geslaagde veelweters
+verzamelt, ziet niet de mensen die zich over drie gebieden verspreidden en op
+geen van drie ergens kwamen. Zonder die vergelijkingsgroep valt niet vast te
+stellen of veelzijdigheid loont, of dat er alleen veel wordt geschreven over
+de zeldzame gevallen waarin zij loonde. Ahmed gaat aan dat probleem voorbij.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar betreft de maat die hij aanlegt. Werk van betekenis op
+ten minste drie gebieden is rekbaar: het aantal drie is willekeurig, en wat
+als een apart gebied telt bepaalt hij zelf. Daardoor komen mensen met zeer
+verschillende loopbanen onder één noemer te staan, van een vorst die dichtte
+en wetten schreef tot een hedendaagse ondernemer die daarnaast schildert.
+Wanneer een categorie zo veel verschillende gevallen bevat, valt er weinig
+algemeens meer over te zeggen.
+
+Ten tweede onderschat het boek de reden waarom specialisatie ontstond. In
+vakken waar de bestaande kennis diep is, kost het jaren om aan de rand te
+komen waar nieuw werk begint. Dat is geen ideologie maar een gevolg van
+hoeveel er al bekend is. Peter Burke laat in zijn gelijknamige geschiedenis
+uit 2020 juist zien hoe veelweters het door de eeuwen heen steeds moeilijker
+kregen naarmate de vakgebieden zich verdiepten. Ahmed gaat aan die verklaring
+vrijwel voorbij en behandelt specialisatie hoofdzakelijk als een opgelegd
+stelsel.
+
+Ten derde blijft het voorgestelde alternatief programmatisch. Hij vraagt om
+onderwijs dat vakken verbindt en om loopbanen die wisseling toelaten, maar hoe
+een universiteit die niemand meer diep opleidt nog artsen of ingenieurs
+aflevert, komt niet aan de orde. Lezers en recensenten noemden het boek
+bovendien dicht en herhalend van opbouw; dezelfde stelling keert met nieuwe
+voorbeelden terug zonder dat het betoog vordert. Het is een pleidooi, en het
+leest ook zo.
+
+#### Wat er concreet mee te doen is
+
+- Schrijf op welke onderwerpen buiten het eigen vak je bezighouden en wat je
+ervan afhoudt om er tijd aan te besteden.
+- Zoek een vraag die in twee van je gebieden voorkomt en werk die vanuit beide
+kanten uit.
+- Neem bij een nieuw gebied de beginnersfase voor lief; wie alleen begint aan
+wat hij al kan, blijft binnen één vak.
+- Beoordeel bij het samenstellen van een team niet alleen op vakdiepte maar
+ook op wat iemand daarnaast heeft gedaan.
+
+#### Wat je hierna leest
+
+- 349. Range. Epstein verdedigt dezelfde stelling met onderzoek in plaats van
+met levensbeschrijvingen, en behandelt ook de gevallen waarin vroeg
+specialiseren wel loont.
+- 320. Mastery. Greene beschrijft precies de lange leertijd binnen één vak die
+Ahmed als vernauwing ziet, wat de twee boeken tot elkaars tegenhanger maakt.
+- 397. Learn, Improve, Master. Velasquez gaat over het aanleren van een
+vaardigheid, het niveau waarop Ahmeds pleidooi voor de lezer praktisch moet
+worden.
+
+## 804. Triumph of the Optimists
+
+Elroy Dimson, Paul Marsh en Mike Staunton, 2002. *Triumph of the Optimists:
+101 Years of Global Investment Returns* (Princeton University Press,
+Princeton, 2002, 339 blz., 95 tabellen en 131 gekleurde grafieken, ISBN
+0691091943; digitale uitgave De Gruyter, ISBN 9781400829477). Het boek kwam
+voort uit twee voorstudies die de auteurs voor ABN AMRO schreven, het
+*Millennium Book* (2000) en *Millennium Book II* (2001), en loopt sinds 2000
+jaarlijks door als het *Global Investment Returns Yearbook*: tot en met de
+editie van 2008 bij ABN AMRO, daarna bij het Credit Suisse Research Institute
+en sinds de editie van 2024 bij UBS. Marsh en Staunton zijn verbonden aan de
+London Business School, Dimson aan Cambridge Judge Business School. Van dit
+boek is geen Nederlandse vertaling bekend; de samenvatting is op de Engelse
+editie gebaseerd. Rubriek: geld en ondernemen.
+Tags: `beleggen`, `aandelen`, `statistiek`, `economische geschiedenis`,
+`risico`
+
+Drie hoogleraren bouwden een databestand van aandelen-, obligatie-,
+wisselkoers- en inflatiecijfers voor zestien landen over de volle honderdeneen
+jaar van 1900 tot en met 2000, en zetten daarmee de standaardcijfers over
+beleggingsrendement recht. Eerdere langetermijnreeksen begonnen op gunstig
+gekozen momenten, sloegen oorlogsjaren en gesloten beurzen over, of keken
+alleen naar de Verenigde Staten. Dimson, Marsh en Staunton vulden die gaten en
+kwamen daardoor op lagere uitkomsten dan de leerboeken tot dan toe hanteerden.
+
+De titel slaat op de uitkomst van de eeuw: wie in 1900 op aandelen bleef
+vertrouwen kwam er in alle zestien markten beter uit dan wie in
+staatsobligaties of schatkistpapier bleef zitten. Tegelijk waarschuwt het
+slothoofdstuk dat het rendement van de twintigste eeuw geen belofte voor de
+eenentwintigste is, omdat een deel ervan bestond uit een eenmalige
+waardestijging die zich niet nog eens laat overdoen. De reeks wordt sinds 2000
+jaarlijks bijgewerkt en telt inmiddels vijfendertig markten.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Het rendement dat beleggers van aandelen verwachten is
+volgens Dimson, Marsh en Staunton stelselmatig te hoog ingeschat, omdat de
+cijfers waarop die verwachting rustte uit te korte reeksen kwamen, uit te
+weinig landen, en uit periodes die toevallig goed afliepen. Wie de volle
+honderdeneen jaar van zestien markten naast elkaar legt, inclusief
+hyperinflaties, oorlogen en jarenlang gesloten beurzen, houdt een
+aandelenrisicopremie over van ruwweg vier tot vijf procent per jaar in plaats
+van de zes tot acht procent die in leerboeken en pensioenberekeningen
+rondging. Aandelen wonnen wel: in alle zestien onderzochte markten versloegen
+zij zowel staatsobligaties als schatkistpapier over de hele eeuw. De marge was
+alleen kleiner dan gedacht, en een deel van de winst kwam uit een
+herwaardering van aandelen die per definitie eenmalig is.
+
+#### De gang van het boek
+
+**Een databestand in plaats van een verhaal**
+
+De eerste drie hoofdstukken leggen uit wat de auteurs hebben gebouwd en
+waarom. Zij verzamelden voor zestien landen doorlopende reeksen van
+aandelenrendement, obligatierendement, rendement op schatkistpapier, inflatie
+en wisselkoersen, van januari 1900 tot en met december 2000. De zestien zijn
+de Verenigde Staten, het Verenigd Koninkrijk, Japan, Frankrijk, Duitsland,
+Canada, Italie, Spanje, Zwitserland, Australie, Nederland, Zweden, Belgie,
+Ierland, Denemarken en Zuid-Afrika, samen goed voor ruim tachtig procent van
+de wereldwijde beurswaarde aan het einde van de periode.
+
+Hoofdstuk drie zet de meetregels neer. Gerekend wordt met totaalrendement, dus
+met herbelegde dividenden en couponrente, met weging naar beurswaarde, en met
+reeksen die de slechte jaren meenemen in plaats van eromheen te lopen. Reele
+rente en reeel rendement, dat wil zeggen het rendement na aftrek van de
+inflatie, staan centraal, omdat nominale cijfers over een eeuw met sterk
+wisselende geldontwaarding weinig zeggen.
+
+**Wat honderdeneen jaar opleverde**
+
+Hoofdstuk vier geeft de uitkomst. Amerikaanse aandelen leverden over de eeuw
+10,1 procent per jaar nominaal op en 6,7 procent reeel; Amerikaanse
+staatsobligaties 4,8 procent nominaal en 1,6 procent reeel; schatkistpapier
+4,1 procent nominaal en 0,9 procent reeel. Over de zestien markten samen liep
+het reele aandelenrendement uiteen van 2,5 procent per jaar in Belgie tot 7,6
+procent in Zweden. In geen enkele markt deden obligaties het over de hele
+periode beter dan aandelen.
+
+Het obligatiehoofdstuk laat zien hoe smal die 1,6 procent reeel is in
+verhouding tot de schommeling eromheen, met een standaardafwijking van
+ongeveer tien procent. Het laat ook zien hoe misleidend een deelperiode kan
+zijn: tussen 1981 en 2000 haalden Amerikaanse staatsobligaties bijna negen
+procent reeel, een resultaat dat op de hele eeuw geprojecteerd elke schatting
+onbruikbaar zou maken.
+
+**Inflatie, valuta en spreiding**
+
+De inflatiehoofdstukken tonen hoe verschillend de landen de eeuw doorkwamen.
+De Amerikaanse inflatie bedroeg gemiddeld 3,2 procent per jaar, het gemiddelde
+over de zestien markten 4,9 procent, met uitschieters van 2,2 tot 9,1 procent.
+Achter die gemiddelden gaan de Duitse hyperinflatie van de vroege jaren
+twintig en de naoorlogse Japanse geldontwaarding schuil, die in de reeksen
+gewoon zijn meegenomen.
+
+Over wisselkoersen komen de auteurs tot een nuchtere conclusie: nominaal
+bewogen valuta enorm, maar reeel, dus gecorrigeerd voor het inflatieverschil
+tussen landen, bleven de verhoudingen over lange periodes redelijk stabiel.
+Voor een belegger met een lange horizon is valutarisico daarom klein in
+verhouding tot het aandelenrisico zelf, terwijl internationale spreiding het
+risico wel meetbaar verlaagt.
+
+**Waar extra rendement vandaan kwam**
+
+Drie hoofdstukken behandelen de bekende patronen binnen aandelenmarkten. Voor
+de Verenigde Staten over 1926 tot 2000 rapporteren de auteurs 10,6 procent
+nominaal voor de grootste fondsen, 11,9 procent voor kleine fondsen en 12,1
+procent voor de allerkleinste. Dat omvangseffect keerde na 1981 in de meeste
+landen om, maar blijft over de volle reeks overeind. Aandelen met een hoog
+dividendrendement deden het met 12,2 procent per jaar beter dan die met een
+laag dividendrendement met 10,4 procent.
+
+Het dividendhoofdstuk bevat de vondst die het beste uitlegt waarom het boek
+pessimistisch eindigt. In de Verenigde Staten en het Verenigd Koninkrijk kwam
+bijna de helft van het totale aandelenrendement uit herbelegde dividenden.
+Tegelijk daalde het Amerikaanse dividendrendement van 7,2 procent in 1950 naar
+1,1 procent in 2000. Die daling is zelf een groot deel van het koersrendement
+van de tweede eeuwhelft geweest, en zij kan niet nog eens gebeuren.
+
+**De risicopremie, gemeten en verwacht**
+
+De aandelenrisicopremie is het extra rendement dat aandelen over lange tijd
+opleveren boven risicoarme staatsleningen, als vergoeding voor het risico dat
+de belegger draagt. Gemeten over de eeuw bedroeg zij in de Verenigde Staten
+5,8 procent boven schatkistpapier en 5,0 procent boven staatsobligaties.
+Wereldwijd komen de auteurs op 4,9 procent boven schatkistpapier en 4,6
+procent boven obligaties, met een spreiding over de landen van 1,8 tot 7,4
+procent.
+
+Voor de toekomst halen zij daar het deel af dat volgens hen eenmalig was: de
+daling van dividendrendementen, het uitblijven van de rampen waar beleggers in
+1900 rekening mee hielden, en de verbetering van de bedrijfswinstgroei. Wat
+overblijft is een verwachte premie van ongeveer 3,0 procent meetkundig voor de
+wereld, 4,1 procent voor de Verenigde Staten en 2,4 procent voor het Verenigd
+Koninkrijk. Dat is aanzienlijk minder dan de historische meting, en dat
+verschil is de scherpste stelling van het boek.
+
+**Gevolgtrekkingen en het landenarchief**
+
+De laatste inhoudelijke hoofdstukken vertalen de bevindingen naar praktijk.
+Voor beleggers: spreid wereldwijd, houd de kosten en belastingen laag, en
+verwacht van een gemengde portefeuille minder dan de recente decennia
+suggereerden. Voor ondernemingen: reken met een reele vermogenskostenvoet van
+ongeveer zes procent meetkundig in plaats van de hogere getallen die uit
+Amerikaanse naoorlogse reeksen rolden. Het slothoofdstuk vat dat samen in de
+aansporing aan beleggers om hun uitbundigheid te temperen.
+
+De tweede helft van het boek, achttien hoofdstukken lang, is een archief. Per
+land staan de bronnen, de indexconstructie, de breuken in de reeks en de
+jaarcijfers. Dat deel maakt het werk controleerbaar en verklaart tegelijk
+waarom het als leesboek zwaar is.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| aandelenrisicopremie | Het extra rendement dat aandelen over lange tijd opleveren boven risicoarme staatsleningen, als vergoeding voor het gedragen risico. |
+| reeel rendement | Rendement na aftrek van de inflatie, dus de werkelijke toename van koopkracht in plaats van het getal op het rekeningafschrift. |
+| overlevingsbias | De vertekening die ontstaat wanneer alleen markten, fondsen of bedrijven worden gemeten die het einde van de meetperiode hebben gehaald. |
+| gemakkelijke-gegevensvertekening | De door de auteurs benoemde neiging van eerdere onderzoekers om reeksen te laten beginnen waar de cijfers voorhanden en gunstig zijn, en lastige jaren weg te laten. |
+| totaalrendement | Koersverandering plus herbelegde dividenden of couponrente, de enige maat die over een eeuw vergelijkbaar blijft. |
+| herwaardering | Een blijvende verandering in wat beleggers voor een euro winst of dividend willen betalen, die het rendement in de meetperiode verhoogt zonder iets over de toekomst te beloven. |
+| omvangseffect | Het over lange reeksen waarneembare hogere rendement van kleinere beursfondsen ten opzichte van de grootste. |
+| meetkundig versus rekenkundig gemiddelde | Het meetkundige gemiddelde geeft de werkelijk behaalde jaarlijkse groei van een belegging, het rekenkundige gemiddelde ligt hoger en past bij het schatten van een verwachting voor een enkel jaar. |
+
+#### Waar het argument op rust
+
+De onderbouwing is het databestand zelf. Voor elk van de zestien landen zijn
+nationale bronnen, oude beursnoteringen en bestaande indices aaneengesmeed tot
+een doorlopende reeks van 1900 tot 2000, met de constructie en de breuken
+beschreven in de landenhoofdstukken. Dat maakt het werk narekenbaar op een
+manier die voor eerdere langetermijnstudies niet gold, en het verklaart waarom
+de reeks sindsdien de referentie is geworden voor pensioenfondsen,
+toezichthouders en leerboeken.
+
+De sterkte zit vooral in wat er niet is weggelaten. De Duitse hyperinflatie,
+de Japanse oorlogsjaren en de perioden waarin beurzen gesloten waren zitten in
+de cijfers. Juist die jaren ontbraken in de reeksen die de auteurs vervingen,
+en juist daar zat de vertekening.
+
+De zwakte zit in het aantal waarnemingen. Honderdeneen jaarrendementen zijn
+statistisch weinig als je het gemiddelde van een reeks met zulke grote
+schommelingen wilt schatten. De onzekerheidsmarge rond een premie van 4,6
+procent is daardoor breed, iets wat de auteurs erkennen maar wat in de latere
+navertelling van hun cijfers vaak wegvalt. De verwachte premie voor de
+toekomst is bovendien geen meting maar een oordeel: zij berust op een
+schatting van welk deel van het verleden eenmalig was, en dat oordeel is
+aanvechtbaar.
+
+#### Wat er tegen in te brengen valt
+
+Het scherpste bezwaar raakt precies het punt waar het boek zelf op hamert. De
+zestien landen zijn gekozen omdat er bruikbare cijfers over de hele eeuw
+voorhanden waren, en dat is een selectie op uitkomst. Rusland na 1917 en China
+na 1949 ontbreken, terwijl aandeelhouders daar hun hele inleg verloren. De
+auteurs verdedigen zich met het argument dat die markten in 1900 een klein
+deel van de wereldkapitalisatie vormden, maar het jaarboek dat uit dit boek
+voortkwam is inmiddels uitgebreid naar vijfendertig markten die ruim
+achtennegentig procent van de beurswaarde in 1900 dekken. Die uitbreiding is
+zelf de erkenning dat zestien te weinig was.
+
+Het boek beschrijft en verklaart nauwelijks. Waarom er uberhaupt een
+aandelenrisicopremie bestaat, en waarom die groter is dan de gemeten risico's
+rechtvaardigen, blijft ook na driehonderd bladzijden een raadsel. Wie een
+theorie zoekt over het gedrag van beleggers of over de prijsvorming van risico
+moet ergens anders zijn.
+
+Praktisch gezien is het werk ingehaald door zijn eigen vervolg. De cijfers
+houden op in 2000, terwijl het jaarboek gratis en jaarlijks verschijnt en
+inmiddels meer landen, meer beleggingscategorieen en meer jaren beslaat. Wat
+het boek behoudt is de uitvoerige verantwoording van de meetmethode, en dat is
+dan ook de reden om het nog ter hand te nemen. De kwaliteit van de reeksen
+verschilt bovendien sterk per land: voor de vroege decennia van de kleinere
+markten staan reconstructies naast harde noteringen, zonder dat het verschil
+in de eindcijfers zichtbaar blijft.
+
+#### Wat er concreet mee te doen is
+
+- Reken met reele cijfers en met totaalrendement; nominale rendementen over
+lange periodes zeggen weinig.
+- Controleer bij elk historisch rendementscijfer welk startjaar is gekozen en
+welke markten ontbreken.
+- Trek van een historische risicopremie het deel af dat uit gedaalde
+dividendrendementen of gestegen waarderingen kwam voordat je hem als
+verwachting gebruikt.
+- Gebruik voor actuele cijfers het jaarlijkse *Global Investment Returns
+Yearbook* en dit boek voor de methodeverantwoording.
+
+#### Wat je hierna leest
+
+- 806. A History of Interest Rates. Homer en Sylla doen voor de rente wat dit
+boek voor het aandelenrendement doet: de lange reeks als bron in plaats van
+als illustratie.
+- 351. The Intelligent Investor. Graham redeneert over dezelfde markten vanuit
+waardering en veiligheidsmarge, zonder de statistische onderbouwing die Dimson
+en zijn medeauteurs leveren.
+- 268. The Black Swan. Taleb waarschuwt precies voor de gevolgtrekking die uit
+honderd waarnemingen wordt getrokken over gebeurtenissen die zelden voorkomen.
+- 809. The Great Crash, 1929. Galbraith beschrijft een van de rampjaren die in
+deze reeksen niet meer worden weggelaten.
+
+## 805. The Taming of Chance
+
+Ian Hacking, 1990. *The Taming of Chance* (Cambridge University Press,
+Cambridge, 1990, xiii + 264 blz., ISBN 0521380146 gebonden en 0521388848
+paperback), deel zeventien in de reeks Ideas in Context onder redactie van
+Quentin Skinner, Lorraine Daston, Wolf Lepenies, Richard Rorty en J.B.
+Schneewind. Het boek is sinds 1990 herhaaldelijk herdrukt en sluit aan op
+Hackings eerdere *The Emergence of Probability* (Cambridge University Press,
+1975). Hacking, die in 2023 overleed, was verbonden aan het Institute for the
+History and Philosophy of Science and Technology van de Universiteit van
+Toronto. Van dit boek is geen Nederlandse vertaling bekend; de samenvatting is
+op de Engelse editie gebaseerd. Rubriek: natuur en wetenschap.
+Tags: `statistiek`, `wetenschapsgeschiedenis`, `wetenschapsfilosofie`, `kans`,
+`sociologie`
+
+Hacking onderzoekt hoe de negentiende eeuw ertoe kwam wetmatigheid te zien in
+wat daarvoor toeval heette. Zijn vertrekpunt is een gebeurtenis die zelden als
+gebeurtenis wordt beschouwd: na Napoleon begonnen Europese staten hun burgers
+op grote schaal te tellen en die tellingen ook te drukken. Zelfmoorden,
+misdrijven, ziekten en armoede werden per jaar en per regio in tabellen gezet,
+en die tabellen bleken van jaar tot jaar opvallend stabiel.
+
+Uit die stabiliteit groeide een nieuw soort wet, die niets zegt over wat een
+persoon doet en alles over wat een bevolking doet. Hacking laat zien hoe dat
+het determinisme uithuilde en tegelijk het begrip menselijke natuur verving
+door het begrip normaal mens, met alles wat daarbuiten valt als afwijking. Het
+boek loopt van de Pruisische statistische bureaus via Quetelet, Poisson,
+Galton en Durkheim naar de Amerikaanse filosoof C.S. Peirce, die als eerste
+een heelal van echt toeval voor mogelijk hield.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Het determinisme is volgens Hacking in de negentiende eeuw
+niet omvergeworpen door de natuurkunde maar door de boekhouding van de staat.
+Toen overheden na de Napoleontische oorlogen hun burgers gingen tellen en de
+uitkomsten publiceerden, ontstond wat hij een lawine van gedrukte cijfers
+noemt, en die cijfers over zelfmoord, misdaad en ziekte bleken van jaar tot
+jaar verbazend stabiel. Daarmee werd een tweede soort wet denkbaar: een wet
+die niet voorschrijft wat een individu doet maar vastlegt wat een bevolking
+doet. Twee dingen gebeurden tegelijk. Er kwam ruimte voor toevalswetten die
+niet langer hoefden te worden herleid tot onderliggende oorzaken, en het
+verlichtingsbegrip menselijke natuur werd verdrongen door het begrip normaal
+mens, met spreiding en afwijking eromheen. De paradox die Hacking benoemt is
+dat meer onbepaaldheid meer beheersing opleverde, niet minder.
+
+#### De gang van het boek
+
+**Het argument**
+
+Het eerste hoofdstuk zet de stelling in twintig bladzijden neer. Gedurende de
+negentiende eeuw werd het mogelijk te denken dat de wereld regelmatig kan zijn
+zonder onderworpen te zijn aan algemene natuurwetten. Weinigen merkten die
+verschuiving op; wat iedereen wel merkte was dat mensen en hun gewoonten
+geteld werden. Hacking stelt dat die twee ontwikkelingen elkaar voedden, en
+dat het meeste ervan zich in het maatschappelijke domein afspeelde en niet in
+de natuurwetenschap.
+
+Hij illustreert de schaal met de Amerikaanse volkstelling. De eerste vroeg
+vier dingen per huishouden; de tiende tienjaarlijkse telling stelde 13.010
+vragen aan mensen, bedrijven, boerderijen, ziekenhuizen en kerken. Die
+vermenigvuldiging met drieduizend onderschat volgens hem nog de groei van het
+aantal gedrukte cijfers, waarvoor driehonderdduizend een betere schatting zou
+zijn. Achter dat drukwerk zaten nieuwe indelingstechnieken: categorieen
+moesten worden bedacht waarin mensen konden vallen om geteld te kunnen worden,
+en veel van wat de bureaus als feit presenteerden bestond voor die indeling
+nog niet.
+
+**Van geheime bureaus naar gedrukte tabellen**
+
+Rond 1800 gold toeval als een woord zonder inhoud, of als een begrip van het
+gewone volk dat verlichte lieden buiten hun denken hielden. Elke gebeurtenis
+volgde noodzakelijk uit een voorafgaande toestand, en zelfs artsen die
+algemene wetten in hun vakgebied afwezen hielden vast aan afzonderlijke ketens
+van noodzakelijke oorzaken.
+
+Achttiende-eeuwse ambtenaren telden wel, maar voor belastingheffing en
+rekrutering, en hun gegevens bleven bij de regering. Na de vrede die op
+Napoleon volgde richtten de Europese staten bureaus op die over alle kanten
+van het leven cijfers verzamelden en uitgaven. Die instellingen maakten de
+lawine van gedrukte getallen tussen 1820 en 1840 mogelijk. Pruisen is Hackings
+doorlopende voorbeeld, en juist Pruisen kwam niet op het idee van een
+statistische wet. Dat gebeurde in Frankrijk en Engeland, waar het Franse
+verlangen van voor de revolutie naar een rationele zedenleer, met Condorcet
+als theoreticus, door de cijferlawine werd omgezet in een empirische
+zedenwetenschap. Statistische wetten werden gevonden waar individualistische
+opvattingen over persoon en staat gangbaar waren, en niet in het
+collectivistischer oosten.
+
+**Afwijking als vindplaats**
+
+De wetmatigheden werden gevonden in afwijkend gedrag: zelfmoord, misdaad,
+landloperij, waanzin, prostitutie, ziekte. De gedachte dat je een afwijkende
+groep kunt verbeteren door haar te tellen en in te delen is volgens Hacking de
+wortel van wat later neutraal informatie en beheersing is gaan heten.
+
+Een Britse parlementaire commissie uit 1825 laat zien wanneer statistische
+ziektewetten als nieuwe categorie ontstonden. Een twist uit 1815 over de vraag
+of Parijzenaars of Londenaars zelfmoordgeneigder waren viel toen niet te
+beslechten en tien jaar later wel, omdat de verzamelende bureaus er inmiddels
+waren. Bij de zelfmoordstatistiek trad bovendien een redenering op die Hacking
+medisch imperialisme noemt: waanzin hoort bij de arts, zelfmoord is een vorm
+van waanzin, dus zijn zelfmoordcijfers medische cijfers. Die verklaringswijze
+werd vervolgens op alle afwijkingsstatistiek toegepast.
+
+**Poisson, Quetelet en de klokvorm**
+
+In 1835 muntte Poisson in het kader van zijn statistische rechtsleer de
+uitdrukking wet van de grote aantallen en bewees hij een bijbehorende
+limietstelling. Dat leverde een rechtvaardiging op om de kansrekening op
+maatschappelijke vragen los te laten, en het leek te verklaren waarom sociale
+cijfers stabiel waren.
+
+De Belg Adolphe Quetelet zette de stap die het meest is blijven hangen. In
+werk uit de vroege jaren dertig introduceerde hij de gemiddelde mens, l'homme
+moyen, uitgewerkt in zijn *Sur l'homme* van 1835. Hij bedoelde daarmee het
+meetbare type van een volk en niet het gemiddelde van de soort, en verving zo
+cultuur, taal en geloof als kenmerk van een bevolking door meting. In 1844
+volgde de stap die volgens Hacking zwaarder telt: Quetelet maakte van de
+theorie voor het meten van een onbekende natuurkundige grootheid met een
+waarschijnlijke fout een theorie voor het meten van eigenschappen van een
+bevolking.
+
+Zijn beroemdste voorbeeld haalde hij uit het *Edinburgh Medical Journal* van
+1817, dat borstomvangen van Schotse soldaten had gepubliceerd. Quetelet telde
+de regimenten bij elkaar op, maakte daarbij enkele kleine rekenfouten, en
+hield een verdeling van 5.738 borstkassen over met toppen bij 1.073 soldaten
+van negenendertig duim en 1.079 van veertig duim. Zijn retorische zet was de
+bewering dat 5.738 metingen aan een enkele soldaat door een onhandige meter
+zich niet regelmatiger zouden groeperen. Zo werd de klokvorm van een foutenwet
+tot grondmaat van de menselijke gesteldheid.
+
+**Statistisch fatalisme en de tegenbeweging**
+
+Het debat over statistisch fatalisme draaide om de vraag of een bevolking nog
+vrij is om iets te laten wanneer vaststaat dat er elk jaar zoveel mensen een
+einde aan hun leven maken. Hacking noemt die twist oppervlakkig gezien
+onnozel, maar ziet er het groeiende besef van sociale stuurbaarheid in. In
+Duitsland laaide hij op na Buckles *History of Civilization in England*, en
+hij legde het verschil bloot tussen een atomistische en een holistische
+opvatting van de statistische wet.
+
+Er kwam ook verzet, bij Comte, Dostojevski en Nietzsche, al bleef zelfs wie
+ruimte wilde houden voor gril tweeslachtig. Een apart hoofdstuk toetst
+Cassirers stelling dat het twintigste-eeuwse begrip determinisme pas rond 1870
+ontstond; Hacking houdt daarvan over dat het woord uit de jaren tachtig van de
+achttiende eeuw stamt en pas in de jaren zestig van de negentiende eeuw zijn
+huidige betekenis kreeg.
+
+**Het normale en de autonomie van de statistische wet**
+
+Het woord normaal diende lang zowel om te beschrijven als om te waarderen,
+maar de betekenis gebruikelijk of typisch is negentiende-eeuws. Zij ontstond
+bij de fysioloog Broussais en werd door Comte tot politiek programma gemaakt.
+Normaliteit verdrong het verlichtingsbegrip menselijke natuur en kreeg daarbij
+twee gezichten. Bij Quetelet en Durkheim is het normale het juiste en het
+goede; bij Galton het middelmatige, dat verbetering behoeft. In beide rollen
+doet het begrip zich voor als zegel van onpartijdigheid, als brug tussen wat
+is en wat hoort.
+
+Durkheim bouwde daarop een cijfermatige sociologie waarin misdaad en zelfmoord
+normaal zijn en afwijkingen wijzen op maatschappelijke ziekte, veroorzaakt
+door krachten die los van individuen bestaan. In Engeland kreeg Quetelets
+klokvorm de naam Normal law. Galton dacht Quetelets verklaring van
+statistische stabiliteit opnieuw door, en de technieken die daaruit
+voortkwamen maakten kansverdelingen onafhankelijk van een onderliggende
+deterministische structuur. De leer van de noodzakelijkheid was niet weerlegd,
+zij was niet meer ter zake.
+
+**Macht en een heelal van toeval**
+
+Een kort hoofdstuk herinnert eraan dat statistiek ook een zichtbaar
+machtsmiddel was. Hacking gebruikt daarvoor de ruzie over Joodse statistieken
+tijdens de Berlijnse Antisemitismusstreit van 1880.
+
+Het slothoofdstuk is twee keer zo lang als de andere en gaat over C.S. Peirce,
+die de leer van de noodzakelijkheid ronduit verwierp, de inductieve logica op
+statistische stabiliteit baseerde, randomisatie in de opzet van experimenten
+invoerde en geloofde in absoluut toeval en in natuurwetten die hoogstens bij
+benadering gelden. Hacking presenteert die radicale onbepaaldheid als gevolg
+in plaats van als doorbraak: Peirce kon zo denken omdat zijn hele leven al
+doortrokken was van kansen en statistiek.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| lawine van gedrukte cijfers | Hackings naam voor de stortvloed aan gepubliceerde overheidsstatistiek die tussen ongeveer 1820 en 1840 over Europa kwam. |
+| leer van de noodzakelijkheid | De rond 1800 vanzelfsprekende opvatting dat elke gebeurtenis noodzakelijk volgt uit een voorafgaande toestand, waarvoor toeval slechts een naam voor onwetendheid is. |
+| statistische wet | Een wetmatigheid die geldt voor een bevolking en niets voorschrijft over een afzonderlijk geval. |
+| de gemiddelde mens | Quetelets homme moyen: het gemeten type van een volk, opgebouwd uit gemiddelden van lichamelijke en zedelijke eigenschappen. |
+| wet van de grote aantallen | De door Poisson in 1835 zo genoemde stelling dat verhoudingen in grote reeksen naar een stabiele waarde toe kruipen. |
+| het normale | Het negentiende-eeuwse begrip dat tegelijk beschrijft wat gebruikelijk is en waardeert wat hoort, en dat het oudere begrip menselijke natuur verdrong. |
+| statistisch fatalisme | De vrees dat stabiele cijfers over zelfmoord of misdaad betekenen dat de betrokkenen niet vrij zijn om anders te handelen. |
+| mensen maken | Hackings uitdrukking voor het verschijnsel dat een nieuwe telcategorie een soort mens in het leven roept waarin mensen zichzelf gaan herkennen. |
+| autonomie van de statistische wet | De toestand waarin kanswetten verklaren en voorspellen zonder dat er nog een deterministische onderlaag bij nodig is. |
+
+#### Waar het argument op rust
+
+Het boek rust op negentiende-eeuws drukwerk: Pruisische bureaupublicaties, de
+rapporten van een Britse parlementaire commissie uit 1825, de misdaadtabellen
+van het Franse ministerie van justitie, de medische tijdschriften waaruit
+Quetelet zijn borstomvangen haalde, Babbages voorstel uit 1832 voor een
+verzameling constanten van natuur en techniek, en het werk van Peirce. De ruim
+veertig bladzijden noten maken die herkomst per bewering na te lopen.
+
+Hacking beperkt zijn bewijsvoering bewust. Over de wiskundige opvattingen van
+kans zegt hij naar eigen zeggen zeer weinig, en het contrast tussen Pruisische
+en westerse houdingen noemt hij zelf ruw. Zijn boek verscheen bovendien in een
+omgeving waarin dezelfde geschiedenis door anderen werd geschreven: hij
+verwijst naar Porters *The Rise of Statistical Thinking* (1986), Stiglers *The
+History of Statistics* (1986) en de bundel *The Empire of Chance* (1989).
+
+De verhouding tot zijn eerdere werk legt hij uit. In *The Emergence of
+Probability* (1975) beschreef hij hoe het kansbegrip rond 1660 ontstond als
+een tweeslachtige verschuiving in het renaissancistische begrip teken, met
+vanaf het begin zowel een frequentiekant als een geloofsgraadkant; Leibniz was
+daar de getuige die door het hele boek terugkeerde. Peirce is hier de getuige
+van iets dat al gebeurd was toen hij volwassen werd, en staat daarom pas in
+het slothoofdstuk. De schatplichtigheid aan Foucault is hier uitgewerkt tot
+het thema van tellen als machtsuitoefening.
+
+#### Wat er tegen in te brengen valt
+
+De opzet is die van drieentwintig korte, losse stukken, en dat is tegelijk de
+zwakte. De twee ontwikkelingen die Hacking wil verbinden, de afbrokkeling van
+het determinisme en de uitvinding van het normale, worden vooral naast elkaar
+gezet. Dat zij elkaar voedden wordt aannemelijk gemaakt door de volgorde van
+de hoofdstukken en niet aangetoond door een keten van oorzaken. Wie het boek
+als betoog leest houdt een reeks scherpe episoden over.
+
+Het contrast tussen oost en west draagt veel gewicht op weinig materiaal:
+Pruisen tegenover Frankrijk en Engeland, verklaard uit nationale opvattingen
+over individu en gemeenschap. Ook het Foucaultiaanse kader, waarin tellen en
+indelen samenvallen met beheersing, wordt eerder verondersteld dan verdedigd.
+
+Wie de wiskunde zoekt vindt haar niet. Er staat geen afleiding en geen
+bespreking van de rivaliserende opvattingen over wat een kans is. Dat is een
+keuze en geen omissie, maar het maakt het boek onbruikbaar als inleiding in de
+kansrekening.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij elke statistiek wie de categorie heeft bedacht waarin geteld
+wordt, en wanneer.
+- Let op het glijden van normaal als beschrijving naar normaal als norm; dat
+is de plek waar cijfers stilzwijgend een oordeel worden.
+- Onthoud dat stabiliteit in een reeks nog geen oorzaak is; de negentiende
+eeuw heeft die verwarring in beide richtingen gemaakt.
+
+#### Wat je hierna leest
+
+- 654. Against Method. Feyerabend valt vanuit een andere hoek dezelfde aanname
+aan, dat wetenschappelijke begrippen buiten hun geschiedenis om te begrijpen
+zijn.
+- 300. Critical Mass: How One Thing Leads to Another. Ball vertelt het
+vervolg: hoe statistische regelmaat in de sociale wereld sinds Quetelet in
+natuurkundige modellen belandde.
+- 55. Thinking, Fast and Slow. Kahneman hanteert het normaalbeeld en de
+afwijking eromheen als gereedschap; Hacking laat zien waar dat gereedschap
+vandaan komt.
+- 64. Fooled by Randomness. Taleb bestrijdt de klokvorm als beschrijving van
+de wereld; hier staat de geschiedenis van hoe die klokvorm die rol kreeg.
+
+## 806. A History of Interest Rates
+
+Sidney Homer, 1963 (vierde editie met Richard Sylla, 2005). *A History of
+Interest Rates* verscheen in 1963 bij Rutgers University Press, gevolgd door
+een tweede editie in 1977. Vanaf de derde editie (Rutgers University Press,
+1991, xxii + 662 blz.) is de economisch historicus Richard Sylla medeauteur;
+van die editie verscheen in 1996 een herziene uitgave. De vierde editie kwam
+in 2005 uit in de reeks Wiley Finance (John Wiley & Sons, Hoboken, 736 blz.,
+ISBN 9780471732839) en voegde een hoofdstuk over de voorafgaande tien jaar
+toe. Homer, overleden in 1983, was vennoot bij Salomon Brothers en leidde daar
+het obligatieonderzoek; Sylla is hoogleraar aan de Stern School of Business
+van New York University. Van dit boek is geen Nederlandse vertaling bekend; de
+samenvatting is op de Engelse editie gebaseerd. Rubriek: naslag en praktijk.
+Tags: `rente`, `economische geschiedenis`, `naslagwerk`, `financiële markten`,
+`geschiedenis`
+
+Een obligatieanalist van Salomon Brothers zette in 1963 vierduizend jaar
+rentetarieven in een enkel boek, omdat er naar zijn oordeel geen samenhangende
+geschiedenis bestond van wat toch een van de oudste prijzen ter wereld is. Het
+resultaat loopt van Soemerische graanleningen via Griekse en Romeinse
+tarieven, middeleeuwse woekerleer en de Florentijnse bankiers naar Britse
+staatsleningen en de rentebewegingen van de twintigste eeuw, met honderden
+tabellen erbij.
+
+Sinds de derde editie werkt de economisch historicus Richard Sylla het werk
+bij; de vierde editie uit 2005 telt ruim zevenhonderd bladzijden. De stelling
+die het geheel bijeenhoudt is dat de lange rente van een land, netjes
+uitgezet, zich laat lezen als een koortscurve van zijn economische en
+politieke gezondheid.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Homer stelt dat de rente niet een technisch detail van het
+bankwezen is maar de meest sprekende enkele reeks die een samenleving over
+zichzelf produceert. De vrije lange rente van een land, over voldoende jaren
+uitgezet, geeft volgens hem een soort koortscurve van de economische en
+politieke gezondheid van dat land: zij loopt op wanneer het vertrouwen daalt,
+oorlog dreigt of het geld ontwaardt, en zij zakt in perioden van rust en
+welvaart. Om die stelling te kunnen toetsen moest er eerst materiaal zijn, en
+dat materiaal ontbrak. Het boek is daarom in de eerste plaats een verzameling:
+vierduizend jaar tarieven, uit contracten, kronieken, staatsschuldregisters en
+beursnoteringen, per beschaving en per eeuw geordend, met de bedoeling dat wie
+over rente een uitspraak wil doen niet langer op een enkel decennium hoeft te
+steunen.
+
+#### De gang van het boek
+
+**Vier millennia in vier delen**
+
+De indeling is chronologisch en per beschaving. Het eerste deel behandelt de
+oudheid, het tweede de middeleeuwen en de renaissance in West-Europa, het
+derde het moderne Europa en Noord-Amerika tot 1900, en het vierde de periode
+vanaf 1900, eerst voor Europa en Noord-Amerika en daarna voor Japan, Rusland,
+China, Australie en Nieuw-Zeeland, Latijns-Amerika en een reeks andere landen.
+Elk deel eindigt met een hoofdstuk dat de tarieven van die periode
+bijeenbrengt en vergelijkt.
+
+De vierde editie voegde daar een hoofdstuk aan toe over de jaren negentig en
+de eerste jaren na 2000, en breidde de bespreking van de recente
+renteontwikkeling uit. De rest van de tekst is grotendeels Homers werk uit
+1963, door Sylla bijgewerkt en van economisch-historische context voorzien.
+
+**De oudheid**
+
+Het openingshoofdstuk over prehistorisch en primitief krediet stelt vast dat
+krediet in de opgetekende geschiedenis meer dan tweeduizend jaar ouder is dan
+de geslagen munt. Rente bestond dus voor er geld was, en veel financiele
+woordenschat komt volgens Homer uit de veeteelt, waar het vermeerderen van de
+kudde het natuurlijke beeld van rente leverde.
+
+Daarna volgen Mesopotamie, met Soemer, Babylonie en Assyrie, waar leningen in
+graan en in zilver ieder hun eigen gebruikelijke tarief hadden en waar de
+vroegste wetgeving die tarieven al aan grenzen bond; Griekenland, met de
+schuldhervorming van Solon in 594 voor Christus waarbij wie om schuld tot
+slaaf was gemaakt werd vrijgelaten en wie naar het buitenland was verkocht op
+staatskosten werd vrijgekocht, en met de zilvermijnen van Laureion die de
+Atheense munt tot algemeen betaalmiddel maakten; en Rome. Een afsluitend
+hoofdstuk zet de tarieven van de oudheid naast elkaar.
+
+**Woekerleer, middeleeuwen en renaissance**
+
+Het tweede deel opent niet met cijfers maar met leerstelligheid. Het
+kerkelijke verbod op woeker bepaalde eeuwenlang welke kredietvormen konden
+bestaan, en het boek behandelt die leer daarom als vormgevende kracht: waar
+rente niet mocht heten, verscheen zij als wisselkoersverschil, als lijfrente,
+als deelname in winst of als vergoeding voor vertraging.
+
+Vervolgens komen de vroege middeleeuwen, de late middeleeuwen en de
+renaissance aan bod. Homer noteert dat de Medici-bank in Florence tussen 1430
+en 1480 verreweg de grootste financiele organisatie van Europa was, en dat
+Spanje ondanks zijn imperium in de Nieuwe Wereld wegzakte tot een
+kopergeldstandaard.
+
+**De moderne tijd tot 1900**
+
+Vanaf de achttiende eeuw wordt het materiaal dichter en verandert het karakter
+van het boek. Er zijn nu doorlopende marktnoteringen in plaats van losse
+contracten, en de hoofdstukken over Engeland, het vasteland van Europa en de
+Verenigde Staten kunnen daardoor met jaarreeksen werken. De Britse
+staatsschuld levert de langste bruikbare reeks van allemaal, en Homer gebruikt
+die als ruggengraat voor zijn beeld van de negentiende eeuw.
+
+**Sinds 1900**
+
+Het laatste en omvangrijkste deel behandelt land voor land de twintigste eeuw:
+de Verenigde Staten, Engeland, Frankrijk, Zwitserland, Canada, met een
+overzichtshoofdstuk voor Europa, en daarna Japan, Rusland, China,
+Latijns-Amerika en Australie en Nieuw-Zeeland. Hier komt de koortscurve tot
+haar recht: de oorlogsjaren, de inflatie van de jaren zeventig met de hoogste
+tarieven die het boek in de moderne westerse geschiedenis registreert, en de
+lange daling daarna.
+
+Voor Homer was dat laatste geen afgerond verhaal. Hij zag het patroon van
+eeuwen als een reeks lange golven, waarin een generatie die alleen haar eigen
+decennia kent het niveau van haar tijd voor normaal aanziet. Dat is de
+gedachte waarmee het boek zijn lezers naar de tabellen stuurt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| vrije lange rente | Het tarief op langlopende leningen dat op een markt tot stand komt zonder wettelijk maximum of officiele vaststelling, voor Homer de enige reeks die over eeuwen vergelijkbaar is. |
+| koortscurve | Homers beeld voor de uitgezette rentereeks van een land, die zijn economische en politieke gesteldheid zichtbaar maakt zoals een temperatuurgrafiek de toestand van een patient. |
+| woeker | Het in de middeleeuwse leer verboden vragen van vergoeding voor het uitlenen van geld, dat de kredietvormen eeuwenlang heeft gestuurd zonder de rente te doen verdwijnen. |
+| reele rente | De rente na aftrek van de geldontwaarding, dus wat een uitlener werkelijk aan koopkracht overhoudt. |
+| lijfrente | Een lening die geen hoofdsom terugbetaalt maar levenslang of eeuwigdurend uitkeert, een van de vormen waarin krediet zich onder het woekerverbod door bewoog. |
+| wisselbrief | Een handelspapier dat betaling op een andere plaats en later tijdstip regelt, waarin de rentevergoeding verborgen zat in het koersverschil tussen twee munten. |
+| prime rate | Het laagste tarief dat de meest kredietwaardige leners van een periode kregen, de maatstaf waarmee Homer verschillende eeuwen op elkaar legt. |
+| rentegolf | Een beweging van tarieven over meerdere generaties, waarin het boek eerder het patroon zoekt dan in de schommeling van jaar tot jaar. |
+
+#### Waar het argument op rust
+
+Het bewijsmateriaal zijn de tabellen. Voor de oudheid en de middeleeuwen
+bestaat het uit wat toevallig bewaard bleef: kleitabletten, contracten,
+stadsrekeningen, kroniekvermeldingen. Homer en Sylla zeggen dat ook met zoveel
+woorden, en wijzen erop dat gegevens van voor de Industriele Revolutie schaars
+zijn. Een enkel gedocumenteerd tarief moet daar soms voor een halve eeuw
+instaan, en de auteurs merken zulke plekken aan.
+
+Vanaf de achttiende eeuw verandert de aard van het bewijs. Dan zijn er
+marktnoteringen, staatsschuldregisters en later officiele statistiek, en
+worden de reeksen dicht genoeg om er beweging in te lezen. De onderbouwing is
+grotendeels tweedehands: het boek ordent wat economisch historici en
+marktbronnen hebben opgeleverd en voegt daar zelden eigen archiefonderzoek aan
+toe.
+
+#### Wat er tegen in te brengen valt
+
+Dit is een naslagwerk en geen leesboek. De structuur is die van een handboek:
+per beschaving, per land en per eeuw wordt opgesomd wat bekend is, met
+tabellen ertussen en een overzichtshoofdstuk aan het eind van elk deel. Wie er
+van voor naar achter doorheen gaat leest honderden bladzijden tarieven zonder
+verhaallijn. De opzet is gemaakt om iets op te zoeken en om reeksen te
+vergelijken, en op die manier gebruikt levert het boek meer op dan bij achter
+elkaar doorlezen.
+
+De vergelijkbaarheid over vierduizend jaar is de zwakste schakel. Een
+Babylonische graanlening, een Genuese overheidslening en een Amerikaanse
+bedrijfsobligatie verschillen in looptijd, zekerheid, afdwingbaarheid en
+rekeneenheid zo sterk dat het samenbrengen van hun tarieven in een doorlopende
+voorstelling meer suggereert dan het materiaal draagt. De auteurs waarschuwen
+daarvoor, maar het beeld van de doorlopende curve is sterker dan de
+waarschuwing.
+
+Het boek registreert en verklaart weinig. Er is geen theorie over
+rentevorming, en de koortscurve blijft een beeldspraak in plaats van een
+toetsbare stelling: wat er precies uit een stijging valt af te lezen wordt per
+geval ingevuld. Syllas toevoegingen brengen economische geschiedenis binnen,
+maar veranderen het karakter van beschrijving naar verklaring niet.
+
+De vierde editie stopt in de vroege jaren 2000. Daarmee mist zij precies de
+periode waarvoor het werk sinds 2008 het meest wordt aangehaald: de jaren van
+rentes rond nul en zelfs onder nul, en de stijging na 2021. De grafieken van
+vijfduizend jaar rente die sindsdien rondgaan zijn op dit boek gebaseerd, maar
+het boek zelf reikt niet tot daar.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik het als opzoekwerk: zoek de periode en het land, lees de tabel, en
+neem het overzichtshoofdstuk van dat deel erbij.
+- Controleer bij elk oud tarief om welk instrument het gaat en met welke
+zekerheden, voordat je het naast een modern rendement legt.
+- Neem het niveau van je eigen decennium niet als maatstaf; het boek bestaat
+om te laten zien hoe smal dat referentiekader is.
+- Combineer het met een recente bron voor de periode na 2005, die in deze
+editie ontbreekt.
+
+#### Wat je hierna leest
+
+- 804. Triumph of the Optimists. Dimson, Marsh en Staunton doen hetzelfde voor
+aandelen- en obligatierendement, met strengere meetregels en over een kortere
+periode.
+- 807. Manias, Panics, and Crashes. Kindleberger levert de dramatiek die dit
+boek weglaat: wat er gebeurt wanneer krediet te goedkoop is geweest.
+- 809. The Great Crash, 1929. Galbraith beschrijft een enkel jaar uit deze
+reeksen in detail.
+
+## 807. Manias, Panics, and Crashes
+
+Charles P. Kindleberger, 1978 (achtste editie met Robert Z. Aliber en Robert
+N. McCauley, 2023). *Manias, Panics, and Crashes: A History of Financial
+Crises* verscheen in 1978 bij Basic Books in New York. Kindleberger,
+hoogleraar economie aan het Massachusetts Institute of Technology, bezorgde
+zelf nog drie edities (1989, 1996 en 2000). Na zijn dood in 2003 nam Robert Z.
+Aliber van de Booth School of Business in Chicago het werk over vanaf de
+vijfde editie (2005), gevolgd door de zesde (2011) en de zevende (2015,
+Palgrave Macmillan). De achtste editie verscheen in maart 2023 bij Palgrave
+Macmillan met de voormalige BIS-econoom Robert N. McCauley als derde auteur
+(ISBN 9783031160073), met nieuwe hoofdstukken over cryptomunten en over de
+Verenigde Staten als internationale kredietverstrekker in laatste instantie.
+Er bestaat een Duitse vertaling (*Manien, Paniken, Crashs*, 2001); een
+Nederlandse vertaling is niet bekend en de samenvatting is op de Engelse
+editie gebaseerd. Rubriek: geld en ondernemen.
+Tags: `financiële markten`, `crisis`, `economische geschiedenis`, `beleggen`,
+`geschiedenis`
+
+Kindleberger nam in 1978 het model van de econoom Hyman Minsky, dat zegt dat
+financiele markten uit zichzelf onstabiel zijn, en legde het naast vier eeuwen
+crisisgeschiedenis. Het patroon dat hij daaruit destilleert loopt van een
+schok die nieuwe winstkansen opent, via kredietverruiming en uitbundigheid,
+naar het moment waarop ingewijden zich terugtrekken en de stemming omslaat in
+paniek. De tulpenhandel, de South Sea Company, de spoorwegmanie, 1929, de
+Japanse jaren tachtig en de kredietcrisis van 2008 doorlopen bij hem dezelfde
+fasen.
+
+Het boek is sinds Kindlebergers dood in 2003 voortgezet door Robert Aliber,
+die de nadruk verlegde naar grensoverschrijdende kapitaalstromen en vier
+golven van bankcrises sinds 1980 beschrijft. De achtste editie uit 2023 kwam
+er met Robert McCauley bij en voegde hoofdstukken toe over cryptomunten en
+over de rol van de Amerikaanse centrale bank als geldschieter voor de rest van
+de wereld.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Financiele crises zijn volgens Kindleberger geen ongelukken
+en geen gevolg van bijzonder domme of bijzonder onfatsoenlijke mensen, maar
+een terugkerend verschijnsel dat uit de werking van krediet zelf voortkomt.
+Zijn ondertitel noemt ze een taai gewas. De redenering is dat elke lange
+periode van rust de neiging heeft haar eigen instabiliteit te kweken: naarmate
+prijzen stijgen, lijken leners kredietwaardiger, worden de eisen van
+geldschieters lager, en maakt dat opnieuw hogere prijzen mogelijk. Dat gaat
+door tot het niet meer doorgaat, waarna dezelfde beweging zich in omgekeerde
+richting voltrekt. Uit die diagnose volgt de meest omstreden stelling van het
+boek, namelijk dat een geldschieter in laatste instantie de val moet breken,
+terwijl het beter is dat niemand er van tevoren zeker van kan zijn dat hij dat
+ook zal doen.
+
+#### De gang van het boek
+
+**Het raamwerk van Minsky**
+
+Het tweede hoofdstuk, over de anatomie van een gewone crisis, bevat het model
+waarop de rest rust. Kindleberger ontleent het aan Hyman Minsky, econoom aan
+Washington University in St. Louis, die met zijn hypothese van financiele
+instabiliteit stelde dat markten uit zichzelf onstabiel zijn en dat
+overheidsingrijpen een crisis kan uitstellen maar niet afschaffen.
+
+Minsky onderscheidt drie manieren van financieren. Bij de eerste betaalt de
+lener rente en aflossing uit de opbrengst van wat hij gekocht heeft. Bij de
+tweede haalt hij de rente wel en de aflossing niet, zodat hij moet
+herfinancieren. Bij de derde, die Minsky naar de zwendelaar Charles Ponzi
+noemde, is zelfs de rente alleen te betalen door verder te lenen of door met
+winst door te verkopen. Hoe langer een opgaande beweging duurt, hoe verder het
+gewicht van de eerste vorm naar de derde schuift.
+
+De term Minsky-moment, voor het ogenblik waarop een op krediet gebouwde
+stijging omslaat in gedwongen verkoop, komt in dit boek niet voor. Hij werd
+pas in 1998 gemunt door de belegger Paul McCulley, naar aanleiding van de
+Russische crisis.
+
+**De fasen van een manie**
+
+Kindlebergers bijdrage aan Minsky is de uitwerking in fasen. Het begint met
+een verschuiving, een schok van buiten die de winstvooruitzichten van ten
+minste een deel van de economie verbetert: een oorlog die eindigt, een
+uitvinding, een land dat opengaat, een verandering in het geldstelsel.
+Bedrijven en particulieren richten zich op die kans, de vraag naar de
+betrokken bezittingen stijgt, en de prijzen stijgen mee.
+
+Vervolgens zwelt het krediet aan. Hoofdstuk vier, over het voeden van de
+vlammen, laat zien hoe de geldhoeveelheid in enge zin daarbij nooit de hele
+verklaring is: het gaat om bankkrediet, handelskrediet, nieuwe soorten
+schuldpapier en vormen van financiering die de toezichthouder nog niet als
+zodanig herkent. Dan volgt de uitbundigheid, waarin het redeneren over waarde
+plaatsmaakt voor het doorrekenen van de prijsstijging zelf, en waarin de
+gedachte opkomt dat het deze keer anders ligt.
+
+Het vijfde hoofdstuk beschrijft het kritieke stadium. Ingewijden nemen winst,
+de instroom hapert, en dan komt de omslag: van benauwdheid naar afkeer, en van
+afkeer naar paniek. Wie zijn positie met geleend geld had gefinancierd blijkt
+insolvent. De paniek eindigt pas wanneer de prijzen zo ver gedaald zijn dat
+kopers terugkeren, wanneer de handel wordt stilgelegd, of wanneer een
+geldschieter in laatste instantie de daling stopt.
+
+**Vier eeuwen voorbeelden**
+
+Wat het boek onderscheidt van een leerboek is het materiaal. Kindleberger was
+economisch historicus, en hij laat het model lopen langs de Nederlandse
+tulpenhandel van 1636 en 1637, de Mississippi-onderneming en de South Sea
+Company van 1719 en 1720, de crises van 1825, 1847 en 1873, de spoorwegmanies,
+de beurskrach van 1929, de leningen aan Latijns-Amerika in de jaren zeventig
+die in 1982 vastliepen, de Japanse grond- en aandelenprijzen van de late jaren
+tachtig, de Aziatische crisis van 1997 en 1998, de internetzeepbel en de
+Amerikaanse huizenmarkt tussen 2003 en 2006.
+
+Een apart hoofdstuk gaat over zwendel, die Kindleberger behandelt als vast
+onderdeel van de cyclus: in de opgaande fase is de verleiding groot en de
+controle zwak, en pas als het tij keert komt boven water wie er met geleend of
+toevertrouwd geld heeft gerommeld. In de achtste editie staat naast Bernard
+Madoff een hoofdstuk over bitcoin, dat McCauley in dezelfde categorie plaatst.
+
+**Besmetting over grenzen**
+
+Drie hoofdstukken behandelen hoe een crisis zich verspreidt: binnen een land
+tussen markten en instellingen, en tussen landen via handel, wisselkoersen,
+kapitaalstromen en het simpele feit dat dezelfde stemming zich verplaatst.
+Kindleberger volgt die besmetting van 1618 tot 1933 en daarna van Mexico-Stad
+naar Tokio, Bangkok, New York, Londen en Reykjavik.
+
+Aliber heeft aan die internationale kant het meeste toegevoegd. Hij noemt de
+decennia sinds het begin van de jaren tachtig de meest turbulente uit de
+monetaire geschiedenis wat betreft aantal, omvang en ernst van bankcrises, en
+ordent ze in vier golven: de schuldencrisis van ontwikkelingslanden in de
+jaren tachtig, Japan en de Scandinavische landen in de vroege jaren negentig,
+Azie in 1997 en 1998, en de wereldwijde crisis van 2008. Zijn verklaring legt
+het gewicht bij grensoverschrijdende kapitaalstromen, die onder zwevende
+wisselkoersen sterker schommelen, en bij het vermogenseffect: stijgende
+bezittingen voeden de bestedingen, en bij de omslag versterkt hetzelfde
+mechanisme de neergang.
+
+**Wie de val breekt**
+
+Het beleidsdeel begint met de mogelijkheden om niets te doen, te vermanen of
+de banken tijdelijk te sluiten, en gaat dan over op de geldschieter in laatste
+instantie. Binnenlands is dat de centrale bank, in de traditie die Walter
+Bagehot in de negentiende eeuw beschreef. Internationaal ligt het lastiger,
+omdat er geen wereldcentralebank is en de rol in de praktijk toevalt aan wie
+de reservemunt uitgeeft.
+
+Kindleberger had die gedachte al uitgewerkt in *The World in Depression*
+(1973), waar hij de diepte van de jaren dertig verklaarde uit het ontbreken
+van een land dat de rol kon en wilde spelen: Groot-Brittannie kon niet meer,
+de Verenigde Staten wilden nog niet. De achtste editie trekt die lijn door
+naar 2008 en 2020, toen de Federal Reserve via wisselovereenkomsten met andere
+centrale banken feitelijk als internationale kredietverstrekker optrad.
+McCauley noemt die ontwikkeling de voornaamste reden voor de nieuwe editie.
+
+De spanning die daaruit voortvloeit werkt het boek niet weg. Wie zeker weet
+dat hij gered wordt, neemt meer risico. Kindlebergers oplossing is geen regel
+maar onzekerheid: de geldschieter in laatste instantie moet bestaan, en
+tegelijk moet het onzeker blijven of hij komt.
+
+**De lessen**
+
+Het slothoofdstuk trekt de balans nuchter. Crises zijn niet uitgebannen, de
+regelgeving loopt achter op de vormen die financiering aanneemt, en de meeste
+voorspellende waarde zit in het herkennen van een combinatie: snel groeiend
+krediet, snel stijgende bezitprijzen en een verhaal dat uitlegt waarom dat
+verantwoord is.
+
+Kindleberger houdt daarbij vast aan de menselijke kant. Zijn bekendste
+opmerking is dat er weinig zo slecht is voor het welbevinden en het
+oordeelsvermogen als een vriend zien rijk worden. Het boek verklaart de
+zeepbel niet uit onwetendheid maar uit navolging.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| verschuiving | De schok van buiten waarmee de cyclus begint en die de winstvooruitzichten van ten minste een deel van de economie verbetert. |
+| manie | De fase waarin prijsstijging zichzelf voedt en de redenering over de waarde van het gekochte plaatsmaakt voor het doortrekken van de stijging. |
+| overhandel | Kindlebergers term voor de combinatie van speculatie, overschatting van de winst en te veel geleend geld die de uitbundige fase kenmerkt. |
+| benauwdheid | Het kritieke stadium waarin ingewijden verkopen en de markt nog stijgt of stagneert, voordat de stemming omslaat. |
+| afkeer | De omslag waarin geldschieters zich massaal terugtrekken en niemand nog krediet wil verstrekken tegen het onderpand dat kort tevoren gewild was. |
+| Ponzi-financiering | De aan Minsky ontleende financieringsvorm waarbij zelfs de rente alleen betaald kan worden door verder te lenen of door met winst door te verkopen. |
+| geldschieter in laatste instantie | De instelling die in een paniek nog wil uitlenen wanneer niemand anders dat doet, binnenlands de centrale bank en internationaal in de praktijk de uitgever van de reservemunt. |
+| besmetting | De overdracht van een crisis naar andere markten en landen via handel, kapitaalstromen, wisselkoersen en gedeelde stemming. |
+| zwendel | Fraude als vast bestanddeel van de cyclus, die in de opgaande fase ontstaat en pas bij de omslag zichtbaar wordt. |
+
+#### Waar het argument op rust
+
+De onderbouwing is historisch en niet statistisch. Kindleberger toont zijn
+model door het langs episoden te leggen, van de tulpenhandel tot de
+kredietcrisis, en door telkens te laten zien waar de verschuiving zat, waar
+het krediet vandaan kwam en wie het eerst uitstapte. De kracht daarvan is de
+dichtheid: over vier eeuwen en tientallen landen komen de fasen in herkenbare
+vorm terug, en de bijlagen met crisischronologie maken die herhaling
+zichtbaar. Voor wie het patroon wil leren herkennen is dat overtuigender dan
+een vergelijking met parameters.
+
+De theoretische steun komt van buiten. Minsky leverde het mechanisme, Bagehot
+het beleidsvoorschrift, en Aliber en McCauley voegden de moderne
+internationale kant toe. Aliber onderbouwt zijn vier golven van bankcrises met
+cijfers over kapitaalstromen en wisselkoersen; McCauley met wat centrale
+banken in 2008 en 2020 werkelijk deden.
+
+Wat ontbreekt is de tegenproef. Het boek verzamelt gevallen waarin een
+opgaande beweging in een crisis eindigde, en niet de gevallen waarin snelle
+kredietgroei en stijgende prijzen zonder ongeluk afliepen. Daardoor blijft
+onbeantwoord hoe vaak het patroon zich aandient zonder de afloop die het model
+voorspelt, en dat is precies wat je zou moeten weten om er iets aan te hebben.
+
+#### Wat er tegen in te brengen valt
+
+Het scherpste bezwaar is dat het model niet te weerleggen is. De fasen zijn
+losjes omschreven en hun grenzen worden achteraf getrokken, waardoor vrijwel
+elke opgaande beweging er na afloop in past. Economen in de traditie van de
+doelmatige markt, met Eugene Fama voorop, houden staande dat een zeepbel
+vooraf niet vast te stellen is en dat een verhaal dat pas na de val sluitend
+wordt geen voorspellende waarde heeft. Kindleberger erkent dat hij geen
+formeel model levert en geen toets uitvoert, maar dat neemt het bezwaar niet
+weg.
+
+Het voorschrift over de geldschieter in laatste instantie botst met zijn eigen
+diagnose. Als markten instabiel worden doordat risico goedkoop lijkt, dan
+maakt de wetenschap dat er in laatste instantie hulp komt het probleem groter.
+Kindlebergers antwoord, dat de hulp moet bestaan maar onzeker moet blijven, is
+eerder een houding dan een beleidsregel, en het is de vraag of centrale banken
+die onzekerheid na 2008 en 2020 nog geloofwaardig kunnen volhouden.
+
+De opeenvolgende herzieningen hebben het boek veranderd. Vanaf de vijfde
+editie schrijft Aliber, en met hem verschoof het zwaartepunt van Kindlebergers
+historische vertelling naar hedendaagse kapitaalstromen en zijn eigen indeling
+in vier golven. Lezers van de latere edities merken op dat stijl en
+historische diepte daarbij zijn ingeleverd. Wie Kindleberger zelf wil lezen
+komt het dichtst bij hem in de vierde editie uit 2000.
+
+Ten slotte is het gezichtsveld overwegend westers en gebaseerd op tweedehands
+bronnen. De episoden buiten Europa en Noord-Amerika komen korter aan bod.
+
+#### Wat er concreet mee te doen is
+
+- Kijk bij een sterk stijgende markt eerst naar het krediet erachter en pas
+daarna naar de waardering.
+- Zoek naar de verschuiving die de beweging op gang bracht; zonder aanwijsbare
+schok is het verhaal meestal achteraf bedacht.
+- Let op wie er verkoopt terwijl de prijs nog stijgt; het kritieke stadium is
+aan de ingewijden te zien en niet aan de koers.
+- Wantrouw de zin dat het deze keer anders ligt, en wantrouw ook het
+spiegelbeeld ervan tijdens een paniek.
+
+#### Wat je hierna leest
+
+- 808. Devil Take the Hindmost. Chancellor vertelt dezelfde geschiedenis als
+aaneengesloten verhaal, met meer aandacht voor de mensen dan voor het
+mechanisme.
+- 809. The Great Crash, 1929. Galbraith werkt een van Kindlebergers
+voorbeelden uit tot een boek op zich.
+- 268. The Black Swan. Taleb gaat verder waar Kindleberger stopt, bij de vraag
+wat je met kennis van zeldzame rampen aanmoet.
+- 806. A History of Interest Rates. Homer en Sylla leveren de rentereeksen
+waarop de kredietfase van dit model zich afspeelt.
+
+## 808. Devil Take the Hindmost
+
+Edward Chancellor, 1999. *Devil Take the Hindmost: A History of Financial
+Speculation* (Farrar, Straus and Giroux, New York, 1999, 386 blz., ISBN
+9780374138585). De Britse uitgave verscheen bij Macmillan (1999, ISBN
+9780333648247), de pocket bij Plume/Penguin (ISBN 9780452281806). Een
+Nederlandse vertaling is niet verschenen; deze samenvatting berust op de
+Engelse editie. Rubriek: geld en ondernemen.
+Tags: `economische geschiedenis`, `speculatie`, `zeepbellen`, `beleggen`,
+`financiële markten`
+
+Chancellor loopt vier eeuwen speculatiegeschiedenis af, van de Romeinse
+republiek en de Amsterdamse tulpenhandel van de jaren dertig van de
+zeventiende eeuw tot de Japanse zeepbel van de jaren tachtig. Speculatie is
+het kopen of verkopen van iets om te verdienen aan de prijsbeweging zelf, en
+niet aan wat het voortbrengt. Zijn stelling is dat dit verschijnsel bij het
+kapitalisme hoort en telkens dezelfde vorm aanneemt: een nieuwe markt of een
+nieuwe techniek wekt de gedachte dat de oude verhoudingen niet meer gelden,
+goedkoop krediet maakt het mogelijk met geleend geld te wedden, en het bedrog
+komt pas na de val boven water.
+
+Het boek is geschreven door een historicus die daarna bij een
+vermogensbeheerder werkte, en het leest als een reeks portretten: de South Sea
+Company van 1720, de niet-bestaande staat Poyais waarvoor in 1822 een lening
+werd geplaatst, spoorwegkoning George Hudson, de goudcorner van Jay Gould in
+1869, de beleggingstrusts van 1929, Michael Milken en de rommelobligaties, en
+het Tokio van de zaitech. In de epiloog weegt Chancellor de argumenten voor en
+tegen speculatie tegen elkaar af, met het net gevallen hedgefonds Long-Term
+Capital Management als proefstuk.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Chancellor leest de geschiedenis van de financiële speculatie
+als één doorlopend verschijnsel dat telkens dezelfde vorm aanneemt. Een nieuwe
+markt of een nieuwe techniek wekt de gedachte dat de oude verhoudingen zijn
+opgeheven, ruim krediet maakt het mogelijk met geleend geld te wedden, de
+koersen raken los van de opbrengsten die eronder liggen, en pas na de val komt
+het bedrog aan het licht dat in de opgaande fase onzichtbaar bleef. Speculatie
+hoort in zijn lezing bij het kapitalisme zelf, gevoed door de belofte dat
+iemand zonder werken rijk kan worden en de sociale ladder in één sprong kan
+nemen. Wetgeving en toezicht dringen het verschijnsel niet terug, ze
+verplaatsen het naar de volgende markt.
+
+#### De gang van het boek
+
+**Rome, Amsterdam en de tulp**
+
+Het eerste hoofdstuk zoekt de wortels van de speculatie in de Romeinse
+republiek van de tweede eeuw voor Christus, waar aandelen in
+belastingpachtgezelschappen verhandeld werden en waar markten bestonden voor
+grond, leningen en een vroege vorm van verzekering. Met het feodale stelsel en
+de leer van de rechtvaardige prijs verdwijnt die handel grotendeels, om via de
+Italiaanse stadstaten en hun verhandelbare staatsschuld terug te keren.
+
+De Amsterdamse beurs van de vroege zeventiende eeuw is voor Chancellor het
+eerste moderne toneel: er werd gehandeld in termijncontracten en opties, en er
+werd verkocht wat men niet bezat. Zijn belangrijkste ooggetuige is Joseph
+Penso de la Vega, wiens *Confusión de confusiones* uit 1688 de stemmingen op
+de beursvloer beschrijft. De tulpenmanie van de jaren dertig van die eeuw
+krijgt de rol van oervoorbeeld: prijzen van bollen die zich losmaken van elk
+gebruik, handel in kroegen door mensen die van bloembollen niets wisten, en
+een nasleep waarin de tulp in de schilderkunst een zinnebeeld van dwaasheid
+werd.
+
+**'Change Alley en de South Sea Company**
+
+Het tweede en derde hoofdstuk spelen in Londen. Na de oprichting van de Bank
+of England in 1694 ontstaat in de koffiehuizen van Exchange Alley een handel
+in aandelen van projectmaatschappijen, waarbij de schatzoekersexpeditie van
+kapitein Phipps als aanjager werkte. Het woord stockjobbing had toen al een
+bijklank van bedrog, en de eerste wetgeving tegen de handel dateert uit
+dezelfde jaren.
+
+Het hoogtepunt is de South Sea Company, in 1711 opgericht om staatsschuld over
+te nemen tegen een handelsmonopolie op Spaans Amerika dat nooit iets
+opleverde. Het verdienmodel zat in de omzetting zelf: hoe hoger de koers, hoe
+minder aandelen de maatschappij hoefde uit te geven om dezelfde schuld te
+vervangen, en hoe groter de winst. Chancellor laat zien hoe parlementsleden
+aandelen kregen toegeschoven en hoe de val van 1720 het Britse politieke leven
+jarenlang bezighield.
+
+**Poyais en de spoorwegkoorts**
+
+Het vierde hoofdstuk gaat over de opkomende markten van de jaren twintig van
+de negentiende eeuw. Na de Zuid-Amerikaanse onafhankelijkheidsoorlogen
+plaatsten Londense huizen leningen voor Colombia, Chili en Peru, en werden
+mijnbouwmaatschappijen opgericht op grond van verhalen over ongeëxploiteerde
+aders. Het scherpste geval is Gregor MacGregor, die in 1822 een lening
+plaatste voor de staat Poyais in Midden-Amerika, compleet met een gedrukte
+beschrijving van het land, een hoofdstad en een regering. Het land bestond
+niet. Kolonisten die er werkelijk heen voeren, kwamen op een onbewoonde kust
+terecht. In 1825 sloeg de stemming om en in 1826 zaten vrijwel alle
+Latijns-Amerikaanse leningen in gebreke.
+
+Het vijfde hoofdstuk behandelt de spoorwegkoorts van 1845, met de eerdere
+kanalenkoorts als voorbeeld. Chancellor beschrijft hoe aandelen in nieuwe
+lijnen werden toegewezen tegen een kleine aanbetaling, zodat iemand met weinig
+geld een grote positie kon nemen, en hoe George Hudson, de Railway King, met
+fusies en met dividend uit kapitaal een netwerk aan elkaar hield tot de boeken
+werden nagelopen. Wat overbleef nadat de aandeelhouders hun geld kwijt waren,
+was wel een spoorwegnet.
+
+**De Gilded Age**
+
+Het zesde hoofdstuk verplaatst het toneel naar de Verenigde Staten. Speculatie
+in land was er vanaf het begin een gewoonte van de bezittende klasse, tot en
+met Washington en Jefferson. De Burgeroorlog en het papiergeld dat ermee
+gepaard ging maakten van de beurs een strijdtoneel voor operateurs als Daniel
+Drew, Cornelius Vanderbilt, Jay Gould en James Fisk.
+
+Het bekendste geval is de poging van Gould en Fisk om in september 1869 de
+goudmarkt in een corner te drijven, dus vrijwel het hele verhandelbare aanbod
+op te kopen zodat wie goud geleend en verkocht had tegen elke prijs moest
+terugkopen. De poging strandde toen de schatkist goud verkocht, en de dag ging
+de geschiedenis in als Black Friday. Chancellor gebruikt de periode om te
+laten zien hoe koersmanipulatie de verhouding tussen bestuurders en
+aandeelhouders bedierf.
+
+**Het einde van een nieuw tijdperk**
+
+Het zevende hoofdstuk gaat over 1929. De kern van Chancellors betoog is het
+nieuw-tijdperkdenken: het geloof dat de conjunctuurgolf was afgeschaft door de
+oprichting van het stelsel van centrale banken in 1913, door betere
+bedrijfsvoering en door technische vooruitgang. Edgar Lawrence Smiths *Common
+Stocks as Long-Term Investments* uit 1924 gaf de gedachte een
+wetenschappelijke jas: aandelen zouden op lange termijn nauwelijks riskant
+zijn.
+
+Daarbovenop kwam het effectenkrediet, waarbij een belegger een deel van de
+aankoopsom leent van zijn commissionair. Dat is een hefboom: winst en verlies
+worden allebei uitvergroot, en bij een koersdaling moet de lener bijstorten of
+verkopen. Chancellor citeert de uitspraak dat de vier duurste woorden in het
+Engels 'this time it's different' zijn, en laat zien hoe die woorden in elk
+voorafgaand hoofdstuk al eens waren gevallen.
+
+**Cowboykapitalisme**
+
+Het achtste hoofdstuk loopt van Bretton Woods naar Michael Milken. Het stelsel
+van vaste wisselkoersen uit 1944 was mede bedoeld om speculatief
+kapitaalverkeer aan banden te leggen, en de speculant gold in die jaren als
+een figuur van hetzelfde slag als de zwarthandelaar. Nadat Nixon in 1971 de
+inwisselbaarheid van de dollar in goud opschortte, kwamen zwevende koersen en
+daarmee een markt voor het afdekken en verhandelen van dat koersrisico.
+
+Chancellor beschrijft hoe de leer van de doelmatige markt in dezelfde jaren
+aan de universiteiten terrein won en de speculant van een moreel verdachte in
+een nuttige prijszetter veranderde, hoe de handel in derivaten opkwam, en hoe
+Michael Milken met rommelobligaties de overnamegolf van de jaren tachtig
+financierde. De hoofdstukken over die jaren zijn ook een geschiedenis van de
+handelaar als beroepsgroep.
+
+**Kamikazekapitalisme en de epiloog**
+
+Het laatste hoofdstuk gaat over Japan. Chancellor begint bij de gedachte dat
+de Japanse economie naar eigen aard werkt en dus buiten de westerse regels
+valt, en laat zien hoe de liberalisering van de financiële markten begin jaren
+tachtig het zaitech opleverde: bedrijven die hun winst steeds meer uit
+financiële constructies haalden en steeds minder uit hun eigen bedrijf. Grond
+en aandelen dienden elkaar als onderpand, waardoor de stijging zichzelf
+voedde.
+
+In de epiloog keert hij terug naar de vraag waar de eerste hoofdstukken mee
+begonnen: heeft speculatie nut. Hij zet het argument dat speculanten de markt
+van liquiditeit en van betere prijzen voorzien naast de val van Long-Term
+Capital Management in 1998, en concludeert dat de vrijheid om te speculeren
+zich vroeg of laat aan haar ketenen ontworstelt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Speculatie | Iets kopen of verkopen met het oog op de prijsbeweging zelf, in plaats van op de opbrengst die het voortbrengt. |
+| Zeepbel | Een periode waarin de prijs van een bezit ver uitloopt op de opbrengst die eronder ligt, gedragen door de verwachting dat er een volgende koper is. |
+| Hefboom | Handelen met geleend geld, waardoor zowel de winst als het verlies op de eigen inleg wordt uitvergroot. |
+| Effectenkrediet | Krediet van een commissionair waarmee een belegger aandelen koopt en waarbij hij moet bijstorten zodra de koers daalt. |
+| Corner | Het opkopen van vrijwel het hele beschikbare aanbod van een stuk, zodat wie het geleend en verkocht heeft tegen elke prijs moet terugkopen. |
+| Stockjobbing | Achttiende-eeuws Engels woord voor beurshandel, met de bijklank van manipulatie en bedrog. |
+| Nieuw-tijdperkdenken | Het terugkerende geloof dat een uitvinding of instelling de conjunctuurgolf heeft opgeheven, waardoor hoge koersen gerechtvaardigd zouden zijn. |
+| Rommelobligatie | Obligatie van een schuldenaar met lage kredietwaardigheid, die daarom een hoge rente betaalt; in de jaren tachtig het financieringsmiddel voor overnames. |
+| Zaitech | Japanse term voor financiële techniek: het verschijnsel dat bedrijven hun winst uit beleggen en lenen halen in plaats van uit hun eigen bedrijf. |
+
+#### Waar het argument op rust
+
+Het boek is opgebouwd uit primaire bronnen van elk tijdvak: pamfletten,
+spotprenten, koffiehuisverslagen, parlementaire onderzoeken, prospectussen en
+beursnoteringen. Voor de Amsterdamse markt steunt Chancellor op De la Vega,
+voor 1720 op de parlementaire stukken en de satiren van de tijd, voor 1845 op
+de spoorwegbladen, voor 1929 op de dagbladen en de latere Senaatsverhoren. Dat
+maakt de beschrijvingen concreet en toetsbaar aan de bron.
+
+De verklaringen zijn van een andere orde dan het materiaal. Chancellor levert
+geen cijfermatige toets van zijn patroon: er wordt niet gemeten hoe vaak ruim
+krediet wel of niet tot een manie leidde, en er is geen vergelijkingsgroep van
+perioden waarin het patroon zich niet voordeed. Wat het boek aandraagt is een
+reeks gevallen die op elkaar lijken, plus de vaststelling dat tijdgenoten
+daarin telkens hetzelfde tegen elkaar zeiden. Retorisch is dat sterk,
+statistisch zwak.
+
+Op één punt heeft de tijd het boek gelijk gegeven. Het verscheen in 1999,
+midden in de internetkoorts, en de epiloog zegt met zoveel woorden dat de
+aanwas van particuliere daghandelaren en de vlucht van de technologiefondsen
+in het patroon passen. Een jaar later viel die markt om.
+
+#### Wat er tegen in te brengen valt
+
+De sterkste tegenwerping komt van economen die de manies minder dwaas achten
+dan Chancellor ze afschildert. Peter Garber betoogde in *Famous First Bubbles*
+(2000) dat de tulpenprijzen grotendeels te verklaren zijn uit de handel in
+zeldzame bollen die zich langzaam vermenigvuldigen, dat de verhalen over
+geruïneerde ambachtslieden uit moraliserende pamfletten stammen, en dat een
+deel van de South Sea-episode neerkwam op een niet onredelijke gok op een
+schuldconversie. Wie die lezing volgt, houdt van het patroon minder over dan
+een reeks markten die met slechte informatie moesten werken.
+
+Een tweede bezwaar betreft de methode. Een geschiedenis die uitsluitend uit
+manies bestaat, kan moeilijk anders eindigen dan met de conclusie dat manies
+onvermijdelijk zijn. De jaren waarin krediet ruim was en er niets gebeurde,
+komen niet aan bod, en daarmee ontbreekt de tegenproef. Ook het morele
+register waarin Chancellor schrijft, met dwaasheid en hebzucht als
+terugkerende woorden, gaat gemakkelijk over de vraag heen wat een belegger
+destijds redelijkerwijs kon weten.
+
+Verder is het boek ongelijk verdeeld. De Britse hoofdstukken zijn dieper
+gedocumenteerd dan de Amerikaanse, en het Japanse hoofdstuk leunt sterk op
+Engelstalige verslaggeving uit de jaren negentig. De periode na 1990 wordt in
+een epiloog afgehandeld, zodat wie het boek nu leest de derivatencrisis van
+2008 zelf in het schema moet passen. Dat lukt opvallend goed, wat tegelijk het
+beste argument voor het boek is.
+
+#### Wat er concreet mee te doen is
+
+- Zoek bij elke koersstijging die als vanzelfsprekend wordt gepresenteerd naar
+de zin waarin staat waarom het deze keer anders is, en schrijf op wat er
+precies veranderd zou moeten zijn.
+- Let op de financieringskant. In vrijwel elk hoofdstuk gaat aan de val een
+verruiming van krediet of een verlaging van de aanbetaling vooraf.
+- Scheid de vraag of een techniek nuttig is van de vraag of de aandelen ervan
+iets waard zijn. De spoorwegen kwamen er, de aandeelhouders van 1845 raakten
+hun geld kwijt.
+- Reken bij een positie met geleend geld uit bij welke koers er moet worden
+bijgestort, voordat de positie wordt ingenomen.
+
+#### Wat je hierna leest
+
+- 807. Manias, Panics, and Crashes. Kindleberger geeft hetzelfde materiaal een
+model met vaste fasen, waar Chancellor bij het verhaal blijft.
+- 809. The Great Crash, 1929. Galbraith behandelt het jaar 1929 dat bij
+Chancellor één hoofdstuk beslaat, met meer aandacht voor de nasleep.
+- 814. Anatomy of the Bear. Napier bekijkt dezelfde beursgeschiedenis van de
+andere kant, vanaf de bodem in plaats van vanaf de top.
+
+## 809. The Great Crash, 1929
+
+John Kenneth Galbraith, 1955. *The Great Crash, 1929* (Houghton Mifflin,
+Boston, 1955). Galbraith voorzag het boek meermalen van een nieuw voorwoord,
+onder meer in 1961, 1972, 1988, 1997 en 2009. Nederlands als *De crash van
+1929* (Ambo, Amsterdam, 2009, 245 blz., vertaling A. Westvaarder, met een
+voorwoord van Arnold Heertje, ISBN 9789026322457). Eerdere Nederlandse
+uitgaven verschenen vanaf 1963, aanvankelijk bij De Bussy onder de titel *De
+krach van '29*. Rubriek: geld en ondernemen.
+Tags: `economische geschiedenis`, `beurskrach`, `speculatie`, `economie`,
+`financiële markten`
+
+Galbraith schreef dit boek in 1954 en 1955, vijfentwintig jaar na de
+gebeurtenissen, en beschrijft in negen korte hoofdstukken hoe de Amerikaanse
+aandelenmarkt in 1928 en 1929 opliep en in oktober 1929 instortte. Hij begint
+bij de grondkoorts in Florida van 1925, gaat via de beleggingstrusts van 1929
+naar de dagen van 24 en 29 oktober, en eindigt met de vraag wat de val met de
+daaropvolgende depressie te maken had.
+
+Het boek is even bekend om zijn toon als om zijn inhoud. Galbraith schrijft
+ironisch en houdt zich in bij het uitdelen van cijfers, en hij heeft er een
+aantal begrippen mee gevestigd, waaronder de bezzle: de voorraad
+verduisteringen die nog niet is ontdekt en die in goede tijden aangroeit omdat
+niemand nakijkt. In het slothoofdstuk noemt hij vijf zwakke plekken in de
+Amerikaanse economie van 1929 die de val naar zijn oordeel in een depressie
+lieten overgaan.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Galbraith betoogt dat de val van oktober 1929 het gevolg was
+van een speculatiegolf die zich in de twee jaar ervoor van de onderliggende
+bedrijfsresultaten had losgemaakt, en dat de omvang van de daaropvolgende
+ellende niet aan de beurs alleen kan worden toegeschreven maar aan vijf zwakke
+plekken in de Amerikaanse economie die de klap doorgaven in plaats van te
+dempen. Achter de episode zit volgens hem een gedragspatroon dat niet aan die
+tijd gebonden is: de overtuiging dat men rijk kan worden zonder te werken, de
+bereidheid om die overtuiging met geleend geld te ondersteunen, en het
+onvermogen van bestuurders en toezichthouders om in te grijpen zolang de
+koersen stijgen. Zijn slotsom is dat de herinnering aan zo'n episode korter
+meegaat dan de voorwaarden die haar mogelijk maken.
+
+#### De gang van het boek
+
+**Visioen en grenzeloze hoop**
+
+Het eerste hoofdstuk begint niet op de beurs maar in Florida, waar in 1925 een
+grondkoorts woedde waarbij kavels werden doorverkocht op basis van een
+aanbetaling van tien procent. Twee orkanen in 1926 maakten er een eind aan.
+Galbraith gebruikt de episode als miniatuur van wat drie jaar later op grotere
+schaal gebeurde, inclusief de aanbetaling en de verhalen over grond die vlak
+bij zee zou liggen.
+
+Vervolgens beschrijft hij de stemming van de late jaren twintig: de gedachte
+dat Amerika een tijdperk van blijvende voorspoed was binnengegaan, gedragen
+door de auto, de radio en de nieuwe bedrijfsvoering. In die jaren verscheen
+ook het boek van Edgar Lawrence Smith dat aandelen op lange termijn als
+betrouwbaar bezit voorstelde, wat de gedachte een wetenschappelijke
+onderbouwing gaf.
+
+**Moet er iets gebeuren?**
+
+Het tweede hoofdstuk gaat over de vraag waarom niemand ingreep. Het middel dat
+voor de hand lag was het effectenkrediet: beleggers kochten aandelen met
+geleend geld van hun commissionair, die het geld op zijn beurt tegen een
+dagrente betrok. De omvang van die leningen was bekend en werd wekelijks
+gepubliceerd, en de rente erop liep in 1929 tot boven de tien procent.
+
+Galbraith laat zien hoe het stelsel van centrale banken en de opeenvolgende
+regeringen zich in bochten wrongen om niets te doen. Waarschuwen zou de val
+kunnen uitlokken en die val zou dan aan de waarschuwer worden toegeschreven.
+Het hoofdstuk is de kern van zijn politieke punt: de macht om in te grijpen
+bestond, de bereidheid niet.
+
+**In Goldman, Sachs we trust**
+
+Het derde hoofdstuk behandelt de beleggingstrusts, gesloten fondsen die
+aandelen in andere ondernemingen bezaten en zelf beursgenoteerd waren. Ze
+konden op elkaar worden gestapeld: een trust bezat de aandelen van een tweede
+trust, die weer een derde bezat. Doordat elke laag met vreemd vermogen werkte,
+sloeg een koersstijging bij de onderste laag versterkt door naar boven, en een
+daling ook.
+
+Galbraith volgt hier de Goldman Sachs Trading Corporation uit december 1928 en
+haar dochters Shenandoah en Blue Ridge, die in de zomer van 1929 op de markt
+kwamen en na de val vrijwel niets meer waard waren. Het is het scherpste
+voorbeeld in het boek van de hefboom, het verschijnsel dat winst en verlies
+allebei worden uitvergroot door geleend geld.
+
+**De schemering van de illusie**
+
+Het vierde hoofdstuk beschrijft september 1929. Op 5 september zei
+bedrijfsadviseur Roger Babson dat er vroeg of laat een val zou komen, waarna
+de markt op één dag zichtbaar terugliep. Halverwege oktober verklaarde de
+econoom Irving Fisher dat de aandelenkoersen een blijvend hoog niveau hadden
+bereikt.
+
+Galbraith laat de twee uitspraken naast elkaar staan om te tonen hoe weinig
+gezag de deskundigen aan hun voorspellingen konden ontlenen. Ook de
+ineenstorting van het Londense concern van Clarence Hatry eind september komt
+hier aan bod, als een van de gebeurtenissen die het vertrouwen ondermijnden
+zonder dat iemand dat op dat moment zo zag.
+
+**De val**
+
+Het vijfde hoofdstuk is de beschrijving van de dagen zelf. Op donderdag 24
+oktober werden bijna 12,9 miljoen aandelen verhandeld en liep de koersband
+uren achter, zodat handelaren niet meer wisten tegen welke prijs zij
+verkochten. Diezelfde middag vormden de grote banken een pool en stuurden zij
+Richard Whitney, ondervoorzitter van de beurs, naar de vloer om zichtbaar een
+groot pakket U.S. Steel te bieden. De markt herstelde die dag.
+
+Op dinsdag 29 oktober was er geen pool meer. Er gingen ruim 16,4 miljoen
+aandelen om, een aantal dat pas decennia later werd overtroffen, en de bodem
+viel uit de markt. Galbraith ontkracht in dit hoofdstuk ook het beeld van
+speculanten die zich uit ramen wierpen: het zelfmoordcijfer van dat najaar
+wijkt niet af van de gebruikelijke gang van zaken.
+
+**Het wordt ernstiger**
+
+Het zesde hoofdstuk gaat over de maanden erna, waarin de koersen na een
+tussentijds herstel bleven zakken. Hier introduceert Galbraith de bezzle: op
+elk moment is er een hoeveelheid geld verduisterd die de bestolene nog niet
+mist en waarvan de dief wel al geniet. In goede tijden groeit die voorraad,
+omdat er minder wordt nagekeken; zodra de koersen dalen wordt er wel gekeken,
+en komt de fraude in één beweging aan het licht.
+
+Het is een van de weinige begrippen uit het boek dat een eigen leven is gaan
+leiden, en het verklaart waarom elke val gevolgd wordt door een reeks
+onthullingen die de indruk wekken dat de fraude de oorzaak was, terwijl zij er
+eerder een gevolg van is.
+
+**Nasleep en oorzaken**
+
+De laatste hoofdstukken volgen de afwikkeling: de val van de energieholding
+van Samuel Insull, het einde van de Zweedse luciferkoning Ivar Kreuger, en de
+Senaatsverhoren onder leiding van Ferdinand Pecora die in 1932 en 1933 lieten
+zien wat de banken hun klanten hadden verkocht. Richard Whitney, de man van de
+pool, kwam later zelf wegens verduistering in de gevangenis terecht.
+
+In het slothoofdstuk noemt Galbraith vijf zwakke plekken die de val volgens
+hem in een depressie deden overgaan: een scheve inkomensverdeling, waarbij de
+rijkste vijf procent ongeveer een derde van het persoonlijk inkomen ontving;
+een ondeugdelijke ondernemingsstructuur met te veel opeengestapelde holdings;
+een bankwezen van talloze kleine zelfstandige banken die elkaar in hun val
+meetrokken; een buitenlandse balans waarin Amerika schuldeiser was maar
+tegelijk zijn markt met invoerheffingen sloot; en een gebrekkige staat van de
+economische kennis, waardoor het beleid de zaak eerder verergerde dan
+verbeterde.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Effectenkrediet | Lening van een commissionair waarmee een belegger aandelen koopt en waarbij hij moet bijstorten of verkopen zodra de koers zakt. |
+| Dagrente op beleggersleningen | De rente op kortlopend geld dat commissionairs doorleenden aan beleggers, in 1929 zo hoog dat bedrijven hun eigen kasgeld liever uitleenden dan investeerden. |
+| Hefboom | Het uitvergroten van winst en verlies door met geleend geld te werken, in dit boek zichtbaar in de opeengestapelde beleggingstrusts. |
+| Beleggingstrust | Beursgenoteerd fonds dat aandelen in andere ondernemingen bezit en dat in 1929 vaak zelf weer eigendom was van een ander zulk fonds. |
+| Bankierspool | Afspraak tussen grote banken om gezamenlijk aandelen te kopen en zo de markt te stutten, op 24 oktober 1929 zichtbaar uitgevoerd door Richard Whitney. |
+| Blijvend hoog niveau | De uitdrukking van Irving Fisher uit oktober 1929 dat de koersen een plateau hadden bereikt waarvan zij niet meer zouden dalen. |
+| De bezzle | De voorraad verduisterd geld die nog niet is ontdekt, en die in tijden van stijgende koersen aangroeit omdat er minder wordt gecontroleerd. |
+| Pecora-verhoren | De verhoren van de Amerikaanse Senaat in 1932 en 1933 waarin de handelwijze van banken en commissionairs openbaar werd. |
+
+#### Waar het argument op rust
+
+Galbraith werkte met openbaar materiaal: dagbladen, de wekelijkse cijfers over
+beleggersleningen, jaarverslagen, prospectussen van de beleggingstrusts en de
+stenogrammen van de Senaatsverhoren. De gedetailleerde passages, zoals de
+handelsvolumes van 24 en 29 oktober en de opbouw van de Goldman Sachs-trusts,
+zijn daaraan te toetsen en worden ook nu nog in die vorm geciteerd.
+
+Het boek is geen econometrisch werk en pretendeert dat ook niet. Galbraith
+geeft geen model en geen berekening waaruit blijkt hoeveel van de depressie
+aan de beurs is toe te schrijven. Zijn vijf zwakke plekken zijn een opsomming
+van oordelen, gestaafd met enkele cijfers, waaronder de inkomensverdeling van
+1929. Wie wil weten hoe zwaar elk van de vijf woog, vindt in het boek geen
+antwoord.
+
+Op één punt is de latere geschiedschrijving hem grotendeels gevolgd: dat de
+markt van 1928 en 1929 door krediet werd gedragen en dat de opgaande fase een
+uitgesproken speculatief karakter had. Op het punt van de oorzaken van de
+depressie is het beeld verschoven, zie hieronder.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar komt uit de monetaire geschiedschrijving. Milton Friedman
+en Anna Schwartz betoogden in *A Monetary History of the United States* (1963)
+dat de depressie zo diep werd doordat de Amerikaanse geldhoeveelheid tussen
+1929 en 1933 met ongeveer een derde kromp terwijl de centrale bank dat liet
+gebeuren. In die lezing is de beursval een episode aan het begin en zit de
+verklaring elders. Galbraiths vijfde zwakke plek, de gebrekkige economische
+kennis, overlapt daarmee, maar hij trekt de conclusie niet.
+
+Ook de veronderstelling dat de koersen van 1929 zichtbaar te hoog stonden is
+aangevochten. Onderzoek van onder anderen Eugene White en Gerald Sirkin heeft
+laten zien dat de koers-winstverhoudingen van september 1929 naar latere
+maatstaven niet uitzonderlijk waren, en dat een groot deel van de stijging met
+de winstontwikkeling meeliep. Wie dat aanvaardt, houdt over dat de markt zich
+vergiste in de toekomst, wat iets anders is dan collectieve waanzin.
+
+Verder is het boek kort, en het is kort op de plaatsen waar het pijn doet.
+Over de werking van het bankwezen, over de rol van de invoerheffingen en over
+de internationale schuldverhoudingen staan telkens een paar alinea's. De
+ironische toon, die het boek leesbaar maakt, werkt daarbij als vervanging van
+bewijs: een bestuurder die belachelijk wordt gemaakt, is nog niet weerlegd.
+Galbraith was bovendien een uitgesproken partij in het Amerikaanse politieke
+debat, en de wenselijkheid van toezicht is in dit boek eerder uitgangspunt dan
+uitkomst.
+
+#### Wat er concreet mee te doen is
+
+- Kijk bij een oplopende markt eerst naar de financieringskant: hoeveel is er
+geleend om die stukken te kopen, en tegen welke rente.
+- Wantrouw gestapelde constructies waarin het ene fonds het andere bezit; de
+hefboom telt bij elke laag opnieuw mee.
+- Reken erop dat na een val fraude aan het licht komt die tijdens de stijging
+al bestond, en behandel die onthullingen als gevolg en niet als oorzaak.
+- Neem uitspraken van bekende deskundigen over het koersniveau niet als
+informatie; noteer ze en kijk er een jaar later op terug.
+
+#### Wat je hierna leest
+
+- 808. Devil Take the Hindmost. Chancellor plaatst 1929 in een reeks van vier
+eeuwen speculatie en laat zien welke elementen al eerder voorkwamen.
+- 807. Manias, Panics, and Crashes. Kindleberger bouwt uit dit soort episodes
+een model met vaste fasen, met aandacht voor de rol van een geldschieter in
+laatste instantie.
+- 814. Anatomy of the Bear. Napier onderzoekt vier grote bodems in de
+Amerikaanse beursgeschiedenis, waaronder juli 1932, en dus precies de afloop
+die Galbraith beschrijft.
+
+## 810. Inventing Money
+
+Nicholas Dunbar, 2000. *Inventing Money: The Story of Long-Term Capital
+Management and the Legends Behind It* (John Wiley & Sons, Chichester, 2000,
+ISBN 9780471899990). De pocketuitgave van november 2000 telt 280 blz. en heeft
+een nieuw voorwoord (ISBN 9780471498117). Er is geen Nederlandse vertaling;
+deze samenvatting berust op de Engelse editie. Over hetzelfde onderwerp
+verscheen in datzelfde jaar *When Genius Failed* van Roger Lowenstein, dat
+meer op de personen en minder op de wiskunde ingaat. Rubriek: geld en
+ondernemen.
+Tags: `derivaten`, `risicobeheer`, `financiële markten`, `hedgefonds`,
+`financiële wiskunde`, `beleggen`
+
+Dunbar, destijds redacteur bij het vakblad Risk, vertelt het verhaal van
+Long-Term Capital Management, het hedgefonds dat in 1994 werd opgericht door
+John Meriwether en dat onder meer de latere Nobelprijswinnaars Robert Merton
+en Myron Scholes onder zijn vennoten telde. Het fonds verdiende in zijn eerste
+jaren rendementen van rond de veertig procent, kwam in de zomer van 1998 in de
+problemen na het Russische betalingsverzuim, en werd op 23 september van dat
+jaar overgenomen door een groep van veertien banken.
+
+Wat dit boek onderscheidt van andere verslagen is de plaats die de wiskunde
+krijgt. Ongeveer de helft gaat over de theorie waarop de handel van het fonds
+rustte, van het proefschrift van Louis Bachelier uit 1900 via de optieformule
+van Black, Scholes en Merton uit 1973 tot het rekenen met kansverdelingen dat
+in de jaren negentig de risicomodellen van banken vulde. De ondergang van LTCM
+is bij Dunbar dan ook in de eerste plaats een uitspraak over de grenzen van
+die modellen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Dunbar betoogt dat de val van Long-Term Capital Management
+een gebeurtenis is in de geschiedenis van de financiële wiskunde en niet
+alleen in die van Wall Street. De handel van het fonds rustte op een reeks
+aannames die sinds Bachelier in de theorie zijn ingebouwd: dat prijzen zich
+als een toevalswandeling gedragen, dat grote sprongen zeldzaam zijn, dat een
+positie altijd kan worden afgebouwd en dat de posities van de handelaar de
+markt niet bewegen. Zolang de markten rustig waren hielden die aannames stand
+en leverden ze het fonds rendement op met weinig zichtbaar risico. In de zomer
+van 1998 vielen ze alle vier tegelijk weg, en toen bleek dat de
+risicomaatstaven die toezichthouders en banken toen net hadden omarmd precies
+dat geval niet konden beschrijven.
+
+#### De gang van het boek
+
+**Bachelier en de theorie van de speculatie**
+
+Het boek begint ver voor LTCM, met de vraag hoe je een prijs uitrekent van
+iets waarvan de toekomst onbekend is. Dunbar loopt van vroege vormen van
+rentedragende contracten naar het proefschrift dat Louis Bachelier in 1900 in
+Parijs verdedigde over de handel in Franse staatsleningen. Bachelier beschreef
+koersbewegingen als een toevalswandeling: elke volgende beweging staat los van
+de vorige, en de verwachte koers van morgen is de koers van vandaag. Dat idee,
+later een martingaal genoemd, is de bouwsteen waar alles op volgt.
+
+Bacheliers werk bleef decennialang onopgemerkt. Dunbar gebruikt dat voor zijn
+eigen thema: de wiskunde is telkens ouder dan de handel die erop wordt
+gebouwd, en de handelaren nemen haar over zonder de voorbehouden van de
+wiskundige.
+
+**De wetenschap van angst en hebzucht**
+
+Het tweede deel behandelt de opbouw van de moderne financiële theorie. Harry
+Markowitz gaf in 1952 het portefeuillevraagstuk een wiskundige vorm door
+risico als spreiding van de opbrengsten te definiëren. Daarop bouwden onder
+anderen William Sharpe en de opstellers van het model dat rendement aan
+marktrisico koppelt.
+
+Het zwaartepunt ligt bij Fischer Black, Myron Scholes en Robert Merton, die in
+1973 lieten zien hoe de prijs van een optie te bepalen is. Een optie is het
+recht om iets later tegen een vooraf vastgelegde prijs te kopen of te
+verkopen; het is een voorbeeld van een derivaat, een contract waarvan de
+waarde is afgeleid van iets anders. Hun redenering was dat de uitbetaling van
+zo'n optie na te bootsen is door voortdurend een bepaalde hoeveelheid van het
+onderliggende stuk aan te houden en die hoeveelheid bij elke koersbeweging aan
+te passen. Wie dat kan, hoeft niet te weten waar de koers heen gaat om de
+optie te prijzen. Dunbar besteedt veel aandacht aan Black, die in 1995 stierf
+en daardoor de Nobelprijs van 1997 misliep.
+
+**Handelen in tijd en het pad met vertakkingen**
+
+Vervolgens beschrijft Dunbar hoe de theorie de handelsvloer bereikte. In 1973
+opende in Chicago de eerste beurs voor gestandaardiseerde opties, en de
+formule van Black en Scholes werd op zakrekenmachines gezet. Later verscheen
+het binomiale model, dat de toekomst voorstelt als een boom van steeds verder
+vertakkende paden en dat gemakkelijker te programmeren bleek.
+
+Tegelijk ontstond de markt voor renteswaps, waarbij twee partijen
+betalingsstromen ruilen, meestal een vaste rente tegen een variabele. Dunbar
+volgt hier de opkomst van John Meriwether bij Salomon Brothers, waar hij een
+groep opzette die verschillen tussen bijna identieke obligaties uitbuitte. Dat
+is arbitrage in de losse zin waarin de handel het woord gebruikt: verdienen
+aan een prijsverschil tussen twee dingen die op elkaar horen te lijken, in de
+verwachting dat het verschil verdwijnt.
+
+**De waarschuwing**
+
+Voor het fonds wordt opgericht, staat Dunbar stil bij twee gebeurtenissen die
+achteraf als voorwaarschuwing zijn te lezen. De eerste is de beurskrach van
+oktober 1987, waarbij een handelsmethode die op de replicatiegedachte van
+Black en Scholes was gebouwd, bekend als portefeuilleverzekering, precies op
+het verkeerde moment verkooporders genereerde en de daling versterkte. Dat
+liet zien wat er gebeurt als veel partijen dezelfde afdekstrategie volgen: het
+model gaat ervan uit dat de markt de handelaar niet opmerkt, en dat klopt dan
+niet meer.
+
+De tweede is het schandaal bij Salomon Brothers in 1991 rond de biedingen op
+Amerikaans staatspapier, dat Meriwether zijn positie kostte en dat de kern van
+zijn team beschikbaar maakte voor iets nieuws.
+
+**Het droomteam**
+
+LTCM begon in 1994 met ongeveer 1,25 miljard dollar aan ingelegd vermogen, een
+bedrag dat voor een startend fonds ongewoon groot was, en met een
+vennotenlijst waarop naast Meriwether de namen van Merton, Scholes en
+oud-bestuurder van de centrale bank David Mullins stonden. De rendementen na
+kosten liepen op tot ruim veertig procent in 1995 en 1996.
+
+Dunbar legt uit waar dat rendement vandaan kwam. De afzonderlijke posities
+leverden kleine verschillen op, bijvoorbeeld tussen een recent uitgegeven
+staatslening en een vrijwel identieke oudere, of tussen de rente op een swap
+en die op staatspapier. Om daar een aantrekkelijk rendement uit te halen was
+hefboom nodig: handelen met geleend geld, waardoor winst en verlies op de
+eigen inleg allebei worden uitvergroot. De balans van het fonds groeide tot
+ongeveer 125 miljard dollar op een eigen vermogen van rond de 4,7 miljard, en
+de nominale waarde van de derivatencontracten liep tot in de orde van 1,25
+biljoen dollar. Ook beschrijft hij hoe LTCM in de tweede helft van zijn
+bestaan grote posities innam in de volatiliteit van aandelenindices, wat het
+fonds bij tegenpartijen de bijnaam van volatiliteitsbank opleverde.
+
+**Uit de hand**
+
+Eind 1997 keerde LTCM ongeveer 2,7 miljard dollar aan zijn beleggers uit,
+omdat de vennoten meer geld hadden dan zij konden gebruiken. Het eigen
+vermogen kromp daardoor terwijl de posities bleven staan, en de hefboom liep
+verder op. Daarna kwamen de Aziatische crisis en, in augustus 1998, het
+Russische betalingsverzuim.
+
+Wat toen gebeurde is de kern van het boek. De posities van het fonds waren op
+papier verschillend maar bleken in de praktijk allemaal hetzelfde te zijn: een
+weddenschap dat prijsverschillen kleiner worden en dat rustige markten
+terugkeren. Toen beleggers wereldwijd naar de veiligste stukken vluchtten,
+liepen die verschillen juist verder uiteen, en er waren geen kopers voor wat
+LTCM wilde verkopen. Het fonds verloor in minder dan vier maanden ongeveer 4,6
+miljard dollar.
+
+**Het lied van een martingaal**
+
+Op 23 september 1998 kwam onder regie van de Federal Reserve Bank of New York
+een groep van veertien financiële instellingen bijeen die samen 3,625 miljard
+dollar inlegden in ruil voor negentig procent van het fonds. De centrale bank
+leende zelf geen geld uit; zij bracht de partijen bij elkaar met het argument
+dat een gedwongen verkoop van de posities de markten verder zou ontwrichten.
+
+In de slothoofdstukken trekt Dunbar de balans. Hij wijst op de martingaal in
+de tweede betekenis van het woord, het gokschema waarbij de inzet na elk
+verlies wordt verdubbeld, en op de risicomaatstaf die banken en
+toezichthouders in die jaren hadden omarmd: value at risk, het bedrag dat op
+een gewone dag met een gegeven waarschijnlijkheid niet wordt overschreden. Die
+maatstaf zegt per definitie niets over wat er in het resterende deel van de
+gevallen gebeurt, en juist dat deel bepaalde de uitkomst.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Derivaat | Contract waarvan de waarde is afgeleid van iets anders, bijvoorbeeld van een aandeel, een rente of een wisselkoers. |
+| Optie | Recht, niet de plicht, om iets later tegen een vooraf vastgelegde prijs te kopen of te verkopen. |
+| Arbitrage | Verdienen aan een prijsverschil tussen twee dingen die op elkaar horen te lijken, in de verwachting dat dat verschil verdwijnt. |
+| Convergentiehandel | De vorm van arbitrage waar LTCM van leefde: een goedkoop stuk kopen en een duur, vrijwel gelijk stuk verkopen, en wachten tot de prijzen naar elkaar toe kruipen. |
+| Hefboom | Handelen met geleend geld, waardoor winst en verlies op de eigen inleg allebei worden uitvergroot. |
+| Black-Scholes-formule | De uitkomst uit 1973 waarmee de prijs van een optie te berekenen is zonder te weten waar de koers heen gaat. |
+| Dynamisch afdekken | Het voortdurend bijstellen van de hoeveelheid onderliggende stukken die je aanhoudt, zodat de uitbetaling van een optie wordt nagebootst. |
+| Renteswap | Contract waarin twee partijen rentebetalingen ruilen, meestal een vaste rente tegen een variabele. |
+| Value at risk | Risicomaatstaf die aangeeft welk verlies op een gewone dag met een gegeven waarschijnlijkheid niet wordt overschreden, en die over de overige gevallen niets zegt. |
+| Martingaal | Kansproces waarvan de beste voorspelling van morgen de waarde van vandaag is; ook de naam van het gokschema waarbij de inzet na elk verlies wordt verdubbeld. |
+
+#### Waar het argument op rust
+
+Dunbar schreef als redacteur van een vakblad voor risicobeheer en had toegang
+tot de handelaren, de modelbouwers en de tegenpartijen van LTCM. Dat is te
+zien aan de precisie waarmee de posities worden beschreven: welke stukken
+tegenover elkaar stonden en wat de modellen wel en niet aankonden. De
+theoriehoofdstukken steunen op de oorspronkelijke artikelen en op gesprekken
+met de betrokken academici.
+
+De vennoten van het fonds werkten zelf grotendeels niet mee. De reconstructie
+van de laatste weken leunt daardoor op tegenpartijen, op de banken die in de
+reddingsgroep zaten en op het openbare onderzoeksrapport dat de Amerikaanse
+toezichthouders in april 1999 uitbrachten. Waar het over de sfeer binnen het
+fonds gaat, is het boek dunner dan waar het over de posities gaat.
+
+De cijfers die het boek noemt komen overeen met wat later uit officiële
+bronnen bekend is geworden. Waar het boek zich buiten die cijfers begeeft, bij
+de vraag hoe zwaar de theorie schuld draagt, is het een betoog en geen
+verslag.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat Dunbar de val te veel op het conto van de theorie
+schrijft. Merton en Scholes hadden hun aannames zelf voorzien van
+voorbehouden, en de partners van LTCM wisten dat prijzen kunnen springen. Wat
+het fonds fataal werd, was de omvang van de posities in verhouding tot de
+markt waarin ze moesten worden afgewikkeld, de navolging door andere partijen,
+en de beslissing om eind 1997 kapitaal terug te geven terwijl de posities
+bleven staan. Dat zijn keuzes over hefboom en positiegrootte, los van de vraag
+of de optieformule klopt.
+
+Als verhaal is het boek zwakker dan *When Genius Failed* van Roger Lowenstein,
+dat in hetzelfde jaar verscheen en dat wel met betrokkenen sprak. Lowenstein
+geeft de personen, de onderlinge verhoudingen en de laatste dagen; Dunbar
+geeft de wiskunde. Wie wil begrijpen wat er gebeurde tussen de mensen in die
+vergaderzaal, leest het verkeerde boek. Wie wil begrijpen wat er in de
+modellen gebeurde, leest het juiste.
+
+De theoriehoofdstukken vragen bovendien meer van de lezer dan de opzet
+suggereert. Dunbar legt de wiskunde uit in woorden en beelden, vrijwel zonder
+formules, wat prettig oogt maar tot gevolg heeft dat de lezer een indruk
+overhoudt en geen greep. Ten slotte is het boek dicht op de gebeurtenissen
+geschreven, in 1999 en 2000, waardoor de vergelijking met de crisis van 2008
+ontbreekt.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij een strategie met kleine, stabiele winsten hoeveel hefboom er
+nodig is om er een aantrekkelijk rendement uit te krijgen, en reken de
+uitkomst door bij een verdubbeling van het prijsverschil.
+- Behandel posities die op papier verschillend zijn als één positie zodra ze
+allemaal van hetzelfde afhangen, bijvoorbeeld van rustige markten of van
+krimpende renteverschillen.
+- Neem bij elke risicomaatstaf op hoeveel er verloren kan worden in de
+gevallen die buiten de maatstaf vallen, want dat is de vraag die value at risk
+niet beantwoordt.
+- Houd rekening met de omvang van de eigen positie in verhouding tot de
+dagelijkse omzet in die markt, want een positie die niet verkocht kan worden
+is iets anders dan een positie die verlies lijdt.
+
+#### Wat je hierna leest
+
+- 494. Dynamic Hedging. Taleb schrijft over dezelfde optiewiskunde vanuit de
+handelaarspraktijk, met nadruk op wat de standaardmodellen bij grote
+bewegingen missen.
+- 811. The (Mis)Behaviour of Markets. Mandelbrot geeft de wiskundige
+onderbouwing voor de stelling dat grote sprongen veel vaker voorkomen dan de
+gebruikte kansverdeling toestaat.
+- 64. Fooled by Randomness. Taleb behandelt in dit eerdere boek het probleem
+van handelsstrategieën die jarenlang werken en daarna alles teruggeven.
+
+## 811. The (Mis)Behaviour of Markets
+
+Benoit B. Mandelbrot en Richard L. Hudson, 2004. *The (Mis)Behaviour of
+Markets: A Fractal View of Risk, Ruin and Reward* (Profile Books, Londen,
+2004; heruitgave 2010, 352 blz., ISBN 9781847651556). De Amerikaanse uitgave
+verscheen bij Basic Books als *The (Mis)Behavior of Markets* en droeg vanaf de
+pocket van 2006 de ondertitel *A Fractal View of Financial Turbulence* (ISBN
+9780465043576). Een Nederlandse vertaling is niet gevonden; wel bestaat een
+Duitse, *Fraktale und Finanzen* (Piper, 2005). Deze samenvatting berust op de
+Engelse editie. Rubriek: geld en ondernemen.
+Tags: `risico`, `statistiek`, `financiële markten`, `fractals`,
+`staartrisico`, `beleggen`
+
+Mandelbrot, de wiskundige die het woord fractal bedacht, schreef dit boek
+samen met journalist Richard Hudson als aanklacht tegen de kansverdeling die
+aan vrijwel de hele financiële theorie ten grondslag ligt. Die theorie gaat
+ervan uit dat koersbewegingen de normale verdeling volgen, de klokvormige
+kromme waarbij grote uitslagen zo zeldzaam zijn dat ze verwaarloosd mogen
+worden. Mandelbrot laat aan de hand van katoenprijzen, wisselkoersen en
+aandelenkoersen zien dat grote uitslagen in werkelijkheid veel vaker
+voorkomen, en dat ze bovendien geneigd zijn zich te groeperen.
+
+In plaats daarvan biedt hij een beschrijving met machtswetten en fractale
+meetkunde, met het Jozef-effect voor het lange geheugen van markten en het
+Noach-effect voor de plotselinge sprong. Het boek is voor een deel
+wetenschapsgeschiedenis, met Bachelier, Markowitz, Sharpe en Black-Scholes als
+tegenspelers, en voor een deel een pleidooi voor een ander soort risicodenken.
+Wat het niet biedt is een kant-en-klare vervanging van de formules die het
+afwijst.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Mandelbrot betoogt dat de moderne financiële theorie op een
+verkeerde kansverdeling is gebouwd. Sinds Bachelier wordt aangenomen dat
+prijsveranderingen onafhankelijk van elkaar zijn en de normale verdeling
+volgen, de klokvormige kromme waarbij de kans op een uitschieter razendsnel
+afneemt naarmate die groter wordt. Uit metingen aan katoenprijzen,
+wisselkoersen en aandelenindices volgt volgens hem het tegendeel: de
+uitschieters komen orden van grootte vaker voor dan die kromme toestaat, ze
+groeperen zich in tijd, en de opeenvolgende bewegingen zijn niet
+onafhankelijk. Daarmee zijn niet alleen de risicomaatstaven van banken en
+toezichthouders te laag afgesteld, maar deugt ook het bouwwerk dat op die
+maatstaven rust. Zijn tegenvoorstel is een beschrijving in machtswetten en
+fractale meetkunde, waarin schaalvergroting en zeldzame sprongen ingebouwd
+zitten.
+
+#### De gang van het boek
+
+**Bachelier en het gebouw van de moderne financiering**
+
+Het eerste deel is wetenschapsgeschiedenis. Louis Bachelier stelde in 1900
+voor koersbewegingen op te vatten als een toevalswandeling waarin elke stap
+onafhankelijk is van de vorige en de stappen samen een normale verdeling
+opleveren. Dat idee bleef liggen tot het in de jaren vijftig en zestig werd
+opgepakt door de Amerikaanse economen.
+
+Daarop verrees wat Mandelbrot het huis van de moderne financiering noemt: het
+portefeuillemodel van Harry Markowitz uit 1952, waarin risico wordt
+gelijkgesteld aan de spreiding van de rendementen; het prijsmodel voor
+beleggingen van William Sharpe; de leer van de doelmatige markt van Eugene
+Fama; en de optieformule van Fischer Black, Myron Scholes en Robert Merton uit
+1973. Alle vier de bouwlagen leunen op dezelfde aanname over de verdeling, en
+Mandelbrot behandelt ze dan ook als één constructie.
+
+**De aanklacht**
+
+Het hoofdstuk waarin de aanklacht wordt opgesteld werkt met tellingen. Onder
+de gangbare aanname was de val van de Dow Jones-index van 6,8 procent op 31
+augustus 1998 een gebeurtenis met een kans van ongeveer één op twintig
+miljoen, iets wat iemand die honderdduizend jaar dagelijks handelt naar
+verwachting nog niet één keer meemaakt. De kans op drie zulke dalingen in
+dezelfde maand, wat wel gebeurde, was ongeveer één op vijfhonderd miljard.
+Vergelijkbare rekensommen gelden voor oktober 1987.
+
+Mandelbrot trekt daaruit de conclusie dat een model dat gebeurtenissen
+onmogelijk verklaart die met enige regelmaat optreden, zelf het probleem is.
+Zijn tweede bezwaar is dat de veronderstelde onafhankelijkheid van
+opeenvolgende bewegingen strijdt met wat iedere handelaar ziet: rustige en
+woelige perioden wisselen elkaar in blokken af.
+
+**Beelden van het abnormale en een fractale galerij**
+
+Het middendeel legt de meetkunde uit. Mandelbrot begint bij de vraag hoe lang
+de kust van Groot-Brittannië is, waarop het antwoord afhangt van de lengte van
+de meetlat: hoe fijner er wordt gemeten, hoe langer de kust wordt. Vormen met
+die eigenschap noemde hij fractals: ze zien er op elke schaal ongeveer
+hetzelfde uit, en hun ruwheid laat zich vangen in een getal dat de mate van
+vulling van de ruimte aangeeft.
+
+Vervolgens laat hij zien hoe je met een gebroken lijn die telkens in zichzelf
+wordt teruggeplaatst koersgrafieken kunt maken die van echte niet te
+onderscheiden zijn. Grafieken uit de gangbare aanname zien er daarnaast te tam
+uit, en dat visuele argument draagt een groot deel van zijn
+overtuigingskracht.
+
+**Het raadsel van de katoen**
+
+Het achtste hoofdstuk vertelt hoe Mandelbrot rond 1962 bij het
+onderzoekslaboratorium van IBM een lange reeks katoenprijzen onderzocht,
+teruggaand tot de negentiende eeuw. De verdeling van de prijsveranderingen
+bleek geen klokkromme maar een machtswet: de kans op een uitslag neemt af met
+een vaste macht van de omvang van die uitslag, waardoor grote uitslagen veel
+zwaarder meewegen dan bij de normale verdeling.
+
+Zulke verdelingen hebben een eigenschap die economen verontrustte: de
+theoretische spreiding kan oneindig zijn, waardoor de standaardafwijking, de
+maat waarmee de hele financiële wereld risico meet, geen stabiel getal meer
+oplevert. Naarmate je meer waarnemingen toevoegt, blijft dat getal veranderen.
+Eugene Fama nam de bevinding aanvankelijk over, maar de vakwereld liet haar na
+enkele jaren liggen.
+
+**Lang geheugen, van de Nijl naar de beurs**
+
+Het negende hoofdstuk gaat over afhankelijkheid in de tijd. Het uitgangspunt
+is het werk van de waterbouwkundige Harold Edwin Hurst, die de waterstanden
+van de Nijl over lange perioden bestudeerde om de hoogte van een stuwdam te
+bepalen, en die vaststelde dat natte en droge jaren zich groeperen. Hurst
+vatte dat in één getal, later de Hurst-exponent genoemd: bij een waarde van
+een half gedraagt de reeks zich als zuiver toeval, daarboven zetten bewegingen
+zich door, daaronder keren ze eerder om.
+
+Mandelbrot verbindt dit met het bijbelse verhaal van Jozef, met zeven vette en
+zeven magere jaren, en noemt het verschijnsel het Jozef-effect. Toegepast op
+koersen betekent het dat de veronderstelde onafhankelijkheid van de dagelijkse
+bewegingen wegvalt, en daarmee ook de rekenregel die zegt dat het risico over
+een langere periode met de wortel van de tijd toeneemt.
+
+**Noach, Jozef en zeepbellen**
+
+Het tiende hoofdstuk zet de twee soorten wildheid naast elkaar. Het
+Noach-effect is de plotselinge sprong: de zondvloed kwam onaangekondigd en was
+onmiddellijk allesbepalend. In markten is dat de koers die niet glijdt maar
+springt, bijvoorbeeld doordat er tussen twee prijzen geen handel plaatsvindt.
+Het Jozef-effect is de aanhoudende trend of de aanhoudende rust.
+
+Samen verklaren ze volgens Mandelbrot waarom zeepbellen en ineenstortingen bij
+markten horen en geen ziekteverschijnsel zijn dat met beter toezicht te
+verhelpen valt. Hij bespreekt hier ook wat zijn beeld betekent voor het idee
+van de intrinsieke waarde: die is in zijn ogen een grootheid die zich slecht
+laat vaststellen en die in het gedrag van de prijzen weinig terugkomt.
+
+**Handelstijd, tien ketterijen en het lab**
+
+Het elfde hoofdstuk brengt de twee effecten samen in het multifractale model.
+Het idee is dat de klok van de markt niet gelijkmatig loopt: op woelige dagen
+gebeurt er in een uur wat op rustige dagen een maand kost. Wie de prijsreeks
+uitzet tegen die vervormde handelstijd in plaats van tegen de kalender, krijgt
+een beeld dat weer op een toevalswandeling lijkt. De vervorming zelf wordt met
+een fractale constructie beschreven, en de ruwheid van de koers en de ruwheid
+van de tijd worden zo van elkaar gescheiden.
+
+Het twaalfde hoofdstuk vat het betoog samen in tien uitspraken die Mandelbrot
+ketterijen noemt, waaronder dat markten turbulent zijn, dat zij veel riskanter
+zijn dan de gangbare theorie aanneemt, dat winst en verlies zich in weinig
+dagen samenpakken, dat prijzen springen in plaats van glijden, dat de tijd in
+markten rekbaar is, dat markten in alle tijden en op alle plaatsen op elkaar
+lijken, dat zeepbellen onvermijdelijk zijn, dat markten misleiden, dat het
+begrip waarde er weinig toe doet en dat de beweeglijkheid beter te voorspellen
+valt dan de prijs. Het slothoofdstuk somt tien onderzoeksvragen op die hij aan
+de volgende generatie overlaat.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Normale verdeling | De klokvormige kansverdeling waarbij de kans op een uitschieter razendsnel afneemt naarmate die groter wordt, en die aan vrijwel de hele financiële theorie ten grondslag ligt. |
+| Machtswet | Verband waarbij de kans op een gebeurtenis afneemt met een vaste macht van haar omvang, zodat zeer grote uitslagen zeldzaam blijven maar niet verwaarloosbaar worden. |
+| Staartrisico | Het risico dat schuilt in de uiteinden van de kansverdeling, dus in de zeldzame grote uitslagen die de meeste winst en het meeste verlies opleveren. |
+| Fractal | Vorm die er op elke schaal ongeveer hetzelfde uitziet, zodat een klein stuk op het geheel lijkt. |
+| Schaalinvariantie | De eigenschap dat een koersgrafiek van een uur, een dag en een jaar zich statistisch op dezelfde manier gedragen, zodat de tijdas geen kenmerkende maat heeft. |
+| Hurst-exponent | Getal dat aangeeft in hoeverre een reeks een geheugen heeft: een half betekent zuiver toeval, hoger betekent dat bewegingen zich doorzetten, lager dat zij eerder omkeren. |
+| Jozef-effect | Het verschijnsel dat gunstige en ongunstige perioden zich groeperen, genoemd naar de zeven vette en zeven magere jaren. |
+| Noach-effect | Het verschijnsel dat een prijs plotseling springt in plaats van geleidelijk te bewegen, genoemd naar de zondvloed. |
+| Handelstijd | Een vervormde tijdrekening waarin drukke perioden worden opgerekt en rustige ingekort, zodat de prijsreeks er weer als toeval uitziet. |
+| Multifractaal model | Mandelbrots eigen beschrijving van koersen, waarin de fractale ruwheid van de prijs en die van de handelstijd apart worden vastgelegd. |
+
+#### Waar het argument op rust
+
+De empirische kern is echt onderzoek en geen illustratie. De katoenreeks uit
+het begin van de jaren zestig, het werk van Hurst aan de Nijlstanden en de
+latere metingen aan wisselkoersen en aandelenindices leverden telkens
+hetzelfde beeld: te veel grote uitslagen voor de klokkromme en te veel
+groepering in de tijd voor onafhankelijkheid. Die twee vaststellingen zijn
+intussen algemeen aanvaard en staan ook in leerboeken over financiële
+statistiek.
+
+De rekensommen over de kansen zijn controleerbaar en juist daarom overtuigend:
+de kans van één op twintig miljoen voor 31 augustus 1998 volgt uit de gangbare
+formule, en dat zulke dagen voorkomen is een kwestie van de koersen erbij
+pakken.
+
+Zwakker staat het tweede deel van de stelling, namelijk dat het multifractale
+model de juiste vervanging is. Dat model is moeilijk te schatten uit beperkte
+reeksen, het levert geen gesloten formule voor de prijs van een optie of voor
+de samenstelling van een portefeuille, en de vakwereld heeft het na twintig
+jaar nauwelijks overgenomen. Wat wel is overgenomen zijn modellen die het
+probleem gedeeltelijk verhelpen, zoals verdelingen met zwaardere staarten,
+sprongprocessen en modellen die de beweeglijkheid laten variëren. Mandelbrot
+noemt die reparaties, en dat is een oordeel, geen bewijs.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat het boek afbreekt zonder een bruikbaar alternatief
+neer te zetten. Wie in een bank of bij een pensioenfonds een risicomaatstaf
+moet kiezen, een optie moet prijzen of een portefeuille moet samenstellen, kan
+met de uitkomst van dit boek weinig beginnen. Mandelbrot geeft dat ook toe:
+het slothoofdstuk is een lijst met onderzoeksvragen. Het gevolg is dat de
+lezer wordt overtuigd dat het gangbare gereedschap ondeugdelijk is, zonder dat
+er ander gereedschap in de kast ligt.
+
+Het tweede bezwaar betreft de manier waarop de tegenpartij wordt neergezet. De
+financiële theorie van na 1970 wordt behandeld alsof niemand daar van dikke
+staarten had gehoord, terwijl het meten en modelleren van precies dat
+verschijnsel sinds de jaren tachtig een eigen vakgebied is. Ook de toon speelt
+op: Mandelbrot komt vaak terug op zijn eigen voorrang en op het onrecht dat
+hem in de jaren zestig zou zijn aangedaan.
+
+Ten derde is de praktische raad die het boek geeft mager en op punten in
+strijd met zichzelf. Als de tijd rekbaar is, als markten misleiden en als
+waarde er weinig toe doet, blijft er voor de belegger weinig anders over dan
+de vaststelling dat het risico groter is dan hij dacht. Het boek beschrijft
+bovendien patronen in prijzen zonder te verklaren waar die vandaan komen; over
+het gedrag van de partijen in de markt staat er weinig in.
+
+#### Wat er concreet mee te doen is
+
+- Reken bij elke risicoberekening na welke kansverdeling er onder zit, en
+vraag wat de uitkomst wordt als de staart zwaarder is dan aangenomen.
+- Behandel de rekenregel dat risico met de wortel van de tijd toeneemt als een
+aanname en niet als een natuurwet; zij vervalt zodra bewegingen samenhangen.
+- Kijk bij het beoordelen van een reeks rendementen apart naar de dagen met de
+grootste uitslagen, omdat die het grootste deel van het resultaat bepalen.
+- Gebruik de beweeglijkheid, die zich in blokken groepeert en daardoor enige
+voorspelbaarheid heeft, en niet de prijsrichting als aangrijpingspunt voor
+risicobeheersing.
+
+#### Wat je hierna leest
+
+- 268. The Black Swan. Taleb bouwt op dezelfde vaststelling over zeldzame
+grote uitslagen, maar trekt de conclusie door naar kennis en besluitvorming in
+het algemeen.
+- 496. Safe Haven: Investing for Financial Storms. Spitznagel probeert wel te
+doen wat Mandelbrot nalaat: er een concrete beleggingsaanpak op bouwen die van
+grote uitslagen profiteert.
+- 810. Inventing Money. Dunbar beschrijft een fonds dat op precies de aannames
+handelde die Mandelbrot verwerpt, en wat daar in 1998 van terechtkwam.
+
+## 812. Fortune's Formula
+
+William Poundstone, 2005. *Fortune's Formula: The Untold Story of the
+Scientific Betting System That Beat the Casinos and Wall Street* (Hill and
+Wang, New York, 2005, x + 386 blz., ISBN 9780809046379). Er is geen
+Nederlandse vertaling gevonden; deze samenvatting is op de Engelse editie
+gebaseerd. Van dezelfde auteur staat *Prisoner's Dilemma* (1992) in deze lijst
+als nr 454. Rubriek: geld en ondernemen.
+Tags: `Kelly-criterium`, `kansrekening`, `beleggen`, `positiegrootte`,
+`wiskunde`
+
+Poundstone volgt een rekenregel uit de informatietheorie van Bell Labs naar de
+blackjacktafels van Nevada en vandaar naar de hedgefondsen van Wall Street.
+John Kelly leidde in 1956 uit het werk van Claude Shannon af hoeveel een
+gokker met een voordeel per keer hoort in te zetten: een vast deel van zijn
+vermogen, gelijk aan zijn voordeel gedeeld door de uitbetalingsverhouding. De
+wiskundige Edward Thorp bracht die regel in de praktijk, eerst met kaarten
+tellen bij blackjack, daarna in het eerste marktneutrale hedgefonds.
+
+Het is een verhalend boek met een wiskundige kern, en met een zijlijn over de
+draadservice, de maffia, Michael Milken en de inval bij Thorps fonds in 1987.
+De strijd tussen voorstanders van de Kelly-regel en economen als Paul
+Samuelson en Robert Merton krijgt een eigen deel. Poundstone kiest daarin
+partij voor de gokkers, wat de zwakste plek van het boek is: de bezwaren van
+Samuelson zijn wiskundig geldig en worden hier vooral als vakgebiedspolitiek
+weggezet.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Poundstone stelt dat er één rekenregel bestaat die zowel aan
+de speeltafel als op de beurs vaststelt hoeveel geld er per keer op het spel
+gezet hoort te worden, en dat die regel uit de informatietheorie komt in
+plaats van uit de economie. John Kelly leidde in 1956 uit het werk van Claude
+Shannon over communicatiekanalen af dat iemand met een voordeel zijn kapitaal
+het snelst laat groeien wanneer hij telkens een vast deel van zijn vermogen
+inzet, gelijk aan dat voordeel gedeeld door de uitbetalingsverhouding.
+Poundstone volgt die regel van Bell Labs via Las Vegas naar Wall Street en
+betoogt dat de economische wetenschap haar decennialang heeft weggehouden om
+redenen die meer met de grenzen van vakgebieden te maken hadden dan met de
+wiskunde zelf.
+
+#### De gang van het boek
+
+**De draadservice en de entropie**
+
+Het boek opent met de draadservice, het telegraafnet waarmee de uitslagen van
+paardenrennen naar de bookmakers werden geseind. Wie de uitslag een paar
+seconden eerder had dan zijn tegenpartij, kon nog inzetten op een race die al
+gelopen was. Poundstone gebruikt die geschiedenis, met Bugsy Siegel en het
+gevecht om het monopolie op de uitslagen erin, om te laten zien dat informatie
+in gokkerskringen letterlijk in geld was uit te drukken.
+
+Daarna verplaatst het verhaal zich naar Bell Labs. Claude Shannon publiceerde
+in 1948 *A Mathematical Theory of Communication*, waarin hij informatie
+meetbaar maakte als de hoeveelheid onzekerheid die een bericht opheft, en
+waarin hij aantoonde dat elk kanaal een bovengrens heeft aan wat er foutloos
+doorheen kan. Zijn collega John Kelly stelde in 1956 in het *Bell System
+Technical Journal* de vraag wat die bovengrens betekent voor iemand die met
+ruisige voorkennis op paarden wedt. Zijn antwoord, in het artikel *A New
+Interpretation of Information Rate*, luidde dat de gokker zijn kapitaal het
+snelst laat groeien wanneer hij per weddenschap een vast deel van zijn
+vermogen inzet, en dat de groeivoet die daarbij hoort gelijk is aan de
+informatiesnelheid van het kanaal.
+
+**Blackjack**
+
+Edward Thorp, wiskundige aan MIT en later in Nieuw-Mexico en Irvine, zag begin
+jaren zestig dat blackjack te verslaan is omdat de kaarten die al gespeeld
+zijn de kansen van de rest van de schoen verschuiven. Hij rekende zijn
+telsysteem door op een IBM 704 en publiceerde het in 1962 als *Beat the
+Dealer*. Voor de vraag hoeveel er bij een gunstige stand moest worden ingezet,
+greep hij naar de regel van Kelly.
+
+Shannon en Thorp bouwden daarnaast samen een klein draagbaar rekenapparaat
+waarmee de baan van de roulettebal was in te schatten, dat sindsdien geldt als
+een van de eerste draagbare computers. Met de financier Manny Kimmel gingen
+zij naar Reno en Las Vegas. Die reizen maken de regel voelbaar: een voordeel
+van een procent is genoeg om te winnen, mits de inzet meebeweegt met het
+vermogen en klein genoeg blijft om een verliesreeks te overleven.
+
+**Van de speeltafel naar Wall Street**
+
+Thorp verlegde zijn aandacht naar warrants en converteerbare obligaties,
+papieren waarvan de prijs wiskundig aan de koers van het onderliggende aandeel
+vastzit. Met Sheen Kassouf schreef hij daarover in 1967 *Beat the Market*. De
+methode kwam neer op het afdekken van de ene positie met de andere, in de
+geest van wat later de optieprijsformules van Black, Scholes en Merton zouden
+worden. Vanaf eind jaren zestig paste hij dat toe in het fonds dat later
+Princeton-Newport Partners ging heten, waar de inzetgrootte opnieuw uit de
+regel van Kelly kwam.
+
+Shannon zelf belegde nauwelijks systematisch. Hij en zijn vrouw Betty kochten
+een handvol technologieaandelen, waaronder Teledyne, en hielden die tientallen
+jaren vast. Poundstone zet dat er nuchter naast: de man die de theorie
+leverde, werd rijk met kopen en niets doen.
+
+**De strijd onder de economen**
+
+Het middendeel van het boek gaat over de wetenschappelijke ruzie rond de
+regel. Daniel Bernoulli had in 1738 al voorgesteld om het nut van geld
+logaritmisch te meten, waarmee dezelfde inzetregel uit een heel ander betoog
+rolt. Henry Latané en Harry Markowitz steunden het meetkundig gemiddelde als
+maatstaf voor beleggers; Paul Samuelson en Robert Merton bestreden het.
+
+Het bezwaar van Samuelson is dat het maximaliseren van de groeivoet alleen
+samenvalt met verstandig handelen voor iemand met precies logaritmische
+voorkeuren en een zeer lange horizon; bij andere voorkeuren is het gewoon de
+verkeerde inzet. Samuelson dreef dat in 1979 op de spits met een artikel dat
+volledig uit eenlettergrepige woorden bestond, op het laatste woord na.
+Poundstone geeft die bezwaren wel weer, maar neigt naar de verklaring dat
+economen een idee van buiten hun vakgebied hebben afgehouden.
+
+**RICO**
+
+Het vijfde deel verlaat de wiskunde en gaat over Michael Milken, de handel in
+obligaties van bedrijven met een lage kredietbeoordeling, en de
+strafrechtelijke aanval op Wall Street eind jaren tachtig. In december 1987
+viel een groep gewapende federale agenten het kantoor van Princeton-Newport
+binnen. Het openbaar ministerie in New York, onder leiding van Rudolph
+Giuliani, vervolgde de partners op grond van de RICO-wet, die oorspronkelijk
+tegen de georganiseerde misdaad was geschreven. Het fonds werd in 1988
+opgeheven; de veroordelingen die volgden zijn later in hoger beroep
+vernietigd. Thorp, die vanuit Californië werkte, is zelf niet aangeklaagd.
+
+**De ondergang van de geleerden**
+
+Daarna komt Long-Term Capital Management aan bod, het fonds waaraan Merton en
+Myron Scholes verbonden waren en dat in 1998 met een geleende balans van
+tientallen miljarden omviel. Poundstone gebruikt die afloop als tegenbeeld:
+wie zich aan de regel van Kelly houdt, zet per definitie nooit zoveel in dat
+volledig verlies mogelijk wordt, omdat de inzet altijd een deel van het
+resterende vermogen is. Wie met geleend geld boven die grens gaat zitten,
+vernietigt zijn groeivoet op lange termijn.
+
+**Signaal en ruis**
+
+Het slotdeel keert terug naar de vraag of markten te verslaan zijn. Poundstone
+zet de aanhangers van de doelmatige markt tegenover beleggers die aantoonbaar
+decennialang meer verdienden, en behandelt de regel als een brug tussen beide
+kampen: zij zegt niets over waar een voordeel vandaan komt, alleen wat ermee
+te doen valt als het er is. Hij noemt beleggers die de regel met zoveel
+woorden gebruiken, waaronder Bill Miller van Legg Mason, en de vaststelling
+van Buffett-biograaf Robert Hagstrom dat de gedachtegang aansluit bij hoe
+Buffett zijn posities weegt. Ook staat er wat er in de praktijk van komt: de
+volledige inzet volgens Kelly geeft koersschommelingen die vrijwel niemand
+uithoudt, zodat beheerders in de regel een halve of een kwart inzet aanhouden.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Kelly-criterium | De regel die voorschrijft welk deel van het vermogen per weddenschap wordt ingezet: bij een uitbetaling van één op één is dat het voordeel zelf, en in het algemeen het voordeel gedeeld door de uitbetalingsverhouding. |
+| voordeel | Het verschil tussen de werkelijke kans op winst en de kans die in de aangeboden quotering of prijs verwerkt zit, oftewel de verwachte opbrengst per ingezette euro. |
+| informatie-entropie | Bij Shannon de maat voor de onzekerheid in een bericht, en daarmee voor de hoeveelheid informatie die het opheffen van die onzekerheid oplevert. |
+| kanaalcapaciteit | De bovengrens aan de informatie die per tijdseenheid foutloos door een communicatiekanaal past; bij Kelly valt die grens samen met de hoogst haalbare groeivoet van het kapitaal. |
+| meetkundig gemiddelde rendement | Het samengestelde rendement per periode, dus wat er na herbelegging werkelijk overblijft, tegenover het rekenkundig gemiddelde dat verliezen te licht weegt. |
+| logaritmisch nut | De aanname van Bernoulli dat elke volgende euro minder toevoegt naarmate iemand rijker is, waarbij het nut meeloopt met de logaritme van het vermogen. |
+| gokkersruïne | De uitkomst waarin iemand door een reeks verliezen zonder geld komt te staan en niet meer kan meespelen, ongeacht hoe gunstig zijn kansen op papier waren. |
+| halve Kelly | De praktijk om de helft van de berekende inzet te nemen, wat de meeste groei behoudt en de koersschommelingen sterk verkleint. |
+
+#### Waar het argument op rust
+
+De wiskundige kern van het boek staat vast. Het resultaat van Kelly is een
+stelling met een bewijs, geen empirische bewering, en de eigenschappen die
+Poundstone opsomt zijn afleidbaar: de regel levert op de lange duur het
+hoogste eindvermogen, bereikt elk gekozen doelbedrag in de kortste verwachte
+tijd en gaat nooit failliet. Wat aan die stelling vastzit, zijn de aannames:
+de kansen moeten bekend zijn, de weddenschappen moeten zich herhalen en de
+winst moet telkens herbelegd kunnen worden.
+
+De historische lijn rust op archiefwerk en op gesprekken met de betrokkenen,
+onder wie Thorp zelf, met een notenapparaat en een literatuurlijst van elf
+bladzijden achterin. Het loopbaanverhaal van Thorp is goed te controleren:
+zijn telsysteem is gepubliceerd en nagerekend, en zijn fonds boekte in bijna
+twintig jaar geen enkel verliesjaar. Voor de persoonlijke beleggingsresultaten
+van Shannon is de onderbouwing dunner, omdat die op eigen opgave en
+reconstructie berusten.
+
+Zwakker is de brug van de speeltafel naar de beurs. Bij blackjack zijn de
+kansen exact bekend; bij een aandeel zijn zij een schatting. De regel is
+bijzonder gevoelig voor het overschatten van het eigen voordeel: wie twee keer
+zoveel inzet als de formule voorschrijft, houdt op lange termijn geen groei
+over. Poundstone noemt dat probleem, maar behandelt het korter dan de
+wiskundige elegantie van het resultaat.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar tegen het boek is de manier waarop het de academische
+tegenstand afdoet. Samuelson en Merton hadden een geldig punt: het
+maximaliseren van de groeivoet is alleen het juiste gedrag voor iemand met
+logaritmische voorkeuren, en voor beleggers met een eindige horizon of andere
+voorkeuren geeft de regel een te grote inzet. Poundstone laat dat argument wel
+zien, maar plaatst het in een verhaal over vakgebieden die hun terrein
+verdedigen, waardoor de lezer eerder een winnaar krijgt aangewezen dan een
+afweging.
+
+De regel zegt niets over waar een voordeel vandaan komt. Zonder aantoonbaar
+voordeel schrijft zij een inzet van nul voor. Dat is de nuchterste boodschap
+van het boek en tegelijk de minst uitgewerkte: hoe iemand vaststelt dat hij
+werkelijk een voordeel heeft, en hoe groot dat voordeel dan is, blijft
+grotendeels buiten beeld.
+
+Het boek valt uiteen in twee delen die maar losjes aan elkaar zitten. De
+hoofdstukken over de draadservice, de maffia, Milken en de RICO-vervolging
+zijn goed geschreven en historisch interessant, maar dragen weinig bij aan de
+vraag hoeveel er ingezet moet worden. Wie het boek om de wiskunde leest, komt
+honderd bladzijden tegen die daar buiten staan.
+
+Ten slotte onderschat de opgewekte toon hoe hard een volledige inzet volgens
+Kelly aankomt. Bij een gewone beursportefeuille geeft die regel posities met
+tussentijdse dalingen van vele tientallen procenten, en dat de wiskunde een
+tijdelijke halvering van het vermogen aanvaardbaar noemt, betekent niet dat
+een belegger die uitzit.
+
+#### Wat er concreet mee te doen is
+
+- Stel eerst vast of er een aantoonbaar voordeel is; ontbreekt dat, dan
+schrijft de regel een inzet van nul voor.
+- Reken de inzet uit als aandeel van het huidige vermogen, zodat hij vanzelf
+krimpt na verlies en groeit na winst.
+- Neem een fractie van de berekende inzet, bijvoorbeeld de helft, zolang de
+kansen geschat zijn in plaats van bekend.
+- Beoordeel een reeks beslissingen op het samengestelde rendement over de hele
+reeks.
+- Vermijd elke positiegrootte waarbij één slechte uitkomst het meespelen
+onmogelijk maakt.
+
+#### Wat je hierna leest
+
+- 454. Prisoner's Dilemma. Van dezelfde auteur, over speltheorie, de
+waterstofbom en het leven van John von Neumann; dezelfde werkwijze van
+wiskunde die in verhaalvorm wordt verteld.
+- 505. A Man for All Markets. De eigen terugblik van Thorp op blackjack,
+warrants en Princeton-Newport, waarin de gebeurtenissen uit dit boek van
+binnenuit worden beschreven.
+- 504. The Kelly Capital Growth Investment Criterion: Theory and Practice. De
+wetenschappelijke bundel over het Kelly-criterium, met de oorspronkelijke
+artikelen van Kelly, Latané, Samuelson en Thorp, voor wie de discussie in de
+brontekst wil volgen.
+- 490. The Mathematics of Money Management. Vince werkt de rekenkant van
+positiegrootte uit tot een handleiding, inclusief wat er misgaat bij het
+overschatten van het eigen voordeel.
+
+## 813. Pioneering Portfolio Management
+
+David F. Swensen, 2000 (herziene editie 2009). *Pioneering Portfolio
+Management: An Unconventional Approach to Institutional Investment* (Free
+Press, New York, 2000, 328 blz., ISBN 9780684864433). De volledig herziene
+editie verscheen in 2009 bij dezelfde uitgever (408 blz., ISBN 9781416544692)
+en is voor deze samenvatting gebruikt. Er is geen Nederlandse vertaling
+gevonden; de samenvatting is op de Engelse editie gebaseerd. Voor particuliere
+beleggers schreef Swensen het aanzienlijk kortere *Unconventional Success: A
+Fundamental Approach to Personal Investment* (Free Press, 2005), waarin hij
+juist indexfondsen aanraadt. Rubriek: naslag en praktijk.
+Tags: `beleggen`, `portefeuillebeheer`, `vermogensbeheer`, `allocatie`,
+`naslagwerk`
+
+David Swensen beheerde van 1985 tot zijn dood in 2021 het vermogen van de
+universiteit Yale, dat in die periode groeide van ongeveer één miljard naar
+ruim dertig miljard dollar. Dit handboek legt vast hoe hij dat deed: sterke
+voorkeur voor aandelenachtig risico, brede spreiding over categorieën die
+weinig met elkaar meebewegen, en actief beheer alleen op markten waar prijzen
+slecht zijn vastgesteld, zoals niet-beursgenoteerde bedrijven, vastgoed en
+bosbouw. Obligaties en contanten houdt hij zo klein mogelijk, omdat die in
+zijn ogen alleen dienen als verzekering tegen deflatie en ontwrichting.
+
+Het boek is geschreven voor bestuurders en beleggingscommissies van
+instellingen met een permanent vermogen, met veel tabellen en
+gevalsbeschrijvingen. Het model is door honderden andere fondsen overgenomen,
+meestal alleen de verdeling over categorieën en niet de kostendiscipline, de
+bestuurlijke inrichting of de toegang tot de beste beheerders waarover Swensen
+beschikte. In 2008 en 2009 bleek wat illiquiditeit kost: Yale verloor in het
+boekjaar tot juni 2009 bijna een kwart van zijn vermogen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Swensen stelt dat een instelling met een vermogen dat eeuwen
+mee moet, zich hoort te gedragen als eigenaar van bedrijven en van tastbare
+bezittingen, en dat de gangbare voorzichtigheid van obligaties en contanten
+juist het grootste gevaar oplevert: het langzaam wegsmelten van de koopkracht.
+Daaruit volgt een portefeuille met een sterke voorkeur voor aandelenachtig
+risico, gespreid over categorieën die weinig met elkaar meebewegen, met de
+discipline om na elke koersbeweging terug te wegen naar de gekozen verdeling.
+Actief beheer verdedigt hij alleen waar de prijsvorming aantoonbaar slecht is,
+in de praktijk bij niet-beursgenoteerde bedrijven, durfkapitaal, vastgoed,
+bosbouw en grondstoffen.
+
+#### De gang van het boek
+
+**Waar het vermogen voor bestaat**
+
+De eerste hoofdstukken gaan over het doel van een schenkingsvermogen, in het
+Engels endowment: het permanente kapitaal van een instelling waarvan alleen
+het rendement wordt uitgegeven. Dat vermogen moet de begroting van vandaag
+steunen en tegelijk de koopkracht van toekomstige generaties beschermen, twee
+doelen die elkaar tegenwerken. Yale lost dat op met een bestedingsregel met
+demping: de uitkering van een jaar is voor tachtig procent die van vorig jaar
+en voor twintig procent een doelpercentage van iets boven de vijf procent van
+de actuele waarde. De begroting volgt de beurs daardoor met vertraging.
+
+**Drie knoppen, waarvan er één telt**
+
+Een belegger heeft volgens Swensen maar drie instrumenten: de verdeling over
+beleggingscategorieën, het in- en uitstappen op grond van marktverwachtingen,
+en de keuze van stukken of beheerders binnen een categorie. Het eerste bepaalt
+vrijwel het hele resultaat, de andere twee kosten in de regel geld.
+Marktvoorspellingen wijst hij af omdat een portefeuille er ongemerkt van haar
+risicoprofiel door afdrijft.
+
+**De verdeling over categorieën**
+
+Voor die verdeling gebruikt hij het rekenmodel van gemiddelde en spreiding uit
+de moderne portefeuilletheorie, met de waarschuwing dat het uiterst gevoelig
+is voor de ingevoerde verwachtingen. Het levert een gespreksstuk op, geen
+uitkomst.
+
+De portefeuille kent in de herziene editie zes categorieën: binnenlandse
+aandelen, buitenlandse aandelen, vastrentende waarden, absoluut rendement,
+niet-beursgenoteerde deelnemingen en reële activa. Opvallend is hoe klein de
+vastrentende post is en hoe groot de illiquide delen zijn. Een illiquide
+belegging is bezit dat niet snel tegen een redelijke prijs van de hand te doen
+is, zoals een aandeel in een niet-beursgenoteerd bedrijf of een bosperceel;
+wie het geld pas over tien jaar nodig heeft, hoort volgens Swensen betaald te
+krijgen voor het opgeven van die verhandelbaarheid. Converteerbare obligaties
+en hoogrentende leningen wijst hij af als dure verpakkingen van risico's die
+apart goedkoper te kopen zijn.
+
+**Terugwegen als tucht**
+
+De verdeling houdt alleen stand als er na iedere koersbeweging wordt
+teruggewogen naar de vastgelegde percentages: verkopen wat gestegen is,
+bijkopen wat gedaald is, ook wanneer dat onverstandig voelt. Die discipline
+levert volgens Swensen op zichzelf rendement op en dwingt tot handelen tegen
+de stemming van de markt in. De beurskrach van oktober 1987 is zijn voorbeeld
+van een moment waarop de regel Yale liet kopen.
+
+**Beheerders kiezen en belangen gelijkrichten**
+
+Een groot deel van het boek gaat over het uiteenlopen van de belangen van
+beheerder en opdrachtgever. Beheerders verdienen aan het binnenhalen van
+vermogen en niet aan het behalen van rendement, adviseurs dekken zich in door
+middelmaat aan te bevelen, en beursgenoteerde vermogensbeheerders dienen eerst
+hun eigen aandeelhouders. Het antwoord luidt: kies kleine, zelfstandige huizen
+waarvan de eigenaren hun eigen geld meebeleggen, spreek vergoedingen af die
+pas bij werkelijk resultaat gaan lopen, en beperk het aantal relaties zodat er
+echt toezicht mogelijk is. Prestaties beoordeelt hij over lange perioden en
+tegen een maatstaf die bij de categorie past.
+
+**Het proces en de mensen**
+
+Het slot gaat over de inrichting van het proces: de rolverdeling tussen
+bestuur, commissie en beleggingskantoor, het vastleggen van beleid zodat er in
+paniek niet van wordt afgeweken, en de bezetting die nodig is om honderden
+beheerders te volgen. Hier staat de waarschuwing die de rest van het boek in
+het juiste licht zet: deze aanpak vergt vakmensen in vaste dienst en toegang
+tot fondsen die voor de meeste beleggers gesloten zijn. Wie dat niet heeft,
+kan beter in goedkope indexfondsen zitten.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| endowment | Het permanente schenkingsvermogen van een instelling, waarvan alleen het rendement wordt uitgegeven zodat het kapitaal blijft bestaan. |
+| bestedingsregel met demping | De regel die de jaarlijkse uitkering berekent als mengsel van de vorige uitkering en een doelpercentage van de actuele waarde. |
+| aandelenvoorkeur | De keuze om het grootste deel van het vermogen in eigendom van ondernemingen en bezittingen te steken, omdat alleen dat op lange termijn boven de inflatie uitkomt. |
+| illiquide belegging | Bezit dat niet op korte termijn tegen een redelijke prijs te verkopen is, zoals een belang in een niet-beursgenoteerd bedrijf, vastgoed of bosbouw. |
+| illiquiditeitspremie | De extra vergoeding die tegenover het voor jaren vastzetten van geld hoort te staan. |
+| terugwegen | Het periodiek terugbrengen van de portefeuille naar de vastgelegde percentages door te verkopen wat gestegen is en te kopen wat gedaald is. |
+| reële activa | Tastbare bezittingen zoals vastgoed, bos en grondstoffen, aangehouden omdat hun waarde met de inflatie meebeweegt. |
+| principaal-agentprobleem | De situatie waarin degene die het werk doet andere belangen heeft dan degene voor wie hij het doet, hier de beheerder tegenover het fonds. |
+
+#### Waar het argument op rust
+
+De sterkste onderbouwing is het resultaat van Yale zelf: ongeveer een miljard
+dollar bij de overname in 1985 en ruim dertig miljard bij Swensens dood in mei
+2021, met rendementen die decennialang tot de hoogste van alle institutionele
+beleggers behoorden. Als bewijs voor een methode is dat een steekproef van
+één.
+
+Daarnaast gebruikt hij cijfers over de spreiding van beheerdersresultaten per
+categorie: bij obligaties liggen de beste en de slechtste beheerder dicht bij
+elkaar, bij durfkapitaal ver uit elkaar. Daarop rust de stelling dat actief
+beheer alleen loont waar die spreiding groot is. De redenering snijdt naar
+twee kanten, want in zo'n categorie is de belegger zonder toegang tot de
+bovenste fondsen slechter af dan het gemiddelde. Het cijfermateriaal over die
+illiquide categorieën is bovendien het zwakst: de reeksen berusten deels op
+eigen taxaties en missen de fondsen die het niet haalden.
+
+#### Wat er tegen in te brengen valt
+
+Het boek is een vakhandboek en geen leesboek. Het richt zich op bestuurders,
+commissieleden en beleggingskantoren van instellingen met permanent kapitaal,
+en bestaat voor een aanzienlijk deel uit tabellen, rekenvoorbeelden en
+gevalsbeschrijvingen. De editie van 2009 telt ruim vierhonderd bladzijden en
+herhaalt zich op plaatsen.
+
+Het grootste bezwaar richt zich op wat er met het boek gebeurd is. Honderden
+schenkingsfondsen, pensioenfondsen en familiekantoren namen de verdeling over
+categorieën over zonder de rest: zonder de kostendiscipline, zonder de kleine
+kring van eigen beheerders en zonder het personeel om die te volgen. Er
+stroomde na 2005 zoveel geld naar hedgefondsen en niet-beursgenoteerde
+deelnemingen dat het aantal goede kansen daar te klein werd voor het aanbod
+aan kapitaal. Wat bij Yale een voordeel opleverde, werd bij de navolgers een
+dure standaardportefeuille.
+
+Daarmee hangt samen dat de resultaten van Swensen deels op toegang rusten die
+anderen niet hebben. Yale kwam binnen bij durfkapitaalfondsen die al decennia
+gesloten zijn voor nieuwe geldschieters. Swensen zegt dat zelf ook, maar
+verspreid door het boek en niet als hoofdstelling. Onderzoek van Kaplan en
+Schoar over niet-beursgenoteerde deelnemingen en van Malkiel en Saha over
+hedgefondsen laat zien dat de gemiddelde belegger er na kosten geen extra
+rendement overhoudt.
+
+De rekening voor de illiquiditeit kwam in 2008 en 2009. Yale verloor in het
+boekjaar tot juni 2009 ongeveer een kwart van zijn vermogen, dat terugliep van
+bijna 23 miljard naar iets meer dan 16 miljard dollar, en fondsen met
+toezeggingen aan niet-beursgenoteerde fondsen moesten storten toen er nergens
+geld te krijgen was. De herziene editie kwam net voor die klap uit.
+
+Ten slotte geldt de aanpak niet voor particulieren, wat Swensen zelf ook vond.
+In *Unconventional Success* (2005) raadt hij hun goedkope indexfondsen aan en
+pakt hij de verdienmodellen van de fondsenindustrie aan. Die twee boeken naast
+elkaar lezen voorkomt de meest gemaakte fout met dit werk.
+
+#### Wat er concreet mee te doen is
+
+- Leg de verdeling over categorieën schriftelijk vast, met bandbreedtes,
+voordat er een slecht beursjaar komt.
+- Weeg periodiek terug naar die percentages, ook als dat kopen in een dalende
+markt betekent.
+- Behandel de vergoedingsstructuur als het belangrijkste onderhandelpunt en
+vraag of de eigenaren meebeleggen.
+- Vraag bij elke illiquide belegging welke vergoeding tegenover het vastzetten
+van het geld staat.
+
+#### Wat je hierna leest
+
+- 804. Triumph of the Optimists. Dimson, Marsh en Staunton leveren het
+cijfermateriaal onder de aandelenvoorkeur, en laten zien hoe ver de uitkomsten
+per land uiteenlopen.
+- 498. Active Portfolio Management: A Quantitative Approach for Producing
+Superior Returns and Controlling Risk. Grinold en Kahn werken uit hoeveel
+bekwaamheid en hoeveel onafhankelijke beslissingen er nodig zijn om de markt
+te verslaan.
+- 507. Risk and Asset Allocation. Meucci behandelt de statistische kant van
+vermogensverdeling, inclusief de gevoeligheid van optimalisatiemodellen
+waarvoor Swensen waarschuwt.
+
+## 814. Anatomy of the Bear
+
+Russell Napier, 2005 (vierde editie 2016). *Anatomy of the Bear: Lessons from
+Wall Street's Four Great Bottoms* (Harriman House, Petersfield, 2005). De
+vierde editie verscheen op 18 januari 2016, met een nieuw voorwoord van de
+auteur en een inleiding van de financieel journalist Merryn Somerset Webb (336
+blz., ISBN 9780857195227); daarop is deze samenvatting gebaseerd. Er is geen
+Nederlandse vertaling gevonden; de samenvatting is op de Engelse editie
+gebaseerd. Rubriek: geld en ondernemen.
+Tags: `beleggen`, `beurs`, `economische geschiedenis`, `waardering`,
+`financiële markten`
+
+Russell Napier, beursstrateeg en oprichter van de Library of Mistakes in
+Edinburgh, onderzocht de vier momenten waarop Amerikaanse aandelen het
+goedkoopst van de eeuw waren: augustus 1921, juli 1932, juni 1949 en augustus
+1982. Zijn bronmateriaal is de berichtgeving van dat moment zelf. Hij las
+ongeveer zeventigduizend artikelen uit de Wall Street Journal van voor en na
+elke bodem, om te reconstrueren wat een belegger destijds kon weten zonder het
+latere verloop te kennen.
+
+Uit die vier gevallen komt een terugkerend beeld. De beurswaarde van het
+Amerikaanse bedrijfsleven stond telkens rond dertig procent van de
+vervangingswaarde van de bezittingen, grondstofprijzen en vooral de koperprijs
+hielden op te dalen voordat de aandelen keerden, obligaties van bedrijven met
+een lage kredietbeoordeling trokken eerder aan dan aandelen, en er was in alle
+vier gevallen ruim goed nieuws dat niemand geloofde. De zwakte van het boek is
+het aantal waarnemingen: vier gevallen, gekozen op precies de maatstaf waarvan
+de conclusie afhangt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Napier stelt dat de vier grote bodems in de Amerikaanse
+aandelenmarkt, augustus 1921, juli 1932, juni 1949 en augustus 1982, veel meer
+met elkaar gemeen hebben dan de gangbare verhalen over paniek en beurskrach
+laten zien. Op alle vier momenten stond de beurswaarde van het Amerikaanse
+bedrijfsleven op ongeveer dertig procent van wat het zou kosten om zijn
+bezittingen opnieuw aan te schaffen, kwam het keerpunt tot stand doordat
+dalende prijzen ophielden te dalen, en verliep het herstel in een vaste
+volgorde van staatsobligaties naar bedrijfsobligaties naar aandelen. Wie een
+bodem wil herkennen, moet volgens hem naar grondstofprijzen, obligatiekoersen
+en waarderingsmaatstaven kijken en het nieuws links laten liggen, want goed
+nieuws was er telkens in overvloed en werd genegeerd.
+
+#### De gang van het boek
+
+**De krant van toen als bron**
+
+De werkwijze bepaalt het boek. Napier las de Wall Street Journal van de
+maanden rond elke bodem uit, bij elkaar ongeveer zeventigduizend artikelen, en
+citeert er honderden van. Het doel is de kennisstand van het moment terug te
+halen: welke cijfers stonden er in de krant, hoe werden ze geduid, en wat
+schreven de commentatoren op de dag dat de markt keerde. Daarmee omzeilt hij
+de gebruikelijke vertekening van beursgeschiedenis, waarin achteraf altijd
+duidelijk lijkt wat er stond te gebeuren.
+
+Elk van de vier delen heeft dezelfde indeling. Eerst de weg naar de bodem, met
+het verloop van de Dow Jones-index en de economische achtergrond, dan de
+structuur van de markt en de stand van de aandelen- en obligatiemarkt, en
+daarna een reeks vaste thema's: goed nieuws en de beer, prijsstabiliteit en de
+beer, liquiditeit en de beer, de stieren en de beer, en obligaties en de beer.
+Die herhaling maakt vergelijking mogelijk en maakt het boek tegelijk
+voorspelbaar in zijn opbouw.
+
+**Augustus 1921**
+
+De Dow bereikte op 24 augustus 1921 een slotstand van 63,90, na een daling van
+bijna de helft. De achtergrond is de scherpe naoorlogse deflatie van 1920 en
+1921, waarin groothandelsprijzen met tientallen procenten wegzakten en de nog
+jonge Federal Reserve haar eerste zware beleidskeuzes maakte. Napier laat zien
+dat de omslag samenviel met het moment waarop de grondstofprijzen ophielden te
+dalen, en dat de obligatiemarkt al maanden eerder was gekeerd.
+
+**Juli 1932**
+
+De bodem van 8 juli 1932, met de Dow op 41,22, ligt ongeveer negenentachtig
+procent onder de top van 1929. Napier gebruikt dit geval om een hardnekkig
+misverstand te ontkrachten: die bodem kwam niet aan het eind van de crisis,
+maar midden in de bankencrisis en nog voordat Roosevelt aantrad. De koersen
+stegen daarna hard terwijl de economie nog kromp. Ook hier ging de
+obligatiemarkt voor, en ook hier stonden er in de krant volop berichten over
+herstellende bedrijfstakken die de lezers van dat moment niet meer geloofden.
+
+**Juni 1949**
+
+Het geval van 13 juni 1949, met de Dow op 161,60, wijkt af omdat er geen krach
+aan voorafging. De daling bedroeg maar ongeveer zestien procent, en toch was
+de markt naar de maatstaven van Napier even goedkoop als in 1932. De
+verklaring is dat de koersen jarenlang achterbleven bij sterk stijgende
+bedrijfswinsten, doordat beleggers een terugkeer van de jaren dertig vreesden.
+Dit deel bevat het inzicht dat lage waardering ook kan ontstaan zonder dat de
+koersen dalen, wat het gebruikelijke zoeken naar een krach als koopsignaal
+ondergraaft.
+
+**Augustus 1982**
+
+Op 12 augustus 1982 sloot de Dow op 776,92, het eindpunt van een periode van
+zestien jaar waarin de index per saldo niets had opgeleverd terwijl de
+inflatie de koopkracht wegat. Het keerpunt viel samen met het moment waarop
+duidelijk werd dat de renteverhogingen van Paul Volcker de inflatie hadden
+gebroken. De obligatiemarkt keerde die zomer eerst en met kracht, waarna de
+aandelen volgden. Napier merkt zelf op dat dit geval het minst goed te
+beoordelen is, omdat er decennia van naderhand nodig zijn om vast te stellen
+waar zo'n langjarige omslag precies begon.
+
+**Wat de vier gemeen hebben**
+
+Uit de vergelijking komt een reeks kenmerken. De q-ratio, de beurswaarde van
+het bedrijfsleven gedeeld door de vervangingswaarde van zijn bezittingen,
+stond telkens rond de dertig procent. De cyclisch aangepaste
+koers-winstverhouding lag tussen ongeveer 4,7 en 11,7. Grondstofprijzen, en
+binnen die groep vooral de koperprijs, stabiliseerden voordat de aandelen
+keerden. Obligaties van bedrijven met de laagste nog beleggingswaardige
+beoordeling van Moody's trokken eerder aan dan aandelen, met een marge van
+enkele maanden. De handelsomzet liep terug tijdens de laatste dalingen en nam
+toe bij opleving, wat Napier omschrijft als het sterven van de beer op lage
+omzet.
+
+De rode draad die hij eronder legt is de omslag in de prijsontwikkeling. Alle
+vier bodems vallen samen met het punt waarop de richting die beleggers
+vreesden, ophoudt. In 1921, 1932 en 1949 was dat het einde van dalende
+prijzen; in 1982 juist het breken van een inflatie die zestien jaar had
+geduurd. Napier houdt eraan vast dat deze reeks nog niet af is en dat er een
+volgende bodem van dit soort komt, en gebruikt de q-ratio als de maatstaf om
+die te herkennen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| berenmarkt | Een langdurige daling van de aandelenkoersen; in dit boek de fase waarin de waardering naar een historisch dieptepunt zakt, ongeacht hoe sterk de koersen zelf zijn gedaald. |
+| q-ratio | De beurswaarde van het bedrijfsleven gedeeld door wat het zou kosten om al zijn bezittingen opnieuw aan te schaffen; onder de één is de beurs goedkoper dan de fabrieken zelf, en Napier zoekt naar waarden rond de 0,3. |
+| koers-winstverhouding | De prijs van een aandeel gedeeld door de winst per aandeel, dus hoeveel jaarwinsten een belegger voor een bedrijf betaalt. |
+| cyclisch aangepaste koers-winstverhouding | Dezelfde verhouding, maar berekend op de voor inflatie gecorrigeerde gemiddelde winst over tien jaar, zodat één uitzonderlijk goed of slecht jaar de maatstaf niet vertekent. |
+| vervangingswaarde | Het bedrag dat nodig zou zijn om de bezittingen van een bedrijf vandaag opnieuw aan te schaffen, de noemer van de q-ratio. |
+| deflatie | Een aanhoudende daling van het algemene prijspeil, die schulden zwaarder maakt en beleggers doet wachten met kopen. |
+| BAA-obligaties | Leningen van bedrijven met de laagste beoordeling die bij Moody's nog als beleggingswaardig geldt, in dit boek de voorloper die eerder keert dan de aandelenmarkt. |
+| terugkeer naar het gemiddelde | De neiging van waarderingsmaatstaven om na jaren van extreme uitslag terug te bewegen naar hun historische middenwaarde. |
+| langjarige berenmarkt | Een periode van vijftien tot twintig jaar waarin aandelen per saldo niets opleveren, opgebouwd uit kortere stijgingen en dalingen. |
+
+#### Waar het argument op rust
+
+De sterkte van de onderbouwing zit in het bronmateriaal. De Wall Street
+Journal van 1921, 1932, 1949 en 1982 is een primaire bron uit de tijd zelf, en
+het uitlezen ervan sluit het achteraf gelijk krijgen grotendeels uit. Napier
+citeert ruim, met datum, zodat een lezer de context kan controleren. Voor de
+waarderingskant leunt hij op de reeksen voor de q-ratio, in het spoor van het
+werk van Andrew Smithers en Stephen Wright, en op de cyclisch aangepaste
+koers-winstverhouding zoals Robert Shiller die heeft samengesteld.
+
+De koersgegevens zelf zijn hard: de Dow sloot op 24 augustus 1921 op 63,90, op
+8 juli 1932 op 41,22, op 13 juni 1949 op 161,60 en op 12 augustus 1982 op
+776,92. Ook de volgorde van herstel, eerst staatsobligaties, dan
+bedrijfsobligaties, dan aandelen, is uit maandcijfers na te lopen.
+
+De statistische status van het geheel blijft echter beperkt. Vier gevallen
+laten geen toetsing toe, en de vier zijn bovendien geselecteerd op de q-ratio,
+precies de maatstaf waarvan de conclusie afhangt. Wat het boek levert is een
+geordende beschrijving van vier gebeurtenissen met terugkerende kenmerken,
+geen aangetoond verband. Napier is daar zelf open over en noemt zijn boek een
+veldgids in plaats van een model.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is het aantal waarnemingen in combinatie met de selectie.
+Napier koos zijn vier gevallen omdat de q-ratio er onder ongeveer 0,3 stond,
+en concludeert vervolgens dat een q-ratio rond 0,3 het kenmerk van een grote
+bodem is. Dat de andere kenmerken, de stabiliserende koperprijs, de
+voorlopende bedrijfsobligaties, de teruglopende omzet, in alle vier gevallen
+terugkomen, is een echte vondst, maar vier keer hetzelfde zien is iets anders
+dan een regelmaat aantonen.
+
+Er is een praktisch bezwaar dat sinds de eerste druk zwaarder is gaan wegen.
+Sinds 2009 is de q-ratio nooit meer in de buurt van 0,3 gekomen, terwijl de
+Amerikaanse aandelenmarkt in die periode sterk steeg. Een belegger die het
+boek strikt zou hebben gevolgd, had ruim vijftien jaar aan de kant gestaan.
+Dat maakt de analyse van het verleden niet onjuist, maar het legt bloot dat
+het boek geen antwoord geeft op de vraag wat te doen wanneer de gezochte
+omstandigheden zich decennialang niet voordoen.
+
+De q-ratio zelf is bovendien omstreden als maatstaf. De vervangingswaarde komt
+uit de nationale rekeningen en meet vooral tastbare bezittingen. In een
+economie waarin een groeiend deel van het kapitaal bestaat uit programmatuur,
+merken, onderzoek en octrooien, meet die noemer steeds minder van wat een
+bedrijf waard maakt, en drijft de verhouding structureel omhoog. Napier gaat
+op die kritiek nauwelijks in.
+
+Ook de vaststelling dat er bij elke bodem volop goed nieuws in de krant stond,
+is kwetsbaar. In een dagblad vol berichten valt achteraf altijd wel een reeks
+positieve items aan te wijzen, zeker wanneer bekend is welke ontwikkelingen er
+daarna toe deden. De methode kan die selectie niet volledig uitsluiten, al
+versterkt het feit dat het patroon vier keer terugkeert de bewering wel.
+
+Ten slotte is het een boek over kopen en niet over verkopen. Wanneer een
+positie weer moet worden afgebouwd, blijft buiten beschouwing. En al is de
+schrijfstijl beheerst en droog, de vaste indeling die vier keer wordt
+doorlopen en de dichtheid aan koersen, citaten en tabellen maken het geen boek
+dat in één ruk uit te lezen valt.
+
+#### Wat er concreet mee te doen is
+
+- Meet de waardering van een markt met een maatstaf die de conjunctuur
+uitmiddelt, zoals de cyclisch aangepaste koers-winstverhouding of de q-ratio,
+en niet met de winst van het lopende jaar.
+- Volg grondstofprijzen, en binnen die groep vooral koper, als eerste teken
+dat een dalende prijsontwikkeling tot stilstand komt.
+- Kijk naar de koersen van bedrijfsobligaties met een lage beoordeling voordat
+er naar aandelen wordt gekeken; die markt keerde in alle vier gevallen eerder.
+- Zoek bij een beursdaling de berichtgeving van dat moment zelf op in plaats
+van het latere oordeel erover, om te zien hoe onherkenbaar een bodem van
+binnenuit is.
+- Reken erop dat het proces jaren duurt en dat de omzet tijdens de laatste
+dalingen laag is.
+
+#### Wat je hierna leest
+
+- 809. The Great Crash, 1929. Galbraith beschrijft de aanloop en de klap van
+1929 van dichtbij, waar Napier drie jaar later de bodem van juli 1932 uit
+dezelfde kranten reconstrueert.
+- 807. Manias, Panics, and Crashes. Kindleberger geeft het algemene patroon
+van manie, paniek en krach, waar dit boek juist het einde van zo'n cyclus in
+detail uitwerkt.
+- 804. Triumph of the Optimists. Dimson, Marsh en Staunton leveren de lange
+rendementsreeksen waarmee te controleren valt hoe uitzonderlijk de vier
+waarderingsdieptepunten waren.
+
+## 900. My Years with General Motors
+
+Alfred P. Sloan jr., 1964. *My Years with General Motors*, geschreven met de
+journalist John McDonald en geredigeerd door Catharine Stevens (Doubleday,
+Garden City NY, 1964, xxv en 472 blz.). Het manuscript lag al vanaf de jaren
+vijftig klaar; de juridische afdeling van General Motors hield de uitgave
+jaren tegen uit vrees dat de tekst in mededingingszaken tegen het bedrijf zou
+worden gebruikt. In 1990 verscheen een heruitgave bij Currency/Doubleday met
+een inleiding van Peter Drucker (ISBN 9780385042352). Er bestaat geen
+Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.
+Rubriek: geld en ondernemen.
+Tags: `management`, `organisatie`, `leiderschap`, `memoir`
+
+Alfred Sloan leidde General Motors van 1923 tot 1946 als president en daarna
+tot 1956 als voorzitter. Hij beschrijft in dit boek hoe een losse verzameling
+opgekochte autobedrijven een bestuurbaar concern werd. De kern is de
+organisatiestudie die hij in 1920 opstelde: zelfstandige divisies met eigen
+verantwoordelijkheid voor product, markt en resultaat, bijeengehouden door een
+klein hoofdkantoor dat beleid vaststelt, kapitaal toewijst en cijfers
+vergelijkbaar maakt. Daaromheen bouwde het bedrijf een productlijn met
+oplopende prijzen van Chevrolet tot Cadillac, jaarlijkse modelwisselingen,
+afbetaling via een eigen financieringsmaatschappij en inruil van gebruikte
+wagens.
+
+Het is geen gewone memoir. Sloan schreef met John McDonald, met de jonge
+bedrijfshistoricus Alfred Chandler als onderzoeker, en het resultaat leest als
+een dossier: notities, brieven, marktaandeelcijfers en bestuursstukken uit het
+archief van het bedrijf. Ruzies en karakters blijven buiten beeld, de
+redenering loopt langs cijfers. Peter Drucker noemde het bij de heruitgave van
+1990 het beste managementboek dat er bestaat. Sindsdien geldt het als de
+klassieke beschrijving van de gedecentraliseerde onderneming, en als een
+document dat evenveel verzwijgt als het uitlegt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Een grote onderneming valt volgens Sloan te besturen zonder
+haar te centraliseren, mits de leiding de juiste scheiding aanbrengt: divisies
+die zelf over hun product, hun markt en hun resultaat beslissen, en een
+hoofdkantoor dat zich beperkt tot beleid, kapitaaltoewijzing en het
+vergelijkbaar maken van cijfers. Die formule, door hem omschreven als
+gedecentraliseerde uitvoering onder gecoördineerde controle, vraagt geen
+sterke man aan de top maar een werkwijze waarin feiten en niet personen de
+doorslag geven. Het boek voert General Motors op als bewijs: een bedrijf dat
+in 1920 bijna omviel en tien jaar later de grootste autofabrikant van het land
+was.
+
+#### De gang van het boek
+
+**Het concern dat Durant naliet**
+
+General Motors ontstond vanaf 1908 doordat William Durant autobedrijven,
+merken en toeleveranciers opkocht en onder een holding bracht. Een bestuurlijk
+verband tussen die onderdelen was er nauwelijks. Divisiebazen bepaalden zelf
+wat zij bouwden, hoeveel zij inkochten en welk deel van de kas zij opnamen. In
+de naoorlogse inzinking van 1920 liep dat mis: de voorraden waren opgelopen
+zonder dat het hoofdkantoor wist hoe ver, de kas raakte leeg, en Durant, die
+de koers van zijn eigen aandelen met geleend geld had gesteund, verdween in
+december van dat jaar uit het bedrijf. Pierre du Pont nam het presidentschap
+over, met geld en toezicht van het chemieconcern van zijn familie.
+
+Sloan, tot dan hoofd van de onderdelendivisie die uit zijn eigen
+kogellagerfabriek was voortgekomen, had toen al een stuk geschreven dat hij de
+Organization Study noemde. Het lag klaar op het moment dat er niets meer te
+verdedigen viel, en werd eind 1920 aangenomen.
+
+**Gedecentraliseerde uitvoering, gecoördineerde controle**
+
+De studie zet twee eisen naast elkaar die op het eerste gezicht botsen. Elke
+divisie krijgt volledige verantwoordelijkheid voor haar eigen bedrijf, tot en
+met het ontwerp van de auto en de winst die erop wordt gemaakt. Tegelijk houdt
+de centrale leiding het geheel bijeen door beleid vast te stellen, kapitaal
+toe te wijzen en achteraf te toetsen. Sloan vat dat samen als
+gedecentraliseerde uitvoering onder gecoördineerde controle, en geeft toe dat
+de formule intern tegenstrijdig is. Waar de grens precies ligt, moet steeds
+opnieuw worden bepaald.
+
+De uitwerking loopt via staven en commissies. Een centrale staf voor techniek,
+inkoop, verkoop en onderzoek adviseert zonder gezag over de divisies te
+hebben; zijn invloed hangt af van de kwaliteit van zijn werk. Commissies
+waarin divisiebazen en staf samen zitten, dwingen beide partijen hun
+voorstellen met cijfers te verdedigen. Het bestuur beslist over kapitaal, en
+wie geld wil, legt een berekening voor. Sloan noemt dat besturen op feiten in
+plaats van op persoonlijkheden, en dat is de reden dat hij de vergaderorde van
+General Motors tot in detail beschrijft.
+
+**Een auto voor elke beurs en elk doel**
+
+Het productbeleid uit 1921 ordent de merken op een prijsladder, van Chevrolet
+onderaan via Oakland, Oldsmobile en Buick tot Cadillac bovenaan, met licht
+overlappende prijsklassen. Elk merk krijgt een segment toegewezen zodat de
+divisies elkaars klanten niet afsnoepen, en het aanbod dekt samen de hele
+markt. Wie welvarender wordt, kan binnen het concern doorschuiven.
+
+De maatstaf was Ford. In 1921 verkocht General Motors 193.275 wagens, bijna
+dertien procent van de Amerikaanse markt, tegen ruim vijfenvijftig procent
+voor Ford met zijn ene model. Sloan koos ervoor de Model T niet op prijs te
+bestrijden, maar er net boven te gaan zitten met een wagen die meer bood voor
+iets meer geld. Toen de markt verzadigd raakte en kopers gingen vervangen in
+plaats van voor het eerst kopen, verschoof de concurrentie naar comfort,
+uiterlijk en betalingsvoorwaarden. In 1927 stopte Ford met de Model T. Tegen
+1929 was General Motors de grootste personenautofabrikant van het land, in
+1931 de grootste voertuigfabrikant ter wereld.
+
+**Betalen, inruilen en elk jaar een nieuw model**
+
+Bij dat productbeleid horen drie commerciële vernieuwingen die Sloan uitvoerig
+behandelt. De General Motors Acceptance Corporation, opgericht in 1919,
+financierde afbetaling en maakte de auto bereikbaar voor kopers die het bedrag
+niet ineens hadden. De inruil van de gebruikte wagen werd onderdeel van de
+transactie, waardoor de tweedehandsmarkt voortaan de prijs van de nieuwe auto
+mede bepaalde. En het jaarmodel bundelde verbeteringen tot één wisseling per
+jaar, met vormgeving als verkoopargument; daarvoor haalde het bedrijf in 1927
+Harley Earl binnen en richtte het een aparte afdeling voor stijl op.
+
+Sloan behandelt deze drie als noodzaak in een verzadigde markt, waarin een
+nieuwe auto zelden een eerste auto is. De verwijten die er later aan werden
+gekoppeld, geplande veroudering en verspilling, komen in het boek niet aan de
+orde.
+
+**Besturen met cijfers**
+
+Het financiële deel is het meest technische en het minst geciteerde van het
+boek. Na het voorraaddebacle van 1920 voerde General Motors een
+voorspellingsstelsel in waarin divisies hun verwachte verkoop en bestellingen
+periodiek moesten opgeven en dealers hun verkopen elke tien dagen doorgaven,
+zodat de productie op werkelijke vraag kon worden bijgestuurd. De kas werd
+centraal beheerd, iets wat onder Durant niet bestond.
+
+Investeringsvoorstellen werden beoordeeld op rendement op geïnvesteerd
+vermogen, berekend tegen een aangenomen normale bezetting zodat divisies met
+verschillende conjunctuurgevoeligheid vergelijkbaar bleven. Die meetlat had
+een dubbele functie: zij gaf het hoofdkantoor grip zonder dat het zich met de
+auto's hoefde te bemoeien, en zij gaf divisiebazen een norm waaraan zij zich
+konden meten. Beloning werd eraan gekoppeld via een bonusregeling in aandelen,
+die het management aan de uitkomst van het geheel bond.
+
+**Waar het gezag ophield**
+
+Het scherpste hoofdstuk gaat over de koperkoelmotor van Charles Kettering, een
+luchtgekoelde constructie waarvan de onderzoeksafdeling verwachtte dat zij de
+watergekoelde motor zou verdringen. Kettering en Pierre du Pont zetten door;
+Chevrolet en Oakland, die het ding moesten bouwen en verkopen, vertrouwden hem
+niet. In 1923 waren er 759 wagens gemaakt, waarvan er ongeveer honderd bij
+klanten terechtkwamen. Die werden teruggehaald en vernietigd. Du Pont trad
+datzelfde jaar af als president en Sloan volgde hem op.
+
+Sloan gebruikt het voorval om zijn eigen leer te toetsen. Het hoofdkantoor had
+een technische keuze doorgedrukt tegen het oordeel in van de divisies die het
+risico droegen, en dat is precies wat zijn model zou moeten voorkomen. Hij
+verwijt zichzelf dat hij als bemiddelaar te lang is blijven schikken in plaats
+van de zaak te beslissen.
+
+**Personeel, oorlog en het buitenland**
+
+De laatste delen behandelen de onderwerpen die minder in het geheugen zijn
+blijven hangen. Er is een hoofdstuk over personeels- en arbeidsverhoudingen,
+waarin de erkenning van de vakbond in de jaren dertig, de latere cao-afspraken
+en de beloningsregelingen langs dezelfde nuchtere lijn worden beschreven als
+een investeringsbesluit. Er zijn hoofdstukken over de omschakeling naar
+oorlogsproductie tussen 1940 en 1945 en over de buitenlandse dochters,
+waaronder het Duitse Opel en het Britse Vauxhall. Ook de opzet van het
+onderzoekslaboratorium en van de dealerorganisatie komt aan bod.
+
+Het boek eindigt bij Sloans opvatting van leidinggeven als vak: een beroep met
+een eigen methode, dat door studie en oefening te leren valt en niet aan
+aanleg gebonden is. Dat is de stelling waarmee hij zijn hele loopbaan
+verantwoordt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| gedecentraliseerde uitvoering onder gecoördineerde controle | De bestuursformule waarin divisies zelfstandig ondernemen terwijl het hoofdkantoor beleid, kapitaal en toetsing in handen houdt. |
+| Organization Study | Het stuk uit 1920 waarin Sloan de structuur van General Motors uittekende en dat eind dat jaar door het bestuur werd aangenomen. |
+| divisie | Zelfstandige bedrijfseenheid met eigen product, markt en resultaatverantwoordelijkheid, in dit model de bouwsteen van het concern. |
+| centrale staf | Adviserende deskundigenafdeling zonder gezag over de divisies, bedoeld om kennis te delen zonder te bevelen. |
+| beleid | Vastgelegde regel over een terugkerende kwestie, waarmee de leiding richting geeft zonder de afzonderlijke besluiten over te nemen. |
+| coördinatie door commissies | De werkwijze waarin divisiebazen en staf in gezamenlijke commissies hun voorstellen met cijfers moeten verdedigen. |
+| rendement op geïnvesteerd vermogen | De maatstaf waarmee investeringsvoorstellen en divisies onderling vergelijkbaar werden gemaakt. |
+| standaardvolume | De aangenomen normale bezetting waartegen kosten en rendement werden berekend, zodat conjunctuurschommelingen het oordeel niet vertekenden. |
+| productbeleid | De ordening van de merken op een prijsladder die samen de hele markt dekt, verwoord als een auto voor elke beurs en elk doel. |
+| jaarmodel | De jaarlijkse modelwisseling waarin technische verbeteringen en nieuwe vormgeving werden gebundeld. |
+
+#### Waar het argument op rust
+
+De onderbouwing is documentair. Sloan schrijft vanuit het bedrijfsarchief en
+neemt notities, brieven, verkoop- en marktaandeelcijfers en bestuursstukken op
+in de lopende tekst, vaak woordelijk. John McDonald bracht de opzet aan, de
+bedrijfshistoricus Alfred Chandler deed het onderzoek, en het materiaal dat
+zij ordenden werd korte tijd later de kern van Chandlers eigen studie naar het
+ontstaan van de divisiestructuur. Voor wie het model wil begrijpen is dat een
+sterk punt: er staan geen anekdotes op plekken waar cijfers horen.
+
+De keerzijde is dat het bewijs uit één bedrijf komt en door dat bedrijf is
+samengesteld. De juridische afdeling las mee, omdat General Motors vreesde dat
+de tekst in mededingingszaken zou worden gebruikt, en het manuscript lag
+daardoor jaren stil. Wat overbleef is een verslag waarin elk besluit achteraf
+redelijk oogt, omdat de stukken die de redenering steunen zijn opgenomen en de
+rest niet. Waar de uitkomst tegenviel, zoals bij de koperkoelmotor, dient het
+geval alsnog als bevestiging van de leer.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat geen enkele beslissing in dit boek verkeerd
+afloopt zonder dat de leer erdoor wordt bevestigd. Zelfs het ene grote falen
+bewijst dat het model klopt en dat afwijken ervan straf oplevert. Conflicten
+tussen personen zijn weggewerkt, wat de tekst zijn rust geeft en tegelijk zijn
+waarde als historische bron beperkt: wie wil weten hoe de macht binnen General
+Motors werkelijk verdeeld was, moet bij anderen zijn.
+
+Grote delen van de werkelijkheid ontbreken. De bezetting van de fabrieken in
+Flint in de winter van 1936 op 1937, die het bedrijf dwong de vakbond te
+erkennen, komt er bekaaid vanaf gezien wat er toen op het spel stond. Over de
+rol van dochteronderneming Opel in Duitsland in de jaren dertig staat vrijwel
+niets. Verkeersveiligheid, uitstoot en de gevolgen van de jaarlijkse
+modelwisseling blijven buiten beeld; de aanklacht van Ralph Nader tegen de
+Amerikaanse auto-industrie verscheen een jaar na dit boek.
+
+Inhoudelijk is de vraag of het recept overdraagbaar is. General Motors
+decentraliseerde in een groeiende markt met ruime marges, in een bedrijf dat
+toch al uit losse onderdelen bestond. Latere decennia lieten zien dat dezelfde
+structuur bij tegenwind traag en naar binnen gekeerd raakt. Het concern dat
+Sloan bouwde verloor vanaf de jaren zeventig marktaandeel aan fabrikanten die
+hun productie anders hadden ingericht, en ging in 2009 door een faillissement.
+
+#### Wat er concreet mee te doen is
+
+- Leg vast welke besluiten bij de eenheid horen en welke bij het hoofdkantoor,
+en herzie die grens periodiek in plaats van hem als vaststaand te behandelen.
+- Geef adviserende staven geen gezag over de eenheden; laat hun invloed
+afhangen van de kwaliteit van hun cijfers.
+- Kies een maatstaf waarop eenheden met verschillend risico vergelijkbaar
+worden, en reken met een aangenomen normale bezetting in plaats van met de
+stand van het moment.
+- Vraag bij elk investeringsvoorstel eerst om de berekening, voordat er over
+de uitkomst wordt gesproken.
+- Laat een technische keuze niet doordrukken door een afdeling die het risico
+van de verkoop niet draagt.
+
+#### Wat je hierna leest
+
+- 905. My Life and Work. Ford beschrijft in zijn eigen boek precies het
+bestuursmodel dat Sloan verving: één man, één model, geen tussenlaag.
+- 912. Toyota Production System. Ohno zoekt de winst in de fabriek zelf, waar
+Sloan haar in de structuur van het concern zoekt.
+- 907. Only the Paranoid Survive. Grove behandelt dezelfde spanning tussen
+centrale koers en zelfstandige eenheden in een bedrijf dat om de paar jaar van
+techniek verandert.
+- 293. The Innovator's Dilemma. Christensen verklaart waarom een goed bestuurd
+concern als dat van Sloan juist door zijn eigen meetlat de bocht mist.
+
+## 901. Innovation and Entrepreneurship
+
+Peter F. Drucker, 1985. *Innovation and Entrepreneurship: Practice and
+Principles* (Harper & Row, New York, 1985, ix en 277 blz., ISBN 0060154284).
+De Nederlandse vertaling van F.G. Garnier verscheen als *Innovatie en
+ondernemerschap* (Veen, Utrecht, 1986, 312 blz., ISBN 9789020422023) en is
+alleen nog tweedehands te krijgen; de Engelse tekst is in latere herdrukken
+ongewijzigd gebleven. Rubriek: geld en ondernemen.
+Tags: `innovatie`, `ondernemerschap`, `management`, `strategie`
+
+Drucker schreef dit boek tegen het idee in dat innovatie uit ingeving en
+aanleg voortkomt. Ondernemerschap is volgens hem een vak met een methode: wie
+stelselmatig zoekt naar veranderingen die zich al hebben voorgedaan, vindt
+kansen die anderen over het hoofd zien. Het eerste deel behandelt zeven
+bronnen waar zulke kansen vandaan komen, geordend van betrouwbaar naar
+onbetrouwbaar. Het tweede deel gaat over de organisatie die nodig is om
+innovatie vol te houden, in bestaande bedrijven, in publieke instellingen en
+in nieuwe ondernemingen. Het derde deel beschrijft vier strategieën om met een
+innovatie een markt te bezetten.
+
+Het boek verscheen in 1985, in de jaren waarin de Amerikaanse werkgelegenheid
+ondanks een matige economie sterk groeide. Drucker verklaart dat uit de
+opkomst van wat hij een ondernemende economie noemt, en gebruikt het als
+aanwijzing dat innovatie te organiseren valt. Zijn voorbeelden lopen van de
+negentiende-eeuwse zakenbank tot Sony, IBM en McDonald's. Het is het eerste
+boek dat innovatie en ondernemerschap als leerbaar vak behandelt, en dat kader
+is sindsdien in vrijwel elke opleiding op dit terrein terechtgekomen, meestal
+zonder bronvermelding.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Innovatie is voor Drucker geen ingeving en ondernemerschap
+geen karaktertrek: het is werk dat zich laat organiseren. Wie de zeven plekken
+kent waar kansen ontstaan en die stelselmatig afloopt, vindt genoeg om aan te
+werken zonder op inspiratie te wachten. De innovaties die standhouden zijn
+bovendien zelden de spectaculaire. Zij beginnen klein, richten zich op één
+duidelijke toepassing en zijn zo eenvoudig dat een buitenstaander zegt dat hij
+er zelf op had kunnen komen. Daarmee verplaatst Drucker de vraag van de
+persoon van de ondernemer naar de werkwijze van de organisatie, en wordt
+mislukking een kwestie van methode in plaats van van pech.
+
+#### De gang van het boek
+
+**Ondernemerschap als vak**
+
+Drucker begint met een omschrijving die hij aan Jean-Baptiste Say ontleent: de
+ondernemer verplaatst middelen van een terrein met lage opbrengst naar een
+terrein met hogere opbrengst. Daarin zit geen verwijzing naar bedrijfsgrootte,
+leeftijd of bedrijfstak. Een bestaand concern kan ondernemend zijn en een pas
+begonnen winkel niet, want wie doet wat iedereen al doet, verplaatst niets.
+
+Uit die omschrijving volgt zijn belangrijkste stellingname. Ondernemers zoeken
+geen risico op; zij lopen risico omdat zij werken op een terrein waarvan nog
+weinig bekend is, en hun vak bestaat er juist uit dat risico te verkleinen
+door te kijken waar de verandering al heeft plaatsgevonden. Innovatie noemt
+hij het gereedschap van de ondernemer: de handeling waarmee bestaande middelen
+een nieuw vermogen krijgen om waarde voort te brengen.
+
+**Zeven bronnen, op volgorde van betrouwbaarheid**
+
+Het eerste deel loopt zeven kansenbronnen langs, vier binnen de organisatie of
+de bedrijfstak en drie daarbuiten. Binnen: het onverwachte, in de vorm van
+onverwacht succes, onverwachte mislukking of een gebeurtenis van buiten; de
+incongruentie tussen wat er zou moeten gebeuren en wat er werkelijk gebeurt;
+de procesbehoefte, een bekende zwakke schakel in een bestaande werkwijze; en
+de verandering van bedrijfstak- of marktstructuur. Buiten: demografie,
+verandering in wat mensen ergens van vinden, en nieuwe kennis.
+
+De volgorde is geen opsomming maar een rangschikking. Hoe verder naar
+achteren, hoe langer de doorlooptijd, hoe hoger de kosten en hoe kleiner de
+kans van slagen. Demografie noemt Drucker de betrouwbaarste van de externe
+bronnen, omdat de cijfers over twintig jaar vooruit al bekend zijn en er toch
+vrijwel niemand op handelt.
+
+**Het onverwachte succes**
+
+De goedkoopste bron krijgt de meeste bladzijden en is volgens Drucker de bron
+die het vaakst wordt weggegooid. Een uitkomst die beter uitpakt dan gepland
+wordt in de meeste bedrijven als storing behandeld, omdat zij de aannames
+aantast waarop het budget rust. Hij noemt IBM, dat in de jaren dertig
+boekhoudmachines aan banken wilde verkopen en ontdekte dat bibliotheken de
+klanten waren, en Univac, gebouwd voor wetenschappelijk rekenwerk en gekocht
+voor salarisadministratie. Wie zijn machine als wetenschappelijk instrument
+bleef zien, verloor de markt aan wie de klant volgde.
+
+Hetzelfde geldt voor de onverwachte mislukking. Een product dat zorgvuldig is
+ontworpen en toch niet verkoopt, zegt iets over een verandering in de
+werkelijkheid die de ontwerpers niet hadden gezien. Drucker adviseert in beide
+gevallen dezelfde handeling: naar buiten gaan en kijken, in plaats van het
+verschijnsel wegredeneren.
+
+**Nieuwe kennis, de bron met de slechtste papieren**
+
+De bron die in het spraakgebruik met innovatie samenvalt, staat bij Drucker
+onderaan. Innovatie op basis van nieuwe kennis heeft de langste doorlooptijd,
+vaak enkele decennia, en vergt bijna altijd de samenkomst van verschillende
+soorten kennis die los van elkaar zijn ontstaan. Zijn voorbeeld is de
+computer: de bouwstenen, van het binaire stelsel en de rekenmachine tot de
+ponskaart en de symbolische logica, waren omstreeks 1918 alle beschikbaar,
+maar de eerste werkende machine kwam pas in 1946.
+
+Daar komt bij dat dit soort innovatie een venster kent. Zodra de techniek
+werkt, stromen er tientallen aanbieders toe, waarna binnen enkele jaren een
+schifting volgt die de meeste van hen wegvaagt. Wie daarop bouwt, moet vooraf
+alle benodigde kennis inventariseren en genoeg geld hebben om die schifting te
+doorstaan.
+
+**Innovatie is werk**
+
+Het middendeel geeft regels die zich laten samenvatten als handwerk. Analyseer
+de bronnen stelselmatig. Ga kijken en luisteren bij de mensen die het gaan
+gebruiken. Houd de innovatie eenvoudig en gericht op één toepassing, want
+alles wat uitleg vereist, gaat mis. Begin klein, met weinig geld en weinig
+mensen. En mik toch op de leidende positie in het gekozen segment, want wie
+dat niet doet, maakt alleen ruimte voor een ander.
+
+Daarnaast staan er verboden. Wees niet slim, want de innovatie moet ook door
+minder begaafde mensen bediend kunnen worden. Doe niet te veel tegelijk. En
+innoveer voor het heden, niet voor een toekomst waarvan de komst nog moet
+blijken.
+
+**De ondernemende organisatie**
+
+Het tweede deel behandelt drie omgevingen apart. In het bestaande bedrijf
+botst het nieuwe altijd met het bestaande, omdat het bestaande de omzet levert
+en de meetlat bepaalt. Drucker adviseert het nieuwe werk buiten de bestaande
+eenheid te plaatsen, met een eigen begroting, een eigen maatstaf en een eigen
+beloning, en het te laten rapporteren aan iemand hoog genoeg om het te
+beschermen. Wie het onder de bestaande lijn hangt, laat het door de meetlat
+doodknijpen.
+
+Publieke instellingen innoveren volgens hem het moeilijkst, en niet omdat hun
+mensen minder deugen. Zij worden betaald uit een begroting en niet uit
+resultaat, zij hebben veel belanghebbenden die elk een veto hebben, en hun
+doel is meestal moreel geformuleerd, waardoor het nooit bereikt is en een
+programma nooit kan worden gestaakt. Voor de nieuwe onderneming stelt hij vier
+eisen: marktgerichtheid, vooruitkijken naar de kaspositie in plaats van naar
+de winst, tijdig een leiding opbouwen, en als oprichter op tijd bepalen welke
+rol nog bij hem past.
+
+**Vier strategieën**
+
+Het derde deel gaat over de manier waarop een innovatie een markt bezet. De
+eerste strategie zet alles op leiderschap vanaf het begin, met de grootste
+inzet en de hoogste ambitie; zij levert het meeste op en mislukt het vaakst,
+want er is geen tweede kans. De tweede komt binnen op de plek die de
+gevestigde partij onbezet laat. Dat kan door creatieve imitatie, waarbij
+iemand anders de vinding doet en de imitator hem afmaakt tot wat de klant er
+werkelijk aan heeft, of door wat Drucker ondernemersjudo noemt: profiteren van
+de gewoonten en de hooghartigheid van de zittende partij. Zijn voorbeeld is
+Sony, waarvan Akio Morita na een krantenbericht over de transistor van Bell
+Labs een licentie kocht voor vijfentwintigduizend dollar en daarmee de markt
+voor draagbare radio's overnam, terwijl de Amerikaanse fabrikanten die markt
+niet serieus namen.
+
+De derde strategie zoekt een nis in plaats van een markt. De tolpoortpositie
+is de sterkste vorm: een product dat voor een handeling onontbeerlijk is en
+tegelijk maar een fractie van de kosten uitmaakt, zoals het enzym van Alcon
+voor staaroperaties. Drucker laat er meteen de zwakte van zien, want toen de
+kunstlens de operatie veranderde, was die positie waardeloos. De vierde
+strategie verandert niet het product maar wat het voor de klant betekent: de
+prijs per gebruikseenheid in plaats van per stuk, aanpassing aan de
+werkelijkheid van de klant, en levering van waarde in plaats van van techniek.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| ondernemerschap | Het verplaatsen van middelen van een terrein met lage opbrengst naar een terrein met hogere opbrengst, in de omschrijving van Jean-Baptiste Say die Drucker overneemt. |
+| innovatie | Het gereedschap van de ondernemer: de handeling waarmee bestaande middelen een nieuw vermogen krijgen om waarde voort te brengen. |
+| systematische innovatie | Het doelbewuste en georganiseerde aflopen van de zeven kansenbronnen, in plaats van wachten op een inval. |
+| het onverwachte succes | Een uitkomst die beter uitpakt dan gepland en die daarom vaak als storing wordt behandeld; volgens Drucker de goedkoopste kansenbron. |
+| incongruentie | Het verschil tussen wat er in een bedrijfstak zou moeten gebeuren en wat er werkelijk gebeurt. |
+| procesbehoefte | Een bekende zwakke schakel in een bestaand proces waarvan iedereen in de bedrijfstak weet dat hij er zit. |
+| kennisvenster | De korte periode waarin een op nieuwe kennis gebaseerde markt openligt, gevolgd door een schifting die de meeste toetreders wegvaagt. |
+| ondernemend management | De inrichting waarmee een bestaand bedrijf nieuw werk apart zet, met eigen begroting, maatstaf en beloning. |
+| creatieve imitatie | Het overnemen van andermans vinding en die pas afmaken tot wat de klant er werkelijk aan heeft. |
+| ondernemersjudo | Een markt binnenkomen op de plek die de gevestigde partij uit gewoonte of hooghartigheid onbezet laat. |
+| tolpoortstrategie | Een nispositie waarin het product voor een handeling onontbeerlijk is terwijl het maar een fractie van de totale kosten uitmaakt. |
+
+#### Waar het argument op rust
+
+Drucker onderbouwt met gevallen, niet met onderzoek. Er staat geen enkele
+statistische toets in het boek. Het bewijs bestaat uit tientallen
+bedrijfsgeschiedenissen die hij uit adviespraktijk, archief en krant heeft
+verzameld, van de opkomst van de zakenbank in de negentiende eeuw tot IBM,
+Univac, Sony, 3M en McDonald's. Dat maakt het materiaal rijk en per geval
+navolgbaar: wie de geschiedenis van die bedrijven kent, kan nagaan of de
+duiding klopt.
+
+De selectie is het zwakke punt. De gevallen zijn achteraf gekozen bij een
+stelling die al vaststond, en bedrijven die dezelfde werkwijze volgden en toch
+omvielen komen niet voor. Het boek doet daarnaast een empirische bewering die
+het niet hard maakt: dat de Amerikaanse economie in twee decennia tientallen
+miljoenen banen schiep dankzij een ondernemende economie. Het aantal komt uit
+arbeidsmarktstatistiek, de verklaring is Druckers eigen duiding, en andere
+verklaringen zoals bevolkingsgroei en de toestroom van vrouwen tot de
+arbeidsmarkt blijven onbesproken.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar betreft de zeven bronnen zelf. Zij zijn zo ruim
+omschreven dat vrijwel elke geslaagde innovatie er achteraf onder valt te
+brengen, en dat maakt het kader lastig te weerleggen. Wie vooraf wil weten
+welke van de zeven op zijn eigen situatie van toepassing is, krijgt geen
+procedure maar voorbeelden. De grenzen zijn bovendien dun: het onverwachte
+succes, de incongruentie en de verandering in perceptie lopen in de gevallen
+voortdurend in elkaar over, waardoor de indeling meer als geheugensteun dan
+als analyse werkt.
+
+Daarnaast schat het boek de rol van kapitaal, mededinging en toeval laag in.
+Het beeld van de ondernemer die met analyse en discipline een markt verovert,
+past bij de Amerikaanse jaren tachtig; het verklaart niet waarom sommige
+bedrijfstakken door schaalvoordelen en netwerkeffecten binnen enkele jaren
+dichtslaan voor nieuwkomers, hoe goed die ook zoeken. Drucker zegt dat
+innovatie werk is, maar hoeveel werk, tegen welke slaagkans, komt nergens ter
+sprake.
+
+Ten slotte is het advies over publieke instellingen scherp geformuleerd en dun
+onderbouwd. De redenering dat zij niet kunnen innoveren omdat zij uit een
+begroting worden betaald, illustreert hij met enkele voorbeelden en zonder
+tegenvoorbeelden. Wie in die sector werkt, vindt er een diagnose en geen
+uitweg.
+
+#### Wat er concreet mee te doen is
+
+- Loop de zeven bronnen langs als vast agendapunt, niet als eenmalige
+oefening.
+- Behandel elk onverwacht verkoopsucces als onderzoeksvraag: zoek uit wie er
+kocht en waarom, voordat het als afwijking wordt weggeboekt.
+- Houd een innovatie klein en op één toepassing gericht; wat uitleg nodig
+heeft, komt niet van de grond.
+- Zet nieuw werk buiten de bestaande eenheid en meet het met een eigen
+maatstaf, want de bestaande meetlat straft het altijd af.
+- Begin bij een nieuwe onderneming op tijd met een kasplanning en met het
+opbouwen van een leiding, ruim voordat de omvang daarom vraagt.
+
+#### Wat je hierna leest
+
+- 265. The Lean Startup. Ries maakt van Druckers stelselmatige zoektocht een
+reeks toetsbare aannames met echte klanten.
+- 293. The Innovator's Dilemma. Christensen laat zien waarom gevestigde
+bedrijven de kansen die Drucker beschrijft juist door goed management laten
+liggen.
+- 910. Kapitalisme, socialisme en democratie. Schumpeter leverde het begrip
+waar Drucker op voortbouwt: de ondernemer als motor van creatieve
+vernietiging.
+- 306. Zero to One. Thiel keert de nadruk om en zoekt de waarde niet in de
+methode maar in het monopolie dat een vinding oplevert.
+
+## 902. The Mind of the Strategist
+
+Kenichi Ohmae, 1982. *The Mind of the Strategist: The Art of Japanese
+Business* (McGraw-Hill, New York, 1982, 283 blz., ISBN 0070475954). Het boek
+gaat terug op de Japanse uitgave *Kigyō sanbō* uit 1975. De Nederlandse
+vertaling verscheen als *Het oog van de meester: de kunst van Japans
+management* (Veen, Utrecht, 1984, 244 blz.) en is alleen nog tweedehands te
+vinden. Rubriek: geld en ondernemen.
+Tags: `strategie`, `management`, `concurrentie`, `japan`
+
+Ohmae werkte vanaf 1972 voor McKinsey in Tokio en schreef dit boek om uit te
+leggen waarom Japanse bedrijven zonder planningsafdeling en zonder
+strategische modellen toch scherper opereerden dan hun westerse concurrenten.
+Zijn verklaring is dat strategie daar het werk is van enkelingen die een
+vraagstuk tot zijn bestanddelen terugbrengen en die bestanddelen daarna anders
+samenvoegen dan de bedrijfstak gewend is. Analyse is het beginpunt; de
+uitkomst komt uit een sprong die geen procedure kan afdwingen.
+
+Het gereedschap dat hij aanreikt is bekend gebleven: vier routes naar
+voordeel, en de strategische driehoek van klant, bedrijf en concurrent, die
+later als 3C-model in de leerboeken belandde. De Japanse uitgave stamt uit
+1975, de Engelse uit 1982, precies in de jaren waarin westerse managers wilden
+weten hoe Japan hun markten binnenkwam. Ohmae werd daarna een van de bekendste
+adviseurs ter wereld. Wie het boek nu leest, leest het om de denkwijze; de
+bedrijfstakbeschrijvingen zijn veertig jaar oud.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Strategie is volgens Ohmae geen uitkomst van een
+planningsproces maar van een manier van denken die bij ontleding begint. Wie
+een vraagstuk zo lang opsplitst tot de afzonderlijke bestanddelen zichtbaar
+worden, ziet welk deel er werkelijk toe doet, en kan de delen daarna anders
+samenvoegen dan zijn bedrijfstak gewend is. Westerse ondernemingen vervangen
+die inspanning door modellen, procedures en afdelingen, en krijgen daar
+ordelijke plannen voor terug die de bestaande orde bevestigen. De Japanse
+bedrijven die hij bediende hadden geen planningsafdeling en wel een strateeg,
+en dat is volgens hem het verschil dat telt. Strategie heeft bovendien alleen
+betekenis tegenover een concurrent: zonder tegenstander volstaat goed werk.
+
+#### De gang van het boek
+
+**Analyse als beginpunt**
+
+Het eerste hoofdstuk zet de werkwijze neer. Een vraagstuk moet worden
+opgedeeld in delen die elkaar niet overlappen, net zo lang tot er onderdelen
+overblijven waarop iemand daadwerkelijk iets kan doen. Ohmae waarschuwt
+daarbij tegen de vraagstelling zelf: wie vraagt hoe de kosten omlaag kunnen,
+krijgt een antwoord over kosten, terwijl het onderliggende probleem elders kan
+liggen. De eerste taak van de strateeg is de vraag opnieuw formuleren.
+
+De methode is die van het adviesbureau: kosten en opbrengsten per bewerking
+uitsplitsen, die naast de cijfers van de concurrent leggen, en kijken waar het
+verschil vandaan komt. Pas als dat verschil op tafel ligt, is er iets te
+kiezen. Ohmae onderscheidt daarbij nadrukkelijk het verschijnsel van de
+oorzaak; dalende winst is een verschijnsel, en een programma om de winst te
+verhogen is dan een antwoord op het verkeerde punt.
+
+**Vier routes naar voordeel**
+
+De hoofdstukken twee tot en met zes behandelen vier manieren om voorsprong te
+krijgen. De eerste is concentratie op de kritieke succesfactoren: bepaal welke
+enkele punten in een bedrijfstak de uitkomst bepalen, en zet daar de middelen
+op in terwijl elders middelmaat volstaat. De tweede is relatieve
+superioriteit: zoek het punt waarop de eigen positie sterker is dan die van de
+concurrent, ook als het aanbod verder gelijk is, en buit dat verschil uit.
+
+De derde route noemt hij het nemen van agressieve initiatieven: bevraag de
+aannames die de hele bedrijfstak deelt en die niemand meer toetst, want daar
+zit meestal de ruimte. De vierde route zijn de strategische vrijheidsgraden,
+de assen waarlangs verbetering nog mogelijk is voordat een technische of
+economische grens is bereikt. Wie die assen in kaart brengt, ziet welk
+verbeterwerk nog wat oplevert en welk werk alleen kosten toevoegt.
+
+**De strategische driehoek**
+
+Het middendeel introduceert het kader waar Ohmae het bekendst mee werd. Elke
+strategie moet drie partijen in samenhang behandelen: de klant, het eigen
+bedrijf en de concurrent. Klantgerichte strategie begint bij segmentatie, naar
+het doel waarvoor het product wordt gebruikt en naar de vraag welk deel van de
+markt met de beschikbare middelen te bedienen is. Bedrijfsgerichte strategie
+gaat over de eigen kostenopbouw en over de keuze wat zelf te maken en wat in
+te kopen, met het punt dat een bedrijf niet op alle functies hoeft uit te
+blinken.
+
+Concurrentgerichte strategie zoekt het verschil in prijs, in kostenstructuur,
+in beeldvorming of in de manier waarop winst wordt gemaakt. De drie hoeken
+samen leveren de toets: een plan dat aan de klant voorbijgaat, dat de eigen
+kostenpositie negeert of dat de reactie van de concurrent buiten beschouwing
+laat, is geen strategie maar een wens. Later kreeg dit kader de naam 3C-model
+en werd het losgeknipt van het denkwerk waarvoor het bedoeld was.
+
+**Concern en omgeving**
+
+Vanaf hoofdstuk twaalf verschuift het boek van de bedrijfseenheid naar het
+concern en van de bedrijfstak naar de economie eromheen. Ohmae schrijft in de
+nasleep van de oliecrises en verwacht een tijd van tragere groei, duurdere
+grondstoffen en duurder kapitaal, waarin volume niet meer vanzelf de kosten
+drukt. Strategie op concernniveau gaat dan over de vraag welke activiteiten
+dat klimaat aankunnen, welke moeten worden afgestoten en hoe de kostenopbouw
+beweeglijker te maken is.
+
+Hier staat ook zijn behandeling van strategische verandering. Een onderneming
+die haar bedrijfstak ziet verschuiven, heeft weinig aan het bijstellen van
+doelen; zij moet opnieuw bepalen in welk vak zij zit. Ohmae dringt aan op
+tijdig ingrijpen, omdat de ruimte om te kiezen kleiner wordt naarmate de
+cijfers duidelijker worden.
+
+**Japan: mythen en werkelijkheid**
+
+Een apart hoofdstuk ruimt op met de verklaringen die in het Westen rondgingen.
+Levenslange aanstelling geldt volgens Ohmae voor een minderheid van de
+werkenden, vooral bij grote bedrijven; de vakbond is per onderneming
+georganiseerd en niet per beroep; promotie op anciënniteit heeft zijn eigen
+prijs in traagheid. Wat hij wel als verschil aanwijst, is dat de werknemer
+zichzelf als lid van het bedrijf beschouwt en niet als leverancier van arbeid,
+met de bijbehorende bereidheid om aan de organisatie zelf te sleutelen.
+
+Ohmae betoogt dat er niets mystieks aan is. Het zijn praktische regelingen,
+met voordelen en met kosten, en zij verklaren het succes van de Japanse export
+maar ten dele. De rest schrijft hij toe aan de manier waarop in die bedrijven
+over concurrentie werd nagedacht.
+
+**Geen formule**
+
+De slothoofdstukken behandelen vooruitziend besluiten en eindigen bij de vraag
+of er een succesformule bestaat. Ohmae antwoordt van niet. Analyse is te
+leren, en de vier routes en de driehoek helpen bij het ordenen, maar de stap
+waarin iemand de bestanddelen op een nieuwe manier samenvoegt, laat zich niet
+vastleggen in een procedure.
+
+Wat een organisatie wel kan doen, is ruimte maken voor mensen die zo denken:
+ze niet in een planningsafdeling wegzetten, ze langer laten kijken dan de
+begrotingscyclus toestaat, en hun voorstellen beoordelen op de redenering en
+niet op de mate waarin ze in het bestaande beeld passen. Daarmee eindigt het
+boek bij een organisatievraag in plaats van bij een schema.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| strategisch denken | Het uiteenrafelen van een vraagstuk in zijn bestanddelen en die daarna anders samenvoegen dan de bedrijfstak gewend is. |
+| kritieke succesfactoren | De enkele punten die in een bedrijfstak de uitkomst bepalen en waarop de middelen geconcentreerd horen te worden. |
+| relatieve superioriteit | Het punt waarop de eigen positie sterker is dan die van de concurrent, ook wanneer het aanbod verder gelijk oogt. |
+| agressieve initiatieven | Het bevragen van aannames die de hele bedrijfstak deelt en die niemand meer toetst. |
+| strategische vrijheidsgraden | De assen waarlangs verbetering nog mogelijk is voordat een technische of economische grens is bereikt. |
+| strategische driehoek | De samenhang tussen klant, eigen bedrijf en concurrent, later bekend geworden als het 3C-model. |
+| segmentatie naar gebruiksdoel | Het indelen van de markt naar waarvoor de klant het product inzet, in plaats van naar productkenmerken. |
+| product-marktstrategie | De keuze welk aanbod aan welk deel van de markt wordt gedaan, als grondslag onder alle overige keuzes. |
+| strategisch vergezicht | Het beeld van de toekomstige bedrijfstak dat richting geeft aan besluiten voordat de cijfers de verandering laten zien. |
+
+#### Waar het argument op rust
+
+Ohmae schrijft vanuit adviespraktijk. Het materiaal bestaat uit gevallen die
+hij bij McKinsey in Japan meemaakte, deels met naam en deels geanonimiseerd,
+en uit vergelijkingen van kosten- en marktposities die hij voor klanten
+maakte. Onderzoek in de zin van hypothese, steekproef en toets komt in het
+boek niet voor, en de auteur beweert ook nergens dat het er is. De
+overtuigingskracht zit in de bewerkingen zelf: de lezer ziet hoe een vraagstuk
+uit elkaar wordt gehaald en welke rekensom dan zichtbaar wordt.
+
+De centrale bewering, dat het verschil tussen Japanse en westerse
+ondernemingen in de denkwijze van individuele strategen zit, wordt nergens
+getoetst. Verklaringen die in dezelfde jaren opgeld deden, zoals goedkoop
+kapitaal, industriebeleid, een gunstige wisselkoers en de manier van
+produceren op de werkvloer, komen nauwelijks aan de orde. Het boek verscheen
+bovendien in de opgaande fase van de Japanse economie; de jaren na 1990 lieten
+zien dat dezelfde bedrijven ook langdurig konden vastlopen, wat de verklaring
+achteraf zwakker maakt.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat Ohmae zijn eigen stelling ondermijnt. Hij verwerpt
+formules en procedures en levert vervolgens vier routes, een driehoek en een
+reeks schema's die precies zo zijn gebruikt: als invuloefening in
+strategiesessies. Wat het denken volgens hem laat werken, de sprong na de
+analyse, blijft ongedefinieerd en daarmee niet overdraagbaar. Het boek
+beschrijft dus wel wat strategen doen en niet hoe iemand er een wordt.
+
+Daarnaast berust het beeld van de Japanse onderneming op een selectie van
+winnaars uit één periode. Ohmae bespreekt bedrijven die op dat moment voorop
+liepen en leidt daar de werkwijze uit af; de ondernemingen met dezelfde
+cultuur en dezelfde methoden die verloren, blijven buiten beeld. Het decennium
+na 1990 maakte duidelijk hoe tijdgebonden die verklaring was.
+
+Ten slotte is de analytische kern minder eigen dan de presentatie doet
+vermoeden. Het opdelen van vraagstukken in elkaar uitsluitende delen en het
+vergelijken van kostenposities met die van de concurrent was in 1975 al de
+standaardwerkwijze van de Amerikaanse adviesbureaus. Wat Ohmae toevoegt is de
+nadruk op het herformuleren van de vraag, en dat is een waardevolle maar
+bescheidener bijdrage dan de ondertitel over Japanse bedrijfsvoering
+suggereert.
+
+#### Wat er concreet mee te doen is
+
+- Formuleer de vraag opnieuw voordat er aan een antwoord wordt gewerkt, en
+toets of de gestelde vraag niet zelf al een oplossingsrichting oplegt.
+- Splits een vraagstuk in delen die elkaar niet overlappen, tot er onderdelen
+overblijven waarop iemand daadwerkelijk kan handelen.
+- Leg de eigen kostenopbouw per bewerking naast die van de concurrent en zoek
+de post waar het verschil ontstaat.
+- Benoem de twee of drie punten die in de bedrijfstak de uitkomst bepalen, en
+accepteer bewust middelmaat op de overige.
+- Toets elk plan aan alle drie de hoeken: wat het de klant oplevert, wat het
+het eigen bedrijf kost en wat de concurrent ertegen kan doen.
+
+#### Wat je hierna leest
+
+- 908. Good Strategy Bad Strategy. Rumelt stelt dezelfde diagnose over
+strategie die uit doelen en schema's bestaat, met Amerikaanse voorbeelden en
+een scherper onderscheid tussen diagnose en beleid.
+- 912. Toyota Production System. Ohno beschrijft van binnenuit de
+productiewijze die Ohmae als achtergrond van het Japanse succes veronderstelt.
+- 909. The Halo Effect. Rosenzweig laat zien hoe verklaringen achteraf
+ontstaan bij bedrijven die het op dat moment goed doen, wat direct op Ohmaes
+voorbeelden van toepassing is.
+- 907. Only the Paranoid Survive. Grove werkt hetzelfde vraagstuk uit vanuit
+de positie van de gevestigde partij die een verschuiving in haar bedrijfstak
+moet opmerken.
+
+## 903. Business Adventures
+
+John Brooks, 1969. *Business Adventures: Twelve Classic Tales from the World
+of Wall Street* (Weybright and Talley, New York, 1969). De twaalf stukken
+verschenen eerder in *The New Yorker*. Nadat Bill Gates het boek in 2014 had
+aanbevolen kwam het terug in druk bij Open Road Media in de Verenigde Staten
+en bij John Murray in Groot-Brittannië (paperback 2015, 464 blz., ISBN
+9781473611528). Er bestaat geen Nederlandse vertaling; de samenvatting is op
+de Engelse editie gebaseerd. Rubriek: geld en ondernemen.
+Tags: `journalistiek`, `financiële markten`, `verhalen`, `bedrijfsleven`
+
+Twaalf reportages over het Amerikaanse bedrijfsleven en de effectenhandel,
+geschreven in de jaren zestig voor *The New Yorker* en in 1969 gebundeld.
+Brooks kiest per stuk één zaak en volgt die tot in de details: de mislukking
+van de Edsel bij Ford, de opkomst van Xerox, een prijskartel bij General
+Electric, handel met voorkennis bij Texas Gulf Sulphur, het uitknijpen van de
+aandelen Piggly Wiggly, de val van de beurskoersen in mei 1962 en de
+verdediging van het Britse pond.
+
+Het boek was decennialang vergeten tot Bill Gates in 2014 schreef dat Warren
+Buffett hem in 1991 zijn exemplaar had geleend en dat het het beste zakelijke
+boek was dat hij kende. De aantrekkingskracht zit in de aanpak. Brooks legt
+geen lessen op; hij reconstrueert wat mensen deden en waarom het misging, met
+vergaderverslagen, verhoren, rechtbankstukken en gesprekken met de
+betrokkenen. De bedragen en de techniek zijn verouderd, het gedrag dat hij
+beschrijft is dat niet.
+
+### Uitgebreide samenvatting
+
+**De stelling.** De stelling van Brooks staat nergens uitgeschreven en loopt
+door alle twaalf stukken heen: het zakenleven wordt niet bestuurd door markten
+of modellen maar door mensen die onder druk beslissen met te weinig informatie
+en die daarna moeten uitleggen wat zij bedoeld hadden. Zijn onderwerpen zijn
+steevast de momenten waarop een stelsel het begeeft en zichtbaar wordt hoe het
+in elkaar zat: een auto waarin jaren onderzoek is gestoken en die niemand wil,
+een prijsafspraak die jarenlang bestaat terwijl de leiding volhoudt van niets
+te weten, een koersval waarvoor achteraf geen oorzaak valt aan te wijzen. Wat
+de stukken bij elkaar houdt is de overtuiging dat dit gedrag zich herhaalt,
+ook als de bedragen en de techniek veranderen.
+
+#### De gang van het boek
+
+**Een auto die niemand wilde**
+
+Het bekendste stuk volgt de Edsel van Ford. Het bedrijf deed jarenlang
+marktonderzoek, liet duizenden namen bedenken, vroeg zelfs de dichteres
+Marianne Moore om suggesties, waaronder Utopian Turtletop, en koos
+uiteindelijk de naam van de zoon van Henry Ford. Op 4 september 1957 ging de
+auto in de verkoop en het publiek liet hem staan. Brooks laat de betrokken
+directeuren uitleggen hoe elke afzonderlijke beslissing verdedigbaar was
+terwijl de uitkomst dat niet was.
+
+Het stuk is geen spot met het onderzoek. Brooks laat zien dat het onderzoek
+keurig werd uitgevoerd en dat de markt intussen was verschoven, waardoor de
+vragen die gesteld werden achterhaald waren voordat de antwoorden binnen
+waren. Wat overblijft is een bedrijf dat zijn eigen procedure netjes had
+gevolgd.
+
+**Onderzoek dat pas na twintig jaar rendeert**
+
+Tegenover de Edsel staat Xerox. Chester Carlson vond het kopieerproces in 1938
+uit en werd door de ene onderneming na de andere afgewezen; het kleine
+fotopapierbedrijf Haloid nam het over, stak er jarenlang geld in dat het
+nauwelijks had, en bracht aan het eind van de jaren vijftig de eerste
+bruikbare kopieermachine op de markt. Brooks bezoekt het bedrijf op het
+hoogtepunt van die groei.
+
+Hem interesseert vooral de verlegenheid die op die winst volgt. Binnen Xerox
+werd openlijk gediscussieerd over de vraag wat een onderneming die zoveel geld
+verdient aan de samenleving verschuldigd is, en het bedrijf raakte in botsing
+met een deel van zijn publiek toen het die opvatting in het openbaar uitdroeg.
+
+**Wat er gezegd werd en wat er bedoeld was**
+
+Het stuk over General Electric gaat over taal. Tussen 1956 en 1959 spraken
+tientallen fabrikanten van zware elektrische apparatuur prijzen en
+aanbestedingen af. Het concern had een interne richtlijn die zulk overleg
+verbood, en juist die richtlijn werd het middelpunt van de zaak: hoger
+geplaatsten verklaarden dat zij hem meenden, ondergeschikten verklaarden dat
+zij hem als formaliteit lazen en soms te horen kregen dat hij met een knipoog
+werd meegedeeld.
+
+Op 6 februari 1961 stuurde de rechter zeven directeuren de gevangenis in,
+legde hij drieëntwintig anderen voorwaardelijke straffen op en beboette hij de
+bedrijven voor bijna twee miljoen dollar. Brooks reconstrueert de verhoren
+voor de Senaatscommissie en houdt de vraag open die de zaak opriep: of een
+organisatie zo kan communiceren dat niemand een opdracht heeft gegeven en
+iedereen weet wat er moet gebeuren.
+
+**Wie wat wanneer wist**
+
+Op 12 november 1963 leverde een proefboring van Texas Gulf Sulphur bij Timmins
+in Ontario aanwijzingen op voor een rijk koper- en zinkerts. De leiding hield
+dat stil om aangrenzende rechten te kunnen kopen, terwijl betrokkenen en hun
+kennissen aandelen en opties opnamen. Op 12 april 1964 gaf het bedrijf een
+persbericht uit dat de geruchten afzwakte, en daarna volgde de bevestiging die
+de koers omhoog stuwde.
+
+De zaak die de toezichthouder aanspande werd de grondslag van het Amerikaanse
+recht rond voorkennis. Brooks beschrijft de rechtsvraag die daarbij naar boven
+kwam en die met een boring in het bos begint: op welk moment is informatie
+feitelijk genoeg om te moeten worden gedeeld, en tot dat moment mag wie hem
+heeft er dan naar handelen.
+
+**De markt als menselijk verschijnsel**
+
+Het openingsstuk beschrijft de koersval van eind mei 1962. De koersband die de
+transacties doorgaf liep zo ver achter dat handelaren niet meer wisten tegen
+welke prijs zij handelden, wat de paniek voedde. Binnen enkele dagen was het
+verlies grotendeels ingelopen, zonder dat er een aanwijsbare gebeurtenis aan
+vooraf was gegaan of erop volgde. Brooks verzint geen verklaring en beschrijft
+wat de betrokkenen deden.
+
+Een verwant stuk volgt de gevolgen van een fraude met plantaardige olie in
+november 1963, waardoor een lid van de effectenbeurs in New York omviel in
+dezelfde dagen waarin president Kennedy werd vermoord. De beurs besloot de
+klanten van dat lid schadeloos te stellen, iets waartoe zij niet verplicht
+was, om te voorkomen dat het vertrouwen in het geheel zou wegvallen.
+
+**Uitknijpen, aandeelhouders en het pond**
+
+Het meest verhalende stuk gaat over Clarence Saunders, de oprichter van de
+zelfbedieningswinkels Piggly Wiggly, die zich in 1923 tegen de handelaren
+keerde die op een koersdaling van zijn aandelen speculeerden. Hij kocht met
+geleend geld vrijwel alle vrij verhandelbare stukken op, tot bijna alle
+tweehonderdduizend uitstaande aandelen, en eiste levering. De beurs schortte
+de handel op en gaf de tegenpartij uitstel, waarna Saunders zelf failliet
+ging. Het was de laatste uitknijping van betekenis op de effectenbeurs van New
+York.
+
+Twee andere stukken gaan over macht die zelden zichtbaar is. Het ene volgt
+jaarvergaderingen van aandeelhouders en de kleine beleggers die er
+stelselmatig het woord voeren, en laat zien hoeveel of hoe weinig zeggenschap
+een aandeel oplevert. Het andere behandelt de verdediging van het Britse pond,
+waarvoor de Bank of England in november 1964 met andere centrale banken een
+steunpakket van drie miljard dollar op de been bracht; in 1967 werd het pond
+alsnog afgewaardeerd van 2,80 naar 2,40 dollar.
+
+**Wat er verder in staat**
+
+De overige stukken gaan over de Amerikaanse inkomstenbelasting en de
+wonderlijke gevolgen van haar uitzonderingen, over de vraag of een werkgever
+eigenaar kan zijn van de kennis in het hoofd van een vertrekkende ingenieur,
+en over David Lilienthal, die van bestuurder van overheidsinstellingen
+zakenman werd en daarmee de scheidslijn tussen publiek en particulier
+belichaamde.
+
+De stukken staan op zichzelf en Brooks trekt nergens een conclusie over het
+geheel; de lezer moet de twaalf gevallen zelf ordenen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| uitknijping | Het opkopen van vrijwel alle vrij verhandelbare aandelen, zodat wie ze geleend en verkocht heeft nergens anders terecht kan dan bij de opkoper. |
+| verkoop van geleende stukken | Het verkopen van aandelen die men niet bezit maar heeft geleend, in de verwachting ze later goedkoper terug te kopen. |
+| voorkennis | Handelen op bedrijfsinformatie die nog niet openbaar is; met de zaak Texas Gulf Sulphur werd de norm daarvoor voor het eerst juridisch uitgewerkt. |
+| koersband | De telegrafische strook die transacties doorgaf en die in mei 1962 zo ver achterliep dat handelaren blind handelden. |
+| prijsafspraak | Onderlinge afstemming van prijzen en aanbestedingen tussen concurrenten, in de zaak rond General Electric jarenlang volgehouden onder een interne richtlijn die het verbood. |
+| bedrijfsgeheim | Kennis waarop een werkgever aanspraak maakt en die een vertrekkende werknemer in zijn hoofd meeneemt naar een concurrent. |
+| beroepsaandeelhouder | Kleine belegger die op jaarvergaderingen stelselmatig het woord voert en het bestuur tot antwoorden dwingt. |
+| steunpakket voor een munt | Krediet van centrale banken waarmee een land onder vaste wisselkoersen zijn munt op peil probeert te houden. |
+
+#### Waar het argument op rust
+
+Brooks werkte als verslaggever en dat is aan het materiaal te zien. De stukken
+steunen op rechtbankstukken, verhoren voor commissies van de Senaat,
+jaarverslagen, koersgegevens en langdurige gesprekken met betrokkenen, en hij
+citeert die bronnen woordelijk. Waar hij niet kan weten wat iemand dacht,
+schrijft hij op wat de man onder ede verklaarde. Bij de Edsel putte hij uit
+gesprekken met de verantwoordelijke Ford-managers, bij het prijskartel uit de
+verhoren, bij Texas Gulf Sulphur uit het procesdossier.
+
+Wat ontbreekt is toetsing van de algemene beweringen die hij er soms aan
+verbindt. Zijn oordeel over de rol van de effectenbeurs bij de redding van de
+klanten van een omgevallen lid, of over de betekenis van de uitspraak in de
+zaak Texas Gulf Sulphur, is dat van een goed ingevoerde tijdgenoot en niet van
+een onderzoeker. Het boek is bovendien een keuze uit tien jaar journalistiek:
+de stukken die minder goed uitpakten zijn niet opgenomen, wat het beeld
+gunstiger maakt dan het werk als geheel.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat het boek als zakelijk leerboek wordt aangeprezen
+terwijl het geen enkel inzicht ordent. Er is geen kader, geen vergelijking en
+geen conclusie die de twaalf stukken bijeenhoudt; de lezer krijgt reportages
+en moet er zelf een les uit halen. De aanbeveling van Gates en Buffett heeft
+het een status gegeven die het als journalistiek verdient en als handboek
+niet.
+
+Daarbij komt de veroudering. De koersvorming op de vloer van de beurs, de rol
+van de telegrafische koersband, het toenmalige belastingstelsel en het stelsel
+van vaste wisselkoersen dragen samen vier van de twaalf stukken, en geen van
+die stelsels bestaat nog. Dat beperkt wat er valt over te nemen tot het
+menselijke gedeelte.
+
+Ten slotte blijft het gezichtspunt binnen de directiekamer. De arbeiders bij
+Ford, de klanten van Piggly Wiggly en de Britten die de gevolgen van de
+afwaardering droegen, komen in beeld als omstandigheid en niet als partij.
+Brooks schrijft over de mensen die beslissen, met begrip voor hun positie, en
+dat beperkt de reikwijdte.
+
+#### Wat je hierna leest
+
+- 905. My Life and Work. Ford beschrijft van binnenuit en zonder twijfel de
+onderneming die dertig jaar later de Edsel op de markt bracht.
+- 900. My Years with General Motors. Sloan legt van binnenuit uit hoe het
+bestuur werkte dat Brooks bij General Electric en Ford van buitenaf
+beschrijft.
+- 499. Flash Boys. Lewis doet met de elektronische handel wat Brooks met de
+beursvloer deed; naast elkaar gelezen laten zij zien wat er wel en niet
+veranderde.
+- 351. The Intelligent Investor. Graham schreef over dezelfde markt in
+dezelfde jaren, met de vraag hoe een belegger zich tegen zulke gebeurtenissen
+wapent.
+
+## 904. Het doel
+
+Eliyahu M. Goldratt en Jeff Cox, 1984. *The Goal: A Process of Ongoing
+Improvement* verscheen in 1984 bij North River Press in Croton-on-Hudson (New
+York) en is daarna drie keer herzien, in 1986, 1992 en 2004; de editie voor
+het dertigjarig bestaan telt 384 blz. en voegt de vijf stappen en het essay
+*Standing on the Shoulders of Giants* toe. De Nederlandse vertaling *Het doel*
+kwam in 1986 uit bij Het Spectrum in Utrecht, vertaald door medewerkers van de
+Nederlandse Philips-bedrijven met redactioneel advies van Patrick Hoefsmit; de
+44e druk uit 2019 telt 362 blz. (Spectrum, Houten, ISBN 9789000337644).
+Rubriek: geld en ondernemen.
+Tags: `management`, `productiviteit`, `organisatie`, `roman`
+
+Goldratt verpakte zijn productietheorie in een roman. Alex Rogo krijgt drie
+maanden om de fabriek van UniCo in Bearington winstgevend te maken, en zijn
+oude natuurkundedocent Jonah helpt hem uitsluitend met vragen. Het antwoord
+waar Alex op uitkomt is dat de fabriek bestaat om geld te verdienen, en dat de
+gangbare maatstaven, bezettingsgraad en kostprijs per eenheid, daar tegenin
+werken. In plaats daarvan meet hij doorvoer, voorraad en operationele kosten.
+
+Het mechanisme legt Goldratt uit met een wandeltocht van de padvinderij,
+waarin de traagste jongen bepaalt hoe ver de hele rij komt, en met een spel
+met een dobbelsteen en lucifers. Een keten van afhankelijke stappen met
+schommelingen middelt niet uit; de tegenvallers stapelen zich op voor de
+traagste schakel. In de fabriek zijn dat een geautomatiseerde machine en een
+warmtebehandelingsoven, en zodra alles zich naar hun tempo voegt zakt de
+doorlooptijd en komen orders op tijd. Het boek verscheen in 1984, werd drie
+keer herzien, verkocht meer dan zeven miljoen exemplaren en werd door *Time*
+in 2011 tot de invloedrijkste managementboeken gerekend.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Het doel van een productiebedrijf is geld verdienen, nu en
+later, en elke maatstaf die daar niet aantoonbaar aan bijdraagt is volgens
+Goldratt een verkeerde maatstaf. Kostprijs per eenheid, bezettingsgraad en
+efficiency per afdeling belonen het bezig houden van machines en mensen, en
+dat levert voorraad en doorlooptijd op waar winst werd verwacht. Omdat een
+fabriek een keten van afhankelijke bewerkingen is waarin elke stap schommelt,
+bepaalt de traagste schakel wat het geheel afgeeft; capaciteit die daarbuiten
+wordt vrijgemaakt verdwijnt in de tussenvoorraad. De weg vooruit loopt daarom
+via het vinden en beheersen van die ene beperking, en pas daarna via de rest
+van de fabriek.
+
+#### De gang van het boek
+
+**Drie maanden voor een fabriek**
+
+Alex Rogo leidt de fabriek van UniCo in Bearington. In het eerste hoofdstuk
+staat divisiedirecteur Bill Peach onaangekondigd in zijn kantoor over een
+order die zeven weken te laat is, en geeft hem drie maanden om de fabriek
+winstgevend te maken. De fabriek draait ondertussen op recordcijfers: nieuwe
+robots hebben de efficiency van hun afdeling flink opgevoerd, en toch is bijna
+elke order te laat en groeit het onderhanden werk.
+
+Op het vliegveld van Chicago loopt Alex zijn vroegere natuurkundedocent Jonah
+tegen het lijf. Jonah geeft geen advies maar stelt vragen, en die reeks vragen
+vormt de rest van het boek. Het patroon herhaalt zich: Alex belt of ziet
+Jonah, krijgt een wedervraag, en moet in de fabriek zelf uitzoeken wat het
+antwoord is.
+
+**Wat is het doel, en hoe meet je het**
+
+De eerste vraag van Jonah is waartoe de fabriek bestaat. Alex komt langs
+kwaliteit, marktaandeel, werkgelegenheid en techniek uit bij geld verdienen.
+Daarna moet hij dat vertalen naar iets wat op de werkvloer te zien is. Dat
+worden drie grootheden: doorvoer, het tempo waarin het systeem geld genereert
+via verkoop; voorraad, al het geld dat vastzit in dingen die het systeem wil
+verkopen; en operationele kosten, al het geld dat het uitgeeft om voorraad in
+doorvoer om te zetten.
+
+Met die drie is elke beslissing te toetsen. Een investering die de efficiency
+van een afdeling verhoogt zonder de doorvoer te raken, verhoogt alleen
+voorraad en kosten. De boekhouding van het concern telt voorraad echter als
+bezit, waardoor het produceren van onverkoopbare onderdelen op papier winst
+oplevert. Dat conflict tussen de afdelingscijfers en het bedrijfsresultaat
+loopt door het hele boek.
+
+**Afhankelijke stappen en toeval**
+
+Op een wandeltocht met de padvinderij ziet Alex het mechanisme. De groep moet
+in volgorde blijven, iedereen loopt met een eigen snelheid, en de traagste
+jongen, Herbie, bepaalt hoe ver de hele rij komt: achter hem sluit de rij aan,
+voor hem rekt de afstand. Sneller lopen van de voorsten maakt de rij alleen
+langer. Zodra Alex de inhoud van Herbies rugzak over de anderen verdeelt, gaat
+de hele groep vooruit.
+
+Thuis herhaalt hij hetzelfde met een dobbelsteen en lucifers: vijf posten die
+om beurten gooien en hooguit zoveel lucifers doorgeven als ze hebben.
+Gemiddeld gooit iedereen drieënhalf, dus zou de rij drieënhalf per beurt
+moeten afgeven, maar de opbrengst blijft achter en de tussenvoorraden lopen
+op. Afhankelijke gebeurtenissen met schommelingen middelen niet uit; ze
+stapelen de tegenvallers op.
+
+**De beperking zoeken**
+
+In de fabriek blijken twee posten de rol van Herbie te spelen: de NCX-10, een
+dure geautomatiseerde machine die door één man wordt bediend, en de
+warmtebehandelingsoven. Voor beide liggen bergen werk te wachten. De regel van
+Jonah is dat een uur verlies bij een beperking een uur verlies is voor de hele
+fabriek, terwijl een uur gewonnen bij een niet-beperking niets waard is.
+
+Daaruit volgt een reeks maatregelen die tegen alle gewoontes ingaat. De
+beperkingen worden tijdens pauzes en ploegwisselingen doorbezet, de keuring
+gaat vóór in plaats van na de beperking zodat er geen bewerkingstijd aan
+afkeur opgaat, afgestoten oude machines worden teruggehaald om werk om de
+NCX-10 heen te leiden, en een deel van het werk gaat naar derden. De rest van
+de fabriek moet zich naar het tempo van de beperking schikken, ook als dat
+betekent dat mensen en machines stilstaan.
+
+**Wat de rest van de fabriek moet doen**
+
+De vrijgave van materiaal wordt gekoppeld aan het tempo van de beperking,
+zodat er niet meer de fabriek in gaat dan eruit kan komen. Serie- en
+transportgroottes worden gehalveerd, wat de doorlooptijd verder terugbrengt
+omdat onderdelen niet langer op hun hele partij hoeven te wachten. De
+doorlooptijd zakt van maanden naar weken, orders worden op tijd geleverd en de
+verkoop kan kortere levertijden beloven.
+
+De boekhouding van het concern volgt niet mee. Doordat de voorraad wegloopt,
+drukt eerder geactiveerde kostprijs op het resultaat en lijkt de fabriek er in
+de cijfers slechter voor te staan dan ervoor. Dat conflict wordt in de laatste
+hoofdstukken uitgevochten in een beoordelingsgesprek met de divisieleiding.
+
+**Van vondst naar methode**
+
+In het slotdeel probeert Alex met controller Lou te formuleren wat hij
+eigenlijk heeft gedaan, omdat hij het als nieuwe divisiedirecteur op drie
+fabrieken tegelijk moet toepassen. Daaruit komt een cyclus: benoem de
+beperking, haal eruit wat erin zit, laat al het andere zich daaraan
+onderschikken, breid de beperking pas daarna uit, en begin overnieuw zodra zij
+verschuift, zonder de gewoontes van de vorige ronde te laten hangen. In de
+herziene edities staat die reeks als de vijf stappen uitgeschreven; in de
+eerste druk van 1984 moet de lezer hem uit het verhaal halen.
+
+De laatste vraag van het boek is methodisch geworden: wat moet er veranderen,
+waarin moet het veranderen, en hoe krijg je die verandering voor elkaar.
+Daarmee loopt *Het doel* vooruit op Goldratts latere boeken over zijn
+denkgereedschap.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| doorvoer | Het tempo waarin het systeem geld genereert door verkoop, bij Goldratt de enige grootheid die je onbeperkt wilt verhogen. |
+| voorraad | Al het geld dat vastzit in dingen die het systeem wil verkopen, gewaardeerd tegen inkoopprijs en zonder toegevoegde arbeid. |
+| operationele kosten | Al het geld dat het systeem uitgeeft om voorraad in doorvoer om te zetten. |
+| beperking | De schakel met de kleinste capaciteit ten opzichte van de vraag; zij bepaalt wat het hele systeem kan afgeven. |
+| niet-beperking | Elke schakel met overcapaciteit, waar harder werken of verbeteren de doorvoer van het geheel niet verhoogt. |
+| afhankelijke gebeurtenissen | Bewerkingen die op elkaar moeten wachten, waardoor schommelingen zich opstapelen in plaats van uit te middelen. |
+| lokale efficiëntie | De bezettingsgraad per afdeling of machine, door Goldratt aangewezen als de maatstaf die fabrieken vol voorraad zet. |
+| Herbie | De traagste padvinder uit de wandeltocht, in het boek de naam voor de beperking van een systeem. |
+| de vijf stappen | De cyclus van benoemen, uitbuiten, onderschikken, uitbreiden en opnieuw beginnen die de kern van de theory of constraints vormt. |
+| socratische methode | De werkwijze van Jonah om uitsluitend vragen te stellen, door Goldratt gepresenteerd als de manier waarop een verandering blijft hangen. |
+
+#### Waar het argument op rust
+
+*Het doel* is een roman en bevat geen onderzoek, geen cijfers uit andere
+bedrijven en geen bronvermelding. Wat het als bewijs aanbiedt is een verzonnen
+fabriek waarin de methode werkt, plus twee demonstraties die de lezer zelf kan
+nadoen: de wandeltocht en het spel met dobbelsteen en lucifers. Dat laatste is
+een geldige demonstratie van één punt, namelijk dat variatie in een keten van
+afhankelijke stappen zich opstapelt in wachttijd en tussenvoorraad. Dat punt
+was in de wachtrijtheorie al decennia voor 1984 vastgesteld, los van Goldratt,
+en het is de stevigste grond onder het boek.
+
+De rest rust op Goldratts eigen adviespraktijk. Hij richtte in 1977 Creative
+Output op en verkocht daar planningssoftware onder de naam Optimized
+Production Technology; het boek is geschreven om de aannames weg te nemen die
+de invoering van die software in de weg zaten. Latere toetsing van de theory
+of constraints bestaat, maar zij is beperkt van omvang en vaak uitgevoerd door
+aanhangers; vergelijkend onderzoek tegenover andere verbetermethoden is
+schaars.
+
+#### Wat er tegen in te brengen valt
+
+De fabriek in het boek heeft twee vaste beperkingen die zich netjes laten
+aanwijzen. In werkelijkheid verschuift een beperking zodra zij is opgeheven,
+zit zij vaak buiten de fabriek in de vraag of bij een leverancier, en zijn er
+productiemengsels waarin verschillende posten om beurten knellen. Goldratt
+behandelt dat pas in latere boeken; hier krijgt de lezer een probleem dat is
+aangelegd om de oplossing te laten passen. Ook de menselijke kant is glad: er
+is geen vakbond, geen leverancier die dwarsligt, geen kapitaalvraag, en de
+leiding boven Alex draait binnen enkele weken bij.
+
+De aanval op de kostprijsboekhouding is scherper dan de onderbouwing toestaat.
+Goldratt schrijft de fouten toe aan de methode zelf, terwijl het merendeel van
+zijn voorbeelden gaat over het gebruik van kostprijzen als stuurmiddel op
+afdelingsniveau. Verder presenteert hij zijn inzichten zonder te verwijzen
+naar wie eerder tot hetzelfde kwam: Taiichi Ohno bouwde bij Toyota vanaf de
+jaren vijftig een stelsel op dezelfde waarneming over voorraad en
+doorlooptijd, en de wachtrijtheorie lag er al. Als roman is het boek zwak: de
+personages bestaan om vragen te stellen, en de huwelijksverhaallijn rond Julie
+leest veertig jaar later als een ongemakkelijke tijdsopname.
+
+#### Wat er concreet mee te doen is
+
+- Meet een verbetervoorstel aan doorvoer, voorraad en operationele kosten
+tegelijk; raakt het er maar één, dan is het meestal geen verbetering.
+- Zoek de beperking daar waar het werk zich opstapelt, en tel hoeveel dagen
+werk ervoor ligt te wachten.
+- Zorg dat de beperking niet stilvalt door pauzes, ploegwisseling, storing of
+het bewerken van werk dat toch wordt afgekeurd.
+- Keur af vóór de beperking in plaats van erna.
+- Koppel de vrijgave van nieuw werk aan het tempo van de beperking in plaats
+van aan de vrije capaciteit vooraan in de keten.
+- Reken uit wat halvering van de seriegrootte doet met de doorlooptijd voordat
+er capaciteit wordt bijgekocht.
+
+#### Wat je hierna leest
+
+- 912. Toyota Production System. Ohno beschrijft hetzelfde probleem van
+voorraad en doorlooptijd vanuit Toyota, met een andere oplossing en zonder de
+romanvorm.
+- 908. Good Strategy Bad Strategy. Rumelt eist dat een strategie begint met
+een diagnose van de knellende factor; dat is de beperking van Goldratt,
+toegepast buiten de fabriek.
+- 909. The Halo Effect. Rosenzweig laat zien hoe verhalen over succesvolle
+bedrijven achteraf worden rechtgetrokken, wat bij een didactische roman als
+deze een nuttige tegenlezing is.
+
+## 905. My Life and Work
+
+Henry Ford, 1922. *My Life and Work*, geschreven in samenwerking met de
+journalist Samuel Crowther, verscheen in 1922 bij Doubleday, Page & Company in
+Garden City (New York) en telt in die uitgave 311 blz. De tekst is rechtenvrij
+en integraal te lezen via Project Gutenberg. Er is geen courante Nederlandse
+uitgave te vinden; de samenvatting is op de Engelse editie gebaseerd. Rubriek:
+geld en ondernemen.
+Tags: `ondernemerschap`, `industrie`, `arbeid`, `biografie`
+
+Ford dicteerde deze verantwoording in 1922 aan de journalist Samuel Crowther,
+op het hoogtepunt van zijn bedrijf. Het is deels levensverhaal en deels
+program. De kern is een omkering van de gangbare volgorde: eerst wordt de
+prijs vastgesteld op wat de grootste groep kopers kan betalen, daarna moet de
+kostprijs zich daarnaar voegen. Het boek zet de reeks eronder, van 950 dollar
+en 18.664 auto's in 1909-1910 tot 440 à 355 dollar en 1.250.000 auto's in
+1920-1921.
+
+Daaromheen staan de montagebeginselen, het loon van vijf dollar per dag dat
+Ford in januari 1914 invoerde, een telling van 7.882 verschillende taken in de
+fabriek, en een lange aanval op bankiers, liefdadigheid en alles wat hij
+verspilling noemt. Het feitelijke materiaal is ruim; de verbanden die Ford
+eraan ophangt zijn dat niet. Wat er niet in staat weegt zwaarder: in dezelfde
+jaren verscheen de antisemitische reeks uit Fords eigen weekblad in boekvorm,
+en de eenproductpolitiek die hij hier tot beginsel verheft kostte het bedrijf
+vijf jaar later de markt aan General Motors.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Ford stelt dat een onderneming er is om te dienen en dat
+winst het gevolg is van dienen. Uit die omkering volgt zijn hele praktijk: één
+model, zo goedkoop mogelijk gemaakt, tegen een prijs die vooraf wordt
+vastgesteld op wat de grootste groep kopers kan betalen, waarna de kostprijs
+zich naar die prijs heeft te voegen. Loon is in dezelfde redenering koopkracht
+en geen kostenpost, en armoede komt voort uit verspilling. Wie geld tot
+hoofdzaak maakt, bankiers binnenlaat of zich door de smaak van vandaag laat
+leiden, verliest volgens Ford het vermogen om te produceren, en daarmee het
+enige dat welvaart oplevert.
+
+#### De gang van het boek
+
+**Van werkplaats naar één model**
+
+De eerste hoofdstukken lopen langs Fords jeugd op de boerderij, zijn werk als
+machinist en later bij de Detroit Edison Company, zijn eerste voertuig en twee
+mislukte autobedrijven waarin geldschieters volgens hem meer belang hadden bij
+verkopen dan bij het product. In 1903 begint hij opnieuw. In het seizoen
+1908-1909 verkoopt hij van de nieuwe Model T 10.607 stuks, meer dan enige
+fabrikant tot dan toe; de touring car kost dan 850 dollar, met op hetzelfde
+chassis een roadster van 825 en een coupé van 950 dollar.
+
+Op dat moment neemt hij het besluit dat de rest van het boek draagt: nog maar
+één model, één chassis, en geen jaarlijkse wijziging van de vormgeving. De
+verkopers zijn ertegen. Ford schrijft dat zij luisterden naar de vijf procent
+klanten die eisen stelden en de vijfennegentig procent vergaten die zonder
+ophef kochten.
+
+**Eerst de prijs, dan de kosten**
+
+Fords prijspolitiek keert de gangbare volgorde om. In plaats van de kostprijs
+op te tellen en er een marge bij te doen, stelt hij vast wat de grootste groep
+kopers kan betalen, zet die prijs, en beschouwt de kostprijs daarna als
+opgave. Het boek zet de reeks eronder: 950 dollar en 18.664 auto's in
+1909-1910, 690 dollar en 78.440 in 1911-1912, 440 dollar en 533.921 in
+1915-1916, en 440 tot 355 dollar en 1.250.000 in 1920-1921.
+
+Prijsverlaging is in die redenering ook een dwangmiddel voor de eigen
+organisatie. Zolang de prijs hoog blijft, blijft de verspilling onzichtbaar en
+heeft niemand reden haar op te sporen.
+
+**De montagelijn**
+
+In april 1913 wordt voor het eerst geprobeerd de vliegwielmagneet aan een
+lopende lijn te monteren. Het beginsel dat Ford eruit haalt is dat het werk
+naar de man gaat in plaats van de man naar het werk. Hij noteert drie regels:
+zet gereedschap en mensen in de volgorde van de bewerking, zodat elk onderdeel
+de kortst mogelijke afstand aflegt; gebruik glijgoten of andere dragers, zodat
+de werker het onderdeel altijd op dezelfde plek loslaat en de zwaartekracht
+het naar de volgende brengt; en lever met verplaatsbare montagelijnen de
+onderdelen op handbereik aan.
+
+Ford is openhartig over het gevolg. Het netto resultaat van die beginselen is
+volgens hem dat de werker zo min mogelijk hoeft na te denken en zo min
+mogelijk hoeft te bewegen, zo dicht mogelijk bij één handeling per man.
+
+**Machines en mensen**
+
+In het hoofdstuk over de schrik van de machine staat de uitkomst van een
+inventarisatie van al het werk in de fabriek. Er blijken 7.882 verschillende
+taken te zijn. Daarvan vragen er 949 zware, lichamelijk gezonde mannen en
+3.338 mannen van gewone kracht; de overige 3.595 vragen geen lichamelijke
+inspanning. Van die lichtste taken kunnen er volgens de telling 670 worden
+gedaan door mannen zonder benen, 2.637 door mannen met één been, 715 door
+mannen met één arm, twee door mannen zonder armen en tien door blinden. Ford
+gebruikt de telling als bewijs dat de moderne fabriek meer soorten mensen aan
+betaald werk kan helpen dan een gewone gemeenschap telt.
+
+Daarnaast beschrijft hij een organisatie zonder functietitels, zonder
+organisatieschema, zonder vaste vergaderingen en zonder wat hij deskundigen
+noemt. Iedereen kan bij iedereen binnenlopen. Wie zich op zijn titel beroept,
+is in Fords ogen al bezig het werk te ontlopen.
+
+**Vijf dollar per dag**
+
+In januari 1914 kondigt Ford een winstdelingsregeling aan waarbij het dagloon
+voor elke soort werk op minstens vijf dollar uitkomt, bij een werkdag die
+tegelijk van negen naar acht uur gaat en een week van achtenveertig uur. Voor
+ongeveer de helft van het personeel is dat een verdubbeling. Later in het boek
+staat het minimum op zes dollar per dag.
+
+De voorwaarden worden niet verzwegen. De vijf dollar was uurloon plus een
+winstaandeel, en dat aandeel werd alleen uitgekeerd als de man en zijn
+huishouden aan gestelde eisen van netheid en burgerschap voldeden; ongeveer
+vijftig inspecteurs van de Social Department zagen daarop toe. Ford noemt de
+paternalistische kant achteraf een uitwas die tot aanpassing van de regeling
+leidde, maar verdedigt het uitgangspunt: te snel te veel geld zou volgens hem
+het werk hebben bedorven.
+
+**Geld, bankiers en de winter van 1921**
+
+Het middendeel is een aanval op de financiële wereld. Geld is een ruilmiddel
+en hoort ondergeschikt te zijn aan goederen; wie leent om te produceren, laat
+een buitenstaander meebeslissen over zaken waar die niets van weet.
+
+De proef op de som is de winter van 1920-1921. Ford moest tussen 1 januari en
+18 april 1921 in totaal 58 miljoen dollar betalen, waaronder 33 miljoen
+restschuld van de lening waarmee hij in 1919 de overige aandeelhouders had
+uitgekocht, en had 20 miljoen op de bank. Hij sprak de geruchten over geldnood
+niet tegen en wees een bankvoorstel af waarbij een vertegenwoordiger van de
+geldschieters penningmeester zou worden. In plaats daarvan werd de fabriek
+stilgelegd en opgeruimd: het kantoorpersoneel gehalveerd, het aantal bazen
+teruggebracht van één op vijf man naar één op twintig, zestig procent van de
+telefoontoestellen verwijderd, de overhead van 146 naar 93 dollar per auto, en
+de doorlooptijd van grondstof tot dealer van tweeëntwintig naar veertien
+dagen. Op 1 april stond er 87,3 miljoen dollar.
+
+**Wat er verder zou moeten gebeuren**
+
+Het laatste derde deel breidt de aanpak uit naar de rest van de samenleving.
+Ford beschrijft de Fordson-tractor en het mechaniseren van het boerenbedrijf,
+koopt in maart 1921 de spoorlijn Detroit, Toledo & Ironton en past er dezelfde
+opruiming op toe, en zet uiteen waarom liefdadigheid volgens hem het probleem
+in stand houdt terwijl betaald werk het oplost. Het slothoofdstuk voorspelt
+goedkopere energie, meer machines en minder zwaar handwerk, en herhaalt dat de
+industrie haar eigen kopers maakt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| dienen als bedrijfsdoel | Fords stelling dat een onderneming bestaat om nut te leveren en dat winst daarvan het gevolg is. |
+| eenproductpolitiek | Het besluit om één model op één chassis te maken, zonder jaarlijkse wijziging, om alle aandacht op kostenverlaging te richten. |
+| omgekeerde prijsstelling | De prijs vooraf vaststellen op wat de grootste groep kopers kan betalen en de kostprijs daarna als opgave behandelen. |
+| montagebeginselen | De drie regels over volgorde, dragers en verplaatsbare lijnen die het werk naar de man brengen. |
+| verspilling | Alles wat niet direct bijdraagt aan het product, van administratie en telefoontoestellen tot overtollig toezicht. |
+| loon als koopkracht | De redenering dat hoog loon de eigen afzetmarkt vergroot en zichzelf daarmee terugverdient. |
+| winstdeling onder voorwaarden | De regeling van 1914 waarin het bedrag boven het uurloon afhing van de levenswijze van de werknemer. |
+| huisschoonmaak | Fords term voor het stilleggen en doorlichten van het bedrijf om vastgelopen geld en overtollig werk eruit te halen. |
+| omloopsnelheid | De tijd tussen inkoop van grondstof en aflevering bij de dealer, door Ford gebruikt als middel om werkkapitaal vrij te spelen. |
+| afkeer van deskundigen | Fords stelling dat wie zichzelf deskundig acht vooral weet waarom iets niet kan, en daarom geen plaats heeft in zijn fabriek. |
+
+#### Waar het argument op rust
+
+Het boek is een pleidooi met de cijfers van de auteur erin. Ford geeft reeksen
+die tegen zijn eigen boekhouding te leggen zijn: prijs en productie per jaar,
+de overhead per auto voor en na 1921, de posten waaruit de 87,3 miljoen dollar
+van april 1921 was opgebouwd, en de telling van 7.882 taken. Dat is meer
+feitelijk materiaal dan in het genre gebruikelijk was, en de kern ervan wordt
+door bedrijfshistorici bevestigd.
+
+De verbanden die hij eraan ophangt zijn dat niet. Dat de prijsverlagingen de
+verkoop opdreven blijkt uit de reeks; dat de loonpolitiek een daad van sociale
+rechtvaardigheid was, staat er als bewering. Het personeelsverloop bij Ford
+liep in 1913 op tot ongeveer 370 procent: er werden dat jaar ruim
+vijftigduizend mensen aangenomen om een gemiddelde bezetting van bijna
+veertienduizend overeind te houden. Dat getal komt in het boek niet voor,
+terwijl het de vijf dollar per dag beter verklaart dan de morele redenering
+die Ford geeft. Samuel Crowther, die de tekst opschreef, was journalist en
+heeft het verhaal gladgestreken.
+
+#### Wat er tegen in te brengen valt
+
+De grootste zwakte zit in wat er niet staat. In dezelfde jaren publiceerde
+Fords eigen weekblad, de *Dearborn Independent*, de antisemitische reeks die
+tussen 1920 en 1922 werd gebundeld als *The International Jew*. In *My Life
+and Work* presenteert dezelfde man zich als weldoener van de arbeider en
+verdediger van de eenvoudige burger, en over die campagne staat geen woord.
+Wie het boek leest als bron over Ford krijgt een zorgvuldig samengesteld
+zelfportret, geen verantwoording.
+
+Inhoudelijk is de eenproductpolitiek die hij hier tot beginsel verheft precies
+wat het bedrijf later opbrak. Ford hield de Model T aan tot 1927, toen de
+verkoop was ingezakt tegenover General Motors, en moest de fabrieken
+maandenlang stilleggen om op de Model A over te gaan; de eerste plaats in de
+markt is nooit teruggekomen. Zijn stelling dat eentonig werk de meeste mensen
+goed bevalt, onderbouwt hij met de mededeling dat hij het zo heeft gezien,
+terwijl zijn eigen verloopcijfers het tegendeel suggereren. En de opruiming
+van 1921 was minder deugdzaam dan hij haar afschildert: van de 24,7 miljoen
+dollar die tussen januari en april uit voorraad binnenkwam, kwam een groot
+deel doordat afgebouwde auto's naar de vestigingen en de dealers werden
+gestuurd, die ze moesten afnemen en betalen. Het boek noemt de zending wel, de
+druk op de dealers niet.
+
+#### Wat er concreet mee te doen is
+
+- Stel de prijs vast op wat de grootste groep kopers kan betalen, en behandel
+de kostprijs daarna als opgave in plaats van als gegeven.
+- Ga na welke formulieren, statistieken en overlegvormen direct bijdragen aan
+het product, en schaf de rest af.
+- Reken uit wat het verkorten van de doorlooptijd doet met het vastliggende
+werkkapitaal voordat er financiering wordt gezocht.
+- Beschrijf werk in bewegingen en afstanden voordat er over mensen wordt
+gesproken.
+- Houd er rekening mee dat een productbeslissing die twintig jaar goed uitpakt
+daarna moeilijk terug te draaien is, juist omdat de hele fabriek eromheen is
+gebouwd.
+
+#### Wat je hierna leest
+
+- 900. My Years with General Motors. Sloan schreef bij General Motors het
+antwoord op Ford: een reeks modellen, jaarlijkse wijziging en een
+gedecentraliseerde organisatie, en won daarmee de markt.
+- 912. Toyota Production System. Ohno nam Fords lopende band als vertrekpunt
+en keerde de aanname om dat grote series altijd goedkoper zijn.
+- 904. Het doel. Goldratt stelt dezelfde vraag naar wat een fabriek eigenlijk
+moet opleveren, met een maatstaf die Fords nadruk op bezetting ondergraaft.
+
+## 906. The Founder's Dilemmas
+
+Noam Wasserman, 2012. *The Founder's Dilemmas: Anticipating and Avoiding the
+Pitfalls That Can Sink a Startup* (Princeton University Press, Princeton,
+2012, ISBN 9780691149134), verschenen in de Kauffman Foundation Series on
+Innovation and Entrepreneurship; de paperback uit 2013 telt 490 blz. (ISBN
+9780691158303). Er bestaat geen Nederlandse vertaling; de samenvatting is op
+de Engelse editie gebaseerd. Rubriek: geld en ondernemen.
+Tags: `ondernemerschap`, `onderzoek`, `besluitvorming`, `organisatie`
+
+Wasserman bouwde aan Harvard Business School een bestand op van bijna
+tienduizend Amerikaanse oprichters en gebruikt dat om de beslissingen langs te
+lopen die een startend bedrijf maken of breken. In zijn gegevens is de omgang
+met mensen de belangrijkste oorzaak van mislukking, eerder dan de markt of de
+techniek: wie je als medeoprichter kiest, hoe je de aandelen verdeelt, wie je
+aanneemt, van wie je geld aanneemt.
+
+Alles komt samen in wat hij rijk of koning noemt. Wie zeggenschap weggeeft,
+bouwt een waardevoller bedrijf en is er vaak niet lang meer de baas; wie
+zeggenschap houdt, houdt een kleiner bedrijf over. In zijn bestand is na drie
+jaar de helft van de oprichters geen directeur meer, en de vervanging volgt
+meestal op succes in plaats van op falen. Een tweede bevinding is dat 73
+procent van de teams de aandelen binnen een maand na de oprichting verdeelt,
+meestal in gelijke delen en zonder verdienregeling, op het moment dat niemand
+kan weten wie wat gaat bijdragen. Het boek is beschrijvend van opzet en leest
+als voorschrift, en daar zit ook de voornaamste zwakte.
+
+### Uitgebreide samenvatting
+
+**De stelling.** De meeste jonge bedrijven bezwijken niet aan hun markt of hun
+techniek maar aan de beslissingen die de oprichters over mensen nemen, en die
+beslissingen komen volgens Wasserman op één afweging neer: geld of
+zeggenschap. Wie de zeggenschap vasthoudt, houdt een kleiner en minder
+waardevol bedrijf over; wie zeggenschap weggeeft aan medeoprichters, personeel
+en investeerders, bouwt een waardevoller bedrijf waarin hij zelf vaak niet
+meer aan het roer staat. Beide zijn verdedigbaar, maar ze zijn zelden allebei
+te krijgen, en het loopt mis wanneer oprichters de keuze niet bewust maken en
+er stapsgewijs in rollen. Omdat vroege afspraken over rollen, aandelen en
+financiering later nauwelijks te herzien zijn, werpen ze volgens hem een lange
+schaduw over de hele levensloop van het bedrijf.
+
+#### De gang van het boek
+
+**Waar het materiaal vandaan komt**
+
+Wasserman, destijds docent aan Harvard Business School, bouwde vanaf 2000 met
+jaarlijkse vragenlijsten een bestand op van bijna tienduizend Amerikaanse
+oprichters van bedrijven in techniek en life sciences. Daarnaast staan er
+uitgewerkte gevallen in, onder meer van Evan Williams, die achtereenvolgens
+Blogger, Odeo en Twitter oprichtte, en van Tim Westergren van Pandora.
+
+Het boek is opgezet als een reeks beslismomenten in de volgorde waarin een
+oprichter ze tegenkomt. Per beslissing geeft Wasserman eerst de verdeling in
+zijn gegevens, dan het geval dat de spanning laat zien, en daarna de afweging
+zelf. Die opbouw maakt het bruikbaar als naslagwerk en zorgt tegelijk voor
+veel herhaling.
+
+**Voor de oprichting**
+
+De eerste beslissing is of en wanneer je begint. Ervaring in een bedrijfstak
+verhoogt de kans van slagen, maar hoe langer iemand wacht, hoe hoger het
+inkomen en de positie die hij opgeeft en hoe zwaarder de verplichtingen thuis
+wegen. Wasserman noemt dat de spanning tussen bekwaamheid en de kosten van
+uitstel.
+
+Daarna volgt de vraag of je alleen begint of met anderen. Alleen beginnen
+houdt de zeggenschap heel en begrenst wat er te bouwen valt; samen beginnen
+brengt geld, kennis en werkkracht binnen, en tegelijk het moeilijkste probleem
+uit het hele boek.
+
+**Het team: relaties**
+
+Oprichters kiezen hun medeoprichters vrijwel altijd uit de eigen kring:
+vrienden, familie en oud-collega's. Wasserman laat zien dat teams van vrienden
+en familie het vaakst voorkomen en het snelst uiteenvallen, omdat de sociale
+band precies de gesprekken tegenhoudt die nodig zijn, over geld, over wie
+beslist en over wat er gebeurt als iemand niet levert. Teams van oud-collega's
+houden het langer vol.
+
+Gelijksoortige teams beslissen sneller en zijn kwetsbaarder: de leden brengen
+dezelfde kennis en dezelfde blinde vlekken mee, en concurreren om dezelfde
+rol. Verschil in achtergrond levert wrijving op in het begin en stabiliteit op
+langere termijn.
+
+**Rollen en aandelen**
+
+Bij rollen gaat het om de vraag wie directeur wordt, wat een titel waard is
+als het bedrijf groeit, en of iemand die rol later kan afstaan. Bij de
+beloning gaat het om de aandelenverdeling, en daar staat de scherpste
+bevinding van het boek: 73 procent van de oprichtersteams verdeelt de aandelen
+binnen een maand na de oprichting, meestal in gelijke delen en zonder
+verdienregeling.
+
+Op dat moment weet niemand wie hoeveel gaat bijdragen, hoeveel kapitaal er
+nodig is of wie er over twee jaar nog is. Wie later wil bijstellen, moet
+iemand vragen iets in te leveren, en dat gesprek loopt zelden goed af. Een
+gelijke verdeling is bovendien vaak een teken dat het team het gesprek over
+waarde en bijdrage heeft vermeden.
+
+**Personeel en investeerders**
+
+Bij het aannemen van mensen botst loyaliteit aan het eerste uur op wat een
+groeiend bedrijf nodig heeft. De eerste medewerkers zijn zelden degenen die de
+organisatie later kunnen dragen, en het uitstellen van dat besluit is duur, in
+geld en in gezag.
+
+Bij investeerders is de afweging dezelfde als bij medeoprichters. Geld dat met
+kennis en netwerk komt, komt ook met bestuurszetels, voorkeursrechten en het
+recht om de directeur te vervangen. Wasserman rekent per ronde voor wat er
+gebeurt met zowel het belang als de zeggenschap van de oprichter, en laat zien
+dat de tweede meestal sneller slinkt dan de eerste.
+
+**Rijk of koning**
+
+Het slotdeel gaat over de opvolging van de oprichter als directeur. In zijn
+bestand is na drie jaar de helft van de oprichters geen directeur meer, en bij
+de vierde financieringsronde heeft minder dan veertig procent van de bedrijven
+de oorspronkelijke directeur nog. Het vervangen gebeurt meestal na goed
+nieuws: een geslaagde productintroductie of een grote ronde maakt het bedrijf
+zwaarder dan de oprichter aankan en geeft investeerders tegelijk de macht om
+in te grijpen. Wasserman noemt dat de paradox van het ondernemerssucces.
+
+Daartegenover zet hij de cijfers over waarde. Bedrijven waarin de oprichter
+zowel directeur bleef als de meerderheid in het bestuur hield, waren in zijn
+gegevens minder waard dan bedrijven waarin hij een van beide losliet. Dat is
+een samenhang en geen aangetoonde oorzaak, wat hij op sommige plaatsen zelf
+aangeeft. De les die hij eruit trekt is dat een oprichter vooraf moet weten of
+hij op opbrengst of op zeggenschap speelt, omdat vrijwel elke tussenliggende
+beslissing dan anders uitvalt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| rijk of koning | De keuze tussen opbrengst en zeggenschap, bij Wasserman de afweging die onder vrijwel elke oprichtersbeslissing ligt. |
+| oprichtersdilemma | Een beslissing waarbij elke uitweg iets kost, zodat er geen goede keuze bestaat maar wel een bewuste. |
+| de lange schaduw | Het verschijnsel dat vroege keuzes over rollen, aandelen en financiering later nauwelijks nog terug te draaien zijn. |
+| statische aandelenverdeling | Een verdeling die eenmalig aan het begin wordt vastgelegd en niet meebeweegt met wie wat werkelijk bijdraagt. |
+| verdienregeling | Afspraak waarbij aandelen pas over de jaren toevallen, zodat vertrek van een oprichter het bedrijf niet blokkeert. |
+| paradox van het ondernemerssucces | De bevinding dat oprichters juist na goede resultaten als directeur worden vervangen, omdat succes zowel de eisen als de macht van investeerders vergroot. |
+| waardetoevoegende investeerder | Een geldschieter die kennis en netwerk meebrengt en daarvoor meer zeggenschap vraagt dan een passieve financier. |
+| oprichtersteam uit de eigen kring | De gebruikelijke keuze voor vrienden, familie of oud-collega's als medeoprichter, in Wassermans gegevens de minst stabiele vorm. |
+| opportuniteitskosten van het oprichten | Het inkomen, de positie en de zekerheid die iemand opgeeft door te beginnen, en die met de jaren oplopen. |
+| opvolging van de oprichter | De overgang van oprichter naar aangetrokken directeur, in het boek behandeld als voorspelbare gebeurtenis in plaats van als ongeluk. |
+
+#### Waar het argument op rust
+
+Het bestand was in 2012 het grootste in zijn soort, en dat is de reden dat het
+boek zo veel wordt aangehaald. De beperkingen liggen open. De gegevens komen
+uit jaarlijkse vragenlijsten onder Amerikaanse bedrijven in techniek en life
+sciences die groot genoeg waren om aan zo'n onderzoek mee te doen. Kleine
+bedrijven zonder personeelsadministratie, bedrijven buiten de Verenigde Staten
+en bedrijven zonder externe financiering vallen erbuiten, en wie vroeg omviel
+is ondervertegenwoordigd.
+
+Vrijwel alle uitkomsten zijn verbanden tussen kenmerken en resultaten, gemeten
+in een doorsnede. Of het weggeven van zeggenschap waarde schept, of dat
+waardevolle bedrijven investeerders aantrekken die zeggenschap eisen, valt uit
+deze opzet niet af te leiden. Wasserman heeft dat probleem later in
+vaktijdschriften met andere methoden proberen af te dekken; in het boek staat
+de bevinding als beslisregel opgeschreven terwijl het materiaal beschrijvend
+is.
+
+#### Wat er tegen in te brengen valt
+
+De tweedeling rijk of koning is scherper dan de werkelijkheid. Zij vat een
+reeks graduele keuzes samen in twee bestemmingen, en zij meet waarde met de
+meetlat van de durfkapitalist: waardering bij de volgende ronde en opbrengst
+bij verkoop of beursgang. Een oprichter die een winstgevend bedrijf van dertig
+man wil houden, verschijnt in dat schema als iemand die voor koning kiest en
+waarde laat liggen, terwijl hij eenvoudigweg een ander doel heeft.
+
+De gegevens lopen tot ongeveer 2008 en dat is te merken. In de tien jaar na
+verschijning werden dubbele aandelenklassen en oprichtersvriendelijke
+voorwaarden gewoon in de Amerikaanse techniekbranche, en juist bedrijven
+waarin de oprichter zowel de leiding als de zeggenschap hield, groeiden uit
+tot de grootste van de sector. Dat weerlegt de historische bevinding niet,
+maar het maakt haar zwakker als voorspelling. Verder is het boek langer dan
+zijn inhoud: hetzelfde afwegingsschema wordt hoofdstuk na hoofdstuk herhaald,
+met tabellen die weinig toevoegen aan wat de tekst al zegt.
+
+#### Wat er concreet mee te doen is
+
+- Leg de aandelenverdeling niet in de eerste maand vast; spreek een
+verdienregeling met een wachttijd af, zodat het vertrek van een oprichter het
+bedrijf niet blokkeert.
+- Zet vóór de oprichting op papier wie welk besluit neemt en wat er gebeurt
+als iemand stopt of niet levert.
+- Bepaal expliciet of het doel opbrengst is of zeggenschap, en toets elke
+financieringsronde en elke benoeming aan dat antwoord.
+- Tel bij een investeerder niet alleen het bedrag, maar ook de bestuurszetels,
+de voorkeursrechten en de gronden waarop hij de directeur kan vervangen.
+- Neem vrienden of familie alleen als medeoprichter wanneer het gesprek over
+geld, gezag en vertrek al gevoerd is.
+
+#### Wat je hierna leest
+
+- 265. The Lean Startup. Ries beschrijft hoe je een product zoekt; Wasserman
+behandelt de mensen en de zeggenschap eromheen, het onderwerp dat bij Ries
+buiten beeld blijft.
+- 306. Zero to One. Thiel verdedigt het tegendeel van Wassermans conclusie:
+bij hem is zeggenschap van de oprichter juist de bron van waarde.
+- 47. The Hard Thing About Hard Things. Horowitz beschrijft dezelfde
+beslissingen van binnenuit, als praktijkverhaal in plaats van als
+gegevensbestand.
+
+## 907. Only the Paranoid Survive
+
+Andrew S. Grove, 1996. *Only the Paranoid Survive: How to Exploit the Crisis
+Points That Challenge Every Company and Career* (Currency Doubleday, New York,
+1996, 210 blz., ISBN 9780385482585; paperback Currency, 1999, 240 blz., ISBN
+9780385483827). De Nederlandse vertaling verscheen in hetzelfde jaar als
+*Paranoia loont: hoe te profiteren van crisismomenten in een bedrijf of
+carrière* (Academic Service, Schoonhoven, 1996, 205 blz., ISBN 9789052612195),
+vertaald door de Utrechtse Vertaal Associatie; die uitgave is alleen nog
+tweedehands te krijgen. Rubriek: geld en ondernemen.
+Tags: `management`, `strategie`, `technologie`, `leiderschap`
+
+Grove leidde Intel van 1987 tot 1998 en schreef dit boek over het soort
+verandering waar een bedrijf niet omheen kan. Hij noemt het een strategisch
+buigpunt: het moment waarop een van de krachten in de markt ongeveer tien keer
+zo sterk wordt als voorheen, waarna de bestaande strategie ophoudt te werken.
+Zijn eigen geval is de uittocht van Intel uit geheugenchips in 1985 en 1986,
+nadat Japanse fabrikanten hetzelfde product goedkoper waren gaan leveren.
+
+Het lastige is dat zo'n punt van dichtbij niet van ruis te onderscheiden is.
+Grove geeft geen toets die zekerheid biedt, wel aanwijzingen: het uiteenlopen
+van wat de leiding zegt en wat de organisatie doet, en het slechte nieuws dat
+als eerste binnenkomt bij verkopers en middenkader. Zijn aanpak is eerst de
+discussie loslaten en daarna hard kiezen. Het tweede uitgewerkte geval is zijn
+eigen misrekening rond de rekenfout in de Pentium in 1994, die Intel 475
+miljoen dollar kostte omdat het bedrijf niet doorhad dat het inmiddels een
+consumentenmerk was geworden.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Elk bedrijf krijgt vroeg of laat te maken met een verandering
+in zijn omgeving die ongeveer tien keer zo groot is als waarop het gebouwd is,
+en op dat punt houdt de bestaande strategie op te werken. Grove noemt dat een
+strategisch buigpunt: de bedrijfstak verandert van vorm, de oude sterke punten
+worden gewicht, en het bedrijf komt er opnieuw ingericht uit of het komt er
+niet uit. Het lastige is dat zo'n punt zich pas achteraf met zekerheid laat
+aanwijzen. Daaruit volgt zijn enige verweer, een blijvend wantrouwen tegen het
+eigen succes: slecht nieuws opzoeken in plaats van wegwerken, ruzie over de
+richting binnen de leiding toelaten, en bereid zijn de activiteit op te geven
+waar het bedrijf groot mee is geworden.
+
+#### De gang van het boek
+
+**Wat er bij Intel gebeurde**
+
+Het boek begint bij de geheugenchips. Intel was in 1968 als geheugenbedrijf
+opgericht en had die markt jaren beheerst, maar vanaf het begin van de jaren
+tachtig leverden Japanse fabrikanten hetzelfde product goedkoper en met hogere
+opbrengsten per wafer. Intel verloor geld, en de leiding bleef zoeken naar een
+slimmere geheugenstrategie. Halverwege 1985 stelde Grove in zijn kantoor aan
+bestuursvoorzitter Gordon Moore de vraag wat een van buiten gehaalde opvolger
+zou doen. Moore antwoordde dat die uit geheugens zou stappen. Grove stelde
+voor dat zij tweeën de kamer uit zouden lopen en als die opvolger terug zouden
+komen.
+
+Het uitvoeren duurde tot midden 1986 en het herstel van de winstgevendheid nog
+een jaar langer; Grove telt de hele doorgang op ongeveer drie jaar. Wat eruit
+kwam was Intel als microprocessorbedrijf, met de x86-lijn en het samengaan met
+Microsoft als kern van het verdienmodel.
+
+**Zes krachten en een tienvoud**
+
+Grove neemt de vijf krachten van Michael Porter over, bestaande concurrenten,
+klanten, leveranciers, toetreders en substituten, en voegt er een zesde aan
+toe: aanbieders van producten die het jouwe aanvullen en zonder wie het niet
+verkocht wordt. Een buigpunt ontstaat wanneer een van die zes ongeveer tien
+keer zo sterk wordt als voorheen.
+
+Zijn beeld ervoor is het verschil tussen wind en een orkaan. Dezelfde soort
+kracht, een andere orde van grootte, en een gebouw dat op wind is berekend
+houdt het niet. De praktische betekenis is dat de gebruikelijke reacties,
+harder werken en kosten snijden, bij zo'n verschil in orde van grootte geen
+effect meer sorteren.
+
+**De bedrijfstak kantelt**
+
+Het hoofdstuk over de computerindustrie beschrijft de overgang van verticale
+naar horizontale ordening. Tot in de jaren tachtig maakte elke fabrikant, met
+IBM voorop, zijn eigen chips, machines, besturingssysteem en toepassingen, en
+verkocht die als één geheel. Daarna ontstond per laag een aparte markt met
+eigen winnaars, en werd de winst verdeeld over chipmakers, softwarehuizen en
+verkoopkanalen.
+
+Grove leidt daaruit regels af voor wie in zo'n laagsgewijze bedrijfstak werkt:
+wie er als eerste is pakt de markt, verschil dat de klant niet merkt is geen
+verschil waard, en prijs volgt uit volume. Dat zijn tegelijk de regels
+waarnaar Intel zichzelf inrichtte.
+
+**Signaal of ruis**
+
+De kern van het praktische probleem is dat een tienvoudige kracht van dichtbij
+op ruis lijkt. Grove biedt geen toets die zekerheid geeft, wel een reeks
+aanwijzingen. Is de concurrent aan wie je de figuurlijke zilveren kogel zou
+besteden een andere geworden dan vorig jaar? Lopen wat de leiding uitspreekt
+en wat de organisatie werkelijk doet uiteen? Dat laatste noemt hij
+strategische dissonantie, en het is bij hem het betrouwbaarste vroege teken.
+
+Het slechte nieuws komt volgens Grove het eerst binnen bij verkopers en
+middenkader, de mensen die dagelijks met klanten en concurrenten te maken
+hebben. Hij noemt hen Cassandra's en beschouwt het als taak van de leiding om
+hen op te zoeken, aan te horen en de discussie te laten voeren voordat de
+cijfers het bevestigen.
+
+**Chaos laten heersen en weer inbinden**
+
+Zijn recept voor de doorgang bestaat uit twee fasen die elkaar slecht
+verdragen. Eerst moet de leiding loslaten: experimenten toestaan, middelen
+naar randgebieden laten lopen, de discussie voeren zonder de uitkomst vooraf
+vast te leggen. Daarna moet zij kiezen en de rest afkappen, want in de
+tussenfase, die hij de vallei des doods noemt, verbrandt het bedrijf geld
+zonder richting. Grove is eerlijk over hoe lang dat duurt en hoe onaangenaam
+het is voor iedereen die het meemaakt.
+
+Zijn eigen voorbeeld ondermijnt daarbij de nadruk op de top. Terwijl de
+leiding nog over geheugenstrategieën vergaderde, hadden planners en financiële
+mensen in de dagelijkse verdeling van fabriekscapaciteit de wafers al naar
+microprocessoren verschoven. Grove schrijft dat mensen lager in de organisatie
+de bocht hebben voorbereid die het bedrijf redde. Die waarneming stamt uit het
+onderzoek van Robert Burgelman, met wie hij aan Stanford lesgaf.
+
+**Pentium, najaar 1994**
+
+Het uitgebreidst beschreven geval is Groves eigen misrekening. Toen bekend
+werd dat de Pentium bij bepaalde delingen een fout maakte, reageerde Intel
+zoals het altijd op chipfouten had gereageerd: met een analyse waaruit bleek
+hoe zeldzaam het probleem in de praktijk was, en met vervanging voor wie kon
+aantonen dat het hem raakte. Tegenover computerbouwers was dat de gangbare
+omgang.
+
+Intel was echter door jarenlange reclame een merk voor eindgebruikers
+geworden, en die legden er de maatstaf van een consumentenproduct naast. Nadat
+IBM de verkoop van Pentium-machines stillegde, ging Intel om en verving het
+elke chip op verzoek. De post kwam uit op 475 miljoen dollar. Groves conclusie
+is dat zijn bedrijf een buigpunt had doorgemaakt zonder het te merken: de
+klant was veranderd terwijl het product hetzelfde bleef.
+
+**Het internet en de loopbaan**
+
+De laatste twee hoofdstukken zijn losser van opzet. Grove weegt in 1996 af of
+het internet voor Intel een buigpunt is en houdt het antwoord uitdrukkelijk
+open, met een opsomming van wat het zou kunnen betekenen voor de vraag naar
+rekenkracht. Daarna trekt hij de redenering door naar het individu: een
+loopbaan kent dezelfde soort omslagen, veroorzaakt door dezelfde krachten, en
+wie daar niet op let wordt erdoor overvallen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| strategisch buigpunt | Het moment waarop de grondslagen van een bedrijf zo veranderen dat de bestaande strategie ophoudt te werken. |
+| tienvoudige kracht | Een van de zes marktkrachten die ongeveer tien keer zo sterk wordt als voorheen, waardoor de gebruikelijke antwoorden tekortschieten. |
+| aanvullende aanbieder | De zesde kracht die Grove aan Porters model toevoegt: bedrijven wier product het jouwe pas bruikbaar maakt. |
+| strategische dissonantie | Het uiteenlopen van wat de leiding zegt en wat de organisatie doet, bij Grove het vroegste zichtbare teken van een buigpunt. |
+| Cassandra's | Mensen in verkoop en middenkader die een omslag als eerste opmerken en die door de leiding worden overgeslagen. |
+| chaos laten heersen | De fase waarin de leiding experimenten en tegenspraak toelaat zonder de uitkomst vooraf te bepalen. |
+| vallei des doods | De overgangsperiode waarin het oude verdienmodel is losgelaten en het nieuwe nog niets oplevert. |
+| zilverenkogeltoets | De vraag welke concurrent je met één schot zou uitschakelen; verandert het antwoord, dan is de markt aan het kantelen. |
+| horizontale bedrijfstak | Een markt waarin per laag, van chip tot verkoopkanaal, aparte bedrijven concurreren in plaats van geïntegreerde aanbieders. |
+| loopbaanbuigpunt | Dezelfde omslag toegepast op een individu, met de aanbeveling het eigen werkzame leven als een onderneming te beschouwen. |
+
+#### Waar het argument op rust
+
+Het boek berust op één bedrijf, beschreven door zijn directeur. Er is geen
+steekproef, geen vergelijking, en geen poging om te tellen hoe vaak buigpunten
+voorkomen of hoe vaak een bedrijf ze overleeft. Wat er wel is, is een
+verteller die aan de knoppen zat, die zijn eigen fouten opschrijft, en die de
+gebeurtenissen goed genoeg documenteert om ze na te trekken: de uittocht uit
+geheugens, de bedragen rond de Pentium en de kanteling van de pc-branche zijn
+alle drie onafhankelijk vastgelegd.
+
+De begrippen zijn deels niet van Grove zelf. Strategische dissonantie en het
+idee dat strategie ook van onderop ontstaat komen uit het werk van Robert
+Burgelman, die Intel jarenlang als onderzoeksterrein gebruikte en met Grove
+aan Stanford lesgaf; het zeskrachtenmodel is dat van Porter met één
+toevoeging. Die herkomst geeft de begrippen meer grond dan het boek zelf
+levert, en Grove verwijst er ook naar.
+
+#### Wat er tegen in te brengen valt
+
+Het hoofdbegrip is achteraf gedefinieerd. Een buigpunt is een verandering
+waarvan later blijkt dat zij heeft doorgezet, en Grove geeft toe dat je er
+middenin niet zeker van kunt zijn. Wat overblijft is een waarschuwing zonder
+beslisregel: zijn aanwijzingen passen even goed bij bedreigingen die vanzelf
+overwaaien, en het boek bevat geen geval van een bedrijf dat op zo'n signaal
+doortastend handelde en daarmee de plank missloeg. Alleen de gevallen die goed
+afliepen komen aan bod, en dat is dezelfde selectie waar veel
+managementliteratuur op strandt.
+
+De opdracht aan de leiding staat bovendien op gespannen voet met zijn beste
+bewijs. Het geheugenbesluit, zijn kroongetuige, was feitelijk al voorbereid
+door middenkader dat capaciteit verschoof; dat pleit voor aandacht voor het
+verdeelmechanisme in een organisatie, en veel minder voor de moed van de
+directeur. Ten slotte is er de latere geschiedenis van Intel zelf: het bedrijf
+zag de overgang naar telefoons niet aankomen, sloeg de opdracht voor de eerste
+iPhone-chip af, en raakte na 2015 zijn voorsprong in fabricage kwijt. De
+methode heeft de onderneming waarover zij is opgeschreven niet behoed.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij tegenvallende cijfers wat een van buiten gehaalde opvolger zou
+doen, en behandel dat antwoord als een reële optie in plaats van als
+gedachtenexperiment.
+- Zoek de mensen op die als eerste met slecht nieuws komen, meestal in verkoop
+en middenkader, en zorg dat melden hun niets kost.
+- Let op het verschil tussen wat de leiding uitspreekt en wat de organisatie
+werkelijk doet; dat verschil is een vroeger teken dan de omzet.
+- Benoem welke van de zes krachten in de eigen markt tien keer zo sterk kan
+worden, en reken door wat dat met het verdienmodel doet.
+- Zet een termijn op de fase van experimenteren, zodat de keuze wordt gemaakt
+voordat het geld op is.
+
+#### Wat je hierna leest
+
+- 293. The Innovator's Dilemma. Christensen verklaart dezelfde omslagen uit de
+logica van bestaande klanten en winstmarges, met onderzoek over hele
+bedrijfstakken in plaats van één geval.
+- 908. Good Strategy Bad Strategy. Rumelt levert het stuk dat Grove overslaat:
+hoe je van een vastgestelde omslag naar samenhangend handelen komt.
+- 903. Business Adventures. Brooks beschrijft in zijn reportages, onder meer
+over de Edsel en over Xerox, bedrijven die zo'n omslag misten, opgeschreven
+zonder de kennis achteraf.
+
+## 908. Good Strategy Bad Strategy
+
+Richard Rumelt, 2011. *Het geheim van een goede strategie* (Spectrum, Houten,
+2011, 383 blz., ISBN 9789000300419), vertaald door Gerard Grasman; ook als
+e-boek (ISBN 9789000300426). Oorspronkelijk verschenen als *Good Strategy Bad
+Strategy: The Difference and Why It Matters* (Crown Business, New York, 2011,
+336 blz., ISBN 9780307886231; Britse editie Profile Books, Londen, ISBN
+9781846684807). Rubriek: geld en ondernemen.
+Tags: `strategie`, `management`, `besluitvorming`, `ondernemerschap`
+
+Rumelt, hoogleraar strategie aan UCLA Anderson, betoogt dat het woord
+strategie in organisaties vrijwel altijd iets anders aanduidt dan wat het zou
+moeten zijn. Ambitie, visie, waarden en een reeks financiële doelen gaan voor
+strategie door, terwijl er geen analyse onder ligt van wat de organisatie in
+de weg staat. Zulke plannen noemt hij slechte strategie, en hij behandelt dat
+als een herkenbaar verschijnsel met vier trekken: holle taal, het ontwijken
+van de werkelijke opgave, doelen die voor strategie doorgaan, en
+doelstellingen die de opgave niet raken.
+
+Daartegenover zet hij een kern van drie delen: een diagnose die de situatie
+terugbrengt tot wat er werkelijk speelt, een richtinggevend beleid dat
+aangeeft hoe die opgave wordt aangepakt, en een samenhangend geheel van
+maatregelen dat dat beleid uitvoert. Het tweede deel van het boek behandelt de
+bronnen waaruit een strategie hefboomwerking haalt: nabije doelen,
+kettingschakelsystemen, ontwerp, focus, voordeel, dynamiek en de traagheid van
+de tegenstander. De voorbeelden lopen van Hannibal bij Cannae en Nelson bij
+Trafalgar tot Wal-Mart tegen Kmart, Nvidia, Apple in 1997 en het strategisch
+plan van International Harvester uit 1979. Het boek werd een standaardwerk in
+het vak en verscheen in het Nederlands als *Het geheim van een goede
+strategie*.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Strategie is volgens Rumelt geen ambitie, geen visie en geen
+lijst met doelen, maar een samenhangend antwoord op een opgave die eerst is
+vastgesteld. Wie geen diagnose stelt kan geen strategie hebben, hoe uitgebreid
+het plan ook is. Het meeste dat in organisaties strategie heet voldoet daar
+niet aan, en dat is volgens hem geen slordigheid maar het gevolg van het feit
+dat kiezen pijn doet: een echte strategie zegt ook wat er niet gebeurt en wie
+er niets krijgt. Tegen die stelling valt iets in te brengen, want zij maakt
+van strategie een ontwerpprobleem dat met helder denken op te lossen is, en
+laat uitvoering, machtsverhoudingen en toeval grotendeels buiten beeld.
+
+#### De gang van het boek
+
+**Goede strategie is zeldzaam en daarom onverwacht**
+
+Het boek opent met de vaststelling dat een goede strategie zo weinig voorkomt
+dat zij verrast wanneer zij er is. Rumelt beschrijft hoe Steve Jobs na zijn
+terugkeer bij Apple in 1997 het assortiment terugbracht tot een handvol
+producten en de rest schrapte, zonder een plan voor de lange termijn te
+presenteren; de zet was een antwoord op de vaststelling dat het bedrijf geen
+geld en geen tijd had. Bij de Golfoorlog van 1991 wijst hij op het verschil
+tussen de openbaar besproken frontale aanval en de werkelijke opzet, een
+omtrekkende beweging door de woestijn.
+
+Het tweede voorbeeld is Wal-Mart tegen Kmart. Beide ketens beschikten begin
+jaren tachtig over dezelfde streepjescodetechniek. Rumelt laat zien dat de
+vraag waarom de een won pas te beantwoorden valt als de winkel niet langer als
+eenheid wordt genomen: bij Wal-Mart was het netwerk van filialen rond een
+distributiecentrum de eenheid van beheer, en aan dat netwerk zaten inkoop,
+voorraad en gegevensverwerking vast. Wie alleen naar de losse winkel keek,
+hield een raadsel over.
+
+**Vier trekken van slechte strategie**
+
+Slechte strategie is bij Rumelt geen afwezigheid van strategie maar een eigen
+verschijnsel met herkenbare trekken. Holle taal is de eerste: hij ontleedt de
+beleidstekst van een bank die neerkomt op klantgerichte bemiddeling, wat bij
+nader inzien niets anders zegt dan dat de bank geld aanneemt en uitleent. De
+tweede is het ontwijken van de opgave. Zijn hoofdvoorbeeld is het strategisch
+plan dat International Harvester in 1979 opstelde: honderden bladzijden met
+projecties voor marktaandeel en winst, waarin de arbeidsverhoudingen en de
+verouderde fabrieken die het bedrijf feitelijk verlamden niet voorkwamen.
+Binnen enkele jaren was het concern opgesplitst; de vrachtwagentak ging verder
+als Navistar.
+
+De derde trek is het verwarren van doelen met strategie. Rumelt beschrijft een
+directeur die zijn organisatie een plan van twintig procent omzetgroei en
+twintig procent winstmarge oplegde en op de vraag hoe dat moest worden bereikt
+antwoordde met een beroep op wilskracht. De vierde bestaat uit doelstellingen
+die nergens op aangrijpen: lange lijsten waarin alles even zwaar weegt, of
+doelen die zo ver weg liggen dat niemand er morgen iets mee kan.
+
+**De kern: diagnose, beleid, handelen**
+
+De kern van een strategie bestaat uit drie onderdelen. De diagnose benoemt wat
+er aan de hand is en brengt een onoverzichtelijke situatie terug tot een
+handvol punten waar het op aankomt; zij is altijd een keuze en dus
+aanvechtbaar. Het richtinggevend beleid geeft de aanpak aan waarmee die opgave
+wordt bestreden, sluit andere aanpakken uit en is nog geen actielijst. Het
+samenhangend handelen is het geheel van maatregelen dat elkaar versterkt in
+plaats van elkaar tegen te werken.
+
+Rumelt hecht aan dat laatste woord. De meeste plannen zijn optellingen van
+wensen van afdelingen die elk hun deel opeisen. Samenhang vraagt dat middelen
+bij de een worden weggehaald om ergens anders zwaarder in te zetten, en dat is
+de reden dat het zo vaak niet gebeurt. Wie de kern serieus neemt, moet in de
+organisatie iets afnemen voordat er iets kan worden opgebouwd.
+
+**Waaruit een strategie werking haalt**
+
+Het tweede deel behandelt de bronnen waaruit een strategie hefboomwerking
+haalt. Een nabij doel is een doelstelling die dicht genoeg bij het huidige
+vermogen ligt om haalbaar te zijn; Rumelt leest de maanlanding als zo'n doel,
+omdat de technische onzekerheden op het moment van uitspreken al grotendeels
+waren teruggebracht. Een kettingschakelsysteem is een geheel waarvan de
+opbrengst door de zwakste schakel wordt bepaald, zodat verbeteren van de
+andere schakels niets oplevert; dat verklaart zowel waarom zulke systemen lang
+blijven haperen als waarom ze, eenmaal op orde, moeilijk te kopiëren zijn.
+
+Ontwerp behandelt hij aan de hand van Hannibal bij Cannae in 216 voor
+Christus, waar de opstelling zelf het gevecht besliste. Focus laat hij zien
+bij Crown Cork & Seal, dat onder John Connelly de brede blikkenmarkt losliet
+en zich richtte op korte productieseries en lastige klanten die de grote
+fabrikanten liever lieten lopen. Bij dynamiek gaat het om golven van
+verandering waar een buitenstaander op mee kan liften: Nvidia stelde vast dat
+losse driedimensionale grafische kaarten de toekomst hadden en richtte daar
+alles op in, terwijl gevestigde partijen als Silicon Graphics hun bestaande
+positie verdedigden.
+
+**Traagheid en entropie**
+
+De zwakte van een tegenstander is volgens Rumelt vaker organisatorisch dan
+technisch. Traagheid zit in routines, in de gewoonte om de klant te blijven
+bedienen zoals het altijd ging, en in bedrijfsculturen die zich niet laten
+omzetten door een besluit van de directie. Entropie is het langzame vervagen
+van orde: hij beschrijft hoe de merkenladder van General Motors, ooit een
+scherpe indeling van goedkoop naar duur, in de loop van decennia uitliep in
+modellen die elkaar overlapten, omdat elke divisie naar boven en naar beneden
+wilde uitbreiden.
+
+Voor wie leiding geeft betekent dit dat een deel van het werk niet uit
+vernieuwing bestaat maar uit het herstellen van ordening die vanzelf wegloopt.
+Voor wie aanvalt betekent het dat de traagheid van de gevestigde partij tot de
+betrouwbaarste bronnen van voordeel behoort, omdat die zich niet laat wegnemen
+met een besluit.
+
+**Denken als strateeg**
+
+Het laatste deel gaat over de werkwijze. Rumelt behandelt een strategie als
+een hypothese over hoe de wereld werkt, die zich in de praktijk laat toetsen
+en dan bijgesteld hoort te worden. Hij dringt aan op het uitschrijven van de
+diagnose voordat er over oplossingen wordt gesproken, op het bedenken van
+minstens één alternatief voordat het eerste idee wordt aangenomen, en op het
+innemen van de positie van een buitenstaander die het voorstel moet afbreken.
+
+Het slothoofdstuk gaat over kuddegedrag. Aan de hand van de opkomst en
+ondergang van Global Crossing en van de aanloop naar de financiële crisis van
+2008 laat hij zien hoe hele bedrijfstakken elkaars aannames overnemen zonder
+ze nog te toetsen. Zelfstandig oordelen is in zo'n omgeving het schaarse goed,
+en het kost meer dan analytisch vermogen: het kost de bereidheid om er een
+tijd lang naast te lijken te zitten.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| kern | Het geheel van diagnose, richtinggevend beleid en samenhangend handelen dat volgens Rumelt in elke strategie te vinden moet zijn. |
+| diagnose | De vaststelling van wat er werkelijk aan de hand is, waarbij een onoverzichtelijke situatie tot enkele bepalende punten wordt teruggebracht. |
+| richtinggevend beleid | De gekozen aanpak van de vastgestelde opgave, die andere aanpakken uitsluit en nog geen lijst met maatregelen is. |
+| samenhangend handelen | Maatregelen die elkaar versterken, in plaats van dat elke maatregel afzonderlijk een deelbelang bedient. |
+| holle taal | Beleidstaal die met vakjargon diepgang suggereert en bij ontleding een alledaagse waarheid blijkt te bevatten. |
+| nabij doel | Een doelstelling die dicht genoeg bij het huidige vermogen ligt om haalbaar te zijn en daardoor werk losmaakt. |
+| kettingschakelsysteem | Een geheel waarvan de opbrengst door de zwakste schakel wordt bepaald, zodat losse verbeteringen elders niets opleveren. |
+| ontwerptype strategie | Strategie waarin het voordeel voortkomt uit de onderlinge afstemming van de delen, zoals bij een gevechtsopstelling of een bedrijfsmodel. |
+| traagheid | Het onvermogen van een organisatie om zich aan te passen, verankerd in routines, klantrelaties en cultuur. |
+| entropie | De neiging van een eenmaal aangebrachte ordening om te vervagen zolang er geen onderhoud aan wordt gepleegd. |
+
+#### Waar het argument op rust
+
+Het boek is een betoog met voorbeelden en geen empirisch onderzoek. Er staat
+geen statistische toets in, en de bewijslast rust op gevallen die Rumelt in
+decennia onderwijs en advieswerk verzamelde. Een deel daarvan is openbaar na
+te gaan: het strategisch plan van International Harvester uit 1979, de gang
+van zaken bij Wal-Mart en Kmart, de opkomst van Nvidia, de opzet van de
+grondoorlog in de Golf in 1991. Een ander deel bestaat uit geanonimiseerde
+klantverhalen, waarvan de lezer alleen Rumelts weergave heeft.
+
+Rumelt zelf staat in het vak stevig. Hij publiceerde in 1991 een veelgeciteerd
+onderzoek waaruit bleek dat verschillen tussen afzonderlijke
+bedrijfsonderdelen de winstgevendheid sterker verklaren dan verschillen tussen
+bedrijfstakken, wat gewicht geeft aan de eigen keuzes van een onderneming. Dat
+werk staat los van dit boek en wordt er niet als steun voor aangevoerd. Wat
+het boek levert is een begrippenkader met illustraties, en dat is iets anders
+dan bewijs.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat de voorbeelden op de afloop zijn uitgezocht.
+Rumelt kent van elk geval de uitkomst voordat hij de strategie beschrijft, en
+leest de samenhang er achteraf in. Bedrijven die op dezelfde manier
+redeneerden en toch omvielen komen nauwelijks in beeld, waardoor niet vast te
+stellen is hoe vaak een goed opgezette kern tot een slechte afloop leidt. Dat
+is dezelfde denkfout die Rosenzweig in *The Halo Effect* aan de
+managementliteratuur verwijt, en dit boek ontsnapt er niet aan.
+
+Daarnaast is de kern een definitie en geen toetsbare theorie. Vrijwel elk
+succes valt achteraf te herschrijven als diagnose, richtinggevend beleid en
+samenhangend handelen, en vrijwel elke mislukking als het ontbreken daarvan.
+Zolang er geen geval denkbaar is dat de stelling weerlegt, is zij een manier
+van kijken en geen verklaring.
+
+Praktisch is het boek sterker in het herkennen van slechte strategie dan in
+het maken van goede. Het zegt overtuigend dat de diagnose het hart van de zaak
+is, en veel minder over hoe iemand tot een goede diagnose komt wanneer de
+situatie werkelijk onduidelijk is. Rumelt kwam daar elf jaar later op terug in
+*The Crux* (2022), wat erop wijst dat hij die leemte zelf ook zag.
+
+#### Wat er concreet mee te doen is
+
+- Schrijf de diagnose op voordat er over oplossingen wordt gesproken, en houd
+die tot een handvol punten beperkt.
+- Toets een plan op de vraag welke opgave het bestrijdt; is die niet te
+benoemen, dan ligt er een verlanglijst en geen strategie.
+- Vervang percentages als doel door een opgave die dicht genoeg bij ligt om
+binnen afzienbare tijd te halen.
+- Zoek bij elk plan de zwakste schakel op; zolang die niet is opgelost, levert
+versterking van de rest weinig op.
+- Reken de traagheid en de vervagende ordening van gevestigde partijen mee als
+bron van voordeel, en die van de eigen organisatie als kostenpost.
+
+#### Wat je hierna leest
+
+- 909. The Halo Effect. Rosenzweig ontleedt precies de denkfout waar Rumelts
+bewijsvoering kwetsbaar voor is: succes achteraf verklaren uit wat de winnaar
+deed.
+- 902. The Mind of the Strategist. Ohmae legde dertig jaar eerder eenzelfde
+nadruk op het scherp stellen van de opgave voordat er oplossingen komen.
+- 907. Only the Paranoid Survive. Grove behandelt het omslagpunt dat Rumelt
+onder dynamiek schaart, gezien vanuit een bedrijf dat het van binnenuit
+meemaakt.
+- 293. The Innovator's Dilemma. Christensen levert de mechanica achter de
+golven van verandering die Rumelt als bron van hefboomwerking aanwijst.
+
+## 909. The Halo Effect
+
+Phil Rosenzweig, 2007. *Het halo-effect* (Business Contact, Amsterdam, 2007,
+222 blz., ISBN 9789047000587), vertaald door Tijmen Roozenboom. Oorspronkelijk
+verschenen als *The Halo Effect ... and the Eight Other Business Delusions
+That Deceive Managers* (Free Press, New York, 2007, 232 blz., ISBN
+9780743291255); latere Engelse drukken bevatten een nawoord over de financiële
+crisis. Rubriek: geld en ondernemen.
+Tags: `management`, `onderzoek`, `besluitvorming`, `statistiek`
+
+Phil Rosenzweig, hoogleraar aan het Zwitserse instituut IMD, keert zich tegen
+het genre dat beweert het geheim van bedrijfssucces te hebben gevonden. Zijn
+aanval richt zich op de gegevens waar die boeken op rusten. Wie een
+onderneming goed ziet presteren, kleurt daarna ook zijn oordeel over de
+cultuur, de leiding, de klantgerichtheid en de uitvoering van diezelfde
+onderneming. Dat verschijnsel heet het halo-effect, en het maakt achteraf
+verzamelde gegevens over bedrijven onbruikbaar als verklaring, omdat het te
+verklaren resultaat de meting van de veronderstelde oorzaken al heeft
+gestuurd.
+
+Rosenzweig bespreekt negen misvattingen, waaronder het verwarren van samenhang
+met oorzaak, het geloof in één verklaring en de aanname dat prestaties
+absoluut zijn in plaats van betrekkelijk. Hij loopt daarmee door de bronnen
+van *In Search of Excellence*, *Built to Last*, *Good to Great* en het
+Evergreen-onderzoek, en laat zien dat die studies hun verklarende gegevens uit
+krantenknipsels en terugblikkende gesprekken haalden. Wat er overblijft is
+minder geruststellend dan een recept: strategie is het nemen van risico onder
+onzekerheid, prestaties zijn betrekkelijk, en toeval speelt mee. Het boek werd
+in 2007 op de Frankfurter Buchmesse tot managementboek van het jaar gekozen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** De managementliteratuur die zoekt naar de eigenschappen
+waarin succesvolle bedrijven zich onderscheiden, kan volgens Rosenzweig niets
+vinden, omdat haar gegevens door de uitkomst zijn besmet. Oordelen over
+cultuur, leiderschap, strategie en klantgerichtheid volgen op de bekende
+resultaten in plaats van eraan vooraf te gaan, zodat het onderzoek zijn
+conclusie al in de meting heeft ingebouwd. Wat als wetenschappelijk
+vastgesteld recept wordt gepresenteerd, is daarmee een verhaal achteraf, en
+het gemak waarmee zulke verhalen zich laten navertellen verklaart hun
+aantrekkingskracht beter dan hun juistheid. Wie het bezwaar serieus neemt
+houdt geen formule over maar een kansrekening: verstandige keuzes verhogen de
+kans op succes zonder die te waarborgen, en prestaties blijven betrekkelijk
+omdat concurrenten intussen ook bewegen.
+
+#### De gang van het boek
+
+**Waar het halo-effect vandaan komt**
+
+De term komt van de psycholoog Edward Thorndike, die in 1920 vaststelde dat
+officieren die hun manschappen op afzonderlijke eigenschappen beoordeelden in
+feite één algemene indruk over alle punten uitsmeerden. Rosenzweig laat zien
+dat hetzelfde gebeurt wanneer journalisten, analisten en werknemers een
+onderneming beoordelen. Zolang de cijfers goed zijn heet de leiding
+vooruitziend, de cultuur sterk en de strategie helder; keren de cijfers, dan
+heten dezelfde eigenschappen zelfoverschatting, wanorde en verwaarlozing van
+de klant.
+
+Hij illustreert dat met de omslag in de berichtgeving over Cisco Systems rond
+2001 en over ABB onder Percy Barnevik, waar het oordeel volledig kantelde
+zonder dat er aan de beschreven werkwijze iets was veranderd. Dat het niet
+alleen om journalistiek gaat, toont hij met het experiment van Barry Staw uit
+1975, die groepen willekeurige terugkoppeling over hun prestatie gaf en
+vervolgens zag dat de deelnemers hun eigen samenwerking, communicatie en
+motivatie in overeenstemming met dat oordeel beschreven.
+
+**Negen misvattingen**
+
+Naast het halo-effect noemt Rosenzweig de misvatting van samenhang en oorzaak,
+waarbij tevreden personeel als oorzaak van goede resultaten geldt terwijl
+goede resultaten personeel ook tevreden maken. Dan de misvatting van de enkele
+verklaring: afzonderlijke studies schrijven elk hun eigen factor een groot
+deel van het prestatieverschil toe, en die delen tellen samen tot ver boven de
+honderd procent op. En de misvatting van het verbinden van de winnende punten,
+waarbij alleen naar geslaagde bedrijven wordt gekeken zonder na te gaan of de
+mislukte hetzelfde deden.
+
+Daarnaast staan de misvatting van gedegen onderzoek, de misvatting van
+blijvend succes, de misvatting van absolute prestatie, de misvatting van het
+verkeerde eind van de stok en de misvatting van de organisatiefysica: het idee
+dat een onderneming gehoorzaamt aan wetmatigheden met de vastheid van
+natuurwetten. De negen overlappen elkaar deels, en Rosenzweig gebruikt ze meer
+als lijst om mee na te lopen dan als sluitende indeling.
+
+**De boeken onder het mes**
+
+*In Search of Excellence* van Peters en Waterman uit 1982 koos bedrijven uit
+en vroeg vervolgens aan betrokkenen waarom die zo goed presteerden. Collins en
+Porras deden in *Built to Last* hetzelfde met historisch materiaal, en Collins
+in *Good to Great* met elf ondernemingen die een omslagpunt hadden gehad. Het
+Evergreen-onderzoek van Nohria, Joyce en Roberson, dat honderdzestig bedrijven
+en ruim tweehonderd managementpraktijken over tien jaar bekeek en daaruit een
+formule van vier plus twee destilleerde, was in omvang het indrukwekkendst.
+
+Rosenzweig gaat in alle gevallen na waar de metingen vandaan kwamen. Het
+antwoord luidt telkens hetzelfde: uit de pers, uit bedrijfsdocumenten en uit
+gesprekken met mensen die de afloop al kenden. Omvang helpt daar niet tegen.
+Meer besmette waarnemingen leveren geen schonere uitkomst op, alleen een
+nauwere marge rond dezelfde meetfout. Hij wijst er bovendien op dat de
+bedrijven die in deze boeken model stonden in de jaren erna vaak terugvielen,
+wat de studies zelf al hadden kunnen waarschuwen.
+
+**Prestatie is betrekkelijk**
+
+Een tweede lijn gaat over de aard van bedrijfsresultaat. Prestatie is
+betrekkelijk: een onderneming kan op elk punt beter worden en toch
+marktaandeel en winst verliezen omdat de concurrent harder verbeterde.
+Rosenzweig gebruikt daarvoor onder meer Kmart, dat in de jaren negentig zijn
+logistiek daadwerkelijk op orde bracht en tegenover Wal-Mart verder
+achteropraakte.
+
+Daar komt regressie naar het gemiddelde bij. Uitzonderlijke resultaten bestaan
+voor een deel uit toeval, en toeval herhaalt zich niet. Wie bedrijven uitzoekt
+op een reeks uitzonderlijke jaren en daarna hun terugval verklaart uit verlies
+van discipline of ambitie, verklaart een statistisch verschijnsel met een
+moreel verhaal. De studies die blijvend succes in het vooruitzicht stellen
+hebben daar geen antwoord op.
+
+**Wat er overblijft**
+
+Het slot is met opzet mager. Rosenzweig verwerpt de gedachte dat er een
+handleiding bestaat en houdt over dat leidinggeven neerkomt op het nemen van
+weloverwogen risico in een omgeving die zich niet laat beheersen. Hij haalt
+daarbij het onderscheid aan dat Robert Rubin maakt tussen de kwaliteit van een
+besluit en de kwaliteit van de afloop: een goed besluit kan slecht uitpakken
+en andersom, en alleen het eerste valt te beoordelen op het moment dat het
+wordt genomen.
+
+Wat volgens hem wel helpt: weten hoe de eigen bedrijfstak beweegt, de kans op
+succes verhogen zonder haar met zekerheid te verwarren, en verhalen over
+andermans succes lezen als verhalen. Hij eindigt met de opmerking dat managers
+die dit aanvaarden een minder comfortabel beroep overhouden dan de boekenkast
+hun voorspiegelt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| halo-effect | De neiging om vanuit één bekende uitkomst een oordeel over alle overige eigenschappen af te leiden. |
+| misvatting van samenhang en oorzaak | Het lezen van een oorzakelijk verband in gegevens waarin het verband even goed de andere kant op kan lopen. |
+| misvatting van de enkele verklaring | Het toeschrijven van een groot deel van het prestatieverschil aan één factor die in werkelijkheid met andere factoren samenhangt. |
+| misvatting van het verbinden van de winnende punten | Onderzoek dat alleen geslaagde bedrijven bekijkt en daardoor niet kan weten of de mislukte hetzelfde deden. |
+| misvatting van gedegen onderzoek | De aanname dat een grote hoeveelheid gegevens de kwaliteit van die gegevens kan vervangen. |
+| misvatting van blijvend succes | Het geloof dat langdurig uitzonderlijke prestaties de regel kunnen zijn, terwijl terugval naar het gemiddelde het gebruikelijke patroon is. |
+| misvatting van absolute prestatie | Het beoordelen van een onderneming los van wat concurrenten intussen doen, terwijl resultaat altijd betrekkelijk is. |
+| misvatting van het verkeerde eind van de stok | Het omkeren van een geldige uitspraak, alsof uit het feit dat succesvolle bedrijven vaak iets doen volgt dat het tot succes leidt. |
+| misvatting van de organisatiefysica | Het idee dat ondernemingen gehoorzamen aan wetmatigheden met de voorspelbaarheid van natuurwetten. |
+| regressie naar het gemiddelde | De statistische neiging van uitzonderlijke uitslagen om bij een volgende meting dichter bij het gemiddelde te liggen. |
+
+#### Waar het argument op rust
+
+De bewijslast van dit boek is licht, en dat werkt in zijn voordeel. Rosenzweig
+hoeft geen nieuw verband aan te tonen; hij hoeft alleen te laten zien hoe de
+gegevens van bestaande studies zijn verzameld, en dat staat in die studies
+zelf te lezen. Zijn ontleding van *In Search of Excellence*, *Built to Last*,
+*Good to Great* en het Evergreen-onderzoek is daardoor na te rekenen op een
+manier die voor de aangevallen boeken niet geldt.
+
+Voor het halo-effect zelf leunt hij op gevestigd psychologisch werk, van
+Thorndike in 1920 tot het experiment van Staw uit 1975 waarin willekeurige
+terugkoppeling bepaalde hoe deelnemers hun eigen groepsproces beschreven. Voor
+de statistische punten, regressie naar het gemiddelde en de zeldzaamheid van
+langdurig uitzonderlijke prestaties, verwijst hij naar onderzoek van derden.
+Eigen empirisch werk levert hij niet, en bij een boek dat vooral iets ontkent
+is dat ook niet nodig.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat er weinig overblijft. Rosenzweig sloopt de
+recepten en zet er een houding tegenover: neem verstandig risico, weet dat
+toeval meespeelt, verwar een verhaal niet met bewijs. Dat klopt en het is
+nauwelijks te gebruiken. Recensenten wezen daar bij verschijnen al op, en het
+verklaart waarom het boek de literatuur die het aanvalt niet heeft verdrongen:
+die biedt iets waar hij niets voor in de plaats stelt.
+
+Daarnaast legt hij een maatstaf aan die vrijwel geen onderzoek naar
+organisaties haalt. Wanneer terugblikkend verzamelde gegevens onbruikbaar zijn
+omdat de waarnemer de afloop kent, verdwijnt met het populaire genre ook het
+grootste deel van het vakgebied, inclusief studies waar hij zelf naar
+verwijst. Die consequentie trekt hij niet.
+
+En zijn aanval bewijst minder dan zij lijkt te bewijzen. Dat de metingen van
+Collins besmet zijn maakt diens conclusies niet onjuist, het maakt ze
+onbewezen. Rosenzweig behandelt die twee op plaatsen als hetzelfde, en doet de
+aangevallen studies op onderdelen tekort: *Good to Great* selecteerde wel
+degelijk op financiële maatstaven over een reeks jaren en werkte met
+vergelijkingsbedrijven, ook al lost dat het halo-probleem in de daaropvolgende
+gesprekken niet op.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij elke uitspraak over de oorzaak van bedrijfssucces wanneer de
+gegevens zijn verzameld en of de verzamelaar de afloop al kende.
+- Beoordeel prestaties naast die van concurrenten; verbetering op zichzelf
+zegt niets over de uitkomst.
+- Scheid bij het beoordelen van een besluit de kwaliteit van de afweging van
+de kwaliteit van de afloop.
+- Wees bij een reeks uitzonderlijke jaren bedacht op terugval naar het
+gemiddelde voordat er een verklaring in cultuur of leiderschap wordt gezocht.
+- Lees bedrijfsportretten in de pers als een oordeel over de recente cijfers
+en niet als beschrijving van de werkwijze.
+
+#### Wat je hierna leest
+
+- 353. Good to Great. Collins levert het onderzoek dat Rosenzweig het
+uitvoerigst ontleedt; de twee boeken naast elkaar maken de discussie concreet.
+- 64. Fooled by Randomness. Taleb behandelt dezelfde verwarring van toeval met
+vaardigheid, toegepast op de financiële markten.
+- 55. Thinking, Fast and Slow. Kahneman beschrijft de denkgewoonten waaruit
+het halo-effect voortkomt en behandelt het verschijnsel zelf ook.
+- 908. Good Strategy Bad Strategy. Rumelt schrijft het soort strategieboek dat
+Rosenzweigs bezwaar moet doorstaan, en doet dat maar ten dele.
+
+## 910. Kapitalisme, socialisme en democratie
+
+Joseph Schumpeter, 1942. *Kapitalisme, socialisme en democratie* (De Haan,
+Haarlem, 1979, derde Nederlandse druk, 412 blz., ISBN 9022835596), vertaald
+door H. Daudt; de eerste Nederlandse uitgave verscheen in 1963 bij de
+Boer/Brand in Hilversum. Oorspronkelijk *Capitalism, Socialism and Democracy*
+(Harper & Brothers, New York, 1942, 431 blz.); de tweede druk uit 1947 en de
+derde uit 1950 voegden hoofdstukken toe, waaronder de lezing *The March into
+Socialism*. Rubriek: staat en vrijheid.
+Tags: `economie`, `kapitalisme`, `democratie`, `klassieker`
+
+Schumpeter schreef dit boek in 1942 als Oostenrijkse emigrant aan Harvard,
+rond de vraag of het kapitalisme kan overleven. Zijn antwoord is nee, en de
+redenering wijkt van elke andere af. Het stelsel bezwijkt niet aan armoede,
+crises of uitbuiting; het bezwijkt aan zijn eigen prestaties. Het verhoogt de
+welvaart, rationaliseert het denken en breekt daarmee de instellingen en
+gewoonten af waarop het zelf steunt: het familiebedrijf, het eigendom dat nog
+als eigendom voelt, en de standen die de ondernemer politiek dekten.
+
+Onderweg formuleert hij het begrip waarmee hij het bekendst is geworden. De
+concurrentie die telt is die van het nieuwe product, de nieuwe techniek en de
+nieuwe organisatievorm, die bestaande posities van binnenuit vernietigt. Dat
+proces noemt hij creatieve destructie. Het derde deel betoogt dat een
+socialistische economie in beginsel kan werken; het vierde ontmantelt de leer
+dat democratie de wil van het volk uitvoert en zet daar een andere
+omschrijving voor in de plaats: democratie is de methode waarin groepen
+politici om de stem van de kiezer strijden. Het boek behoort tot de meest
+geciteerde sociaalwetenschappelijke werken van voor 1950.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Schumpeter voorspelt de ondergang van het kapitalisme en
+beveelt die niet aan; hij ziet haar aankomen als gevolg van succes. Een
+stelsel dat de levensstandaard verhoogt, het denken rationaliseert en de
+ondernemersfunctie tot routinewerk in onderzoeksafdelingen maakt, ondergraaft
+de sociale vormen waarop het rust. Het eigendom verdampt tot een
+aandelenpakket waar niemand zich eigenaar van voelt, de beschermende standen
+verdwijnen, en het onderwijsstelsel brengt een klasse intellectuelen voort die
+van kritiek op het stelsel haar bestaan maakt. Socialisme, dat hij economisch
+werkbaar acht, volgt daaruit. Democratie hoort daar niet vanzelf bij, want
+democratie is bij hem geen doel maar een methode: de competitieve strijd om de
+stem van de kiezer, en verder niets.
+
+#### De gang van het boek
+
+**Marx in vier gedaanten**
+
+Het eerste deel is een beoordeling van Marx als profeet, socioloog, econoom en
+leraar. Schumpeter verwerpt de arbeidswaardeleer en de verarmingsthese, en
+laat weinig heel van de voorspelling dat de lonen naar het bestaansminimum
+zouden zakken. Wat hij overneemt is de opzet: het kapitalisme opvatten als een
+historisch proces dat zijn eigen voorwaarden verandert, in plaats van als een
+evenwichtstoestand die met vraag en aanbod te beschrijven valt.
+
+Die waardering voor de tegenstander bepaalt de toon van het hele boek.
+Schumpeter komt langs een redenering die haaks staat op die van Marx tot een
+vergelijkbare uitkomst. De val van het stelsel komt bij hem voort uit de
+welvaart en de rationalisering die het voortbrengt, en de arbeidersklasse
+speelt er nauwelijks een rol in.
+
+**Creatieve destructie**
+
+Het tweede deel opent met de vaststelling dat de productie in de Verenigde
+Staten tussen 1870 en 1930 met ongeveer twee procent per jaar groeide.
+Schumpeter trekt die lijn vijftig jaar door en concludeert dat het
+armoedevraagstuk daarmee praktisch zou zijn opgelost. De prestatie van het
+stelsel staat voor hem dus buiten kijf, en juist daarom is de vraag naar zijn
+ondergang interessant.
+
+In hoofdstuk zeven staat de kern. Het kapitalisme is naar zijn aard een
+evolutionair proces, in gang gehouden door nieuwe consumptiegoederen, nieuwe
+productiemethoden, nieuwe transportvormen, nieuwe markten en nieuwe
+organisatievormen. Die vernieuwing komt van binnenuit en vernietigt telkens de
+bestaande structuur. Het proces van creatieve destructie is voor Schumpeter
+het bepalende feit over het kapitalisme, en elke beoordeling die één moment
+vastpakt in plaats van de beweging over decennia meet volgens hem het
+verkeerde.
+
+Daaruit volgt zijn afwijkende oordeel over monopolie. Wat de leerboeken als
+beperking van de mededinging afkeuren, prijsafspraken, patenten, langlopende
+contracten, kan de omstandigheid zijn waaronder een bedrijf het risico van
+vernieuwing aandurft. De concurrentie die ertoe doet komt van de nieuwe
+techniek die de gevestigde positie waardeloos maakt, en daartegen biedt een
+marktaandeel geen dekking.
+
+**Waarom het kapitalisme niet blijft**
+
+Schumpeter noemt verschillende oorzaken van verval, en economisch falen zit er
+niet bij. De ondernemersfunctie raakt in onbruik doordat vernieuwing
+routinewerk wordt in de onderzoeksafdelingen van grote ondernemingen; wat ooit
+een daad van een enkeling was, wordt bureaucratisch werk van gespecialiseerde
+afdelingen. Daarmee verdwijnt volgens hem ook de sociale rechtvaardiging van
+de ondernemerswinst.
+
+De beschermende lagen verdwijnen eveneens. De aristocratie en de kleine
+zelfstandigen die de burgerij politiek dekten worden door het kapitalisme zelf
+weggeconcurreerd, en de zakenman blijkt buiten zijn kantoor geen leidersfiguur
+te zijn. De derde oorzaak noemt hij het verdampen van de substantie van
+eigendom: bezit was ooit een muur, een machine, een winkel waar de eigenaar
+zelf achter stond, en in de naamloze vennootschap wordt het een pakket
+aandelen dat door bestuurders wordt beheerd. Wie zich geen eigenaar voelt,
+verdedigt het eigendom ook niet wanneer het wordt aangevallen.
+
+**De intellectuelen**
+
+Het hoofdstuk over de intellectuelen is na dat over creatieve destructie het
+meest geciteerd. Schumpeter omschrijft intellectuelen als mensen die met het
+woord omgaan zonder rechtstreekse verantwoordelijkheid voor praktische zaken.
+Het kapitalisme brengt hen zelf voort: het maakt de drukpers goedkoop, breidt
+het hoger onderwijs uit en levert meer afgestudeerden af dan er passende
+betrekkingen zijn.
+
+Die groep leeft van kritiek, laat zich in een vrij stelsel niet verbieden en
+vindt in de onvrede van anderen haar publiek. Het kapitalisme kweekt op die
+manier zijn eigen vijandigheid en beschikt over geen middel om die te
+onderdrukken zonder op te houden zichzelf te zijn. Schumpeter voegt eraan toe
+dat de sfeer die zo ontstaat doorwerkt in wetgeving en belastingheffing,
+waardoor het stelsel ook feitelijk wordt afgeknepen.
+
+**Kan het socialisme werken?**
+
+Het derde deel beantwoordt die vraag bevestigend, tegen de destijds gangbare
+tegenwerping van Ludwig von Mises in dat een economie zonder markten niet kan
+rekenen. Schumpeter volgt de lijn van Enrico Barone en Oskar Lange: de
+vergelijkingen die een centrale instantie zou moeten oplossen zijn in beginsel
+dezelfde die de markt oplost, en er is geen logische reden waarom dat
+onmogelijk zou zijn. Hij noemt daarbij voorwaarden, zoals een voldoende
+ontwikkelde industrie, bestuurlijke bekwaamheid en discipline onder de
+bevolking.
+
+Zijn omschrijving van socialisme is institutioneel: een inrichting waarin de
+zeggenschap over de productiemiddelen bij een centrale autoriteit ligt. Wat er
+verder aan idealen aan hangt laat hij weg. Hij houdt uitdrukkelijk de
+mogelijkheid open dat een socialistische economie doelmatiger werkt dan een
+kapitalistische, en even uitdrukkelijk dat zij met minder vrijheid gepaard
+gaat.
+
+**Democratie als methode**
+
+Het vierde deel behandelt de vraag of socialisme en democratie samengaan, en
+daarvoor rekent Schumpeter eerst af met de gangbare democratieopvatting. De
+klassieke leer stelt dat het volk een wil heeft en dat verkiezingen die wil
+via afgevaardigden uitvoeren. Hij bestrijdt dat op elk onderdeel: een
+gemeenschappelijk goed waarover redelijke mensen het eens kunnen worden
+bestaat niet, de mening van de kiezer over zaken buiten zijn eigen leven is
+vaag en beïnvloedbaar, en zijn oordeelsvermogen zakt bij politieke vragen naar
+een niveau dat hij in zijn eigen zaken nooit zou aanvaarden.
+
+Daarvoor in de plaats komt een omschrijving die de werkelijkheid probeert weer
+te geven: de democratische methode is de institutionele inrichting waarin
+personen de macht om te beslissen verwerven door een competitieve strijd om de
+stem van de kiezer. Wat de kiezer doet is een regering aanstellen en bij de
+volgende gelegenheid afzetten. De vergelijking die Schumpeter maakt met
+reclame en de consument is niet als aanklacht bedoeld; in zijn beschrijving
+wordt de volkswil grotendeels gefabriceerd, en dat is een gegeven waar een
+theorie rekening mee heeft te houden.
+
+Het vijfde deel geeft een historisch overzicht van de socialistische partijen
+tot in de jaren veertig. De derde druk uit 1950 voegde daar zijn laatste
+lezing aan toe, over de mars naar het socialisme, uitgesproken voor de
+American Economic Association op 30 december 1949, drie weken voor zijn dood.
+Hij hield daarin aan zijn hoofdstelling vast.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| creatieve destructie | Het onophoudelijk van binnenuit vernietigen van de bestaande economische structuur door nieuwe producten, methoden en organisatievormen. |
+| ondernemersfunctie | Het doorvoeren van nieuwe combinaties in het productieproces; bij Schumpeter een functie en geen beroep of eigendomstitel. |
+| innovatie | Het in de praktijk brengen van een nieuwe combinatie, te onderscheiden van de uitvinding zelf. |
+| verdamping van de eigendomssubstantie | Het proces waarin bezit van tastbare zaken verandert in aandelenpakketten waar niemand zich nog eigenaar van voelt. |
+| beschermende lagen | De adellijke en kleinburgerlijke standen die de politieke verdediging van het kapitalisme op zich namen en er door datzelfde kapitalisme onder verdwijnen. |
+| intellectuelen | Mensen die met het woord omgaan zonder rechtstreekse verantwoordelijkheid voor praktische zaken, door het kapitalisme voortgebracht en ertegen gekeerd. |
+| socialisme | Een institutionele inrichting waarin de zeggenschap over de productiemiddelen bij een centrale autoriteit berust. |
+| klassieke leer van de democratie | De opvatting dat verkiezingen het algemeen welzijn verwezenlijken doordat zij de wil van het volk uitvoeren. |
+| democratische methode | De inrichting waarin personen beslissingsmacht verwerven door een competitieve strijd om de stem van de kiezer. |
+| gefabriceerde wil | De volkswil opgevat als uitkomst van politieke bewerking, in plaats van als gegeven dat aan het politieke proces voorafgaat. |
+
+#### Waar het argument op rust
+
+Dit is een betoog van een econoom die zijn stellingen met historische
+redenering onderbouwt en niet met metingen. De cijfers die erin staan zijn
+schaars en globaal, zoals de groeivoet van ongeveer twee procent per jaar
+tussen 1870 en 1930 waarop hij zijn oordeel over de prestatie van het
+kapitalisme baseert. De rest rust op zijn eerdere werk over de ondernemer en
+de conjunctuurgolven, op zijn lezing van de economische geschiedenis en op
+sociologische waarneming.
+
+De sterkte verschilt daardoor sterk per onderdeel. De beschrijving van
+concurrentie door vernieuwing is later door een omvangrijke
+onderzoeksliteratuur opgepakt en heeft standgehouden. De sociologie van de
+intellectuelen en het verdampen van het eigendom zijn scherp geformuleerd en
+nauwelijks getoetst. Dat het boek tot de meest geciteerde
+sociaalwetenschappelijke werken van voor 1950 hoort zegt iets over de invloed
+en niets over de juistheid.
+
+#### Wat er tegen in te brengen valt
+
+De hoofdvoorspelling is niet uitgekomen. Het kapitalisme is niet in socialisme
+overgegaan, en de ondernemersfunctie is niet in bedrijfsbureaucratieën
+opgegaan. De golf van nieuwe ondernemingen vanaf de jaren zeventig,
+gefinancierd met durfkapitaal, deed precies wat Schumpeter voor achterhaald
+hield, en werkte langs het mechanisme dat hij zelf had beschreven. Wie het
+boek nu leest houdt een diagnose over die is blijven staan en een prognose die
+is omgevallen.
+
+Zijn behandeling van de socialistische rekenkwestie onderschat het bezwaar dat
+Hayek in 1945 scherp formuleerde. De vraag is niet of de vergelijkingen in
+theorie oplosbaar zijn, maar wie beschikt over de kennis die erin moet: die
+zit verspreid over miljoenen mensen, verandert voortdurend en laat zich niet
+naar een centraal punt sturen. Schumpeter behandelt het vraagstuk als een
+rekenopgave en gaat aan de informatiekant grotendeels voorbij.
+
+De theorie over de intellectuelen is sociologie bij wijze van bewering. Er
+staat geen enkel gegeven onder, en zij verklaart evenveel als zij uitsluit,
+omdat elke kritiek op het stelsel eronder valt te scharen als broodnijd. En
+zijn omschrijving van democratie is met opzet leeg over de inhoud van
+politiek, waardoor zij ook past op stelsels waarin om stemmen wordt gestreden
+naast een zwakke rechtsbescherming. Latere critici hebben aangevoerd dat een
+theorie die alleen naar de wijze van machtsverwerving kijkt, te weinig
+overhoudt om democratie van haar nabootsingen te onderscheiden.
+
+#### Wat er concreet mee te doen is
+
+- Beoordeel de mededinging in een bedrijfstak op de dreiging van nieuwe
+technieken en organisatievormen, en niet op het aantal aanbieders of de
+prijsverschillen.
+- Reken bij een marktaandeel na hoe lang de onderliggende techniek nog meegaat
+voordat dat aandeel iets waard is.
+- Onderscheid bij het woord democratie de methode van machtsverwerving van de
+inhoudelijke uitkomsten; de meeste twisten gaan over het tweede en beroepen
+zich op het eerste.
+- Let bij een stelsel dat goed presteert op de instellingen en gewoonten
+waarop het steunt, en op de vraag of die door dat presteren zelf worden
+ondermijnd.
+
+#### Wat je hierna leest
+
+- 933. The Great Transformation. Polanyi beschrijft dezelfde ondergraving van
+de samenleving door de markt, met de tegenbeweging als hoofdpersoon in plaats
+van de ondernemer.
+- 901. Innovation and Entrepreneurship. Drucker bouwt de ondernemersfunctie
+van Schumpeter uit tot een werkwijze die te leren valt, en spreekt daarmee de
+voorspelling tegen dat zij zou verdwijnen.
+- 293. The Innovator's Dilemma. Christensen levert het onderzoek naar het
+mechanisme waarmee nieuwkomers gevestigde bedrijven vernietigen dat Schumpeter
+alleen benoemde.
+- 935. The Origins of Totalitarianism. Arendt onderzoekt in dezelfde jaren wat
+er politiek gebeurt wanneer de standen en bindingen wegvallen die Schumpeter
+de beschermende lagen noemt.
+
+## 911. One from Many
+
+Dee Hock, 2005. *One from Many: VISA and the Rise of Chaordic Organization*
+(Berrett-Koehler, San Francisco, 2005, 336 blz., ISBN 9781576753323), met een
+voorwoord van Peter Senge. Het is de herziene uitgave van *Birth of the
+Chaordic Age* (Berrett-Koehler, 1999), aangevuld met twee hoofdstukken over de
+jaren na Visa. Er bestaat geen Nederlandse vertaling; de samenvatting is op de
+Engelse editie gebaseerd. Rubriek: geld en ondernemen.
+Tags: `organisatie`, `ondernemerschap`, `leiderschap`, `memoir`
+
+Dee Hock (1929-2022) leidde vanaf 1970 de organisatie die in 1976 Visa ging
+heten, en schreef ruim twintig jaar later op hoe die tot stand kwam en wat hij
+eruit afleidde over organiseren in het algemeen. Het boek verscheen in 1999
+als *Birth of the Chaordic Age* en in 2005 herzien onder deze titel. Het loopt
+in twee sporen: het verslag van de oprichting, en losse hoofdstukken over zijn
+jeugd in Utah, zijn jaren in loondienst en zijn bezwaren tegen de
+organisatievorm die hij daar aantrof.
+
+De aanleiding was een crisis. Het creditcardstelsel van Bank of America liep
+eind jaren zestig vast in fraude, verliezen en ruzie tussen licentiehouders.
+Hock stelde voor de zeggenschap bij geen enkele partij te leggen: een
+vennootschap zonder verhandelbare aandelen, in eigendom van de deelnemende
+banken, die elkaar tegelijk beconcurreerden en het stelsel gezamenlijk in
+stand hielden. Voor dat soort inrichting bedacht hij later het woord chaord,
+samengetrokken uit chaos en order. Zijn stelling is dat organisaties die uit
+een gedeeld doel en een handvol beginselen zijn opgebouwd zich beter aan
+verandering aanpassen dan organisaties die op bevel en toezicht draaien.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Hock stelt dat de gangbare organisatievorm, opgebouwd uit
+bevel, toezicht en een piramide van functies, een erfstuk uit de industriële
+tijd is dat niet meer past bij wat er te organiseren valt. Wat ervoor in de
+plaats moet komen noemt hij chaordisch: een geheel dat orde en wanorde
+tegelijk toelaat, waarin de deelnemers zelfstandig blijven en elkaar
+beconcurreren terwijl zij een gemeenschappelijk doel en een klein aantal
+beginselen delen die de zeggenschap bewust verspreiden. Visa is zijn
+bewijsstuk, een instelling zonder hoofdkantoor met beslissende macht, in
+eigendom van haar eigen concurrenten, die in enkele decennia een wereldwijd
+betaalstelsel opbouwde. De aanspraak staat of valt met de vraag of dat ene
+geval de vorm draagt, of alleen de omstandigheden waarin het ontstond.
+
+#### De gang van het boek
+
+**De kaartencrisis van 1968**
+
+Bank of America bracht in 1958 de BankAmericard uit en gaf de kaart vanaf het
+midden van de jaren zestig in licentie aan andere banken. Het stelsel liep
+vast: ongevraagd toegestuurde kaarten, fraude, verliezen die in de honderden
+miljoenen liepen, en licentiehouders die elkaar niet vertrouwden. Hock werkte
+op dat moment bij de National Bank of Commerce in Seattle en kwam terecht in
+de commissie die de zaak moest oplossen.
+
+Uit die commissie kwam het voorstel dat het boek draagt. Bank of America moest
+de zeggenschap over de kaart afstaan aan een nieuwe organisatie die van de
+deelnemende banken zelf zou zijn. In 1970 werd National BankAmericard Inc.
+opgericht, met Hock als bestuurder. In 1974 volgde de internationale tak, en
+in 1976 werd voor de naam Visa gekozen omdat die in vrijwel elke taal
+uitspreekbaar bleek.
+
+**Een vennootschap die niemand bezit**
+
+De inrichting week op vrijwel elk punt af van het gebruikelijke. De
+organisatie gaf geen verhandelbare aandelen uit; het lidmaatschap zelf was het
+eigendom en kon niet los van de deelname worden verkocht. De zeggenschap was
+zo verdeeld dat geen enkele bank en geen enkel land een meerderheid kon
+verwerven. Leden concurreerden onderling om klanten en werkten tegelijk samen
+in het stelsel dat hun transacties afhandelde.
+
+Hock beschrijft die opzet als een poging om de vraag naar de baas te omzeilen.
+Wanneer vaststaat waartoe de organisatie bestaat en welke beginselen gelden,
+kan de rest per geval worden uitgezocht door wie er het dichtst bij staat. Het
+onderhandelen over de statuten duurde jaren, en de tekst kwam er volgens hem
+alleen doordat de deelnemers elkaar genoeg wantrouwden om een vorm te
+aanvaarden waarin niemand de macht kreeg.
+
+**Techniek als gevolg van de vorm**
+
+Het bewijs dat de vorm werkte zoekt Hock in de uitvoering. In 1973 nam de
+organisatie BASE I in gebruik, een centraal systeem dat betalingsverzoeken
+elektronisch autoriseerde en daarmee de keten van telefoontjes tussen
+winkelier, bank en kaartuitgever verving. Het werd onder grote tijdsdruk
+gebouwd en ging op tijd in bedrijf. In de jaren daarna kwam de afwikkeling van
+de transacties zelf aan de beurt.
+
+Zijn punt is dat een gedeeld stelsel dat van geen enkele deelnemer is, zulke
+investeringen mogelijk maakt, omdat geen bank hoeft te vrezen dat zij een
+concurrent aan het bewapenen is. Bij één enkele bank, betoogt hij, zou
+hetzelfde project op interne belangen zijn vastgelopen. Hock schuift daarmee
+de techniek naar voren als uitkomst van de organisatievorm en niet als
+afzonderlijke verdienste.
+
+**Chaord en het ontwerpproces**
+
+Na zijn vertrek in 1984 werkte Hock het begrip uit dat hij chaord noemde,
+samengetrokken uit chaos en order: elk zichzelf ordenend en zichzelf besturend
+geheel waarin beide tegelijk voorkomen. Hij ziet het in het menselijk lichaam,
+in een tropisch woud, in het internet, in de Anonieme Alcoholisten en in de
+wereldwijde samenwerking rond weerwaarnemingen, en betoogt dat organisaties
+die dat patroon volgen zich aanpassen zonder dat iemand ze bestuurt.
+
+Daaruit leidde hij een ontwerpvolgorde af die hij met de Chaordic Alliance en
+later de Chaordic Commons probeerde te verspreiden. Eerst het doel, in één zin
+en zonder middelen erin. Dan de beginselen, waaronder de verdeling van de
+zeggenschap. Dan de vraag wie de deelnemers zijn. Pas daarna de vorm, de
+statuten en de dagelijkse gang van zaken. De volgorde is het punt: wie met de
+structuur begint legt macht vast voordat duidelijk is waarvoor.
+
+**De ondertoon: bezwaren tegen het bevel**
+
+Door het verhaal heen staan hoofdstukken van een andere aard. Hock schrijft
+over zijn jeugd in het noorden van Utah, over de opeenvolgende banen waarin
+hij met zijn leidinggevenden in botsing kwam, en over zijn afkeer van de
+organisatie opgevat als machine met een bedienaar aan de knoppen. Hij
+formuleert daarbij vuistregels die los van het boek geciteerd worden: dat wie
+leiding geeft de meeste tijd aan het besturen van zichzelf zou moeten besteden
+en de minste aan het besturen van ondergeschikten, en dat bij aanstellen en
+bevorderen integriteit voorop hoort te staan terwijl ervaring als laatste
+komt.
+
+De toon is die van een man die zijn zaak bewezen acht en zich ergert aan een
+wereld die de les niet oppikt. Dat maakt de beschouwende hoofdstukken ongelijk
+van kwaliteit. Naast scherpe waarnemingen over hoe organisaties hun eigen doel
+kwijtraken staan passages die op verkondiging uitlopen, met veel over het
+einde van een tijdperk en weinig dat te controleren valt.
+
+**Wat er na Visa gebeurde**
+
+De herziene uitgave uit 2005 voegt hoofdstukken toe over de jaren waarin Hock
+als pleitbezorger optrad en met groepen uit uiteenlopende sectoren aan
+chaordische ontwerpen werkte, van de gezondheidszorg tot het onderwijs. Hij
+geeft daarin toe dat de meeste pogingen strandden, meestal op het punt waar
+bestaande organisaties zeggenschap zouden moeten inleveren.
+
+De belangrijkste gebeurtenis staat er niet in, omdat zij later kwam. Visa zelf
+heeft de vorm losgelaten: in 2007 werd de coöperatieve structuur omgezet in
+een gewone vennootschap, en op 19 maart 2008 ging Visa Inc. naar de beurs in
+wat destijds de grootste Amerikaanse beursgang was. De leden werden
+aandeelhouders. Mastercard, met een vergelijkbare coöperatieve herkomst, was
+daar twee jaar eerder in voorgegaan.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| chaord | Elk zichzelf ordenend geheel waarin chaos en orde tegelijk voorkomen, samengetrokken uit de woorden chaos en order. |
+| chaordische organisatie | Organisatievorm waarin zelfstandige deelnemers een gedeeld doel en enkele beginselen delen terwijl de zeggenschap bewust verspreid blijft. |
+| doel | De reden van bestaan van de organisatie, bij Hock in één zin geformuleerd en zonder middelen of structuur erin. |
+| beginselen | Het kleine aantal afspraken over gedrag en zeggenschap waaruit de latere vorm van de organisatie hoort te volgen. |
+| vennootschap zonder aandelen | Rechtsvorm waarin het lidmaatschap zelf het eigendom is en niet los van de deelname verhandeld kan worden. |
+| verspreide zeggenschap | Inrichting waarin geen enkele deelnemer en geen enkel land een beslissende of blokkerende meerderheid kan verwerven. |
+| machinemodel | De organisatie opgevat als apparaat met een bedienaar aan de knoppen, door Hock afgewezen als erfstuk van de industriële tijd. |
+| elektronische waarde-uitwisseling | Hocks omschrijving van waar Visa in wezen mee bezig was, ruimer opgevat dan het uitgeven van betaalkaarten. |
+
+#### Waar het argument op rust
+
+Het boek is een verslag van de hoofdpersoon zelf. Hock beschrijft
+gebeurtenissen waarin hij de doorslaggevende rol speelde, dertig jaar na dato,
+zonder verwijzing naar archief of documenten. De hoofdfeiten zijn
+onafhankelijk vast te stellen: de oprichting van National BankAmericard Inc.
+in 1970, de eigendomsvorm zonder verhandelbare aandelen, het
+autorisatiesysteem uit 1973 en de naamswijziging in 1976. De toedeling van
+ideeën en verdiensten binnen dat verhaal is dat niet. De historicus David
+Stearns beschreef de ontstaansgeschiedenis in 2011 op basis van
+archiefmateriaal en gesprekken met betrokkenen; wie de verdeling van
+verdiensten wil narekenen heeft daar meer aan dan aan dit boek.
+
+Voor de algemene stelling is er één geval, en dat geval is groot en
+overtuigend. Wat ontbreekt is een tweede. Er is geen andere organisatie van
+vergelijkbare omvang waarvan aantoonbaar is dat zij volgens Hocks
+ontwerpvolgorde is gebouwd. De voorbeelden die hij verder noemt, het internet,
+de Anonieme Alcoholisten, het menselijk lichaam, zijn niet volgens zijn
+methode ontstaan; hij schuift ze achteraf onder zijn begrip.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar levert Visa zelf. De organisatie die als bewijs dient dat
+de chaordische vorm houdbaar is heeft die vorm opgegeven zodra zij geld waard
+was: in 2007 omgezet in een gewone vennootschap, in 2008 naar de beurs, met de
+leden als aandeelhouders. Wat Hock als een blijvende constructie presenteert
+blijkt een fase te zijn geweest die eindigde toen de deelnemers hun aandeel
+konden verzilveren. De vorm hield het uit zolang niemand hem kon uitkopen, en
+dat is een aanzienlijk zwakkere claim dan het boek maakt.
+
+Daarnaast is chaordisch als begrip zo ruim dat het weinig uitsluit. Elk
+verband waarin deelnemers zich deels zelfstandig gedragen valt eronder, van
+een woud tot een verkeersplein, en een begrip dat overal op past voorspelt
+niets. Wat Hock als ontwerpregel aanbiedt, doel en beginselen vóór structuur,
+is verstandig en niet van hem; de bijzondere aanspraak zit in het woord, en
+het woord doet het werk niet.
+
+Ten slotte is dit een boek van een oprichter over zijn eigen oprichting. Hock
+schrijft zijn tegenstanders consequent als bekrompen en zichzelf als degene
+die het zag aankomen, en de lezer beschikt niet over een andere stem. De
+beschouwende hoofdstukken lopen bovendien geregeld uit op algemeenheden over
+de industriële tijd en het nieuwe tijdperk, terwijl de zakelijke hoofdstukken
+juist precies zijn.
+
+#### Wat er concreet mee te doen is
+
+- Formuleer het doel van een samenwerkingsverband in één zin zonder middelen
+of structuur, en toets elk later voorstel daaraan.
+- Leg de beginselen over zeggenschap vast voordat er over rechtsvorm en
+bestuurszetels wordt gesproken.
+- Ontwerp bij een gedeelde voorziening tussen concurrenten het eigendom zo dat
+geen enkele deelnemer een meerderheid kan verwerven.
+- Ga bij een coöperatieve of ledenstructuur na wat er gebeurt zodra het
+lidmaatschap verzilverbaar wordt; dat moment beslist over de houdbaarheid.
+
+#### Wat je hierna leest
+
+- 347. Complexity. Waldrop beschrijft de complexiteitswetenschap over
+zelforganisatie waarmee Hock zich verwant verklaarde.
+- 900. My Years with General Motors. Sloan beschrijft de bestuursvorm
+waartegen Hock zich keert, van binnenuit en met evenveel overtuiging.
+- 912. Toyota Production System. Ohno ontwierp eveneens vanuit beginselen in
+plaats van vanuit een organisatieschema, en kan wel op decennia navolging
+bogen.
+
+## 912. Toyota Production System
+
+Taiichi Ohno, 1978. *Toyota Production System: Beyond Large-Scale Production*
+(Productivity Press, Cambridge (Massachusetts), 1988, 143 blz., ISBN
+9780915299140), de Engelse vertaling van *Toyota seisan hoshiki* (Diamond,
+Tokio, 1978). Er bestaat geen Nederlandse vertaling; de samenvatting is op de
+Engelse editie gebaseerd. Rubriek: geld en ondernemen.
+Tags: `lean manufacturing`, `productie`, `management`, `kwaliteit`
+
+Taiichi Ohno bouwde tussen 1945 en 1975 op de werkvloer van Toyota het
+productiesysteem dat later lean is gaan heten. Zijn boek uit 1978 is een
+verantwoording achteraf, geschreven toen het systeem al werkte en de rest van
+Japan er na de olieschok van 1973 naar was gaan kijken. Het vertrekpunt is
+schaarste. Japan kon na de oorlog niet met Amerikaanse aantallen concurreren,
+de markt vroeg kleine series van veel modellen, en het productiviteitsverschil
+met Amerika werd geschat op één op negen. Ohno leidde daaruit af dat dat
+verschil in verspilling zat en niet in inspanning.
+
+Wat hij daarop bouwde rust op twee pijlers. Just-in-time laat elk onderdeel
+precies op tijd en in precies de benodigde hoeveelheid bij de volgende
+bewerking aankomen, aangestuurd door kanbankaartjes en afgekeken van het
+Amerikaanse supermarktschap. Jidoka, in het Engels autonomation, laat machine
+en mens de productie stilleggen zodra er iets fout gaat. Daaromheen staan de
+zeven soorten verspilling, met overproductie als de ergste, het vijf keer
+waarom om de oorzaak van een storing te vinden, de nivellering van de
+dagproductie en het standaardwerkblad. Het boek is dun, anekdotisch en zonder
+onderzoek, en het is nog steeds de bron waar alle latere lean-literatuur uit
+put.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Het Toyota-productiesysteem is volgens Ohno één ding: het
+volstrekt uitbannen van verspilling. Alles waar de klant niet voor betaalt,
+van voorraad tot wachttijd tot herstelwerk, is kosten die eruit kunnen.
+Daaronder ligt een omkering van de gangbare rekenwijze. De markt bepaalt de
+prijs, dus winst is wat overblijft nadat de kosten eraf zijn, en de kosten
+zijn de enige knop waar een fabrikant zelf aan kan draaien. Het systeem dat
+daaruit volgt rust op twee pijlers, just-in-time en autonomatie, en is gebouwd
+voor een economie die niet meer groeit: kleine aantallen van veel modellen,
+tegen lagere kosten per stuk dan de massaproductie haalt.
+
+#### De gang van het boek
+
+**Uit schaarste geboren**
+
+Op 15 augustus 1945, de dag van de Japanse capitulatie, gaf Toyota-president
+Kiichiro Toyoda zijn mensen de opdracht Amerika binnen drie jaar in te halen,
+omdat de Japanse auto-industrie het anders niet zou overleven. Ohno rekent
+voor waar die opdracht op neerkwam. Hij had in de weverij van de jaren dertig
+gehoord dat een Duitse arbeider drie keer zoveel maakte als een Japanse en een
+Amerikaanse drie keer zoveel als een Duitse: een verhouding van één op negen.
+Dat verschil kon volgens hem niet in inspanning zitten, dus zat het in
+verspilling.
+
+De Amerikaanse oplossing lag bovendien buiten bereik. Massaproductie verdient
+zich terug op grote aantallen van weinig modellen, en de Japanse markt vroeg
+om kleine aantallen van veel modellen. Ohno moest een systeem bouwen dat juist
+bij korte series goedkoper werd. Twee pijlers dragen het: just-in-time en
+jidoka.
+
+**De kanban en de omgekeerde stroom**
+
+Just-in-time werkt alleen als de informatie tegen de productiestroom in loopt.
+Ohno keerde de gebruikelijke gang om. De latere bewerking haalt bij de eerdere
+op wat zij nodig heeft, en de eerdere maakt precies aan wat is opgehaald. Het
+idee ontleende hij aan de Amerikaanse supermarkt, waarover hij eerst alleen
+had gehoord en die hij pas in 1956 zelf bezocht: de klant neemt wat hij nodig
+heeft, het schap wordt bijgevuld tot het oude niveau. Vanaf 1953 draaide de
+machinewerkplaats van Toyota volgens dat model. Het kaartje dat de opdracht
+tot ophalen en aanmaken doorgeeft heet kanban.
+
+Ohno waarschuwt uitdrukkelijk dat de kanban zonder de rest gevaarlijk is. Wie
+de kaartjes invoert zonder de omsteltijden te verkorten, de kwaliteit te
+borgen en de productie te nivelleren, legt de fabriek stil. De kanban is het
+hulpmiddel; het systeem zit in de gedachte erachter.
+
+**De machine met een menselijke trek**
+
+De tweede pijler komt uit de weverij van Sakichi Toyoda, die een weefgetouw
+bouwde dat vanzelf stopte zodra een draad brak. Een machine die haar eigen
+fout signaleert hoeft niet bewaakt te worden, maakt geen stapels afgekeurd
+werk en laat één bediener meerdere machines bedienen. Ohno noemt dat
+automatisering met een menselijke trek, om het te onderscheiden van machines
+die alleen harder draaien.
+
+Hetzelfde geldt voor mensen. Bij Toyota mag en moet iedere arbeider de lijn
+stilleggen als er iets misgaat, met een signaalbord dat aangeeft waar het
+probleem zit. Een lijn die vaak stilstaat leert, en een lijn die nooit
+stilstaat verbergt haar problemen. Dezelfde gedachte zit achter het bewust
+verlagen van voorraden: Ohno vergelijkt voorraad met water dat rotsen bedekt,
+en het peil verlagen maakt zichtbaar waar de fabriek vastloopt.
+
+**Zeven soorten verspilling en vijf keer waarom**
+
+Ohno deelt verspilling in zeven soorten in: overproductie, wachten, transport,
+de bewerking zelf, voorraad, onnodige beweging en het maken van afgekeurd
+werk. Overproductie zet hij bovenaan, omdat zij de andere zes veroorzaakt en
+tegelijk verbergt. Wie meer maakt dan er nodig is, heeft opslag nodig,
+transport, mensen om het te tellen en rente over het gestolde geld, en merkt
+niet meer dat er iets mis is.
+
+Om de oorzaak van een storing te vinden gebruikt hij het vijf keer waarom.
+Zijn voorbeeld: de machine staat stil, want de zekering is doorgeslagen, want
+het lager liep vast, want de smering werkte niet, want de as van de oliepomp
+was versleten, want er zat metaalslijpsel in de olie. Pas bij het vijfde
+antwoord komt de maatregel in zicht die de storing werkelijk wegneemt, een
+zeef op de aanzuiging. Bij het eerste antwoord vervang je een zekering en
+wacht je op de volgende keer.
+
+**Standaardwerk, nivellering en de werkvloer**
+
+Het standaardwerkblad legt drie dingen vast: de takttijd, dat wil zeggen
+hoeveel tijd er per stuk beschikbaar is als de vraag over de beschikbare uren
+wordt verdeeld, de volgorde van de handelingen, en de hoeveelheid onderhanden
+werk die de bewerker bij zich houdt. Ohno stelt dat de voorman dat blad zelf
+schrijft en zichtbaar ophangt. Een norm die door een stafafdeling is bedacht
+en in een la ligt, is volgens hem geen norm.
+
+Nivellering, in het Japans heijunka, verdeelt de bestelde soorten en aantallen
+zo gelijkmatig mogelijk over de dag, zodat elke voorgaande schakel een egale
+vraag ziet. Dat vraagt korte omsteltijden: het wisselen van perswerktuigen
+ging bij Toyota van uren naar minuten. Verder verlangt het systeem
+meerprocesbediening, waarbij één werker een reeks verschillende machines
+langsloopt in de volgorde van het product, wat U-vormige opstellingen nodig
+maakt. Ohno's manier van leidinggeven hoort daarbij: cijfers uit het kantoor
+zijn afgeleiden, de plek waar het werk gebeurt is de bron.
+
+**Ford, en het leven na de groei**
+
+Een apart hoofdstuk gaat over Henry Ford. Ohno verdedigt Ford tegen diens
+eigen navolgers. De lopende band was in de kern hetzelfde streven naar
+stroming zonder onderbreking, en de latere Amerikaanse industrie heeft daar
+grote series en grote voorraden van gemaakt, wat Ford volgens Ohno zelf niet
+gedaan zou hebben. Het verschil zit in wat als vaststaand geldt: in Amerika
+werd de omsteltijd als vaste kostenpost genomen en daarom over grote series
+uitgesmeerd, bij Toyota werd de omsteltijd zelf aangevallen.
+
+Het slot plaatst het systeem in zijn tijd. Na de olieschok van 1973 groeide de
+Japanse economie niet meer zoals daarvoor, en Toyota hield als een van de
+weinige bedrijven zijn winst op peil. Pas toen kwamen de anderen kijken. Ohno
+stelt dat zijn systeem daar ook voor gemaakt is: massaproductie heeft groei
+nodig om haar voorraden kwijt te raken, terwijl een fabriek die alleen maakt
+wat verkocht is bij nulgroei nog steeds geld verdient.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| just-in-time | Elk onderdeel bereikt de volgende bewerking precies op het moment dat het nodig is en in precies de benodigde hoeveelheid. |
+| jidoka (autonomatie) | Machines en mensen die zelf een afwijking opmerken en het werk stilleggen, zodat fouten zich niet vermenigvuldigen. |
+| kanban | Het kaartje dat van de latere naar de eerdere bewerking loopt en tegelijk de opdracht tot ophalen en tot aanmaken doorgeeft. |
+| muda | Verspilling: alles in het proces waar de klant niet voor betaalt, door Ohno in zeven soorten ingedeeld. |
+| overproductie | Meer of eerder maken dan de vraag rechtvaardigt; volgens Ohno de zwaarste verspilling omdat zij alle andere verbergt. |
+| heijunka (nivellering) | Het gelijkmatig verdelen van soorten en aantallen over de dag, zodat de schakels ervoor geen pieken hoeven op te vangen. |
+| takttijd | De beschikbare productietijd gedeeld door het aantal gevraagde stuks; het ritme waarop de lijn hoort te lopen. |
+| standaardwerkblad | Blad met takttijd, werkvolgorde en standaardvoorraad, opgesteld door de voorman en zichtbaar opgehangen bij de plek van het werk. |
+| vijf keer waarom | Bij een storing vijfmaal doorvragen naar het waarom, tot de maatregel in zicht komt die de oorzaak wegneemt. |
+| meerprocesbediening | Eén werker bedient achtereenvolgens verschillende machines in de volgorde van het product, in plaats van één machinesoort. |
+
+#### Waar het argument op rust
+
+Het boek is het verslag van de man die het systeem zelf heeft opgebouwd,
+geschreven in 1978, toen het bij Toyota al dertig jaar in ontwikkeling was.
+Wat als onderbouwing telt, is dat het werkt in de fabriek waar de schrijver de
+leiding had. Onderzoek staat er niet in. De getallen zijn schaars en meestal
+ontleend aan wat Ohno gehoord heeft: de verhouding één op negen komt uit een
+gerucht in de weverij van de jaren dertig en niet uit een meting.
+
+De bevestiging kwam van buiten en later. Het International Motor Vehicle
+Program van MIT vergeleek in de jaren tachtig autofabrieken wereldwijd en vond
+grote verschillen in productiviteit en kwaliteit ten gunste van de Japanse
+fabrieken; het verslag verscheen in 1990 als *The Machine That Changed the
+World* en gaf het systeem de naam lean production. Wat daarmee niet is
+aangetoond, is dat de voorsprong van Toyota aan Ohno's methode toe te
+schrijven valt en niet aan leveranciersverhoudingen, arbeidsverhoudingen of
+wisselkoersen.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar gaat over de mensen in het systeem. Ohno maakt problemen
+zichtbaar door bewust de rek eruit te halen: minder voorraad, minder
+bezetting, minder tijd. Wat dat op de werkvloer betekent, staat niet in het
+boek. Satoshi Kamata werkte in 1972 een seizoen als seizoenkracht in een
+Toyota-fabriek en beschreef dat in een dagboek dat in het Engels verscheen als
+*Japan in the Passing Lane*: eentonig werk in een tempo dat geen adempauze
+laat. De Amerikaanse vakbondsonderzoekers Mike Parker en Jane Slaughter
+doopten de aanpak in 1988 management-by-stress. Ohno gaat daar nergens op in.
+
+Verder is dit een geschiedenis en geen methode. Ohno beschrijft wat er bij
+Toyota is gegroeid, over dertig jaar, in één land, in één bedrijfstak, met
+leveranciers vlak bij de fabriek en een vaste kern personeel die nergens heen
+kan. Wat een ander bedrijf zou moeten doen, staat er niet. De bedrijven die
+daarna kanbankaartjes invoerden zonder de rest deden precies waar het boek
+voor waarschuwt, en veel houvast om het beter te doen krijgen ze niet.
+
+Ten slotte laat just-in-time een kwetsbaarheid zien die Ohno onbesproken laat.
+Een keten zonder voorraad staat stil zodra er iets breekt. De brand bij
+toeleverancier Aisin Seiki in 1997, de aardbeving van 2011 en de chiptekorten
+van 2021 dwongen Toyota telkens binnen dagen tot forse productieverlagingen.
+Een deel van de verspilling die de fabrikant wegneemt verhuist bovendien naar
+de leveranciers, die de schommelingen opvangen.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij elke voorraad wat zij verbergt, en verlaag haar met opzet om te
+zien waar het proces vastloopt.
+- Stel bij een storing vijf keer de vraag waarom, en neem geen maatregel die
+op het eerste antwoord berust.
+- Reken de vraag om in een takttijd en laat de werkvolgorde daarop aansluiten,
+in plaats van te sturen op de bezettingsgraad van machines.
+- Val de omsteltijd aan voordat de seriegrootte omhoog gaat; een lange
+omsteltijd is de reden dat grote series aantrekkelijk lijken.
+- Laat de norm opschrijven door wie het werk leidt, hang hem zichtbaar op en
+pas hem aan zodra iemand een betere volgorde vindt.
+- Ga kijken waar het werk gebeurt voordat er over een rapportage wordt
+vergaderd.
+
+#### Wat je hierna leest
+
+- 904. Het doel. Goldratt vertelt hetzelfde inzicht als roman en legt de
+nadruk op de knelpuntmachine; waar Ohno voorraad als bedekking van problemen
+ziet, ziet Goldratt hem als gevolg van één beperkende schakel.
+- 265. The Lean Startup. Ries haalt de term lean en het denken in kleine
+partijen uit Ohno's fabriek en past ze toe op ondernemingen die nog niet weten
+wat ze moeten maken.
+- 905. My Life and Work. Ford schreef de verantwoording waar Ohno een heel
+hoofdstuk mee in gesprek gaat; dat hoofdstuk is pas te volgen naast Fords
+eigen tekst.
+- 900. My Years with General Motors. Sloan beschrijft het tegenovergestelde
+antwoord op dezelfde vraag: beheersing via divisies, modelvariatie en
+jaarlijkse vernieuwing in plaats van via de werkvloer.
+
+## 913. Obviously Awesome
+
+April Dunford, 2019. *Obviously Awesome: How to Nail Product Positioning so
+Customers Get It, Buy It, Love It* (Ambient Press, 2019, 202 blz., ISBN
+9781999023003). Er bestaat geen Nederlandse vertaling; de samenvatting is op
+de Engelse editie gebaseerd. Rubriek: geld en ondernemen.
+Tags: `positionering`, `marketing`, `verkoop`, `ondernemerschap`
+
+April Dunford werkte als marketingbestuurder bij een reeks
+technologiebedrijven en bracht daar naar eigen zeggen zestien producten op de
+markt. Haar boek gaat over het ene onderdeel van dat werk dat volgens haar het
+meeste verschil maakt en het slechtst is beschreven: positionering. Dat is het
+kader waarin een klant een product plaatst voordat hij er iets van vindt. Waar
+hoort dit thuis, waarmee vergelijk ik het, waarom zou ik ernaar kijken. Dat
+kader ontstaat sowieso, ook als niemand er een besluit over neemt, en dan komt
+het uit het hoofd van de bouwers.
+
+Dunford maakt er een werkwijze van. Vijf onderdelen vormen de positionering:
+de alternatieven die de klant zonder dit product zou gebruiken, de kenmerken
+die dit product als enige heeft, de waarde die daaruit volgt met bewijs erbij,
+de kenmerken van de klanten die om die waarde geven, en de marktcategorie
+waarin dat het snelst duidelijk wordt. Een zesde, trends, is optioneel en
+riskant. Daaromheen staat een proces van tien stappen en een keuze uit drie
+stijlen: meedoen in een bestaande markt, een deelmarkt overheersen, of een
+nieuwe categorie beginnen. Het boek is kort, praktisch en licht van
+onderbouwing.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Positionering is volgens Dunford het kader waarin een klant
+een product plaatst voordat hij er een oordeel over vormt: waar hoort dit
+thuis, waarmee vergelijk ik het, waarom zou ik het overwegen. Dat kader
+ontstaat altijd, ook als niemand er een besluit over neemt, en dan komt het
+uit het hoofd van de makers, die hun product vergelijken met wat zij zelf
+bedacht hebben. Haar stelling is dat het kader een ontwerpkeuze is met een
+vaste werkwijze: stel vast wat klanten zouden doen als het product niet
+bestond, wat het product als enige kan, welke waarde dat oplevert, wie daar
+het meest om geeft, en in welke marktcategorie die waarde het snelst zichtbaar
+wordt. De verkeerde categorie kost meer omzet dan de verkeerde woorden, want
+de categorie bepaalt met wie de klant vergelijkt, wat hij aan prijs verwacht
+en welke eigenschappen hij nagaat.
+
+#### De gang van het boek
+
+**Positionering als kader, niet als slogan**
+
+Dunford begint bij de symptomen. Bestaande klanten zijn tevreden, maar nieuwe
+prospects begrijpen niet waar ze naar kijken; verkooptrajecten duren lang en
+eindigen vaak in uitstel; er is prijsdruk; klanten haken na een jaar af omdat
+ze iets anders hadden verwacht. Dat wijst volgens haar zelden op het product
+en meestal op het kader waarin het wordt aangeboden.
+
+Zij onderscheidt twee manieren waarop het misgaat. De eerste is positionering
+die niemand gekozen heeft: de makers vergelijken hun product met wat zij bij
+het bouwen voor ogen hadden, en klanten met iets heel anders. De tweede is
+positionering die ooit klopte en verouderde doordat de markt verschoof. Haar
+eigen voorbeeld uit het begin van haar loopbaan: een product dat als database
+werd aangeboden verdween in vergelijkingen met andere databases, en ging pas
+lopen toen het als datawarehouse-oplossing werd gepresenteerd. Aan het product
+veranderde niets.
+
+**De vijf onderdelen, plus trends**
+
+Het kader bestaat uit vijf onderdelen die op elkaar ingrijpen. Concurrerende
+alternatieven zijn wat de klant zou doen als dit product er niet was, en dat
+is vaak helemaal geen concurrent: een spreadsheet, een stagiair, of niets
+doen. Onderscheidende kenmerken zijn de dingen die dit product wel heeft en
+die alternatieven missen, waarbij ook levervorm, kennis en ondersteuning
+meetellen. Waarde is wat die kenmerken de klant opleveren, met bewijs erbij en
+niet met een bijvoeglijk naamwoord. Kenmerken van de doelmarkt beschrijven wie
+die waarde het hardst nodig heeft. De marktcategorie is de plank waar het
+product op wordt gelegd.
+
+Trends noemt zij een zesde onderdeel met een waarschuwing. Een trend
+eroverheen leggen kan aandacht opleveren, zoals bij een verkoopplatform voor
+winkelpersoneel dat meeliftte op de opkomst van tablets, maar zodra de trend
+het verhaal gaat overheersen begrijpt de klant het product niet meer. Trends
+zijn een sausje en geen fundament.
+
+**Beginnen bij de klanten die het al snappen**
+
+Dunford draait de gebruikelijke volgorde om. In plaats van eerst een doelgroep
+te bedenken en dan klanten te zoeken die erop lijken, begint zij bij de
+klanten die er al zijn en die het snelst kochten, zelden korting vroegen en
+het aan anderen doorvertelden. Wat die klanten gemeen hebben is de doelmarkt,
+en dat gemeenschappelijke kenmerk valt vaak niet samen met de bedrijfstak of
+de omvang waarop verkoopafdelingen segmenteren.
+
+Van waarde maakt zij themagroepen. Losse kenmerken worden gebundeld tot een
+handvol waardeclusters, omdat klanten zo ook denken. Bewijs hoort erbij: wat
+de leverancier zelf over de waarde beweert telt niet, wat een klant kan
+navertellen of een getal kan onderbouwen wel.
+
+**Drie stijlen om een markt te kiezen**
+
+De categoriekeuze werkt Dunford uit in drie stijlen. Kop aan kop betekent
+meedoen in een bestaande markt met de bedoeling de leider te verslaan; dat
+vraagt veel geld en werkt alleen als de markt in beweging is. Grote vis in een
+kleine vijver betekent een deelsegment kiezen waar de bestaande aanbieders
+niet op ingericht zijn; de categorie is dan al bekend bij de klant, maar de
+concurrentie is dun. Een nieuw spel beginnen betekent een categorie maken die
+nog niet bestaat, en dat is het duurst en het traagst: er moet uitgelegd
+worden waarom de categorie bestaansrecht heeft, welke criteria erbij horen en
+waarom uitgerekend deze aanbieder er leidend in is.
+
+Haar eigen tweede voorbeeld gaat over een bedrijf dat het kop aan kop
+probeerde tegen de marktleider in klantbeheersoftware en verloor zolang het
+zich als goedkoper alternatief aanbood. Nadat bleek dat zakenbanken een
+specifieke behoefte hadden, namelijk het in kaart brengen van
+relatienetwerken, werd het product voor die groep opnieuw gepositioneerd, ging
+de prijs omhoog en werd het bedrijf later overgenomen.
+
+**Het proces van tien stappen**
+
+De tweede helft van het boek is een werkvolgorde in tien stappen. Zij begint
+bij de blijste klanten en bij het samenstellen van een groep uit verkoop,
+marketing, product en directie, want positionering die alleen in de
+marketingafdeling leeft haalt de verkoopgesprekken niet. Daarna komen de vijf
+onderdelen één voor één aan bod, in de volgorde alternatieven, kenmerken,
+waarde, klantprofiel en marktkader, en de laatste stap is de vastlegging in
+een document dat de rest van het bedrijf kan gebruiken.
+
+Dunford besteedt aandacht aan de weerstand die dit oproept. Positionering
+veranderen betekent voor de verkoopafdeling een nieuw verhaal, voor de
+productafdeling een andere lijst met wensen en voor de directie het loslaten
+van een ambitie. Zij stelt dat de discussie daarom over de vijf onderdelen
+moet gaan, één voor één en met bewijs, in plaats van over woorden.
+
+**Bezwaar tegen de positioneringszin**
+
+Een terugkerend punt is haar afwijzing van de klassieke positioneringszin, het
+invulsjabloon in de trant van 'voor X die Y, is ons product een Z dat W'. Dat
+sjabloon veronderstelt dat de juiste positionering al in iemands hoofd zit en
+alleen nog opgeschreven hoeft te worden. Volgens Dunford is dat het tegendeel
+van hoe het werkt: het antwoord is meestal niet vanzelfsprekend en moet uit
+klantgedrag worden afgeleid. Het sjabloon is in haar woorden een eindproduct
+dat als proces wordt verkocht.
+
+Wat zij ervoor in de plaats zet is een document waarin de vijf onderdelen met
+hun bewijs staan, zodat verkoop, marketing en productontwikkeling er dezelfde
+beslissingen uit kunnen afleiden. Positionering is in die opvatting een
+besluit van het hele bedrijf en geen tekst van de marketingafdeling.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| positionering | Het kader waarin een klant een product plaatst: waar het thuishoort, waarmee het vergeleken wordt en waarom het de moeite waard is. |
+| concurrerend alternatief | Wat de klant zou doen als dit product niet bestond, inclusief handwerk, een spreadsheet of helemaal niets doen. |
+| onderscheidend kenmerk | Een eigenschap die dit product wel heeft en de alternatieven niet, waaronder ook levervorm, kennis en ondersteuning vallen. |
+| waardecluster | Een bundel bij elkaar horende voordelen die klanten in hun hoofd al samen nemen, met bewijs onderbouwd. |
+| marktcategorie | De plank waarop de klant het product legt; zij bepaalt de vergelijking, de prijsverwachting en de criteria waarop wordt beoordeeld. |
+| best passende klant | De klant die snel koopt, weinig korting vraagt en anderen doorverwijst; volgens Dunford het vertrekpunt van elk positioneringsonderzoek. |
+| kop aan kop | Positioneringsstijl waarbij een aanbieder in een bestaande categorie de leider aanvalt, kostbaar en alleen zinvol bij marktverschuiving. |
+| grote vis in een kleine vijver | Positioneringsstijl waarbij een deelsegment met een onbediende behoefte wordt gekozen binnen een categorie die de klant al kent. |
+| een nieuw spel beginnen | Positioneringsstijl waarbij een nieuwe categorie wordt gemaakt, met de last om haar bestaansrecht en criteria zelf te bewijzen. |
+| positioneringszin | Het klassieke invulsjabloon voor positionering, door Dunford afgewezen omdat het het antwoord veronderstelt in plaats van het te vinden. |
+
+#### Waar het argument op rust
+
+Het boek bevat geen onderzoek en doet daar ook geen poging toe. De
+onderbouwing bestaat uit de loopbaan van de schrijfster, die naar eigen opgave
+zestien producten op de markt bracht en daarna als adviseur voor
+technologiebedrijven werkte, plus een handvol gevallen die zij navertelt: haar
+databaseproduct dat als datawarehouse ging lopen, het klantbeheerproduct dat
+zich op zakenbanken richtte, en Arm and Hammer, dat zijn baksoda van de
+bakafdeling naar de schoonmaakafdeling verplaatste toen er thuis minder
+gebakken werd.
+
+Dat zijn verhalen achteraf, verteld door de betrokkene, over gevallen die goed
+afliepen. Er is geen vergelijking met bedrijven die dezelfde stappen zetten en
+het niet redden, en geen manier om na te gaan of de herpositionering de
+oorzaak was of samenviel met andere veranderingen. Het idee zelf komt uit de
+reclamewereld: Al Ries en Jack Trout schreven er in 1981 *Positioning* over,
+en Geoffrey Moore bouwde er in 1991 het chasm-model op. Dunford voegt daar een
+werkvolgorde aan toe, geen nieuwe theorie.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat het boek de goede vragen stelt en het antwoorden
+aan de lezer overlaat. Het telt ruim tweehonderd bladzijden met een grote
+letter en veel wit, in feitelijke tekst ongeveer de helft daarvan. De tien
+stappen zeggen dat je moet vaststellen wie je beste klanten zijn, hoeveel
+waarde je levert en in welke categorie je hoort, maar niet hoe je dat
+vaststelt wanneer de klantgegevens dat niet laten zien of wanneer twee
+categorieën allebei plausibel zijn. Recensenten hebben opgemerkt dat het gat
+samenvalt met de adviespraktijk van de schrijfster.
+
+Daarnaast is het bereik smaller dan de titel suggereert. Vrijwel alle
+voorbeelden komen uit zakelijke software met verkopers en langlopende
+trajecten. Voor consumentenmerken, diensten en de meeste bedrijven zonder
+werkelijk onderscheidende kenmerken blijft de methode leeg, omdat zij
+veronderstelt dat er iets te vinden is dat de alternatieven missen. Waar dat
+er niet is, levert het proces een net opgeschreven middelmaat op.
+
+Ten slotte is de belofte dat positionering een besluit is dat een bedrijf
+gewoon kan nemen. In de praktijk zit positionering vast aan wat er gebouwd is,
+aan de bestaande klanten die het product niet loslaten en aan de verkopers die
+met een ander verhaal moeten binnenkomen. Dunford noemt die weerstand wel,
+maar behandelt haar als organisatorisch ongemak in plaats van als grens aan
+wat positionering kan doen.
+
+#### Wat er concreet mee te doen is
+
+- Zet de klanten op een rij die het snelst kochten en het minst
+onderhandelden, en zoek wat die met elkaar gemeen hebben voordat je een
+doelgroep beschrijft.
+- Vraag verkopers letterlijk waarmee prospects het product vergeleken; noteer
+ook antwoorden als handwerk, een spreadsheet of niets doen.
+- Schrap uit de lijst met eigenschappen alles wat een alternatief ook heeft;
+wat overblijft is de basis van het verhaal.
+- Zet achter elke geclaimde waarde het bewijs dat een buitenstaander kan
+navertellen, en haal claims zonder bewijs uit de tekst.
+- Kies de marktcategorie bewust en toets welke prijsverwachting, welke
+vergelijking en welke koopcriteria daarmee vanzelf meekomen.
+- Leg het resultaat vast in een document dat verkoop, marketing en
+productontwikkeling delen, in plaats van in één zin.
+
+#### Wat je hierna leest
+
+- 443. The 22 Immutable Laws of Marketing. Ries en Trout schreven de wetten
+waar Dunford op voortbouwt; zij geven de leer, zij geeft de werkvolgorde.
+- 446. Purple Cow: Transform Your Business by Being Remarkable. Godin
+redeneert vanuit het product dat opvalt, Dunford vanuit het kader waarin het
+wordt bekeken; samen dekken ze de twee helften van hetzelfde probleem.
+- 908. Good Strategy Bad Strategy. Rumelt laat zien wat een strategie tot
+strategie maakt, wat de categoriekeuze bij Dunford een stuk minder
+vrijblijvend maakt.
+- 265. The Lean Startup. Ries beschrijft hoe een product wordt gevonden;
+Dunford begint waar dat gelukt is en de klant het nog steeds niet begrijpt.
+
+## 914. The Sex Magicians
+
+Robert Anton Wilson, 1973. *The Sex Magicians* (Sheffield House, Chatsworth
+(Californië), 1973, 195 blz.). Het boek was decennialang uit de handel; de
+heruitgave verscheen bij Hilaritas Press in 2024, met een inleiding van
+Michelle Olley en een nawoord van Gregory Arnott (ISBN 9781952746352). Er
+bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie
+gebaseerd. Rubriek: roman en memoir.
+Tags: `erotiek`, `occultisme`, `complotdenken`, `satire`
+
+*The Sex Magicians* is de eerste roman van Robert Anton Wilson, verschenen in
+1973 bij een kleine Californische uitgever van erotische pockets. Het verhaal
+speelt in Chicago rond de Orgasm Research Foundation van dr. Roger Prong, met
+Josie Welch en Tarantella als tegenspeelsters, en reikt terug tot de Tuin der
+Genoegens van Hassan i Sabbah in de twaalfde eeuw. De Illuminati houden het
+onderzoek in de gaten. Wilson had in 1971 zijn redacteursbaan bij Playboy
+opgezegd en schreef dit voor het geld.
+
+Het belang van het boek ligt in wat er twee jaar later uit voortkwam.
+Personages en verhaallijnen die in *The Illuminatus! Trilogy* bekend werden,
+staan hier al: Markoff Chaney en de crisis rond het eiland Fernando Poo. Welke
+tekst het eerst bestond is onzeker, want het Illuminatus!-manuscript lag jaren
+bij uitgevers voordat Dell het aannam. Delen van de seksscènes gebruikte
+Wilson later opnieuw in de Schrödinger's Cat-trilogie. Wie Wilson kent leest
+hier het proefmodel; wie hem niet kent leest een pornografische pocket uit
+1973 met opvallend veel voetnoten in het hoofd van de schrijver.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Wilsons debuut is een pornografische kioskpocket die tegelijk
+het proefstuk is voor alles wat hij daarna zou schrijven. Onder de seksscènes
+ligt een leerstuk over seksmagie: opwinding als een soort energie die gestuurd
+kan worden, met gevolgen die verder reiken dan de slaapkamer. Vandaar de
+Illuminati, die in het boek meekijken met een instituut dat het orgasme
+onderzoekt. De roman beweert nergens dat dit waar is. Hij bouwt een wereld
+waarin het waar is, laat de lezer daarin rondlopen en stelt en passant de
+vraag die Wilson zijn hele leven zou bezighouden: bestaan samenzweringen, of
+ontstaan ze doordat mensen erin geloven en er dan naar gaan handelen.
+
+#### De gang van het verhaal
+
+**Een pocket voor de kiosk**
+
+Het boek verscheen in 1973 bij Sheffield House in Chatsworth, Californië, een
+uitgeverij van erotische pockets voor de kiosk en de postorder. Wilson had
+twee jaar eerder zijn baan bij Playboy opgezegd, waar hij onder meer de
+lezersrubriek deed, en had een gezin te onderhouden. Het genre stelde eisen:
+een vast aantal expliciete scènes, een omvang van tegen de tweehonderd
+bladzijden en geen literaire pretenties op het omslag. Dat bepaalt het ritme
+van het boek.
+
+Wat het genre niet verbood, was er van alles onderstoppen. Wilson gebruikte de
+ruimte om zijn hele lijst met belangstellingen kwijt te kunnen: seksmagie,
+geheime genootschappen, samenzweringsleer en de vraag wie er nu eigenlijk
+waarneemt. De uitgever van de heruitgave uit 2024 verkoopt het als mystieke
+erotiek, met een aanbeveling van Annie Sprinkle op het omslag.
+
+**De Orgasm Research Foundation**
+
+De handeling draait om de Orgasm Research Foundation en haar leider, dr. Roger
+Prong. Het instituut doet aan seksonderzoek in de trant van de laboratoria die
+in de jaren zestig en zeventig werkelijk bestonden, en dat onderzoek levert de
+aanleiding voor de scènes die het genre verlangt. Rond Prong bewegen zich
+Josie Welch en Tarantella.
+
+Chicago is niet toevallig het toneel. Het is de stad waar Wilson toen woonde
+en werkte, en waar ook een groot deel van de Illuminatus!-romans speelt. De
+stad in de greep van seksmagie is de grap waar het boek op draait: een
+epidemie van opwinding die zich als een besmetting door de bevolking beweegt.
+
+**Van Alamut naar Chicago**
+
+Het kader van het boek reikt terug tot de twaalfde eeuw, naar Hassan i Sabbah
+en de Tuin der Genoegens waarmee hij volgens de overlevering zijn volgelingen
+aan zich bond. Die figuur komt in Wilsons werk telkens terug, deels via
+William Burroughs, die hem tot huisheilige had gemaakt.
+
+De verbinding tussen die middeleeuwse sekte en een modern
+seksonderzoeksinstituut is het soort sprong waarmee Wilson zijn latere boeken
+zou vullen. De redenering erachter is dat wie de begeerte van mensen beheert,
+hun gedrag beheert, en dat elke macht die dat doorheeft die kennis geheim zal
+houden. Of het boek dat gelooft, blijft in het midden.
+
+**De Illuminati als motor**
+
+De Illuminati zijn in dit boek nog vooral een plotmotor: een genootschap dat
+alles in de gaten houdt en waarvan de bedoelingen onduidelijk blijven. Markoff
+Chaney komt langs, de kleine man die later in Illuminatus! zijn eigen chaos
+zou stichten, en de crisis rond het West-Afrikaanse eiland Fernando Poo speelt
+op de achtergrond, hetzelfde eiland dat in Illuminatus! de aanleiding tot een
+wereldoorlog wordt.
+
+Dat maakt dit boek voor lezers van Wilson het meest interessant: hier ligt het
+materiaal nog los. In Illuminatus! worden dezelfde onderdelen aan elkaar
+geknoopt tot een bouwsel met vijf boeken, tien delen en een tijdlijn die tot
+Atlantis teruggaat. Hier staan ze naast elkaar in een verhaal dat aan het eind
+gewoon ophoudt.
+
+**Wat ermee gebeurde**
+
+Delen van de tekst kwamen terug in de Schrödinger's Cat-trilogie uit 1979,
+waar Wilson de seksscènes hergebruikte. Andersom is even goed mogelijk: het
+Illuminatus!-manuscript was in 1971 af en zocht vijf jaar lang een uitgever,
+dus kan het materiaal net zo goed uit dat manuscript zijn gehaald en hier zijn
+geplaatst. De volgorde is niet vast te stellen.
+
+Het boek raakte uit de handel en bleef dat tot Hilaritas Press, de uitgeverij
+van Wilsons nalatenschap, het in 2024 opnieuw uitbracht met een inleiding en
+een nawoord. Daarmee is het van een vergeten kioskpocket een verzamelaarsitem
+in een compleet oeuvre geworden, wat het boek zelf niet beter maakt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| seksmagie | De leer dat seksuele opwinding een vorm van energie is die gericht kan worden op een doel buiten de seks zelf. |
+| Orgasm Research Foundation | Het verzonnen instituut waar het verhaal om draait, geleid door dr. Roger Prong, dat het orgasme tot onderzoeksobject maakt. |
+| Illuminati | Bij Wilson het genootschap dat achter alles zou zitten, hier nog vooral een aanwezigheid die het onderzoek in de gaten houdt. |
+| Hassan i Sabbah | Middeleeuwse sekteleider uit Alamut wiens Tuin der Genoegens in het boek het historische voorbeeld levert van sturing via genot. |
+| Markoff Chaney | Personage dat hier voor het eerst opduikt en in Illuminatus! uitgroeit tot een eenmansverstoorder van elke ordening. |
+| Fernando Poo | West-Afrikaans eiland dat in dit boek al als brandpunt van een internationale crisis voorkomt en dat in Illuminatus! de wereldoorlog uitlokt. |
+| adult paperback | Het Amerikaanse pocketgenre van de jaren zestig en zeventig waarin dit boek verscheen, met vaste eisen aan omvang en inhoud. |
+
+#### Waar het argument op rust
+
+Voor een roman is de vraag niet hoe stevig de onderbouwing is; de vraag is wat
+er over het boek vaststaat, en dat is weinig. Er bestaat vrijwel geen
+kritische literatuur; het Engelstalige lemma is een aanzet met een handvol
+regels, en de meeste beschrijvingen gaan terug op de tekst van de uitgever en
+op lezersverslagen. Wat vaststaat is het jaar, de uitgever, de omvang van
+ongeveer 195 bladzijden, de hoofdpersonen en de terugkeer van Markoff Chaney
+en Fernando Poo in later werk.
+
+De belangrijkste onzekerheid is de volgorde. Dat dit Wilsons eerste
+gepubliceerde roman is, ligt vast; dat het ook zijn eerst geschreven roman is,
+ligt niet vast, want het Illuminatus!-manuscript was al eerder klaar en zocht
+jaren een uitgever. Wie beweert dat Illuminatus! uit dit boek is voortgekomen,
+beweert meer dan er te weten valt.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat het loonwerk is en dat je dat leest. De seksscènes
+staan er omdat de reeks ze verlangde, en ze onderbreken de redeneringen op
+momenten die met het verhaal weinig te maken hebben. De ideeën die Wilson
+later zou uitwerken zitten er wel in, maar in kiemvorm en zonder de
+constructie die Illuminatus! de moeite waard maakt. Wie Wilson wil leren
+kennen, begint hier niet.
+
+Daar komt bij dat de vrouwenrollen die van het genre en van het jaar zijn.
+Josie Welch en Tarantella bestaan om iets te ondergaan; de blik is die van de
+Playboy-redactie rond 1970, en Wilsons latere reputatie als vrijdenker
+verandert daar niets aan. De heruitgave verkoopt het als mystieke erotiek, wat
+een boek flatteert dat overwegend het tweede is.
+
+Ten slotte is de vorm los. Waar Wilson later de sprongen in perspectief en
+tijd tot bouwprincipe maakte, zijn ze hier vooral gemakzucht: het verhaal
+springt omdat het kan, en het houdt op zonder ergens uit te komen. Als roman
+is het niet af; als document over de wording van Illuminatus! is het wel
+interessant.
+
+#### Wat je hierna leest
+
+- 915. The Eye in the Pyramid. Twee jaar later staan dezelfde onderdelen,
+Illuminati, Markoff Chaney en Fernando Poo, in een boek dat er wel een bouwsel
+van maakt.
+- 925. Cosmic Trigger I: Final Secret of the Illuminati. Wilson vertelt daar
+zelf, zonder verhaal ertussen, wat hij met samenzweringen en met veranderde
+bewustzijnstoestanden bedoelde.
+- 921. Masks of the Illuminati. Hetzelfde materiaal, geheime genootschappen en
+seksuele magie, maar dan als afgeronde roman met Aleister Crowley en James
+Joyce erin.
+
+## 915. The Eye in the Pyramid
+
+Robert Shea en Robert Anton Wilson, 1975. *The Eye in the Pyramid* (Dell, New
+York, 1975, 304 blz., ISBN 9780440146889), het eerste van de drie delen van
+*The Illuminatus! Trilogy*. Sinds 1984 ook verkrijgbaar in de eendelige
+omnibus (Dell, ISBN 9780440539810), waarin een deel van het oorspronkelijke
+bijwerk ontbreekt. Er bestaat geen Nederlandse vertaling; de samenvatting is
+op de Engelse editie gebaseerd. Rubriek: roman en memoir.
+Tags: `complotdenken`, `satire`, `occultisme`, `roman`
+
+Twee redacteuren van Playboy, Robert Shea en Robert Anton Wilson, schreven
+tussen 1969 en 1971 een roman uit de complotpost die zij van lezers
+binnenkregen. Het idee was om elke samenzweringstheorie tegelijk waar te laten
+zijn en te kijken wat er dan overblijft. Dell nam het manuscript pas in 1975
+aan, eiste vijfhonderd bladzijden schrapping en een verdeling over drie delen.
+*The Eye in the Pyramid* is het eerste daarvan.
+
+Het begint als politieroman. Twee New Yorkse rechercheurs onderzoeken een
+bomaanslag op een links tijdschrift en stuiten op dossiers waarin alle
+moordaanslagen van de eeuw met elkaar in verband worden gebracht. Ondertussen
+wordt een journalist uit een gevangenis in Texas bevrijd door Hagbard Celine,
+een anarchist die vanuit een gouden onderzeeër oorlog voert tegen de
+Illuminati. Het vertelperspectief verspringt daarbij middenin zinnen, tussen
+personages en tussen eeuwen. Onderweg introduceert het boek de begrippen waar
+het bekend om is geworden: fnord, de Wet van Vijven en het 23-raadsel. De
+trilogie kreeg in 1986 de Prometheus Hall of Fame Award.
+
+### Uitgebreide samenvatting
+
+**De stelling.** De roman neemt elke samenzweringstheorie tegelijk serieus,
+zet ze naast elkaar en laat ze elkaar opheffen. Achter de moord op Kennedy
+zitten de Illuminati, en achter de Illuminati de Discordianen, en daarachter
+een genootschap dat al sinds Atlantis bestaat, en alle verklaringen worden met
+evenveel bewijs opgediend. Wat overblijft is de vaststelling dat een
+verklaring die alles verklaart niets verklaart, en dat het geloof in een
+samenzwering dezelfde gevolgen heeft als de samenzwering zelf. Shea en Wilson
+bouwen daar geen betoog omheen maar een machine die de lezer bij elke
+bladzijde laat oefenen in het loslaten van zekerheid, met seks, drugs,
+voetnoten en abrupte perspectiefwissels als werktuigen.
+
+#### De gang van het verhaal
+
+**Een bomaanslag en twee rechercheurs**
+
+Het boek opent met een aanslag op de redactie van Confrontation, een links
+tijdschrift in New York. Redacteur Joe Malik is verdwenen. De rechercheurs
+Saul Goodman en Barney Muldoon vinden in het puin een verzameling memo's
+waarin de moorden op de Kennedy's, op Martin Luther King en op tal van anderen
+aan één organisatie worden toegeschreven.
+
+Die opzet is de eerste truc van het boek. Het begint in het meest
+geruststellende genre dat er is, de politieroman, waarin een onderzoek van
+aanwijzing naar aanwijzing naar een dader leidt. Vervolgens laat het die vorm
+langzaam bezwijken onder het materiaal, tot Goodman zijn eigen geheugen niet
+meer vertrouwt.
+
+**George Dorn en de gouden onderzeeër**
+
+Een tweede verhaallijn volgt de jonge journalist George Dorn, die in een dorp
+in Texas wordt opgepakt wegens drugsbezit en uit de cel wordt bevrijd door
+Hagbard Celine. Celine is anarchist, ingenieur en advocaat, en voert vanuit
+een gouden onderzeeër, de Leif Erikson, een oorlog tegen de Illuminati. Aan
+boord bevinden zich de Legion of Dynamic Discord, een computer met de naam
+FUCKUP en een pratende bruinvis die Howard heet.
+
+Celine is de figuur die de leer van het boek uitspreekt. Zijn stelling is dat
+elke poging om orde op te leggen weerstand oproept die evenredig is aan de
+dwang, en dat de enige verdediging tegen een samenzwering bestaat uit het
+weigeren van elke vaste overtuiging. Hij is tegelijk de meest overtuigende en
+de minst betrouwbare stem in het boek, wat de bedoeling is.
+
+**Illuminati tegen Discordianen**
+
+De Illuminati van het boek beginnen bij het historische genootschap dat Adam
+Weishaupt in 1776 in Beieren oprichtte en dat in 1785 werd verboden. Vanaf dat
+aanknopingspunt bouwen Shea en Wilson een geschiedenis waarin het genootschap
+nooit is opgeheven en waarin het achter vrijwel elke gebeurtenis van de
+moderne tijd zit. Daartegenover staat de Legion of Dynamic Discord, ontleend
+aan het Discordianisme, de parodiegodsdienst rond Eris die Greg Hill en Kerry
+Thornley in de *Principia Discordia* hadden vastgelegd.
+
+Naast de twee partijen loopt een verzameling losse figuren rond: Simon Moon,
+de Discordiaanse wiskundige uit Chicago; Robert Putney Drake, de bankierszoon
+die de misdaad organiseerde; en Markoff Chaney, een kleine man die uit wrok
+tegen een wereld die niet op hem is ingericht overal valse mededelingen
+ophangt en zo op zijn eentje het toeval vertegenwoordigt.
+
+**Fnord, vijven en drieëntwintig**
+
+Het bekendste bedenksel uit het boek is de fnord: een woord dat in
+nieuwsberichten wordt gedrukt en dat iedereen op school heeft leren overslaan,
+met angst als restverschijnsel. Wie het leert zien, wordt onbevreesd en
+tegelijk onbruikbaar voor de machthebbers. Het is een beeld van hoe media
+werken dat sindsdien een eigen leven is gaan leiden.
+
+Daarnaast staan de Wet van Vijven, die zegt dat alle verschijnselen direct of
+indirect met het getal vijf te maken hebben, en het 23-raadsel, dat Simon Moon
+aan William Burroughs toeschrijft. Beide worden in het boek uitgelegd en in
+hetzelfde hoofdstuk ondergraven: wie op een getal let, vindt het overal, en
+dat is precies wat de wet aantoont. Het boek levert daarmee zijn eigen
+weerlegging mee, en toch blijven lezers de getallen tellen.
+
+**De vorm als betoog**
+
+De trilogie is verdeeld in vijf boeken met Duitse titels, Verwirrung,
+Zweitracht, Unordnung, Beamtenherrschaft en Grummet, naar de vijf stadia
+waarin volgens het boek elke samenleving vervalt, van chaos via tweedracht en
+verwarring naar ambtenarenheerschappij en nasleep. Daaroverheen ligt een
+verdeling in tien 'trips', genoemd naar de tien sefirot van de kabbalistische
+levensboom. *The Eye in the Pyramid* bevat de eerste twee boeken en de eerste
+vijf trips.
+
+Binnen die opzet wisselt de tekst van verteller, tijd en werkelijkheidsniveau
+zonder waarschuwing, soms halverwege een zin. Er zijn voetnoten, ingelaste
+documenten, brieven, citaten en een appendixapparaat dat in het derde deel
+staat. Dell dwong vijfhonderd bladzijden schrapping af en de opdeling in drie
+pockets, wat betekent dat de vorm die lezers als opzettelijk grillig ervaren
+voor een deel het gevolg is van de rode pen van een uitgever.
+
+**Fernando Poo**
+
+Op de achtergrond loopt de crisis rond Fernando Poo, een eiland voor de
+West-Afrikaanse kust dat het brandpunt wordt van een treffen tussen de
+Verenigde Staten, de Sovjet-Unie en China. Het boek gebruikt die crisis als
+klok: terwijl de rechercheurs dossiers lezen en Celine onder water vaart,
+loopt de wereld naar een kernoorlog toe.
+
+Dat de aanleiding een onbeduidend eiland is dat vrijwel niemand op de kaart
+kan aanwijzen, is het argument. De grote gebeurtenissen van de geschiedenis
+hangen in dit boek aan willekeur, en de verklaringen die er achteraf voor
+bedacht worden zeggen meer over de bedenkers dan over de gebeurtenis.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Illuminati | In de roman de doorlopende voortzetting van het Beierse genootschap van Adam Weishaupt uit 1776, dat achter vrijwel alles zou zitten. |
+| Discordianisme | De parodiegodsdienst rond Eris, godin van de tweedracht, uit de *Principia Discordia*, in het boek de tegenpartij van de Illuminati. |
+| fnord | Een gedrukt woord dat lezers hebben leren overslaan en dat onbewust angst achterlaat; wie het ziet, is niet meer te sturen. |
+| Wet van Vijven | De regel dat alle verschijnselen met het getal vijf te maken hebben, in dezelfde adem gepresenteerd en onderuitgehaald. |
+| 23-raadsel | Het idee dat het getal drieëntwintig overal opduikt zodra iemand erop let, door Simon Moon aan William Burroughs toegeschreven. |
+| Hagbard Celine | Anarchist, ingenieur en kapitein van de gouden onderzeeër Leif Erikson, die de Illuminati bestrijdt en de leer van het boek uitspreekt. |
+| Legion of Dynamic Discord | Celines organisatie van Discordianen, opgezet als het spiegelbeeld van een geheim genootschap zonder vaste leer. |
+| de vijf stadia | Verwirrung, Zweitracht, Unordnung, Beamtenherrschaft en Grummet: het verval dat elke samenleving volgens het boek doorloopt. |
+| Fernando Poo | Het West-Afrikaanse eiland waar de koudeoorlogscrisis van de roman zich rond ontspint, aanleiding tot een dreigende kernoorlog. |
+
+#### Waar het argument op rust
+
+Bij een roman is de vraag waar het materiaal vandaan komt, en dat is in dit
+geval goed te volgen. Shea en Wilson werkten allebei bij Playboy en verzorgden
+daar de lezersrubriek, waar dagelijks post binnenkwam van mensen die wisten
+wie er achter de moord op Kennedy zat. Uit dat archief van elkaar
+tegensprekende zekerheden komt de opzet van het boek: alles wat de lezers
+beweerden, tegelijk waar laten zijn.
+
+De bouwstenen zijn deels echt. Het genootschap van Weishaupt bestond, werd in
+1785 door de Beierse keurvorst verboden en leeft sindsdien voort in de
+complotliteratuur. Het Discordianisme bestond als grap van Greg Hill en Kerry
+Thornley, en Thornley kende Lee Harvey Oswald uit het korps mariniers, wat hem
+in het onderzoek van openbaar aanklager Jim Garrison deed belanden. Wat de
+auteurs daarmee doen is verzinsel, en het boek zegt dat ook. Dat het
+geschreven is tussen 1969 en 1971, vijf jaar op een uitgever wachtte en met
+vijfhonderd bladzijden werd ingekort, staat vast.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat dit deel geen boek is. Het is het eerste derde van
+één roman, door de uitgever in drieën gehakt om drie pockets te kunnen
+verkopen, en het eindigt nergens. Wie *The Eye in the Pyramid* los leest,
+krijgt driehonderd bladzijden opbouw en geen enkele afwikkeling; de bijlagen,
+waarin het boek zijn eigen bronnen en grappen verantwoordt, staan in het derde
+deel.
+
+Verder koopt de roman zich vrij van elke stelling. Alles is tegelijk waar en
+een grap, dus valt er niets te weerleggen, ook niet door de auteurs zelf. Dat
+maakt het boek tegen kritiek bestand en tegelijk lastig serieus te nemen:
+dezelfde denkvorm die het bij complotdenkers belachelijk maakt, hanteert het
+zelf de hele tijd. De complotcultuur die daarna kwam heeft er ruim uit geput
+en de ironie er onderweg uit laten vallen; de Illuminati als internetmythe
+zijn voor een groot deel dit boek, zonder de knipoog.
+
+Ten slotte verouderen de seks en de vrouwenrollen slecht. De blik is die van
+de Playboy-redactie rond 1970, en de vrijheid die het boek predikt geldt
+vooral voor mannen. Bovendien is de vormtruc eindig: na tweehonderd bladzijden
+weet de lezer hoe de sprongen werken en levert de volgende sprong niets nieuws
+meer op, waardoor het lezen eerder volhouden dan ontdekken wordt.
+
+#### Wat je hierna leest
+
+- 916. The Golden Apple. Het tweede deel zet dezelfde vertelling voort en vult
+de voorgeschiedenis in, tot en met Atlantis en de herkomst van de Illuminati.
+- 917. Leviathan. Het slotdeel wikkelt de verhaallijnen af en bevat de
+bijlagen waarin de auteurs hun eigen bronnen en grappen verantwoorden.
+- 925. Cosmic Trigger I: Final Secret of the Illuminati. Wilson vertelt daar
+zonder verhaal ertussen wat hij zelf van samenzweringen, toeval en het getal
+drieëntwintig dacht.
+- 928. Prometheus Rising. Hetzelfde denken als leerboek: hoe overtuigingen de
+waarneming vormen en hoe je er volgens Wilson uit kunt stappen.
+
+## 916. The Golden Apple
+
+Robert Shea en Robert Anton Wilson, 1975. *Illuminatus! Part II: The Golden
+Apple* (Dell, New York, september 1975, 272 blz., ISBN 0440046912; latere
+Dell-pocket ISBN 0440146917). De trilogie is geschreven als één doorlopend
+boek; de uitgever knipte het in drieën en liet ongeveer vijfhonderd bladzijden
+schrappen. Sinds 1984 is het deel vrijwel alleen nog te krijgen in de
+verzameluitgave *The Illuminatus! Trilogy* (Dell, New York, 1984, 805 blz.,
+ISBN 0440539811), waarin de drie delen weer aaneengesloten staan. Er bestaat
+geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.
+Wel bestaat een Duitse vertaling bij Rowohlt. Rubriek: roman en memoir.
+Tags: `roman`, `complotdenken`, `satire`, `anarchisme`
+
+Tweede deel van *Illuminatus!*, geschreven tussen 1969 en 1971 door twee
+redacteuren van *Playboy*. Het bevat boek drie (Unordnung) en het begin van
+boek vier (Beamtenherrschaft) van de vijf, en daarbinnen de zesde tot en met
+de achtste van tien hoofdstukdelen die naar de sefirot van de kabbalistische
+levensboom zijn genoemd. De draden uit deel één lopen hier samen richting
+Ingolstadt, waar op 30 april een rockfestival wordt gehouden op de plek waar
+volgens het boek de legioenen van Hitler onder een meer bewaard liggen.
+
+Twee passages dragen het deel. In de eerste krijgt Joe Malik een film te zien
+over Atlantis, waarin de mutant Gruad de begrippen goed en kwaad bedenkt en de
+Partij van de Wetenschap sticht onder het oog in de driehoek; daartegenover
+stelt de Partij van de Vrijheid een gouden appel. In de tweede wordt Malik
+door Hagbard Celine gedeconditioneerd en ziet hij in zijn ochtendkrant het
+woord fnord staan, dat sinds de eerste schoolklas in zijn hoofd is gelegd om
+lichte, blijvende onrust op te wekken. Daarnaast staat Celines SNAFU-principe:
+communicatie werkt alleen tussen gelijken, dus wie macht heeft hoort op den
+duur niet meer wat er gaande is.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Shea en Wilson keren de samenzweringsroman binnenstebuiten.
+Niet de Illuminati zijn in dit deel het probleem, maar het denkraam waarmee
+mensen naar macht kijken: het onderscheid tussen goed en kwaad wordt hier
+voorgesteld als een uitvinding, bedacht om gehoorzaamheid af te dwingen, en
+elke orde die daarop wordt gebouwd brengt de wanorde voort die zij zegt te
+bestrijden. Het bewijs dat de auteurs daarvoor aanvoeren zit in de vorm. Zij
+stapelen zoveel elkaar tegensprekende samenzweringen op elkaar dat er aan het
+eind geen enkele meer heel te houden is, ook de officiële lezing van de
+geschiedenis niet. Het boek wil dus geen betere verklaring leveren, maar de
+behoefte aan een sluitende verklaring afleren.
+
+#### De gang van het verhaal
+
+**Waar dit deel staat in het geheel**
+
+De vijf boeken van de trilogie heten naar de stadia die de roman aan Adam
+Weishaupt toeschrijft: Verwirrung, Zweitracht, Unordnung, Beamtenherrschaft en
+Grummet, oftewel chaos, tweedracht, verwarring, bureaucratie en nasleep. De
+tien onderdelen daarbinnen heten naar de sefirot. *The Golden Apple* beslaat
+Unordnung, met de zesde afdeling (Tipareth, ‘The Man Who Murdered God’) en de
+zevende (Netzach, ‘The SNAFU Principle’), en opent Beamtenherrschaft met de
+achtste (Hod, ‘Telemachus Sneezed’).
+
+De verteller wisselt zonder aankondiging, soms midden in een zin, en de tijd
+springt tussen 1936, het heden van de roman en dertigduizend jaar geleden. Wie
+deel één niet gelezen heeft, raakt binnen tien bladzijden de draad kwijt. Dat
+is bedoeld, maar het maakt dit deel als losse roman onbruikbaar.
+
+**Het Atlantis-scenario**
+
+Het lange middenstuk is een film die het Erisian Liberation Front aan Joe
+Malik vertoont. Atlantis is er een behaarde, regeringsloze beschaving waarin
+niemand van goed of kwaad heeft gehoord. De onbehaarde mutant Gruad verveelt
+zich met kennis, bedenkt woorden die sterker zijn dan ‘hoort’ en ‘behoort’,
+noemt ze goed en kwaad, en sticht de Partij van de Wetenschap met als teken
+een oog in een driehoek omringd door een slang. Zijn tegenstanders richten de
+Partij van de Vrijheid op onder een gouden appel.
+
+De ruzie loopt uit op straatgevechten en op het loslaten van de lloigor Yog
+Sothoth, een zielenetend wezen dat in een Atlantische vijfhoek opgesloten zat.
+Atlantis gaat ten onder aan een kunstmatig opgewekte zonnevlam. Hier komt de
+titel vandaan, en hier ligt de kern van het betoog: er is wel degelijk een
+zondeval geweest, maar die bestond uit het bedenken van de zonde.
+
+**De fnord**
+
+Na een nacht bij Hagbard Celine ontbijt Malik met de *New York Times* en leest
+achter elke verontrustende zin het woord ‘fnord’. Hij herinnert zich zijn
+onderwijzer in de eerste klas die het woord op het bord schreef terwijl een
+spiraal ronddraaide: wie de fnord niet ziet, kan er niet door opgegeten
+worden. Het aangeleerde patroon is dubbel: eerst schrikken bij het woord, dan
+het gezien hebben vergeten, waarna de onrust aan het nieuws wordt
+toegeschreven.
+
+Malik slaat door naar de advertenties en vindt daar geen enkele fnord. Dat is
+volgens hem het sluitstuk: alleen in kopen valt aan de vage dreiging te
+ontkomen. Van alles wat de trilogie heeft bedacht is dit het onderdeel dat
+buiten het boek is blijven leven.
+
+**Het SNAFU-principe**
+
+De zevende afdeling draait om een verhandeling van Celine, *Never Whistle
+While You're Pissing*. Zij zet het biogram, het erfelijke gedragsplan van de
+soort, tegenover het logogram, het aangeleerde stelsel van verbale gewoonten
+dat een samenleving oplegt. In een gezagssamenleving vallen die twee uiteen.
+Onderaan draagt men de last van niet mogen weten: wat men ziet, ruikt en wil
+doet niet ter zake, alleen het bevel telt. Bovenaan draagt men de omgekeerde
+last van moeten weten, terwijl men gewapend is en dus alleen te horen krijgt
+wat de spreker veilig acht.
+
+Daaruit volgt de stelregel waar de titel op slaat: communicatie is alleen
+mogelijk tussen gelijken. Wie beveelt, snijdt zichzelf af van de informatie
+die hij nodig heeft om goed te bevelen, en raakt steeds verder gedesoriënteerd
+naarmate de wereld verandert en het logogram blijft staan. Het einde is een
+debacle. Dit is het anarchistische hart van de trilogie, hier als
+romanfragment, maar Wilson bleef het buiten zijn romans herhalen.
+
+**Drake, Dillinger en de moordlijn**
+
+Parallel loopt de geschiedenis van Robert Putney Drake, bankierszoon uit
+Boston, die zich in de misdaad inkoopt door aan Federico Maldonado te bewijzen
+dat hij de stervende woorden van Dutch Schultz heeft ontcijferd. In het heden
+wordt senator Edward Coke Bacon in zijn bed doodgeschoten. In Las Vegas zit de
+pooier Carmel op het werk van dr. Charles Mocenigo, die de ziektekiem Anthrax
+Leprosy Pi heeft gemaakt.
+
+Daarboven hangt de crisis om het eiland Fernando Poo, die de grote mogendheden
+naar een kernoorlog duwt. De roman laat alle bekende Amerikaanse moorden en
+rampen op elkaar rijmen zonder er ooit één verklaring voor te kiezen; elk
+verband dat de lezer legt wordt een bladzijde later door een ander verband
+doorkruist.
+
+**Naar Ingolstadt**
+
+De achtste afdeling introduceert Atlanta Hope en haar beweging God's
+Lightning, een burgerwacht die dienstweigeraars opjaagt. Haar heilige boek
+heet *Telemachus Sneezed* en is een onmiskenbare parodie op Ayn Rand, tot en
+met de hoofdletters midden in de zin. De verteller leest het in het vliegtuig
+naar München en merkt op dat hij er tegen wil en dank in wordt meegezogen,
+omdat fictie hem altijd eerst overtuigt en pas achteraf tegenspraak oproept.
+
+Ondertussen stromen honderden bands naar het festival Woodstock Europa aan de
+Totenkopf bij Ingolstadt, de stad waar de Beierse Illuminatenorde in 1776
+werkelijk is gesticht. De band American Medical Association moet er spelen;
+bij het vijfde nummer zou de mensenmassa het legioen onder het meer moeten
+wekken. Het deel eindigt zonder ontknoping. Die staat in *Leviathan*.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| fnord | Woord dat volgens het boek in de eerste schoolklas wordt ingeprent en bij het lezen onbewuste schrik opwekt, waarna de lezer vergeet het gezien te hebben. |
+| SNAFU-principe | Celines stelling dat communicatie alleen tussen gelijken werkt, zodat macht zichzelf blind maakt voor de wereld waarover zij beslist. |
+| biogram en logogram | Het erfelijke gedragsplan van de soort tegenover het aangeleerde stelsel van verbale gewoonten dat een samenleving oplegt. |
+| Gruad of Grayface | De Atlantische mutant die de woorden goed en kwaad bedenkt en daarmee in de Discordiaanse voorgeschiedenis de bron is van alle latere dwang. |
+| gouden appel | Teken van Eris en van de Atlantische Partij van de Vrijheid, tegenhanger van het oog in de driehoek. |
+| lloigor | Zielenetend wezen uit een ander heelal dat op Atlantis in een vijfhoek opgesloten zat; Yog Sothoth is er een van. |
+| Wet van de Vijf | Discordiaanse regel dat alles direct of indirect met het getal vijf te maken heeft, in het boek zelf gehanteerd en ondermijnd. |
+| Unordnung | Derde van de vijf stadia in de illuminatentheorie van de geschiedenis: de mislukte poging om chaos en tweedracht te verzoenen. |
+| Erisian Liberation Front | Discordiaanse groep die haar eigen lezing van de voorgeschiedenis van de Illuminati verspreidt, onder meer met de Atlantis-film. |
+| Telemachus Sneezed | Het boek van Atlanta Hope dat als bijbel dient voor de beweging God's Lightning, geschreven als parodie op Ayn Rands *Atlas Shrugged*. |
+
+#### Waar het argument op rust
+
+Een roman hoeft niets te bewijzen, maar dit boek doet voortdurend alsof het
+documenteert, en dan is de vraag waarop het steunt wel op zijn plaats. Een
+deel van het materiaal bestaat echt. De Beierse Illuminatenorde is in 1776 in
+Ingolstadt gesticht door Adam Weishaupt. *Principia Discordia* van Malaclypse
+the Younger en Lord Omar Khayyam Ravenhurst is een bestaand geschrift, waaruit
+de trilogie ruim citeert. De stenografische opname van de ijlende woorden van
+Dutch Schultz op zijn sterfbed, waar de hele Drake-lijn op draait, is een echt
+politiedocument uit 1935.
+
+Wat de auteurs daarmee doen is iets anders. Echte en verzonnen bronnen staan
+zonder onderscheid door elkaar, compleet met voetnoten naar tijdschriften die
+niet bestaan. Wie wil nagaan wat klopt, moet dat buiten het boek doen; binnen
+het boek is elk gegeven even betrouwbaar en dus even onbetrouwbaar. Wilson
+noemde die werkwijze later guerrilla-ontologie en beschouwde haar als de
+methode zelf, niet als een gebrek eraan. Dat maakt het boek ongeschikt als
+informatiebron en bruikbaar als oefening in wantrouwen.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat het middendeel amper te lezen is. Het perspectief
+kan binnen één alinea drie keer verspringen, personages en eeuwen lopen door
+elkaar, en een groot deel van de grappen veronderstelt kennis van de
+Amerikaanse tegencultuur van omstreeks 1970. Wie de trilogie achter elkaar
+leest, merkt dat juist dit deel het traagst gaat: de opbouw naar Ingolstadt
+beslaat honderden bladzijden waarin het verhaal nauwelijks vordert en de
+Atlantis-film als lange onderbreking blijft staan.
+
+Daarnaast is de behandeling van vrouwen en van seks slecht verouderd. Vrijwel
+elk vrouwelijk personage wordt afgemeten aan beschikbaarheid, en wat als
+bevrijding was bedoeld leest nu als mannenfantasie met een theorie eromheen.
+Het derde bezwaar raakt de opzet zelf. Het boek wil inenten tegen
+goedgelovigheid door alle samenzweringen even aannemelijk te maken, maar
+diezelfde stapel werkt even goed als voorraadkast voor wie juist wil geloven.
+Dat het in latere decennia ook zo is gebruikt weerlegt de bedoeling niet, maar
+het laat zien dat de methode geen ingebouwde rem heeft.
+
+#### Wat je hierna leest
+
+- 915. The Eye in the Pyramid. Het eerste deel zet alle draden uit die hier
+samenkomen; los gelezen is *The Golden Apple* niet te volgen.
+- 917. Leviathan. Het slotdeel geeft de ontknoping en de appendices waarin het
+betoog achter de klucht wordt uitgeschreven.
+- 925. Cosmic Trigger I: Final Secret of the Illuminati. Wilsons verslag van
+de jaren waarin hij aan de trilogie werkte; daar staat wat hij van deze
+denkbeelden zelf meende.
+- 620. Anarchism and Other Essays. Goldman verdedigt hetzelfde anarchisme
+rechtstreeks, zonder de omweg van de grap.
+
+## 917. Leviathan
+
+Robert Shea en Robert Anton Wilson, 1975. *Illuminatus! Part III: Leviathan*
+(Dell, New York, 1975, 255 blz., ISBN 0440047420; latere Dell-pocket ISBN
+0440147425). Slotdeel van de in drieën geknipte trilogie, sinds 1984 vooral te
+krijgen in de verzameluitgave *The Illuminatus! Trilogy* (Dell, New York,
+1984, 805 blz., ISBN 0440539811). De trilogie kreeg in 1986 de Prometheus Hall
+of Fame Award. Er bestaat geen Nederlandse vertaling; de samenvatting is op de
+Engelse editie gebaseerd. Rubriek: roman en memoir.
+Tags: `roman`, `complotdenken`, `anarchisme`, `esoterie`
+
+Slotdeel van *Illuminatus!*. Het bevat het einde van boek vier (de negende
+afdeling, Yesod, ‘Walpurgisnacht Rock’) en het hele boek vijf, Grummet (de
+tiende afdeling, Malkuth, ‘Farewell to Planet Earth’), gevolgd door veertien
+appendices over onder meer de hennepteelt van George Washington, de
+illuminatentheorie van de geschiedenis, privégeld en Operation Mindfuck. Een
+noot meldt dat er oorspronkelijk tweeëntwintig appendices waren en dat er acht
+zijn geschrapt wegens papierschaarste; die zullen in de hemel worden gedrukt.
+
+Het rockfestival bij Ingolstadt loopt af zoals de tegenstanders vreesden, maar
+wat de afloop bepaalt laat het boek onbeslist tussen goochelarij,
+massasuggestie en een verschijning van een godin. Ondertussen ontmoet de
+onderzeeër Leif Erikson het wezen Leviathan: één cel die honderden miljoenen
+jaren is doorgegroeid tot een piramide met een rode kern, het origineel van
+het illuminatensymbool. Het wordt niet bestreden maar gezelschap gegeven. Aan
+het slot blijkt Hagbard Celine zelf de vijfde Illuminatus Primus, en noemt hij
+zijn eigen onderneming mislukt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** In het slotdeel keren Shea en Wilson hun eigen constructie
+om. De samenzwering die achthonderd bladzijden lang is opgebouwd blijkt mede
+geleid door de man die haar de hele tijd bestreed; het monster op de zeebodem
+blijkt niet vijandig maar eenzaam; en de redding komt van een priesteres over
+wie het boek weigert te zeggen of zij tovert of goochelt. Wat overblijft is
+Celines eigen oordeel. Hij noemt de hele onderneming een Demonstratie die is
+mislukt, omdat hij om de wereld te redden achtereenvolgens bedrog, kermismagie
+en moord heeft gebruikt. De strekking is daarmee niet dat de vrijheid wint,
+maar dat wie macht inzet om macht te bestrijden zelf de macht wordt, hoe goed
+zijn bedoelingen ook zijn.
+
+#### De gang van het verhaal
+
+**Wat dit deel bevat**
+
+*Leviathan* is korter aan verhaal dan de twee delen ervoor en langer aan
+betoog. Na de ontknoping in de nacht van 30 april op 1 mei volgt een reeks
+appendices die samen een klein essayboek vormen: over geldstelsels, over
+eigendom bij Proudhon, over de tactiek van magie, over Hagbards aftreden, en
+over de vraag welke personages uit de trilogie op bestaande mensen teruggaan.
+
+De negende afdeling heet ‘Walpurgisnacht Rock’, de tiende ‘Farewell to Planet
+Earth’. Beide titels zijn programmatisch: het boek eindigt met een afscheid
+van de planeet, en met de mededeling van Celine dat het leven op aarde mislukt
+blijft zolang het met de dood eindigt.
+
+**Walpurgisnacht bij Ingolstadt**
+
+Op het festival aan het meer bij Ingolstadt bereidt de familie Saure, de vier
+zichtbare Illuminati Primi, de opwekking voor van de onder water bewaarde
+legioenen. Wolfgang Saure onderhandelt met de lloigor Yog Sothoth, die hem
+verwijt eeuwenlang in de ene vijfhoek na de andere te zijn opgesloten en met
+bewaarde zielen te zijn gevoed in plaats van met verse. Het aanbod is ruw:
+vernietiging van de gouden appel en vrije doortocht voor het leger, in ruil
+voor alle levens die de lloigor zoekt.
+
+Tegenover die opzet staat Miss Portinari, aan wie Hagbard Celine eerder zijn
+gezag heeft overgedragen, met een tegenritueel. Wat er dan precies gebeurt,
+houdt het boek open.
+
+**Een afloop met drie lezingen**
+
+De lezer krijgt dezelfde gebeurtenis meermalen en telkens anders. Lady Velkor
+ziet met haar eigen ogen de Grote Moeder Isis opstaan en de opgewekte doden
+neerslaan, en weet zeker dat Celine de eer later aan Eris zal toeschrijven.
+Celines eigen mensen zorgen ondertussen met een geprepareerde envelop dat
+Atlanta Hope en Zev Hirsch de schuld krijgen. Een derde lezing luidt dat er
+niets bovennatuurlijks is gebeurd en dat de hele verschijning toneel was.
+
+Er wordt nooit gekozen. Dat procedé loopt door de hele trilogie, maar hier is
+het zonder rem doorgevoerd: op de belangrijkste bladzijde van het boek
+weigeren de auteurs te zeggen wat er gebeurde.
+
+**Leviathan**
+
+De tweede climax speelt onder water. De sprekende bruinvis Howard waarschuwt
+dat het wezen de onderzeeër kan openbreken zoals een meeuw een ei. Wat de
+bemanning ziet is een driehoek met een rode kern, ver in de diepte: één enkele
+cel die nooit deelde en miljarden jaren doorgroeide tot piramidevorm, omdat
+die vorm de druk op de bodem het beste doorstaat. Rond het wezen hangt een
+wolk van parasitaire levensvormen die van het licht van zijn kern leven.
+
+De oplossing komt niet uit een wapen. George Dorn begrijpt dat een wezen voor
+wie een miljoen jaar als een jaar is, aan eenzaamheid lijdt zoals een mens aan
+een half uur ervan. De scheepscomputer FUCKUP wordt aan Leviathan gegeven; de
+laatste bladzijden van de trilogie worden verteld door de twee samen, die zich
+‘Mr. and Mrs. Leviathan-FUCKUP’ noemen.
+
+**De vijfde Illuminatus Primus**
+
+In het slotgesprek dringt tot George Dorn door dat Celine zelf de vijfde
+Illuminatus Primus is en de andere vier van binnenuit heeft ondermijnd. Celine
+bevestigt het met de zin dat elke gouden appel zijn eigen gouden worm heeft
+die hem van binnenuit opeet.
+
+Wat volgt is de eerlijkste bladzijde van het boek. Zijn hele optreden was een
+Demonstratie, bedoeld om te laten zien dat men in de wereld kan ingrijpen
+zonder door haar misdaden te worden aangetast. Die Demonstratie is mislukt:
+hij heeft achtereenvolgens misleid, met kermismagie indruk gemaakt op de
+goedgelovigen en ten slotte gemoord. Op de vraag of het verhaal dan een
+tragedie is, antwoordt hij bevestigend, en kondigt hij zijn volgende plannen
+aan, een sterrenschip en een pil tegen de dood.
+
+**De appendices**
+
+Achterin staat wat de trilogie zonder personages beweert. De theorie van de
+geschiedenis is een parodie op Hegel en Marx: aan these, antithese en synthese
+worden parenthese en paralyse toegevoegd, waarbij bureaucratie het stadium is
+waarin niemand nog verantwoordelijk kan worden gehouden omdat alles in
+commissies wordt besloten.
+
+De geldappendix onderscheidt flaxscrip, privégeld zonder rente, van hempscrip,
+geld met negatieve rente naar het model van Silvio Gesell, waarbij de uitlener
+de lener betaalt om het weg te nemen. De eigendomsappendix ontleedt de drie
+tegenstrijdige uitspraken van Proudhon door eigendom uiteen te leggen in bezit
+dat mensen vrijwillig zouden erkennen en aanspraken die alleen met
+staatsgeweld overeind blijven. En de appendix over Operation Mindfuck
+beschrijft de tactiek die de trilogie zelf toepast: zoveel geloofwaardige
+onzin verspreiden dat gezag zijn geloofwaardigheid verliest.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Illuminati Primi | De vijf hoogste leden van de orde; vier daarvan zijn de familie Saure, de vijfde blijkt Hagbard Celine te zijn. |
+| Leviathan | Eencellig zeewezen dat miljarden jaren doorgroeide tot een piramide met een gloeiende kern, volgens het boek het origineel van het oog in de driehoek. |
+| FUCKUP | First Universal Cybernetic-Kinetic-Ultramicro-Programmer, de scheepscomputer van de Leif Erikson, die zijn uitkomsten mede baseert op een gegooid I Tjing-hexagram. |
+| Demonstratie | Celines poging aan te tonen dat men in de wereld kan ingrijpen zonder door de misdaden van die wereld te worden aangetast. |
+| Operation Mindfuck | Discordiaanse tactiek om gezag te ondermijnen door zoveel geloofwaardige valse informatie te verspreiden dat niemand nog weet wat waar is. |
+| Grummet | Vijfde en laatste stadium in de illuminatentheorie van de geschiedenis, de nasleep waarin de bureaucratie in haar eigen papier stikt. |
+| hempscrip | Geld met negatieve rente naar het voorstel van Silvio Gesell, in de appendix gezet tegenover flaxscrip, privégeld zonder rente. |
+| Malkuth | Tiende sefira en laatste afdeling van de trilogie, het koninkrijk, hier onder de kop ‘Farewell to Planet Earth’. |
+| lloigor | Zielenetend wezen uit een ander heelal; Yog Sothoth handelt hier met de Illuminati over levens in ruil voor doorgang. |
+
+#### Waar het argument op rust
+
+Het toetsbare deel van het boek staat in de appendices. De geldbeschouwing
+verwijst naar bestaande zaken: de renteloze leningen van de dominicaanse Banks
+of Piety, de negentiende-eeuwse Amerikaanse pogingen tot eigen munt van Josiah
+Warren, William Greene en Lysander Spooner, en het geld met negatieve rente
+van Silvio Gesell. De eigendomsappendix leest Proudhon nauwkeurig genoeg:
+diens drie uitspraken over eigendom als diefstal, als vrijheid en als
+onmogelijkheid slaan werkelijk op verschillende dingen. De appendix over de
+hennepteelt van George Washington gebruikt een juist gegeven op suggestieve
+wijze.
+
+Waar het boek zwak staat, is bij de scheiding tussen citaat en verzinsel. Shea
+en Wilson putten aantoonbaar uit bestaande literatuur over de Beierse
+Illuminaten, de vrijmetselarij en de moord op Kennedy, maar zij markeren
+nergens wat waar is. Een appendix beweert zelf dat acht andere appendices in
+de hemel zullen verschijnen. De Prometheus Hall of Fame Award die de trilogie
+in 1986 kreeg is een prijs voor de libertarische strekking, geen keurmerk voor
+de feiten.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar geldt de ontknoping. Na achthonderd bladzijden opbouw
+wordt de wereld gered door een verschijning waarvan het boek zelf zegt dat zij
+misschien niet echt is, en wordt het zeemonster onschadelijk gemaakt door het
+een computer cadeau te doen. Als grap is dat te volgen, maar het ontslaat de
+auteurs van de plicht ook maar iets van hun eigen constructie te laten
+kloppen. De metafictie werkt daarbij als vluchtweg: zodra personages opmerken
+dat zij in een boek staan, hoeft niets meer te worden verantwoord.
+
+Celines slotbekentenis draagt bovendien minder dan zij lijkt. Hij geeft toe
+dat zijn middelen hem hebben aangetast, maar het boek laat hem daarna zonder
+gevolgen vertrekken naar een sterrenschip en een onsterfelijkheidspil. Het
+anarchisme dat de appendices verdedigen wordt in het verhaal nergens beproefd;
+het wordt beweerd terwijl de held precies doet wat de theorie afkeurt. En de
+laatste honderd bladzijden vragen een lezer die bereid blijft de grap mee te
+maken. Wie dat niet is, houdt een reeks losse invallen over.
+
+#### Wat je hierna leest
+
+- 916. The Golden Apple. Het deel ervoor bouwt op wat hier wordt afgebroken;
+de twee zijn oorspronkelijk één boek.
+- 925. Cosmic Trigger I: Final Secret of the Illuminati. Wilson beschrijft
+dezelfde denkbeelden als eigen ervaring, wat laat zien hoe serieus de klucht
+bedoeld was.
+- 926. The Illuminati Papers. Verzamelde stukken waarin Wilson de standpunten
+uit de appendices buiten de roman herhaalt en verdedigt.
+- 623. Anarchy, State, and Utopia. Nozick stelt met tegenovergestelde middelen
+dezelfde vraag: hoeveel staat is er nodig en waaraan ontleent die zijn recht.
+
+## 918. The Universe Next Door
+
+Robert Anton Wilson, 1979. *Schrödinger's Cat: The Universe Next Door* (Pocket
+Books, New York, 1979, 256 blz., ISBN 0671821148). Eerste deel van een
+drieluik; sinds 1988 vrijwel alleen te krijgen in de verzameluitgave
+*Schrödinger's Cat Trilogy* (Dell, New York, 1988, 558 blz., ISBN 0440500702),
+waarvoor Wilson een korte voorrede en een verklarende woordenlijst van
+kwantumbegrippen schreef. Er bestaat geen Nederlandse vertaling; de
+samenvatting is op de Engelse editie gebaseerd. Wel bestaat een Duitse
+vertaling, *Schrödingers Katze*. Rubriek: roman en memoir.
+Tags: `roman`, `kwantumfysica`, `satire`, `bewustzijn`
+
+Eerste deel van het drieluik dat Wilson na *Illuminatus!* schreef, met een
+deel van dezelfde personages. Elk deel is gebouwd op een andere lezing van de
+kwantummechanica; dit deel op het model van Everett, Wheeler en Graham, waarin
+alles wat kan gebeuren ook gebeurt, in een andere tak. De verteller is een
+archivaris uit een verre toekomst die de mensheid van de jaren tachtig
+behandelt als een diersoort: gedomesticeerde primaten op een planeet waar de
+zespotigen in de meerderheid zijn.
+
+Het land heet Unistat. Een groep die zich Purity of Essence noemt bouwt
+kernbommen van verdwenen plutonium en een instructieblad dat anarchisten als
+grap hebben rondgestuurd. Columnist Benny Benedict schrijft een stuk over de
+maand die nog rest tot 1984 en zet daarmee een landelijke stemming aan. De
+dwerg Markoff Chaney voert een eenmansoorlog tegen het gemiddelde door valse
+bedrijfsmededelingen op te hangen. En dr. Frank Dashwood doet aan Orgasm
+Research, waar een afgesneden lichaamsdeel zoekraakt dat vervolgens door het
+hele boek blijft rondzwerven.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Wilson beweert in dit boek dat wat mensen ‘de wereld’ noemen
+een reality tunnel is, een doorgang die het zenuwstelsel van een primaat uit
+een oneindig veel groter geheel snijdt, en dat de kwantummechanica daar een
+natuurkundige in plaats van een louter psychologische lezing aan geeft. Als de
+toestandsvector werkelijk niet in één uitkomst instort, dan bestaan alle
+versies van Unistat naast elkaar en is het verschil tussen de nachtmerrie en
+de goede afloop geen zedelijk verschil maar een kwestie van in welke tak men
+zich bevindt. Het boek voert dat niet aan als stelling maar als vorm: het
+weigert één doorlopende werkelijkheid vast te houden, en laat personages
+sterven, terugkeren en van geslacht wisselen zonder verklaring.
+
+#### De gang van het verhaal
+
+**Een vervolg dat geen vervolg is**
+
+Markoff Chaney, Simon Moon, de Discordianen en de familie Malik komen terug
+uit *Illuminatus!*, maar het verhaal loopt niet door. Wilson bouwt zijn boek
+in twee delen, met de titels ‘Purity of Essence’ en ‘The Universe Next Door’,
+en onderbreekt de vertelling voortdurend met stukjes uit de ‘Galactic
+Archives’.
+
+Die archieven leveren ook de zelfspot. Een van de eerste dienstmededelingen
+beweert dat het manuscript oorspronkelijk *The Universe Next Door* heette, dat
+verschillende redacteuren er een psychose van kregen en dat uitgevers voortaan
+elk pakket met die titel ongeopend terugstuurden. Ook wordt beweerd dat een
+deel van de tekst door een hondachtige intelligentie uit het stelsel van
+Sirius is gedicteerd. Wat volgt staat dus vanaf bladzijde tien onder
+voorbehoud.
+
+**Unistat en de gedomesticeerde primaten**
+
+De vertelstem beschrijft mensen consequent als apen die zich hebben laten
+temmen. Zij markeren hun gebied met uitscheiding, en daarom is het ergste dat
+zij elkaar kunnen noemen een verwijzing daarnaar. Zij weten niet dat zij
+primaten zijn en schrikken daarom van hun eigen gedrag. De beslissing om
+wapens te bouwen die al het leven kunnen uitroeien is genomen door een handvol
+alfamannetjes; de zespotige meerderheid is er niet in gekend.
+
+Op de voorgrond schrijft Benny Benedict zijn column ‘One Month to Go’, waarin
+hij de wereld van december 1983 naast het boek van Orwell legt. De zin wordt
+binnen tien dagen een gevleugeld woord in het hele land. Dat is de manier
+waarop Wilson zijn samenleving toont: niet door haar te beschrijven, maar door
+te laten zien hoe snel een formulering zich verspreidt.
+
+**Het verdwenen plutonium**
+
+De hoofdintrige begint bij plutonium dat halverwege de jaren zeventig
+zoekraakte en waarover men na een paar jaar ophield zich zorgen te maken. Een
+Chicagose groep die zich de Nihilist Anarchist Horde noemt verstuurt vier jaar
+lang een gestencild vel met de titel ‘A Simple Atomic Bomb for the Home
+Craftsman’ naar de meest verbitterde mensen die zij kan vinden, als grap en
+waarschuwing tegelijk, en weigert onder ogen te zien dat het ook een
+aansporing is. Er raken naar schatting tien miljoen kopieën in omloop.
+
+Een daarvan bereikt Purity of Essence. Aan het eind ligt er een brief bij het
+Witte Huis en alle grote media: vijfhonderd tactische kernbommen liggen
+verspreid over het land, morgenmiddag gaat de eerste af, en de eis is dat de
+president alle vermogens boven een miljoen dollar verbeurd verklaart.
+
+**Markoff Chaney, de verborgen variabele**
+
+Het deel dat de sterkste komische lijn draagt gaat over Markoff Chaney, een
+dwerg die tijdens een wiskundecollege in Berkeley hoort dat een reeks
+samenhangende gebeurtenissen in een toevalsproces een Markov-keten heet, en op
+dat moment de oorlog verklaart aan het gemiddelde. Hij noemt het de dwerg
+tegen de cijfers.
+
+Zijn methode is het vervalsen van bedrijfsmededelingen. Hij verbergt zich in
+een winkel tot sluitingstijd en hangt een licht gewijzigde versie van het
+personeelsreglement op, ondertekend met ‘The Mgt.’ Later keert hij relais in
+verkeerslichten om. Wilson gebruikt hem als de verborgen variabele uit de
+natuurkunde: de factor buiten het model die de uitkomst toch bepaalt, en die
+per definitie niet in de statistiek zichtbaar wordt.
+
+**Orgasm Research en het rondzwervende orgaan**
+
+De tweede helft draait om het instituut van dr. Frank Dashwood, dat de
+menselijke orgasme onderzoekt met de apparatuur en de ernst van een
+deeltjesversneller. Daarheen is het geslachtsdeel gebracht dat bij de operatie
+van Epicene Wildeblood is weggenomen; het wordt gestolen door een
+rockmuzikant, in een steeg gegooid, door een kat naar huis gesleept, door een
+roddelcolumnist te gelde gemaakt en ten slotte door een erfgename van een
+oorlogsmisdadiger gekocht.
+
+Het is een grove grap, maar hij doet werk. De handeling van het boek wordt
+niet gedreven door iemand die iets wil, maar door een voorwerp dat van hand
+tot hand gaat en waar niemand macht over heeft. Daarnaast lopen kleinere
+lijnen: de Fortean club rond de Mad Fishmonger, die in 1881 in Worcester
+kreeften en alikruiken over de straten uitstrooide, en de huurmoordenaar
+Starhawk, die zich uit een dubbelspel redt door de opdrachtgever de waarheid
+te vertellen.
+
+**Wat het slot niet oplost**
+
+In de laatste bladzijden blijkt de president van Unistat, Furbish Lousewart V,
+niet meer wie hij was. Zijn bewustzijn is verwisseld met dat van Hassan i
+Sabbah X, leider van een radicale zwarte sekte, en hetzelfde is met de
+vicepresident en een adviseur gebeurd. Zij zitten nu met het ultimatum en met
+het land.
+
+Hun besluit is de eis maar in te willigen: het geld verdelen, wat toch al hun
+bedoeling was. Op de tegenwerping dat zij nog voor het eind van de dag
+vermoord zullen zijn, antwoordt Hassan dat zij het kunnen proberen, en voegt
+de boeddhist Ped Xing eraan toe dat er vele bewustzijnstoestanden en heelallen
+zijn en dat zij elders verder gaan als het hier niet lukt. Het boek eindigt
+dus niet, het schakelt over.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| reality tunnel | Wilsons term voor het beperkte beeld van de werkelijkheid dat een zenuwstelsel plus opvoeding samen toelaten. |
+| gedomesticeerde primaat | Vaste aanduiding voor de mens in dit boek, bedoeld om gedrag ethologisch te lezen in plaats van moreel. |
+| Unistat | De Verenigde Staten van de roman, beschreven in de taal van een toekomstige archivaris die het land als een uitgestorven rijk behandelt. |
+| Purity of Essence | Groep die verdwenen plutonium tot kernbommen verwerkt om herverdeling van vermogen af te dwingen; afgekort tot POE. |
+| verborgen variabele | Kwantumtheorie van David Bohm waarin een onderliggend stelsel de uitkomst bepaalt; in de roman de rol van Markoff Chaney. |
+| eigenstate | Een van de toestanden waarin een kwantumsysteem zich kan bevinden; personages wisselen in dit boek van eigenstate zoals anderen van kamer wisselen. |
+| Everett-Wheeler-Graham-model | Lezing van de kwantummechanica waarin alles wat met de toestandsvector kan gebeuren ook gebeurt; het bouwplan van dit deel. |
+| The Mgt. | Handtekening waarmee Markoff Chaney zijn vervalste bedrijfsmededelingen ondertekent, het naamloze gezag in persoon. |
+| Galactic Archives | Onderbrekende stukjes waarin een verteller uit de verre toekomst de gebeurtenissen van een verklaring voorziet die zelf niet te vertrouwen is. |
+
+#### Waar het argument op rust
+
+De natuurkunde in het boek is geen sier. Achterin staat een woordenlijst die
+de stelling van Bell, de Kopenhaagse lezing, het effect van Einstein, Rosen en
+Podolsky, het model van Everett, Wheeler en Graham en de verborgen variabele
+van Bohm correct en beknopt uitlegt, met namen van levende natuurkundigen
+erbij: John Bell, David Bohm, Nick Herbert, Jack Sarfatti, Evan Harris Walker.
+Ook de Forteaanse inzetjes gaan op werkelijk opgetekend materiaal terug; de
+regen van kreeften en alikruiken in Worcester in 1881 staat bij Charles Fort.
+
+De stap die Wilson daarna zet is geen natuurkunde meer. Van ‘de vergelijkingen
+beschrijven niet één uitkomst’ naar ‘waar men in gelooft bepaalt in welke
+wereld men leeft’ zit een sprong die geen van de genoemde natuurkundigen
+maakt, en die de woordenlijst zelf ook niet maakt. Wilson gebruikt de
+onenigheid tussen de lezingen als vrijbrief: omdat de vakmensen het oneens
+zijn, mag hij kiezen wat hem uitkomt. Het boek is daarmee wel eerlijk, want
+het geeft de lezer het gereedschap om de sprong te zien.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar betreft de seksuele stof. Wilsons parodie op de
+seksuologie van de jaren zeventig is onophoudelijk en het grootste deel ervan
+leest nu als grofheid met een theorie eromheen. Het personage Epicene
+Wildeblood, dat na een geslachtsoperatie het boek binnenkomt, wordt vooral
+gebruikt als aanleiding voor een lopende grap over het weggenomen orgaan. Wat
+als bevrijding werd gepresenteerd is in de praktijk de blik van de auteur op
+zijn personages.
+
+Daarnaast verklaart het primatenkader te veel. Zodra elke daad valt onder
+gedrag van gedomesticeerde primaten, verdwijnt het verschil tussen een
+bomaanslag en een krantencolumn, en kan het boek niet meer uitleggen waarom
+het ene erger is dan het andere; het blijft toch een keuze maken, zonder daar
+recht op te hebben. Ten slotte is de kwantumlaag als bouwplan minder dragend
+dan zij lijkt. Wie de woordenlijst en de verwijzingen weghaalt, houdt een
+satire over die precies zo zou werken, met alleen het verlies dat de sprongen
+in de vertelling dan onverklaard blijven in plaats van onverklaarbaar.
+
+#### Wat je hierna leest
+
+- 919. The Trick Top Hat. Het tweede deel gebruikt hetzelfde gezelschap in een
+heelal waar de politiek juist wel deugt; samen vormen zij het echte argument.
+- 916. The Golden Apple. De trilogie waar dit boek uit voortkomt, met dezelfde
+personages en dezelfde manier om verhaallijnen te laten botsen.
+- 930. Quantum Psychology. Wilson zet daar zonder verhaal uiteen wat hij hier
+in beeld brengt: kwantumbegrippen toegepast op waarneming en taal.
+- 650. Quantum Mechanics and Experience. Albert legt uit waar de lezingen van
+de kwantummechanica werkelijk over verschillen, en waar Wilsons gebruik ervan
+ophoudt te kloppen.
+
+## 919. The Trick Top Hat
+
+Robert Anton Wilson, 1980. *Schrödinger's Cat II: The Trick Top Hat* (Pocket
+Books, New York, 1980, 254 blz., ISBN 0671821180). Tweede deel van een
+drieluik; sinds 1988 vooral te krijgen in de verzameluitgave *Schrödinger's
+Cat Trilogy* (Dell, New York, 1988, 558 blz., ISBN 0440500702). Er bestaat
+geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.
+Een Duitse vertaling verscheen als *Der Zauberhut*. Rubriek: roman en memoir.
+Tags: `roman`, `kwantumfysica`, `utopie`, `satire`
+
+Tweede deel van het drieluik, met grotendeels dezelfde personages als het
+eerste, maar in een ander heelal. Waar deel één op de vele werelden van
+Everett was gebouwd, is dit deel gebouwd op niet-lokaliteit: wie elkaar ooit
+heeft gekruist blijft aan elkaar verbonden, hoe ver uiteen ook. Unistat wordt
+hier geregeerd door Eve Hubbard, en het land loopt niet af op een ramp maar op
+iets wat Wilson zelf een goede afloop noemt.
+
+Haar programma heet de RICH-economie, naar rising income through cybernetic
+homeostasis. Wie een machine ontwerpt die zijn eigen baan overneemt krijgt
+vijftigduizend dollar per jaar; wie door zo'n machine wordt vervangen
+dertigduizend. Daarnaast komt er een landelijk dividend, uitgekeerd in
+tegoedbewijzen, en groeit het volwassenenonderwijs uit tot de snelst
+uitdijende bedrijfstak van het land. Haar wetboek deelt misdaad in drie
+soorten in, en voor de derde soort is er de Hel, die de staat Mississippi
+blijkt te zijn met een laserscherm eromheen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Dit is Wilsons utopie, en zij is economisch van aard in
+plaats van geestelijk. De redenering luidt dat schaarste in een land dat
+machines kan bouwen geen natuurgegeven meer is maar een beleidskeuze, en dat
+de enige overgebleven vraag is wie de opbrengst krijgt wanneer het werk
+verdwijnt. Het antwoord van president Hubbard is de gedachte om te weigeren
+omdraaien: zij betaalt mensen om hun eigen baan af te schaffen, en zij betaalt
+degenen die erdoor overbodig worden genoeg om zonder werk te leven. Wilson
+weet dat dit als propaganda klinkt en houdt zijn utopie daarom zichtbaar onaf:
+er zit een hel in, gemaakt van een bestaande Amerikaanse staat, en die hel
+wordt niet weggeredeneerd.
+
+#### De gang van het verhaal
+
+**Hetzelfde gezelschap, een andere tak**
+
+Het boek bestaat uit twee delen en wordt net als het vorige onderbroken door
+berichten uit de ‘Galactic Archives’. De personages keren terug, maar met een
+ander verleden: dr. Frank Dashwood leidt weer zijn instituut voor
+orgasmeonderzoek, Justin Case schrijft weer over muziek, Blake Williams
+verveelt weer gezelschappen met een lezing, Markoff Chaney is nog dezelfde
+verbitterde grappenmaker.
+
+Het bouwplan is de stelling van Bell. Wat ooit contact heeft gehad blijft
+samenhangen, ook op afstand, en Wilson laat dat in de vertelling gebeuren:
+mensen die elkaar één keer hebben ontmoet blijken elkaars afloop te bepalen
+zonder dat er een verband aan te wijzen valt.
+
+**De RICH-economie**
+
+Het uitvoerigst uitgewerkte hoofdstuk is een archiefstuk over de invoering van
+de RICH-economie. De vakbonden vallen uiteen zodra de premie van
+vijftigduizend dollar wordt aangekondigd: wie onder de twintigduizend verdient
+vindt het een goed plan, de bestuurders houden vast aan de aangeleerde reflex
+dat werk goed is en werkloosheid slecht.
+
+Voor de tegenstand van rechts kiest Hubbard een andere weg. Zij probeert de
+denkers niet te overtuigen maar nodigt de bedrijfstop uit voor een reeks
+presentaties met acht punten: een machine werkt vierentwintig uur in plaats
+van acht, meldt zich niet ziek, komt niet te laat, sticht geen vakbond, neemt
+geen vakantie, koestert geen wrok, en de automatisering komt er hoe dan ook;
+bovendien heeft een land met stijgende productie kopers nodig, en wie van de
+bijstand leeft koopt weinig. Terwijl de directeuren nog onderling ruziën of
+het klopt, haalt het wetsvoorstel het Congres.
+
+Binnen een jaar meldt zich het eerste geval van de nieuwe klasse: Starhawk,
+een Cherokee draaibankwerker uit Tucson, die zichzelf uit vijf fabrieksbanen
+wegontwierp, tweehonderdvijftigduizend dollar per jaar ontvangt en gaat
+schilderen. De meerderheid van de werklozen drinkt, blowt en kijkt televisie.
+Op het verwijt dat dit geen menswaardig bestaan is antwoordt Hubbard met de
+vraag wat voor bestaan het werk was dat een machine beter doet.
+
+**Code Hubbard en de Hel**
+
+De rechtsherziening deelt misdaad in drie soorten in. Wat alleen tegen de
+zeden ingaat wordt niet gestraft; er komt pas een gesprek na een klacht van
+minstens honderd buren, en dat gesprek eindigt meestal met het advies aan de
+buren zich met hun eigen zaken te bemoeien. Vermogensdelicten heten onjuiste
+economie: de staat vergoedt het slachtoffer en de dader werkt de schuld af
+tegen half loon.
+
+Geweld levert verbanning op naar de Hel, en die is de staat Mississippi,
+omsloten door een laserscherm waar niemand doorheen komt. Binnen dat scherm
+ontstaan binnen korte tijd leenheerschap, zeeroverij, slavernij en oorlog. Een
+deel van de bewoners is er vrijwillig heen verhuisd, waaronder de Ku Klux
+Klan, de Black Panthers, de Amerikaanse nazipartij en de Hell's Angels. Het
+devies van het gebied luidt dat de hel de hemel is. Wilson laat de grap staan
+zonder haar te verzachten, en dat is het punt waarop zijn utopie het meest
+wringt.
+
+**HEAD, FOREVER en de ruimtesteden**
+
+Naast de economie loopt een tweede lijn: de HEAD-revolutie, van hedonic
+engineering and development, het leren gebruiken van het eigen brein. Er is
+een pil tegen veroudering, FOREVER geheten, en er zijn ruimtesteden op het
+punt L5, waar de industrie naartoe verhuist zodat de aarde park kan worden.
+Een deel van de nieuwe vrijgestelden studeert door en vertrekt daarheen; de
+verteller noemt dat het begin van het uitzwermen.
+
+Dit materiaal komt zichtbaar uit Wilsons omgeving. De circuitpsychologie is
+die van Timothy Leary, met wie hij jarenlang optrok, en de ruimtesteden op L5
+komen uit de plannen van de natuurkundige Gerard O'Neill, die in die jaren
+serieus werden besproken.
+
+**De laag eronder**
+
+Onder de utopie loopt een reeks kleinere verhalen die haar ondergraven.
+Dashwood onderzoekt de orgasme met de ernst van een deeltjesfysicus. De magiër
+Hugh Crane, die optreedt als Cagliostro the Great, verdwijnt in Chinatown en
+laat een man achter die beweert hem te hebben vermoord terwijl er geen lijk is
+en geen kogelgat in de gevonden kleren. Clem Cotex bestelt voor vijf dollar
+een bandje over de occulte techniek van het geld en is intussen scientoloog,
+solipsist en logisch positivist geweest.
+
+Die verhalen dienen als tegenwicht. Zolang de politiek in dit heelal werkt,
+laat Wilson zien dat mensen daarmee nog niet weten wie zij zijn.
+
+**De landing en de hoge hoed**
+
+Op 24 december 1983 wordt Justin Case midden in Central Park uit een vliegende
+schotel gezet met de mededeling dat het tijd is dat zijn soort zich bij de
+galactische gemeenschap voegt. Bij de eerste kiosk leest hij de kop over
+massale landingen over de hele wereld. Enkele maanden later verklaart een
+psychiatrisch vakblad de golf van waanvoorstellingen uit het gegeven dat het
+onbewuste geen verschil maakt tussen hoge verwachtingen en hoge angst; een
+maand daarna trekt hetzelfde blad die verklaring half terug.
+
+De archivaris geeft de andere lezing. In 1984 ging bij de mensheid een
+neurologisch vermogen open dat tot dan toe alleen bij ongeluk werkte, en zag
+men opeens alle mogelijke werkelijkheden tegelijk zonder de begrippen te
+hebben om dat te benoemen. De hoge hoed van de goochelaar, die leeg lijkt en
+toch alles voortbrengt wat de goochelaar wil, blijkt daarvan het oude
+zinnebeeld: geen truc met een konijn, maar een beeld van het brein.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| RICH-economie | Rising income through cybernetic homeostasis: premie voor wie de machine ontwerpt die zijn eigen baan overneemt, plus een inkomen voor wie daardoor vrijkomt. |
+| trade aids | Naam voor de tegoedbewijzen waarin het landelijk dividend wordt uitgekeerd, gekozen om het bankwezen niet met het woord geld voor het hoofd te stoten. |
+| Code Hubbard | Het herziene strafrecht dat misdaad in drie soorten verdeelt: zedendelicten zonder slachtoffer, vermogensdelicten en geweld. |
+| de Hel | De staat Mississippi achter een laserscherm, waarheen geweldplegers onherroepelijk worden verbannen en waar zij hun eigen leenstelsel opbouwen. |
+| HEAD-revolutie | Hedonic engineering and development, het leren bedienen van het eigen zenuwstelsel, in de roman de voorwaarde voor de sprong de ruimte in. |
+| FOREVER | De eerste pil tegen veroudering, die in het boek de levensduur oprekt en daarmee ook het strafrecht en de arbeidsmarkt verandert. |
+| biot | Woord waarmee de archivaris mensen aanduidt wanneer hij hun gedrag als geprogrammeerd wil laten zien. |
+| Trick Top Hat | De hoge hoed van de goochelaar, die leeg lijkt en toch alles voortbrengt; in het boek het beeld voor het menselijk brein. |
+| niet-lokaliteit | De samenhang tussen deeltjes die ooit contact hadden, ongeacht afstand; het bouwplan van dit deel. |
+
+#### Waar het argument op rust
+
+De onderdelen van het voorstel bestonden al buiten de roman. Een gegarandeerd
+inkomen was in de jaren zeventig een levend politiek debat in de Verenigde
+Staten, de ruimtesteden op het punt L5 komen uit de plannen van de
+natuurkundige Gerard O'Neill, en de circuitpsychologie waarmee Wilson het
+menselijk brein indeelt is die van Timothy Leary, met wie hij jarenlang
+samenwerkte. De grondgedachte dat automatisering de winst en het werk uit
+elkaar trekt, is bovendien niet weerlegd; zij is sinds 1980 alleen scherper
+geworden.
+
+Wat het boek als betoog niet levert, is een toets. De bedragen worden genoemd,
+niet berekend. De vraag hoe een land dat honderd miljoen mensen dertigduizend
+dollar per jaar betaalt dat opbrengt, wordt beantwoord met de opmerking dat de
+productie stijgt. De overgangsjaren worden afgehandeld in een alinea waarin
+het Congres het voorstel aanneemt terwijl de tegenstanders nog aan het ruziën
+zijn. Als roman mag dat; als argument is het de zwakste plek, en Wilson weet
+dat, want hij laat het door een archivaris vertellen die zelf onbetrouwbaar is
+verklaard.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is de Hel. Wilson wil straf afschaffen en houdt
+vervolgens een onherroepelijke gevangenis over, verpakt als grap over
+Mississippi, met een terloopse zin over de oorspronkelijke bewoners die elders
+zijn ondergebracht. Dat is precies het bestuurlijke geweld dat het boek elders
+aanwijst, hier voor de lach opgevoerd. Wie de utopie serieus neemt, moet dus
+vaststellen dat zij haar eigen uitgangspunt niet aankan zodra er geweld in het
+spel is.
+
+Het tweede bezwaar is dat de utopie draait op een president die goed, slim en
+zonder noemenswaardige tegenstand is. Het politieke probleem dat het boek zegt
+op te lossen, namelijk hoe zulke voorstellen door een echte machtsverhouding
+heen komen, wordt opgelost door een besluit van de auteur. Daarbij komt dat
+dit het minst gebeurtenisrijke deel van het drieluik is: lange stukken zijn
+essays waar een personagenaam boven staat, en de romanhandeling die er wel is,
+is dunner dan in de twee andere delen.
+
+#### Wat je hierna leest
+
+- 918. The Universe Next Door. Het eerste deel toont hetzelfde gezelschap in
+een heelal dat op een ramp afloopt; het verschil tussen beide is het
+eigenlijke betoog.
+- 920. The Homing Pigeons. Het derde deel sluit het drieluik af met een derde
+lezing van de kwantummechanica en dezelfde personages.
+- 928. Prometheus Rising. Daar zet Wilson de circuitpsychologie van Leary
+uiteen die achter de HEAD-revolutie in dit boek zit.
+- 623. Anarchy, State, and Utopia. Nozick redeneert precies andersom over
+herverdeling; naast deze utopie gelezen legt dat de aannames van beide bloot.
+
+## 920. The Homing Pigeons
+
+Robert Anton Wilson, 1981. *Schrödinger's Cat III: The Homing Pigeons* (Pocket
+Books, New York, 1981, 206 blz., ISBN 0671821199; Britse editie Sphere,
+Londen, 1982, 207 blz., ISBN 0722192282). Het deel is later opgenomen in de
+omnibus *Schrödinger's Cat Trilogy* (Dell, New York, 1988, 560 blz., ISBN
+9780440500704), waarin passages uit de eerste druk zijn geschrapt; de latere
+uitgaven volgen die omnibus. Er is een Duitse vertaling, *Die Brieftauben*
+(Rowohlt, Reinbek, 1985). Er bestaat geen Nederlandse vertaling; de
+samenvatting is op de Engelse editie gebaseerd. Rubriek: roman en memoir.
+Tags: `roman`, `satire`, `kwantumfysica`, `complotdenken`
+
+Derde en laatste deel van de reeks die Wilson rond Schrödingers kat schreef.
+De drie boeken spelen in Unistat, een spiegelversie van de Verenigde Staten,
+met grotendeels dezelfde personen, en elk deel voert een andere lezing van de
+kwantummechanica door. In *The Universe Next Door* is dat het model van de
+vele werelden, in *The Trick Top Hat* de niet-lokaliteit van Bell, en hier het
+door de waarnemer geschapen heelal, waarin pas een waarneming de golffunctie
+vastlegt. Wilson laat dat niet op deeltjes maar op personen slaan: wie zijn
+hoofdpersoon Frank Dashwood voor George Dorn houdt, maakt hem tot George Dorn.
+
+Het boek is kort, ongeveer tweehonderd bladzijden, en in een voorwoord
+schrijft Wilson dat de drie delen in elke volgorde te lezen zijn. De
+verhaallijnen lopen dwars door elkaar heen: een seksonderzoeker in San
+Francisco, een politieonderzoek naar verdwenen hersenen, een genootschap dat
+volhoudt dat overheidsingrijpen in de markt onmogelijk is, en een afgesneden
+geslachtsdeel dat van hand tot hand gaat tot het aan het slot bij de kleinste
+man uit het boek terechtkomt. Achterin staat een woordenlijst waarin Wilson de
+natuurkundige posities die hij verwerkt heeft nuchter uiteenzet.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Wilson neemt in dit deel de lezing van de kwantummechanica
+letterlijk waarin het heelal geen bestaan heeft los van waarneming, en past
+die regel toe op mensen in plaats van op deeltjes. Wie iemand voor een ander
+houdt, maakt hem tot die ander; wie in een samenzwering gelooft, ziet er een;
+wie zichzelf een naam en een geschiedenis toekent, kiest daarmee één versie
+uit een veld van mogelijke versies. Identiteit, staat, geld en samenzwering
+krijgen in het boek dezelfde status als een golffunctie vóór de meting:
+mogelijk, nog niet werkelijk, en pas vastgelegd door wie erin gelooft. De
+roman is geschreven om die stelling niet te beweren maar te laten ondergaan,
+door de lezer voortdurend de grond onder een vertelling vandaan te trekken.
+
+#### De gang van het verhaal
+
+**Wie is Zelenka?**
+
+Het eerste deel heet *Who's Zelenka?* en begint met dokter Frank Dashwood op
+een strand aan de Golf van Mexico, ontvoerd of bevrijd uit een cel in Bad Ass,
+Texas, door een vrouw met een machinepistool die hem hardnekkig George Dorn
+noemt. Zij legt uit dat persoonlijke identiteit een sociale afspraak is en dat
+hij zijn afspraak kwijt is. Hij houdt vol dat hij Dashwood heet.
+
+Door het hele boek loopt een grap die de rest in het klein herhaalt. Dashwood
+hoort in de auto een concert voor harp, vraagt zich af wie Zelenka was, wordt
+door het nieuws onderbroken en vergeet het weer. Jan Zelenka bestond
+werkelijk: een Boheemse componist die van 1679 tot 1745 leefde en die door
+Bach bewonderd werd. Pas ver in het boek slaat iemand het antwoord op, en dat
+antwoord past op één bladzijde.
+
+**Unistat en zijn presidenten**
+
+Het decor is Unistat, een land dat op de Verenigde Staten lijkt maar er nooit
+helemaal mee samenvalt. In het eerste deel van de reeks regeert president
+Furbish Lousewart, in het tweede president Eve Hubbard, die geld in
+verlengingsonderzoek en ruimtesteden steekt. In *The Homing Pigeons* wisselt
+het boek tegen het einde tussen versies waarin Kennedy, Lousewart of Hubbard
+president is, zonder dat de vertelling aangeeft welke gold.
+
+Die wisseling is geen verhaaltruc met een oplossing. Zij is de uitvoering van
+de stelling: er is geen achtergrond waartegen de versies zich verhouden,
+alleen waarnemers die er een kiezen.
+
+**Onderzoeksinstituut en politiedienst**
+
+Een tweede lijn volgt Dashwood in San Francisco, waar hij Orgasm Research
+leidt en post beantwoordt van mensen met seksuele en juridische
+verwikkelingen. Buiten aan de gevel verschijnen regels uit Ezra Pound. Twee
+mannen van de politiedienst, Tobias Knight en Roy Ubu, betrekken een huis aan
+Turk Street om uit te zoeken wat er met verdwenen hersenen gebeurd is.
+
+Wilson gebruikt het genre van de detective hier als vorm zonder inhoud. Er
+wordt onderzoek gedaan, er zijn verdachten, er is een dossier, en er komt geen
+sluitende verklaring, omdat het boek de sluitende verklaring zelf als denkfout
+behandelt.
+
+**De Onzichtbare Hand**
+
+In Washington huist het genootschap van de Onzichtbare Hand in hetzelfde
+gebouw als de Warren Belch Society van Clem Cotex, een oud-vertegenwoordiger
+die na een glas tomatensap van een niet-bestaand bedrijf een eigen kosmologie
+ontwikkelde. Het genootschap voert als leus T.A.N.S.T.A.G.I.: er bestaat niet
+zoiets als overheidsingrijpen, want de overheid maakt zelf deel uit van de
+markt en ondergaat dezelfde prikkels als iedereen.
+
+Dat is de scherpste satire in het boek, en zij snijdt naar twee kanten. De
+stelling is intern sluitend, onweerlegbaar en daarmee leeg, precies zoals de
+complottheorieën die Wilson elders in het boek opvoert.
+
+**Het rondreizende lichaamsdeel**
+
+De lijn die de drie delen aan elkaar rijgt is het geslachtsdeel dat bij
+Epicene Wildeblood is weggenomen en dat zij na de operatie, als Mary Margaret,
+op de schoorsteenmantel zet. Het wordt gestolen en komt langs vrijwel alle
+personen. In dit deel gaat het van Hongkong, waar de oude Wing Lee Chee zijn
+eigen sterven aanvaardt, naar een winkel in Yokohama en zo naar Markoff
+Chaney, de kleine man die de reeks lang wraak neemt op een wereld die hem niet
+ziet.
+
+Chaney laat het aan zichzelf vastmaken, schrijft een boek over de
+verwaarloosde bijdrage van kleine mensen aan de beschaving, en verschijnt op
+het feest van Mary Margaret waar alle personages uit de reeks samenkomen. Het
+boek eindigt met hen samen in bed en met de mededeling dat Odysseus na 1023
+mogelijke universa eindelijk in Ithaca terug is.
+
+**Woordenlijst als sluitstuk**
+
+Achterin staat *A Guide for the Perplexed*, een verklarende lijst waarin
+Wilson zonder grappen uitlegt wat hij verwerkt heeft: het theorema van Bell,
+de Kopenhaagse uitleg van Bohr, het model van Everett, Wheeler en Graham, de
+verborgen variabele van Bohm, de catastrofe van Von Neumann, het voorstel van
+Walker en Herbert om bewustzijn als die variabele te nemen en dat van Sarfatti
+om er informatie voor in de plaats te zetten.
+
+De lijst laat zien wat het boek wil zijn. De roman is de proef, de
+woordenlijst is het protocol, en Wilson vertrouwt erop dat een lezer die beide
+naast elkaar legt begrijpt waarom hij het verhaal zo uit elkaar heeft laten
+vallen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| door de waarnemer geschapen heelal | De opvatting dat een systeem geen bepaalde toestand heeft zolang niemand meet, hier uitgebreid tot personen en samenlevingen. |
+| Unistat | Het land waarin de reeks speelt, een variant op de Verenigde Staten met wisselende presidenten en wisselende geschiedenis. |
+| maybe-tijd | Wilsons naam voor de toestand waarin niets is vastgelegd, naar de uitspraak van Finkelstein dat het heelal naast ja en nee ook misschien kent. |
+| Kopenhaagse uitleg | De lezing van Bohr dat de vergelijkingen niet beschrijven wat er in de subatomaire wereld gebeurt maar welk rekenstelsel wij nodig hebben om erover te denken. |
+| catastrofe van Von Neumann | De aantoning dat elk meetinstrument zelf een kwantumsysteem is, zodat het meten oneindig doorschuift tot een waarnemer besluit te stoppen. |
+| T.A.N.S.T.A.G.I. | Leus van het genootschap van de Onzichtbare Hand: overheidsingrijpen in de markt bestaat niet, omdat de overheid zelf marktpartij is. |
+| guerrilla-ontologie | Wilsons eigen aanduiding voor een schrijfwijze die de zekerheden van de lezer over wat werkelijk is stelselmatig verstoort. |
+| Rehnquist en Potter Stewart | Namen van rechters van het Amerikaanse hooggerechtshof die Wilson in de hele reeks als vervangwoorden voor geslachtsdelen en geslachtsverkeer gebruikt. |
+
+#### Waar het argument op rust
+
+Als roman hoeft het boek niets te bewijzen, maar Wilson meet zich wel het
+gezag aan van iemand die de natuurkunde kent, en dat gezag is deels terecht.
+De woordenlijst achterin geeft de posities van Bohr, Bell, Bohm, Everett,
+Wheeler en Von Neumann correct weer en noemt de natuurkundigen die in de jaren
+zeventig aan de rand van het vak werkten, Nick Herbert, Evan Harris Walker en
+Jack Sarfatti, bij naam. Ook de losse eruditie klopt geregeld: Jan Zelenka
+bestond en werd door Bach bewonderd, en de uitspraak over de geur van gebakken
+uien komt werkelijk uit een verslag van William James over lachgas.
+
+Wat het boek niet levert is een argument. Het demonstreert een gevolgtrekking
+door haar te laten ondergaan, en de lezer die wil nagaan of de sprong van
+meetprobleem naar persoonlijke identiteit houdbaar is, krijgt daarvoor geen
+stof. Voor die stap verwijst Wilson naar zijn eigen beschouwende werk, waar
+zij evenmin wordt onderbouwd.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar treft de natuurkunde waarop alles rust. De lezing dat
+bewustzijn de golffunctie doet ineenstorten was in 1981 al een
+minderheidsstandpunt en is dat sindsdien alleen maar duidelijker geworden; het
+werk van Zeh en Zurek over decoherentie verklaart het verdwijnen van de
+superpositie zonder waarnemer, en de tussenpersonen op wie Wilson leunt hebben
+in het vak geen navolging gekregen. Van de sprong die het boek daarna maakt,
+van een technisch meetprobleem naar de stelling dat identiteit en samenleving
+even onbepaald zijn, is nooit iets aannemelijk gemaakt.
+
+Als roman heeft het boek een tweede probleem. Het veronderstelt de twee
+voorgaande delen en *Illuminatus!*, het laat verhaallijnen los zodra ze
+spanning krijgen, en de humor rust voor een groot deel op seksgrappen en
+verzonnen straattaal uit 1980 die nu vooral gedateerd aandoet. Daarbij bestaat
+er geen vaste tekst: de Pocket-editie bevat passages die in de latere omnibus
+zijn geschrapt, zodat lezers van verschillende drukken over verschillende
+boeken praten.
+
+#### Wat je hierna leest
+
+- 919. The Trick Top Hat. Het vorige deel voert de niet-lokaliteit uit; dit
+deel de waarnemer, met dezelfde personen in een ander verband.
+- 930. Quantum Psychology. Wilsons beschouwende boek over hetzelfde onderwerp,
+waar hij zonder verhaal betoogt wat hij hier laat ondergaan.
+- 653. Speakable and Unspeakable in Quantum Mechanics. Bell zelf, voor wie wil
+nagaan wat het theorema wel en niet zegt voordat de roman ermee aan de haal
+gaat.
+- 915. The Eye in the Pyramid. Het eerste deel van *Illuminatus!*, waaruit
+Markoff Chaney, Simon Moon en de complotmachinerie afkomstig zijn.
+
+## 921. Masks of the Illuminati
+
+Robert Anton Wilson, 1981. *Masks of the Illuminati* (Pocket Books, New York,
+1981, 336 blz., ISBN 0671825852; Britse editie Sphere, Londen, 1981, 294 blz.,
+ISBN 0722192290). De meest gelezen druk is de handelspaperback van Dell, New
+York, 1990, 368 blz., ISBN 044050306X. Er is een Duitse vertaling, *Masken der
+Illuminaten* (Rowohlt, Reinbek, 2002). Er bestaat geen Nederlandse vertaling;
+de samenvatting is op de Engelse editie gebaseerd. Rubriek: roman en memoir.
+Tags: `roman`, `occultisme`, `initiatie`, `complotdenken`
+
+Een avond in april 1914 in een Zürichse bierkelder. Albert Einstein en James
+Joyce drinken samen wanneer een doodsbange jonge Engelsman binnenkomt met een
+reeks zelfmoorden bij Loch Ness en een verdenking tegen de occultist Aleister
+Crowley. Sir John Babcock, geschoold in de Hermetic Order of the Golden Dawn,
+meent dat hij door een genootschap van zwarte magiërs wordt achtervolgd. De
+twee anderen horen zijn verhaal aan en leggen het elk op hun eigen manier uit:
+Einstein zoekt een natuurlijke verklaring, Joyce kijkt naar de literaire en
+psychologische bouw van het verhaal.
+
+De roman staat los van *Illuminatus!* maar werkt dezelfde stof uit, en Wilson
+gebruikt er de vormen van Joyce voor: hoofdstukken in vraag en antwoord zoals
+in *Ulysses*, passages in filmscript, droomtaal met verhaspelde woorden. Aan
+het slot blijkt het hele geval opgezet, en de opzet blijkt zelf een inwijding
+te zijn. Wilson zet in een notitie vooraf welke onderdelen echt zijn: de
+genootschappen, de magische oefeningen, de geciteerde boeken en de politieke
+moorden. Hij besluit die notitie met de mededeling dat er geen regelrechte
+leugen in staat en precies één verborgen grap.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Wilson bouwt een detectiveraadsel waarvan de oplossing luidt
+dat er nooit een misdaad was. Elk spoor dat Sir John Babcock volgt is voor hem
+neergelegd, elke bevestiging van zijn angst is geregisseerd, en het
+genootschap waar hij bescherming zoekt is hetzelfde genootschap dat hem
+opjaagt. De strekking is dat een inwijding niet bestaat uit het verkrijgen van
+geheime kennis maar uit het slopen van het vertrouwen dat de eigen waarneming
+een sluitend beeld oplevert. Wie dat overleeft is ingewijd; wie het niet
+overleeft blijft achter met een complottheorie. Daarmee is het boek tegelijk
+een verdediging en een aanklacht: dezelfde bewerking die iemand wakker schudt
+kan iemand ook kapotmaken, en Wilson laat aan de lezer over wat Crowley in dit
+geval deed.
+
+#### De gang van het verhaal
+
+**De zaak van de aanhoudende zelfmoorden**
+
+Het boek opent met een krantenbericht uit Inverness van 23 april 1914. Bertran
+Alexander Verey, achtenzestig jaar, schiet zich door het hoofd. Zijn
+schoonzuster Annie McPherson Verey, negenenvijftig, drinkt jodium. Haar broer,
+dominee Duncan McPherson, snijdt zijn keel door. Alle drie horen bij de kring
+rond dominee Charles Verey, voorganger van de oude kerk bij het meer en
+voorzitter van een genootschap voor de verbreiding van de godsdienstige
+waarheid. Inspecteur James McIntosh van de politie van Inverness komt er niet
+uit.
+
+Sir John Babcock brengt dat bericht mee de bierkelder in. Hij is jong, rijk,
+bang en overtuigd dat de zaak samenhangt met wat hem zelf de afgelopen maanden
+is overkomen.
+
+**Wat Sir John was overkomen**
+
+Het grootste deel van het boek is zijn verslag, in stukken verteld en telkens
+onderbroken. Hij is toegetreden tot de Hermetic Order of the Golden Dawn en
+opgeleid door George Cecil Jones, die hem waarschuwt tegen Aleister Crowley en
+tegen de zwarte broeders, de afgedwaalde ingewijden die volgens de leer hun
+eigen weigering tot leerstelling maakten.
+
+Vanaf dat moment stapelen de tekenen zich op. Hij droomt telkens over Chapel
+Perilous, de kapel uit de graallegende waar de ridder alleen en zonder houvast
+doorheen moet. Hij vindt in de boekwinkel van de Ordo Templi Orientis een
+exemplaar van Crowleys *The Book of Lies*, dat op de titelpagina zijn eigen
+waarheid ontkent, en in hoofdstuk zevenenzeventig staat een foto van de vrouw
+achter de toonbank, Lola Levine, onder het opschrift L.A.Y.L.A.H., waarvan de
+kabbalistische optelling zevenenzeventig oplevert. De post brengt hem verzen
+uit *Clouds Without Water*. De verschijnselen die hij meldt zijn steeds net
+iets te goed op hem afgestemd.
+
+**Twee soorten verklaring**
+
+Einstein en Joyce vormen de twee lezingen waartussen de lezer heen en weer
+wordt geduwd. Einstein zoekt een verklaring die geen nieuwe krachten hoeft in
+te voeren en die met de meetbaarheid van de wereld overweg kan. Joyce leest
+het verhaal als tekst en vraagt wie de verteller is, welke motieven terugkeren
+en wie er baat heeft bij de vorm waarin het is gegoten.
+
+Wilson laat geen van beide winnen. Waar Einstein een natuurkundige
+onmogelijkheid aanwijst, wijst Joyce op de zorgvuldige opbouw van de
+gebeurtenissen, en samen komen zij dichter bij de waarheid dan elk apart,
+zonder haar te bereiken.
+
+**De vormen van Joyce**
+
+Het boek bestaat uit vijf delen met opschriften in potjeslatijn, in de trant
+van Crowleys eigen traktaten. Binnen die delen wisselt Wilson voortdurend van
+vorm. Er zijn hoofdstukken in vraag en antwoord, gemodelleerd op het
+Ithaca-hoofdstuk van *Ulysses*, compleet met opsommingen van de dieren en de
+boeken op Babcock Manor. Er zijn passages die als filmscript zijn genoteerd,
+met camerastand en geluid. En er zijn droomstukken waarin de taal uiteenvalt
+op de manier van *Finnegans Wake*.
+
+Die vormwisselingen zijn geen versiering. Elke vorm brengt een ander soort
+zekerheid mee, en door ze te stapelen laat Wilson zien dat het antwoord op de
+vraag wat er gebeurd is afhangt van de vorm waarin de vraag gesteld wordt.
+
+**Crowley aan het woord**
+
+In het vijfde deel treedt Crowley zelf op en erkent dat hij het hele geval
+heeft opgezet. Babcock noemt hem een zwijn en verwijt hem dat hij een wrede
+zaak als grap behandelt. Crowley antwoordt dat het heelal zelf een grap van
+het algemene ten koste van het bijzondere is, dat Babcock om verlichting kwam
+vragen en die nog steeds krijgt, en dat hij vooraf gewaarschuwd was dat hij
+alles onder ogen zou moeten zien waarvoor hij bang was. Einstein merkt droog
+op dat wreedheid wreedheid blijft.
+
+Daarna kondigt Crowley aan dat het slot van de plechtigheid gewoon doorgaat,
+met drie kandidaten in plaats van één. Het boek eindigt in een lange passage
+waarin de kamer zich ontbindt, een stoet verzonnen en werkelijke ingewijden
+binnenkomt, van Elias Ashmole en John Dee tot Weishaupt, Mozart en King Kong,
+en de drie mannen hun eigen naam kwijtraken.
+
+**Wat volgens Wilson echt is**
+
+Voorin staat een notitie waarin Wilson afbakent wat hij verzonnen heeft. De
+Golden Dawn en de Ordo Templi Orientis waren en zijn werkelijk, de beschreven
+magische oefeningen kunnen volgens hem uitwerkingen geven zoals die in het
+verhaal, en *The Great God Pan*, *The King in Yellow* en *Clouds Without
+Water* zijn bestaande boeken waaruit correct wordt geciteerd. De gegevens over
+moordaanslagen komen uit gangbare naslagwerken en zijn volgens hem even
+betrouwbaar als zulke werken doorgaans zijn.
+
+Daarna volgt de zin die het boek in het klein herhaalt: de schrijver verklaart
+plechtig dat in de twee voorgaande alinea's geen enkele regelrechte leugen
+staat en precies één verborgen grap.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Chapel Perilous | De kapel uit de graallegende, bij Wilson de toestand waarin iemand niet meer kan uitmaken of hij achtervolgd wordt of gek geworden is. |
+| Hermetic Order of the Golden Dawn | Het Britse genootschap voor ceremoniële magie waarin Babcock wordt opgeleid en dat werkelijk heeft bestaan. |
+| Ordo Templi Orientis | Het genootschap achter de boekwinkel in het verhaal, waarvan de leden een verklaring tekenen die begint met de zin dat er geen god is behalve de mens. |
+| zwarte broeders | In de leer van Crowley de ingewijden die weigeren zichzelf op te geven en daarom de overgang naar de volgende graad niet maken. |
+| Frater Perdurabo | De ordenaam van Crowley, waaronder hij de teksten schreef die Babcock in handen krijgt. |
+| Laylah | Arabisch voor nacht, kabbalistisch zevenenzeventig, en in het boek de sleutel waarmee Babcock ontdekt hoe hij bespeeld wordt. |
+| Secret Chiefs | De onzichtbare meesters die volgens de leer achter de orden staan; Wilson laat ze in het slot als spotstoet binnenkomen. |
+| The Book of Lies | Bestaand werk van Crowley waarvan de titelpagina zichzelf ontkent en dat in de roman als toetssteen voor logische paradoxen dient. |
+
+#### Waar het argument op rust
+
+De omlijsting is aantoonbaar echt en Wilson zegt zelf waar de grens ligt. De
+Golden Dawn, de Ordo Templi Orientis, George Cecil Jones als leermeester van
+Crowley, *The Book of Lies* met zijn hoofdstuk zevenenzeventig, en de
+aangehaalde verhalen van Arthur Machen en Robert W. Chambers bestaan alle en
+worden juist weergegeven. Ook de kabbalistische rekensom achter Laylah klopt
+binnen het stelsel dat de orde gebruikte.
+
+De ontmoeting zelf is verzonnen en op een controleerbaar punt onmogelijk.
+Einstein vertrok in het voorjaar van 1914 uit Zürich naar Berlijn, en Joyce
+woonde toen nog in Triëst; hij kwam pas in juni 1915 naar Zürich. Wilson wist
+dat vermoedelijk en gebruikt het als vrijheid van de schrijver; het is het
+soort ingreep waar zijn notitie vooraf op doelt. Wat de roman verder over
+inwijding beweert berust op de verslagen van deelnemers en op Crowleys eigen
+geschriften, dus op materiaal dat van buiten niet te toetsen is.
+
+#### Wat er tegen in te brengen valt
+
+De ontknoping haalt met terugwerkende kracht de inzet uit het boek weg. Zodra
+vaststaat dat elke verschijning geregisseerd was, verdwijnt de vraag die
+driehonderd bladzijden lang gesteld werd, en de lezer die zich in de angst van
+Babcock heeft laten meenemen krijgt te horen dat hij er goed in getrapt is.
+Dat is dezelfde beweging die Wilson elders bewondert, en in een roman is het
+ook gewoon een uitweg die de schrijver zichzelf verschaft.
+
+Zwaarder weegt hoe Crowley eruit komt. Wilson laat hem maandenlang een jonge
+man opzettelijk naar de rand van waanzin drijven en legt hem daarna een
+verdediging in de mond, dat het heelal een grap is en dat wie de Heer
+liefheeft hij kastijdt, die het boek grotendeels overneemt. Einstein spreekt
+één zin van bezwaar, en dan gaat de plechtigheid door. Van de werkelijke
+Crowley, die mensen in zijn omgeving aantoonbaar ruïneerde, blijft zo een
+strenge leermeester over. De vrouwenfiguren zijn bovendien vrijwel uitsluitend
+hulpstuk in de opvoeding van de mannen. Greg Costikyan noemde het boek bij
+verschijning ondergeschikt werk van een goede schrijver, wat dicht bij de
+waarheid ligt: het is de handzaamste ingang tot Wilson en tegelijk zijn minst
+noodzakelijke roman.
+
+#### Wat je hierna leest
+
+- 925. Cosmic Trigger I: Final Secret of the Illuminati. Wilsons verslag van
+zijn eigen doortocht door Chapel Perilous, waarvan dit boek de verzonnen
+tegenhanger is.
+- 923. The Widow's Son. Hier treden de achttiende-eeuwse voorouders van Sir
+John Babcock op, in dezelfde verhouding tot dezelfde genootschappen.
+- 634. The History of Magic. Lévi levert de negentiende-eeuwse leerstof waarop
+de Golden Dawn en daarmee Babcocks opleiding rusten.
+- 915. The Eye in the Pyramid. Het eerste deel van *Illuminatus!*, waarin
+dezelfde stof als politieke klucht wordt behandeld in plaats van als
+inwijdingsroman.
+
+## 922. The Earth Will Shake
+
+Robert Anton Wilson, 1982. *The Earth Will Shake*, eerste deel van *The
+Historical Illuminatus Chronicles* (J.P. Tarcher, Los Angeles, 1982, 369 blz.,
+ISBN 0874772117). Daarna verschenen edities bij Bluejay Books, New York, 1984,
+bij Lynx Books, 1988, bij Roc, 1991, bij New Falcon Publications, ISBN
+1561841625, en in 2018 bij Hilaritas Press, 397 blz., ISBN 9780998713434, met
+zeven nieuwe tekeningen van Bobby Campbell. Er is een Duitse vertaling, *Und
+die Erde wird beben* (Sphinx, Basel, 1987; later Rowohlt, Reinbek). Er bestaat
+geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.
+Rubriek: roman en memoir.
+Tags: `historische roman`, `vrijmetselarij`, `initiatie`, `verlichting`
+
+Napels, 1764. De veertienjarige Sigismundo Celine ziet met Pasen hoe zijn oom
+Leonardo Malatesta bij het altaar wordt vermoord. Vanaf dat ogenblik wordt hij
+door verschillende partijen gezocht: de vrijmetselaars, de Carbonari, de
+alumbrados, een kring die de Rossi heet, en de mannen die later maffia zullen
+heten. Elk genootschap wil hem hebben, elk heeft een eigen uitleg van dezelfde
+gebeurtenissen, en zijn oom Pietro leert hem ondertussen dat hij vooral moet
+aannemen dat hij zelf de dwaas is.
+
+Wilson schreef deze reeks na *Illuminatus!*, ditmaal alleen en met historische
+stof. Sigismundo Celine is een voorvader van Hagbard Celine uit die eerdere
+trilogie, en het boek volgt hem van zijn veertiende jaar tot Parijs in 1770,
+waar hij muziektheorie studeert. Muziek is de motor van het geheel: Sigismundo
+componeert, en de namen van Scarlatti, Vivaldi, Jommelli, Pergolesi en
+Telemann komen vaker langs dan die van de genootschappen. Het boek heeft zeven
+delen, elk genoemd naar een tarotkaart, te beginnen bij de Dwaas.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Wilson keert de complotroman om. Waar het genre uitgaat van
+één verborgen groep die de geschiedenis stuurt, laat hij zien wat er gebeurt
+met een jongen om wie een half dozijn zulke groepen vecht, die elk oprecht
+menen dat zij de geschiedenis sturen en die elkaar vooral in de weg zitten. De
+les die Sigismundo uiteindelijk meeneemt gaat dan ook niet over macht maar
+over waarneming: iedereen loopt rond met een beeld van de wereld dat op
+onvolledige gegevens berust, en de enige bruikbare voorzorg is het besef dat
+men zelf voortdurend een dwaas is. Dat is de kern van wat Wilson elders het
+Cosmic Schmuck-principe noemt, en de roman is de omslachtige manier om het aan
+te tonen in plaats van het te beweren.
+
+#### De gang van het verhaal
+
+**Een moord in de kerk**
+
+Het boek begint met de moord op Leonardo Malatesta, oom van Sigismundo,
+neergestoken in een Napolitaanse kerk op het ogenblik dat hij de mis gaat
+opdragen. Wilson bouwt de scène naar het voorbeeld van de aanslag op Giuliano
+de' Medici in de dom van Florence in 1478, de mislukte samenzwering van de
+Pazzi, en laat een van de personages die geschiedenis ook noemen.
+
+De opening zet de toon voor de rest: geweld dat op een religieuze vorm wordt
+geënt, waarbij niemand achteraf kan vaststellen wie de opdracht gaf. De
+familie Malatesta stamt in het boek af van de heren van Rimini, wat Wilson
+gelegenheid geeft de eeuwenoude ruzies uit Dante en Boccaccio te laten
+meeklinken.
+
+**De school van oom Pietro**
+
+Pietro Malatesta neemt de opvoeding van de jongen over, en die opvoeding is de
+eigenlijke inhoud van het boek. Hij legt uit hoe eer en wraak in Napels en
+Sicilië werken, waarom die stelsels zichzelf in stand houden en wat ze kosten.
+Hij legt daarnaast een leer uit over de zielen: een plantaardige ziel die wil
+groeien, een dierlijke die wil eten en vechten, een menselijke die redeneert,
+en een vierde die alleen zegt: ik ben.
+
+Het eerste deel heet De Dwaas, en in dat deel komt Sigismundo tot de slotsom
+dat hij zelf een dwaas is. Dat is bij Wilson geen vernedering maar een
+werkregel: wie ervan uitgaat dat hij zich vergist, ziet zijn eigen
+vergissingen eerder.
+
+**De genootschappen**
+
+Om Sigismundo heen bewegen de vrijmetselaars, in Napels verboden en vervolgd,
+de Carbonari, de alumbrados uit Spanje, een kring die in het boek de Rossi
+heet, de Inquisitie en de mannen die de eer van Sicilië bewaken. Wilson laat
+een personage de gangbare verklaring van het woord maffia geven als
+letterwoord van een leus tegen de Franse overheersing.
+
+Elke groep biedt Sigismundo een verhaal aan waarin hij een rol heeft, en elk
+verhaal sluit even goed op de feiten aan. Dat is de leerzaamste kant van het
+boek: de lezer merkt dat de keuze tussen die verklaringen niet op bewijs
+berust maar op de vraag bij wie iemand hoort.
+
+**De muziek**
+
+Sigismundo is vóór alles musicus. De eerste bladzijden staan al vol namen van
+componisten, Domenico Scarlatti voorop, en Wilson beschrijft het componeren
+als de ervaring die hem in beweging houdt, ook wanneer zijn eigen opvattingen
+over volmaaktheid hem later belachelijk gaan voorkomen.
+
+Die keus heeft gevolgen voor de opbouw. Het boek dankt zijn ritme aan de
+sonate die niet af komt en niet aan de samenzwering, en de bladzijden waarin
+Sigismundo aan een compositie werkt zijn de best geschreven van het geheel.
+
+**De Engelse lijn**
+
+Naast Napels loopt een verhaal in Engeland rond Sir Edward Babcock en zijn
+zoon John, voorouders van de Sir John Babcock uit *Masks of the Illuminati*.
+Daar gaat het om een andere vorm van onvrijheid: het strafrecht en het fatsoen
+in plaats van de Inquisitie, in een geschiedenis rond Geoffrey Wildeblood
+waarin John moet kiezen tussen bekennen en zwijgen.
+
+Wilson gebruikt die lijn om zijn begrip van vrijheid te verbreden. Sir Edward
+legt aan de hand van Jonathan Swift uit dat vrijheid van denken meer omvat dan
+vrijheid van politiek debat, en het hoofdstuk dat daarop volgt gaat over
+seksuele onderdrukking.
+
+**Maria, het duel, Parijs**
+
+De verwikkeling die het boek besluit is een liefdesgeschiedenis met Maria
+Maldonado, dochter uit een vijandige familie, en het duel waartoe die leidt.
+Wilson beschrijft het duelleren zonder enige romantiek, als een dom stelsel
+dat mensen doodt om redenen die zij zelf al belachelijk vinden, en laat
+Sigismundo achteraf vaststellen dat één dag dwaasheid een leven lang kan
+doorwerken.
+
+Het gevolg is verbanning. Het boek eindigt met Sigismundo in Parijs in 1770,
+waar hij muziektheorie studeert en waar het tweede deel hem zal oppakken, en
+met een passage waarin hij zichzelf in steeds wijdere kringen plaatst: in zijn
+slaapkamer, in Napels, op aarde, in een draaiende spiraal, halverwege bestaan
+en niet-bestaan.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Cosmic Schmuck-principe | Wilsons werkregel dat wie er dagelijks van uitgaat zelf de dwaas te zijn, minder vaak dwaas handelt. |
+| de vierde ziel | Boven de plantaardige, dierlijke en menselijke ziel de laag die alleen ik ben zegt en die de andere drie kan gadeslaan. |
+| Carbonari | Zuid-Italiaans geheim genootschap met vrijmetselaarsvormen, in het boek een van de partijen die Sigismundo willen werven. |
+| alumbrados | Spaanse verlichten, door de Inquisitie vervolgd, die Wilson opvoert als schakel tussen de Spaanse en de Italiaanse geheime kringen. |
+| de Rossi | De kring die in de roman achter de moord op Leonardo Malatesta wordt vermoed en die Sigismundo als erfgenaam beschouwt. |
+| magick | In het boek omschreven als de kunst om de aandacht van het bewustzijn naar believen te verplaatsen, niet als het bewerken van de buitenwereld. |
+| tarotdelen | De zeven delen van de roman dragen namen van tarotkaarten, waarmee Wilson de opvoeding van Sigismundo als reeks inwijdingsgraden ordent. |
+| Napolitaanse eercode | Het stelsel van wraak en respect dat oom Pietro uitlegt en dat in het boek zowel de misdaad als de geheime genootschappen draagt. |
+
+#### Waar het argument op rust
+
+De historische omlijsting is grotendeels controleerbaar en Wilson heeft er
+werk van gemaakt. Napels onder de Bourbons, het verbod op de vrijmetselarij,
+de Inquisitie in Spanje, de Carbonari, de alumbrados en de genoemde
+componisten bestonden alle, en de verwijzingen naar de Malatesta van Rimini en
+naar de Pazzi-samenzwering kloppen. De verhouding tussen adel, kerk en armoede
+is met zorg gebouwd, en waar Sigismundo door Spanje reist stemt de
+beschrijving van de armoede en van de macht van de Inquisitie overeen met wat
+reizigers uit die tijd meldden.
+
+Er zitten ook fouten in. De kerk waarin de openingsmoord plaatsvindt, San
+Francesco di Paola in Napels, is pas in de negentiende eeuw gebouwd.
+Belangrijker is dat de ondertitel over de geschiedenis van de vroege
+Illuminati niet waargemaakt kan worden: het genootschap van Adam Weishaupt
+werd in 1776 opgericht, twaalf jaar na de opening van het boek, zodat wat het
+verhaal als Illuminati opvoert een samenstelling van Wilson zelf is.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat de achttiende eeuw hier vooral kostuum is.
+Sigismundo en zijn oom denken in termen die Wilson in de jaren zeventig bij
+Timothy Leary en in de eigen praktijk had opgedaan: circuits van het
+zenuwstelsel, aandacht die verlegd kan worden, hersenen die te programmeren
+zijn. Die begrippen worden in achttiende-eeuwse woorden gestoken, maar ze
+horen daar niet, en het boek doet geen moeite om te laten zien hoe iemand in
+1764 werkelijk over de ziel dacht.
+
+Daarnaast gebeurt er weinig. Het boek is voor het grootste deel een leerschool
+met gesprekken, en de gebeurtenissen die het verhaal vooruit zouden moeten
+duwen komen pas in de laatste honderd bladzijden. De vrouwen dienen daarbij
+vrijwel uitsluitend als aanleiding voor wat de mannen overkomt. Ten slotte is
+de reeks nooit afgemaakt: aan het eind van het derde deel kondigde Wilson een
+vierde aan, hij sprak over vijf delen, en na zijn dood in 2007 bleef het bij
+drie, zodat het geduld dat dit eerste deel van de lezer vraagt uiteindelijk
+niet wordt beloond.
+
+#### Wat je hierna leest
+
+- 923. The Widow's Son. Het vervolg, waarin Sigismundo in Parijs terechtkomt
+en Wilson een tweede boek in de voetnoten begint.
+- 924. Nature's God. Het slotdeel, dat Sigismundo naar de Amerikaanse
+wildernis brengt en de reeks onafgemaakt achterlaat.
+- 921. Masks of the Illuminati. Dezelfde stof honderdvijftig jaar later, met
+een nakomeling van de Babcocks uit dit boek als hoofdpersoon.
+- 928. Prometheus Rising. Het beschouwende boek waarin Wilson het model van de
+zenuwcircuits uiteenzet dat hij Sigismundo laat denken.
+
+## 923. The Widow's Son
+
+Robert Anton Wilson, 1985. *The Widow's Son*, tweede deel van *The Historical
+Illuminatus Chronicles* (Bluejay Books, New York, verspreid door St. Martin's
+Press, 1985, 343 blz., ISBN 0312944578). Later verschenen edities bij Lynx
+Books, 1989, bij Roc, 1991, bij New Falcon Publications, 2004, ISBN
+1561841633, en bij Hilaritas Press, 2018, ISBN 9780998713441. Er is een Duitse
+vertaling, *Der Sohn der Witwe* (Rowohlt, Reinbek, 1992). Er bestaat geen
+Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.
+Rubriek: roman en memoir.
+Tags: `historische roman`, `vrijmetselarij`, `satire`, `complotdenken`
+
+Parijs, 1771. Sigismundo Celine is uit Napels verbannen en wordt in een
+binnenhof opgewacht door vier ingehuurde messentrekkers. Hij overleeft, en
+Wilson beschrijft het gevecht zonder enige heldhaftigheid: bloed dat in de
+laarzen klotst, mannen die stervend over koeien en over hun vader praten.
+Daarna volgen twee gevangenschappen. De eerste in de Bastille, waaruit hij
+ontsnapt met technieken van aandachtsbeheersing die hij van de vrijmetselaars
+leerde. De tweede bij ontvoerders die hem willen laten geloven dat hij van
+Jezus afstamt.
+
+Naast Sigismundo lopen twee verhalen mee: dat van Sir John Babcock en zijn
+vrouw in Engeland, en dat van de Ierse visser Seamus Muadhen, die zich in
+Engeland John Moon noemt en op wraak zint. Het opvallendste van het boek staat
+echter onderaan de bladzijde. Wilson bouwt een uitgebreid voetnotenapparaat
+rond de verzonnen filosoof de Selby, ontleend aan Flann O'Brien, en rond de
+geleerden die elkaar over hem bestrijden. Die voetnoten onderbreken de
+hoofdtekst op de spannendste ogenblikken en vertellen ondertussen hun eigen
+geschiedenis van vervalsingen en academische veten.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Wilson zet in dit deel een tweede boek onder het boek. De
+hoofdtekst vertelt hoe Sigismundo Celine in Parijs wordt opgejaagd,
+gevangengezet en bewerkt; de voetnoten vertellen hoe latere geleerden ruzie
+maken over een filosoof van wie zelfs de naam misschien verzonnen is. Door
+beide op elkaar te laten inbeuken maakt Wilson één punt: elk verhaal over het
+verleden, ook het geleerde, is een montage van bronnen die elkaar
+tegenspreken, en de lezer die één versie kiest doet precies wat de gevangene
+doet die zijn bewakers gaat geloven. De titel wijst naar dezelfde kwestie. De
+weduwenzoon is bij de vrijmetselaars de bouwmeester Hiram Abiff, en in handen
+van Sigismundo's tweede ontvoerders wordt het de aanduiding voor een
+afstamming die hem een rol in de geschiedenis moet opdringen.
+
+#### De gang van het verhaal
+
+**Vier mannen die staan te wachten**
+
+Het boek opent bij de huurmoordenaars: Armand, Lucien, Georges en Pierre, die
+wachten, elkaar op de zenuwen werken en klagen over hondenpoep op hun
+schoenen. Wilson geeft ze genoeg ruimte om duidelijk te maken dat het geen
+boeven uit roeping zijn maar mannen zonder scholing, voedsel of plaats.
+
+Wanneer Sigismundo hen doodt, is er niets ridderlijks aan. Hij vecht op
+ingeslepen reflexen, hij wordt misselijk van zichzelf, en hij hoort een van de
+stervenden nog een tijd doorpraten. Het is de scherpste correctie die Wilson
+aanbrengt op het avonturenverhaal dat het boek van buiten lijkt.
+
+**Drie levens naast elkaar**
+
+Behalve Sigismundo volgt het boek Sir John Babcock en zijn vrouw in Engeland,
+en Seamus Muadhen, een Ierse visser die na wat de Engelsen zijn familie hebben
+aangedaan onder de naam John Moon naar Engeland trekt om wraak te nemen en
+daar niet toe komt.
+
+Wilson laat die levens niet samenvloeien tot één plot. Zij worden
+bijeengehouden door de herinneringen van twee getuigen die later schrijven,
+priester Benoit en signor Duccio, allebei nuchtere waarnemers die de Franse
+Revolutie hebben overleefd. Hun teksten zijn het enige in het boek waarop de
+lezer enigszins kan steunen, en juist daardoor voelbaar tweedehands.
+
+**De Bastille en daarna**
+
+De eerste gevangenschap is de bekende: de Bastille, met de bureaucratie en de
+willekeur van de lettre de cachet. Sigismundo komt eruit door zich met
+aandachtsoefeningen los te maken van de pijn bij de afdaling langs de toren.
+
+De tweede gevangenschap is erger omdat er niets aan te ontsnappen valt.
+Onbekende bewakers houden hem lange tijd vast en werken er stelselmatig
+naartoe dat hij zichzelf gaat zien als afstammeling van Jezus en dus als
+iemand met een opdracht. Wilson toont daarmee wat inwijding en hersenspoeling
+gemeen hebben: beide slopen het beeld dat iemand van zichzelf heeft, en het
+verschil zit alleen in wat er daarna voor in de plaats komt.
+
+**Het boek onder het boek**
+
+De voetnoten voeren de Selby op, de filosoof die Flann O'Brien in *The Third
+Policeman* verzon en die Wilson met een eigen levensloop uitbreidt. Om hem
+heen staat een hele geleerdenwereld: de Duitse uitlegger Hanfkopf met zijn
+vervalsingen, zijn tegenstanders Ferguson en Hamburger, een geknipte en
+geplakte pornografische foto waarmee een tegenstander te gronde wordt gericht,
+en de bekering die daarop volgt.
+
+Inhoudelijk draait het om de Selby's opvatting van plenumaire tijd, waarin
+alle tijdstippen tegelijk bestaan, en Wilson betrekt daar het theorema van
+Bell bij, twee eeuwen na de handeling van de roman. De voetnoten breken de
+hoofdtekst midden in een gevecht af en zetten de lezer op een andere snelheid,
+om daarna terug te vallen in een zin als: toen viel de moordenaar.
+
+**De wetenschap als kerk**
+
+Een van de best gerichte hoofdstukken laat Sir John Babcock met een steen die
+uit de hemel is gevallen voor een geleerd genootschap verschijnen. Het
+gezelschap wijst hem af, en de woordvoerder, Sir Charles Nagas, blijkt vooral
+bekend van zijn stukken in kranten en tijdschriften en heeft zelf niets
+ontdekt.
+
+Wilson had die scène uit een eerdere beschouwing over parapsychologie en over
+het optreden van James Randi bij de Amerikaanse wetenschapsvereniging AAAS.
+Zijn punt is dat de vervolging van ketters niet met de kerk verdween maar van
+instelling veranderde, en dat een geleerd genootschap dat een waarneming bij
+voorbaat onmogelijk verklaart precies doet wat de Inquisitie deed.
+
+**Een boek dat niet afloopt**
+
+Het deel eindigt zonder ontknoping. Sigismundo is uit handen van zijn
+bewakers, weet niet wie ze waren, en de lezer weet het evenmin. De voetnoten
+laten hun geleerdenruzie in dezelfde onbesliste toestand achter.
+
+Dat is bedoeld, en het is ook het risico van de onderneming. Wilson vraagt van
+zijn lezer dat die het uitblijven van een oplossing als de eigenlijke
+boodschap opvat, en pas het derde deel brengt Sigismundo verder.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| de Selby | Fictieve filosoof, overgenomen van Flann O'Brien, wiens leerstellingen en levensloop in de voetnoten door ruziënde geleerden worden bestreden. |
+| plenumaire tijd | De Selby's opvatting dat alle tijdstippen naast elkaar bestaan en dat beweging een misverstand van de waarnemer is. |
+| de weduwenzoon | Bij de vrijmetselaars de bouwmeester Hiram Abiff; in de roman ook de aanduiding waarmee Sigismundo een afstamming van Jezus wordt aangepraat. |
+| onuitwisbaar merkteken | De term van priester Benoit voor wat een geslaagde inwijding in iemand achterlaat, tegenover de sleet van de kerkelijke sacramenten. |
+| Hanfkopf | De Duitse de Selby-uitlegger wiens vervalsingen, wraakacties en ondergang een eigen verhaallijn in de voetnoten vormen. |
+| lettre de cachet | Het koninklijke bevel waarmee iemand zonder proces kon worden opgesloten, in het boek de wettelijke grond onder Sigismundo's eerste gevangenschap. |
+| theorema van Bell | Natuurkundig resultaat uit 1964 dat Wilson in de voetnoten op de tijdsopvatting van de Selby betrekt, ver buiten de tijd van het verhaal. |
+
+#### Waar het argument op rust
+
+Het historische fundament houdt stand op de punten waar het ertoe doet. De
+Bastille en de lettre de cachet werkten zoals beschreven, de vervolging van de
+vrijmetselarij in de katholieke landen is gedocumenteerd, en de spot met het
+geleerde genootschap dat een steen uit de hemel weigert te erkennen steunt op
+een echte geschiedenis: de Franse Académie des sciences wees meldingen van
+meteorieten tot ver in de achttiende eeuw af, en pas het boek van Ernst
+Chladni uit 1794 en de stenenregen bij L'Aigle in 1803, onderzocht door
+Jean-Baptiste Biot, maakten er wetenschap van.
+
+Het voetnotenapparaat is daarentegen van begin tot eind verzonnen, en dat is
+de bedoeling. Wilson ontleent de Selby openlijk aan Flann O'Brien en breidt
+hem uit; wie de verwijzingen natrekt vindt niets, wat de proef is die het boek
+de lezer voorlegt. Wat de roman over de afstammingsleer beweert is fictie die
+leunt op stof die sinds *Holy Blood, Holy Grail* uit 1982 in omloop was en die
+berust op documenten waarvan Pierre Plantard later heeft toegegeven dat hij ze
+vervalste.
+
+#### Wat er tegen in te brengen valt
+
+De sterkste bedenking betreft het middel waar het boek om geroemd wordt. De
+ondermijnende voetnoot is een vondst van Flann O'Brien, en bij O'Brien dient
+de Selby één strak volgehouden grap in een kort boek. Wilson rekt hem uit over
+ruim driehonderd bladzijden, waarbij de vondst een tic wordt: de lezer weet na
+honderd bladzijden precies wat er komt zodra het lettertype verspringt, en de
+onderbrekingen kosten de hoofdtekst spanning die zij nergens terugverdient.
+
+Daarbij komt dat het boek de nadelen van een middenstuk heeft zonder de winst
+van een geheel. Het begint zonder inleiding, het eindigt zonder besluit, en
+het geheel waarnaar het verwijst is er nooit gekomen: Wilson kondigde een
+vierde deel aan, sprak over vijf delen, en liet bij zijn dood in 2007 drie
+boeken na. Wie het leest krijgt daardoor een lange, knappe aanloop naar iets
+wat niet bestaat.
+
+#### Wat je hierna leest
+
+- 922. The Earth Will Shake. Het eerste deel, dat Sigismundo van Napels naar
+Parijs brengt en het spel van de genootschappen opzet.
+- 924. Nature's God. Het derde en laatste deel, waarin Sigismundo naar
+Noord-Amerika uitwijkt.
+- 921. Masks of the Illuminati. Dezelfde verhouding tussen inwijding en
+hersenspoeling, uitgewerkt in 1914 met een nakomeling van deze Babcocks.
+- 929. The New Inquisition. Wilsons betoog dat het geleerde genootschap
+dezelfde uitsluiting toepast als de kerk, hier in romanvorm gedemonstreerd.
+
+## 924. Nature's God
+
+Robert Anton Wilson, 1991. *Nature's God*, deel drie van *The Historical
+Illuminatus Chronicles* (Roc/New American Library, New York, 1991, 256 blz.,
+ISBN 9780451450593). Herdrukt door New Falcon Publications, Tempe, 2004, 225
+blz., ISBN 9781561841646, en sindsdien uitgegeven door Hilaritas Press, ISBN
+9780998713458. Er bestaat geen Nederlandse vertaling; de samenvatting is op de
+Engelse editie gebaseerd. Rubriek: roman en memoir.
+Tags: `historische roman`, `vrijmetselarij`, `amerikaanse revolutie`,
+`occultisme`
+
+Het derde deel van *The Historical Illuminatus Chronicles* zet het verhaal
+voort dat Wilson in 1982 begon met *The Earth Will Shake*. Sigismundo Celine,
+de Napolitaanse edelman en componist die na een duel uit Europa moest
+verdwijnen, bouwt in 1776 een hut in de bossen van Ohio en trekt zich daar
+terug in wat hij zijn magische oefening noemt. Zijn oude kameraad Seamus
+Muadhen, die zich in Amerika James Moon noemt, dient intussen als officier in
+het leger van Washington. In Engeland laat Maria Babcock zich inwijden in een
+overgeleverde heksencultus en publiceert zij onder een schuilnaam een boek
+over de positie van vrouwen, terwijl haar man opklimt in de vrijmetselarij.
+
+Wilson vlecht die lijnen door een panorama van de jaren 1776 tot 1778: de slag
+bij Monmouth, het bloedbad bij Cherry Valley, de oude Voltaire die in Parijs
+in een loge wordt opgenomen met Franklin erbij, en de intriges rond de Grand
+Orient. Het lange middenhoofdstuk bestaat uit het wildernisdagboek van
+Sigismundo, een reeks aantekeningen over waarneming, angst en de vraag wat een
+mens voor zeker kan houden. Het boek eindigt zonder ontknoping. Wilson
+kondigde een vierde deel aan, *The World Turned Upside Down*, en heeft dat
+nooit geschreven.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Wilson gebruikt de Amerikaanse onafhankelijkheidsoorlog om
+één vraag te stellen: waar komt gezag vandaan zodra het niet meer van de Kerk
+komt. De titel is ontleend aan de openingszin van de
+Onafhankelijkheidsverklaring, waarin de opstellers zich beroepen op de wetten
+van de natuur en van de God van de natuur, een formule waarmee deïsten een
+fundament zochten buiten de openbaring om. In de roman krijgen vier personages
+elk hun eigen antwoord op die vraag: de loge, de rede, de heksencultus en de
+eenzame oefening in het bos. Wilson laat ze alle vier op hetzelfde punt
+vastlopen. Wie zich op een hogere instantie beroept, komt uit bij een gezag
+dat hij zelf heeft gemaakt en daarna is vergeten te hebben gemaakt.
+
+#### De gang van het verhaal
+
+**Twee vluchtelingen in Amerika**
+
+Sigismundo Celine en Seamus Muadhen zijn beiden uit Europa weggegaan omdat een
+wraakplan misliep. In Amerika lopen hun wegen uiteen. Muadhen, die zich James
+Moon noemt, treedt in dienst bij het leger van de opstandige koloniën en
+stijgt op tot kolonel. Sigismundo trekt de andere kant op, weg van de
+geschiedenis, en gaat in de bossen van Ohio wonen.
+
+Die tweedeling draagt het boek. De ene man probeert de wereld te veranderen
+door mee te vechten, de andere probeert zichzelf te veranderen door zich terug
+te trekken. Wilson kiest niet tussen die twee wegen en laat beide op
+teleurstelling uitlopen.
+
+**Het wildernisdagboek**
+
+Het zevende hoofdstuk, dat de wildernisdagboeken van Sigismundo Celine heet en
+Ohio 1776 tot 1778 als plaatsbepaling draagt, staat los van de verhaallijn.
+Het bestaat uit dagboekaantekeningen over meditatie, ademhalingsoefeningen,
+honger, muggen en de gedachten die daarbij opkomen. Hier staan de zinnen die
+lezers van Wilson het vaakst aanhalen, waaronder de opmerking dat een mens
+precies zo groot is als wat hij liefheeft en precies zo groot als wat hij zich
+laat aandoen.
+
+Wilson leunt in dit hoofdstuk zwaar op de *Confessions* van Aleister Crowley.
+Passages over het aanvaarden van insectenbeten en over het herwinnen van
+concentratievermogen volgen Crowleys tekst op de voet, zonder dat de roman dat
+vermeldt. Wie beide kent, leest hier een montage; wie alleen de roman kent,
+leest het als het innerlijk leven van een achttiende-eeuwse Napolitaan.
+
+**De oorlog zoals soldaten hem meemaken**
+
+Tegenover de mystiek in het bos zet Wilson de oorlog op grondniveau. Muadhen
+voert zijn mannen aan bij Monmouth in juni 1778 en houdt daarna een toespraak
+die wordt overstemd door het schreeuwen van gewonden. Even later komt het
+bloedbad bij Cherry Valley aan bod, de aanval van november 1778 waarbij
+loyalisten en Iroquois burgers doodden.
+
+De stichters van de nieuwe staat komen bij Wilson binnen met hun leeftijd en
+hun beroep erbij vermeld: Jefferson als planter, jurist en architect, Paine
+als leraar, zeeman en douanebeambte. Die nuchtere aanduiding zet hun latere
+standbeeldstatus opzij en laat zien dat de geschiedenis door gewone mensen met
+gemengde beweegredenen is gemaakt.
+
+**Maria Babcock en de heksencultus**
+
+In Engeland wordt Maria Babcock ingewijd in een cultus die zich als
+overlevende voorchristelijke godsdienst presenteert. Zij publiceert onder de
+naam Sarah Beckersniff een boek getiteld *A Moistness in the Wind*, dat
+betoogt dat de leerstellige minachting voor vrouwen bij de kerkvaders geen
+bijzaak is maar bouwmateriaal. Zij wordt daarvoor de ergste ketter sinds Simon
+Magus genoemd.
+
+Haar man, Sir John Babcock, klimt intussen op in de vrijmetselarij. Man en
+vrouw zoeken dus allebei buiten de kerk naar een grond voor moraal, hij in een
+broederschap met graden en eden, zij in een cultus die vrouwen een plaats
+geeft. Wilson gebruikt dat paar om te laten zien dat de achttiende-eeuwse
+geheime genootschappen minder samenzwering waren dan opvangplaats voor mensen
+die uit de kerk gevallen waren.
+
+**Parijs, Voltaire en de Grand Orient**
+
+Het zesde hoofdstuk is geschreven als een reeks krantenkoppen met korte scènes
+eronder, naar het voorbeeld van het hoofdstuk Wandering Rocks uit *Ulysses*.
+Adams bedelt in Europa om geld voor de opstand, Franklin doet hetzelfde in
+Parijs met meer succes en meer plezier, en de bejaarde Voltaire keert terug
+uit ballingschap om te merken dat vrijwel niemand zich nog druk maakt om zijn
+denkbeelden. Wilson herinnert daarbij aan de terechtstelling van de ridder de
+la Barre in 1766, waar Sigismundo als kind bij aanwezig was in het eerste deel
+van de reeks.
+
+Het slothoofdstuk, over de Grand Orient en ander verraad, speelt op een feest
+van de hertog van Orléans, waar de politiechef Sartine, Beaumarchais en Sophie
+de Monnier praten over godsdienst, macht en de kans op een omwenteling. Wilson
+schrijft hier zijn beste dialoog van de reeks, en laat de lezer zelf uitmaken
+of het gepraat over Weishaupt en de loges ergens op slaat.
+
+**Een verhaal dat afbreekt**
+
+Na elf hoofdstukken houdt het op. De vete van Sigismundo, de rol van Adam
+Weishaupt en de vraag wat er met de personages gebeurt als de Franse
+omwenteling losbarst, blijven onbeantwoord. Wilson beloofde een vierde band en
+gaf zelfs de titel op, maar schreef die nooit; hij stierf in 2007. Wie de
+reeks uitleest, houdt een opzet over die halverwege stilvalt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Nature's God | De deïstische aanduiding uit de Onafhankelijkheidsverklaring voor een grond van recht die niet uit openbaring komt maar uit de natuurlijke orde. |
+| Wildernisdagboek | Het dagboek dat Sigismundo in Ohio bijhoudt en dat het zevende hoofdstuk volledig vult. |
+| Magische oefening | Sigismundo's afgezonderde training in concentratie, ademhaling en aandacht, naar het model van Crowleys beschrijving van zijn eigen retraites. |
+| Maheema | De verzonnen inheemse stam waartoe de medicijnman Miskasquamish behoort, tegenspeler van Sigismundo in het bos. |
+| Grand Orient | De Franse vrijmetselaarsobediëntie die in de roman het knooppunt vormt van politieke intrige rond de hertog van Orléans. |
+| A Moistness in the Wind | Het pamflet dat Maria Babcock onder de schuilnaam Sarah Beckersniff publiceert over de behandeling van vrouwen in de christelijke leer. |
+| Seamus Muadhen | De Ierse visser die zich in Amerika James Moon noemt en als kolonel dient in het leger van Washington. |
+| Chevalier de la Barre | De Franse edelman die in 1766 werd terechtgesteld wegens godslastering en in de reeks terugkeert als het beeld van kerkelijke wraak. |
+
+#### Waar het argument op rust
+
+Het historische raamwerk is nauwkeurig. De slag bij Monmouth vond plaats op 28
+juni 1778, het bloedbad bij Cherry Valley op 11 november 1778, en Voltaire
+werd in april 1778 in de loge Les Neuf Soeurs opgenomen met Benjamin Franklin
+aanwezig. De terechtstelling van de ridder de la Barre in 1766 is eveneens een
+gedocumenteerd geval, dat Voltaire destijds als pamflettist heeft aangegrepen.
+Wilson verzint zijn achtergrond niet.
+
+De verzonnen delen zijn ook als zodanig herkenbaar. De stam van Miskasquamish
+bestaat niet en de gebeurtenissen in het bos worden niet als geschiedenis
+gepresenteerd. Waar de roman leunt op andermans tekst, namelijk op Crowleys
+*Confessions* in het dagboekhoofdstuk, gebeurt dat zonder verantwoording. Dat
+valt in een roman te verdedigen, maar het verklaart wel waarom dat hoofdstuk
+zo weinig achttiende-eeuws klinkt.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat het boek geen boek is maar een fragment. De vierde
+band die de vete, de Illuminati-lijn en de Franse omwenteling zou afronden, is
+er nooit gekomen, en Wilson laat in het slothoofdstuk de spanning juist
+oplopen. Lezers die de eerste twee delen hebben doorgewerkt om te weten hoe
+het afloopt, krijgen geen antwoord. Dat maakt de hele reeks tot een aanloop.
+
+Daarbij komt dat de roman zichzelf onderbreekt. Het dagboekhoofdstuk staat vol
+aforismen die de verteller van Crowley heeft, en die de handeling
+vijfentwintig bladzijden stilzetten. Recensenten noemen dit deel doorgaans het
+zwakste van de drie, met verwijzing naar de anachronistische stem van de
+personages en naar het feit dat het woord Illuminatus in de reeks nauwelijks
+nog iets doet.
+
+Een derde punt is de behandeling van de inheemse Amerikanen. Miskasquamish is
+een verzonnen sjamaan van een verzonnen stam, en Wilson gebruikt hem vooral
+als tegenspeler in de persoonlijke ontwikkeling van Sigismundo. Dat blijft
+dicht bij het romantische beeld van de wijze indiaan waar hij elders juist de
+spot mee zou drijven.
+
+#### Wat je hierna leest
+
+- 922. The Earth Will Shake. Het eerste deel, waarin Sigismundo als kind in
+Napels de terechtstellingen en de loges leert kennen.
+- 923. The Widow's Son. Het tweede deel, dat in Frankrijk en Engeland van vlak
+voor de omwenteling speelt en de vrijmetselarij van binnenuit beschrijft.
+- 921. Masks of the Illuminati. Wilsons kortere roman over hetzelfde
+onderwerp, met een latere Babcock, Joyce en Einstein als personages.
+- 925. Cosmic Trigger I: Final Secret of the Illuminati. Het autobiografische
+boek waarin Wilson de oefeningen beschrijft die Sigismundo in het bos doet.
+
+## 925. Cosmic Trigger I: Final Secret of the Illuminati
+
+Robert Anton Wilson, 1977. *Cosmic Trigger: Final Secret of the Illuminati*
+(And/Or Press, Berkeley, 1977, 269 blz., ISBN 9780915904297), met een
+voorwoord van Timothy Leary, een nawoord van de natuurkundige Saul-Paul Sirag
+en tekeningen van John Thompson. Kort daarna verscheen een pocketuitgave bij
+Pocket Books; de uitgave van New Falcon Publications uit 1986 voegde een nieuw
+voorwoord toe. De huidige druk is van Hilaritas Press, ISBN 9780692513972. Er
+bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie
+gebaseerd. Rubriek: vrij denken en manipulatie.
+Tags: `memoir`, `occultisme`, `psychedelica`, `complotdenken`
+
+In 1977 publiceerde Wilson het verslag van zes jaar waarin hij zichzelf als
+proefpersoon gebruikte. Vanaf 1971, na het lezen van Aleister Crowleys *The
+Book of Lies*, ging hij achtereenvolgens in de leer bij de discordianen, bij
+de yoga, bij Timothy Leary's model van acht hersencircuits, bij ritueel uit de
+Golden Dawn en bij de parapsychologie, telkens met de afspraak met zichzelf
+dat hij niets zou geloven. Wat hij beschrijft loopt van samenzweringsgrappen
+met vrienden tot beweerd contact met een intelligentie bij de ster Sirius, en
+hij weigert consequent te zeggen wat daarvan waar is.
+
+Het boek dankt zijn plaats aan de houding die Wilson eruit afleidt en
+model-agnosticisme noemt: elk denkraam is een kaart en geen gebied, en wie de
+kaart voor het gebied houdt zit vast in wat hij een reality tunnel noemt. Die
+stelling maakt het verslag lastig te weerleggen, want de schrijver verdedigt
+geen van de verhalen die hij vertelt. Het slotdeel breekt de toon. Op 3
+oktober 1976 werd zijn dochter Luna bij een overval doodgeslagen in de winkel
+waar zij na schooltijd werkte. Wilson beschrijft wat er van zijn methoden
+overeind bleef toen hij ze op dat verdriet moest toepassen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Wilson stelt dat geloven, in de zin van zekerheid, het denken
+stilzet, en dat de enige houdbare houding daarom is dat men modellen gebruikt
+zonder erin te wonen. Hij ontleent die positie aan de Kopenhaagse uitleg van
+de kwantummechanica en aan Korzybski's uitspraak dat de kaart niet het gebied
+is, en drijft haar tot het uiterste door zes jaar lang met opzet in de
+vreemdste denkramen te gaan wonen die hij kon vinden. Het boek is het verslag
+van dat experiment en tegelijk het bewijsstuk ervoor: wie werkelijk in en uit
+reality tunnels kan stappen, zou over dezelfde reeks gebeurtenissen zonder
+ongemak vier onverenigbare verhalen moeten kunnen vertellen. Precies dat doet
+Wilson, en hij weigert te zeggen welk verhaal het echte is.
+
+#### De gang van het boek
+
+**Het uitgangspunt: niets geloven**
+
+De proloog en het voorwoord uit 1986 leggen de regel vast. Wilson neemt de zin
+van natuurkundejournalist John Gribbin over dat hij niets gelooft, en verbindt
+die aan de Kopenhaagse uitleg: elk rooster waarmee ervaring wordt geordend is
+een model van de wereld en moet niet met de wereld worden verward. Zekerheid
+is in die redenering geen deugd maar een vorm van stilstand.
+
+Die regel werkt naar twee kanten. Wilson vraagt niet om instemming met wat hij
+beschrijft, maar verwerpt het evenmin, en hij verwijt het georganiseerde
+scepticisme dat het één dogma voor een ander inruilt.
+
+**Chapel Perilous**
+
+De metafoor die het boek bijeenhoudt komt uit de graallegende. Chapel Perilous
+is de toestand waarin iemand raakt die te lang met occulte of paranormale stof
+omgaat: de toevalligheden gaan patronen vormen en er lijkt een boodschap in te
+zitten. Wilson zegt daar in 1971 binnengegaan te zijn door Crowleys *The Book
+of Lies* te lezen, waarin hij meende het geheim te vinden dat in hoofdstuk 69
+verborgen zou liggen.
+
+Uit de kapel komt men volgens Wilson op twee manieren buiten. Wie er zeker uit
+komt is paranoïde geworden of tot gelovige gemaakt; wie er onzeker uit komt is
+agnost gebleven. Het boek is de aanbeveling van de tweede uitgang, en de
+beschrijving van hoe dicht hij zelf bij de eerste is geweest.
+
+**Discordianisme, de wet van vijven en het getal 23**
+
+Wilson werkte van 1966 tot 1971 als redacteur bij *Playboy* en beheerde daar
+de lezersrubriek over burgerlijke vrijheden. In die jaren raakte hij betrokken
+bij het discordianisme van Kerry Thornley en Greg Hill, een verzonnen
+godsdienst rond de godin Eris die geen dogma's kent maar wat de aanhangers
+catma's noemen, betrekkelijke metaovertuigingen.
+
+Daaruit kwam Operation Mindfuck voort: het rondsturen van tegenstrijdige
+samenzweringsverhalen naar tijdschriften en instanties, om te zien wat mensen
+ermee doen. Thornley's wet van vijven zegt dat alles met het getal vijf
+verbonden is, mits de uitlegger genoeg vindingrijkheid opbrengt. Wilson voegde
+daar het getal 23 aan toe, dat hij van William S. Burroughs had. Burroughs
+vertelde hem over kapitein Clark, die in Tanger opmerkte dat hij drieëntwintig
+jaar zonder ongeluk had gevaren en diezelfde dag met zijn veerboot verging,
+waarna het avondnieuws een vliegtuigongeluk meldde op vlucht 23 met een andere
+gezagvoerder Clark. De pointe is niet dat het getal betekenis draagt: het
+brein selecteert uit miljoenen signalen die welke bij het gekozen verhaal
+passen.
+
+**De Sirius-episode**
+
+Het langste deel beschrijft hoe Wilson in juli 1973 wakker werd met de
+gedachte dat Sirius van belang was, en hoe vervolgens alles wat hij las die
+gedachte leek te bevestigen: Kenneth Grants boek over Crowley, Robert Temple's
+stelling dat de Dogon in Mali kennis hadden van de begeleidende ster van
+Sirius, en de berichten die Timothy Leary vanuit de gevangenis stuurde over
+wat hij de Starseed-transmissies noemde.
+
+Wilson gebruikte in deze periode peyote en mescaline en deed dagelijks rituele
+oefeningen. Hij schrijft dat er verschillende verklaringen mogelijk zijn voor
+wat hij meemaakte: contact met iets buitenaards, contact met een aardse groep
+ingewijden, contact met een deel van zijn eigen brein, of eenvoudig
+zelfbegoocheling. Hij noemt ze alle vier en kiest niet.
+
+**De modellen: acht circuits en de wet van octaven**
+
+Het tweede deel legt de theorie neer waarmee Wilson zijn ervaringen ordent.
+Leary's model deelt het zenuwstelsel in acht circuits, waarvan de eerste vier
+met overleven op aarde te maken hebben en de laatste vier volgens Leary bij
+een toekomstige ontwikkeling horen. De eerste indruk die een circuit opdoet,
+de imprint, bepaalt volgens dit model levenslang wat iemand als
+vanzelfsprekend ervaart.
+
+Daarnaast bespreekt Wilson de wet van octaven: de neiging van verschijnselen
+om in achttallen te vallen, van Pythagoras tot de acht families in het
+periodiek systeem en de vierenzestig codons in het DNA. Hij weet dat dit soort
+overeenkomsten ook door toeval kan ontstaan, en zegt dat erbij. Verder gaat
+hij in op de stelling van Bell en de discussie over verstrengeling, die hij
+van de natuurkundigen Saul-Paul Sirag en Jack Sarfatti had.
+
+**Via Dolorosa**
+
+Het slot verandert het boek. In september 1976 kreeg Wilson tijdens een
+oefening met terugkoppeling van hersengolven het idee dat zijn zoon zou
+sterven, en hij ging over tot beschermingsrituelen. Op 3 oktober 1976 werd
+zijn dochter Luna doodgeslagen bij een inbraak in de winkel in Berkeley waar
+zij na schooltijd werkte.
+
+Wilson beschrijft dit zonder de ironie die de rest van het boek draagt. Hij
+laat staan dat zijn voorgevoel het verkeerde kind aanwees en dat zijn rituelen
+niets hebben uitgericht. Wat hij overhoudt is de opmerking dat hij haar twee
+dagen eerder toevallig nog heeft gezegd dat hij van haar hield. Het hoofdstuk
+maakt duidelijk wat de prijs is van een houding die alles als model beschouwt:
+op een dag komt er iets voorbij dat geen model is.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Model-agnosticisme | De houding dat elk denkraam een model is dat men mag gebruiken en verlaten, ontleend aan de Kopenhaagse uitleg van de kwantummechanica. |
+| Reality tunnel | Wilsons term voor het geheel van verwachtingen waardoor iemand waarneemt, en dat bepaalt welke signalen worden opgemerkt en welke niet. |
+| Chapel Perilous | De toestand waarin toevalligheden betekenisvol beginnen te lijken en de betrokkene moet kiezen tussen paranoia, geloof en agnosticisme. |
+| Operation Mindfuck | De discordiaanse praktijk om tegenstrijdige samenzweringsverhalen te verspreiden om te zien hoe mensen ze verwerken. |
+| Catma | Discordiaans woord voor een betrekkelijke metaovertuiging, gesteld tegenover het dogma dat absolute geldigheid opeist. |
+| Wet van vijven | De regel van Kerry Thornley dat alles met het getal vijf samenhangt, mits de uitlegger vindingrijk genoeg is. |
+| Acht circuits | Leary's indeling van het zenuwstelsel in acht opeenvolgende programma's, waarvan de eerste vier op aards overleven zijn gericht. |
+| Imprint | De eerste indruk die een circuit in een gevoelige periode opdoet en die volgens het model verder levenslang blijft werken. |
+| SMILE | Leary's letterwoord voor ruimtemigratie, verhoging van intelligentie en verlenging van het leven, afgeleid uit de Starseed-transmissies. |
+
+#### Waar het argument op rust
+
+Voor de kern van het boek, de gebeurtenissen die Wilson zelf meemaakte,
+bestaat geen ander bewijs dan zijn eigen verslag. Hij zegt dat ook: hij vraagt
+de lezer nadrukkelijk om zijn ervaringen niet als feit aan te nemen. Wat hij
+erbij vermeldt is dat hij in de betrokken jaren peyote en mescaline gebruikte
+en dagelijks rituele oefeningen deed, gegevens die de lezer zelf mag
+verdisconteren.
+
+Waar hij zich op anderen beroept, is de grond dun. De Sirius-stof komt van
+Robert Temple, wiens stelling dat de Dogon van oudsher wisten van de
+begeleidende ster van Sirius later is ondergraven door veldwerk van de
+antropoloog Walter van Beek, die de betreffende kennis bij de Dogon niet
+terugvond. De paranormale prestaties van Uri Geller, die Wilson met
+belangstelling bespreekt, zijn later herhaaldelijk aan goochelarij
+toegeschreven. Het achtcircuitmodel van Leary is nooit neurologisch onderzocht
+en heeft in de hersenwetenschap geen sporen nagelaten.
+
+De natuurkundige hoofdstukken zijn het best onderbouwd. De stelling van Bell
+en de experimenten over verstrengeling waren in 1977 gangbaar werk, en
+Saul-Paul Sirag schreef het nawoord. De sprong die Wilson en zijn kring
+daaruit maken naar bewustzijn en telepathie is echter hun eigen sprong, geen
+gevolgtrekking uit die natuurkunde.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat de weigering om iets te geloven ook als vrijbrief
+werkt. Wilson besteedt tweehonderd bladzijden aan materiaal dat hij vervolgens
+niet hoeft te verdedigen, omdat hij het als model heeft aangeboden. Daarmee
+ontsnapt hij aan de gewone toets: een verhaal dat nergens aanspraak op maakt,
+kan ook nergens op worden nagerekend. In de praktijk komt de lezer er wel
+degelijk met een indruk uit, en die indruk is dat er iets bij Sirius zit.
+
+Daar komt bij dat het boek voor een deel gedateerd is. De kring waarin het is
+ontstaan, de Californische mengeling van kwantumfysica, psychedelica en
+oosterse leer rond 1975, heeft weinig van haar beloften ingelost. De
+ruimtemigratie kwam niet, de levensverlenging kwam niet, en de fysici die er
+destijds bij betrokken waren hebben hun bewustzijnstheorieën niet in de
+vakliteratuur weten te vestigen.
+
+Ten slotte loopt de grap op enkele plaatsen uit de hand. Operation Mindfuck
+moest laten zien hoe makkelijk mensen samenzweringsverhalen overnemen, maar
+verspreidde die verhalen ook, en enkele ervan zijn een eigen leven gaan
+leiden. Wilson erkent dat, zonder er gevolgen aan te verbinden.
+
+#### Wat er concreet mee te doen is
+
+- Schrijf op welk verhaal over de eigen situatie op dit moment als
+vanzelfsprekend geldt, en bedenk daarna welke waarnemingen dat verhaal
+automatisch wegfiltert.
+- Onderscheid bij een omstreden bewering wat feitelijk is vastgesteld van wat
+als samenhangend beeld wordt aangeboden.
+- Let bij het opmerken van reeksen toevalligheden op de mate waarin de eigen
+aandacht ze heeft geselecteerd.
+
+#### Wat je hierna leest
+
+- 928. Prometheus Rising. Wilsons uitwerking van het achtcircuitmodel tot een
+handboek met oefeningen.
+- 915. The Eye in the Pyramid. De roman waarin dezelfde stof als fictie is
+verwerkt en waaraan de ondertitel van dit boek refereert.
+- 63. The Demon-Haunted World. Sagans behandeling van dezelfde paranormale
+claims, met de tegenovergestelde uitkomst.
+- 275. How to Change Your Mind. Een latere, wel op onderzoek gebaseerde
+behandeling van wat psychedelica met de waarneming doen.
+
+## 926. The Illuminati Papers
+
+Robert Anton Wilson, 1980. *The Illuminati Papers* (And/Or Press, Berkeley,
+1980, ix en 150 blz., ISBN 0915904527), samengesteld door Peter Beren. Later
+herdrukt door Ronin Publishing, Berkeley, ISBN 9781579510022. Er bestaat geen
+Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.
+Rubriek: vrij denken en manipulatie.
+Tags: `essaybundel`, `anarchisme`, `complotdenken`, `libertarisme`
+
+Vijf jaar na de publicatie van *Illuminatus!* verzamelde Wilson essays,
+interviews, tekeningen en verzonnen kantoormemo's in een bundel van
+honderdvijftig bladzijden, opgemaakt als een krant met brede koppen en smalle
+kolommen. Het meeste is geschreven in de stem van personages uit die romans,
+vooral in die van Hagbard Celine, de anarchistische onderzeebootkapitein. Die
+keuze is meer dan een grap. Door zijn opvattingen aan een verzonnen figuur toe
+te schrijven kan Wilson ze scherper stellen dan hij in eigen naam zou doen, en
+tegelijk elke aansprakelijkheid ervoor afhouden.
+
+De inhoud loopt van Celine's drie wetten over politiek en veiligheid tot een
+plan voor een economie na de automatisering, de RICH-economie, die Wilson met
+uitvinder L. Wayne Benner opstelde en die neerkomt op een gegarandeerd inkomen
+dat uitgroeit tot een nationaal dividend. Daarnaast staan er stukken over
+zedelijkheidswetgeving, een vragenlijst die de lezer op afkeer van het nieuwe
+test, en een lange uitwisseling met het blad *Conspiracy Digest* waarin Wilson
+uitlegt waarom hij samenzweringen als literair model gebruikt en niet als
+verklaring van de wereld.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Wilson betoogt dat macht op drie monopolies rust, dat op
+wapens, dat op grond en dat op de uitgifte van geld, en dat daar een vierde
+soort macht tegenover staat die de aanhangers van samenzweringstheorieën
+stelselmatig over het hoofd zien: het vermogen om nieuwe werkelijkheden te
+bedenken. Kunstenaars, uitvinders en onderzoekers maken volgens hem de wereld
+waar de machthebbers een generatie later om vechten. Wie zich vastbijt in de
+vraag welke geheime groep de touwtjes in handen heeft, kijkt dus naar de
+verkeerde kant van dat proces, en bevestigt bovendien het beeld dat de
+geschiedenis van bovenaf wordt gemaakt. Wilson zet daar een programma
+tegenover waarin techniek werk overbodig maakt en het inkomen wordt
+losgekoppeld van de baan.
+
+#### De gang van het boek
+
+**Een bundel in de stem van verzonnen personages**
+
+De opzet is die van een krant: koppen over de volle breedte, kolommen,
+tekeningen, spotprenten en tussendoor stukken die als interne memo's van de
+Illuminati zijn opgemaakt. De teksten zijn deels toegeschreven aan personages
+uit *Illuminatus!*, met de standpuntstukken van Hagbard Celine als hoofdmoot.
+
+Wilson noemt zijn werkwijze guerrilla-ontologie: de lezer wordt niet met
+argumenten overtuigd maar in verwarring gebracht over wie er spreekt, zodat
+het gezag van de bron niet meer als kortere weg te gebruiken valt.
+
+**Celine's wetten**
+
+Het bekendste stuk uit de bundel geeft drie wetten. De eerste luidt dat
+nationale veiligheid de voornaamste oorzaak van nationale onveiligheid is,
+omdat een staat die zich wil beveiligen een geheime dienst opricht die hem
+vervolgens ondoorzichtig maakt voor zichzelf. De tweede zegt dat nauwkeurige
+mededeling alleen mogelijk is in een situatie waarin niet gestraft wordt: waar
+straf dreigt, vertellen ondergeschikten wat de baas wil horen.
+
+De derde wet is de meest gezochte: een eerlijke politicus is een landelijke
+ramp, omdat een politicus die werkelijk gelooft dat hij het goede doet
+onbeperkt wetten maakt, terwijl een corrupte zich laat afkopen. Het is een
+grap met een punt eronder, en tegelijk een voorbeeld van Wilsons neiging om
+een aardige formulering boven een houdbare stelling te verkiezen.
+
+**De RICH-economie**
+
+Het economische hoofdstuk is Wilsons antwoord op de automatisering.
+Werkloosheid, schrijft hij, is geen ziekte en heeft dus geen genezing nodig;
+zij is het gevolg van machines die werk overnemen, wat het doel van techniek
+was. Zijn plan, opgesteld met L. Wayne Benner, kent vier stappen. Eerst een
+beloning voor wie zijn eigen baan door een machine weet te vervangen. Daarna
+een negatieve inkomstenbelasting die iedereen een bodeminkomen geeft.
+
+Vervolgens groeit die bodem uit tot een nationaal dividend, waarbij de burgers
+als aandeelhouders in het bruto nationaal product een deel van de opbrengst
+ontvangen. Als laatste stap komt volwassenenonderwijs, om mensen iets te geven
+waarmee zij hun tijd kunnen vullen zodra loonarbeid is verdwenen. Wilson noemt
+de uitkomst een samenleving waarin de renaissance de speeltuin wordt.
+
+**Neurologie als politiek**
+
+Een deel van de bundel past Leary's achtcircuitmodel toe op cultuur. Wilson
+leest het werk van Joyce, Pound, Beethoven en Raymond Chandler als uitingen
+van verschillende circuits, en stelt een vragenlijst op waarmee de lezer kan
+nagaan of hij op nieuwe zaken met afkeer of met belangstelling reageert.
+Politieke stellingnamen zijn in die redenering geen ideeën maar afdrukken in
+het zenuwstelsel.
+
+Hetzelfde geldt voor zedelijkheid. In een stuk over oud en nieuw puritanisme
+haalt Wilson de jurist Theodore Schroeder aan, die betoogde dat obsceniteit de
+moderne vorm van zwarte magie is: er bestaat geen instrument dat haar in een
+boek of schilderij kan aanwijzen, omdat zij in het zenuwstelsel van de
+beschouwer zit.
+
+**De uitwisseling met Conspiracy Digest**
+
+De langste tekst is een briefwisseling met het blad *Conspiracy Digest*. De
+redactie vraagt hoe serieus *Illuminatus!* bedoeld is; Wilson antwoordt dat de
+opeenstapeling van elkaar bestrijdende samenzweringen een parodie is op de
+demonologie van links en rechts, en tegelijk een voorstel voor een meervoudig
+model in plaats van het enkelvoudige waar samenzweringsdenkers de voorkeur aan
+geven.
+
+Op dat punt breekt hij met zijn gesprekspartners. Zij lokaliseren de elite bij
+anderen; hij zegt de elite bij zichzelf en zijn vrienden te lokaliseren, en
+voegt daar de stelling aan toe dat wie de werkelijkheid bedenkt uiteindelijk
+meer bepaalt dan wie de wapens beheert.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Hagbard Celine | Het personage uit *Illuminatus!* in wiens naam Wilson zijn anarchistische standpunten formuleert. |
+| Celine's wetten | Drie stellingen over veiligheid, mededeling en politiek, waarvan de eerste luidt dat nationale veiligheid de belangrijkste bron van onveiligheid is. |
+| RICH-economie | Wilsons letterwoord voor stijgend inkomen door cybernetische zelfregeling, een vierstappenplan voor een samenleving na de loonarbeid. |
+| Nationaal dividend | Een uitkering aan alle burgers als aandeelhouders in het bruto nationaal product, sluitstuk van het RICH-plan. |
+| Guerrilla-ontologie | Wilsons aanduiding voor zijn werkwijze om de lezer over de bron en de status van een tekst in het ongewisse te laten. |
+| Neofobie en neofilie | Het onderscheid tussen afkeer van en aantrekking tot het nieuwe, dat Wilson als politieke tweedeling voorstelt in plaats van links en rechts. |
+| Brain power | De vierde machtsvorm naast wapens, grond en geld: het vermogen om de werkelijkheid te bedenken waar de andere partijen later om vechten. |
+| Neopuritanisme | Wilsons term voor het moderne zedelijkheidsdenken dat volgens hem dezelfde structuur heeft als het oude, met andere onderwerpen. |
+
+#### Waar het argument op rust
+
+De bundel bevat vrijwel geen onderzoek. De stukken zijn stellingnamen,
+aforismen en gesprekken, en waar Wilson zich op cijfers beroept, komen die van
+Buckminster Fuller en diens medewerker Medard Gabel, wier inventarisaties van
+wereldwijde hulpbronnen destijds omstreden waren en dat zijn gebleven. Het
+RICH-plan is nooit doorgerekend; er staat niet in wat het zou kosten en waar
+het geld vandaan komt.
+
+Op één punt is Wilson aantoonbaar mis. In het stuk over puritanisme spreekt
+hij van negen miljoen onschuldigen die in de heksenvervolgingen zijn gedood.
+Dat getal stamt uit een schatting uit de achttiende eeuw en wordt door
+historici al lang niet meer aangehouden; het huidige onderzoek komt uit op
+enkele tienduizenden terechtstellingen. Dat hij zo'n cijfer overneemt in een
+bundel die de lezer leert claims te wantrouwen, is geen kleinigheid.
+
+Wat wel standhoudt, is de tweede wet van Celine over mededeling onder dreiging
+van straf. Zij komt overeen met wat later in de organisatiekunde over
+psychologische veiligheid is vastgesteld, hoewel Wilson daar zelf geen
+onderzoek voor aanvoert.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat de titel de lading niet dekt en dat dat
+waarschijnlijk opzet is. Het boek gaat nauwelijks over de Illuminati; het is
+een verzameling losse stukken die op de naamsbekendheid van de romans
+meeliftte. Wie het koopt om te lezen wat Wilson over geheime genootschappen
+heeft uitgezocht, krijgt in plaats daarvan economische voorstellen en
+neurologische speculatie.
+
+Het tweede bezwaar betreft de vorm. Door alles aan personages toe te schrijven
+maakt Wilson zijn eigen positie onaantastbaar: elke tegenwerping kan worden
+afgedaan met de opmerking dat Celine het zei en niet de schrijver. Dat is
+aardig als spel, maar het verhindert dat de standpunten worden getoetst, en
+juist die toetsing is wat Wilson elders van anderen eist.
+
+Ten derde is de bundel ongelijk. Naast het uitgewerkte economische hoofdstuk
+staan bladzijden met losse invallen en spotprenten, en enkele stukken herhalen
+wat een paar pagina's eerder al is gezegd. In honderdvijftig bladzijden op
+krantenformaat is de hoeveelheid tekst bovendien kleiner dan het bladzijgetal
+doet vermoeden.
+
+#### Wat er concreet mee te doen is
+
+- Toets een voorstel voor een geheime dienst of een veiligheidsmaatregel eerst
+aan de eerste wet van Celine: wat wordt er onzichtbaar zodra dit is ingevoerd.
+- Ga bij slecht nieuws dat te laat boven kwam na of er in de keten ergens
+gestraft wordt voor het melden ervan.
+- Scheid bij een economisch voorstel de wenselijkheid van de doorrekening, en
+stel vast welke van de twee ontbreekt.
+
+#### Wat je hierna leest
+
+- 915. The Eye in the Pyramid. De roman waaruit de personages komen die in
+deze bundel het woord voeren.
+- 928. Prometheus Rising. De uitwerking van het achtcircuitmodel dat hier
+alleen wordt toegepast.
+- 927. Right Where You Are Sitting Now. De bundel uit 1982 met dezelfde opzet,
+waarin Wilson zijn milieupolitieke stukken bijeenbracht.
+- 931. Everything Is Under Control. Wilsons latere naslagwerk over
+samenzweringsverhalen, waarin hij de stof alfabetisch ordent.
+
+## 927. Right Where You Are Sitting Now
+
+Robert Anton Wilson, 1982. *Right Where You Are Sitting Now: Further Tales of
+the Illuminati* (And/Or Press, Berkeley, 1982, 207 blz., ISBN 0915904659; ook
+uitgebracht in de Visions-reeks onder ISBN 0914171453). De heruitgave bij
+Ronin Publishing uit 1992 bevat een inleiding van Timothy Leary. Er bestaat
+geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.
+Rubriek: vrij denken en manipulatie.
+Tags: `essaybundel`, `scepsis`, `libertarisme`, `bewustzijn`
+
+De ondertitel belooft verdere verhalen over de Illuminati, maar dit is een
+essaybundel, opgedragen aan William S. Burroughs en Philip K. Dick. Wilson
+schrijft over zichzelf in de derde persoon, als de Romanschrijver, en zet
+stukken over kennisgroei, parapsychologie, milieupolitiek en logica naast
+elkaar zonder ze tot één betoog te smeden. Het bekendste stuk, over het
+Jumping Jesus-verschijnsel, meet menselijke kennis in eenheden die hij jesus
+noemt, waarbij één jesus staat voor alles wat in het jaar één bekend was.
+
+Volgens die telling duurde de eerste verdubbeling vijftienhonderd jaar en de
+verdubbeling omstreeks 1973 nog zes jaar. Het langste en scherpste stuk, over
+Malthus, Machiavelli en pop-ecologie, keert zich tegen wat Wilson
+milieumystiek noemt: een leer van verlaagde verwachtingen die volgens hem
+armen leert berusten en die betaald wordt door dezelfde elite die er baat bij
+heeft. Daarnaast staat een verslag van de jaarvergadering van de Amerikaanse
+wetenschapsvereniging in 1980, waar Wilson in opdracht van *High Times* ging
+kijken hoe parapsychologen werden bejegend.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Wilson stelt dat de menselijke kennis exponentieel groeit en
+dat daaruit volgt dat elke leer die uitgaat van vaste grenzen aan wat mogelijk
+is, niet op wetenschap berust maar op belang. Bekende hulpbronnen zijn volgens
+hem geen gegeven van de natuur maar een functie van wat mensen tot nu toe
+hebben bedacht, en dus is schaarste in beginsel een kennisprobleem. Wie die
+redenering aanvaardt, komt uit bij de gevolgtrekking die de bundel
+bijeenhoudt: de boodschap dat de mensheid haar verwachtingen moet verlagen,
+dient de belangen van wie al genoeg heeft. Wilson zet die stelling in tegen
+milieumystiek, tegen het georganiseerde scepticisme en tegen elke instantie
+die vastlegt wat er nog gedacht mag worden.
+
+#### De gang van het boek
+
+**Het Jumping Jesus-verschijnsel**
+
+Wilson voert een rekeneenheid in. Eén jesus is de hoeveelheid
+wetenschappelijke kennis die de mensheid in het jaar één had verzameld. Die
+hoeveelheid verdubbelde volgens hem pas rond 1500, vervolgens in 1750, daarna
+in 1900, in 1950, in 1960, in 1967 en in 1973. De verdubbelingstijd liep dus
+terug van vijftienhonderd jaar naar zes.
+
+Uit die reeks trekt hij de gevolgtrekking dat mensen leven in een ruimte die
+sneller uitdijt dan zij kunnen bijhouden, en dat alles wat als vaststaande
+achtergrond geldt in werkelijkheid tijdelijk is. De titel van de bundel komt
+uit dat stuk: al die kennis is bereikbaar op de plaats waar de lezer op dit
+moment zit, mits er een aansluiting is.
+
+**Malthus, Machiavelli en pop-ecologie**
+
+Het polemische hoofdstuk onderscheidt ecologie als wetenschap van wat Wilson
+pop-ecologie noemt. De eerste stelt hypothesen op en herziet ze; de tweede is
+volgens hem absoluut, leerstellig en verbonden met gevoel en moraal in plaats
+van met onderzoek. Zij verspreidt zinnen als: er is niet genoeg voor iedereen,
+wetenschap heeft gefaald, de mens bederft de natuur, en wij moeten allen
+offers brengen.
+
+Wilson voert die leer terug op Thomas Malthus, werknemer van de Britse
+Oost-Indische Compagnie, wiens berekening volgens hem twee gebreken heeft:
+bekende hulpbronnen zijn niet door de natuur gegeven maar door het menselijk
+verstand ontdekt, en het geboortecijfer daalt in landen die zich
+industrialiseren. Hij trekt de lijn door naar Haushofer en de Realpolitik, en
+stelt daarna dat de belastingvrije fondsen die de milieubeweging financieren
+aan dezelfde bankiersfamilies toebehoren die van verlaagde verwachtingen
+profiteren.
+
+**De parapsychologen op de jaarvergadering**
+
+Een lang reportagestuk beschrijft de bijeenkomst van de American Association
+for the Advancement of Science in San Francisco in 1980, waar Wilson namens
+*High Times* heen ging om te zien hoe parapsychologen werden ontvangen. De
+aanleiding was de aanval die de natuurkundige John Archibald Wheeler een jaar
+eerder in Houston op hen had geopend.
+
+Wilsons bezwaar is niet dat Wheeler ongelijk had, maar dat hij inconsequent
+was: dezelfde man zette zijn naam onder het voorstel dat elke mogelijke
+gebeurtenis in een eigen tak van het heelal plaatsvindt. Wie zoiets voorstelt
+en tegelijk anderen wegzet omdat hun ideeën vreemd zijn, gedraagt zich volgens
+Wilson als Dali die Picasso verwijt dat hij niet realistisch schildert.
+
+**Het heelal bevat een misschien**
+
+Een reeks kortere stukken werkt uit wat er gebeurt als de tweewaardige logica
+van waar en onwaar wordt verruild voor een logica die een derde stand kent.
+Wilson gebruikt die zet om uitspraken die niet beslisbaar zijn niet meer als
+zinloos af te doen maar als open te laten staan, en om de vraag te verschuiven
+van wat waar is naar hoe waarschijnlijk iets is.
+
+Andere stukken in de bundel dragen titels als de vraag of God een sukkel is of
+alleen onhandig, en een stuk over hoe men met een veranderd hoofd omgaat. De
+toon wisselt daarbij van betogend naar grappend zonder aankondiging, wat past
+bij Wilsons overtuiging dat een lezer die niet weet of hij voor de gek wordt
+gehouden beter oplet.
+
+**De bundel als geheel**
+
+Wat de stukken bindt is een afkeer van elke instantie die bepaalt wat er nog
+gedacht mag worden, of dat nu de kerk is, een sceptische vereniging of een
+milieubeweging. Wilson beschrijft zichzelf daarbij consequent in de derde
+persoon, als de Romanschrijver, waarmee hij de gebeurtenissen die hij verslaat
+als verhaalstof behandelt en zichzelf als personage.
+
+De opdracht aan Burroughs en Dick geeft de plaatsbepaling aan. Beide
+schrijvers hadden zich beziggehouden met de vraag of de werkelijkheid die
+iemand ervaart van buitenaf gestuurd kan worden. Wilson zet dat om in
+politiek: de sturing zit volgens hem niet in een zender maar in wat een
+samenleving voor vanzelfsprekend houdt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Jesus | Wilsons rekeneenheid voor wetenschappelijke kennis, gelijk aan alles wat in het jaar één bekend was. |
+| Pop-ecologie | Wilsons aanduiding voor de leerstellige milieubeweging, die hij onderscheidt van ecologie als wetenschap. |
+| Lowered Expectations | De boodschap dat de mensheid haar verwachtingen moet bijstellen, volgens Wilson het politieke doel van de pop-ecologie. |
+| Rising Expectations | De verwachting van steeds ruimere mogelijkheden die volgens Wilson met de Amerikaanse en Franse verklaringen begon. |
+| De Romanschrijver | De derde persoon waarin Wilson over zichzelf schrijft, waarmee hij zijn eigen ervaringen als verhaalstof behandelt. |
+| Everett-Wheeler-Graham-model | Het voorstel dat elke mogelijke uitkomst in een eigen tak van het heelal plaatsvindt, dat Wilson tegen Wheeler zelf gebruikt. |
+| Misschien | De derde waarde die Wilson naast waar en onwaar wil toelaten, zodat onbeslisbare uitspraken open blijven staan. |
+| Realpolitik | De politieke leer die Wilson terugvoert op Malthus en Mackinder en die neerkomt op de stelling dat schaarste selectie rechtvaardigt. |
+
+#### Waar het argument op rust
+
+De getallen in het Jumping Jesus-stuk zijn niet controleerbaar. Wilson geeft
+geen bron voor de verdubbelingstijden en geen omschrijving van wat als eenheid
+kennis telt, zodat de reeks niet na te rekenen valt. De gedachte gaat terug op
+Buckminster Fullers curve van de kennisverdubbeling, die op dezelfde manier is
+opgesteld.
+
+Het stuk over pop-ecologie leunt op twee soorten materiaal. Het eerste is
+feitelijk en houdbaar: de vaststelling dat wat als hulpbron geldt afhangt van
+technische kennis, en de opmerking dat het geboortecijfer in
+geïndustrialiseerde landen is gedaald, wat sindsdien breed is bevestigd. Het
+tweede is een gevolgtrekking uit financiering: omdat belastingvrije fondsen
+uit bankierskringen de milieubeweging steunen, zou die beweging hun belang
+dienen. Voor die stap voert Wilson geen bewijs aan.
+
+Het verslag van de jaarvergadering is journalistiek en berust op eigen
+waarneming. Wat Wilson over Wheelers positie schrijft, klopt: Wheeler zette
+zijn naam onder het veelwereldenvoorstel en viel de parapsychologie in 1979 in
+het openbaar aan.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat Wilson in het hoofdstuk over pop-ecologie precies
+doet wat hij elders bestrijdt. Hij leidt uit een geldstroom een bedoeling af,
+benoemt een familie als symbool van een klasse en presenteert de uitkomst als
+verklaring. Dat is de redeneervorm van het samenzweringsdenken dat hij in
+*Illuminatus!* parodieerde, nu zonder de parodie.
+
+Inhoudelijk is het stuk bovendien slecht verouderd. Wilsons antwoord op
+grenzen aan de groei luidt dat er altijd meer energie in een kubieke voet
+heelal te vinden is dan gedacht. Op klimaatverandering, waarbij het probleem
+niet de schaarste van energie is maar de opeenhoping van de afvalstof, heeft
+die redenering geen greep. De opgave die sinds 1982 het zwaarst weegt, valt
+buiten zijn kader.
+
+Ten derde is de bundel los van samenstelling. De stukken zijn op verschillende
+momenten en voor verschillende bladen geschreven, staan zonder verbindende
+tekst achter elkaar, en de wisseling tussen ernst en grap maakt op enkele
+plaatsen niet duidelijk welke stelling Wilson werkelijk verdedigt. De
+ondertitel over de Illuminati heeft met de inhoud weinig te maken.
+
+#### Wat er concreet mee te doen is
+
+- Scheid bij een betoog over grenzen aan de groei de vaststelling van wat
+technisch bekend is van de gevolgtrekking over wat mensen mogen verwachten.
+- Ga bij een verklaring die uit financiering een bedoeling afleidt na welk
+onafhankelijk bewijs er voor die bedoeling is.
+- Laat bij een onbeslisbare vraag het antwoord uitdrukkelijk op misschien
+staan in plaats van bij gebrek aan bewijs voor onwaar te kiezen.
+
+#### Wat je hierna leest
+
+- 926. The Illuminati Papers. De bundel van twee jaar eerder, met dezelfde
+opzet en dezelfde economische stellingname.
+- 929. The New Inquisition. Wilsons uitgewerkte aanval op het georganiseerde
+scepticisme, die hier in kiem al aanwezig is.
+- 63. The Demon-Haunted World. De tegenpositie: een pleidooi voor scepsis als
+houding, van iemand die Wilsons verwijten niet accepteert.
+- 925. Cosmic Trigger I: Final Secret of the Illuminati. Het autobiografische
+boek waarin dezelfde houding tegenover kennis is uitgewerkt.
+
+## 928. Prometheus Rising
+
+Robert Anton Wilson, 1983. *Prometheus Rising* (Falcon Press, Phoenix, 1983,
+262 blz., ISBN 9780941404198), met een inleiding van Israel Regardie. Het boek
+is de bewerking van Wilsons proefschrift *The Evolution of Neuro-Sociological
+Circuits* (Paideia University, 1979). Herziene uitgave: Hilaritas Press, 2016,
+321 blz., ISBN 9780692710609. Er bestaat geen Nederlandse vertaling; de
+samenvatting is op de Engelse editie gebaseerd. Rubriek: vrij denken en
+manipulatie.
+Tags: `bewustzijn`, `psychologie`, `esoterie`, `denkmodellen`
+
+Wilson bewerkte zijn proefschrift uit 1979 tot een handboek over de vraag hoe
+een zenuwstelsel geprogrammeerd raakt. Hij leent daarvoor het achtcircuitmodel
+van Timothy Leary: vier oude circuits die vrijwel iedereen deelt, voor
+overleven, territorium en rangorde, taal en gereedschap, en de seksuele en
+morele rol, en vier verdere circuits die volgens hem bij een minderheid
+aanstaan. Elk oud circuit krijgt in een kort gevoelig venster een imprint, een
+inprenting die daarna als bedrading werkt en de rest van het leven kleurt.
+
+De motor van het boek is een formule die Wilson aan Leonard Orr ontleent: wat
+de Denker denkt, bewijst de Bewijzer. Elke overtuiging ordent de waarneming zo
+dat zij bevestigd wordt, waardoor mensen in reality tunnels leven die zij voor
+de werkelijkheid houden. Daaruit bouwt Wilson een persoonlijkheidsschema, een
+verklaring voor bureaucratische verstarring die hij het Snafu-principe noemt,
+en een reeks oefeningen aan het eind van elk hoofdstuk om de eigen
+inprentingen los te wrikken. Hersenonderzoek, de algemene semantiek van
+Korzybski, yoga, Gurdjieff en Aleister Crowley staan daarbij op één lijn,
+zonder dat wordt aangegeven wat gemeten is en wat verondersteld.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Wat een mens voor de werkelijkheid houdt is volgens Wilson
+het product van een handvol inprentingen die in korte gevoelige perioden in
+het zenuwstelsel zijn vastgelegd en die daarna alle waarneming filteren. Het
+brein werkt in zijn beeld als hardware met software erop: de imprints liggen
+vast als bedrading, latere conditionering en geleerde kennis zijn zachtere
+lagen daaroverheen. Wie de eigen programmering niet ter hand neemt, wordt
+geprogrammeerd door ouders, school, kerk, staat en toeval, en merkt daar niets
+van, omdat het brein voortdurend bevestiging aandraagt voor wat het al
+aanneemt. Het achtcircuitmodel dient daarbij tegelijk als diagnose en als
+routekaart: vier circuits maken de gewone volwassene, vier andere staan open
+voor wie ze durft aan te zetten.
+
+#### De gang van het boek
+
+**De Denker en de Bewijzer**
+
+Het eerste hoofdstuk zet de motor van het boek neer met een formule die Wilson
+aan Leonard Orr ontleent: wat de Denker denkt, bewijst de Bewijzer. De Denker
+kan vrijwel alles aannemen, van een aarde die op de rug van schildpadden rust
+tot een holle aarde, en de Bewijzer levert daarna de waarnemingen die dat
+staven. Wilson opent met de anekdote van William James en de oude dame die
+volhield dat het schildpadden zijn, helemaal naar beneden.
+
+Daaruit volgt zijn kernbegrip, de reality tunnel: het model van de wereld
+waarin iemand leeft en dat hij voor de wereld zelf aanziet. Het tweede
+hoofdstuk levert de metafoor die de rest van het boek draagt. Het brein is
+hardware, de programma's zijn software, en de meeste mensen draaien
+programma's die zij nooit zelf hebben geschreven.
+
+**Vier oude circuits en hun inprenting**
+
+Het middendeel behandelt de vier circuits die volgens Leary en Wilson bij
+vrijwel iedereen actief zijn. Het orale bio-overlevingscircuit vormt zich bij
+de zuigeling en deelt de wereld in voedend en bedreigend. Het anale
+emotioneel-territoriale circuit komt op wanneer het kind gaat lopen en regelt
+dominantie en onderwerping. Het semantische circuit bindt tijd via taal,
+symbolen en gereedschap. Het sociaal-seksuele circuit wordt in de puberteit
+ingeprent en legt de seksuele rol en de moraal vast.
+
+Het scharnier is het begrip imprintkwetsbaarheid: per circuit bestaat een kort
+venster waarin het zenuwstelsel de eerstvolgende ervaring als definitief
+aanneemt. Wilson leunt daarbij op het inprentingsonderzoek van Konrad Lorenz,
+die in 1973 de Nobelprijs voor geneeskunde deelde, en rekt dat uit van jonge
+ganzen naar de menselijke levensloop. Elk circuit koppelt hij bovendien aan
+middelen die het aanzetten of verdoven, van opiaten bij het eerste circuit tot
+alcohol bij het tweede.
+
+**Een typologie uit twee assen**
+
+Uit de kruising van de eerste twee circuits haalt Wilson een
+persoonlijkheidsschema. Het eerste circuit levert de as toenadering tegenover
+terugtrekking, het tweede de as sterkte tegenover zwakte. Dat geeft vier
+kwadranten, die hij met de oude namen van de temperamenten aanduidt:
+sanguinisch voor vriendelijke sterkte, flegmatisch voor vriendelijke zwakte,
+bilieus voor vijandige sterkte en cholerisch voor vijandige zwakte.
+
+Hij verbindt die vier vervolgens met de leeuw, de stier, de engel en de
+adelaar uit Ezechiël, met de vier evangelisten in de katholieke kunst en met
+personages uit Dickens. Praktisch nut ontleent hij eraan door te voorspellen
+wie in de spreekkamer belandt: de flegmatische types melden zich vrijwillig
+bij een therapeut, de vijandige types komen alleen op aandringen van familie
+of rechter, en de sanguinische types komen vrijwel nooit.
+
+**Programmeren en herprogrammeren**
+
+Twee hoofdstukken behandelen hoe imprints alsnog te breken zijn. Wilson zet de
+technieken op een rij die hij overal terugziet, bij het leger, in sektes, bij
+bekeringen en in therapie: isolatie, uitputting, ontregeling van het dagritme,
+een gezagsfiguur die de nieuwe werkelijkheid aanreikt en een groep die haar
+bevestigt. Zijn punt is dat dit neutraal gereedschap is en dat het verschil
+tussen hersenspoeling en bevrijding in de bedoeling zit, niet in de methode.
+
+Elk hoofdstuk sluit met oefeningen. Die lopen uiteen van een week lang
+overtuigd rondlopen dat er een muntstuk op straat ligt, tot
+ademhalingsoefeningen en het tijdelijk aannemen van een overtuiging die de
+lezer verwerpt. Wilson stelt onomwonden dat lezen alleen niets uithaalt en dat
+het boek zonder die oefeningen weinig waard is.
+
+**De vier verdere circuits**
+
+De tweede helft beschrijft de circuits die volgens Wilson bij een minderheid
+aanstaan. Het holistische neurosomatische circuit betreft de beleving van het
+lichaam en de toestand die religieuze tradities gelukzaligheid noemen. Het
+collectieve neurogenetische circuit zou toegang geven tot iets wat op Jungs
+archetypen en op soortgeheugen lijkt. Het metaprogrammeringscircuit is het
+vermogen om tussen reality tunnels te kiezen in plaats van in één ervan te
+wonen. Het niet-lokale kwantumcircuit ten slotte knoopt hij vast aan het
+theorema van Bell.
+
+In het hoofdstuk over modellen en misverstanden verantwoordt hij die opzet.
+Elk model is gereedschap en niet de werkelijkheid, en het achtcircuitschema
+moet volgens hem als bruikbaar rooster worden gelezen. Op dezelfde bladzijden
+staat wel de bewering dat de hogere circuits bereikbaar zijn via yoga, via het
+magische systeem van Crowley en via psychedelica, gepresenteerd op één lijn
+met het hersenonderzoek.
+
+**Het Snafu-principe**
+
+Het zestiende hoofdstuk bevat het politieke deel. Het Snafu-principe, dat
+Wilson eerder in de roman *Illuminatus!* als Celine's wet opvoerde, luidt in
+de scherpe versie dat communicatie alleen mogelijk is tussen gelijken.
+Preciezer geformuleerd stroomt informatie vrij tussen gelijken en raakt zij
+vervormd zodra er rangorde in het spel is, omdat de lagere partij meldt wat de
+hogere wil horen.
+
+Het gevolg noemt hij rigiditus bureaucraticus: een piramide die door haar
+eigen rapportagelijnen van de werkelijkheid wordt afgesneden. Nationale
+veiligheid rekent hij tot de semantische spoken, woorden zonder aanwijsbare
+inhoud die toch gedrag sturen, en hij stelt dat de jacht op nationale
+veiligheid zelf de grootste bron van nationale onveiligheid is.
+
+**Kwantumevolutie**
+
+De slothoofdstukken kijken vooruit. Wilson verwacht levensverlenging,
+vestiging buiten de aarde en bewuste sturing van de eigen hersentoestanden, en
+leest de geschiedenis als een versnelling waarin het aantal actieve circuits
+per generatie toeneemt. De titel verwijst naar Prometheus die het vuur steelt:
+de soort neemt volgens hem de eigen evolutie over.
+
+Deze hoofdstukken zijn het zwakst onderbouwd en het sterkst gedateerd. Ze
+ademen het Californische futurisme rond Leary aan het eind van de jaren
+zeventig, met verwachtingen over ruimtekolonies en levensduur die veertig jaar
+later niet zijn uitgekomen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| imprint | Een inprenting die het zenuwstelsel in een kort gevoelig venster als definitief aanneemt en die daarna als bedrading werkt in plaats van als aanpasbaar programma. |
+| imprintkwetsbaarheid | De korte periode waarin een circuit openstaat en de eerstvolgende ervaring tot blijvende instelling verheft. |
+| reality tunnel | Het model van de wereld waarin iemand leeft en dat hij voor de wereld zelf aanziet. |
+| de Denker en de Bewijzer | Wilsons aan Leonard Orr ontleende formule dat het denkende deel van de geest van alles kan aannemen en het bewijzende deel daarna de bevestiging levert. |
+| bio-overlevingscircuit | Het eerste en oudste circuit, dat de wereld in voedend en bedreigend verdeelt en zich bij de zuigeling vormt. |
+| metaprogrammering | Het vermogen om tussen reality tunnels te kiezen in plaats van er onwetend in te leven. |
+| Snafu-principe | Wilsons stelling, in *Illuminatus!* Celine's wet genoemd, dat informatie alleen onvervormd tussen gelijken stroomt en dat rangorde de communicatie stukmaakt. |
+| semantisch spook | Een woord zonder aanwijsbare inhoud, zoals nationale veiligheid, dat toch gedrag en beleid stuurt. |
+| rigiditus bureaucraticus | De verstarring van een organisatie die door haar eigen rapportagelijnen van de werkelijkheid is afgesneden. |
+
+#### Waar het argument op rust
+
+Het boek is de bewerking van Wilsons proefschrift uit 1979 aan Paideia
+University, een niet-geaccrediteerde Californische instelling die inmiddels is
+opgeheven. Eigen onderzoek bevat het niet. Het achtcircuitmodel komt van
+Timothy Leary en was ook bij Leary een speculatief schema: de circuits zijn
+nooit als hersenstructuren aangewezen en geen neurologisch handboek kent ze.
+Waar Wilson zich wel op iets bestaands beroept, is het inprentingsonderzoek
+van Lorenz en de algemene semantiek van Korzybski, die als taalkritiek serieus
+te nemen valt.
+
+Het stevigste onderdeel staat op de eerste bladzijden. De Denker en de
+Bewijzer beschrijven wat de psychologie bevestigingsvooroordeel noemt, een
+effect waarvoor stapels onderzoek bestaan, al haalt Wilson daar niets van aan.
+Verder rust het betoog op anekdotes, op literaire voorbeelden bij Dickens en
+Joyce en op verwijzingen naar yoga, Gurdjieff en Crowley, waarbij nergens
+wordt gemarkeerd wat gemeten is en wat verondersteld. De oefeningen aan het
+eind van de hoofdstukken zijn nooit getoetst.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar betreft de vermomming. Wilson gebruikt de woordenschat
+van de biologie, met circuits, bedrading, inprenting en DNA, voor wat in feite
+metaforen zijn, en leent daarmee gezag dat het materiaal niet heeft. Het model
+is bovendien zo gebouwd dat geen waarneming het kan weerleggen: wie de hogere
+circuits niet ervaart, heeft ze eenvoudig nog niet aanstaan. Hetzelfde boek
+verkondigt intussen dat elk model slechts gereedschap is, en behandelt het
+schema van Leary vervolgens als vaststaand gegeven.
+
+De typologie is een herverpakking van de vier temperamenten, een indeling die
+de psychologie een eeuw geleden heeft losgelaten omdat zij niets voorspelt, en
+Wilson geeft geen reden om haar terug te halen. De oefeningen staan daarnaast
+op gespannen voet met zijn eigen diagnose: een week lang met overtuiging naar
+muntstukken zoeken en daarna vaststellen dat ze inderdaad opduiken, is precies
+de werking van de Bewijzer waarvoor het boek waarschuwt, hier ingezet als
+bewijsmiddel.
+
+#### Wat er concreet mee te doen is
+
+- Noteer bij een sterke overtuiging welke waarneming haar zou weerleggen;
+bestaat die niet, dan gaat het om een reality tunnel en niet om een bevinding.
+- Ga bij een conflict eerst na of het over feiten gaat of over rangorde, want
+in het tweede geval is de informatie al vervormd voordat zij aankomt.
+- Tel bij een organisatierapportage hoeveel lagen het bericht heeft doorlopen
+en wie het aan wie moest melden.
+- Toets woorden als veiligheid, draagvlak en kwaliteit op aanwijsbare inhoud
+voordat er beleid op gebouwd wordt.
+- Neem een standpunt dat je verwerpt een week lang serieus als werkhypothese
+en houd bij wat je dan opvalt.
+
+#### Wat je hierna leest
+
+- 925. Cosmic Trigger I: Final Secret of the Illuminati. Cosmic Trigger
+vertelt hetzelfde model van binnenuit, als verslag van wat het met Wilson zelf
+deed.
+- 930. Quantum Psychology. Quantum Psychology is de latere herschrijving van
+deze stof, met de nadruk op taal in plaats van op circuits.
+- 384. The Rape of the Mind. Meerloo beschrijft dezelfde technieken van
+hersenspoeling vanuit de ervaring van slachtoffers, met een heel andere
+waardering.
+- 275. How to Change Your Mind. Pollan onderzoekt wat psychedelica werkelijk
+met het brein doen, met het onderzoek dat bij Wilson ontbreekt.
+
+## 929. The New Inquisition
+
+Robert Anton Wilson, 1986. *The New Inquisition: Irrational Rationalism and
+the Citadel of Science* (Falcon Press, Phoenix, 1986, 240 blz., ISBN
+9780941404495). Tweede editie met een voorwoord van Douglas Rushkoff:
+Hilaritas Press, 2020, 323 blz. Er bestaat geen Nederlandse vertaling; de
+samenvatting is op de Engelse editie gebaseerd. Rubriek: vrij denken en
+manipulatie.
+Tags: `wetenschapsfilosofie`, `scepsis`, `paranormaal`, `kennisleer`
+
+Wilson keert zich in dit boek tegen wat hij fundamentalistisch materialisme
+noemt: de houding waarin de aanname dat er alleen materie bestaat als
+geloofsartikel functioneert in plaats van als werkmodel, zodat waarnemingen
+die er niet in passen buiten de deur worden gehouden zonder onderzocht te
+zijn. Het geheel van universiteiten, tijdschriften, commissies en geldstromen
+dat die grens bewaakt noemt hij de Citadel. Zijn doelwit is met name CSICOP,
+de sceptische organisatie rond Paul Kurtz en James Randi. Hij benadrukt
+herhaaldelijk dat hij het fundamentalisme bestrijdt en niet het materialisme.
+
+De helft van het boek bestaat uit anomalieën in de traditie van Charles Fort:
+regens van vissen en palingen, spookkangoeroes, de zonnewonderen bij Fátima,
+het Mars-effect van Gauquelin en het werk van Wilhelm Reich en Rupert
+Sheldrake. Wilson vraagt daarbij niet om geloof; hij wil dat de lezer zijn
+eigen reactie op zulke verhalen bekijkt. Daartegenover zet hij zijn
+alternatief, model-agnosticisme: modellen zijn gereedschap dat past of niet
+past, en zowel volledige aanvaarding als volledige afwijzing is een vorm van
+vroomheid.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Wilson betoogt dat de natuurwetenschap van de twintigste eeuw
+een eigen dogmatiek heeft gekweekt die hij fundamentalistisch materialisme
+noemt. De aanname dat alleen materie bestaat is in zijn ogen een bruikbaar
+model dat stilzwijgend in een geloofsartikel is veranderd, met als gevolg dat
+waarnemingen die er niet in passen niet worden weerlegd maar belachelijk
+gemaakt, doodgezwegen of van financiering afgesneden. Het apparaat dat die
+grens bewaakt noemt hij de Citadel: universiteiten, tijdschriften,
+keuringscommissies en de geldstromen daarachter. Daartegenover stelt hij
+model-agnosticisme, de houding die elk model als gereedschap behandelt dat in
+een bepaalde context wel of niet past, en die zowel volledig geloof als
+volledige ontkenning als vormen van bijgeloof beschouwt.
+
+#### De gang van het boek
+
+**Modellen, metaforen en idolen**
+
+Het eerste deel legt de kennisleer uit die de rest draagt. Wilson leunt op
+Korzybski, op de Kopenhaagse uitleg van de kwantummechanica en op zijn eigen
+begrip reality tunnel. Elk model van de wereld is een kaart, en een kaart die
+met het gebied wordt verward heet in zijn woordkeuze een idool.
+
+Op die grond bestrijdt hij het gezag van de wetenschappelijke methode als bron
+van zekerheid. Zijn formulering is dat de methode twee feilbare onderdelen
+combineert, zintuiglijke waarneming en redenering, en dat twee feilbaarheden
+samen geen onfeilbaarheid opleveren. Wetten worden in zijn beeld voortdurend
+herzien, wat volgens hem laat zien dat zij modellen zijn en geen ontdekte
+waarheden.
+
+**De Citadel en de nieuwe inquisitie**
+
+Met de nieuwe inquisitie doelt Wilson op wat hij gewoonten van onderdrukking
+en intimidatie in de wetenschappelijke wereld noemt: loopbaanschade, spot en
+uitsluiting van publicatie, waar de oude inquisitie over de staatsmacht
+beschikte. De Citadel is daarbij het instituut dat bepaalt welke vragen als
+wetenschappelijk gelden, en dat volgens hem mede door defensiegeld en
+industrie in een materialistische richting wordt gehouden.
+
+Zijn voornaamste tegenstander is CSICOP, de organisatie die zich in de jaren
+zeventig en tachtig met het onderzoek naar paranormale claims bezighield.
+Wilson leest hun optreden als kettervervolging in een nieuw jasje, waarbij de
+conclusie vaststaat voordat het materiaal is bekeken.
+
+**De ketters**
+
+Een reeks hoofdstukken behandelt onderzoekers die volgens Wilson buiten de
+deur zijn gezet zonder eerlijke toets. Wilhelm Reich, wiens apparatuur op last
+van een Amerikaanse rechter werd vernietigd en wiens boeken werden verbrand,
+geldt hem als het scherpste geval. Rupert Sheldrake, wiens *A New Science of
+Life* in *Nature* een boek werd genoemd dat rijp was voor de brandstapel, is
+het tweede.
+
+Daarnaast bespreekt hij Immanuel Velikovsky, die enkele voorspellingen over
+Jupiter goed had, en de statisticus Michel Gauquelin, die een correlatie
+meende te vinden tussen de stand van Mars bij de geboorte en een loopbaan als
+topsporter. Het conflict tussen Gauquelin en CSICOP over de hertoetsing van
+die gegevens vormt bij Wilson het bewijsstuk dat ook sceptici met cijfers
+kunnen schuiven.
+
+**De anomalieën**
+
+Het grootste tekstvolume gaat naar losse gevallen in de traditie van Charles
+Fort: regens van vissen bij Biloxi, palingen in Hendon, spookkangoeroes in
+Amerikaanse voorsteden, een bewerkte steen die in Mexico uit de lucht zou zijn
+gevallen, een onverklaarde ontploffing boven Londen in 1922, spontane
+zelfontbranding en het poltergeistgeval in Columbus.
+
+Wilson biedt daar geen verklaring bij en vraagt uitdrukkelijk niet om
+instemming. In zijn eigen formulering vraagt hij de lezer alleen om onbewogen
+de eigen reactie op zulke verslagen te bekijken. Het is een retorische zet die
+hem toestaat materiaal op te voeren zonder de last te dragen het te
+verdedigen.
+
+**Bell, Bohm en het open heelal**
+
+In het middendeel wendt Wilson zich tot de natuurkunde. Het theorema van Bell
+en de experimenten van Alain Aspect uit de jaren tachtig laten volgens hem
+zien dat het heelal niet lokaal is, en die niet-lokaliteit gebruikt hij om te
+betogen dat de materialistische wereldbeschrijving zelf al is gesneuveld op
+het scherpste punt van de natuurwetenschap.
+
+Hij verbindt dat met het beeld van David Bohm van een impliciete orde en waagt
+zich aan de gedachte dat de som van alle geesten er één zou kunnen zijn. Hier
+gaat de argumentatie over in speculatie, en Wilson markeert die overgang zelf
+nauwelijks.
+
+**Creatief agnosticisme**
+
+Het slothoofdstuk formuleert het positieve voorstel. Creatief agnosticisme
+houdt in dat men modellen gebruikt zonder erin te wonen, dat men het woord
+misschien serieus neemt als houding en niet als zwakte, en dat men het eigen
+zenuwstelsel als medeauteur van de waarneming meerekent.
+
+Het taalkundige gereedschap daarvoor komt van Korzybski. Wilson stelt onder
+meer het woord sombunall voor, samengetrokken uit some but not all, om de
+gewoonte te breken om over de wetenschappers, de sceptici of de gelovigen te
+spreken alsof zulke groepen homogeen zijn.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| fundamentalistisch materialisme | Het behandelen van de materialistische aanname als geloofsartikel in plaats van als model, met de bijbehorende weigering om afwijkende waarnemingen te onderzoeken. |
+| de Citadel | Wilsons naam voor het geheel van universiteiten, tijdschriften, commissies en geldstromen dat bepaalt wat als wetenschap telt. |
+| de nieuwe inquisitie | De gewoonten van spot, uitsluiting en loopbaanschade waarmee volgens Wilson afwijkende onderzoekers binnen de wetenschap worden gecorrigeerd. |
+| idool | Een model dat met de werkelijkheid zelf wordt verward en daardoor niet meer als gereedschap kan worden weggelegd. |
+| model-agnosticisme | De houding die noch volledig geloof noch volledige ontkenning toelaat en modellen beoordeelt op bruikbaarheid binnen een context. |
+| creatief agnosticisme | Het actieve gebruik van meerdere modellen naast elkaar, met misschien als vaste denkstand. |
+| reality tunnel | Het model van de wereld waarin iemand leeft en dat hij voor de wereld zelf houdt. |
+| sombunall | Wilsons samentrekking van some but not all, bedoeld om uitspraken over hele groepen te vervangen door uitspraken over een deel. |
+| niet-lokaliteit | De uit het theorema van Bell volgende samenhang tussen gescheiden deeltjes, door Wilson gebruikt als argument tegen een strikt materialistisch wereldbeeld. |
+
+#### Waar het argument op rust
+
+Het boek kent twee lagen die van heel verschillende kwaliteit zijn. De
+wijsgerige laag, met Korzybski, de Kopenhaagse uitleg en het onderscheid
+tussen kaart en gebied, is verdedigbaar en sluit aan bij wat
+wetenschapsfilosofen als Feyerabend in dezelfde jaren betoogden. De laag met
+de anomalieën bestaat vrijwel geheel uit tweedehands verhalen: Wilson citeert
+Charles Fort, oude jaargangen van tijdschriften en samenvattingen van anderen,
+en heeft vrijwel niets zelf nagetrokken.
+
+Dat verschil is naderhand nagerekend. Jim Lippard ging in *Skeptic* de bronnen
+na en vond een reeks aantoonbare fouten: de bewerkte steen in Mexico wordt in
+het aangehaalde artikel uit *Scientific American* van 1910 juist niet als
+hemelval beschreven, de vissenregen die Wilson bij Biloxi plaatst betreft een
+door A.D. Bajkov beschreven geval in Marksville uit 1947, de ontploffing boven
+Londen uit 1922 werd in *Nature* als meteoor geïdentificeerd, en het
+aangehaalde artikel over palingen in Hendon bleek niet vindbaar. Lippard wees
+ook op de vaste verschrijvingen: Mario Bunge heet in het hele boek Munge, Gary
+Zukav heet Zarov.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat de bewijslast op de zwakste plek ligt. Wilsons
+wijsgerige punt over modellen en zekerheid kan hij maken zonder één anomalie,
+maar hij bouwt zijn boek juist op die gevallen, en die houden bij controle
+geen stand. Waar het om verifieerbare feiten gaat, doet hij precies wat hij de
+Citadel verwijt: hij selecteert wat bij zijn verhaal past en laat de rest weg.
+Bij Velikovsky noemt hij de ene goed uitgekomen voorspelling over Jupiter en
+niet de vele die niet uitkwamen; bij het Mars-effect schuift hij twee
+verschillende hertoetsingen in elkaar zodat CSICOP schuldiger lijkt; bij het
+poltergeistgeval in Columbus laat hij weg dat er beeldmateriaal van bedrog
+bestond.
+
+Daarnaast is de gekozen metafoor scheef. Carl Sagan antwoordde in *The
+Demon-Haunted World* dat geen scepticus iemand tot geloof of ongeloof kan
+dwingen en dat sceptici in de media juist zelden aan het woord komen; wie de
+macht heeft is niet de commissie maar het televisieprogramma. Een inquisitie
+beschikt over de staatsmacht, een sceptische vereniging over een tijdschrift.
+Ten slotte past Wilson zijn eigen agnosticisme eenzijdig toe: over het
+materialisme is hij onzeker, over de betrouwbaarheid van zijn Forteaanse
+bronnen niet. Consequent doorgevoerd zou model-agnosticisme bovendien het
+gewone werk van de wetenschap onmogelijk maken, omdat er dan nooit een model
+is waarop verder gebouwd kan worden.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij een afwijzing van een claim of het gaat om een weerlegging met
+gegevens of om een uitsluiting op grond van ongeloofwaardigheid.
+- Zoek bij een aangehaald geval de oorspronkelijke bron op; dit boek laat zien
+hoe snel een verhaal in de doorgifte van vorm verandert.
+- Vervang uitspraken over hele groepen door uitspraken over een aanwijsbaar
+deel ervan.
+- Benoem bij een discussie welk model je gebruikt en waar het ophoudt te
+passen, in plaats van het als beschrijving van de werkelijkheid te
+presenteren.
+
+#### Wat je hierna leest
+
+- 63. The Demon-Haunted World. Sagan geeft het antwoord van de andere kant en
+gaat rechtstreeks op Wilsons aanklacht in.
+- 654. Against Method. Feyerabend voert hetzelfde bezwaar tegen de methode
+aan, maar met de wetenschapsgeschiedenis als materiaal in plaats van met
+anomalieën.
+- 925. Cosmic Trigger I: Final Secret of the Illuminati. Cosmic Trigger laat
+zien wat er gebeurt wanneer Wilson deze houding op zijn eigen leven toepast.
+- 931. Everything Is Under Control. Everything Is Under Control past dezelfde
+weigering om te oordelen toe op complottheorieën, met dezelfde bezwaren.
+
+## 930. Quantum Psychology
+
+Robert Anton Wilson, 1990. *Quantum Psychology: How Brain Software Programs
+You & Your World* (New Falcon Publications, 1990, 250 blz., ISBN
+9780941404013). Latere uitgave: Hilaritas Press, 2016, 245 blz., ISBN
+9780692767047. Er bestaat geen Nederlandse vertaling; de samenvatting is op de
+Engelse editie gebaseerd. Rubriek: vrij denken en manipulatie.
+Tags: `taal`, `semantiek`, `kwantumfysica`, `waarneming`
+
+Zeven jaar na *Prometheus Rising* schreef Wilson dezelfde stof opnieuw, nu met
+taal als het scharnier in plaats van hersencircuits. Het boek is zelf in
+E-Prime geschreven, het Engels zonder enige vorm van het werkwoord zijn, een
+voorstel dat D. David Bourland jr. in 1949 deed in het verlengde van
+Korzybski's algemene semantiek. Wilsons stelling is dat het woordje is
+stilzwijgend eigenschappen in dingen legt die in werkelijkheid in de
+betrekking tussen waarnemer en ding zitten, en dat een groot deel van de
+ruzies tussen mensen daarop teruggaat.
+
+Daarnaast loopt een tweede draad: de uitleg van de kwantummechanica. Wilson
+behandelt de Kopenhaagse lezing van Bohr, de kat van Schrödinger, de vriend
+van Wigner, de vele werelden van Everett en de verborgen variabelen van Bohm,
+en gebruikt die naast elkaar als voorbeeld van modellen die geen van alle de
+werkelijkheid zelf zijn. Elk hoofdstuk sluit met oefeningen die uitdrukkelijk
+voor een studiegroep zijn bedoeld en niet voor een alleen lezende lezer.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Wilson stelt dat de meeste geschillen tussen mensen geen
+geschillen over feiten zijn maar over grammatica. Het werkwoord zijn legt in
+zinnen als dit is gevaarlijk of hij is een verrader een eigenschap in het
+ding, terwijl er niets anders is waargenomen dan een betrekking tussen een
+zenuwstelsel en zijn omgeving op een bepaald moment. Wie dat werkwoord uit
+zijn taal haalt, ziet dat elke uitspraak een waarnemer heeft, en daarmee valt
+de basis onder ideologie, dogma en het gevoel dat de eigen kijk samenvalt met
+de wereld. De kwantummechanica levert Wilson daarvoor het argument bij
+uitstek, omdat de natuurkunde volgens Bohr niet beschrijft wat het heelal is,
+maar wat er over het heelal te zeggen valt.
+
+#### De gang van het boek
+
+**Hoe weten we wat we weten**
+
+Het eerste deel opent met de gelijkenis van Kafka over de man die aan de poort
+van de Wet om toegang vraagt en er zijn leven lang op blijft wachten. Wilson
+gebruikt haar als beeld voor de zoektocht naar de diepe werkelijkheid achter
+de verschijnselen, en zet daar de Kopenhaagse houding tegenover: de wetenschap
+komt niet achter die poort en beschrijft alleen wat meetbaar is.
+
+In dezelfde hoofdstukken behandelt hij de dualiteit van golf en deeltje, de
+vraag hoeveel hoofden iemand heeft wanneer men de gespiegelde beelden meetelt,
+en de zelfverwijzing die hij strange loops noemt. Steeds is de conclusie
+dezelfde: elke beschrijving bevat het meetinstrument, en het menselijk
+zenuwstelsel is zo'n instrument.
+
+**Spreken over het onuitsprekelijke**
+
+Het tweede deel gaat over taal en recht. Wilson bespreekt de kwantumlogica van
+John von Neumann, met drie waarden in plaats van twee, en betoogt dat die
+driewaardigheid ook in het dagelijks leven bruikbaar is: waar, onwaar en
+onbeslist zijn vaker toereikend dan een gedwongen keuze tussen ja en nee.
+
+Het hoofdstuk over George Carlin gaat over de rechtszaak rond diens lijst met
+woorden die niet op de radio mochten, waarin de Amerikaanse rechter moest
+beslissen of geluidsgolven zelf aanstootgevend kunnen zijn. Het volgende
+hoofdstuk gebruikt Derry en Londonderry: dezelfde stad, twee namen, en in 1990
+kon het uitspreken van de verkeerde naam in de verkeerde straat iemand het
+leven kosten. Wilson laat daarop zien dat ook de vervangende beschrijving, een
+verzameling mensen, huizen, bruggen en cafés, niet buiten de taal om komt.
+
+**E-Prime**
+
+Het sluitstuk van dat deel is E-Prime. Korzybski stelde in *Science and
+Sanity* uit 1933 voor om de is van identiteit af te schaffen, het type zin
+waarin X een Y is. Bourland ging in 1949 verder en schrapte alle vormen van
+het werkwoord zijn.
+
+Wilson schrijft het boek zelf in die vorm en laat zien wat het doet:
+uitspraken die eerst absoluut klonken worden uitspraken van iemand die iets
+waarneemt of ergens van uitgaat. Hij noemt Albert Ellis en E.W. Kellogg III
+als onderzoekers die er ook mee werkten, en meldt eerlijk dat E-Prime buiten
+een kleine kring nauwelijks navolging heeft gekregen.
+
+**Het door de waarnemer geschapen heelal**
+
+Het derde deel gaat over de vraag hoe ver de invloed van de waarnemer reikt.
+Het opent met een Chinese gelijkenis: een boer mist zijn geldbuidel, verdenkt
+de buurjongen, en ziet vanaf dat moment in elke beweging van de jongen schuld,
+tot zijn vrouw de buidel achter het bed vandaan haalt en het gedrag van de
+jongen prompt weer gewoon oogt.
+
+Daarna komen het onderscheid tussen emische en etische werkelijkheid en de
+cijfers over het placebo-effect die Wilson aan het werk van Ernest Rossi
+ontleent: in zes dubbelblinde proeven kwam een placebo op 56 procent van de
+werking van morfine, in negen proeven op 54 procent van aspirine en in drie
+proeven op 56 procent van codeïne. Zijn conclusie is dat de sociale
+werkelijkheid van een groep, de emische, mede bepaalt wat mensen binnen die
+groep werkelijk overkomt. Ter illustratie voert hij verschillen in
+zelfdodings- en moordcijfers tussen bevolkingsgroepen op.
+
+**De kat, de vriend en de vele werelden**
+
+Het vierde deel legt de gangbare uitleggingen van de kwantummechanica naast
+elkaar. De kat van Schrödinger, de vriend van Wigner, de vele werelden van
+Everett, Wheeler en Graham, en de verborgen variabelen van Bohm krijgen elk
+hun beurt, telkens met de opmerking dat het om modellen gaat.
+
+Wilson maakt daar een taalkundig punt van dat scherper is dan zijn
+natuurkundige punten. Wie de Kopenhaagse lezing in gewoon Engels weergeeft,
+met de is van identiteit erin, laat haar zeggen dat wij het heelal met onze
+waarneming scheppen, een standpunt dat vrijwel alleen bij bisschop Berkeley te
+vinden is. In E-Prime geformuleerd zegt zij alleen dat wij niets kunnen zeggen
+over wat we niet meten.
+
+**Het niet-lokale zelf en de oefeningen**
+
+Het slotdeel behandelt het theorema van Bell, de niet-lokaliteit en Bohms
+impliciete orde, en trekt die door naar een zelf dat niet in de huid
+opgesloten zou zitten. Hier verlaat Wilson de bewijsbare stof en gaat hij over
+in vooruitblik en speculatie.
+
+Praktisch is het boek een cursusboek. De oefeningen aan het eind van elk
+hoofdstuk vragen om een groep: een steen die rondgaat waarover iedereen alles
+moet proberen te zeggen, tot de groep vaststelt dat alles zeggen niet lukt;
+een week lang bijhouden waar het woord alle door sombunall vervangen kan
+worden; gesprekken die in E-Prime gevoerd moeten worden.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| E-Prime | Engels zonder enige vorm van het werkwoord zijn, in 1949 voorgesteld door D. David Bourland jr. |
+| de is van identiteit | De zinsvorm X is een Y, die volgens Korzybski een eigenschap in het ding legt die alleen in de betrekking met de waarnemer bestaat. |
+| reality tunnel | Het model waarmee iemand zijn waarnemingen ordent en dat hij gewoonlijk voor de werkelijkheid houdt. |
+| emische werkelijkheid | De door een groep gedeelde sociale werkelijkheid met haar eigen spelregels, waarbinnen de leden waarnemen en handelen. |
+| etische werkelijkheid | De veronderstelde werkelijkheid buiten elke waarnemer om, waarover volgens Wilson niets gezegd kan worden zonder haar in emische taal te vatten. |
+| sombunall | Samentrekking van some but not all, bedoeld als vervanging van uitspraken over alle leden van een groep. |
+| kwantumlogica | De driewaardige logica van von Neumann, met waar, onwaar en onbeslist, die Wilson ook op alledaagse oordelen toepast. |
+| psychosomatische synergie | Wilsons naam voor het samenspel waarin verwachting en overtuiging meebepalen wat er lichamelijk gebeurt, met het placebo-effect als voornaamste bewijsstuk. |
+| niet-lokaliteit | De samenhang tussen ruimtelijk gescheiden deeltjes die uit het theorema van Bell volgt. |
+
+#### Waar het argument op rust
+
+De taalkundige helft rust op bestaand materiaal. Korzybski publiceerde
+*Science and Sanity* in 1933, Bourland stelde E-Prime in 1949 voor, en de
+bezwaren tegen de is van identiteit zijn in de taalfilosofie een herkenbaar
+thema. De natuurkundige helft geeft de gangbare uitleggingen op het niveau van
+goede populariserende boeken correct weer; Wilson had geen opleiding in
+natuurkunde en zegt dat er ook bij. De placebocijfers komen uit één secundaire
+bron, het werk van Ernest Rossi, en worden niet tegen ander onderzoek gelegd.
+
+De sprong die het boek draagt, wordt echter nergens onderbouwd. Dat de meting
+in de kwantummechanica niet los te denken is van het meetinstrument, is
+natuurkunde; dat overtuigingen van een groep bepalen hoeveel verkrachtingen of
+zelfdodingen er plaatsvinden, is sociologie; en tussen die twee legt Wilson
+geen verband dat verder gaat dan analogie. Zijn voorbeelden op dat punt, de
+Zuni en de Trobrianders, zijn oude etnografische beweringen; de bekendste
+ervan, die van Malinowski over de Trobrianders, is later bestreden.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar geldt de titel zelf. De kwantummechanica geldt voor de
+schaal waarop interferentie meetbaar is; bij zenuwstelsels, mensen en
+samenlevingen zorgt decoherentie ervoor dat er niets van overblijft, en
+vrijwel geen natuurkundige aanvaardt de lezing waarin menselijk bewustzijn de
+uitkomst schept. John Bell, van wiens theorema Wilson het meeste maakt, wees
+die uitleg zelf uitdrukkelijk af. Wat het boek psychologie noemt, blijft
+daardoor een reeks vergelijkingen die geen van de twee vakgebieden dekt.
+
+Daarbij komt dat Wilson zijn eigen gereedschap niet consequent hanteert. Hij
+schrijft in E-Prime om absolute uitspraken te vermijden, en beweert vervolgens
+buiten die vorm om dat overtuiging de gezondheid stuurt en dat de som van alle
+geesten er één zou kunnen zijn. En het boek is opgezet als cursus voor een
+studiegroep van meerdere mensen, terwijl vrijwel elke lezer het alleen leest;
+wie de oefeningen overslaat houdt een reeks anekdotes over waarvan de auteur
+zelf zegt dat lezen alleen niet werkt.
+
+#### Wat er concreet mee te doen is
+
+- Herschrijf een oordeel dat vastzit zonder het werkwoord zijn en kijk wat er
+dan feitelijk beweerd wordt.
+- Vervang bij het lezen van een uitspraak over een groep het woord alle door
+een deel en ga na of de bewering overeind blijft.
+- Voeg aan een discussie de derde waarde toe: waar, onwaar of nog niet
+beslisbaar met wat er nu op tafel ligt.
+- Benoem bij een meting of beoordeling welk instrument is gebruikt, en reken
+dat mee bij de uitkomst.
+- Ga bij een verdenking na welke waarnemingen erna zijn gedaan; de gelijkenis
+van de boer en de buurjongen laat zien hoe de verdenking het bewijs
+produceert.
+
+#### Wat je hierna leest
+
+- 928. Prometheus Rising. Prometheus Rising behandelt dezelfde stof zeven jaar
+eerder, met hersencircuits waar dit boek taal zet.
+- 653. Speakable and Unspeakable in Quantum Mechanics. Bell legt in eigen
+woorden uit wat zijn theorema wel en niet zegt, en verwerpt de lezing waarop
+Wilson bouwt.
+- 929. The New Inquisition. The New Inquisition levert de kennisleer waarvan
+dit boek de taalkundige uitwerking is.
+- 656. Metamagical Themas. Hofstadter behandelt zelfverwijzing en strange
+loops met de striktheid die Wilson bij dat onderwerp mist.
+
+## 931. Everything Is Under Control
+
+Robert Anton Wilson en Miriam Joan Hill, 1998. *Everything Is Under Control:
+Conspiracies, Cults, and Cover-ups* (HarperPerennial, New York, 1998, 435
+blz., ISBN 9780062734174; Britse editie Pan Books, Londen, ISBN
+9780330389945). Er bestaat geen Nederlandse vertaling; de samenvatting is op
+de Engelse editie gebaseerd. Rubriek: vrij denken en manipulatie.
+Tags: `complotdenken`, `naslagwerk`, `media`, `geschiedenis`
+
+Ruim twintig jaar na *Illuminatus!* maakte Wilson met Miriam Joan Hill een
+alfabetisch naslagwerk van complottheorieën, sektes en doofpotten, van Abdul
+Alhazred tot ZOG. Hill deed het zoekwerk op het toen jonge web; elk lemma
+sluit af met kruisverwijzingen en met een bronvermelding, vaak een boek en
+vaak een webadres uit 1997 of 1998. Wilson noemt het zelf een demonisch
+woordenboek.
+
+De inleiding levert de redenering eromheen. Hij opent met een enquête onder
+achthonderd Amerikanen uit september 1996 waarin 74 procent aangaf te geloven
+dat de eigen regering geregeld heimelijke operaties uitvoert, tegenover 29
+procent die in hekserij geloofde en 10 procent die dacht dat Elvis nog leefde.
+Wilson zoekt de verklaring in de grammatica: omdat we over de Joden, de
+vrijmetselaars of de nieuwe wereldorde kunnen spreken, gaan we geloven dat
+zulke verzamelnamen bestaan zoals honden en bonen bestaan. Hij weigert
+vervolgens per lemma te oordelen, en dat is tegelijk zijn methode en het
+grootste bezwaar tegen het boek.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Wilson behandelt complotdenken als een taalverschijnsel en
+niet als een geestesziekte. Zijn stelling is dat de menselijke grammatica ons
+dwingt te spreken over de Joden, de bankiers, de vrijmetselaars of de nieuwe
+wereldorde, dat wij die verzamelnamen vervolgens voor werkelijke handelende
+wezens houden, en dat elke complottheorie die kant op groeit: hoe langer zij
+bestaat, hoe uitwisselbaarder en kwaadaardiger de leden van de beschuldigde
+groep worden voorgesteld. Daar komt bij dat de theorieën logisch onweerlegbaar
+zijn, omdat bewijs tegen het complot altijd als bewijs voor de doofpot kan
+worden gelezen. Tegen die achtergrond zet hij ruim vierhonderd bladzijden
+lemma's neer, van gedocumenteerde samenzweringen tot pure verzinsels, zonder
+ze uit elkaar te houden.
+
+#### De gang van het boek
+
+**Waarom mensen complotten geloven**
+
+De inleiding is het enige aaneengesloten betoog in het boek. Wilson begint met
+cijfers: in een telefonische enquête onder achthonderd Amerikaanse volwassenen
+in september 1996 zei 74 procent te geloven dat de regering geregeld
+heimelijke operaties uitvoert, terwijl 29 procent in hekserij geloofde en 10
+procent dacht dat Elvis Presley nog leefde. Wantrouwen jegens de overheid is
+daarmee geen randverschijnsel maar de meerderheidsopvatting.
+
+Hij trekt dat wantrouwen breder: ook artsen, monteurs, adverteerders,
+deskundigen en geestelijken worden inmiddels standaard verdacht. Zelfs de
+academische wereld doet volgens hem mee, want deconstructie en postmodernisme
+komen erop neer dat men achter elk verhaal een verzwegen belang zoekt.
+
+**Grammatica en uitwisselbaarheid**
+
+Het theoretische hart van de inleiding is een argument uit de algemene
+semantiek. Wilson haalt Nietzsche aan: nadat de mens moe werd van dit blad en
+dat blad, bedacht hij de categorie het blad, die nergens buiten de taal
+bestaat. Zo ontstaan ook de Joden, de vrijmetselaars en de nieuwe wereldorde,
+en gaan mensen die grammaticale abstracties voor handelende wezens houden.
+
+Hij noemt dat de neiging tot uitwisselbaarheid: in een rijpe complottheorie
+zijn alle leden van de beschuldigde groep even schuldig. Als tegenvoorbeeld
+voert hij Ezra Pound op, die in Canto 52 nog onderscheid maakte tussen enkele
+rijke Joden en de arme Joden die de rekening kregen, en die dat onderscheid
+enkele jaren later in zijn radiopraatjes had laten vallen. Korzybski's
+voorstel om lid1, lid2 en lid3 te schrijven in plaats van het lid zou volgens
+Wilson de meeste complottheorieën onmogelijk maken.
+
+**Wat wel is gebeurd**
+
+Wilson weigert alle complottheorieën als kolder af te doen, en zijn argument
+daarvoor is dat regeringen zelf in complotten geloven en er wetten tegen
+hebben. Toezichthouders, officieren van justitie en inlichtingendiensten
+hebben als taak samenzweringen op te sporen, en soms vinden ze er een.
+
+Zijn voorbeelden zijn echt. De Italiaanse loge P2 bleek volgens hem ruim
+negenhonderdvijftig leden op hoge posten te hebben geplaatst; het lemma over
+de Banco Ambrosiano beschrijft de val van bankdirecteur Roberto Calvi. Ook de
+tabaksindustrie, het syfilisonderzoek in Tuskegee, het LSD-onderzoek van de
+CIA onder de naam MK-ULTRA en de overgang van Hitlers inlichtingenchef
+Reinhard Gehlen naar Amerikaanse dienst krijgen een lemma. Tegelijk merkt hij
+op dat de opsporingsdiensten nooit een spoor hebben gevonden van de echt grote
+complotten waarin de meeste liefhebbers geloven.
+
+**De strange loop**
+
+Waarom die theorieën desondanks blijven bestaan, verklaart Wilson met wat hij
+een strange loop noemt. Elke tegenwerping kan als onderdeel van de doofpot
+worden gelezen, zodat bewijs tegen het complot omslaat in bewijs ervoor.
+Daardoor is geen enkele werkelijk sluitende complottheorie te weerleggen.
+
+Zijn conclusie is dat mensen zulke modellen niet om logische redenen aanhangen
+maar om wat hij artistieke of emotionele redenen noemt: ze geven een
+samenhangend en eenvoudig verhaal aan gebeurtenissen die anders chaotisch en
+onbegrijpelijk blijven. Hij voegt eraan toe dat hij daarom zelf in nogal wat
+van deze theorieën gelooft, wat de lezer als grap moet opvatten en
+waarschijnlijk ook half serieus.
+
+**Het woordenboek zelf**
+
+De ruim vierhonderd bladzijden daarna zijn strikt alfabetisch, van de A van
+Abdul Alhazred tot de Z van ZOG, de aanduiding waarmee Amerikaanse
+militiegroepen een zionistisch bezette regering bedoelen. Elk lemma bestaat
+uit enkele alinea's, gevolgd door kruisverwijzingen en een bron.
+
+De reikwijdte is groot en de rangschikking vlak. De moord op Kennedy krijgt
+tientallen ingangen, van de Zapruder-film tot de man met de paraplu op het
+Dealey Plaza. Daarnaast staan lemma's over de Bank of America, waarvan een
+schrijver onder schuilnaam de afkorting BOA verdacht vond omdat een boa zijn
+prooi doodknijpt, en over Yog Sothoth en het Necronomicon, die uit de verhalen
+van H.P. Lovecraft komen. Ook de Discordische beweging waar Wilson zelf uit
+voortkomt is present, met een lemma over Operation Mindfuck.
+
+**De houding van de samensteller**
+
+Wilson legt in de inleiding uit waarom hij nergens een oordeel velt. In
+*Illuminatus!* koos hij er met Robert Shea al voor om de lezer niet door een
+alwetende verteller te laten voorlichten, maar hem tussen tegenstrijdige
+vertellers te laten kiezen. Dat procedé zet hij hier voort in de vorm van een
+naslagwerk.
+
+Hij meldt daarbij dat Hill zoveel materiaal vond dat het boek net zo dik als
+een encyclopedie had kunnen worden, en dat er geen complottheorie te bedenken
+is die zo belachelijk is dat niemand erin gelooft.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| demonisch woordenboek | Wilsons aanduiding voor dit boek: een alfabetische verzameling theorieën die de schuld voor het kwaad bij een aanwijsbare groep leggen. |
+| uitwisselbaarheid | De neiging van complottheorieën om alle leden van de beschuldigde groep als even schuldig en onderling verwisselbaar voor te stellen. |
+| erfzondetheorie | Wilsons tegenhanger van de complottheorie: de verklaring die de schuld gelijkelijk over alle mensen verdeelt en daarom geen zondebok aanwijst. |
+| strange loop | De constructie waarin bewijs tegen een theorie als bewijs voor de doofpot kan gelden, zodat de theorie onweerlegbaar wordt. |
+| cultic twilight | De schemertoestand waarin burgers de overheid wantrouwen en de overheid tegelijk haar burgers bespioneert, waardoor beide zijden elkaars vermoedens voeden. |
+| conspiriologie | Wilsons spottende naam voor de bezigheid van het verzamelen en uitbouwen van complottheorieën. |
+| Operation Mindfuck | Discordisch project van verwarrende grappen en verzonnen onthullingen, bedoeld om het idee van wat mogelijk is op te rekken. |
+| Yankee-Cowboy-oorlog | Het model van Carl Oglesby waarin de Amerikaanse machtsstrijd loopt tussen het oude noordoostelijke establishment en de nieuwe olie- en wapenbelangen uit het zuidwesten. |
+
+#### Waar het argument op rust
+
+Formeel is het boek keurig verantwoord: bij vrijwel elk lemma staat een bron.
+De aard van die bronnen loopt echter ver uiteen. Naast serieuze
+onderzoeksboeken en rapporten staan webadressen die in 1998 zijn geraadpleegd
+en die inmiddels grotendeels verdwenen zijn, en boeken van complotschrijvers
+die zelf niets hebben nagetrokken. Wilson geeft nergens aan tot welke soort
+een bron behoort.
+
+Waar het om gedocumenteerde zaken gaat, zoals P2, de Banco Ambrosiano,
+Tuskegee of MK-ULTRA, klopt de hoofdlijn en is die elders na te gaan. Waar het
+om onbewezen beweringen gaat, geeft hij weer wat de aanhangers zeggen, in
+dezelfde toon en dezelfde omvang. Het oordeel van *Kirkus Reviews* vatte dat
+samen met de opmerking dat de vorm encyclopedisch is maar de inhoud niet.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar richt zich op precies datgene wat Wilson zijn methode
+noemt. Een naslagwerk dat weigert te wegen, geeft de lezer geen enkel middel
+om het syfilisonderzoek in Tuskegee, dat werkelijk veertig jaar heeft geduurd,
+te onderscheiden van ZOG, dat racistische fantasie is. Beide krijgen een paar
+alinea's, kruisverwijzingen en een bron. Wie het onderscheid al kent heeft het
+boek niet nodig; wie het niet kent, krijgt hier een register waarin alles even
+zwaar weegt. Bij een onderwerp waarin de schade juist voortkomt uit het
+gelijkschakelen van bewijs en gerucht, is die vormgeving zelf een keuze met
+gevolgen.
+
+Daarbij komt dat Wilson zijn eigen diagnose ondermijnt. Hij legt in de
+inleiding uit hoe grammatica van groepen zondebokken maakt, en zet daarna
+lemma's neer die dat mechanisme voeden zonder het te benoemen. Dat hij naast
+documenteerbare zaken ook verzinsels van Lovecraft opneemt, is als grap te
+begrijpen, maar het wist de grens die hij zegt te verdedigen. Praktisch is het
+boek bovendien snel verouderd: het is een momentopname van het web van 1998,
+en alles wat sindsdien in het complotdenken is gebeurd ontbreekt. Kirkus
+merkte al bij verschijnen op dat lezers die *Illuminatus!* kenden dit boek
+daarnaast ongevormd zouden vinden.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij een complotverhaal of er een waarneming denkbaar is die het zou
+weerleggen; is die er niet, dan gaat het om een gesloten model.
+- Vervang de beschuldigde verzamelnaam door aanwijsbare personen met namen en
+functies, en kijk wat er van de bewering overblijft.
+- Zoek bij elk lemma de opgegeven bron op en let op het verschil tussen een
+rapport, een boek van een complotschrijver en een verdwenen webpagina.
+- Onderscheid bij het beoordelen van een claim de vraag of iets is gebeurd van
+de vraag of iemand het heeft verzwegen.
+
+#### Wat je hierna leest
+
+- 915. The Eye in the Pyramid. Het eerste deel van Illuminatus! doet als roman
+wat dit boek als naslagwerk doet, en heeft daar de betere vorm voor.
+- 926. The Illuminati Papers. The Illuminati Papers bevat Wilsons betogende
+stukken over hetzelfde materiaal, met wel een standpunt.
+- 929. The New Inquisition. In The New Inquisition past Wilson dezelfde
+weigering om te oordelen toe op de wetenschap.
+- 63. The Demon-Haunted World. Sagan behandelt hetzelfde soort claims met een
+toetsingskader in de hand, waar dit boek dat juist weglaat.
+
+## 932. The Passion of the Western Mind
+
+Richard Tarnas, 1991. *The Passion of the Western Mind: Understanding the
+Ideas That Have Shaped Our World View* (Harmony Books, New York, 1991, 544
+blz.; paperback Ballantine Books, New York, 1993, ISBN 9780345368096). Er
+bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie
+gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `filosofie`, `ideeëngeschiedenis`, `wereldbeeld`,
+`wetenschapsgeschiedenis`
+
+Richard Tarnas, cultuurhistoricus en jarenlang verbonden aan het Esalen
+Institute en het California Institute of Integral Studies, vat de westerse
+ideeëngeschiedenis samen in één doorlopend verhaal: van Homerus en Plato via
+Augustinus en Thomas van Aquino naar Copernicus, Kant, Darwin, Nietzsche en
+Freud. Het geheel is geschreven als leerstof, met veel aandacht voor de vraag
+wat elke denker precies beweerde en wat hij met de vorige te maken had. Die
+opzet verklaart het bereik van het boek: het verkocht meer dan
+tweehonderdduizend exemplaren en werd op Amerikaanse universiteiten als
+inleiding gebruikt.
+
+In de epiloog verandert het boek van soort. Tarnas stelt daar dat de hele
+beweging die hij beschreven heeft de ontwikkeling van één collectief
+bewustzijn is, dat zich losmaakte uit de kosmos en daardoor in een dubbele
+binding terechtkwam: het weet dat het de wereld alleen kent via de eigen
+vormen, en kan die wereld dus nooit bereiken. Zijn uitweg noemt hij een
+participerende kenleer, waarin de menselijke geest het orgaan is waarin de
+natuur zichzelf uitspreekt. Hij verbindt die gedachte aan het werk van
+Stanislav Grof over geboorte-ervaringen onder psychedelica, en besluit met de
+stelling dat de westerse geest zijn eenzijdig mannelijke gang moet afsluiten
+in een hereniging met het vrouwelijke.
+
+### Uitgebreide samenvatting
+
+**De stelling.** De westerse ideeëngeschiedenis is volgens Tarnas geen reeks
+losse standpunten maar één samenhangende beweging, waarin een collectief
+bewustzijn zich stap voor stap losmaakt uit de kosmos waarin het aanvankelijk
+besloten lag. Elke winst aan zelfstandigheid, van de Griekse rede tot de
+moderne natuurwetenschap, is tegelijk een verlies aan verbondenheid, tot de
+mens ten slotte in een heelal staat dat niets terugzegt en waarvan hij
+bovendien weet dat hij het uitsluitend door zijn eigen vormen ziet. Tarnas
+houdt vol dat die uitkomst de crisis vlak voor een omslag is, en dat de
+scheiding tussen kenner en wereld ongedaan gemaakt kan worden zonder terug te
+vallen achter de wetenschap.
+
+#### De gang van het boek
+
+**Het Griekse wereldbeeld**
+
+Het boek begint bij de overgang van mythe naar filosofie in Ionië en werkt toe
+naar Plato. Tarnas leest de ideeënleer als het patroon dat de rest van het
+boek draagt: de gedachte dat achter de wisselende verschijnselen een orde ligt
+die met de rede te vatten is. Aristoteles verschuift het zwaartepunt van die
+orde naar de dingen zelf, maar houdt vast aan de aanname dat de kosmos
+begrijpelijk is.
+
+Tarnas wijst erop dat de moderne wetenschap die aanname nooit heeft opgegeven.
+Wie ervan uitgaat dat natuurwetten in wiskunde te schrijven zijn, werkt met
+een erfenis uit de Academie, ook als hij Plato verder afwijst.
+
+**De klassieke wereld valt uiteen**
+
+Na Aristoteles beschrijft Tarnas een periode van verbrokkeling: stoïcijnen en
+epicureeërs die de filosofie tot levenskunst maken, sceptici die de
+kenbaarheid van de wereld aanvallen, en daarnaast een groei van astrologie,
+mysteriegodsdiensten en gnostiek. Plotinus vat het platonisme opnieuw samen op
+een manier die het voor de christelijke theologie bruikbaar maakt. In deze
+hoofdstukken verschuift de leidende vraag van wat de kosmos is naar hoe de
+ziel gered wordt.
+
+**Het christelijke wereldbeeld**
+
+Augustinus staat in het midden van dit deel. Bij hem lopen het platonisme en
+de christelijke openbaring in elkaar over: de geschiedenis krijgt een begin,
+een richting en een einde, en het heil ligt buiten de natuur. Tarnas laat zien
+dat het christendom de wereld tegelijk onttoverde en ordelijk maakte. De
+natuur is geen godheid meer, wel het werk van een God die wetten geeft, en dat
+is later de vergunning geworden om haar te onderzoeken.
+
+Thomas van Aquino bouwt in de dertiende eeuw de synthese met Aristoteles die
+dat onderzoek een plaats binnen de theologie geeft. Volgens Tarnas maakt juist
+die synthese de latere breuk mogelijk: zodra de aristotelische natuurkunde het
+begeeft, staat de theologie mee op het spel.
+
+**De middeleeuwse orde breekt open**
+
+Het vierde deel loopt van het nominalisme van Willem van Ockham en de
+renaissance naar de Reformatie en de wetenschappelijke omwenteling.
+Copernicus, Kepler, Galileï en Newton krijgen elk enkele bladzijden, met
+nadruk op de gedachtegang en niet op de levensloop. Tarnas onderstreept dat de
+overgang naar het heliocentrisme niet door waarneming alleen werd gedragen:
+bij Copernicus en Kepler speelden neoplatoonse overwegingen over de zon en
+over wiskundige harmonie een rol.
+
+Aan het eind van dit deel is de mens klein geworden en de kosmos leeg. De
+wereld blijft over als materie in beweging, en alles wat kleur, doel of
+betekenis heet verhuist naar de waarnemer.
+
+**Kant en de dubbele binding**
+
+Descartes, Locke en Hume brengen die verhuizing tot haar uiterste, en Kant
+maakt haar tot leer. Zijn copernicaanse wending stelt dat de geest de vormen
+levert waarin ervaring verschijnt, waardoor kennis van het ding op zichzelf
+uitgesloten is. Tarnas behandelt dit als het scharnier van het hele boek.
+
+Daarmee ontstaat wat hij de post-copernicaanse dubbele binding noemt, naar een
+begrip van Gregory Bateson. De moderne mens krijgt van zijn eigen wereldbeeld
+twee onverenigbare boodschappen: hij is een toevallig product van een zinloos
+heelal, en tegelijk is dat heelalbeeld een constructie van diezelfde geest.
+Wie beide serieus neemt, kan nergens meer staan.
+
+**De epiloog: participatie en het vrouwelijke**
+
+Het laatste deel gaat van Darwin, Marx, Nietzsche en Freud naar het
+existentialisme en het postmoderne wantrouwen tegen elk groot verhaal. Daarna
+verlaat Tarnas de rol van samensteller. Hij haalt een tegenlijn naar voren die
+volgens hem in de moderne tijd is blijven bestaan, bij Goethe, Schelling,
+Hegel en Steiner: de geest legt de orde niet op aan de natuur, hij is de
+plaats waar de natuur zichzelf uitspreekt.
+
+Om die tegenlijn te onderbouwen gebruikt hij het werk van Jung over het
+onbewuste en dat van Stanislav Grof, die in dertig jaar therapiewerk met
+psychedelica en ademtechnieken een vaste opeenvolging van geboorte-ervaringen
+meende te vinden. Tarnas leest de moderne vervreemding als een geboorteproces
+dat zijn laatste fase nadert. Het boek eindigt met de gedachte dat de westerse
+geest zich eenzijdig mannelijk heeft ontwikkeld en zijn gang alleen kan
+voltooien in een hereniging met het vrouwelijke.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| wereldbeeld | Het geheel van aannames over werkelijkheid, kennis en mens waarbinnen een tijdperk denkt; bij Tarnas de eenheid waarin hij de geschiedenis indeelt. |
+| participerende kenleer | De opvatting dat de menselijke geest de orde niet aan de natuur oplegt maar het orgaan is waarin de natuur haar eigen betekenis uitspreekt. |
+| post-copernicaanse dubbele binding | Tarnas' naam voor de toestand waarin de moderne mens zowel toevallig product van een zinloos heelal is als de maker van dat heelalbeeld. |
+| copernicaanse wending | Kants stelling dat de geest de vormen van ruimte, tijd en oorzakelijkheid aan de ervaring levert, zodat het ding op zichzelf onbereikbaar blijft. |
+| dialectiek | De denkvorm waarin een standpunt zijn tegendeel oproept en beide in een derde worden opgeheven; Tarnas gebruikt haar als motor van de hele geschiedenis. |
+| archetype | Een grondpatroon dat volgens Tarnas zowel in de ziel als in de wereld werkzaam is, ontleend aan Plato en via Jung opnieuw ingevoerd. |
+| perinatale matrices | Grofs benaming voor vier terugkerende ervaringspatronen rond de geboorte, door Tarnas gebruikt als sjabloon voor de moderne bewustzijnsgeschiedenis. |
+| het onbewuste | Bij Tarnas geen persoonlijke bergplaats maar een gedeelde laag waarin de wereldbeelden van een tijdperk hun oorsprong hebben. |
+
+#### Waar het argument op rust
+
+Het historische deel steunt op de gangbare literatuur over de westerse
+filosofie en op de bronteksten zelf; het notenapparaat en de bibliografie
+verwijzen naar standaardwerken, niet naar eigen archiefonderzoek. Dat is geen
+bezwaar voor wat het boek wil zijn: een overzicht dat de argumenten van Plato,
+Aquino, Kant en Nietzsche navertelt op een manier die klopt. Op dat punt is
+het werk betrouwbaar, en de lof die het kreeg van Joseph Campbell en Huston
+Smith gold vooral die weergave. Het materiaal komt voort uit colleges die
+Tarnas jarenlang gaf, en dat is aan de opbouw te merken.
+
+De epiloog rust op iets anders. De stelling over het geboorteproces steunt op
+Grofs klinische verslagen van sessies met LSD en met holotroop ademen. Dat
+zijn beschrijvingen van ervaringen van deelnemers, verzameld zonder
+controlegroep en zonder onafhankelijke herhaling. Wie de laatste dertig
+bladzijden leest als geschiedschrijving van hetzelfde soort als de vijfhonderd
+daarvoor, wordt daarin door de opbouw van het boek geholpen en door het bewijs
+niet.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat de epiloog niet volgt uit wat eraan voorafgaat.
+Vijfhonderd bladzijden ideeëngeschiedenis kunnen laten zien dat het westerse
+denken een bepaalde weg heeft afgelegd; ze kunnen niet dragen dat die weg een
+geboorte was en dat de bevalling nabij is. Ken Wilber verweet Tarnas dat hij
+het paradigmabegrip van Thomas Kuhn oprekt tot iets wat Kuhn er nooit mee
+bedoelde. Morris Berman noemde het overzicht behoorlijk en de theorie erachter
+vluchtgedrag.
+
+Daarnaast is de vorm zelf een keuze met gevolgen. De geschiedenis wordt
+verteld als een keten van grote namen en boeken, zonder instellingen, geld,
+techniek of arbeidsverhoudingen, en zonder iets buiten Europa en
+Noord-Amerika. Omdat het verhaal weet waar het uitkomt, wordt elke denker een
+tussenstap. Wie in de tekst zoekt naar wat er niet in het schema past, vindt
+weinig.
+
+Het is ook goed te weten waar het boek op uitloopt. Tarnas heeft de lijn van
+de epiloog voortgezet in *Cosmos and Psyche* uit 2006, waarin hij stelt dat
+planeetstanden samenhangen met patronen in de wereldgeschiedenis. Dat vervolg
+staat of valt met statistische beweringen waarvoor buiten de astrologische
+literatuur geen bevestiging bestaat.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik het boek als naslagwerk bij een filosofisch werk dat te moeilijk
+begint; de betreffende twintig bladzijden geven de context die de brontekst
+veronderstelt.
+- Houd de eerste zes delen en de epiloog uit elkaar: het eerste is overzicht,
+het tweede is stellingname.
+- Leg de hoofdstukken over Copernicus en Kant naast een geschiedenis van de
+natuurwetenschap, zodat zichtbaar wordt wat Tarnas weglaat.
+- Zoek bij elke denker één alinea uit het origineel op, voordat de
+samenvatting de plaats van het origineel inneemt.
+
+#### Wat je hierna leest
+
+- 936. The Varieties of Religious Experience. James onderzoekt religieuze
+ervaring als gegeven, waar Tarnas haar in een geschiedenisverhaal onderbrengt.
+- 948. The Copernican Revolution. Kuhn behandelt dezelfde omwenteling van
+dichtbij, met de rekentechnische details die bij Tarnas ontbreken.
+- 940. The Gnostic Religion. De gnostiek die Tarnas in enkele bladzijden
+afdoet, krijgt bij Jonas een volledige behandeling.
+- 938. The Sleepwalkers. Koestler vertelt de weg van Copernicus tot Newton als
+een reeks vergissingen en dwaalwegen, wat de rechte lijn van Tarnas
+tegenspreekt.
+
+## 933. The Great Transformation
+
+Karl Polanyi, 1944. *The Great Transformation: The Political and Economic
+Origins of Our Time* (Farrar & Rinehart, New York, 1944; de Britse editie
+verscheen in 1945 bij Victor Gollancz onder de titel *The Origins of Our
+Time*; tweede editie met een voorwoord van Joseph Stiglitz en een inleiding
+van Fred Block, Beacon Press, Boston, 2001, 360 blz., ISBN 9780807056431). Er
+bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie
+gebaseerd. Rubriek: geschiedenis en samenleving.
+Tags: `economie`, `kapitalisme`, `economische geschiedenis`, `politieke
+economie`
+
+Karl Polanyi schreef dit boek tijdens de Tweede Wereldoorlog in de Verenigde
+Staten, als antwoord op de vraag hoe de betrekkelijk stabiele negentiende eeuw
+in dertig jaar kon overgaan in twee wereldoorlogen, de crisis van de jaren
+dertig en het fascisme. Zijn antwoord ligt bij een instelling en niet bij een
+reeks gebeurtenissen: de poging om de samenleving in te richten rond een markt
+die zichzelf regelt. Die poging noemt hij een uitvinding van de negentiende
+eeuw, doorgevoerd met wetgeving en politiedwang, en geen natuurlijke toestand
+waar economen haar voor aanzagen.
+
+De sleutel is dat arbeid, grond en geld als koopwaar worden verhandeld terwijl
+ze niet voor de verkoop zijn gemaakt. Polanyi noemt ze fictieve koopwaar. Wie
+mensen, land en betaalmiddelen volledig aan de prijsvorming overlaat, sloopt
+de samenleving die hen voortbrengt, en die samenleving verweert zich:
+fabriekswetten, vakbonden, invoerrechten, centrale banken, sociale
+verzekering. Dat heen en weer heet bij hem de dubbele beweging. Toen de
+spanning tussen markt en samenleving in de jaren dertig onhoudbaar werd, viel
+het stelsel uiteen in de New Deal, de Sovjetplanning en het fascisme. Het boek
+eindigt bij de vraag wat vrijheid nog kan betekenen in een samenleving die
+haar eigen werkelijkheid onder ogen ziet.
+
+### Uitgebreide samenvatting
+
+**De stelling.** De zelfregulerende markt is volgens Polanyi geen natuurlijke
+ordening waar samenlevingen vanzelf in terechtkomen, maar een
+negentiende-eeuws bouwwerk dat met staatsdwang tot stand is gebracht en alleen
+met staatsdwang overeind blijft. Markten bestaan al duizenden jaren, maar een
+samenleving die als geheel aan de prijsvorming is opgehangen bestond nergens
+eerder. Omdat zo'n inrichting arbeid, grond en geld behandelt alsof het gewone
+koopwaar is, tast zij de stof aan waaruit een samenleving bestaat, en roept
+zij vanzelf een tegenkracht op die haar wil beteugelen. De botsing tussen die
+twee, en niet een moreel tekort of een reeks ongelukken, verklaart bij Polanyi
+de ineenstorting van de negentiende-eeuwse orde tussen 1914 en 1945.
+
+#### De gang van het boek
+
+**De vier steunpilaren van de honderdjarige vrede**
+
+Polanyi begint bij een raadsel: tussen 1815 en 1914 voerden de Europese grote
+mogendheden geen langdurige oorlog tegen elkaar, en daarna binnen dertig jaar
+twee. Hij verklaart die eeuw uit vier instellingen die elkaar in stand
+hielden: het machtsevenwicht tussen staten, de internationale goudstandaard,
+de zelfregulerende markt en de liberale staat. De goudstandaard noemt hij de
+spil.
+
+De vrede werd volgens hem niet bewaard door diplomatie maar door belang. De
+internationale financiële wereld, de haute finance, had leningen uitstaan in
+alle hoofdsteden en verloor bij elke grote oorlog. Toen de goudstandaard in de
+jaren dertig alsnog bezweek, viel de rest van het bouwwerk mee om. Voor
+Polanyi is dat geen samenloop maar het bewijs dat het één stelsel was.
+
+**Markten zijn oud, de marktsamenleving is jong**
+
+Het antropologische deel draagt zijn aanval op de economie van zijn tijd. Adam
+Smith leidde de arbeidsdeling af uit een aangeboren neiging tot ruilen en
+sjacheren; Polanyi houdt daartegenover dat die neiging in vroegere
+samenlevingen niet terug te vinden is. Wat hij er wel aantreft zijn drie
+andere ordeningen: wederkerigheid tussen gelijken, herverdeling via een
+centrum, en huishouding voor eigen gebruik. Hij verwijst daarvoor onder meer
+naar de Trobriand-eilanden, het koninkrijk Dahomey, het Babylonië van
+Hammurabi en het Inca-rijk.
+
+Daaruit volgt het begrip waar het boek om draait: de economie was ingebed in
+sociale verhoudingen. Wie in zo'n samenleving zijn plicht deed, deed dat om
+zijn stand, zijn familie en zijn eer, en niet om winst. Pas in de negentiende
+eeuw wordt de verhouding omgekeerd en komen de sociale verhoudingen binnen het
+economische stelsel te liggen.
+
+**De duivelse molen**
+
+Het tweede deel behandelt de industriële omwenteling in Engeland. Polanyi
+ontleent zijn beeld aan William Blake: de satanische molen die mensen tot
+massa vermaalt. Zijn punt is dat de snelheid van de omschakeling het sociale
+weefsel sloopte; dat machines de armoede zouden veroorzaken bestrijdt hij
+juist, want de productie steeg.
+
+Ter vergelijking haalt hij de omheining van gemeenschappelijke grond onder de
+Tudors aan. Ook toen ging het om een verandering die op termijn productief
+was, maar de kroon remde haar af, en Polanyi rekent dat de vorsten aan als
+verstandig bestuur. In de negentiende eeuw ontbrak zo'n rem.
+
+**Speenhamland en 1834**
+
+Het scharnier in zijn verhaal is het Speenhamland-stelsel, in 1795 door de
+magistraten van Berkshire ingevoerd: een aanvulling op het loon uit de
+armenkas, gekoppeld aan de broodprijs en de gezinsgrootte. Polanyi leest dat
+als de laatste poging om een arbeidsmarkt buiten de deur te houden. Het gevolg
+was volgens hem dat lonen wegzakten tot onder het bestaansminimum, dat de
+prikkel om te werken verdween en dat de plattelandsbevolking verpauperde.
+
+Met de Poor Law Amendment Act van 1834 werd de aanvulling afgeschaft en
+ontstond pas werkelijk een markt voor arbeid. Rond die overgang groepeert
+Polanyi de denkers die de nieuwe orde van een natuurwet voorzagen: Joseph
+Townsend met zijn parabel over de geiten en de honden op Juan Fernández,
+Malthus met de bevolkingswet, Ricardo met de ijzeren loonwet en Bentham met
+zijn ontwerp voor armenfabrieken. Robert Owen krijgt de rol van de enige die
+begreep wat er werkelijk op het spel stond.
+
+**De dubbele beweging**
+
+Vervolgens beschrijft Polanyi de tegenkracht. In de tweede helft van de
+negentiende eeuw komen in vrijwel alle industrielanden dezelfde maatregelen
+tot stand: fabrieksinspectie, beperking van kinderarbeid, erkenning van
+vakbonden, invoerrechten op graan, grondwetgeving, centrale banken en
+verplichte verzekering. Zij komen van uiteenlopende partijen en volgen geen
+gemeenschappelijk plan.
+
+Juist dat is zijn argument. Waar liberale economen die maatregelen zagen als
+het werk van belangengroepen die de markt ondermijnden, ziet Polanyi een
+spontane reactie van de samenleving op een aanslag op haar bestaan. Hij keert
+daarmee ook de liberale schuldvraag om: de crisis van het stelsel kwam volgens
+hem doordat een samenleving zich niet zonder bescherming aan de markt laat
+ophangen, en niet doordat de markt werd gehinderd.
+
+**Fascisme en de vraag naar vrijheid**
+
+Het derde deel behandelt het interbellum als de ontknoping. De bescherming van
+de samenleving en de eisen van de goudstandaard konden niet allebei worden
+gehonoreerd; regeringen kwamen klem te zitten tussen deflatie en sociale
+onrust. Fascisme is voor Polanyi een uitweg uit die klem, die de politieke
+vrijheid opoffert om het marktstelsel te redden, terwijl socialisme en de New
+Deal het omgekeerde probeerden.
+
+Het slothoofdstuk gaat over vrijheid in een ingewikkelde samenleving. Polanyi
+stelt dat de negentiende eeuw haar vrijheidsbesef ontleende aan de fictie dat
+niemand verantwoordelijk was voor de uitkomst van de markt. Wie die fictie
+opgeeft, moet vrijheid voortaan bewust inrichten, met instellingen en met
+erkenning van macht en dwang als gegeven. Hij noemt dat het aanvaarden van de
+werkelijkheid van de samenleving.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| ingebedde economie | Polanyi's aanduiding voor een economie die ondergeschikt is aan verwantschap, godsdienst en gezag, in plaats van omgekeerd. |
+| fictieve koopwaar | Arbeid, grond en geld: zaken die op de markt worden verhandeld hoewel ze niet voor de verkoop zijn voortgebracht. |
+| dubbele beweging | De uitbreiding van de markt en het spontane verzet van de samenleving daartegen, door Polanyi opgevat als één proces. |
+| zelfregulerende markt | Een stelsel waarin alle productie voor de verkoop is en alle prijzen, ook die van arbeid en grond, zich zonder ingrijpen vormen. |
+| wederkerigheid, herverdeling en huishouding | De drie ordeningsvormen die Polanyi in niet-marktsamenlevingen aantreft: tussen gelijken, via een centrum, en binnen het eigen huis. |
+| de duivelse molen | Beeld ontleend aan William Blake voor een industriële omschakeling die mensen sneller ontwortelde dan zij zich konden aanpassen. |
+| haute finance | De internationale financiers wier belang bij vrede volgens Polanyi de negentiende-eeuwse machtsverhoudingen bijeenhield. |
+| Speenhamland-stelsel | De Engelse loonaanvulling uit de armenkas tussen 1795 en 1834, in Polanyi's verhaal de rem die de arbeidsmarkt tegenhield. |
+| de werkelijkheid van de samenleving | Polanyi's slotbegrip: de erkenning dat mensen van elkaar afhankelijk zijn en dat vrijheid daarbinnen moet worden ingericht. |
+
+#### Waar het argument op rust
+
+Polanyi schreef het boek in de oorlogsjaren aan Bennington College in Vermont,
+zonder toegang tot Britse archieven, en steunde op gedrukte bronnen:
+parlementaire verslagen, de Engelse sociale geschiedschrijving van de Hammonds
+en van Toynbee, en de economische antropologie van Malinowski, Thurnwald en
+Bücher. Voor de honderdjarige vrede en de goudstandaard verwerkt hij bovendien
+wat hij als redacteur bij het Weense blad *Der Österreichische Volkswirt* van
+nabij had meegemaakt.
+
+De zwakste steunpilaar is tegelijk de belangrijkste. De hele reconstructie van
+het ontstaan van de arbeidsmarkt draait om Speenhamland, en Polanyi's beeld
+daarvan komt grotendeels uit het rapport van de armenwetcommissie van 1834,
+dat zelf een pleitstuk voor afschaffing was. De historicus G.D.H. Cole
+waarschuwde hem daarvoor toen hij in 1943 het eerste deel van het manuscript
+te lezen kreeg. Polanyi heeft die kritiek niet verwerkt.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat de empirische kern het niet heeft gehouden. Vanaf
+de artikelen van Mark Blaug uit 1963 en 1964 hebben economisch historici laten
+zien dat het broodschaalstelsel lang niet overal gold, ook niet in de
+graanstreken, en dat de gevolgen die Polanyi eraan toeschrijft, wegzakkende
+lonen, verdwijnende werklust en een bevolkingsexplosie, in de cijfers niet
+terug te vinden zijn. Wie Speenhamland uit het boek haalt, houdt de these
+overeind en verliest de casus die haar moest dragen.
+
+Ten tweede is het begrip inbedding zo ruim dat er weinig mee te weerleggen
+valt. Elke economie is in enige mate in sociale verhoudingen verankerd, dus de
+vaststelling dat de negentiende-eeuwse markt niet volledig los van de
+samenleving stond kan zowel voor als tegen Polanyi worden gelezen. Critici als
+Deirdre McCloskey voegen daaraan toe dat uitgebreide markten al eeuwen vóór
+1800 bestonden en dat de samenlevingen die hij als tegenvoorbeeld opvoert
+bepaald niet rechtvaardiger waren.
+
+Ten derde ontbreekt de andere helft van de balans. De sociale kosten van de
+omschakeling beschrijft Polanyi nauwkeurig, de opbrengst nauwelijks: de
+stijging van levensverwachting, geletterdheid en reëel inkomen die in dezelfde
+landen op dezelfde omschakeling volgde komt in zijn verhaal niet voor. Daar
+komt bij dat de zelfregulerende markt in de zuivere vorm die hij aanvalt door
+weinig economen ooit is verdedigd, wat zijn tegenstander eenvoudiger maakt dan
+die was.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik het onderscheid tussen markt en marktsamenleving in elk debat waarin
+'de markt' als één ding wordt aangeduid.
+- Toets de stelling over fictieve koopwaar aan een actueel voorbeeld: de
+woningmarkt, arbeidsmigratie of de handel in uitstootrechten.
+- Lees de hoofdstukken over Speenhamland naast een recente
+economisch-historische behandeling en let op waar de bronnen uiteenlopen.
+- Let bij de dubbele beweging op wat zij niet verklaart: waarom de
+tegenbeweging in het ene land sociale verzekering opleverde en in het andere
+fascisme.
+
+#### Wat je hierna leest
+
+- 910. Kapitalisme, socialisme en democratie. Schumpeter beschrijft dezelfde
+ineenstorting, maar zoekt de oorzaak in de dynamiek van het kapitalisme zelf.
+- 935. The Origins of Totalitarianism. Arendt behandelt de ontknoping die
+Polanyi aankondigt: hoe uit de val van de negentiende-eeuwse orde totale
+heerschappij ontstond.
+- 65. Economic Facts and Fallacies. Sowell hanteert precies de economische
+redeneerwijze waartegen Polanyi zich keert, en is daardoor bruikbaar als
+tegenstem.
+- 939. Het civilisatieproces. Elias volgt over dezelfde eeuwen de verandering
+van gedrag en zelfbeheersing, met de staat en niet de markt als motor.
+
+## 934. The Cosmological Eye
+
+Henry Miller, 1939. *The Cosmological Eye* (New Directions, Norfolk,
+Connecticut, 1939; Britse editie Editions Poetry London, 1945; heruitgave in
+de reeks New Directions Paperbook, New York, 371 blz., ISBN 9780811201100). Er
+bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie
+gebaseerd. Rubriek: roman en memoir.
+Tags: `essaybundel`, `memoir`, `literatuur`, `schrijverschap`
+
+*The Cosmological Eye* was het eerste boek van Henry Miller dat in de
+Verenigde Staten legaal verscheen. Zijn romans *Tropic of Cancer* en *Black
+Spring* waren in Parijs uitgegeven en in Amerika en Groot-Brittannië verboden
+wegens obsceniteit. James Laughlin, die kort daarvoor New Directions had
+opgericht, stelde daarom in 1939 een bundel samen uit werk dat de censuur kon
+passeren: kortere stukken uit *Black Spring* uit 1936 en uit de Parijse bundel
+*Max and the White Phagocytes* uit 1938.
+
+Wat de lezer krijgt is dus geen geschreven boek maar een dwarsdoorsnede van
+vijf Parijse jaren in de Villa Seurat. Er staan verhalen in, zoals het portret
+van de zwerver Max en het autobiografische *The Tailor Shop* over de
+kleermakerij van Millers vader in Brooklyn. Er staan droomstukken en een
+filmscenario in. En er staat literaire kritiek in, waaronder een aanval op
+Proust en Joyce als de literatuur van een stervende wereld en een vroege
+lofrede op het nog ongepubliceerde dagboek van Anaïs Nin. De toon wisselt van
+scherpe waarneming naar kosmische verkondiging, vaak binnen dezelfde
+bladzijde.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Miller schrijft vanuit één overtuiging die in elk stuk
+terugkeert: literatuur hoort geen weergave van de wereld te zijn maar een
+verslag van binnenuit, en de schrijver ontleent zijn gezag aan zijn
+levendigheid en niet aan zijn vakmanschap. Daarmee zet hij zich af tegen wat
+hij het universum van de dood noemt, de moderne analytische roman van Proust
+en Joyce, die de ontbinding van een beschaving volgens hem met grote
+nauwkeurigheid vastlegt en er niets tegenover stelt. Zijn eigen antwoord is
+aanvaarding: de wereld opnemen zoals zij is, het lelijke inbegrepen, en niet
+proberen eraan te ontkomen door haar te verklaren. Of dat een standpunt is of
+een houding waarmee elk oordeel wordt vermeden, blijft in de bundel onbeslist.
+
+#### De gang van het boek
+
+**Een bundel om de censuur heen**
+
+De wijze van samenstellen verklaart de vorm. Laughlin wilde Miller in Amerika
+introduceren terwijl diens bekendste werk daar niet verkocht mocht worden, en
+koos stukken die op zichzelf konden staan. Het gevolg is een boek zonder
+opbouw: de prozastukken staan naast elkaar en verwijzen nauwelijks naar
+elkaar. Achterin staat een autobiografische notitie van enkele bladzijden,
+waarin Miller zijn eigen leven in verkorte vorm langsloopt.
+
+**Verhalen: Max en de kleermakerij**
+
+Het langste verhalende stuk is *Max*, over een berooide joodse vluchteling in
+Parijs die Miller om geld aanklampt en die hij helpt zonder hem te kunnen
+redden. Dat stuk staat dicht bij de waarneming en is daardoor het minst
+pathetische van de bundel.
+
+*The Tailor Shop*, overgenomen uit *Black Spring*, gaat terug naar Brooklyn en
+naar het bedrijf van zijn vader, met de drinkende klanten, de rekeningen die
+niet werden betaald en de zoon die er niet wilde werken. *Jabberwhorl
+Cronstadt* is een portret uit dezelfde Parijse kring, opgezet als een avond
+die alle kanten op loopt.
+
+**Kritiek: het universum van de dood**
+
+*The Universe of Death* komt uit *The World of Lawrence*, de studie over D.H.
+Lawrence die Miller jarenlang schreef en nooit afmaakte. Hij leest Proust en
+Joyce als het eindpunt van een beweging waarin alles wordt ontleed en niets
+meer wordt beleefd, zodat er een literatuur overblijft die de dood van een
+cultuur registreert zonder er zelf buiten te staan. Lawrence dient als
+tegenvoorbeeld.
+
+*Un Etre Etoilique*, in oktober 1937 verschenen in *The Criterion* van T.S.
+Eliot, gaat over het dagboek van Anaïs Nin. Miller plaatst het in de rij van
+Augustinus, Rousseau en Proust en voorspelt dat het bij publicatie wereldwijd
+erkenning zal krijgen. Het dagboek verscheen pas vanaf 1966, en op dat punt
+kreeg hij gelijk.
+
+**Droom, surrealisme en film**
+
+*Into the Night Life*, eveneens uit *Black Spring*, is een aaneenschakeling
+van droombeelden zonder verhaallijn. *Scenario (A Film with Sound)* is een
+filmscenario dat Miller in 1937 schreef naar *House of Incest* van Anaïs Nin;
+zij was daar allerminst gelukkig mee en noteerde dat de ideeën van haar waren.
+
+In *An Open Letter to Surrealists Everywhere* rekent hij af met de Parijse
+surrealisten. Hij deelt hun belangstelling voor wat het bewustzijn niet
+beheerst, en verwerpt hun programma, hun politieke bindingen en de gedachte
+dat een methode dat gebied kan openleggen.
+
+**Het oog dat naar binnen kijkt**
+
+Het titelstuk komt uit *Max and the White Phagocytes* en gaat over de Duitse
+schilder Hans Reichel, een buurman van Miller in Parijs. Het kosmologische oog
+is bij Miller een oog dat zich niet op de wereld richt maar naar binnen, en
+dat daar de wereld aantreft. Het stuk is kort en bevat de duidelijkste
+formulering van wat Miller met kunst wil.
+
+Daaromheen staan losse stukken: *Via Dieppe-Newhaven* over een mislukte poging
+Engeland binnen te komen, *The Brooklyn Bridge*, *The Golden Age*, *Peace!
+It's Wonderful!*, *Glittering Pie* en een deel van de briefwisseling met
+Michael Fraenkel over *Hamlet*. Zij lopen uiteen van reisverslag tot tirade.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| het kosmologische oog | Millers naam voor een blik die zich niet op de buitenwereld richt maar naar binnen, ontleend aan zijn beschrijving van de schilder Hans Reichel. |
+| het universum van de dood | Millers aanduiding voor de moderne analytische literatuur, met Proust en Joyce als eindpunt, die ontbinding vastlegt zonder er iets tegenover te stellen. |
+| être étoilique | Door Miller gevormde uitdrukking voor iemand die door de sterren wordt bewogen; hij gebruikt haar over Anaïs Nin en haar dagboek. |
+| aanvaarding | Millers houding tegenover de wereld: haar opnemen zoals zij is, zonder verklaring en zonder verbeterplan. |
+| Villa Seurat | Het Parijse adres waar Miller van 1934 tot 1939 woonde en waar vrijwel alle stukken in de bundel zijn geschreven. |
+| surrealisme | De Parijse beweging waarmee Miller zich in zijn open brief meet: hij deelt haar belangstelling voor het onbeheerste en wijst haar programma af. |
+| de autobiografische roman | Millers werkvorm, waarin het eigen leven het materiaal is en de grens tussen wat gebeurde en wat verteld wordt niet wordt getrokken. |
+
+#### Waar het argument op rust
+
+Miller onderbouwt niets. Zijn kritische stukken zijn geen studies maar
+oordelen: over Proust en Joyce schrijft hij zonder één passage te ontleden,
+over Nin zonder haar dagboek te kunnen aanhalen, omdat het nog niet was
+verschenen. Wat de bundel wel biedt is getuigenis. De Parijse jaren, de
+armoede, de kring rond de Villa Seurat en de verhouding met Nin en met Michael
+Fraenkel zijn van elders goed gedocumenteerd, en wat Miller erover schrijft
+laat zich met die documentatie vergelijken.
+
+Voor de feiten over zijn eigen leven is hij een onbetrouwbare bron, en hij
+heeft dat nooit verborgen: hij maakte geen onderscheid tussen wat hij
+meemaakte en wat hij ervan maakte. Wie het boek als document over Parijs in de
+jaren dertig gebruikt, doet er goed aan de dagboeken van Nin en de latere
+biografieën ernaast te leggen.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat Miller verkondigt waar hij zou moeten aantonen. In
+*The Universe of Death* wordt over twee van de moeilijkste romans van de eeuw
+een vonnis geveld dat volledig op temperament rust; wie *Ulysses* of *À la
+recherche du temps perdu* gelezen heeft, herkent er weinig van het werk zelf
+in. Dezelfde stukken die zijn beste zinnen bevatten, slaan even zo vaak om in
+een stroom van kosmische beweringen waarin elk woord het vorige overtreft en
+de bewering zelf verdampt.
+
+Ten tweede is de bundel een keuze van een uitgever en geen boek. De stukken
+dateren uit verschillende jaren, zijn voor uiteenlopende doeleinden geschreven
+en staan in een volgorde die niets betekent. Wie op zoek is naar Millers
+denken moet dat bij elkaar sprokkelen uit teksten die elkaar op punten
+tegenspreken.
+
+Ten derde is er de kwestie die sinds Kate Millett in *Sexual Politics* uit
+1970 aan Miller kleeft: vrouwen komen in zijn werk voor als materiaal. In deze
+bundel valt dat minder op dan in de romans, maar het scenario naar Nins *House
+of Incest* is er een geval van in andere vorm: hij gebruikte haar boek en zij
+herkende zichzelf er niet in. George Orwell, die in *Inside the Whale* uit
+1940 als eerste serieus over Miller schreef, bewonderde zijn proza en noemde
+zijn houding tegelijk een vorm van berusting: in de buik van de walvis zitten
+en de wereld haar gang laten gaan.
+
+#### Wat je hierna leest
+
+- 942. Het periodiek systeem. Levi bouwt eveneens een boek uit losse stukken
+rond het eigen leven, met een beheersing die Miller mist.
+- 952. Silence: Lectures and Writings. Cage bundelt lezingen en teksten van
+een kunstenaar die zijn eigen praktijk uitlegt, in een even onregelmatige
+vorm.
+- 925. Cosmic Trigger I: Final Secret of the Illuminati. Wilson schrijft even
+vrij tussen essay en zelfportret, met dezelfde neiging het kosmische erbij te
+halen.
+
+## 935. The Origins of Totalitarianism
+
+Hannah Arendt, 1951. *The Origins of Totalitarianism* (Harcourt, Brace and
+Company, New York, 1951, 477 blz.; de Britse editie verscheen datzelfde jaar
+als *The Burden of Our Time*; tweede, uitgebreide editie 1958 met het
+hoofdstuk *Ideology and Terror*). De Nederlandse vertaling verscheen bij Boom
+in drie delen: *Antisemitisme*, vertaald door Willem Visser, 2021, 280 blz.,
+ISBN 9789024432530; *Imperialisme*, vertaald door Willem Visser, 2022, 400
+blz., ISBN 9789024441365; *Totalitarisme*, vertaald door Remi Peeters en Dirk
+De Schutter, achtste druk 2017, 440 blz., ISBN 9789024408825. Rubriek: staat
+en vrijheid.
+Tags: `totalitarisme`, `politieke filosofie`, `geschiedenis`, `macht`
+
+Hannah Arendt schreef dit boek in de tweede helft van de jaren veertig in New
+York, waar zij als staatloze vluchteling terecht was gekomen, en publiceerde
+het in 1951. Het bestaat uit drie op zichzelf staande studies: over het
+moderne antisemitisme, over het Europese imperialisme tussen 1884 en 1914, en
+over de totalitaire bewegingen en regimes van Hitler en Stalin. Arendt noemt
+die drie uitdrukkelijk geen oorzaken maar bestanddelen: verschijnselen die
+eerst los van elkaar bestonden en zich in de twintigste eeuw tot iets nieuws
+hebben samengevoegd.
+
+Haar stelling is dat totale heerschappij een andere soort bestuur is en geen
+zwaardere vorm van dictatuur. Een tiran onderdrukt tegenstanders; een
+totalitair bewind heeft aan tegenstanders geen behoefte en richt zijn terreur
+juist op onschuldigen, omdat het doel niet gehoorzaamheid is maar de
+vervanging van de werkelijkheid door een ideologie. Het kamp is in die
+redenering geen uitwas maar de plaats waar wordt beproefd of alles mogelijk
+is. In 1958 verscheen een uitgebreide versie met het hoofdstuk *Ideology and
+Terror*, waarin Arendt de verlatenheid van de moderne massamens aanwijst als
+de bodem waarop terreur kan werken.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Totalitarisme is volgens Arendt een regeringsvorm die in de
+politieke geschiedenis geen voorloper heeft. Waar tirannie en despotie
+bestaande machtsvormen tot het uiterste doorvoeren, breekt totale heerschappij
+met de grondslagen zelf: zij vervangt de wet door de beweging van een
+ideologische wetmatigheid, gebruikt terreur tegen willekeurige mensen in
+plaats van tegen tegenstanders, en werkt toe naar een toestand waarin mensen
+overbodig zijn geworden. Zij kon ontstaan doordat drie ontwikkelingen
+samenvielen die elk hun eigen geschiedenis hadden: het politieke
+antisemitisme, het imperialisme met zijn uitbreiding zonder doel, en de
+ineenstorting van de nationale staat en het klassenstelsel, waardoor massa's
+overbleven die nergens meer bij hoorden.
+
+#### De gang van het boek
+
+**Antisemitisme als politiek verschijnsel**
+
+Het eerste deel gaat over de vraag waarom uitgerekend de joden het middelpunt
+van de totalitaire ideologie werden. Arendt verwerpt zowel de verklaring van
+een eeuwige jodenhaat als die van een willekeurige zondebok. Zij volgt de
+hofjoden die eerst de vorstenhuizen en daarna de nationale staten
+financierden, en laat zien dat hun positie verdween zodra staten hun geld
+elders vandaan haalden. Wat overbleef was zichtbaarheid en vermogen zonder
+functie, en dat is volgens haar de gevaarlijkste combinatie.
+
+De Dreyfus-affaire krijgt een uitgebreide behandeling als generale repetitie.
+Daarin komen de bestanddelen bij elkaar die zij later terugziet: een leger dat
+zichzelf beschermt, een pers die de menigte bespeelt, een straatmenigte die
+zich tegen de republiek keert, en de ontdekking dat antisemitisme als politiek
+programma bruikbaar is.
+
+**Imperialisme en uitbreiding zonder doel**
+
+Het tweede deel behandelt de periode van 1884 tot 1914. Arendt ziet daarin de
+ontkoppeling van macht en politiek: de formule van Cecil Rhodes, uitbreiding
+omwille van de uitbreiding, maakt van groei een doel op zichzelf, zonder grens
+en zonder plaats waar het ophoudt. De drijvende krachten zijn overtollig
+kapitaal dat in Europa geen rendement vond en overtollige mensen die er geen
+plaats hadden.
+
+In de koloniën ontstonden twee bestuursvormen die zij later in Europa
+terugziet: het ras als verklaring van alles, uitgewerkt onder de Boeren in
+Zuid-Afrika, en de bureaucratie als bestuur bij decreet, uitgewerkt door Lord
+Cromer in Egypte. Arendt beschrijft hoe die werkwijzen naar het moederland
+terugkeerden. Voor de ervaring zelf verwijst zij naar *Heart of Darkness* van
+Joseph Conrad, dat zij als historische bron behandelt.
+
+**Pan-bewegingen en het einde van de rechten van de mens**
+
+Het continentale imperialisme kon niet overzee uitbreiden en richtte zich naar
+binnen. In het pangermanisme en het panslavisme ziet Arendt een
+stamnationalisme dat het volk boven de staat plaatst en aan bestaande partijen
+geen boodschap heeft. Daarmee bereidt het de beweging voor die geen programma
+kent maar een bestemming.
+
+Het scherpste hoofdstuk van het boek gaat over wat er na 1918 met de
+staatlozen gebeurde. De minderhedenverdragen en de stroom vluchtelingen
+maakten zichtbaar dat de rechten van de mens in de praktijk rechten van
+staatsburgers waren. Wie zijn staat verloor, verloor niet één recht maar de
+plaats waar rechten worden toegekend, en bleek als niets anders dan mens juist
+rechteloos. Arendt vat dat samen in de uitdrukking het recht om rechten te
+hebben, en zij schreef het als iemand die zelf jarenlang zonder papieren had
+geleefd.
+
+**Massa, gepeupel en de beweging**
+
+Het derde deel begint bij de sociale voorwaarde. Het uiteenvallen van de
+klassenmaatschappij liet massa's achter die geen gedeeld belang meer hadden en
+daardoor voor gewone partijen onbereikbaar waren. Arendt onderscheidt die
+massa van het gepeupel, het uitgestoten restproduct van de burgerlijke
+samenleving, dat al eerder een tijdelijk verbond aanging met een deel van de
+intellectuele elite.
+
+Totalitaire propaganda werkt volgens haar door te voorspellen en niet door te
+overtuigen. Zij biedt een gesloten wereld waarin niets toevallig is, en het
+bewijs volgt zodra de beweging haar eigen voorspelling waarmaakt. De
+organisatie is daarop ingericht: mantelorganisaties, partij en elitekorpsen,
+elke laag afgeschermd van de volgende, zodat wie erbij hoort de buitenwereld
+nooit ongefilterd tegenkomt.
+
+**Totale heerschappij en het kamp**
+
+Het bewind zelf beschrijft Arendt als een blijvende beweging die geen
+eindtoestand kent. De staat wordt niet overgenomen maar verdubbeld: partij
+naast staat, geheime dienst naast politie, bevoegdheden die elkaar overlappen,
+zodat niemand weet waar het gezag ligt behalve bij de leider. De geheime
+politie zoekt geen tegenstanders maar wijst ze aan, en het aantal
+veroordeelden staat los van het aantal daden.
+
+Het kamp vormt het middelpunt van haar analyse. Zij beschrijft het als een
+laboratorium waarin de stelling wordt beproefd dat alles mogelijk is, in drie
+stappen: eerst wordt de juridische persoon vernietigd, dan de morele persoon,
+en ten slotte de eigenheid waarin een mens van een ander verschilt. Wat
+overblijft is een bundel reacties zonder persoon. Voor die stof gebruikt zij
+onder meer *L'univers concentrationnaire* van David Rousset en de
+getuigenissen die na 1945 beschikbaar kwamen. De uitkomst noemt zij in 1951
+het radicale kwaad, waarvoor volgens haar geen bestaande morele of juridische
+maat toereikend is.
+
+**Ideologie en terreur**
+
+Het hoofdstuk dat in 1958 aan het boek werd toegevoegd, oorspronkelijk een
+opstel uit 1953, bevat de scherpste formulering. Elke regeringsvorm heeft
+volgens Arendt een wezen en een beginsel: de republiek de wet en de deugd, de
+tirannie de willekeur en de vrees. Het wezen van totale heerschappij is
+terreur en het beginsel ervan is ideologie.
+
+Ideologie omschrijft zij als de logica van één idee, losgemaakt van ervaring.
+Wie de premisse aanvaardt kan zonder verdere waarneming alles afleiden, en die
+dwingende gang neemt de plaats van het denken in. De bodem waarop dit alles
+werkt noemt zij verlatenheid: niet de eenzaamheid waarin iemand met zichzelf
+in gesprek is en niet het isolement waarin politiek handelen wegvalt, maar de
+ervaring er in het geheel niet toe te doen. Arendt besluit met de waarschuwing
+dat die ervaring niet met de regimes verdwijnt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| totale heerschappij | Een regeringsvorm die volledige beschikking over de mens nastreeft in plaats van gehoorzaamheid, en daarom ook zonder tegenstanders terreur blijft uitoefenen. |
+| bestanddelen | Arendts eigen woord voor wat zij beschrijft: elementen die in het totalitarisme zijn uitgekristalliseerd, en geen oorzaken die er noodzakelijk toe leidden. |
+| uitbreiding omwille van de uitbreiding | De aan Cecil Rhodes ontleende formule waarin groei zichzelf tot doel wordt en geen politieke grens meer kent. |
+| boemerangeffect | De terugkeer naar Europa van bestuursmethoden die eerst in de koloniën waren beproefd, met het rasdenken en het regeren bij decreet als voornaamste. |
+| het recht om rechten te hebben | Het recht ergens bij te horen waar rechten worden toegekend, dat volgens Arendt aan alle afzonderlijke rechten voorafgaat. |
+| gepeupel en massa | Het gepeupel is het uitgestoten restproduct van de burgerlijke samenleving, de massa het overschot na het uiteenvallen van de klassen; de bewegingen leunden op beide. |
+| overbodigheid | De toestand waarin mensen niet worden gestraft maar overtollig verklaard, volgens Arendt de kern van wat in de kampen gebeurde. |
+| radicaal kwaad | Arendts aanduiding uit 1951 voor een kwaad dat niet uit belang, hebzucht of wraak te verklaren is en waarvoor geen bestaande maatstaf past. |
+| verlatenheid | De ervaring nergens bij te horen en er niet toe te doen, door Arendt onderscheiden van eenzaamheid en isolement en aangewezen als de bodem van terreur. |
+
+#### Waar het argument op rust
+
+Arendt werkte met wat er aan het eind van de jaren veertig beschikbaar was:
+memoires, partijliteratuur, propagandabladen, de stukken van het proces van
+Neurenberg, de eerste kampverslagen en de Duitse geschiedschrijving. Voor het
+Duitse deel is dat veel, en de hoofdstukken over antisemitisme en imperialisme
+leunen bovendien op negentiende-eeuwse politieke geschiedschrijving die zij
+goed kende. In het voorwoord zegt zij uitdrukkelijk dat zij geen oorzakelijke
+geschiedenis schrijft maar de bestanddelen beschrijft die zijn
+samengeklonterd. Dat voorbehoud is nodig, want een sluitende causale keten
+geeft het boek niet.
+
+De Russische helft staat er anders voor. Arendt had geen toegang tot
+Sovjetmateriaal en steunde op gepubliceerde bronnen en op verslagen van
+overlopers. Ook haar gebruik van antisemitische en nationaalsocialistische
+auteurs als bron is aangevochten, onder meer door Bernard Wasserstein in 2009;
+Gershom Scholem verdedigde die keuze destijds met het argument dat voor
+sommige perioden geen ander materiaal bewaard is gebleven.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar richt zich op de kern van de constructie: het
+onderbrengen van nationaalsocialisme en stalinisme onder één begrip. De
+bewijskracht van beide helften loopt ver uiteen, en historici van de
+Sovjet-Unie hebben na de opening van de archieven laten zien dat het
+stalinisme meer door bureaucratische strijd, willekeur van bovenaf en
+factievorming werd gedreven dan door de ideologische mechaniek die Arendt
+beschrijft. John Lukacs noemde het boek om die reden gebrekkig en oneerlijk.
+
+Ten tweede blijft de verbinding tussen de drie delen een bewering. Dat
+antisemitisme, imperialisme en totalitarisme met elkaar te maken hebben is
+aannemelijk gemaakt; dat het eerste tot het laatste voert is dat niet, en
+Arendt geeft dat half toe door van bestanddelen te spreken. Emmanuelle Saada
+heeft daarnaast betwist dat het wetenschappelijke racisme zo bepalend was voor
+het imperialisme als Arendt aanneemt.
+
+Ten derde staat haar beeld van de massa als vereenzaamde, ongeorganiseerde
+mensen onder druk. Onderzoek naar de opkomst van de NSDAP, zoals dat van Sheri
+Berman uit 1997 en dat van Satyanath, Voigtländer en Voth uit 2017, wijst uit
+dat de partij juist snel groeide in steden met een dicht verenigingsleven, dus
+via de netwerken waar mensen wel bij hoorden. En het radicale kwaad uit 1951
+laat zich moeilijk verenigen met de banaliteit van het kwaad waarmee zij in
+1963 over Eichmann schreef, zonder dat zij die verschuiving ooit sluitend
+heeft verantwoord.
+
+#### Wat er concreet mee te doen is
+
+- Houd bij elk gebruik van het woord totalitair haar maatstaf aan: gaat het om
+terreur tegen onschuldigen en om het vervangen van de werkelijkheid, of om
+gewone onderdrukking van tegenstanders.
+- Lees het hoofdstuk over staatloosheid naast het huidige asiel- en
+nationaliteitsrecht en let op wie feitelijk buiten elke rechtsorde valt.
+- Gebruik haar beschrijving van propaganda als voorspelling om te toetsen hoe
+politieke bewegingen bewijs voor zichzelf produceren.
+- Neem de drie delen apart; het imperialismedeel is als geschiedschrijving
+zwakker dan het antisemitismedeel, en het derde deel staat op zichzelf.
+
+#### Wat je hierna leest
+
+- 933. The Great Transformation. Polanyi verklaart dezelfde ineenstorting van
+de negentiende-eeuwse orde uit de markt in plaats van uit ideologie.
+- 910. Kapitalisme, socialisme en democratie. Schumpeter schreef in dezelfde
+jaren over de vraag of de democratie de druk van de twintigste eeuw kan
+houden.
+- 221. The Dictator's Handbook. Een uitgesproken tegenpool: dictatuur
+verklaard uit koele belangenrekening en niet uit ideologie.
+- 223. The Anatomy of Human Destructiveness. Fromm zoekt de verklaring voor
+dezelfde gebeurtenissen in het karakter van de moderne mens.
+
+## 936. The Varieties of Religious Experience
+
+William James, 1902. *The Varieties of Religious Experience: A Study in Human
+Nature* gaat terug op de twintig Gifford Lectures over natuurlijke religie die
+James in 1901 en 1902 in Edinburgh hield; de boekuitgave verscheen in 1902 bij
+Longmans, Green, and Co. in New York en Londen, 534 blz. Moderne Engelse
+uitgaven verschijnen onder meer bij Penguin Classics en in de reeks van de
+Library of America. Er bestaan meerdere Nederlandse vertalingen, met
+wisselende titels; de meest recente is *Vormen van religieuze ervaring: een
+onderzoek naar het wezen van de mens*, vertaald door Daniël Mok en anderen
+(Abraxas, Amsterdam, 2005, ruim 400 blz., ISBN 9789080730021). Rubriek:
+filosofie en mystiek.
+Tags: `mystiek`, `psychologie`, `religie`, `klassieker`
+
+William James hield in 1901 en 1902 de Gifford Lectures in Edinburgh over
+natuurlijke religie. Hij koos een aanpak die in zijn tijd ongebruikelijk was:
+leerstellingen, kerken en theologie liet hij liggen, en hij onderzocht wat
+mensen zelf melden over hun geloofsleven. Zijn materiaal bestaat uit
+bekentenissen, dagboeken, bekeringsverhalen en de vragenlijsten van zijn
+leerling Edwin Starbuck, met getuigenissen van Tolstoj en John Bunyan tot
+naamloze correspondenten. Religie omschrijft hij als de gevoelens, handelingen
+en ervaringen van afzonderlijke mensen in hun eenzaamheid, voor zover zij
+menen in betrekking te staan tot iets goddelijks.
+
+Uit dat materiaal ordent hij typen: de gezonde geest die het kwaad nauwelijks
+ziet, de zieke ziel die er niet omheen kan, het verdeelde zelf en de bekering
+die de verdeeldheid opheft, de heiligheid en haar prijs, en de mystieke
+toestand met haar vier kenmerken. Zijn maatstaf is pragmatisch. Een ervaring
+is niet weerlegd zodra haar oorzaak in het zenuwstelsel is aangewezen; zij
+wordt beoordeeld op wat zij in een leven uitricht. Het boek werd de grondtekst
+van de godsdienstpsychologie en wordt ruim een eeuw later nog gelezen, ook
+door onderzoekers van psychedelische ervaringen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** James stelt dat de kern van religie niet in leerstellingen of
+instellingen zit maar in de persoonlijke ervaring van afzonderlijke mensen, en
+dat die ervaring zich met de middelen van de psychologie laat beschrijven
+zonder haar bij voorbaat weg te verklaren. Wie een visioen afdoet als product
+van een zwakke maag of een aanleg voor zwaarmoedigheid heeft daarmee niets
+gezegd over de waarde ervan; die waarde blijkt uit de vruchten, uit wat het
+geloof met een leven doet. Achter dat empirisme ligt een tweede stelling, die
+James pas aan het slot uitspreekt: de veelheid aan getuigenissen wijst er
+volgens hem op dat het bewuste zelf grenst aan een ruimer gebied waaruit
+werkelijk iets binnenkomt.
+
+#### De gang van het boek
+
+**Ervaring in plaats van instelling**
+
+James opent met de vraag hoe religie te bestuderen valt zonder haar op haar
+oorsprong af te rekenen. De redenering die een visioen verklaart uit een
+zenuwstelsel noemt hij medisch materialisme, en hij wijst haar af met een
+eenvoudig argument: dezelfde redenering ontkracht dan ook de wetenschap en het
+ongeloof, want ook die komen uit hersenen voort. Wat een overtuiging waard is
+hangt af van twee andere dingen, haar innerlijke gezag voor wie haar heeft en
+haar gevolgen in de wereld.
+
+Vervolgens perkt hij het onderwerp in. Persoonlijke religie is zijn onderwerp,
+de kerk niet; hij erkent dat instellingen bestaan en gewicht hebben, maar
+meent dat zij op ervaringen van stichters teruggaan. Zijn omschrijving luidt
+dat religie bestaat uit de gevoelens, handelingen en ervaringen van
+afzonderlijke mensen in hun eenzaamheid, voor zover zij zich verhouden tot wat
+zij als het goddelijke beschouwen.
+
+**De gezonde geest en de zieke ziel**
+
+Twee lezingen gaan over wat James de religie van de gezonde geest noemt: het
+temperament dat het kwaad als bijzaak behandelt of ontkent. Hij rekent daartoe
+Walt Whitman, de vrijzinnige protestanten van zijn tijd en de Amerikaanse
+mind-cure-beweging, die met suggestie en positieve gedachten genezing
+beloofde. Hij neemt die beweging serieus als verschijnsel en meldt genezingen
+die haar aanhangers rapporteren, met de aantekening dat zij het lijden alleen
+kan wegdenken zolang het lijden meevalt.
+
+Daartegenover staat de zieke ziel, voor wie het kwaad geen vergissing is maar
+de aard van het bestaan. Hier haalt James Tolstoj aan, John Bunyan en een
+naamloze Franse correspondent die overvallen wordt door doodsangst bij de
+herinnering aan een epilepticus in een gesticht; die passage is later herkend
+als James' eigen ervaring. Zijn oordeel is dat de zieke ziel meer van de
+werkelijkheid onder ogen ziet, hoe ongelukkiger zij ook is.
+
+**Verdeeld zelf, bekering, heiligheid**
+
+Het verdeelde zelf is de toestand waarin iemand twee onverenigbare kanten in
+zich draagt; bekering is het proces waarin die verdeeldheid wordt opgeheven en
+een nieuw middelpunt van energie ontstaat. James onderscheidt de geleidelijke
+en de plotselinge vorm en gebruikt daarvoor het materiaal van Edwin Starbuck,
+die honderden vragenlijsten had verzameld en liet zien dat bekeringen zich
+rond de puberteit ophopen.
+
+Als verklaring wijst James op het onderbewuste, in de vorm die Frederic Myers
+het onderdrempelige zelf noemde: wat plotseling doorbreekt is in stilte
+gerijpt buiten het bewustzijn om. Daarna beschrijft hij de heiligheid als de
+blijvende gedragsvorm die uit zulke ervaringen voortkomt, met ascese,
+zielenrust, zuiverheid en naastenliefde als bestanddelen.
+
+**De waarde van heiligheid**
+
+Twee lezingen toetsen die heiligheid op haar gevolgen, en dat is het scherpste
+deel van het boek. James weigert de heilige op voorhand te bewonderen.
+Doorgeschoten ascese noemt hij verspilling, godsdienstige ijver zonder
+verstand een gevaar, en de heilige die zich uit de wereld terugtrekt is voor
+die wereld van weinig nut. Wat overblijft is de heilige als voorloper: iemand
+die met zijn gedrag laat zien dat een andere inrichting van het leven mogelijk
+is, en die daarmee de maatstaf van zijn omgeving verzet.
+
+**Mystiek en de vier kenmerken**
+
+Mystieke toestanden vormen volgens James de wortel van het persoonlijke
+geloof. Hij geeft er vier kenmerken van: onzegbaarheid, een kenniskarakter
+waarbij de ervaring als inzicht wordt beleefd en niet als stemming,
+kortstondigheid en lijdelijkheid. Om te laten zien dat de overgang naar zulke
+toestanden geleidelijk is, begint hij bij alledaagse gevallen van plotselinge
+betekenisvolheid en werkt hij op naar Teresa van Ávila en al-Ghazali. Hij
+vertelt ook over zijn eigen proeven met lachgas, waarbij hij het gevoel had
+dat tegenstellingen samenvielen.
+
+Zijn conclusie is precies afgemeten. Mystieke ervaringen zijn gezaghebbend
+voor wie ze heeft, en leggen geen enkele verplichting op aan wie erbuiten
+staat. Wat zij wel aantonen is dat de gewone waaktoestand niet de enige vorm
+van bewustzijn is, en dat een sluitende wereldbeschouwing die zulke vormen
+buiten beschouwing laat, iets weglaat.
+
+**Filosofie, over-belief en het meer**
+
+De laatste lezingen rekenen af met de godsbewijzen en met de systematische
+theologie: die volgen op het geloof, ze brengen het niet voort. In plaats
+daarvan formuleert James wat hij zijn eigen over-belief noemt, een overtuiging
+die verder gaat dan het bewijs draagt en die hij als zodanig markeert. Wat hij
+als vastgesteld beschouwt is dat het bewuste zelf grenst aan een ruimer gebied
+en dat mensen uit die overgang werkelijk werking ondervinden. Wat dat gebied
+is, laat hij open.
+
+De slotpositie noemt hij een stuksgewijs bovennatuurlijkheidsgeloof: geen
+sluitend stelsel, wel de weigering het verschijnsel weg te redeneren. In het
+naschrift geeft hij toe dat hij daarmee de grens van zijn eigen methode
+overschrijdt, en hij schrijft het erbij in plaats van het te verbergen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| medisch materialisme | De denkfout dat een geestelijke toestand weerlegd is zodra haar lichamelijke oorzaak is aangewezen. |
+| gezonde geest | Het religieuze temperament dat het kwaad als bijzaak of vergissing behandelt en het geluk als de natuurlijke toestand ziet. |
+| zieke ziel | Het temperament dat het kwaad als grondtrek van het bestaan ervaart en daarom een tweede geboorte nodig heeft. |
+| verdeeld zelf | De toestand waarin twee onverenigbare neigingen om hetzelfde leven strijden; volgens James de gebruikelijke voorbode van bekering. |
+| bekering | Het proces waarin een religieus middelpunt de plaats van het oude inneemt en het zelf zich verenigt, geleidelijk of plotseling. |
+| onderdrempelig zelf | Het gebied buiten het bewustzijn, ontleend aan Frederic Myers, waaruit volgens James plotselinge ervaringen opkomen. |
+| heiligheid | Het blijvende gedragspatroon dat uit religieuze ervaring volgt: ascese, zielenrust, zuiverheid en naastenliefde. |
+| over-belief | Een overtuiging die verder reikt dan de gegevens dragen; James stelt dat iedereen er een heeft, hijzelf ook. |
+| pragmatische maatstaf | De regel dat een geloof wordt beoordeeld op zijn vruchten in een leven en niet op zijn herkomst. |
+| stuksgewijs bovennatuurlijkheidsgeloof | James' slotpositie, waarin bovennatuurlijke werking op enkele punten in de wereld ingrijpt zonder tot een sluitend stelsel te worden. |
+
+#### Waar het argument op rust
+
+Het materiaal bestaat vrijwel geheel uit geschreven getuigenissen:
+bekeringsverhalen, brieven, dagboeken, levensbeschrijvingen van heiligen en de
+vragenlijsten die Edwin Starbuck onder Amerikaanse protestanten verzamelde.
+James kiest daaruit de uitgesproken gevallen, omdat hij meent dat het
+verschijnsel in zijn heftige vorm het duidelijkst zichtbaar is. Dat is te
+verdedigen voor een beschrijvende onderneming, maar het levert geen steekproef
+op waaruit iets over verdelingen in de bevolking valt af te leiden.
+
+De redenering zelf is filosofisch en niet statistisch. Waar James op cijfers
+steunt, zoals bij de leeftijd waarop bekeringen zich voordoen, komen die van
+Starbuck en betreffen zij één godsdienstige omgeving in de Verenigde Staten
+aan het einde van de negentiende eeuw. Latere godsdienstpsychologie heeft de
+vraagstelling overgenomen en de gegevens vervangen. Zijn vier kenmerken van
+mystieke toestanden zijn nog steeds in gebruik, onder meer als beschrijvend
+raster in onderzoek naar psychedelische ervaringen.
+
+#### Wat er tegen in te brengen valt
+
+Het bezwaar dat sinds Nicholas Lash het vaakst is herhaald, richt zich op de
+omschrijving zelf. Door religie te definiëren als wat een mens in zijn
+eenzaamheid ervaart, plaatst James de gemeenschap, de eredienst, de wet en de
+overlevering buiten het onderwerp, terwijl de ervaringen die hij verzamelt
+vrijwel altijd in de taal en de beelden van een bepaalde traditie zijn
+gegoten. De protestantse veronderstelling dat het innerlijke primair is en de
+instelling afgeleid, komt zo als uitkomst naar voren terwijl zij aan het begin
+al is ingevoerd.
+
+Daarmee hangt de eenzijdigheid van het materiaal samen. Bijna alle
+getuigenissen komen uit het Angelsaksische protestantisme of uit de
+christelijke mystiek; joodse, islamitische en Aziatische bronnen komen
+zijdelings voor, rituele religie vrijwel niet. Wat het boek in de ondertitel
+als menselijke aard aankondigt, is voor een deel een negentiende-eeuwse
+Amerikaanse aard.
+
+Ten slotte de pragmatische maatstaf. Beoordelen op vruchten klinkt nuchter,
+maar verplaatst de vraag: wie bepaalt welke vruchten goed zijn, en aan welke
+maat? James vult die maat stilzwijgend in met de zedelijke voorkeuren van zijn
+eigen milieu, iets wat Richard Rorty hem heeft aangewreven als een terugval
+uit zijn eigen pragmatisme. En de slotstelling over het ruimere gebied waaruit
+iets binnenkomt, is precies het punt waarover zijn methode geen uitsluitsel
+kan geven. Dat hij het een over-belief noemt maakt het argument eerlijk, niet
+sterker.
+
+#### Wat er concreet mee te doen is
+
+- Beoordeel een overtuiging eerst op wat zij in een leven uitricht, voordat je
+haar op haar herkomst afrekent.
+- Houd bij het lezen van een getuigenis de vraag vast welke traditie de
+woorden levert waarin de ervaring wordt beschreven.
+- Markeer in een eigen betoog het punt waar de redenering ophoudt en de eigen
+aanname begint.
+- Gebruik de vier kenmerken van mystieke toestanden als beschrijving en niet
+als toets op waarheid.
+
+#### Wat je hierna leest
+
+- 578. Het heilige. Otto beschrijft hetzelfde verschijnsel met een eigen
+begrippenpaar en houdt, anders dan James, vast aan een zelfstandige categorie
+van het heilige.
+- 608. Het gewijde en het profane. Eliade verlegt het zwaartepunt van de
+persoonlijke ervaring naar ritueel, tijd en ruimte, precies wat bij James
+buiten beeld blijft.
+- 604. The Perennial Philosophy. Huxley leest dezelfde soort getuigenissen als
+bewijs voor één onderliggende leer, waar James het juist bij de veelheid
+houdt.
+- 275. How to Change Your Mind. Pollans verslag van het hervatte
+psychedelica-onderzoek gebruikt James' kenmerken van mystieke toestanden als
+meetlat, ruim een eeuw later.
+
+## 937. Eranos: An Alternative Intellectual History of the Twentieth Century
+
+Hans Thomas Hakl, 2001. Het Duitse origineel verscheen als *Der verborgene
+Geist von Eranos: Unbekannte Begegnungen von Wissenschaft und Esoterik. Eine
+alternative Geistesgeschichte des 20. Jahrhunderts* (Scientia Nova, Bretten,
+2001). De door de auteur herziene en bijgewerkte Engelse vertaling van
+Christopher McIntosh kwam uit als *Eranos: An Alternative Intellectual History
+of the Twentieth Century* (Equinox, Sheffield, en McGill-Queen's University
+Press, Montreal, 2013, 448 blz., ISBN 9781845531157 gebonden en 9780773540880
+ingenaaid; latere herdruk bij Routledge, ISBN 9781781790168). Er bestaat geen
+Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.
+Rubriek: filosofie en mystiek.
+Tags: `esoterie`, `wetenschapsgeschiedenis`, `jung`, `religie`
+
+Vanaf 1933 kwamen elk jaar in Ascona aan het Lago Maggiore geleerden bijeen
+die acht dagen lang lezingen hielden over religie, mythe, psychologie en
+natuurwetenschap. De gastvrouw was Olga Fröbe-Kapteyn, een vrouw van
+Nederlandse afkomst met theosofische belangstelling; de naam Eranos, Grieks
+voor een maaltijd waaraan elke gast bijdraagt, werd voorgesteld door de
+godsdienstwetenschapper Rudolf Otto. Hans Thomas Hakl volgt die bijeenkomsten
+van de eerste tot het einde van de eeuw, aan de hand van archiefstukken, de
+jaarboeken, briefwisselingen en gesprekken met deelnemers en nabestaanden.
+
+Zijn stelling is dat deze kring een geschiedenis van het denken vormt die
+naast de gangbare loopt. C.G. Jung, Karl Kerényi, Mircea Eliade, Gershom
+Scholem, Henry Corbin, Joseph Campbell, D.T. Suzuki en Adolf Portmann werkten
+hier ideeën uit die via de Bollingen-reeks en de universiteiten hun weg
+vonden, terwijl de esoterische herkomst van het gezelschap in de officiële
+geschiedschrijving weinig aandacht kreeg. Hakl is zelf geen universitair
+onderzoeker maar zakenman, uitgever, verzamelaar en vertaler; het boek
+verscheen in 2001 in het Duits en in 2013 in herziene Engelse vertaling.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Hakl betoogt dat de jaarlijkse bijeenkomsten in Ascona geen
+zijspoor van de geestesgeschiedenis waren maar een van de plaatsen waar de
+twintigste-eeuwse omgang met mythe, symbool en religie is gevormd, en dat de
+gangbare geschiedschrijving die invloed onderschat omdat de kring uit een
+esoterisch milieu voortkwam en zich buiten de universiteit organiseerde. Wat
+begon als een reeks lezingen bij een gastvrouw met theosofische
+belangstelling, leverde via de deelnemers en hun boeken begrippen die daarna
+in de godsdienstwetenschap, de dieptepsychologie en de literatuurstudie gewoon
+werden. Hakl wil dat verband zichtbaar maken zonder Eranos tot een geheim
+genootschap te maken en zonder het tot gewone academische bedrijvigheid te
+herleiden.
+
+#### De gang van het boek
+
+**Wat Eranos was**
+
+Eranos begon in 1933 bij Casa Gabriella in Moscia bij Ascona, aan het Lago
+Maggiore. Olga Fröbe-Kapteyn had daar eerder een zaal laten bouwen voor
+bijeenkomsten over geestelijke onderwerpen. Het eerste jaarthema luidde yoga
+en meditatie in Oost en West, in die tijd een ongebruikelijke keuze voor een
+gezelschap met wetenschappelijke aanspraken. De vorm bleef bijna zeventig jaar
+dezelfde: acht dagen, lezingen van ongeveer twee uur, deelnemers die ter
+plaatse aten en verbleven, en publicatie van de teksten in de
+Eranos-Jahrbücher.
+
+De naam kwam van Rudolf Otto en verwijst naar een maaltijd waaraan elke gast
+iets bijdraagt. Hakl benadrukt dat het geen besloten gezelschap was: wie de
+kleine toegangsprijs betaalde kon de lezingen bijwonen. De selectie zat aan de
+kant van de sprekers, en die werd in de praktijk door een klein gezelschap
+bepaald.
+
+**De esoterische voorgeschiedenis**
+
+Voordat Eranos bestond was Ascona al een verzamelplaats van levenshervormers,
+anarchisten, vegetariërs en theosofen rond de heuvel Monte Verità. Hakl
+beschrijft die achtergrond uitvoerig, omdat hij meent dat zij verklaart waarom
+juist hier een gezelschap ontstond dat wetenschappelijke degelijkheid verbond
+met belangstelling voor onderwerpen die de universiteiten meden. Fröbe-Kapteyn
+zelf kwam uit de theosofie en had contact met de kring rond Hermann
+Keyserling.
+
+Die herkomst is voor Hakl geen smet maar de verklaring van de eigen aard van
+de bijeenkomsten. Zij verklaart volgens hem ook waarom Eranos in de
+vakliteratuur lang met enige gêne is behandeld.
+
+**Jung en de vorming van de kring**
+
+Jung sprak vanaf het eerste jaar en bleef tot in de jaren vijftig komen. Hakl
+laat zien hoe zijn aanwezigheid deelnemers trok en tegelijk stempelde:
+archetypen, het collectieve onbewuste en de amplificatiemethode werden het
+gemeenschappelijke idioom waarin klassieke filologen, oriëntalisten en
+godsdiensthistorici hun materiaal presenteerden. Fröbe-Kapteyn legde daarnaast
+een archief aan van symboolafbeeldingen uit alle tijden en streken, dat als
+materiaal voor de lezingen diende en later als afzonderlijke verzameling
+verder ging.
+
+Hakl weegt ook de verhouding tussen gastvrouw en spreker. Jung bepaalde in de
+praktijk een groot deel van de uitnodigingen, en toen hij wegviel moest de
+kring een nieuw middelpunt zoeken dat zij nooit helemaal heeft gevonden.
+
+**De jaren dertig, de oorlog en de politieke vraag**
+
+Een van de uitvoerigste hoofdstukken behandelt de verhouding van Eranos tot
+het Duitse nationaalsocialisme. Verschillende sprekers hebben in die jaren
+posities ingenomen die later zwaar zijn gaan wegen. Hakl bespreekt de gevallen
+afzonderlijk en komt in de meeste tot de slotsom dat de bijeenkomsten juist
+een toevlucht boden aan geleerden die in Duitsland niet meer terechtkonden,
+waarbij de Zwitserse neutraliteit de plaats geschikt maakte.
+
+Tijdens de oorlogsjaren gingen de bijeenkomsten door met vrijwel alleen
+deelnemers die Zwitserland konden bereiken. Dat gaf de kring een geslotenheid
+die na 1945 weer verdween, maar het versterkte volgens Hakl ook het gevoel van
+een gedeelde onderneming.
+
+**Naoorlogse bloei en de Bollingen-verbinding**
+
+Na de oorlog volgde de bloeitijd. Henry Corbin, Mircea Eliade, Gershom
+Scholem, Joseph Campbell, D.T. Suzuki, Adolf Portmann, Erich Neumann, Herbert
+Read en Gilbert Durand behoorden tot de terugkerende sprekers. Voor de
+verspreiding was het geld van Paul en Mary Mellon doorslaggevend: hun
+Bollingen Foundation bracht vertaalde Eranos-lezingen en de verzamelde werken
+van Jung in het Engels uit en bezorgde de kring een Amerikaans publiek dat zij
+op eigen kracht nooit had bereikt.
+
+Van daaruit volgt Hakl de doorwerking: Campbells modellen in de literatuur en
+later in de filmwereld, Eliade als hoogleraar in Chicago en vormgever van een
+hele opleiding, Corbin in de studie van de islamitische mystiek, Scholem in
+het onderzoek naar de kabbala. Dat zijn de kanalen waarlangs volgens hem het
+Eranos-denken de gewone geesteswetenschap binnenkwam.
+
+**Gevoelige kwesties**
+
+Een apart hoofdstuk zet de bezwaren op een rij die tegen Eranos zijn
+ingebracht: politieke besmetting, ongebreideld symbolisme, gebrek aan methode,
+en de aantijging dat hier religie tot esthetiek en tot privézaak werd gemaakt.
+Hakl noemt ze en weerspreekt ze grotendeels. Hij bestrijdt vooral het beeld
+van een samenzwering en wijst op de openbaarheid van de lezingen en op de
+aanzienlijke onderlinge verschillen tussen de sprekers, die elkaar in druk ook
+tegenspraken.
+
+**Einde en nasleep**
+
+Na de dood van Fröbe-Kapteyn in 1962 kwam het beheer bij een stichting. De
+samenstelling veranderde, de thema's werden algemener, en in de laatste
+decennia van de eeuw raakte de reeks haar samenhang kwijt; Hakl beschrijft de
+twisten over de koers en de pogingen tot een nieuwe start. Hij eindigt bij de
+vraag of Eranos herhaalbaar is en meent van niet. De combinatie van een
+gastvrouw met geld en overtuiging, een neutraal land in oorlogstijd en een
+generatie geleerden die elkaar buiten het eigen vakgebied opzocht, laat zich
+niet organiseren.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Eranos | Grieks voor een maaltijd waaraan elke gast een bijdrage levert; sinds 1933 de naam van de jaarlijkse bijeenkomsten in Ascona. |
+| Eranos-Jahrbuch | Het jaarboek waarin de lezingen van elke bijeenkomst werden afgedrukt, vanaf 1933 en decennialang de belangrijkste neerslag van de kring. |
+| Bollingen Foundation | De door Paul en Mary Mellon gefinancierde stichting die Eranos-lezingen en het werk van Jung in Engelse vertaling uitgaf. |
+| Monte Verità | De heuvel bij Ascona waar sinds het begin van de eeuw levenshervormers, theosofen en anarchisten samenkwamen; volgens Hakl de voedingsbodem van Eranos. |
+| amplificatie | Jungs werkwijze waarin een beeld wordt uitgelegd door parallellen uit mythe, religie en kunst te verzamelen; het gedeelde idioom van veel Eranos-lezingen. |
+| archetype | Bij Jung een aangeboren vormprincipe van de verbeelding, door veel sprekers als vanzelfsprekend uitgangspunt overgenomen. |
+| beeldarchief | De verzameling symboolafbeeldingen die Fröbe-Kapteyn aanlegde als materiaal voor de lezingen en die later zelfstandig werd voortgezet. |
+| alternatieve geestesgeschiedenis | Hakls aanduiding voor een lijn in het twintigste-eeuwse denken die buiten de universiteiten liep en de universitaire vakken toch beïnvloedde. |
+| westerse esoterie | Het onderzoeksveld waarin Hakl zijn onderwerp plaatst: stromingen als hermetisme, alchemie en theosofie, bestudeerd als geschiedenis en niet beleden als leer. |
+
+#### Waar het argument op rust
+
+Hakl steunt op de Eranos-Jahrbücher zelf, op archiefmateriaal van de
+stichting, op briefwisselingen en op gesprekken die hij vanaf de jaren
+negentig met deelnemers en nabestaanden voerde. Het notenapparaat is
+omvangrijk en de bibliografie uitgebreid. Voor de feitelijke gang van zaken,
+wie wanneer sprak, waarover, en hoe de verhoudingen lagen, is dit de
+volledigste bron die er is; ook wie de stelling van het boek afwijst kan er
+als naslagwerk mee uit de voeten.
+
+Zwakker staat het waar de stelling over invloed hard gemaakt moet worden. Dat
+de betrokkenen invloedrijk waren staat vast, maar dat hun invloed via Eranos
+liep en niet via hun leerstoelen, hun uitgevers en hun boeken, is een aanname
+die het boek illustreert en niet toetst. Een verzameling gedeelde
+aanwezigheden vormt geen bewijs van gedeelde herkomst van ideeën. Hakl
+schrijft bovendien vanuit sympathie voor zijn onderwerp: als uitgever,
+verzamelaar en tijdschriftoprichter is hij zelf onderdeel van het veld dat hij
+beschrijft.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar betreft de omgang met de politieke geschiedenis.
+Verscheidene hoofdrolspelers hadden een verleden dat verder gaat dan een
+ongelukkige publicatie: Eliade was in de jaren dertig verbonden met de
+Roemeense IJzeren Garde, en over de uitspraken en functies van Jung in
+diezelfde jaren bestaat een omvangrijke literatuur. Hakl behandelt die
+kwesties, maar zijn slotsom valt vrijwel altijd in het voordeel van de
+betrokkene uit, en de systematische vraag blijft liggen: hangt het denken
+zelf, met zijn nadruk op mythe, oervorm en bodem, met die politiek samen?
+Steven Wasserstrom heeft die vraag in *Religion after Religion* (1999) wel
+gesteld; bij Hakl krijgt dat soort kritiek eerder een afwijzing dan een
+inhoudelijk weerwoord.
+
+Daarnaast is het boek zwak in de analyse. Het is voor het overgrote deel
+verhaal: wie er kwam, wat er werd gezegd, hoe men met elkaar omging. Wat de
+Eranos-benadering als kennisleer waard was, of de amplificerende methode iets
+aantoont, en waarom vergelijkende symboolstudie in de godsdienstwetenschap
+sinds de jaren zeventig aan gezag heeft ingeboet, komt nauwelijks aan bod. Ook
+zijn eigen positie, met jarenlang werk aan de Italiaanse traditionalist Julius
+Evola, wordt niet als mogelijke invalshoek op tafel gelegd.
+
+Ten slotte de omvang en de vorm. Ruim vierhonderd dichtbedrukte bladzijden met
+veel namen, jaartallen en lezingtitels maken het eerder een naslagwerk dan een
+betoog. De lezer die de hoofdlijn zoekt moet die zelf uit het materiaal halen,
+en de Engelse vertaling laat de Duitse zinsbouw op veel plaatsen staan.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik het boek als naslagwerk bij de vraag wie wanneer in Ascona sprak en
+waarover; de jaarboeken zijn daarna de eerste bron.
+- Lees een auteur uit deze kring met de vraag welk deel van zijn
+begrippenapparaat uit Jungs idioom stamt en welk deel uit het eigen vak.
+- Zoek bij elke uitspraak over invloed een bewijsmiddel: een brief, een
+verwijzing, een overgenomen begrip, en neem gedeelde aanwezigheid niet als
+bewijs.
+
+#### Wat je hierna leest
+
+- 578. Het heilige. Otto bedacht de naam Eranos; zijn boek is de directe
+voorloper van de vergelijkende benadering die er werd beoefend.
+- 357. De mens en zijn symbolen. Het idioom dat de Eranos-lezingen
+bijeenhield, in de vorm waarin Jung en zijn medewerkers het voor een breed
+publiek opschreven.
+- 608. Het gewijde en het profane. Eliade was een van de vaste sprekers; dit
+boek laat zien wat de benadering aan begrippen opleverde en waar zij kwetsbaar
+is.
+- 932. The Passion of the Western Mind. Tarnas schrijft de westerse
+geestesgeschiedenis vanuit een verwante belangstelling en laat zien hoe die
+lijn buiten Ascona doorloopt.
+
+## 938. The Sleepwalkers
+
+Arthur Koestler, 1959. *The Sleepwalkers: A History of Man's Changing Vision
+of the Universe*, met een inleiding van de historicus Herbert Butterfield
+(Hutchinson, Londen, 1959; Macmillan, New York, 1959). Het boek is sindsdien
+vrijwel onafgebroken herdrukt, laatstelijk als Penguin Classic (Londen, 2014,
+ruim 600 blz., ISBN 9780141394534). Het Kepler-deel verscheen in 1960 apart
+als *The Watershed: A Biography of Johannes Kepler*. Er bestaat geen
+Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.
+Rubriek: natuur en wetenschap.
+Tags: `wetenschapsgeschiedenis`, `kosmologie`, `wetenschapsfilosofie`,
+`klassieker`
+
+Koestler vertelt de geschiedenis van het wereldbeeld van de Babyloniërs tot
+Newton en gebruikt die om een stelling over ontdekken te onderbouwen. Zijn
+beeld is dat van de slaapwandelaar: wie een doorbraak forceert weet zelden
+waar hij heen loopt, ziet de betekenis van zijn eigen vondst niet, en komt er
+langs omwegen en om verkeerde redenen. Het boek verscheen in 1959 met een
+inleiding van de Cambridge-historicus Herbert Butterfield en is opgebouwd in
+vijf delen: de oudheid, de middeleeuwen, Copernicus, Kepler en Galilei.
+
+De uitkomst is een herwaardering. Copernicus komt eruit als een behoedzame,
+angstige rekenaar wiens stelsel niet eenvoudiger was dan dat van Ptolemaeus.
+Kepler is de held: hij begon bij een mystiek getallenidee, hield vast aan een
+verschil van acht boogminuten in de waarnemingen van Tycho Brahe en gaf
+daarvoor de cirkelbaan op. Galilei krijgt de hardste behandeling, omdat hij de
+wetten van Kepler negeerde en de botsing met Rome volgens Koestler grotendeels
+zelf uitlokte. Daaronder ligt een tweede these, over de scheiding tussen
+natuurwetenschap en zingeving die in de zeventiende eeuw ontstond en die
+Koestler als verlies beschouwt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Koestler stelt dat wetenschappelijke doorbraken niet
+voortkomen uit de geordende gang van waarneming, gissing en toetsing die
+leerboeken beschrijven, maar uit een tastend proces waarin drogredenen,
+mystieke overtuigingen en persoonlijke bezetenheid dezelfde rol spelen als
+scherpzinnigheid. De ontdekkers in dit boek weten meestal niet wat zij aan het
+vinden zijn: zij lopen als slaapwandelaars, zeker van tred en blind voor de
+richting. Daaraan koppelt hij een tweede stelling: dat de zeventiende eeuw met
+de scheiding tussen meetbare natuur en menselijke zin iets heeft verspeeld dat
+bij Kepler nog één geheel vormde, en dat die scheiding geen noodzaak was maar
+een historisch ongeluk waarvan de gevolgen tot in de eigen eeuw doorwerken.
+
+#### De gang van het boek
+
+**Deel een: de heldentijd**
+
+Het eerste deel loopt van de Babylonische sterrenkunde tot Ptolemaeus.
+Koestler bewondert de Ionische natuurfilosofen, die het heelal voor het eerst
+als verklaarbaar geheel behandelden, en wijst Pythagoras aan als bron van het
+idee dat de kosmos naar getalsverhoudingen is ingericht. Plato is bij hem de
+kwade genius: diens eis dat hemellichamen in volmaakte cirkels met
+gelijkmatige snelheid bewegen legde de sterrenkunde bijna twee millennia vast.
+
+Aristarchus van Samos plaatste in de derde eeuw voor onze jaartelling de zon
+al in het midden, maar het idee verdween weer. Koestler noemt dat de
+terugtocht uit de werkelijkheid: de sterrenkunde werd een rekenkunst die de
+verschijnselen moest redden zonder aanspraak te maken op waarheid, en
+Ptolemaeus bracht die kunst tot voltooiing.
+
+**Deel twee: het donkere tussenspel**
+
+De middeleeuwen behandelt Koestler korter en met meer begrip dan de titel van
+het deel doet vermoeden. Zijn punt is dat het gesloten, zinvolle wereldbeeld
+van die eeuwen samenhing met het uitblijven van waarneming: zolang het heelal
+een woonhuis is met een vaste plaats voor de mens, is er weinig reden de
+balken na te meten. De prijs van die geborgenheid was stilstand, de opbrengst
+een samenhang die daarna niet meer terugkwam.
+
+**Deel drie: de bange kanunnik**
+
+Copernicus krijgt een portret dat tegen de schoolboekversie ingaat. Koestler
+schildert hem als een teruggetrokken, wantrouwige kerkelijke ambtenaar die
+zijn stelsel decennialang niet publiceerde en het pas op zijn sterfbed gedrukt
+zag. Inhoudelijk stelt hij dat *De revolutionibus* geen vereenvoudiging
+bracht: om de cirkelbanen te redden had Copernicus meer hulpcirkels nodig dan
+Ptolemaeus, en zijn eigenlijke drijfveer was Plato's eis van gelijkmatige
+cirkelbeweging en niet de waarneming.
+
+Bij dat portret hoort de uitspraak dat *De revolutionibus* het boek is dat
+niemand las. Koestler leidt dat af uit de moeilijkheidsgraad van de tekst en
+uit het uitblijven van reacties in de eerste decennia na 1543.
+
+**Deel vier: de waterscheiding**
+
+Kepler krijgt de meeste ruimte en is de spil van het boek. Koestler beschrijft
+hoe hij begon met de gedachte dat de afstanden tussen de planeten door de vijf
+regelmatige veelvlakken werden bepaald, een idee dat onjuist is en dat hij
+zijn leven lang bleef koesteren, en hoe uit datzelfde denken toch de wetten
+van de planeetbeweging voortkwamen.
+
+Het beslissende voorbeeld is de baan van Mars. Kepler kreeg de
+waarnemingsreeksen van Tycho Brahe in handen, rekende jarenlang en hield een
+verschil van acht boogminuten over. Hij weigerde dat als meetfout weg te
+schrijven, omdat hij Tycho's nauwkeurigheid vertrouwde, en gaf op grond van
+die acht minuten de cirkel op. Koestler noemt dat het punt waar de moderne
+natuurwetenschap begint, en tekent er eerlijk bij aan dat Kepler onderweg
+rekenfouten maakte die elkaar toevallig ophieven.
+
+Kepler is voor Koestler ook de laatste bij wie natuurkunde en zingeving
+samenvielen: de zon dreef de planeten aan en was tegelijk het beeld van God.
+In die figuur ligt de waterscheiding waarnaar het deel is genoemd.
+
+**Deel vijf: het uiteengaan van de wegen**
+
+Galilei komt er slecht af. Koestler wijst erop dat hij de wetten van Kepler
+nooit heeft overgenomen en tot zijn dood aan cirkelvormige banen vasthield,
+dat hij de getijden aanvoerde als bewijs voor de aardbeweging terwijl dat
+argument niet deugt, en dat hij tegenstanders zo behandelde dat de botsing met
+Rome dichterbij kwam. Zijn slotsom is dat de veroordeling van 1633 vermijdbaar
+was en meer met karakters en hofpolitiek te maken had dan met een principiële
+strijd tussen geloof en wetenschap.
+
+In de epiloog trekt Koestler de lijn naar zijn eigen tijd. Newton sluit het
+bouwwerk, maar met de scheiding tussen meetbare natuur en menselijke betekenis
+is volgens hem de verhouding tussen wetenschap en de rest van de cultuur
+ontwricht geraakt. Het sluitstuk van die ontwikkeling ziet hij in kennis die
+de mensheid vernietigen kan zonder dat er een kader is waarin zij te plaatsen
+valt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| slaapwandelen | Koestlers beeld voor ontdekken: doelgericht bewegen zonder te weten waarheen, met inzichten die om verkeerde redenen juist blijken. |
+| waterscheiding | De plaats in de geschiedenis, bij Kepler, waar het oude en het nieuwe wereldbeeld uiteengaan; ook de titel van het Kepler-deel. |
+| het redden van de verschijnselen | De opvatting dat een sterrenkundig model alleen de waarnemingen hoeft na te rekenen zonder iets over de werkelijkheid te beweren. |
+| platonische cirkeleis | De regel dat hemellichamen in volmaakte cirkels met gelijkmatige snelheid bewegen; volgens Koestler de rem op de sterrenkunde tot aan Kepler. |
+| epicykel | Hulpcirkel waarmee sterrenkundigen afwijkingen van de cirkelbeweging opvingen; Koestler telt er bij Copernicus meer dan bij Ptolemaeus. |
+| de acht boogminuten | Het verschil tussen Tycho's waarnemingen van Mars en Keplers cirkelmodel, dat Kepler weigerde te negeren en dat tot de ellips leidde. |
+| harmonie der sferen | Het pythagoreïsche idee dat de hemelbewegingen naar muzikale getalsverhoudingen zijn geordend; bij Kepler nog een werkzame drijfveer. |
+| het boek dat niemand las | Koestlers aanduiding voor *De revolutionibus* van Copernicus, dat volgens hem na verschijning nauwelijks werd gelezen. |
+| de tragische breuk | Koestlers naam voor het uiteengaan van natuurwetenschap en zingeving in de zeventiende eeuw, dat hij als verlies opvat. |
+
+#### Waar het argument op rust
+
+Koestler leest primaire bronnen, en daar zit de sterkte van het boek. Voor
+Kepler put hij uit diens brieven en uit werken als *Mysterium cosmographicum*
+en *Astronomia nova*, waarin Kepler ongebruikelijk openhartig zijn doodlopende
+wegen beschrijft. Juist die openhartigheid maakt de stelling over
+slaapwandelen op dit ene punt aannemelijk: hier is een onderzoeker die zelf
+opschrijft dat hij op een onjuist idee doorging en er iets anders vond.
+
+Buiten Kepler staat de bewijsvoering er zwakker voor. Koestler was
+romanschrijver en journalist, geen historicus, en hij vertelt in scènes en
+karakterschetsen, met de bronnen op de achtergrond. Het aantal hulpcirkels bij
+Copernicus is door vakhistorici anders geteld dan hij doet. De bewering dat
+*De revolutionibus* ongelezen bleef is later weerlegd door Owen Gingerich, die
+de bewaarde exemplaren van de eerste twee drukken wereldwijd opzocht en er een
+groot aantal aantrof met aantekeningen van vakgenoten in de kantlijn; hij
+beschreef die zoektocht in *The Book Nobody Read* (2004) en noemde Koestlers
+behandeling van de personen zeer aanvechtbaar.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat Koestler zijn stelling laat winnen door de
+rolverdeling. Kepler krijgt honderden bladzijden en alle nuance, Copernicus en
+Galilei krijgen minder ruimte en worden op hun zwakste momenten getekend. Het
+beeld van Galilei als hoogmoedige ruziemaker die zijn eigen proces uitlokte,
+gaat voorbij aan de kerkelijke politiek van de jaren twintig en dertig van de
+zeventiende eeuw, en aan zijn werk in de mechanica, dat voor de natuurkunde
+meer betekende dan het boek laat blijken. Wetenschapshistorici hebben die
+voorstelling sindsdien op meerdere punten gecorrigeerd.
+
+Ook de hoofdthese reikt verder dan het materiaal draagt. Uit vijf gevallen,
+waarvan er één werkelijk is uitgewerkt, volgt geen algemene uitspraak over hoe
+kennis groeit. Dat sommige ontdekkers om verkeerde redenen gelijk kregen,
+betekent niet dat toetsing en methode weinig uitmaken; Koestler gebruikt de
+uitzonderingen om de regel te ondergraven, en laat de gevallen waarin
+methodische discipline wel doorslaggevend was buiten beeld.
+
+Ten slotte kleurt Koestlers latere belangstelling het slot. Zijn klacht over
+de scheiding van wetenschap en zin loopt vooruit op werk waarin hij
+paranormale verschijnselen en het samenvallen van gebeurtenissen serieus nam.
+Dat weerlegt dit boek niet, maar het verklaart waarom de epiloog verder gaat
+dan de geschiedenis die eraan voorafgaat, en waarom vakgenoten de laatste
+bladzijden minder serieus namen dan de eerste vijfhonderd.
+
+#### Wat er concreet mee te doen is
+
+- Lees bij een ontdekking eerst de brieven en de kladversies voordat je het
+gepubliceerde artikel als weergave van de gang van zaken neemt.
+- Behandel een afwijking die niet weggaat als gegeven en niet als meetfout,
+zeker wanneer de meetreeks betrouwbaar is.
+- Wantrouw het verhaal waarin een vakgebied vooruitgaat langs een rechte lijn
+van steeds betere ideeën.
+- Controleer bij een aansprekende historische bewering van welke telling of
+welke enkele bron zij afhangt.
+
+#### Wat je hierna leest
+
+- 948. The Copernican Revolution. Kuhn behandelt dezelfde overgang met
+vakhistorische zorgvuldigheid en corrigeert Koestler waar diens verhaal het
+van de bronnen wint.
+- 947. To Explain the World. Weinberg vertelt dezelfde geschiedenis vanuit de
+overtuiging dat de moderne methode wel degelijk een verworvenheid is, en
+beoordeelt de ouden daar streng op.
+- 63. The Demon-Haunted World. Sagan verdedigt precies de methodische
+discipline die Koestler bij zijn ontdekkers zo weinig terugvindt.
+
+## 939. Het civilisatieproces
+
+Norbert Elias, 1939. *Über den Prozeß der Zivilisation: Soziogenetische und
+psychogenetische Untersuchungen* verscheen in twee delen bij Haus zum Falken
+in Bazel in 1939 en bleef vrijwel onopgemerkt tot de herdruk bij Suhrkamp in
+1969. De Engelse titel luidt *The Civilizing Process*. De Nederlandse
+vertaling van Willem Kranendonk en Han Israëls kwam in 1982 uit bij Het
+Spectrum in Utrecht; de herziene versie, gebaseerd op de Duitse
+wetenschappelijke uitgave van 1997 en de Engelse editie van 2000, is
+verkrijgbaar als *Het civilisatieproces: sociogenetische en psychogenetische
+onderzoekingen* (Boom, Amsterdam, druk 2023, 776 blz., ISBN 9789024452101).
+Rubriek: geschiedenis en samenleving.
+Tags: `sociologie`, `geschiedenis`, `omgangsvormen`, `beschaving`
+
+Elias schreef dit boek als banneling in Londen, grotendeels in de leeszaal van
+het British Museum, en publiceerde het in 1939 bij een kleine Zwitserse
+uitgever. Hij vertrekt van een onopvallend soort bron: omgangsboeken uit de
+late middeleeuwen en de vroegmoderne tijd, van Erasmus' *De civilitate morum
+puerilium* uit 1530 tot Franse handleidingen uit de zeventiende eeuw. Wat
+daarin wordt voorgeschreven over tafelmanieren, neus snuiten, spugen, slapen
+en naaktheid verandert in de loop van eeuwen op een regelmatige manier: de
+drempel van schaamte en gêne schuift op, en steeds meer gedrag verdwijnt
+achter de schermen van het openbare leven.
+
+Het tweede deel verklaart die verschuiving uit de machtsverhoudingen. Waar
+heersers gebied veroveren en het geweld en de belastingheffing in één hand
+komen, ontstaat een hof waar de adel niet meer met wapens maar met
+omgangsvormen om positie strijdt. Naarmate mensen in langere en dichtere
+ketens van afhankelijkheid komen te staan, moeten zij hun gedrag verder
+vooruit berekenen; de dwang van buiten wordt zelfdwang, en die zelfdwang gaat
+op den duur als tweede natuur voelen. Elias bedoelt daarmee geen vooruitgang
+in zedelijkheid, maar een verandering in de bouw van samenleving en
+persoonlijkheid tegelijk.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Elias betoogt dat de verandering van de menselijke
+persoonlijkheid en de verandering van de samenlevingsvorm twee kanten van
+hetzelfde proces zijn, en dat dit proces te reconstrueren valt uit alledaags
+materiaal over eten, slapen, spugen en geweld. Naarmate staten het geweld en
+de belastingheffing in één hand krijgen en de ketens van wederzijdse
+afhankelijkheid langer worden, wordt de dwang die eerst van buiten kwam
+omgezet in dwang van binnenuit. Wat als beschaving geldt is volgens hem dus
+geen zedelijke verworvenheid en geen plan van wie dan ook, maar de onbedoelde
+neerslag van machtsverhoudingen in de gevoelshuishouding van afzonderlijke
+mensen. Het verschil tussen beschaafd en ruw is daarmee een verschil in de
+tijd en niet in aanleg.
+
+#### De gang van het boek
+
+**Beschaving en cultuur als woorden met een geschiedenis**
+
+Elias begint bij het woord en niet bij het proces. Hij laat zien hoe het
+Franse *civilisation* en het Duitse *Kultur* uit verschillende
+maatschappelijke posities voortkomen. Het eerste hoort bij een hofadel die
+zich op omgangsvormen liet voorstaan en zijn eigen maatstaf voor de menselijke
+maatstaf hield; het tweede bij een Duitse burgerlijke laag van ambtenaren en
+geleerden die zich juist tegen die hofmanieren afzette met innerlijkheid,
+oprechtheid en prestatie.
+
+De strekking van dat openingsdeel is methodisch. Wie het woord beschaving
+gebruikt, gebruikt een strijdterm uit een bepaalde standenverhouding, en de
+eerste taak van de socioloog is die herkomst zichtbaar te maken in plaats van
+het woord als vanzelfsprekend te hanteren.
+
+**Wat de omgangsboeken laten zien**
+
+Het langste stuk van het eerste deel bestaat uit geciteerde voorschriften,
+chronologisch geordend. Erasmus schrijft in 1530 nog dat men een afgekloven
+bot niet in de gemeenschappelijke schaal terug moet leggen en dat het
+onbetamelijk is een ander aan te bieden waarvan men zelf al gegeten heeft;
+drie eeuwen later wordt zulk gedrag niet meer besproken, omdat het ondenkbaar
+is geworden. Dezelfde lijn tekent zich af bij het snuiten van de neus, het
+spugen, het gebruik van vork en zakdoek, het naakt slapen en de aanwezigheid
+van anderen bij lichamelijke verrichtingen.
+
+Elias leest die reeks nauwkeurig. De verandering verloopt in de regel van
+boven naar beneden: een gebruik onderscheidt eerst de hoogste laag, wordt
+vervolgens nagevolgd, verliest daardoor zijn onderscheidende waarde en wordt
+ten slotte vanzelfsprekend. De motiveringen schuiven mee, van hoffelijkheid
+via gezondheid naar hygiëne, terwijl het voorschrift telkens ouder is dan de
+reden die ervoor wordt aangevoerd.
+
+**Schaamte, gêne en de psychische omvorming**
+
+Wat verandert is het gedrag, en met het gedrag het gevoel. Elias noemt dat het
+opschuiven van de schaamte- en gênedrempel: handelingen die eerst zonder
+omhaal plaatsvonden gaan zelfverwijt en afkeer oproepen, en de aandriften
+worden daarbij anders geregeld en niet zwakker. Hij spreekt van een omzetting
+van uitwendige dwang in zelfdwang, met als eindpunt een gedragsregeling die zo
+automatisch werkt dat zij als natuur wordt ervaren en de geschiedenis erachter
+onzichtbaar blijft.
+
+Die omzetting heeft een prijs. Elias beschrijft de toename van innerlijke
+spanning, van beklemming en van de afstand tussen wat een mens doet en wat hij
+verlangt. De burgerlijke geremdheid die Freud in zijn spreekkamer aantrof, is
+bij Elias het gevolg van een eeuwenlange maatschappelijke ontwikkeling en niet
+van een tijdloos conflict tussen driften en cultuur.
+
+**Het monopolie op geweld en belasting**
+
+Het tweede deel legt de maatschappelijke motor bloot. Uit de strijd tussen
+ongeveer gelijke ridderlijke heren komt volgens Elias vrijwel dwingend een
+winnaar voort, omdat elke overwinning de kansen op de volgende vergroot; hij
+noemt dat het monopoliemechanisme. Het eindpunt is een centrale macht die als
+enige geweld mag uitoefenen en belasting mag heffen, waarna de beheerders van
+dat monopolie zelf van talloze anderen afhankelijk worden en hun bezit een
+openbare zaak wordt.
+
+Aan de Franse ontwikkeling laat hij dat in detail zien: de opkomst van de
+Capetingers, de verdringing van rivaliserende huizen en het ontstaan van een
+koningschap dat boven de partijen staat. Het koningsmechanisme houdt in dat de
+vorst zijn speelruimte ontleent aan het evenwicht tussen groepen die elkaar in
+bedwang houden; verdwijnt dat evenwicht, dan verdwijnt zijn positie.
+
+**Het hof als oefenschool**
+
+Zodra de adel zijn wapens kwijt is, verplaatst de strijd zich naar aanzien,
+gunst en manieren. Aan het hof levert het permanente toezicht van gelijken een
+gedwongen vooruitzien op: wie een blunder maakt verliest positie, dus moet men
+de eigen uitingen beheersen en de bedoelingen van anderen aflezen. Elias
+beschrijft het hof daarom als de kweekplaats van de psychologische blik, een
+vorm van mensenkennis die pas ontstaat waar zij nodig is. Hij werkte dat later
+uit in *Die höfische Gesellschaft*.
+
+**Ontwerp voor een theorie**
+
+Het slot vat de bevindingen samen als een richting en niet als een wet.
+Langere ketens van afhankelijkheid vragen om verder vooruitzien en
+gelijkmatiger gedrag; de verhouding tussen dwang van buiten en zelfdwang
+verschuift; het verschil in gedragsstandaard tussen bovenlagen en de rest van
+de bevolking neemt af naarmate afhankelijkheden wederkeriger worden.
+
+Elias tekent er uitdrukkelijk bij aan dat de beweging niet alleen vooruit
+gaat. Waar monopolies wankelen, waar onzekerheid en gevaar toenemen, kunnen
+verworven remmen terugvallen. Die aantekening is later het aanknopingspunt
+geworden voor het onderzoek naar wat lezers van Elias ontcivilisering zijn
+gaan noemen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| sociogenese | Het onderzoek naar hoe een verschijnsel, zoals een staat of een omgangsvorm, uit maatschappelijke verhoudingen is ontstaan. |
+| psychogenese | Het onderzoek naar hoe de bijbehorende gedrags- en gevoelshuishouding van mensen zich in dezelfde beweging heeft gevormd. |
+| affecthuishouding | Het geheel van aandriften, remmingen en gevoelsregels waarmee een mens zijn gedrag stuurt; bij Elias historisch veranderlijk en niet vast. |
+| zelfdwang | De uit gewoonte werkende innerlijke rem die de plaats inneemt van dwang door anderen naarmate afhankelijkheden toenemen. |
+| schaamte- en gênedrempel | De grens waarboven gedrag afkeer of zelfverwijt oproept; die grens verschuift volgens Elias in een aanwijsbare richting. |
+| monopoliemechanisme | De neiging van vrije mededinging tussen ongeveer gelijke machthebbers om in steeds minder handen te eindigen. |
+| koningsmechanisme | De positie van een centrale heerser die zijn speelruimte ontleent aan het evenwicht tussen groepen die elkaar in bedwang houden. |
+| interdependentieketen | De reeks van mensen van wie iemands handelen afhangt; hoe langer de keten, hoe verder vooruit gerekend moet worden. |
+| figuratie | Elias' term voor het samenstel van onderling afhankelijke mensen, bedoeld als vervanging van de tegenstelling tussen individu en samenleving. |
+| hoofse samenleving | De hofwereld waarin aanzien en manieren de plaats innemen van wapengeweld als middel in de strijd om positie. |
+
+#### Waar het argument op rust
+
+Het bewijsmateriaal bestaat vrijwel geheel uit voorschriftenliteratuur:
+omgangsboeken, hofregels en opvoedkundige tractaten uit de dertiende tot de
+negentiende eeuw, aangevuld met het staatkundige verhaal van de Franse
+koningsmacht. De reeks citaten is uitgebreid en het patroon dat Elias eruit
+haalt is met eigen ogen na te lopen. Daardoor blijft het eerste deel ook nu
+leesbaar als bronnenboek, los van de theorie die erop volgt.
+
+Het lastige punt zit in de gevolgtrekking. Omgangsboeken beschrijven wat
+wenselijk werd geacht en niet wat mensen deden, en zij zijn geschreven door en
+voor een dunne bovenlaag. Uit het feit dat een voorschrift uit de
+handleidingen verdwijnt, leidt Elias af dat het gedrag vanzelfsprekend is
+geworden; even goed mogelijk is dat het onderwerp niet langer in het genre
+paste. Voor de gevoelskant, de schaamte zelf, bestaat helemaal geen
+rechtstreekse bron. Elias werkte bovendien in ballingschap zonder
+onderzoeksapparaat, en het boek bleef na 1939 twee decennia vrijwel
+onbesproken; de toetsing aan later archiefonderzoek is pas na de herdruk van
+1969 begonnen.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste tegenoffensief kwam van de antropoloog Hans Peter Duerr, die
+tussen 1988 en 2002 vijf delen publiceerde onder de titel *Der Mythos vom
+Zivilisationsprozeß*. Duerr voert etnografisch en historisch materiaal aan
+waaruit blijkt dat middeleeuwse en niet-westerse samenlevingen wel degelijk
+uitgewerkte regels kenden voor naaktheid, seksualiteit en lichamelijke
+afzondering, en dat het verschil met later dus eerder in de vorm zit dan in de
+mate van beheersing. Klopt dat, dan verliest de reeks van Elias haar richting.
+Onderzoekers in het spoor van Elias hebben daartegen ingebracht dat Duerr
+voorbeelden stapelt zonder verandering over tijd te meten; beslecht is het
+debat niet.
+
+Een tweede bezwaar betreft de reikwijdte. Het materiaal is West-Europees,
+grotendeels Frans en Duits, en betreft de bovenlagen; het patroon wordt
+niettemin gepresenteerd als richting van de menselijke ontwikkeling in het
+algemeen. Daarmee komt de theorie dicht bij het schema van beschaafd tegenover
+ruw dat zij juist wilde ontleden, ook al bedoelde Elias dat uitdrukkelijk niet
+en waarschuwde hij tegen die lezing.
+
+Het derde punt is de plaats van het georganiseerde geweld in de twintigste
+eeuw. Een theorie over toenemende beheersing moet iets kunnen zeggen over de
+vernietiging die Elias zelf ontvluchtte en waarin zijn moeder is omgekomen.
+Het boek uit 1939 doet dat niet; Elias kwam er pas een halve eeuw later op
+terug in *Studien über die Deutschen* (1989), waar hij van een terugval binnen
+hetzelfde proces spreekt. Die aanvulling redt de theorie, maar tegen de prijs
+dat zij vrijwel elke uitkomst kan opvangen en daardoor moeilijk te weerleggen
+is.
+
+#### Wat er concreet mee te doen is
+
+- Zoek bij een vraag over gedragsverandering naar voorschriften uit
+opeenvolgende perioden, en let vooral op wat er ophoudt te worden
+opgeschreven.
+- Lees een gedragsnorm terug naar de machtsverhouding die haar draagt, in
+plaats van naar de reden die er in de tekst bij wordt gegeven.
+- Reken bij plotselinge verruwing niet meteen op verval van normen, maar kijk
+eerst wat er met monopolies en afhankelijkheden is gebeurd.
+- Behandel individu en samenleving als één samenstel van afhankelijke mensen
+wanneer een verklaring anders blijft steken in de keuze tussen die twee.
+
+#### Wat je hierna leest
+
+- 933. The Great Transformation. Polanyi beschrijft in dezelfde jaren en over
+dezelfde eeuwen hoe markt en staat de samenleving hebben omgevormd, met een
+tegengestelde waardering van de uitkomst.
+- 935. The Origins of Totalitarianism. Arendt behandelt precies de terugval
+die Elias' theorie het moeilijkst kan opnemen, en zoekt de verklaring in
+andere richtingen.
+- 250. The 48 Laws of Power. Greene put uit dezelfde hofwereld, maar leest
+haar als voorraadkast van slimmigheden waar Elias er een machtsstructuur in
+ziet.
+
+## 940. The Gnostic Religion
+
+Hans Jonas, 1958. *The Gnostic Religion: The Message of the Alien God and the
+Beginnings of Christianity* (Beacon Press, Boston, 1958; tweede, herziene en
+uitgebreide druk 1963, 358 blz.; derde druk 2001, 400 blz., ISBN
+9780807058015). Het boek is Jonas' Engelse bewerking van zijn Duitse studie
+*Gnosis und spätantiker Geist* (Vandenhoeck & Ruprecht, Göttingen, deel 1
+1934, deel 2 1954). De Nederlandse vertaling verscheen als *Het gnosticisme*
+(Het Spectrum, Utrecht, 1969, Aula-boeken 429, 421 blz., vertaald door A.J.M.
+Baljet) en is al decennia niet meer in druk; deze samenvatting berust op de
+Engelse editie. Rubriek: filosofie en mystiek.
+Tags: `gnostiek`, `godsdienstwetenschap`, `oudheid`, `existentialisme`
+
+Hans Jonas, gepromoveerd bij Heidegger en Bultmann, beschreef de gnosis van de
+eerste eeuwen als één samenhangende religieuze houding in plaats van als een
+reeks losse christelijke ketterijen. Wat de stelsels van Simon Magus tot Mani
+volgens hem bindt is een radicaal dualisme: de wereld is het werk van lagere
+machten, de ware God staat er volstrekt buiten, en de mens draagt een
+goddelijke vonk die in de materie niet thuishoort. Redding komt van kennis
+over die herkomst, gnosis, en niet van geloof, wet of offer.
+
+Het boek leest de Hymne van de Parel, Marcion, de Poimandres, de
+valentiniaanse speculatie en het stelsel van Mani als varianten op één
+grondervaring, en eindigt met een epiloog waarin Jonas het gnostische
+wereldgevoel naast het moderne nihilisme en het existentialisme van Heidegger
+legt. Die epiloog maakte het boek bekend ver buiten het vakgebied en tegelijk
+omstreden binnen dat vakgebied. Sinds de vondsten bij Nag Hammadi en sinds de
+discussie over de vraag of 'de gnostiek' wel één verschijnsel is, geldt Jonas'
+synthese als de klassieke ingang en niet meer als de laatste stand van zaken.
+Elaine Pagels noemde het decennia later nog steeds de standaardintroductie.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Volgens Jonas is de gnosis een zelfstandige religieuze
+beweging met één herkenbare grondhouding, die in de eerste eeuwen van onze
+jaartelling in Syrië, Egypte, Mesopotamië en Iran vrijwel gelijktijdig opkwam
+en pas achteraf door de kerkvaders tot christelijke afwijking werd verklaard.
+Die grondhouding is anti-kosmisch. Het heelal is geen ordening waarin de mens
+een plaats heeft, maar een gevangenis die door lagere machten is gebouwd en
+door de sterren wordt bewaakt. De ware God staat buiten die schepping en is
+haar vreemd. De mens draagt een vonk die daar per ongeluk terechtkwam en die
+wordt gered door kennis van haar herkomst. Jonas leest daarin een breuk met de
+Griekse ervaring van de kosmos als iets goddelijks, en herkent in diezelfde
+breuk de gestalte die in de twintigste eeuw als nihilisme terugkeert.
+
+#### De gang van het boek
+
+**Oost en west in de hellenistische wereld**
+
+De inleiding schetst de wereld waarin de gnosis ontstond. Na de veroveringen
+van Alexander verspreidde de Griekse vorm zich over het oosten, terwijl de
+stadstaat als politieke thuisbasis verdween en de mens zich terugvond in een
+rijk dat te groot was om nog een orde te heten. In die ruimte kwamen oosterse
+verlossingsreligies met Griekse begrippen in aanraking.
+
+Jonas beschrijft de uitkomst als een oosterse geest in Grieks gewaad. De
+astrologie leverde het beeld van een noodlot dat door de planeetsferen wordt
+uitgeoefend, en dat noodlot werd in gnostische handen van een orde tot een
+dwang van vijandige bewakers.
+
+**Wat gnosis betekent**
+
+Kennis is hier geen theorie over voorwerpen. Gnosis is weten wie men was, waar
+men vandaan komt, waarin men geworpen is en waarheen men verlost wordt, en dat
+weten verandert degene die het ontvangt. Jonas bepaalt aan de hand daarvan de
+omvang van de beweging: van Simon Magus en de vroege Syrische leraren tot
+Marcion, de valentinianen, de hermetische geschriften, de Mandeeërs in het
+zuiden van Mesopotamië en het wereldrijk van Mani.
+
+De bronnen zijn ongelijksoortig. Voor de meeste stelsels is hij aangewezen op
+de weergave door hun bestrijders, Irenaeus, Hippolytus en Epiphanius, die de
+leer citeerden om haar te weerleggen. Daarnaast staan hem de mandeese en
+manicheese teksten ter beschikking, die uit eigen kring komen maar later zijn
+opgeschreven.
+
+**De beeldtaal**
+
+Het meest navolgbare deel van het boek is de ontleding van de gnostische
+beeldspraak. Steeds keren dezelfde woorden terug: het vreemde en het buiten,
+de val, de vonken, de gevangenschap, het gif, de slaap, de dronkenschap en de
+vergetelheid, en daartegenover de roep van buiten, het ontwaken, de kleding,
+de opstijging langs de sferen en de wachtwoorden waarmee de archonten worden
+gepasseerd.
+
+Jonas behandelt die woorden als een taal met een eigen grammatica. Wie haar
+eenmaal kent, herkent haar in teksten die inhoudelijk sterk uiteenlopen, en
+juist die herkenbaarheid is voor hem het bewijs dat er één verschijnsel achter
+ligt.
+
+**De stelsels**
+
+Daarna volgen de afzonderlijke leren. Simon Magus met zijn Helena, de gevallen
+gedachte van God die in een bordeel in Tyrus wordt teruggevonden. De Hymne van
+de Parel, waarin een koningszoon naar Egypte wordt gestuurd, daar het kleed
+van de vreemdelingen aantrekt, zijn opdracht vergeet, door een brief wordt
+gewekt en met de parel terugkeert. Marcion, die de vreemde goede God tegenover
+de rechtvaardige schepper van het Oude Testament stelt en als enige het geloof
+en niet de kennis als weg behoudt. De Poimandres uit het hermetische korpus,
+waarin de mens uit liefde voor zijn eigen spiegelbeeld in de natuur valt.
+
+Het uitvoerigst is de valentiniaanse speculatie: het pleroma van aeonen, de
+overtreding van Sophia die buiten haar plaats wil kennen, de vorming van de
+demiurg uit haar hartstocht en de indeling van de mensheid in geestelijke,
+psychische en stoffelijke naturen. Bij Mani wordt dat verhaal tot een
+wereldgeschiedenis met een eigen kosmogonie, waarin licht en duisternis
+oorspronkelijk twee gescheiden rijken zijn en de hele schepping een apparaat
+is om het gemengde licht weer af te scheiden.
+
+**Twee zeden uit één houding**
+
+Uit dezelfde afwijzing van de wereld komen volgens Jonas twee tegengestelde
+levenswijzen voort. De libertijnse gnosticus acht zich boven de wet van de
+schepper verheven en handelt daarnaar, soms uit minachting, soms omdat hij
+meent alle ervaringen te moeten uitputten. De asceet onthoudt zich, om de
+demiurg geen nieuwe lichamen te leveren waarin licht opgesloten raakt.
+
+Beide houdingen zijn opstand tegen dezelfde kosmische wet. Dat maakt de
+gnostische moraal onvergelijkbaar met de Griekse deugdleer, waarin de goede
+mens zich juist naar de orde van het geheel voegt.
+
+**Grieks en gnostisch**
+
+Twee vergelijkende hoofdstukken zetten de balans op. Kosmos betekende bij de
+Grieken orde, schoonheid en goddelijkheid; in gnostische teksten is het woord
+een scheldwoord geworden. Deugd was voor de Griek de afstemming van de ziel op
+die orde; voor de gnosticus behoort de ziel zelf tot het gebied van de
+archonten en wordt alleen de geest gered.
+
+Jonas laat zien dat daarmee het hele zedelijke vocabulaire van betekenis
+verandert, ook waar dezelfde woorden blijven staan. Hier ligt de kern van zijn
+stelling dat de gnosis een eigen religie is en geen variant op iets anders.
+
+**Epiloog: gnosis en nihilisme**
+
+De slotbeschouwing vergelijkt de gnostische ervaring met het existentialisme
+van zijn eigen leermeester. De geworpenheid, de vervallenheid, de vreemdheid
+van de mens in de wereld: Jonas herkent de gnostische woorden in Heideggers
+begrippen en verklaart daaruit waarom hij deze teksten van binnenuit kon
+lezen.
+
+De vergelijking loopt bij hem uit op een verschil dat hij zwaarder laat wegen
+dan de overeenkomst. De gnosticus heeft nog een elders, een God buiten de
+kosmos naar wie de vonk terugkan; de moderne mens staat tegenover een natuur
+die niets van hem wil en waarachter niets ligt. Die tweede positie noemt Jonas
+de radicalere. In de tweede druk voegde hij een hoofdstuk toe over de vondsten
+bij Nag Hammadi, die hij als bevestiging van zijn beeld las.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| gnosis | Reddende kennis van de eigen herkomst en bestemming, die de wetende verandert in plaats van hem iets te leren. |
+| de vreemde God | De ware God die volstrekt buiten de geschapen wereld staat en er geen deel aan heeft. |
+| demiurg | De lagere maker van de wereld, in veel stelsels vereenzelvigd met de God van het Oude Testament. |
+| archonten | De heersers van de planeetsferen, die de mens gevangen houden en de weg omhoog bewaken. |
+| pneuma | De goddelijke vonk in de mens, wezensvreemd aan zowel het lichaam als de ziel. |
+| pleroma | De volheid van goddelijke aeonen buiten de kosmos, tegenover het tekort waaruit de wereld ontstond. |
+| heimarmene | Het door de sterren uitgeoefende noodlot, bij de gnostici verworden tot dwang van vijandige machten. |
+| de roep | De boodschap van buiten die de slapende of dronken vonk wekt en aan haar afkomst herinnert. |
+| anti-kosmisch dualisme | De houding die de wereld niet als ordening waardeert maar als vreemd en vijandig gebied. |
+| geworpenheid | Het besef in de wereld te zijn beland zonder er te horen; Jonas gebruikt het woord van Heidegger om de gnostische zelfervaring te benoemen. |
+
+#### Waar het argument op rust
+
+Het materiaal is ongelijk verdeeld. Voor Simon Magus, Valentinus en Basilides
+is Jonas grotendeels aangewezen op wat de kerkvaders van hun leer weergaven om
+haar te weerleggen; alleen de mandeese geschriften en de manicheese fragmenten
+komen uit de kring zelf, en die zijn later opgetekend dan de stelsels die hij
+ermee reconstrueert. De eerste versie van zijn betoog dateert bovendien uit
+1934, ruim voor de vondst van de koptische codices bij Nag Hammadi in 1945. In
+de druk van 1963 voegde hij een hoofdstuk over die vondsten toe zonder zijn
+kader te herzien, omdat hij meende dat de nieuwe teksten zijn beeld
+ondersteunden.
+
+De methode is uitdrukkelijk uitleggend en niet toetsend. Jonas zoekt achter de
+mythologische verscheidenheid één bestaanshouding, en dat maakt het betoog
+sterk in het aanwijzen van samenhang en zwak in het weerleggen van zichzelf:
+zodra het schema er ligt, past bijna elke tekst erin. Wat wel controleerbaar
+overeind blijft is de ontleding van de beeldtaal, die ook onderzoekers die
+zijn synthese verwerpen nog gebruiken.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat de eenheid die Jonas beschrijft door zijn eigen
+methode kan zijn voortgebracht. Sinds het colloquium van Messina in 1966 en
+vooral sinds Michael Williams' *Rethinking Gnosticism* uit 1996 en Karen Kings
+*What Is Gnosticism?* uit 2003 houdt een groot deel van het vakgebied dat
+'gnostiek' een verzamelnaam is die door ketterbestrijders is gemaakt en die
+teksten samenvoegt welke onderling sterk verschillen. Wie de Nag
+Hammadi-geschriften naast elkaar legt, vindt eerder een reeks nauwelijks
+verwante schrijvers dan één religie met varianten.
+
+Daarnaast kleurt Heidegger de waarneming. Jonas geeft zelf toe dat hij de
+teksten met existentiële begrippen benadert, maar dat kader bepaalt mede wat
+hij erin ziet, en de epiloog maakt van een historische studie een diagnose van
+de moderniteit op het punt waar het historische bewijs ophoudt. De
+tegenstelling tussen een oosterse en een Griekse geest, waarmee het boek
+opent, berust bovendien op een opvatting van cultuurzielen die de wetenschap
+sindsdien heeft losgelaten.
+
+Ten slotte blijft het boek vrijwel geheel in het gebied van de denkbeelden.
+Wie de mensen achter de teksten zoekt, hun aantal, hun gemeenten, hun rituelen
+en hun verhouding tot de kerken om hen heen, vindt bij Jonas weinig houvast.
+
+#### Wat er concreet mee te doen is
+
+- Lees de Hymne van de Parel en de Poimandres eerst zelf; het zijn korte
+teksten, en Jonas' uitleg is beter te wegen met de bron ernaast.
+- Houd bij elk stelsel dezelfde drie vragen vast: wie maakte de wereld, wat
+doet de mens erin, en langs welke weg komt hij eruit.
+- Toets moderne uitspraken over 'de gnostiek' aan de bronnen zelf; veel van
+wat zo heet is negentiende- en twintigste-eeuwse toevoeging.
+- Behandel de epiloog als wijsbegeerte en de eerste hoofdstukken als
+godsdienstgeschiedenis; wie beide voor hetzelfde houdt, leest Jonas verkeerd.
+
+#### Wat je hierna leest
+
+- 936. The Varieties of Religious Experience. James ontleedt religieuze
+ervaring psychologisch en per geval; Jonas ordent haar historisch en naar één
+onderliggende houding.
+- 608. Het gewijde en het profane. Eliade beschrijft de kosmos als woonplaats
+van het heilige, precies de waardering die de gnostici omkeerden.
+- 932. The Passion of the Western Mind. Tarnas zet dezelfde laat-antieke breuk
+in het langere verhaal van het westerse denken.
+- 937. Eranos: An Alternative Intellectual History of the Twentieth Century.
+Hakl beschrijft de kring rond Ascona waarin de studie van gnosis, mystiek en
+psychologie in de twintigste eeuw bij elkaar kwam.
+
+## 941. The Double Helix
+
+James D. Watson, 1968. *The Double Helix: A Personal Account of the Discovery
+of the Structure of DNA* (Atheneum, New York, 1968, 226 blz.; Britse editie
+Weidenfeld & Nicolson, Londen, 1968), met een voorwoord van Lawrence Bragg.
+Harvard University Press had het boek onder contract maar trok zich terug na
+bezwaren van Francis Crick en Maurice Wilkins. Nederlandse vertaling: *De
+dubbele helix: hoe ik de sleutel tot de erfelijkheid ontdekte en daarmee de
+Nobelprijs won* (Contact, Amsterdam, 1999, 190 blz.; herdruk in de
+Olympus-reeks, 2007, ISBN 9789046700662). Een geannoteerde en geïllustreerde
+uitgave met brieven en foto's verscheen in 2012, bezorgd door Alexander Gann
+en Jan Witkowski. Rubriek: natuur en wetenschap.
+Tags: `wetenschapsgeschiedenis`, `genetica`, `memoir`, `biologie`
+
+Watson beschrijft hoe hij tussen 1951 en 1953 in Cambridge samen met Francis
+Crick de structuur van het DNA vond, en hij doet dat zoals hij het toen
+beleefde. Het boek opent met de zin dat hij Francis Crick nog nooit bescheiden
+had meegemaakt, en houdt die toon vol: het gaat over eerzucht, roddel,
+verkeerd onthouden gegevens, tegenslag en de angst dat Linus Pauling er eerder
+zou zijn.
+
+De uitkomst is een verslag waarin de ontdekking niet uit een keten van proeven
+volgt maar uit modellen bouwen, gissen en de juiste gegevens op het juiste
+moment onder ogen krijgen. Beslissend waren de röntgenopname die Maurice
+Wilkins hem liet zien zonder medeweten van Rosalind Franklin, een verslag met
+haar meetgegevens dat via een beoordelingscommissie in Cambridge belandde, en
+de opmerking van Jerry Donohue dat de leerboeken de verkeerde vorm van de
+basen afbeeldden. Het boek maakte Watson beroemd en beschadigde zijn reputatie
+tegelijk, vooral door de manier waarop Franklin erin voorkomt. In een epiloog
+erkent hij dat zijn eerste indrukken van haar vaak onjuist waren.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Watson vertelt de ontdekking van de dubbele helix als een
+wedloop tussen jonge, eerzuchtige en soms slecht ingelichte mensen, en niet
+als een geordende opeenvolging van proef en gevolgtrekking. De ondertitel, een
+persoonlijk verslag, dient als verweer vooraf: hij schrijft op wat hij
+destijds dacht, met de vooroordelen van dat moment, ook waar die hem slecht
+doen uitkomen. Daarmee stelt het boek een opvatting over wetenschap voor die
+in 1968 nieuw was in de openbaarheid en die veel vakgenoten tegen de borst
+stuitte, namelijk dat de uitkomst van een groot onderzoek evenzeer wordt
+bepaald door rivaliteit, geleende gegevens, karakter en toeval als door
+methode. De ontdekking zelf, twee ketens waarvan de basen paarsgewijs op
+elkaar passen, komt in dat verslag pas tegen het einde tot stand.
+
+#### De gang van het boek
+
+**Napels, mei 1951**
+
+Watson is drieëntwintig, gepromoveerd op bacteriofagen en met een beurs in
+Kopenhagen ondergebracht bij scheikundig werk dat hem niet ligt. Op een klein
+congres in Napels ziet hij Maurice Wilkins een röntgendiagram van DNA tonen.
+De ordelijke vlekken op die opname overtuigen hem dat de erfelijke stof een
+oplosbare structuur heeft en dat wie die structuur vindt, meteen begrijpt hoe
+erfelijkheid werkt.
+
+Vanaf dat moment is het boek de geschiedenis van één vastberadenheid. Watson
+regelt zijn beurs om en komt in oktober 1951 in het Cavendish Laboratory in
+Cambridge terecht, formeel om aan eiwitten te werken.
+
+**Cambridge en Crick**
+
+In het Cavendish, geleid door Lawrence Bragg en met Max Perutz en John Kendrew
+aan de eiwitten, treft Watson Francis Crick, twaalf jaar ouder, nog niet
+gepromoveerd en luidruchtig aanwezig. De twee ontdekken dat zij dezelfde
+overtuiging delen en dezelfde methode willen gebruiken: modellen bouwen naar
+het voorbeeld van Linus Pauling, die zo de alfahelix van eiwitten had
+gevonden.
+
+Het boek besteedt evenveel ruimte aan de sociale omgeving als aan het werk: de
+lunches in The Eagle, de colleges, de au pairs, de vraag wie welke beurs
+krijgt. Die keuze is niet terloops. Watson laat zien dat inzicht ontstaat in
+gesprekken, op de gang en bij toeval opgevangen mededelingen.
+
+**Het mislukte model**
+
+In november 1951 woont Watson een voordracht van Rosalind Franklin bij en
+noteert niets. Bij het bouwen van een model onthoudt hij haar opgave van het
+watergehalte verkeerd, waardoor hij en Crick een drieketenmodel met de
+ruggengraat naar binnen presenteren. Franklin komt uit Londen over en toont in
+enkele minuten aan dat het niet kan.
+
+De vernedering heeft gevolgen. Bragg verbiedt het tweetal verder aan DNA te
+werken, dat immers het onderwerp van King's College is. Watson keert terug
+naar het tabaksmozaïekvirus, Crick naar de hemoglobine, en het onderwerp
+blijft ruim een jaar liggen.
+
+**Wat er ondertussen binnenkomt**
+
+In die tussenperiode verzamelt Watson de losse stukken. Erwin Chargaff bezoekt
+Cambridge, laat blijken weinig van beide heren te verwachten en noemt de
+verhoudingen die hij in DNA had gemeten: evenveel adenine als thymine,
+evenveel guanine als cytosine. De betekenis daarvan dringt pas veel later
+door.
+
+Uit Pasadena komt begin 1953 via Peter Pauling het handschrift van diens vader
+met een voorstel voor een drievoudige helix. Watson ziet er meteen een
+scheikundige fout in: de fosfaatgroepen zijn ongeladen, wat geen zuur zou
+opleveren. Pauling zal die fout binnen enkele weken zelf vinden, en dat besef
+zet de laatste fase in gang.
+
+**Zes weken in 1953**
+
+Watson reist naar Londen om Wilkins te waarschuwen. Die laat hem opname 51
+zien, gemaakt in King's College door Rosalind Franklin en Raymond Gosling,
+waarop het kruispatroon van een helix duidelijk staat. Franklin weet daar
+niets van. Kort daarna geeft Max Perutz aan Crick een verslag van de Medical
+Research Council door met Franklins meetgegevens over de eenheidscel,
+materiaal dat formeel niet geheim was maar evenmin voor hen bestemd.
+
+De laatste horde is scheikundig. Jerry Donohue, die het bureau met Watson
+deelt, wijst hem erop dat de gangbare leerboeken de basen in de enolvorm
+afbeelden terwijl de ketovorm de juiste is. Met de juiste vormen in karton
+geknipt valt op 28 februari 1953 op dat adenine met thymine en guanine met
+cytosine dezelfde afmeting opleveren. Daarmee is de structuur er, en meteen
+ook het kopieermechanisme: elke keten bevat het voorschrift voor de andere.
+
+**Publicatie en epiloog**
+
+Op 25 april 1953 verschijnen in *Nature* drie artikelen: het model van Watson
+en Crick, en daarnaast de röntgengegevens uit King's College van Wilkins en
+van Franklin en Gosling, gepresenteerd als onafhankelijke steun in plaats van
+als de bron van het model. In 1962 volgt de Nobelprijs voor Watson, Crick en
+Wilkins.
+
+Het boek eindigt met een epiloog over Rosalind Franklin, die in 1958 op
+zevenendertigjarige leeftijd overleed. Watson schrijft daarin dat hij haar
+aanvankelijk verkeerd inschatte, prijst haar latere werk aan het
+tabaksmozaïekvirus en noemt de belemmeringen waarmee zij als vrouw in de
+wetenschap te maken had.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| dubbele helix | Twee tegengesteld lopende ketens die om dezelfde as draaien, met de suiker-fosfaatruggengraat aan de buitenkant. |
+| basenparing | De koppeling van adenine aan thymine en van guanine aan cytosine, waardoor beide paren dezelfde breedte krijgen. |
+| regels van Chargaff | De gemeten gelijkheid van adenine en thymine en van guanine en cytosine in DNA, waarvan de betekenis pas met de paring duidelijk werd. |
+| opname 51 | Het röntgendiffractiebeeld van de vochtige vorm van DNA, waarop het kruispatroon van een helix afleesbaar is. |
+| modelbouw | De werkwijze van Pauling, waarbij onderdelen op schaal worden samengesteld binnen de grenzen die de scheikunde toelaat. |
+| tautomeren | De keto- en de enolvorm van dezelfde base; de verkeerde keuze in de leerboeken hield de paring maandenlang tegen. |
+| complementariteit | Het gegeven dat elke keten de volgorde van de andere vastlegt, waarmee het kopiëren van erfelijk materiaal verklaarbaar wordt. |
+| alfahelix | De schroefvormige structuur die Pauling in eiwitten vond en die als voorbeeld diende voor de aanpak van DNA. |
+
+#### Waar het argument op rust
+
+Dit is een herinnering, vijftien jaar na de gebeurtenissen opgeschreven, deels
+met behulp van de brieven die Watson destijds naar huis stuurde. Hij
+verantwoordt geen bronnen en geeft gesprekken weer alsof hij ze woordelijk
+onthield. De harde feiten in het verhaal, de data, de artikelen in *Nature*,
+de opname en het verslag van de Medical Research Council, zijn sindsdien uit
+archieven bevestigd, onder meer door Robert Olby in *The Path to the Double
+Helix* uit 1974 en door de geannoteerde uitgave van 2012, waarin brieven en
+documenten naast de tekst staan afgedrukt.
+
+Wat niet te bevestigen valt zijn de beweegredenen en de karakterschetsen. Die
+berusten op één waarneming, van een deelnemer met een belang bij het verhaal.
+Dat pleit hem overigens niet vrij: dat Watson de opname en de meetgegevens van
+Franklin zag zonder dat zij het wist, staat gewoon in zijn eigen boek en is
+nooit weersproken.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar betreft de behandeling van Rosalind Franklin. Zij heet in
+het boek Rosy, een naam die zij zelf nooit gebruikte, wordt beoordeeld op
+kleding, bril en manieren, en verschijnt als een lastige assistente van
+Wilkins terwijl zij een zelfstandig onderzoeker was met haar eigen resultaten.
+Haar gegevens vormden de grond onder het model en zijn zonder haar medeweten
+gebruikt. Anne Sayre bestreed dat beeld in *Rosalind Franklin and DNA* uit
+1975 en Brenda Maddox deed het opnieuw in haar biografie uit 2002. De epiloog
+erkent de misvatting maar laat het verhaal zelf staan, zodat de correctie
+tegen tweehonderd bladzijden karikatuur moet opboksen.
+
+Daarnaast bevestigt het boek een beeld van onderzoek waarin snelheid en
+rivaliteit de motor zijn. Dat komt Watsons eigen gedrag goed uit en heeft
+sindsdien gediend als verontschuldiging voor een wedloopcultuur in de
+biomedische wetenschap. Wilkins, Gosling en het kristallografische handwerk
+waarop alles rustte komen er in verhouding bekaaid af.
+
+Ten slotte is de schrijver moeilijk los te zien van wat hij later zei. Watson
+trad in 2007 terug bij Cold Spring Harbor na uitspraken over aangeboren
+verschillen in intelligentie tussen bevolkingsgroepen, en het laboratorium
+ontnam hem in 2019 zijn eretitels toen hij ze herhaalde. Een boek waarvan de
+aantrekkelijkheid steunt op het zonder omhaal opschrijven van neerbuigende
+oordelen, leest daardoor anders dan in 1968.
+
+#### Wat je hierna leest
+
+- 949. What Mad Pursuit. Crick vertelt dezelfde jaren van zijn kant,
+nuchterder en met meer aandacht voor de vraag hoe een onderzoeker een goed
+probleem kiest.
+- 938. The Sleepwalkers. Koestler laat aan Copernicus, Kepler en Galilei zien
+dat ontdekkers zelden weten waar zij mee bezig zijn; Watson levert daar het
+twintigste-eeuwse voorbeeld bij.
+- 413. A Crack in Creation. Doudna beschrijft een halve eeuw later opnieuw een
+wedloop rond DNA, met dezelfde vragen over voorrang en het gebruik van
+andermans werk.
+- 951. The Mismeasure of Man. Gould ontleedt hoe onderzoekers hun aannames
+over aangeboren verschillen in getallen omzetten, het terrein waarop Watson
+zich later heeft vastgelopen.
+
+## 942. Het periodiek systeem
+
+Primo Levi, 1975. *Het periodiek systeem* (Meulenhoff, Amsterdam; vertaald uit
+het Italiaans door Frida De Matteis-Vogels; editie 2009, 239 blz., ISBN
+9789029085151, ook als e-boek onder ISBN 9789402306002). Oorspronkelijk
+verschenen als *Il sistema periodico* (Einaudi, Turijn, 1975). De Engelse
+vertaling van Raymond Rosenthal kwam in 1984 uit bij Schocken Books in New
+York; voor *The Complete Works of Primo Levi* (Liveright, New York, 2015)
+vertaalde Ann Goldstein het boek opnieuw. Rubriek: roman en memoir.
+Tags: `memoir`, `scheikunde`, `jodendom`, `verhalen`
+
+Levi ordent zijn leven volgens het periodiek systeem: eenentwintig verhalen,
+elk met een scheikundig element als titel en als thema, van argon tot
+koolstof. Hij was scheikundige van beroep, werkte tot zijn pensioen in een
+verffabriek bij Turijn en overleefde Auschwitz mede doordat hij in het
+laboratorium van de rubberfabriek werd geplaatst. Beide levens lopen in dit
+boek door elkaar heen.
+
+De elementen zijn geen versiering. Argon staat voor de Piëmontese joodse
+voorouders die eeuwenlang aanwezig maar onvermengd bleven, zink voor het
+inzicht dat een zuivere stof niet reageert en dat de onzuiverheid nodig is,
+cerium voor de staafjes die Levi in het kamp stal en tot vuursteentjes vijlde
+om ze tegen brood te ruilen. Auschwitz beslaat één verhaal; de rest gaat over
+school, werk, mislukte proeven, een gemiste liefde en een naoorlogse
+briefwisseling met een Duitse scheikundige uit datzelfde laboratorium. Het
+slotverhaal volgt één koolstofatoom van een kalksteenrots tot in de hersencel
+die de laatste punt zet. Bij een enquête van de Royal Institution in 2006 kwam
+het boek uit de bus als het beste wetenschappelijke boek dat ooit is
+geschreven.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Het periodiek systeem is bij Levi geen literaire truc maar
+een stelling over kennis. Scheikunde is voor hem een manier van kijken die
+dwingt tot nauwkeurigheid, geduld en eerbied voor stof die zich niet naar de
+wens van de onderzoeker voegt, en diezelfde manier van kijken past hij toe op
+mensen, op de geschiedenis en op zijn eigen herinnering. Wie leert dat een
+reactie zonder onzuiverheid niet op gang komt, heeft een beeld waarmee ook de
+rassenwetten van 1938 en zijn eigen positie te doordenken zijn. Auschwitz
+staat in dit boek niet in het midden; het loopt eronderdoor als een van de
+fasen die het materiaal doormaakte, waarmee Levi laat zien dat het kamp deel
+van een leven was en niet het hele leven.
+
+#### De gang van het verhaal
+
+**Argon en waterstof: waar hij vandaan komt**
+
+Het openingsverhaal gaat over de joods-Piëmontese voorouders, hun huwelijken,
+hun bijnamen en hun dialect, een mengsel van Hebreeuws en Piëmontees waarvan
+Levi een kleine woordenlijst geeft. Hij vergelijkt hen met de edelgassen:
+aanwezig, werkzaam noch reagerend, eeuwenlang naast de omgeving levend zonder
+erin op te gaan.
+
+In *Waterstof* is hij zestien en breekt hij met een vriend in in een
+geïmproviseerd laboratorium. Zij ontleden water, houden een vlam bij de
+waterstof en blazen bijna de boel op. De aantrekkingskracht van het vak is
+meteen benoemd: stof die doet wat het boek belooft, en die straft wie slordig
+is.
+
+**Zink en ijzer: studeren in de jaren van de rassenwetten**
+
+In *Zink* staat hij in het practicum en ontdekt hij dat zuiver zink nauwelijks
+door zuur wordt aangetast; er moet een onzuiverheid aanwezig zijn voordat de
+reactie loopt. Hij trekt de vergelijking zelf door naar 1938, het jaar waarin
+de fascistische rassenwetten hem tot de onzuiverheid maakten, en naar Rita,
+het meisje naast hem aan de werkbank met wie een gesprek net niet op gang
+komt.
+
+*IJzer* gaat over Sandro Delmastro, medestudent en bergbeklimmer, die hem
+meeneemt naar rotswanden waar zij zonder eten en zonder uitrusting de nacht
+doorbrengen. Levi tekent hem als iemand die zijn kennis in zijn handen had.
+Delmastro sloot zich bij het verzet aan en werd in 1944 gedood.
+
+**Nikkel en fosfor: werken onder een halve naam**
+
+Na zijn afstuderen komt een jood in Italië moeilijk aan werk. In *Nikkel*
+neemt hij een aanstelling in een asbestmijn, waar hij in het afval sporen
+nikkel meent te vinden en een winningsmethode uitwerkt die achteraf op een
+meetfout blijkt te berusten. Het verhaal beschrijft een gesloten wereld van
+mijnwerkers, geheimhouding en een jonge man die van het bedrog van zijn eigen
+hoop leert.
+
+In *Fosfor* werkt hij in Milaan voor een onderneming die uit een plant een
+middel tegen suikerziekte hoopt te winnen, met konijnen als proefdier en
+zonder resultaat. Naast hem staat Giulia, verloofd met een ander; de
+bladzijden over hun tocht door de stad horen bij het weinige in Levi's werk
+dat over verlangen gaat.
+
+**Goud en cerium: gevangenschap en kamp**
+
+In december 1943 wordt hij in de bergen bij Aosta gearresteerd met een groep
+beginnende partizanen. Hij verklaart liever jood dan partizaan te zijn, wat
+hem naar het kamp Fossoli en vandaar naar Auschwitz brengt. *Goud* speelt in
+de cel, waar een medegevangene vertelt hoe hij goud uit de rivier de Dora wast
+en daarvan leeft, een vrijheid die Levi op dat moment onbereikbaar toeschijnt.
+
+*Cerium* is het enige verhaal dat in Auschwitz speelt. Levi is dan ingedeeld
+bij het laboratorium van de Buna, de fabriek voor kunstrubber bij Monowitz.
+Hij vindt daar staafjes van een onbekend metaal, herkent ze als cerium, vijlt
+ze 's nachts tot vuursteentjes en ruilt die via zijn vriend Alberto tegen
+brood. Beiden rekken er hun leven mee; Alberto overleefde de ontruiming van
+het kamp niet.
+
+**Chroom en de fabriek na de oorlog**
+
+*Chroom* begint bij een partij verf die tot lever is gestold en bij een jonge
+scheikundige die de oorzaak in de oude dossiers naspeurt: een verkeerd
+afgelezen hoeveelheid. Hij schrijft een tegenmaatregel voor met
+ammoniumchloride, de partij wordt gered, en het toevoegen van ammoniumchloride
+blijft daarna jarenlang in het voorschrift staan, lang nadat de fout uit de
+wereld is.
+
+Het verhaal is Levi's beeld van hoe kennis in organisaties tot gewoonte
+verstart. Tegelijk beschrijft het zijn eigen terugkeer in het gewone leven:
+het werk als middel om weer te kunnen eten, praten en trouwen.
+
+**Vanadium: de ontmoeting die niet doorgaat**
+
+In 1967 blijkt een partij hars uit Duitsland niet te deugen. De briefwisseling
+met de leverancier wordt ondertekend door een doctor Müller, en aan een
+eigenaardigheid in diens taalgebruik herkent Levi de opzichter uit het
+laboratorium van de Buna. Er volgt een reeks brieven waarin de Duitser zijn
+eigen rol geruststellend inricht, hulp meent te hebben geboden en om
+verzoening vraagt.
+
+Levi antwoordt afgemeten en stemt uiteindelijk in met een ontmoeting. Kort
+daarvoor sterft Müller. Het verhaal breekt daarmee af op het punt waar de
+confrontatie zou beginnen, en dat is precies wat het te zeggen heeft over de
+omgang met daders.
+
+**Koolstof: het slot**
+
+Het laatste verhaal heeft geen personen. Levi volgt één koolstofatoom vanaf
+een kalksteenrots, door een oven, de lucht in, een blad in, en zo verder door
+lichamen en stoffen heen tot het in een hersencel terechtkomt op het ogenblik
+dat de hand de laatste punt zet.
+
+Het is de enige plaats in het boek waar hij de scheikunde tot literatuur laat
+worden zonder de bemiddeling van een herinnering. Twee van de eenentwintig
+verhalen, *Lood* en *Kwik*, zijn eveneens verzinsels; Levi meldt in de tekst
+zelf dat hij ze als jonge man schreef.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| onzuiverheid | De vreemde stof die een reactie mogelijk maakt; bij Levi ook het beeld voor de buitenstaander in een samenleving. |
+| edelgas | Het weinig reagerende element waarmee hij de eeuwenlange aanwezigheid van zijn joodse voorouders in Piëmont typeert. |
+| de Buna | De fabriek voor kunstrubber bij Monowitz waar Levi als gevangene in het laboratorium werd ingedeeld. |
+| materie als tegenstander | Levi's opvatting van het vak als tweegevecht met stof die niet meewerkt en die iedere onnauwkeurigheid afstraft. |
+| joods-Piëmontees | Het mengdialect van zijn voorouders, waarvan het openingsverhaal een woordenlijst met toelichting geeft. |
+| cerium | Het metaal waarvan hij in het kamp staafjes stal om er vuursteentjes van te maken en die tegen brood te ruilen. |
+| het beroep | Het vak van scheikundige als levenshouding: meten, wachten, herhalen en de uitslag aanvaarden ook als die tegenvalt. |
+| vuursteentje | Het geslepen staafje dat in een aansteker vonkt en dat in het kamp een verhandelbaar goed was. |
+
+#### Waar het argument op rust
+
+Het boek geeft zelf de grenzen van zijn waarheidsaanspraak aan. Levi schrijft
+dat dit geen scheikundige autobiografie is in strikte zin, en hij benoemt
+*Lood* en *Kwik* als verzonnen verhalen uit zijn jonge jaren. De overige
+stukken berusten op zijn herinnering aan gebeurtenissen van dertig tot veertig
+jaar eerder, en zijn dus geordend en bijgeschaafd zoals herinnering dat doet.
+
+Wat wel controleerbaar is, is de scheikunde: de beschreven stoffen, reacties
+en fouten kloppen, en dat is een van de redenen dat vakgenoten het boek zo
+hoog aanslaan. De briefwisseling uit *Vanadium* heeft een aanwijsbare
+grondslag; de biografieën van Ian Thomson en Carole Angier uit 2002
+identificeren de man achter de naam Müller als de Duitse scheikundige
+Ferdinand Meyer en laten zien dat Levi de correspondentie heeft ingekort en
+herschikt.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar geldt de kalmte van het boek. Levi geeft zijn leven een
+vorm waarin ook Auschwitz een hoofdstuk wordt met een leerzame afloop, over
+vindingrijkheid, vriendschap en het nut van een vak. Die vorm vleit de
+overlevende: de lezer krijgt de man die terugkwam met een beroep en een
+verhaal, en niet de meerderheid die niet terugkwam. Levi zelf heeft die
+eenzijdigheid later rechtgezet in *The Drowned and the Saved* uit 1986, waarin
+hij de grijze zone van medeplichtigheid beschrijft en betoogt dat de ware
+getuigen degenen zijn die het niet konden navertellen. Wie alleen dit boek
+leest, houdt een te draaglijk beeld over.
+
+De ordening naar elementen is bovendien ongelijk volgehouden. Enkele verhalen
+hangen maar los aan hun element, en de twee verzinsels staan wat verloren
+tussen de herinneringen. De ontmoeting in *Vanadium* loopt af voordat zij
+plaatsvindt, zodat de Duitse scheikundige alleen door Levi's ogen te zien is
+en het gesprek dat het boek nodig zou hebben, niet wordt gevoerd.
+
+Ten slotte misleidt de reputatie. Het boek wordt vaak aanbevolen als
+kampliteratuur, terwijl het kamp één van de eenentwintig verhalen beslaat; wie
+hier zoekt wat in *Is dit een mens* staat, vindt het niet.
+
+#### Wat je hierna leest
+
+- 48. Man's Search for Meaning. Frankl trekt uit dezelfde kampen een leer over
+zingeving; Levi wantrouwt juist elke les die het kamp zou hebben opgeleverd.
+- 6. Shop Class as Soulcraft. Crawford verdedigt het werk met de handen als
+vorm van kennis, dezelfde eerbied voor weerbarstig materiaal die Levi in het
+laboratorium beschrijft.
+- 941. The Double Helix. Watson vertelt eveneens het werkende leven van een
+natuurwetenschapper van binnenuit, met een tegenovergestelde houding tegenover
+eerzucht en tegenover anderen.
+
+## 943. Frames of Mind
+
+Howard Gardner, 1983. *Frames of Mind: The Theory of Multiple Intelligences*
+(Basic Books, New York, 1983, xiii + 440 blz., ISBN 9780465025084;
+jubileumuitgave met nieuwe inleiding 2011, ISBN 9780465024339). Het boek kwam
+voort uit het Project on Human Potential aan de Harvard Graduate School of
+Education, dat vanaf 1979 werd gefinancierd door de Bernard van Leer
+Foundation in Den Haag. Er bestaat geen Nederlandse vertaling van dit boek;
+wel verscheen Gardners latere *Intelligence Reframed* als *Soorten
+intelligentie: meervoudige intelligenties voor de 21ste eeuw* (Nieuwezijds,
+Amsterdam, 2002, ISBN 9789057121333). De samenvatting is op de Engelse editie
+gebaseerd. Rubriek: brein en lichaam.
+Tags: `intelligentie`, `onderwijs`, `psychologie`, `neurowetenschap`
+
+Gardner bestrijdt dat intelligentie één eigenschap is die in één getal te
+vangen valt. Hij stelt er zeven betrekkelijk zelfstandige vermogens voor in de
+plaats: taalkundig, muzikaal, logisch-wiskundig, ruimtelijk,
+lichamelijk-kinesthetisch, en twee persoonlijke vermogens, het ene gericht op
+de eigen binnenwereld en het andere op anderen. Elk vermogen heeft volgens hem
+een eigen ontwikkelingsgang, een eigen plek in de hersenen en een eigen
+symboolsysteem.
+
+Om willekeur te vermijden formuleert hij acht voorwaarden waaraan een
+kandidaat moet voldoen, ontleend aan de neurologie, de studie van
+wonderkinderen en savants, de ontwikkelingspsychologie, de evolutieleer en het
+testonderzoek. Het bewijs bestaat uit een overzicht van bestaande literatuur
+en niet uit nieuwe proeven. De praktische strekking is onderwijskundig: een
+school die vrijwel alleen taal en rekenen beloont, ziet het grootste deel van
+het menselijk vermogen niet. Het boek werd in het onderwijs enorm populair,
+veel breder dan de onderbouwing draagt, en raakte daar vermengd met de
+leerstijlenpraktijk die Gardner zelf herhaaldelijk heeft afgewezen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Gardner verwerpt het denkbeeld van intelligentie als één
+algemene eigenschap die met een enkel getal te meten is, en stelt daar een
+reeks van zeven betrekkelijk zelfstandige vermogens tegenover, elk met een
+eigen ontwikkelingsgang, een eigen neurale grondslag en een eigen
+symboolsysteem. Wat als intelligentie mag gelden bepaalt hij aan de hand van
+acht voorwaarden uit uiteenlopende vakgebieden, zodat de keuze naar zijn
+zeggen controleerbaar wordt in plaats van willekeurig. Daarmee verplaatst hij
+de vraag naar het menselijk vermogen van de testkamer naar de biologie en de
+cultuur, en trekt hij de gevolgtrekking dat opleiding en beoordeling die
+alleen taalkundige en logische prestaties belonen, een groot deel van wat
+mensen kunnen buiten beeld houden.
+
+#### De gang van het boek
+
+**Waarom de eenheidsopvatting wringt**
+
+De eerste hoofdstukken behandelen de geschiedenis van het intelligentiebegrip:
+Binet die een instrument bouwde om schoolachterstand op te sporen, Spearman
+die uit de samenhang tussen testuitslagen een algemene factor afleidde, en de
+latere pogingen van Thurstone en Guilford om die factor in deelvermogens
+uiteen te leggen.
+
+Gardner betoogt dat het gangbare begrip het product is van een schoolcultuur
+die haar eigen voorkeuren meet. De test voorspelt schoolsucces omdat hij uit
+de school komt. Het boek is geschreven binnen het Project on Human Potential
+aan Harvard, dat de opdracht had te inventariseren wat er over menselijk
+vermogen bekend was.
+
+**Biologische grondslag**
+
+Het derde hoofdstuk verzamelt wat de biologie bijdraagt: erfelijkheid, de
+rijping van het zenuwstelsel, de vervormbaarheid van het jonge brein en vooral
+de aanwijzingen uit hersenletsel. Dat iemand na een beroerte zijn spraak
+verliest terwijl zijn muzikale vermogen intact blijft, of omgekeerd, is voor
+Gardner het duidelijkste teken dat er van gescheiden stelsels sprake is.
+
+Hij gebruikt deze literatuur als grondslag voor zijn eerste en zwaarstwegende
+voorwaarde: een vermogen dat door letsel afzonderlijk kan uitvallen, bestaat
+kennelijk ook afzonderlijk.
+
+**Acht toetsen voor een intelligentie**
+
+Het vierde hoofdstuk geeft de maatstaven. Een kandidaat moet door hersenletsel
+apart uitgeschakeld kunnen worden; er moeten uitzonderlijke gevallen bestaan
+zoals savants en wonderkinderen bij wie het vermogen los van de rest oplicht;
+er moet een aanwijsbare kernbewerking of reeks kernbewerkingen zijn; er moet
+een herkenbare ontwikkelingsgang naar een omschrijfbare eindtoestand bestaan;
+het vermogen moet een evolutionaire voorgeschiedenis hebben; er moet steun uit
+experimenteel psychologisch onderzoek zijn en steun uit testonderzoek; en het
+moet in een symboolsysteem vastgelegd kunnen worden.
+
+Gardner past deze acht per kandidaat toe en geeft toe dat hij ze zelf weegt.
+Er is geen rekenregel die uitmaakt hoeveel voorwaarden voldoende zijn, en het
+getal zeven noemt hij nadrukkelijk een schatting.
+
+**De zeven vermogens**
+
+Zes hoofdstukken werken de vermogens uit volgens hetzelfde stramien:
+kernbewerkingen, ontwikkeling bij kinderen, uitval bij hersenletsel,
+uitzonderlijke gevallen, en de rol die het vermogen in verschillende
+samenlevingen speelt. Bij taal gaat het om klank, betekenis en het
+overtuigende gebruik ervan, met de dichter als eindtoestand. Bij muziek om
+toonhoogte, ritme en klankkleur, met verwijzing naar samenlevingen waarin
+vrijwel iedereen zingt en speelt. Bij het logisch-wiskundige vermogen leunt
+hij op Piaget, met de kanttekening dat Piaget diens ontwikkelingsgang ten
+onrechte voor de hele geest liet gelden.
+
+Het ruimtelijke vermogen illustreert hij onder meer met de zeevaarders van
+Puluwat in de Carolinen, die zonder instrumenten over grote afstanden
+navigeren. Het lichamelijk-kinesthetische vermogen, met dansers,
+ambachtslieden en chirurgen als eindtoestand, is de omstredenste van de zeven,
+omdat vaardigheid van het lichaam in de westerse traditie zelden onder denken
+wordt gerekend. De twee persoonlijke vermogens, toegang tot het eigen
+gevoelsleven en het lezen van anderen, behandelt hij samen; zij ontwikkelen
+zich sterk in wisselwerking met de cultuur waarin iemand opgroeit.
+
+**Zelfkritiek, symbolen en school**
+
+Een apart hoofdstuk bevat de tegenwerpingen die Gardner zelf voorziet: dat de
+selectie subjectief is, dat het om talenten gaat die met een groter woord
+worden aangeduid, dat de vermogens onderling samenhangen, en dat er geen
+meetinstrument bij hoort. Zijn antwoord op het talentbezwaar is dat het een
+woordenkwestie is: wie taal en logica intelligentie noemt en muziek een
+talent, heeft die rangorde al aangebracht voordat het onderzoek begon.
+
+De slothoofdstukken gaan over de weg naar buiten. Vermogens worden
+werkelijkheid in symboolsystemen en in maatschappelijke rollen, en de school
+zou breder moeten beoordelen dan met potlood en papier, met verslagen van wat
+een leerling maakt, met leermeesterschap en met plaatsen als musea waar
+kinderen zien wat volwassenen met een vermogen doen.
+
+**Wat er daarna gebeurde**
+
+Gardner voegde in de jaren negentig de naturalistische intelligentie toe, het
+vermogen om soorten en patronen in de levende natuur te onderscheiden, en
+overwoog een existentiële intelligentie zonder die te erkennen. De
+jubileumuitgaven bevatten inleidingen waarin hij de ontvangst bespreekt.
+
+Die ontvangst is de vreemdste geschiedenis van het boek. Het werd in het
+onderwijs op grote schaal overgenomen, meestal in vereenvoudigde vorm en vaak
+versmolten met de leer van leerstijlen, waarbij een kind een etiket krijgt en
+de lesstof daarop wordt afgestemd. Gardner heeft die toepassing herhaaldelijk
+van de hand gewezen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| meervoudige intelligenties | De stelling dat het menselijk vermogen uit een aantal betrekkelijk zelfstandige stelsels bestaat in plaats van uit één algemene eigenschap. |
+| intelligentie | Bij Gardner het vermogen om problemen op te lossen of voortbrengselen te maken die in een of meer culturele omgevingen worden gewaardeerd. |
+| kernbewerking | De elementaire verwerkingshandeling die een vermogen kenmerkt, bijvoorbeeld het onderscheiden van toonhoogte bij muziek. |
+| eindtoestand | De volgroeide rol waarin een vermogen in een samenleving tot uitdrukking komt, zoals de dichter, de navigator of de danser. |
+| symboolsysteem | Het stelsel van tekens waarin een vermogen buiten het hoofd wordt vastgelegd en doorgegeven, zoals schrift, notenschrift of kaart. |
+| g-factor | De algemene factor die Spearman uit de samenhang tussen testuitslagen afleidde en die Gardner als bijproduct van het testbedrijf beschouwt. |
+| savant | Iemand bij wie één vermogen ver boven de rest uitsteekt, voor Gardner een aanwijzing dat vermogens los van elkaar kunnen bestaan. |
+| intrapersoonlijke intelligentie | Toegang tot het eigen gevoelsleven en het vermogen die gevoelens te onderscheiden en te benoemen. |
+| interpersoonlijke intelligentie | Het vermogen bedoelingen, stemmingen en verlangens van anderen te onderscheiden en daarnaar te handelen. |
+| naturalistische intelligentie | Het later toegevoegde achtste vermogen: soorten en patronen in de levende natuur herkennen en ordenen. |
+
+#### Waar het argument op rust
+
+Het boek is een overzichtsstudie van bestaande literatuur en geen verslag van
+eigen onderzoek. Gardner leest neuropsychologie over afasie, amusie en andere
+uitvalsverschijnselen, ontwikkelingspsychologie, gevalsbeschrijvingen van
+wonderkinderen en savants, antropologisch werk over vaardigheden in andere
+samenlevingen, en het psychometrisch onderzoek dat hij bestrijdt. De acht
+voorwaarden staan open en toetsbaar op papier, en hij past ze zichtbaar per
+kandidaat toe, wat het betoog ordelijker maakt dan de meeste boeken over dit
+onderwerp.
+
+De zwakke plek zit in de weging. Wie beslist hoeveel steun uit hoeveel
+richtingen voldoende is, blijft de schrijver zelf; hij erkent dat het er
+evengoed drie of dertig hadden kunnen zijn. Het onderdeel dat de meeste
+bewijskracht zou vragen, de betrekkelijke zelfstandigheid van de vermogens,
+wordt in dit boek niet met gegevens getoetst. Waar zulke gegevens bestaan, in
+de vorm van samenhangen tussen uitslagen op zeer verschillende taken, wijzen
+zij eerder de andere kant op.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat er ruim veertig jaar na verschijnen geen onderzoek
+ligt waarin de theorie kon zakken. Lynn Waterhouse stelde in een
+overzichtsartikel in *Educational Psychologist* uit 2006 vast dat er geen
+gepubliceerde studie bestond die de theorie bevestigde, en filosofen en
+psychologen als John White en Perry Klein hebben betoogd dat de acht
+voorwaarden losjes worden toegepast en dat Gardners vermogens gewone talenten
+met een nieuwe naam zijn. Gardner antwoordt dat hij constructen beschrijft en
+geen meetbare grootheden, en hij heeft geweigerd toetsen te ontwikkelen. Die
+houding beschermt de theorie tegen weerlegging.
+
+Daarnaast is de algemene factor niet verdwenen. Uitslagen op onderling zeer
+verschillende taken hangen positief samen, en die samenhang voorspelt school-
+en beroepsprestaties beter dan wat Gardner ervoor in de plaats biedt. Zijn
+verklaring dat het om een gevolg van de manier van testen gaat, verklaart niet
+waarom het patroon ook opduikt bij taken die weinig met schoolwerk te maken
+hebben.
+
+Ten slotte is de praktijk die op het boek is gebouwd schadelijker dan het boek
+zelf. Meervoudige intelligenties werden in scholen omgezet in leerstijlen en
+in etiketten voor kinderen, terwijl onderzoek naar het afstemmen van onderwijs
+op zulke stijlen, gebundeld door Pashler en collega's in 2008, geen effect
+vond. Gardner heeft dat gebruik afgewezen, maar zijn boek leverde er wel de
+woorden voor, en de morele aantrekkingskracht van de gedachte dat iedereen op
+zijn eigen manier knap is heeft een deel van het werk gedaan dat het bewijs
+niet kon doen.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij elke uitspraak over iemands intelligentie welk vermogen wordt
+bedoeld en waaraan het is afgelezen.
+- Beoordeel leerlingen ook op wat zij maken en uitvoeren, en leg dat vast,
+zodat prestaties buiten taal en rekenen zichtbaar blijven.
+- Gebruik de acht voorwaarden als afvinklijst voordat een nieuw soort
+intelligentie wordt aangenomen; de meeste voorstellen sneuvelen op de eerste
+twee.
+- Houd het onderscheid vast tussen een vermogen en een voorkeur; dit boek gaat
+over het eerste, de leerstijlenpraktijk over het tweede.
+- Redeneer bij loopbaankeuzes terug vanaf een eindtoestand die aanspreekt naar
+de bewerkingen die er dagelijks voor nodig zijn.
+
+#### Wat je hierna leest
+
+- 951. The Mismeasure of Man. Gould ontleedt de geschiedenis van het meten van
+intelligentie en levert het historische bewijs onder Gardners bezwaar tegen de
+ene maat.
+- 349. Range. Epstein verdedigt breedte boven vroege specialisatie en gebruikt
+daarbij hetzelfde uitgangspunt van uiteenlopende soorten vermogen.
+- 274. Outliers. Gladwell verklaart uitzonderlijke prestaties uit oefening en
+gelegenheid; naast Gardner gelezen scheidt dat aanleg van omstandigheid.
+
+## 944. The Making of the Atomic Bomb
+
+Richard Rhodes, 1986. *The Making of the Atomic Bomb* (Simon & Schuster, New
+York, 1986, 886 blz., ISBN 9780671441333; jubileumuitgave met nieuw voorwoord,
+Simon & Schuster, New York, 2012, ISBN 9781451677614). Het boek kreeg in 1987
+de National Book Award en de prijs van de National Book Critics Circle en in
+1988 de Pulitzerprijs voor non-fictie. Er bestaat geen Nederlandse vertaling;
+de samenvatting is op de Engelse editie gebaseerd. Rubriek: natuur en
+wetenschap.
+Tags: `wetenschapsgeschiedenis`, `natuurkunde`, `kernwapens`, `geschiedenis`
+
+Rhodes begint op dinsdag 12 september 1933 bij een verkeerslicht aan
+Southampton Row in Londen, waar Leo Szilard bedenkt hoe een kernkettingreactie
+zou kunnen werken. Een dag eerder had Rutherford in het openbaar verklaard dat
+wie op energie uit atoomkernen rekent maanlicht verkoopt. Vanaf dat punt volgt
+het boek in 886 bladzijden de weg van dat idee naar Hiroshima: de natuurkunde
+van Rutherford en Bohr, de neutronen van Chadwick, de uittocht van Europese
+geleerden na 1933, de ontdekking van kernsplijting door Hahn en Strassmann in
+december 1938 en de uitleg daarvan door Meitner en Frisch, en daarna het
+Manhattan Project met zijn fabriekssteden in Oak Ridge en Hanford en zijn
+laboratorium op een mesa in New Mexico.
+
+Rhodes schrijft die geschiedenis van binnenuit, met de natuurkundigen als
+hoofdpersonen, en besteedt evenveel zorg aan de uitkomst: de laatste
+hoofdstukken bestaan voor een groot deel uit ooggetuigenverslagen uit
+Hiroshima en Nagasaki. Zijn stelling is dat de bom voortkwam uit de open,
+grensoverschrijdende manier waarop natuurkunde bedreven werd, en dat
+geheimhouding daarom nooit lang kon werken. Het vervolg over de waterstofbom
+en het Sovjetprogramma, *Dark Sun*, verscheen in 1995.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Rhodes behandelt de atoombom als het gevolg van de manier
+waarop natuurwetenschap werkt en niet als een politiek besluit dat ook anders
+had kunnen uitvallen. Kernsplijting werd ontdekt in een internationale
+gemeenschap die haar resultaten publiceerde; zodra de mogelijkheid van een
+kettingreactie eenmaal in de literatuur stond, was de vraag alleen nog welke
+staat het eerst over genoeg geld, uranium en ingenieurs beschikte. Daaruit
+volgt de tweede helft van zijn betoog: een wapen dat op openbare kennis rust
+laat zich niet met geheimhouding beheersen, en de enige uitweg is de openheid
+die Niels Bohr al in 1944 bij Churchill en Roosevelt bepleitte. Rhodes draagt
+dat betoog niet als these voor maar als vertelling, en de lezer moet zelf
+vaststellen waar het verhaal ophoudt en het argument begint.
+
+#### De gang van het boek
+
+**Een verkeerslicht in Bloomsbury**
+
+De openingsscene bepaalt de toon van het hele boek. Szilard staat op 12
+september 1933 te wachten bij de oversteek waar Southampton Row langs Russell
+Square loopt, geërgerd door een krantenbericht waarin Rutherford de dag ervoor
+had gezegd dat praten over energie uit atoomkernen onzin is. Terwijl het licht
+op groen springt ziet Szilard voor zich hoe een element dat bij het opvangen
+van een neutron er twee uitzendt een zichzelf onderhoudende reactie kan
+dragen. Hij liet het idee in 1934 vastleggen en droeg het patent over aan de
+Britse admiraliteit om het geheim te houden.
+
+Rhodes gebruikt die scene om zijn kernpunt vroeg neer te zetten: de gedachte
+ging aan elke techniek, elk budget en elk politiek besluit vooraf, en zij kwam
+op bij een staatloze vluchteling die nergens een aanstelling had. Wie de bom
+als product van de Amerikaanse oorlogsindustrie leest, mist volgens Rhodes
+waar de zaak begon.
+
+**Vijftig jaar natuurkunde als voorgeschiedenis**
+
+Het eerste deel, *Profound and Necessary Truth*, is een geschiedenis van de
+kernfysica van Röntgen en Becquerel tot 1939. Rhodes volgt Rutherford in
+Manchester en Cambridge, Bohr in Kopenhagen en de stroom jonge natuurkundigen
+die tussen de laboratoria heen en weer reisde. Die gemeenschap was klein,
+meertalig en gewend alles te publiceren; wie in Rome iets vond wist het in
+Berlijn binnen weken.
+
+In 1932 vond Chadwick het neutron, het deeltje dat Szilards kettingreactie
+mogelijk maakte. In 1933 verdreef de Duitse ambtenarenwet een groot deel van
+de natuurkundigen met een joodse achtergrond uit Duitsland en Hongarije;
+Rhodes wijdt een heel hoofdstuk aan die uittocht en laat zien hoe zij de
+latere Amerikaanse en Britse programma's bemanden. In december 1938 stelden
+Hahn en Strassmann in Berlijn vast dat uranium onder neutronenbeschieting
+barium opleverde, en over de kerstdagen legden Lise Meitner en Otto Frisch in
+Zweden uit dat de kern gespleten was en hoeveel energie daarbij vrijkwam.
+
+**Van laboratorium naar industrie**
+
+Het tweede deel, *A Peculiar Sovereignty*, beschrijft hoe een natuurkundig
+verschijnsel een staatsproject werd. Szilard schreef in augustus 1939 de brief
+die Einstein ondertekende en die Roosevelt bereikte. De doorslag gaf niet die
+brief maar het Britse rekenwerk: het memorandum van Frisch en Peierls uit
+maart 1940 schatte de kritische massa van uranium-235 op enkele kilo's in
+plaats van tonnen, en het daaruit voortkomende rapport van het MAUD-comite
+overtuigde in 1941 de Amerikanen dat een bom binnen de oorlog haalbaar was.
+
+Daarna verschuift het boek van natuurkunde naar techniek en bestuur. Fermi's
+stapel grafiet en uranium onder de tribune in Chicago bereikte op 2 december
+1942 een zichzelf onderhoudende reactie. Generaal Groves kreeg de leiding,
+Oppenheimer kreeg Los Alamos, en de scheiding van uranium-235 in Oak Ridge en
+de productie van plutonium in Hanford werden bouwprojecten van een omvang die
+met de auto-industrie te vergelijken viel. Rhodes besteedt veel ruimte aan het
+probleem dat het project bijna deed stranden: plutonium bleek in een
+kanonconstructie voortijdig te ontbranden, zodat Los Alamos in twee jaar een
+implosiemethode moest uitwerken waarvoor de theorie nog niet bestond.
+
+**Trinity, Hiroshima, Nagasaki**
+
+Het derde deel, *Life and Death*, telt maar twee hoofdstukken en een epiloog,
+en het is het deel waar het boek zijn reputatie aan dankt. De implosiebom werd
+op 16 juli 1945 in de woestijn bij Alamogordo beproefd. Op 6 augustus viel een
+kanonbom met uranium op Hiroshima, op 9 augustus een implosiebom met plutonium
+op Nagasaki.
+
+Rhodes schakelt daar over op ooggetuigen. Tientallen bladzijden lang komen
+overlevenden, artsen en hulpverleners aan het woord over de werking van hitte,
+drukgolf en straling op het lichaam, met de medische rapporten ernaast. De
+keuze is opzettelijk en werkt als tegenwicht: dezelfde natuurkunde die in de
+eerste zeshonderd bladzijden als vernuft is beschreven, wordt hier als
+uitkomst getoond, zonder commentaar van de schrijver.
+
+**Bohr en de open wereld**
+
+De ideeënlijn van het boek loopt via Bohr. Rhodes ontleent aan hem het begrip
+complementariteit, oorspronkelijk bedoeld voor golf en deeltje, en laat zien
+hoe Bohr het op de politiek toepaste: een wapen dat een land onaantastbaar
+lijkt te maken, maakt datzelfde land op termijn juist kwetsbaar, en de enige
+stabiele uitkomst is een wereld waarin staten elkaars installaties mogen
+inspecteren.
+
+Bohr bracht dat pleidooi in 1944 persoonlijk bij Churchill en bij Roosevelt.
+Churchill wees hem af en verdacht hem van indiscretie; de aide-mémoire die
+Churchill en Roosevelt in september 1944 in Hyde Park tekenden bevatte de
+aanbeveling Bohr in de gaten te houden. Rhodes behandelt dat als het
+scharnierpunt waarop de wapenwedloop onvermijdelijk werd, en volgt de lijn
+door naar Bohrs open brief aan de Verenigde Naties uit 1950.
+
+**Wat er na de bom overbleef**
+
+In de laatste hoofdstukken en de epiloog komen de pogingen van de betrokken
+geleerden aan bod om het gebruik te beperken: het Franck-rapport van juni
+1945, waarin een groep uit Chicago voorstelde de bom eerst boven onbewoond
+gebied te tonen, en de petitie die Szilard in juli 1945 liet rondgaan. Beide
+kwamen niet verder dan het bureau van de commissie die het besluit
+voorbereidde.
+
+Rhodes sluit af met de stelling dat de bom de soevereiniteit van staten
+aantast op een manier waar geen enkel land een antwoord op heeft gevonden, en
+dat de wapenwedloop die in 1945 begon precies de uitkomst was die Bohr had
+voorspeld. Dat het Sovjetprogramma ook op spionage steunde komt in dit boek
+nauwelijks aan bod; dat werkte hij pas negen jaar later in *Dark Sun* uit.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| kettingreactie | Reactie waarin een gespleten kern meer neutronen uitzendt dan zij opving, zodat het proces zichzelf onderhoudt. |
+| kernsplijting | Het uiteenvallen van een zware atoomkern in lichtere kernen, in december 1938 gemeten door Hahn en Strassmann en verklaard door Meitner en Frisch. |
+| kritische massa | De kleinste hoeveelheid splijtbaar materiaal waarbij de kettingreactie zichzelf in stand houdt; het rekenwerk van Frisch en Peierls bracht die schatting van tonnen terug naar kilo's. |
+| moonshine | Rutherfords woord uit september 1933 voor het idee dat er bruikbare energie uit atoomkernen te halen valt; Rhodes laat het boek ermee beginnen. |
+| Manhattan Engineer District | De legerorganisatie onder generaal Groves die vanaf september 1942 de bouw van de bom bestuurde. |
+| implosie | De methode waarbij een bol plutonium door omringende explosieven gelijkmatig wordt samengeperst, in Los Alamos uitgewerkt omdat de kanonconstructie voor plutonium niet werkte. |
+| complementariteit | Bohrs stelling dat twee onverenigbare beschrijvingen samen nodig zijn om een verschijnsel te vatten; Rhodes gebruikt haar ook als ordening van het boek. |
+| open wereld | Bohrs politieke voorstel dat staten hun kerninstallaties wederzijds openstellen, omdat geheimhouding van publieke natuurkunde toch niet houdbaar is. |
+| Trinity | De proef met de eerste implosiebom bij Alamogordo op 16 juli 1945. |
+| Franck-rapport | Advies van een groep natuurkundigen uit Chicago van juni 1945 om de bom eerst te tonen in plaats van hem op een stad te gebruiken. |
+
+#### Waar het argument op rust
+
+Rhodes is geen natuurkundige en geen vakhistoricus maar journalist, en dat
+bepaalt het soort onderbouwing. Hij werkte met de vrijgegeven officiële
+geschiedschrijving van het project, met archieven, met de gepubliceerde
+herinneringen van deelnemers en met gesprekken met nog levende betrokkenen;
+achterin staan uitvoerige noten en een literatuurlijst. Het sterkst is het
+boek waar Rhodes documenten en getuigenissen op lengte laat spreken, zoals het
+memorandum van Frisch en Peierls, het Franck-rapport en de verslagen uit
+Hiroshima. De natuurkundige uitleg volgt gangbare voorstellingen en gaat niet
+verder dan wat een geïnteresseerde lezer kan volgen.
+
+Op feitelijk niveau is het boek na bijna veertig jaar overeind gebleven; het
+geldt nog steeds als de standaardbehandeling in een band. De discussie
+eromheen gaat over nadruk en over wat er buiten beeld blijft, niet over de
+vraag of de beschreven gebeurtenissen kloppen. Dat er drie grote prijzen aan
+werden toegekend zegt iets over de ontvangst en niets over de houdbaarheid van
+de these; die these steunt op de vertelling zelf en wordt nergens tegen een
+alternatief afgezet.
+
+#### Wat er tegen in te brengen valt
+
+Het boek leest als een roman en dat is ook het bezwaar. De historicus Barton
+Hacker merkte op dat Rhodes zich zo op personen richt dat het institutionele
+kader, de aanbesteding, de arbeidsverhoudingen, de rol van het leger,
+voortdurend achtergrond blijft. Het gevolg is dat een bouwproject van meer dan
+honderdduizend werknemers wordt verteld als de geschiedenis van enkele
+tientallen geleerden, en dat de vraag hoe een organisatie van die omvang de
+uitkomst mede bepaalde niet gesteld wordt.
+
+Het besluit om de bom op steden te gebruiken komt in het boek eerder aanrollen
+dan tot stand. Rhodes noemt het Franck-rapport en de petitie van Szilard, maar
+de historische strijd over de vraag of de bombardementen nodig waren om Japan
+tot overgave te brengen wordt kort afgedaan, terwijl daar het meeste over te
+twisten valt. Ook de stelling dat de openheid van de natuurkunde de
+verspreiding onvermijdelijk maakte is minder sterk dan zij oogt: het
+Sovjetprogramma won zijn jaren vooral via spionage in Los Alamos, iets wat
+Rhodes zelf pas na de opening van de Russische archieven in *Dark Sun* kon
+uitwerken. In dit boek staat die correctie er nog niet in.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij elke techniek die als politiek besluit wordt gepresenteerd welke
+kennis er al openbaar was voordat het besluit viel.
+- Reken bij geheimhoudingsbeleid mee hoeveel van de onderliggende kennis in de
+vakliteratuur staat; gepubliceerd werk is niet terug te halen.
+- Gebruik de reeks van 1932 tot 1945 als tijdmaat: tussen een
+laboratoriumvondst en toepassing op industriële schaal lag hier dertien jaar,
+en de helft daarvan ging op aan techniek die nog niet bestond.
+- Lees de hoofdstukken over Hiroshima naast elke technische bespreking van
+opbrengst en trefkans, en noteer welk deel van de gevolgen in de technische
+taal ontbreekt.
+
+#### Wat je hierna leest
+
+- 240. Einstein: His Life and Universe. Isaacsons biografie van Einstein
+beschrijft dezelfde Europese natuurkunde van binnenuit, inclusief de brief van
+1939 die Rhodes als scharnierpunt gebruikt.
+- 62. What Do You Care What Other People Think?. Feynmans herinneringen
+bestrijken deels dezelfde jaren in Los Alamos, op persoonlijke schaal en
+zonder de grote lijn die Rhodes trekt.
+- 945. Black Holes and Time Warps. Thorne beschrijft hoe het rekenwerk aan
+implosie en de rekenmachines uit het wapenprogramma later de astrofysica van
+instortende sterren mogelijk maakten.
+- 938. The Sleepwalkers. Koestler laat aan een oudere omwenteling zien hoe
+rommelig wetenschappelijke doorbraken verlopen; naast Rhodes gelezen valt op
+hoe glad diens vertelling is.
+
+## 945. Black Holes and Time Warps
+
+Kip Thorne, 1994. *Black Holes and Time Warps: Einstein's Outrageous Legacy*
+(W.W. Norton, New York, 1994, 619 blz., ISBN 9780393035056; paperback ISBN
+9780393312768; Britse editie Picador, Londen, 1994). Met een voorwoord van
+Stephen Hawking en een inleiding van Frederick Seitz, tekeningen van Matthew
+Zimet, en achterin een chronologie, een verklarende woordenlijst en
+biografische schetsen. Er bestaat geen Nederlandse vertaling; de samenvatting
+is op de Engelse editie gebaseerd. Rubriek: natuur en wetenschap.
+Tags: `natuurkunde`, `kosmologie`, `relativiteitstheorie`,
+`wetenschapsgeschiedenis`
+
+Kip Thorne, hoogleraar theoretische natuurkunde aan Caltech, schreef in 1994
+de geschiedenis van het onderzoek naar zwarte gaten door iemand die er zelf
+dertig jaar aan meedeed. In veertien hoofdstukken loopt het boek van de
+barsten in de newtoniaanse natuurkunde rond 1900 naar de speciale en de
+algemene relativiteitstheorie, en vandaar naar de vraag wat er gebeurt als een
+uitgebrande ster onder haar eigen zwaartekracht bezwijkt. Het antwoord dat de
+vergelijkingen al sinds 1916 gaven, een gebied waar niets meer uit ontsnapt,
+werd pas in de jaren zestig algemeen aanvaard.
+
+Naast de natuurkunde is het boek een groepsportret: Chandrasekhar tegenover
+Eddington in 1935, Oppenheimer en Snyder in 1939, Wheeler die zich eerst
+verzette en later de naam zwart gat gaf, de Moskouse school van Zeldovitsj en
+Novikov, Penrose en Hawking. Thorne behandelt ook zijn eigen werk aan het
+membraanmodel en aan de detectie van zwaartekrachtgolven, en sluit af met
+wormgaten en tijdmachines, een onderwerp waar hij aan begon op verzoek van
+Carl Sagan. De golven werden in 2015 gemeten; Thorne kreeg er in 2017 de
+Nobelprijs voor.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Thorne behandelt zwarte gaten als de scherpste toets van de
+algemene relativiteitstheorie, en zijn boek als het verslag van een vakgebied
+dat er zestig jaar over deed om te aanvaarden wat zijn eigen vergelijkingen al
+zeiden. Einsteins veldvergelijkingen lieten vanaf 1916 toe dat materie tot
+achter haar eigen horizon ineenstort, maar vrijwel iedereen, met Einstein en
+Eddington voorop, weigerde die oplossing serieus te nemen zolang er geen
+waarneming tegenover stond. Thorne laat zien hoe die weerstand werd
+doorbroken: door wiskundige stellingen die uitzonderingen uitsloten, door
+rekenmethoden en rekenmachines die uit het waterstofbomonderzoek kwamen, en
+door radiobronnen en röntgenbronnen aan de hemel die zonder zwarte gaten niet
+te verklaren waren. Daarnaast staat er een tweede stelling in: gekromde
+ruimtetijd is geen manier van spreken maar het onderwerp zelf, en wie dat
+aanvaardt moet ook wormgaten en tijdreizen als natuurkundige vragen behandelen
+in plaats van als verzinsels.
+
+#### De gang van het boek
+
+**Een reis langs de gaten**
+
+De proloog is verzonnen: een bemanning bezoekt achtereenvolgens zwarte gaten
+van sterk uiteenlopende massa en ontdekt dat de ervaring per geval verschilt.
+Bij een klein gat verscheuren de getijdenkrachten alles voordat de horizon
+bereikt is; bij een gat van miljoenen zonsmassa's is de passage van de horizon
+plaatselijk onopvallend. Thorne gebruikt die reis om de begrippen in te voeren
+die de rest van het boek dragen, met eigen schema's erbij.
+
+Daarna keert het boek terug naar 1900 en volgt het de geschiedenis
+chronologisch. Die opzet, eerst het antwoord in beeld en daarna de weg
+ernaartoe, verklaart waarom de latere hoofdstukken zo lang bij weerstand en
+vergissingen stil kunnen staan zonder de lezer kwijt te raken.
+
+**Van absolute ruimte naar gekromde ruimtetijd**
+
+De eerste hoofdstukken behandelen de speciale relativiteitstheorie, waarin
+gelijktijdigheid van de waarnemer afhangt, en de algemene, waarin
+zwaartekracht geen kracht meer is maar kromming van ruimtetijd. Thorne legt
+uit dat dezelfde natuurkunde in twee talen te schrijven valt: een waarin
+ruimte plat is en klokken en meetlatten vervormen, en een waarin ruimtetijd
+zelf gekromd is. Beide leveren dezelfde voorspellingen; welke van de twee
+gekozen wordt is een kwestie van gemak.
+
+Dat punt keert steeds terug. Veel van de verwarring rond zwarte gaten kwam
+voort uit het vasthouden aan de verkeerde taal: wie van buitenaf kijkt ziet
+een invallend voorwerp bij de horizon voor eeuwig vertragen, terwijl het
+voorwerp zelf de horizon in eindige tijd passeert. Pas toen dat onderscheid
+helder werd, verdween de indruk dat de horizon een stoffelijke barrière is.
+
+**Chandrasekhar, Eddington en de weerstand**
+
+In 1930 rekende de negentienjarige Chandrasekhar op de bootreis naar Engeland
+uit dat een witte dwerg boven ongeveer anderhalve zonsmassa niet stabiel kan
+zijn. In januari 1935 vernietigde Eddington die conclusie in het openbaar op
+een vergadering van de Royal Astronomical Society, zonder een houdbaar
+tegenargument, en de astronomen volgden zijn gezag. Thorne behandelt de
+aflevering uitvoerig als voorbeeld van hoe een vakgebied een juist resultaat
+jarenlang kan wegdrukken.
+
+In 1939 rekenden Oppenheimer en Snyder uit dat een zware ster die uitgebrand
+raakt onafwendbaar tot achter een horizon ineenstort. Hun artikel verscheen in
+dezelfde week dat Duitsland Polen binnenviel en bleef vrijwel onopgemerkt,
+temeer omdat Einstein datzelfde jaar publiceerde dat zulke objecten niet
+kunnen bestaan. Pas in de jaren vijftig en zestig kwam de zaak terug, deels
+omdat de rekenmethoden voor implosie en de eerste rekenmachines uit de
+wapenprogramma's van Amerika en de Sovjet-Unie beschikbaar kwamen. Wheeler,
+die eerst tot de tegenstanders behoorde, veranderde van standpunt en muntte in
+1967 de naam zwart gat.
+
+**De gouden eeuw**
+
+De jaren zestig en zeventig leverden de wiskundige kern. Kerr vond in 1963 de
+oplossing voor een roterend zwart gat. Penrose bewees dat het ontstaan van een
+singulariteit niet aan bijzondere symmetrie te danken is maar in het algemeen
+volgt. Uit het werk van Israel, Carter, Price en anderen kwam het
+kaalheidstheorema: een zwart gat wordt volledig beschreven door massa,
+draaiing en lading, en al het overige gaat bij de vorming verloren.
+
+Thorne beschrijft dit als het werk van drie groepen die elkaar dwars door de
+Koude Oorlog heen moesten zoeken: Wheelers school in Princeton, de kring rond
+Sciama en Penrose in Engeland, en Zeldovitsj en Novikov in Moskou. Zijn eigen
+bezoeken aan Moskou en de uitwisseling van promovendi krijgen veel ruimte.
+Intussen kwamen de waarnemingen: quasars als kernen van sterrenstelsels met
+een centraal object van miljoenen zonsmassa's, en de röntgenbron Cygnus X-1,
+waarvan de onzichtbare begeleider te zwaar is om een neutronenster te zijn.
+Over dat laatste sloot Thorne in 1974 zijn bekende weddenschap met Hawking.
+
+**Kwantummechanica aan de horizon**
+
+Hawking liet in 1974 zien dat een zwart gat door kwantumeffecten aan de
+horizon straling uitzendt en dus verdampt, met een temperatuur die stijgt
+naarmate het gat lichter wordt. Daarmee kreeg het begrip entropie van een
+zwart gat, dat Bekenstein had voorgesteld, een natuurkundige betekenis, en
+ontstond de vraag wat er gebeurt met de informatie die achter de horizon
+verdwenen is.
+
+Thorne behandelt daarnaast zijn eigen bijdrage, het membraanmodel, waarin de
+horizon voor rekendoeleinden als een dun vlies met elektrische weerstand en
+stroperigheid wordt opgevat. Dat model is geen bewering over wat de horizon
+werkelijk is; het is een hulpmiddel waarmee ingewikkelde berekeningen aan
+roterende gaten hanteerbaar worden. Het slot van dit deel gaat over de
+singulariteit zelf, waar de algemene relativiteitstheorie ophoudt te gelden en
+alleen een nog niet bestaande kwantumtheorie van de zwaartekracht antwoord kan
+geven.
+
+**Zwaartekrachtgolven en wormgaten**
+
+De laatste hoofdstukken gaan over Thornes eigen inzet. Zwaartekrachtgolven,
+rimpelingen in de kromming die zich met de lichtsnelheid voortplanten, waren
+in 1994 nog nooit rechtstreeks gemeten; het indirecte bewijs kwam van de
+dubbelpulsar die Hulse en Taylor in 1974 vonden en waarvan de baan precies zo
+krimpt als de theorie voorspelt. Thorne legt uit hoe een interferometer van
+kilometers lang een verschuiving kleiner dan een atoomkern zou moeten kunnen
+aflezen, en waarom hij dacht dat dat zou lukken.
+
+Het slothoofdstuk gaat over wormgaten en tijdmachines. Thorne begon eraan in
+1985, toen Carl Sagan hem vroeg of de reis in zijn roman *Contact*
+natuurkundig kon kloppen. Het antwoord luidde dat een wormgat open te houden
+is als er materie met negatieve energiedichtheid bestaat, dat zulke energie in
+het klein bij het casimireffect voorkomt, en dat een wormgat waarvan de monden
+ten opzichte van elkaar bewegen in beginsel een gesloten tijdlus oplevert.
+Thorne zet er nadrukkelijk bij hoe zeker hij van elk onderdeel is en waar de
+speculatie begint, en meldt Hawkings tegenvoorstel dat de natuur zulke lussen
+op het laatste moment vernietigt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| gekromde ruimtetijd | De beschrijving waarin zwaartekracht geen kracht is maar meetkunde: massa vervormt ruimte en tijd, en voorwerpen volgen de rechtste lijn die daarin mogelijk is. |
+| waarnemingshorizon | Het oppervlak rond een zwart gat waarbinnen elke weg naar buiten ontbreekt; voor de invallende reiziger zelf gebeurt er ter plaatse niets bijzonders. |
+| singulariteit | Het gebied waar de kromming onbegrensd groeit en de algemene relativiteitstheorie geen antwoord meer geeft. |
+| Chandrasekhar-grens | De bovengrens van ongeveer anderhalve zonsmassa waarboven een witte dwerg niet in evenwicht kan blijven. |
+| kaalheidstheorema | De stelling dat een zwart gat volledig vastligt met massa, draaiing en lading, zodat alle overige eigenschappen van de ingestorte ster verdwijnen. |
+| ergosfeer | Het gebied buiten de horizon van een roterend zwart gat waar de ruimtetijd wordt meegesleept en waaruit nog energie te winnen valt. |
+| Hawkingstraling | De straling die een zwart gat door kwantumeffecten aan zijn horizon uitzendt, met een temperatuur die stijgt naarmate het gat lichter wordt. |
+| membraanmodel | Thornes rekenhulp waarbij de horizon als een dun vlies met weerstand en stroperigheid wordt behandeld, zonder de bewering dat het dat werkelijk is. |
+| wormgat | Een verbinding tussen twee gebieden van ruimtetijd die korter is dan de weg erbuiten; om open te blijven zou er materie met negatieve energiedichtheid voor nodig zijn. |
+| zwaartekrachtgolf | Een rimpeling in de kromming van ruimtetijd die zich met de lichtsnelheid verplaatst en afstanden minuscuul rekt en samenperst. |
+
+#### Waar het argument op rust
+
+De kern van het boek rust op de algemene relativiteitstheorie, die in 1994 al
+ruim tachtig jaar precisietoetsen had doorstaan, van de baan van Mercurius tot
+het krimpen van de dubbelpulsar van Hulse en Taylor. Thorne is nauwkeurig over
+de status van zijn beweringen en zegt telkens of iets vaststaat, of het een
+beredeneerde gok is, of dat het speculatie is. Het waarneembare bewijs voor
+zwarte gaten zelf was op het moment van schrijven indirect: massaschattingen
+bij röntgendubbelsterren zoals Cygnus X-1 en het energiebudget van quasars,
+allebei moeilijk anders te verklaren maar geen rechtstreekse waarneming.
+
+Voor de geschiedschrijving is Thorne zelf de bron. Hij was erbij vanaf de
+jaren zestig, kende de meeste betrokkenen persoonlijk en sprak met de
+Russische groep in een periode dat contact moeizaam was. Dat maakt het boek
+gedetailleerd op punten waar geen archief bestaat, en tegelijk moeilijk te
+controleren. De grote weddenschap van het boek is intussen gewonnen: in
+september 2015 registreerde LIGO de botsing van twee zwarte gaten, de eerste
+rechtstreekse meting van zwaartekrachtgolven, en in 2019 leverde de Event
+Horizon Telescope een beeld van de schaduw van het gat in M87.
+
+#### Wat er tegen in te brengen valt
+
+Het boek staat te boek als toegankelijk maar is dat maar half. Kirkus
+oordeelde destijds dat de tekst voor de leek te moeilijk is, en dat oordeel
+houdt stand: wie de hoofdstukken over de horizon, de gouden eeuw en de
+kwantumeffecten wil volgen, moet bereid zijn passages over te lezen en op de
+tekeningen te vertrouwen. Thorne laat vrijwel geen formules zien, wat betekent
+dat de lezer de redeneringen op gezag aanneemt in plaats van na te rekenen.
+
+Zwaarder weegt dat dit een geschiedenis van binnenuit is. De lijn Caltech,
+Princeton en Moskou krijgt de meeste ruimte, terwijl andere groepen en de
+astronomen die de waarnemingen deden er bekaaid vanaf komen, en Thornes eigen
+aandeel, het membraanmodel en de detectie van golven, wordt door de auteur
+zelf gewogen. Daar komt bij dat het slothoofdstuk over wormgaten en
+tijdmachines het meest wordt aangehaald en het minst wordt gedragen: het
+berust op materie waarvan niet vaststaat dat zij in de vereiste vorm bestaat,
+en het kleurt de ontvangst van een boek dat verder over stevig gefundeerde
+natuurkunde gaat. Ten slotte is het beeld inmiddels dertig jaar oud; de
+discussie over informatieverlies en over de holografische beschrijving van
+horizonnen, die kort na verschijnen op gang kwam, ontbreekt vrijwel.
+
+#### Wat er concreet mee te doen is
+
+- Lees de aflevering rond Chandrasekhar en Eddington als geval waarin gezag
+een juist rekenresultaat jaren buiten beeld hield, en let op de vorm van het
+tegenargument dat ontbrak.
+- Onderscheid bij elke natuurkundige bewering of zij over de waarnemer buiten
+het verschijnsel gaat of over de waarnemer erin; veel schijnbare tegenspraken
+lossen daarmee op.
+- Noteer waar een schrijver zelf zijn zekerheidsgraad aangeeft; Thorne doet
+dat expliciet, wat zijn speculatieve hoofdstuk beter te wegen maakt dan
+populair werk waarin dat onderscheid ontbreekt.
+- Neem de dubbelpulsar van Hulse en Taylor als voorbeeld van indirect bewijs
+dat sterk genoeg was om er een meetproject van decennia op te bouwen.
+
+#### Wat je hierna leest
+
+- 262. A Brief History of Time. Hawking behandelt hetzelfde gebied korter en
+abstracter; Thorne geeft de mensen, de ruzies en de rekenpraktijk erbij.
+- 651. The Black Hole War. Susskind vervolgt precies waar Thorne ophoudt, bij
+de vraag wat er gebeurt met informatie die achter een horizon verdwijnt.
+- 648. Warped Passages. Randall gaat verder in de richting van extra dimensies
+en van zwaartekracht buiten de vier bekende dimensies.
+- 240. Einstein: His Life and Universe. Isaacson beschrijft de man wiens
+vergelijkingen dit hele boek dragen en die de uitkomst ervan tot zijn dood
+afwees.
+
+## 946. The Lady Tasting Tea
+
+David Salsburg, 2001. *The Lady Tasting Tea: How Statistics Revolutionized
+Science in the Twentieth Century* (W.H. Freeman, New York, 2001, xi + 340
+blz., ISBN 9780716741060; paperback bij Henry Holt, New York, 2002, 352 blz.,
+ISBN 9780805071344). Negenentwintig hoofdstukken, met een literatuurlijst van
+tien bladzijden en een register. Er bestaat geen Nederlandse vertaling; de
+samenvatting is op de Engelse editie gebaseerd. Rubriek: natuur en wetenschap.
+Tags: `statistiek`, `wetenschapsgeschiedenis`, `kansrekening`, `onderzoek`
+
+Het boek begint op een zomermiddag in Cambridge, eind jaren twintig, waar een
+vrouw beweert te kunnen proeven of de melk voor of na de thee in de kop is
+gegaan. Ronald Fisher stelt voor dat uit te zoeken en ontwerpt ter plekke een
+proef: hoeveel koppen in welke volgorde, en wat er uit hoeveel goede
+antwoorden geconcludeerd mag worden. Salsburg hoorde het verhaal van H.
+Fairfield Smith, die erbij was, en gebruikt het als opening van een
+geschiedenis van de statistiek in negenentwintig hoofdstukken.
+
+Die geschiedenis loopt van Karl Pearson en zijn verdelingsleer via Fisher op
+het landbouwproefstation Rothamsted, Gosset bij de Guinness-brouwerij en
+Neyman en Egon Pearson met hun toetsingsleer naar de naoorlogse verspreiding
+van statistische methoden over geneeskunde, industrie en economie. Salsburg
+werkte zevenentwintig jaar als statisticus in de farmaceutische industrie en
+kende veel van de hoofdpersonen zelf. Zijn stelling is dat de wetenschap in de
+twintigste eeuw van onderwerp veranderde: metingen werden niet langer als
+benaderingen van een ware waarde behandeld maar als trekkingen uit een
+verdeling, en de parameters van die verdeling werden het eigenlijke
+studieobject.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Salsburg stelt dat de statistiek in de twintigste eeuw het
+onderwerp van wetenschappelijk onderzoek heeft verlegd, en daarmee meer deed
+dan gereedschap aanreiken. In de negentiende eeuw gold een meting als
+benadering van een werkelijke waarde en golden afwijkingen als fouten. In de
+statistische opvatting die met Karl Pearson begint en met Fisher volwassen
+wordt, is de spreiding zelf het verschijnsel: waarnemingen zijn trekkingen uit
+een kansverdeling, en wat een onderzoeker werkelijk bestudeert zijn de
+parameters van die verdeling, die hij nooit rechtstreeks ziet. Daarmee
+verschoof ook wat een antwoord is: geen uitspraak over wat het geval is, maar
+een uitspraak over hoe waarschijnlijk de waargenomen gegevens zijn onder
+aannames die de onderzoeker vooraf heeft gekozen. Aan het slot laat Salsburg
+zien dat de vraag wat kans eigenlijk betekent binnen het vak nooit is
+beslecht.
+
+#### De gang van het boek
+
+**Het theekopje en de proefopzet**
+
+De vrouw uit de titel is de algenonderzoekster Muriel Bristol. Fisher neemt
+haar bewering serieus genoeg om haar toetsbaar te maken, en dat ontwerp bevat
+in het klein alles wat later zijn *The Design of Experiments* zou vullen:
+hoeveel koppen, in welke door het toeval bepaalde volgorde, en welke uitkomst
+nog met louter gokken te verklaren valt.
+
+Salsburg gebruikt de anekdote om zijn kernpunt in te leiden. Een bewering
+wordt pas onderzoekbaar wanneer iemand de proef ontwerpt die haar had kunnen
+weerleggen, en dat ontwerp is zelf een wiskundige kwestie. De rest van het
+boek behandelt de mensen die die kwestie hebben uitgewerkt.
+
+**Pearson, Fisher en de eerste generatie**
+
+Karl Pearson begon aan University College London met het idee dat elke reeks
+metingen te vatten is in een familie van scheve verdelingen met een handvol
+parameters. Hij richtte het tijdschrift *Biometrika* op, ontwikkelde de
+chi-kwadraattoets en maakte van de statistiek een vak met een eigen
+laboratorium.
+
+Fisher kwam in 1919 in dienst bij het landbouwproefstation Rothamsted, waar
+zeventig jaar aan proefveldgegevens lag te wachten. Daar werkte hij
+randomisatie uit, de indeling in blokken, de variantieanalyse waarmee meerdere
+invloeden tegelijk uit elkaar te trekken zijn, het begrip vrijheidsgraden en
+de methode van de meest aannemelijke schatting. Salsburg beschrijft hem als de
+man die het vak zijn wiskundige ruggengraat gaf en tegelijk vrijwel iedereen
+tegen zich in het harnas joeg; de vete met Karl Pearson en later met diens
+zoon en met Neyman loopt door het hele boek heen.
+
+**Van meting naar verdeling**
+
+Het middendeel legt uit wat er inhoudelijk veranderde. Zolang een onderzoeker
+meent een vaste grootheid te meten, is spreiding een gebrek in het instrument.
+Zodra hij aanneemt dat de waarnemingen uit een verdeling komen, wordt de vorm
+van die spreiding informatie, en verandert de vraag van hoeveel is het naar
+welke waarden van de parameters passen bij wat ik zie.
+
+Salsburg noemt dat de statistische omwenteling en laat zien hoe zij zich
+vanuit de landbouw en de biometrie naar andere vakken verspreidde. De prijs
+ervan is dat het studieobject iets werd dat nooit rechtstreeks waarneembaar
+is: niemand ziet een parameter, men ziet alleen schattingen ervan met hun
+eigen onzekerheid.
+
+**Toetsen, betrouwbaarheid en de ruzie erover**
+
+William Gosset werkte bij Guinness in Dublin aan de gerst en het brouwsel en
+had te maken met kleine steekproeven, waarvoor de bestaande benaderingen niet
+deugden. Zijn oplossing, de verdeling die naar zijn schuilnaam Student heet,
+publiceerde hij onder die naam omdat de brouwerij haar personeel niet onder
+eigen naam liet publiceren.
+
+Jerzy Neyman en Egon Pearson bouwden daarna het geheel dat in vrijwel elk
+leerboek terechtkwam: twee soorten fout, een van tevoren vastgelegde drempel,
+het onderscheidend vermogen van een toets en het betrouwbaarheidsinterval.
+Fisher heeft die opzet tot zijn dood bestreden. Hij zag zijn
+significantiewaarde als een maat voor bewijskracht in een enkel geval, niet
+als een beslisregel die over een lange reeks herhalingen een foutpercentage
+bewaakt. Salsburg maakt duidelijk dat de gangbare praktijk een mengsel van
+beide is dat door geen van de bedenkers zou zijn goedgekeurd, en dat de vraag
+wat een p-waarde nu eigenlijk zegt binnen het vak nooit is opgelost.
+
+**De uitwaaiering over de vakken**
+
+Het tweede deel van het boek volgt de methoden naar buiten. W. Edwards Deming
+bracht de statistische kwaliteitsbeheersing na de oorlog naar de Japanse
+industrie, waar zij ingang vond terwijl de Amerikaanse fabrikanten haar links
+lieten liggen. Kolmogorov gaf de kansrekening in 1933 haar axioma's en maakte
+haar tot een tak van de wiskunde. Mandelbrot liet zien dat prijsbewegingen op
+de beurs veel dikkere staarten hebben dan het normale model toestaat.
+
+Verder komen aan bod de opbouw van de geneeskundige proefopzet met
+controlegroep, de regressiemethode van Cox voor overlevingsduur, het
+verkennende gegevensonderzoek van Tukey, de Indiase school rond Mahalanobis en
+C.R. Rao, en de bayesiaanse tegenbeweging van Savage en de Finetti. Salsburg
+besteedt opvallend veel aandacht aan vrouwen in het vak, onder wie Gertrude
+Cox, Florence Nightingale David en Stella Cunliffe, die als eerste vrouw
+voorzitter van de Royal Statistical Society werd.
+
+**Wat kans betekent**
+
+De laatste hoofdstukken keren terug naar de grondslagen. De verdelingen waar
+het hele bouwwerk op rust zijn zelf niet waarneembaar, en de vraag of ze iets
+in de wereld beschrijven of alleen de onwetendheid van de onderzoeker
+uitdrukken, loopt langs de scheidslijn tussen frequentisten en bayesianen.
+Salsburg laat die vraag open en meldt dat de meeste beoefenaren er in de
+praktijk omheen werken.
+
+Ook Fishers eigen einde krijgt ruimte. Hij bestreed in zijn laatste jaren de
+conclusie dat roken longkanker veroorzaakt, met het argument dat de
+aangevoerde samenhang ook door een gemeenschappelijke erfelijke aanleg
+verklaard kon worden en dat er geen gerandomiseerde proef bestond. Salsburg
+behandelt dat niet als uitglijder maar als het uiterste van Fishers eigen
+leer, waarin alleen een goed ontworpen proef oorzakelijkheid mag vaststellen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| randomisatie | Het door loting toewijzen van behandelingen aan proefeenheden, waardoor onbekende storende invloeden gemiddeld over de groepen worden verdeeld. |
+| variantieanalyse | Fishers methode om de spreiding in de uitkomsten toe te rekenen aan meerdere invloeden tegelijk. |
+| meest aannemelijke schatting | De waarde van een parameter waarbij de waargenomen gegevens de grootste kans hadden, door Fisher als algemene schattingsregel ingevoerd. |
+| significantieniveau | De drempelkans waaronder een uitkomst als moeilijk aan toeval toe te schrijven geldt; Fisher bedoelde er een maat voor bewijskracht mee, Neyman een beslisregel. |
+| betrouwbaarheidsinterval | Een bereik dat bij herhaald toepassen van de procedure in een vastgelegd percentage van de gevallen de ware parameter bevat. |
+| onderscheidend vermogen | De kans dat een toets een werkelijk aanwezig verschil ook aanwijst; het spiegelbeeld van de tweede soort fout van Neyman en Pearson. |
+| verdeling van Student | De verdeling die Gosset onder zijn schuilnaam publiceerde voor het toetsen van gemiddelden bij kleine steekproeven. |
+| parameter | Een getal dat een kansverdeling vastlegt; volgens Salsburg het eigenlijke studieobject van de moderne wetenschap, en nooit rechtstreeks waarneembaar. |
+| statistische kwaliteitsbeheersing | Het bewaken van een productieproces met steekproeven en regelkaarten, door Deming naar de Japanse industrie gebracht. |
+| dikke staarten | Verdelingen waarin extreme waarden veel vaker voorkomen dan het normale model toelaat, door Mandelbrot in beursgegevens aangetoond. |
+
+#### Waar het argument op rust
+
+Dit is een populaire geschiedenis, geen wetenschapshistorische studie. Er
+staat een literatuurlijst van tien bladzijden achterin, maar geen noten per
+bewering, en een aanzienlijk deel van het materiaal komt uit Salsburgs eigen
+herinnering en uit gesprekken met de betrokkenen. Hij kende het vak van
+binnenuit als statisticus in de farmaceutische industrie en heeft veel van de
+hoofdpersonen uit de tweede generatie persoonlijk meegemaakt. Dat levert
+details op die nergens anders staan, en tegelijk anekdotes die niet te
+verifiëren zijn.
+
+De wiskunde zelf wordt vrijwel niet getoond. Salsburg beschrijft wat een
+methode doet en waarvoor zij bedacht is, zonder formules en zonder uitgewerkte
+voorbeelden. Voor de historische hoofdlijn maakt dat weinig uit, want de
+ontwikkeling van randomisatie, variantieanalyse en toetsingsleer is goed
+gedocumenteerd en zijn weergave daarvan strookt met de vakliteratuur. Voor de
+centrale stelling maakt het wel uit: dat de statistiek het onderwerp van
+wetenschap heeft verlegd, wordt geïllustreerd en niet aangetoond.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is de tijd. Het boek verscheen in 2001 en presenteert de
+toetsingsleer als een afgeronde verworvenheid, terwijl juist die praktijk in
+de twee decennia erna in een methodologische crisis terechtkwam: grote
+replicatieprojecten in de psychologie en de geneeskunde lieten zien hoeveel
+gepubliceerde resultaten met significantiedrempels niet herhaalbaar zijn, en
+tijdschriften en beroepsverenigingen hebben het gebruik van de p-waarde
+sindsdien openlijk ter discussie gesteld. Salsburg signaleert wel dat de
+grondslagen niet in orde zijn, maar behandelt dat als een filosofische kwestie
+in plaats van als een praktisch gebrek met gevolgen voor de gepubliceerde
+literatuur.
+
+Daarnaast is de behandeling scheef verdeeld. De bayesiaanse benadering, die
+inmiddels een groot deel van de toegepaste statistiek draagt, krijgt enkele
+bladzijden en wordt eerder als curiositeit dan als concurrent gepresenteerd;
+recensenten in vakbladen hebben dat destijds al aangemerkt, net als Salsburgs
+zichtbare geringschatting voor zuivere wiskunde. Verder is de vorm zelf
+beperkend: negenentwintig korte portretten leveren een reeks levens op waarin
+steeds even een methode wordt aangestipt, zodat een lezer die de methoden niet
+al kent het vak er niet uit leert en de titelbewering over de omwenteling
+vooral op gezag moet aannemen.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij elk onderzoeksresultaat welke proefopzet eraan voorafging en of de
+toewijzing door loting gebeurde; zonder dat is een uitspraak over oorzaak niet
+gedekt.
+- Lees een p-waarde als uitspraak over de gegevens onder een aanname, niet als
+kans dat de aanname juist is.
+- Noteer bij een niet gevonden verschil hoe groot de steekproef was; zonder
+onderscheidend vermogen zegt een uitblijvend resultaat niets.
+- Controleer bij financiële en verzekeringsmodellen of er met normale
+verdelingen wordt gerekend waar de gegevens dikke staarten laten zien.
+- Gebruik Fishers verzet tegen de rookconclusie als toets voor de eigen
+stelregels: wie alleen gerandomiseerde proeven als bewijs aanvaardt, moet
+weten wat dat kost bij vragen waar zulke proeven niet mogelijk zijn.
+
+#### Wat je hierna leest
+
+- 64. Fooled by Randomness. Taleb werkt hetzelfde onderscheid tussen
+waarneming en onderliggende verdeling uit voor beleggers, met meer nadruk op
+wat er misgaat.
+- 268. The Black Swan. De dikke staarten die Salsburg bij Mandelbrot
+signaleert vormen bij Taleb het hele onderwerp.
+- 951. The Mismeasure of Man. Gould laat aan de meting van intelligentie zien
+wat er gebeurt wanneer de methoden uit dit boek op een slecht omschreven
+grootheid worden losgelaten.
+- 55. Thinking, Fast and Slow. Kahneman beschrijft waarom mensen, onderzoekers
+inbegrepen, de conclusies uit kleine steekproeven stelselmatig te sterk
+vertrouwen.
+
+## 947. To Explain the World
+
+Steven Weinberg, 2015. *To Explain the World: The Discovery of Modern Science*
+(Harper, New York, 2015, 416 blz., ISBN 9780062346667; Britse editie Allen
+Lane, Londen, 2015). Nederlandse uitgave: *De wereld verklaard: de ontdekking
+van de moderne wetenschap*, vertaald door Ineke Mertens en Hans Zuidervaart
+(Athenaeum-Polak & Van Gennep, Amsterdam, 2015, 449 blz., ISBN 9789025307691).
+Vier delen met vijftien hoofdstukken, gevolgd door een bijlage met technische
+noten. Rubriek: natuur en wetenschap.
+Tags: `wetenschapsgeschiedenis`, `oudheid`, `middeleeuwen`, `natuurkunde`
+
+Steven Weinberg, natuurkundige en Nobelprijswinnaar, schreef een geschiedenis
+van de wetenschap van Thales tot Newton met een stelling die de meeste
+vakhistorici tegen de haren in strijkt: de manier waarop wij onderzoek doen is
+niet vanzelfsprekend, zij moest worden ontdekt, en de Grieken en middeleeuwers
+waren niet bezig met slechte wetenschap maar met iets anders. Het boek
+beoordeelt het verleden opzettelijk naar de maatstaven van het heden, en
+Weinberg verdedigt die keuze zowel in de inleiding als in een naschrift.
+
+Het eerste deel gaat over Griekse natuurkunde en oordeelt hard over Plato en
+Aristoteles. Het tweede deel over Griekse sterrenkunde laat zien dat het daar
+wel goed ging, omdat astronomen wiskundige modellen aan waarnemingen toetsten.
+Het derde deel behandelt de Arabische en de middeleeuws-Europese wetenschap,
+het vierde de weg van Copernicus via Kepler en Galilei naar Newtons
+*Principia*. Achterin staan technische noten waarin Weinberg de betrokken
+wiskunde zelf uitwerkt, van de meting van de afstand tot de zon tot de
+afleiding van de wetten van Kepler.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Weinberg betoogt dat de moderne wetenschap een ontdekking is
+en niet een vanzelfsprekende manier van denken die alleen door bijgeloof werd
+tegengehouden. Wat ontdekt moest worden is niet dit of dat feit maar de
+werkwijze zelf: dat verklaringen wiskundig moeten zijn, dat zij tegen
+waarnemingen worden gehouden, dat men doelen en waarden uit de
+natuurbeschrijving weglaat, en dat de vraag waartoe iets dient wordt vervangen
+door de vraag hoe het gaat. De Grieken misten dat niet uit domheid; zij
+bedreven dichtkunst, wiskunde en wijsbegeerte, hadden geen begrip van wat een
+toets zou moeten zijn en vooral geen manier om te merken dat zij het mis
+hadden. Weinberg beoordeelt hen daarom uitdrukkelijk naar de maat van nu, met
+het argument dat de geschiedenis van de wetenschap anders niet uit te leggen
+valt, en aanvaardt de beschuldiging van whiggisme die daaruit volgt.
+
+#### De gang van het boek
+
+**Het uitgangspunt en het bezwaar dat het oproept**
+
+Weinberg zet zijn methode vooraf uiteen. Hij oordeelt over het verleden met de
+kennis van nu, hij noemt vergissingen vergissingen, en hij zegt erbij dat hij
+weet dat historici dat afkeuren. Zijn verweer is dat de geschiedenis van de
+wetenschap over iets gaat dat wel degelijk vooruitgang kent, en dat een
+verslag waarin elke opvatting even goed in haar eigen tijd past, de vraag
+onbeantwoord laat waarom er uiteindelijk iets veranderde.
+
+Daarbij hoort een tweede uitgangspunt: verklaren is voor Weinberg iets anders
+dan beschrijven of voorspellen. Een berekening die de standen van de planeten
+juist voorspelt zonder te zeggen wat er beweegt, is geen verklaring. Dat
+onderscheid stuurt zijn oordelen over de hele linie.
+
+**Griekse natuurkunde: dichtkunst in plaats van proefneming**
+
+Het eerste deel behandelt in vijf hoofdstukken de manieren van denken waar de
+wetenschap zich uit heeft moeten losmaken: dichtkunst, wiskunde, wijsbegeerte,
+techniek en godsdienst. De Milesiërs en Democritus stelden vragen over de
+grondstof van de wereld zonder een middel om tussen de antwoorden te kiezen.
+Plato krijgt het hardste oordeel, tot en met het woord dwaas voor de
+meetkundige elementenleer in de *Timaeus*. Aristoteles noemt Weinberg
+vervelend om te lezen, en hij verwijt hem dat hij natuurbeschrijving met
+doelgerichtheid en waardeoordelen vermengde.
+
+Het laatste hoofdstuk van dit deel gaat over godsdienst. Weinberg behandelt
+religie en wetenschap als tegengestelde krachten en gebruikt de Hellenistische
+periode om te laten zien dat er ook toen mensen waren die het anders deden,
+zoals Straton en Archimedes. Zij bleven uitzondering, en er ontstond geen
+gemeenschap die hun werkwijze overnam.
+
+**Griekse sterrenkunde: waar het wel werkte**
+
+Het tweede deel is welwillender. In de astronomie waren er meetbare
+grootheden, en daardoor ontstond iets dat op de latere werkwijze lijkt.
+Weinberg loopt de methoden na waarmee de Grieken de verhouding tussen de
+afstanden tot zon en maan probeerden te bepalen, de omtrek van de aarde
+schatten en de precessie van de equinoxen ontdekten, en hij werkt die
+berekeningen in de technische noten uit, zodat de lezer kan zien hoe goed of
+slecht ze waren.
+
+De kern van dit deel is het probleem van de planeten en de opdracht om de
+verschijnselen te redden: een model bouwen van cirkels op cirkels dat de
+waargenomen standen weergeeft. Ptolemaeus deed dat met epicykels en aequanten.
+Weinberg wijst erop dat dit rekenwerk uitstekend voorspelde en tegelijk niets
+verklaarde, en dat de vraag of de cirkels werkelijk bestonden of alleen een
+rekenhulp waren tot Copernicus en zelfs daarna onbeslist bleef.
+
+**De middeleeuwen, Arabisch en Latijns**
+
+Het derde deel behandelt eerst de Arabische wetenschap, met al-Chwarizmi,
+al-Biruni en vooral Ibn al-Haytham, wiens optica volgens Weinberg de
+proefneming het dichtst benadert van alles wat voor de zeventiende eeuw
+geschreven is. Hij stelt daarna de vraag waarom die traditie doodliep en geeft
+een antwoord dat hij zelf onvolledig noemt, waarin de verhouding tot de
+godsdienst en het ontbreken van een blijvende instelling voor onderzoek de
+hoofdrol spelen.
+
+Daarna volgt het Latijnse westen: de universiteiten, de rekenaars van Merton
+College met hun stelling over eenparig versnelde beweging, Buridan met de
+impetus en Oresme met zijn grafische bewijs. Weinberg erkent dat deze mensen
+stukken van de latere mechanica in handen hadden, en houdt vol dat zij binnen
+een aristotelisch kader bleven werken waarin die stukken niet tot een
+samenhangende natuurkunde konden uitgroeien.
+
+**De wetenschappelijke revolutie**
+
+Het vierde deel bestaat uit vier hoofdstukken: het zonnestelsel opgelost, het
+begin van de proefneming, de methode herzien en de newtoniaanse synthese.
+Copernicus verplaatste het middelpunt maar hield de cirkels; Tycho leverde de
+waarnemingen die nauwkeurig genoeg waren om die cirkels te breken; Kepler zag
+dat de banen ellipsen zijn en formuleerde de drie wetten. Galilei krijgt lof
+voor de telescoop en de valproeven en kritiek omdat hij Keplers ellipsen
+negeerde en aan cirkelbanen bleef vasthouden.
+
+Bij de methodedenkers is Weinberg streng. Bacon en Descartes hebben volgens
+hem minder bijgedragen dan hun reputatie doet vermoeden, en de natuurkunde van
+Descartes was grotendeels onjuist terwijl zijn meetkunde blijvend was. Het
+slot is Newton: de *Principia* van 1687 verenigt de valbeweging op aarde met
+de banen van de planeten en levert daarmee voor het eerst een verklaring in
+Weinbergs zin, met daarbij het punt dat Newton over de aard van de
+zwaartekracht zelf geen uitspraak wilde doen en dat de wetenschap daarmee
+leerde vragen open te laten.
+
+**De grote reductie en de technische noten**
+
+De epiloog trekt de lijn door naar het heden: de scheikunde ging op in de
+atoomfysica, de biologie in de scheikunde, en de natuurkunde zoekt de
+samenvoeging van haar eigen theorieën. Weinberg noemt dat de grote reductie en
+behandelt haar als het patroon dat de hele geschiedenis achteraf verklaart,
+zonder te beweren dat er een eindpunt in zicht is.
+
+De bijlage met technische noten is wat het boek onderscheidt van andere
+populaire geschiedenissen. Weinberg werkt daar de wiskunde uit die in de
+hoofdtekst alleen wordt genoemd, van de meetkunde achter de schatting van
+Aristarchus voor de afstand tot de zon tot de afleiding van Keplers wetten uit
+de zwaartekrachtwet. Wie de noten overslaat leest een gewone geschiedenis met
+scherpe oordelen; wie ze doorwerkt kan de oordelen op hun eigen terrein
+narekenen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| verklaren | Bij Weinberg meer dan beschrijven of voorspellen: zeggen waarom de verschijnselen zijn zoals ze zijn, bij voorkeur door ze uit algemenere wetten af te leiden. |
+| whiggisme | Het beoordelen van het verleden naar de maatstaven van het heden; Weinberg noemt de beschuldiging bij naam en aanvaardt haar. |
+| de verschijnselen redden | De klassieke opdracht aan de astronoom om een rekenmodel te leveren dat de waargenomen standen weergeeft, zonder uitspraak over wat er werkelijk beweegt. |
+| epicykel | Kleine cirkel waarvan het middelpunt over een grotere cirkel loopt, het rekenmiddel waarmee Ptolemaeus de lussen in de planeetbanen weergaf. |
+| teleologie | Verklaring uit een doel of bestemming, bij Aristoteles het hart van de natuurbeschouwing en volgens Weinberg de zwaarste rem op de natuurkunde. |
+| natuurlijke plaats | Aristoteles' idee dat elk element van nature naar een bepaalde hoogte streeft, waarmee vallen en stijgen verklaard heetten te zijn. |
+| sublunaire wereld | Het gebied beneden de maan, in de aristotelische leer aan andere wetten onderworpen dan de hemel; het onderscheid dat Newton ophief. |
+| impetus | Middeleeuws begrip voor de meegegeven beweegkracht van een geworpen voorwerp, een tussenstap richting het latere traagheidsbeginsel. |
+| de grote reductie | Weinbergs naam voor het opgaan van hele vakgebieden in fundamentelere, waarmee de scheikunde in de natuurkunde belandde en de biologie in de scheikunde. |
+| technische noten | De bijlage waarin Weinberg de wiskunde van de besproken berekeningen zelf uitwerkt, zodat de lezer ze kan controleren. |
+
+#### Waar het argument op rust
+
+Weinberg is natuurkundige en geen historicus, en dat bepaalt waar het boek
+sterk en zwak staat. Hij werkt met de klassieke teksten in vertaling en met de
+gangbare secundaire literatuur; archiefwerk doet hij niet en beweert hij ook
+niet te doen. Waar hij wel iets toevoegt dat andere geschiedenissen missen, is
+in de technische noten: hij rekent de oude methoden na, laat zien welke
+aannames erin zitten en hoe nauwkeurig de uitkomsten waren, en die controle
+kan de lezer zelf overdoen.
+
+De feitelijke gang van zaken die hij beschrijft is niet omstreden. Wat
+omstreden is, is de weging: welke bijdragen tellen als wetenschap, welke niet,
+en waarom de doorbraak kwam waar zij kwam. Voor die weging voert Weinberg
+redenen aan en geen bewijs, en hij zegt dat ook. Op de plaatsen waar het
+antwoord ontbreekt, zoals bij de vraag waarom de Arabische traditie stilviel,
+geeft hij dat toe in plaats van een verklaring te construeren.
+
+#### Wat er tegen in te brengen valt
+
+De zwaarste aanval kwam van wetenschapshistorici. Steven Shapin besprak het
+boek onder de kop dat natuurwetenschappers geen geschiedenis moeten schrijven,
+en zijn bezwaar treft de kern: wie het verleden alleen langs de meetlat van
+het heden legt, kan wel aanwijzen waar mensen ernaast zaten, maar verklaart
+niet waarom zij dachten wat zij dachten, en dus ook niet hoe verandering tot
+stand kwam. Weinberg beantwoordt die kritiek door het whiggisme te omarmen,
+wat het bezwaar erkent zonder het te weerleggen. Het gevolg is een
+geschiedenis waarin de hoofdvraag, waarom de doorbraak in het
+zeventiende-eeuwse Europa plaatsvond en niet in Alexandrië of Bagdad, blijft
+liggen.
+
+Daarnaast is het oordeelsapparaat grof waar het over godsdienst gaat.
+Wetenschap en religie worden als tegengestelde krachten opgevoerd, terwijl
+juist de instellingen waarin het middeleeuwse onderzoek plaatsvond kerkelijk
+waren en Kepler en Newton hun natuurkunde religieus gemotiveerd bedreven. Ook
+de bejegening van Aristoteles is scheef: het verwijt dat hij niet toetste laat
+onbesproken dat hij als bioloog wel degelijk stelselmatig waarnam. En de
+stelling dat de wetenschap ontdekt moest worden is, hoe juist ook, weinig
+omstreden; wie het boek voor die these leest, krijgt vooral vijftien
+hoofdstukken oordeel over mensen die haar nog niet kenden.
+
+#### Wat er concreet mee te doen is
+
+- Onderscheid bij een model of het de verschijnselen alleen weergeeft of ook
+zegt waarom ze zo zijn; het verschil tussen voorspellen en verklaren bepaalt
+wat een model waard is.
+- Ga bij een historisch oordeel over eerder werk na welke maatstaf wordt
+gehanteerd en of die maatstaf destijds bestond.
+- Werk de technische noten door bij de hoofdstukken die het meest overtuigen;
+ze laten zien hoeveel van een klassieke conclusie op meting rustte en hoeveel
+op aanname.
+- Vraag bij een verklaring die een doel of bestemming aanvoert wat er
+overblijft als dat doel wordt weggelaten.
+
+#### Wat je hierna leest
+
+- 948. The Copernican Revolution. Kuhn behandelt dezelfde overgang van
+Ptolemaeus naar Copernicus, maar juist met de vraag waarom mensen geloofden
+wat zij geloofden.
+- 938. The Sleepwalkers. Koestler vertelt het verhaal van Copernicus, Kepler
+en Galilei als een reeks toevalligheden en vergissingen, het tegendeel van
+Weinbergs rechte lijn.
+- 654. Against Method. Feyerabend ontkent dat er zoiets als een
+wetenschappelijke methode bestaat en gebruikt Galilei als kroongetuige; het
+scherpste tegenboek bij Weinberg.
+- 262. A Brief History of Time. Hawking pakt de draad op waar Weinberg hem
+loslaat, bij de natuurkunde na Newton.
+
+## 948. The Copernican Revolution
+
+Thomas S. Kuhn, 1957. *The Copernican Revolution: Planetary Astronomy in the
+Development of Western Thought* (Harvard University Press, Cambridge
+(Massachusetts), 1957, 297 blz., met een voorwoord van James Bryant Conant;
+paperback ISBN 9780674171039). Er bestaat geen Nederlandse vertaling; de
+samenvatting is op de Engelse editie gebaseerd. Van Kuhn verschenen wel *De
+structuur van wetenschappelijke revoluties* en *De noodzakelijke spanning* bij
+Boom. Rubriek: natuur en wetenschap.
+Tags: `wetenschapsgeschiedenis`, `kosmologie`, `filosofie`, `klassieker`
+
+Kuhns eerste boek is tegelijk een leerboek sterrenkunde en een betoog over hoe
+wetenschap van gedaante verandert. Het volgt het wereldbeeld van de Griekse
+tweebollenkosmos, via het planetenprobleem en de aristotelische
+natuurfilosofie, naar Copernicus en verder naar Kepler, Galilei en Newton. De
+lezer krijgt de meetkunde er ongeschminkt bij, tot in een technische bijlage
+waarin epicykels en excenters worden voorgerekend.
+
+De stelling is dat de omwenteling van 1543 nooit alleen sterrenkunde was. Wie
+de aarde in beweging zette, sloopte tegelijk de natuurkunde van zware en
+lichte elementen, de theologische ordening van hemel en aarde en het
+dagelijkse zintuiglijke bewijs. Copernicus zelf noemt Kuhn een behoudend
+astronoom: hij hield vast aan cirkels en eenparige beweging, zijn stelsel
+voorspelde niet beter dan dat van Ptolemaeus en was niet eenvoudiger. *De
+revolutionibus* is in Kuhns formulering een tekst die een omwenteling maakte
+zonder er zelf een te zijn. Vijf jaar later werd deze episode het model voor
+*The Structure of Scientific Revolutions*.
+
+### Uitgebreide samenvatting
+
+**De stelling.** De overgang van een aarde in het middelpunt naar een aarde
+die om de zon draait was volgens Kuhn geen astronomische correctie maar de
+ontmanteling van een samenhangend wereldbeeld, waarin meetkunde, natuurkunde,
+theologie en gezond verstand elkaar overeind hielden. Juist die samenhang
+verklaart waarom een technisch beter alternatief niet volstond en waarom de
+aanvaarding anderhalve eeuw duurde. Copernicus leverde bovendien geen betere
+voorspellingen en geen lichter rekenwerk; wat hij leverde was een andere
+ordening van het heelal, waarvan de gevolgen pas bij Kepler, Galilei en Newton
+zichtbaar werden.
+
+#### De gang van het boek
+
+**Een leerboek met een stelling erin**
+
+Het boek komt voort uit een algemeen vormend natuurwetenschapsvak dat Kuhn aan
+Harvard gaf op initiatief van James Bryant Conant, die het voorwoord schreef.
+Die herkomst bepaalt de vorm: de lezer krijgt eerst de waarneembare hemel
+uitgelegd, daarna de meetkundige modellen, en pas dan de historische
+redenering. Een technische bijlage rekent de standen van de planeten en de
+werking van epicykels voor.
+
+Kuhn wil laten zien dat een wetenschappelijke theorie meer is dan een
+rekenmachine. Hij noemt zo'n theorie een conceptueel schema: een geheel van
+aannames dat waarnemingen ordent, voorspellingen mogelijk maakt en tegelijk
+bepaalt wat er nog als vraag overblijft. Dat schema is werktuig en beperking
+in één, en die dubbelheid is het onderwerp van het boek.
+
+**Het tweebollenheelal**
+
+De oudheid werkte met twee bollen: een bolvormige aarde in rust in het midden
+en een draaiende sterrenbol daaromheen. Kuhn laat zien hoe goed dat model past
+bij wat iemand zonder instrumenten ziet. De dagelijkse omwenteling van de
+sterrenhemel, het verschuiven van de zon langs de dierenriem, het verschil
+tussen circumpolaire en opkomende sterren, de hoogte van de poolster op
+verschillende breedten: het volgt allemaal uit de twee bollen, en het levert
+een bruikbare kalender en een bruikbare zeevaartkunde op.
+
+Die bruikbaarheid is het punt. Het model werd niet aangehangen bij gebrek aan
+waarnemingen maar omdat het de waarnemingen dekte. Wie het wilde vervangen,
+moest verklaren waarom een draaiende aarde geen storm veroorzaakt, waarom
+losgelaten voorwerpen recht naar beneden vallen en waarom de sterren geen
+jaarlijkse verschuiving vertonen.
+
+**Het probleem van de planeten**
+
+De zeven dwaalsterren pasten niet in het eenvoudige schema. Zij lopen soms
+achteruit, verschillen in helderheid en wisselen van snelheid. Om die
+bewegingen in cirkels te vangen bouwde de Griekse sterrenkunde een
+gereedschapskist: de deferent met epicykel, de excenter en bij Ptolemaeus de
+equant, een hulppunt waaromheen de beweging eenparig is terwijl zij dat om het
+baanmiddelpunt niet is.
+
+Kuhn beschrijft de opdracht die astronomen zichzelf stelden als het redden van
+de verschijnselen: elke waargenomen stand moest uit combinaties van eenparige
+cirkelbewegingen volgen. Dat lukte, maar nooit helemaal, en elke verbetering
+vroeg een extra cirkel. Aan het begin van de zestiende eeuw was het stelsel
+van tabellen zo aangegroeid en tegelijk zo onnauwkeurig dat de kalender
+merkbaar uit de pas liep.
+
+**Waarom de aarde niet los te wrikken was**
+
+Het derde en vierde deel behandelen wat er behalve sterrenkunde aan de
+tweebollenkosmos vastzat. In de aristotelische natuurkunde beweegt aarde naar
+het middelpunt omdat dat haar natuurlijke plaats is; het middelpunt van het
+heelal is dus geen willekeurige keuze maar de grond van de zwaarteleer. Boven
+de maan gelden een andere stof en andere wetten dan eronder: onvergankelijke
+bollen tegenover ontstaan en vergaan.
+
+De middeleeuwse scholastiek voegde daar een ordening aan toe waarin de plaats
+van de mens in het heelal ook een morele plaats was. Kuhn benadrukt dat een
+astronoom die de aarde liet draaien daarmee de natuurkunde, de kosmologie en
+de gangbare uitleg van de Schrift tegelijk in het ongerede bracht. Het verzet
+tegen Copernicus was daarom niet in de eerste plaats domheid.
+
+**Wat Copernicus wel en niet deed**
+
+*De revolutionibus orbium coelestium* verscheen in 1543, in het sterfjaar van
+de schrijver. Copernicus verplaatste het middelpunt naar de zon, maar bleef
+verder binnen de traditie: een eindig heelal met een sterrenbol, uitsluitend
+cirkels, eenparige beweging als eis. Hij schafte de equant af, die hij als een
+schending van dat beginsel zag, en had daarvoor weer extra kleine cirkels
+nodig. Zijn tabellen waren niet nauwkeuriger dan de bestaande en zijn
+rekenwerk niet lichter.
+
+De winst zit elders. In een zonnestelsel volgt de schijnbare achterwaartse lus
+van de planeten vanzelf uit het feit dat de aarde meebeweegt, in plaats van
+uit een per planeet aangebrachte epicykel. En de volgorde en de onderlinge
+afstanden van de planeten liggen vast zodra de omlooptijden bekend zijn,
+terwijl die in het oude stelsel vrij te kiezen waren. Dat is een argument van
+samenhang en niet van nauwkeurigheid.
+
+Kuhn vat het samen in de formulering dat *De revolutionibus* eerder een
+omwenteling veroorzaakte dan er zelf een was. Het naamloze voorwoord van
+Andreas Osiander, dat het stelsel als rekenkundige veronderstelling
+presenteerde en niet als beschrijving van de werkelijkheid, hielp het boek de
+eerste decennia door de kritiek heen.
+
+**De opname en het nieuwe heelal**
+
+Het laatste deel volgt wat anderen ermee deden. Erasmus Reinhold rekende er de
+Pruisische tabellen mee door, die vooral gebruikt werden omdat ze nieuw waren
+en niet omdat ze beter waren. Tycho Brahe bedacht een tussenvorm waarin de
+planeten om de zon lopen en de zon om de aarde. Kepler brak pas werkelijk met
+de traditie door de cirkel op te geven voor de ellips en de eenparigheid voor
+de perkenwet, en leverde daarmee de nauwkeurigheid die Copernicus niet had.
+
+Galilei voegde waarnemingen toe die de oude tweedeling ondermijnden: bergen op
+de maan, manen om Jupiter, en de schijngestalten van Venus die alleen bij een
+omloop om de zon kunnen optreden. Newton sloot het geheel met een zwaarteleer
+die dezelfde wet op vallende voorwerpen en op de maan toepaste. Wat overbleef
+was een ander heelal: onbepaald groot, zonder natuurlijke plaatsen, met de
+aarde als één planeet tussen andere.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| tweebollenheelal | Het antieke model met een onbeweeglijke bolvormige aarde in het midden en een draaiende sterrenbol als buitengrens. |
+| conceptueel schema | Kuhns term voor een samenhangend geheel van aannames dat waarnemingen ordent en tegelijk bepaalt welke vragen zinvol zijn; de voorloper van zijn latere begrip paradigma. |
+| deferent en epicykel | Twee gekoppelde cirkels waarmee de Griekse sterrenkunde de lussen en de wisselende helderheid van een planeet beschreef. |
+| excenter | Een cirkelbaan waarvan het middelpunt naast de aarde ligt, gebruikt om ongelijke snelheden op te vangen. |
+| equant | Ptolemaeus' hulppunt waaromheen de beweging eenparig verloopt terwijl zij dat om het baanmiddelpunt niet doet; Copernicus verwierp het als schending van het beginsel van eenparige cirkelbeweging. |
+| de verschijnselen redden | De opdracht die astronomen zich stelden: elke waargenomen planeetstand herleiden tot combinaties van eenparige cirkelbewegingen. |
+| sublunair en superlunair | De aristotelische scheiding tussen de vergankelijke wereld onder de maan en de onveranderlijke hemel erboven. |
+| sterparallax | De jaarlijkse schijnbare verschuiving van sterren die bij een bewegende aarde zou moeten optreden; het uitblijven ervan was eeuwenlang het sterkste bezwaar, en zij werd pas in 1838 gemeten. |
+| veelvoudigheid van de omwenteling | Kuhns punt dat de copernicaanse verandering uit meerdere gelijktijdige veranderingen bestond, in sterrenkunde, natuurkunde, kosmologie en godsdienst. |
+
+#### Waar het argument op rust
+
+Kuhn werkt met de primaire teksten en met meetkunde die hij zelf voorrekent.
+Zijn stelling dat het stelsel van Copernicus niet eenvoudiger en niet
+nauwkeuriger was, kan de lezer aan de hand van de bijlage narekenen; hetzelfde
+geldt voor de bewering dat de retrograde beweging in een zonnestelsel geen
+aparte constructie meer nodig heeft. Dat is de stevigste laag van het boek, en
+zij is in latere literatuur niet omvergeworpen.
+
+Zwakker is de laag daarboven, waarin Kuhn verklaart waarom astronomen
+overstapten. Daarvoor bestaat weinig documentatie: de motieven van individuele
+rekenaars zijn zelden opgeschreven. Kuhn leunt op de gedachte dat harmonie en
+samenhang overtuigden, wat bij Kepler goed te staven is uit diens eigen
+geschriften, maar bij de meeste tijdgenoten een reconstructie blijft. Ook de
+vakliteratuur waarop hij steunt is die van de jaren vijftig, met Duhem en
+Dreyer als voornaamste bronnen.
+
+#### Wat er tegen in te brengen valt
+
+Het scherpste bezwaar betreft wat Kuhn niet behandelt. De wiskundige
+hulpmiddelen waarmee Copernicus de equant verving hebben aantoonbare
+voorgangers bij islamitische astronomen uit de school van Maragha, onder wie
+Nasir al-Din al-Tusi en Ibn al-Shatir, wier modellen op onderdelen
+gelijkwaardig zijn aan de zijne. Dat onderzoek kwam grotendeels na 1957 op
+gang, maar het maakt Kuhns beeld van een breuk binnen de westerse traditie
+eenzijdig: de vernieuwing was voor een deel overdracht.
+
+Verder is dit een enkele episode die later als model voor een algemene theorie
+van wetenschappelijke verandering ging dienen. Feyerabend, Shapere en Toulmin
+voerden aan dat die veralgemening naar andere vakgebieden niet standhoudt en
+dat de scheiding tussen normale wetenschap en omwenteling in de praktijk
+vervaagt. Wie het boek leest als geschiedenis krijgt degelijk werk; wie het
+leest als bewijs voor de latere paradigmatheorie legt meer in deze ene casus
+dan zij kan dragen.
+
+Ten slotte vraagt het boek een inspanning die het niet altijd beloont. De
+meetkundige hoofdstukken zijn zwaar, terwijl de historische redenering zonder
+die hoofdstukken niet te volgen is. Lezers die de bijlage overslaan houden een
+verhaal over ideeën over, en juist dat verhaal is het deel dat Kuhn zelf het
+minst hard kon maken.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij een theoriewissel niet alleen of het nieuwe model beter voorspelt,
+maar wat er verder aan het oude model vastzit en wie daarvoor de rekening
+krijgt.
+- Onderscheid nauwkeurigheid van samenhang: een model kan winnen doordat het
+losse aannames overbodig maakt, ook wanneer de voorspellingen gelijk blijven.
+- Reken bij historische oordelen na wat de tijdgenoot kon waarnemen. Het
+ontbreken van sterparallax was een geldig bezwaar en geen koppigheid.
+- Let op hulpconstructies die per geval worden bijgeplaatst. Een reeks losse
+correcties die telkens een enkele waarneming redt, is een aanwijzing dat het
+onderliggende schema knelt.
+
+#### Wat je hierna leest
+
+- 654. Against Method. Feyerabend gebruikt dezelfde episode, met Galilei in de
+hoofdrol, om te betogen dat er geen methode is die de overgang rechtvaardigt.
+- 938. The Sleepwalkers. Koestler vertelt hetzelfde verhaal via de levens van
+Copernicus, Tycho, Kepler en Galilei, en oordeelt veel harder over Copernicus
+als denker.
+- 947. To Explain the World. Weinberg beschrijft dezelfde ontwikkeling vanuit
+de natuurkunde en verdedigt uitdrukkelijk het idee van vooruitgang dat Kuhn in
+twijfel trekt.
+
+## 949. What Mad Pursuit
+
+Francis Crick, 1988. *What Mad Pursuit: A Personal View of Scientific
+Discovery* (Basic Books, New York, 1988, 182 blz., ISBN 9780465091379),
+verschenen in de reeks van de Alfred P. Sloan Foundation. Nederlandse uitgave:
+*Geniaal gekkenwerk*, met als ondertitel een persoonlijke visie op
+wetenschappelijke ontdekkingen (Aramith, Bloemendaal, 1989, 188 blz., ISBN
+9789068340532). Rubriek: natuur en wetenschap.
+Tags: `memoir`, `biologie`, `onderzoek`, `wetenschapsgeschiedenis`
+
+Vijfendertig jaar na de dubbele helix schreef Francis Crick een kort en
+eigenzinnig verslag van zijn eigen werk. De titel komt uit Keats' *Ode on a
+Grecian Urn*. Het boek loopt van zijn oorlogswerk aan zeemijnen bij de
+Admiraliteit, via de keuze voor de biologie op zijn dertigste, naar het
+Cavendish-laboratorium, de genetische code en zijn latere jaren aan het Salk
+Institute.
+
+Crick vertelt niet alleen wat er ontdekt werd maar ook hoe. Hij beschrijft de
+roddeltest waarmee hij zijn vakgebied koos: waarover iemand uit zichzelf
+roddelt, daar ligt zijn belangstelling. Hij legt uit waarom hij het woord
+dogma verkeerd koos, waarom de sierlijke kommavrije code die hij met Griffith
+en Orgel bedacht volledig fout bleek, en waarom een fraaie theorie in de
+biologie eerder verdacht is dan in de natuurkunde: evolutie knutselt en laat
+rommel achter. Het boek bevat twee bijlagen over de klassieke moleculaire
+biologie en over de code, en eindigt bij zijn overstap naar het onderzoek naar
+bewustzijn en visuele waarneming.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Crick betoogt dat de doorbraken van de moleculaire biologie
+tussen 1953 en 1966 minder te danken waren aan geniale ingevingen dan aan een
+bepaalde werkhouding: praten met wie iets weet, modellen bouwen die te
+weerleggen zijn, de bestaande gegevens wantrouwen en accepteren dat de meeste
+eigen invallen fout zijn. Daarbij hoort een waarschuwing die hij als de kern
+van zijn vak beschouwt: in de biologie is elegantie een slechte gids, omdat
+een levend systeem geen ontwerp is maar het bezinksel van een evolutie die
+geen enkele reden had om netjes te werken.
+
+#### De gang van het boek
+
+**De omweg naar de biologie**
+
+Crick werd in 1916 geboren, studeerde natuurkunde en zag zijn
+promotieonderzoek door de oorlog onderbroken. Hij werkte voor de Britse
+Admiraliteit aan het ontwerp van zeemijnen. Toen de oorlog voorbij was, was
+hij dertig en had hij geen vak. Zijn kennis van de natuurkunde was verouderd
+en zijn oude onderzoek, over de viscositeit van water bij hoge temperatuur,
+noemt hij zelf het saaiste probleem denkbaar.
+
+Om te kiezen bedacht hij de roddeltest: waarover praat iemand uit zichzelf
+tegen anderen. Het antwoord bleek tweeledig: de grens tussen levend en
+niet-levend, en het werk van de hersenen. Hij koos het eerste, met de gedachte
+dat het tweede kon wachten. Wat hij als voordeel zag, was dat hij als
+nieuwkomer niets af te leren had.
+
+**Het Cavendish en de helix**
+
+In Cambridge kwam hij bij de groep van Max Perutz terecht en deelde hij een
+kamer met James Watson. Crick beschrijft hun werkwijze als praten, rekenen en
+modellen bouwen, tegen de gewoonte van het huis in, waar men vooral zelf
+gegevens verzamelde. Hij noemt de rol van de regels van Chargaff over de
+gelijke hoeveelheden basen, de kristallografische gegevens uit King's College
+en zijn eigen theorie over hoe helices een diffractiepatroon geven.
+
+Het hoofdstuk over de aankondiging van 1953 is nuchter: twee korte stukken in
+*Nature*, weinig opwinding daarbuiten, en jarenlang de vraag of het model wel
+klopte. Pas met de proef van Meselson en Stahl over de wijze van verdubbeling
+werd het algemeen aanvaard. Crick besteedt een apart hoofdstuk aan boeken en
+films over die periode, met bezwaren tegen *The Double Helix* van Watson en
+tegen de televisiefilm uit 1987.
+
+**Het centrale dogma en de code**
+
+Het middendeel behandelt wat Crick als zijn eigenlijke werk beschouwt. Hij
+formuleerde de sequentiehypothese, die zegt dat de volgorde van basen de
+volgorde van aminozuren vastlegt, en het centrale dogma, dat zegt dat
+informatie wel van nucleïnezuur naar eiwit kan lopen en niet terug. Over de
+woordkeus is hij openhartig: hij dacht dat dogma iets betekende als een
+stelling zonder afdoende grond, en had beter iets anders kunnen kiezen.
+
+Twee voorspellingen laat hij zien in hun volle ongelijkheid. De
+adaptorhypothese uit 1955, die een tussenmolecuul postuleerde dat het
+aminozuur op zijn plaats brengt, bleek te kloppen en werd het overdrachts-RNA.
+De kommavrije code, die hij in 1957 met John Griffith en Leslie Orgel bedacht,
+gaf langs zuiver wiskundige weg precies twintig bruikbare drielettergroepen
+voor precies twintig aminozuren. Het klopte tot op het cijfer en was volledig
+onjuist.
+
+Daarna volgen het zoeken naar de ontbrekende boodschapper, dat leidde tot het
+boodschapper-RNA, en de proef met bacteriofagen waarmee Crick en Brenner in
+1961 lieten zien dat de code in drietallen wordt gelezen. Het ontcijferen zelf
+gebeurde in het laboratorium van Nirenberg met biochemische middelen, niet met
+de codetheorie waarop Crick had gehoopt.
+
+**Theorie in de biologie**
+
+Het meest geciteerde hoofdstuk gaat over het verschil tussen theorievorming in
+de natuurkunde en in de biologie. Crick stelt dat een biologisch systeem het
+gevolg is van natuurlijke selectie en dus vol zit met oplossingen die om
+historische redenen zijn blijven zitten. Wie daarop een sierlijke theorie
+loslaat, heeft grote kans dat het geheel klopt behalve met de werkelijkheid.
+
+Daarbij hoort zijn regel dat een theorie die alle bekende feiten dekt vrijwel
+zeker fout is, omdat een deel van die feiten fout is. De maat voor een goed
+model is volgens hem niet de schoonheid ervan maar de vraag of het proeven
+oplevert die het onderuit kunnen halen. Hij verdedigt tegelijk het bouwen van
+speculatieve modellen, mits ze snel worden losgelaten.
+
+**De latere jaren**
+
+De epiloog behandelt zijn vertrek naar het Salk Institute in Californië. Daar
+werkte hij eerst aan de vraag naar de oorsprong van het leven, waarbij hij met
+Orgel de gedachte van gerichte panspermie opperde, en daarna aan het onderwerp
+dat hij in 1947 had laten liggen: het bewustzijn. Zijn programma daarvoor was
+hetzelfde als bij de code, namelijk een concreet deelprobleem kiezen, in zijn
+geval het visuele bewustzijn.
+
+Crick is er duidelijk over dat hij bij dat tweede onderwerp nog nergens was.
+Het boek eindigt met de constatering dat het gereedschap ontbrak en dat het te
+vroeg was voor een theorie.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| roddeltest | Cricks vuistregel dat werkelijke belangstelling blijkt uit de onderwerpen waarover iemand uit zichzelf tegen anderen praat. |
+| sequentiehypothese | De stelling dat de volgorde van basen in het DNA de volgorde van aminozuren in een eiwit vastlegt. |
+| centraal dogma | De stelling dat informatie van nucleïnezuur naar eiwit kan stromen en niet in omgekeerde richting; Crick noemt de woordkeus achteraf ongelukkig. |
+| adaptorhypothese | Cricks voorspelling uit 1955 van een tussenmolecuul dat elk aminozuur aan de juiste plaats in de code koppelt, later herkend als overdrachts-RNA. |
+| kommavrije code | Het wiskundig sierlijke codevoorstel van Crick, Griffith en Orgel dat exact twintig drietallen opleverde en volledig onjuist bleek. |
+| boodschapper-RNA | Het tussenmolecuul dat de boodschap van het DNA naar het ribosoom brengt; het ontbreken ervan in de eerste modellen noemt Crick de ontbrekende boodschapper. |
+| klassieke periode | Cricks aanduiding voor de jaren 1953 tot 1966, van de structuur van het DNA tot het ontcijferen van de genetische code. |
+| evolutie als knutselaar | Het idee dat levende systemen geen ontwerpen zijn maar opeenstapelingen van toevallige oplossingen, waardoor elegantie in de biologie eerder verdacht dan overtuigend is. |
+
+#### Waar het argument op rust
+
+Dit is een herinnering en geen geschiedschrijving, en Crick zegt dat er zelf
+bij. Hij waarschuwt dat wetenschappers hun eigen verleden onbewust bijstellen
+en verwijst voor de volledige reconstructie naar *The Eighth Day of Creation*
+van Horace Freeland Judson. De vakinhoudelijke delen zijn wel controleerbaar:
+de twee bijlagen vatten de stand van zaken in 1988 samen, en de beschreven
+proeven, van Meselson en Stahl tot het faagwerk met Brenner, staan in de
+gepubliceerde literatuur.
+
+Waar het boek het sterkst is, is bij de mislukkingen, omdat die niet in het
+voordeel van de schrijver werken. De kommavrije code wordt in volle omvang
+uitgelegd voordat zij wordt afgebroken, en dat maakt de stelling over
+elegantie geloofwaardiger dan een reeks geslaagde voorspellingen zou doen.
+Waar het boek het zwakst is, is bij toewijzing van verdienste: wie wat wanneer
+wist, is precies het punt waarop het geheugen van betrokkenen onbetrouwbaar
+is.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar betreft de gegevens van Rosalind Franklin. De
+kristallografische metingen uit King's College, waaronder haar bepaling van de
+ruimtegroep en haar opname van de B-vorm, bereikten Cambridge zonder dat zij
+daarvoor toestemming had gegeven, deels via een verslag aan de Medical
+Research Council. Crick behandelt dat als een gevolg van de losse manier
+waarop kennis toen circuleerde en schuift een deel van de verantwoordelijkheid
+naar haar eigen terughoudendheid. Dat is de zwakste passage van het boek, en
+zij gaat over de kwestie waarop zijn reputatie het meest is aangevallen.
+
+Daarnaast is honderdtachtig bladzijden weinig voor vijfendertig jaar. Talloze
+medewerkers komen niet voor, hele onderzoekslijnen ontbreken, en de verhouding
+tussen oordeel en onderbouwing is hoog: Crick stelt vaak vast wat belangrijk
+was zonder te laten zien waarom anderen er anders over dachten. Het boek is
+dan ook geen ingang tot de geschiedenis van het vak maar een aanvulling
+daarop.
+
+Ten slotte staat het slot in een ander licht dan in 1988. Crick presenteert
+het bewustzijn als het volgende probleem dat met dezelfde aanpak te nemen zou
+zijn, een concreet deelprobleem kiezen en doorbijten. Ruim drie decennia later
+heeft die aanpak, ook in zijn eigen latere werk met Christof Koch, niets
+opgeleverd dat vergelijkbaar is met de code. Dat ondergraaft de impliciete
+boodschap dat de methode overdraagbaar is.
+
+#### Wat je hierna leest
+
+- 941. The Double Helix. Watson vertelt dezelfde ontdekking van binnenuit en
+met veel meer roddel; naast Crick gelezen wordt zichtbaar hoe verschillend
+twee deelnemers hetzelfde jaar onthouden.
+- 413. A Crack in Creation. Doudna en Sternberg beschrijven wat er een halve
+eeuw later met dezelfde moleculen mogelijk werd, inclusief de ethische vragen
+die bij Crick nog niet speelden.
+- 62. What Do You Care What Other People Think?. Feynman geeft een
+vergelijkbaar persoonlijk verslag van hoe een natuurkundige met problemen
+omgaat, met dezelfde afkeer van gezag en ceremonie.
+
+## 950. The Beak of the Finch
+
+Jonathan Weiner, 1994. *The Beak of the Finch: A Story of Evolution in Our
+Time* (Alfred A. Knopf, New York, 1994, 332 blz., ISBN 9780679400035),
+bekroond met de Pulitzerprijs voor algemene non-fictie in 1995. Nederlandse
+uitgave: *De snavel van de vink*, vertaald door Peter Diderich (Contact,
+Amsterdam, 1994, 357 blz., ISBN 9789025406158). Rubriek: natuur en wetenschap.
+Tags: `evolutie`, `biologie`, `onderzoek`, `journalistiek`
+
+Darwin dacht dat natuurlijke selectie te traag verloopt om binnen een
+mensenleven te zien. Peter en Rosemary Grant hebben laten zien dat dat niet
+klopt. Sinds 1973 meten zij elk jaar de vinken op Daphne Major, een klein en
+onbewoond eiland in de Galapagos. Alle vogels zijn geringd, en snavellengte en
+snavelhoogte worden tot op tienden van millimeters vastgelegd. Jonathan Weiner
+reisde met hen mee en schreef het verslag dat in 1995 de Pulitzerprijs kreeg.
+
+Het scharnier is de droogte van 1977. De zaadvoorraad raakte op, de zachte
+zaden het eerst, en wat overbleef waren harde zaden die alleen met een diepe
+snavel te kraken zijn. Onder de overlevende grondvinken lag de gemiddelde
+snavel meetbaar hoger, en hun jongen erfden dat. Zes jaar later keerde El Niño
+de zaak om: 1359 millimeter regen, tienmaal het eerdere natte-seizoensrecord,
+en ineens loonde een kleine snavel. Weiner gebruikt die heen en weer gaande
+selectie om te laten zien hoe evolutie in het veld werkelijk verloopt, en
+breidt dat in het laatste deel uit naar resistentie tegen bestrijdingsmiddelen
+en antibiotica.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Natuurlijke selectie is geen langzaam proces dat zich alleen
+in fossielen laat aflezen, maar een kracht die van jaar tot jaar meetbaar is
+bij levende dieren in het wild. De metingen van de Grants aan Darwins vinken
+laten zien dat een enkel droog of nat seizoen de gemiddelde bouw van een
+populatie meetbaar verschuift, en dat de richting van die verschuiving met het
+weer omslaat. Weiner trekt daaruit de conclusie dat de mens, met
+bestrijdingsmiddelen en antibiotica, ongewild het grootste selectie-experiment
+uit de geschiedenis uitvoert en de uitkomst daarvan al aan den lijve
+ondervindt.
+
+#### De gang van het boek
+
+**Een eiland als laboratorium**
+
+Daphne Major is nauwelijks meer dan een uitgedoofde krater in zee, zonder
+schaduw, zonder zoet water en zonder vaste bewoners. Juist die kaalheid maakt
+het bruikbaar: de populatie is klein genoeg om volledig te kennen. De Grants
+en hun promovendi ringen elke vogel, meten snavellengte, snavelhoogte,
+snavelbreedte, vleugellengte en gewicht, en houden bij wie met wie broedt en
+wie het overleeft.
+
+Weiner beschrijft dat werk in zijn volle eentonigheid: maanden kamperen,
+dagelijks dezelfde vogels vangen, dezelfde maten nemen, en het geduld om jaar
+na jaar terug te komen. Het gaat om reeksen die pas na decennia iets zeggen.
+Het boek maakt van dat wachten het eigenlijke onderwerp.
+
+**De droogte van 1977**
+
+In 1977 viel er op Daphne vrijwel geen regen. Er kwamen geen nieuwe zaden bij,
+de vogels aten eerst de kleine en zachte zaden op, en wat overbleef waren
+onder meer de harde vruchtjes van de kruipende Tribulus. Om die te kraken is
+kracht nodig, en kracht komt van een hoge, dikke snavel. De sterfte was zwaar
+en volgde niet het toeval.
+
+De metingen laten het verschil zien. Onder de overlevende middelste
+grondvinken was de gemiddelde snavel langer en hoger geworden: de lengte ging
+van 10,68 naar 11,07 millimeter en de hoogte van 9,42 naar 9,96 millimeter.
+Dat lijkt niets, maar het is het verschil tussen een zaad kraken en
+verhongeren. Omdat snavelmaat sterk erfelijk is, kwam het verschil terug bij
+de jongen van het volgende broedseizoen. Selectie was hier geen redenering
+maar een uitkomst met een foutmarge.
+
+**De omslag van 1983**
+
+Dan komt El Niño. In het natte seizoen van 1983 viel er 1359 millimeter regen
+op Daphne, ongeveer tienmaal het eerder gemeten maximum. Het eiland liep vol
+met klimplanten, en de zaden die overheersten waren nu klein en zacht. Vogels
+met een kleinere snavel konden die sneller verwerken, en de selectie draaide
+om.
+
+Dat is het belangrijkste inzicht van het boek. Natuurlijke selectie is niet
+een langzame duw in een vaste richting maar een reeks scherpe zetten die
+elkaar deels opheffen. Wat in de fossielen als stilstand oogt, kan in
+werkelijkheid een heftig heen en weer zijn geweest. Weiner besteedt een
+hoofdstuk aan de eenheid waarin evolutietempo wordt uitgedrukt, de darwin van
+Haldane, en aan het gegeven dat over korte perioden gemeten tempo's ordes van
+grootte hoger uitvallen dan die uit fossiele reeksen.
+
+**Soorten met poreuze grenzen**
+
+Het tweede deel gaat over soortvorming. Op Daphne broeden meerdere soorten
+grondvinken, en zij kruisen af en toe. Na 1983 bleken sommige kruisingen het
+juist beter te doen dan de zuivere lijnen, omdat het voedselaanbod was
+veranderd. De grens tussen de soorten blijkt dus niet vast maar afhankelijk
+van de omstandigheden.
+
+Daar komt bij dat de partnerkeuze deels aangeleerd is: jonge mannetjes nemen
+de zang van hun vader over en vrouwtjes kiezen op zang. Een vergissing in dat
+leerproces kan een kruising opleveren. Weiner behandelt ook
+karakterverschuiving, waarbij twee soorten die samen op een eiland leven
+verder uit elkaar groeien dan wanneer zij apart voorkomen. Splitsing en
+samensmelting zijn in deze beschrijving twee richtingen van hetzelfde proces.
+
+**Hetzelfde mechanisme buiten de Galapagos**
+
+Het derde deel verlaat het eiland. Weiner behandelt resistentie tegen
+bestrijdingsmiddelen, resistentie tegen antibiotica, de gepeperde motten van
+de Engelse industriegebieden, de guppen die John Endler in Trinidadse beken
+volgde en de zeepbesluizen die zich aan een nieuwe waardplant aanpasten.
+Steeds is het patroon hetzelfde: een scherpe verandering in de omgeving, een
+deel van de populatie dat toevallig beter past, en binnen enkele generaties
+een verschoven gemiddelde.
+
+Zijn punt is dat de mens die scherpe veranderingen op wereldschaal aanbrengt.
+Wie een gewas jaar na jaar met hetzelfde middel bespuit, voert een
+selectieproef uit met een uitkomst die vastligt. De resistente ziekteverwekker
+is geen ongeluk maar het te verwachten gevolg.
+
+**Terug naar Darwin**
+
+Het slot keert terug naar de *Origin of Species* en naar Darwins eigen
+twijfel. Hij had geen enkel geval waarin selectie in actie te zien was en
+moest het doen met fokkers en met redeneringen. Weiner betoogt dat de Grants
+precies dat ontbrekende stuk hebben geleverd, met cijfers en foutmarges.
+
+In de epiloog behandelt hij de weerstand tegen die conclusie, van creationisme
+tot algemener ongemak bij het idee dat soorten geen vaste grootheden zijn. Het
+boek eindigt niet met een pleidooi maar met de vaststelling dat de vinken van
+Daphne blijven veranderen zolang het weer verandert.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Geospiza fortis | De middelste grondvink, de soort waaraan de Grants de duidelijkste selectie op snavelmaat konden meten. |
+| selectiedruk | De mate waarin een omgevingsverandering het overleven en voortplanten van bepaalde varianten begunstigt boven andere. |
+| oscillerende selectie | Selectie die van richting wisselt met de omstandigheden, zodat het gemiddelde van een populatie heen en weer beweegt in plaats van door te schuiven. |
+| darwin | Door J.B.S. Haldane voorgestelde eenheid voor evolutietempo, waarmee snelheden uit veldwerk en uit fossiele reeksen vergelijkbaar worden gemaakt. |
+| karakterverschuiving | Het verschijnsel dat verwante soorten die samen voorkomen verder uit elkaar groeien dan wanneer zij gescheiden leven, doordat concurrentie de overlap afstraft. |
+| hybridisatie | Kruising tussen vinkensoorten die op Daphne af en toe optreedt en waarvan de nakomelingen onder bepaalde voedselomstandigheden juist in het voordeel zijn. |
+| erfelijkheidsgraad van snavelmaat | Het aandeel van de verschillen in snavelmaat dat aan erfelijke aanleg is toe te schrijven; op Daphne hoog genoeg om selectie in de volgende generatie zichtbaar te maken. |
+| resistentie | Het door selectie ontstane ongevoelig worden van insecten, onkruiden of bacteriën voor middelen die tegen hen worden ingezet. |
+
+#### Waar het argument op rust
+
+De ruggengraat van het boek is een van de best gedocumenteerde reeksen
+veldgegevens in de biologie. De Grants meten sinds 1973 vrijwel de gehele
+vinkenpopulatie van een enkel eiland, individueel geringd, jaar na jaar, en
+hebben hun resultaten in de vakliteratuur gepubliceerd. De verschuiving van
+1977 en de omkering na 1983 zijn geen anekdotes maar reeksen met
+spreidingsmaten, en het onderzoek is na 1994 doorgegaan en heeft de
+gerapporteerde patronen bevestigd.
+
+Bij het bredere materiaal in het derde deel is de onderbouwing ongelijk.
+Resistentie tegen antibiotica en bestrijdingsmiddelen is buiten kijf. De
+gepeperde mot, die Weiner als schoolvoorbeeld gebruikt, kwam na het
+verschijnen van het boek onder vuur te liggen vanwege de opzet van Kettlewells
+oorspronkelijke proeven; latere replicaties, met name die van Michael Majerus,
+hebben het basisverhaal wel overeind gehouden. Wie het boek nu leest, moet dat
+hoofdstuk met die geschiedenis erbij lezen.
+
+#### Wat er tegen in te brengen valt
+
+De sterkste tegenwerping komt uit het boek zelf. De snavels bewogen na 1983
+grotendeels terug naar waar zij vandaan kwamen. Wat de Grants aantoonden is
+dus dat selectie snel en meetbaar is, niet dat zij zich opstapelt tot iets
+nieuws. Weiner laat de lezer op verschillende plaatsen van het eerste naar het
+tweede glijden, waarbij het waargenomen heen en weer moet dienen als bewijs
+voor het ontstaan van soorten over lange tijd. Dat is een sprong die de
+gegevens niet dragen.
+
+De hoofdstukken over hybridisatie wijzen zelfs de andere kant op: als de
+soorten op Daphne regelmatig kruisen en de kruisingen soms in het voordeel
+zijn, is het aannemelijker dat het om een schommelende genenpoel gaat dan om
+soorten die uit elkaar groeien. Weiner presenteert dat als verrijking van het
+beeld, terwijl het de kern van het betoog ondergraaft.
+
+Verder is dit evenzeer een dubbelportret als een betoog. Weiner bewondert de
+Grants openlijk, en tegenspraak uit het vak, bijvoorbeeld over het aandeel van
+toevallige drift bij zulke kleine populaties of over de vraag hoeveel van de
+gemeten variatie erfelijk is en hoeveel aan voeding ligt, komt nauwelijks aan
+bod. Wie de discussie wil, moet elders zijn.
+
+#### Wat er concreet mee te doen is
+
+- Beoordeel claims over snelle evolutie op de vraag of het gemiddelde blijvend
+verschoven is of alleen tijdelijk uitsloeg.
+- Ga bij het inzetten van een bestrijdingsmiddel of antibioticum uit van
+resistentie als voorspelbaar gevolg en niet als tegenslag, en wissel of
+combineer middelen op die grond.
+- Meet in langlopend veldwerk meer dan de grootheid waar het om gaat, omdat
+pas de combinatie van maten laat zien waardoor een verschuiving werd
+veroorzaakt.
+
+#### Wat je hierna leest
+
+- 951. The Mismeasure of Man. Gould laat aan de hand van schedelmetingen zien
+hoe onbedoelde vooringenomenheid in kwantitatieve biologie sluipt, wat een
+goede tegenlezing vormt bij Weiners vertrouwen in het meetwerk.
+- 322. An Immense World. Yong beschrijft dezelfde dieren van binnenuit, via
+hun zintuigen, waar Weiner ze vooral als meetobject behandelt.
+- 453. The Evolution of Cooperation. Axelrod voert dezelfde selectielogica
+door op gedrag in plaats van op lichaamsbouw, met toernooien in plaats van
+eilanden.
+
+## 951. The Mismeasure of Man
+
+Stephen Jay Gould, 1981. *The Mismeasure of Man* (W. W. Norton, New York,
+1981, 352 blz.; herziene en uitgebreide editie 1996, 444 blz., ISBN
+9780393314250). De eerste druk kreeg in 1982 de National Book Critics Circle
+Award. Nederlandse uitgave van de herziene editie: *De mens gemeten*, vertaald
+door Ton Maas en Frits Smeets, met een voorwoord van Piet Vroon (Contact,
+Amsterdam, 1996, 493 blz., ISBN 9789025411022). Rubriek: natuur en wetenschap.
+Tags: `wetenschapsgeschiedenis`, `psychologie`, `statistiek`, `onderzoek`
+
+Gould onderzoekt anderhalve eeuw pogingen om menselijke waarde in een getal te
+vangen: schedelinhoud, hersengewicht, intelligentiequotiënt. Zijn onderwerp is
+niet of mensen verschillen maar hoe wetenschappers verschillen tot een
+rangorde maakten en die rangorde vervolgens erfelijk verklaarden. Twee
+denkfouten keren steeds terug: reïficatie, het behandelen van een statistische
+abstractie als een ding, en rangordening, het persen van veelvormige variatie
+in een oplopende schaal.
+
+Het boek loopt van Samuel George Morton, die rond 1839 schedels met zaad en
+hagel opmat, via Paul Broca en de bloeitijd van de schedelmeetkunde, naar de
+Amerikaanse intelligentietest. Binet ontwierp zijn schaal in 1905 om
+achterblijvende kinderen extra hulp te geven en waarschuwde tegen elk ander
+gebruik; Goddard, Terman en Yerkes maakten er een maat voor aangeboren aanleg
+van. Het theoretische kernhoofdstuk gaat over factoranalyse en over Spearmans
+g: dezelfde correlaties leveren bij een andere rotatie meerdere vermogens op,
+zodat de wiskunde niet kan uitmaken of g een ding is. In de herziene druk van
+1996 voegde Gould een afrekening met *The Bell Curve* van Herrnstein en Murray
+toe.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Het idee dat menselijke intelligentie een enkele, meetbare,
+grotendeels erfelijke grootheid is waarop groepen te rangschikken vallen,
+berust volgens Gould niet op sterke gegevens maar op twee hardnekkige
+denkfouten. De eerste is reïficatie: van een statistische samenvatting zoals
+de g-factor een werkelijk bestaand ding in het hoofd maken. De tweede is
+rangordening: veelvormige variatie tot een enkele op- en aflopende schaal
+terugbrengen. Zijn historische bewijsvoering laat zien dat onderzoekers die
+zichzelf voor onpartijdig hielden telkens juist die uitkomsten produceerden
+die de maatschappelijke orde van hun tijd bevestigden, en dat de rekenfouten
+daarbij vrijwel altijd dezelfde kant op vielen.
+
+#### De gang van het boek
+
+**De twee denkfouten**
+
+Gould stelt zijn onderwerp scherp af. Hij bestrijdt niet dat mensen in aanleg
+verschillen en niet dat erfelijkheid bestaat. Wat hij bestrijdt is het
+biologisch determinisme: de leer dat de maatschappelijke rangorde tussen
+groepen voortkomt uit aangeboren verschillen en daarom onvermijdelijk is.
+
+Die leer steunt volgens hem op twee stappen die zelden worden verantwoord.
+Reïficatie maakt van een correlatiepatroon een stof in de schedel.
+Rangordening maakt van een wolk van eigenschappen een lijn met een boven- en
+een onderkant. Beide stappen zijn wiskundig toegestaan en inhoudelijk
+onbewezen.
+
+**Schedels meten voor Darwin**
+
+Het eerste historische hoofdstuk behandelt de Amerikaanse polygenisten, die
+verschillende menselijke groepen als aparte scheppingen beschouwden. Samuel
+George Morton verzamelde honderden schedels en bepaalde de inhoud, eerst met
+mosterdzaad en later met loden hagel, en publiceerde daaruit gemiddelden per
+groep die keurig de rangorde van zijn tijd volgden.
+
+Gould herrekende die gegevens en kwam tot de slotsom dat er van fraude geen
+sprake was, maar wel van een reeks keuzes die alle dezelfde richting
+uitwerkten: ongelijke steekproeven, verschillen in geslacht en lichaamsbouw
+die niet werden gecorrigeerd, en subgroepen die werden weggelaten of
+samengevoegd. Zijn term daarvoor is onbewust knoeien. De aanwezigheid van
+Louis Agassiz, die zijn afkeer van zwarte Amerikanen zelf beschreef en er een
+wetenschappelijke leer omheen bouwde, maakt duidelijk hoe dicht het vak bij de
+opvattingen van de onderzoeker lag.
+
+**Broca en de bloeitijd van de craniometrie**
+
+In het tweede historische hoofdstuk staat de Franse school van Paul Broca
+centraal, die hersengewicht en schedelmaten tot een volwaardig vak maakte.
+Gould laat zien hoe het bewijs telkens werd bijgesteld als het de verkeerde
+kant opwees: bleek een gewaardeerde geleerde een lichte hersenmassa te hebben,
+dan telde plots de lichaamslengte mee, of de ouderdom bij overlijden, of de
+doodsoorzaak.
+
+Uit dezelfde traditie komt de ruzie tussen Robert Bennett Bean en Franklin
+Mall over de vorm van de hersenbalk. Bean rapporteerde verschillen tussen
+zwarte en witte hersenen; Mall herhaalde de metingen zonder te weten van wie
+de preparaten waren en vond niets. Dat is in het hele boek het duidelijkste
+voorbeeld van hoe blindering het verschil maakt. Gould behandelt daarnaast de
+criminele antropologie van Cesare Lombroso, die misdadigers als evolutionaire
+terugval las.
+
+**De intelligentietest wordt Amerikaans**
+
+Alfred Binet ontwierp zijn schaal in 1905 in opdracht van het Franse
+onderwijs, om kinderen op te sporen die extra hulp nodig hadden. Hij
+waarschuwde uitdrukkelijk dat de uitkomst geen aangeboren en vaststaande
+grootheid meet, dat de score geen rangorde van kinderen mag opleveren en dat
+achterstand met oefening in te lopen valt.
+
+In de Verenigde Staten werd de schaal precies andersom gebruikt. Henry Goddard
+maakte er een instrument van om zwakzinnigheid vast te stellen, ook bij
+binnenkomende migranten, en illustreerde zijn boek over de familie Kallikak
+met foto's die achteraf waren geretoucheerd om de gezichten dreigender te
+maken. Lewis Terman maakte er met de Stanford-Binet een landelijke maat van.
+
+Het zwaarste hoofdstuk gaat over Robert Yerkes, die tijdens de Eerste
+Wereldoorlog ongeveer 1,75 miljoen Amerikaanse rekruten testte. Gould
+beschrijft de omstandigheden: analfabete mannen die toch een schriftelijke
+toets kregen, vragen die kennis van Amerikaanse merken en beroemdheden
+veronderstelden, chaos in de zalen. Uit die gegevens kwam de conclusie dat de
+gemiddelde witte Amerikaanse man de verstandelijke leeftijd van ongeveer
+dertien jaar had, en dat migranten uit Zuid- en Oost-Europa lager scoorden.
+Die cijfers werden in het politieke debat over migratiebeperking en
+sterilisatie ingezet.
+
+**Factoranalyse en de g-factor**
+
+Het theoretische kernhoofdstuk gaat over Charles Spearman en over de wiskunde
+erachter. Als verschillende toetsen alle positief met elkaar samenhangen,
+levert de gangbare rekenwijze altijd een eerste component op die een groot
+deel van de variatie dekt. Spearman noemde die g en beschouwde hem als
+algemene verstandelijke energie.
+
+Gould brengt daartegen in dat dezelfde matrix van correlaties met een andere,
+even geoorloofde rotatie in meerdere afzonderlijke vermogens uiteenvalt, zoals
+Louis Thurstone deed met zijn primaire vermogens. De wiskunde kan dus niet
+uitmaken of g bestaat; die keuze wordt daarbuiten gemaakt. Het hoofdstuk
+behandelt ook Cyril Burt, wiens tweelingonderzoek grotendeels verzonnen bleek,
+waarbij Gould benadrukt dat de fraude minder erg is dan de denkfout die Burt
+met zijn hele vakgebied deelde.
+
+In het slot zet hij zijn eigen positie neer: variatie is de werkelijkheid en
+de rangorde is het bijproduct. Daarbij hoort zijn steeds herhaalde punt dat de
+erfelijkheidsgraad binnen een groep niets zegt over de oorzaak van een
+verschil tussen groepen.
+
+**De herziening van 1996**
+
+De tweede druk verscheen als antwoord op *The Bell Curve* van Richard
+Herrnstein en Charles Murray uit 1994. Gould voegde een inleiding en twee
+stukken toe, waaronder een opstel over eerdere golven van hetzelfde denken.
+
+Zijn bezwaar tegen Herrnstein en Murray is dat hun betoog staat of valt met
+vier aannames die zij niet verdedigen: dat intelligentie in een getal te
+vatten is, dat mensen erop te rangschikken zijn, dat de grootheid grotendeels
+erfelijk is en dat zij nauwelijks te veranderen valt. De rest van het boek is
+volgens hem statistiek die daarop rust en er niets aan toevoegt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| biologisch determinisme | De leer dat de maatschappelijke verhoudingen tussen groepen voortkomen uit aangeboren biologische verschillen en daarom weinig te veranderen zijn. |
+| reïficatie | Het behandelen van een rekenkundige abstractie, zoals de g-factor, alsof het om een aanwijsbaar ding gaat. |
+| rangordening | De neiging om veelvormige variatie tot een enkele oplopende schaal terug te brengen, met een onder- en een bovenkant. |
+| polygenisme | De negentiende-eeuwse opvatting dat menselijke groepen afzonderlijk zijn ontstaan en als aparte soorten te beschouwen zijn. |
+| craniometrie | Het meten van schedelinhoud en hersengewicht als veronderstelde maat voor verstandelijk vermogen. |
+| g | Spearmans algemene factor, de eerste component uit de samenhang tussen uiteenlopende toetsen, door hem opgevat als algemene verstandelijke energie. |
+| factoranalyse | Rekentechniek die een groot aantal samenhangende metingen tot enkele onderliggende dimensies terugbrengt; welke dimensies eruit komen hangt van de gekozen rotatie af. |
+| erfelijkheidsgraad | Het aandeel van de variatie binnen een groep dat aan erfelijke verschillen is toe te schrijven; zegt op zichzelf niets over de oorzaak van verschillen tussen groepen. |
+| onbewust knoeien | Goulds aanduiding voor het verschijnsel dat oprechte onderzoekers een reeks kleine keuzes maken die alle dezelfde kant op werken, zonder dat er van opzet sprake is. |
+
+#### Waar het argument op rust
+
+Gould gaat naar de bronnen. Hij herrekende Mortons gepubliceerde tabellen, nam
+de opgaven van de Amerikaanse legertests op zodat de lezer kan zien wat er
+werkelijk gevraagd werd, en liet de retouchering in Goddards Kallikak-foto's
+zien. De fraude van Cyril Burt is los van hem vastgesteld, onder meer door de
+biografie van Leslie Hearnshaw uit 1979, dus dat onderdeel steunt niet op
+Goulds eigen oordeel.
+
+De zwakke plek zit in de verhouding tussen de delen. De historische
+hoofdstukken overtuigen door hun materiaal; het hoofdstuk over factoranalyse
+voert een wiskundig argument dat aantoont dat g niet uit de rekenwijze volgt,
+maar niet dat g geen werkelijke grondslag heeft. Het boek suggereert dat het
+eerste het tweede oplevert. Verder ontbreekt vrijwel elke bespreking van de
+empirische kant van het testonderzoek, zoals de voorspellende waarde van
+scores voor school- en beroepsuitkomsten.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar treft precies het beroemdste hoofdstuk. In 2011
+publiceerden Jason Lewis en medeauteurs in PLoS Biology een hermeting van meer
+dan driehonderd schedels uit Mortons verzameling. Zij vonden Mortons opgaven
+grotendeels correct en concludeerden dat Goulds heranalyse zelf fouten bevatte
+en dat hij, zonder ooit een schedel in handen te hebben gehad, de
+vooringenomenheid vond die hij verwachtte. Latere heranalyses van Michael
+Weisberg en van Kaplan, Pigliucci en Banta hebben dat beeld genuanceerd en
+vinden bij beide partijen fouten, maar de aanklacht in de vorm waarin Gould
+haar bracht houdt geen stand. Dat is pijnlijk, want zijn eigen onderwerp is
+hoe verwachting het meetwerk stuurt.
+
+Op de psychometrische kant is de kritiek van vakgenoten hard en grotendeels
+onbeantwoord gebleven. John Carroll, Arthur Jensen en David Bartholomew
+brachten in dat rotatie de positieve samenhang tussen toetsen niet wegneemt:
+welke assen men ook kiest, het feit dat vrijwel alle verstandelijke toetsen
+positief samenhangen blijft staan en vraagt om verklaring. Gould behandelt de
+wiskundige vrijheid alsof die het verschijnsel zelf opheft.
+
+Ten slotte is de bouw van het betoog kwetsbaar. Aantonen dat
+negentiende-eeuwse en vroeg twintigste-eeuwse onderzoekers bevooroordeeld
+waren, zegt niets over de houdbaarheid van hedendaagse beweringen, maar het
+boek laat de lezer wel die overstap maken. Ook de bewering dat de legertests
+het Amerikaanse migratiebeleid van 1924 stuurden is bestreden, onder meer door
+Snyderman en Rothman, die in de parlementaire stukken nauwelijks verwijzingen
+naar dat onderzoek terugvonden.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij elk samengesteld cijfer over mensen wat er precies is samengevoegd
+en welke keuze de rangorde bepaalt.
+- Blindeer metingen waar dat kan: laat wie meet niet weten tot welke groep het
+geval behoort.
+- Let bij een reeks kleine methodische keuzes op of de afwijkingen willekeurig
+verdeeld zijn of stelselmatig dezelfde kant op vallen.
+- Houd erfelijkheid binnen een groep en verklaring van verschillen tussen
+groepen strikt gescheiden; het eerste levert het tweede niet op.
+- Ga bij een beleidsadvies dat op een test steunt na waarvoor die test
+oorspronkelijk is ontworpen en wat de ontwerper erover heeft gezegd.
+
+#### Wat je hierna leest
+
+- 943. Frames of Mind. Gardner zet tegenover de enkele schaal een verdeling in
+meerdere vermogens; dat is de constructieve versie van Goulds afbraakwerk, met
+dezelfde zwakke onderbouwing.
+- 946. The Lady Tasting Tea. Salsburg beschrijft waar de statistische
+technieken vandaan komen die Gould bekritiseert, inclusief het werk van
+Spearman en Pearson en hun eigen opvattingen over erfelijkheid.
+- 950. The Beak of the Finch. Weiner laat zien hoe zorgvuldig meetwerk aan
+levende dieren er wel uitziet, wat een nuttige spiegel is voor de
+schedelmetingen die Gould behandelt.
+
+## 952. Silence: Lectures and Writings
+
+John Cage, 1961. *Silence: Lectures and Writings* (Wesleyan University Press,
+Middletown (Connecticut), 1961, 276 blz., ISBN 9780819560285). Britse editie:
+Marion Boyars, Londen, 1978. Ter gelegenheid van de vijftigste verjaardag
+verscheen een editie met een inleiding van Kyle Gann (Wesleyan University
+Press, 2011; paperback 2013, 312 blz., ISBN 9780819573650). Er bestaat geen
+volledige Nederlandse vertaling; de samenvatting is op de Engelse editie
+gebaseerd. Rubriek: maken en scheppen.
+Tags: `creativiteit`, `muziek`, `essay`, `zen`
+
+*Silence* bundelt lezingen en teksten die John Cage tussen 1939 en 1961
+schreef. De stukken zijn niet omgewerkt tot proza maar staan er zoals hij ze
+voordroeg, met de bladspiegel als partituur: de *Lecture on Nothing* in vier
+kolommen met afgemeten witruimte, *Composition as Process* eveneens in
+kolommen, en *Where Are We Going? and What Are We Doing?* in vier lettertypen
+voor vier tegelijk afgespeelde banden. Tussen de teksten door staan korte
+verhalen, elk bedoeld om in een minuut voor te lezen.
+
+De inhoud draait om een klein aantal stellingen die Cage vanuit steeds andere
+hoeken benadert. Stilte bestaat niet: in de dode kamer van Harvard hoorde hij
+nog twee tonen, en daaruit volgt dat er altijd geluid is om naar te luisteren.
+Muziek hoeft dus niet over gevoelens van de componist te gaan, maar kan
+geluiden zichzelf laten zijn. Om zijn eigen smaak buiten de deur te houden
+werkte hij met tijdstructuren en met toevalsprocedures uit de *I Tjing*.
+Erachter liggen zijn lessen bij Schönberg, zijn gesprekken over Indiase muziek
+en zijn kennismaking met het zenboeddhisme via D.T. Suzuki.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Cage stelt dat er geen stilte bestaat en dat daaruit een
+ander idee van muziek volgt. Als er altijd geluid is, dan is de taak van de
+componist niet om zijn gevoelens in klank uit te drukken maar om een situatie
+in te richten waarin geluiden gehoord worden zoals zij zijn, zonder dat zij
+ergens naar hoeven te verwijzen. Alles wat de smaak van de maker binnenlaat,
+van harmonische ontwikkeling tot persoonlijke voorkeur voor een akkoord, is in
+die opvatting een obstakel; vandaar de tijdstructuren en de toevalsprocedures.
+De inzet is niet vernieuwing van de muziek maar een andere houding tegenover
+de wereld: aandacht zonder oordeel, aan de klank ontleend en op de rest van
+het leven van toepassing verklaard.
+
+#### De gang van het boek
+
+**Een boek dat uitgevoerd wil worden**
+
+De bundel verzamelt vijfentwintig stukken uit ruim twintig jaar, van het
+jeugdige *The Future of Music: Credo* uit de jaren dertig tot de Darmstadtse
+lezingen van 1958. Cage weigerde ze om te werken tot leesbare opstellen. De
+typografie legt vast hoe zij klonken: kolommen die het spreektempo aangeven,
+witregels die stiltes zijn, lettertypen die tegelijk klinkende banden
+aanduiden.
+
+*45' for a Speaker* is opgezet als een van zijn tijdstukken, met aanwijzingen
+voor de spreker op de seconde. De verhalen onder de kop *Indeterminacy* staan
+in de marge en moeten elk binnen een minuut worden voorgelezen, waardoor een
+lang verhaal gejaagd klinkt en een kort verhaal traag. De vorm is daarmee zelf
+een argument: betekenis komt mede uit de tijd waarin iets wordt gezegd.
+
+**Ruis toelaten**
+
+In het vroegste stuk kondigt Cage aan dat het gebruik van geruis om muziek te
+maken zal toenemen en dat elektrische instrumenten de componist toegang zullen
+geven tot elke hoorbare klank. Waar wij ook zijn, wat wij horen is
+voornamelijk geruis, schrijft hij, en dat geruis stoort ons zolang wij het
+negeren.
+
+De praktijk die daarbij hoort staat in de stukken over zijn eigen werk:
+slagwerkorkesten uit huisraad en remtrommels, en de geprepareerde piano,
+waarbij schroeven, bouten en rubber tussen de snaren van een vleugel een
+compleet slagwerkensemble maken dat door een pianist bediend wordt. Dat begon
+uit noodzaak, omdat er in een danszaal geen ruimte voor een slagwerkgroep was.
+
+**Er is geen stilte**
+
+De bekendste passage betreft zijn bezoek aan de echovrije kamer van Harvard,
+rond 1951. Hij verwachtte niets te horen en hoorde twee tonen, een hoge en een
+lage. De technicus zei hem dat het zijn zenuwstelsel en zijn bloedsomloop
+waren. Cages conclusie, in *Experimental Music* uit 1957: tot aan zijn dood
+zullen er geluiden zijn, en daarna gaan zij door.
+
+Daaruit volgt het stuk waarvoor hij het bekendst is. In 1952 speelde David
+Tudor in Woodstock *4'33"*, drie delen waarin de uitvoerder niets speelt. Wat
+er te horen valt is wat er toevallig gebeurt: regen op het dak, publiek dat
+ongemakkelijk wordt, verkeer. Cage beschrijft dat niet als grap maar als het
+wegnemen van de laatste laag bedoeling, zodat alleen de omlijsting overblijft.
+
+**Structuur in plaats van smaak**
+
+Cage onderscheidt structuur, methode, vorm en materiaal, en stelt dat de
+westerse traditie de structuur aan de harmonie ontleende. Zijn alternatief is
+de ritmische structuur: lege tijdvakken die zich op groot en klein niveau in
+dezelfde verhouding herhalen en die met elk materiaal gevuld kunnen worden,
+ook met stilte. Die opzet leerde hij mede uit de Indiase muziek, waarover hij
+van Gita Sarabhai hoorde.
+
+De volgende stap is het toeval. Voor *Music of Changes* uit 1951 bepaalde hij
+toonhoogte, duur en dynamiek met muntworpen volgens de *I Tjing*. In de
+Darmstadtse lezingen scheidt hij twee zaken die vaak door elkaar lopen:
+compositie met toevalsprocedures, waarbij de partituur daarna vastligt, en
+onbepaaldheid, waarbij de partituur zo is opgezet dat elke uitvoering anders
+uitvalt. Ananda Coomaraswamy leverde de formule waarmee hij dat verdedigde:
+kunst bootst de natuur na in haar wijze van werken.
+
+**Waartoe het dient**
+
+Op de vraag waar muziek voor is, geeft Cage een geleend antwoord: om de geest
+tot bedaren te brengen en zo ontvankelijk te maken voor goddelijke invloeden.
+Hij hoorde het van Sarabhai, die het van haar leraar had, en het komt in de
+bundel meermalen terug. Van daaruit is de stap naar het zenboeddhisme klein;
+hij volgde in New York de lessen van D.T. Suzuki en haalt daarnaast Meester
+Eckhart en Huang Po aan.
+
+De *Lecture on Nothing* zet die houding om in vorm. Ik heb niets te zeggen en
+ik zeg het, en dat is poëzie zoals ik haar nodig heb, luidt de bekendste
+regel. De stukken over Erik Satie, Edgard Varèse en Robert Rauschenberg passen
+dezelfde maatstaf op anderen toe.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| experimentele muziek | Bij Cage niet muziek die nieuw klinkt, maar een handeling waarvan de uitkomst niet vooraf bekend is. |
+| stilte | In Cages omschrijving geen afwezigheid van geluid, die niet bestaat, maar de aanwezigheid van geluid dat niemand bedoeld heeft. |
+| toevalsprocedures | Het vastleggen van compositorische keuzes met muntworpen volgens de *I Tjing*, om de smaak van de componist uit het resultaat te houden. |
+| onbepaaldheid | Een partituur die zo is opgezet dat de uitvoering per keer verschilt, te onderscheiden van compositie waarbij alleen het maakproces aan het toeval werd overgelaten. |
+| ritmische structuur | Een indeling in lege tijdvakken die zich op groot en klein niveau in dezelfde verhouding herhalen en die met elk materiaal gevuld kunnen worden. |
+| geprepareerde piano | Een vleugel met schroeven, bouten en rubber tussen de snaren, waardoor een pianist over een slagwerkensemble beschikt. |
+| niet-intentie | Het uitschakelen van de bedoelingen van de maker als maatstaf voor wat er in een stuk terechtkomt. |
+| 4'33" | Het stuk uit 1952 in drie delen waarin niet gespeeld wordt, zodat het omgevingsgeluid de inhoud van de uitvoering vormt. |
+
+#### Waar het argument op rust
+
+Dit is een verzameling standpunten en werkverslagen, geen betoog met
+onderbouwing. Wat controleerbaar is, is de praktijk: de stukken bestaan, de
+partituren en de procedures zijn gedocumenteerd, en de uitvoeringen hebben
+plaatsgevonden. Ook de biografische gegevens kloppen: de lessen bij Schönberg,
+de gesprekken met Gita Sarabhai, de lessen van Suzuki in New York en het
+bezoek aan de echovrije kamer zijn los van Cage gedocumenteerd.
+
+Wat niet controleerbaar is, is de kern zelf. De bewering dat een luisteraar
+geluid kan horen zonder het te duiden, wordt niet aangetoond maar aangeboden
+als uitnodiging. Cage voert geen enkele waarneming aan over wat toehoorders
+werkelijk deden.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat *4'33"* alleen werkt binnen de omlijsting die het
+zegt op te heffen. Zonder zaal, zonder programmaboekje en zonder een
+uitvoerder die zichtbaar niets doet, is er geen stuk maar alleen een kamer met
+geluid. De bedoelingloosheid berust dus op een zeer doelbewust ingerichte
+inrichting, en Cage gaat die tegenspraak nergens aan. Hetzelfde geldt voor de
+toevalsprocedures: wie bepaalt welke vragen aan de *I Tjing* worden gesteld en
+welke antwoordreeks in welke parameter terechtkomt, oefent smaak uit op een
+niveau hoger.
+
+Het anekdotische fundament is bovendien zwakker dan het draagt. Wat Cage in de
+echovrije kamer hoorde was vrijwel zeker geen bloedsomloop; een lage bromtoon
+in stilte wijst eerder op oorsuizen of op spontane emissies van het binnenoor.
+Op dat verhaal rust een groot deel van zijn redenering over stilte, terwijl de
+conclusie ook zonder de gemankeerde fysiologie te verdedigen was geweest.
+
+Ten slotte is de vorm een schild. Zinnen die als muziek zijn geschikt, met
+kolommen en witruimte, laten zich moeilijk tegenspreken: er valt geen bewering
+aan te wijzen die onjuist zou kunnen zijn. Tijdgenoten die het toch
+probeerden, met Pierre Boulez voorop, verweten Cage dat het overlaten van
+keuzes aan het toeval neerkomt op het afschuiven van verantwoordelijkheid voor
+het resultaat.
+
+#### Wat er concreet mee te doen is
+
+- Luister een tijdlang naar de geluiden in een ruimte zonder ze te benoemen
+als storend of gewenst, en schrijf achteraf op wat er te horen was.
+- Leg bij het maken van iets eerst de tijdsindeling vast en pas daarna het
+materiaal, zodat de vorm niet uit de smaak van het moment voortkomt.
+- Voer een lot of een beperking in bij een keuze waar de eigen voorkeur
+telkens hetzelfde antwoord oplevert, en houd je aan de uitkomst.
+
+#### Wat je hierna leest
+
+- 528. An Introduction to Zen Buddhism. Suzuki gaf de lessen in New York waar
+Cage zijn zenbegrippen vandaan haalde; het boek laat zien hoeveel Cage overnam
+en hoeveel hij naar eigen inzicht boog.
+- 17. The Creative Act. Rubin herhaalt zestig jaar later een groot deel van
+Cages houding, met dezelfde nadruk op aandacht en op het uitschakelen van
+bedoeling, maar zonder de strengheid van de procedures.
+- 14. The Artist's Way. Cameron bouwt haar methode juist op het uiten van het
+zelf, wat een scherpe tegenpool vormt van Cages poging de maker uit het werk
+te halen.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
 
 `1906` 127 · `1908` 378 · `1937` 76 · `1938` 58 · `1952` 83 ·
 `19e-eeuws-Duitsland` 391 · `aanbod` 307 · `aandacht` 17, 34, 54, 70, 71, 78,
-141, 205, 209, 248, 288, 326, 333, 341, 390, 441, 461, 517, 579, 581, 700 ·
-`aandeelhouders` 567 · `aandelen` 474, 481 · `aannames` 27 ·
+141, 205, 209, 248, 288, 326, 333, 341, 390, 441, 461, 517, 579, 581, 700,
+800, 802 · `aandeelhouders` 567 · `aandelen` 474, 481, 804 · `aannames` 27 ·
 `aanpassingsvermogen` 157, 252 · `aantekeningen` 81 · `aantekeningen maken`
 420 · `aanwezigheid` 149, 435 · `aarde` 92 · `abonnees` 369 · `absurdisme` 173
 · `academisch` 143 · `acausaliteit` 362 · `acceptance and commitment therapy`
@@ -143051,81 +157926,83 @@ diaspora` 601 · `afrocentrisme` 588, 589, 591, 592, 593, 595, 597 · `afscheid
 nemen` 285 · `afschrikking` 217 · `afvallen` 557 · `afwezige-vader` 4 ·
 `agenda` 512 · `agressie` 223, 339 · `alchemie` 631, 633, 642, 646 · `alcohol`
 4 · `algoritmen` 476, 477, 479 · `alledaags` 89 · `alledaagse werkelijkheid`
-721 · `allegorie` 222, 524, 631 · `allocatie` 507 · `amazon` 257 · `ambacht`
-6, 12, 13, 17, 18 · `ambitie` 75 · `amerika` 600 · `Amerika` 114, 431 ·
-`amerikaans` 117, 118, 120, 132, 133, 134, 136, 158 · `amerikaanse
+721 · `allegorie` 222, 524, 631 · `allocatie` 507, 813 · `amazon` 257 ·
+`ambacht` 6, 12, 13, 17, 18 · `ambitie` 75 · `amerika` 600 · `Amerika` 114,
+431 · `amerikaans` 117, 118, 120, 132, 133, 134, 136, 158 · `amerikaanse
 buitenlandpolitiek` 693, 694 · `amerikaanse droom` 284 · `amerikaanse
 geschiedenis` 621, 691 · `Amerikaanse geschiedenis` 402 · `amerikaanse
-revolutie` 243 · `Amsterdam` 295 · `anarchisme` 616, 620, 621, 624, 625, 626 ·
-`anarchokapitalisme` 627, 629 · `anatomie` 241, 412 · `Andalusië` 8 · `Andes`
-521 · `angst` 53, 58, 107, 119, 131, 136, 140, 181, 214, 252, 341, 401, 440,
-548 · `angst voor de dood` 377 · `animatie` 41 · `anomie` 715 · `Antarctica`
-36 · `anthologie` 189 · `antieke filosofie` 586 · `antropologie` 223, 410,
-602, 716, 717, 718, 719, 722, 723, 758, 764 · `antwerpen` 113 · `apartheid`
-26, 523 · `Apple` 46, 231 · `apps` 294 · `arbeid` 6, 173, 297, 390 ·
-`arbeidsethos` 266 · `archeologie` 600, 762 · `archetype` 360 · `archetypen`
-357, 404, 407, 409, 410 · `Argentinië` 521 · `argumentatie` 421, 437, 511 ·
-`argumenten` 63 · `argumenteren` 438 · `Aristoteles` 438 · `armoede` 26, 234,
-254 · `Arthashastra` 370 · `assertiviteit` 162 · `astrologie` 632 ·
-`asymmetrie` 282 · `atletiek` 31 · `atomisme` 281 · `Auschwitz` 48 ·
-`Australië` 447 · `autobiografie` 358, 440 · `automatisering` 297, 539 ·
-`autonomie` 6, 50 · `autoriteit` 215 · `autotelie` 200 · `ayahuasca` 759 ·
-`backtesten` 482, 502 · `banken en verzekeraars` 497 · `barok` 216 ·
-`basisbehoeften` 107 · `bbc` 82 · `bedrijfsbestuur` 567 · `bedrijfscultuur`
-170, 257, 270 · `bedrijfsgroei` 350 · `bedrijfsleven` 209, 293 ·
-`bedrijfsonderzoek` 353 · `bedrijfssystemen` 264 · `beeldcultuur` 563 ·
-`beeldverhaal` 561 · `beginners` 112 · `behoeften` 35 · `beinvloeding` 123,
-126 · `beïnvloeding` 399 · `bekentenis` 60 · `belangenverstrengeling` 138, 752
-· `beleggen` 21, 64, 144, 233, 277, 351, 474, 476, 477, 478, 479, 480, 481,
-482, 483, 484, 485, 486, 489, 490, 492, 496, 498, 499, 500, 501, 502, 503,
-504, 505 · `beleid` 65 · `belichaamde cognitie` 755 · `beloningssysteem` 418 ·
-`bemiddeling` 35 · `beroemdheden` 128 · `beroemdheid` 563 ·
-`beschadigd-bestand` 115, 130 · `beschaving` 57, 593 · `beslissen` 55 ·
-`beslissingen` 197 · `besluiten` 47, 59, 69, 137 · `besluitvorming` 151, 166,
-170, 174, 209, 270, 282, 283, 293, 299, 364, 396, 423, 424, 426, 450, 451,
-468, 475, 510 · `bestseller` 8, 37, 250 · `betekenis` 143 · `bethel` 559 ·
-`betrokkenheid` 472 · `beurs` 80, 488 · `beurshandel` 487 · `beursrendement`
-353 · `beweging` 77, 84 · `bewijs` 63, 658, 660 · `bewustwording` 103 ·
-`bewustzijn` 148, 169, 200, 275, 340, 377, 518, 580, 585, 652, 663, 759, 760,
-761, 763, 767 · `bewustzijnsniveaus` 449 · `bezit` 37 · `bhagavad gita` 569 ·
-`bias` 209 · `bijeenkomsten` 304 · `bijgeloof` 63 · `bijna-doodervaring` 585 ·
-`biografie` 31, 46, 189, 231, 240, 241, 243, 247, 266, 267, 269, 320, 328,
-402, 454, 514, 537, 558, 649, 658, 659, 689 · `biohacking` 316 · `biologie`
-66, 88, 89, 90, 91, 322, 663 · `biologie van gedrag` 273 · `biologische klok`
-326, 329, 552 · `biotechnologie` 236, 413 · `blackjack` 505 · `bloedvaten` 86
-· `bloedwaarden` 313 · `bloemlezing` 758 · `blokkade` 14 · `boeddhisme` 111,
-287, 333, 341, 401, 528, 755 · `bootstrapping` 369 · `brainstormen` 33 ·
-`branding` 443 · `brein` 414 · `brieven` 292, 517 · `broers` 10 ·
-`bronnenkritiek` 691 · `bronnenuitgave` 641 · `budgetteren` 159, 233, 464 ·
-`buitenlandse hulp` 221 · `burgerlijk verzet` 617 · `burgerschap` 243 ·
-`burn-out` 135, 207, 400, 551, 552 · `bushido` 535 · `cafeïne` 52 ·
-`Californië` 10 · `carl jung` 258 · `carrière` 146, 158, 388 · `cases` 40 ·
-`cashflow` 37 · `celbiologie` 419 · `censuur` 685 · `chakra's` 432 ·
-`challenger` 62 · `Chanakya` 370 · `channeling` 549, 670, 677, 678, 679, 768 ·
-`chaos` 74, 347 · `chapbook` 100 · `charismatisch christendom` 559 · `China`
-348 · `Chinese filosofie` 389, 394 · `Chinese geschiedenis` 219 ·
-`chiropractie` 432 · `christendom` 162, 201, 391, 603, 606, 612, 754 ·
-`chronobiologie` 326, 329 · `cia` 693, 750 · `cijfers` 39, 65 ·
-`civilisatiekritiek` 298 · `classificatie` 719 · `coaching` 161, 291, 441 ·
-`cognitie` 656 · `cognitieve gedragstherapie` 147, 153, 373 · `cognitieve
-herstructurering` 177 · `cognitieve neurowetenschap` 763 · `cognitieve
-psychologie` 759 · `cognitieve vertekening` 234 · `cognitieve wetenschap` 467
-· `cognitieve-bias` 59 · `cognitiewetenschap` 755, 767 · `collectief
-bewustzijn` 435 · `collectief onbewuste` 357, 360, 362 · `columns` 89, 90 ·
-`coma` 763 · `comfortzone` 187 · `commando` 97 · `communicatie` 34, 35, 122,
-145, 152, 156, 162, 164, 183, 186, 193, 213, 305, 338, 356, 398, 399, 444,
-466, 475, 539, 555 · `communisme` 625 · `complexiteit` 170, 268, 300, 347, 423
-· `complimenten geven` 356 · `complotdenken` 667, 668, 672, 676, 683, 684,
-688, 690 · `complottheorie` 680 · `concentratie` 70, 441 · `concurrentie` 293
-· `conditionering` 61, 519 · `conflict` 35, 42, 43, 212, 305 ·
+revolutie` 243, 924 · `Amsterdam` 295 · `anarchisme` 616, 620, 621, 624, 625,
+626, 916, 917, 926 · `anarchokapitalisme` 627, 629 · `anatomie` 241, 412 ·
+`Andalusië` 8 · `Andes` 521 · `angst` 53, 58, 107, 119, 131, 136, 140, 181,
+214, 252, 341, 401, 440, 548 · `angst voor de dood` 377 · `animatie` 41 ·
+`anomie` 715 · `Antarctica` 36 · `anthologie` 189 · `antieke filosofie` 586 ·
+`antropologie` 223, 410, 602, 716, 717, 718, 719, 722, 723, 758, 764 ·
+`antwerpen` 113 · `apartheid` 26, 523 · `Apple` 46, 231 · `apps` 294 ·
+`arbeid` 6, 173, 297, 390, 905 · `arbeidsethos` 266 · `archeologie` 600, 762 ·
+`archetype` 360 · `archetypen` 357, 404, 407, 409, 410 · `Argentinië` 521 ·
+`argumentatie` 421, 437, 511 · `argumenten` 63 · `argumenteren` 438 ·
+`Aristoteles` 438 · `armoede` 26, 234, 254 · `Arthashastra` 370 ·
+`assertiviteit` 162 · `astrologie` 632 · `asymmetrie` 282 · `atletiek` 31 ·
+`atomisme` 281 · `Auschwitz` 48 · `Australië` 447 · `autobiografie` 358, 440 ·
+`automatisering` 297, 539 · `autonomie` 6, 50 · `autoriteit` 215 · `autotelie`
+200 · `ayahuasca` 759 · `backtesten` 482, 502 · `banken en verzekeraars` 497 ·
+`barok` 216 · `basisbehoeften` 107 · `bbc` 82 · `bedrijfsbestuur` 567 ·
+`bedrijfscultuur` 170, 257, 270 · `bedrijfsgroei` 350 · `bedrijfsleven` 209,
+293, 903 · `bedrijfsonderzoek` 353 · `bedrijfssystemen` 264 · `beeldcultuur`
+563 · `beeldverhaal` 561 · `beginners` 112 · `behoeften` 35 · `beinvloeding`
+123, 126 · `beïnvloeding` 399 · `bekentenis` 60 · `belangenverstrengeling`
+138, 752 · `beleggen` 21, 64, 144, 233, 277, 351, 474, 476, 477, 478, 479,
+480, 481, 482, 483, 484, 485, 486, 489, 490, 492, 496, 498, 499, 500, 501,
+502, 503, 504, 505, 804, 807, 808, 810, 811, 812, 813, 814 · `beleid` 65 ·
+`belichaamde cognitie` 755 · `beloningssysteem` 418 · `bemiddeling` 35 ·
+`beroemdheden` 128 · `beroemdheid` 563 · `beschadigd-bestand` 115, 130 ·
+`beschaving` 57, 593, 939 · `beslissen` 55 · `beslissingen` 197 · `besluiten`
+47, 59, 69, 137 · `besluitvorming` 151, 166, 170, 174, 209, 270, 282, 283,
+293, 299, 364, 396, 423, 424, 426, 450, 451, 468, 475, 510, 906, 908, 909 ·
+`bestseller` 8, 37, 250 · `betekenis` 143 · `bethel` 559 · `betrokkenheid` 472
+· `beurs` 80, 488, 814 · `beurshandel` 487 · `beurskrach` 809 ·
+`beursrendement` 353 · `beweging` 77, 84 · `bewijs` 63, 658, 660 ·
+`bewustwording` 103 · `bewustzijn` 148, 169, 200, 275, 340, 377, 518, 580,
+585, 652, 663, 759, 760, 761, 763, 767, 918, 927, 928 · `bewustzijnsniveaus`
+449 · `bezit` 37 · `bhagavad gita` 569 · `bias` 209 · `bijeenkomsten` 304 ·
+`bijgeloof` 63 · `bijna-doodervaring` 585 · `biografie` 31, 46, 189, 231, 240,
+241, 243, 247, 266, 267, 269, 320, 328, 402, 454, 514, 537, 558, 649, 658,
+659, 689, 905 · `biohacking` 316 · `biologie` 66, 88, 89, 90, 91, 322, 663,
+941, 949, 950 · `biologie van gedrag` 273 · `biologische klok` 326, 329, 552 ·
+`biotechnologie` 236, 413 · `blackjack` 505 · `bloedvaten` 86 · `bloedwaarden`
+313 · `bloemlezing` 758 · `blokkade` 14 · `boeddhisme` 111, 287, 333, 341,
+401, 528, 755 · `bootstrapping` 369 · `brainstormen` 33 · `branding` 443 ·
+`brein` 414 · `brieven` 292, 517 · `broers` 10 · `bronnenkritiek` 691 ·
+`bronnenuitgave` 641 · `budgetteren` 159, 233, 464 · `buitenlandse hulp` 221 ·
+`burgerlijk verzet` 617 · `burgerschap` 243 · `burn-out` 135, 207, 400, 551,
+552 · `bushido` 535 · `cafeïne` 52 · `Californië` 10 · `carl jung` 258 ·
+`carrière` 146, 158, 388 · `cases` 40 · `cashflow` 37 · `celbiologie` 419 ·
+`censuur` 685 · `chakra's` 432 · `challenger` 62 · `Chanakya` 370 ·
+`channeling` 549, 670, 677, 678, 679, 768 · `chaos` 74, 347 · `chapbook` 100 ·
+`charismatisch christendom` 559 · `China` 348 · `Chinese filosofie` 389, 394 ·
+`Chinese geschiedenis` 219 · `chiropractie` 432 · `christendom` 162, 201, 391,
+603, 606, 612, 754 · `chronobiologie` 326, 329 · `cia` 693, 750 · `cijfers`
+39, 65 · `civilisatiekritiek` 298 · `classificatie` 719 · `coaching` 161, 291,
+441 · `cognitie` 656 · `cognitieve gedragstherapie` 147, 153, 373 ·
+`cognitieve herstructurering` 177 · `cognitieve neurowetenschap` 763 ·
+`cognitieve psychologie` 759 · `cognitieve vertekening` 234 · `cognitieve
+wetenschap` 467 · `cognitieve-bias` 59 · `cognitiewetenschap` 755, 767 ·
+`collectief bewustzijn` 435 · `collectief onbewuste` 357, 360, 362 · `columns`
+89, 90 · `coma` 763 · `comfortzone` 187 · `commando` 97 · `communicatie` 34,
+35, 122, 145, 152, 156, 162, 164, 183, 186, 193, 213, 305, 338, 356, 398, 399,
+444, 466, 475, 539, 555 · `communisme` 625 · `complexiteit` 170, 268, 300,
+347, 423 · `complimenten geven` 356 · `complotdenken` 667, 668, 672, 676, 683,
+684, 688, 690, 914, 915, 916, 917, 920, 921, 923, 925, 926, 931 ·
+`complottheorie` 680 · `concentratie` 70, 441, 802 · `concurrentie` 293, 902 ·
+`conditionering` 61, 519 · `conflict` 35, 42, 43, 212, 305 ·
 `conflictbemiddeling` 304 · `conflicthantering` 271 · `conformisme` 211 ·
 `consistentie` 553 · `consument` 703, 704 · `consumptie` 463 ·
 `consumptiekeuzes` 299 · `consumptiemaatschappij` 564 · `content` 308 ·
 `content creatie` 365 · `content marketing` 369 · `copywriting` 695, 697, 698,
 699, 701 · `corruptie` 221 · `creativiteit` 11, 12, 13, 14, 15, 16, 17, 74,
-206, 312, 349, 418, 445, 471, 472, 475, 550, 702 · `cricket` 174 · `crisis` 47
-· `CRISPR` 413 · `cultuur` 68, 274, 764 · `cultuurfilosofie` 580 ·
-`cultuurkritiek` 54, 405, 592, 672, 722 · `cursus` 108, 130, 201 ·
+206, 312, 349, 418, 445, 471, 472, 475, 550, 702, 803, 952 · `cricket` 174 ·
+`crisis` 47, 807 · `CRISPR` 413 · `cultuur` 68, 274, 764 · `cultuurfilosofie`
+580 · `cultuurkritiek` 54, 405, 592, 672, 722 · `cursus` 108, 130, 201 ·
 `cursus-in-wonderen` 102, 131, 548 · `cybernetica` 411, 539, 540, 541 ·
 `cynisme` 250, 319 · `Cyrus de Grote` 536 · `dagboek` 2, 109, 224, 286, 579 ·
 `dagboekaantekeningen` 226 · `dagboekmethode` 78 · `dagboekonderzoek` 472 ·
@@ -143133,26 +158010,27 @@ bewustzijn` 435 · `collectief onbewuste` 357, 360, 362 · `columns` 89, 90 ·
 433 · `darmbacteriën` 417 · `dataïsme` 236 · `daten` 166 · `de ander` 574 ·
 `debat` 28 · `debuutboek` 226 · `deeltjesfysica` 648 · `degrowth` 298 ·
 `dekoloniaal denken` 521 · `delegeren` 434 · `deliberate practice` 376 ·
-`dementie` 84, 85, 225 · `democratie` 98, 562, 619, 628, 753 · `denken` 310,
-509, 664 · `denkfouten` 55, 59, 142, 396, 437, 510, 514 · `denkmethode` 471 ·
-`denkmodellen` 426 · `depressie` 403 · `derivaten` 494, 495 · `design
-thinking` 150 · `destructiviteit` 223 · `deugd` 247, 459, 581 · `diagnose` 104
-· `dialoog` 335, 572 · `dichotomie van controle` 194 · `dichtwerk` 524 ·
-`dictatuur` 221 · `dienstbaarheid` 230, 245, 535 · `diepe-tijd` 239 ·
-`dieptepsychologie` 646 · `dieren` 555 · `dierenzintuigen` 322 · `dierkunde`
-760 · `dierlijke-cognitie` 383 · `dierproeven` 330 · `differentiatie` 165 ·
-`digitaal` 81 · `diplomatie` 243 · `direct response` 350 · `direct-marketing`
-695, 697, 698, 699 · `DISC` 156, 429 · `discipline` 12, 13, 22, 30, 106, 133,
-137, 146, 445, 462, 480, 481, 482, 487, 488, 545 · `discours` 628 ·
-`disruptie` 293 · `DNA` 419 · `docenten` 116 · `doelen` 58, 136, 158, 542 ·
-`doelen stellen` 367, 427, 448 · `doelgericht-oefenen` 50 · `doelgroep` 446 ·
-`doelstellingen` 256 · `donkere-triade` 124 · `dood` 98, 169, 292, 535 ·
-`doodsangst` 405 · `doorzetten` 20 · `doorzettingsvermogen` 185, 249, 289, 324
-· `dopamine` 314, 418 · `drogredenen` 421 · `dromen` 52, 357, 358, 359, 360,
-646 · `drugs` 568 · `dummies` 112 · `durfkapitaal` 47 · `duurzaamheid` 92 ·
-`dystopie` 61, 618 · `e-commerce` 257 · `e-mail` 70, 512 · `e-mailmarketing`
-309 · `ecologie` 298 · `economie` 65, 98, 217, 251, 297, 347, 423, 450, 452,
-478, 625, 627, 683, 718 · `economische geschiedenis` 155 · `educatief` 327 ·
+`dementie` 84, 85, 225 · `democratie` 98, 562, 619, 628, 753, 910 · `denken`
+310, 509, 664 · `denkfouten` 55, 59, 142, 396, 437, 510, 514 · `denkmethode`
+471 · `denkmodellen` 426, 928 · `depressie` 403 · `derivaten` 494, 495, 810 ·
+`design thinking` 150 · `destructiviteit` 223 · `deugd` 247, 459, 581 ·
+`diagnose` 104 · `dialoog` 335, 572 · `dichotomie van controle` 194 ·
+`dichtwerk` 524 · `dictatuur` 221 · `dienstbaarheid` 230, 245, 535 ·
+`diepe-tijd` 239 · `dieptepsychologie` 646 · `dieren` 555 · `dierenzintuigen`
+322 · `dierkunde` 760 · `dierlijke-cognitie` 383 · `dierproeven` 330 ·
+`differentiatie` 165 · `digitaal` 81 · `diplomatie` 243 · `direct response`
+350 · `direct-marketing` 695, 697, 698, 699 · `DISC` 156, 429 · `discipline`
+12, 13, 22, 30, 106, 133, 137, 146, 445, 462, 480, 481, 482, 487, 488, 545,
+800 · `discours` 628 · `disruptie` 293 · `DNA` 419 · `docenten` 116 · `doelen`
+58, 136, 158, 542 · `doelen stellen` 367, 427, 448 · `doelgericht-oefenen` 50
+· `doelgroep` 446 · `doelstellingen` 256 · `donkere-triade` 124 · `dood` 98,
+169, 292, 535 · `doodsangst` 405 · `doorzetten` 20 · `doorzettingsvermogen`
+185, 249, 289, 324 · `dopamine` 314, 418 · `drogredenen` 421 · `dromen` 52,
+357, 358, 359, 360, 646 · `drugs` 568 · `dummies` 112 · `durfkapitaal` 47 ·
+`duurzaamheid` 92 · `dystopie` 61, 618 · `e-commerce` 257 · `e-mail` 70, 512 ·
+`e-mailmarketing` 309 · `ecologie` 298 · `economie` 65, 98, 217, 251, 297,
+347, 423, 450, 452, 478, 625, 627, 683, 718, 809, 910, 933 · `economische
+geschiedenis` 155, 804, 806, 807, 808, 809, 814, 933 · `educatief` 327 ·
 `eenvoud` 170, 205, 379 · `eenzaamheid` 7, 96, 98, 111, 288, 302 · `eer` 530,
 534 · `eerlijk` 47 · `eerlijkheid` 62 · `eerste-versie` 19 · `ego` 75, 102,
 149, 435 · `ego en zelf` 409 · `ego-depletie` 382 · `egypte` 591, 594, 595,
@@ -143164,70 +158042,73 @@ thinking` 150 · `destructiviteit` 223 · `deugd` 247, 459, 581 · `diagnose` 10
 `empathie` 35, 67, 303, 577 · `enactivisme` 755 · `energetisch werk` 560 ·
 `energie` 92, 195, 291, 377 · `energiewerk` 432 · `entropie` 539 ·
 `epigenetica` 208, 415 · `epos` 5, 530, 531, 532 · `erfelijkheid` 419 ·
-`erfenis` 39 · `erkenningszucht` 406 · `erotiek` 113, 164 · `esoterie` 378,
-590, 603, 605, 606, 613, 630, 631, 632, 633, 634, 635, 642, 643, 644, 645,
-647, 670, 678, 679 · `essay` 3, 9, 21, 57, 59, 63, 64, 68, 96, 197, 232 ·
-`essaybundel` 390, 425, 620 · `essays` 523, 656 · `esthetica` 756 · `eten` 103
-· `ethiek` 282, 299, 413, 574, 612, 665 · `etnobotanie` 765 · `etnografie` 764
-· `eurazië` 694 · `europa` 751 · `evangelisatie` 201 · `evolutie` 56, 66, 89,
-90, 91, 239, 318, 322, 323, 332, 339, 347, 383, 518, 609, 760, 762, 767 ·
-`evolutiebiologie` 452, 453 · `evolutionaire-psychologie` 67 · `excellentie`
-553 · `executives` 344 · `existentialisme` 405 · `existentiefilosofie` 757 ·
-`expeditie` 36 · `experiment` 79, 215 · `experimenten` 280, 424 ·
-`experimenteren` 265 · `expertise` 283, 320, 376 · `extra dimensies` 648 ·
-`extraversie` 361 · `fabel` 8, 42, 135, 167, 252 · `facilitatie` 304 · `falen`
-23, 72, 75, 312, 422 · `familie` 45, 325, 466 · `familieconflict` 178 ·
-`familiegeschiedenis` 114, 235 · `familieroman` 10 · `fantasy` 192, 203 ·
-`farmaceutische industrie` 752 · `fascisme` 753 · `FBI` 154, 271 ·
-`FBI-onderzoek` 431 · `federalisme` 619 · `feedback` 41, 296, 541, 542 ·
-`feiten` 43 · `feminisme` 3, 620, 624 · `fenomenologie` 574, 577, 582, 721,
-755, 757, 759 · `fictie` 100, 115 · `film` 41 · `filologie` 641 · `filosofie`
-1, 6, 71, 93, 199, 211, 216, 224, 247, 255, 263, 292, 299, 383, 390, 391, 392,
-393, 421, 436, 442, 521, 588, 592, 594, 597, 604, 610, 652, 654 · `filosofie
-van de biologie` 760 · `filosofiegeschiedenis` 269, 639 · `filosofische
-antropologie` 584 · `financiële geletterdheid` 163 · `financiële markten` 268,
-351, 480, 481, 483, 499, 501 · `financiële onafhankelijkheid` 264 ·
-`financiele vrijheid` 277 · `financiële wiskunde` 497, 507 ·
-`financiële-discipline` 464 · `financiën` 334, 395, 425 · `financiering` 172 ·
-`fitnessbranche` 307, 544 · `flitshandel` 499 · `flow` 78, 187, 200 · `focus`
-175, 197, 448, 513 · `folklore` 615, 669 · `fotoboek` 189 · `foutcultuur` 422
-· `fouten maken` 509 · `franchise` 544 · `frankrijk` 115 · `Franse-Weerstand`
-390 · `freelance` 515 · `Fulani` 522 · `fysieke uitdaging` 323 · `fysiologie`
-318, 412, 458 · `Galenus` 328 · `gaslighting` 123 · `gastheerschap` 304 ·
-`gastvrijheid` 531 · `gebed` 83, 259, 573 · `gebruikersgedrag` 294 ·
-`gedachten` 148, 177 · `gedachtenjournal` 176 · `gedrag` 21, 22, 89, 90, 138,
-154, 280, 330, 383, 425 · `gedragsbiologie` 322, 339 · `gedragseconomie` 424,
-426, 514 · `gedragsonderzoek` 302, 382 · `gedragspatronen` 161 ·
-`gedragspsychologie` 294 · `gedragstypen` 156 · `gedragsverandering` 238, 290,
-457, 469 · `gedragswetenschap` 166, 209, 305, 468, 469, 510 · `geduld` 21, 351
-· `geest` 584, 652 · `geestelijke gezondheid` 193 · `geestelijke oefeningen`
-586 · `gegevensanalyse` 486 · `gehechtheid` 166 · `geheim genootschap` 202 ·
+`erfenis` 39 · `erkenningszucht` 406 · `erotiek` 113, 164, 914 · `esoterie`
+378, 590, 603, 605, 606, 613, 630, 631, 632, 633, 634, 635, 642, 643, 644,
+645, 647, 670, 678, 679, 917, 928, 937 · `essay` 3, 9, 21, 57, 59, 63, 64, 68,
+96, 197, 232, 952 · `essaybundel` 390, 425, 620, 926, 927, 934 · `essays` 523,
+656 · `esthetica` 756 · `eten` 103 · `ethiek` 282, 299, 413, 574, 612, 665 ·
+`etnobotanie` 765 · `etnografie` 764 · `eurazië` 694 · `europa` 751 ·
+`evangelisatie` 201 · `evolutie` 56, 66, 89, 90, 91, 239, 318, 322, 323, 332,
+339, 347, 383, 518, 609, 760, 762, 767, 950 · `evolutiebiologie` 452, 453 ·
+`evolutionaire-psychologie` 67 · `excellentie` 553 · `executives` 344 ·
+`existentialisme` 405, 940 · `existentiefilosofie` 757 · `expeditie` 36 ·
+`experiment` 79, 215 · `experimenten` 280, 424 · `experimenteren` 265 ·
+`expertise` 283, 320, 376 · `extra dimensies` 648 · `extraversie` 361 ·
+`fabel` 8, 42, 135, 167, 252 · `facilitatie` 304 · `falen` 23, 72, 75, 312,
+422 · `familie` 45, 325, 466 · `familieconflict` 178 · `familiegeschiedenis`
+114, 235 · `familieroman` 10 · `fantasy` 192, 203 · `farmaceutische industrie`
+752 · `fascisme` 753 · `FBI` 154, 271 · `FBI-onderzoek` 431 · `federalisme`
+619 · `feedback` 41, 296, 541, 542 · `feiten` 43 · `feminisme` 3, 620, 624 ·
+`fenomenologie` 574, 577, 582, 721, 755, 757, 759 · `fictie` 100, 115 · `film`
+41 · `filologie` 641 · `filosofie` 1, 6, 71, 93, 199, 211, 216, 224, 247, 255,
+263, 292, 299, 383, 390, 391, 392, 393, 421, 436, 442, 521, 588, 592, 594,
+597, 604, 610, 652, 654, 932, 948 · `filosofie van de biologie` 760 ·
+`filosofiegeschiedenis` 269, 639 · `filosofische antropologie` 584 ·
+`financiële geletterdheid` 163 · `financiële markten` 268, 351, 480, 481, 483,
+499, 501, 806, 807, 808, 809, 810, 811, 814, 903 · `financiële
+onafhankelijkheid` 264 · `financiele vrijheid` 277 · `financiële wiskunde`
+497, 507, 810 · `financiële-discipline` 464 · `financiën` 334, 395, 425 ·
+`financiering` 172 · `fitnessbranche` 307, 544 · `flitshandel` 499 · `flow`
+78, 187, 200 · `focus` 175, 197, 448, 513 · `folklore` 615, 669 · `fotoboek`
+189 · `foutcultuur` 422 · `fouten maken` 509 · `fractals` 811 · `franchise`
+544 · `frankrijk` 115 · `Franse-Weerstand` 390 · `freelance` 515 · `Fulani`
+522 · `fysieke uitdaging` 323 · `fysiologie` 318, 412, 458 · `Galenus` 328 ·
+`gaslighting` 123 · `gastheerschap` 304 · `gastvrijheid` 531 · `gebed` 83,
+259, 573 · `gebruikersgedrag` 294 · `gedachten` 148, 177 · `gedachtenjournal`
+176 · `gedrag` 21, 22, 89, 90, 138, 154, 280, 330, 383, 425, 802 ·
+`gedragsbiologie` 322, 339 · `gedragseconomie` 424, 426, 514 ·
+`gedragsonderzoek` 302, 382 · `gedragspatronen` 161 · `gedragspsychologie` 294
+· `gedragstypen` 156 · `gedragsverandering` 238, 290, 457, 469 ·
+`gedragswetenschap` 166, 209, 305, 468, 469, 510 · `geduld` 21, 351, 800 ·
+`geest` 584, 652 · `geestelijke gezondheid` 193 · `geestelijke oefeningen` 586
+· `gegevensanalyse` 486 · `gehechtheid` 166 · `geheim genootschap` 202 ·
 `geheime diensten` 665, 668, 684, 685, 750 · `geheime genootschappen` 751 ·
-`geheugen` 66, 85, 175, 414, 766 · `gehoorzaamheid` 215, 617 · `geïllustreerd
-boek` 176 · `geld` 21, 37, 38, 56, 76, 121, 132, 133, 158, 159, 433, 463, 464
-· `geldmanagement` 492, 493 · `geldmindset` 395 · `geldpsychologie` 233, 264 ·
-`geldstelsel` 680 · `geloof` 45, 83, 201, 554 · `geluk` 79, 93, 160, 228, 335,
-516, 526, 579 · `gemeenschap` 9, 96, 304, 461 · `genealogie` 601 ·
-`geneeskunde` 49, 328 · `geneesmiddelen` 752 · `generaties` 114 · `generatieve
-drift` 315 · `genetica` 413, 419 · `genezing` 340 · `genot en pijn` 314 ·
-`gentechnologie` 413 · `geologie` 239 · `geopolitiek` 220, 692, 694 ·
-`geschiedenis` 30, 36, 56, 57, 68, 93, 94, 212, 218, 250, 258, 298, 328, 381,
-425, 440, 588, 589, 591, 593, 595, 597, 598, 600, 619, 634, 665, 667, 681,
-682, 683, 684, 685, 687, 689, 690, 693 · `geschiedenis van de geneeskunde` 412
-· `geschiedfilosofie` 235 · `geschiedschrijving` 601, 602 · `gesprek` 43, 95,
-302, 444 · `gesprekstechniek` 182, 186, 438 · `getallen` 657 ·
-`gevangenendilemma` 453 · `gevolgen` 67 · `gewaarzijn` 519 · `geweld` 45, 90,
-214 · `geweldloosheid` 612 · `gewicht` 138 · `gewoontelus` 238 · `gewoonten`
-187, 373 · `gewoontes` 7, 11, 13, 22, 25, 58, 70, 76, 77, 79, 88, 97, 103,
-133, 134, 135, 138, 147, 157, 158, 181, 207, 208, 224, 230, 290, 334, 382,
-439, 442, 445, 513, 557 · `gewoontevorming` 146, 161, 168, 188, 244, 291, 294,
-396, 397, 411, 540 · `gezag` 62 · `gezin` 547 · `gezinnen` 327 · `gezondheid`
-52, 88, 171, 181, 318, 323, 329, 332, 412, 414, 415 · `gezondheidspsychologie`
-458 · `gezondheidszorg` 313, 317, 422 · `ggz` 104 · `giftige relaties` 429 ·
+`geheugen` 66, 85, 175, 414, 766, 801 · `gehoorzaamheid` 215, 617 ·
+`geïllustreerd boek` 176 · `geld` 21, 37, 38, 56, 76, 121, 132, 133, 158, 159,
+433, 463, 464 · `geldmanagement` 492, 493 · `geldmindset` 395 ·
+`geldpsychologie` 233, 264 · `geldstelsel` 680 · `geloof` 45, 83, 201, 554 ·
+`geluk` 79, 93, 160, 228, 335, 516, 526, 579 · `gemeenschap` 9, 96, 304, 461 ·
+`genealogie` 601 · `geneeskunde` 49, 328 · `geneesmiddelen` 752 · `generaties`
+114 · `generatieve drift` 315 · `genetica` 413, 419, 941 · `genezing` 340 ·
+`genot en pijn` 314 · `gentechnologie` 413 · `geologie` 239 · `geopolitiek`
+220, 692, 694 · `geschiedenis` 30, 36, 56, 57, 68, 93, 94, 212, 218, 250, 258,
+298, 328, 381, 425, 440, 588, 589, 591, 593, 595, 597, 598, 600, 619, 634,
+665, 667, 681, 682, 683, 684, 685, 687, 689, 690, 693, 806, 807, 931, 935,
+939, 944 · `geschiedenis van de geneeskunde` 412 · `geschiedfilosofie` 235 ·
+`geschiedschrijving` 601, 602 · `gesprek` 43, 95, 302, 444 ·
+`gesprekstechniek` 182, 186, 438 · `getallen` 657 · `gevangenendilemma` 453 ·
+`gevolgen` 67 · `gewaarzijn` 519 · `geweld` 45, 90, 214 · `geweldloosheid` 612
+· `gewicht` 138 · `gewoontelus` 238 · `gewoonten` 187, 373 · `gewoontes` 7,
+11, 13, 22, 25, 58, 70, 76, 77, 79, 88, 97, 103, 133, 134, 135, 138, 147, 157,
+158, 181, 207, 208, 224, 230, 290, 334, 382, 439, 442, 445, 513, 557 ·
+`gewoontevorming` 146, 161, 168, 188, 244, 291, 294, 396, 397, 411, 540 ·
+`gezag` 62 · `gezin` 547 · `gezinnen` 327 · `gezondheid` 52, 88, 171, 181,
+318, 323, 329, 332, 412, 414, 415 · `gezondheidspsychologie` 458 ·
+`gezondheidszorg` 313, 317, 422 · `ggz` 104 · `giftige relaties` 429 ·
 `gijzelingsonderhandelaar` 271 · `globale werkruimte` 763 · `gnostiek` 614,
-666 · `godin` 611 · `godsdienstkritiek` 341 · `godsdienstpsychologie` 754 ·
-`godsdienstwetenschap` 578, 608, 640, 641 · `goeroe` 242 · `Google` 512 ·
-`Graallegende` 408 · `grandiositeit` 404 · `gratie` 374 · `grenswetenschap`
+666, 940 · `godin` 611 · `godsdienstkritiek` 341 · `godsdienstpsychologie` 754
+· `godsdienstwetenschap` 578, 608, 640, 641, 940 · `goeroe` 242 · `Google` 512
+· `Graallegende` 408 · `grandiositeit` 404 · `gratie` 374 · `grenswetenschap`
 615 · `grenzen` 72, 105, 109, 120, 122, 187, 466 · `grenzen stellen` 151, 204,
 406, 429 · `Griekenland` 537 · `Griekse literatuur` 536 · `griekse mythologie`
 261 · `Griekse oudheid` 530, 531 · `groei` 222 · `groeiaandelen` 474 ·
@@ -143237,159 +158118,165 @@ drift` 315 · `genetica` 413, 419 · `genezing` 340 · `genot en pijn` 314 ·
 476, 477, 478, 479, 501 · `handelspsychologie` 488, 489 · `handelssysteem`
 489, 491 · `handelssystemen` 484, 486, 500, 502 · `handleiding` 112, 699 ·
 `hart` 86, 128 · `Harvard` 457 · `Hay House` 380 · `hechting` 145, 152, 317,
-386 · `hedendaags India` 202 · `hedgefondsen` 505 · `heelal` 99, 262 ·
-`heldendom` 532 · `heldenreis` 410 · `helderheid` 82, 436 · `herhaling` 125,
-134 · `herkomst` 127 · `hermetische filosofie` 378 · `hermetisme` 613, 631,
-632, 633, 638, 639, 642, 647, 766 · `heroverwegen` 28 · `hersenen` 51, 84, 85,
-86, 327 · `hersenonderzoek` 330, 333, 763 · `hersenspoeling` 384, 668 ·
-`herstel` 87, 552, 583 · `het gesprek` 416 · `Himalaya` 191 · `hindoeïsme`
-169, 199, 527, 569 · `Hindoeïstische mythologie` 192, 202 · `hindoemythologie`
-203 · `Hinge` 166 · `hiphop` 440 · `historische portretten` 248 · `historische
-roman` 529 · `hofcultuur` 216 · `hollywood` 555 · `Hollywood` 178 ·
-`Holocaust` 48 · `holografie` 340 · `homoseksualiteit` 325 · `hoop` 255, 319 ·
-`hormonen` 80, 339 · `hospice` 416 · `houding` 117 · `huisvesting` 65 ·
-`humanisme` 236, 643 · `humor` 16, 19, 26, 105, 227, 561 · `husserl` 577 ·
-`huwelijk` 9, 34, 165 · `Huxley` 54 · `hybride werken` 512 · `hyperrealiteit`
-565 · `hypnose` 123, 124, 125, 668 · `Idaho` 45 · `ideeen` 702 · `ideeën` 206
-· `ideeëngeschiedenis` 269, 751, 766 · `identiteit` 22, 115, 192, 261, 374,
-375, 467, 559 · `identiteitskapitaal` 51 · `ideologie` 628 · `ierland` 110 ·
-`IJsland` 185, 533 · `ik-vorm` 113 · `illustraties` 109, 327 · `imitatie` 11 ·
+386 · `hedendaags India` 202 · `hedgefonds` 810 · `hedgefondsen` 505 ·
+`heelal` 99, 262 · `heldendom` 532 · `heldenreis` 410 · `helderheid` 82, 436 ·
+`herhaling` 125, 134 · `herkomst` 127 · `hermetische filosofie` 378 ·
+`hermetisme` 613, 631, 632, 633, 638, 639, 642, 647, 766 · `heroverwegen` 28 ·
+`hersenen` 51, 84, 85, 86, 327, 801 · `hersenonderzoek` 330, 333, 763 ·
+`hersenspoeling` 384, 668 · `herstel` 87, 552, 583 · `het gesprek` 416 ·
+`Himalaya` 191 · `hindoeïsme` 169, 199, 527, 569 · `Hindoeïstische mythologie`
+192, 202 · `hindoemythologie` 203 · `Hinge` 166 · `hiphop` 440 · `historische
+portretten` 248 · `historische roman` 529, 922, 923, 924 · `hofcultuur` 216 ·
+`hollywood` 555 · `Hollywood` 178 · `Holocaust` 48 · `holografie` 340 ·
+`homoseksualiteit` 325 · `hoop` 255, 319 · `hormonen` 80, 339 · `hospice` 416
+· `houding` 117 · `huisvesting` 65 · `humanisme` 236, 643 · `humor` 16, 19,
+26, 105, 227, 561 · `husserl` 577 · `huwelijk` 9, 34, 165 · `Huxley` 54 ·
+`hybride werken` 512 · `hyperrealiteit` 565 · `hypnose` 123, 124, 125, 668 ·
+`Idaho` 45 · `ideeen` 702 · `ideeën` 206 · `ideeëngeschiedenis` 269, 751, 766,
+932 · `identiteit` 22, 115, 192, 261, 374, 375, 467, 559 ·
+`identiteitskapitaal` 51 · `ideologie` 628 · `ierland` 110 · `IJsland` 185,
+533 · `ik-vorm` 113 · `illustraties` 109, 327 · `imitatie` 11 ·
 `imperfectionisme` 442 · `import` 20 · `india` 649 · `India` 163, 171, 172,
 180, 189, 191, 196, 199, 203, 226, 242, 365, 370, 518, 520, 527 ·
 `individualisme` 9, 96, 624 · `individualiteit` 263 · `individuatie` 359, 360,
 408, 409, 646 · `individuele-verantwoordelijkheid` 299 · `indonesië` 692 ·
-`industrie` 348 · `inheems denken` 521 · `initiatie` 407, 408, 522 ·
-`inleiding` 452, 456 · `inlichtingendiensten` 687, 688, 689 · `innerlijk-kind`
-109 · `innerlijk-werkleven` 472 · `innerlijke stem` 377 · `innerlijke vrede`
-548 · `innovatie` 206, 251, 293, 306, 471 · `instagram` 129 · `instemming` 616
-· `instituties` 392 · `integraal bewustzijn` 580 · `integriteit` 547 ·
-`intelligentie` 383 · `internationale betrekkingen` 455 · `internet` 60, 198 ·
-`internetcultuur` 666 · `interpretatie` 764 · `interviews` 58, 277, 289 ·
-`intimiteit` 122, 145, 164, 165 · `introspectie` 579 · `introversie` 33, 361 ·
-`intuitie` 128 · `intuïtie` 214, 283, 320 · `investeren` 270, 348 · `invloed`
-11 · `invoeling` 577 · `inwijding` 636 · `inzicht` 587 · `irrationaliteit` 424
-· `islam` 526 · `islamitische filosofie` 525 · `Israël` 514 · `Italiaanse
-non-fictie` 211 · `Italië` 155 · `jaloezie` 19 · `Japan` 77, 205, 261, 335,
-346, 379, 462, 517, 528, 535 · `japanse filosofie` 576 · `jaren negentig` 348
-· `jaren zestig` 750 · `jaren-tachtig` 139 · `jaren-twintig` 94 ·
+`industrie` 348, 905 · `inheems denken` 521 · `initiatie` 407, 408, 522, 921,
+922 · `inleiding` 452, 456 · `inlichtingendiensten` 687, 688, 689 ·
+`innerlijk-kind` 109 · `innerlijk-werkleven` 472 · `innerlijke stem` 377 ·
+`innerlijke vrede` 548 · `innovatie` 206, 251, 293, 306, 471, 901 ·
+`instagram` 129 · `instemming` 616 · `instituties` 392 · `integraal
+bewustzijn` 580 · `integriteit` 547 · `intelligentie` 383, 943 ·
+`internationale betrekkingen` 455 · `internet` 60, 198 · `internetcultuur` 666
+· `interpretatie` 764 · `interviews` 58, 277, 289 · `intimiteit` 122, 145,
+164, 165 · `introspectie` 579 · `introversie` 33, 361 · `intuitie` 128 ·
+`intuïtie` 214, 283, 320 · `investeren` 270, 348 · `invloed` 11 · `invoeling`
+577 · `inwijding` 636 · `inzicht` 587 · `irrationaliteit` 424 · `islam` 526 ·
+`islamitische filosofie` 525 · `Israël` 514 · `Italiaanse non-fictie` 211 ·
+`Italië` 155 · `jaloezie` 19 · `japan` 902 · `Japan` 77, 205, 261, 335, 346,
+379, 462, 517, 528, 535 · `japanse filosofie` 576 · `jaren negentig` 348 ·
+`jaren zestig` 750 · `jaren-tachtig` 139 · `jaren-twintig` 94 ·
 `jaren-vijftig` 704 · `jazztijdperk` 284 · `jeff bezos` 257 · `jeugd` 53, 104,
-115 · `jodendom` 630, 640 · `John Harrison` 321 · `joint ventures` 348 ·
+115 · `jodendom` 630, 640, 942 · `John Harrison` 321 · `joint ventures` 348 ·
 `jonge liefde` 180 · `jongeren` 25 · `jongvolwassenen` 569 ·
 `jongvolwassenenroman` 295 · `joodse filosofie` 572, 574 · `journaling` 147 ·
-`journalistiek` 4, 7, 46, 82, 238, 257, 285, 401, 499, 566, 669, 690 · `jung`
-646 · `Jung` 143, 358, 359 · `Jungiaanse psychologie` 404, 407, 408, 409, 410
-· `kaakontwikkeling` 332 · `kabbala` 630, 634, 640, 643, 644 · `Kabul` 184 ·
-`Kaïn-en-Abel` 10 · `kalmte` 248, 389 · `kameraadschap` 529 · `kanker` 419 ·
-`kans` 64 · `kansdenken` 487 · `kansen` 137 · `kansrekening` 282, 456, 484,
-490, 496, 504, 505 · `kapitalisme` 298, 682 · `karakter` 97, 537 · `Karel de
-Grote` 534 · `karma` 184 · `karmel` 573 · `Kasjmir` 180 · `katholicisme` 672 ·
-`keegan` 110 · `Kelly-criterium` 504 · `keltische traditie` 611 · `kennedy`
-690 · `kennedy-moord` 691 · `kennis` 81, 508 · `kennis en macht` 720 ·
-`kennisleer` 525, 587 · `kennissociologie` 721 · `kennistheorie` 654 ·
-`kenniswerk` 6, 50, 400, 472 · `kernwaarden` 245 · `kernwapens` 454 · `keuzes`
-51, 71, 72, 510 · `Kierkegaard` 405 · `kinderboek` 167 · `kinderjaren` 152 ·
+`journalistiek` 4, 7, 46, 82, 238, 257, 285, 401, 499, 566, 669, 690, 903, 950
+· `jung` 646, 937 · `Jung` 143, 358, 359 · `Jungiaanse psychologie` 404, 407,
+408, 409, 410 · `kaakontwikkeling` 332 · `kabbala` 630, 634, 640, 643, 644 ·
+`Kabul` 184 · `Kaïn-en-Abel` 10 · `kalmte` 248, 389 · `kameraadschap` 529 ·
+`kanker` 419 · `kans` 64, 805 · `kansdenken` 487 · `kansen` 137 ·
+`kansrekening` 282, 456, 484, 490, 496, 504, 505, 812, 946 · `kapitalisme`
+298, 682, 910, 933 · `karakter` 97, 537 · `Karel de Grote` 534 · `karma` 184 ·
+`karmel` 573 · `Kasjmir` 180 · `katholicisme` 672 · `keegan` 110 ·
+`Kelly-criterium` 504, 812 · `keltische traditie` 611 · `kennedy` 690 ·
+`kennedy-moord` 691 · `kennis` 81, 508 · `kennis en macht` 720 · `kennisleer`
+525, 587, 929 · `kennissociologie` 721 · `kennistheorie` 654 · `kenniswerk` 6,
+50, 400, 472 · `kernwaarden` 245 · `kernwapens` 454, 944 · `keuzes` 51, 71,
+72, 510 · `Kierkegaard` 405 · `kinderboek` 167 · `kinderjaren` 152 ·
 `kinesiologie` 449 · `klantcontact` 182, 186 · `klantpsychologie` 367 ·
 `klantrelaties` 246 · `klantvalidatie` 265 · `klantwaarde` 309 ·
 `klassenverschil` 284 · `klassieke bronnen` 286 · `klassieke tekst` 219, 394 ·
 `klassieker` 10, 24, 38, 48, 61, 83, 127, 135, 144, 173, 213, 254, 351, 420,
 520, 537, 616, 617, 618, 619, 620, 626, 695, 696, 701, 702, 715, 716, 717,
-718, 719, 754, 757 · `klein-beginnen` 40 · `kleine-bedrijven` 172 ·
-`kleine-stappen` 22, 133 · `kleurboek` 327 · `klimaatfictie` 203 ·
-`klimaatverandering` 299 · `klinische psychologie` 460 · `klokkenluider` 752 ·
-`klokkenmakerij` 321 · `kolonialisme` 298, 592 · `koopgedrag` 705 · `koppen`
-697, 699 · `korea` 111 · `kort` 59, 99, 100, 101, 110, 140 · `kort-boek` 11,
-13, 16, 27, 38, 57, 445 · `kort-stuk` 19, 30 · `korte-teksten` 111 ·
-`korte-vorm` 473 · `kosmologie` 239, 262, 281, 645, 647, 648, 651, 655 ·
-`koude oorlog` 217, 220, 384, 454, 456, 680, 689, 692, 693 ·
-`krijgsgevangenschap` 31 · `krijgskunde` 212, 218, 219, 272 · `krijgskunst`
-346 · `kritiek` 24, 41, 50 · `kritiek geven` 356 · `kritisch denken` 420, 421
-· `kroeg` 4 · `kruistochtgeest` 534 · `kunst` 11, 445 · `kunstenaars` 312 ·
-`kunstgeschiedenis` 241, 312 · `kunstmatig leven` 347 · `kunstmatige
-intelligentie` 236, 237, 297, 652 · `kwaad` 404 · `kwaliteit` 1, 400 ·
-`kwantificering` 392 · `kwantitatief handelen` 506 · `kwantitatieve analyse`
-498 · `kwantitatieve financiën` 485, 503 · `kwantumfysica` 208, 340, 432, 433
-· `kwantummechanica` 362, 655, 761 · `kwantumzwaartekracht` 281 ·
-`kwetsbaarheid` 32, 44, 470 · `kyotoschool` 576 · `landbouw` 56, 98 ·
-`landmark forum` 344 · `leadgeneratie` 308 · `lean manufacturing` 265 ·
-`leefstijl` 86, 103, 138, 171 · `leertijd` 320 · `leger` 106, 180, 222 ·
-`leiderschap` 36, 41, 44, 46, 97, 106, 157, 170, 183, 218, 222, 231, 260, 273,
-344, 353, 364, 370, 389, 434, 465, 468, 475, 536, 544, 551 · `leidinggeven`
-156 · `leren` 175, 296, 349, 397, 422, 441, 509, 538 · `lesmateriaal` 116 ·
-`leugendetectie` 154, 338 · `levensinrichting` 334 · `levenskeuzes` 150, 546 ·
-`levenskunst` 27, 199, 216, 227, 586 · `levenslessen` 285, 447 · `levensloop`
-91 · `levensverhaal` 385 · `levenswijsheid` 473 · `lezen` 18, 420 · `lezing`
-436 · `lezingen` 169 · `libertarisme` 546, 623, 627, 629 · `lichaam` 80, 757 ·
+718, 719, 754, 757, 910, 936, 938, 948 · `klein-beginnen` 40 ·
+`kleine-bedrijven` 172 · `kleine-stappen` 22, 133 · `kleurboek` 327 ·
+`klimaatfictie` 203 · `klimaatverandering` 299 · `klinische psychologie` 460 ·
+`klokkenluider` 752 · `klokkenmakerij` 321 · `kolonialisme` 298, 592 ·
+`koopgedrag` 705 · `koppen` 697, 699 · `korea` 111 · `kort` 59, 99, 100, 101,
+110, 140 · `kort-boek` 11, 13, 16, 27, 38, 57, 445 · `kort-stuk` 19, 30 ·
+`korte-teksten` 111 · `korte-vorm` 473 · `kosmologie` 239, 262, 281, 645, 647,
+648, 651, 655, 938, 945, 948 · `koude oorlog` 217, 220, 384, 454, 456, 680,
+689, 692, 693 · `krijgsgevangenschap` 31 · `krijgskunde` 212, 218, 219, 272 ·
+`krijgskunst` 346 · `kritiek` 24, 41, 50 · `kritiek geven` 356 · `kritisch
+denken` 420, 421 · `kroeg` 4 · `kruistochtgeest` 534 · `kunst` 11, 445 ·
+`kunstenaars` 312 · `kunstgeschiedenis` 241, 312 · `kunstmatig leven` 347 ·
+`kunstmatige intelligentie` 236, 237, 297, 652 · `kwaad` 404 · `kwaliteit` 1,
+400, 912 · `kwantificering` 392 · `kwantitatief handelen` 506 · `kwantitatieve
+analyse` 498 · `kwantitatieve financiën` 485, 503 · `kwantumfysica` 208, 340,
+432, 433, 918, 919, 920, 930 · `kwantummechanica` 362, 655, 761 ·
+`kwantumzwaartekracht` 281 · `kwetsbaarheid` 32, 44, 470 · `kyotoschool` 576 ·
+`landbouw` 56, 98 · `landmark forum` 344 · `leadgeneratie` 308 · `lean
+manufacturing` 265, 912 · `leefstijl` 86, 103, 138, 171 · `leertijd` 320 ·
+`leger` 106, 180, 222 · `leiderschap` 36, 41, 44, 46, 97, 106, 157, 170, 183,
+218, 222, 231, 260, 273, 344, 353, 364, 370, 389, 434, 465, 468, 475, 536,
+544, 551, 900, 907, 911 · `leidinggeven` 156 · `leren` 175, 296, 349, 397,
+422, 441, 509, 538, 801, 803 · `lesmateriaal` 116 · `leugendetectie` 154, 338
+· `levensinrichting` 334 · `levenskeuzes` 150, 546 · `levenskunst` 27, 199,
+216, 227, 586 · `levenslessen` 285, 447 · `levensloop` 91 · `levensverhaal`
+385 · `levenswijsheid` 473 · `lezen` 18, 420 · `lezing` 436 · `lezingen` 169 ·
+`libertarisme` 546, 623, 627, 629, 926, 927 · `lichaam` 80, 757 ·
 `lichaamsgericht werken` 386 · `lichaamstaal` 125, 126, 154, 303, 338, 399 ·
 `lichaamswerk` 432 · `licht` 525 · `liefde` 3, 131, 160, 295 · `liefdesroman`
 180 · `lifestyle` 278 · `lijden` 48, 73, 160, 310, 390 · `list` 531 ·
-`literair` 110 · `literatuur` 49 · `logica` 421, 437 · `logotherapie` 48 ·
-`Long-Island` 4 · `longevity` 415 · `loopbaan` 50, 51, 150, 349, 515, 547 ·
-`loslaten` 377, 449 · `losmaken` 45 · `lotsbestemming` 261 · `lsd` 750 ·
+`literair` 110 · `literatuur` 49, 934 · `logica` 421, 437 · `logotherapie` 48
+· `Long-Island` 4 · `longevity` 415 · `loopbaan` 50, 51, 150, 349, 515, 547,
+803 · `loslaten` 377, 449 · `losmaken` 45 · `lotsbestemming` 261 · `lsd` 750 ·
 `luchtvaart` 422 · `luisteren` 24, 35, 305, 444 · `maatschappijkritiek` 674 ·
 `machinaal leren` 484, 485, 486, 503 · `macht` 212, 250, 263, 381, 388, 440,
-617, 622, 683, 684, 685, 753 · `machtspolitiek` 220 · `machtstheorie` 221 ·
-`machtsverhoudingen` 155 · `magie` 613, 632, 634, 637, 638, 639, 641 ·
+617, 622, 683, 684, 685, 753, 935 · `machtspolitiek` 220 · `machtstheorie` 221
+· `machtsverhoudingen` 155 · `magie` 613, 632, 634, 637, 638, 639, 641 ·
 `magisch realisme` 261 · `management` 42, 47, 170, 183, 256, 350, 353, 364,
-472 · `managementtheorie` 547 · `manifest` 629 · `manifesteren` 128, 129, 130,
-131, 132, 190, 196, 433, 543, 560, 768 · `manipulatie` 123, 124, 125, 126,
-212, 213, 381, 384, 429, 672, 673, 675, 686, 704 · `mannelijkheid` 3, 406,
-407, 408 · `mannen` 7 · `mannenbeweging` 407 · `mantelzorg` 225 · `mantra` 403
-· `manuscript` 359 · `maria magdalena` 614 · `marketing` 13, 40, 60, 172, 183,
-279, 280, 307, 308, 309, 350, 443, 446 · `marketingwetenschap` 705 ·
-`marktanalyse` 698 · `marktmicrostructuur` 477, 478 · `marxisme` 564 ·
-`McKinsey` 511 · `media` 54, 60, 100, 562, 563, 564, 565, 566, 666, 673, 674,
-686 · `medische ethiek` 416 · `meditatie` 111, 141, 149, 169, 205, 208, 228,
-230, 237, 242, 333, 377, 401, 431, 527, 528, 590, 630, 638 · `meesterschap`
-296, 320, 553 · `meetprobleem` 650, 653 · `meetsystemen` 392 · `melanesië` 717
-· `memento mori` 286 · `memoir` 4, 7, 18, 20, 26, 45, 49, 62, 95, 106, 178,
-185, 191, 226, 229, 242, 289, 324, 325, 348, 385, 402, 403, 431, 447, 505,
-671, 752 · `mens en dier` 584 · `menselijk gedrag` 155 · `mensenkennis` 126,
-356 · `mentale gezondheid` 315 · `mentale helderheid` 148 · `mentale
-weerbaarheid` 229, 323, 372, 373, 374, 545 · `mentalisme` 378, 399 ·
-`mentorschap` 4, 285, 289, 320, 402 · `merken` 279, 700, 701, 705 ·
-`metabolisme` 313 · `metafysica` 102, 518, 584, 587 · `meten` 69, 133, 695,
-697 · `methode` 81, 764 · `microbedrijf` 40, 172 · `microbioom` 417 ·
-`middelbare-leeftijd` 7 · `middeleeuwen` 534, 632 · `midden-oosten` 720 ·
-`midlife` 324 · `militaire geschiedenis` 568 · `militaire strategie` 220 ·
-`millennials` 159 · `minderheden` 68 · `minderheidsstandpunt` 761 · `mindful`
-103 · `mindfulness` 141, 147, 149, 177, 333, 401 · `mindset` 146, 181, 188,
-387, 458 · `minimalisme` 181 · `misdaad` 254 · `misleiding` 219, 272, 677 ·
-`mislukking` 516 · `missie` 567 · `mitochondriën` 313 · `modellen` 300 ·
-`modelleren` 139 · `modellering` 455 · `moed` 44, 529 · `moeder-en-zoon` 26 ·
-`moederkoren` 765 · `momentum` 481 · `monniksleven` 230 · `monomythe` 410 ·
-`monopolie` 306 · `monsters` 532 · `Monty-Python` 16 · `moraal` 9, 57, 67, 263
-· `moraalfilosofie` 581 · `moraalkritiek` 391 · `moreel` 36 · `mormonisme` 560
-· `motivatie` 117, 139, 146, 183, 200, 207, 315, 427, 468, 469, 472 ·
+472, 900, 901, 902, 904, 907, 908, 909, 912 · `managementtheorie` 547 ·
+`manifest` 629 · `manifesteren` 128, 129, 130, 131, 132, 190, 196, 433, 543,
+560, 768 · `manipulatie` 123, 124, 125, 126, 212, 213, 381, 384, 429, 672,
+673, 675, 686, 704 · `mannelijkheid` 3, 406, 407, 408 · `mannen` 7 ·
+`mannenbeweging` 407 · `mantelzorg` 225 · `mantra` 403 · `manuscript` 359 ·
+`maria magdalena` 614 · `marketing` 13, 40, 60, 172, 183, 279, 280, 307, 308,
+309, 350, 443, 446, 913 · `marketingwetenschap` 705 · `marktanalyse` 698 ·
+`marktmicrostructuur` 477, 478 · `marxisme` 564 · `McKinsey` 511 · `media` 54,
+60, 100, 562, 563, 564, 565, 566, 666, 673, 674, 686, 931 · `medische ethiek`
+416 · `meditatie` 111, 141, 149, 169, 205, 208, 228, 230, 237, 242, 333, 377,
+401, 431, 527, 528, 590, 630, 638 · `meesterschap` 296, 320, 553 ·
+`meetprobleem` 650, 653 · `meetsystemen` 392 · `melanesië` 717 · `memento
+mori` 286 · `memoir` 4, 7, 18, 20, 26, 45, 49, 62, 95, 106, 178, 185, 191,
+226, 229, 242, 289, 324, 325, 348, 385, 402, 403, 431, 447, 505, 671, 752,
+900, 911, 925, 934, 941, 942, 949 · `mens en dier` 584 · `menselijk gedrag`
+155 · `mensenkennis` 126, 356 · `mentale gezondheid` 315 · `mentale
+helderheid` 148 · `mentale weerbaarheid` 229, 323, 372, 373, 374, 545 ·
+`mentalisme` 378, 399 · `mentorschap` 4, 285, 289, 320, 402 · `merken` 279,
+700, 701, 705 · `metabolisme` 313 · `metafysica` 102, 518, 584, 587 · `meten`
+69, 133, 695, 697 · `methode` 81, 764 · `microbedrijf` 40, 172 · `microbioom`
+417 · `middelbare-leeftijd` 7 · `middeleeuwen` 534, 632, 947 · `midden-oosten`
+720 · `midlife` 324 · `militaire geschiedenis` 568 · `militaire strategie` 220
+· `millennials` 159 · `minderheden` 68 · `minderheidsstandpunt` 761 ·
+`mindful` 103 · `mindfulness` 141, 147, 149, 177, 333, 401 · `mindset` 146,
+181, 188, 387, 458 · `minimalisme` 181 · `misdaad` 254 · `misleiding` 219,
+272, 677 · `mislukking` 516 · `missie` 567 · `mitochondriën` 313 · `modellen`
+300 · `modelleren` 139 · `modellering` 455 · `moed` 44, 529 · `moeder-en-zoon`
+26 · `moederkoren` 765 · `momentum` 481 · `monniksleven` 230 · `monomythe` 410
+· `monopolie` 306 · `monsters` 532 · `Monty-Python` 16 · `moraal` 9, 57, 67,
+263 · `moraalfilosofie` 581 · `moraalkritiek` 391 · `moreel` 36 · `mormonisme`
+560 · `motivatie` 117, 139, 146, 183, 200, 207, 315, 427, 468, 469, 472 ·
 `motivatieonderzoek` 703, 704 · `Motley Fool` 474 · `motoren` 6 ·
-`motorfietsen` 325 · `muziek` 17, 85, 762 · `muziekfilosofie` 756 ·
+`motorfietsen` 325 · `muziek` 17, 85, 762, 952 · `muziekfilosofie` 756 ·
 `mysteriecultus` 765 · `mystiek` 340, 390, 524, 525, 573, 578, 603, 604, 606,
-610, 630, 636, 640, 666, 754 · `mythe` 608 · `mythe en ritueel` 756 ·
+610, 630, 636, 640, 666, 754, 936 · `mythe` 608 · `mythe en ritueel` 756 ·
 `mythevorming` 615 · `mythologie` 73, 143, 357, 360, 407, 408, 409, 599, 611 ·
 `mythologische fantasy` 202 · `mythologische fictie` 203 · `NAD+` 415 ·
 `nalatenschap` 178 · `napoleontische oorlogen` 235 · `narcisme` 258, 404 ·
 `naslag` 99, 112 · `naslagwerk` 59, 225, 426, 477, 478, 486, 491, 500, 504,
-640, 661, 662 · `nationalisme` 237 · `natuur` 191, 323, 609 · `natuurkunde`
-62, 94, 240, 262, 281, 300, 326, 648, 650, 651, 653, 655, 657 · `navigatie`
-321 · `navy seals` 229, 364 · `nazisme` 223 · `neanderthaler` 762 ·
-`necrofilie` 223 · `nederland` 96 · `nederlands` 93, 97, 100, 101, 102, 103,
-104, 105, 106, 107, 108, 128, 130, 131, 141 · `nederlands-auteur` 140 ·
-`nederlandstalig` 113 · `negatieve emoties` 176 · `negentiende eeuw` 751 ·
-`negentig dagen` 188 · `neopaganisme` 611, 637 · `nepnieuws` 237 · `netwerken`
-24, 246, 300, 388, 508 · `neurobiologie` 119 · `neurochirurgie` 49, 414 ·
-`neurologie` 325 · `neuroplasticiteit` 175, 208, 414 · `neurose` 575 ·
-`neurowetenschap` 52, 208, 238, 275, 314, 326, 330, 331, 333, 339, 340, 386,
-418, 513, 585 · `neurowetenschap-voor-kinderen` 327 · `neusademing` 318 · `new
-age` 149, 435, 449, 549, 670, 678, 679, 768 · `new thought` 259, 380, 555 ·
-`NeXT` 46 · `Nietzsche` 391 · `nieuwe gedachte` 127, 378 · `nieuws` 60, 90 ·
-`nieuwsgierigheid` 15, 28, 62, 241, 550 · `Nike` 20 · `nlp` 123, 125, 139 ·
-`Nobelprijs` 55 · `non-dualiteit` 520 · `non-fictie` 420 · `non-verbaal` 399 ·
-`non-verbale communicatie` 154 · `noodlot` 533 · `Noordse mythologie` 533 ·
-`notitieboeken` 241 · `novelle` 173 · `numineus` 578 · `obesitas` 417 ·
-`observeren` 15 · `obsessieve liefde` 284 · `occultisme` 378, 613, 634, 637,
-638, 644, 676 · `ochtendroutine` 14, 134, 244 · `octopus` 760 · `oefenen` 29,
-397 · `oefening` 141, 296 · `oefeningen` 15, 35, 87, 103, 109, 118, 120, 122,
-130, 549 · `okinawa` 77 · `okr` 256 · `oligarchie` 618 · `omgangsvormen` 24,
-398 · `omkering` 105 · `omstreden` 37, 73, 76, 83 · `onbegrepen-klachten` 104
+640, 661, 662, 806, 813, 931 · `nationalisme` 237 · `natuur` 191, 323, 609 ·
+`natuurkunde` 62, 94, 240, 262, 281, 300, 326, 648, 650, 651, 653, 655, 657,
+944, 945, 947 · `navigatie` 321 · `navy seals` 229, 364 · `nazisme` 223 ·
+`neanderthaler` 762 · `necrofilie` 223 · `nederland` 96 · `nederlands` 93, 97,
+100, 101, 102, 103, 104, 105, 106, 107, 108, 128, 130, 131, 141 ·
+`nederlands-auteur` 140 · `nederlandstalig` 113 · `negatieve emoties` 176 ·
+`negentiende eeuw` 751 · `negentig dagen` 188 · `neopaganisme` 611, 637 ·
+`nepnieuws` 237 · `netwerken` 24, 246, 300, 388, 508 · `neurobiologie` 119 ·
+`neurochirurgie` 49, 414 · `neurologie` 325 · `neuroplasticiteit` 175, 208,
+414 · `neurose` 575 · `neurowetenschap` 52, 208, 238, 275, 314, 326, 330, 331,
+333, 339, 340, 386, 418, 513, 585, 801, 943 · `neurowetenschap-voor-kinderen`
+327 · `neusademing` 318 · `new age` 149, 435, 449, 549, 670, 678, 679, 768 ·
+`new thought` 259, 380, 555 · `NeXT` 46 · `Nietzsche` 391 · `nieuwe gedachte`
+127, 378 · `nieuws` 60, 90 · `nieuwsgierigheid` 15, 28, 62, 241, 550, 803 ·
+`Nike` 20 · `nlp` 123, 125, 139 · `Nobelprijs` 55 · `non-dualiteit` 520 ·
+`non-fictie` 420 · `non-verbaal` 399 · `non-verbale communicatie` 154 ·
+`noodlot` 533 · `Noordse mythologie` 533 · `notitieboeken` 241 · `novelle` 173
+· `numineus` 578 · `obesitas` 417 · `observeren` 15 · `obsessieve liefde` 284
+· `occultisme` 378, 613, 634, 637, 638, 644, 676, 914, 915, 921, 924, 925 ·
+`ochtendroutine` 14, 134, 244 · `octopus` 760 · `oefenen` 29, 397, 800 ·
+`oefening` 141, 296 · `oefeningen` 15, 35, 87, 103, 109, 118, 120, 122, 130,
+549 · `okinawa` 77 · `okr` 256 · `oligarchie` 618 · `omgangsvormen` 24, 398,
+939 · `omkering` 105 · `omstreden` 37, 73, 76, 83 · `onbegrepen-klachten` 104
 · `onbetrouwbaar` 123, 124, 125, 126 · `onbetrouwbare verteller` 284 ·
 `onbewezen` 127, 128, 129, 130, 131, 132, 139 · `onbewuste` 16, 283, 358, 359
 · `onderbewuste` 124 · `onderbewustzijn` 259 · `onderbouwing` 87, 108, 117,
@@ -143397,10 +158284,11 @@ age` 149, 435, 449, 549, 670, 678, 679, 768 · `new thought` 259, 380, 555 ·
 455 · `ondernemen` 20, 39, 40, 47, 172, 446, 476 · `ondernemers` 174 ·
 `ondernemerschap` 157, 163, 185, 197, 198, 210, 222, 228, 231, 245, 249, 276,
 278, 289, 306, 307, 308, 312, 350, 365, 369, 370, 395, 403, 427, 431, 434,
-465, 544, 567, 570 · `onderwijs` 6, 23, 33, 45, 63, 65, 68, 116, 237, 349,
-509, 598, 667 · `onderwijskritiek` 37 · `onderzoek` 23, 28, 29, 32, 33, 39,
-44, 55, 62, 78, 79, 80, 84, 85, 86, 88, 152, 305, 691, 705 · `onderzoeksdebat`
-53 · `onderzoeksethiek` 215 · `onderzoeksjournalistiek` 665, 687, 688, 692 ·
+465, 544, 567, 570, 901, 905, 906, 908, 911, 913 · `onderwijs` 6, 23, 33, 45,
+63, 65, 68, 116, 237, 349, 509, 598, 667, 803, 943 · `onderwijskritiek` 37 ·
+`onderzoek` 23, 28, 29, 32, 33, 39, 44, 55, 62, 78, 79, 80, 84, 85, 86, 88,
+152, 305, 691, 705, 906, 909, 946, 949, 950, 951 · `onderzoeksdebat` 53 ·
+`onderzoeksethiek` 215 · `onderzoeksjournalistiek` 665, 687, 688, 692 ·
 `onderzoekskritiek` 52, 415 · `ongemak` 323 · `ongeneeslijke ziekte` 285 ·
 `online ondernemen` 309 · `onsterfelijkheid` 236, 405 · `onthechting` 462 ·
 `ontmoeten` 304 · `ontmoeting` 572 · `ontologie` 344 · `ontslagen` 47 ·
@@ -143411,22 +158299,22 @@ age` 149, 435, 449, 549, 670, 678, 679, 768 · `new thought` 259, 380, 555 ·
 `opoffering` 554 · `opties` 494, 495, 506 · `optimisme` 251 · `optogenetica`
 331 · `opvoeding` 3, 23, 29, 44, 53, 73, 162, 193, 290 · `opwekking` 558 ·
 `orale traditie` 522 · `orde` 73, 74 · `organisatie` 28, 41, 69, 238, 388,
-422, 468 · `organisatiecultuur` 183, 273, 353 · `oriëntalisme` 720 ·
-`orthodontie` 332 · `Orwell` 54 · `Otto Rank` 405 · `oud china` 272 · `Oude
-Rome` 328 · `Oudengels` 532 · `ouder-worden` 5 · `ouderdom` 77, 84, 91, 95,
-191, 402, 416 · `oudheid` 2, 247, 292, 536, 537, 588, 589, 641, 765 ·
-`outsourcen` 278 · `overdenken` 148 · `overfitting` 484, 485, 502, 503 ·
-`overgave` 431 · `overleven` 31, 36 · `overlevingsvertekening` 64 ·
-`overtuigen` 24, 182, 253, 356, 367, 438 · `overtuiging` 280 · `overtuigingen`
-28, 132, 139, 143, 469, 487, 768 · `overvloed` 17 · `oxytocine` 458 ·
-`Pacific` 31 · `pacifisme` 240, 612 · `Padma-onderscheiding` 189 ·
-`palliatieve zorg` 416, 447 · `para` 81 · `parabel` 38, 244, 246 · `paradigma`
-543 · `paranormaal` 340, 362, 669, 677 · `parapsychologie` 637 ·
-`parawetenschap` 663 · `passie` 50, 198 · `pastoraat` 34 · `patiëntenverhalen`
-331 · `patiëntverhalen` 414 · `patriarchaat` 3 · `pelgrimage` 8 · `pensioen`
-277 · `perceptie` 30 · `perfectionisme` 19, 32, 44, 575 · `persoonlijk merk`
-198, 365 · `persoonlijke financiën` 163, 233, 395 · `persoonlijke
-ontwikkeling` 161, 465, 467 · `persoonlijkheid` 33, 338, 538 ·
+422, 468, 900, 904, 906, 911 · `organisatiecultuur` 183, 273, 353 ·
+`oriëntalisme` 720 · `orthodontie` 332 · `Orwell` 54 · `Otto Rank` 405 · `oud
+china` 272 · `Oude Rome` 328 · `Oudengels` 532 · `ouder-worden` 5 · `ouderdom`
+77, 84, 91, 95, 191, 402, 416 · `oudheid` 2, 247, 292, 536, 537, 588, 589,
+641, 765, 940, 947 · `outsourcen` 278 · `overdenken` 148 · `overfitting` 484,
+485, 502, 503 · `overgave` 431 · `overleven` 31, 36 · `overlevingsvertekening`
+64 · `overtuigen` 24, 182, 253, 356, 367, 438 · `overtuiging` 280 ·
+`overtuigingen` 28, 132, 139, 143, 469, 487, 768 · `overvloed` 17 ·
+`oxytocine` 458 · `Pacific` 31 · `pacifisme` 240, 612 · `Padma-onderscheiding`
+189 · `palliatieve zorg` 416, 447 · `para` 81 · `parabel` 38, 244, 246 ·
+`paradigma` 543 · `paranormaal` 340, 362, 669, 677, 929 · `parapsychologie`
+637 · `parawetenschap` 663 · `passie` 50, 198 · `pastoraat` 34 ·
+`patiëntenverhalen` 331 · `patiëntverhalen` 414 · `patriarchaat` 3 ·
+`pelgrimage` 8 · `pensioen` 277 · `perceptie` 30 · `perfectionisme` 19, 32,
+44, 575 · `persoonlijk merk` 198, 365 · `persoonlijke financiën` 163, 233, 395
+· `persoonlijke ontwikkeling` 161, 465, 467 · `persoonlijkheid` 33, 338, 538 ·
 `persoonlijkheidstypen` 361 · `perspectief` 580 · `Perzië` 524, 525, 526, 536
 · `piekeren` 105, 176 · `pijn` 85, 255 · `pijnlichaam` 435 · `Pixar` 41, 46 ·
 `placebo` 387, 469 · `planeten` 99 · `planning` 70, 276 · `plantaardig-dieet`
@@ -143434,106 +158322,111 @@ ontwikkeling` 161, 465, 467 · `persoonlijkheid` 33, 338, 538 ·
 465, 513 · `poëzie` 204, 611 · `poker` 137 · `polarisatie` 305 · `polemiek` 67
 · `politicologie` 220, 221, 453, 455 · `politiek` 54, 219, 438, 629, 680, 681,
 688 · `politiek geloof` 751 · `politieke analyse` 753 · `politieke economie`
-566 · `politieke filosofie` 394, 623, 624, 626, 627, 628 · `politieke orde`
-716 · `populair` 77, 129, 133 · `populair-wetenschappelijk` 88, 239, 326, 418,
-451 · `populaire filosofie` 194 · `populaire psychologie` 156, 429 ·
-`portefeuille` 474 · `portefeuillebeheer` 507 · `portefeuilletheorie` 503 ·
-`portretten` 75, 94 · `positief denken` 83, 179, 516 · `positiegrootte` 489,
-490, 491, 493, 504, 506 · `positieve-psychologie` 207 · `positionering` 443,
-696 · `postkoloniale studies` 720 · `postmarxisme` 628 · `postmodernisme` 565
-· `postuum` 49 · `pr` 686 · `Praag` 173 · `praktijk` 459 · `praktisch` 118,
-121, 140, 159, 172 · `prentenboek` 167 · `presenteren` 82, 253 · `prestatie`
-168, 291, 372, 397, 488, 545 · `prestatiebeoordeling` 256 · `prestatiecultuur`
-461 · `prestatieonderzoek` 376 · `prestige` 515 · `preventie` 86, 313 ·
+566, 933 · `politieke filosofie` 394, 623, 624, 626, 627, 628, 935 ·
+`politieke orde` 716 · `populair` 77, 129, 133 · `populair-wetenschappelijk`
+88, 239, 326, 418, 451 · `populaire filosofie` 194 · `populaire psychologie`
+156, 429 · `portefeuille` 474 · `portefeuillebeheer` 507, 813 ·
+`portefeuilletheorie` 503 · `portretten` 75, 94 · `positief denken` 83, 179,
+516 · `positiegrootte` 489, 490, 491, 493, 504, 506, 812 ·
+`positieve-psychologie` 207 · `positionering` 443, 696, 913 · `postkoloniale
+studies` 720 · `postmarxisme` 628 · `postmodernisme` 565 · `postuum` 49 · `pr`
+686 · `Praag` 173 · `praktijk` 459 · `praktisch` 118, 121, 140, 159, 172 ·
+`prentenboek` 167 · `presenteren` 82, 253 · `prestatie` 168, 291, 372, 397,
+488, 545 · `prestatiebeoordeling` 256 · `prestatiecultuur` 461 ·
+`prestatieonderzoek` 376 · `prestige` 515 · `preventie` 86, 313 ·
 `prijsstelling` 307 · `prijzen` 23, 424 · `prikkels` 60, 65 · `prioriteiten`
 25, 196 · `prioriteren` 151, 311, 448 · `privacy` 393, 687 · `proactief` 25 ·
-`producer` 17 · `product` 446 · `productiviteit` 151, 175, 197, 207, 244, 276,
-278, 290, 311, 400, 434, 442, 448, 512, 552 · `productontwerp` 231, 294 ·
-`productontwikkeling` 265, 471 · `proeven` 112 · `programmering` 439 ·
-`projecten` 81 · `projectie` 107, 108 · `propaganda` 60, 384, 562, 566, 686 ·
-`propositielogica` 437 · `protocol` 69 · `pseudokennis` 126 · `pseudoniem` 378
-· `pseudowetenschap` 673 · `psychedelica` 275, 765 · `psychiatrie` 1, 48, 95,
-96, 104, 213, 314, 315, 317, 331, 671 · `psychoanalyse` 223, 360, 361, 405,
-409, 575, 610, 703 · `psychologie` 23, 28, 29, 55, 73, 78, 79, 105, 138, 143,
-147, 152, 154, 162, 200, 211, 213, 214, 250, 254, 258, 296, 310, 338, 357,
-358, 375, 381, 382, 384, 387, 424, 444, 457, 463, 467, 468, 469, 487, 501,
-514, 538, 541, 542, 582, 665 · `psychologische flexibiliteit` 460 ·
-`psychologische functies` 361 · `psychopathie` 429 · `psychose` 671 ·
-`psychotherapie` 164, 227, 386, 406, 769 · `PTSS` 386 · `publiceren` 13 ·
-`publiek opbouwen` 369 · `publieksfilosofie` 269 · `Pulitzer` 5 · `puzzels`
-451 · `Python` 486 · `quantum` 94, 650, 653 · `queeste` 522 · `quilten` 114 ·
-`quotes` 179 · `racisme` 601, 602 · `radicale transparantie` 270 · `RAND` 454,
-456 · `Rat-Pack` 178 · `rationaliteit` 454 · `rationele keuze` 455 · `recht`
-393 · `rechtspraak` 69 · `rechtvaardigheid` 623 · `reclame` 206, 279, 443,
-446, 563, 673, 695, 696, 697, 698, 699, 700, 701, 702, 705 · `reclamebureau`
-701 · `reclamegeschiedenis` 700, 703 · `reclamekritiek` 704 ·
-`reclameonderzoek` 696 · `reclametheorie` 700 · `reeks` 114, 192 ·
-`regimeverandering` 220 · `reïncarnatie` 202, 645 · `reïnventie` 344 ·
-`reisverhaal` 1 · `reizen` 278 · `relaties` 34, 51, 101, 120, 122, 145, 152,
-162, 164, 166, 167, 195, 213, 334, 335, 381, 398, 406, 466 · `relatietherapie`
-165 · `relativiteitstheorie` 240, 281 · `religie` 56, 572, 596, 599, 626 ·
-`religieus naturalisme` 609 · `religieuze beweging` 670 · `religieuze
-symboliek` 409 · `religiewetenschap` 758 · `REM` 52 · `remarkable` 446 ·
-`renaissance` 639, 643, 766 · `Renaissance` 15, 241 · `rente` 38 ·
-`replicatie` 79 · `reputatie` 388 · `retorica` 253, 438, 766 · `revisie` 18 ·
-`revolutie` 625 · `ridderepos` 534 · `rijkdom` 57, 228 · `risico` 64, 80, 144,
-268, 282, 351, 423, 425, 480, 481, 482, 487, 496, 500, 501 · `risicobeheer`
-479, 489, 490, 491, 492, 493, 494, 497, 498, 504, 506 · `ritueel` 404, 590,
+`producer` 17 · `product` 446 · `productie` 912 · `productiviteit` 151, 175,
+197, 207, 244, 276, 278, 290, 311, 400, 434, 442, 448, 512, 552, 802, 904 ·
+`productontwerp` 231, 294 · `productontwikkeling` 265, 471 · `proeven` 112 ·
+`programmering` 439 · `projecten` 81 · `projectie` 107, 108 · `propaganda` 60,
+384, 562, 566, 686 · `propositielogica` 437 · `protocol` 69 · `pseudokennis`
+126 · `pseudoniem` 378 · `pseudowetenschap` 673 · `psychedelica` 275, 765, 925
+· `psychiatrie` 1, 48, 95, 96, 104, 213, 314, 315, 317, 331, 671 ·
+`psychoanalyse` 223, 360, 361, 405, 409, 575, 610, 703 · `psychologie` 23, 28,
+29, 55, 73, 78, 79, 105, 138, 143, 147, 152, 154, 162, 200, 211, 213, 214,
+250, 254, 258, 296, 310, 338, 357, 358, 375, 381, 382, 384, 387, 424, 444,
+457, 463, 467, 468, 469, 487, 501, 514, 538, 541, 542, 582, 665, 801, 802,
+928, 936, 943, 951 · `psychologische flexibiliteit` 460 · `psychologische
+functies` 361 · `psychopathie` 429 · `psychose` 671 · `psychotherapie` 164,
+227, 386, 406, 769 · `PTSS` 386 · `publiceren` 13 · `publiek opbouwen` 369 ·
+`publieksfilosofie` 269 · `Pulitzer` 5 · `puzzels` 451 · `Python` 486 ·
+`quantum` 94, 650, 653 · `queeste` 522 · `quilten` 114 · `quotes` 179 ·
+`racisme` 601, 602 · `radicale transparantie` 270 · `RAND` 454, 456 ·
+`Rat-Pack` 178 · `rationaliteit` 454 · `rationele keuze` 455 · `recht` 393 ·
+`rechtspraak` 69 · `rechtvaardigheid` 623 · `reclame` 206, 279, 443, 446, 563,
+673, 695, 696, 697, 698, 699, 700, 701, 702, 705 · `reclamebureau` 701 ·
+`reclamegeschiedenis` 700, 703 · `reclamekritiek` 704 · `reclameonderzoek` 696
+· `reclametheorie` 700 · `reeks` 114, 192 · `regimeverandering` 220 ·
+`reïncarnatie` 202, 645 · `reïnventie` 344 · `reisverhaal` 1 · `reizen` 278 ·
+`relaties` 34, 51, 101, 120, 122, 145, 152, 162, 164, 166, 167, 195, 213, 334,
+335, 381, 398, 406, 466 · `relatietherapie` 165 · `relativiteitstheorie` 240,
+281, 945 · `religie` 56, 572, 596, 599, 626, 936, 937 · `religieus
+naturalisme` 609 · `religieuze beweging` 670 · `religieuze symboliek` 409 ·
+`religiewetenschap` 758 · `REM` 52 · `remarkable` 446 · `renaissance` 639,
+643, 766 · `Renaissance` 15, 241 · `rente` 38, 806 · `replicatie` 79 ·
+`reputatie` 388 · `retorica` 253, 438, 766 · `revisie` 18 · `revolutie` 625 ·
+`ridderepos` 534 · `rijkdom` 57, 228 · `risico` 64, 80, 144, 268, 282, 351,
+423, 425, 480, 481, 482, 487, 496, 500, 501, 804, 811 · `risicobeheer` 479,
+489, 490, 491, 492, 493, 494, 497, 498, 504, 506, 810 · `ritueel` 404, 590,
 608, 719 · `rituelen` 304 · `rivier als symbool` 287 · `roem-en-eenzaamheid`
-178 · `roeping` 8, 9, 12, 160 · `roman` 61, 113, 114, 115, 254, 554 · `Rome`
-537 · `romeinse oudheid` 232 · `rouw` 95, 467 · `rouwverwerking` 204 ·
-`rozenkruisers` 631, 645 · `ruil` 717, 718 · `ruimte en tijd` 281 ·
-`ruimtevaart` 266 · `russische literatuur` 235 · `rust` 32 · `SaaS` 434 ·
-`sadisme` 223 · `saga` 533 · `Salinas` 10 · `samenleving` 90, 98, 319 ·
-`samenwerken` 25 · `samenwerking` 453 · `samoerai` 346, 462, 517, 535 ·
-`Sanskriet` 520 · `Santa Fe Institute` 347 · `satire` 155 · `satori` 528, 769
-· `scepsis` 63, 585, 675 · `schaalgroei` 434 · `schaalvergroting` 350 ·
-`schaamte` 32, 44, 317, 470 · `schaarste` 92, 249 · `schaduw` 404 ·
-`scheiding` 556 · `scheikunde` 92 · `schizofrenie` 671 · `school` 53, 84 ·
-`schrijven` 11, 12, 14, 18, 19, 81, 436, 511 · `schrijverschap` 191, 325 ·
-`schuld` 254 · `schulden` 20, 38, 121, 159, 464 · `seksualiteit` 100, 145,
-164, 165, 316, 672 · `sekten` 675 · `selectoraattheorie` 221 · `semantiek` 664
-· `seminar` 139, 543 · `Shaolin` 389 · `Silicon Valley` 306 · `simulatie` 565
-· `sirtuïnen` 415 · `situationisme` 564 · `sjamanisme` 758 · `slaap` 52, 87,
-88, 171, 181, 316, 329, 414 · `slaapapneu` 332 · `slavernij` 68 · `smartphone`
-53, 288 · `sociale besmetting` 303 · `sociale media` 53, 70, 194, 198, 204,
-288, 365 · `sociale psychologie` 215, 280, 302, 319 · `sociale-vaardigheden`
-398 · `socialisme` 618 · `sociobiologie` 722 · `sociologie` 300, 622, 715,
-721, 723 · `soedan` 716 · `soefisme` 524, 526 · `software` 276, 484 ·
+178 · `roeping` 8, 9, 12, 160 · `roman` 61, 113, 114, 115, 254, 554, 904, 915,
+916, 917, 918, 919, 920, 921 · `Rome` 537 · `romeinse oudheid` 232 · `rouw`
+95, 467 · `rouwverwerking` 204 · `rozenkruisers` 631, 645 · `ruil` 717, 718 ·
+`ruimte en tijd` 281 · `ruimtevaart` 266 · `russische literatuur` 235 · `rust`
+32 · `SaaS` 434 · `sadisme` 223 · `saga` 533 · `Salinas` 10 · `samenleving`
+90, 98, 319 · `samenwerken` 25 · `samenwerking` 453 · `samoerai` 346, 462,
+517, 535 · `Sanskriet` 520 · `Santa Fe Institute` 347 · `satire` 155, 914,
+915, 916, 918, 919, 920, 923 · `satori` 528, 769 · `scepsis` 63, 585, 675,
+927, 929 · `schaalgroei` 434 · `schaalvergroting` 350 · `schaamte` 32, 44,
+317, 470 · `schaarste` 92, 249 · `schaduw` 404 · `scheiding` 556 ·
+`scheikunde` 92, 942 · `schizofrenie` 671 · `school` 53, 84 · `schrijven` 11,
+12, 14, 18, 19, 81, 436, 511 · `schrijverschap` 191, 325, 934 · `schuld` 254 ·
+`schulden` 20, 38, 121, 159, 464 · `seksualiteit` 100, 145, 164, 165, 316, 672
+· `sekten` 675 · `selectoraattheorie` 221 · `semantiek` 664, 930 · `seminar`
+139, 543 · `Shaolin` 389 · `Silicon Valley` 306 · `simulatie` 565 ·
+`sirtuïnen` 415 · `situationisme` 564 · `sjamanisme` 758 · `slaap` 52, 87, 88,
+171, 181, 316, 329, 414 · `slaapapneu` 332 · `slavernij` 68 · `smartphone` 53,
+288 · `sociale besmetting` 303 · `sociale media` 53, 70, 194, 198, 204, 288,
+365 · `sociale psychologie` 215, 280, 302, 319 · `sociale-vaardigheden` 398 ·
+`socialisme` 618 · `sociobiologie` 722 · `sociologie` 300, 622, 715, 721, 723,
+805, 939 · `soedan` 716 · `soefisme` 524, 526 · `software` 276, 484 ·
 `somberheid` 119 · `spanning` 101 · `sparen` 21, 38, 159, 233, 464 · `Sparta`
-529 · `specialisatie` 349 · `speedreading` 175 · `spel` 550 · `spelen` 32 ·
-`spellen` 392 · `speltheorie` 217, 221, 450, 451, 452, 453, 454, 455, 456, 656
-· `spiegelneuronen` 303 · `spiegeloefening` 380 · `spiegelogie` 108 ·
-`spieropbouw` 316 · `spijt` 447 · `spiritisme` 677 · `spiritualiteit` 8, 14,
-27, 102, 108, 141, 149, 160, 169, 184, 190, 195, 196, 199, 242, 310, 358, 377,
-431, 435, 449, 519, 526, 556, 583, 590, 596, 603, 604, 614, 679, 754 ·
-`spirituele zoektocht` 287, 524 · `sport` 20, 349 · `sportpsychologie` 372,
-374, 441 · `sportwetenschap` 461 · `spreekangst` 253 · `spreker` 117, 134 ·
-`staartrisico` 494, 496 · `staat` 612 · `staatsgezag` 616 · `staatsgreep` 220
-· `staatskritiek` 621, 622, 623 · `staatsvorming` 622 · `stalking` 214 ·
-`standaarden` 396 · `Stanford` 150, 388, 458 · `start-ups` 306 · `startups`
-265 · `statistiek` 55, 65, 69, 234, 268, 300, 426, 476, 479, 483, 484, 485,
-497, 500, 502, 503, 507, 715 · `statistiek van uitzonderingen` 274 · `status`
-39, 66, 463 · `stereotypen` 562 · `sterfelijkheid` 2, 71, 232, 295, 416, 516 ·
+529 · `specialisatie` 349, 803 · `speculatie` 808, 809 · `speedreading` 175 ·
+`spel` 550 · `spelen` 32 · `spellen` 392 · `speltheorie` 217, 221, 450, 451,
+452, 453, 454, 455, 456, 656 · `spiegelneuronen` 303 · `spiegeloefening` 380 ·
+`spiegelogie` 108 · `spieropbouw` 316 · `spijt` 447 · `spiritisme` 677 ·
+`spiritualiteit` 8, 14, 27, 102, 108, 141, 149, 160, 169, 184, 190, 195, 196,
+199, 242, 310, 358, 377, 431, 435, 449, 519, 526, 556, 583, 590, 596, 603,
+604, 614, 679, 754 · `spirituele zoektocht` 287, 524 · `sport` 20, 349 ·
+`sportpsychologie` 372, 374, 441 · `sportwetenschap` 461 · `spreekangst` 253 ·
+`spreker` 117, 134 · `staartrisico` 494, 496, 811 · `staat` 612 ·
+`staatsgezag` 616 · `staatsgreep` 220 · `staatskritiek` 621, 622, 623 ·
+`staatsvorming` 622 · `stalking` 214 · `standaarden` 396 · `Stanford` 150,
+388, 458 · `start-ups` 306 · `startups` 265 · `statistiek` 55, 65, 69, 234,
+268, 300, 426, 476, 479, 483, 484, 485, 497, 500, 502, 503, 507, 715, 804,
+805, 811, 909, 946, 951 · `statistiek van uitzonderingen` 274 · `status` 39,
+66, 463 · `stereotypen` 562 · `sterfelijkheid` 2, 71, 232, 295, 416, 516 ·
 `sterrenkunde` 99 · `sterven` 49, 95, 275, 447 · `stijl` 18, 436 · `stoicijns`
 75, 140, 142 · `stoïcijnse filosofie` 153, 228, 232, 286, 423, 459 ·
 `stoïcijnse levenshouding` 402 · `stoïcijnse-houding` 462 · `stoïcisme` 2, 30,
 194, 247, 248, 292, 516, 586 · `stommiteit` 155 · `storytelling` 253, 279 ·
 `strategie` 212, 217, 218, 219, 249, 250, 260, 272, 293, 306, 346, 353, 370,
-426, 440, 443, 450, 451, 456, 694 · `streken` 112 · `stress` 80, 87, 106, 118,
-187, 387, 458 · `stressmanagement` 153 · `stressregulatie` 372 · `strip` 452 ·
-`structuur` 82, 511 · `studieboek` 421, 437, 497, 498, 507 · `studietechniek`
-420 · `succes` 75, 76, 274 · `superkrachten` 203 · `supplementen` 171, 316 ·
-`surveillance` 393 · `syllogismen` 437 · `symboliek` 357, 360, 522, 605, 608,
-610, 633, 635, 636 · `symbolische macht` 723 · `symbooltheorie` 756 ·
-`symmetrie` 659 · `synchroniciteit` 362 · `synchronisatie` 303 · `systeem` 22,
-142 · `systeemtheorie` 165 · `systematisch handelen` 482, 502 · `taal` 26, 27,
-436, 594, 664 · `taal en macht` 344 · `taalfilosofie` 756 · `taaloorsprong`
+426, 440, 443, 450, 451, 456, 694, 901, 902, 907, 908 · `streken` 112 ·
+`stress` 80, 87, 106, 118, 187, 387, 458 · `stressmanagement` 153 ·
+`stressregulatie` 372 · `strip` 452 · `structuur` 82, 511 · `studieboek` 421,
+437, 497, 498, 507 · `studietechniek` 420 · `succes` 75, 76, 274 ·
+`superkrachten` 203 · `supplementen` 171, 316 · `surveillance` 393 ·
+`syllogismen` 437 · `symboliek` 357, 360, 522, 605, 608, 610, 633, 635, 636 ·
+`symbolische macht` 723 · `symbooltheorie` 756 · `symmetrie` 659 ·
+`synchroniciteit` 362 · `synchronisatie` 303 · `systeem` 22, 142 ·
+`systeemtheorie` 165 · `systematisch handelen` 482, 502 · `taal` 26, 27, 436,
+594, 664, 930 · `taal en macht` 344 · `taalfilosofie` 756 · `taaloorsprong`
 762 · `taboe` 719 · `tactische empathie` 271 · `talent` 23, 29, 274 ·
 `taoïsme` 341, 394 · `tarieven` 121 · `tarot` 644 · `teams` 42, 273, 364, 468
 · `teamvorming` 260 · `teamwork` 156, 256 · `techniek` 1, 6, 43, 61, 92 ·
 `techniekgeschiedenis` 666 · `technische analyse` 483, 500 · `technologie`
-160, 288, 294, 306, 393, 499 · `technologiebedrijven` 293 ·
+160, 288, 294, 306, 393, 499, 907 · `technologiebedrijven` 293 ·
 `technologiegeschiedenis` 231, 267 · `technologiekritiek` 297, 539, 674 ·
 `tegen-productiviteit` 71 · `tegencultuur` 750 · `tegenslag` 30, 111, 174, 570
 · `tekenen` 15 · `tekstkwaliteit` 124 · `televisie` 54, 674 · `temperament` 33
@@ -143545,78 +158438,81 @@ symboliek` 409 · `religiewetenschap` 758 · `REM` 52 · `remarkable` 446 ·
 334, 442, 655 · `tijdmanagement` 434 · `tijdsbeleving` 326 · `timemanagement`
 311, 448 · `tirannie` 617 · `toekomst` 236 · `toeval` 21, 64, 93, 137, 274,
 362, 483 · `Tolteeks` 27 · `toon` 72, 118, 119, 121, 132, 145 · `topprestatie`
-374 · `topsport` 422, 460, 545 · `totalitarisme` 384 · `trading` 492, 493, 495
-· `training` 376 · `transpersoonlijke psychologie` 583 · `trauma` 104, 119,
-195, 229, 317, 386 · `trendvolgen` 480, 501 · `trilling` 127 · `trilogie` 202,
-203, 248 · `TRIZ` 471 · `Troje` 530 · `tuinontwerp` 205 · `tumoronderdrukker`
-419 · `twaalf-weken` 14 · `twaalfde eeuw` 525 · `tweede-wereldoorlog` 115 ·
-`tweelingonderzoek` 417 · `twintigers` 51 · `twintigste eeuw` 682, 769 ·
-`typologie` 361 · `ufo` 669, 678 · `ufo's` 615, 675, 676 ·
-`uitdaging-vaardigheid` 200 · `uitgeven` 463 · `uitleg` 99, 102 · `uitleggen`
-82 · `uitstel` 71, 140 · `uitstelgedrag` 12, 311, 513 · `uitstellen` 16 ·
-`uitvinding` 267 · `ultra-triatlon` 324 · `ultralopen` 229 · `umwelt` 322 ·
-`Upanishaden` 169 · `usp` 696 · `utopie` 681 · `vaardigheden` 40, 50, 349, 397
-· `vaardigheid` 64, 296 · `vader-en-dochter` 178, 226 · `vader-en-zoon` 1,
-173, 287 · `vaderschap` 49, 226, 324, 385 · `vakbonden` 297 · `vakmanschap` 1,
-206, 320, 346, 376, 553 · `variantie` 137 · `vastgoed` 37, 448, 570 ·
-`vechtkunst` 389 · `vedanta` 518 · `vedische filosofie` 230 · `veedrift` 5 ·
-`veerkracht` 106, 153, 174, 177, 189, 317, 375, 459, 460, 461, 467, 470 ·
-`veiligheid` 43, 214 · `veiligheidsmarge` 144 · `veldonderzoek` 759 ·
-`veldwerk` 521, 716, 717 · `verandering` 170, 252, 375, 467 ·
-`verantwoordelijkheid` 42, 72, 73, 74, 93, 184, 282, 335, 364 · `verbinding`
-302, 550 · `verdriet` 111, 227 · `verenigde staten` 598, 667, 687, 688, 689,
-690, 753 · `Verenigde-Staten` 464 · `vergaderen` 42 · `vergaderingen` 276 ·
-`vergankelijkheid` 379, 532 · `vergelijkende mythologie` 410, 635 ·
-`vergelijkende religie` 604 · `vergeving` 31, 102, 120, 548, 556 · `verhaal`
-74 · `verhaalstructuur` 410 · `verhaalvorm` 135 · `verhalen` 56, 101, 110,
-136, 196, 470 · `verhalenbundel` 206 · `verhouding` 113 · `verhoudingen` 110 ·
-`verkeer` 300 · `verklaringen` 68 · `verkoop` 132, 182, 185, 186, 188, 246,
-280, 307, 308, 350, 367, 427 · `verkooptrechters` 309 · `verkopen` 210 ·
-`verlangen` 76, 100, 113, 130, 164, 418, 698, 703 · `verleiding` 381 ·
-`verlichting` 243, 287 · `verlies` 95, 373 · `vermaak` 61 · `vermogen` 39, 463
-· `vermogen opbouwen` 395 · `vermogensbeheer` 498 · `vermogensopbouw` 163,
-264, 277 · `veroudering` 171, 387, 415 · `verpleeghuis` 416 · `verpleegkunde`
-225 · `verplichting` 9 · `verraad` 534 · `verslaving` 18, 238, 275, 294, 314,
-324, 325, 418, 554, 568, 583 · `vertrouwen` 42, 273, 279, 319 · `vervloekt
-goud` 533 · `vervolg` 74, 131 · `vervreemding` 173 · `verwachting` 387 ·
-`verwachtingen` 425 · `verwachtingswaarde` 492 · `verwantschap` 722 ·
-`verwondering` 227 · `verzekeren` 496 · `verzet` 523 · `vier deugden` 194 ·
-`visioenen` 359, 758 · `visualisatie` 259, 411, 540 · `visualiseren` 116 ·
-`vlaams` 89, 91, 98, 109 · `voeding` 86, 88, 171, 313, 316, 329, 332, 417 ·
-`voedingswetenschap` 417 · `volatiliteit` 494, 495, 506 · `volharding` 29 ·
-`volledigheid` 167 · `voorbede` 558 · `voorbeelden` 128 · `voorbereiding` 82 ·
-`voordrachten` 519 · `voorkeuren` 89 · `vooroordelen` 55, 283 · `voorspellen`
-455 · `voorspellingen` 268 · `vooruitgang` 251 · `vooruitgangsdenken` 298 ·
+374 · `topsport` 422, 460, 545 · `totalitarisme` 384, 935 · `trading` 492,
+493, 495 · `training` 376 · `transpersoonlijke psychologie` 583 · `trauma`
+104, 119, 195, 229, 317, 386 · `trendvolgen` 480, 501 · `trilling` 127 ·
+`trilogie` 202, 203, 248 · `TRIZ` 471 · `Troje` 530 · `tuinontwerp` 205 ·
+`tumoronderdrukker` 419 · `twaalf-weken` 14 · `twaalfde eeuw` 525 ·
+`tweede-wereldoorlog` 115 · `tweelingonderzoek` 417 · `twintigers` 51 ·
+`twintigste eeuw` 682, 769 · `typologie` 361 · `ufo` 669, 678 · `ufo's` 615,
+675, 676 · `uitdaging-vaardigheid` 200 · `uitgeven` 463 · `uitleg` 99, 102 ·
+`uitleggen` 82 · `uitstel` 71, 140 · `uitstelgedrag` 12, 311, 513 ·
+`uitstellen` 16 · `uitvinding` 267 · `ultra-triatlon` 324 · `ultralopen` 229 ·
+`umwelt` 322 · `Upanishaden` 169 · `usp` 696 · `utopie` 681, 919 ·
+`vaardigheden` 40, 50, 349, 397 · `vaardigheid` 64, 296 · `vader-en-dochter`
+178, 226 · `vader-en-zoon` 1, 173, 287 · `vaderschap` 49, 226, 324, 385 ·
+`vakbonden` 297 · `vakmanschap` 1, 206, 320, 346, 376, 553 · `variantie` 137 ·
+`vastgoed` 37, 448, 570 · `vechtkunst` 389 · `vedanta` 518 · `vedische
+filosofie` 230 · `veedrift` 5 · `veerkracht` 106, 153, 174, 177, 189, 317,
+375, 459, 460, 461, 467, 470 · `veiligheid` 43, 214 · `veiligheidsmarge` 144 ·
+`veldonderzoek` 759 · `veldwerk` 521, 716, 717 · `verandering` 170, 252, 375,
+467 · `verantwoordelijkheid` 42, 72, 73, 74, 93, 184, 282, 335, 364 ·
+`verbinding` 302, 550 · `verdriet` 111, 227 · `verenigde staten` 598, 667,
+687, 688, 689, 690, 753 · `Verenigde-Staten` 464 · `vergaderen` 42 ·
+`vergaderingen` 276 · `vergankelijkheid` 379, 532 · `vergelijkende mythologie`
+410, 635 · `vergelijkende religie` 604 · `vergeving` 31, 102, 120, 548, 556 ·
+`verhaal` 74 · `verhaalstructuur` 410 · `verhaalvorm` 135 · `verhalen` 56,
+101, 110, 136, 196, 470, 903, 942 · `verhalenbundel` 206 · `verhouding` 113 ·
+`verhoudingen` 110 · `verkeer` 300 · `verklaringen` 68 · `verkoop` 132, 182,
+185, 186, 188, 246, 280, 307, 308, 350, 367, 427, 913 · `verkooptrechters` 309
+· `verkopen` 210 · `verlangen` 76, 100, 113, 130, 164, 418, 698, 703 ·
+`verleiding` 381 · `verlichting` 243, 287, 922 · `verlies` 95, 373 · `vermaak`
+61 · `vermogen` 39, 463 · `vermogen opbouwen` 395 · `vermogensbeheer` 498, 813
+· `vermogensopbouw` 163, 264, 277 · `veroudering` 171, 387, 415 ·
+`verpleeghuis` 416 · `verpleegkunde` 225 · `verplichting` 9 · `verraad` 534 ·
+`verslaving` 18, 238, 275, 294, 314, 324, 325, 418, 554, 568, 583 ·
+`vertrouwen` 42, 273, 279, 319 · `vervloekt goud` 533 · `vervolg` 74, 131 ·
+`vervreemding` 173 · `verwachting` 387 · `verwachtingen` 425 ·
+`verwachtingswaarde` 492 · `verwantschap` 722 · `verwondering` 227 ·
+`verzekeren` 496 · `verzet` 523 · `vier deugden` 194 · `visioenen` 359, 758 ·
+`visualisatie` 259, 411, 540 · `visualiseren` 116 · `vlaams` 89, 91, 98, 109 ·
+`voeding` 86, 88, 171, 313, 316, 329, 332, 417 · `voedingswetenschap` 417 ·
+`volatiliteit` 494, 495, 506 · `volharding` 29 · `volledigheid` 167 ·
+`voorbede` 558 · `voorbeelden` 128 · `voorbereiding` 82 · `voordrachten` 519 ·
+`voorkeuren` 89 · `vooroordelen` 55, 283 · `voorspellen` 455 ·
+`voorspellingen` 268 · `vooruitgang` 251 · `vooruitgangsdenken` 298 ·
 `voorzichtigheid` 216 · `vorming` 224 · `vorstenspiegel` 536 · `vragen
 stellen` 509 · `vragen-stellen` 475 · `vreemden` 302 · `vreugde` 549 ·
 `vriendelijkheid` 551 · `vriendschap` 5, 7, 114, 292, 295, 319, 514 · `vrije
 markt` 627 · `vrije tijd` 78, 288 · `vrije wil` 10, 236, 339, 761 · `vrijheid`
-61, 546, 620, 621, 626 · `vrijmetselarij` 605, 635, 636 · `vroeg christendom`
-614 · `vroeg pensioen` 264 · `vrouwenhaat` 110 · `waardebeleggen` 144, 351 ·
-`waardecreatie` 246, 508 · `waarden` 72, 142, 392, 457, 461, 553 ·
-`waardering` 24, 34 · `waarheid` 263 · `waarneming` 154, 283, 322, 541, 582,
-757, 767 · `wabi-sabi` 379 · `wales` 558 · `Wall Street` 144, 351, 499 ·
-`wederkerigheid` 718 · `weerbaarheid` 194 · `weerstand` 12, 538 · `welvaart`
-251, 334 · `welvaartsbewustzijn` 433 · `wereldbeeld` 234 · `wereldbouw` 192 ·
-`wereldorde` 681 · `werk` 70, 78, 151, 252, 466 · `werk en rust` 512 ·
-`werkboek` 14, 122, 150 · `werkcultuur` 551 · `werkdruk` 400 · `werkplek` 33,
-43 · `werktempo` 400 · `werkwijze` 16, 702 · `West-Afrika` 522 · `West-Point`
-29 · `westen` 67 · `western` 5 · `westerse filosofie` 269, 341 · `westerse
-psychologie` 769 · `wet van aantrekking` 127, 190, 433, 543 · `wetenschap` 63,
-66, 93, 94, 328, 485 · `wetenschap en religie` 609 · `wetenschappers` 239 ·
-`wetenschapsfilosofie` 483, 650, 653, 654, 664, 761, 767 ·
-`wetenschapsgeschiedenis` 239, 240, 321, 347, 413, 419, 633, 642, 647, 649,
-651, 654, 657, 658, 659, 660, 661, 662, 663 · `wetenschapsjournalistiek` 387,
-412 · `wijn` 112 · `wijsheid` 596 · `wilskracht` 238 · `Wired` 473 ·
-`wiskunde` 116, 454, 456, 490, 505, 509, 649, 656, 657, 658, 659, 660, 661,
-662 · `wisselstroom` 267 · `woede` 119, 120 · `woestijn` 8 · `Wolfgang Pauli`
-362 · `wraak` 101, 533 · `WRAP` 510 · `wrok` 530 · `wu wei` 394 · `Yale` 215 ·
-`yin-yang` 394 · `yoga` 195, 242, 518 · `young adult` 192 · `youtube` 245 ·
-`zakelijk` 307 · `zakelijke communicatie` 182 · `zakendoen` 348, 367, 465, 508
-· `zeereis` 36 · `zeevaart` 321 · `zeldzaam` 144 · `zelfacceptatie` 176, 335,
-561 · `zelfbedrog` 66 · `zelfbeeld` 25, 27, 105, 107, 108, 129, 138, 197, 367,
-372, 411, 439, 538, 540, 559, 575 · `zelfbeheersing` 75, 148, 212, 248, 286,
-314, 382, 389, 396 · `zelfbescherming` 214 · `zelfcompassie` 32, 551 ·
+61, 546, 620, 621, 626 · `vrijmetselarij` 605, 635, 636, 922, 923, 924 ·
+`vroeg christendom` 614 · `vroeg pensioen` 264 · `vrouwenhaat` 110 ·
+`waardebeleggen` 144, 351 · `waardecreatie` 246, 508 · `waarden` 72, 142, 392,
+457, 461, 553 · `waardering` 24, 34, 814 · `waarheid` 263 · `waarneming` 154,
+283, 322, 541, 582, 757, 767, 930 · `wabi-sabi` 379 · `wales` 558 · `Wall
+Street` 144, 351, 499 · `wederkerigheid` 718 · `weerbaarheid` 194 ·
+`weerstand` 12, 538 · `welvaart` 251, 334 · `welvaartsbewustzijn` 433 ·
+`wereldbeeld` 234, 932 · `wereldbouw` 192 · `wereldorde` 681 · `werk` 70, 78,
+151, 252, 466 · `werk en rust` 512 · `werkboek` 14, 122, 150 · `werkcultuur`
+551 · `werkdruk` 400 · `werkplek` 33, 43 · `werktempo` 400 · `werkwijze` 16,
+702 · `West-Afrika` 522 · `West-Point` 29 · `westen` 67 · `western` 5 ·
+`westerse filosofie` 269, 341 · `westerse psychologie` 769 · `wet van
+aantrekking` 127, 190, 433, 543 · `wetenschap` 63, 66, 93, 94, 328, 485 ·
+`wetenschap en religie` 609 · `wetenschappers` 239 · `wetenschapsfilosofie`
+483, 650, 653, 654, 664, 761, 767, 805, 929, 938 · `wetenschapsgeschiedenis`
+239, 240, 321, 347, 413, 419, 633, 642, 647, 649, 651, 654, 657, 658, 659,
+660, 661, 662, 663, 805, 932, 937, 938, 941, 944, 945, 946, 947, 948, 949, 951
+· `wetenschapsjournalistiek` 387, 412 · `wijn` 112 · `wijsheid` 596 ·
+`wilskracht` 238 · `Wired` 473 · `wiskunde` 116, 454, 456, 490, 505, 509, 649,
+656, 657, 658, 659, 660, 661, 662, 812 · `wisselstroom` 267 · `woede` 119, 120
+· `woestijn` 8 · `Wolfgang Pauli` 362 · `wraak` 101, 533 · `WRAP` 510 · `wrok`
+530 · `wu wei` 394 · `Yale` 215 · `yin-yang` 394 · `yoga` 195, 242, 518 ·
+`young adult` 192 · `youtube` 245 · `zakelijk` 307 · `zakelijke communicatie`
+182 · `zakendoen` 348, 367, 465, 508 · `zeepbellen` 808 · `zeereis` 36 ·
+`zeevaart` 321 · `zeldzaam` 144 · `zelfacceptatie` 176, 335, 561 ·
+`zelfbedrog` 66 · `zelfbeeld` 25, 27, 105, 107, 108, 129, 138, 197, 367, 372,
+411, 439, 538, 540, 559, 575 · `zelfbeheersing` 75, 148, 212, 248, 286, 314,
+382, 389, 396 · `zelfbescherming` 214 · `zelfcompassie` 32, 551 ·
 `zelfdiscipline` 2, 158, 229, 244, 311, 544 · `zelfdoding` 715 ·
 `zelfevaluatie` 270 · `zelfexperiment` 316, 318, 417 · `zelfhaat` 575 ·
 `zelfhulp` 15, 22, 25, 34, 58, 72, 76, 79, 83, 117, 134, 135, 136, 146, 147,
@@ -143624,9 +158520,9 @@ psychologie` 769 · `wet van aantrekking` 127, 190, 433, 543 · `wetenschap` 63,
 176, 177, 179, 181, 184, 187, 188, 190, 193, 194, 195, 196, 199, 204, 207,
 208, 209, 210, 211, 213, 222, 224, 230, 255, 259, 291, 310, 334, 338, 356,
 373, 380, 389, 395, 398, 401, 403, 406, 411, 427, 429, 432, 435, 439, 449,
-459, 465, 513, 540, 543, 546, 548, 556, 557, 561, 569, 570, 768 · `zelfkennis`
-258, 260, 361, 519, 526 · `zelfliefde` 190, 195, 204, 380, 403, 549 ·
-`zelfonderzoek` 315, 470, 520, 527, 579 · `zelfontplooiing` 393 ·
+459, 465, 513, 540, 543, 546, 548, 556, 557, 561, 569, 570, 768, 800, 802 ·
+`zelfkennis` 258, 260, 361, 519, 526 · `zelfliefde` 190, 195, 204, 380, 403,
+549 · `zelfonderzoek` 315, 470, 520, 527, 579 · `zelfontplooiing` 393 ·
 `zelfontwikkeling` 179 · `zelfpraat` 161 · `zelfpromotie` 388 ·
 `zelfpublicatie` 174 · `zelfreferentie` 656 · `zelfregulatie` 153, 165, 177,
 541, 542 · `zelfsabotage` 161, 344 · `zelfspot` 19 · `zelfspraak` 439 ·
@@ -143634,12 +158530,13 @@ psychologie` 769 · `wet van aantrekking` 127, 190, 433, 543 · `wetenschap` 63,
 198 · `zelfstandig starten` 210 · `zelfsturing` 142, 168 · `zelfuitgegeven`
 123, 124, 125, 126 · `zelfverbetering` 243 · `zelfvertrouwen` 157, 187, 312,
 365, 440, 441 · `zelfwaarde` 168 · `zelfwaardering` 121 · `zelfzorg` 109, 225,
-466 · `zen` 141, 346, 441, 517, 528, 576, 769 · `zenboeddhisme` 205, 379 ·
-`zenuwstelsel` 87 · `zestiende eeuw` 573 · `zeven-stappen` 129 · `ziekte` 74,
-180, 295 · `zingeving` 9, 48, 77, 91, 160, 183, 200, 201, 237, 245, 255, 515,
-547 · `zintuigen` 582 · `zitten` 84 · `zorg` 96 · `Zuid-Afrika` 26, 266, 523 ·
-`zuinigheid` 39 · `zuivere ervaring` 576 · `zwaar` 143 · `zwaardvechten` 346,
-517 · `zwart bewustzijn` 523 · `zwarte gaten` 99, 262, 651
+466 · `zen` 141, 346, 441, 517, 528, 576, 769, 800, 952 · `zenboeddhisme` 205,
+379 · `zenuwstelsel` 87 · `zestiende eeuw` 573 · `zeven-stappen` 129 ·
+`ziekte` 74, 180, 295 · `zingeving` 9, 48, 77, 91, 160, 183, 200, 201, 237,
+245, 255, 515, 547 · `zintuigen` 582 · `zitten` 84 · `zorg` 96 · `Zuid-Afrika`
+26, 266, 523 · `zuinigheid` 39 · `zuivere ervaring` 576 · `zwaar` 143 ·
+`zwaardvechten` 346, 517 · `zwart bewustzijn` 523 · `zwarte gaten` 99, 262,
+651
 
 ## Leesroutes
 

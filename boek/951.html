@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Mismeasure of Man &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Het idee dat menselijke intelligentie een enkele, meetbare, grotendeels erfelijke grootheid is waarop groepen te rangschikken vallen, berust volgens Gould…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-951">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">951 &middot; Natuur en wetenschap</p>
+    <h1>The Mismeasure of Man</h1>
+    <p class="lede">Stephen Jay Gould, 1981</p>
+    <p class="stats">
+      <span><b>1658</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="951"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Het idee dat menselijke intelligentie een enkele, meetbare, grotendeels erfelijke grootheid is waarop groepen te rangschikken vallen, berust volgens Gould niet op sterke gegevens maar op twee hardnekkige denkfouten. De eerste is reïficatie: van een statistische samenvatting zoals de g-factor een werkelijk bestaand ding in het hoofd maken. De tweede is rangordening: veelvormige variatie tot een enkele op- en aflopende schaal terugbrengen. Zijn historische bewijsvoering laat zien dat onderzoekers die zichzelf voor onpartijdig hielden telkens juist die uitkomsten produceerden die de maatschappelijke orde van hun tijd bevestigden, en dat de rekenfouten daarbij vrijwel altijd dezelfde kant op vielen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De twee denkfouten</h3>
+      <p>Gould stelt zijn onderwerp scherp af. Hij bestrijdt niet dat mensen in aanleg verschillen en niet dat erfelijkheid bestaat. Wat hij bestrijdt is het biologisch determinisme: de leer dat de maatschappelijke rangorde tussen groepen voortkomt uit aangeboren verschillen en daarom onvermijdelijk is.</p>
+      <p>Die leer steunt volgens hem op twee stappen die zelden worden verantwoord. Reïficatie maakt van een correlatiepatroon een stof in de schedel. Rangordening maakt van een wolk van eigenschappen een lijn met een boven- en een onderkant. Beide stappen zijn wiskundig toegestaan en inhoudelijk onbewezen.</p>
+      <h3>Schedels meten voor Darwin</h3>
+      <p>Het eerste historische hoofdstuk behandelt de Amerikaanse polygenisten, die verschillende menselijke groepen als aparte scheppingen beschouwden. Samuel George Morton verzamelde honderden schedels en bepaalde de inhoud, eerst met mosterdzaad en later met loden hagel, en publiceerde daaruit gemiddelden per groep die keurig de rangorde van zijn tijd volgden.</p>
+      <p>Gould herrekende die gegevens en kwam tot de slotsom dat er van fraude geen sprake was, maar wel van een reeks keuzes die alle dezelfde richting uitwerkten: ongelijke steekproeven, verschillen in geslacht en lichaamsbouw die niet werden gecorrigeerd, en subgroepen die werden weggelaten of samengevoegd. Zijn term daarvoor is onbewust knoeien. De aanwezigheid van Louis Agassiz, die zijn afkeer van zwarte Amerikanen zelf beschreef en er een wetenschappelijke leer omheen bouwde, maakt duidelijk hoe dicht het vak bij de opvattingen van de onderzoeker lag.</p>
+      <h3>Broca en de bloeitijd van de craniometrie</h3>
+      <p>In het tweede historische hoofdstuk staat de Franse school van Paul Broca centraal, die hersengewicht en schedelmaten tot een volwaardig vak maakte. Gould laat zien hoe het bewijs telkens werd bijgesteld als het de verkeerde kant opwees: bleek een gewaardeerde geleerde een lichte hersenmassa te hebben, dan telde plots de lichaamslengte mee, of de ouderdom bij overlijden, of de doodsoorzaak.</p>
+      <p>Uit dezelfde traditie komt de ruzie tussen Robert Bennett Bean en Franklin Mall over de vorm van de hersenbalk. Bean rapporteerde verschillen tussen zwarte en witte hersenen; Mall herhaalde de metingen zonder te weten van wie de preparaten waren en vond niets. Dat is in het hele boek het duidelijkste voorbeeld van hoe blindering het verschil maakt. Gould behandelt daarnaast de criminele antropologie van Cesare Lombroso, die misdadigers als evolutionaire terugval las.</p>
+      <h3>De intelligentietest wordt Amerikaans</h3>
+      <p>Alfred Binet ontwierp zijn schaal in 1905 in opdracht van het Franse onderwijs, om kinderen op te sporen die extra hulp nodig hadden. Hij waarschuwde uitdrukkelijk dat de uitkomst geen aangeboren en vaststaande grootheid meet, dat de score geen rangorde van kinderen mag opleveren en dat achterstand met oefening in te lopen valt.</p>
+      <p>In de Verenigde Staten werd de schaal precies andersom gebruikt. Henry Goddard maakte er een instrument van om zwakzinnigheid vast te stellen, ook bij binnenkomende migranten, en illustreerde zijn boek over de familie Kallikak met foto's die achteraf waren geretoucheerd om de gezichten dreigender te maken. Lewis Terman maakte er met de Stanford-Binet een landelijke maat van.</p>
+      <p>Het zwaarste hoofdstuk gaat over Robert Yerkes, die tijdens de Eerste Wereldoorlog ongeveer 1,75 miljoen Amerikaanse rekruten testte. Gould beschrijft de omstandigheden: analfabete mannen die toch een schriftelijke toets kregen, vragen die kennis van Amerikaanse merken en beroemdheden veronderstelden, chaos in de zalen. Uit die gegevens kwam de conclusie dat de gemiddelde witte Amerikaanse man de verstandelijke leeftijd van ongeveer dertien jaar had, en dat migranten uit Zuid- en Oost-Europa lager scoorden. Die cijfers werden in het politieke debat over migratiebeperking en sterilisatie ingezet.</p>
+      <h3>Factoranalyse en de g-factor</h3>
+      <p>Het theoretische kernhoofdstuk gaat over Charles Spearman en over de wiskunde erachter. Als verschillende toetsen alle positief met elkaar samenhangen, levert de gangbare rekenwijze altijd een eerste component op die een groot deel van de variatie dekt. Spearman noemde die g en beschouwde hem als algemene verstandelijke energie.</p>
+      <p>Gould brengt daartegen in dat dezelfde matrix van correlaties met een andere, even geoorloofde rotatie in meerdere afzonderlijke vermogens uiteenvalt, zoals Louis Thurstone deed met zijn primaire vermogens. De wiskunde kan dus niet uitmaken of g bestaat; die keuze wordt daarbuiten gemaakt. Het hoofdstuk behandelt ook Cyril Burt, wiens tweelingonderzoek grotendeels verzonnen bleek, waarbij Gould benadrukt dat de fraude minder erg is dan de denkfout die Burt met zijn hele vakgebied deelde.</p>
+      <p>In het slot zet hij zijn eigen positie neer: variatie is de werkelijkheid en de rangorde is het bijproduct. Daarbij hoort zijn steeds herhaalde punt dat de erfelijkheidsgraad binnen een groep niets zegt over de oorzaak van een verschil tussen groepen.</p>
+      <h3>De herziening van 1996</h3>
+      <p>De tweede druk verscheen als antwoord op <i>The Bell Curve</i> van Richard Herrnstein en Charles Murray uit 1994. Gould voegde een inleiding en twee stukken toe, waaronder een opstel over eerdere golven van hetzelfde denken.</p>
+      <p>Zijn bezwaar tegen Herrnstein en Murray is dat hun betoog staat of valt met vier aannames die zij niet verdedigen: dat intelligentie in een getal te vatten is, dat mensen erop te rangschikken zijn, dat de grootheid grotendeels erfelijk is en dat zij nauwelijks te veranderen valt. De rest van het boek is volgens hem statistiek die daarop rust en er niets aan toevoegt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">biologisch determinisme</td><td>De leer dat de maatschappelijke verhoudingen tussen groepen voortkomen uit aangeboren biologische verschillen en daarom weinig te veranderen zijn.</td></tr>
+          <tr><td class="term">reïficatie</td><td>Het behandelen van een rekenkundige abstractie, zoals de g-factor, alsof het om een aanwijsbaar ding gaat.</td></tr>
+          <tr><td class="term">rangordening</td><td>De neiging om veelvormige variatie tot een enkele oplopende schaal terug te brengen, met een onder- en een bovenkant.</td></tr>
+          <tr><td class="term">polygenisme</td><td>De negentiende-eeuwse opvatting dat menselijke groepen afzonderlijk zijn ontstaan en als aparte soorten te beschouwen zijn.</td></tr>
+          <tr><td class="term">craniometrie</td><td>Het meten van schedelinhoud en hersengewicht als veronderstelde maat voor verstandelijk vermogen.</td></tr>
+          <tr><td class="term">g</td><td>Spearmans algemene factor, de eerste component uit de samenhang tussen uiteenlopende toetsen, door hem opgevat als algemene verstandelijke energie.</td></tr>
+          <tr><td class="term">factoranalyse</td><td>Rekentechniek die een groot aantal samenhangende metingen tot enkele onderliggende dimensies terugbrengt; welke dimensies eruit komen hangt van de gekozen rotatie af.</td></tr>
+          <tr><td class="term">erfelijkheidsgraad</td><td>Het aandeel van de variatie binnen een groep dat aan erfelijke verschillen is toe te schrijven; zegt op zichzelf niets over de oorzaak van verschillen tussen groepen.</td></tr>
+          <tr><td class="term">onbewust knoeien</td><td>Goulds aanduiding voor het verschijnsel dat oprechte onderzoekers een reeks kleine keuzes maken die alle dezelfde kant op werken, zonder dat er van opzet sprake is.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Gould gaat naar de bronnen. Hij herrekende Mortons gepubliceerde tabellen, nam de opgaven van de Amerikaanse legertests op zodat de lezer kan zien wat er werkelijk gevraagd werd, en liet de retouchering in Goddards Kallikak-foto's zien. De fraude van Cyril Burt is los van hem vastgesteld, onder meer door de biografie van Leslie Hearnshaw uit 1979, dus dat onderdeel steunt niet op Goulds eigen oordeel.</p>
+      <p>De zwakke plek zit in de verhouding tussen de delen. De historische hoofdstukken overtuigen door hun materiaal; het hoofdstuk over factoranalyse voert een wiskundig argument dat aantoont dat g niet uit de rekenwijze volgt, maar niet dat g geen werkelijke grondslag heeft. Het boek suggereert dat het eerste het tweede oplevert. Verder ontbreekt vrijwel elke bespreking van de empirische kant van het testonderzoek, zoals de voorspellende waarde van scores voor school- en beroepsuitkomsten.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar treft precies het beroemdste hoofdstuk. In 2011 publiceerden Jason Lewis en medeauteurs in PLoS Biology een hermeting van meer dan driehonderd schedels uit Mortons verzameling. Zij vonden Mortons opgaven grotendeels correct en concludeerden dat Goulds heranalyse zelf fouten bevatte en dat hij, zonder ooit een schedel in handen te hebben gehad, de vooringenomenheid vond die hij verwachtte. Latere heranalyses van Michael Weisberg en van Kaplan, Pigliucci en Banta hebben dat beeld genuanceerd en vinden bij beide partijen fouten, maar de aanklacht in de vorm waarin Gould haar bracht houdt geen stand. Dat is pijnlijk, want zijn eigen onderwerp is hoe verwachting het meetwerk stuurt.</p>
+      <p>Op de psychometrische kant is de kritiek van vakgenoten hard en grotendeels onbeantwoord gebleven. John Carroll, Arthur Jensen en David Bartholomew brachten in dat rotatie de positieve samenhang tussen toetsen niet wegneemt: welke assen men ook kiest, het feit dat vrijwel alle verstandelijke toetsen positief samenhangen blijft staan en vraagt om verklaring. Gould behandelt de wiskundige vrijheid alsof die het verschijnsel zelf opheft.</p>
+      <p>Ten slotte is de bouw van het betoog kwetsbaar. Aantonen dat negentiende-eeuwse en vroeg twintigste-eeuwse onderzoekers bevooroordeeld waren, zegt niets over de houdbaarheid van hedendaagse beweringen, maar het boek laat de lezer wel die overstap maken. Ook de bewering dat de legertests het Amerikaanse migratiebeleid van 1924 stuurden is bestreden, onder meer door Snyderman en Rothman, die in de parlementaire stukken nauwelijks verwijzingen naar dat onderzoek terugvonden.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij elk samengesteld cijfer over mensen wat er precies is samengevoegd en welke keuze de rangorde bepaalt.</li>
+        <li>Blindeer metingen waar dat kan: laat wie meet niet weten tot welke groep het geval behoort.</li>
+        <li>Let bij een reeks kleine methodische keuzes op of de afwijkingen willekeurig verdeeld zijn of stelselmatig dezelfde kant op vallen.</li>
+        <li>Houd erfelijkheid binnen een groep en verklaring van verschillen tussen groepen strikt gescheiden; het eerste levert het tweede niet op.</li>
+        <li>Ga bij een beleidsadvies dat op een test steunt na waarvoor die test oorspronkelijk is ontworpen en wat de ontwerper erover heeft gezegd.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Mismeasure of Man</i> (W. W. Norton, New York, 1981, 352 blz.; herziene en uitgebreide editie 1996, 444 blz., ISBN 9780393314250). De eerste druk kreeg in 1982 de National Book Critics Circle Award. Nederlandse uitgave van de herziene editie: <i>De mens gemeten</i>, vertaald door Ton Maas en Frits Smeets, met een voorwoord van Piet Vroon (Contact, Amsterdam, 1996, 493 blz., ISBN 9789025411022).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Gould onderzoekt anderhalve eeuw pogingen om menselijke waarde in een getal te vangen: schedelinhoud, hersengewicht, intelligentiequotiënt. Zijn onderwerp is niet of mensen verschillen maar hoe wetenschappers verschillen tot een rangorde maakten en die rangorde vervolgens erfelijk verklaarden. Twee denkfouten keren steeds terug: reïficatie, het behandelen van een statistische abstractie als een ding, en rangordening, het persen van veelvormige variatie in een oplopende schaal.</p><p>Het boek loopt van Samuel George Morton, die rond 1839 schedels met zaad en hagel opmat, via Paul Broca en de bloeitijd van de schedelmeetkunde, naar de Amerikaanse intelligentietest. Binet ontwierp zijn schaal in 1905 om achterblijvende kinderen extra hulp te geven en waarschuwde tegen elk ander gebruik; Goddard, Terman en Yerkes maakten er een maat voor aangeboren aanleg van. Het theoretische kernhoofdstuk gaat over factoranalyse en over Spearmans g: dezelfde correlaties leveren bij een andere rotatie meerdere vermogens op, zodat de wiskunde niet kan uitmaken of g een ding is. In de herziene druk van 1996 voegde Gould een afrekening met <i>The Bell Curve</i> van Herrnstein en Murray toe.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>wetenschapsgeschiedenis</li><li>psychologie</li><li>statistiek</li><li>onderzoek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="943"><a href="943.html">Frames of Mind</a>. Gardner zet tegenover de enkele schaal een verdeling in meerdere vermogens; dat is de constructieve versie van Goulds afbraakwerk, met dezelfde zwakke onderbouwing.</li>
+          <li value="946"><a href="946.html">The Lady Tasting Tea</a>. Salsburg beschrijft waar de statistische technieken vandaan komen die Gould bekritiseert, inclusief het werk van Spearman en Pearson en hun eigen opvattingen over erfelijkheid.</li>
+          <li value="950"><a href="950.html">The Beak of the Finch</a>. Weiner laat zien hoe zorgvuldig meetwerk aan levende dieren er wel uitziet, wat een nuttige spiegel is voor de schedelmetingen die Gould behandelt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

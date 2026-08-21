@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Great Transformation &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De zelfregulerende markt is volgens Polanyi geen natuurlijke ordening waar samenlevingen vanzelf in terechtkomen, maar een negentiende-eeuws bouwwerk dat…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-933">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">933 &middot; Geschiedenis en samenleving</p>
+    <h1>The Great Transformation</h1>
+    <p class="lede">Karl Polanyi, 1944</p>
+    <p class="stats">
+      <span><b>1578</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="933"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De zelfregulerende markt is volgens Polanyi geen natuurlijke ordening waar samenlevingen vanzelf in terechtkomen, maar een negentiende-eeuws bouwwerk dat met staatsdwang tot stand is gebracht en alleen met staatsdwang overeind blijft. Markten bestaan al duizenden jaren, maar een samenleving die als geheel aan de prijsvorming is opgehangen bestond nergens eerder. Omdat zo'n inrichting arbeid, grond en geld behandelt alsof het gewone koopwaar is, tast zij de stof aan waaruit een samenleving bestaat, en roept zij vanzelf een tegenkracht op die haar wil beteugelen. De botsing tussen die twee, en niet een moreel tekort of een reeks ongelukken, verklaart bij Polanyi de ineenstorting van de negentiende-eeuwse orde tussen 1914 en 1945.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De vier steunpilaren van de honderdjarige vrede</h3>
+      <p>Polanyi begint bij een raadsel: tussen 1815 en 1914 voerden de Europese grote mogendheden geen langdurige oorlog tegen elkaar, en daarna binnen dertig jaar twee. Hij verklaart die eeuw uit vier instellingen die elkaar in stand hielden: het machtsevenwicht tussen staten, de internationale goudstandaard, de zelfregulerende markt en de liberale staat. De goudstandaard noemt hij de spil.</p>
+      <p>De vrede werd volgens hem niet bewaard door diplomatie maar door belang. De internationale financiële wereld, de haute finance, had leningen uitstaan in alle hoofdsteden en verloor bij elke grote oorlog. Toen de goudstandaard in de jaren dertig alsnog bezweek, viel de rest van het bouwwerk mee om. Voor Polanyi is dat geen samenloop maar het bewijs dat het één stelsel was.</p>
+      <h3>Markten zijn oud, de marktsamenleving is jong</h3>
+      <p>Het antropologische deel draagt zijn aanval op de economie van zijn tijd. Adam Smith leidde de arbeidsdeling af uit een aangeboren neiging tot ruilen en sjacheren; Polanyi houdt daartegenover dat die neiging in vroegere samenlevingen niet terug te vinden is. Wat hij er wel aantreft zijn drie andere ordeningen: wederkerigheid tussen gelijken, herverdeling via een centrum, en huishouding voor eigen gebruik. Hij verwijst daarvoor onder meer naar de Trobriand-eilanden, het koninkrijk Dahomey, het Babylonië van Hammurabi en het Inca-rijk.</p>
+      <p>Daaruit volgt het begrip waar het boek om draait: de economie was ingebed in sociale verhoudingen. Wie in zo'n samenleving zijn plicht deed, deed dat om zijn stand, zijn familie en zijn eer, en niet om winst. Pas in de negentiende eeuw wordt de verhouding omgekeerd en komen de sociale verhoudingen binnen het economische stelsel te liggen.</p>
+      <h3>De duivelse molen</h3>
+      <p>Het tweede deel behandelt de industriële omwenteling in Engeland. Polanyi ontleent zijn beeld aan William Blake: de satanische molen die mensen tot massa vermaalt. Zijn punt is dat de snelheid van de omschakeling het sociale weefsel sloopte; dat machines de armoede zouden veroorzaken bestrijdt hij juist, want de productie steeg.</p>
+      <p>Ter vergelijking haalt hij de omheining van gemeenschappelijke grond onder de Tudors aan. Ook toen ging het om een verandering die op termijn productief was, maar de kroon remde haar af, en Polanyi rekent dat de vorsten aan als verstandig bestuur. In de negentiende eeuw ontbrak zo'n rem.</p>
+      <h3>Speenhamland en 1834</h3>
+      <p>Het scharnier in zijn verhaal is het Speenhamland-stelsel, in 1795 door de magistraten van Berkshire ingevoerd: een aanvulling op het loon uit de armenkas, gekoppeld aan de broodprijs en de gezinsgrootte. Polanyi leest dat als de laatste poging om een arbeidsmarkt buiten de deur te houden. Het gevolg was volgens hem dat lonen wegzakten tot onder het bestaansminimum, dat de prikkel om te werken verdween en dat de plattelandsbevolking verpauperde.</p>
+      <p>Met de Poor Law Amendment Act van 1834 werd de aanvulling afgeschaft en ontstond pas werkelijk een markt voor arbeid. Rond die overgang groepeert Polanyi de denkers die de nieuwe orde van een natuurwet voorzagen: Joseph Townsend met zijn parabel over de geiten en de honden op Juan Fernández, Malthus met de bevolkingswet, Ricardo met de ijzeren loonwet en Bentham met zijn ontwerp voor armenfabrieken. Robert Owen krijgt de rol van de enige die begreep wat er werkelijk op het spel stond.</p>
+      <h3>De dubbele beweging</h3>
+      <p>Vervolgens beschrijft Polanyi de tegenkracht. In de tweede helft van de negentiende eeuw komen in vrijwel alle industrielanden dezelfde maatregelen tot stand: fabrieksinspectie, beperking van kinderarbeid, erkenning van vakbonden, invoerrechten op graan, grondwetgeving, centrale banken en verplichte verzekering. Zij komen van uiteenlopende partijen en volgen geen gemeenschappelijk plan.</p>
+      <p>Juist dat is zijn argument. Waar liberale economen die maatregelen zagen als het werk van belangengroepen die de markt ondermijnden, ziet Polanyi een spontane reactie van de samenleving op een aanslag op haar bestaan. Hij keert daarmee ook de liberale schuldvraag om: de crisis van het stelsel kwam volgens hem doordat een samenleving zich niet zonder bescherming aan de markt laat ophangen, en niet doordat de markt werd gehinderd.</p>
+      <h3>Fascisme en de vraag naar vrijheid</h3>
+      <p>Het derde deel behandelt het interbellum als de ontknoping. De bescherming van de samenleving en de eisen van de goudstandaard konden niet allebei worden gehonoreerd; regeringen kwamen klem te zitten tussen deflatie en sociale onrust. Fascisme is voor Polanyi een uitweg uit die klem, die de politieke vrijheid opoffert om het marktstelsel te redden, terwijl socialisme en de New Deal het omgekeerde probeerden.</p>
+      <p>Het slothoofdstuk gaat over vrijheid in een ingewikkelde samenleving. Polanyi stelt dat de negentiende eeuw haar vrijheidsbesef ontleende aan de fictie dat niemand verantwoordelijk was voor de uitkomst van de markt. Wie die fictie opgeeft, moet vrijheid voortaan bewust inrichten, met instellingen en met erkenning van macht en dwang als gegeven. Hij noemt dat het aanvaarden van de werkelijkheid van de samenleving.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">ingebedde economie</td><td>Polanyi's aanduiding voor een economie die ondergeschikt is aan verwantschap, godsdienst en gezag, in plaats van omgekeerd.</td></tr>
+          <tr><td class="term">fictieve koopwaar</td><td>Arbeid, grond en geld: zaken die op de markt worden verhandeld hoewel ze niet voor de verkoop zijn voortgebracht.</td></tr>
+          <tr><td class="term">dubbele beweging</td><td>De uitbreiding van de markt en het spontane verzet van de samenleving daartegen, door Polanyi opgevat als één proces.</td></tr>
+          <tr><td class="term">zelfregulerende markt</td><td>Een stelsel waarin alle productie voor de verkoop is en alle prijzen, ook die van arbeid en grond, zich zonder ingrijpen vormen.</td></tr>
+          <tr><td class="term">wederkerigheid, herverdeling en huishouding</td><td>De drie ordeningsvormen die Polanyi in niet-marktsamenlevingen aantreft: tussen gelijken, via een centrum, en binnen het eigen huis.</td></tr>
+          <tr><td class="term">de duivelse molen</td><td>Beeld ontleend aan William Blake voor een industriële omschakeling die mensen sneller ontwortelde dan zij zich konden aanpassen.</td></tr>
+          <tr><td class="term">haute finance</td><td>De internationale financiers wier belang bij vrede volgens Polanyi de negentiende-eeuwse machtsverhoudingen bijeenhield.</td></tr>
+          <tr><td class="term">Speenhamland-stelsel</td><td>De Engelse loonaanvulling uit de armenkas tussen 1795 en 1834, in Polanyi's verhaal de rem die de arbeidsmarkt tegenhield.</td></tr>
+          <tr><td class="term">de werkelijkheid van de samenleving</td><td>Polanyi's slotbegrip: de erkenning dat mensen van elkaar afhankelijk zijn en dat vrijheid daarbinnen moet worden ingericht.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Polanyi schreef het boek in de oorlogsjaren aan Bennington College in Vermont, zonder toegang tot Britse archieven, en steunde op gedrukte bronnen: parlementaire verslagen, de Engelse sociale geschiedschrijving van de Hammonds en van Toynbee, en de economische antropologie van Malinowski, Thurnwald en Bücher. Voor de honderdjarige vrede en de goudstandaard verwerkt hij bovendien wat hij als redacteur bij het Weense blad <i>Der Österreichische Volkswirt</i> van nabij had meegemaakt.</p>
+      <p>De zwakste steunpilaar is tegelijk de belangrijkste. De hele reconstructie van het ontstaan van de arbeidsmarkt draait om Speenhamland, en Polanyi's beeld daarvan komt grotendeels uit het rapport van de armenwetcommissie van 1834, dat zelf een pleitstuk voor afschaffing was. De historicus G.D.H. Cole waarschuwde hem daarvoor toen hij in 1943 het eerste deel van het manuscript te lezen kreeg. Polanyi heeft die kritiek niet verwerkt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de empirische kern het niet heeft gehouden. Vanaf de artikelen van Mark Blaug uit 1963 en 1964 hebben economisch historici laten zien dat het broodschaalstelsel lang niet overal gold, ook niet in de graanstreken, en dat de gevolgen die Polanyi eraan toeschrijft, wegzakkende lonen, verdwijnende werklust en een bevolkingsexplosie, in de cijfers niet terug te vinden zijn. Wie Speenhamland uit het boek haalt, houdt de these overeind en verliest de casus die haar moest dragen.</p>
+      <p>Ten tweede is het begrip inbedding zo ruim dat er weinig mee te weerleggen valt. Elke economie is in enige mate in sociale verhoudingen verankerd, dus de vaststelling dat de negentiende-eeuwse markt niet volledig los van de samenleving stond kan zowel voor als tegen Polanyi worden gelezen. Critici als Deirdre McCloskey voegen daaraan toe dat uitgebreide markten al eeuwen vóór 1800 bestonden en dat de samenlevingen die hij als tegenvoorbeeld opvoert bepaald niet rechtvaardiger waren.</p>
+      <p>Ten derde ontbreekt de andere helft van de balans. De sociale kosten van de omschakeling beschrijft Polanyi nauwkeurig, de opbrengst nauwelijks: de stijging van levensverwachting, geletterdheid en reëel inkomen die in dezelfde landen op dezelfde omschakeling volgde komt in zijn verhaal niet voor. Daar komt bij dat de zelfregulerende markt in de zuivere vorm die hij aanvalt door weinig economen ooit is verdedigd, wat zijn tegenstander eenvoudiger maakt dan die was.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik het onderscheid tussen markt en marktsamenleving in elk debat waarin 'de markt' als één ding wordt aangeduid.</li>
+        <li>Toets de stelling over fictieve koopwaar aan een actueel voorbeeld: de woningmarkt, arbeidsmigratie of de handel in uitstootrechten.</li>
+        <li>Lees de hoofdstukken over Speenhamland naast een recente economisch-historische behandeling en let op waar de bronnen uiteenlopen.</li>
+        <li>Let bij de dubbele beweging op wat zij niet verklaart: waarom de tegenbeweging in het ene land sociale verzekering opleverde en in het andere fascisme.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Great Transformation: The Political and Economic Origins of Our Time</i> (Farrar &amp; Rinehart, New York, 1944; de Britse editie verscheen in 1945 bij Victor Gollancz onder de titel <i>The Origins of Our Time</i>; tweede editie met een voorwoord van Joseph Stiglitz en een inleiding van Fred Block, Beacon Press, Boston, 2001, 360 blz., ISBN 9780807056431). Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Karl Polanyi schreef dit boek tijdens de Tweede Wereldoorlog in de Verenigde Staten, als antwoord op de vraag hoe de betrekkelijk stabiele negentiende eeuw in dertig jaar kon overgaan in twee wereldoorlogen, de crisis van de jaren dertig en het fascisme. Zijn antwoord ligt bij een instelling en niet bij een reeks gebeurtenissen: de poging om de samenleving in te richten rond een markt die zichzelf regelt. Die poging noemt hij een uitvinding van de negentiende eeuw, doorgevoerd met wetgeving en politiedwang, en geen natuurlijke toestand waar economen haar voor aanzagen.</p><p>De sleutel is dat arbeid, grond en geld als koopwaar worden verhandeld terwijl ze niet voor de verkoop zijn gemaakt. Polanyi noemt ze fictieve koopwaar. Wie mensen, land en betaalmiddelen volledig aan de prijsvorming overlaat, sloopt de samenleving die hen voortbrengt, en die samenleving verweert zich: fabriekswetten, vakbonden, invoerrechten, centrale banken, sociale verzekering. Dat heen en weer heet bij hem de dubbele beweging. Toen de spanning tussen markt en samenleving in de jaren dertig onhoudbaar werd, viel het stelsel uiteen in de New Deal, de Sovjetplanning en het fascisme. Het boek eindigt bij de vraag wat vrijheid nog kan betekenen in een samenleving die haar eigen werkelijkheid onder ogen ziet.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>economie</li><li>kapitalisme</li><li>economische geschiedenis</li><li>politieke economie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="910"><a href="910.html">Kapitalisme, socialisme en democratie</a>. Schumpeter beschrijft dezelfde ineenstorting, maar zoekt de oorzaak in de dynamiek van het kapitalisme zelf.</li>
+          <li value="935"><a href="935.html">The Origins of Totalitarianism</a>. Arendt behandelt de ontknoping die Polanyi aankondigt: hoe uit de val van de negentiende-eeuwse orde totale heerschappij ontstond.</li>
+          <li value="65"><a href="65.html">Economic Facts and Fallacies</a>. Sowell hanteert precies de economische redeneerwijze waartegen Polanyi zich keert, en is daardoor bruikbaar als tegenstem.</li>
+          <li value="939"><a href="939.html">Het civilisatieproces</a>. Elias volgt over dezelfde eeuwen de verandering van gedrag en zelfbeheersing, met de staat en niet de markt als motor.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Devil Take the Hindmost &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Chancellor leest de geschiedenis van de financiële speculatie als één doorlopend verschijnsel dat telkens dezelfde vorm aanneemt. Een nieuwe markt of een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-808">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">808 &middot; Geld en ondernemen</p>
+    <h1>Devil Take the Hindmost</h1>
+    <p class="lede">Edward Chancellor, 1999</p>
+    <p class="stats">
+      <span><b>1897</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="808"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Chancellor leest de geschiedenis van de financiële speculatie als één doorlopend verschijnsel dat telkens dezelfde vorm aanneemt. Een nieuwe markt of een nieuwe techniek wekt de gedachte dat de oude verhoudingen zijn opgeheven, ruim krediet maakt het mogelijk met geleend geld te wedden, de koersen raken los van de opbrengsten die eronder liggen, en pas na de val komt het bedrog aan het licht dat in de opgaande fase onzichtbaar bleef. Speculatie hoort in zijn lezing bij het kapitalisme zelf, gevoed door de belofte dat iemand zonder werken rijk kan worden en de sociale ladder in één sprong kan nemen. Wetgeving en toezicht dringen het verschijnsel niet terug, ze verplaatsen het naar de volgende markt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Rome, Amsterdam en de tulp</h3>
+      <p>Het eerste hoofdstuk zoekt de wortels van de speculatie in de Romeinse republiek van de tweede eeuw voor Christus, waar aandelen in belastingpachtgezelschappen verhandeld werden en waar markten bestonden voor grond, leningen en een vroege vorm van verzekering. Met het feodale stelsel en de leer van de rechtvaardige prijs verdwijnt die handel grotendeels, om via de Italiaanse stadstaten en hun verhandelbare staatsschuld terug te keren.</p>
+      <p>De Amsterdamse beurs van de vroege zeventiende eeuw is voor Chancellor het eerste moderne toneel: er werd gehandeld in termijncontracten en opties, en er werd verkocht wat men niet bezat. Zijn belangrijkste ooggetuige is Joseph Penso de la Vega, wiens <i>Confusión de confusiones</i> uit 1688 de stemmingen op de beursvloer beschrijft. De tulpenmanie van de jaren dertig van die eeuw krijgt de rol van oervoorbeeld: prijzen van bollen die zich losmaken van elk gebruik, handel in kroegen door mensen die van bloembollen niets wisten, en een nasleep waarin de tulp in de schilderkunst een zinnebeeld van dwaasheid werd.</p>
+      <h3>'Change Alley en de South Sea Company</h3>
+      <p>Het tweede en derde hoofdstuk spelen in Londen. Na de oprichting van de Bank of England in 1694 ontstaat in de koffiehuizen van Exchange Alley een handel in aandelen van projectmaatschappijen, waarbij de schatzoekersexpeditie van kapitein Phipps als aanjager werkte. Het woord stockjobbing had toen al een bijklank van bedrog, en de eerste wetgeving tegen de handel dateert uit dezelfde jaren.</p>
+      <p>Het hoogtepunt is de South Sea Company, in 1711 opgericht om staatsschuld over te nemen tegen een handelsmonopolie op Spaans Amerika dat nooit iets opleverde. Het verdienmodel zat in de omzetting zelf: hoe hoger de koers, hoe minder aandelen de maatschappij hoefde uit te geven om dezelfde schuld te vervangen, en hoe groter de winst. Chancellor laat zien hoe parlementsleden aandelen kregen toegeschoven en hoe de val van 1720 het Britse politieke leven jarenlang bezighield.</p>
+      <h3>Poyais en de spoorwegkoorts</h3>
+      <p>Het vierde hoofdstuk gaat over de opkomende markten van de jaren twintig van de negentiende eeuw. Na de Zuid-Amerikaanse onafhankelijkheidsoorlogen plaatsten Londense huizen leningen voor Colombia, Chili en Peru, en werden mijnbouwmaatschappijen opgericht op grond van verhalen over ongeëxploiteerde aders. Het scherpste geval is Gregor MacGregor, die in 1822 een lening plaatste voor de staat Poyais in Midden-Amerika, compleet met een gedrukte beschrijving van het land, een hoofdstad en een regering. Het land bestond niet. Kolonisten die er werkelijk heen voeren, kwamen op een onbewoonde kust terecht. In 1825 sloeg de stemming om en in 1826 zaten vrijwel alle Latijns-Amerikaanse leningen in gebreke.</p>
+      <p>Het vijfde hoofdstuk behandelt de spoorwegkoorts van 1845, met de eerdere kanalenkoorts als voorbeeld. Chancellor beschrijft hoe aandelen in nieuwe lijnen werden toegewezen tegen een kleine aanbetaling, zodat iemand met weinig geld een grote positie kon nemen, en hoe George Hudson, de Railway King, met fusies en met dividend uit kapitaal een netwerk aan elkaar hield tot de boeken werden nagelopen. Wat overbleef nadat de aandeelhouders hun geld kwijt waren, was wel een spoorwegnet.</p>
+      <h3>De Gilded Age</h3>
+      <p>Het zesde hoofdstuk verplaatst het toneel naar de Verenigde Staten. Speculatie in land was er vanaf het begin een gewoonte van de bezittende klasse, tot en met Washington en Jefferson. De Burgeroorlog en het papiergeld dat ermee gepaard ging maakten van de beurs een strijdtoneel voor operateurs als Daniel Drew, Cornelius Vanderbilt, Jay Gould en James Fisk.</p>
+      <p>Het bekendste geval is de poging van Gould en Fisk om in september 1869 de goudmarkt in een corner te drijven, dus vrijwel het hele verhandelbare aanbod op te kopen zodat wie goud geleend en verkocht had tegen elke prijs moest terugkopen. De poging strandde toen de schatkist goud verkocht, en de dag ging de geschiedenis in als Black Friday. Chancellor gebruikt de periode om te laten zien hoe koersmanipulatie de verhouding tussen bestuurders en aandeelhouders bedierf.</p>
+      <h3>Het einde van een nieuw tijdperk</h3>
+      <p>Het zevende hoofdstuk gaat over 1929. De kern van Chancellors betoog is het nieuw-tijdperkdenken: het geloof dat de conjunctuurgolf was afgeschaft door de oprichting van het stelsel van centrale banken in 1913, door betere bedrijfsvoering en door technische vooruitgang. Edgar Lawrence Smiths <i>Common Stocks as Long-Term Investments</i> uit 1924 gaf de gedachte een wetenschappelijke jas: aandelen zouden op lange termijn nauwelijks riskant zijn.</p>
+      <p>Daarbovenop kwam het effectenkrediet, waarbij een belegger een deel van de aankoopsom leent van zijn commissionair. Dat is een hefboom: winst en verlies worden allebei uitvergroot, en bij een koersdaling moet de lener bijstorten of verkopen. Chancellor citeert de uitspraak dat de vier duurste woorden in het Engels 'this time it's different' zijn, en laat zien hoe die woorden in elk voorafgaand hoofdstuk al eens waren gevallen.</p>
+      <h3>Cowboykapitalisme</h3>
+      <p>Het achtste hoofdstuk loopt van Bretton Woods naar Michael Milken. Het stelsel van vaste wisselkoersen uit 1944 was mede bedoeld om speculatief kapitaalverkeer aan banden te leggen, en de speculant gold in die jaren als een figuur van hetzelfde slag als de zwarthandelaar. Nadat Nixon in 1971 de inwisselbaarheid van de dollar in goud opschortte, kwamen zwevende koersen en daarmee een markt voor het afdekken en verhandelen van dat koersrisico.</p>
+      <p>Chancellor beschrijft hoe de leer van de doelmatige markt in dezelfde jaren aan de universiteiten terrein won en de speculant van een moreel verdachte in een nuttige prijszetter veranderde, hoe de handel in derivaten opkwam, en hoe Michael Milken met rommelobligaties de overnamegolf van de jaren tachtig financierde. De hoofdstukken over die jaren zijn ook een geschiedenis van de handelaar als beroepsgroep.</p>
+      <h3>Kamikazekapitalisme en de epiloog</h3>
+      <p>Het laatste hoofdstuk gaat over Japan. Chancellor begint bij de gedachte dat de Japanse economie naar eigen aard werkt en dus buiten de westerse regels valt, en laat zien hoe de liberalisering van de financiële markten begin jaren tachtig het zaitech opleverde: bedrijven die hun winst steeds meer uit financiële constructies haalden en steeds minder uit hun eigen bedrijf. Grond en aandelen dienden elkaar als onderpand, waardoor de stijging zichzelf voedde.</p>
+      <p>In de epiloog keert hij terug naar de vraag waar de eerste hoofdstukken mee begonnen: heeft speculatie nut. Hij zet het argument dat speculanten de markt van liquiditeit en van betere prijzen voorzien naast de val van Long-Term Capital Management in 1998, en concludeert dat de vrijheid om te speculeren zich vroeg of laat aan haar ketenen ontworstelt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Speculatie</td><td>Iets kopen of verkopen met het oog op de prijsbeweging zelf, in plaats van op de opbrengst die het voortbrengt.</td></tr>
+          <tr><td class="term">Zeepbel</td><td>Een periode waarin de prijs van een bezit ver uitloopt op de opbrengst die eronder ligt, gedragen door de verwachting dat er een volgende koper is.</td></tr>
+          <tr><td class="term">Hefboom</td><td>Handelen met geleend geld, waardoor zowel de winst als het verlies op de eigen inleg wordt uitvergroot.</td></tr>
+          <tr><td class="term">Effectenkrediet</td><td>Krediet van een commissionair waarmee een belegger aandelen koopt en waarbij hij moet bijstorten zodra de koers daalt.</td></tr>
+          <tr><td class="term">Corner</td><td>Het opkopen van vrijwel het hele beschikbare aanbod van een stuk, zodat wie het geleend en verkocht heeft tegen elke prijs moet terugkopen.</td></tr>
+          <tr><td class="term">Stockjobbing</td><td>Achttiende-eeuws Engels woord voor beurshandel, met de bijklank van manipulatie en bedrog.</td></tr>
+          <tr><td class="term">Nieuw-tijdperkdenken</td><td>Het terugkerende geloof dat een uitvinding of instelling de conjunctuurgolf heeft opgeheven, waardoor hoge koersen gerechtvaardigd zouden zijn.</td></tr>
+          <tr><td class="term">Rommelobligatie</td><td>Obligatie van een schuldenaar met lage kredietwaardigheid, die daarom een hoge rente betaalt; in de jaren tachtig het financieringsmiddel voor overnames.</td></tr>
+          <tr><td class="term">Zaitech</td><td>Japanse term voor financiële techniek: het verschijnsel dat bedrijven hun winst uit beleggen en lenen halen in plaats van uit hun eigen bedrijf.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is opgebouwd uit primaire bronnen van elk tijdvak: pamfletten, spotprenten, koffiehuisverslagen, parlementaire onderzoeken, prospectussen en beursnoteringen. Voor de Amsterdamse markt steunt Chancellor op De la Vega, voor 1720 op de parlementaire stukken en de satiren van de tijd, voor 1845 op de spoorwegbladen, voor 1929 op de dagbladen en de latere Senaatsverhoren. Dat maakt de beschrijvingen concreet en toetsbaar aan de bron.</p>
+      <p>De verklaringen zijn van een andere orde dan het materiaal. Chancellor levert geen cijfermatige toets van zijn patroon: er wordt niet gemeten hoe vaak ruim krediet wel of niet tot een manie leidde, en er is geen vergelijkingsgroep van perioden waarin het patroon zich niet voordeed. Wat het boek aandraagt is een reeks gevallen die op elkaar lijken, plus de vaststelling dat tijdgenoten daarin telkens hetzelfde tegen elkaar zeiden. Retorisch is dat sterk, statistisch zwak.</p>
+      <p>Op één punt heeft de tijd het boek gelijk gegeven. Het verscheen in 1999, midden in de internetkoorts, en de epiloog zegt met zoveel woorden dat de aanwas van particuliere daghandelaren en de vlucht van de technologiefondsen in het patroon passen. Een jaar later viel die markt om.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De sterkste tegenwerping komt van economen die de manies minder dwaas achten dan Chancellor ze afschildert. Peter Garber betoogde in <i>Famous First Bubbles</i> (2000) dat de tulpenprijzen grotendeels te verklaren zijn uit de handel in zeldzame bollen die zich langzaam vermenigvuldigen, dat de verhalen over geruïneerde ambachtslieden uit moraliserende pamfletten stammen, en dat een deel van de South Sea-episode neerkwam op een niet onredelijke gok op een schuldconversie. Wie die lezing volgt, houdt van het patroon minder over dan een reeks markten die met slechte informatie moesten werken.</p>
+      <p>Een tweede bezwaar betreft de methode. Een geschiedenis die uitsluitend uit manies bestaat, kan moeilijk anders eindigen dan met de conclusie dat manies onvermijdelijk zijn. De jaren waarin krediet ruim was en er niets gebeurde, komen niet aan bod, en daarmee ontbreekt de tegenproef. Ook het morele register waarin Chancellor schrijft, met dwaasheid en hebzucht als terugkerende woorden, gaat gemakkelijk over de vraag heen wat een belegger destijds redelijkerwijs kon weten.</p>
+      <p>Verder is het boek ongelijk verdeeld. De Britse hoofdstukken zijn dieper gedocumenteerd dan de Amerikaanse, en het Japanse hoofdstuk leunt sterk op Engelstalige verslaggeving uit de jaren negentig. De periode na 1990 wordt in een epiloog afgehandeld, zodat wie het boek nu leest de derivatencrisis van 2008 zelf in het schema moet passen. Dat lukt opvallend goed, wat tegelijk het beste argument voor het boek is.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Zoek bij elke koersstijging die als vanzelfsprekend wordt gepresenteerd naar de zin waarin staat waarom het deze keer anders is, en schrijf op wat er precies veranderd zou moeten zijn.</li>
+        <li>Let op de financieringskant. In vrijwel elk hoofdstuk gaat aan de val een verruiming van krediet of een verlaging van de aanbetaling vooraf.</li>
+        <li>Scheid de vraag of een techniek nuttig is van de vraag of de aandelen ervan iets waard zijn. De spoorwegen kwamen er, de aandeelhouders van 1845 raakten hun geld kwijt.</li>
+        <li>Reken bij een positie met geleend geld uit bij welke koers er moet worden bijgestort, voordat de positie wordt ingenomen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Devil Take the Hindmost: A History of Financial Speculation</i> (Farrar, Straus and Giroux, New York, 1999, 386 blz., ISBN 9780374138585). De Britse uitgave verscheen bij Macmillan (1999, ISBN 9780333648247), de pocket bij Plume/Penguin (ISBN 9780452281806). Een Nederlandse vertaling is niet verschenen; deze samenvatting berust op de Engelse editie.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Chancellor loopt vier eeuwen speculatiegeschiedenis af, van de Romeinse republiek en de Amsterdamse tulpenhandel van de jaren dertig van de zeventiende eeuw tot de Japanse zeepbel van de jaren tachtig. Speculatie is het kopen of verkopen van iets om te verdienen aan de prijsbeweging zelf, en niet aan wat het voortbrengt. Zijn stelling is dat dit verschijnsel bij het kapitalisme hoort en telkens dezelfde vorm aanneemt: een nieuwe markt of een nieuwe techniek wekt de gedachte dat de oude verhoudingen niet meer gelden, goedkoop krediet maakt het mogelijk met geleend geld te wedden, en het bedrog komt pas na de val boven water.</p><p>Het boek is geschreven door een historicus die daarna bij een vermogensbeheerder werkte, en het leest als een reeks portretten: de South Sea Company van 1720, de niet-bestaande staat Poyais waarvoor in 1822 een lening werd geplaatst, spoorwegkoning George Hudson, de goudcorner van Jay Gould in 1869, de beleggingstrusts van 1929, Michael Milken en de rommelobligaties, en het Tokio van de zaitech. In de epiloog weegt Chancellor de argumenten voor en tegen speculatie tegen elkaar af, met het net gevallen hedgefonds Long-Term Capital Management als proefstuk.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>economische geschiedenis</li><li>speculatie</li><li>zeepbellen</li><li>beleggen</li><li>financiële markten</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="807"><a href="807.html">Manias, Panics, and Crashes</a>. Kindleberger geeft hetzelfde materiaal een model met vaste fasen, waar Chancellor bij het verhaal blijft.</li>
+          <li value="809"><a href="809.html">The Great Crash, 1929</a>. Galbraith behandelt het jaar 1929 dat bij Chancellor één hoofdstuk beslaat, met meer aandacht voor de nasleep.</li>
+          <li value="814"><a href="814.html">Anatomy of the Bear</a>. Napier bekijkt dezelfde beursgeschiedenis van de andere kant, vanaf de bodem in plaats van vanaf de top.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

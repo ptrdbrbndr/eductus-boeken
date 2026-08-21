@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Obviously Awesome &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Positionering is volgens Dunford het kader waarin een klant een product plaatst voordat hij er een oordeel over vormt: waar hoort dit thuis, waarmee…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-913">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">913 &middot; Geld en ondernemen</p>
+    <h1>Obviously Awesome</h1>
+    <p class="lede">April Dunford, 2019</p>
+    <p class="stats">
+      <span><b>1815</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="913"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Positionering is volgens Dunford het kader waarin een klant een product plaatst voordat hij er een oordeel over vormt: waar hoort dit thuis, waarmee vergelijk ik het, waarom zou ik het overwegen. Dat kader ontstaat altijd, ook als niemand er een besluit over neemt, en dan komt het uit het hoofd van de makers, die hun product vergelijken met wat zij zelf bedacht hebben. Haar stelling is dat het kader een ontwerpkeuze is met een vaste werkwijze: stel vast wat klanten zouden doen als het product niet bestond, wat het product als enige kan, welke waarde dat oplevert, wie daar het meest om geeft, en in welke marktcategorie die waarde het snelst zichtbaar wordt. De verkeerde categorie kost meer omzet dan de verkeerde woorden, want de categorie bepaalt met wie de klant vergelijkt, wat hij aan prijs verwacht en welke eigenschappen hij nagaat.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Positionering als kader, niet als slogan</h3>
+      <p>Dunford begint bij de symptomen. Bestaande klanten zijn tevreden, maar nieuwe prospects begrijpen niet waar ze naar kijken; verkooptrajecten duren lang en eindigen vaak in uitstel; er is prijsdruk; klanten haken na een jaar af omdat ze iets anders hadden verwacht. Dat wijst volgens haar zelden op het product en meestal op het kader waarin het wordt aangeboden.</p>
+      <p>Zij onderscheidt twee manieren waarop het misgaat. De eerste is positionering die niemand gekozen heeft: de makers vergelijken hun product met wat zij bij het bouwen voor ogen hadden, en klanten met iets heel anders. De tweede is positionering die ooit klopte en verouderde doordat de markt verschoof. Haar eigen voorbeeld uit het begin van haar loopbaan: een product dat als database werd aangeboden verdween in vergelijkingen met andere databases, en ging pas lopen toen het als datawarehouse-oplossing werd gepresenteerd. Aan het product veranderde niets.</p>
+      <h3>De vijf onderdelen, plus trends</h3>
+      <p>Het kader bestaat uit vijf onderdelen die op elkaar ingrijpen. Concurrerende alternatieven zijn wat de klant zou doen als dit product er niet was, en dat is vaak helemaal geen concurrent: een spreadsheet, een stagiair, of niets doen. Onderscheidende kenmerken zijn de dingen die dit product wel heeft en die alternatieven missen, waarbij ook levervorm, kennis en ondersteuning meetellen. Waarde is wat die kenmerken de klant opleveren, met bewijs erbij en niet met een bijvoeglijk naamwoord. Kenmerken van de doelmarkt beschrijven wie die waarde het hardst nodig heeft. De marktcategorie is de plank waar het product op wordt gelegd.</p>
+      <p>Trends noemt zij een zesde onderdeel met een waarschuwing. Een trend eroverheen leggen kan aandacht opleveren, zoals bij een verkoopplatform voor winkelpersoneel dat meeliftte op de opkomst van tablets, maar zodra de trend het verhaal gaat overheersen begrijpt de klant het product niet meer. Trends zijn een sausje en geen fundament.</p>
+      <h3>Beginnen bij de klanten die het al snappen</h3>
+      <p>Dunford draait de gebruikelijke volgorde om. In plaats van eerst een doelgroep te bedenken en dan klanten te zoeken die erop lijken, begint zij bij de klanten die er al zijn en die het snelst kochten, zelden korting vroegen en het aan anderen doorvertelden. Wat die klanten gemeen hebben is de doelmarkt, en dat gemeenschappelijke kenmerk valt vaak niet samen met de bedrijfstak of de omvang waarop verkoopafdelingen segmenteren.</p>
+      <p>Van waarde maakt zij themagroepen. Losse kenmerken worden gebundeld tot een handvol waardeclusters, omdat klanten zo ook denken. Bewijs hoort erbij: wat de leverancier zelf over de waarde beweert telt niet, wat een klant kan navertellen of een getal kan onderbouwen wel.</p>
+      <h3>Drie stijlen om een markt te kiezen</h3>
+      <p>De categoriekeuze werkt Dunford uit in drie stijlen. Kop aan kop betekent meedoen in een bestaande markt met de bedoeling de leider te verslaan; dat vraagt veel geld en werkt alleen als de markt in beweging is. Grote vis in een kleine vijver betekent een deelsegment kiezen waar de bestaande aanbieders niet op ingericht zijn; de categorie is dan al bekend bij de klant, maar de concurrentie is dun. Een nieuw spel beginnen betekent een categorie maken die nog niet bestaat, en dat is het duurst en het traagst: er moet uitgelegd worden waarom de categorie bestaansrecht heeft, welke criteria erbij horen en waarom uitgerekend deze aanbieder er leidend in is.</p>
+      <p>Haar eigen tweede voorbeeld gaat over een bedrijf dat het kop aan kop probeerde tegen de marktleider in klantbeheersoftware en verloor zolang het zich als goedkoper alternatief aanbood. Nadat bleek dat zakenbanken een specifieke behoefte hadden, namelijk het in kaart brengen van relatienetwerken, werd het product voor die groep opnieuw gepositioneerd, ging de prijs omhoog en werd het bedrijf later overgenomen.</p>
+      <h3>Het proces van tien stappen</h3>
+      <p>De tweede helft van het boek is een werkvolgorde in tien stappen. Zij begint bij de blijste klanten en bij het samenstellen van een groep uit verkoop, marketing, product en directie, want positionering die alleen in de marketingafdeling leeft haalt de verkoopgesprekken niet. Daarna komen de vijf onderdelen één voor één aan bod, in de volgorde alternatieven, kenmerken, waarde, klantprofiel en marktkader, en de laatste stap is de vastlegging in een document dat de rest van het bedrijf kan gebruiken.</p>
+      <p>Dunford besteedt aandacht aan de weerstand die dit oproept. Positionering veranderen betekent voor de verkoopafdeling een nieuw verhaal, voor de productafdeling een andere lijst met wensen en voor de directie het loslaten van een ambitie. Zij stelt dat de discussie daarom over de vijf onderdelen moet gaan, één voor één en met bewijs, in plaats van over woorden.</p>
+      <h3>Bezwaar tegen de positioneringszin</h3>
+      <p>Een terugkerend punt is haar afwijzing van de klassieke positioneringszin, het invulsjabloon in de trant van 'voor X die Y, is ons product een Z dat W'. Dat sjabloon veronderstelt dat de juiste positionering al in iemands hoofd zit en alleen nog opgeschreven hoeft te worden. Volgens Dunford is dat het tegendeel van hoe het werkt: het antwoord is meestal niet vanzelfsprekend en moet uit klantgedrag worden afgeleid. Het sjabloon is in haar woorden een eindproduct dat als proces wordt verkocht.</p>
+      <p>Wat zij ervoor in de plaats zet is een document waarin de vijf onderdelen met hun bewijs staan, zodat verkoop, marketing en productontwikkeling er dezelfde beslissingen uit kunnen afleiden. Positionering is in die opvatting een besluit van het hele bedrijf en geen tekst van de marketingafdeling.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">positionering</td><td>Het kader waarin een klant een product plaatst: waar het thuishoort, waarmee het vergeleken wordt en waarom het de moeite waard is.</td></tr>
+          <tr><td class="term">concurrerend alternatief</td><td>Wat de klant zou doen als dit product niet bestond, inclusief handwerk, een spreadsheet of helemaal niets doen.</td></tr>
+          <tr><td class="term">onderscheidend kenmerk</td><td>Een eigenschap die dit product wel heeft en de alternatieven niet, waaronder ook levervorm, kennis en ondersteuning vallen.</td></tr>
+          <tr><td class="term">waardecluster</td><td>Een bundel bij elkaar horende voordelen die klanten in hun hoofd al samen nemen, met bewijs onderbouwd.</td></tr>
+          <tr><td class="term">marktcategorie</td><td>De plank waarop de klant het product legt; zij bepaalt de vergelijking, de prijsverwachting en de criteria waarop wordt beoordeeld.</td></tr>
+          <tr><td class="term">best passende klant</td><td>De klant die snel koopt, weinig korting vraagt en anderen doorverwijst; volgens Dunford het vertrekpunt van elk positioneringsonderzoek.</td></tr>
+          <tr><td class="term">kop aan kop</td><td>Positioneringsstijl waarbij een aanbieder in een bestaande categorie de leider aanvalt, kostbaar en alleen zinvol bij marktverschuiving.</td></tr>
+          <tr><td class="term">grote vis in een kleine vijver</td><td>Positioneringsstijl waarbij een deelsegment met een onbediende behoefte wordt gekozen binnen een categorie die de klant al kent.</td></tr>
+          <tr><td class="term">een nieuw spel beginnen</td><td>Positioneringsstijl waarbij een nieuwe categorie wordt gemaakt, met de last om haar bestaansrecht en criteria zelf te bewijzen.</td></tr>
+          <tr><td class="term">positioneringszin</td><td>Het klassieke invulsjabloon voor positionering, door Dunford afgewezen omdat het het antwoord veronderstelt in plaats van het te vinden.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek bevat geen onderzoek en doet daar ook geen poging toe. De onderbouwing bestaat uit de loopbaan van de schrijfster, die naar eigen opgave zestien producten op de markt bracht en daarna als adviseur voor technologiebedrijven werkte, plus een handvol gevallen die zij navertelt: haar databaseproduct dat als datawarehouse ging lopen, het klantbeheerproduct dat zich op zakenbanken richtte, en Arm and Hammer, dat zijn baksoda van de bakafdeling naar de schoonmaakafdeling verplaatste toen er thuis minder gebakken werd.</p>
+      <p>Dat zijn verhalen achteraf, verteld door de betrokkene, over gevallen die goed afliepen. Er is geen vergelijking met bedrijven die dezelfde stappen zetten en het niet redden, en geen manier om na te gaan of de herpositionering de oorzaak was of samenviel met andere veranderingen. Het idee zelf komt uit de reclamewereld: Al Ries en Jack Trout schreven er in 1981 <i>Positioning</i> over, en Geoffrey Moore bouwde er in 1991 het chasm-model op. Dunford voegt daar een werkvolgorde aan toe, geen nieuwe theorie.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat het boek de goede vragen stelt en het antwoorden aan de lezer overlaat. Het telt ruim tweehonderd bladzijden met een grote letter en veel wit, in feitelijke tekst ongeveer de helft daarvan. De tien stappen zeggen dat je moet vaststellen wie je beste klanten zijn, hoeveel waarde je levert en in welke categorie je hoort, maar niet hoe je dat vaststelt wanneer de klantgegevens dat niet laten zien of wanneer twee categorieën allebei plausibel zijn. Recensenten hebben opgemerkt dat het gat samenvalt met de adviespraktijk van de schrijfster.</p>
+      <p>Daarnaast is het bereik smaller dan de titel suggereert. Vrijwel alle voorbeelden komen uit zakelijke software met verkopers en langlopende trajecten. Voor consumentenmerken, diensten en de meeste bedrijven zonder werkelijk onderscheidende kenmerken blijft de methode leeg, omdat zij veronderstelt dat er iets te vinden is dat de alternatieven missen. Waar dat er niet is, levert het proces een net opgeschreven middelmaat op.</p>
+      <p>Ten slotte is de belofte dat positionering een besluit is dat een bedrijf gewoon kan nemen. In de praktijk zit positionering vast aan wat er gebouwd is, aan de bestaande klanten die het product niet loslaten en aan de verkopers die met een ander verhaal moeten binnenkomen. Dunford noemt die weerstand wel, maar behandelt haar als organisatorisch ongemak in plaats van als grens aan wat positionering kan doen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Zet de klanten op een rij die het snelst kochten en het minst onderhandelden, en zoek wat die met elkaar gemeen hebben voordat je een doelgroep beschrijft.</li>
+        <li>Vraag verkopers letterlijk waarmee prospects het product vergeleken; noteer ook antwoorden als handwerk, een spreadsheet of niets doen.</li>
+        <li>Schrap uit de lijst met eigenschappen alles wat een alternatief ook heeft; wat overblijft is de basis van het verhaal.</li>
+        <li>Zet achter elke geclaimde waarde het bewijs dat een buitenstaander kan navertellen, en haal claims zonder bewijs uit de tekst.</li>
+        <li>Kies de marktcategorie bewust en toets welke prijsverwachting, welke vergelijking en welke koopcriteria daarmee vanzelf meekomen.</li>
+        <li>Leg het resultaat vast in een document dat verkoop, marketing en productontwikkeling delen, in plaats van in één zin.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Obviously Awesome: How to Nail Product Positioning so Customers Get It, Buy It, Love It</i> (Ambient Press, 2019, 202 blz., ISBN 9781999023003). Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>April Dunford werkte als marketingbestuurder bij een reeks technologiebedrijven en bracht daar naar eigen zeggen zestien producten op de markt. Haar boek gaat over het ene onderdeel van dat werk dat volgens haar het meeste verschil maakt en het slechtst is beschreven: positionering. Dat is het kader waarin een klant een product plaatst voordat hij er iets van vindt. Waar hoort dit thuis, waarmee vergelijk ik het, waarom zou ik ernaar kijken. Dat kader ontstaat sowieso, ook als niemand er een besluit over neemt, en dan komt het uit het hoofd van de bouwers.</p><p>Dunford maakt er een werkwijze van. Vijf onderdelen vormen de positionering: de alternatieven die de klant zonder dit product zou gebruiken, de kenmerken die dit product als enige heeft, de waarde die daaruit volgt met bewijs erbij, de kenmerken van de klanten die om die waarde geven, en de marktcategorie waarin dat het snelst duidelijk wordt. Een zesde, trends, is optioneel en riskant. Daaromheen staat een proces van tien stappen en een keuze uit drie stijlen: meedoen in een bestaande markt, een deelmarkt overheersen, of een nieuwe categorie beginnen. Het boek is kort, praktisch en licht van onderbouwing.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>positionering</li><li>marketing</li><li>verkoop</li><li>ondernemerschap</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="443"><a href="443.html">The 22 Immutable Laws of Marketing</a>. Ries en Trout schreven de wetten waar Dunford op voortbouwt; zij geven de leer, zij geeft de werkvolgorde.</li>
+          <li value="446"><a href="446.html">Purple Cow: Transform Your Business by Being Remarkable</a>. Godin redeneert vanuit het product dat opvalt, Dunford vanuit het kader waarin het wordt bekeken; samen dekken ze de twee helften van hetzelfde probleem.</li>
+          <li value="908"><a href="908.html">Good Strategy Bad Strategy</a>. Rumelt laat zien wat een strategie tot strategie maakt, wat de categoriekeuze bij Dunford een stuk minder vrijblijvend maakt.</li>
+          <li value="265"><a href="265.html">The Lean Startup</a>. Ries beschrijft hoe een product wordt gevonden; Dunford begint waar dat gelukt is en de klant het nog steeds niet begrijpt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

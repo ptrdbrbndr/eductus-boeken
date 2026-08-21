@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Good Strategy Bad Strategy &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Strategie is volgens Rumelt geen ambitie, geen visie en geen lijst met doelen, maar een samenhangend antwoord op een opgave die eerst is vastgesteld. Wie…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-908">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">908 &middot; Geld en ondernemen</p>
+    <h1>Good Strategy Bad Strategy</h1>
+    <p class="lede">Richard Rumelt, 2011</p>
+    <p class="stats">
+      <span><b>1814</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="908"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Strategie is volgens Rumelt geen ambitie, geen visie en geen lijst met doelen, maar een samenhangend antwoord op een opgave die eerst is vastgesteld. Wie geen diagnose stelt kan geen strategie hebben, hoe uitgebreid het plan ook is. Het meeste dat in organisaties strategie heet voldoet daar niet aan, en dat is volgens hem geen slordigheid maar het gevolg van het feit dat kiezen pijn doet: een echte strategie zegt ook wat er niet gebeurt en wie er niets krijgt. Tegen die stelling valt iets in te brengen, want zij maakt van strategie een ontwerpprobleem dat met helder denken op te lossen is, en laat uitvoering, machtsverhoudingen en toeval grotendeels buiten beeld.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Goede strategie is zeldzaam en daarom onverwacht</h3>
+      <p>Het boek opent met de vaststelling dat een goede strategie zo weinig voorkomt dat zij verrast wanneer zij er is. Rumelt beschrijft hoe Steve Jobs na zijn terugkeer bij Apple in 1997 het assortiment terugbracht tot een handvol producten en de rest schrapte, zonder een plan voor de lange termijn te presenteren; de zet was een antwoord op de vaststelling dat het bedrijf geen geld en geen tijd had. Bij de Golfoorlog van 1991 wijst hij op het verschil tussen de openbaar besproken frontale aanval en de werkelijke opzet, een omtrekkende beweging door de woestijn.</p>
+      <p>Het tweede voorbeeld is Wal-Mart tegen Kmart. Beide ketens beschikten begin jaren tachtig over dezelfde streepjescodetechniek. Rumelt laat zien dat de vraag waarom de een won pas te beantwoorden valt als de winkel niet langer als eenheid wordt genomen: bij Wal-Mart was het netwerk van filialen rond een distributiecentrum de eenheid van beheer, en aan dat netwerk zaten inkoop, voorraad en gegevensverwerking vast. Wie alleen naar de losse winkel keek, hield een raadsel over.</p>
+      <h3>Vier trekken van slechte strategie</h3>
+      <p>Slechte strategie is bij Rumelt geen afwezigheid van strategie maar een eigen verschijnsel met herkenbare trekken. Holle taal is de eerste: hij ontleedt de beleidstekst van een bank die neerkomt op klantgerichte bemiddeling, wat bij nader inzien niets anders zegt dan dat de bank geld aanneemt en uitleent. De tweede is het ontwijken van de opgave. Zijn hoofdvoorbeeld is het strategisch plan dat International Harvester in 1979 opstelde: honderden bladzijden met projecties voor marktaandeel en winst, waarin de arbeidsverhoudingen en de verouderde fabrieken die het bedrijf feitelijk verlamden niet voorkwamen. Binnen enkele jaren was het concern opgesplitst; de vrachtwagentak ging verder als Navistar.</p>
+      <p>De derde trek is het verwarren van doelen met strategie. Rumelt beschrijft een directeur die zijn organisatie een plan van twintig procent omzetgroei en twintig procent winstmarge oplegde en op de vraag hoe dat moest worden bereikt antwoordde met een beroep op wilskracht. De vierde bestaat uit doelstellingen die nergens op aangrijpen: lange lijsten waarin alles even zwaar weegt, of doelen die zo ver weg liggen dat niemand er morgen iets mee kan.</p>
+      <h3>De kern: diagnose, beleid, handelen</h3>
+      <p>De kern van een strategie bestaat uit drie onderdelen. De diagnose benoemt wat er aan de hand is en brengt een onoverzichtelijke situatie terug tot een handvol punten waar het op aankomt; zij is altijd een keuze en dus aanvechtbaar. Het richtinggevend beleid geeft de aanpak aan waarmee die opgave wordt bestreden, sluit andere aanpakken uit en is nog geen actielijst. Het samenhangend handelen is het geheel van maatregelen dat elkaar versterkt in plaats van elkaar tegen te werken.</p>
+      <p>Rumelt hecht aan dat laatste woord. De meeste plannen zijn optellingen van wensen van afdelingen die elk hun deel opeisen. Samenhang vraagt dat middelen bij de een worden weggehaald om ergens anders zwaarder in te zetten, en dat is de reden dat het zo vaak niet gebeurt. Wie de kern serieus neemt, moet in de organisatie iets afnemen voordat er iets kan worden opgebouwd.</p>
+      <h3>Waaruit een strategie werking haalt</h3>
+      <p>Het tweede deel behandelt de bronnen waaruit een strategie hefboomwerking haalt. Een nabij doel is een doelstelling die dicht genoeg bij het huidige vermogen ligt om haalbaar te zijn; Rumelt leest de maanlanding als zo'n doel, omdat de technische onzekerheden op het moment van uitspreken al grotendeels waren teruggebracht. Een kettingschakelsysteem is een geheel waarvan de opbrengst door de zwakste schakel wordt bepaald, zodat verbeteren van de andere schakels niets oplevert; dat verklaart zowel waarom zulke systemen lang blijven haperen als waarom ze, eenmaal op orde, moeilijk te kopiëren zijn.</p>
+      <p>Ontwerp behandelt hij aan de hand van Hannibal bij Cannae in 216 voor Christus, waar de opstelling zelf het gevecht besliste. Focus laat hij zien bij Crown Cork &amp; Seal, dat onder John Connelly de brede blikkenmarkt losliet en zich richtte op korte productieseries en lastige klanten die de grote fabrikanten liever lieten lopen. Bij dynamiek gaat het om golven van verandering waar een buitenstaander op mee kan liften: Nvidia stelde vast dat losse driedimensionale grafische kaarten de toekomst hadden en richtte daar alles op in, terwijl gevestigde partijen als Silicon Graphics hun bestaande positie verdedigden.</p>
+      <h3>Traagheid en entropie</h3>
+      <p>De zwakte van een tegenstander is volgens Rumelt vaker organisatorisch dan technisch. Traagheid zit in routines, in de gewoonte om de klant te blijven bedienen zoals het altijd ging, en in bedrijfsculturen die zich niet laten omzetten door een besluit van de directie. Entropie is het langzame vervagen van orde: hij beschrijft hoe de merkenladder van General Motors, ooit een scherpe indeling van goedkoop naar duur, in de loop van decennia uitliep in modellen die elkaar overlapten, omdat elke divisie naar boven en naar beneden wilde uitbreiden.</p>
+      <p>Voor wie leiding geeft betekent dit dat een deel van het werk niet uit vernieuwing bestaat maar uit het herstellen van ordening die vanzelf wegloopt. Voor wie aanvalt betekent het dat de traagheid van de gevestigde partij tot de betrouwbaarste bronnen van voordeel behoort, omdat die zich niet laat wegnemen met een besluit.</p>
+      <h3>Denken als strateeg</h3>
+      <p>Het laatste deel gaat over de werkwijze. Rumelt behandelt een strategie als een hypothese over hoe de wereld werkt, die zich in de praktijk laat toetsen en dan bijgesteld hoort te worden. Hij dringt aan op het uitschrijven van de diagnose voordat er over oplossingen wordt gesproken, op het bedenken van minstens één alternatief voordat het eerste idee wordt aangenomen, en op het innemen van de positie van een buitenstaander die het voorstel moet afbreken.</p>
+      <p>Het slothoofdstuk gaat over kuddegedrag. Aan de hand van de opkomst en ondergang van Global Crossing en van de aanloop naar de financiële crisis van 2008 laat hij zien hoe hele bedrijfstakken elkaars aannames overnemen zonder ze nog te toetsen. Zelfstandig oordelen is in zo'n omgeving het schaarse goed, en het kost meer dan analytisch vermogen: het kost de bereidheid om er een tijd lang naast te lijken te zitten.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">kern</td><td>Het geheel van diagnose, richtinggevend beleid en samenhangend handelen dat volgens Rumelt in elke strategie te vinden moet zijn.</td></tr>
+          <tr><td class="term">diagnose</td><td>De vaststelling van wat er werkelijk aan de hand is, waarbij een onoverzichtelijke situatie tot enkele bepalende punten wordt teruggebracht.</td></tr>
+          <tr><td class="term">richtinggevend beleid</td><td>De gekozen aanpak van de vastgestelde opgave, die andere aanpakken uitsluit en nog geen lijst met maatregelen is.</td></tr>
+          <tr><td class="term">samenhangend handelen</td><td>Maatregelen die elkaar versterken, in plaats van dat elke maatregel afzonderlijk een deelbelang bedient.</td></tr>
+          <tr><td class="term">holle taal</td><td>Beleidstaal die met vakjargon diepgang suggereert en bij ontleding een alledaagse waarheid blijkt te bevatten.</td></tr>
+          <tr><td class="term">nabij doel</td><td>Een doelstelling die dicht genoeg bij het huidige vermogen ligt om haalbaar te zijn en daardoor werk losmaakt.</td></tr>
+          <tr><td class="term">kettingschakelsysteem</td><td>Een geheel waarvan de opbrengst door de zwakste schakel wordt bepaald, zodat losse verbeteringen elders niets opleveren.</td></tr>
+          <tr><td class="term">ontwerptype strategie</td><td>Strategie waarin het voordeel voortkomt uit de onderlinge afstemming van de delen, zoals bij een gevechtsopstelling of een bedrijfsmodel.</td></tr>
+          <tr><td class="term">traagheid</td><td>Het onvermogen van een organisatie om zich aan te passen, verankerd in routines, klantrelaties en cultuur.</td></tr>
+          <tr><td class="term">entropie</td><td>De neiging van een eenmaal aangebrachte ordening om te vervagen zolang er geen onderhoud aan wordt gepleegd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een betoog met voorbeelden en geen empirisch onderzoek. Er staat geen statistische toets in, en de bewijslast rust op gevallen die Rumelt in decennia onderwijs en advieswerk verzamelde. Een deel daarvan is openbaar na te gaan: het strategisch plan van International Harvester uit 1979, de gang van zaken bij Wal-Mart en Kmart, de opkomst van Nvidia, de opzet van de grondoorlog in de Golf in 1991. Een ander deel bestaat uit geanonimiseerde klantverhalen, waarvan de lezer alleen Rumelts weergave heeft.</p>
+      <p>Rumelt zelf staat in het vak stevig. Hij publiceerde in 1991 een veelgeciteerd onderzoek waaruit bleek dat verschillen tussen afzonderlijke bedrijfsonderdelen de winstgevendheid sterker verklaren dan verschillen tussen bedrijfstakken, wat gewicht geeft aan de eigen keuzes van een onderneming. Dat werk staat los van dit boek en wordt er niet als steun voor aangevoerd. Wat het boek levert is een begrippenkader met illustraties, en dat is iets anders dan bewijs.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is dat de voorbeelden op de afloop zijn uitgezocht. Rumelt kent van elk geval de uitkomst voordat hij de strategie beschrijft, en leest de samenhang er achteraf in. Bedrijven die op dezelfde manier redeneerden en toch omvielen komen nauwelijks in beeld, waardoor niet vast te stellen is hoe vaak een goed opgezette kern tot een slechte afloop leidt. Dat is dezelfde denkfout die Rosenzweig in <i>The Halo Effect</i> aan de managementliteratuur verwijt, en dit boek ontsnapt er niet aan.</p>
+      <p>Daarnaast is de kern een definitie en geen toetsbare theorie. Vrijwel elk succes valt achteraf te herschrijven als diagnose, richtinggevend beleid en samenhangend handelen, en vrijwel elke mislukking als het ontbreken daarvan. Zolang er geen geval denkbaar is dat de stelling weerlegt, is zij een manier van kijken en geen verklaring.</p>
+      <p>Praktisch is het boek sterker in het herkennen van slechte strategie dan in het maken van goede. Het zegt overtuigend dat de diagnose het hart van de zaak is, en veel minder over hoe iemand tot een goede diagnose komt wanneer de situatie werkelijk onduidelijk is. Rumelt kwam daar elf jaar later op terug in <i>The Crux</i> (2022), wat erop wijst dat hij die leemte zelf ook zag.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Schrijf de diagnose op voordat er over oplossingen wordt gesproken, en houd die tot een handvol punten beperkt.</li>
+        <li>Toets een plan op de vraag welke opgave het bestrijdt; is die niet te benoemen, dan ligt er een verlanglijst en geen strategie.</li>
+        <li>Vervang percentages als doel door een opgave die dicht genoeg bij ligt om binnen afzienbare tijd te halen.</li>
+        <li>Zoek bij elk plan de zwakste schakel op; zolang die niet is opgelost, levert versterking van de rest weinig op.</li>
+        <li>Reken de traagheid en de vervagende ordening van gevestigde partijen mee als bron van voordeel, en die van de eigen organisatie als kostenpost.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Het geheim van een goede strategie</i> (Spectrum, Houten, 2011, 383 blz., ISBN 9789000300419), vertaald door Gerard Grasman; ook als e-boek (ISBN 9789000300426). Oorspronkelijk verschenen als <i>Good Strategy Bad Strategy: The Difference and Why It Matters</i> (Crown Business, New York, 2011, 336 blz., ISBN 9780307886231; Britse editie Profile Books, Londen, ISBN 9781846684807).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Rumelt, hoogleraar strategie aan UCLA Anderson, betoogt dat het woord strategie in organisaties vrijwel altijd iets anders aanduidt dan wat het zou moeten zijn. Ambitie, visie, waarden en een reeks financiële doelen gaan voor strategie door, terwijl er geen analyse onder ligt van wat de organisatie in de weg staat. Zulke plannen noemt hij slechte strategie, en hij behandelt dat als een herkenbaar verschijnsel met vier trekken: holle taal, het ontwijken van de werkelijke opgave, doelen die voor strategie doorgaan, en doelstellingen die de opgave niet raken.</p><p>Daartegenover zet hij een kern van drie delen: een diagnose die de situatie terugbrengt tot wat er werkelijk speelt, een richtinggevend beleid dat aangeeft hoe die opgave wordt aangepakt, en een samenhangend geheel van maatregelen dat dat beleid uitvoert. Het tweede deel van het boek behandelt de bronnen waaruit een strategie hefboomwerking haalt: nabije doelen, kettingschakelsystemen, ontwerp, focus, voordeel, dynamiek en de traagheid van de tegenstander. De voorbeelden lopen van Hannibal bij Cannae en Nelson bij Trafalgar tot Wal-Mart tegen Kmart, Nvidia, Apple in 1997 en het strategisch plan van International Harvester uit 1979. Het boek werd een standaardwerk in het vak en verscheen in het Nederlands als <i>Het geheim van een goede strategie</i>.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>strategie</li><li>management</li><li>besluitvorming</li><li>ondernemerschap</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="909"><a href="909.html">The Halo Effect</a>. Rosenzweig ontleedt precies de denkfout waar Rumelts bewijsvoering kwetsbaar voor is: succes achteraf verklaren uit wat de winnaar deed.</li>
+          <li value="902"><a href="902.html">The Mind of the Strategist</a>. Ohmae legde dertig jaar eerder eenzelfde nadruk op het scherp stellen van de opgave voordat er oplossingen komen.</li>
+          <li value="907"><a href="907.html">Only the Paranoid Survive</a>. Grove behandelt het omslagpunt dat Rumelt onder dynamiek schaart, gezien vanuit een bedrijf dat het van binnenuit meemaakt.</li>
+          <li value="293"><a href="293.html">The Innovator's Dilemma</a>. Christensen levert de mechanica achter de golven van verandering die Rumelt als bron van hefboomwerking aanwijst.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Cosmological Eye &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Miller schrijft vanuit één overtuiging die in elk stuk terugkeert: literatuur hoort geen weergave van de wereld te zijn maar een verslag van binnenuit, en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-934">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">934 &middot; Roman en memoir</p>
+    <h1>The Cosmological Eye</h1>
+    <p class="lede">Henry Miller, 1939</p>
+    <p class="stats">
+      <span><b>1212</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="934"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Miller schrijft vanuit één overtuiging die in elk stuk terugkeert: literatuur hoort geen weergave van de wereld te zijn maar een verslag van binnenuit, en de schrijver ontleent zijn gezag aan zijn levendigheid en niet aan zijn vakmanschap. Daarmee zet hij zich af tegen wat hij het universum van de dood noemt, de moderne analytische roman van Proust en Joyce, die de ontbinding van een beschaving volgens hem met grote nauwkeurigheid vastlegt en er niets tegenover stelt. Zijn eigen antwoord is aanvaarding: de wereld opnemen zoals zij is, het lelijke inbegrepen, en niet proberen eraan te ontkomen door haar te verklaren. Of dat een standpunt is of een houding waarmee elk oordeel wordt vermeden, blijft in de bundel onbeslist.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een bundel om de censuur heen</h3>
+      <p>De wijze van samenstellen verklaart de vorm. Laughlin wilde Miller in Amerika introduceren terwijl diens bekendste werk daar niet verkocht mocht worden, en koos stukken die op zichzelf konden staan. Het gevolg is een boek zonder opbouw: de prozastukken staan naast elkaar en verwijzen nauwelijks naar elkaar. Achterin staat een autobiografische notitie van enkele bladzijden, waarin Miller zijn eigen leven in verkorte vorm langsloopt.</p>
+      <h3>Verhalen: Max en de kleermakerij</h3>
+      <p>Het langste verhalende stuk is <i>Max</i>, over een berooide joodse vluchteling in Parijs die Miller om geld aanklampt en die hij helpt zonder hem te kunnen redden. Dat stuk staat dicht bij de waarneming en is daardoor het minst pathetische van de bundel.</p>
+      <p><i>The Tailor Shop</i>, overgenomen uit <i>Black Spring</i>, gaat terug naar Brooklyn en naar het bedrijf van zijn vader, met de drinkende klanten, de rekeningen die niet werden betaald en de zoon die er niet wilde werken. <i>Jabberwhorl Cronstadt</i> is een portret uit dezelfde Parijse kring, opgezet als een avond die alle kanten op loopt.</p>
+      <h3>Kritiek: het universum van de dood</h3>
+      <p><i>The Universe of Death</i> komt uit <i>The World of Lawrence</i>, de studie over D.H. Lawrence die Miller jarenlang schreef en nooit afmaakte. Hij leest Proust en Joyce als het eindpunt van een beweging waarin alles wordt ontleed en niets meer wordt beleefd, zodat er een literatuur overblijft die de dood van een cultuur registreert zonder er zelf buiten te staan. Lawrence dient als tegenvoorbeeld.</p>
+      <p><i>Un Etre Etoilique</i>, in oktober 1937 verschenen in <i>The Criterion</i> van T.S. Eliot, gaat over het dagboek van Anaïs Nin. Miller plaatst het in de rij van Augustinus, Rousseau en Proust en voorspelt dat het bij publicatie wereldwijd erkenning zal krijgen. Het dagboek verscheen pas vanaf 1966, en op dat punt kreeg hij gelijk.</p>
+      <h3>Droom, surrealisme en film</h3>
+      <p><i>Into the Night Life</i>, eveneens uit <i>Black Spring</i>, is een aaneenschakeling van droombeelden zonder verhaallijn. <i>Scenario (A Film with Sound)</i> is een filmscenario dat Miller in 1937 schreef naar <i>House of Incest</i> van Anaïs Nin; zij was daar allerminst gelukkig mee en noteerde dat de ideeën van haar waren.</p>
+      <p>In <i>An Open Letter to Surrealists Everywhere</i> rekent hij af met de Parijse surrealisten. Hij deelt hun belangstelling voor wat het bewustzijn niet beheerst, en verwerpt hun programma, hun politieke bindingen en de gedachte dat een methode dat gebied kan openleggen.</p>
+      <h3>Het oog dat naar binnen kijkt</h3>
+      <p>Het titelstuk komt uit <i>Max and the White Phagocytes</i> en gaat over de Duitse schilder Hans Reichel, een buurman van Miller in Parijs. Het kosmologische oog is bij Miller een oog dat zich niet op de wereld richt maar naar binnen, en dat daar de wereld aantreft. Het stuk is kort en bevat de duidelijkste formulering van wat Miller met kunst wil.</p>
+      <p>Daaromheen staan losse stukken: <i>Via Dieppe-Newhaven</i> over een mislukte poging Engeland binnen te komen, <i>The Brooklyn Bridge</i>, <i>The Golden Age</i>, <i>Peace! It's Wonderful!</i>, <i>Glittering Pie</i> en een deel van de briefwisseling met Michael Fraenkel over <i>Hamlet</i>. Zij lopen uiteen van reisverslag tot tirade.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">het kosmologische oog</td><td>Millers naam voor een blik die zich niet op de buitenwereld richt maar naar binnen, ontleend aan zijn beschrijving van de schilder Hans Reichel.</td></tr>
+          <tr><td class="term">het universum van de dood</td><td>Millers aanduiding voor de moderne analytische literatuur, met Proust en Joyce als eindpunt, die ontbinding vastlegt zonder er iets tegenover te stellen.</td></tr>
+          <tr><td class="term">être étoilique</td><td>Door Miller gevormde uitdrukking voor iemand die door de sterren wordt bewogen; hij gebruikt haar over Anaïs Nin en haar dagboek.</td></tr>
+          <tr><td class="term">aanvaarding</td><td>Millers houding tegenover de wereld: haar opnemen zoals zij is, zonder verklaring en zonder verbeterplan.</td></tr>
+          <tr><td class="term">Villa Seurat</td><td>Het Parijse adres waar Miller van 1934 tot 1939 woonde en waar vrijwel alle stukken in de bundel zijn geschreven.</td></tr>
+          <tr><td class="term">surrealisme</td><td>De Parijse beweging waarmee Miller zich in zijn open brief meet: hij deelt haar belangstelling voor het onbeheerste en wijst haar programma af.</td></tr>
+          <tr><td class="term">de autobiografische roman</td><td>Millers werkvorm, waarin het eigen leven het materiaal is en de grens tussen wat gebeurde en wat verteld wordt niet wordt getrokken.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Miller onderbouwt niets. Zijn kritische stukken zijn geen studies maar oordelen: over Proust en Joyce schrijft hij zonder één passage te ontleden, over Nin zonder haar dagboek te kunnen aanhalen, omdat het nog niet was verschenen. Wat de bundel wel biedt is getuigenis. De Parijse jaren, de armoede, de kring rond de Villa Seurat en de verhouding met Nin en met Michael Fraenkel zijn van elders goed gedocumenteerd, en wat Miller erover schrijft laat zich met die documentatie vergelijken.</p>
+      <p>Voor de feiten over zijn eigen leven is hij een onbetrouwbare bron, en hij heeft dat nooit verborgen: hij maakte geen onderscheid tussen wat hij meemaakte en wat hij ervan maakte. Wie het boek als document over Parijs in de jaren dertig gebruikt, doet er goed aan de dagboeken van Nin en de latere biografieën ernaast te leggen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat Miller verkondigt waar hij zou moeten aantonen. In <i>The Universe of Death</i> wordt over twee van de moeilijkste romans van de eeuw een vonnis geveld dat volledig op temperament rust; wie <i>Ulysses</i> of <i>À la recherche du temps perdu</i> gelezen heeft, herkent er weinig van het werk zelf in. Dezelfde stukken die zijn beste zinnen bevatten, slaan even zo vaak om in een stroom van kosmische beweringen waarin elk woord het vorige overtreft en de bewering zelf verdampt.</p>
+      <p>Ten tweede is de bundel een keuze van een uitgever en geen boek. De stukken dateren uit verschillende jaren, zijn voor uiteenlopende doeleinden geschreven en staan in een volgorde die niets betekent. Wie op zoek is naar Millers denken moet dat bij elkaar sprokkelen uit teksten die elkaar op punten tegenspreken.</p>
+      <p>Ten derde is er de kwestie die sinds Kate Millett in <i>Sexual Politics</i> uit 1970 aan Miller kleeft: vrouwen komen in zijn werk voor als materiaal. In deze bundel valt dat minder op dan in de romans, maar het scenario naar Nins <i>House of Incest</i> is er een geval van in andere vorm: hij gebruikte haar boek en zij herkende zichzelf er niet in. George Orwell, die in <i>Inside the Whale</i> uit 1940 als eerste serieus over Miller schreef, bewonderde zijn proza en noemde zijn houding tegelijk een vorm van berusting: in de buik van de walvis zitten en de wereld haar gang laten gaan.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Cosmological Eye</i> (New Directions, Norfolk, Connecticut, 1939; Britse editie Editions Poetry London, 1945; heruitgave in de reeks New Directions Paperbook, New York, 371 blz., ISBN 9780811201100). Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p><i>The Cosmological Eye</i> was het eerste boek van Henry Miller dat in de Verenigde Staten legaal verscheen. Zijn romans <i>Tropic of Cancer</i> en <i>Black Spring</i> waren in Parijs uitgegeven en in Amerika en Groot-Brittannië verboden wegens obsceniteit. James Laughlin, die kort daarvoor New Directions had opgericht, stelde daarom in 1939 een bundel samen uit werk dat de censuur kon passeren: kortere stukken uit <i>Black Spring</i> uit 1936 en uit de Parijse bundel <i>Max and the White Phagocytes</i> uit 1938.</p><p>Wat de lezer krijgt is dus geen geschreven boek maar een dwarsdoorsnede van vijf Parijse jaren in de Villa Seurat. Er staan verhalen in, zoals het portret van de zwerver Max en het autobiografische <i>The Tailor Shop</i> over de kleermakerij van Millers vader in Brooklyn. Er staan droomstukken en een filmscenario in. En er staat literaire kritiek in, waaronder een aanval op Proust en Joyce als de literatuur van een stervende wereld en een vroege lofrede op het nog ongepubliceerde dagboek van Anaïs Nin. De toon wisselt van scherpe waarneming naar kosmische verkondiging, vaak binnen dezelfde bladzijde.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>essaybundel</li><li>memoir</li><li>literatuur</li><li>schrijverschap</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="942"><a href="942.html">Het periodiek systeem</a>. Levi bouwt eveneens een boek uit losse stukken rond het eigen leven, met een beheersing die Miller mist.</li>
+          <li value="952"><a href="952.html">Silence: Lectures and Writings</a>. Cage bundelt lezingen en teksten van een kunstenaar die zijn eigen praktijk uitlegt, in een even onregelmatige vorm.</li>
+          <li value="925"><a href="925.html">Cosmic Trigger I: Final Secret of the Illuminati</a>. Wilson schrijft even vrij tussen essay en zelfportret, met dezelfde neiging het kosmische erbij te halen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

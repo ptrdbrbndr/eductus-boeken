@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Golden Apple &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Shea en Wilson keren de samenzweringsroman binnenstebuiten. Niet de Illuminati zijn in dit deel het probleem, maar het denkraam waarmee mensen naar macht…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-916">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">916 &middot; Roman en memoir</p>
+    <h1>The Golden Apple</h1>
+    <p class="lede">Robert Shea en Robert Anton Wilson, 1975</p>
+    <p class="stats">
+      <span><b>1554</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="916"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Shea en Wilson keren de samenzweringsroman binnenstebuiten. Niet de Illuminati zijn in dit deel het probleem, maar het denkraam waarmee mensen naar macht kijken: het onderscheid tussen goed en kwaad wordt hier voorgesteld als een uitvinding, bedacht om gehoorzaamheid af te dwingen, en elke orde die daarop wordt gebouwd brengt de wanorde voort die zij zegt te bestrijden. Het bewijs dat de auteurs daarvoor aanvoeren zit in de vorm. Zij stapelen zoveel elkaar tegensprekende samenzweringen op elkaar dat er aan het eind geen enkele meer heel te houden is, ook de officiële lezing van de geschiedenis niet. Het boek wil dus geen betere verklaring leveren, maar de behoefte aan een sluitende verklaring afleren.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Waar dit deel staat in het geheel</h3>
+      <p>De vijf boeken van de trilogie heten naar de stadia die de roman aan Adam Weishaupt toeschrijft: Verwirrung, Zweitracht, Unordnung, Beamtenherrschaft en Grummet, oftewel chaos, tweedracht, verwarring, bureaucratie en nasleep. De tien onderdelen daarbinnen heten naar de sefirot. <i>The Golden Apple</i> beslaat Unordnung, met de zesde afdeling (Tipareth, ‘The Man Who Murdered God’) en de zevende (Netzach, ‘The SNAFU Principle’), en opent Beamtenherrschaft met de achtste (Hod, ‘Telemachus Sneezed’).</p>
+      <p>De verteller wisselt zonder aankondiging, soms midden in een zin, en de tijd springt tussen 1936, het heden van de roman en dertigduizend jaar geleden. Wie deel één niet gelezen heeft, raakt binnen tien bladzijden de draad kwijt. Dat is bedoeld, maar het maakt dit deel als losse roman onbruikbaar.</p>
+      <h3>Het Atlantis-scenario</h3>
+      <p>Het lange middenstuk is een film die het Erisian Liberation Front aan Joe Malik vertoont. Atlantis is er een behaarde, regeringsloze beschaving waarin niemand van goed of kwaad heeft gehoord. De onbehaarde mutant Gruad verveelt zich met kennis, bedenkt woorden die sterker zijn dan ‘hoort’ en ‘behoort’, noemt ze goed en kwaad, en sticht de Partij van de Wetenschap met als teken een oog in een driehoek omringd door een slang. Zijn tegenstanders richten de Partij van de Vrijheid op onder een gouden appel.</p>
+      <p>De ruzie loopt uit op straatgevechten en op het loslaten van de lloigor Yog Sothoth, een zielenetend wezen dat in een Atlantische vijfhoek opgesloten zat. Atlantis gaat ten onder aan een kunstmatig opgewekte zonnevlam. Hier komt de titel vandaan, en hier ligt de kern van het betoog: er is wel degelijk een zondeval geweest, maar die bestond uit het bedenken van de zonde.</p>
+      <h3>De fnord</h3>
+      <p>Na een nacht bij Hagbard Celine ontbijt Malik met de <i>New York Times</i> en leest achter elke verontrustende zin het woord ‘fnord’. Hij herinnert zich zijn onderwijzer in de eerste klas die het woord op het bord schreef terwijl een spiraal ronddraaide: wie de fnord niet ziet, kan er niet door opgegeten worden. Het aangeleerde patroon is dubbel: eerst schrikken bij het woord, dan het gezien hebben vergeten, waarna de onrust aan het nieuws wordt toegeschreven.</p>
+      <p>Malik slaat door naar de advertenties en vindt daar geen enkele fnord. Dat is volgens hem het sluitstuk: alleen in kopen valt aan de vage dreiging te ontkomen. Van alles wat de trilogie heeft bedacht is dit het onderdeel dat buiten het boek is blijven leven.</p>
+      <h3>Het SNAFU-principe</h3>
+      <p>De zevende afdeling draait om een verhandeling van Celine, <i>Never Whistle While You're Pissing</i>. Zij zet het biogram, het erfelijke gedragsplan van de soort, tegenover het logogram, het aangeleerde stelsel van verbale gewoonten dat een samenleving oplegt. In een gezagssamenleving vallen die twee uiteen. Onderaan draagt men de last van niet mogen weten: wat men ziet, ruikt en wil doet niet ter zake, alleen het bevel telt. Bovenaan draagt men de omgekeerde last van moeten weten, terwijl men gewapend is en dus alleen te horen krijgt wat de spreker veilig acht.</p>
+      <p>Daaruit volgt de stelregel waar de titel op slaat: communicatie is alleen mogelijk tussen gelijken. Wie beveelt, snijdt zichzelf af van de informatie die hij nodig heeft om goed te bevelen, en raakt steeds verder gedesoriënteerd naarmate de wereld verandert en het logogram blijft staan. Het einde is een debacle. Dit is het anarchistische hart van de trilogie, hier als romanfragment, maar Wilson bleef het buiten zijn romans herhalen.</p>
+      <h3>Drake, Dillinger en de moordlijn</h3>
+      <p>Parallel loopt de geschiedenis van Robert Putney Drake, bankierszoon uit Boston, die zich in de misdaad inkoopt door aan Federico Maldonado te bewijzen dat hij de stervende woorden van Dutch Schultz heeft ontcijferd. In het heden wordt senator Edward Coke Bacon in zijn bed doodgeschoten. In Las Vegas zit de pooier Carmel op het werk van dr. Charles Mocenigo, die de ziektekiem Anthrax Leprosy Pi heeft gemaakt.</p>
+      <p>Daarboven hangt de crisis om het eiland Fernando Poo, die de grote mogendheden naar een kernoorlog duwt. De roman laat alle bekende Amerikaanse moorden en rampen op elkaar rijmen zonder er ooit één verklaring voor te kiezen; elk verband dat de lezer legt wordt een bladzijde later door een ander verband doorkruist.</p>
+      <h3>Naar Ingolstadt</h3>
+      <p>De achtste afdeling introduceert Atlanta Hope en haar beweging God's Lightning, een burgerwacht die dienstweigeraars opjaagt. Haar heilige boek heet <i>Telemachus Sneezed</i> en is een onmiskenbare parodie op Ayn Rand, tot en met de hoofdletters midden in de zin. De verteller leest het in het vliegtuig naar München en merkt op dat hij er tegen wil en dank in wordt meegezogen, omdat fictie hem altijd eerst overtuigt en pas achteraf tegenspraak oproept.</p>
+      <p>Ondertussen stromen honderden bands naar het festival Woodstock Europa aan de Totenkopf bij Ingolstadt, de stad waar de Beierse Illuminatenorde in 1776 werkelijk is gesticht. De band American Medical Association moet er spelen; bij het vijfde nummer zou de mensenmassa het legioen onder het meer moeten wekken. Het deel eindigt zonder ontknoping. Die staat in <i>Leviathan</i>.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">fnord</td><td>Woord dat volgens het boek in de eerste schoolklas wordt ingeprent en bij het lezen onbewuste schrik opwekt, waarna de lezer vergeet het gezien te hebben.</td></tr>
+          <tr><td class="term">SNAFU-principe</td><td>Celines stelling dat communicatie alleen tussen gelijken werkt, zodat macht zichzelf blind maakt voor de wereld waarover zij beslist.</td></tr>
+          <tr><td class="term">biogram en logogram</td><td>Het erfelijke gedragsplan van de soort tegenover het aangeleerde stelsel van verbale gewoonten dat een samenleving oplegt.</td></tr>
+          <tr><td class="term">Gruad of Grayface</td><td>De Atlantische mutant die de woorden goed en kwaad bedenkt en daarmee in de Discordiaanse voorgeschiedenis de bron is van alle latere dwang.</td></tr>
+          <tr><td class="term">gouden appel</td><td>Teken van Eris en van de Atlantische Partij van de Vrijheid, tegenhanger van het oog in de driehoek.</td></tr>
+          <tr><td class="term">lloigor</td><td>Zielenetend wezen uit een ander heelal dat op Atlantis in een vijfhoek opgesloten zat; Yog Sothoth is er een van.</td></tr>
+          <tr><td class="term">Wet van de Vijf</td><td>Discordiaanse regel dat alles direct of indirect met het getal vijf te maken heeft, in het boek zelf gehanteerd en ondermijnd.</td></tr>
+          <tr><td class="term">Unordnung</td><td>Derde van de vijf stadia in de illuminatentheorie van de geschiedenis: de mislukte poging om chaos en tweedracht te verzoenen.</td></tr>
+          <tr><td class="term">Erisian Liberation Front</td><td>Discordiaanse groep die haar eigen lezing van de voorgeschiedenis van de Illuminati verspreidt, onder meer met de Atlantis-film.</td></tr>
+          <tr><td class="term">Telemachus Sneezed</td><td>Het boek van Atlanta Hope dat als bijbel dient voor de beweging God's Lightning, geschreven als parodie op Ayn Rands <i>Atlas Shrugged</i>.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Een roman hoeft niets te bewijzen, maar dit boek doet voortdurend alsof het documenteert, en dan is de vraag waarop het steunt wel op zijn plaats. Een deel van het materiaal bestaat echt. De Beierse Illuminatenorde is in 1776 in Ingolstadt gesticht door Adam Weishaupt. <i>Principia Discordia</i> van Malaclypse the Younger en Lord Omar Khayyam Ravenhurst is een bestaand geschrift, waaruit de trilogie ruim citeert. De stenografische opname van de ijlende woorden van Dutch Schultz op zijn sterfbed, waar de hele Drake-lijn op draait, is een echt politiedocument uit 1935.</p>
+      <p>Wat de auteurs daarmee doen is iets anders. Echte en verzonnen bronnen staan zonder onderscheid door elkaar, compleet met voetnoten naar tijdschriften die niet bestaan. Wie wil nagaan wat klopt, moet dat buiten het boek doen; binnen het boek is elk gegeven even betrouwbaar en dus even onbetrouwbaar. Wilson noemde die werkwijze later guerrilla-ontologie en beschouwde haar als de methode zelf, niet als een gebrek eraan. Dat maakt het boek ongeschikt als informatiebron en bruikbaar als oefening in wantrouwen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat het middendeel amper te lezen is. Het perspectief kan binnen één alinea drie keer verspringen, personages en eeuwen lopen door elkaar, en een groot deel van de grappen veronderstelt kennis van de Amerikaanse tegencultuur van omstreeks 1970. Wie de trilogie achter elkaar leest, merkt dat juist dit deel het traagst gaat: de opbouw naar Ingolstadt beslaat honderden bladzijden waarin het verhaal nauwelijks vordert en de Atlantis-film als lange onderbreking blijft staan.</p>
+      <p>Daarnaast is de behandeling van vrouwen en van seks slecht verouderd. Vrijwel elk vrouwelijk personage wordt afgemeten aan beschikbaarheid, en wat als bevrijding was bedoeld leest nu als mannenfantasie met een theorie eromheen. Het derde bezwaar raakt de opzet zelf. Het boek wil inenten tegen goedgelovigheid door alle samenzweringen even aannemelijk te maken, maar diezelfde stapel werkt even goed als voorraadkast voor wie juist wil geloven. Dat het in latere decennia ook zo is gebruikt weerlegt de bedoeling niet, maar het laat zien dat de methode geen ingebouwde rem heeft.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Illuminatus! Part II: The Golden Apple</i> (Dell, New York, september 1975, 272 blz., ISBN 0440046912; latere Dell-pocket ISBN 0440146917). De trilogie is geschreven als één doorlopend boek; de uitgever knipte het in drieën en liet ongeveer vijfhonderd bladzijden schrappen. Sinds 1984 is het deel vrijwel alleen nog te krijgen in de verzameluitgave <i>The Illuminatus! Trilogy</i> (Dell, New York, 1984, 805 blz., ISBN 0440539811), waarin de drie delen weer aaneengesloten staan. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd. Wel bestaat een Duitse vertaling bij Rowohlt.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Tweede deel van <i>Illuminatus!</i>, geschreven tussen 1969 en 1971 door twee redacteuren van <i>Playboy</i>. Het bevat boek drie (Unordnung) en het begin van boek vier (Beamtenherrschaft) van de vijf, en daarbinnen de zesde tot en met de achtste van tien hoofdstukdelen die naar de sefirot van de kabbalistische levensboom zijn genoemd. De draden uit deel één lopen hier samen richting Ingolstadt, waar op 30 april een rockfestival wordt gehouden op de plek waar volgens het boek de legioenen van Hitler onder een meer bewaard liggen.</p><p>Twee passages dragen het deel. In de eerste krijgt Joe Malik een film te zien over Atlantis, waarin de mutant Gruad de begrippen goed en kwaad bedenkt en de Partij van de Wetenschap sticht onder het oog in de driehoek; daartegenover stelt de Partij van de Vrijheid een gouden appel. In de tweede wordt Malik door Hagbard Celine gedeconditioneerd en ziet hij in zijn ochtendkrant het woord fnord staan, dat sinds de eerste schoolklas in zijn hoofd is gelegd om lichte, blijvende onrust op te wekken. Daarnaast staat Celines SNAFU-principe: communicatie werkt alleen tussen gelijken, dus wie macht heeft hoort op den duur niet meer wat er gaande is.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>roman</li><li>complotdenken</li><li>satire</li><li>anarchisme</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="915"><a href="915.html">The Eye in the Pyramid</a>. Het eerste deel zet alle draden uit die hier samenkomen; los gelezen is <i>The Golden Apple</i> niet te volgen.</li>
+          <li value="917"><a href="917.html">Leviathan</a>. Het slotdeel geeft de ontknoping en de appendices waarin het betoog achter de klucht wordt uitgeschreven.</li>
+          <li value="925"><a href="925.html">Cosmic Trigger I: Final Secret of the Illuminati</a>. Wilsons verslag van de jaren waarin hij aan de trilogie werkte; daar staat wat hij van deze denkbeelden zelf meende.</li>
+          <li value="620"><a href="620.html">Anarchism and Other Essays</a>. Goldman verdedigt hetzelfde anarchisme rechtstreeks, zonder de omweg van de grap.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

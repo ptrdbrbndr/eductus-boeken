@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One from Many &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Hock stelt dat de gangbare organisatievorm, opgebouwd uit bevel, toezicht en een piramide van functies, een erfstuk uit de industriële tijd is dat niet…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-911">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">911 &middot; Geld en ondernemen</p>
+    <h1>One from Many</h1>
+    <p class="lede">Dee Hock, 2005</p>
+    <p class="stats">
+      <span><b>1619</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="911"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Hock stelt dat de gangbare organisatievorm, opgebouwd uit bevel, toezicht en een piramide van functies, een erfstuk uit de industriële tijd is dat niet meer past bij wat er te organiseren valt. Wat ervoor in de plaats moet komen noemt hij chaordisch: een geheel dat orde en wanorde tegelijk toelaat, waarin de deelnemers zelfstandig blijven en elkaar beconcurreren terwijl zij een gemeenschappelijk doel en een klein aantal beginselen delen die de zeggenschap bewust verspreiden. Visa is zijn bewijsstuk, een instelling zonder hoofdkantoor met beslissende macht, in eigendom van haar eigen concurrenten, die in enkele decennia een wereldwijd betaalstelsel opbouwde. De aanspraak staat of valt met de vraag of dat ene geval de vorm draagt, of alleen de omstandigheden waarin het ontstond.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De kaartencrisis van 1968</h3>
+      <p>Bank of America bracht in 1958 de BankAmericard uit en gaf de kaart vanaf het midden van de jaren zestig in licentie aan andere banken. Het stelsel liep vast: ongevraagd toegestuurde kaarten, fraude, verliezen die in de honderden miljoenen liepen, en licentiehouders die elkaar niet vertrouwden. Hock werkte op dat moment bij de National Bank of Commerce in Seattle en kwam terecht in de commissie die de zaak moest oplossen.</p>
+      <p>Uit die commissie kwam het voorstel dat het boek draagt. Bank of America moest de zeggenschap over de kaart afstaan aan een nieuwe organisatie die van de deelnemende banken zelf zou zijn. In 1970 werd National BankAmericard Inc. opgericht, met Hock als bestuurder. In 1974 volgde de internationale tak, en in 1976 werd voor de naam Visa gekozen omdat die in vrijwel elke taal uitspreekbaar bleek.</p>
+      <h3>Een vennootschap die niemand bezit</h3>
+      <p>De inrichting week op vrijwel elk punt af van het gebruikelijke. De organisatie gaf geen verhandelbare aandelen uit; het lidmaatschap zelf was het eigendom en kon niet los van de deelname worden verkocht. De zeggenschap was zo verdeeld dat geen enkele bank en geen enkel land een meerderheid kon verwerven. Leden concurreerden onderling om klanten en werkten tegelijk samen in het stelsel dat hun transacties afhandelde.</p>
+      <p>Hock beschrijft die opzet als een poging om de vraag naar de baas te omzeilen. Wanneer vaststaat waartoe de organisatie bestaat en welke beginselen gelden, kan de rest per geval worden uitgezocht door wie er het dichtst bij staat. Het onderhandelen over de statuten duurde jaren, en de tekst kwam er volgens hem alleen doordat de deelnemers elkaar genoeg wantrouwden om een vorm te aanvaarden waarin niemand de macht kreeg.</p>
+      <h3>Techniek als gevolg van de vorm</h3>
+      <p>Het bewijs dat de vorm werkte zoekt Hock in de uitvoering. In 1973 nam de organisatie BASE I in gebruik, een centraal systeem dat betalingsverzoeken elektronisch autoriseerde en daarmee de keten van telefoontjes tussen winkelier, bank en kaartuitgever verving. Het werd onder grote tijdsdruk gebouwd en ging op tijd in bedrijf. In de jaren daarna kwam de afwikkeling van de transacties zelf aan de beurt.</p>
+      <p>Zijn punt is dat een gedeeld stelsel dat van geen enkele deelnemer is, zulke investeringen mogelijk maakt, omdat geen bank hoeft te vrezen dat zij een concurrent aan het bewapenen is. Bij één enkele bank, betoogt hij, zou hetzelfde project op interne belangen zijn vastgelopen. Hock schuift daarmee de techniek naar voren als uitkomst van de organisatievorm en niet als afzonderlijke verdienste.</p>
+      <h3>Chaord en het ontwerpproces</h3>
+      <p>Na zijn vertrek in 1984 werkte Hock het begrip uit dat hij chaord noemde, samengetrokken uit chaos en order: elk zichzelf ordenend en zichzelf besturend geheel waarin beide tegelijk voorkomen. Hij ziet het in het menselijk lichaam, in een tropisch woud, in het internet, in de Anonieme Alcoholisten en in de wereldwijde samenwerking rond weerwaarnemingen, en betoogt dat organisaties die dat patroon volgen zich aanpassen zonder dat iemand ze bestuurt.</p>
+      <p>Daaruit leidde hij een ontwerpvolgorde af die hij met de Chaordic Alliance en later de Chaordic Commons probeerde te verspreiden. Eerst het doel, in één zin en zonder middelen erin. Dan de beginselen, waaronder de verdeling van de zeggenschap. Dan de vraag wie de deelnemers zijn. Pas daarna de vorm, de statuten en de dagelijkse gang van zaken. De volgorde is het punt: wie met de structuur begint legt macht vast voordat duidelijk is waarvoor.</p>
+      <h3>De ondertoon: bezwaren tegen het bevel</h3>
+      <p>Door het verhaal heen staan hoofdstukken van een andere aard. Hock schrijft over zijn jeugd in het noorden van Utah, over de opeenvolgende banen waarin hij met zijn leidinggevenden in botsing kwam, en over zijn afkeer van de organisatie opgevat als machine met een bedienaar aan de knoppen. Hij formuleert daarbij vuistregels die los van het boek geciteerd worden: dat wie leiding geeft de meeste tijd aan het besturen van zichzelf zou moeten besteden en de minste aan het besturen van ondergeschikten, en dat bij aanstellen en bevorderen integriteit voorop hoort te staan terwijl ervaring als laatste komt.</p>
+      <p>De toon is die van een man die zijn zaak bewezen acht en zich ergert aan een wereld die de les niet oppikt. Dat maakt de beschouwende hoofdstukken ongelijk van kwaliteit. Naast scherpe waarnemingen over hoe organisaties hun eigen doel kwijtraken staan passages die op verkondiging uitlopen, met veel over het einde van een tijdperk en weinig dat te controleren valt.</p>
+      <h3>Wat er na Visa gebeurde</h3>
+      <p>De herziene uitgave uit 2005 voegt hoofdstukken toe over de jaren waarin Hock als pleitbezorger optrad en met groepen uit uiteenlopende sectoren aan chaordische ontwerpen werkte, van de gezondheidszorg tot het onderwijs. Hij geeft daarin toe dat de meeste pogingen strandden, meestal op het punt waar bestaande organisaties zeggenschap zouden moeten inleveren.</p>
+      <p>De belangrijkste gebeurtenis staat er niet in, omdat zij later kwam. Visa zelf heeft de vorm losgelaten: in 2007 werd de coöperatieve structuur omgezet in een gewone vennootschap, en op 19 maart 2008 ging Visa Inc. naar de beurs in wat destijds de grootste Amerikaanse beursgang was. De leden werden aandeelhouders. Mastercard, met een vergelijkbare coöperatieve herkomst, was daar twee jaar eerder in voorgegaan.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">chaord</td><td>Elk zichzelf ordenend geheel waarin chaos en orde tegelijk voorkomen, samengetrokken uit de woorden chaos en order.</td></tr>
+          <tr><td class="term">chaordische organisatie</td><td>Organisatievorm waarin zelfstandige deelnemers een gedeeld doel en enkele beginselen delen terwijl de zeggenschap bewust verspreid blijft.</td></tr>
+          <tr><td class="term">doel</td><td>De reden van bestaan van de organisatie, bij Hock in één zin geformuleerd en zonder middelen of structuur erin.</td></tr>
+          <tr><td class="term">beginselen</td><td>Het kleine aantal afspraken over gedrag en zeggenschap waaruit de latere vorm van de organisatie hoort te volgen.</td></tr>
+          <tr><td class="term">vennootschap zonder aandelen</td><td>Rechtsvorm waarin het lidmaatschap zelf het eigendom is en niet los van de deelname verhandeld kan worden.</td></tr>
+          <tr><td class="term">verspreide zeggenschap</td><td>Inrichting waarin geen enkele deelnemer en geen enkel land een beslissende of blokkerende meerderheid kan verwerven.</td></tr>
+          <tr><td class="term">machinemodel</td><td>De organisatie opgevat als apparaat met een bedienaar aan de knoppen, door Hock afgewezen als erfstuk van de industriële tijd.</td></tr>
+          <tr><td class="term">elektronische waarde-uitwisseling</td><td>Hocks omschrijving van waar Visa in wezen mee bezig was, ruimer opgevat dan het uitgeven van betaalkaarten.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is een verslag van de hoofdpersoon zelf. Hock beschrijft gebeurtenissen waarin hij de doorslaggevende rol speelde, dertig jaar na dato, zonder verwijzing naar archief of documenten. De hoofdfeiten zijn onafhankelijk vast te stellen: de oprichting van National BankAmericard Inc. in 1970, de eigendomsvorm zonder verhandelbare aandelen, het autorisatiesysteem uit 1973 en de naamswijziging in 1976. De toedeling van ideeën en verdiensten binnen dat verhaal is dat niet. De historicus David Stearns beschreef de ontstaansgeschiedenis in 2011 op basis van archiefmateriaal en gesprekken met betrokkenen; wie de verdeling van verdiensten wil narekenen heeft daar meer aan dan aan dit boek.</p>
+      <p>Voor de algemene stelling is er één geval, en dat geval is groot en overtuigend. Wat ontbreekt is een tweede. Er is geen andere organisatie van vergelijkbare omvang waarvan aantoonbaar is dat zij volgens Hocks ontwerpvolgorde is gebouwd. De voorbeelden die hij verder noemt, het internet, de Anonieme Alcoholisten, het menselijk lichaam, zijn niet volgens zijn methode ontstaan; hij schuift ze achteraf onder zijn begrip.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar levert Visa zelf. De organisatie die als bewijs dient dat de chaordische vorm houdbaar is heeft die vorm opgegeven zodra zij geld waard was: in 2007 omgezet in een gewone vennootschap, in 2008 naar de beurs, met de leden als aandeelhouders. Wat Hock als een blijvende constructie presenteert blijkt een fase te zijn geweest die eindigde toen de deelnemers hun aandeel konden verzilveren. De vorm hield het uit zolang niemand hem kon uitkopen, en dat is een aanzienlijk zwakkere claim dan het boek maakt.</p>
+      <p>Daarnaast is chaordisch als begrip zo ruim dat het weinig uitsluit. Elk verband waarin deelnemers zich deels zelfstandig gedragen valt eronder, van een woud tot een verkeersplein, en een begrip dat overal op past voorspelt niets. Wat Hock als ontwerpregel aanbiedt, doel en beginselen vóór structuur, is verstandig en niet van hem; de bijzondere aanspraak zit in het woord, en het woord doet het werk niet.</p>
+      <p>Ten slotte is dit een boek van een oprichter over zijn eigen oprichting. Hock schrijft zijn tegenstanders consequent als bekrompen en zichzelf als degene die het zag aankomen, en de lezer beschikt niet over een andere stem. De beschouwende hoofdstukken lopen bovendien geregeld uit op algemeenheden over de industriële tijd en het nieuwe tijdperk, terwijl de zakelijke hoofdstukken juist precies zijn.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Formuleer het doel van een samenwerkingsverband in één zin zonder middelen of structuur, en toets elk later voorstel daaraan.</li>
+        <li>Leg de beginselen over zeggenschap vast voordat er over rechtsvorm en bestuurszetels wordt gesproken.</li>
+        <li>Ontwerp bij een gedeelde voorziening tussen concurrenten het eigendom zo dat geen enkele deelnemer een meerderheid kan verwerven.</li>
+        <li>Ga bij een coöperatieve of ledenstructuur na wat er gebeurt zodra het lidmaatschap verzilverbaar wordt; dat moment beslist over de houdbaarheid.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>One from Many: VISA and the Rise of Chaordic Organization</i> (Berrett-Koehler, San Francisco, 2005, 336 blz., ISBN 9781576753323), met een voorwoord van Peter Senge. Het is de herziene uitgave van <i>Birth of the Chaordic Age</i> (Berrett-Koehler, 1999), aangevuld met twee hoofdstukken over de jaren na Visa. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Dee Hock (1929-2022) leidde vanaf 1970 de organisatie die in 1976 Visa ging heten, en schreef ruim twintig jaar later op hoe die tot stand kwam en wat hij eruit afleidde over organiseren in het algemeen. Het boek verscheen in 1999 als <i>Birth of the Chaordic Age</i> en in 2005 herzien onder deze titel. Het loopt in twee sporen: het verslag van de oprichting, en losse hoofdstukken over zijn jeugd in Utah, zijn jaren in loondienst en zijn bezwaren tegen de organisatievorm die hij daar aantrof.</p><p>De aanleiding was een crisis. Het creditcardstelsel van Bank of America liep eind jaren zestig vast in fraude, verliezen en ruzie tussen licentiehouders. Hock stelde voor de zeggenschap bij geen enkele partij te leggen: een vennootschap zonder verhandelbare aandelen, in eigendom van de deelnemende banken, die elkaar tegelijk beconcurreerden en het stelsel gezamenlijk in stand hielden. Voor dat soort inrichting bedacht hij later het woord chaord, samengetrokken uit chaos en order. Zijn stelling is dat organisaties die uit een gedeeld doel en een handvol beginselen zijn opgebouwd zich beter aan verandering aanpassen dan organisaties die op bevel en toezicht draaien.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>organisatie</li><li>ondernemerschap</li><li>leiderschap</li><li>memoir</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="347"><a href="347.html">Complexity</a>. Waldrop beschrijft de complexiteitswetenschap over zelforganisatie waarmee Hock zich verwant verklaarde.</li>
+          <li value="900"><a href="900.html">My Years with General Motors</a>. Sloan beschrijft de bestuursvorm waartegen Hock zich keert, van binnenuit en met evenveel overtuiging.</li>
+          <li value="912"><a href="912.html">Toyota Production System</a>. Ohno ontwierp eveneens vanuit beginselen in plaats van vanuit een organisatieschema, en kan wel op decennia navolging bogen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

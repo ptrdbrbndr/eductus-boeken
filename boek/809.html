@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Great Crash, 1929 &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Galbraith betoogt dat de val van oktober 1929 het gevolg was van een speculatiegolf die zich in de twee jaar ervoor van de onderliggende…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-809">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">809 &middot; Geld en ondernemen</p>
+    <h1>The Great Crash, 1929</h1>
+    <p class="lede">John Kenneth Galbraith, 1955</p>
+    <p class="stats">
+      <span><b>1748</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="809"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Galbraith betoogt dat de val van oktober 1929 het gevolg was van een speculatiegolf die zich in de twee jaar ervoor van de onderliggende bedrijfsresultaten had losgemaakt, en dat de omvang van de daaropvolgende ellende niet aan de beurs alleen kan worden toegeschreven maar aan vijf zwakke plekken in de Amerikaanse economie die de klap doorgaven in plaats van te dempen. Achter de episode zit volgens hem een gedragspatroon dat niet aan die tijd gebonden is: de overtuiging dat men rijk kan worden zonder te werken, de bereidheid om die overtuiging met geleend geld te ondersteunen, en het onvermogen van bestuurders en toezichthouders om in te grijpen zolang de koersen stijgen. Zijn slotsom is dat de herinnering aan zo'n episode korter meegaat dan de voorwaarden die haar mogelijk maken.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Visioen en grenzeloze hoop</h3>
+      <p>Het eerste hoofdstuk begint niet op de beurs maar in Florida, waar in 1925 een grondkoorts woedde waarbij kavels werden doorverkocht op basis van een aanbetaling van tien procent. Twee orkanen in 1926 maakten er een eind aan. Galbraith gebruikt de episode als miniatuur van wat drie jaar later op grotere schaal gebeurde, inclusief de aanbetaling en de verhalen over grond die vlak bij zee zou liggen.</p>
+      <p>Vervolgens beschrijft hij de stemming van de late jaren twintig: de gedachte dat Amerika een tijdperk van blijvende voorspoed was binnengegaan, gedragen door de auto, de radio en de nieuwe bedrijfsvoering. In die jaren verscheen ook het boek van Edgar Lawrence Smith dat aandelen op lange termijn als betrouwbaar bezit voorstelde, wat de gedachte een wetenschappelijke onderbouwing gaf.</p>
+      <h3>Moet er iets gebeuren?</h3>
+      <p>Het tweede hoofdstuk gaat over de vraag waarom niemand ingreep. Het middel dat voor de hand lag was het effectenkrediet: beleggers kochten aandelen met geleend geld van hun commissionair, die het geld op zijn beurt tegen een dagrente betrok. De omvang van die leningen was bekend en werd wekelijks gepubliceerd, en de rente erop liep in 1929 tot boven de tien procent.</p>
+      <p>Galbraith laat zien hoe het stelsel van centrale banken en de opeenvolgende regeringen zich in bochten wrongen om niets te doen. Waarschuwen zou de val kunnen uitlokken en die val zou dan aan de waarschuwer worden toegeschreven. Het hoofdstuk is de kern van zijn politieke punt: de macht om in te grijpen bestond, de bereidheid niet.</p>
+      <h3>In Goldman, Sachs we trust</h3>
+      <p>Het derde hoofdstuk behandelt de beleggingstrusts, gesloten fondsen die aandelen in andere ondernemingen bezaten en zelf beursgenoteerd waren. Ze konden op elkaar worden gestapeld: een trust bezat de aandelen van een tweede trust, die weer een derde bezat. Doordat elke laag met vreemd vermogen werkte, sloeg een koersstijging bij de onderste laag versterkt door naar boven, en een daling ook.</p>
+      <p>Galbraith volgt hier de Goldman Sachs Trading Corporation uit december 1928 en haar dochters Shenandoah en Blue Ridge, die in de zomer van 1929 op de markt kwamen en na de val vrijwel niets meer waard waren. Het is het scherpste voorbeeld in het boek van de hefboom, het verschijnsel dat winst en verlies allebei worden uitvergroot door geleend geld.</p>
+      <h3>De schemering van de illusie</h3>
+      <p>Het vierde hoofdstuk beschrijft september 1929. Op 5 september zei bedrijfsadviseur Roger Babson dat er vroeg of laat een val zou komen, waarna de markt op één dag zichtbaar terugliep. Halverwege oktober verklaarde de econoom Irving Fisher dat de aandelenkoersen een blijvend hoog niveau hadden bereikt.</p>
+      <p>Galbraith laat de twee uitspraken naast elkaar staan om te tonen hoe weinig gezag de deskundigen aan hun voorspellingen konden ontlenen. Ook de ineenstorting van het Londense concern van Clarence Hatry eind september komt hier aan bod, als een van de gebeurtenissen die het vertrouwen ondermijnden zonder dat iemand dat op dat moment zo zag.</p>
+      <h3>De val</h3>
+      <p>Het vijfde hoofdstuk is de beschrijving van de dagen zelf. Op donderdag 24 oktober werden bijna 12,9 miljoen aandelen verhandeld en liep de koersband uren achter, zodat handelaren niet meer wisten tegen welke prijs zij verkochten. Diezelfde middag vormden de grote banken een pool en stuurden zij Richard Whitney, ondervoorzitter van de beurs, naar de vloer om zichtbaar een groot pakket U.S. Steel te bieden. De markt herstelde die dag.</p>
+      <p>Op dinsdag 29 oktober was er geen pool meer. Er gingen ruim 16,4 miljoen aandelen om, een aantal dat pas decennia later werd overtroffen, en de bodem viel uit de markt. Galbraith ontkracht in dit hoofdstuk ook het beeld van speculanten die zich uit ramen wierpen: het zelfmoordcijfer van dat najaar wijkt niet af van de gebruikelijke gang van zaken.</p>
+      <h3>Het wordt ernstiger</h3>
+      <p>Het zesde hoofdstuk gaat over de maanden erna, waarin de koersen na een tussentijds herstel bleven zakken. Hier introduceert Galbraith de bezzle: op elk moment is er een hoeveelheid geld verduisterd die de bestolene nog niet mist en waarvan de dief wel al geniet. In goede tijden groeit die voorraad, omdat er minder wordt nagekeken; zodra de koersen dalen wordt er wel gekeken, en komt de fraude in één beweging aan het licht.</p>
+      <p>Het is een van de weinige begrippen uit het boek dat een eigen leven is gaan leiden, en het verklaart waarom elke val gevolgd wordt door een reeks onthullingen die de indruk wekken dat de fraude de oorzaak was, terwijl zij er eerder een gevolg van is.</p>
+      <h3>Nasleep en oorzaken</h3>
+      <p>De laatste hoofdstukken volgen de afwikkeling: de val van de energieholding van Samuel Insull, het einde van de Zweedse luciferkoning Ivar Kreuger, en de Senaatsverhoren onder leiding van Ferdinand Pecora die in 1932 en 1933 lieten zien wat de banken hun klanten hadden verkocht. Richard Whitney, de man van de pool, kwam later zelf wegens verduistering in de gevangenis terecht.</p>
+      <p>In het slothoofdstuk noemt Galbraith vijf zwakke plekken die de val volgens hem in een depressie deden overgaan: een scheve inkomensverdeling, waarbij de rijkste vijf procent ongeveer een derde van het persoonlijk inkomen ontving; een ondeugdelijke ondernemingsstructuur met te veel opeengestapelde holdings; een bankwezen van talloze kleine zelfstandige banken die elkaar in hun val meetrokken; een buitenlandse balans waarin Amerika schuldeiser was maar tegelijk zijn markt met invoerheffingen sloot; en een gebrekkige staat van de economische kennis, waardoor het beleid de zaak eerder verergerde dan verbeterde.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Effectenkrediet</td><td>Lening van een commissionair waarmee een belegger aandelen koopt en waarbij hij moet bijstorten of verkopen zodra de koers zakt.</td></tr>
+          <tr><td class="term">Dagrente op beleggersleningen</td><td>De rente op kortlopend geld dat commissionairs doorleenden aan beleggers, in 1929 zo hoog dat bedrijven hun eigen kasgeld liever uitleenden dan investeerden.</td></tr>
+          <tr><td class="term">Hefboom</td><td>Het uitvergroten van winst en verlies door met geleend geld te werken, in dit boek zichtbaar in de opeengestapelde beleggingstrusts.</td></tr>
+          <tr><td class="term">Beleggingstrust</td><td>Beursgenoteerd fonds dat aandelen in andere ondernemingen bezit en dat in 1929 vaak zelf weer eigendom was van een ander zulk fonds.</td></tr>
+          <tr><td class="term">Bankierspool</td><td>Afspraak tussen grote banken om gezamenlijk aandelen te kopen en zo de markt te stutten, op 24 oktober 1929 zichtbaar uitgevoerd door Richard Whitney.</td></tr>
+          <tr><td class="term">Blijvend hoog niveau</td><td>De uitdrukking van Irving Fisher uit oktober 1929 dat de koersen een plateau hadden bereikt waarvan zij niet meer zouden dalen.</td></tr>
+          <tr><td class="term">De bezzle</td><td>De voorraad verduisterd geld die nog niet is ontdekt, en die in tijden van stijgende koersen aangroeit omdat er minder wordt gecontroleerd.</td></tr>
+          <tr><td class="term">Pecora-verhoren</td><td>De verhoren van de Amerikaanse Senaat in 1932 en 1933 waarin de handelwijze van banken en commissionairs openbaar werd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Galbraith werkte met openbaar materiaal: dagbladen, de wekelijkse cijfers over beleggersleningen, jaarverslagen, prospectussen van de beleggingstrusts en de stenogrammen van de Senaatsverhoren. De gedetailleerde passages, zoals de handelsvolumes van 24 en 29 oktober en de opbouw van de Goldman Sachs-trusts, zijn daaraan te toetsen en worden ook nu nog in die vorm geciteerd.</p>
+      <p>Het boek is geen econometrisch werk en pretendeert dat ook niet. Galbraith geeft geen model en geen berekening waaruit blijkt hoeveel van de depressie aan de beurs is toe te schrijven. Zijn vijf zwakke plekken zijn een opsomming van oordelen, gestaafd met enkele cijfers, waaronder de inkomensverdeling van 1929. Wie wil weten hoe zwaar elk van de vijf woog, vindt in het boek geen antwoord.</p>
+      <p>Op één punt is de latere geschiedschrijving hem grotendeels gevolgd: dat de markt van 1928 en 1929 door krediet werd gedragen en dat de opgaande fase een uitgesproken speculatief karakter had. Op het punt van de oorzaken van de depressie is het beeld verschoven, zie hieronder.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar komt uit de monetaire geschiedschrijving. Milton Friedman en Anna Schwartz betoogden in <i>A Monetary History of the United States</i> (1963) dat de depressie zo diep werd doordat de Amerikaanse geldhoeveelheid tussen 1929 en 1933 met ongeveer een derde kromp terwijl de centrale bank dat liet gebeuren. In die lezing is de beursval een episode aan het begin en zit de verklaring elders. Galbraiths vijfde zwakke plek, de gebrekkige economische kennis, overlapt daarmee, maar hij trekt de conclusie niet.</p>
+      <p>Ook de veronderstelling dat de koersen van 1929 zichtbaar te hoog stonden is aangevochten. Onderzoek van onder anderen Eugene White en Gerald Sirkin heeft laten zien dat de koers-winstverhoudingen van september 1929 naar latere maatstaven niet uitzonderlijk waren, en dat een groot deel van de stijging met de winstontwikkeling meeliep. Wie dat aanvaardt, houdt over dat de markt zich vergiste in de toekomst, wat iets anders is dan collectieve waanzin.</p>
+      <p>Verder is het boek kort, en het is kort op de plaatsen waar het pijn doet. Over de werking van het bankwezen, over de rol van de invoerheffingen en over de internationale schuldverhoudingen staan telkens een paar alinea's. De ironische toon, die het boek leesbaar maakt, werkt daarbij als vervanging van bewijs: een bestuurder die belachelijk wordt gemaakt, is nog niet weerlegd. Galbraith was bovendien een uitgesproken partij in het Amerikaanse politieke debat, en de wenselijkheid van toezicht is in dit boek eerder uitgangspunt dan uitkomst.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kijk bij een oplopende markt eerst naar de financieringskant: hoeveel is er geleend om die stukken te kopen, en tegen welke rente.</li>
+        <li>Wantrouw gestapelde constructies waarin het ene fonds het andere bezit; de hefboom telt bij elke laag opnieuw mee.</li>
+        <li>Reken erop dat na een val fraude aan het licht komt die tijdens de stijging al bestond, en behandel die onthullingen als gevolg en niet als oorzaak.</li>
+        <li>Neem uitspraken van bekende deskundigen over het koersniveau niet als informatie; noteer ze en kijk er een jaar later op terug.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Great Crash, 1929</i> (Houghton Mifflin, Boston, 1955). Galbraith voorzag het boek meermalen van een nieuw voorwoord, onder meer in 1961, 1972, 1988, 1997 en 2009. Nederlands als <i>De crash van 1929</i> (Ambo, Amsterdam, 2009, 245 blz., vertaling A. Westvaarder, met een voorwoord van Arnold Heertje, ISBN 9789026322457). Eerdere Nederlandse uitgaven verschenen vanaf 1963, aanvankelijk bij De Bussy onder de titel <i>De krach van '29</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Galbraith schreef dit boek in 1954 en 1955, vijfentwintig jaar na de gebeurtenissen, en beschrijft in negen korte hoofdstukken hoe de Amerikaanse aandelenmarkt in 1928 en 1929 opliep en in oktober 1929 instortte. Hij begint bij de grondkoorts in Florida van 1925, gaat via de beleggingstrusts van 1929 naar de dagen van 24 en 29 oktober, en eindigt met de vraag wat de val met de daaropvolgende depressie te maken had.</p><p>Het boek is even bekend om zijn toon als om zijn inhoud. Galbraith schrijft ironisch en houdt zich in bij het uitdelen van cijfers, en hij heeft er een aantal begrippen mee gevestigd, waaronder de bezzle: de voorraad verduisteringen die nog niet is ontdekt en die in goede tijden aangroeit omdat niemand nakijkt. In het slothoofdstuk noemt hij vijf zwakke plekken in de Amerikaanse economie van 1929 die de val naar zijn oordeel in een depressie lieten overgaan.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>economische geschiedenis</li><li>beurskrach</li><li>speculatie</li><li>economie</li><li>financiële markten</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="808"><a href="808.html">Devil Take the Hindmost</a>. Chancellor plaatst 1929 in een reeks van vier eeuwen speculatie en laat zien welke elementen al eerder voorkwamen.</li>
+          <li value="807"><a href="807.html">Manias, Panics, and Crashes</a>. Kindleberger bouwt uit dit soort episodes een model met vaste fasen, met aandacht voor de rol van een geldschieter in laatste instantie.</li>
+          <li value="814"><a href="814.html">Anatomy of the Bear</a>. Napier onderzoekt vier grote bodems in de Amerikaanse beursgeschiedenis, waaronder juli 1932, en dus precies de afloop die Galbraith beschrijft.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

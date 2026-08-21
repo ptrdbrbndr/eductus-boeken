@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Lady Tasting Tea &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Salsburg stelt dat de statistiek in de twintigste eeuw het onderwerp van wetenschappelijk onderzoek heeft verlegd, en daarmee meer deed dan gereedschap…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-946">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">946 &middot; Natuur en wetenschap</p>
+    <h1>The Lady Tasting Tea</h1>
+    <p class="lede">David Salsburg, 2001</p>
+    <p class="stats">
+      <span><b>1668</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="946"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Salsburg stelt dat de statistiek in de twintigste eeuw het onderwerp van wetenschappelijk onderzoek heeft verlegd, en daarmee meer deed dan gereedschap aanreiken. In de negentiende eeuw gold een meting als benadering van een werkelijke waarde en golden afwijkingen als fouten. In de statistische opvatting die met Karl Pearson begint en met Fisher volwassen wordt, is de spreiding zelf het verschijnsel: waarnemingen zijn trekkingen uit een kansverdeling, en wat een onderzoeker werkelijk bestudeert zijn de parameters van die verdeling, die hij nooit rechtstreeks ziet. Daarmee verschoof ook wat een antwoord is: geen uitspraak over wat het geval is, maar een uitspraak over hoe waarschijnlijk de waargenomen gegevens zijn onder aannames die de onderzoeker vooraf heeft gekozen. Aan het slot laat Salsburg zien dat de vraag wat kans eigenlijk betekent binnen het vak nooit is beslecht.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het theekopje en de proefopzet</h3>
+      <p>De vrouw uit de titel is de algenonderzoekster Muriel Bristol. Fisher neemt haar bewering serieus genoeg om haar toetsbaar te maken, en dat ontwerp bevat in het klein alles wat later zijn <i>The Design of Experiments</i> zou vullen: hoeveel koppen, in welke door het toeval bepaalde volgorde, en welke uitkomst nog met louter gokken te verklaren valt.</p>
+      <p>Salsburg gebruikt de anekdote om zijn kernpunt in te leiden. Een bewering wordt pas onderzoekbaar wanneer iemand de proef ontwerpt die haar had kunnen weerleggen, en dat ontwerp is zelf een wiskundige kwestie. De rest van het boek behandelt de mensen die die kwestie hebben uitgewerkt.</p>
+      <h3>Pearson, Fisher en de eerste generatie</h3>
+      <p>Karl Pearson begon aan University College London met het idee dat elke reeks metingen te vatten is in een familie van scheve verdelingen met een handvol parameters. Hij richtte het tijdschrift <i>Biometrika</i> op, ontwikkelde de chi-kwadraattoets en maakte van de statistiek een vak met een eigen laboratorium.</p>
+      <p>Fisher kwam in 1919 in dienst bij het landbouwproefstation Rothamsted, waar zeventig jaar aan proefveldgegevens lag te wachten. Daar werkte hij randomisatie uit, de indeling in blokken, de variantieanalyse waarmee meerdere invloeden tegelijk uit elkaar te trekken zijn, het begrip vrijheidsgraden en de methode van de meest aannemelijke schatting. Salsburg beschrijft hem als de man die het vak zijn wiskundige ruggengraat gaf en tegelijk vrijwel iedereen tegen zich in het harnas joeg; de vete met Karl Pearson en later met diens zoon en met Neyman loopt door het hele boek heen.</p>
+      <h3>Van meting naar verdeling</h3>
+      <p>Het middendeel legt uit wat er inhoudelijk veranderde. Zolang een onderzoeker meent een vaste grootheid te meten, is spreiding een gebrek in het instrument. Zodra hij aanneemt dat de waarnemingen uit een verdeling komen, wordt de vorm van die spreiding informatie, en verandert de vraag van hoeveel is het naar welke waarden van de parameters passen bij wat ik zie.</p>
+      <p>Salsburg noemt dat de statistische omwenteling en laat zien hoe zij zich vanuit de landbouw en de biometrie naar andere vakken verspreidde. De prijs ervan is dat het studieobject iets werd dat nooit rechtstreeks waarneembaar is: niemand ziet een parameter, men ziet alleen schattingen ervan met hun eigen onzekerheid.</p>
+      <h3>Toetsen, betrouwbaarheid en de ruzie erover</h3>
+      <p>William Gosset werkte bij Guinness in Dublin aan de gerst en het brouwsel en had te maken met kleine steekproeven, waarvoor de bestaande benaderingen niet deugden. Zijn oplossing, de verdeling die naar zijn schuilnaam Student heet, publiceerde hij onder die naam omdat de brouwerij haar personeel niet onder eigen naam liet publiceren.</p>
+      <p>Jerzy Neyman en Egon Pearson bouwden daarna het geheel dat in vrijwel elk leerboek terechtkwam: twee soorten fout, een van tevoren vastgelegde drempel, het onderscheidend vermogen van een toets en het betrouwbaarheidsinterval. Fisher heeft die opzet tot zijn dood bestreden. Hij zag zijn significantiewaarde als een maat voor bewijskracht in een enkel geval, niet als een beslisregel die over een lange reeks herhalingen een foutpercentage bewaakt. Salsburg maakt duidelijk dat de gangbare praktijk een mengsel van beide is dat door geen van de bedenkers zou zijn goedgekeurd, en dat de vraag wat een p-waarde nu eigenlijk zegt binnen het vak nooit is opgelost.</p>
+      <h3>De uitwaaiering over de vakken</h3>
+      <p>Het tweede deel van het boek volgt de methoden naar buiten. W. Edwards Deming bracht de statistische kwaliteitsbeheersing na de oorlog naar de Japanse industrie, waar zij ingang vond terwijl de Amerikaanse fabrikanten haar links lieten liggen. Kolmogorov gaf de kansrekening in 1933 haar axioma's en maakte haar tot een tak van de wiskunde. Mandelbrot liet zien dat prijsbewegingen op de beurs veel dikkere staarten hebben dan het normale model toestaat.</p>
+      <p>Verder komen aan bod de opbouw van de geneeskundige proefopzet met controlegroep, de regressiemethode van Cox voor overlevingsduur, het verkennende gegevensonderzoek van Tukey, de Indiase school rond Mahalanobis en C.R. Rao, en de bayesiaanse tegenbeweging van Savage en de Finetti. Salsburg besteedt opvallend veel aandacht aan vrouwen in het vak, onder wie Gertrude Cox, Florence Nightingale David en Stella Cunliffe, die als eerste vrouw voorzitter van de Royal Statistical Society werd.</p>
+      <h3>Wat kans betekent</h3>
+      <p>De laatste hoofdstukken keren terug naar de grondslagen. De verdelingen waar het hele bouwwerk op rust zijn zelf niet waarneembaar, en de vraag of ze iets in de wereld beschrijven of alleen de onwetendheid van de onderzoeker uitdrukken, loopt langs de scheidslijn tussen frequentisten en bayesianen. Salsburg laat die vraag open en meldt dat de meeste beoefenaren er in de praktijk omheen werken.</p>
+      <p>Ook Fishers eigen einde krijgt ruimte. Hij bestreed in zijn laatste jaren de conclusie dat roken longkanker veroorzaakt, met het argument dat de aangevoerde samenhang ook door een gemeenschappelijke erfelijke aanleg verklaard kon worden en dat er geen gerandomiseerde proef bestond. Salsburg behandelt dat niet als uitglijder maar als het uiterste van Fishers eigen leer, waarin alleen een goed ontworpen proef oorzakelijkheid mag vaststellen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">randomisatie</td><td>Het door loting toewijzen van behandelingen aan proefeenheden, waardoor onbekende storende invloeden gemiddeld over de groepen worden verdeeld.</td></tr>
+          <tr><td class="term">variantieanalyse</td><td>Fishers methode om de spreiding in de uitkomsten toe te rekenen aan meerdere invloeden tegelijk.</td></tr>
+          <tr><td class="term">meest aannemelijke schatting</td><td>De waarde van een parameter waarbij de waargenomen gegevens de grootste kans hadden, door Fisher als algemene schattingsregel ingevoerd.</td></tr>
+          <tr><td class="term">significantieniveau</td><td>De drempelkans waaronder een uitkomst als moeilijk aan toeval toe te schrijven geldt; Fisher bedoelde er een maat voor bewijskracht mee, Neyman een beslisregel.</td></tr>
+          <tr><td class="term">betrouwbaarheidsinterval</td><td>Een bereik dat bij herhaald toepassen van de procedure in een vastgelegd percentage van de gevallen de ware parameter bevat.</td></tr>
+          <tr><td class="term">onderscheidend vermogen</td><td>De kans dat een toets een werkelijk aanwezig verschil ook aanwijst; het spiegelbeeld van de tweede soort fout van Neyman en Pearson.</td></tr>
+          <tr><td class="term">verdeling van Student</td><td>De verdeling die Gosset onder zijn schuilnaam publiceerde voor het toetsen van gemiddelden bij kleine steekproeven.</td></tr>
+          <tr><td class="term">parameter</td><td>Een getal dat een kansverdeling vastlegt; volgens Salsburg het eigenlijke studieobject van de moderne wetenschap, en nooit rechtstreeks waarneembaar.</td></tr>
+          <tr><td class="term">statistische kwaliteitsbeheersing</td><td>Het bewaken van een productieproces met steekproeven en regelkaarten, door Deming naar de Japanse industrie gebracht.</td></tr>
+          <tr><td class="term">dikke staarten</td><td>Verdelingen waarin extreme waarden veel vaker voorkomen dan het normale model toelaat, door Mandelbrot in beursgegevens aangetoond.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is een populaire geschiedenis, geen wetenschapshistorische studie. Er staat een literatuurlijst van tien bladzijden achterin, maar geen noten per bewering, en een aanzienlijk deel van het materiaal komt uit Salsburgs eigen herinnering en uit gesprekken met de betrokkenen. Hij kende het vak van binnenuit als statisticus in de farmaceutische industrie en heeft veel van de hoofdpersonen uit de tweede generatie persoonlijk meegemaakt. Dat levert details op die nergens anders staan, en tegelijk anekdotes die niet te verifiëren zijn.</p>
+      <p>De wiskunde zelf wordt vrijwel niet getoond. Salsburg beschrijft wat een methode doet en waarvoor zij bedacht is, zonder formules en zonder uitgewerkte voorbeelden. Voor de historische hoofdlijn maakt dat weinig uit, want de ontwikkeling van randomisatie, variantieanalyse en toetsingsleer is goed gedocumenteerd en zijn weergave daarvan strookt met de vakliteratuur. Voor de centrale stelling maakt het wel uit: dat de statistiek het onderwerp van wetenschap heeft verlegd, wordt geïllustreerd en niet aangetoond.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is de tijd. Het boek verscheen in 2001 en presenteert de toetsingsleer als een afgeronde verworvenheid, terwijl juist die praktijk in de twee decennia erna in een methodologische crisis terechtkwam: grote replicatieprojecten in de psychologie en de geneeskunde lieten zien hoeveel gepubliceerde resultaten met significantiedrempels niet herhaalbaar zijn, en tijdschriften en beroepsverenigingen hebben het gebruik van de p-waarde sindsdien openlijk ter discussie gesteld. Salsburg signaleert wel dat de grondslagen niet in orde zijn, maar behandelt dat als een filosofische kwestie in plaats van als een praktisch gebrek met gevolgen voor de gepubliceerde literatuur.</p>
+      <p>Daarnaast is de behandeling scheef verdeeld. De bayesiaanse benadering, die inmiddels een groot deel van de toegepaste statistiek draagt, krijgt enkele bladzijden en wordt eerder als curiositeit dan als concurrent gepresenteerd; recensenten in vakbladen hebben dat destijds al aangemerkt, net als Salsburgs zichtbare geringschatting voor zuivere wiskunde. Verder is de vorm zelf beperkend: negenentwintig korte portretten leveren een reeks levens op waarin steeds even een methode wordt aangestipt, zodat een lezer die de methoden niet al kent het vak er niet uit leert en de titelbewering over de omwenteling vooral op gezag moet aannemen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij elk onderzoeksresultaat welke proefopzet eraan voorafging en of de toewijzing door loting gebeurde; zonder dat is een uitspraak over oorzaak niet gedekt.</li>
+        <li>Lees een p-waarde als uitspraak over de gegevens onder een aanname, niet als kans dat de aanname juist is.</li>
+        <li>Noteer bij een niet gevonden verschil hoe groot de steekproef was; zonder onderscheidend vermogen zegt een uitblijvend resultaat niets.</li>
+        <li>Controleer bij financiële en verzekeringsmodellen of er met normale verdelingen wordt gerekend waar de gegevens dikke staarten laten zien.</li>
+        <li>Gebruik Fishers verzet tegen de rookconclusie als toets voor de eigen stelregels: wie alleen gerandomiseerde proeven als bewijs aanvaardt, moet weten wat dat kost bij vragen waar zulke proeven niet mogelijk zijn.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Lady Tasting Tea: How Statistics Revolutionized Science in the Twentieth Century</i> (W.H. Freeman, New York, 2001, xi + 340 blz., ISBN 9780716741060; paperback bij Henry Holt, New York, 2002, 352 blz., ISBN 9780805071344). Negenentwintig hoofdstukken, met een literatuurlijst van tien bladzijden en een register. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Het boek begint op een zomermiddag in Cambridge, eind jaren twintig, waar een vrouw beweert te kunnen proeven of de melk voor of na de thee in de kop is gegaan. Ronald Fisher stelt voor dat uit te zoeken en ontwerpt ter plekke een proef: hoeveel koppen in welke volgorde, en wat er uit hoeveel goede antwoorden geconcludeerd mag worden. Salsburg hoorde het verhaal van H. Fairfield Smith, die erbij was, en gebruikt het als opening van een geschiedenis van de statistiek in negenentwintig hoofdstukken.</p><p>Die geschiedenis loopt van Karl Pearson en zijn verdelingsleer via Fisher op het landbouwproefstation Rothamsted, Gosset bij de Guinness-brouwerij en Neyman en Egon Pearson met hun toetsingsleer naar de naoorlogse verspreiding van statistische methoden over geneeskunde, industrie en economie. Salsburg werkte zevenentwintig jaar als statisticus in de farmaceutische industrie en kende veel van de hoofdpersonen zelf. Zijn stelling is dat de wetenschap in de twintigste eeuw van onderwerp veranderde: metingen werden niet langer als benaderingen van een ware waarde behandeld maar als trekkingen uit een verdeling, en de parameters van die verdeling werden het eigenlijke studieobject.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>statistiek</li><li>wetenschapsgeschiedenis</li><li>kansrekening</li><li>onderzoek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="64"><a href="64.html">Fooled by Randomness</a>. Taleb werkt hetzelfde onderscheid tussen waarneming en onderliggende verdeling uit voor beleggers, met meer nadruk op wat er misgaat.</li>
+          <li value="268"><a href="268.html">The Black Swan</a>. De dikke staarten die Salsburg bij Mandelbrot signaleert vormen bij Taleb het hele onderwerp.</li>
+          <li value="951"><a href="951.html">The Mismeasure of Man</a>. Gould laat aan de meting van intelligentie zien wat er gebeurt wanneer de methoden uit dit boek op een slecht omschreven grootheid worden losgelaten.</li>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Kahneman beschrijft waarom mensen, onderzoekers inbegrepen, de conclusies uit kleine steekproeven stelselmatig te sterk vertrouwen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

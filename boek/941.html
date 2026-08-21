@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Double Helix &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Watson vertelt de ontdekking van de dubbele helix als een wedloop tussen jonge, eerzuchtige en soms slecht ingelichte mensen, en niet als een geordende…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-941">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">941 &middot; Natuur en wetenschap</p>
+    <h1>The Double Helix</h1>
+    <p class="lede">James D. Watson, 1968</p>
+    <p class="stats">
+      <span><b>1398</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="941"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Watson vertelt de ontdekking van de dubbele helix als een wedloop tussen jonge, eerzuchtige en soms slecht ingelichte mensen, en niet als een geordende opeenvolging van proef en gevolgtrekking. De ondertitel, een persoonlijk verslag, dient als verweer vooraf: hij schrijft op wat hij destijds dacht, met de vooroordelen van dat moment, ook waar die hem slecht doen uitkomen. Daarmee stelt het boek een opvatting over wetenschap voor die in 1968 nieuw was in de openbaarheid en die veel vakgenoten tegen de borst stuitte, namelijk dat de uitkomst van een groot onderzoek evenzeer wordt bepaald door rivaliteit, geleende gegevens, karakter en toeval als door methode. De ontdekking zelf, twee ketens waarvan de basen paarsgewijs op elkaar passen, komt in dat verslag pas tegen het einde tot stand.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Napels, mei 1951</h3>
+      <p>Watson is drieëntwintig, gepromoveerd op bacteriofagen en met een beurs in Kopenhagen ondergebracht bij scheikundig werk dat hem niet ligt. Op een klein congres in Napels ziet hij Maurice Wilkins een röntgendiagram van DNA tonen. De ordelijke vlekken op die opname overtuigen hem dat de erfelijke stof een oplosbare structuur heeft en dat wie die structuur vindt, meteen begrijpt hoe erfelijkheid werkt.</p>
+      <p>Vanaf dat moment is het boek de geschiedenis van één vastberadenheid. Watson regelt zijn beurs om en komt in oktober 1951 in het Cavendish Laboratory in Cambridge terecht, formeel om aan eiwitten te werken.</p>
+      <h3>Cambridge en Crick</h3>
+      <p>In het Cavendish, geleid door Lawrence Bragg en met Max Perutz en John Kendrew aan de eiwitten, treft Watson Francis Crick, twaalf jaar ouder, nog niet gepromoveerd en luidruchtig aanwezig. De twee ontdekken dat zij dezelfde overtuiging delen en dezelfde methode willen gebruiken: modellen bouwen naar het voorbeeld van Linus Pauling, die zo de alfahelix van eiwitten had gevonden.</p>
+      <p>Het boek besteedt evenveel ruimte aan de sociale omgeving als aan het werk: de lunches in The Eagle, de colleges, de au pairs, de vraag wie welke beurs krijgt. Die keuze is niet terloops. Watson laat zien dat inzicht ontstaat in gesprekken, op de gang en bij toeval opgevangen mededelingen.</p>
+      <h3>Het mislukte model</h3>
+      <p>In november 1951 woont Watson een voordracht van Rosalind Franklin bij en noteert niets. Bij het bouwen van een model onthoudt hij haar opgave van het watergehalte verkeerd, waardoor hij en Crick een drieketenmodel met de ruggengraat naar binnen presenteren. Franklin komt uit Londen over en toont in enkele minuten aan dat het niet kan.</p>
+      <p>De vernedering heeft gevolgen. Bragg verbiedt het tweetal verder aan DNA te werken, dat immers het onderwerp van King's College is. Watson keert terug naar het tabaksmozaïekvirus, Crick naar de hemoglobine, en het onderwerp blijft ruim een jaar liggen.</p>
+      <h3>Wat er ondertussen binnenkomt</h3>
+      <p>In die tussenperiode verzamelt Watson de losse stukken. Erwin Chargaff bezoekt Cambridge, laat blijken weinig van beide heren te verwachten en noemt de verhoudingen die hij in DNA had gemeten: evenveel adenine als thymine, evenveel guanine als cytosine. De betekenis daarvan dringt pas veel later door.</p>
+      <p>Uit Pasadena komt begin 1953 via Peter Pauling het handschrift van diens vader met een voorstel voor een drievoudige helix. Watson ziet er meteen een scheikundige fout in: de fosfaatgroepen zijn ongeladen, wat geen zuur zou opleveren. Pauling zal die fout binnen enkele weken zelf vinden, en dat besef zet de laatste fase in gang.</p>
+      <h3>Zes weken in 1953</h3>
+      <p>Watson reist naar Londen om Wilkins te waarschuwen. Die laat hem opname 51 zien, gemaakt in King's College door Rosalind Franklin en Raymond Gosling, waarop het kruispatroon van een helix duidelijk staat. Franklin weet daar niets van. Kort daarna geeft Max Perutz aan Crick een verslag van de Medical Research Council door met Franklins meetgegevens over de eenheidscel, materiaal dat formeel niet geheim was maar evenmin voor hen bestemd.</p>
+      <p>De laatste horde is scheikundig. Jerry Donohue, die het bureau met Watson deelt, wijst hem erop dat de gangbare leerboeken de basen in de enolvorm afbeelden terwijl de ketovorm de juiste is. Met de juiste vormen in karton geknipt valt op 28 februari 1953 op dat adenine met thymine en guanine met cytosine dezelfde afmeting opleveren. Daarmee is de structuur er, en meteen ook het kopieermechanisme: elke keten bevat het voorschrift voor de andere.</p>
+      <h3>Publicatie en epiloog</h3>
+      <p>Op 25 april 1953 verschijnen in <i>Nature</i> drie artikelen: het model van Watson en Crick, en daarnaast de röntgengegevens uit King's College van Wilkins en van Franklin en Gosling, gepresenteerd als onafhankelijke steun in plaats van als de bron van het model. In 1962 volgt de Nobelprijs voor Watson, Crick en Wilkins.</p>
+      <p>Het boek eindigt met een epiloog over Rosalind Franklin, die in 1958 op zevenendertigjarige leeftijd overleed. Watson schrijft daarin dat hij haar aanvankelijk verkeerd inschatte, prijst haar latere werk aan het tabaksmozaïekvirus en noemt de belemmeringen waarmee zij als vrouw in de wetenschap te maken had.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">dubbele helix</td><td>Twee tegengesteld lopende ketens die om dezelfde as draaien, met de suiker-fosfaatruggengraat aan de buitenkant.</td></tr>
+          <tr><td class="term">basenparing</td><td>De koppeling van adenine aan thymine en van guanine aan cytosine, waardoor beide paren dezelfde breedte krijgen.</td></tr>
+          <tr><td class="term">regels van Chargaff</td><td>De gemeten gelijkheid van adenine en thymine en van guanine en cytosine in DNA, waarvan de betekenis pas met de paring duidelijk werd.</td></tr>
+          <tr><td class="term">opname 51</td><td>Het röntgendiffractiebeeld van de vochtige vorm van DNA, waarop het kruispatroon van een helix afleesbaar is.</td></tr>
+          <tr><td class="term">modelbouw</td><td>De werkwijze van Pauling, waarbij onderdelen op schaal worden samengesteld binnen de grenzen die de scheikunde toelaat.</td></tr>
+          <tr><td class="term">tautomeren</td><td>De keto- en de enolvorm van dezelfde base; de verkeerde keuze in de leerboeken hield de paring maandenlang tegen.</td></tr>
+          <tr><td class="term">complementariteit</td><td>Het gegeven dat elke keten de volgorde van de andere vastlegt, waarmee het kopiëren van erfelijk materiaal verklaarbaar wordt.</td></tr>
+          <tr><td class="term">alfahelix</td><td>De schroefvormige structuur die Pauling in eiwitten vond en die als voorbeeld diende voor de aanpak van DNA.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is een herinnering, vijftien jaar na de gebeurtenissen opgeschreven, deels met behulp van de brieven die Watson destijds naar huis stuurde. Hij verantwoordt geen bronnen en geeft gesprekken weer alsof hij ze woordelijk onthield. De harde feiten in het verhaal, de data, de artikelen in <i>Nature</i>, de opname en het verslag van de Medical Research Council, zijn sindsdien uit archieven bevestigd, onder meer door Robert Olby in <i>The Path to the Double Helix</i> uit 1974 en door de geannoteerde uitgave van 2012, waarin brieven en documenten naast de tekst staan afgedrukt.</p>
+      <p>Wat niet te bevestigen valt zijn de beweegredenen en de karakterschetsen. Die berusten op één waarneming, van een deelnemer met een belang bij het verhaal. Dat pleit hem overigens niet vrij: dat Watson de opname en de meetgegevens van Franklin zag zonder dat zij het wist, staat gewoon in zijn eigen boek en is nooit weersproken.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar betreft de behandeling van Rosalind Franklin. Zij heet in het boek Rosy, een naam die zij zelf nooit gebruikte, wordt beoordeeld op kleding, bril en manieren, en verschijnt als een lastige assistente van Wilkins terwijl zij een zelfstandig onderzoeker was met haar eigen resultaten. Haar gegevens vormden de grond onder het model en zijn zonder haar medeweten gebruikt. Anne Sayre bestreed dat beeld in <i>Rosalind Franklin and DNA</i> uit 1975 en Brenda Maddox deed het opnieuw in haar biografie uit 2002. De epiloog erkent de misvatting maar laat het verhaal zelf staan, zodat de correctie tegen tweehonderd bladzijden karikatuur moet opboksen.</p>
+      <p>Daarnaast bevestigt het boek een beeld van onderzoek waarin snelheid en rivaliteit de motor zijn. Dat komt Watsons eigen gedrag goed uit en heeft sindsdien gediend als verontschuldiging voor een wedloopcultuur in de biomedische wetenschap. Wilkins, Gosling en het kristallografische handwerk waarop alles rustte komen er in verhouding bekaaid af.</p>
+      <p>Ten slotte is de schrijver moeilijk los te zien van wat hij later zei. Watson trad in 2007 terug bij Cold Spring Harbor na uitspraken over aangeboren verschillen in intelligentie tussen bevolkingsgroepen, en het laboratorium ontnam hem in 2019 zijn eretitels toen hij ze herhaalde. Een boek waarvan de aantrekkelijkheid steunt op het zonder omhaal opschrijven van neerbuigende oordelen, leest daardoor anders dan in 1968.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Double Helix: A Personal Account of the Discovery of the Structure of DNA</i> (Atheneum, New York, 1968, 226 blz.; Britse editie Weidenfeld &amp; Nicolson, Londen, 1968), met een voorwoord van Lawrence Bragg. Harvard University Press had het boek onder contract maar trok zich terug na bezwaren van Francis Crick en Maurice Wilkins. Nederlandse vertaling: <i>De dubbele helix: hoe ik de sleutel tot de erfelijkheid ontdekte en daarmee de Nobelprijs won</i> (Contact, Amsterdam, 1999, 190 blz.; herdruk in de Olympus-reeks, 2007, ISBN 9789046700662). Een geannoteerde en geïllustreerde uitgave met brieven en foto's verscheen in 2012, bezorgd door Alexander Gann en Jan Witkowski.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Watson beschrijft hoe hij tussen 1951 en 1953 in Cambridge samen met Francis Crick de structuur van het DNA vond, en hij doet dat zoals hij het toen beleefde. Het boek opent met de zin dat hij Francis Crick nog nooit bescheiden had meegemaakt, en houdt die toon vol: het gaat over eerzucht, roddel, verkeerd onthouden gegevens, tegenslag en de angst dat Linus Pauling er eerder zou zijn.</p><p>De uitkomst is een verslag waarin de ontdekking niet uit een keten van proeven volgt maar uit modellen bouwen, gissen en de juiste gegevens op het juiste moment onder ogen krijgen. Beslissend waren de röntgenopname die Maurice Wilkins hem liet zien zonder medeweten van Rosalind Franklin, een verslag met haar meetgegevens dat via een beoordelingscommissie in Cambridge belandde, en de opmerking van Jerry Donohue dat de leerboeken de verkeerde vorm van de basen afbeeldden. Het boek maakte Watson beroemd en beschadigde zijn reputatie tegelijk, vooral door de manier waarop Franklin erin voorkomt. In een epiloog erkent hij dat zijn eerste indrukken van haar vaak onjuist waren.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>wetenschapsgeschiedenis</li><li>genetica</li><li>memoir</li><li>biologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="949"><a href="949.html">What Mad Pursuit</a>. Crick vertelt dezelfde jaren van zijn kant, nuchterder en met meer aandacht voor de vraag hoe een onderzoeker een goed probleem kiest.</li>
+          <li value="938"><a href="938.html">The Sleepwalkers</a>. Koestler laat aan Copernicus, Kepler en Galilei zien dat ontdekkers zelden weten waar zij mee bezig zijn; Watson levert daar het twintigste-eeuwse voorbeeld bij.</li>
+          <li value="413"><a href="413.html">A Crack in Creation</a>. Doudna beschrijft een halve eeuw later opnieuw een wedloop rond DNA, met dezelfde vragen over voorrang en het gebruik van andermans werk.</li>
+          <li value="951"><a href="951.html">The Mismeasure of Man</a>. Gould ontleedt hoe onderzoekers hun aannames over aangeboren verschillen in getallen omzetten, het terrein waarop Watson zich later heeft vastgelopen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manias, Panics, and Crashes &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Financiele crises zijn volgens Kindleberger geen ongelukken en geen gevolg van bijzonder domme of bijzonder onfatsoenlijke mensen, maar een terugkerend…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-807">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">807 &middot; Geld en ondernemen</p>
+    <h1>Manias, Panics, and Crashes</h1>
+    <p class="lede">Charles P. Kindleberger, 1978 (achtste editie met Robert Z. Aliber en Robert N. McCauley, 2023)</p>
+    <p class="stats">
+      <span><b>1901</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="807"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Financiele crises zijn volgens Kindleberger geen ongelukken en geen gevolg van bijzonder domme of bijzonder onfatsoenlijke mensen, maar een terugkerend verschijnsel dat uit de werking van krediet zelf voortkomt. Zijn ondertitel noemt ze een taai gewas. De redenering is dat elke lange periode van rust de neiging heeft haar eigen instabiliteit te kweken: naarmate prijzen stijgen, lijken leners kredietwaardiger, worden de eisen van geldschieters lager, en maakt dat opnieuw hogere prijzen mogelijk. Dat gaat door tot het niet meer doorgaat, waarna dezelfde beweging zich in omgekeerde richting voltrekt. Uit die diagnose volgt de meest omstreden stelling van het boek, namelijk dat een geldschieter in laatste instantie de val moet breken, terwijl het beter is dat niemand er van tevoren zeker van kan zijn dat hij dat ook zal doen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het raamwerk van Minsky</h3>
+      <p>Het tweede hoofdstuk, over de anatomie van een gewone crisis, bevat het model waarop de rest rust. Kindleberger ontleent het aan Hyman Minsky, econoom aan Washington University in St. Louis, die met zijn hypothese van financiele instabiliteit stelde dat markten uit zichzelf onstabiel zijn en dat overheidsingrijpen een crisis kan uitstellen maar niet afschaffen.</p>
+      <p>Minsky onderscheidt drie manieren van financieren. Bij de eerste betaalt de lener rente en aflossing uit de opbrengst van wat hij gekocht heeft. Bij de tweede haalt hij de rente wel en de aflossing niet, zodat hij moet herfinancieren. Bij de derde, die Minsky naar de zwendelaar Charles Ponzi noemde, is zelfs de rente alleen te betalen door verder te lenen of door met winst door te verkopen. Hoe langer een opgaande beweging duurt, hoe verder het gewicht van de eerste vorm naar de derde schuift.</p>
+      <p>De term Minsky-moment, voor het ogenblik waarop een op krediet gebouwde stijging omslaat in gedwongen verkoop, komt in dit boek niet voor. Hij werd pas in 1998 gemunt door de belegger Paul McCulley, naar aanleiding van de Russische crisis.</p>
+      <h3>De fasen van een manie</h3>
+      <p>Kindlebergers bijdrage aan Minsky is de uitwerking in fasen. Het begint met een verschuiving, een schok van buiten die de winstvooruitzichten van ten minste een deel van de economie verbetert: een oorlog die eindigt, een uitvinding, een land dat opengaat, een verandering in het geldstelsel. Bedrijven en particulieren richten zich op die kans, de vraag naar de betrokken bezittingen stijgt, en de prijzen stijgen mee.</p>
+      <p>Vervolgens zwelt het krediet aan. Hoofdstuk vier, over het voeden van de vlammen, laat zien hoe de geldhoeveelheid in enge zin daarbij nooit de hele verklaring is: het gaat om bankkrediet, handelskrediet, nieuwe soorten schuldpapier en vormen van financiering die de toezichthouder nog niet als zodanig herkent. Dan volgt de uitbundigheid, waarin het redeneren over waarde plaatsmaakt voor het doorrekenen van de prijsstijging zelf, en waarin de gedachte opkomt dat het deze keer anders ligt.</p>
+      <p>Het vijfde hoofdstuk beschrijft het kritieke stadium. Ingewijden nemen winst, de instroom hapert, en dan komt de omslag: van benauwdheid naar afkeer, en van afkeer naar paniek. Wie zijn positie met geleend geld had gefinancierd blijkt insolvent. De paniek eindigt pas wanneer de prijzen zo ver gedaald zijn dat kopers terugkeren, wanneer de handel wordt stilgelegd, of wanneer een geldschieter in laatste instantie de daling stopt.</p>
+      <h3>Vier eeuwen voorbeelden</h3>
+      <p>Wat het boek onderscheidt van een leerboek is het materiaal. Kindleberger was economisch historicus, en hij laat het model lopen langs de Nederlandse tulpenhandel van 1636 en 1637, de Mississippi-onderneming en de South Sea Company van 1719 en 1720, de crises van 1825, 1847 en 1873, de spoorwegmanies, de beurskrach van 1929, de leningen aan Latijns-Amerika in de jaren zeventig die in 1982 vastliepen, de Japanse grond- en aandelenprijzen van de late jaren tachtig, de Aziatische crisis van 1997 en 1998, de internetzeepbel en de Amerikaanse huizenmarkt tussen 2003 en 2006.</p>
+      <p>Een apart hoofdstuk gaat over zwendel, die Kindleberger behandelt als vast onderdeel van de cyclus: in de opgaande fase is de verleiding groot en de controle zwak, en pas als het tij keert komt boven water wie er met geleend of toevertrouwd geld heeft gerommeld. In de achtste editie staat naast Bernard Madoff een hoofdstuk over bitcoin, dat McCauley in dezelfde categorie plaatst.</p>
+      <h3>Besmetting over grenzen</h3>
+      <p>Drie hoofdstukken behandelen hoe een crisis zich verspreidt: binnen een land tussen markten en instellingen, en tussen landen via handel, wisselkoersen, kapitaalstromen en het simpele feit dat dezelfde stemming zich verplaatst. Kindleberger volgt die besmetting van 1618 tot 1933 en daarna van Mexico-Stad naar Tokio, Bangkok, New York, Londen en Reykjavik.</p>
+      <p>Aliber heeft aan die internationale kant het meeste toegevoegd. Hij noemt de decennia sinds het begin van de jaren tachtig de meest turbulente uit de monetaire geschiedenis wat betreft aantal, omvang en ernst van bankcrises, en ordent ze in vier golven: de schuldencrisis van ontwikkelingslanden in de jaren tachtig, Japan en de Scandinavische landen in de vroege jaren negentig, Azie in 1997 en 1998, en de wereldwijde crisis van 2008. Zijn verklaring legt het gewicht bij grensoverschrijdende kapitaalstromen, die onder zwevende wisselkoersen sterker schommelen, en bij het vermogenseffect: stijgende bezittingen voeden de bestedingen, en bij de omslag versterkt hetzelfde mechanisme de neergang.</p>
+      <h3>Wie de val breekt</h3>
+      <p>Het beleidsdeel begint met de mogelijkheden om niets te doen, te vermanen of de banken tijdelijk te sluiten, en gaat dan over op de geldschieter in laatste instantie. Binnenlands is dat de centrale bank, in de traditie die Walter Bagehot in de negentiende eeuw beschreef. Internationaal ligt het lastiger, omdat er geen wereldcentralebank is en de rol in de praktijk toevalt aan wie de reservemunt uitgeeft.</p>
+      <p>Kindleberger had die gedachte al uitgewerkt in <i>The World in Depression</i> (1973), waar hij de diepte van de jaren dertig verklaarde uit het ontbreken van een land dat de rol kon en wilde spelen: Groot-Brittannie kon niet meer, de Verenigde Staten wilden nog niet. De achtste editie trekt die lijn door naar 2008 en 2020, toen de Federal Reserve via wisselovereenkomsten met andere centrale banken feitelijk als internationale kredietverstrekker optrad. McCauley noemt die ontwikkeling de voornaamste reden voor de nieuwe editie.</p>
+      <p>De spanning die daaruit voortvloeit werkt het boek niet weg. Wie zeker weet dat hij gered wordt, neemt meer risico. Kindlebergers oplossing is geen regel maar onzekerheid: de geldschieter in laatste instantie moet bestaan, en tegelijk moet het onzeker blijven of hij komt.</p>
+      <h3>De lessen</h3>
+      <p>Het slothoofdstuk trekt de balans nuchter. Crises zijn niet uitgebannen, de regelgeving loopt achter op de vormen die financiering aanneemt, en de meeste voorspellende waarde zit in het herkennen van een combinatie: snel groeiend krediet, snel stijgende bezitprijzen en een verhaal dat uitlegt waarom dat verantwoord is.</p>
+      <p>Kindleberger houdt daarbij vast aan de menselijke kant. Zijn bekendste opmerking is dat er weinig zo slecht is voor het welbevinden en het oordeelsvermogen als een vriend zien rijk worden. Het boek verklaart de zeepbel niet uit onwetendheid maar uit navolging.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">verschuiving</td><td>De schok van buiten waarmee de cyclus begint en die de winstvooruitzichten van ten minste een deel van de economie verbetert.</td></tr>
+          <tr><td class="term">manie</td><td>De fase waarin prijsstijging zichzelf voedt en de redenering over de waarde van het gekochte plaatsmaakt voor het doortrekken van de stijging.</td></tr>
+          <tr><td class="term">overhandel</td><td>Kindlebergers term voor de combinatie van speculatie, overschatting van de winst en te veel geleend geld die de uitbundige fase kenmerkt.</td></tr>
+          <tr><td class="term">benauwdheid</td><td>Het kritieke stadium waarin ingewijden verkopen en de markt nog stijgt of stagneert, voordat de stemming omslaat.</td></tr>
+          <tr><td class="term">afkeer</td><td>De omslag waarin geldschieters zich massaal terugtrekken en niemand nog krediet wil verstrekken tegen het onderpand dat kort tevoren gewild was.</td></tr>
+          <tr><td class="term">Ponzi-financiering</td><td>De aan Minsky ontleende financieringsvorm waarbij zelfs de rente alleen betaald kan worden door verder te lenen of door met winst door te verkopen.</td></tr>
+          <tr><td class="term">geldschieter in laatste instantie</td><td>De instelling die in een paniek nog wil uitlenen wanneer niemand anders dat doet, binnenlands de centrale bank en internationaal in de praktijk de uitgever van de reservemunt.</td></tr>
+          <tr><td class="term">besmetting</td><td>De overdracht van een crisis naar andere markten en landen via handel, kapitaalstromen, wisselkoersen en gedeelde stemming.</td></tr>
+          <tr><td class="term">zwendel</td><td>Fraude als vast bestanddeel van de cyclus, die in de opgaande fase ontstaat en pas bij de omslag zichtbaar wordt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing is historisch en niet statistisch. Kindleberger toont zijn model door het langs episoden te leggen, van de tulpenhandel tot de kredietcrisis, en door telkens te laten zien waar de verschuiving zat, waar het krediet vandaan kwam en wie het eerst uitstapte. De kracht daarvan is de dichtheid: over vier eeuwen en tientallen landen komen de fasen in herkenbare vorm terug, en de bijlagen met crisischronologie maken die herhaling zichtbaar. Voor wie het patroon wil leren herkennen is dat overtuigender dan een vergelijking met parameters.</p>
+      <p>De theoretische steun komt van buiten. Minsky leverde het mechanisme, Bagehot het beleidsvoorschrift, en Aliber en McCauley voegden de moderne internationale kant toe. Aliber onderbouwt zijn vier golven van bankcrises met cijfers over kapitaalstromen en wisselkoersen; McCauley met wat centrale banken in 2008 en 2020 werkelijk deden.</p>
+      <p>Wat ontbreekt is de tegenproef. Het boek verzamelt gevallen waarin een opgaande beweging in een crisis eindigde, en niet de gevallen waarin snelle kredietgroei en stijgende prijzen zonder ongeluk afliepen. Daardoor blijft onbeantwoord hoe vaak het patroon zich aandient zonder de afloop die het model voorspelt, en dat is precies wat je zou moeten weten om er iets aan te hebben.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het scherpste bezwaar is dat het model niet te weerleggen is. De fasen zijn losjes omschreven en hun grenzen worden achteraf getrokken, waardoor vrijwel elke opgaande beweging er na afloop in past. Economen in de traditie van de doelmatige markt, met Eugene Fama voorop, houden staande dat een zeepbel vooraf niet vast te stellen is en dat een verhaal dat pas na de val sluitend wordt geen voorspellende waarde heeft. Kindleberger erkent dat hij geen formeel model levert en geen toets uitvoert, maar dat neemt het bezwaar niet weg.</p>
+      <p>Het voorschrift over de geldschieter in laatste instantie botst met zijn eigen diagnose. Als markten instabiel worden doordat risico goedkoop lijkt, dan maakt de wetenschap dat er in laatste instantie hulp komt het probleem groter. Kindlebergers antwoord, dat de hulp moet bestaan maar onzeker moet blijven, is eerder een houding dan een beleidsregel, en het is de vraag of centrale banken die onzekerheid na 2008 en 2020 nog geloofwaardig kunnen volhouden.</p>
+      <p>De opeenvolgende herzieningen hebben het boek veranderd. Vanaf de vijfde editie schrijft Aliber, en met hem verschoof het zwaartepunt van Kindlebergers historische vertelling naar hedendaagse kapitaalstromen en zijn eigen indeling in vier golven. Lezers van de latere edities merken op dat stijl en historische diepte daarbij zijn ingeleverd. Wie Kindleberger zelf wil lezen komt het dichtst bij hem in de vierde editie uit 2000.</p>
+      <p>Ten slotte is het gezichtsveld overwegend westers en gebaseerd op tweedehands bronnen. De episoden buiten Europa en Noord-Amerika komen korter aan bod.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Kijk bij een sterk stijgende markt eerst naar het krediet erachter en pas daarna naar de waardering.</li>
+        <li>Zoek naar de verschuiving die de beweging op gang bracht; zonder aanwijsbare schok is het verhaal meestal achteraf bedacht.</li>
+        <li>Let op wie er verkoopt terwijl de prijs nog stijgt; het kritieke stadium is aan de ingewijden te zien en niet aan de koers.</li>
+        <li>Wantrouw de zin dat het deze keer anders ligt, en wantrouw ook het spiegelbeeld ervan tijdens een paniek.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Manias, Panics, and Crashes: A History of Financial Crises</i> verscheen in 1978 bij Basic Books in New York. Kindleberger, hoogleraar economie aan het Massachusetts Institute of Technology, bezorgde zelf nog drie edities (1989, 1996 en 2000). Na zijn dood in 2003 nam Robert Z. Aliber van de Booth School of Business in Chicago het werk over vanaf de vijfde editie (2005), gevolgd door de zesde (2011) en de zevende (2015, Palgrave Macmillan). De achtste editie verscheen in maart 2023 bij Palgrave Macmillan met de voormalige BIS-econoom Robert N. McCauley als derde auteur (ISBN 9783031160073), met nieuwe hoofdstukken over cryptomunten en over de Verenigde Staten als internationale kredietverstrekker in laatste instantie. Er bestaat een Duitse vertaling (<i>Manien, Paniken, Crashs</i>, 2001); een Nederlandse vertaling is niet bekend en de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Kindleberger nam in 1978 het model van de econoom Hyman Minsky, dat zegt dat financiele markten uit zichzelf onstabiel zijn, en legde het naast vier eeuwen crisisgeschiedenis. Het patroon dat hij daaruit destilleert loopt van een schok die nieuwe winstkansen opent, via kredietverruiming en uitbundigheid, naar het moment waarop ingewijden zich terugtrekken en de stemming omslaat in paniek. De tulpenhandel, de South Sea Company, de spoorwegmanie, 1929, de Japanse jaren tachtig en de kredietcrisis van 2008 doorlopen bij hem dezelfde fasen.</p><p>Het boek is sinds Kindlebergers dood in 2003 voortgezet door Robert Aliber, die de nadruk verlegde naar grensoverschrijdende kapitaalstromen en vier golven van bankcrises sinds 1980 beschrijft. De achtste editie uit 2023 kwam er met Robert McCauley bij en voegde hoofdstukken toe over cryptomunten en over de rol van de Amerikaanse centrale bank als geldschieter voor de rest van de wereld.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>financiële markten</li><li>crisis</li><li>economische geschiedenis</li><li>beleggen</li><li>geschiedenis</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="808"><a href="808.html">Devil Take the Hindmost</a>. Chancellor vertelt dezelfde geschiedenis als aaneengesloten verhaal, met meer aandacht voor de mensen dan voor het mechanisme.</li>
+          <li value="809"><a href="809.html">The Great Crash, 1929</a>. Galbraith werkt een van Kindlebergers voorbeelden uit tot een boek op zich.</li>
+          <li value="268"><a href="268.html">The Black Swan</a>. Taleb gaat verder waar Kindleberger stopt, bij de vraag wat je met kennis van zeldzame rampen aanmoet.</li>
+          <li value="806"><a href="806.html">A History of Interest Rates</a>. Homer en Sylla leveren de rentereeksen waarop de kredietfase van dit model zich afspeelt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

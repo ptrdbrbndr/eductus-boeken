@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Only the Paranoid Survive &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Elk bedrijf krijgt vroeg of laat te maken met een verandering in zijn omgeving die ongeveer tien keer zo groot is als waarop het gebouwd is, en op dat…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-907">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">907 &middot; Geld en ondernemen</p>
+    <h1>Only the Paranoid Survive</h1>
+    <p class="lede">Andrew S. Grove, 1996</p>
+    <p class="stats">
+      <span><b>1670</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="907"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Elk bedrijf krijgt vroeg of laat te maken met een verandering in zijn omgeving die ongeveer tien keer zo groot is als waarop het gebouwd is, en op dat punt houdt de bestaande strategie op te werken. Grove noemt dat een strategisch buigpunt: de bedrijfstak verandert van vorm, de oude sterke punten worden gewicht, en het bedrijf komt er opnieuw ingericht uit of het komt er niet uit. Het lastige is dat zo'n punt zich pas achteraf met zekerheid laat aanwijzen. Daaruit volgt zijn enige verweer, een blijvend wantrouwen tegen het eigen succes: slecht nieuws opzoeken in plaats van wegwerken, ruzie over de richting binnen de leiding toelaten, en bereid zijn de activiteit op te geven waar het bedrijf groot mee is geworden.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat er bij Intel gebeurde</h3>
+      <p>Het boek begint bij de geheugenchips. Intel was in 1968 als geheugenbedrijf opgericht en had die markt jaren beheerst, maar vanaf het begin van de jaren tachtig leverden Japanse fabrikanten hetzelfde product goedkoper en met hogere opbrengsten per wafer. Intel verloor geld, en de leiding bleef zoeken naar een slimmere geheugenstrategie. Halverwege 1985 stelde Grove in zijn kantoor aan bestuursvoorzitter Gordon Moore de vraag wat een van buiten gehaalde opvolger zou doen. Moore antwoordde dat die uit geheugens zou stappen. Grove stelde voor dat zij tweeën de kamer uit zouden lopen en als die opvolger terug zouden komen.</p>
+      <p>Het uitvoeren duurde tot midden 1986 en het herstel van de winstgevendheid nog een jaar langer; Grove telt de hele doorgang op ongeveer drie jaar. Wat eruit kwam was Intel als microprocessorbedrijf, met de x86-lijn en het samengaan met Microsoft als kern van het verdienmodel.</p>
+      <h3>Zes krachten en een tienvoud</h3>
+      <p>Grove neemt de vijf krachten van Michael Porter over, bestaande concurrenten, klanten, leveranciers, toetreders en substituten, en voegt er een zesde aan toe: aanbieders van producten die het jouwe aanvullen en zonder wie het niet verkocht wordt. Een buigpunt ontstaat wanneer een van die zes ongeveer tien keer zo sterk wordt als voorheen.</p>
+      <p>Zijn beeld ervoor is het verschil tussen wind en een orkaan. Dezelfde soort kracht, een andere orde van grootte, en een gebouw dat op wind is berekend houdt het niet. De praktische betekenis is dat de gebruikelijke reacties, harder werken en kosten snijden, bij zo'n verschil in orde van grootte geen effect meer sorteren.</p>
+      <h3>De bedrijfstak kantelt</h3>
+      <p>Het hoofdstuk over de computerindustrie beschrijft de overgang van verticale naar horizontale ordening. Tot in de jaren tachtig maakte elke fabrikant, met IBM voorop, zijn eigen chips, machines, besturingssysteem en toepassingen, en verkocht die als één geheel. Daarna ontstond per laag een aparte markt met eigen winnaars, en werd de winst verdeeld over chipmakers, softwarehuizen en verkoopkanalen.</p>
+      <p>Grove leidt daaruit regels af voor wie in zo'n laagsgewijze bedrijfstak werkt: wie er als eerste is pakt de markt, verschil dat de klant niet merkt is geen verschil waard, en prijs volgt uit volume. Dat zijn tegelijk de regels waarnaar Intel zichzelf inrichtte.</p>
+      <h3>Signaal of ruis</h3>
+      <p>De kern van het praktische probleem is dat een tienvoudige kracht van dichtbij op ruis lijkt. Grove biedt geen toets die zekerheid geeft, wel een reeks aanwijzingen. Is de concurrent aan wie je de figuurlijke zilveren kogel zou besteden een andere geworden dan vorig jaar? Lopen wat de leiding uitspreekt en wat de organisatie werkelijk doet uiteen? Dat laatste noemt hij strategische dissonantie, en het is bij hem het betrouwbaarste vroege teken.</p>
+      <p>Het slechte nieuws komt volgens Grove het eerst binnen bij verkopers en middenkader, de mensen die dagelijks met klanten en concurrenten te maken hebben. Hij noemt hen Cassandra's en beschouwt het als taak van de leiding om hen op te zoeken, aan te horen en de discussie te laten voeren voordat de cijfers het bevestigen.</p>
+      <h3>Chaos laten heersen en weer inbinden</h3>
+      <p>Zijn recept voor de doorgang bestaat uit twee fasen die elkaar slecht verdragen. Eerst moet de leiding loslaten: experimenten toestaan, middelen naar randgebieden laten lopen, de discussie voeren zonder de uitkomst vooraf vast te leggen. Daarna moet zij kiezen en de rest afkappen, want in de tussenfase, die hij de vallei des doods noemt, verbrandt het bedrijf geld zonder richting. Grove is eerlijk over hoe lang dat duurt en hoe onaangenaam het is voor iedereen die het meemaakt.</p>
+      <p>Zijn eigen voorbeeld ondermijnt daarbij de nadruk op de top. Terwijl de leiding nog over geheugenstrategieën vergaderde, hadden planners en financiële mensen in de dagelijkse verdeling van fabriekscapaciteit de wafers al naar microprocessoren verschoven. Grove schrijft dat mensen lager in de organisatie de bocht hebben voorbereid die het bedrijf redde. Die waarneming stamt uit het onderzoek van Robert Burgelman, met wie hij aan Stanford lesgaf.</p>
+      <h3>Pentium, najaar 1994</h3>
+      <p>Het uitgebreidst beschreven geval is Groves eigen misrekening. Toen bekend werd dat de Pentium bij bepaalde delingen een fout maakte, reageerde Intel zoals het altijd op chipfouten had gereageerd: met een analyse waaruit bleek hoe zeldzaam het probleem in de praktijk was, en met vervanging voor wie kon aantonen dat het hem raakte. Tegenover computerbouwers was dat de gangbare omgang.</p>
+      <p>Intel was echter door jarenlange reclame een merk voor eindgebruikers geworden, en die legden er de maatstaf van een consumentenproduct naast. Nadat IBM de verkoop van Pentium-machines stillegde, ging Intel om en verving het elke chip op verzoek. De post kwam uit op 475 miljoen dollar. Groves conclusie is dat zijn bedrijf een buigpunt had doorgemaakt zonder het te merken: de klant was veranderd terwijl het product hetzelfde bleef.</p>
+      <h3>Het internet en de loopbaan</h3>
+      <p>De laatste twee hoofdstukken zijn losser van opzet. Grove weegt in 1996 af of het internet voor Intel een buigpunt is en houdt het antwoord uitdrukkelijk open, met een opsomming van wat het zou kunnen betekenen voor de vraag naar rekenkracht. Daarna trekt hij de redenering door naar het individu: een loopbaan kent dezelfde soort omslagen, veroorzaakt door dezelfde krachten, en wie daar niet op let wordt erdoor overvallen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">strategisch buigpunt</td><td>Het moment waarop de grondslagen van een bedrijf zo veranderen dat de bestaande strategie ophoudt te werken.</td></tr>
+          <tr><td class="term">tienvoudige kracht</td><td>Een van de zes marktkrachten die ongeveer tien keer zo sterk wordt als voorheen, waardoor de gebruikelijke antwoorden tekortschieten.</td></tr>
+          <tr><td class="term">aanvullende aanbieder</td><td>De zesde kracht die Grove aan Porters model toevoegt: bedrijven wier product het jouwe pas bruikbaar maakt.</td></tr>
+          <tr><td class="term">strategische dissonantie</td><td>Het uiteenlopen van wat de leiding zegt en wat de organisatie doet, bij Grove het vroegste zichtbare teken van een buigpunt.</td></tr>
+          <tr><td class="term">Cassandra's</td><td>Mensen in verkoop en middenkader die een omslag als eerste opmerken en die door de leiding worden overgeslagen.</td></tr>
+          <tr><td class="term">chaos laten heersen</td><td>De fase waarin de leiding experimenten en tegenspraak toelaat zonder de uitkomst vooraf te bepalen.</td></tr>
+          <tr><td class="term">vallei des doods</td><td>De overgangsperiode waarin het oude verdienmodel is losgelaten en het nieuwe nog niets oplevert.</td></tr>
+          <tr><td class="term">zilverenkogeltoets</td><td>De vraag welke concurrent je met één schot zou uitschakelen; verandert het antwoord, dan is de markt aan het kantelen.</td></tr>
+          <tr><td class="term">horizontale bedrijfstak</td><td>Een markt waarin per laag, van chip tot verkoopkanaal, aparte bedrijven concurreren in plaats van geïntegreerde aanbieders.</td></tr>
+          <tr><td class="term">loopbaanbuigpunt</td><td>Dezelfde omslag toegepast op een individu, met de aanbeveling het eigen werkzame leven als een onderneming te beschouwen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek berust op één bedrijf, beschreven door zijn directeur. Er is geen steekproef, geen vergelijking, en geen poging om te tellen hoe vaak buigpunten voorkomen of hoe vaak een bedrijf ze overleeft. Wat er wel is, is een verteller die aan de knoppen zat, die zijn eigen fouten opschrijft, en die de gebeurtenissen goed genoeg documenteert om ze na te trekken: de uittocht uit geheugens, de bedragen rond de Pentium en de kanteling van de pc-branche zijn alle drie onafhankelijk vastgelegd.</p>
+      <p>De begrippen zijn deels niet van Grove zelf. Strategische dissonantie en het idee dat strategie ook van onderop ontstaat komen uit het werk van Robert Burgelman, die Intel jarenlang als onderzoeksterrein gebruikte en met Grove aan Stanford lesgaf; het zeskrachtenmodel is dat van Porter met één toevoeging. Die herkomst geeft de begrippen meer grond dan het boek zelf levert, en Grove verwijst er ook naar.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het hoofdbegrip is achteraf gedefinieerd. Een buigpunt is een verandering waarvan later blijkt dat zij heeft doorgezet, en Grove geeft toe dat je er middenin niet zeker van kunt zijn. Wat overblijft is een waarschuwing zonder beslisregel: zijn aanwijzingen passen even goed bij bedreigingen die vanzelf overwaaien, en het boek bevat geen geval van een bedrijf dat op zo'n signaal doortastend handelde en daarmee de plank missloeg. Alleen de gevallen die goed afliepen komen aan bod, en dat is dezelfde selectie waar veel managementliteratuur op strandt.</p>
+      <p>De opdracht aan de leiding staat bovendien op gespannen voet met zijn beste bewijs. Het geheugenbesluit, zijn kroongetuige, was feitelijk al voorbereid door middenkader dat capaciteit verschoof; dat pleit voor aandacht voor het verdeelmechanisme in een organisatie, en veel minder voor de moed van de directeur. Ten slotte is er de latere geschiedenis van Intel zelf: het bedrijf zag de overgang naar telefoons niet aankomen, sloeg de opdracht voor de eerste iPhone-chip af, en raakte na 2015 zijn voorsprong in fabricage kwijt. De methode heeft de onderneming waarover zij is opgeschreven niet behoed.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij tegenvallende cijfers wat een van buiten gehaalde opvolger zou doen, en behandel dat antwoord als een reële optie in plaats van als gedachtenexperiment.</li>
+        <li>Zoek de mensen op die als eerste met slecht nieuws komen, meestal in verkoop en middenkader, en zorg dat melden hun niets kost.</li>
+        <li>Let op het verschil tussen wat de leiding uitspreekt en wat de organisatie werkelijk doet; dat verschil is een vroeger teken dan de omzet.</li>
+        <li>Benoem welke van de zes krachten in de eigen markt tien keer zo sterk kan worden, en reken door wat dat met het verdienmodel doet.</li>
+        <li>Zet een termijn op de fase van experimenteren, zodat de keuze wordt gemaakt voordat het geld op is.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Only the Paranoid Survive: How to Exploit the Crisis Points That Challenge Every Company and Career</i> (Currency Doubleday, New York, 1996, 210 blz., ISBN 9780385482585; paperback Currency, 1999, 240 blz., ISBN 9780385483827). De Nederlandse vertaling verscheen in hetzelfde jaar als <i>Paranoia loont: hoe te profiteren van crisismomenten in een bedrijf of carrière</i> (Academic Service, Schoonhoven, 1996, 205 blz., ISBN 9789052612195), vertaald door de Utrechtse Vertaal Associatie; die uitgave is alleen nog tweedehands te krijgen.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Grove leidde Intel van 1987 tot 1998 en schreef dit boek over het soort verandering waar een bedrijf niet omheen kan. Hij noemt het een strategisch buigpunt: het moment waarop een van de krachten in de markt ongeveer tien keer zo sterk wordt als voorheen, waarna de bestaande strategie ophoudt te werken. Zijn eigen geval is de uittocht van Intel uit geheugenchips in 1985 en 1986, nadat Japanse fabrikanten hetzelfde product goedkoper waren gaan leveren.</p><p>Het lastige is dat zo'n punt van dichtbij niet van ruis te onderscheiden is. Grove geeft geen toets die zekerheid biedt, wel aanwijzingen: het uiteenlopen van wat de leiding zegt en wat de organisatie doet, en het slechte nieuws dat als eerste binnenkomt bij verkopers en middenkader. Zijn aanpak is eerst de discussie loslaten en daarna hard kiezen. Het tweede uitgewerkte geval is zijn eigen misrekening rond de rekenfout in de Pentium in 1994, die Intel 475 miljoen dollar kostte omdat het bedrijf niet doorhad dat het inmiddels een consumentenmerk was geworden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>management</li><li>strategie</li><li>technologie</li><li>leiderschap</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="293"><a href="293.html">The Innovator's Dilemma</a>. Christensen verklaart dezelfde omslagen uit de logica van bestaande klanten en winstmarges, met onderzoek over hele bedrijfstakken in plaats van één geval.</li>
+          <li value="908"><a href="908.html">Good Strategy Bad Strategy</a>. Rumelt levert het stuk dat Grove overslaat: hoe je van een vastgestelde omslag naar samenhangend handelen komt.</li>
+          <li value="903"><a href="903.html">Business Adventures</a>. Brooks beschrijft in zijn reportages, onder meer over de Edsel en over Xerox, bedrijven die zo'n omslag misten, opgeschreven zonder de kennis achteraf.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

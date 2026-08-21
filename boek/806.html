@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A History of Interest Rates &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Homer stelt dat de rente niet een technisch detail van het bankwezen is maar de meest sprekende enkele reeks die een samenleving over zichzelf produceert.…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-806">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">806 &middot; Naslag en praktijk</p>
+    <h1>A History of Interest Rates</h1>
+    <p class="lede">Sidney Homer, 1963 (vierde editie met Richard Sylla, 2005)</p>
+    <p class="stats">
+      <span><b>1386</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="806"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Homer stelt dat de rente niet een technisch detail van het bankwezen is maar de meest sprekende enkele reeks die een samenleving over zichzelf produceert. De vrije lange rente van een land, over voldoende jaren uitgezet, geeft volgens hem een soort koortscurve van de economische en politieke gezondheid van dat land: zij loopt op wanneer het vertrouwen daalt, oorlog dreigt of het geld ontwaardt, en zij zakt in perioden van rust en welvaart. Om die stelling te kunnen toetsen moest er eerst materiaal zijn, en dat materiaal ontbrak. Het boek is daarom in de eerste plaats een verzameling: vierduizend jaar tarieven, uit contracten, kronieken, staatsschuldregisters en beursnoteringen, per beschaving en per eeuw geordend, met de bedoeling dat wie over rente een uitspraak wil doen niet langer op een enkel decennium hoeft te steunen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Vier millennia in vier delen</h3>
+      <p>De indeling is chronologisch en per beschaving. Het eerste deel behandelt de oudheid, het tweede de middeleeuwen en de renaissance in West-Europa, het derde het moderne Europa en Noord-Amerika tot 1900, en het vierde de periode vanaf 1900, eerst voor Europa en Noord-Amerika en daarna voor Japan, Rusland, China, Australie en Nieuw-Zeeland, Latijns-Amerika en een reeks andere landen. Elk deel eindigt met een hoofdstuk dat de tarieven van die periode bijeenbrengt en vergelijkt.</p>
+      <p>De vierde editie voegde daar een hoofdstuk aan toe over de jaren negentig en de eerste jaren na 2000, en breidde de bespreking van de recente renteontwikkeling uit. De rest van de tekst is grotendeels Homers werk uit 1963, door Sylla bijgewerkt en van economisch-historische context voorzien.</p>
+      <h3>De oudheid</h3>
+      <p>Het openingshoofdstuk over prehistorisch en primitief krediet stelt vast dat krediet in de opgetekende geschiedenis meer dan tweeduizend jaar ouder is dan de geslagen munt. Rente bestond dus voor er geld was, en veel financiele woordenschat komt volgens Homer uit de veeteelt, waar het vermeerderen van de kudde het natuurlijke beeld van rente leverde.</p>
+      <p>Daarna volgen Mesopotamie, met Soemer, Babylonie en Assyrie, waar leningen in graan en in zilver ieder hun eigen gebruikelijke tarief hadden en waar de vroegste wetgeving die tarieven al aan grenzen bond; Griekenland, met de schuldhervorming van Solon in 594 voor Christus waarbij wie om schuld tot slaaf was gemaakt werd vrijgelaten en wie naar het buitenland was verkocht op staatskosten werd vrijgekocht, en met de zilvermijnen van Laureion die de Atheense munt tot algemeen betaalmiddel maakten; en Rome. Een afsluitend hoofdstuk zet de tarieven van de oudheid naast elkaar.</p>
+      <h3>Woekerleer, middeleeuwen en renaissance</h3>
+      <p>Het tweede deel opent niet met cijfers maar met leerstelligheid. Het kerkelijke verbod op woeker bepaalde eeuwenlang welke kredietvormen konden bestaan, en het boek behandelt die leer daarom als vormgevende kracht: waar rente niet mocht heten, verscheen zij als wisselkoersverschil, als lijfrente, als deelname in winst of als vergoeding voor vertraging.</p>
+      <p>Vervolgens komen de vroege middeleeuwen, de late middeleeuwen en de renaissance aan bod. Homer noteert dat de Medici-bank in Florence tussen 1430 en 1480 verreweg de grootste financiele organisatie van Europa was, en dat Spanje ondanks zijn imperium in de Nieuwe Wereld wegzakte tot een kopergeldstandaard.</p>
+      <h3>De moderne tijd tot 1900</h3>
+      <p>Vanaf de achttiende eeuw wordt het materiaal dichter en verandert het karakter van het boek. Er zijn nu doorlopende marktnoteringen in plaats van losse contracten, en de hoofdstukken over Engeland, het vasteland van Europa en de Verenigde Staten kunnen daardoor met jaarreeksen werken. De Britse staatsschuld levert de langste bruikbare reeks van allemaal, en Homer gebruikt die als ruggengraat voor zijn beeld van de negentiende eeuw.</p>
+      <h3>Sinds 1900</h3>
+      <p>Het laatste en omvangrijkste deel behandelt land voor land de twintigste eeuw: de Verenigde Staten, Engeland, Frankrijk, Zwitserland, Canada, met een overzichtshoofdstuk voor Europa, en daarna Japan, Rusland, China, Latijns-Amerika en Australie en Nieuw-Zeeland. Hier komt de koortscurve tot haar recht: de oorlogsjaren, de inflatie van de jaren zeventig met de hoogste tarieven die het boek in de moderne westerse geschiedenis registreert, en de lange daling daarna.</p>
+      <p>Voor Homer was dat laatste geen afgerond verhaal. Hij zag het patroon van eeuwen als een reeks lange golven, waarin een generatie die alleen haar eigen decennia kent het niveau van haar tijd voor normaal aanziet. Dat is de gedachte waarmee het boek zijn lezers naar de tabellen stuurt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">vrije lange rente</td><td>Het tarief op langlopende leningen dat op een markt tot stand komt zonder wettelijk maximum of officiele vaststelling, voor Homer de enige reeks die over eeuwen vergelijkbaar is.</td></tr>
+          <tr><td class="term">koortscurve</td><td>Homers beeld voor de uitgezette rentereeks van een land, die zijn economische en politieke gesteldheid zichtbaar maakt zoals een temperatuurgrafiek de toestand van een patient.</td></tr>
+          <tr><td class="term">woeker</td><td>Het in de middeleeuwse leer verboden vragen van vergoeding voor het uitlenen van geld, dat de kredietvormen eeuwenlang heeft gestuurd zonder de rente te doen verdwijnen.</td></tr>
+          <tr><td class="term">reele rente</td><td>De rente na aftrek van de geldontwaarding, dus wat een uitlener werkelijk aan koopkracht overhoudt.</td></tr>
+          <tr><td class="term">lijfrente</td><td>Een lening die geen hoofdsom terugbetaalt maar levenslang of eeuwigdurend uitkeert, een van de vormen waarin krediet zich onder het woekerverbod door bewoog.</td></tr>
+          <tr><td class="term">wisselbrief</td><td>Een handelspapier dat betaling op een andere plaats en later tijdstip regelt, waarin de rentevergoeding verborgen zat in het koersverschil tussen twee munten.</td></tr>
+          <tr><td class="term">prime rate</td><td>Het laagste tarief dat de meest kredietwaardige leners van een periode kregen, de maatstaf waarmee Homer verschillende eeuwen op elkaar legt.</td></tr>
+          <tr><td class="term">rentegolf</td><td>Een beweging van tarieven over meerdere generaties, waarin het boek eerder het patroon zoekt dan in de schommeling van jaar tot jaar.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het bewijsmateriaal zijn de tabellen. Voor de oudheid en de middeleeuwen bestaat het uit wat toevallig bewaard bleef: kleitabletten, contracten, stadsrekeningen, kroniekvermeldingen. Homer en Sylla zeggen dat ook met zoveel woorden, en wijzen erop dat gegevens van voor de Industriele Revolutie schaars zijn. Een enkel gedocumenteerd tarief moet daar soms voor een halve eeuw instaan, en de auteurs merken zulke plekken aan.</p>
+      <p>Vanaf de achttiende eeuw verandert de aard van het bewijs. Dan zijn er marktnoteringen, staatsschuldregisters en later officiele statistiek, en worden de reeksen dicht genoeg om er beweging in te lezen. De onderbouwing is grotendeels tweedehands: het boek ordent wat economisch historici en marktbronnen hebben opgeleverd en voegt daar zelden eigen archiefonderzoek aan toe.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Dit is een naslagwerk en geen leesboek. De structuur is die van een handboek: per beschaving, per land en per eeuw wordt opgesomd wat bekend is, met tabellen ertussen en een overzichtshoofdstuk aan het eind van elk deel. Wie er van voor naar achter doorheen gaat leest honderden bladzijden tarieven zonder verhaallijn. De opzet is gemaakt om iets op te zoeken en om reeksen te vergelijken, en op die manier gebruikt levert het boek meer op dan bij achter elkaar doorlezen.</p>
+      <p>De vergelijkbaarheid over vierduizend jaar is de zwakste schakel. Een Babylonische graanlening, een Genuese overheidslening en een Amerikaanse bedrijfsobligatie verschillen in looptijd, zekerheid, afdwingbaarheid en rekeneenheid zo sterk dat het samenbrengen van hun tarieven in een doorlopende voorstelling meer suggereert dan het materiaal draagt. De auteurs waarschuwen daarvoor, maar het beeld van de doorlopende curve is sterker dan de waarschuwing.</p>
+      <p>Het boek registreert en verklaart weinig. Er is geen theorie over rentevorming, en de koortscurve blijft een beeldspraak in plaats van een toetsbare stelling: wat er precies uit een stijging valt af te lezen wordt per geval ingevuld. Syllas toevoegingen brengen economische geschiedenis binnen, maar veranderen het karakter van beschrijving naar verklaring niet.</p>
+      <p>De vierde editie stopt in de vroege jaren 2000. Daarmee mist zij precies de periode waarvoor het werk sinds 2008 het meest wordt aangehaald: de jaren van rentes rond nul en zelfs onder nul, en de stijging na 2021. De grafieken van vijfduizend jaar rente die sindsdien rondgaan zijn op dit boek gebaseerd, maar het boek zelf reikt niet tot daar.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik het als opzoekwerk: zoek de periode en het land, lees de tabel, en neem het overzichtshoofdstuk van dat deel erbij.</li>
+        <li>Controleer bij elk oud tarief om welk instrument het gaat en met welke zekerheden, voordat je het naast een modern rendement legt.</li>
+        <li>Neem het niveau van je eigen decennium niet als maatstaf; het boek bestaat om te laten zien hoe smal dat referentiekader is.</li>
+        <li>Combineer het met een recente bron voor de periode na 2005, die in deze editie ontbreekt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>A History of Interest Rates</i> verscheen in 1963 bij Rutgers University Press, gevolgd door een tweede editie in 1977. Vanaf de derde editie (Rutgers University Press, 1991, xxii + 662 blz.) is de economisch historicus Richard Sylla medeauteur; van die editie verscheen in 1996 een herziene uitgave. De vierde editie kwam in 2005 uit in de reeks Wiley Finance (John Wiley &amp; Sons, Hoboken, 736 blz., ISBN 9780471732839) en voegde een hoofdstuk over de voorafgaande tien jaar toe. Homer, overleden in 1983, was vennoot bij Salomon Brothers en leidde daar het obligatieonderzoek; Sylla is hoogleraar aan de Stern School of Business van New York University. Van dit boek is geen Nederlandse vertaling bekend; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Een obligatieanalist van Salomon Brothers zette in 1963 vierduizend jaar rentetarieven in een enkel boek, omdat er naar zijn oordeel geen samenhangende geschiedenis bestond van wat toch een van de oudste prijzen ter wereld is. Het resultaat loopt van Soemerische graanleningen via Griekse en Romeinse tarieven, middeleeuwse woekerleer en de Florentijnse bankiers naar Britse staatsleningen en de rentebewegingen van de twintigste eeuw, met honderden tabellen erbij.</p><p>Sinds de derde editie werkt de economisch historicus Richard Sylla het werk bij; de vierde editie uit 2005 telt ruim zevenhonderd bladzijden. De stelling die het geheel bijeenhoudt is dat de lange rente van een land, netjes uitgezet, zich laat lezen als een koortscurve van zijn economische en politieke gezondheid.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>rente</li><li>economische geschiedenis</li><li>naslagwerk</li><li>financiële markten</li><li>geschiedenis</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="804"><a href="804.html">Triumph of the Optimists</a>. Dimson, Marsh en Staunton doen hetzelfde voor aandelen- en obligatierendement, met strengere meetregels en over een kortere periode.</li>
+          <li value="807"><a href="807.html">Manias, Panics, and Crashes</a>. Kindleberger levert de dramatiek die dit boek weglaat: wat er gebeurt wanneer krediet te goedkoop is geweest.</li>
+          <li value="809"><a href="809.html">The Great Crash, 1929</a>. Galbraith beschrijft een enkel jaar uit deze reeksen in detail.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

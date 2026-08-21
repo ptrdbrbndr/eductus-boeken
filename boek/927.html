@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Right Where You Are Sitting Now &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Wilson stelt dat de menselijke kennis exponentieel groeit en dat daaruit volgt dat elke leer die uitgaat van vaste grenzen aan wat mogelijk is, niet op…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-927">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">927 &middot; Vrij denken en manipulatie</p>
+    <h1>Right Where You Are Sitting Now</h1>
+    <p class="lede">Robert Anton Wilson, 1982</p>
+    <p class="stats">
+      <span><b>1323</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="927"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Wilson stelt dat de menselijke kennis exponentieel groeit en dat daaruit volgt dat elke leer die uitgaat van vaste grenzen aan wat mogelijk is, niet op wetenschap berust maar op belang. Bekende hulpbronnen zijn volgens hem geen gegeven van de natuur maar een functie van wat mensen tot nu toe hebben bedacht, en dus is schaarste in beginsel een kennisprobleem. Wie die redenering aanvaardt, komt uit bij de gevolgtrekking die de bundel bijeenhoudt: de boodschap dat de mensheid haar verwachtingen moet verlagen, dient de belangen van wie al genoeg heeft. Wilson zet die stelling in tegen milieumystiek, tegen het georganiseerde scepticisme en tegen elke instantie die vastlegt wat er nog gedacht mag worden.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het Jumping Jesus-verschijnsel</h3>
+      <p>Wilson voert een rekeneenheid in. Eén jesus is de hoeveelheid wetenschappelijke kennis die de mensheid in het jaar één had verzameld. Die hoeveelheid verdubbelde volgens hem pas rond 1500, vervolgens in 1750, daarna in 1900, in 1950, in 1960, in 1967 en in 1973. De verdubbelingstijd liep dus terug van vijftienhonderd jaar naar zes.</p>
+      <p>Uit die reeks trekt hij de gevolgtrekking dat mensen leven in een ruimte die sneller uitdijt dan zij kunnen bijhouden, en dat alles wat als vaststaande achtergrond geldt in werkelijkheid tijdelijk is. De titel van de bundel komt uit dat stuk: al die kennis is bereikbaar op de plaats waar de lezer op dit moment zit, mits er een aansluiting is.</p>
+      <h3>Malthus, Machiavelli en pop-ecologie</h3>
+      <p>Het polemische hoofdstuk onderscheidt ecologie als wetenschap van wat Wilson pop-ecologie noemt. De eerste stelt hypothesen op en herziet ze; de tweede is volgens hem absoluut, leerstellig en verbonden met gevoel en moraal in plaats van met onderzoek. Zij verspreidt zinnen als: er is niet genoeg voor iedereen, wetenschap heeft gefaald, de mens bederft de natuur, en wij moeten allen offers brengen.</p>
+      <p>Wilson voert die leer terug op Thomas Malthus, werknemer van de Britse Oost-Indische Compagnie, wiens berekening volgens hem twee gebreken heeft: bekende hulpbronnen zijn niet door de natuur gegeven maar door het menselijk verstand ontdekt, en het geboortecijfer daalt in landen die zich industrialiseren. Hij trekt de lijn door naar Haushofer en de Realpolitik, en stelt daarna dat de belastingvrije fondsen die de milieubeweging financieren aan dezelfde bankiersfamilies toebehoren die van verlaagde verwachtingen profiteren.</p>
+      <h3>De parapsychologen op de jaarvergadering</h3>
+      <p>Een lang reportagestuk beschrijft de bijeenkomst van de American Association for the Advancement of Science in San Francisco in 1980, waar Wilson namens <i>High Times</i> heen ging om te zien hoe parapsychologen werden ontvangen. De aanleiding was de aanval die de natuurkundige John Archibald Wheeler een jaar eerder in Houston op hen had geopend.</p>
+      <p>Wilsons bezwaar is niet dat Wheeler ongelijk had, maar dat hij inconsequent was: dezelfde man zette zijn naam onder het voorstel dat elke mogelijke gebeurtenis in een eigen tak van het heelal plaatsvindt. Wie zoiets voorstelt en tegelijk anderen wegzet omdat hun ideeën vreemd zijn, gedraagt zich volgens Wilson als Dali die Picasso verwijt dat hij niet realistisch schildert.</p>
+      <h3>Het heelal bevat een misschien</h3>
+      <p>Een reeks kortere stukken werkt uit wat er gebeurt als de tweewaardige logica van waar en onwaar wordt verruild voor een logica die een derde stand kent. Wilson gebruikt die zet om uitspraken die niet beslisbaar zijn niet meer als zinloos af te doen maar als open te laten staan, en om de vraag te verschuiven van wat waar is naar hoe waarschijnlijk iets is.</p>
+      <p>Andere stukken in de bundel dragen titels als de vraag of God een sukkel is of alleen onhandig, en een stuk over hoe men met een veranderd hoofd omgaat. De toon wisselt daarbij van betogend naar grappend zonder aankondiging, wat past bij Wilsons overtuiging dat een lezer die niet weet of hij voor de gek wordt gehouden beter oplet.</p>
+      <h3>De bundel als geheel</h3>
+      <p>Wat de stukken bindt is een afkeer van elke instantie die bepaalt wat er nog gedacht mag worden, of dat nu de kerk is, een sceptische vereniging of een milieubeweging. Wilson beschrijft zichzelf daarbij consequent in de derde persoon, als de Romanschrijver, waarmee hij de gebeurtenissen die hij verslaat als verhaalstof behandelt en zichzelf als personage.</p>
+      <p>De opdracht aan Burroughs en Dick geeft de plaatsbepaling aan. Beide schrijvers hadden zich beziggehouden met de vraag of de werkelijkheid die iemand ervaart van buitenaf gestuurd kan worden. Wilson zet dat om in politiek: de sturing zit volgens hem niet in een zender maar in wat een samenleving voor vanzelfsprekend houdt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Jesus</td><td>Wilsons rekeneenheid voor wetenschappelijke kennis, gelijk aan alles wat in het jaar één bekend was.</td></tr>
+          <tr><td class="term">Pop-ecologie</td><td>Wilsons aanduiding voor de leerstellige milieubeweging, die hij onderscheidt van ecologie als wetenschap.</td></tr>
+          <tr><td class="term">Lowered Expectations</td><td>De boodschap dat de mensheid haar verwachtingen moet bijstellen, volgens Wilson het politieke doel van de pop-ecologie.</td></tr>
+          <tr><td class="term">Rising Expectations</td><td>De verwachting van steeds ruimere mogelijkheden die volgens Wilson met de Amerikaanse en Franse verklaringen begon.</td></tr>
+          <tr><td class="term">De Romanschrijver</td><td>De derde persoon waarin Wilson over zichzelf schrijft, waarmee hij zijn eigen ervaringen als verhaalstof behandelt.</td></tr>
+          <tr><td class="term">Everett-Wheeler-Graham-model</td><td>Het voorstel dat elke mogelijke uitkomst in een eigen tak van het heelal plaatsvindt, dat Wilson tegen Wheeler zelf gebruikt.</td></tr>
+          <tr><td class="term">Misschien</td><td>De derde waarde die Wilson naast waar en onwaar wil toelaten, zodat onbeslisbare uitspraken open blijven staan.</td></tr>
+          <tr><td class="term">Realpolitik</td><td>De politieke leer die Wilson terugvoert op Malthus en Mackinder en die neerkomt op de stelling dat schaarste selectie rechtvaardigt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De getallen in het Jumping Jesus-stuk zijn niet controleerbaar. Wilson geeft geen bron voor de verdubbelingstijden en geen omschrijving van wat als eenheid kennis telt, zodat de reeks niet na te rekenen valt. De gedachte gaat terug op Buckminster Fullers curve van de kennisverdubbeling, die op dezelfde manier is opgesteld.</p>
+      <p>Het stuk over pop-ecologie leunt op twee soorten materiaal. Het eerste is feitelijk en houdbaar: de vaststelling dat wat als hulpbron geldt afhangt van technische kennis, en de opmerking dat het geboortecijfer in geïndustrialiseerde landen is gedaald, wat sindsdien breed is bevestigd. Het tweede is een gevolgtrekking uit financiering: omdat belastingvrije fondsen uit bankierskringen de milieubeweging steunen, zou die beweging hun belang dienen. Voor die stap voert Wilson geen bewijs aan.</p>
+      <p>Het verslag van de jaarvergadering is journalistiek en berust op eigen waarneming. Wat Wilson over Wheelers positie schrijft, klopt: Wheeler zette zijn naam onder het veelwereldenvoorstel en viel de parapsychologie in 1979 in het openbaar aan.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat Wilson in het hoofdstuk over pop-ecologie precies doet wat hij elders bestrijdt. Hij leidt uit een geldstroom een bedoeling af, benoemt een familie als symbool van een klasse en presenteert de uitkomst als verklaring. Dat is de redeneervorm van het samenzweringsdenken dat hij in <i>Illuminatus!</i> parodieerde, nu zonder de parodie.</p>
+      <p>Inhoudelijk is het stuk bovendien slecht verouderd. Wilsons antwoord op grenzen aan de groei luidt dat er altijd meer energie in een kubieke voet heelal te vinden is dan gedacht. Op klimaatverandering, waarbij het probleem niet de schaarste van energie is maar de opeenhoping van de afvalstof, heeft die redenering geen greep. De opgave die sinds 1982 het zwaarst weegt, valt buiten zijn kader.</p>
+      <p>Ten derde is de bundel los van samenstelling. De stukken zijn op verschillende momenten en voor verschillende bladen geschreven, staan zonder verbindende tekst achter elkaar, en de wisseling tussen ernst en grap maakt op enkele plaatsen niet duidelijk welke stelling Wilson werkelijk verdedigt. De ondertitel over de Illuminati heeft met de inhoud weinig te maken.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Scheid bij een betoog over grenzen aan de groei de vaststelling van wat technisch bekend is van de gevolgtrekking over wat mensen mogen verwachten.</li>
+        <li>Ga bij een verklaring die uit financiering een bedoeling afleidt na welk onafhankelijk bewijs er voor die bedoeling is.</li>
+        <li>Laat bij een onbeslisbare vraag het antwoord uitdrukkelijk op misschien staan in plaats van bij gebrek aan bewijs voor onwaar te kiezen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Right Where You Are Sitting Now: Further Tales of the Illuminati</i> (And/Or Press, Berkeley, 1982, 207 blz., ISBN 0915904659; ook uitgebracht in de Visions-reeks onder ISBN 0914171453). De heruitgave bij Ronin Publishing uit 1992 bevat een inleiding van Timothy Leary. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De ondertitel belooft verdere verhalen over de Illuminati, maar dit is een essaybundel, opgedragen aan William S. Burroughs en Philip K. Dick. Wilson schrijft over zichzelf in de derde persoon, als de Romanschrijver, en zet stukken over kennisgroei, parapsychologie, milieupolitiek en logica naast elkaar zonder ze tot één betoog te smeden. Het bekendste stuk, over het Jumping Jesus-verschijnsel, meet menselijke kennis in eenheden die hij jesus noemt, waarbij één jesus staat voor alles wat in het jaar één bekend was.</p><p>Volgens die telling duurde de eerste verdubbeling vijftienhonderd jaar en de verdubbeling omstreeks 1973 nog zes jaar. Het langste en scherpste stuk, over Malthus, Machiavelli en pop-ecologie, keert zich tegen wat Wilson milieumystiek noemt: een leer van verlaagde verwachtingen die volgens hem armen leert berusten en die betaald wordt door dezelfde elite die er baat bij heeft. Daarnaast staat een verslag van de jaarvergadering van de Amerikaanse wetenschapsvereniging in 1980, waar Wilson in opdracht van <i>High Times</i> ging kijken hoe parapsychologen werden bejegend.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>essaybundel</li><li>scepsis</li><li>libertarisme</li><li>bewustzijn</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="926"><a href="926.html">The Illuminati Papers</a>. De bundel van twee jaar eerder, met dezelfde opzet en dezelfde economische stellingname.</li>
+          <li value="929"><a href="929.html">The New Inquisition</a>. Wilsons uitgewerkte aanval op het georganiseerde scepticisme, die hier in kiem al aanwezig is.</li>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. De tegenpositie: een pleidooi voor scepsis als houding, van iemand die Wilsons verwijten niet accepteert.</li>
+          <li value="925"><a href="925.html">Cosmic Trigger I: Final Secret of the Illuminati</a>. Het autobiografische boek waarin dezelfde houding tegenover kennis is uitgewerkt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

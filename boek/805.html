@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Taming of Chance &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Het determinisme is volgens Hacking in de negentiende eeuw niet omvergeworpen door de natuurkunde maar door de boekhouding van de staat. Toen overheden na…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-805">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">805 &middot; Natuur en wetenschap</p>
+    <h1>The Taming of Chance</h1>
+    <p class="lede">Ian Hacking, 1990</p>
+    <p class="stats">
+      <span><b>1961</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="805"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Het determinisme is volgens Hacking in de negentiende eeuw niet omvergeworpen door de natuurkunde maar door de boekhouding van de staat. Toen overheden na de Napoleontische oorlogen hun burgers gingen tellen en de uitkomsten publiceerden, ontstond wat hij een lawine van gedrukte cijfers noemt, en die cijfers over zelfmoord, misdaad en ziekte bleken van jaar tot jaar verbazend stabiel. Daarmee werd een tweede soort wet denkbaar: een wet die niet voorschrijft wat een individu doet maar vastlegt wat een bevolking doet. Twee dingen gebeurden tegelijk. Er kwam ruimte voor toevalswetten die niet langer hoefden te worden herleid tot onderliggende oorzaken, en het verlichtingsbegrip menselijke natuur werd verdrongen door het begrip normaal mens, met spreiding en afwijking eromheen. De paradox die Hacking benoemt is dat meer onbepaaldheid meer beheersing opleverde, niet minder.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het argument</h3>
+      <p>Het eerste hoofdstuk zet de stelling in twintig bladzijden neer. Gedurende de negentiende eeuw werd het mogelijk te denken dat de wereld regelmatig kan zijn zonder onderworpen te zijn aan algemene natuurwetten. Weinigen merkten die verschuiving op; wat iedereen wel merkte was dat mensen en hun gewoonten geteld werden. Hacking stelt dat die twee ontwikkelingen elkaar voedden, en dat het meeste ervan zich in het maatschappelijke domein afspeelde en niet in de natuurwetenschap.</p>
+      <p>Hij illustreert de schaal met de Amerikaanse volkstelling. De eerste vroeg vier dingen per huishouden; de tiende tienjaarlijkse telling stelde 13.010 vragen aan mensen, bedrijven, boerderijen, ziekenhuizen en kerken. Die vermenigvuldiging met drieduizend onderschat volgens hem nog de groei van het aantal gedrukte cijfers, waarvoor driehonderdduizend een betere schatting zou zijn. Achter dat drukwerk zaten nieuwe indelingstechnieken: categorieen moesten worden bedacht waarin mensen konden vallen om geteld te kunnen worden, en veel van wat de bureaus als feit presenteerden bestond voor die indeling nog niet.</p>
+      <h3>Van geheime bureaus naar gedrukte tabellen</h3>
+      <p>Rond 1800 gold toeval als een woord zonder inhoud, of als een begrip van het gewone volk dat verlichte lieden buiten hun denken hielden. Elke gebeurtenis volgde noodzakelijk uit een voorafgaande toestand, en zelfs artsen die algemene wetten in hun vakgebied afwezen hielden vast aan afzonderlijke ketens van noodzakelijke oorzaken.</p>
+      <p>Achttiende-eeuwse ambtenaren telden wel, maar voor belastingheffing en rekrutering, en hun gegevens bleven bij de regering. Na de vrede die op Napoleon volgde richtten de Europese staten bureaus op die over alle kanten van het leven cijfers verzamelden en uitgaven. Die instellingen maakten de lawine van gedrukte getallen tussen 1820 en 1840 mogelijk. Pruisen is Hackings doorlopende voorbeeld, en juist Pruisen kwam niet op het idee van een statistische wet. Dat gebeurde in Frankrijk en Engeland, waar het Franse verlangen van voor de revolutie naar een rationele zedenleer, met Condorcet als theoreticus, door de cijferlawine werd omgezet in een empirische zedenwetenschap. Statistische wetten werden gevonden waar individualistische opvattingen over persoon en staat gangbaar waren, en niet in het collectivistischer oosten.</p>
+      <h3>Afwijking als vindplaats</h3>
+      <p>De wetmatigheden werden gevonden in afwijkend gedrag: zelfmoord, misdaad, landloperij, waanzin, prostitutie, ziekte. De gedachte dat je een afwijkende groep kunt verbeteren door haar te tellen en in te delen is volgens Hacking de wortel van wat later neutraal informatie en beheersing is gaan heten.</p>
+      <p>Een Britse parlementaire commissie uit 1825 laat zien wanneer statistische ziektewetten als nieuwe categorie ontstonden. Een twist uit 1815 over de vraag of Parijzenaars of Londenaars zelfmoordgeneigder waren viel toen niet te beslechten en tien jaar later wel, omdat de verzamelende bureaus er inmiddels waren. Bij de zelfmoordstatistiek trad bovendien een redenering op die Hacking medisch imperialisme noemt: waanzin hoort bij de arts, zelfmoord is een vorm van waanzin, dus zijn zelfmoordcijfers medische cijfers. Die verklaringswijze werd vervolgens op alle afwijkingsstatistiek toegepast.</p>
+      <h3>Poisson, Quetelet en de klokvorm</h3>
+      <p>In 1835 muntte Poisson in het kader van zijn statistische rechtsleer de uitdrukking wet van de grote aantallen en bewees hij een bijbehorende limietstelling. Dat leverde een rechtvaardiging op om de kansrekening op maatschappelijke vragen los te laten, en het leek te verklaren waarom sociale cijfers stabiel waren.</p>
+      <p>De Belg Adolphe Quetelet zette de stap die het meest is blijven hangen. In werk uit de vroege jaren dertig introduceerde hij de gemiddelde mens, l'homme moyen, uitgewerkt in zijn <i>Sur l'homme</i> van 1835. Hij bedoelde daarmee het meetbare type van een volk en niet het gemiddelde van de soort, en verving zo cultuur, taal en geloof als kenmerk van een bevolking door meting. In 1844 volgde de stap die volgens Hacking zwaarder telt: Quetelet maakte van de theorie voor het meten van een onbekende natuurkundige grootheid met een waarschijnlijke fout een theorie voor het meten van eigenschappen van een bevolking.</p>
+      <p>Zijn beroemdste voorbeeld haalde hij uit het <i>Edinburgh Medical Journal</i> van 1817, dat borstomvangen van Schotse soldaten had gepubliceerd. Quetelet telde de regimenten bij elkaar op, maakte daarbij enkele kleine rekenfouten, en hield een verdeling van 5.738 borstkassen over met toppen bij 1.073 soldaten van negenendertig duim en 1.079 van veertig duim. Zijn retorische zet was de bewering dat 5.738 metingen aan een enkele soldaat door een onhandige meter zich niet regelmatiger zouden groeperen. Zo werd de klokvorm van een foutenwet tot grondmaat van de menselijke gesteldheid.</p>
+      <h3>Statistisch fatalisme en de tegenbeweging</h3>
+      <p>Het debat over statistisch fatalisme draaide om de vraag of een bevolking nog vrij is om iets te laten wanneer vaststaat dat er elk jaar zoveel mensen een einde aan hun leven maken. Hacking noemt die twist oppervlakkig gezien onnozel, maar ziet er het groeiende besef van sociale stuurbaarheid in. In Duitsland laaide hij op na Buckles <i>History of Civilization in England</i>, en hij legde het verschil bloot tussen een atomistische en een holistische opvatting van de statistische wet.</p>
+      <p>Er kwam ook verzet, bij Comte, Dostojevski en Nietzsche, al bleef zelfs wie ruimte wilde houden voor gril tweeslachtig. Een apart hoofdstuk toetst Cassirers stelling dat het twintigste-eeuwse begrip determinisme pas rond 1870 ontstond; Hacking houdt daarvan over dat het woord uit de jaren tachtig van de achttiende eeuw stamt en pas in de jaren zestig van de negentiende eeuw zijn huidige betekenis kreeg.</p>
+      <h3>Het normale en de autonomie van de statistische wet</h3>
+      <p>Het woord normaal diende lang zowel om te beschrijven als om te waarderen, maar de betekenis gebruikelijk of typisch is negentiende-eeuws. Zij ontstond bij de fysioloog Broussais en werd door Comte tot politiek programma gemaakt. Normaliteit verdrong het verlichtingsbegrip menselijke natuur en kreeg daarbij twee gezichten. Bij Quetelet en Durkheim is het normale het juiste en het goede; bij Galton het middelmatige, dat verbetering behoeft. In beide rollen doet het begrip zich voor als zegel van onpartijdigheid, als brug tussen wat is en wat hoort.</p>
+      <p>Durkheim bouwde daarop een cijfermatige sociologie waarin misdaad en zelfmoord normaal zijn en afwijkingen wijzen op maatschappelijke ziekte, veroorzaakt door krachten die los van individuen bestaan. In Engeland kreeg Quetelets klokvorm de naam Normal law. Galton dacht Quetelets verklaring van statistische stabiliteit opnieuw door, en de technieken die daaruit voortkwamen maakten kansverdelingen onafhankelijk van een onderliggende deterministische structuur. De leer van de noodzakelijkheid was niet weerlegd, zij was niet meer ter zake.</p>
+      <h3>Macht en een heelal van toeval</h3>
+      <p>Een kort hoofdstuk herinnert eraan dat statistiek ook een zichtbaar machtsmiddel was. Hacking gebruikt daarvoor de ruzie over Joodse statistieken tijdens de Berlijnse Antisemitismusstreit van 1880.</p>
+      <p>Het slothoofdstuk is twee keer zo lang als de andere en gaat over C.S. Peirce, die de leer van de noodzakelijkheid ronduit verwierp, de inductieve logica op statistische stabiliteit baseerde, randomisatie in de opzet van experimenten invoerde en geloofde in absoluut toeval en in natuurwetten die hoogstens bij benadering gelden. Hacking presenteert die radicale onbepaaldheid als gevolg in plaats van als doorbraak: Peirce kon zo denken omdat zijn hele leven al doortrokken was van kansen en statistiek.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">lawine van gedrukte cijfers</td><td>Hackings naam voor de stortvloed aan gepubliceerde overheidsstatistiek die tussen ongeveer 1820 en 1840 over Europa kwam.</td></tr>
+          <tr><td class="term">leer van de noodzakelijkheid</td><td>De rond 1800 vanzelfsprekende opvatting dat elke gebeurtenis noodzakelijk volgt uit een voorafgaande toestand, waarvoor toeval slechts een naam voor onwetendheid is.</td></tr>
+          <tr><td class="term">statistische wet</td><td>Een wetmatigheid die geldt voor een bevolking en niets voorschrijft over een afzonderlijk geval.</td></tr>
+          <tr><td class="term">de gemiddelde mens</td><td>Quetelets homme moyen: het gemeten type van een volk, opgebouwd uit gemiddelden van lichamelijke en zedelijke eigenschappen.</td></tr>
+          <tr><td class="term">wet van de grote aantallen</td><td>De door Poisson in 1835 zo genoemde stelling dat verhoudingen in grote reeksen naar een stabiele waarde toe kruipen.</td></tr>
+          <tr><td class="term">het normale</td><td>Het negentiende-eeuwse begrip dat tegelijk beschrijft wat gebruikelijk is en waardeert wat hoort, en dat het oudere begrip menselijke natuur verdrong.</td></tr>
+          <tr><td class="term">statistisch fatalisme</td><td>De vrees dat stabiele cijfers over zelfmoord of misdaad betekenen dat de betrokkenen niet vrij zijn om anders te handelen.</td></tr>
+          <tr><td class="term">mensen maken</td><td>Hackings uitdrukking voor het verschijnsel dat een nieuwe telcategorie een soort mens in het leven roept waarin mensen zichzelf gaan herkennen.</td></tr>
+          <tr><td class="term">autonomie van de statistische wet</td><td>De toestand waarin kanswetten verklaren en voorspellen zonder dat er nog een deterministische onderlaag bij nodig is.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op negentiende-eeuws drukwerk: Pruisische bureaupublicaties, de rapporten van een Britse parlementaire commissie uit 1825, de misdaadtabellen van het Franse ministerie van justitie, de medische tijdschriften waaruit Quetelet zijn borstomvangen haalde, Babbages voorstel uit 1832 voor een verzameling constanten van natuur en techniek, en het werk van Peirce. De ruim veertig bladzijden noten maken die herkomst per bewering na te lopen.</p>
+      <p>Hacking beperkt zijn bewijsvoering bewust. Over de wiskundige opvattingen van kans zegt hij naar eigen zeggen zeer weinig, en het contrast tussen Pruisische en westerse houdingen noemt hij zelf ruw. Zijn boek verscheen bovendien in een omgeving waarin dezelfde geschiedenis door anderen werd geschreven: hij verwijst naar Porters <i>The Rise of Statistical Thinking</i> (1986), Stiglers <i>The History of Statistics</i> (1986) en de bundel <i>The Empire of Chance</i> (1989).</p>
+      <p>De verhouding tot zijn eerdere werk legt hij uit. In <i>The Emergence of Probability</i> (1975) beschreef hij hoe het kansbegrip rond 1660 ontstond als een tweeslachtige verschuiving in het renaissancistische begrip teken, met vanaf het begin zowel een frequentiekant als een geloofsgraadkant; Leibniz was daar de getuige die door het hele boek terugkeerde. Peirce is hier de getuige van iets dat al gebeurd was toen hij volwassen werd, en staat daarom pas in het slothoofdstuk. De schatplichtigheid aan Foucault is hier uitgewerkt tot het thema van tellen als machtsuitoefening.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De opzet is die van drieentwintig korte, losse stukken, en dat is tegelijk de zwakte. De twee ontwikkelingen die Hacking wil verbinden, de afbrokkeling van het determinisme en de uitvinding van het normale, worden vooral naast elkaar gezet. Dat zij elkaar voedden wordt aannemelijk gemaakt door de volgorde van de hoofdstukken en niet aangetoond door een keten van oorzaken. Wie het boek als betoog leest houdt een reeks scherpe episoden over.</p>
+      <p>Het contrast tussen oost en west draagt veel gewicht op weinig materiaal: Pruisen tegenover Frankrijk en Engeland, verklaard uit nationale opvattingen over individu en gemeenschap. Ook het Foucaultiaanse kader, waarin tellen en indelen samenvallen met beheersing, wordt eerder verondersteld dan verdedigd.</p>
+      <p>Wie de wiskunde zoekt vindt haar niet. Er staat geen afleiding en geen bespreking van de rivaliserende opvattingen over wat een kans is. Dat is een keuze en geen omissie, maar het maakt het boek onbruikbaar als inleiding in de kansrekening.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij elke statistiek wie de categorie heeft bedacht waarin geteld wordt, en wanneer.</li>
+        <li>Let op het glijden van normaal als beschrijving naar normaal als norm; dat is de plek waar cijfers stilzwijgend een oordeel worden.</li>
+        <li>Onthoud dat stabiliteit in een reeks nog geen oorzaak is; de negentiende eeuw heeft die verwarring in beide richtingen gemaakt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Taming of Chance</i> (Cambridge University Press, Cambridge, 1990, xiii + 264 blz., ISBN 0521380146 gebonden en 0521388848 paperback), deel zeventien in de reeks Ideas in Context onder redactie van Quentin Skinner, Lorraine Daston, Wolf Lepenies, Richard Rorty en J.B. Schneewind. Het boek is sinds 1990 herhaaldelijk herdrukt en sluit aan op Hackings eerdere <i>The Emergence of Probability</i> (Cambridge University Press, 1975). Hacking, die in 2023 overleed, was verbonden aan het Institute for the History and Philosophy of Science and Technology van de Universiteit van Toronto. Van dit boek is geen Nederlandse vertaling bekend; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Hacking onderzoekt hoe de negentiende eeuw ertoe kwam wetmatigheid te zien in wat daarvoor toeval heette. Zijn vertrekpunt is een gebeurtenis die zelden als gebeurtenis wordt beschouwd: na Napoleon begonnen Europese staten hun burgers op grote schaal te tellen en die tellingen ook te drukken. Zelfmoorden, misdrijven, ziekten en armoede werden per jaar en per regio in tabellen gezet, en die tabellen bleken van jaar tot jaar opvallend stabiel.</p><p>Uit die stabiliteit groeide een nieuw soort wet, die niets zegt over wat een persoon doet en alles over wat een bevolking doet. Hacking laat zien hoe dat het determinisme uithuilde en tegelijk het begrip menselijke natuur verving door het begrip normaal mens, met alles wat daarbuiten valt als afwijking. Het boek loopt van de Pruisische statistische bureaus via Quetelet, Poisson, Galton en Durkheim naar de Amerikaanse filosoof C.S. Peirce, die als eerste een heelal van echt toeval voor mogelijk hield.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>statistiek</li><li>wetenschapsgeschiedenis</li><li>wetenschapsfilosofie</li><li>kans</li><li>sociologie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="654"><a href="654.html">Against Method</a>. Feyerabend valt vanuit een andere hoek dezelfde aanname aan, dat wetenschappelijke begrippen buiten hun geschiedenis om te begrijpen zijn.</li>
+          <li value="300"><a href="300.html">Critical Mass: How One Thing Leads to Another</a>. Ball vertelt het vervolg: hoe statistische regelmaat in de sociale wereld sinds Quetelet in natuurkundige modellen belandde.</li>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Kahneman hanteert het normaalbeeld en de afwijking eromheen als gereedschap; Hacking laat zien waar dat gereedschap vandaan komt.</li>
+          <li value="64"><a href="64.html">Fooled by Randomness</a>. Taleb bestrijdt de klokvorm als beschrijving van de wereld; hier staat de geschiedenis van hoe die klokvorm die rol kreeg.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

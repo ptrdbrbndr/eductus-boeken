@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quantum Psychology &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Wilson stelt dat de meeste geschillen tussen mensen geen geschillen over feiten zijn maar over grammatica. Het werkwoord zijn legt in zinnen als dit is…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-930">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">930 &middot; Vrij denken en manipulatie</p>
+    <h1>Quantum Psychology</h1>
+    <p class="lede">Robert Anton Wilson, 1990</p>
+    <p class="stats">
+      <span><b>1523</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="930"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Wilson stelt dat de meeste geschillen tussen mensen geen geschillen over feiten zijn maar over grammatica. Het werkwoord zijn legt in zinnen als dit is gevaarlijk of hij is een verrader een eigenschap in het ding, terwijl er niets anders is waargenomen dan een betrekking tussen een zenuwstelsel en zijn omgeving op een bepaald moment. Wie dat werkwoord uit zijn taal haalt, ziet dat elke uitspraak een waarnemer heeft, en daarmee valt de basis onder ideologie, dogma en het gevoel dat de eigen kijk samenvalt met de wereld. De kwantummechanica levert Wilson daarvoor het argument bij uitstek, omdat de natuurkunde volgens Bohr niet beschrijft wat het heelal is, maar wat er over het heelal te zeggen valt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Hoe weten we wat we weten</h3>
+      <p>Het eerste deel opent met de gelijkenis van Kafka over de man die aan de poort van de Wet om toegang vraagt en er zijn leven lang op blijft wachten. Wilson gebruikt haar als beeld voor de zoektocht naar de diepe werkelijkheid achter de verschijnselen, en zet daar de Kopenhaagse houding tegenover: de wetenschap komt niet achter die poort en beschrijft alleen wat meetbaar is.</p>
+      <p>In dezelfde hoofdstukken behandelt hij de dualiteit van golf en deeltje, de vraag hoeveel hoofden iemand heeft wanneer men de gespiegelde beelden meetelt, en de zelfverwijzing die hij strange loops noemt. Steeds is de conclusie dezelfde: elke beschrijving bevat het meetinstrument, en het menselijk zenuwstelsel is zo'n instrument.</p>
+      <h3>Spreken over het onuitsprekelijke</h3>
+      <p>Het tweede deel gaat over taal en recht. Wilson bespreekt de kwantumlogica van John von Neumann, met drie waarden in plaats van twee, en betoogt dat die driewaardigheid ook in het dagelijks leven bruikbaar is: waar, onwaar en onbeslist zijn vaker toereikend dan een gedwongen keuze tussen ja en nee.</p>
+      <p>Het hoofdstuk over George Carlin gaat over de rechtszaak rond diens lijst met woorden die niet op de radio mochten, waarin de Amerikaanse rechter moest beslissen of geluidsgolven zelf aanstootgevend kunnen zijn. Het volgende hoofdstuk gebruikt Derry en Londonderry: dezelfde stad, twee namen, en in 1990 kon het uitspreken van de verkeerde naam in de verkeerde straat iemand het leven kosten. Wilson laat daarop zien dat ook de vervangende beschrijving, een verzameling mensen, huizen, bruggen en cafés, niet buiten de taal om komt.</p>
+      <h3>E-Prime</h3>
+      <p>Het sluitstuk van dat deel is E-Prime. Korzybski stelde in <i>Science and Sanity</i> uit 1933 voor om de is van identiteit af te schaffen, het type zin waarin X een Y is. Bourland ging in 1949 verder en schrapte alle vormen van het werkwoord zijn.</p>
+      <p>Wilson schrijft het boek zelf in die vorm en laat zien wat het doet: uitspraken die eerst absoluut klonken worden uitspraken van iemand die iets waarneemt of ergens van uitgaat. Hij noemt Albert Ellis en E.W. Kellogg III als onderzoekers die er ook mee werkten, en meldt eerlijk dat E-Prime buiten een kleine kring nauwelijks navolging heeft gekregen.</p>
+      <h3>Het door de waarnemer geschapen heelal</h3>
+      <p>Het derde deel gaat over de vraag hoe ver de invloed van de waarnemer reikt. Het opent met een Chinese gelijkenis: een boer mist zijn geldbuidel, verdenkt de buurjongen, en ziet vanaf dat moment in elke beweging van de jongen schuld, tot zijn vrouw de buidel achter het bed vandaan haalt en het gedrag van de jongen prompt weer gewoon oogt.</p>
+      <p>Daarna komen het onderscheid tussen emische en etische werkelijkheid en de cijfers over het placebo-effect die Wilson aan het werk van Ernest Rossi ontleent: in zes dubbelblinde proeven kwam een placebo op 56 procent van de werking van morfine, in negen proeven op 54 procent van aspirine en in drie proeven op 56 procent van codeïne. Zijn conclusie is dat de sociale werkelijkheid van een groep, de emische, mede bepaalt wat mensen binnen die groep werkelijk overkomt. Ter illustratie voert hij verschillen in zelfdodings- en moordcijfers tussen bevolkingsgroepen op.</p>
+      <h3>De kat, de vriend en de vele werelden</h3>
+      <p>Het vierde deel legt de gangbare uitleggingen van de kwantummechanica naast elkaar. De kat van Schrödinger, de vriend van Wigner, de vele werelden van Everett, Wheeler en Graham, en de verborgen variabelen van Bohm krijgen elk hun beurt, telkens met de opmerking dat het om modellen gaat.</p>
+      <p>Wilson maakt daar een taalkundig punt van dat scherper is dan zijn natuurkundige punten. Wie de Kopenhaagse lezing in gewoon Engels weergeeft, met de is van identiteit erin, laat haar zeggen dat wij het heelal met onze waarneming scheppen, een standpunt dat vrijwel alleen bij bisschop Berkeley te vinden is. In E-Prime geformuleerd zegt zij alleen dat wij niets kunnen zeggen over wat we niet meten.</p>
+      <h3>Het niet-lokale zelf en de oefeningen</h3>
+      <p>Het slotdeel behandelt het theorema van Bell, de niet-lokaliteit en Bohms impliciete orde, en trekt die door naar een zelf dat niet in de huid opgesloten zou zitten. Hier verlaat Wilson de bewijsbare stof en gaat hij over in vooruitblik en speculatie.</p>
+      <p>Praktisch is het boek een cursusboek. De oefeningen aan het eind van elk hoofdstuk vragen om een groep: een steen die rondgaat waarover iedereen alles moet proberen te zeggen, tot de groep vaststelt dat alles zeggen niet lukt; een week lang bijhouden waar het woord alle door sombunall vervangen kan worden; gesprekken die in E-Prime gevoerd moeten worden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">E-Prime</td><td>Engels zonder enige vorm van het werkwoord zijn, in 1949 voorgesteld door D. David Bourland jr.</td></tr>
+          <tr><td class="term">de is van identiteit</td><td>De zinsvorm X is een Y, die volgens Korzybski een eigenschap in het ding legt die alleen in de betrekking met de waarnemer bestaat.</td></tr>
+          <tr><td class="term">reality tunnel</td><td>Het model waarmee iemand zijn waarnemingen ordent en dat hij gewoonlijk voor de werkelijkheid houdt.</td></tr>
+          <tr><td class="term">emische werkelijkheid</td><td>De door een groep gedeelde sociale werkelijkheid met haar eigen spelregels, waarbinnen de leden waarnemen en handelen.</td></tr>
+          <tr><td class="term">etische werkelijkheid</td><td>De veronderstelde werkelijkheid buiten elke waarnemer om, waarover volgens Wilson niets gezegd kan worden zonder haar in emische taal te vatten.</td></tr>
+          <tr><td class="term">sombunall</td><td>Samentrekking van some but not all, bedoeld als vervanging van uitspraken over alle leden van een groep.</td></tr>
+          <tr><td class="term">kwantumlogica</td><td>De driewaardige logica van von Neumann, met waar, onwaar en onbeslist, die Wilson ook op alledaagse oordelen toepast.</td></tr>
+          <tr><td class="term">psychosomatische synergie</td><td>Wilsons naam voor het samenspel waarin verwachting en overtuiging meebepalen wat er lichamelijk gebeurt, met het placebo-effect als voornaamste bewijsstuk.</td></tr>
+          <tr><td class="term">niet-lokaliteit</td><td>De samenhang tussen ruimtelijk gescheiden deeltjes die uit het theorema van Bell volgt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De taalkundige helft rust op bestaand materiaal. Korzybski publiceerde <i>Science and Sanity</i> in 1933, Bourland stelde E-Prime in 1949 voor, en de bezwaren tegen de is van identiteit zijn in de taalfilosofie een herkenbaar thema. De natuurkundige helft geeft de gangbare uitleggingen op het niveau van goede populariserende boeken correct weer; Wilson had geen opleiding in natuurkunde en zegt dat er ook bij. De placebocijfers komen uit één secundaire bron, het werk van Ernest Rossi, en worden niet tegen ander onderzoek gelegd.</p>
+      <p>De sprong die het boek draagt, wordt echter nergens onderbouwd. Dat de meting in de kwantummechanica niet los te denken is van het meetinstrument, is natuurkunde; dat overtuigingen van een groep bepalen hoeveel verkrachtingen of zelfdodingen er plaatsvinden, is sociologie; en tussen die twee legt Wilson geen verband dat verder gaat dan analogie. Zijn voorbeelden op dat punt, de Zuni en de Trobrianders, zijn oude etnografische beweringen; de bekendste ervan, die van Malinowski over de Trobrianders, is later bestreden.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar geldt de titel zelf. De kwantummechanica geldt voor de schaal waarop interferentie meetbaar is; bij zenuwstelsels, mensen en samenlevingen zorgt decoherentie ervoor dat er niets van overblijft, en vrijwel geen natuurkundige aanvaardt de lezing waarin menselijk bewustzijn de uitkomst schept. John Bell, van wiens theorema Wilson het meeste maakt, wees die uitleg zelf uitdrukkelijk af. Wat het boek psychologie noemt, blijft daardoor een reeks vergelijkingen die geen van de twee vakgebieden dekt.</p>
+      <p>Daarbij komt dat Wilson zijn eigen gereedschap niet consequent hanteert. Hij schrijft in E-Prime om absolute uitspraken te vermijden, en beweert vervolgens buiten die vorm om dat overtuiging de gezondheid stuurt en dat de som van alle geesten er één zou kunnen zijn. En het boek is opgezet als cursus voor een studiegroep van meerdere mensen, terwijl vrijwel elke lezer het alleen leest; wie de oefeningen overslaat houdt een reeks anekdotes over waarvan de auteur zelf zegt dat lezen alleen niet werkt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Herschrijf een oordeel dat vastzit zonder het werkwoord zijn en kijk wat er dan feitelijk beweerd wordt.</li>
+        <li>Vervang bij het lezen van een uitspraak over een groep het woord alle door een deel en ga na of de bewering overeind blijft.</li>
+        <li>Voeg aan een discussie de derde waarde toe: waar, onwaar of nog niet beslisbaar met wat er nu op tafel ligt.</li>
+        <li>Benoem bij een meting of beoordeling welk instrument is gebruikt, en reken dat mee bij de uitkomst.</li>
+        <li>Ga bij een verdenking na welke waarnemingen erna zijn gedaan; de gelijkenis van de boer en de buurjongen laat zien hoe de verdenking het bewijs produceert.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Quantum Psychology: How Brain Software Programs You &amp; Your World</i> (New Falcon Publications, 1990, 250 blz., ISBN 9780941404013). Latere uitgave: Hilaritas Press, 2016, 245 blz., ISBN 9780692767047. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Zeven jaar na <i>Prometheus Rising</i> schreef Wilson dezelfde stof opnieuw, nu met taal als het scharnier in plaats van hersencircuits. Het boek is zelf in E-Prime geschreven, het Engels zonder enige vorm van het werkwoord zijn, een voorstel dat D. David Bourland jr. in 1949 deed in het verlengde van Korzybski's algemene semantiek. Wilsons stelling is dat het woordje is stilzwijgend eigenschappen in dingen legt die in werkelijkheid in de betrekking tussen waarnemer en ding zitten, en dat een groot deel van de ruzies tussen mensen daarop teruggaat.</p><p>Daarnaast loopt een tweede draad: de uitleg van de kwantummechanica. Wilson behandelt de Kopenhaagse lezing van Bohr, de kat van Schrödinger, de vriend van Wigner, de vele werelden van Everett en de verborgen variabelen van Bohm, en gebruikt die naast elkaar als voorbeeld van modellen die geen van alle de werkelijkheid zelf zijn. Elk hoofdstuk sluit met oefeningen die uitdrukkelijk voor een studiegroep zijn bedoeld en niet voor een alleen lezende lezer.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>taal</li><li>semantiek</li><li>kwantumfysica</li><li>waarneming</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="928"><a href="928.html">Prometheus Rising</a>. Prometheus Rising behandelt dezelfde stof zeven jaar eerder, met hersencircuits waar dit boek taal zet.</li>
+          <li value="653"><a href="653.html">Speakable and Unspeakable in Quantum Mechanics</a>. Bell legt in eigen woorden uit wat zijn theorema wel en niet zegt, en verwerpt de lezing waarop Wilson bouwt.</li>
+          <li value="929"><a href="929.html">The New Inquisition</a>. The New Inquisition levert de kennisleer waarvan dit boek de taalkundige uitwerking is.</li>
+          <li value="656"><a href="656.html">Metamagical Themas</a>. Hofstadter behandelt zelfverwijzing en strange loops met de striktheid die Wilson bij dat onderwerp mist.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

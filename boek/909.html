@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Halo Effect &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De managementliteratuur die zoekt naar de eigenschappen waarin succesvolle bedrijven zich onderscheiden, kan volgens Rosenzweig niets vinden, omdat haar…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-909">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">909 &middot; Geld en ondernemen</p>
+    <h1>The Halo Effect</h1>
+    <p class="lede">Phil Rosenzweig, 2007</p>
+    <p class="stats">
+      <span><b>1550</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="909"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De managementliteratuur die zoekt naar de eigenschappen waarin succesvolle bedrijven zich onderscheiden, kan volgens Rosenzweig niets vinden, omdat haar gegevens door de uitkomst zijn besmet. Oordelen over cultuur, leiderschap, strategie en klantgerichtheid volgen op de bekende resultaten in plaats van eraan vooraf te gaan, zodat het onderzoek zijn conclusie al in de meting heeft ingebouwd. Wat als wetenschappelijk vastgesteld recept wordt gepresenteerd, is daarmee een verhaal achteraf, en het gemak waarmee zulke verhalen zich laten navertellen verklaart hun aantrekkingskracht beter dan hun juistheid. Wie het bezwaar serieus neemt houdt geen formule over maar een kansrekening: verstandige keuzes verhogen de kans op succes zonder die te waarborgen, en prestaties blijven betrekkelijk omdat concurrenten intussen ook bewegen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar het halo-effect vandaan komt</h3>
+      <p>De term komt van de psycholoog Edward Thorndike, die in 1920 vaststelde dat officieren die hun manschappen op afzonderlijke eigenschappen beoordeelden in feite één algemene indruk over alle punten uitsmeerden. Rosenzweig laat zien dat hetzelfde gebeurt wanneer journalisten, analisten en werknemers een onderneming beoordelen. Zolang de cijfers goed zijn heet de leiding vooruitziend, de cultuur sterk en de strategie helder; keren de cijfers, dan heten dezelfde eigenschappen zelfoverschatting, wanorde en verwaarlozing van de klant.</p>
+      <p>Hij illustreert dat met de omslag in de berichtgeving over Cisco Systems rond 2001 en over ABB onder Percy Barnevik, waar het oordeel volledig kantelde zonder dat er aan de beschreven werkwijze iets was veranderd. Dat het niet alleen om journalistiek gaat, toont hij met het experiment van Barry Staw uit 1975, die groepen willekeurige terugkoppeling over hun prestatie gaf en vervolgens zag dat de deelnemers hun eigen samenwerking, communicatie en motivatie in overeenstemming met dat oordeel beschreven.</p>
+      <h3>Negen misvattingen</h3>
+      <p>Naast het halo-effect noemt Rosenzweig de misvatting van samenhang en oorzaak, waarbij tevreden personeel als oorzaak van goede resultaten geldt terwijl goede resultaten personeel ook tevreden maken. Dan de misvatting van de enkele verklaring: afzonderlijke studies schrijven elk hun eigen factor een groot deel van het prestatieverschil toe, en die delen tellen samen tot ver boven de honderd procent op. En de misvatting van het verbinden van de winnende punten, waarbij alleen naar geslaagde bedrijven wordt gekeken zonder na te gaan of de mislukte hetzelfde deden.</p>
+      <p>Daarnaast staan de misvatting van gedegen onderzoek, de misvatting van blijvend succes, de misvatting van absolute prestatie, de misvatting van het verkeerde eind van de stok en de misvatting van de organisatiefysica: het idee dat een onderneming gehoorzaamt aan wetmatigheden met de vastheid van natuurwetten. De negen overlappen elkaar deels, en Rosenzweig gebruikt ze meer als lijst om mee na te lopen dan als sluitende indeling.</p>
+      <h3>De boeken onder het mes</h3>
+      <p><i>In Search of Excellence</i> van Peters en Waterman uit 1982 koos bedrijven uit en vroeg vervolgens aan betrokkenen waarom die zo goed presteerden. Collins en Porras deden in <i>Built to Last</i> hetzelfde met historisch materiaal, en Collins in <i>Good to Great</i> met elf ondernemingen die een omslagpunt hadden gehad. Het Evergreen-onderzoek van Nohria, Joyce en Roberson, dat honderdzestig bedrijven en ruim tweehonderd managementpraktijken over tien jaar bekeek en daaruit een formule van vier plus twee destilleerde, was in omvang het indrukwekkendst.</p>
+      <p>Rosenzweig gaat in alle gevallen na waar de metingen vandaan kwamen. Het antwoord luidt telkens hetzelfde: uit de pers, uit bedrijfsdocumenten en uit gesprekken met mensen die de afloop al kenden. Omvang helpt daar niet tegen. Meer besmette waarnemingen leveren geen schonere uitkomst op, alleen een nauwere marge rond dezelfde meetfout. Hij wijst er bovendien op dat de bedrijven die in deze boeken model stonden in de jaren erna vaak terugvielen, wat de studies zelf al hadden kunnen waarschuwen.</p>
+      <h3>Prestatie is betrekkelijk</h3>
+      <p>Een tweede lijn gaat over de aard van bedrijfsresultaat. Prestatie is betrekkelijk: een onderneming kan op elk punt beter worden en toch marktaandeel en winst verliezen omdat de concurrent harder verbeterde. Rosenzweig gebruikt daarvoor onder meer Kmart, dat in de jaren negentig zijn logistiek daadwerkelijk op orde bracht en tegenover Wal-Mart verder achteropraakte.</p>
+      <p>Daar komt regressie naar het gemiddelde bij. Uitzonderlijke resultaten bestaan voor een deel uit toeval, en toeval herhaalt zich niet. Wie bedrijven uitzoekt op een reeks uitzonderlijke jaren en daarna hun terugval verklaart uit verlies van discipline of ambitie, verklaart een statistisch verschijnsel met een moreel verhaal. De studies die blijvend succes in het vooruitzicht stellen hebben daar geen antwoord op.</p>
+      <h3>Wat er overblijft</h3>
+      <p>Het slot is met opzet mager. Rosenzweig verwerpt de gedachte dat er een handleiding bestaat en houdt over dat leidinggeven neerkomt op het nemen van weloverwogen risico in een omgeving die zich niet laat beheersen. Hij haalt daarbij het onderscheid aan dat Robert Rubin maakt tussen de kwaliteit van een besluit en de kwaliteit van de afloop: een goed besluit kan slecht uitpakken en andersom, en alleen het eerste valt te beoordelen op het moment dat het wordt genomen.</p>
+      <p>Wat volgens hem wel helpt: weten hoe de eigen bedrijfstak beweegt, de kans op succes verhogen zonder haar met zekerheid te verwarren, en verhalen over andermans succes lezen als verhalen. Hij eindigt met de opmerking dat managers die dit aanvaarden een minder comfortabel beroep overhouden dan de boekenkast hun voorspiegelt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">halo-effect</td><td>De neiging om vanuit één bekende uitkomst een oordeel over alle overige eigenschappen af te leiden.</td></tr>
+          <tr><td class="term">misvatting van samenhang en oorzaak</td><td>Het lezen van een oorzakelijk verband in gegevens waarin het verband even goed de andere kant op kan lopen.</td></tr>
+          <tr><td class="term">misvatting van de enkele verklaring</td><td>Het toeschrijven van een groot deel van het prestatieverschil aan één factor die in werkelijkheid met andere factoren samenhangt.</td></tr>
+          <tr><td class="term">misvatting van het verbinden van de winnende punten</td><td>Onderzoek dat alleen geslaagde bedrijven bekijkt en daardoor niet kan weten of de mislukte hetzelfde deden.</td></tr>
+          <tr><td class="term">misvatting van gedegen onderzoek</td><td>De aanname dat een grote hoeveelheid gegevens de kwaliteit van die gegevens kan vervangen.</td></tr>
+          <tr><td class="term">misvatting van blijvend succes</td><td>Het geloof dat langdurig uitzonderlijke prestaties de regel kunnen zijn, terwijl terugval naar het gemiddelde het gebruikelijke patroon is.</td></tr>
+          <tr><td class="term">misvatting van absolute prestatie</td><td>Het beoordelen van een onderneming los van wat concurrenten intussen doen, terwijl resultaat altijd betrekkelijk is.</td></tr>
+          <tr><td class="term">misvatting van het verkeerde eind van de stok</td><td>Het omkeren van een geldige uitspraak, alsof uit het feit dat succesvolle bedrijven vaak iets doen volgt dat het tot succes leidt.</td></tr>
+          <tr><td class="term">misvatting van de organisatiefysica</td><td>Het idee dat ondernemingen gehoorzamen aan wetmatigheden met de voorspelbaarheid van natuurwetten.</td></tr>
+          <tr><td class="term">regressie naar het gemiddelde</td><td>De statistische neiging van uitzonderlijke uitslagen om bij een volgende meting dichter bij het gemiddelde te liggen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De bewijslast van dit boek is licht, en dat werkt in zijn voordeel. Rosenzweig hoeft geen nieuw verband aan te tonen; hij hoeft alleen te laten zien hoe de gegevens van bestaande studies zijn verzameld, en dat staat in die studies zelf te lezen. Zijn ontleding van <i>In Search of Excellence</i>, <i>Built to Last</i>, <i>Good to Great</i> en het Evergreen-onderzoek is daardoor na te rekenen op een manier die voor de aangevallen boeken niet geldt.</p>
+      <p>Voor het halo-effect zelf leunt hij op gevestigd psychologisch werk, van Thorndike in 1920 tot het experiment van Staw uit 1975 waarin willekeurige terugkoppeling bepaalde hoe deelnemers hun eigen groepsproces beschreven. Voor de statistische punten, regressie naar het gemiddelde en de zeldzaamheid van langdurig uitzonderlijke prestaties, verwijst hij naar onderzoek van derden. Eigen empirisch werk levert hij niet, en bij een boek dat vooral iets ontkent is dat ook niet nodig.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat er weinig overblijft. Rosenzweig sloopt de recepten en zet er een houding tegenover: neem verstandig risico, weet dat toeval meespeelt, verwar een verhaal niet met bewijs. Dat klopt en het is nauwelijks te gebruiken. Recensenten wezen daar bij verschijnen al op, en het verklaart waarom het boek de literatuur die het aanvalt niet heeft verdrongen: die biedt iets waar hij niets voor in de plaats stelt.</p>
+      <p>Daarnaast legt hij een maatstaf aan die vrijwel geen onderzoek naar organisaties haalt. Wanneer terugblikkend verzamelde gegevens onbruikbaar zijn omdat de waarnemer de afloop kent, verdwijnt met het populaire genre ook het grootste deel van het vakgebied, inclusief studies waar hij zelf naar verwijst. Die consequentie trekt hij niet.</p>
+      <p>En zijn aanval bewijst minder dan zij lijkt te bewijzen. Dat de metingen van Collins besmet zijn maakt diens conclusies niet onjuist, het maakt ze onbewezen. Rosenzweig behandelt die twee op plaatsen als hetzelfde, en doet de aangevallen studies op onderdelen tekort: <i>Good to Great</i> selecteerde wel degelijk op financiële maatstaven over een reeks jaren en werkte met vergelijkingsbedrijven, ook al lost dat het halo-probleem in de daaropvolgende gesprekken niet op.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij elke uitspraak over de oorzaak van bedrijfssucces wanneer de gegevens zijn verzameld en of de verzamelaar de afloop al kende.</li>
+        <li>Beoordeel prestaties naast die van concurrenten; verbetering op zichzelf zegt niets over de uitkomst.</li>
+        <li>Scheid bij het beoordelen van een besluit de kwaliteit van de afweging van de kwaliteit van de afloop.</li>
+        <li>Wees bij een reeks uitzonderlijke jaren bedacht op terugval naar het gemiddelde voordat er een verklaring in cultuur of leiderschap wordt gezocht.</li>
+        <li>Lees bedrijfsportretten in de pers als een oordeel over de recente cijfers en niet als beschrijving van de werkwijze.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Het halo-effect</i> (Business Contact, Amsterdam, 2007, 222 blz., ISBN 9789047000587), vertaald door Tijmen Roozenboom. Oorspronkelijk verschenen als <i>The Halo Effect ... and the Eight Other Business Delusions That Deceive Managers</i> (Free Press, New York, 2007, 232 blz., ISBN 9780743291255); latere Engelse drukken bevatten een nawoord over de financiële crisis.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Phil Rosenzweig, hoogleraar aan het Zwitserse instituut IMD, keert zich tegen het genre dat beweert het geheim van bedrijfssucces te hebben gevonden. Zijn aanval richt zich op de gegevens waar die boeken op rusten. Wie een onderneming goed ziet presteren, kleurt daarna ook zijn oordeel over de cultuur, de leiding, de klantgerichtheid en de uitvoering van diezelfde onderneming. Dat verschijnsel heet het halo-effect, en het maakt achteraf verzamelde gegevens over bedrijven onbruikbaar als verklaring, omdat het te verklaren resultaat de meting van de veronderstelde oorzaken al heeft gestuurd.</p><p>Rosenzweig bespreekt negen misvattingen, waaronder het verwarren van samenhang met oorzaak, het geloof in één verklaring en de aanname dat prestaties absoluut zijn in plaats van betrekkelijk. Hij loopt daarmee door de bronnen van <i>In Search of Excellence</i>, <i>Built to Last</i>, <i>Good to Great</i> en het Evergreen-onderzoek, en laat zien dat die studies hun verklarende gegevens uit krantenknipsels en terugblikkende gesprekken haalden. Wat er overblijft is minder geruststellend dan een recept: strategie is het nemen van risico onder onzekerheid, prestaties zijn betrekkelijk, en toeval speelt mee. Het boek werd in 2007 op de Frankfurter Buchmesse tot managementboek van het jaar gekozen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>management</li><li>onderzoek</li><li>besluitvorming</li><li>statistiek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="353"><a href="353.html">Good to Great</a>. Collins levert het onderzoek dat Rosenzweig het uitvoerigst ontleedt; de twee boeken naast elkaar maken de discussie concreet.</li>
+          <li value="64"><a href="64.html">Fooled by Randomness</a>. Taleb behandelt dezelfde verwarring van toeval met vaardigheid, toegepast op de financiële markten.</li>
+          <li value="55"><a href="55.html">Thinking, Fast and Slow</a>. Kahneman beschrijft de denkgewoonten waaruit het halo-effect voortkomt en behandelt het verschijnsel zelf ook.</li>
+          <li value="908"><a href="908.html">Good Strategy Bad Strategy</a>. Rumelt schrijft het soort strategieboek dat Rosenzweigs bezwaar moet doorstaan, en doet dat maar ten dele.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

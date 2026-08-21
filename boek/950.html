@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Beak of the Finch &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Natuurlijke selectie is geen langzaam proces dat zich alleen in fossielen laat aflezen, maar een kracht die van jaar tot jaar meetbaar is bij levende…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-950">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">950 &middot; Natuur en wetenschap</p>
+    <h1>The Beak of the Finch</h1>
+    <p class="lede">Jonathan Weiner, 1994</p>
+    <p class="stats">
+      <span><b>1462</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="950"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Natuurlijke selectie is geen langzaam proces dat zich alleen in fossielen laat aflezen, maar een kracht die van jaar tot jaar meetbaar is bij levende dieren in het wild. De metingen van de Grants aan Darwins vinken laten zien dat een enkel droog of nat seizoen de gemiddelde bouw van een populatie meetbaar verschuift, en dat de richting van die verschuiving met het weer omslaat. Weiner trekt daaruit de conclusie dat de mens, met bestrijdingsmiddelen en antibiotica, ongewild het grootste selectie-experiment uit de geschiedenis uitvoert en de uitkomst daarvan al aan den lijve ondervindt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een eiland als laboratorium</h3>
+      <p>Daphne Major is nauwelijks meer dan een uitgedoofde krater in zee, zonder schaduw, zonder zoet water en zonder vaste bewoners. Juist die kaalheid maakt het bruikbaar: de populatie is klein genoeg om volledig te kennen. De Grants en hun promovendi ringen elke vogel, meten snavellengte, snavelhoogte, snavelbreedte, vleugellengte en gewicht, en houden bij wie met wie broedt en wie het overleeft.</p>
+      <p>Weiner beschrijft dat werk in zijn volle eentonigheid: maanden kamperen, dagelijks dezelfde vogels vangen, dezelfde maten nemen, en het geduld om jaar na jaar terug te komen. Het gaat om reeksen die pas na decennia iets zeggen. Het boek maakt van dat wachten het eigenlijke onderwerp.</p>
+      <h3>De droogte van 1977</h3>
+      <p>In 1977 viel er op Daphne vrijwel geen regen. Er kwamen geen nieuwe zaden bij, de vogels aten eerst de kleine en zachte zaden op, en wat overbleef waren onder meer de harde vruchtjes van de kruipende Tribulus. Om die te kraken is kracht nodig, en kracht komt van een hoge, dikke snavel. De sterfte was zwaar en volgde niet het toeval.</p>
+      <p>De metingen laten het verschil zien. Onder de overlevende middelste grondvinken was de gemiddelde snavel langer en hoger geworden: de lengte ging van 10,68 naar 11,07 millimeter en de hoogte van 9,42 naar 9,96 millimeter. Dat lijkt niets, maar het is het verschil tussen een zaad kraken en verhongeren. Omdat snavelmaat sterk erfelijk is, kwam het verschil terug bij de jongen van het volgende broedseizoen. Selectie was hier geen redenering maar een uitkomst met een foutmarge.</p>
+      <h3>De omslag van 1983</h3>
+      <p>Dan komt El Niño. In het natte seizoen van 1983 viel er 1359 millimeter regen op Daphne, ongeveer tienmaal het eerder gemeten maximum. Het eiland liep vol met klimplanten, en de zaden die overheersten waren nu klein en zacht. Vogels met een kleinere snavel konden die sneller verwerken, en de selectie draaide om.</p>
+      <p>Dat is het belangrijkste inzicht van het boek. Natuurlijke selectie is niet een langzame duw in een vaste richting maar een reeks scherpe zetten die elkaar deels opheffen. Wat in de fossielen als stilstand oogt, kan in werkelijkheid een heftig heen en weer zijn geweest. Weiner besteedt een hoofdstuk aan de eenheid waarin evolutietempo wordt uitgedrukt, de darwin van Haldane, en aan het gegeven dat over korte perioden gemeten tempo's ordes van grootte hoger uitvallen dan die uit fossiele reeksen.</p>
+      <h3>Soorten met poreuze grenzen</h3>
+      <p>Het tweede deel gaat over soortvorming. Op Daphne broeden meerdere soorten grondvinken, en zij kruisen af en toe. Na 1983 bleken sommige kruisingen het juist beter te doen dan de zuivere lijnen, omdat het voedselaanbod was veranderd. De grens tussen de soorten blijkt dus niet vast maar afhankelijk van de omstandigheden.</p>
+      <p>Daar komt bij dat de partnerkeuze deels aangeleerd is: jonge mannetjes nemen de zang van hun vader over en vrouwtjes kiezen op zang. Een vergissing in dat leerproces kan een kruising opleveren. Weiner behandelt ook karakterverschuiving, waarbij twee soorten die samen op een eiland leven verder uit elkaar groeien dan wanneer zij apart voorkomen. Splitsing en samensmelting zijn in deze beschrijving twee richtingen van hetzelfde proces.</p>
+      <h3>Hetzelfde mechanisme buiten de Galapagos</h3>
+      <p>Het derde deel verlaat het eiland. Weiner behandelt resistentie tegen bestrijdingsmiddelen, resistentie tegen antibiotica, de gepeperde motten van de Engelse industriegebieden, de guppen die John Endler in Trinidadse beken volgde en de zeepbesluizen die zich aan een nieuwe waardplant aanpasten. Steeds is het patroon hetzelfde: een scherpe verandering in de omgeving, een deel van de populatie dat toevallig beter past, en binnen enkele generaties een verschoven gemiddelde.</p>
+      <p>Zijn punt is dat de mens die scherpe veranderingen op wereldschaal aanbrengt. Wie een gewas jaar na jaar met hetzelfde middel bespuit, voert een selectieproef uit met een uitkomst die vastligt. De resistente ziekteverwekker is geen ongeluk maar het te verwachten gevolg.</p>
+      <h3>Terug naar Darwin</h3>
+      <p>Het slot keert terug naar de <i>Origin of Species</i> en naar Darwins eigen twijfel. Hij had geen enkel geval waarin selectie in actie te zien was en moest het doen met fokkers en met redeneringen. Weiner betoogt dat de Grants precies dat ontbrekende stuk hebben geleverd, met cijfers en foutmarges.</p>
+      <p>In de epiloog behandelt hij de weerstand tegen die conclusie, van creationisme tot algemener ongemak bij het idee dat soorten geen vaste grootheden zijn. Het boek eindigt niet met een pleidooi maar met de vaststelling dat de vinken van Daphne blijven veranderen zolang het weer verandert.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Geospiza fortis</td><td>De middelste grondvink, de soort waaraan de Grants de duidelijkste selectie op snavelmaat konden meten.</td></tr>
+          <tr><td class="term">selectiedruk</td><td>De mate waarin een omgevingsverandering het overleven en voortplanten van bepaalde varianten begunstigt boven andere.</td></tr>
+          <tr><td class="term">oscillerende selectie</td><td>Selectie die van richting wisselt met de omstandigheden, zodat het gemiddelde van een populatie heen en weer beweegt in plaats van door te schuiven.</td></tr>
+          <tr><td class="term">darwin</td><td>Door J.B.S. Haldane voorgestelde eenheid voor evolutietempo, waarmee snelheden uit veldwerk en uit fossiele reeksen vergelijkbaar worden gemaakt.</td></tr>
+          <tr><td class="term">karakterverschuiving</td><td>Het verschijnsel dat verwante soorten die samen voorkomen verder uit elkaar groeien dan wanneer zij gescheiden leven, doordat concurrentie de overlap afstraft.</td></tr>
+          <tr><td class="term">hybridisatie</td><td>Kruising tussen vinkensoorten die op Daphne af en toe optreedt en waarvan de nakomelingen onder bepaalde voedselomstandigheden juist in het voordeel zijn.</td></tr>
+          <tr><td class="term">erfelijkheidsgraad van snavelmaat</td><td>Het aandeel van de verschillen in snavelmaat dat aan erfelijke aanleg is toe te schrijven; op Daphne hoog genoeg om selectie in de volgende generatie zichtbaar te maken.</td></tr>
+          <tr><td class="term">resistentie</td><td>Het door selectie ontstane ongevoelig worden van insecten, onkruiden of bacteriën voor middelen die tegen hen worden ingezet.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De ruggengraat van het boek is een van de best gedocumenteerde reeksen veldgegevens in de biologie. De Grants meten sinds 1973 vrijwel de gehele vinkenpopulatie van een enkel eiland, individueel geringd, jaar na jaar, en hebben hun resultaten in de vakliteratuur gepubliceerd. De verschuiving van 1977 en de omkering na 1983 zijn geen anekdotes maar reeksen met spreidingsmaten, en het onderzoek is na 1994 doorgegaan en heeft de gerapporteerde patronen bevestigd.</p>
+      <p>Bij het bredere materiaal in het derde deel is de onderbouwing ongelijk. Resistentie tegen antibiotica en bestrijdingsmiddelen is buiten kijf. De gepeperde mot, die Weiner als schoolvoorbeeld gebruikt, kwam na het verschijnen van het boek onder vuur te liggen vanwege de opzet van Kettlewells oorspronkelijke proeven; latere replicaties, met name die van Michael Majerus, hebben het basisverhaal wel overeind gehouden. Wie het boek nu leest, moet dat hoofdstuk met die geschiedenis erbij lezen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De sterkste tegenwerping komt uit het boek zelf. De snavels bewogen na 1983 grotendeels terug naar waar zij vandaan kwamen. Wat de Grants aantoonden is dus dat selectie snel en meetbaar is, niet dat zij zich opstapelt tot iets nieuws. Weiner laat de lezer op verschillende plaatsen van het eerste naar het tweede glijden, waarbij het waargenomen heen en weer moet dienen als bewijs voor het ontstaan van soorten over lange tijd. Dat is een sprong die de gegevens niet dragen.</p>
+      <p>De hoofdstukken over hybridisatie wijzen zelfs de andere kant op: als de soorten op Daphne regelmatig kruisen en de kruisingen soms in het voordeel zijn, is het aannemelijker dat het om een schommelende genenpoel gaat dan om soorten die uit elkaar groeien. Weiner presenteert dat als verrijking van het beeld, terwijl het de kern van het betoog ondergraaft.</p>
+      <p>Verder is dit evenzeer een dubbelportret als een betoog. Weiner bewondert de Grants openlijk, en tegenspraak uit het vak, bijvoorbeeld over het aandeel van toevallige drift bij zulke kleine populaties of over de vraag hoeveel van de gemeten variatie erfelijk is en hoeveel aan voeding ligt, komt nauwelijks aan bod. Wie de discussie wil, moet elders zijn.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Beoordeel claims over snelle evolutie op de vraag of het gemiddelde blijvend verschoven is of alleen tijdelijk uitsloeg.</li>
+        <li>Ga bij het inzetten van een bestrijdingsmiddel of antibioticum uit van resistentie als voorspelbaar gevolg en niet als tegenslag, en wissel of combineer middelen op die grond.</li>
+        <li>Meet in langlopend veldwerk meer dan de grootheid waar het om gaat, omdat pas de combinatie van maten laat zien waardoor een verschuiving werd veroorzaakt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Beak of the Finch: A Story of Evolution in Our Time</i> (Alfred A. Knopf, New York, 1994, 332 blz., ISBN 9780679400035), bekroond met de Pulitzerprijs voor algemene non-fictie in 1995. Nederlandse uitgave: <i>De snavel van de vink</i>, vertaald door Peter Diderich (Contact, Amsterdam, 1994, 357 blz., ISBN 9789025406158).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Darwin dacht dat natuurlijke selectie te traag verloopt om binnen een mensenleven te zien. Peter en Rosemary Grant hebben laten zien dat dat niet klopt. Sinds 1973 meten zij elk jaar de vinken op Daphne Major, een klein en onbewoond eiland in de Galapagos. Alle vogels zijn geringd, en snavellengte en snavelhoogte worden tot op tienden van millimeters vastgelegd. Jonathan Weiner reisde met hen mee en schreef het verslag dat in 1995 de Pulitzerprijs kreeg.</p><p>Het scharnier is de droogte van 1977. De zaadvoorraad raakte op, de zachte zaden het eerst, en wat overbleef waren harde zaden die alleen met een diepe snavel te kraken zijn. Onder de overlevende grondvinken lag de gemiddelde snavel meetbaar hoger, en hun jongen erfden dat. Zes jaar later keerde El Niño de zaak om: 1359 millimeter regen, tienmaal het eerdere natte-seizoensrecord, en ineens loonde een kleine snavel. Weiner gebruikt die heen en weer gaande selectie om te laten zien hoe evolutie in het veld werkelijk verloopt, en breidt dat in het laatste deel uit naar resistentie tegen bestrijdingsmiddelen en antibiotica.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>evolutie</li><li>biologie</li><li>onderzoek</li><li>journalistiek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="951"><a href="951.html">The Mismeasure of Man</a>. Gould laat aan de hand van schedelmetingen zien hoe onbedoelde vooringenomenheid in kwantitatieve biologie sluipt, wat een goede tegenlezing vormt bij Weiners vertrouwen in het meetwerk.</li>
+          <li value="322"><a href="322.html">An Immense World</a>. Yong beschrijft dezelfde dieren van binnenuit, via hun zintuigen, waar Weiner ze vooral als meetobject behandelt.</li>
+          <li value="453"><a href="453.html">The Evolution of Cooperation</a>. Axelrod voert dezelfde selectielogica door op gedrag in plaats van op lichaamsbouw, met toernooien in plaats van eilanden.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

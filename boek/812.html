@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fortune's Formula &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Poundstone stelt dat er één rekenregel bestaat die zowel aan de speeltafel als op de beurs vaststelt hoeveel geld er per keer op het spel gezet hoort te…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-812">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">812 &middot; Geld en ondernemen</p>
+    <h1>Fortune's Formula</h1>
+    <p class="lede">William Poundstone, 2005</p>
+    <p class="stats">
+      <span><b>1898</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="812"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Poundstone stelt dat er één rekenregel bestaat die zowel aan de speeltafel als op de beurs vaststelt hoeveel geld er per keer op het spel gezet hoort te worden, en dat die regel uit de informatietheorie komt in plaats van uit de economie. John Kelly leidde in 1956 uit het werk van Claude Shannon over communicatiekanalen af dat iemand met een voordeel zijn kapitaal het snelst laat groeien wanneer hij telkens een vast deel van zijn vermogen inzet, gelijk aan dat voordeel gedeeld door de uitbetalingsverhouding. Poundstone volgt die regel van Bell Labs via Las Vegas naar Wall Street en betoogt dat de economische wetenschap haar decennialang heeft weggehouden om redenen die meer met de grenzen van vakgebieden te maken hadden dan met de wiskunde zelf.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De draadservice en de entropie</h3>
+      <p>Het boek opent met de draadservice, het telegraafnet waarmee de uitslagen van paardenrennen naar de bookmakers werden geseind. Wie de uitslag een paar seconden eerder had dan zijn tegenpartij, kon nog inzetten op een race die al gelopen was. Poundstone gebruikt die geschiedenis, met Bugsy Siegel en het gevecht om het monopolie op de uitslagen erin, om te laten zien dat informatie in gokkerskringen letterlijk in geld was uit te drukken.</p>
+      <p>Daarna verplaatst het verhaal zich naar Bell Labs. Claude Shannon publiceerde in 1948 <i>A Mathematical Theory of Communication</i>, waarin hij informatie meetbaar maakte als de hoeveelheid onzekerheid die een bericht opheft, en waarin hij aantoonde dat elk kanaal een bovengrens heeft aan wat er foutloos doorheen kan. Zijn collega John Kelly stelde in 1956 in het <i>Bell System Technical Journal</i> de vraag wat die bovengrens betekent voor iemand die met ruisige voorkennis op paarden wedt. Zijn antwoord, in het artikel <i>A New Interpretation of Information Rate</i>, luidde dat de gokker zijn kapitaal het snelst laat groeien wanneer hij per weddenschap een vast deel van zijn vermogen inzet, en dat de groeivoet die daarbij hoort gelijk is aan de informatiesnelheid van het kanaal.</p>
+      <h3>Blackjack</h3>
+      <p>Edward Thorp, wiskundige aan MIT en later in Nieuw-Mexico en Irvine, zag begin jaren zestig dat blackjack te verslaan is omdat de kaarten die al gespeeld zijn de kansen van de rest van de schoen verschuiven. Hij rekende zijn telsysteem door op een IBM 704 en publiceerde het in 1962 als <i>Beat the Dealer</i>. Voor de vraag hoeveel er bij een gunstige stand moest worden ingezet, greep hij naar de regel van Kelly.</p>
+      <p>Shannon en Thorp bouwden daarnaast samen een klein draagbaar rekenapparaat waarmee de baan van de roulettebal was in te schatten, dat sindsdien geldt als een van de eerste draagbare computers. Met de financier Manny Kimmel gingen zij naar Reno en Las Vegas. Die reizen maken de regel voelbaar: een voordeel van een procent is genoeg om te winnen, mits de inzet meebeweegt met het vermogen en klein genoeg blijft om een verliesreeks te overleven.</p>
+      <h3>Van de speeltafel naar Wall Street</h3>
+      <p>Thorp verlegde zijn aandacht naar warrants en converteerbare obligaties, papieren waarvan de prijs wiskundig aan de koers van het onderliggende aandeel vastzit. Met Sheen Kassouf schreef hij daarover in 1967 <i>Beat the Market</i>. De methode kwam neer op het afdekken van de ene positie met de andere, in de geest van wat later de optieprijsformules van Black, Scholes en Merton zouden worden. Vanaf eind jaren zestig paste hij dat toe in het fonds dat later Princeton-Newport Partners ging heten, waar de inzetgrootte opnieuw uit de regel van Kelly kwam.</p>
+      <p>Shannon zelf belegde nauwelijks systematisch. Hij en zijn vrouw Betty kochten een handvol technologieaandelen, waaronder Teledyne, en hielden die tientallen jaren vast. Poundstone zet dat er nuchter naast: de man die de theorie leverde, werd rijk met kopen en niets doen.</p>
+      <h3>De strijd onder de economen</h3>
+      <p>Het middendeel van het boek gaat over de wetenschappelijke ruzie rond de regel. Daniel Bernoulli had in 1738 al voorgesteld om het nut van geld logaritmisch te meten, waarmee dezelfde inzetregel uit een heel ander betoog rolt. Henry Latané en Harry Markowitz steunden het meetkundig gemiddelde als maatstaf voor beleggers; Paul Samuelson en Robert Merton bestreden het.</p>
+      <p>Het bezwaar van Samuelson is dat het maximaliseren van de groeivoet alleen samenvalt met verstandig handelen voor iemand met precies logaritmische voorkeuren en een zeer lange horizon; bij andere voorkeuren is het gewoon de verkeerde inzet. Samuelson dreef dat in 1979 op de spits met een artikel dat volledig uit eenlettergrepige woorden bestond, op het laatste woord na. Poundstone geeft die bezwaren wel weer, maar neigt naar de verklaring dat economen een idee van buiten hun vakgebied hebben afgehouden.</p>
+      <h3>RICO</h3>
+      <p>Het vijfde deel verlaat de wiskunde en gaat over Michael Milken, de handel in obligaties van bedrijven met een lage kredietbeoordeling, en de strafrechtelijke aanval op Wall Street eind jaren tachtig. In december 1987 viel een groep gewapende federale agenten het kantoor van Princeton-Newport binnen. Het openbaar ministerie in New York, onder leiding van Rudolph Giuliani, vervolgde de partners op grond van de RICO-wet, die oorspronkelijk tegen de georganiseerde misdaad was geschreven. Het fonds werd in 1988 opgeheven; de veroordelingen die volgden zijn later in hoger beroep vernietigd. Thorp, die vanuit Californië werkte, is zelf niet aangeklaagd.</p>
+      <h3>De ondergang van de geleerden</h3>
+      <p>Daarna komt Long-Term Capital Management aan bod, het fonds waaraan Merton en Myron Scholes verbonden waren en dat in 1998 met een geleende balans van tientallen miljarden omviel. Poundstone gebruikt die afloop als tegenbeeld: wie zich aan de regel van Kelly houdt, zet per definitie nooit zoveel in dat volledig verlies mogelijk wordt, omdat de inzet altijd een deel van het resterende vermogen is. Wie met geleend geld boven die grens gaat zitten, vernietigt zijn groeivoet op lange termijn.</p>
+      <h3>Signaal en ruis</h3>
+      <p>Het slotdeel keert terug naar de vraag of markten te verslaan zijn. Poundstone zet de aanhangers van de doelmatige markt tegenover beleggers die aantoonbaar decennialang meer verdienden, en behandelt de regel als een brug tussen beide kampen: zij zegt niets over waar een voordeel vandaan komt, alleen wat ermee te doen valt als het er is. Hij noemt beleggers die de regel met zoveel woorden gebruiken, waaronder Bill Miller van Legg Mason, en de vaststelling van Buffett-biograaf Robert Hagstrom dat de gedachtegang aansluit bij hoe Buffett zijn posities weegt. Ook staat er wat er in de praktijk van komt: de volledige inzet volgens Kelly geeft koersschommelingen die vrijwel niemand uithoudt, zodat beheerders in de regel een halve of een kwart inzet aanhouden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Kelly-criterium</td><td>De regel die voorschrijft welk deel van het vermogen per weddenschap wordt ingezet: bij een uitbetaling van één op één is dat het voordeel zelf, en in het algemeen het voordeel gedeeld door de uitbetalingsverhouding.</td></tr>
+          <tr><td class="term">voordeel</td><td>Het verschil tussen de werkelijke kans op winst en de kans die in de aangeboden quotering of prijs verwerkt zit, oftewel de verwachte opbrengst per ingezette euro.</td></tr>
+          <tr><td class="term">informatie-entropie</td><td>Bij Shannon de maat voor de onzekerheid in een bericht, en daarmee voor de hoeveelheid informatie die het opheffen van die onzekerheid oplevert.</td></tr>
+          <tr><td class="term">kanaalcapaciteit</td><td>De bovengrens aan de informatie die per tijdseenheid foutloos door een communicatiekanaal past; bij Kelly valt die grens samen met de hoogst haalbare groeivoet van het kapitaal.</td></tr>
+          <tr><td class="term">meetkundig gemiddelde rendement</td><td>Het samengestelde rendement per periode, dus wat er na herbelegging werkelijk overblijft, tegenover het rekenkundig gemiddelde dat verliezen te licht weegt.</td></tr>
+          <tr><td class="term">logaritmisch nut</td><td>De aanname van Bernoulli dat elke volgende euro minder toevoegt naarmate iemand rijker is, waarbij het nut meeloopt met de logaritme van het vermogen.</td></tr>
+          <tr><td class="term">gokkersruïne</td><td>De uitkomst waarin iemand door een reeks verliezen zonder geld komt te staan en niet meer kan meespelen, ongeacht hoe gunstig zijn kansen op papier waren.</td></tr>
+          <tr><td class="term">halve Kelly</td><td>De praktijk om de helft van de berekende inzet te nemen, wat de meeste groei behoudt en de koersschommelingen sterk verkleint.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De wiskundige kern van het boek staat vast. Het resultaat van Kelly is een stelling met een bewijs, geen empirische bewering, en de eigenschappen die Poundstone opsomt zijn afleidbaar: de regel levert op de lange duur het hoogste eindvermogen, bereikt elk gekozen doelbedrag in de kortste verwachte tijd en gaat nooit failliet. Wat aan die stelling vastzit, zijn de aannames: de kansen moeten bekend zijn, de weddenschappen moeten zich herhalen en de winst moet telkens herbelegd kunnen worden.</p>
+      <p>De historische lijn rust op archiefwerk en op gesprekken met de betrokkenen, onder wie Thorp zelf, met een notenapparaat en een literatuurlijst van elf bladzijden achterin. Het loopbaanverhaal van Thorp is goed te controleren: zijn telsysteem is gepubliceerd en nagerekend, en zijn fonds boekte in bijna twintig jaar geen enkel verliesjaar. Voor de persoonlijke beleggingsresultaten van Shannon is de onderbouwing dunner, omdat die op eigen opgave en reconstructie berusten.</p>
+      <p>Zwakker is de brug van de speeltafel naar de beurs. Bij blackjack zijn de kansen exact bekend; bij een aandeel zijn zij een schatting. De regel is bijzonder gevoelig voor het overschatten van het eigen voordeel: wie twee keer zoveel inzet als de formule voorschrijft, houdt op lange termijn geen groei over. Poundstone noemt dat probleem, maar behandelt het korter dan de wiskundige elegantie van het resultaat.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar tegen het boek is de manier waarop het de academische tegenstand afdoet. Samuelson en Merton hadden een geldig punt: het maximaliseren van de groeivoet is alleen het juiste gedrag voor iemand met logaritmische voorkeuren, en voor beleggers met een eindige horizon of andere voorkeuren geeft de regel een te grote inzet. Poundstone laat dat argument wel zien, maar plaatst het in een verhaal over vakgebieden die hun terrein verdedigen, waardoor de lezer eerder een winnaar krijgt aangewezen dan een afweging.</p>
+      <p>De regel zegt niets over waar een voordeel vandaan komt. Zonder aantoonbaar voordeel schrijft zij een inzet van nul voor. Dat is de nuchterste boodschap van het boek en tegelijk de minst uitgewerkte: hoe iemand vaststelt dat hij werkelijk een voordeel heeft, en hoe groot dat voordeel dan is, blijft grotendeels buiten beeld.</p>
+      <p>Het boek valt uiteen in twee delen die maar losjes aan elkaar zitten. De hoofdstukken over de draadservice, de maffia, Milken en de RICO-vervolging zijn goed geschreven en historisch interessant, maar dragen weinig bij aan de vraag hoeveel er ingezet moet worden. Wie het boek om de wiskunde leest, komt honderd bladzijden tegen die daar buiten staan.</p>
+      <p>Ten slotte onderschat de opgewekte toon hoe hard een volledige inzet volgens Kelly aankomt. Bij een gewone beursportefeuille geeft die regel posities met tussentijdse dalingen van vele tientallen procenten, en dat de wiskunde een tijdelijke halvering van het vermogen aanvaardbaar noemt, betekent niet dat een belegger die uitzit.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Stel eerst vast of er een aantoonbaar voordeel is; ontbreekt dat, dan schrijft de regel een inzet van nul voor.</li>
+        <li>Reken de inzet uit als aandeel van het huidige vermogen, zodat hij vanzelf krimpt na verlies en groeit na winst.</li>
+        <li>Neem een fractie van de berekende inzet, bijvoorbeeld de helft, zolang de kansen geschat zijn in plaats van bekend.</li>
+        <li>Beoordeel een reeks beslissingen op het samengestelde rendement over de hele reeks.</li>
+        <li>Vermijd elke positiegrootte waarbij één slechte uitkomst het meespelen onmogelijk maakt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Fortune's Formula: The Untold Story of the Scientific Betting System That Beat the Casinos and Wall Street</i> (Hill and Wang, New York, 2005, x + 386 blz., ISBN 9780809046379). Er is geen Nederlandse vertaling gevonden; deze samenvatting is op de Engelse editie gebaseerd. Van dezelfde auteur staat <i>Prisoner's Dilemma</i> (1992) in deze lijst als nr 454.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Poundstone volgt een rekenregel uit de informatietheorie van Bell Labs naar de blackjacktafels van Nevada en vandaar naar de hedgefondsen van Wall Street. John Kelly leidde in 1956 uit het werk van Claude Shannon af hoeveel een gokker met een voordeel per keer hoort in te zetten: een vast deel van zijn vermogen, gelijk aan zijn voordeel gedeeld door de uitbetalingsverhouding. De wiskundige Edward Thorp bracht die regel in de praktijk, eerst met kaarten tellen bij blackjack, daarna in het eerste marktneutrale hedgefonds.</p><p>Het is een verhalend boek met een wiskundige kern, en met een zijlijn over de draadservice, de maffia, Michael Milken en de inval bij Thorps fonds in 1987. De strijd tussen voorstanders van de Kelly-regel en economen als Paul Samuelson en Robert Merton krijgt een eigen deel. Poundstone kiest daarin partij voor de gokkers, wat de zwakste plek van het boek is: de bezwaren van Samuelson zijn wiskundig geldig en worden hier vooral als vakgebiedspolitiek weggezet.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>Kelly-criterium</li><li>kansrekening</li><li>beleggen</li><li>positiegrootte</li><li>wiskunde</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="454"><a href="454.html">Prisoner's Dilemma</a>. Van dezelfde auteur, over speltheorie, de waterstofbom en het leven van John von Neumann; dezelfde werkwijze van wiskunde die in verhaalvorm wordt verteld.</li>
+          <li value="505"><a href="505.html">A Man for All Markets</a>. De eigen terugblik van Thorp op blackjack, warrants en Princeton-Newport, waarin de gebeurtenissen uit dit boek van binnenuit worden beschreven.</li>
+          <li value="504"><a href="504.html">The Kelly Capital Growth Investment Criterion: Theory and Practice</a>. De wetenschappelijke bundel over het Kelly-criterium, met de oorspronkelijke artikelen van Kelly, Latané, Samuelson en Thorp, voor wie de discussie in de brontekst wil volgen.</li>
+          <li value="490"><a href="490.html">The Mathematics of Money Management</a>. Vince werkt de rekenkant van positiegrootte uit tot een handleiding, inclusief wat er misgaat bij het overschatten van het eigen voordeel.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

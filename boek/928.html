@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prometheus Rising &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Wat een mens voor de werkelijkheid houdt is volgens Wilson het product van een handvol inprentingen die in korte gevoelige perioden in het zenuwstelsel…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-928">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">928 &middot; Vrij denken en manipulatie</p>
+    <h1>Prometheus Rising</h1>
+    <p class="lede">Robert Anton Wilson, 1983</p>
+    <p class="stats">
+      <span><b>1675</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="928"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Wat een mens voor de werkelijkheid houdt is volgens Wilson het product van een handvol inprentingen die in korte gevoelige perioden in het zenuwstelsel zijn vastgelegd en die daarna alle waarneming filteren. Het brein werkt in zijn beeld als hardware met software erop: de imprints liggen vast als bedrading, latere conditionering en geleerde kennis zijn zachtere lagen daaroverheen. Wie de eigen programmering niet ter hand neemt, wordt geprogrammeerd door ouders, school, kerk, staat en toeval, en merkt daar niets van, omdat het brein voortdurend bevestiging aandraagt voor wat het al aanneemt. Het achtcircuitmodel dient daarbij tegelijk als diagnose en als routekaart: vier circuits maken de gewone volwassene, vier andere staan open voor wie ze durft aan te zetten.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De Denker en de Bewijzer</h3>
+      <p>Het eerste hoofdstuk zet de motor van het boek neer met een formule die Wilson aan Leonard Orr ontleent: wat de Denker denkt, bewijst de Bewijzer. De Denker kan vrijwel alles aannemen, van een aarde die op de rug van schildpadden rust tot een holle aarde, en de Bewijzer levert daarna de waarnemingen die dat staven. Wilson opent met de anekdote van William James en de oude dame die volhield dat het schildpadden zijn, helemaal naar beneden.</p>
+      <p>Daaruit volgt zijn kernbegrip, de reality tunnel: het model van de wereld waarin iemand leeft en dat hij voor de wereld zelf aanziet. Het tweede hoofdstuk levert de metafoor die de rest van het boek draagt. Het brein is hardware, de programma's zijn software, en de meeste mensen draaien programma's die zij nooit zelf hebben geschreven.</p>
+      <h3>Vier oude circuits en hun inprenting</h3>
+      <p>Het middendeel behandelt de vier circuits die volgens Leary en Wilson bij vrijwel iedereen actief zijn. Het orale bio-overlevingscircuit vormt zich bij de zuigeling en deelt de wereld in voedend en bedreigend. Het anale emotioneel-territoriale circuit komt op wanneer het kind gaat lopen en regelt dominantie en onderwerping. Het semantische circuit bindt tijd via taal, symbolen en gereedschap. Het sociaal-seksuele circuit wordt in de puberteit ingeprent en legt de seksuele rol en de moraal vast.</p>
+      <p>Het scharnier is het begrip imprintkwetsbaarheid: per circuit bestaat een kort venster waarin het zenuwstelsel de eerstvolgende ervaring als definitief aanneemt. Wilson leunt daarbij op het inprentingsonderzoek van Konrad Lorenz, die in 1973 de Nobelprijs voor geneeskunde deelde, en rekt dat uit van jonge ganzen naar de menselijke levensloop. Elk circuit koppelt hij bovendien aan middelen die het aanzetten of verdoven, van opiaten bij het eerste circuit tot alcohol bij het tweede.</p>
+      <h3>Een typologie uit twee assen</h3>
+      <p>Uit de kruising van de eerste twee circuits haalt Wilson een persoonlijkheidsschema. Het eerste circuit levert de as toenadering tegenover terugtrekking, het tweede de as sterkte tegenover zwakte. Dat geeft vier kwadranten, die hij met de oude namen van de temperamenten aanduidt: sanguinisch voor vriendelijke sterkte, flegmatisch voor vriendelijke zwakte, bilieus voor vijandige sterkte en cholerisch voor vijandige zwakte.</p>
+      <p>Hij verbindt die vier vervolgens met de leeuw, de stier, de engel en de adelaar uit Ezechiël, met de vier evangelisten in de katholieke kunst en met personages uit Dickens. Praktisch nut ontleent hij eraan door te voorspellen wie in de spreekkamer belandt: de flegmatische types melden zich vrijwillig bij een therapeut, de vijandige types komen alleen op aandringen van familie of rechter, en de sanguinische types komen vrijwel nooit.</p>
+      <h3>Programmeren en herprogrammeren</h3>
+      <p>Twee hoofdstukken behandelen hoe imprints alsnog te breken zijn. Wilson zet de technieken op een rij die hij overal terugziet, bij het leger, in sektes, bij bekeringen en in therapie: isolatie, uitputting, ontregeling van het dagritme, een gezagsfiguur die de nieuwe werkelijkheid aanreikt en een groep die haar bevestigt. Zijn punt is dat dit neutraal gereedschap is en dat het verschil tussen hersenspoeling en bevrijding in de bedoeling zit, niet in de methode.</p>
+      <p>Elk hoofdstuk sluit met oefeningen. Die lopen uiteen van een week lang overtuigd rondlopen dat er een muntstuk op straat ligt, tot ademhalingsoefeningen en het tijdelijk aannemen van een overtuiging die de lezer verwerpt. Wilson stelt onomwonden dat lezen alleen niets uithaalt en dat het boek zonder die oefeningen weinig waard is.</p>
+      <h3>De vier verdere circuits</h3>
+      <p>De tweede helft beschrijft de circuits die volgens Wilson bij een minderheid aanstaan. Het holistische neurosomatische circuit betreft de beleving van het lichaam en de toestand die religieuze tradities gelukzaligheid noemen. Het collectieve neurogenetische circuit zou toegang geven tot iets wat op Jungs archetypen en op soortgeheugen lijkt. Het metaprogrammeringscircuit is het vermogen om tussen reality tunnels te kiezen in plaats van in één ervan te wonen. Het niet-lokale kwantumcircuit ten slotte knoopt hij vast aan het theorema van Bell.</p>
+      <p>In het hoofdstuk over modellen en misverstanden verantwoordt hij die opzet. Elk model is gereedschap en niet de werkelijkheid, en het achtcircuitschema moet volgens hem als bruikbaar rooster worden gelezen. Op dezelfde bladzijden staat wel de bewering dat de hogere circuits bereikbaar zijn via yoga, via het magische systeem van Crowley en via psychedelica, gepresenteerd op één lijn met het hersenonderzoek.</p>
+      <h3>Het Snafu-principe</h3>
+      <p>Het zestiende hoofdstuk bevat het politieke deel. Het Snafu-principe, dat Wilson eerder in de roman <i>Illuminatus!</i> als Celine's wet opvoerde, luidt in de scherpe versie dat communicatie alleen mogelijk is tussen gelijken. Preciezer geformuleerd stroomt informatie vrij tussen gelijken en raakt zij vervormd zodra er rangorde in het spel is, omdat de lagere partij meldt wat de hogere wil horen.</p>
+      <p>Het gevolg noemt hij rigiditus bureaucraticus: een piramide die door haar eigen rapportagelijnen van de werkelijkheid wordt afgesneden. Nationale veiligheid rekent hij tot de semantische spoken, woorden zonder aanwijsbare inhoud die toch gedrag sturen, en hij stelt dat de jacht op nationale veiligheid zelf de grootste bron van nationale onveiligheid is.</p>
+      <h3>Kwantumevolutie</h3>
+      <p>De slothoofdstukken kijken vooruit. Wilson verwacht levensverlenging, vestiging buiten de aarde en bewuste sturing van de eigen hersentoestanden, en leest de geschiedenis als een versnelling waarin het aantal actieve circuits per generatie toeneemt. De titel verwijst naar Prometheus die het vuur steelt: de soort neemt volgens hem de eigen evolutie over.</p>
+      <p>Deze hoofdstukken zijn het zwakst onderbouwd en het sterkst gedateerd. Ze ademen het Californische futurisme rond Leary aan het eind van de jaren zeventig, met verwachtingen over ruimtekolonies en levensduur die veertig jaar later niet zijn uitgekomen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">imprint</td><td>Een inprenting die het zenuwstelsel in een kort gevoelig venster als definitief aanneemt en die daarna als bedrading werkt in plaats van als aanpasbaar programma.</td></tr>
+          <tr><td class="term">imprintkwetsbaarheid</td><td>De korte periode waarin een circuit openstaat en de eerstvolgende ervaring tot blijvende instelling verheft.</td></tr>
+          <tr><td class="term">reality tunnel</td><td>Het model van de wereld waarin iemand leeft en dat hij voor de wereld zelf aanziet.</td></tr>
+          <tr><td class="term">de Denker en de Bewijzer</td><td>Wilsons aan Leonard Orr ontleende formule dat het denkende deel van de geest van alles kan aannemen en het bewijzende deel daarna de bevestiging levert.</td></tr>
+          <tr><td class="term">bio-overlevingscircuit</td><td>Het eerste en oudste circuit, dat de wereld in voedend en bedreigend verdeelt en zich bij de zuigeling vormt.</td></tr>
+          <tr><td class="term">metaprogrammering</td><td>Het vermogen om tussen reality tunnels te kiezen in plaats van er onwetend in te leven.</td></tr>
+          <tr><td class="term">Snafu-principe</td><td>Wilsons stelling, in <i>Illuminatus!</i> Celine's wet genoemd, dat informatie alleen onvervormd tussen gelijken stroomt en dat rangorde de communicatie stukmaakt.</td></tr>
+          <tr><td class="term">semantisch spook</td><td>Een woord zonder aanwijsbare inhoud, zoals nationale veiligheid, dat toch gedrag en beleid stuurt.</td></tr>
+          <tr><td class="term">rigiditus bureaucraticus</td><td>De verstarring van een organisatie die door haar eigen rapportagelijnen van de werkelijkheid is afgesneden.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is de bewerking van Wilsons proefschrift uit 1979 aan Paideia University, een niet-geaccrediteerde Californische instelling die inmiddels is opgeheven. Eigen onderzoek bevat het niet. Het achtcircuitmodel komt van Timothy Leary en was ook bij Leary een speculatief schema: de circuits zijn nooit als hersenstructuren aangewezen en geen neurologisch handboek kent ze. Waar Wilson zich wel op iets bestaands beroept, is het inprentingsonderzoek van Lorenz en de algemene semantiek van Korzybski, die als taalkritiek serieus te nemen valt.</p>
+      <p>Het stevigste onderdeel staat op de eerste bladzijden. De Denker en de Bewijzer beschrijven wat de psychologie bevestigingsvooroordeel noemt, een effect waarvoor stapels onderzoek bestaan, al haalt Wilson daar niets van aan. Verder rust het betoog op anekdotes, op literaire voorbeelden bij Dickens en Joyce en op verwijzingen naar yoga, Gurdjieff en Crowley, waarbij nergens wordt gemarkeerd wat gemeten is en wat verondersteld. De oefeningen aan het eind van de hoofdstukken zijn nooit getoetst.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar betreft de vermomming. Wilson gebruikt de woordenschat van de biologie, met circuits, bedrading, inprenting en DNA, voor wat in feite metaforen zijn, en leent daarmee gezag dat het materiaal niet heeft. Het model is bovendien zo gebouwd dat geen waarneming het kan weerleggen: wie de hogere circuits niet ervaart, heeft ze eenvoudig nog niet aanstaan. Hetzelfde boek verkondigt intussen dat elk model slechts gereedschap is, en behandelt het schema van Leary vervolgens als vaststaand gegeven.</p>
+      <p>De typologie is een herverpakking van de vier temperamenten, een indeling die de psychologie een eeuw geleden heeft losgelaten omdat zij niets voorspelt, en Wilson geeft geen reden om haar terug te halen. De oefeningen staan daarnaast op gespannen voet met zijn eigen diagnose: een week lang met overtuiging naar muntstukken zoeken en daarna vaststellen dat ze inderdaad opduiken, is precies de werking van de Bewijzer waarvoor het boek waarschuwt, hier ingezet als bewijsmiddel.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Noteer bij een sterke overtuiging welke waarneming haar zou weerleggen; bestaat die niet, dan gaat het om een reality tunnel en niet om een bevinding.</li>
+        <li>Ga bij een conflict eerst na of het over feiten gaat of over rangorde, want in het tweede geval is de informatie al vervormd voordat zij aankomt.</li>
+        <li>Tel bij een organisatierapportage hoeveel lagen het bericht heeft doorlopen en wie het aan wie moest melden.</li>
+        <li>Toets woorden als veiligheid, draagvlak en kwaliteit op aanwijsbare inhoud voordat er beleid op gebouwd wordt.</li>
+        <li>Neem een standpunt dat je verwerpt een week lang serieus als werkhypothese en houd bij wat je dan opvalt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Prometheus Rising</i> (Falcon Press, Phoenix, 1983, 262 blz., ISBN 9780941404198), met een inleiding van Israel Regardie. Het boek is de bewerking van Wilsons proefschrift <i>The Evolution of Neuro-Sociological Circuits</i> (Paideia University, 1979). Herziene uitgave: Hilaritas Press, 2016, 321 blz., ISBN 9780692710609. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Wilson bewerkte zijn proefschrift uit 1979 tot een handboek over de vraag hoe een zenuwstelsel geprogrammeerd raakt. Hij leent daarvoor het achtcircuitmodel van Timothy Leary: vier oude circuits die vrijwel iedereen deelt, voor overleven, territorium en rangorde, taal en gereedschap, en de seksuele en morele rol, en vier verdere circuits die volgens hem bij een minderheid aanstaan. Elk oud circuit krijgt in een kort gevoelig venster een imprint, een inprenting die daarna als bedrading werkt en de rest van het leven kleurt.</p><p>De motor van het boek is een formule die Wilson aan Leonard Orr ontleent: wat de Denker denkt, bewijst de Bewijzer. Elke overtuiging ordent de waarneming zo dat zij bevestigd wordt, waardoor mensen in reality tunnels leven die zij voor de werkelijkheid houden. Daaruit bouwt Wilson een persoonlijkheidsschema, een verklaring voor bureaucratische verstarring die hij het Snafu-principe noemt, en een reeks oefeningen aan het eind van elk hoofdstuk om de eigen inprentingen los te wrikken. Hersenonderzoek, de algemene semantiek van Korzybski, yoga, Gurdjieff en Aleister Crowley staan daarbij op één lijn, zonder dat wordt aangegeven wat gemeten is en wat verondersteld.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>bewustzijn</li><li>psychologie</li><li>esoterie</li><li>denkmodellen</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="925"><a href="925.html">Cosmic Trigger I: Final Secret of the Illuminati</a>. Cosmic Trigger vertelt hetzelfde model van binnenuit, als verslag van wat het met Wilson zelf deed.</li>
+          <li value="930"><a href="930.html">Quantum Psychology</a>. Quantum Psychology is de latere herschrijving van deze stof, met de nadruk op taal in plaats van op circuits.</li>
+          <li value="384"><a href="384.html">The Rape of the Mind</a>. Meerloo beschrijft dezelfde technieken van hersenspoeling vanuit de ervaring van slachtoffers, met een heel andere waardering.</li>
+          <li value="275"><a href="275.html">How to Change Your Mind</a>. Pollan onderzoekt wat psychedelica werkelijk met het brein doen, met het onderzoek dat bij Wilson ontbreekt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

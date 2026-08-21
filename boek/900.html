@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Years with General Motors &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Een grote onderneming valt volgens Sloan te besturen zonder haar te centraliseren, mits de leiding de juiste scheiding aanbrengt: divisies die zelf over…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-900">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">900 &middot; Geld en ondernemen</p>
+    <h1>My Years with General Motors</h1>
+    <p class="lede">Alfred P. Sloan jr., 1964</p>
+    <p class="stats">
+      <span><b>1894</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="900"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Een grote onderneming valt volgens Sloan te besturen zonder haar te centraliseren, mits de leiding de juiste scheiding aanbrengt: divisies die zelf over hun product, hun markt en hun resultaat beslissen, en een hoofdkantoor dat zich beperkt tot beleid, kapitaaltoewijzing en het vergelijkbaar maken van cijfers. Die formule, door hem omschreven als gedecentraliseerde uitvoering onder gecoördineerde controle, vraagt geen sterke man aan de top maar een werkwijze waarin feiten en niet personen de doorslag geven. Het boek voert General Motors op als bewijs: een bedrijf dat in 1920 bijna omviel en tien jaar later de grootste autofabrikant van het land was.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het concern dat Durant naliet</h3>
+      <p>General Motors ontstond vanaf 1908 doordat William Durant autobedrijven, merken en toeleveranciers opkocht en onder een holding bracht. Een bestuurlijk verband tussen die onderdelen was er nauwelijks. Divisiebazen bepaalden zelf wat zij bouwden, hoeveel zij inkochten en welk deel van de kas zij opnamen. In de naoorlogse inzinking van 1920 liep dat mis: de voorraden waren opgelopen zonder dat het hoofdkantoor wist hoe ver, de kas raakte leeg, en Durant, die de koers van zijn eigen aandelen met geleend geld had gesteund, verdween in december van dat jaar uit het bedrijf. Pierre du Pont nam het presidentschap over, met geld en toezicht van het chemieconcern van zijn familie.</p>
+      <p>Sloan, tot dan hoofd van de onderdelendivisie die uit zijn eigen kogellagerfabriek was voortgekomen, had toen al een stuk geschreven dat hij de Organization Study noemde. Het lag klaar op het moment dat er niets meer te verdedigen viel, en werd eind 1920 aangenomen.</p>
+      <h3>Gedecentraliseerde uitvoering, gecoördineerde controle</h3>
+      <p>De studie zet twee eisen naast elkaar die op het eerste gezicht botsen. Elke divisie krijgt volledige verantwoordelijkheid voor haar eigen bedrijf, tot en met het ontwerp van de auto en de winst die erop wordt gemaakt. Tegelijk houdt de centrale leiding het geheel bijeen door beleid vast te stellen, kapitaal toe te wijzen en achteraf te toetsen. Sloan vat dat samen als gedecentraliseerde uitvoering onder gecoördineerde controle, en geeft toe dat de formule intern tegenstrijdig is. Waar de grens precies ligt, moet steeds opnieuw worden bepaald.</p>
+      <p>De uitwerking loopt via staven en commissies. Een centrale staf voor techniek, inkoop, verkoop en onderzoek adviseert zonder gezag over de divisies te hebben; zijn invloed hangt af van de kwaliteit van zijn werk. Commissies waarin divisiebazen en staf samen zitten, dwingen beide partijen hun voorstellen met cijfers te verdedigen. Het bestuur beslist over kapitaal, en wie geld wil, legt een berekening voor. Sloan noemt dat besturen op feiten in plaats van op persoonlijkheden, en dat is de reden dat hij de vergaderorde van General Motors tot in detail beschrijft.</p>
+      <h3>Een auto voor elke beurs en elk doel</h3>
+      <p>Het productbeleid uit 1921 ordent de merken op een prijsladder, van Chevrolet onderaan via Oakland, Oldsmobile en Buick tot Cadillac bovenaan, met licht overlappende prijsklassen. Elk merk krijgt een segment toegewezen zodat de divisies elkaars klanten niet afsnoepen, en het aanbod dekt samen de hele markt. Wie welvarender wordt, kan binnen het concern doorschuiven.</p>
+      <p>De maatstaf was Ford. In 1921 verkocht General Motors 193.275 wagens, bijna dertien procent van de Amerikaanse markt, tegen ruim vijfenvijftig procent voor Ford met zijn ene model. Sloan koos ervoor de Model T niet op prijs te bestrijden, maar er net boven te gaan zitten met een wagen die meer bood voor iets meer geld. Toen de markt verzadigd raakte en kopers gingen vervangen in plaats van voor het eerst kopen, verschoof de concurrentie naar comfort, uiterlijk en betalingsvoorwaarden. In 1927 stopte Ford met de Model T. Tegen 1929 was General Motors de grootste personenautofabrikant van het land, in 1931 de grootste voertuigfabrikant ter wereld.</p>
+      <h3>Betalen, inruilen en elk jaar een nieuw model</h3>
+      <p>Bij dat productbeleid horen drie commerciële vernieuwingen die Sloan uitvoerig behandelt. De General Motors Acceptance Corporation, opgericht in 1919, financierde afbetaling en maakte de auto bereikbaar voor kopers die het bedrag niet ineens hadden. De inruil van de gebruikte wagen werd onderdeel van de transactie, waardoor de tweedehandsmarkt voortaan de prijs van de nieuwe auto mede bepaalde. En het jaarmodel bundelde verbeteringen tot één wisseling per jaar, met vormgeving als verkoopargument; daarvoor haalde het bedrijf in 1927 Harley Earl binnen en richtte het een aparte afdeling voor stijl op.</p>
+      <p>Sloan behandelt deze drie als noodzaak in een verzadigde markt, waarin een nieuwe auto zelden een eerste auto is. De verwijten die er later aan werden gekoppeld, geplande veroudering en verspilling, komen in het boek niet aan de orde.</p>
+      <h3>Besturen met cijfers</h3>
+      <p>Het financiële deel is het meest technische en het minst geciteerde van het boek. Na het voorraaddebacle van 1920 voerde General Motors een voorspellingsstelsel in waarin divisies hun verwachte verkoop en bestellingen periodiek moesten opgeven en dealers hun verkopen elke tien dagen doorgaven, zodat de productie op werkelijke vraag kon worden bijgestuurd. De kas werd centraal beheerd, iets wat onder Durant niet bestond.</p>
+      <p>Investeringsvoorstellen werden beoordeeld op rendement op geïnvesteerd vermogen, berekend tegen een aangenomen normale bezetting zodat divisies met verschillende conjunctuurgevoeligheid vergelijkbaar bleven. Die meetlat had een dubbele functie: zij gaf het hoofdkantoor grip zonder dat het zich met de auto's hoefde te bemoeien, en zij gaf divisiebazen een norm waaraan zij zich konden meten. Beloning werd eraan gekoppeld via een bonusregeling in aandelen, die het management aan de uitkomst van het geheel bond.</p>
+      <h3>Waar het gezag ophield</h3>
+      <p>Het scherpste hoofdstuk gaat over de koperkoelmotor van Charles Kettering, een luchtgekoelde constructie waarvan de onderzoeksafdeling verwachtte dat zij de watergekoelde motor zou verdringen. Kettering en Pierre du Pont zetten door; Chevrolet en Oakland, die het ding moesten bouwen en verkopen, vertrouwden hem niet. In 1923 waren er 759 wagens gemaakt, waarvan er ongeveer honderd bij klanten terechtkwamen. Die werden teruggehaald en vernietigd. Du Pont trad datzelfde jaar af als president en Sloan volgde hem op.</p>
+      <p>Sloan gebruikt het voorval om zijn eigen leer te toetsen. Het hoofdkantoor had een technische keuze doorgedrukt tegen het oordeel in van de divisies die het risico droegen, en dat is precies wat zijn model zou moeten voorkomen. Hij verwijt zichzelf dat hij als bemiddelaar te lang is blijven schikken in plaats van de zaak te beslissen.</p>
+      <h3>Personeel, oorlog en het buitenland</h3>
+      <p>De laatste delen behandelen de onderwerpen die minder in het geheugen zijn blijven hangen. Er is een hoofdstuk over personeels- en arbeidsverhoudingen, waarin de erkenning van de vakbond in de jaren dertig, de latere cao-afspraken en de beloningsregelingen langs dezelfde nuchtere lijn worden beschreven als een investeringsbesluit. Er zijn hoofdstukken over de omschakeling naar oorlogsproductie tussen 1940 en 1945 en over de buitenlandse dochters, waaronder het Duitse Opel en het Britse Vauxhall. Ook de opzet van het onderzoekslaboratorium en van de dealerorganisatie komt aan bod.</p>
+      <p>Het boek eindigt bij Sloans opvatting van leidinggeven als vak: een beroep met een eigen methode, dat door studie en oefening te leren valt en niet aan aanleg gebonden is. Dat is de stelling waarmee hij zijn hele loopbaan verantwoordt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">gedecentraliseerde uitvoering onder gecoördineerde controle</td><td>De bestuursformule waarin divisies zelfstandig ondernemen terwijl het hoofdkantoor beleid, kapitaal en toetsing in handen houdt.</td></tr>
+          <tr><td class="term">Organization Study</td><td>Het stuk uit 1920 waarin Sloan de structuur van General Motors uittekende en dat eind dat jaar door het bestuur werd aangenomen.</td></tr>
+          <tr><td class="term">divisie</td><td>Zelfstandige bedrijfseenheid met eigen product, markt en resultaatverantwoordelijkheid, in dit model de bouwsteen van het concern.</td></tr>
+          <tr><td class="term">centrale staf</td><td>Adviserende deskundigenafdeling zonder gezag over de divisies, bedoeld om kennis te delen zonder te bevelen.</td></tr>
+          <tr><td class="term">beleid</td><td>Vastgelegde regel over een terugkerende kwestie, waarmee de leiding richting geeft zonder de afzonderlijke besluiten over te nemen.</td></tr>
+          <tr><td class="term">coördinatie door commissies</td><td>De werkwijze waarin divisiebazen en staf in gezamenlijke commissies hun voorstellen met cijfers moeten verdedigen.</td></tr>
+          <tr><td class="term">rendement op geïnvesteerd vermogen</td><td>De maatstaf waarmee investeringsvoorstellen en divisies onderling vergelijkbaar werden gemaakt.</td></tr>
+          <tr><td class="term">standaardvolume</td><td>De aangenomen normale bezetting waartegen kosten en rendement werden berekend, zodat conjunctuurschommelingen het oordeel niet vertekenden.</td></tr>
+          <tr><td class="term">productbeleid</td><td>De ordening van de merken op een prijsladder die samen de hele markt dekt, verwoord als een auto voor elke beurs en elk doel.</td></tr>
+          <tr><td class="term">jaarmodel</td><td>De jaarlijkse modelwisseling waarin technische verbeteringen en nieuwe vormgeving werden gebundeld.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing is documentair. Sloan schrijft vanuit het bedrijfsarchief en neemt notities, brieven, verkoop- en marktaandeelcijfers en bestuursstukken op in de lopende tekst, vaak woordelijk. John McDonald bracht de opzet aan, de bedrijfshistoricus Alfred Chandler deed het onderzoek, en het materiaal dat zij ordenden werd korte tijd later de kern van Chandlers eigen studie naar het ontstaan van de divisiestructuur. Voor wie het model wil begrijpen is dat een sterk punt: er staan geen anekdotes op plekken waar cijfers horen.</p>
+      <p>De keerzijde is dat het bewijs uit één bedrijf komt en door dat bedrijf is samengesteld. De juridische afdeling las mee, omdat General Motors vreesde dat de tekst in mededingingszaken zou worden gebruikt, en het manuscript lag daardoor jaren stil. Wat overbleef is een verslag waarin elk besluit achteraf redelijk oogt, omdat de stukken die de redenering steunen zijn opgenomen en de rest niet. Waar de uitkomst tegenviel, zoals bij de koperkoelmotor, dient het geval alsnog als bevestiging van de leer.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat geen enkele beslissing in dit boek verkeerd afloopt zonder dat de leer erdoor wordt bevestigd. Zelfs het ene grote falen bewijst dat het model klopt en dat afwijken ervan straf oplevert. Conflicten tussen personen zijn weggewerkt, wat de tekst zijn rust geeft en tegelijk zijn waarde als historische bron beperkt: wie wil weten hoe de macht binnen General Motors werkelijk verdeeld was, moet bij anderen zijn.</p>
+      <p>Grote delen van de werkelijkheid ontbreken. De bezetting van de fabrieken in Flint in de winter van 1936 op 1937, die het bedrijf dwong de vakbond te erkennen, komt er bekaaid vanaf gezien wat er toen op het spel stond. Over de rol van dochteronderneming Opel in Duitsland in de jaren dertig staat vrijwel niets. Verkeersveiligheid, uitstoot en de gevolgen van de jaarlijkse modelwisseling blijven buiten beeld; de aanklacht van Ralph Nader tegen de Amerikaanse auto-industrie verscheen een jaar na dit boek.</p>
+      <p>Inhoudelijk is de vraag of het recept overdraagbaar is. General Motors decentraliseerde in een groeiende markt met ruime marges, in een bedrijf dat toch al uit losse onderdelen bestond. Latere decennia lieten zien dat dezelfde structuur bij tegenwind traag en naar binnen gekeerd raakt. Het concern dat Sloan bouwde verloor vanaf de jaren zeventig marktaandeel aan fabrikanten die hun productie anders hadden ingericht, en ging in 2009 door een faillissement.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Leg vast welke besluiten bij de eenheid horen en welke bij het hoofdkantoor, en herzie die grens periodiek in plaats van hem als vaststaand te behandelen.</li>
+        <li>Geef adviserende staven geen gezag over de eenheden; laat hun invloed afhangen van de kwaliteit van hun cijfers.</li>
+        <li>Kies een maatstaf waarop eenheden met verschillend risico vergelijkbaar worden, en reken met een aangenomen normale bezetting in plaats van met de stand van het moment.</li>
+        <li>Vraag bij elk investeringsvoorstel eerst om de berekening, voordat er over de uitkomst wordt gesproken.</li>
+        <li>Laat een technische keuze niet doordrukken door een afdeling die het risico van de verkoop niet draagt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>My Years with General Motors</i>, geschreven met de journalist John McDonald en geredigeerd door Catharine Stevens (Doubleday, Garden City NY, 1964, xxv en 472 blz.). Het manuscript lag al vanaf de jaren vijftig klaar; de juridische afdeling van General Motors hield de uitgave jaren tegen uit vrees dat de tekst in mededingingszaken tegen het bedrijf zou worden gebruikt. In 1990 verscheen een heruitgave bij Currency/Doubleday met een inleiding van Peter Drucker (ISBN 9780385042352). Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Alfred Sloan leidde General Motors van 1923 tot 1946 als president en daarna tot 1956 als voorzitter. Hij beschrijft in dit boek hoe een losse verzameling opgekochte autobedrijven een bestuurbaar concern werd. De kern is de organisatiestudie die hij in 1920 opstelde: zelfstandige divisies met eigen verantwoordelijkheid voor product, markt en resultaat, bijeengehouden door een klein hoofdkantoor dat beleid vaststelt, kapitaal toewijst en cijfers vergelijkbaar maakt. Daaromheen bouwde het bedrijf een productlijn met oplopende prijzen van Chevrolet tot Cadillac, jaarlijkse modelwisselingen, afbetaling via een eigen financieringsmaatschappij en inruil van gebruikte wagens.</p><p>Het is geen gewone memoir. Sloan schreef met John McDonald, met de jonge bedrijfshistoricus Alfred Chandler als onderzoeker, en het resultaat leest als een dossier: notities, brieven, marktaandeelcijfers en bestuursstukken uit het archief van het bedrijf. Ruzies en karakters blijven buiten beeld, de redenering loopt langs cijfers. Peter Drucker noemde het bij de heruitgave van 1990 het beste managementboek dat er bestaat. Sindsdien geldt het als de klassieke beschrijving van de gedecentraliseerde onderneming, en als een document dat evenveel verzwijgt als het uitlegt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>management</li><li>organisatie</li><li>leiderschap</li><li>memoir</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="905"><a href="905.html">My Life and Work</a>. Ford beschrijft in zijn eigen boek precies het bestuursmodel dat Sloan verving: één man, één model, geen tussenlaag.</li>
+          <li value="912"><a href="912.html">Toyota Production System</a>. Ohno zoekt de winst in de fabriek zelf, waar Sloan haar in de structuur van het concern zoekt.</li>
+          <li value="907"><a href="907.html">Only the Paranoid Survive</a>. Grove behandelt dezelfde spanning tussen centrale koers en zelfstandige eenheden in een bedrijf dat om de paar jaar van techniek verandert.</li>
+          <li value="293"><a href="293.html">The Innovator's Dilemma</a>. Christensen verklaart waarom een goed bestuurd concern als dat van Sloan juist door zijn eigen meetlat de bocht mist.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

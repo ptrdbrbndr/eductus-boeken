@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Widow's Son &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Wilson zet in dit deel een tweede boek onder het boek. De hoofdtekst vertelt hoe Sigismundo Celine in Parijs wordt opgejaagd, gevangengezet en bewerkt; de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-923">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">923 &middot; Roman en memoir</p>
+    <h1>The Widow's Son</h1>
+    <p class="lede">Robert Anton Wilson, 1985</p>
+    <p class="stats">
+      <span><b>1288</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="923"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Wilson zet in dit deel een tweede boek onder het boek. De hoofdtekst vertelt hoe Sigismundo Celine in Parijs wordt opgejaagd, gevangengezet en bewerkt; de voetnoten vertellen hoe latere geleerden ruzie maken over een filosoof van wie zelfs de naam misschien verzonnen is. Door beide op elkaar te laten inbeuken maakt Wilson één punt: elk verhaal over het verleden, ook het geleerde, is een montage van bronnen die elkaar tegenspreken, en de lezer die één versie kiest doet precies wat de gevangene doet die zijn bewakers gaat geloven. De titel wijst naar dezelfde kwestie. De weduwenzoon is bij de vrijmetselaars de bouwmeester Hiram Abiff, en in handen van Sigismundo's tweede ontvoerders wordt het de aanduiding voor een afstamming die hem een rol in de geschiedenis moet opdringen.</p>
+      </div>
+
+      <h2>De gang van het verhaal</h2>
+      <h3>Vier mannen die staan te wachten</h3>
+      <p>Het boek opent bij de huurmoordenaars: Armand, Lucien, Georges en Pierre, die wachten, elkaar op de zenuwen werken en klagen over hondenpoep op hun schoenen. Wilson geeft ze genoeg ruimte om duidelijk te maken dat het geen boeven uit roeping zijn maar mannen zonder scholing, voedsel of plaats.</p>
+      <p>Wanneer Sigismundo hen doodt, is er niets ridderlijks aan. Hij vecht op ingeslepen reflexen, hij wordt misselijk van zichzelf, en hij hoort een van de stervenden nog een tijd doorpraten. Het is de scherpste correctie die Wilson aanbrengt op het avonturenverhaal dat het boek van buiten lijkt.</p>
+      <h3>Drie levens naast elkaar</h3>
+      <p>Behalve Sigismundo volgt het boek Sir John Babcock en zijn vrouw in Engeland, en Seamus Muadhen, een Ierse visser die na wat de Engelsen zijn familie hebben aangedaan onder de naam John Moon naar Engeland trekt om wraak te nemen en daar niet toe komt.</p>
+      <p>Wilson laat die levens niet samenvloeien tot één plot. Zij worden bijeengehouden door de herinneringen van twee getuigen die later schrijven, priester Benoit en signor Duccio, allebei nuchtere waarnemers die de Franse Revolutie hebben overleefd. Hun teksten zijn het enige in het boek waarop de lezer enigszins kan steunen, en juist daardoor voelbaar tweedehands.</p>
+      <h3>De Bastille en daarna</h3>
+      <p>De eerste gevangenschap is de bekende: de Bastille, met de bureaucratie en de willekeur van de lettre de cachet. Sigismundo komt eruit door zich met aandachtsoefeningen los te maken van de pijn bij de afdaling langs de toren.</p>
+      <p>De tweede gevangenschap is erger omdat er niets aan te ontsnappen valt. Onbekende bewakers houden hem lange tijd vast en werken er stelselmatig naartoe dat hij zichzelf gaat zien als afstammeling van Jezus en dus als iemand met een opdracht. Wilson toont daarmee wat inwijding en hersenspoeling gemeen hebben: beide slopen het beeld dat iemand van zichzelf heeft, en het verschil zit alleen in wat er daarna voor in de plaats komt.</p>
+      <h3>Het boek onder het boek</h3>
+      <p>De voetnoten voeren de Selby op, de filosoof die Flann O'Brien in <i>The Third Policeman</i> verzon en die Wilson met een eigen levensloop uitbreidt. Om hem heen staat een hele geleerdenwereld: de Duitse uitlegger Hanfkopf met zijn vervalsingen, zijn tegenstanders Ferguson en Hamburger, een geknipte en geplakte pornografische foto waarmee een tegenstander te gronde wordt gericht, en de bekering die daarop volgt.</p>
+      <p>Inhoudelijk draait het om de Selby's opvatting van plenumaire tijd, waarin alle tijdstippen tegelijk bestaan, en Wilson betrekt daar het theorema van Bell bij, twee eeuwen na de handeling van de roman. De voetnoten breken de hoofdtekst midden in een gevecht af en zetten de lezer op een andere snelheid, om daarna terug te vallen in een zin als: toen viel de moordenaar.</p>
+      <h3>De wetenschap als kerk</h3>
+      <p>Een van de best gerichte hoofdstukken laat Sir John Babcock met een steen die uit de hemel is gevallen voor een geleerd genootschap verschijnen. Het gezelschap wijst hem af, en de woordvoerder, Sir Charles Nagas, blijkt vooral bekend van zijn stukken in kranten en tijdschriften en heeft zelf niets ontdekt.</p>
+      <p>Wilson had die scène uit een eerdere beschouwing over parapsychologie en over het optreden van James Randi bij de Amerikaanse wetenschapsvereniging AAAS. Zijn punt is dat de vervolging van ketters niet met de kerk verdween maar van instelling veranderde, en dat een geleerd genootschap dat een waarneming bij voorbaat onmogelijk verklaart precies doet wat de Inquisitie deed.</p>
+      <h3>Een boek dat niet afloopt</h3>
+      <p>Het deel eindigt zonder ontknoping. Sigismundo is uit handen van zijn bewakers, weet niet wie ze waren, en de lezer weet het evenmin. De voetnoten laten hun geleerdenruzie in dezelfde onbesliste toestand achter.</p>
+      <p>Dat is bedoeld, en het is ook het risico van de onderneming. Wilson vraagt van zijn lezer dat die het uitblijven van een oplossing als de eigenlijke boodschap opvat, en pas het derde deel brengt Sigismundo verder.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">de Selby</td><td>Fictieve filosoof, overgenomen van Flann O'Brien, wiens leerstellingen en levensloop in de voetnoten door ruziënde geleerden worden bestreden.</td></tr>
+          <tr><td class="term">plenumaire tijd</td><td>De Selby's opvatting dat alle tijdstippen naast elkaar bestaan en dat beweging een misverstand van de waarnemer is.</td></tr>
+          <tr><td class="term">de weduwenzoon</td><td>Bij de vrijmetselaars de bouwmeester Hiram Abiff; in de roman ook de aanduiding waarmee Sigismundo een afstamming van Jezus wordt aangepraat.</td></tr>
+          <tr><td class="term">onuitwisbaar merkteken</td><td>De term van priester Benoit voor wat een geslaagde inwijding in iemand achterlaat, tegenover de sleet van de kerkelijke sacramenten.</td></tr>
+          <tr><td class="term">Hanfkopf</td><td>De Duitse de Selby-uitlegger wiens vervalsingen, wraakacties en ondergang een eigen verhaallijn in de voetnoten vormen.</td></tr>
+          <tr><td class="term">lettre de cachet</td><td>Het koninklijke bevel waarmee iemand zonder proces kon worden opgesloten, in het boek de wettelijke grond onder Sigismundo's eerste gevangenschap.</td></tr>
+          <tr><td class="term">theorema van Bell</td><td>Natuurkundig resultaat uit 1964 dat Wilson in de voetnoten op de tijdsopvatting van de Selby betrekt, ver buiten de tijd van het verhaal.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het historische fundament houdt stand op de punten waar het ertoe doet. De Bastille en de lettre de cachet werkten zoals beschreven, de vervolging van de vrijmetselarij in de katholieke landen is gedocumenteerd, en de spot met het geleerde genootschap dat een steen uit de hemel weigert te erkennen steunt op een echte geschiedenis: de Franse Académie des sciences wees meldingen van meteorieten tot ver in de achttiende eeuw af, en pas het boek van Ernst Chladni uit 1794 en de stenenregen bij L'Aigle in 1803, onderzocht door Jean-Baptiste Biot, maakten er wetenschap van.</p>
+      <p>Het voetnotenapparaat is daarentegen van begin tot eind verzonnen, en dat is de bedoeling. Wilson ontleent de Selby openlijk aan Flann O'Brien en breidt hem uit; wie de verwijzingen natrekt vindt niets, wat de proef is die het boek de lezer voorlegt. Wat de roman over de afstammingsleer beweert is fictie die leunt op stof die sinds <i>Holy Blood, Holy Grail</i> uit 1982 in omloop was en die berust op documenten waarvan Pierre Plantard later heeft toegegeven dat hij ze vervalste.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De sterkste bedenking betreft het middel waar het boek om geroemd wordt. De ondermijnende voetnoot is een vondst van Flann O'Brien, en bij O'Brien dient de Selby één strak volgehouden grap in een kort boek. Wilson rekt hem uit over ruim driehonderd bladzijden, waarbij de vondst een tic wordt: de lezer weet na honderd bladzijden precies wat er komt zodra het lettertype verspringt, en de onderbrekingen kosten de hoofdtekst spanning die zij nergens terugverdient.</p>
+      <p>Daarbij komt dat het boek de nadelen van een middenstuk heeft zonder de winst van een geheel. Het begint zonder inleiding, het eindigt zonder besluit, en het geheel waarnaar het verwijst is er nooit gekomen: Wilson kondigde een vierde deel aan, sprak over vijf delen, en liet bij zijn dood in 2007 drie boeken na. Wie het leest krijgt daardoor een lange, knappe aanloop naar iets wat niet bestaat.</p>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Widow's Son</i>, tweede deel van <i>The Historical Illuminatus Chronicles</i> (Bluejay Books, New York, verspreid door St. Martin's Press, 1985, 343 blz., ISBN 0312944578). Later verschenen edities bij Lynx Books, 1989, bij Roc, 1991, bij New Falcon Publications, 2004, ISBN 1561841633, en bij Hilaritas Press, 2018, ISBN 9780998713441. Er is een Duitse vertaling, <i>Der Sohn der Witwe</i> (Rowohlt, Reinbek, 1992). Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Parijs, 1771. Sigismundo Celine is uit Napels verbannen en wordt in een binnenhof opgewacht door vier ingehuurde messentrekkers. Hij overleeft, en Wilson beschrijft het gevecht zonder enige heldhaftigheid: bloed dat in de laarzen klotst, mannen die stervend over koeien en over hun vader praten. Daarna volgen twee gevangenschappen. De eerste in de Bastille, waaruit hij ontsnapt met technieken van aandachtsbeheersing die hij van de vrijmetselaars leerde. De tweede bij ontvoerders die hem willen laten geloven dat hij van Jezus afstamt.</p><p>Naast Sigismundo lopen twee verhalen mee: dat van Sir John Babcock en zijn vrouw in Engeland, en dat van de Ierse visser Seamus Muadhen, die zich in Engeland John Moon noemt en op wraak zint. Het opvallendste van het boek staat echter onderaan de bladzijde. Wilson bouwt een uitgebreid voetnotenapparaat rond de verzonnen filosoof de Selby, ontleend aan Flann O'Brien, en rond de geleerden die elkaar over hem bestrijden. Die voetnoten onderbreken de hoofdtekst op de spannendste ogenblikken en vertellen ondertussen hun eigen geschiedenis van vervalsingen en academische veten.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>historische roman</li><li>vrijmetselarij</li><li>satire</li><li>complotdenken</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="922"><a href="922.html">The Earth Will Shake</a>. Het eerste deel, dat Sigismundo van Napels naar Parijs brengt en het spel van de genootschappen opzet.</li>
+          <li value="924"><a href="924.html">Nature's God</a>. Het derde en laatste deel, waarin Sigismundo naar Noord-Amerika uitwijkt.</li>
+          <li value="921"><a href="921.html">Masks of the Illuminati</a>. Dezelfde verhouding tussen inwijding en hersenspoeling, uitgewerkt in 1914 met een nakomeling van deze Babcocks.</li>
+          <li value="929"><a href="929.html">The New Inquisition</a>. Wilsons betoog dat het geleerde genootschap dezelfde uitsluiting toepast als de kerk, hier in romanvorm gedemonstreerd.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
