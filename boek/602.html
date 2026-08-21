@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Civilization or Barbarism &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Diop stelt dat de geschiedschrijving over Afrika door de koloniale wetenschap is vervalst en van de grond af opnieuw moet worden opgebouwd. De mensheid is…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-602">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">602 &middot; Geschiedenis en samenleving</p>
+    <h1>Civilization or Barbarism</h1>
+    <p class="lede">Cheikh Anta Diop, 1981</p>
+    <p class="stats">
+      <span><b>1230</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="602"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Diop stelt dat de geschiedschrijving over Afrika door de koloniale wetenschap is vervalst en van de grond af opnieuw moet worden opgebouwd. De mensheid is in Afrika ontstaan, het faraonische Egypte was een zwarte Afrikaanse beschaving en vormt voor Afrika wat de klassieke oudheid voor Europa is: de wortel waaruit een culturele renaissance kan groeien. De vroegste wiskunde, wetenschap en wijsbegeerte ontstonden volgens hem in de Nijlvallei en bereikten van daaruit de Egeïsche wereld. Herstel van dat historische bewustzijn is voor Diop de voorwaarde voor politieke eenwording van Afrika en voor een planetaire beschaving die de mensheid voor barbarij behoedt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Slotsom van een levenswerk</h3>
+      <p>Diop was opgeleid als natuurkundige, leidde het radiokoolstoflaboratorium van het IFAN-instituut in Dakar en had sinds <i>Nations nègres et culture</i> (1954) de stelling verdedigd dat het oude Egypte een zwarte Afrikaanse beschaving was. Dit boek uit 1981 is de synthese van dat programma en bestaat uit twee delen: een paleontologisch-historisch deel over de oorsprong van mens en beschaving, en een sociologisch deel over de wetten die de ontwikkeling van samenlevingen sturen. De Engelse vertaling verscheen in 1991, vijf jaar na zijn dood.</p>
+      <h3>De oorsprong van de mens ligt in Afrika</h3>
+      <p>Het eerste deel verdedigt de monogenese: de hele mensheid stamt uit één Afrikaanse oorsprong, en de raciale verschillen zijn late aanpassingen aan klimaat. Diop bespreekt de toenmalige vondsten en bestrijdt theorieën die de mens meerdere, gescheiden oorsprongen toedichtten. Hij betoogt verder dat de eerste moderne mensen in Europa, naar het toen gangbare beeld van de zogenoemde Grimaldi-mens, negroïde trekken hadden, en wijdt een apart hoofdstuk aan het Atlantisverhaal, dat hij met behulp van radiokoolstofdatering in de historische chronologie probeert te plaatsen.</p>
+      <h3>Egypte als zwarte Afrikaanse beschaving</h3>
+      <p>De kern van het eerste deel is de these dat de oude Egyptenaren zwarte Afrikanen waren. Diop voert daarvoor meerdere lijnen aan: zijn eigen melaninemetingen aan mummiehuid, de getuigenis van Griekse auteurs onder wie Herodotus, de Egyptische zelfaanduiding Kmt, de iconografie, en de culturele en taalkundige banden met de rest van Afrika, van het koningschap tot verwantschapsstelsels. De beschaving van de Nijlvallei is in zijn ogen zuidelijk van oorsprong, opgekomen vanuit Nubië en het binnenland.</p>
+      <h3>Egyptische wetenschap en de Griekse leerlingen</h3>
+      <p>Diop inventariseert wat de Nijlvallei aan kennis voortbracht: de rekenkunde en meetkunde van de papyri Rhind en Moskou, de geneeskunde van de papyrus Edwin Smith, de kalender en de sterrenkunde, en de kosmogonieën van Heliopolis en Hermopolis, die hij als vroege wijsbegeerte leest. Vervolgens wijst hij op de antieke overlevering dat Thales, Pythagoras, Plato en Eudoxus in Egypte studeerden, en concludeert dat de Griekse wetenschap een leerling was voordat zij leermeester werd. Het Griekse wonder is in zijn lezing de voortzetting van een oudere Afrikaanse erfenis.</p>
+      <h3>Twee wiegen en de motor van de geschiedenis</h3>
+      <p>Het tweede deel toetst het marxistische stadiamodel en de zogenoemde Aziatische productiewijze aan Afrikaans materiaal en vindt beide ontoereikend. Diop beschrijft de clan- en stamorganisatie, de verwantschapsstructuren en het ontstaan van staatsvormen, en zet zijn theorie van de twee wiegen uiteen: een zuidelijke wieg van sedentaire landbouwers met matrilineaire afstamming en een noordelijke wieg van nomaden met patriarchale ordening, elk met eigen instituties, waarden en godsdienstige voorstellingen. Ook klasse, ras en revolutie krijgen binnen dat raamwerk hun plaats.</p>
+      <h3>Beschaving of barbarij</h3>
+      <p>Het slot verlaat de geschiedschrijving en wordt programma. Afrika moet volgens Diop zijn talen ontwikkelen, zijn energiebronnen beheersen en zich federaal verenigen, met het herstelde historische bewustzijn als fundament. De titelvraag is aan de hele mensheid gericht: een technische beschaving zonder gedeelde menselijke waarden glijdt af naar barbarij, tot en met nucleaire zelfvernietiging. Tegenover dat vooruitzicht plaatst hij het ideaal van een planetaire beschaving waaraan een herboren Afrika als gelijke deelneemt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">monogenese</td><td>Het ontstaan van de gehele mensheid uit één Afrikaanse oorsprong, met raciale verschillen als latere klimaataanpassing.</td></tr>
+          <tr><td class="term">melaninetest</td><td>Door Diop ontwikkelde meting van melanine in mummiehuid om de huidskleur van oude Egyptenaren vast te stellen.</td></tr>
+          <tr><td class="term">Kmt</td><td>Egyptische zelfaanduiding van het land, door Diop vertaald als land of volk van de zwarten.</td></tr>
+          <tr><td class="term">twee-wiegentheorie</td><td>Model dat een zuidelijke, sedentaire en matrilineaire cultuurkring tegenover een noordelijke, nomadische en patriarchale plaatst.</td></tr>
+          <tr><td class="term">matriarchaat</td><td>Ordening waarin afstamming, erfrecht en aanzien via de moederlijn lopen, volgens Diop kenmerkend voor de zuidelijke wieg.</td></tr>
+          <tr><td class="term">Aziatische productiewijze</td><td>Marxistische categorie voor staten met centrale tribuutheffing, die Diop voor Afrika herziet en deels verwerpt.</td></tr>
+          <tr><td class="term">culturele renaissance</td><td>Het herstel van Afrikaans historisch bewustzijn als motor van politieke, wetenschappelijke en culturele opbloei.</td></tr>
+          <tr><td class="term">barbarij</td><td>Bij Diop de ontsporing van een technische beschaving zonder menselijke waarden, tot en met nucleaire zelfvernietiging.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Diop schreef als getraind natuurwetenschapper met een eigen dateringslaboratorium, en een deel van zijn hoofdlijnen is later bevestigd: de Afrikaanse oorsprong van de moderne mens is sinds het genetische onderzoek van de jaren tachtig en negentig het standaardmodel, en de eis om Egypte als Afrikaanse beschaving te bestuderen klinkt door in de UNESCO-reeks General History of Africa, waaraan hij zelf een hoofdstuk bijdroeg. Op het eerste wereldfestival voor zwarte kunsten in Dakar (1966) werd hij, naast W.E.B. Du Bois, geëerd als de schrijver met de grootste invloed op het zwarte denken van de twintigste eeuw.</p>
+      <p>Voor de Egyptethese beroept Diop zich op het UNESCO-symposium van Caïro (1974), waar hij en Théophile Obenga tegenover een twintigtal egyptologen stonden. Het officiële verslag noteerde dat er geen consensus werd bereikt en dat de twee Afrikaanse geleerden hun stellingen grondig voorbereid verdedigden; aanhangers lezen dat als overwinning, tegenstanders niet. Het bewijs is dus gemengd: sterk waar het op de Afrikaanse oorsprong van de mens en de Afrikaanse context van Egypte aankomt, dun waar afzonderlijke metingen en tekstlezingen het hele gebouw moeten dragen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De hedendaagse egyptologie verwerpt de binaire vraagstelling zwart of wit als anachronisme: de oude Egyptenaren golden er als inheemse Noordoost-Afrikanen met grote regionale variatie en continuïteit tot in het heden. De melaninetest is bekritiseerd om de kleine en late steekproef en om methodische gebreken, en de Grimaldi-these over negroïde eerste Europeanen berust op reconstructies van rond 1900 die allang zijn achterhaald. Ook de ontleningsthese ligt onder vuur: de verhalen over Griekse filosofen die in Egypte studeerden zijn vaak laat en onbetrouwbaar, en classici als Mary Lefkowitz hebben in het afrocentrismedebat betoogd dat het bewijsmateriaal die claims niet draagt. Het Atlantishoofdstuk is speculatief.</p>
+      <p>Tegelijk verdient de kritiek zelf context. Diop schreef tegen een egyptologie die in de negentiende en vroege twintigste eeuw openlijk racistisch was en Egypte buiten Afrika plaatste, en die correctie was raak. Meerdere van zijn brede punten zijn van de marge naar het midden geschoven. Het tweede deel lijdt aan een ander euvel: de twee wiegen zijn ideaaltypen waarvoor gunstig materiaal is geselecteerd, en de politieke slotsom vraagt om een geloofssprong die het historische betoog niet afdwingt. Wie het boek beoordeelt, moet dus per claim wegen en kan met een totaaloordeel geen kant op.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Scheid bij het lezen drie lagen: gevestigde feiten, verdedigbare hypothesen en polemiek.</li>
+        <li>Gebruik het boek als tegenwicht bij oudere literatuur die Egypte buiten Afrika plaatst.</li>
+        <li>Loop de verwijzingen na; Diop citeert bronnen die zelf controleerbaar zijn.</li>
+        <li>Leg de claims over Griekse ontlening naast het werk van critici als Lefkowitz om beide kanten van het debat te kennen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Civilization or Barbarism: An Authentic Anthropology</i> (oorspronkelijk <i>Civilisation ou barbarie</i>, Présence Africaine, Parijs, 1981; Engelse vertaling door Yaa-Lengi Meema Ngemi, Lawrence Hill Books, 1991, 440 blz., ISBN 9781556520488). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl, die wel de Engelse editie bevat; de samenvatting is op de Engelse vertaling gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Slotwerk van de Senegalese natuurkundige en historicus Cheikh Anta Diop (1923-1986), verschenen in 1981 en in 1991 in het Engels vertaald. Diop bundelt dertig jaar onderzoek tot één betoog: de mensheid is in Afrika ontstaan, het oude Egypte was een zwarte Afrikaanse beschaving en de vroege Griekse wetenschap en filosofie hebben zwaar op de Nijlvallei geleund. Het tweede deel toetst marxistische geschiedmodellen aan Afrikaans materiaal en werkt zijn theorie van twee cultuurwiegen uit, een zuidelijke matriarchale en een noordelijke patriarchale.</p><p>Het boek eindigt als pleidooi: Afrika moet zijn geschiedenis terugnemen en zich federaal verenigen, en de mensheid moet kiezen tussen beschaving en barbarij. Diops eis dat Egypte binnen Afrika wordt bestudeerd is inmiddels gemeengoed; zijn scherpere claims, van de melaninetest tot de Griekse ontlening, blijven omstreden. De lezer krijgt zowel een geschiedwerk als het manifest van een school.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>afrika</li><li>egypte</li><li>geschiedschrijving</li><li>antropologie</li><li>racisme</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="521"><a href="521.html">Indigenous and Popular Thinking in América</a>. Indigenous and Popular Thinking in América van Rodolfo Kusch zoekt eveneens een eigen, buiten Europa gewortelde denktraditie, voor Zuid-Amerika.</li>
+          <li value="523"><a href="523.html">I Write What I Like</a>. I Write What I Like van Steve Biko trekt dezelfde lijn door naar de politiek: geestelijke dekolonisatie als voorwaarde voor bevrijding.</li>
+          <li value="56"><a href="56.html">Sapiens</a>. Sapiens biedt het gangbare grote verhaal over de menselijke oorsprong waartegen Diops alternatieve lezing zich laat afzetten.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

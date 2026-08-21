@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Egyptian Philosophers &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Asante stelt dat de geschiedenis van de filosofie in Afrika begint. De oudste denkers met een naam zijn Egyptenaren: Imhotep leefde ruim twee millennia…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-597">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">597 &middot; Geschiedenis en samenleving</p>
+    <h1>The Egyptian Philosophers</h1>
+    <p class="lede">Molefi Kete Asante, 2000</p>
+    <p class="stats">
+      <span><b>1277</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="597"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Asante stelt dat de geschiedenis van de filosofie in Afrika begint. De oudste denkers met een naam zijn Egyptenaren: Imhotep leefde ruim twee millennia voor de Griekse natuurfilosofen, en de Egyptische instructieliteratuur behandelt ethiek, bestuur, rechtvaardigheid en de goede dood lang voordat Athene bestond. Griekse denkers studeerden volgens hem in Egypte en namen begrippen mee die later als Grieks werden geboekstaafd. Het gangbare verhaal dat de wijsbegeerte in Griekenland uit het niets ontstond, is in zijn ogen een koloniale constructie die hersteld moet worden door de Afrikaanse stemmen weer bij naam te noemen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De afrocentrische inzet</h3>
+      <p>Asante schrijft vanuit het programma dat hij zelf Afrocentriciteit doopte: Afrikaanse geschiedenis bekijken met Afrikaanse ogen, met Afrika als handelend middelpunt. Hij bouwt voort op Cheikh Anta Diop, op de Congolese taalkundige Théophile Obenga en op George G.M. James, wiens <i>Stolen Legacy</i> uit 1954 betoogde dat de Griekse filosofie gestolen Egyptische filosofie is. Het boek richt zich nadrukkelijk op een breed publiek en op het onderwijs: de elf portretten moeten de namen leveren die in leerboeken ontbreken.</p>
+      <h3>Wat hier filosofie heet</h3>
+      <p>Asante rekt het begrip filosofie bewust op. De Egyptische leraren schreven geen stelselmatige verhandelingen met argument en tegenargument, maar instructies, spreuken en hymnen. Volgens Asante is dat een andere vorm van hetzelfde: nadenken over waarheid, rechtvaardigheid, spreken, sterven en goed bestuur, samengebald in het begrip Maat, de orde die kosmos en samenleving draagt. Wie filosofie gelijkstelt aan de Griekse vorm, heeft de uitkomst van het onderzoek al in de definitie gestopt.</p>
+      <h3>De oudste namen</h3>
+      <p>De rij opent met Imhotep, de architect van de trappiramide van Djoser rond 2650 voor Christus, later vergoddelijkt als genezer, door Asante gepresenteerd als eerste bij naam bekende geleerde van de wereldgeschiedenis. Daarna volgen Ptahhotep en Kagemni, viziers uit het Oude Rijk aan wie leringen over bescheidenheid, luisteren en rechtvaardig gezag zijn toegeschreven. De leer van Ptahhotep behoort tot de oudste boeken ter wereld en behandelt onder meer de omgang met meerderen en de verleiding van hebzucht.</p>
+      <h3>Koningen, leraren en een boer</h3>
+      <p>Het middendeel portretteert vorstelijke en ambtelijke stemmen: de instructie voor koning Merikare over wijs en menselijk bestuur, de bittere lessen van Amenemhat na een aanslag, de loyalist Sehotepibre, de schrijver Duauf die zijn zoon het schrijversvak aanprijst boven alle handwerk, en Amenhotep, zoon van Hapu, de geleerde bouwmeester. Daarnaast staan Amenemope, wiens leer over innerlijke rust en eerlijkheid doorklinkt in het bijbelboek Spreuken, en Khunanup, de boer wiens pleidooien voor rechtvaardigheid Asante als volksfilosofie leest.</p>
+      <h3>Akhenaten als sluitstuk</h3>
+      <p>De reeks eindigt bij farao Akhenaten, die de zonneschijf Aton tot enige god verhief. Asante presenteert hem als religieus vernieuwer en denker die het goddelijke tot eenheid terugbracht, eeuwen voor het bijbelse monotheïsme. Daarmee krijgt het boek een kop en een staart: van de eerste geleerde tot de eerste monotheïst, allebei Afrikanen.</p>
+      <p>Bij Imhotep hoort ook Asante's meest herhaalde vergelijking: de man die in de traditie als genezer werd vereerd, ging Hippocrates ruim tweeduizend jaar vooraf, en de leer van Ptahhotep is ouder dan alles wat uit Griekenland is overgeleverd. Die ouderdomsclaims kloppen; het zijn de verbindingslijnen daartussen en de latere Griekse ontlening die het geschil vormen.</p>
+      <h3>De Griekse connectie</h3>
+      <p>Door het hele boek loopt de stelling dat Griekse denkers, van Thales tot Plato, in Egypte studeerden en er hun begrippen vandaan haalden. Asante steunt op antieke berichten over Griekse reizen naar Egypte, zoals de reisverhalen bij Herodotus en de latere levensbeschrijvingen die Pythagoras en Plato jaren in Egypte laten doorbrengen, en op de traditie van James en Diop. De geschiedenis van de filosofie moet volgens hem worden herschreven: wat als Grieks wonder wordt onderwezen, is de voortzetting van een oudere Afrikaanse denktraditie waarvan de namen zijn weggelaten.</p>
+      <p>Asante schreef het boek ook als onderwijsman. Hij bouwde aan Temple University het eerste promotieprogramma in African American Studies op en zag dat zelfs daar de filosofiegeschiedenis met Griekenland begon. De elf portretten zijn dus lesmateriaal in de meest letterlijke zin: kort, met naam, datering en kerngedachte per figuur, geschikt om naast een regulier leerboek te leggen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Afrocentriciteit</td><td>Asante's programma om Afrikaanse geschiedenis en cultuur te bestuderen met Afrika als handelend middelpunt in plaats van als object van Europese blikken.</td></tr>
+          <tr><td class="term">Kemet</td><td>De eigen naam van het oude Egypte, door afrocentrische auteurs gebruikt om het land als Afrikaanse beschaving aan te duiden.</td></tr>
+          <tr><td class="term">Maat</td><td>Waarheid, gerechtigheid en kosmische orde, volgens Asante het kernbegrip van de Egyptische wijsbegeerte.</td></tr>
+          <tr><td class="term">instructieliteratuur</td><td>Het genre van leringen van vader op zoon of leraar op leerling waarin het Egyptische denken over goed leven is overgeleverd.</td></tr>
+          <tr><td class="term">Stolen Legacy-these</td><td>De claim van George G.M. James dat de Griekse filosofie gestolen Egyptische filosofie is, door Asante als uitgangspunt genomen.</td></tr>
+          <tr><td class="term">Khunanup</td><td>De welbespraakte boer wiens pleidooien voor rechtvaardigheid Asante opvoert als stem van de gewone Egyptenaar.</td></tr>
+          <tr><td class="term">Aton</td><td>De zonneschijf die Akhenaten tot enige god verhief, voor Asante het bewijs van vroeg Afrikaans monotheïstisch denken.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Een deel van het fundament is solide. De Egyptische teksten bestaan, zijn eeuwen tot millennia ouder dan de Griekse filosofie, en behandelen wel degelijk ethische en bestuurlijke vragen. Dat het bijbelboek Spreuken passages aan de leer van Amenemope ontleent, is gangbare bijbelwetenschap. Ook klopt dat antieke auteurs Griekse bezoeken aan Egypte vermelden en dat de Grieken zelf hoog opgaven van Egyptische ouderdom en kennis. Het pleidooi om Egyptisch denken serieus te nemen als denken vindt inmiddels ook buiten afrocentrische kring weerklank in de vergelijkende filosofie.</p>
+      <p>De verdergaande claim, dat de Griekse filosofie haar kernbegrippen uit Egypte stal, steunt vrijwel geheel op <i>Stolen Legacy</i> en niet op primaire bronnen. Voor stelselmatige Griekse studie aan Egyptische tempelscholen bestaat geen bewijs; de late antieke verhalen daarover zijn eeuwen na dato opgetekend. Bovendien zijn enkele geportretteerden geen historische personen: Khunanup is de hoofdpersoon van een literair verhaal, en van meerdere leringen staat de toegeschreven auteur niet vast. Het boek vermeldt dat onderscheid niet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De wetenschappelijke ontvangst van de onderliggende these is afwijzend. Classica Mary Lefkowitz nam in <i>Not Out of Africa</i> (1996) de Stolen Legacy-traditie uiteen: de chronologie klopt niet, de bronnen zijn laat en legendarisch, en aantoonbare Griekse ontleningen aan Egypte betreffen godsdienst en kunst, geen wijsgerige stelsels. Egyptologen erkennen de rijkdom van de instructieliteratuur, maar wijzen erop dat betoog, definitie en bewijsvoering, de kern van wat sinds de Grieken filosofie heet, er niet in voorkomen. Asante beantwoordt dat bezwaar met een herdefinitie van filosofie, waarmee het geschil deels een woordenstrijd wordt.</p>
+      <p>Als naslagwerk is het boek bovendien mager: het biedt geen nieuwe vertalingen, geen notenapparaat van betekenis en leunt op secundaire literatuur uit de eigen school. Wat overeind blijft, is de terechte vaststelling dat Egyptische denkers met naam en tekst bestonden lang voor de Grieken, en dat leerboeken die met Thales beginnen een verhaal vertellen dat ouder begint. Wie dat punt wil maken, kan het hier vinden; wie bewijs zoekt voor de diefstal-these, vindt het hier niet.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de leer van Ptahhotep of Amenemope in een wetenschappelijke vertaling naast dit boek om zelf te zien wat de teksten wel en niet doen.</li>
+        <li>Gebruik de elf namen als ingang om de Egyptische literatuur te verkennen, en controleer per figuur of het om een historische persoon of een literair personage gaat.</li>
+        <li>Onderscheid bij elke claim of hij over de teksten zelf gaat (controleerbaar) of over Griekse ontlening (omstreden).</li>
+        <li>Neem de vraag mee wat een definitie van filosofie insluit en uitsluit voordat een traditie wordt afgeschreven.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Egyptian Philosophers: Ancient African Voices from Imhotep to Akhenaten</i> (African American Images, Chicago, 2000, xviii + 126 blz., ISBN 9780913543665). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Molefi Kete Asante, hoogleraar aan Temple University en grondlegger van de Afrocentriciteit als academische stroming, portretteert elf denkers uit het oude Egypte: Imhotep, Ptahhotep, Kagemni, Merikare, Sehotepibre, Amenemhat, Duauf, Amenhotep, Amenemope, Khunanup en Akhenaten. Zijn stelling: de wijsbegeerte begon in Afrika, ruim tweeduizend jaar voordat Thales in Griekenland optrad, en de Griekse filosofie dankt haar begrippen aan studie in Egypte.</p><p>Het boek is kort en toegankelijk, bedoeld om deze namen een plaats te geven waar leerboeken met de Grieken beginnen. De Egyptische teksten zelf bestaan echt; de claim dat Griekse denkers hun filosofie uit Egypte haalden, steunt op het omstreden <i>Stolen Legacy</i> van George G.M. James en wordt door classici en egyptologen verworpen. Enkele geportretteerden zijn bovendien literaire personages, geen historische denkers.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>egypte</li><li>filosofie</li><li>afrika</li><li>geschiedenis</li><li>afrocentrisme</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="269"><a href="269.html">The Story of Philosophy</a>. The Story of Philosophy van Will Durant vertelt precies het Grieks-Europese verhaal waar Asante tegen in het geweer komt.</li>
+          <li value="521"><a href="521.html">Indigenous and Popular Thinking in América</a>. Indigenous and Popular Thinking in América van Rodolfo Kusch doet voor Latijns-Amerika wat Asante voor Afrika wil: denken buiten de Europese canon serieus nemen.</li>
+          <li value="523"><a href="523.html">I Write What I Like</a>. I Write What I Like van Steve Biko deelt de overtuiging dat geestelijke bevrijding begint bij het terugwinnen van de eigen geschiedenis.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

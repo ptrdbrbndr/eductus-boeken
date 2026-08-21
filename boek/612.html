@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Het koninkrijk Gods is binnen in u &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Tolstoj stelt dat de leer van Christus geen mystiek stelsel is maar een uitvoerbare levensleer, samengevat in de Bergrede en toegespitst in het gebod om…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-612">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">612 &middot; Filosofie en mystiek</p>
+    <h1>Het koninkrijk Gods is binnen in u</h1>
+    <p class="lede">Leo Tolstoj, 1894</p>
+    <p class="stats">
+      <span><b>1333</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="612"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Tolstoj stelt dat de leer van Christus geen mystiek stelsel is maar een uitvoerbare levensleer, samengevat in de Bergrede en toegespitst in het gebod om het kwaad niet met geweld te weerstaan. Kerk en staat hebben die leer onschadelijk gemaakt: de kerk door haar achter dogma's en sacramenten te verstoppen, de staat door gehoorzaamheid, eed en dienstplicht tot plicht te verheffen. Omdat het koninkrijk Gods binnen in de mens ligt, begint de verandering van de wereld bij de enkeling die weigert aan geweld mee te werken, en geen enkele beroep op orde, vaderland of kerkgezag heft die persoonlijke verantwoordelijkheid op.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De verzwegen traditie van de geweldloosheid</h3>
+      <p>Het boek opent met de reacties op Tolstojs eerdere geschrift <i>Mijn geloof</i>. Tolstoj laat zien dat het gebod uit de Bergrede om het kwaad niet met geweld te weerstaan een lange, stelselmatig doodgezwegen traditie heeft: de vroege kerk vóór Constantijn, de Tsjechische hervormer Petr Chelcicky, de quakers, en Amerikaanse voorvechters van geweldloosheid als William Lloyd Garrison, wiens verklaring van 1838 hij afdrukt, en Adin Ballou, wiens vragenboekje over weerloosheid hij samenvat. Dat deze stemmen telkens vergeten raken, is voor Tolstoj zelf al een teken: de boodschap is te lastig voor kerk en staat om in omloop te blijven.</p>
+      <h3>De afrekening met de kerk</h3>
+      <p>Vervolgens richt Tolstoj zich op de kerken, de Russisch-orthodoxe voorop. Zij noemen de Bergrede onuitvoerbaar, schuiven de verlossing door genade en sacrament naar voren en zegenen ondertussen vaandels, oorlogen en doodvonnissen. Voor Tolstoj is dat geen bijkomstig falen: een instelling die de leer van Christus beheert en tegelijk geweld heiligt, verdraait die leer in haar tegendeel. De ware godsdienst bestaat volgens hem in het volgen van het gebod, en elk leergezag dat daartussen gaat staan is overbodig of schadelijk.</p>
+      <h3>Drie levensopvattingen</h3>
+      <p>Het boek zet drie opvattingen van het leven naast elkaar. In de persoonlijke of dierlijke opvatting leeft de mens voor zichzelf. In de maatschappelijke of heidense opvatting leeft hij voor de groep: gezin, stam, staat, en dit is de opvatting waarop alle bestaande instellingen rusten. In de goddelijke of christelijke opvatting leeft hij voor de bron van het leven zelf, en vallen de grenzen tussen groepen weg. De geschiedenis is voor Tolstoj de trage overgang van de tweede naar de derde opvatting, en het geweldsverbod is precies het punt waar die overgang concreet wordt.</p>
+      <h3>De staat als georganiseerd geweld</h3>
+      <p>In de meest politieke hoofdstukken beschrijft Tolstoj de staat als een bouwwerk van geweld dat zichzelf onzichtbaar maakt. Belasting, politie, rechtspraak en leger rusten uiteindelijk op de bereidheid van gewone mensen om op bevel te doden. De algemene dienstplicht noemt hij de zelfontmaskering van dit stelsel: iedere man wordt persoonlijk voor de keuze gesteld tussen zijn geweten en zijn regering. Patriotisme en staatsplechtigheid werken daarbij als een soort hypnose die het eigen oordeel in slaap brengt; de publieke opinie die door die hypnose heen breekt is voor Tolstoj de werkelijke motor van verandering.</p>
+      <h3>Het treinstation en de gesel</h3>
+      <p>Het slothoofdstuk verankert het betoog in een scène die Tolstoj zelf meemaakte: een trein vol soldaten, onder leiding van een gouverneur, op weg om hongerende boeren in het gouvernement Toela af te ranselen vanwege een grondgeschil met een landheer. Tolstoj ontleedt hoe ieder in die trein, van gouverneur tot soldaat, zijn aandeel voor zichzelf verontschuldigt met dienstplicht, bevel of gezinsbelang, terwijl niemand de daad als geheel zou willen verdedigen. Zo wordt zichtbaar wat het boek beweert: het kwaad in de wereld draait niet op slechte bedoelingen, het draait op gehoorzaamheid.</p>
+      <h3>Het koninkrijk binnen in u</h3>
+      <p>De titel, ontleend aan Lucas 17:21, draagt de slotsom. Het koninkrijk Gods is geen instelling die ergens gesticht moet worden en geen hiernamaals waarop gewacht moet worden; het ligt in het geweten van ieder mens en wordt werkelijkheid in de mate waarin mensen ophouden aan geweld mee te werken. Tolstoj vraagt geen revolutie en geen partijvorming, hij vraagt waarachtigheid: leven naar wat men al weet. Wie dat doet, aanvaardt de gevolgen, van spot tot gevangenis, en juist die weerloze consequentie acht hij aanstekelijker dan enige machtsgreep.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">niet-weerstaan van het kwaad</td><td>Het gebod uit Matteüs 5:39 om het kwaad niet met geweld te beantwoorden, door Tolstoj gelezen als de toetssteen van het hele christendom.</td></tr>
+          <tr><td class="term">de drie levensopvattingen</td><td>De persoonlijke, de maatschappelijke en de goddelijke opvatting van het leven, waarvan de laatste de grenzen van eigenbelang en groep achter zich laat.</td></tr>
+          <tr><td class="term">hypnose van de staat</td><td>Tolstojs aanduiding voor de verdoving van het eigen geweten door patriotisme, plechtigheid en gezagsvertoon.</td></tr>
+          <tr><td class="term">algemene dienstplicht</td><td>Voor Tolstoj het punt waarop het staatsgeweld ieder mens persoonlijk bereikt en dus ook persoonlijk geweigerd kan worden.</td></tr>
+          <tr><td class="term">publieke opinie</td><td>Het gedeelde zedelijke oordeel dat volgens Tolstoj regeringen uiteindelijk dwingt, en dat door enkelingen die weigeren wordt gevormd.</td></tr>
+          <tr><td class="term">kerkelijk christendom</td><td>Tolstojs verzamelnaam voor het geloof van dogma, sacrament en gezag, dat de uitvoerbare leer van de Bergrede zou hebben toegedekt.</td></tr>
+          <tr><td class="term">het koninkrijk Gods</td><td>Naar Lucas 17:21 de werkelijkheid die in het geweten van de mens ligt en zichtbaar wordt zodra mensen naar dat geweten handelen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het betoog rust op drie soorten materiaal. Ten eerste tekstuitleg: Tolstoj leest de evangeliën, vooral de Bergrede, als letterlijk bedoelde levensleer en documenteert hoe theologen dat lezen hebben afgezwakt. Ten tweede historische voorbeelden: de vroege kerk, Chelcicky, de quakers, Garrison en Ballou, plus eigentijdse gevallen van Russische dienstweigeraars wier lot hij beschrijft. Ten derde eigen waarneming, met de strafexpeditie naar Toela als sluitstuk. Binnen zijn premisse, dat de Bergrede het hart van het christendom is, is de redenering hecht en de documentatie voor zijn tijd rijk.</p>
+      <p>De zwakke plek van de bewijsvoering is de premisse zelf. Dat het geweldsverbod letterlijk en onvoorwaardelijk bedoeld is, wordt beweerd en geïllustreerd, geen exegetisch alternatief krijgt serieus weerwoord. Ook de geschiedfilosofische stelling dat de mensheid onderweg is naar de goddelijke levensopvatting is een geloofsuitspraak, geen bevinding. Het boek overtuigt door morele scherpte en door de ontleding van zelfrechtvaardiging, niet door afgewogen weging van tegenargumenten.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het klassieke bezwaar richt zich op de onvoorwaardelijkheid van het niet-weerstaan. Tolstoj geeft geen antwoord op de vraag wat er gebeurt wanneer georganiseerd kwaad op weerloosheid stuit; de twintigste eeuw heeft die vraag met de totalitaire staten alsnog op tafel gelegd, en denkers van Berdjajev tot Orwell hebben betoogd dat Tolstojs leer daar geen begaanbare weg biedt. Ook binnen zijn eigen kamp valt iets aan te wijzen: de geweldloze campagnes van Gandhi en King, die zich op dit boek beriepen, werkten juist met organisatie, strategie en politieke druk, middelen waarvoor Tolstoj weinig ruimte laat omdat hij alles van de enkeling en diens waarachtigheid verwacht.</p>
+      <p>Daarnaast is het boek als tekst onevenwichtig: lange polemieken tegen inmiddels vergeten critici, herhalingen en een geschiedbeeld waarin vooruitgang naar de christelijke levensopvatting als vaststaand wordt aangenomen. De kerkkritiek is bovendien zo totaal dat elke gemeenschapsvorm van godsdienst verdacht wordt; de Russisch-orthodoxe kerk sloot Tolstoj in 1901 uit, en ook lezers die zijn ethiek delen kunnen vinden dat hij het kind met het badwater weggooit. Als erkende klassieker staat het boek niettemin overeind: de ontleding van gehoorzaamheid als drager van het kwaad heeft niets aan geldigheid verloren.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Toets een instelling niet op haar belijdenis maar op wat zij zegent; Tolstojs vraag aan de kerken laat zich aan elke organisatie stellen.</li>
+        <li>Zoek bij een moreel bezwaar het punt waar de eigen medewerking begint; daar ligt volgens dit boek de enige plek waar iemand werkelijk iets kan doen.</li>
+        <li>Wantrouw verontschuldigingen die de eigen rol klein maken omdat anderen bevelen of omdat het gezin brood nodig heeft; de treinscène uit het slothoofdstuk is daarvoor het toetsbeeld.</li>
+        <li>Lees het boek samen met de geschiedenis van Gandhi en King om te zien wat er verandert wanneer geweldloosheid van persoonlijke weigering tot strategie wordt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Het Koninkrijk Gods is binnen in U</i>, oorspronkelijk <i>Tsarstvo Bozjie vnoetri vas</i>, wegens de Russische censuur eerst in vertaling verschenen (Duitse en andere edities, 1894). De Nederlandse vertaling verscheen al in 1895 bij S.L. van Looy en H. Herlings te Amsterdam; recente Nederlandse uitgave in de reeks Tolstojwerken (374 blz., ISBN 9789083305059).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Religieus-ethisch hoofdwerk van de late Tolstoj, geschreven tussen 1890 en 1893 en door de Russische censuur verboden, zodat het in 1894 eerst in vertaling verscheen. Tolstoj betoogt dat de kern van het christendom niet in dogma of ritueel ligt maar in de Bergrede, met als hardste eis het gebod om het kwaad niet met geweld te weerstaan. Kerken die oorlog zegenen en staten die met leger, politie en dienstplicht regeren, zijn met die eis onverenigbaar. Wie het gebod serieus neemt, weigert de eed, de krijgsdienst en de deelname aan georganiseerd geweld.</p><p>Het boek maakte wereldwijd indruk: Gandhi las het in 1894 en noemde het een beslissende invloed op zijn denken over geweldloos verzet, en via hem werkte het door tot in de Amerikaanse burgerrechtenbeweging. Het geldt als klassieker van het christelijk anarchisme en pacifisme.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>christendom</li><li>geweldloosheid</li><li>pacifisme</li><li>ethiek</li><li>staat</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="235"><a href="235.html">War and Peace</a>. War and Peace toont de romanschrijver Tolstoj die dezelfde vragen over geweld, geschiedenis en persoonlijke verantwoordelijkheid nog verhalend onderzoekt.</li>
+          <li value="215"><a href="215.html">Obedience to Authority</a>. Obedience to Authority levert het experimentele bewijs voor wat Tolstoj bij de trein naar Toela beschreef: gewone mensen doen kwaad omdat het bevolen wordt.</li>
+          <li value="390"><a href="390.html">Simone Weil: An Anthology</a>. De anthologie van Simone Weil biedt een verwante religieuze ethiek van aandacht en weigering, geschreven onder de druk van de totalitaire eeuw.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

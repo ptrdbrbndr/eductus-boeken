@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Mystical Christ &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Hall stelt dat het christendom in zijn kern een mysteriereligie is en dat de kerk die kern institutioneel heeft toegedekt. Religie die alleen uit…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-603">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">603 &middot; Filosofie en mystiek</p>
+    <h1>The Mystical Christ</h1>
+    <p class="lede">Manly P. Hall, 1951</p>
+    <p class="stats">
+      <span><b>1244</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="603"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Hall stelt dat het christendom in zijn kern een mysteriereligie is en dat de kerk die kern institutioneel heeft toegedekt. Religie die alleen uit leerstellingen en lidmaatschap bestaat, mist volgens hem het enige dat telt: de persoonlijke geestelijke ervaring waarin een mens het goddelijke rechtstreeks leert kennen. De evangeliën beschrijven onder het oppervlak van het verhaal een universeel inwijdingspad dat ieder mens kan gaan. De historische Jezus toont dat pad; de mystieke Christus is het beginsel dat in ieder mens op ontwaken wacht. Wie de teksten zo leest, vindt er een werkboek voor innerlijke omvorming in plaats van een geloofsbelijdenis.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Religie als ervaring</h3>
+      <p>Het openingshoofdstuk, over het pad van geloof, zet het programma neer: geloof dat alleen instemming met stellingen is, blijft aan de buitenkant staan, en pas de doorleefde ervaring maakt religie werkzaam. Hall schreef het boek als tweede deel bij zijn eerdere bijbelcommentaar en richt zich op de devotionele kant van het christendom. De toon is die van zijn zondagslezingen in Los Angeles: rustig, betogend, gericht op de individuele zoeker en niet op een kerkelijk publiek.</p>
+      <p>De schrijver zelf was toen al dertig jaar een instituut. Hall, geboren in Canada en zonder formele opleiding, publiceerde op zijn 27e het encyclopedische <i>The Secret Teachings of All Ages</i> (1928) en stichtte in 1934 de Philosophical Research Society, met een bibliotheek van tienduizenden esoterische werken. Dit boek is binnen dat oeuvre een buitenbeentje: waar het meeste werk vergelijkend en historisch wil zijn, is dit uitdrukkelijk een boek voor de binnenkamer, over gebed, geloof en de omgang met vertrouwde teksten.</p>
+      <h3>De Essenen als bakermat</h3>
+      <p>Een afzonderlijk hoofdstuk behandelt wat Hall de sociale mystiek van de Essenen noemt, de joodse gemeenschap die volgens klassieke auteurs als Josephus, Philo en Plinius in afzondering leefde, bezit deelde en zich aan studie en reinheid wijdde. Hall neemt de in esoterische kringen oude stelling over dat Jezus in deze kring werd gevormd en dat de evangeliën vanuit Esseense gebruiken begrepen moeten worden. Daarmee geeft hij het christendom een voorgeschiedenis als school in plaats van als plotselinge openbaring.</p>
+      <h3>Jezus, de mensenzoon</h3>
+      <p>Twee hoofdstukken volgen het menselijke leven en het openbare optreden van Jezus. Hall leest de biografische episoden symbolisch: geboorte, doop, verzoeking en verheerlijking markeren stadia die elke leerling op het innerlijke pad doormaakt. De gelijkenissen behandelt hij als psychologische lessen over hoogmoed, vergeving en waakzaamheid. De wonderverhalen ziet hij als aanschouwelijk onderwijs: demonstraties van geestelijke wetten die in beginsel voor ieder mens gelden, geen opschorting van de natuur ten gunste van één persoon.</p>
+      <h3>Het Onzevader en de zaligsprekingen</h3>
+      <p>Het middendeel bevat de meest praktische hoofdstukken: een uitleg van het Onzevader regel voor regel en van de zaligsprekingen als opeenvolgende trappen van bewustzijn. Gebed is bij Hall geen verzoek om gunsten; het is een oefening waarin de bidder zijn eigen wil op het goddelijke afstemt. Deze hoofdstukken laten zien waarvoor het boek bedoeld is: dagelijkse omgang met vertrouwde teksten, met de esoterische duiding als hulpmiddel bij meditatie.</p>
+      <h3>De goddelijke tragedie</h3>
+      <p>De lijdensweek behandelt Hall onder de titel van de goddelijke tragedie. Kruisiging en opstanding volgen volgens hem het patroon van de antieke mysteriedrama's, waarin de kandidaat symbolisch stierf en in een nieuw bewustzijn opstond. De historische vraag wat er in Jeruzalem precies gebeurde, acht hij minder belangrijk dan de innerlijke betekenis: de dood van het kleine ik en de geboorte van het geestelijke ik. Hier komt zijn levenslange studie van mysterietradities het boek binnen.</p>
+      <h3>Christus in u</h3>
+      <p>De slothoofdstukken onderscheiden Christus als godszoon van Jezus als mensenzoon en eindigen met de Paulinische formule van Christus in u, de hoop der heerlijkheid. Het Christusbeginsel is bij Hall universeel: het draagt in andere tradities andere namen, en het christendom heeft er geen alleenrecht op. De godsdienst van de toekomst is voor hem een religie van ervaring waarin instituten dienstbaar zijn aan de innerlijke groei van de gelovige.</p>
+      <p>Die slotsom plaatst het boek in een herkenbare Amerikaanse lijn, van het New Thought-denken tot de theosofie, waarin het christendom wordt herlezen als één gestalte van een universele wijsheidsleer. Hall verschilt van veel genoten in die stroming door zijn gematigde toon: hij valt de kerken niet aan, vraagt geen bekering tot een nieuw stelsel en presenteert zijn lezing als verdieping voor wie de eigen traditie te vlak is geworden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">mystieke Christus</td><td>Het universele goddelijke beginsel dat volgens Hall in ieder mens aanwezig is en op ontwaken wacht.</td></tr>
+          <tr><td class="term">historische Jezus</td><td>De mens Jezus van Nazareth, bij Hall de leraar die het inwijdingspad zichtbaar voorleefde.</td></tr>
+          <tr><td class="term">Essenen</td><td>Joodse gemeenschap uit de oudheid waarin Jezus volgens Hall werd gevormd, bekend uit Josephus, Philo en Plinius.</td></tr>
+          <tr><td class="term">inwijding</td><td>Het stapsgewijze proces van innerlijke omvorming dat Hall in de evangeliegebeurtenissen gecodeerd ziet.</td></tr>
+          <tr><td class="term">mysteriescholen</td><td>Antieke genootschappen met een geheime leer en drama's van dood en wedergeboorte, voor Hall het model van het christendom.</td></tr>
+          <tr><td class="term">geestelijke wet</td><td>Vaste werking in de innerlijke wereld die de wonderverhalen volgens Hall aanschouwelijk maken.</td></tr>
+          <tr><td class="term">Christus in u</td><td>Paulinische formule die Hall leest als de kern van het boek: de goddelijke aanwezigheid in de eigen ziel.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen wetenschappelijke onderbouwing aan en pretendeert die ook niet: er zijn geen noten, geen bronvermeldingen en geen discussie met de bijbelwetenschap van dat moment. De Essenenthese steunt op de klassieke berichten van Josephus, Philo en Plinius en op een negentiende-eeuwse esoterische traditie die Jezus al langer met deze gemeenschap verbond. Hall schreef in 1951, toen van de in 1947 gevonden Dode Zee-rollen nog nauwelijks iets was gepubliceerd, en kon zijn stelling dus niet aan dat materiaal toetsen.</p>
+      <p>De werkelijke basis van het boek is Halls eigen vergelijkende symboliek: overeenkomsten tussen evangelieverhalen en mysterietradities die hij uit decennia lezen bijeenbracht. Die overeenkomsten zijn deels reëel en deels het product van de vergelijking zelf, en het boek biedt geen criterium om die twee uit elkaar te houden. Wat overeind blijft, is de interne samenhang: wie de uitgangspunten aanvaardt, krijgt een consistente lezing van het Nieuwe Testament.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De historisch-kritische bijbelwetenschap deelt vrijwel niets van Halls lezing. De later ontsloten Qumran-teksten lieten juist grote verschillen zien tussen die gemeenschap en de Jezusbeweging, onder meer in de omgang met reinheidsregels en buitenstaanders, en de meeste onderzoekers beschouwen de stelling dat Jezus een Esseen was als onbewezen. Ook het beeld van de mysteriescholen waarop Hall leunt, stamt uit oudere literatuur; het onderzoek sindsdien heeft de parallellen tussen mysteriecultussen en vroeg christendom flink teruggesnoeid.</p>
+      <p>Daarnaast botst de kern van het boek met de traditie die het uitlegt: voor de kerken is Christus geen onpersoonlijk beginsel dat in ieder mens sluimert, en Halls universalisme lost het specifieke van het christelijke geloof op in een algemene mystiek. Wie het boek waardeert, doet dat dan ook meestal om iets anders dan de historische claims: als meditatieboek bij het Onzevader en de zaligsprekingen en als goed geschreven bron over het Amerikaanse esoterische denken van het midden van de twintigste eeuw houdt het zijn plaats.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de hoofdstukken over het Onzevader en de zaligsprekingen als meditatiestof, los van de historische claims.</li>
+        <li>Gebruik het boek als kennismaking met de esoterische leeswijze van vertrouwde bijbelteksten.</li>
+        <li>Toets de Essenenthese aan hedendaagse literatuur over de Dode Zee-rollen voordat die wordt doorverteld.</li>
+        <li>Onderscheid bij elke passage wat uitleg van de tekst is en wat inleg vanuit Halls eigen stelsel.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Mystical Christ: Religion as a Personal Spiritual Experience</i> (Philosophical Research Society, Los Angeles, 1951, 254 blz.; paperback-heruitgave ISBN 9780893145149). Vervolg op <i>How to Understand Your Bible</i> (1943). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl, die van Hall alleen ander werk bevat; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Manly P. Hall (1901-1990), stichter van de Philosophical Research Society in Los Angeles en schrijver van <i>The Secret Teachings of All Ages</i>, schreef dit boek in 1951 als devotioneel vervolg op <i>How to Understand Your Bible</i>. Zijn uitgangspunt: religie is in de eerste plaats een persoonlijke geestelijke ervaring, en leerstellingen komen op de tweede plaats. Hall onderscheidt de historische Jezus van het Christusbeginsel en leest de evangeliën als handboek voor innerlijke groei: de wonderen als demonstraties van geestelijke wetten, het Onzevader en de zaligsprekingen als oefenstof, kruisiging en opstanding als inwijdingsdrama naar het patroon van de antieke mysteriescholen.</p><p>Het boek staat in de Amerikaanse metafysische traditie en leunt op Halls stelling dat Jezus uit de kring van de Essenen voortkwam. Dat schreef hij voordat de Dode Zee-rollen goed ontsloten waren; de latere wetenschap heeft die stelling niet bevestigd. Als bronnenstudie is het boek zwak, als helder geschreven document van het esoterische christendom rond 1950 is het representatief.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>mystiek</li><li>christendom</li><li>esoterie</li><li>spiritualiteit</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="378"><a href="378.html">The Kybalion</a>. The Kybalion komt uit hetzelfde esoterische milieu en presenteert geestelijke wetten als kern van alle tradities.</li>
+          <li value="242"><a href="242.html">Autobiography of a Yogi</a>. Autobiography of a Yogi beschrijft religie als persoonlijke ervaring vanuit de hindoeïstische traditie, met dezelfde universalistische strekking.</li>
+          <li value="102"><a href="102.html">Ingangen tot Een cursus in wonderen</a>. Ingangen tot Een cursus in wonderen behandelt een moderne tekst die het christendom eveneens als innerlijk pad herleest.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

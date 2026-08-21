@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Selections from the Husia &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Karenga stelt dat de heilige literatuur van het oude Egypte de oudste opgetekende geestelijke wijsheid van de mensheid vormt en een Afrikaanse erfenis is…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-596">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">596 &middot; Filosofie en mystiek</p>
+    <h1>Selections from the Husia</h1>
+    <p class="lede">Maulana Karenga, 1984</p>
+    <p class="stats">
+      <span><b>1291</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="596"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Karenga stelt dat de heilige literatuur van het oude Egypte de oudste opgetekende geestelijke wijsheid van de mensheid vormt en een Afrikaanse erfenis is die aan Afrikanen en hun nakomelingen in de diaspora toebehoort. Zwarte Amerikanen zoeken volgens hem geestelijk houvast in geleende geschriften, terwijl de bron van veel van die wijsheid ouder is en uit de Nijlvallei komt. De bundel wil die bron weer toegankelijk maken en dient uitdrukkelijk als aanzet tot een definitief Afrikaans heilig boek, met Maat, de orde van waarheid en gerechtigheid, als morele kern.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Herkomst en opzet</h3>
+      <p>Het boek opent met een voorwoord van Jacob H. Carruthers van het Kemetic Institute in Chicago en een opdracht aan Cheikh Anta Diop, de Senegalese geleerde die opriep de erfenis van het oude Egypte terug te winnen voor de Afrikaanse cultuur. Karenga plaatst zichzelf in die traditie, naast Carter G. Woodson en George G.M. James. In zijn inleiding legt hij uit dat er nooit één Egyptische heilige tekst heeft bestaan; hij heeft teksten uit verspreide bronnen verzameld, geordend in zeven afdelingen en van een zelfbedachte naam voorzien. Husia combineert Hu, het gezaghebbende woord, en Sia, het uitzonderlijke inzicht, de twee scheppingskrachten van de god Ra.</p>
+      <p>De samensteller is geen buitenstaander in dit veld. Karenga, hoogleraar en jarenlang voorzitter van de vakgroep Africana Studies aan California State University Long Beach, ontwierp in 1966 het feest Kwanzaa en ontwikkelde de Kawaida-filosofie, een leer van culturele wederopbouw voor Afro-Amerikanen. De Husia is binnen dat programma de geestelijke pijler: waar Kwanzaa de feestkalender levert, moet deze tekstverzameling het heilige boek worden. Wie het boek beoordeelt, moet het dan ook lezen als wat het wil zijn: een religieus-culturele stichtingsakte in wording, met echte antieke teksten als bouwmateriaal.</p>
+      <h3>Schepping, gebed en lofprijzing</h3>
+      <p>De eerste twee afdelingen bevatten het Boek van het Kennen van de Scheppingen en het Boek van Gebeden en Heilige Lofprijzingen. De scheppingsteksten beschrijven hoe de wereld ontstaat uit het woord en het inzicht van de schepper; de gebeden en hymnen tonen een levende vroomheid die volgens Karenga in niets onderdoet voor de latere psalmen. Elke afdeling krijgt een eigen commentaar waarin hij de teksten in hun context plaatst en zich afzet tegen wat hij de stijve, neerbuigende vertalingen van de egyptologen noemt.</p>
+      <h3>Khun-Anup en de wijze leraren</h3>
+      <p>De derde afdeling brengt het Boek van het Morele Verhaal, het relaas van de boer Khun-Anup die na een onrechtvaardige behandeling met welsprekende pleidooien zijn recht afdwingt, in de egyptologie bekend als de Welbespraakte Boer. Daarna volgt de omvangrijkste afdeling, de Boeken van Wijze Onderrichting, met de leringen van Ptah-Hotep, Kagemni, Kheti, Ani, Amenomope, Ankhsheshonqi en Phebhor. Dit zijn praktische levenslessen over spreken en zwijgen, matigheid, rechtvaardig bestuur en de omgang met meerderen, gelijken en armen, geschreven over een periode van ruim tweeduizend jaar.</p>
+      <h3>Bespiegeling en klacht</h3>
+      <p>De Boeken van Bespiegeling bevatten de meer sombere en zoekende teksten: Khakheper-Ra-Soneb die worstelt met een taal die versleten raakt, de klaagzang van Ipuwer over een omgekeerde wereld, de tweespraak van een levensmoede man met zijn eigen ziel, liederen en de voorspellingen van Neferti. Deze afdeling laat zien dat de Egyptische literatuur naast zekerheid ook twijfel, maatschappijkritiek en doodsverlangen kent.</p>
+      <h3>Deugden verklaren en opstaan als Ra</h3>
+      <p>Het Boek van Deugdverklaringen bundelt autobiografische grafteksten waarin de overledene verantwoording aflegt: brood gegeven aan de hongerige, water aan de dorstige, kleding aan de naakte. De slotafdeling, de Boeken van het Opstaan als Ra, bevat teksten uit de dodenliteratuur: het Boek van het Voortkomen bij Dag, het Boek van Rechtvaardiging met de onschuldverklaringen voor het dodengericht, en het Boek van Opstanding en Verandering. Hier ligt voor Karenga het hart van de Egyptische spiritualiteit: het leven als voorbereiding op een oordeel waarin het hart wordt gewogen tegen de veer van Maat.</p>
+      <h3>Terugkeer naar de bron</h3>
+      <p>Carruthers formuleert in het voorwoord het programma achter de bundel: zwarte mensen hebben geestelijke troost gezocht in de heilige boeken van anderen, terwijl de Egyptische literatuur die boeken duizenden jaren voorafgaat en er aantoonbaar sporen in heeft nagelaten. Het is volgens hem tijd terug te keren naar de bron. Karenga kondigt aan dat deze selectie deel is van een groter werk, een omvattender Husia die als moreel en geestelijk richtsnoer voor Afrikaanse mensen moet dienen zoals andere heilige teksten dat voor hun gelovigen doen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Husia</td><td>Karenga's eigen samenstelling van Hu (gezaghebbend woord) en Sia (uitzonderlijk inzicht), de twee krachten waarmee Ra de wereld schiep.</td></tr>
+          <tr><td class="term">Maat</td><td>De Egyptische orde van waarheid, gerechtigheid en evenwicht, tegelijk kosmisch beginsel en hoogste morele plicht.</td></tr>
+          <tr><td class="term">Boeken van Wijze Onderrichting</td><td>Karenga's naam voor de Egyptische instructieliteratuur, praktische levenslessen van leraren als Ptah-Hotep en Amenomope.</td></tr>
+          <tr><td class="term">Khun-Anup</td><td>De boer die in het morele verhaal met welsprekendheid zijn recht afdwingt, in de egyptologie bekend als de Welbespraakte Boer.</td></tr>
+          <tr><td class="term">Boek van het Voortkomen bij Dag</td><td>De Egyptische naam van wat in het Westen het Dodenboek heet, teksten die de overledene door het hiernamaals leiden.</td></tr>
+          <tr><td class="term">Boek van Rechtvaardiging</td><td>De afdeling met de onschuldverklaringen voor het dodengericht, waarin het hart wordt gewogen tegen de veer van Maat.</td></tr>
+          <tr><td class="term">terugkeer naar de bron</td><td>Het programma uit het voorwoord: geestelijk houvast zoeken in de eigen Afrikaanse traditie in plaats van in geleende geschriften.</td></tr>
+          <tr><td class="term">Kawaida</td><td>Karenga's filosofie van culturele wederopbouw, waarbinnen de Husia als geestelijke pijler naast het feest Kwanzaa staat.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De teksten zelf zijn echt en goed gedocumenteerd: de leer van Ptah-Hotep gaat terug tot het Oude Rijk, en de afhankelijkheid van het bijbelboek Spreuken (22:17 tot 24:22) van de leer van Amenomope wordt in de mainstream-bijbelwetenschap breed aanvaard. Karenga's kernbewering dat Egyptische wijsheid ouder is dan de Thora, de Bijbel en de Koran en er sporen in heeft nagelaten, staat dus op stevige grond. Ook de dodenboekteksten en de klaagliteratuur behoren tot het vaste corpus van de egyptologie.</p>
+      <p>Zwakker is de onderbouwing van de vertalingen zelf. Karenga noemt zijn werk hervertaling, maar geeft geen filologische verantwoording per tekst; de lezer kan niet nagaan waar de brontekst ophoudt en de dichterlijke vrijheid begint. Het boek bevat één pagina literatuurverwijzingen. Wie de teksten wetenschappelijk wil controleren, is aangewezen op edities als die van Miriam Lichtheim.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het grootste bezwaar richt zich op het programma. De ordening in zeven afdelingen, de naam Husia en de presentatie als aanzet tot een Afrikaans heilig boek zijn constructies van Karenga zelf, wat hij overigens ruiterlijk toegeeft. Daarmee is dit geen neutrale bronnenuitgave; de selectie en de toon dienen een religieus-cultureel doel, de opbouw van een eigen traditie rond Kwanzaa en de Kawaida-filosofie. De voorstelling van het oude Egypte als eenduidig zwarte, Afrikaanse beschaving volgt Diop en wordt in de egyptologie genuanceerd: de bevolking van de Nijlvallei wordt daar beschreven als een Noordoost-Afrikaans continuüm dat zich niet in moderne raskaders laat persen.</p>
+      <p>Daarnaast is de bundel dun voor zijn pretentie. Wie de Egyptische literatuur werkelijk wil leren kennen, vindt bij Lichtheim of in andere wetenschappelijke edities meer tekst, meer context en controleerbare vertaalkeuzes. De waarde van dit boek ligt vooral in de toegankelijke, poëtische presentatie en in de culturele daad die het wil zijn; als studie-uitgave schiet het tekort.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de leer van Amenomope naast Spreuken 22 tot 24 om de oudste bekende ontlening in de bijbelse wijsheidsliteratuur zelf te zien.</li>
+        <li>Gebruik de leringen van Ptah-Hotep als spiegel voor gespreksgedrag: eerst luisteren, met mate spreken, de zwakkere niet overschreeuwen.</li>
+        <li>Behandel de bundel als kennismaking en controleer citaten voor serieus gebruik in een wetenschappelijke editie.</li>
+        <li>Weeg bij het lezen steeds mee dat selectie en vertaling een cultureel programma dienen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Selections from the Husia: Sacred Wisdom of Ancient Egypt</i> (The University of Sankore Press, Los Angeles, 1984; tweede druk 1989, 125 blz., ISBN 9780943412061). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Bloemlezing uit de heilige literatuur van het oude Egypte, geselecteerd en opnieuw vertaald door Maulana Karenga, hoogleraar Africana Studies en grondlegger van het feest Kwanzaa. De titel Husia is een eigen samenstelling van twee Egyptische woorden: Hu, het gezaghebbende woord, en Sia, het uitzonderlijke inzicht. Het boek ordent scheppingsteksten, gebeden, het verhaal van Khun-Anup, wijsheidsleren van onder anderen Ptah-Hotep en Amenomope, klaagteksten, deugdverklaringen en dodenboekteksten in zeven afdelingen.</p><p>Karenga draagt het boek op aan Cheikh Anta Diop en presenteert het als eerste stap naar een volwaardig Afrikaans heilig boek, een alternatief voor Thora, Bijbel en Koran. De teksten zelf zijn authentiek en behoren tot de oudste geschreven wijsheid ter wereld; de vrije hervertaling en het religieus-politieke programma eromheen zijn omstreden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>egypte</li><li>religie</li><li>wijsheid</li><li>afrika</li><li>spiritualiteit</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="2"><a href="02.html">Overpeinzingen</a>. Overpeinzingen van Marcus Aurelius is een andere antieke tekst waarin levenskunst en plichtsbesef samenvallen, uit de Grieks-Romeinse traditie die Karenga juist wil aanvullen.</li>
+          <li value="394"><a href="394.html">Tao Te Ching</a>. De Tao Te Ching laat zien hoe een andere oude beschaving woord, orde en juist handelen tot kern van haar wijsheid maakte.</li>
+          <li value="526"><a href="526.html">The Alchemy of Happiness</a>. The Alchemy of Happiness van al-Ghazali toont de islamitische wijsheidstraditie waarvan Karenga de Afrikaanse voorloper wil herstellen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

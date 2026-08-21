@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The White Goddess &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Graves stelt dat de taal van de mythe in heel Europa en het Nabije Oosten oorspronkelijk de taal was van een religie rond een drievoudige maangodin, en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-611">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">611 &middot; Filosofie en mystiek</p>
+    <h1>The White Goddess</h1>
+    <p class="lede">Robert Graves, 1948</p>
+    <p class="stats">
+      <span><b>1432</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="611"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Graves stelt dat de taal van de mythe in heel Europa en het Nabije Oosten oorspronkelijk de taal was van een religie rond een drievoudige maangodin, en dat echte poëzie tot op vandaag niets anders doet dan die godin aanroepen. Het ene Thema van alle ware dichtkunst is de strijd tussen de god van het wassende jaar en de god van het afnemende jaar om de liefde van de godin, die tegelijk moeder, bruid en doodsvrouw van de dichter is. Toen patriarchale stammen met mannelijke hemelgoden de oude ordening verdrongen, ging de godinnenreligie ondergronds in raadsels, alfabetten en verminkte mythen, en de dichter die zijn ambacht serieus neemt moet die verborgen grammatica opnieuw leren lezen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Ontstaan en opzet</h3>
+      <p>Graves schreef de eerste versie van het boek, toen nog <i>The Roebuck in the Thicket</i> geheten, in enkele weken van 1944, in een roes die hij zelf als een soort ingeving beschreef. Na afwijzingen door andere uitgevers nam T.S. Eliot het aan voor Faber and Faber; het verscheen in 1948 en kreeg in 1961 zijn definitieve, uitgebreide vorm. De ondertitel, een historische grammatica van de poëtische mythe, geeft het programma: mythen vormen samen een taal met eigen regels, en wie die regels kent kan verminkte of versleutelde mythen terugvertalen naar hun oorspronkelijke betekenis.</p>
+      <h3>Het ene Thema en de drievoudige godin</h3>
+      <p>De kern van het boek is de stelling dat alle ware poëzie één verhaal vertelt. De godin verschijnt drievoudig, naar de gedaanten van de maan: het jonge meisje van de nieuwe maan, de vrouw van de volle maan, de oude vrouw van de afnemende maan, verbonden met geboorte, liefde en dood. Om haar gunst strijden twee goden, de god van het wassende jaar en zijn duistere tweeling van het afnemende jaar, die elkaar bij midzomer en midwinter afwisselen. De dichter identificeert zich met de god van het wassende jaar en weet dat zijn nederlaag vaststaat.</p>
+      <p>Graves onderscheidt op grond hiervan twee soorten dichtkunst. Muzenpoëzie ontstaat in dienst van de godin en wekt bij de lezer een herkenbare fysieke reactie op, waarvoor Graves de rillende nekharen als proef noemt. Apollinische poëzie is verstandelijke, hoofse verskunst in dienst van de mannelijke rede; volgens Graves is vrijwel de hele klassieke en moderne dichttraditie daartoe vervallen.</p>
+      <h3>De slag der bomen en het raadsel van Taliesin</h3>
+      <p>Het bewijsmateriaal zoekt Graves vooral in middeleeuwse Welshe en Ierse handschriften. Het Welshe gedicht <i>Cad Goddeu</i>, de slag der bomen, leest hij als een versleuteld verslag van een religieuze machtswisseling waarin een alfabetgeheim werd veroverd. Het raadselgedicht <i>Hanes Taliesin</i> behandelt hij als een puzzel waarvan de oplossing uit lettergrepen en namen bestaat, en ook de Ierse <i>Song of Amergin</i> herschikt hij tot een kalendergedicht. Steeds is het procedé hetzelfde: de overgeleverde tekst zou opzettelijk door bardenscholen zijn verhaspeld om de leek buiten te sluiten, en Graves herstelt de volgorde.</p>
+      <h3>Het boomalfabet als kalender</h3>
+      <p>Een groot deel van het boek gaat over het Ierse ogham-alfabet en het daarmee verbonden bomenalfabet Beth-Luis-Nion. Graves betoogt dat de dertien medeklinkers een kalender van dertien maanmaanden vormen, elk gewijd aan een boom met eigen mythische lading, van de berk van het begin tot de vlier van de dood, en dat de klinkers de scharnierpunten van het jaar markeren. Rond deze kalender bouwt hij uitweidingen over heilige bomen, vogels, getallen en feesten in de Keltische, Griekse en Bijbelse overlevering, tot en met een berekening van de verborgen naam van God.</p>
+      <h3>Iconotropie en de omgeschreven mythen</h3>
+      <p>Voor de verhouding tussen oude en nieuwe religie muntte Graves het begrip iconotropie: latere vertellers beschreven oude cultusafbeeldingen die zij niet meer begrepen of niet meer wilden begrijpen, en lazen er een verhaal in dat de nieuwe orde beter uitkwam. Zo zouden veel Griekse en Bijbelse mythen omgekeerde restanten van godinnenverering zijn. Zijn werkwijze om achter die omkeringen te komen noemt hij analeptisch: een bewust teruggrijpen van de verbeelding naar het verleden, waarbij intuïtieve sprongen worden toegelaten die de gangbare wetenschap zich verbiedt.</p>
+      <h3>De godin en de moderne wereld</h3>
+      <p>In de slothoofdstukken keert Graves zich tegen de eigen tijd. De verdringing van de godin door mannelijke goden van rede en techniek acht hij de wortel van een beschaving die de natuur uitput en de poëzie tot versiering heeft verlaagd. Herstel van de dichtkunst vergt volgens hem herstel van eerbied voor de godin, al doet hij geen voorspelling over de vorm waarin dat zou kunnen gebeuren. Juist deze hoofdstukken zijn later gretig gelezen in kringen die een nieuwe natuurreligie zochten.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">de witte godin</td><td>De drievoudige maangodin van geboorte, liefde en dood die volgens Graves de oorspronkelijke godheid van Europa en het Nabije Oosten was.</td></tr>
+          <tr><td class="term">het ene Thema</td><td>Het verhaal dat alle ware poëzie zou vertellen: de strijd van de god van het wassende jaar met zijn tweeling van het afnemende jaar om de liefde van de godin.</td></tr>
+          <tr><td class="term">muzenpoëzie</td><td>Dichtkunst die uit dienst aan de godin ontstaat en herkenbaar is aan de lichamelijke huiver die zij bij de lezer oproept.</td></tr>
+          <tr><td class="term">apollinische poëzie</td><td>Verstandelijke verskunst in dienst van de mannelijke rede, volgens Graves de vervallen vorm die de dichttraditie sinds de klassieken beheerst.</td></tr>
+          <tr><td class="term">iconotropie</td><td>Het door Graves gemunte verschijnsel dat een oude cultusafbeelding door latere vertellers verkeerd wordt gelezen, zodat een mythe ontstaat die de nieuwe religie beter past.</td></tr>
+          <tr><td class="term">analeptische methode</td><td>Graves' werkwijze om met bewust toegelaten intuïtieve sprongen van de verbeelding verloren gegane kennis uit het verleden terug te halen.</td></tr>
+          <tr><td class="term">Beth-Luis-Nion</td><td>Het Ierse bomenalfabet dat Graves als kalender van dertien maanmaanden leest, elk gewijd aan een boom met mythische betekenis.</td></tr>
+          <tr><td class="term">Cad Goddeu</td><td>Middeleeuws Welsh gedicht over een slag der bomen, door Graves ontcijferd als versleuteld verslag van een religieuze machtswisseling.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het bewijsmateriaal bestaat uit teksten die werkelijk bestaan: <i>Cad Goddeu</i> en <i>Hanes Taliesin</i> staan in middeleeuwse Welshe handschriften, het ogham-alfabet is uit Ierse steeninscripties en traktaten bekend, en de klassieke en Bijbelse bronnen die Graves aanhaalt zijn controleerbaar. De bewerking van dat materiaal is echter geheel de zijne. De datering van de gedichten, de veronderstelde bardengeheimen en de kalenderlezing van het alfabet steunen op zijn eigen herschikkingen, en waar een tekst zijn lezing tegenspreekt neemt hij aan dat de tekst verminkt is overgeleverd. Wie de redenering wil natrekken, moet telkens eerst Graves' eigen reconstructie aanvaarden.</p>
+      <p>Graves was geen filoloog en las de Welshe en Ierse bronnen grotendeels in vertaling. Hij presenteerde het boek zelf als het werk van een dichter die met analeptische verbeelding verder springt dan de wetenschap durft, en dat is een eerlijke typering van de status van het bewijs: het boek documenteert een dichterlijke visie, geen houdbare geschiedenis van religie of taal.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Vakwetenschappers hebben het boek vrijwel eenparig verworpen. Keltologen wijzen erop dat Graves de Welshe en Ierse teksten dateert en leest op manieren die de handschriften niet toestaan, en dat het bomenalfabet als kalender een constructie van hemzelf is, deels voortbouwend op even onbetrouwbaar werk van Edward Davies en Roderick O'Flaherty. Oudhistorici en archeologen vinden voor een gedeelde voorhistorische godinnenreligie van Europa en het Nabije Oosten geen bewijs; het beeld van een verdrongen matriarchale oerreligie gold in de negentiende eeuw als hypothese en is sindsdien verlaten. De historicus Ronald Hutton behandelt <i>The White Goddess</i> dan ook als literaire schepping die grote invloed kreeg op het moderne heidendom, niet als betrouwbare studie.</p>
+      <p>Daar komt een methodisch bezwaar bij dat ook welwillende lezers treft: de redenering is circulair. Het ene Thema wordt eerst als sleutel aangenomen en vervolgens in elk gedicht teruggevonden, waarbij afwijkend materiaal tot verminking of opzettelijke versleuteling wordt verklaard. Zo is de stelling onweerlegbaar gemaakt. De blijvende betekenis van het boek ligt elders: als poëtica, als bron van de drievoudige godin in wicca en aanverwante stromingen, en als voorbeeld van hoe overtuigend een geleerde verbeelding kan ogen wanneer zij zich niets aantrekt van de regels van het vak.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het boek als poëtica en als mythografische verbeelding, en ontleen er geen feitelijke geschiedenis van Kelten, Grieken of Hebreeën aan.</li>
+        <li>Gebruik het begrip iconotropie als waarschuwing bij elke bronlezing: wie een beeld niet meer begrijpt, vult het in naar eigen voorkeur, en dat geldt ook voor Graves zelf.</li>
+        <li>Wie de invloed van het boek op het moderne heidendom wil begrijpen, kan de drievoudige godin van wicca hier op haar herkomst nalezen.</li>
+        <li>Leg naast elke aanlokkelijke totaalverklaring de vraag welk denkbaar materiaal haar zou kunnen weerleggen; bij dit boek is het antwoord ontnuchterend.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The White Goddess: A Historical Grammar of Poetic Myth</i> (Faber and Faber, Londen, 1948; herziene en uitgebreide editie 1961, 511 blz.; Amerikaanse paperback bij Farrar, Straus and Giroux, ISBN 9780374504939). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Literaire mythografie van de Engelse dichter en romanschrijver Robert Graves, in een eerste versie geschreven in enkele weken van 1944 en na afwijzingen elders door T.S. Eliot bij Faber aangenomen. Graves betoogt dat alle ware poëzie teruggaat op één Thema: de verering van een drievoudige maangodin van geboorte, liefde en dood, die in de bronstijd door patriarchale hemelgoden zou zijn verdrongen. Hij onderbouwt dat met eigenzinnige lezingen van middeleeuwse Welshe en Ierse teksten, waaronder het raadselgedicht <i>Cad Goddeu</i> en het Ierse boomalfabet ogham, dat hij als geheime kalender ontcijfert.</p><p>Vakwetenschappers, keltologen voorop, verwerpen het boek als geschiedschrijving: de methode is associatief en de bewijsvoering circulair. Als document van de dichterlijke verbeelding en als bron van het moderne neopaganisme, dat er de drievoudige godin aan ontleende, is het niettemin invloedrijk gebleven.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>mythologie</li><li>poëzie</li><li>godin</li><li>keltische traditie</li><li>neopaganisme</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="410"><a href="410.html">the hero with a thousand faces</a>. The Hero with a Thousand Faces zoekt in dezelfde jaren naar één oerpatroon achter alle mythen, met vergelijkbare zeggingskracht en vergelijkbare methodische zwakte.</li>
+          <li value="357"><a href="357.html">De mens en zijn symbolen</a>. De mens en zijn symbolen geeft de psychologische duiding van mythische beelden waar Graves een historische claim aan verbindt.</li>
+          <li value="143"><a href="143.html">Maps of Meaning</a>. Maps of Meaning is een latere poging om mythische structuren als betekeniskaart van de menselijke geest te lezen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

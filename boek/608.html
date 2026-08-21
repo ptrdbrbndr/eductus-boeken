@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Het gewijde en het profane &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Eliade stelt dat de religieuze mens in een andere werkelijkheid leeft dan de moderne: voor hem zijn ruimte en tijd ongelijksoortig. Waar het heilige zich…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-608">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">608 &middot; Filosofie en mystiek</p>
+    <h1>Het gewijde en het profane</h1>
+    <p class="lede">Mircea Eliade, 1957</p>
+    <p class="stats">
+      <span><b>1295</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="608"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Eliade stelt dat de religieuze mens in een andere werkelijkheid leeft dan de moderne: voor hem zijn ruimte en tijd ongelijksoortig. Waar het heilige zich toont, ontstaat een vast punt, een centrum van waaruit de wereld bewoonbaar wordt; in het feest keert de sterke tijd van de oorsprong terug en wordt het scheppingswerk van goden of voorouders opnieuw tegenwoordig. Religie is daarmee geen stel opvattingen over een andere wereld, zij is een manier om in deze wereld te bestaan. De moderne mens die zich volledig profaan waant, vergist zich bovendien: zijn feesten, inwijdingsachtige beproevingen en verhalen dragen gedegradeerde vormen van dezelfde patronen, want het gewijde behoort tot de structuur van het bewustzijn.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Vertrekpunt na Otto</h3>
+      <p>In het voorwoord positioneert Eliade zich uitdrukkelijk tegenover Rudolf Otto: waar die de ervaring van het heilige beschreef, wil Eliade het heilige in zijn verschijningsvormen vatten. Zijn grondbegrip is de hierofanie, letterlijk het verschijnen van het heilige: een steen, een boom of een mens blijft wat hij is en wordt tegelijk iets volstrekt anders, drager van een andere orde. Gewijd en profaan zijn voor Eliade twee bestaanswijzen die de mens in de geschiedenis heeft aangenomen, en het boek is opgezet als rondgang langs vier terreinen: ruimte, tijd, natuur en het menselijk bestaan zelf.</p>
+      <h3>Gewijde ruimte</h3>
+      <p>Voor de religieuze mens is ruimte ongelijksoortig: rond een geopenbaard vast punt wordt uit de chaos een kosmos gesticht. Dat centrum wordt verbeeld als wereldas, axis mundi: een paal, berg, tempel of stad die hemel, aarde en onderwereld verbindt. Het huis en de tempel zijn imago mundi, een beeld van de wereld in het klein, en de drempel markeert de grens tussen twee werkelijkheden.</p>
+      <p>Eliade illustreert dit onder meer met de heilige paal van de Australische Achilpa, die hun omzwervingen richting gaf; het voorbeeld werd later berucht doordat Jonathan Z. Smith de etnografische bron naplooide en tot een andere lezing kwam. Nieuw land bewoonbaar maken is in archaïsche culturen een scheppingsdaad herhalen: kosmisering.</p>
+      <h3>Gewijde tijd en de mythen</h3>
+      <p>Gewijde tijd is voor Eliade omkeerbaar: het feest herhaalt de tijd van de oorsprong, illud tempus, en maakt haar opnieuw tegenwoordig. De mythe is daarbij geen verzinsel maar het voorbeeldige verhaal dat vertelt hoe iets werkelijk begon, en het ritueel voltrekt wat de mythe vertelt. Nieuwjaarsriten herscheppen jaarlijks de wereld; de deelnemer aan het feest wordt tijdgenoot van de goden. Zo leeft de religieuze mens in een ritme van profane duur en periodieke terugkeer naar de sterke tijd, het patroon dat Eliade eerder de eeuwige terugkeer noemde.</p>
+      <h3>De natuur als tekensysteem</h3>
+      <p>Voor de homo religiosus is de natuur nooit alleen natuur. De hemel spreekt vanzelf van hoogte en transcendentie, al trekken hemelgoden zich in veel tradities terug tot een rustende god op afstand, deus otiosus. Water staat voor het vormeloze begin, ontbinding en hergeboorte, van zondvloedverhalen tot doopriten. De aarde draagt en baart, bomen verbeelden het onuitputtelijke leven, maan en zon geven ritmen van vergaan en terugkeren. Deze kosmische religiositeit, betoogt Eliade, bleef ook onder het christendom van Europese boerengemeenschappen doorleven.</p>
+      <h3>Het geheiligde bestaan</h3>
+      <p>Het slothoofdstuk brengt het menselijk leven zelf in kaart: geboorte, huwelijk en dood zijn in religieuze culturen overgangen die door riten worden voltrokken, en de initiatie is er het model van, een symbolisch sterven gevolgd door wedergeboorte als nieuw mens. Lichaam, huis en kosmos worden op elkaar betrokken: wonen is zich in het hart van de wereld vestigen. Zo krijgt het hele bestaan een sacramentele structuur waarin eten, arbeid en seksualiteit aan goddelijke voorbeelden deelhebben.</p>
+      <h3>De areligieuze mens en zijn restanten</h3>
+      <p>De moderne mens heeft de wereld ontheiligd en aanvaardt geen ander model van menszijn dan wat hij zelf maakt; Eliade neemt die keuze serieus als een tweede bestaanswijze. Volledig profaan bestaan acht hij echter zeldzaam: nieuwjaar en verhuizing behouden de structuur van vernieuwingsriten, film en literatuur voeren mythische patronen op, de psychoanalyse herhaalt het initiatieschema van afdaling en terugkeer. Deze gecamoufleerde religiositeit is voor Eliade geen curiosum: zij toont dat het gewijde tot de structuur van het bewustzijn behoort en hoogstens onherkenbaar wordt, niet verdwijnt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">hierofanie</td><td>Het verschijnen van het heilige in een gewoon ding of wezen, dat daardoor drager van een andere orde wordt en toch zichzelf blijft.</td></tr>
+          <tr><td class="term">homo religiosus</td><td>De religieuze mens als bestaanswijze: hij leeft in een geordende kosmos rond een gewijd centrum.</td></tr>
+          <tr><td class="term">axis mundi</td><td>De wereldas, verbeeld als paal, berg, tempel of stad, die hemel, aarde en onderwereld verbindt en het centrum van de wereld markeert.</td></tr>
+          <tr><td class="term">imago mundi</td><td>Huis, tempel of stad als beeld van de kosmos in het klein.</td></tr>
+          <tr><td class="term">illud tempus</td><td>De sterke oertijd van schepping en oorsprong die in mythe en feest opnieuw tegenwoordig wordt.</td></tr>
+          <tr><td class="term">kosmisering</td><td>Het bewoonbaar maken van onbekend gebied als herhaling van de schepping, waardoor chaos kosmos wordt.</td></tr>
+          <tr><td class="term">deus otiosus</td><td>De hemelgod die zich na de schepping terugtrekt en in de cultus plaatsmaakt voor nabijere machten.</td></tr>
+          <tr><td class="term">initiatie</td><td>De rite waarin de mens symbolisch sterft en als nieuw mens herboren wordt, voor Eliade het model van alle overgangen.</td></tr>
+          <tr><td class="term">gecamoufleerde religiositeit</td><td>De gedegradeerde mythische en rituele patronen die in het leven van de moderne, areligieuze mens voortbestaan.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek steunt op vergelijkend materiaal uit uiteenlopende culturen: Australische en Noord-Amerikaanse volken, het oude Nabije Oosten, India, en de boerentradities van Europa. Omdat het voor een pocketreeks geschreven is, ontbreekt een notenapparaat grotendeels; de voorbeelden zijn samenvattingen uit Eliades grotere studies, zoals zijn Traité en De mythe van de eeuwige terugkeer. De methode is patroonherkenning: overeenkomstige structuren over culturen heen worden als uitingen van één religieuze grondhouding gelezen.</p>
+      <p>Die methode is de zwakke plek. Tegenvoorbeelden worden niet gezocht, de context van elk voorbeeld blijft buiten beeld, en de stap van patroon naar wezen, van veel culturen doen iets dergelijks naar dit is de structuur van het religieuze bewustzijn, wordt geponeerd en niet aangetoond. Wat het boek wel aantoonbaar heeft geleverd, is een begrippenapparaat dat vakliteratuur, architectuurtheorie en cultuurkritiek zijn binnengedrongen; als beschrijvingstaal heeft het zijn nut bewezen, als bewijsvoering niet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De vakinhoudelijke kritiek is stevig en grotendeels aanvaard. Jonathan Z. Smith liet zien dat Eliades sleutelvoorbeeld van de Achilpa-paal op een selectieve lezing van de etnografische bron berust, en algemener dat zijn universalisme plaatselijke verschillen wegpoetst die er juist toe doen. Het spreken over het heilige als zelfstandige werkelijkheid die zich toont, is bovendien een theologische aanname in wetenschappelijke verpakking: godsdienstwetenschap kan gedrag en teksten onderzoeken, geen manifestaties van het heilige vaststellen. Ook de tegenstelling zelf tussen archaïsch en modern geldt inmiddels als te grof.</p>
+      <p>Daarnaast is het boek normatief geladen: de archaïsche mens leeft voller, de moderne mens verschraald, en die heimwee stuurt de beschrijving. Over de auteur zelf loopt een apart debat: Eliades sympathie voor de fascistische IJzeren Garde in het Roemenië van de jaren dertig is gedocumenteerd, en over de vraag of die politiek in zijn heimwee naar archaïsche ordening doorklinkt, verschillen serieuze onderzoekers van mening. Dat alles ontneemt het boek niet zijn plaats: als toegankelijke synthese en als bron van vocabulaire wordt het nog altijd gelezen, maar als beschrijving van wat religie is, geldt het niet langer als gezaghebbend.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik de begrippen centrum, drempel en wereldas om te ontleden waarom sommige plekken, van kathedralen tot herdenkingsplaatsen, als geladen worden ervaren.</li>
+        <li>Herken in jaarwisseling, jubilea en inwijdingsproeven de structuur van vernieuwings- en overgangsriten, en weeg wat er verloren gaat als die vorm verdwijnt.</li>
+        <li>Lees mythen als voorbeeldverhalen over oorsprong en orde in plaats van als mislukte natuurwetenschap.</li>
+        <li>Neem bij elk breed cultuurvergelijkend patroon de proef op de som: zoek het tegenvoorbeeld en de plaatselijke context voordat het patroon als wezen wordt aanvaard.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Das Heilige und das Profane. Vom Wesen des Religiösen</i> (Rowohlt, Hamburg 1957), geschreven voor de pocketreeks Rowohlts Deutsche Enzyklopädie; Engels als <i>The Sacred and the Profane: The Nature of Religion</i> (vertaling Willard R. Trask, Harcourt, Brace, New York 1959, 256 blz.; Harvest-paperback ISBN 9780156792011). Nederlandse vertaling: <i>Het gewijde en het profane: een studie over de religieuze essentie</i> (De Boer/Brand, Hilversum 1962); in 2006 opnieuw uitgebracht bij Abraxas als <i>Het heilige en het dagelijkse bestaan</i>.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De Roemeens-Amerikaanse godsdiensthistoricus Mircea Eliade beschrijft hoe de religieuze mens ruimte en tijd als ongelijksoortig ervaart: er zijn gewijde plaatsen en momenten waar het heilige zich toont, hierofanieën, en die ordenen de wereld rond een centrum. Feesten halen de oertijd van de mythen terug; natuur, huis en lichaam weerspiegelen de kosmos. Overgangsriten maken van leven een geheiligde weg.</p><p>Tegenover die homo religiosus staat de moderne, areligieuze mens, die volgens Eliade zeldzamer is dan hij denkt: in nieuwjaarsvieringen, verhuisgewoonten, film en lectuur leven verkapte religieuze patronen door. Het boekje, geschreven als inleiding voor een Duitse pocketreeks, werd een standaardtekst in de godsdienstwetenschap. Latere vakgenoten, Jonathan Z. Smith voorop, bekritiseerden de losse omgang met bronnen, het essentialisme en de heimwee naar de archaïsche mens.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>godsdienstwetenschap</li><li>mythe</li><li>ritueel</li><li>symboliek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="143"><a href="143.html">Maps of Meaning</a>. Maps of Meaning bouwt zijn mythenanalyse uitdrukkelijk op Eliade en erft daarmee ook de bezwaren tegen diens methode.</li>
+          <li value="410"><a href="410.html">the hero with a thousand faces</a>. The Hero with a Thousand Faces komt uit dezelfde vergelijkende school en kreeg dezelfde kritiek op universalisme.</li>
+          <li value="357"><a href="357.html">De mens en zijn symbolen</a>. De mens en zijn symbolen geeft de psychologische pendant: archetypische beelden in dromen in plaats van riten.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

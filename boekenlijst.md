@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 21
-augustus 2026: 574 titels in 19 rubrieken.
+augustus 2026: 602 titels in 20 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -26,11 +26,12 @@ bij de volgende build verloren.
 | Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156, 162, 182, 186, 253, 271, 273, 302, 304, 305, 338, 356, 364, 367, 398, 399, 438, 444, 466, 468, 508, 511, 551 |
 | Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140, 174, 189, 194, 229, 247, 248, 286, 289, 323, 324, 372, 373, 374, 375, 389, 457, 460, 467, 470, 513, 545 |
 | Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49, 285, 447 |
-| Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537, 568, 588, 589 |
+| Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537, 568, 588, 589, 597, 598, 599, 600, 601, 602 |
 | Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347, 383, 413, 539, 555 |
 | Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102, 108, 117, 127, 128, 129, 130, 131, 132, 136, 139, 179, 184, 188, 190, 196, 259, 340, 362, 378, 380, 403, 433, 543, 548, 549, 559, 560 |
 | Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122, 327, 421, 437, 456, 477, 478, 493, 495, 497, 498, 500, 504, 506, 507 |
-| Filosofie en mystiek | wijsgerige hoofdwerken en mystieke teksten over wat werkelijk is en hoe te leven | 572, 573, 574, 576, 577, 578, 580, 581, 582, 584, 587, 590 |
+| Filosofie en mystiek | wijsgerige hoofdwerken en mystieke teksten over wat werkelijk is en hoe te leven | 572, 573, 574, 576, 577, 578, 580, 581, 582, 584, 587, 590, 596, 603, 604, 605, 606, 608, 609, 610, 611, 612, 613, 614, 615 |
+| Staat en vrijheid | politieke denkers over macht, gezag en het vrije individu | 621, 622, 623, 624, 625, 626, 627, 628, 629 |
 
 Een titel kan in één rubriek staan en toch tags uit een andere dragen. De tags
 zijn het fijnmazige zoekmiddel, de rubriek is de plek in de kast.
@@ -115058,6 +115059,5165 @@ traditie waaruit veel van de meditatie- en energieleer hier afkomstig is.
 Mind brengt hetzelfde grondidee, de geest vormt de omstandigheden, zonder het
 Egyptische decor.
 
+## 596. Selections from the Husia
+
+Maulana Karenga, 1984. *Selections from the Husia: Sacred Wisdom of Ancient
+Egypt* (The University of Sankore Press, Los Angeles, 1984; tweede druk 1989,
+125 blz., ISBN 9780943412061). Geen Nederlandse vertaling gevonden in de
+catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie
+gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `egypte`, `religie`, `wijsheid`, `afrika`, `spiritualiteit`
+
+Bloemlezing uit de heilige literatuur van het oude Egypte, geselecteerd en
+opnieuw vertaald door Maulana Karenga, hoogleraar Africana Studies en
+grondlegger van het feest Kwanzaa. De titel Husia is een eigen samenstelling
+van twee Egyptische woorden: Hu, het gezaghebbende woord, en Sia, het
+uitzonderlijke inzicht. Het boek ordent scheppingsteksten, gebeden, het
+verhaal van Khun-Anup, wijsheidsleren van onder anderen Ptah-Hotep en
+Amenomope, klaagteksten, deugdverklaringen en dodenboekteksten in zeven
+afdelingen.
+
+Karenga draagt het boek op aan Cheikh Anta Diop en presenteert het als eerste
+stap naar een volwaardig Afrikaans heilig boek, een alternatief voor Thora,
+Bijbel en Koran. De teksten zelf zijn authentiek en behoren tot de oudste
+geschreven wijsheid ter wereld; de vrije hervertaling en het
+religieus-politieke programma eromheen zijn omstreden.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Karenga stelt dat de heilige literatuur van het oude Egypte
+de oudste opgetekende geestelijke wijsheid van de mensheid vormt en een
+Afrikaanse erfenis is die aan Afrikanen en hun nakomelingen in de diaspora
+toebehoort. Zwarte Amerikanen zoeken volgens hem geestelijk houvast in
+geleende geschriften, terwijl de bron van veel van die wijsheid ouder is en
+uit de Nijlvallei komt. De bundel wil die bron weer toegankelijk maken en
+dient uitdrukkelijk als aanzet tot een definitief Afrikaans heilig boek, met
+Maat, de orde van waarheid en gerechtigheid, als morele kern.
+
+#### De gang van het boek
+
+**Herkomst en opzet**
+
+Het boek opent met een voorwoord van Jacob H. Carruthers van het Kemetic
+Institute in Chicago en een opdracht aan Cheikh Anta Diop, de Senegalese
+geleerde die opriep de erfenis van het oude Egypte terug te winnen voor de
+Afrikaanse cultuur. Karenga plaatst zichzelf in die traditie, naast Carter G.
+Woodson en George G.M. James. In zijn inleiding legt hij uit dat er nooit één
+Egyptische heilige tekst heeft bestaan; hij heeft teksten uit verspreide
+bronnen verzameld, geordend in zeven afdelingen en van een zelfbedachte naam
+voorzien. Husia combineert Hu, het gezaghebbende woord, en Sia, het
+uitzonderlijke inzicht, de twee scheppingskrachten van de god Ra.
+
+De samensteller is geen buitenstaander in dit veld. Karenga, hoogleraar en
+jarenlang voorzitter van de vakgroep Africana Studies aan California State
+University Long Beach, ontwierp in 1966 het feest Kwanzaa en ontwikkelde de
+Kawaida-filosofie, een leer van culturele wederopbouw voor Afro-Amerikanen. De
+Husia is binnen dat programma de geestelijke pijler: waar Kwanzaa de
+feestkalender levert, moet deze tekstverzameling het heilige boek worden. Wie
+het boek beoordeelt, moet het dan ook lezen als wat het wil zijn: een
+religieus-culturele stichtingsakte in wording, met echte antieke teksten als
+bouwmateriaal.
+
+**Schepping, gebed en lofprijzing**
+
+De eerste twee afdelingen bevatten het Boek van het Kennen van de Scheppingen
+en het Boek van Gebeden en Heilige Lofprijzingen. De scheppingsteksten
+beschrijven hoe de wereld ontstaat uit het woord en het inzicht van de
+schepper; de gebeden en hymnen tonen een levende vroomheid die volgens Karenga
+in niets onderdoet voor de latere psalmen. Elke afdeling krijgt een eigen
+commentaar waarin hij de teksten in hun context plaatst en zich afzet tegen
+wat hij de stijve, neerbuigende vertalingen van de egyptologen noemt.
+
+**Khun-Anup en de wijze leraren**
+
+De derde afdeling brengt het Boek van het Morele Verhaal, het relaas van de
+boer Khun-Anup die na een onrechtvaardige behandeling met welsprekende
+pleidooien zijn recht afdwingt, in de egyptologie bekend als de Welbespraakte
+Boer. Daarna volgt de omvangrijkste afdeling, de Boeken van Wijze
+Onderrichting, met de leringen van Ptah-Hotep, Kagemni, Kheti, Ani, Amenomope,
+Ankhsheshonqi en Phebhor. Dit zijn praktische levenslessen over spreken en
+zwijgen, matigheid, rechtvaardig bestuur en de omgang met meerderen, gelijken
+en armen, geschreven over een periode van ruim tweeduizend jaar.
+
+**Bespiegeling en klacht**
+
+De Boeken van Bespiegeling bevatten de meer sombere en zoekende teksten:
+Khakheper-Ra-Soneb die worstelt met een taal die versleten raakt, de klaagzang
+van Ipuwer over een omgekeerde wereld, de tweespraak van een levensmoede man
+met zijn eigen ziel, liederen en de voorspellingen van Neferti. Deze afdeling
+laat zien dat de Egyptische literatuur naast zekerheid ook twijfel,
+maatschappijkritiek en doodsverlangen kent.
+
+**Deugden verklaren en opstaan als Ra**
+
+Het Boek van Deugdverklaringen bundelt autobiografische grafteksten waarin de
+overledene verantwoording aflegt: brood gegeven aan de hongerige, water aan de
+dorstige, kleding aan de naakte. De slotafdeling, de Boeken van het Opstaan
+als Ra, bevat teksten uit de dodenliteratuur: het Boek van het Voortkomen bij
+Dag, het Boek van Rechtvaardiging met de onschuldverklaringen voor het
+dodengericht, en het Boek van Opstanding en Verandering. Hier ligt voor
+Karenga het hart van de Egyptische spiritualiteit: het leven als voorbereiding
+op een oordeel waarin het hart wordt gewogen tegen de veer van Maat.
+
+**Terugkeer naar de bron**
+
+Carruthers formuleert in het voorwoord het programma achter de bundel: zwarte
+mensen hebben geestelijke troost gezocht in de heilige boeken van anderen,
+terwijl de Egyptische literatuur die boeken duizenden jaren voorafgaat en er
+aantoonbaar sporen in heeft nagelaten. Het is volgens hem tijd terug te keren
+naar de bron. Karenga kondigt aan dat deze selectie deel is van een groter
+werk, een omvattender Husia die als moreel en geestelijk richtsnoer voor
+Afrikaanse mensen moet dienen zoals andere heilige teksten dat voor hun
+gelovigen doen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Husia | Karenga's eigen samenstelling van Hu (gezaghebbend woord) en Sia (uitzonderlijk inzicht), de twee krachten waarmee Ra de wereld schiep. |
+| Maat | De Egyptische orde van waarheid, gerechtigheid en evenwicht, tegelijk kosmisch beginsel en hoogste morele plicht. |
+| Boeken van Wijze Onderrichting | Karenga's naam voor de Egyptische instructieliteratuur, praktische levenslessen van leraren als Ptah-Hotep en Amenomope. |
+| Khun-Anup | De boer die in het morele verhaal met welsprekendheid zijn recht afdwingt, in de egyptologie bekend als de Welbespraakte Boer. |
+| Boek van het Voortkomen bij Dag | De Egyptische naam van wat in het Westen het Dodenboek heet, teksten die de overledene door het hiernamaals leiden. |
+| Boek van Rechtvaardiging | De afdeling met de onschuldverklaringen voor het dodengericht, waarin het hart wordt gewogen tegen de veer van Maat. |
+| terugkeer naar de bron | Het programma uit het voorwoord: geestelijk houvast zoeken in de eigen Afrikaanse traditie in plaats van in geleende geschriften. |
+| Kawaida | Karenga's filosofie van culturele wederopbouw, waarbinnen de Husia als geestelijke pijler naast het feest Kwanzaa staat. |
+
+#### Waar het argument op rust
+
+De teksten zelf zijn echt en goed gedocumenteerd: de leer van Ptah-Hotep gaat
+terug tot het Oude Rijk, en de afhankelijkheid van het bijbelboek Spreuken
+(22:17 tot 24:22) van de leer van Amenomope wordt in de
+mainstream-bijbelwetenschap breed aanvaard. Karenga's kernbewering dat
+Egyptische wijsheid ouder is dan de Thora, de Bijbel en de Koran en er sporen
+in heeft nagelaten, staat dus op stevige grond. Ook de dodenboekteksten en de
+klaagliteratuur behoren tot het vaste corpus van de egyptologie.
+
+Zwakker is de onderbouwing van de vertalingen zelf. Karenga noemt zijn werk
+hervertaling, maar geeft geen filologische verantwoording per tekst; de lezer
+kan niet nagaan waar de brontekst ophoudt en de dichterlijke vrijheid begint.
+Het boek bevat één pagina literatuurverwijzingen. Wie de teksten
+wetenschappelijk wil controleren, is aangewezen op edities als die van Miriam
+Lichtheim.
+
+#### Wat er tegen in te brengen valt
+
+Het grootste bezwaar richt zich op het programma. De ordening in zeven
+afdelingen, de naam Husia en de presentatie als aanzet tot een Afrikaans
+heilig boek zijn constructies van Karenga zelf, wat hij overigens ruiterlijk
+toegeeft. Daarmee is dit geen neutrale bronnenuitgave; de selectie en de toon
+dienen een religieus-cultureel doel, de opbouw van een eigen traditie rond
+Kwanzaa en de Kawaida-filosofie. De voorstelling van het oude Egypte als
+eenduidig zwarte, Afrikaanse beschaving volgt Diop en wordt in de egyptologie
+genuanceerd: de bevolking van de Nijlvallei wordt daar beschreven als een
+Noordoost-Afrikaans continuüm dat zich niet in moderne raskaders laat persen.
+
+Daarnaast is de bundel dun voor zijn pretentie. Wie de Egyptische literatuur
+werkelijk wil leren kennen, vindt bij Lichtheim of in andere wetenschappelijke
+edities meer tekst, meer context en controleerbare vertaalkeuzes. De waarde
+van dit boek ligt vooral in de toegankelijke, poëtische presentatie en in de
+culturele daad die het wil zijn; als studie-uitgave schiet het tekort.
+
+#### Wat er concreet mee te doen is
+
+- Lees de leer van Amenomope naast Spreuken 22 tot 24 om de oudste bekende
+ontlening in de bijbelse wijsheidsliteratuur zelf te zien.
+- Gebruik de leringen van Ptah-Hotep als spiegel voor gespreksgedrag: eerst
+luisteren, met mate spreken, de zwakkere niet overschreeuwen.
+- Behandel de bundel als kennismaking en controleer citaten voor serieus
+gebruik in een wetenschappelijke editie.
+- Weeg bij het lezen steeds mee dat selectie en vertaling een cultureel
+programma dienen.
+
+#### Wat je hierna leest
+
+- 2. Overpeinzingen. Overpeinzingen van Marcus Aurelius is een andere antieke
+tekst waarin levenskunst en plichtsbesef samenvallen, uit de Grieks-Romeinse
+traditie die Karenga juist wil aanvullen.
+- 394. Tao Te Ching. De Tao Te Ching laat zien hoe een andere oude beschaving
+woord, orde en juist handelen tot kern van haar wijsheid maakte.
+- 526. The Alchemy of Happiness. The Alchemy of Happiness van al-Ghazali toont
+de islamitische wijsheidstraditie waarvan Karenga de Afrikaanse voorloper wil
+herstellen.
+
+## 597. The Egyptian Philosophers
+
+Molefi Kete Asante, 2000. *The Egyptian Philosophers: Ancient African Voices
+from Imhotep to Akhenaten* (African American Images, Chicago, 2000, xviii +
+126 blz., ISBN 9780913543665). Geen Nederlandse vertaling gevonden in de
+catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie
+gebaseerd. Rubriek: geschiedenis en samenleving.
+Tags: `egypte`, `filosofie`, `afrika`, `geschiedenis`, `afrocentrisme`
+
+Molefi Kete Asante, hoogleraar aan Temple University en grondlegger van de
+Afrocentriciteit als academische stroming, portretteert elf denkers uit het
+oude Egypte: Imhotep, Ptahhotep, Kagemni, Merikare, Sehotepibre, Amenemhat,
+Duauf, Amenhotep, Amenemope, Khunanup en Akhenaten. Zijn stelling: de
+wijsbegeerte begon in Afrika, ruim tweeduizend jaar voordat Thales in
+Griekenland optrad, en de Griekse filosofie dankt haar begrippen aan studie in
+Egypte.
+
+Het boek is kort en toegankelijk, bedoeld om deze namen een plaats te geven
+waar leerboeken met de Grieken beginnen. De Egyptische teksten zelf bestaan
+echt; de claim dat Griekse denkers hun filosofie uit Egypte haalden, steunt op
+het omstreden *Stolen Legacy* van George G.M. James en wordt door classici en
+egyptologen verworpen. Enkele geportretteerden zijn bovendien literaire
+personages, geen historische denkers.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Asante stelt dat de geschiedenis van de filosofie in Afrika
+begint. De oudste denkers met een naam zijn Egyptenaren: Imhotep leefde ruim
+twee millennia voor de Griekse natuurfilosofen, en de Egyptische
+instructieliteratuur behandelt ethiek, bestuur, rechtvaardigheid en de goede
+dood lang voordat Athene bestond. Griekse denkers studeerden volgens hem in
+Egypte en namen begrippen mee die later als Grieks werden geboekstaafd. Het
+gangbare verhaal dat de wijsbegeerte in Griekenland uit het niets ontstond, is
+in zijn ogen een koloniale constructie die hersteld moet worden door de
+Afrikaanse stemmen weer bij naam te noemen.
+
+#### De gang van het boek
+
+**De afrocentrische inzet**
+
+Asante schrijft vanuit het programma dat hij zelf Afrocentriciteit doopte:
+Afrikaanse geschiedenis bekijken met Afrikaanse ogen, met Afrika als handelend
+middelpunt. Hij bouwt voort op Cheikh Anta Diop, op de Congolese taalkundige
+Théophile Obenga en op George G.M. James, wiens *Stolen Legacy* uit 1954
+betoogde dat de Griekse filosofie gestolen Egyptische filosofie is. Het boek
+richt zich nadrukkelijk op een breed publiek en op het onderwijs: de elf
+portretten moeten de namen leveren die in leerboeken ontbreken.
+
+**Wat hier filosofie heet**
+
+Asante rekt het begrip filosofie bewust op. De Egyptische leraren schreven
+geen stelselmatige verhandelingen met argument en tegenargument, maar
+instructies, spreuken en hymnen. Volgens Asante is dat een andere vorm van
+hetzelfde: nadenken over waarheid, rechtvaardigheid, spreken, sterven en goed
+bestuur, samengebald in het begrip Maat, de orde die kosmos en samenleving
+draagt. Wie filosofie gelijkstelt aan de Griekse vorm, heeft de uitkomst van
+het onderzoek al in de definitie gestopt.
+
+**De oudste namen**
+
+De rij opent met Imhotep, de architect van de trappiramide van Djoser rond
+2650 voor Christus, later vergoddelijkt als genezer, door Asante gepresenteerd
+als eerste bij naam bekende geleerde van de wereldgeschiedenis. Daarna volgen
+Ptahhotep en Kagemni, viziers uit het Oude Rijk aan wie leringen over
+bescheidenheid, luisteren en rechtvaardig gezag zijn toegeschreven. De leer
+van Ptahhotep behoort tot de oudste boeken ter wereld en behandelt onder meer
+de omgang met meerderen en de verleiding van hebzucht.
+
+**Koningen, leraren en een boer**
+
+Het middendeel portretteert vorstelijke en ambtelijke stemmen: de instructie
+voor koning Merikare over wijs en menselijk bestuur, de bittere lessen van
+Amenemhat na een aanslag, de loyalist Sehotepibre, de schrijver Duauf die zijn
+zoon het schrijversvak aanprijst boven alle handwerk, en Amenhotep, zoon van
+Hapu, de geleerde bouwmeester. Daarnaast staan Amenemope, wiens leer over
+innerlijke rust en eerlijkheid doorklinkt in het bijbelboek Spreuken, en
+Khunanup, de boer wiens pleidooien voor rechtvaardigheid Asante als
+volksfilosofie leest.
+
+**Akhenaten als sluitstuk**
+
+De reeks eindigt bij farao Akhenaten, die de zonneschijf Aton tot enige god
+verhief. Asante presenteert hem als religieus vernieuwer en denker die het
+goddelijke tot eenheid terugbracht, eeuwen voor het bijbelse monotheïsme.
+Daarmee krijgt het boek een kop en een staart: van de eerste geleerde tot de
+eerste monotheïst, allebei Afrikanen.
+
+Bij Imhotep hoort ook Asante's meest herhaalde vergelijking: de man die in de
+traditie als genezer werd vereerd, ging Hippocrates ruim tweeduizend jaar
+vooraf, en de leer van Ptahhotep is ouder dan alles wat uit Griekenland is
+overgeleverd. Die ouderdomsclaims kloppen; het zijn de verbindingslijnen
+daartussen en de latere Griekse ontlening die het geschil vormen.
+
+**De Griekse connectie**
+
+Door het hele boek loopt de stelling dat Griekse denkers, van Thales tot
+Plato, in Egypte studeerden en er hun begrippen vandaan haalden. Asante steunt
+op antieke berichten over Griekse reizen naar Egypte, zoals de reisverhalen
+bij Herodotus en de latere levensbeschrijvingen die Pythagoras en Plato jaren
+in Egypte laten doorbrengen, en op de traditie van James en Diop. De
+geschiedenis van de filosofie moet volgens hem worden herschreven: wat als
+Grieks wonder wordt onderwezen, is de voortzetting van een oudere Afrikaanse
+denktraditie waarvan de namen zijn weggelaten.
+
+Asante schreef het boek ook als onderwijsman. Hij bouwde aan Temple University
+het eerste promotieprogramma in African American Studies op en zag dat zelfs
+daar de filosofiegeschiedenis met Griekenland begon. De elf portretten zijn
+dus lesmateriaal in de meest letterlijke zin: kort, met naam, datering en
+kerngedachte per figuur, geschikt om naast een regulier leerboek te leggen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Afrocentriciteit | Asante's programma om Afrikaanse geschiedenis en cultuur te bestuderen met Afrika als handelend middelpunt in plaats van als object van Europese blikken. |
+| Kemet | De eigen naam van het oude Egypte, door afrocentrische auteurs gebruikt om het land als Afrikaanse beschaving aan te duiden. |
+| Maat | Waarheid, gerechtigheid en kosmische orde, volgens Asante het kernbegrip van de Egyptische wijsbegeerte. |
+| instructieliteratuur | Het genre van leringen van vader op zoon of leraar op leerling waarin het Egyptische denken over goed leven is overgeleverd. |
+| Stolen Legacy-these | De claim van George G.M. James dat de Griekse filosofie gestolen Egyptische filosofie is, door Asante als uitgangspunt genomen. |
+| Khunanup | De welbespraakte boer wiens pleidooien voor rechtvaardigheid Asante opvoert als stem van de gewone Egyptenaar. |
+| Aton | De zonneschijf die Akhenaten tot enige god verhief, voor Asante het bewijs van vroeg Afrikaans monotheïstisch denken. |
+
+#### Waar het argument op rust
+
+Een deel van het fundament is solide. De Egyptische teksten bestaan, zijn
+eeuwen tot millennia ouder dan de Griekse filosofie, en behandelen wel
+degelijk ethische en bestuurlijke vragen. Dat het bijbelboek Spreuken passages
+aan de leer van Amenemope ontleent, is gangbare bijbelwetenschap. Ook klopt
+dat antieke auteurs Griekse bezoeken aan Egypte vermelden en dat de Grieken
+zelf hoog opgaven van Egyptische ouderdom en kennis. Het pleidooi om Egyptisch
+denken serieus te nemen als denken vindt inmiddels ook buiten afrocentrische
+kring weerklank in de vergelijkende filosofie.
+
+De verdergaande claim, dat de Griekse filosofie haar kernbegrippen uit Egypte
+stal, steunt vrijwel geheel op *Stolen Legacy* en niet op primaire bronnen.
+Voor stelselmatige Griekse studie aan Egyptische tempelscholen bestaat geen
+bewijs; de late antieke verhalen daarover zijn eeuwen na dato opgetekend.
+Bovendien zijn enkele geportretteerden geen historische personen: Khunanup is
+de hoofdpersoon van een literair verhaal, en van meerdere leringen staat de
+toegeschreven auteur niet vast. Het boek vermeldt dat onderscheid niet.
+
+#### Wat er tegen in te brengen valt
+
+De wetenschappelijke ontvangst van de onderliggende these is afwijzend.
+Classica Mary Lefkowitz nam in *Not Out of Africa* (1996) de Stolen
+Legacy-traditie uiteen: de chronologie klopt niet, de bronnen zijn laat en
+legendarisch, en aantoonbare Griekse ontleningen aan Egypte betreffen
+godsdienst en kunst, geen wijsgerige stelsels. Egyptologen erkennen de rijkdom
+van de instructieliteratuur, maar wijzen erop dat betoog, definitie en
+bewijsvoering, de kern van wat sinds de Grieken filosofie heet, er niet in
+voorkomen. Asante beantwoordt dat bezwaar met een herdefinitie van filosofie,
+waarmee het geschil deels een woordenstrijd wordt.
+
+Als naslagwerk is het boek bovendien mager: het biedt geen nieuwe vertalingen,
+geen notenapparaat van betekenis en leunt op secundaire literatuur uit de
+eigen school. Wat overeind blijft, is de terechte vaststelling dat Egyptische
+denkers met naam en tekst bestonden lang voor de Grieken, en dat leerboeken
+die met Thales beginnen een verhaal vertellen dat ouder begint. Wie dat punt
+wil maken, kan het hier vinden; wie bewijs zoekt voor de diefstal-these, vindt
+het hier niet.
+
+#### Wat er concreet mee te doen is
+
+- Lees de leer van Ptahhotep of Amenemope in een wetenschappelijke vertaling
+naast dit boek om zelf te zien wat de teksten wel en niet doen.
+- Gebruik de elf namen als ingang om de Egyptische literatuur te verkennen, en
+controleer per figuur of het om een historische persoon of een literair
+personage gaat.
+- Onderscheid bij elke claim of hij over de teksten zelf gaat (controleerbaar)
+of over Griekse ontlening (omstreden).
+- Neem de vraag mee wat een definitie van filosofie insluit en uitsluit
+voordat een traditie wordt afgeschreven.
+
+#### Wat je hierna leest
+
+- 269. The Story of Philosophy. The Story of Philosophy van Will Durant
+vertelt precies het Grieks-Europese verhaal waar Asante tegen in het geweer
+komt.
+- 521. Indigenous and Popular Thinking in América. Indigenous and Popular
+Thinking in América van Rodolfo Kusch doet voor Latijns-Amerika wat Asante
+voor Afrika wil: denken buiten de Europese canon serieus nemen.
+- 523. I Write What I Like. I Write What I Like van Steve Biko deelt de
+overtuiging dat geestelijke bevrijding begint bij het terugwinnen van de eigen
+geschiedenis.
+
+## 598. The Mis-Education of the Negro
+
+Carter G. Woodson, 1933. *The Mis-Education of the Negro* (The Associated
+Publishers, Washington D.C., 1933, xiv + 207 blz.; talrijke heruitgaven, onder
+meer Black Classic Press, ISBN 9781574781267). Geen Nederlandse vertaling
+gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse
+editie gebaseerd. Rubriek: geschiedenis en samenleving.
+Tags: `onderwijs`, `geschiedenis`, `emancipatie`, `verenigde staten`
+
+Klassieker van de historicus Carter G. Woodson, zoon van voormalige
+slaafgemaakten, na W.E.B. Du Bois de tweede zwarte Amerikaan met een doctoraat
+van Harvard en grondlegger van wat later Black History Month werd. Zijn
+diagnose uit 1933: het onderwijs dat zwarte Amerikanen krijgen is geen vorming
+maar indoctrinatie. Het leert hen de eigen geschiedenis als voetnoot te zien,
+Afrika te verachten en de maatstaven van de dominante groep als de hunne te
+beschouwen.
+
+Beroemd is de kernzin dat wie het denken van een mens beheerst, zich over
+diens daden geen zorgen hoeft te maken: zo iemand zoekt vanzelf de achterdeur
+en hakt er een uit als die ontbreekt. Woodson richt zijn pijlen ook op de
+zwarte opgeleide klasse, die zich van de massa afkeert. Zijn remedie:
+zelfgestuurd onderwijs, studie van de eigen geschiedenis en dienstbaarheid aan
+de gemeenschap. Het boek geldt onverminderd als standaardwerk over onderwijs
+en emancipatie.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Woodson stelt dat het Amerikaanse onderwijs zwarte Amerikanen
+systematisch verkeerd opvoedt. Het curriculum leert hen de prestaties van
+Europa bewonderen en de eigen Afrikaanse en Amerikaanse geschiedenis negeren
+of verachten, waardoor minderwaardigheid van binnenuit wordt aangeleerd. Wie
+zo gevormd is, hoeft niet meer onderdrukt te worden: wie het denken van een
+mens beheerst, hoeft zich over zijn daden geen zorgen te maken, die zoekt zelf
+de achterdeur. De opgeleide zwarte klasse vervreemdt bovendien van de massa
+die zij zou moeten dienen. Herstel vraagt geen betere toegang tot hetzelfde
+onderwijs, want dat onderwijs zelf is het probleem; het vraagt eigen studie
+van de eigen geschiedenis en een leiderschapsbegrip dat op dienstbaarheid
+berust.
+
+#### De gang van het boek
+
+**De zetel van het kwaad**
+
+Woodson opent met de vaststelling dat het probleem niet bij gebrek aan
+scholing ligt, want juist de hoogst opgeleiden zijn het sterkst vervreemd. In
+de eerste hoofdstukken beschrijft hij hoe het curriculum op elk niveau, van
+dorpsschool tot universiteit, de zwarte leerling buiten de geschiedenis
+plaatst: Afrika komt voor als werelddeel zonder beschaving, slavernij als
+weldaad of voetnoot, en elke maatstaf voor schoonheid, taal en prestatie is
+wit. De leerling leert zo dat zijn gezicht op de verkeerde plaats van de
+wereldkaart staat.
+
+Woodson geeft daarbij voorbeelden uit de vakken zelf. In de geneeskunde en
+biologie werd de zwarte student als afwijking behandeld, in de theologie kreeg
+hij een godsdienst voorgezet waarin gehoorzaamheid de hoogste deugd was, in de
+letteren leerde hij talen en literaturen waarderen van volken die hem
+verachtten, terwijl er over Afrikaanse talen en geschiedenis niets werd
+onderwezen. De optelsom is zijn kernpunt: dit onderwijs perfectioneert de
+afhankelijkheid die het zegt op te heffen.
+
+**Onderwijs onder vreemde regie**
+
+Vervolgens ontleedt hij de instituties. Het onderwijs voor zwarte Amerikanen
+is na de Burgeroorlog opgezet en gefinancierd door anderen, met leerplannen
+die elders zijn bedacht en met docenten die hun leerlingen niet kennen of
+minachten. Zelfs de zwarte scholen en kerken reproduceren die vreemde regie,
+omdat hun kader in dezelfde mal is gevormd. Woodson, zelf begonnen als
+mijnwerker en pas laat tot studie gekomen, schrijft hier ook uit eigen
+waarneming als docent en decaan.
+
+**Brood verdienen en de massa verlaten**
+
+Een reeks hoofdstukken behandelt de economische en sociale gevolgen. De
+klassiek geschoolde afgestudeerde leert beroepen ambiëren waar hij niet wordt
+toegelaten, terwijl hij het zakenleven en het ambacht, waar de gemeenschap hem
+nodig heeft, leert verachten. De opgeleide klasse trekt weg uit de wijk, kijkt
+neer op de kerk van de massa en spreekt over het volk in plaats van ermee. Zo
+ontstaat een leiderschap zonder achterban, dat volgens Woodson eerder op de
+dominante groep leunt dan op de eigen gemeenschap.
+
+**Politiek, dienst en huurlingen**
+
+In het politieke deel beschrijft Woodson hoe verwaarloosde staatsburgerlijke
+vorming en afhankelijkheid van patronage een klasse van huurlingen
+voortbrengt: woordvoerders die namens de gemeenschap spreken maar door anderen
+worden betaald. Tegenover leiderschap als status plaatst hij dienstbaarheid
+als maatstaf: niet wie vooraan staat telt, maar wie iets doet dat de
+gemeenschap verder helpt. Het veelgeciteerde beeld van de achterdeur staat in
+deze context: beheerst denken maakt dwang overbodig.
+
+**Het nieuwe programma**
+
+De slothoofdstukken zijn opbouwend. Woodson bepleit een onderwijsprogramma dat
+bij de werkelijke situatie van de leerling begint: studie van de eigen
+geschiedenis en cultuur, beroepsoriëntatie op wat de gemeenschap draagt, en
+hogere studie in dienst van het land als geheel. Hij vraagt om een nieuw type
+professional dat zijn kennis terugbrengt naar de massa, en sluit af met een
+pleidooi voor de systematische studie van de zwarte geschiedenis, het
+levenswerk waarvoor hij zelf in 1915 de Association for the Study of Negro
+Life and History had opgericht.
+
+Dat programma had hij zelf al in de praktijk gebracht: met de vereniging, met
+het wetenschappelijke Journal of Negro History dat hij in 1916 begon, met zijn
+eigen uitgeverij en met de Negro History Week die hij in 1926 instelde. Het
+boek is daarmee ook een verantwoording van dertig jaar institutiebouw buiten
+de gevestigde universiteiten om, gefinancierd vanuit de gemeenschap zelf.
+
+**Herkomst van het boek**
+
+Het boek bundelt en verscherpt stukken en lezingen uit de voorgaande jaren en
+verscheen in 1933 bij Woodsons eigen uitgeverij. Het is essayistisch en
+herhaalt zijn kernpunten in wisselende toonaarden, eerder preek dan
+verhandeling. Juist die directe toon heeft het boek zijn lange leven gegeven;
+het wordt tot op heden herdrukt en in het Amerikaanse onderwijs gelezen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| mis-education | Onderwijs dat vormt naar de maatstaven en belangen van een andere groep en zo minderwaardigheid van binnenuit aanleert. |
+| de achterdeur | Woodsons beeld voor aangeleerde onderworpenheid: wie zo denkt, zoekt zelf de achterdeur en hakt er een uit als die ontbreekt. |
+| de opgeleide Neger | Woodsons aanduiding, in de taal van zijn tijd, voor de geschoolde klasse die door haar vorming van de massa vervreemdt. |
+| dienst in plaats van leiderschap | Zijn maatstaf voor de opgeleide klasse: waarde blijkt uit wat iemand voor de gemeenschap doet, niet uit diens positie. |
+| huurlingen | Woordvoerders die namens de gemeenschap optreden maar door anderen worden betaald en gestuurd. |
+| Negro History Week | De door Woodson in 1926 ingestelde themaweek voor zwarte geschiedenis, de voorloper van Black History Month. |
+
+#### Waar het argument op rust
+
+Het boek voert geen systematisch onderzoek aan; het steunt op Woodsons
+decennialange waarneming als leraar, decaan en historicus, en op zijn kennis
+van curricula en instellingen als grondlegger van de wetenschappelijke studie
+van de zwarte geschiedenis. Het is dus een beargumenteerde diagnose van een
+insider, geen empirische studie. De feitelijke kern, dat het toenmalige
+curriculum Afrika en de zwarte geschiedenis negeerde of denigreerde, is door
+later onderwijshistorisch onderzoek ruimschoots bevestigd.
+
+De duurzaamheid van het boek is zelf een aanwijzing: begrippen als
+mis-education zijn in het Amerikaanse debat over onderwijs en curriculum
+blijvend in gebruik, en latere stromingen, van de Black Consciousness-beweging
+tot curriculumhervormers, grijpen er aantoonbaar op terug. Dat aangeleerde
+zelfbeelden schoolprestaties en gedrag beïnvloeden, is bovendien een terrein
+waarop de sociale psychologie later stevig bewijs heeft opgebouwd, al gebruikt
+Woodson dat vocabulaire uiteraard niet.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar betreft de generalisaties. Woodson schildert de hele
+opgeleide klasse als vervreemd en zelfzuchtig, terwijl diezelfde klasse ook de
+onderwijzers, artsen en advocaten leverde die de burgerrechtenbeweging
+droegen; zijn eigen loopbaan, van mijnwerker tot Harvard-doctor, weerspreekt
+de karikatuur. Ook zijn oordelen over de zwarte kerk en over collega-academici
+zijn hard en soms onbillijk. Het boek is polemiek, en wie het als beschrijving
+van alle zwart onderwijs rond 1930 leest, krijgt een vertekend beeld.
+
+Daarnaast is het boek gedateerd in taal en context: het beschrijft het
+gesegregeerde Amerika van voor de burgerrechtenwetgeving, en sommige adviezen,
+zoals de sterke nadruk op eigen bedrijvigheid binnen de gemeenschap, zijn
+sindsdien zelf onderwerp van debat geworden. Dat doet weinig af aan de
+kerndiagnose over curriculum en zelfbeeld, die in latere onderwijsdiscussies
+telkens terugkeert, maar het vraagt van de lezer wel historisch besef bij elke
+concrete aanbeveling.
+
+#### Wat er concreet mee te doen is
+
+- Ga bij elk leerplan na wiens geschiedenis en maatstaven erin als
+vanzelfsprekend gelden en wiens perspectief ontbreekt.
+- Beoordeel leiders en professionals op wat zij aantoonbaar voor hun
+gemeenschap doen, niet op titel of podium.
+- Onderzoek de eigen geschiedenis uit eerste hand in plaats van te vertrouwen
+op wat een curriculum erover weglaat.
+- Let bij gedragsverklaringen op aangeleerde zelfbeelden voordat naar dwang of
+karakter wordt gewezen.
+
+#### Wat je hierna leest
+
+- 523. I Write What I Like. I Write What I Like van Steve Biko werkt hetzelfde
+mechanisme uit voor Zuid-Afrika: de geest van de onderdrukte als sterkste
+wapen van de onderdrukker.
+- 26. Born a Crime. Born a Crime van Trevor Noah laat van binnenuit zien hoe
+taal en onderwijs bepalen welke deuren opengaan.
+- 45. Educated. Educated van Tara Westover toont de spiegelbeeldige
+worsteling: onderwijs dat losmaakt van de eigen gemeenschap.
+
+## 599. Echoes of the Old Darkland
+
+Charles S. Finch III, 1991. *Echoes of the Old Darkland: Themes from the
+African Eden* (Khenti, Decatur (Georgia), 1991, 218 blz., ISBN 9780962944406).
+Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de
+samenvatting is op de Engelse editie gebaseerd. Rubriek: geschiedenis en
+samenleving.
+Tags: `afrika`, `mythologie`, `religie`, `egypte`, `oorsprong`
+
+Essaybundel van Charles S. Finch III, arts en jarenlang verbonden aan de
+Morehouse School of Medicine in Atlanta, en een bekende stem in de
+afrocentrische beweging. Hij betoogt dat de mensheid, haar cultuur en haar
+religie in Afrika zijn ontstaan: Afrika als het historische Eden. Vanuit de
+paleontologie, vergelijkende mythologie en astronomische symboliek schetst hij
+een lijn van de vroegste mens via een oorspronkelijk matriarchaat naar de
+Egyptische religie, die hij als moederbodem van jodendom en christendom
+presenteert.
+
+Het fundament, de Afrikaanse oorsprong van de mens, is gevestigde wetenschap.
+De rest van het bouwwerk leunt op de negentiende-eeuwse amateur-egyptoloog
+Gerald Massey en op een matriarchaatsthese die de antropologie heeft verlaten;
+naamsvergelijkingen en precessie-symboliek doen het overige werk. Als
+staalkaart van afrocentrisch denken rond 1990 is het boek informatief, als
+geschiedschrijving is het grotendeels speculatie.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Finch stelt dat Afrika het Eden van de mensheid is, in
+letterlijke zin: de mens is er ontstaan, en met hem taal, cultuur, mythe en
+religie. De oudste samenlevingsvorm was volgens hem matriarchaal, met de vrouw
+en de godin in het middelpunt; het patriarchaat is een late afwijking. De
+godsdienst van het oude Egypte bewaart die oeroude Afrikaanse erfenis en is
+via ontleningen de moederbodem van jodendom en christendom, tot in namen,
+riten en de figuur van de stervende en herrijzende god. De grote cyclus van de
+precessie, het Grote Jaar, geeft die religieuze geschiedenis volgens Finch
+haar kosmische ritme.
+
+#### De gang van het boek
+
+**Het oude donkerland**
+
+De titel verwijst naar Afrika als het oude, donkere land waaruit de echo's van
+alle latere cultuur klinken. Finch, opgeleid als arts en werkzaam aan de
+Morehouse School of Medicine, schrijft in de traditie van Cheikh Anta Diop en
+presenteert de bundel als poging om oorsprong en ontwikkeling van mens,
+cultuur en religie in Afrika te traceren met de stand van de wetenschap van
+zijn tijd. De hoofdstukken zijn thematische essays die van de prehistorie naar
+het vroege christendom lopen.
+
+**De wieg van de mens**
+
+Het paleontologische deel vat de vondsten samen die Afrika aanwijzen als
+geboortegrond van de mensheid, van de australopithecinen tot de moderne mens.
+Finch verbindt daaraan monogenese: alle mensen stammen af van die ene
+Afrikaanse oorsprong. Dit deel spoort met de gangbare wetenschap; de Out of
+Africa-hypothese werd in dezelfde jaren door fossielen en vroege DNA-studies
+onderbouwd. Finch trekt de lijn verder dan het vakgebied: ook cultuur,
+symboliek en godsdienst laat hij in dit Afrikaanse begin ontstaan.
+
+In dat verlengde betoogt hij dat met de mens ook de vroegste vormen van
+symbolisch gedrag, techniek en kennis in Afrika ontstonden, lang voor de
+schriftculturen van het Nabije Oosten. De sprong van fossielenbewijs naar
+cultuurgeschiedenis is hier het scharnier van het hele boek: waar het
+vakgebied over de vroegste symboliek voorzichtig blijft, bouwt Finch er een
+doorlopende Afrikaanse cultuurlijn op die tot in Egypte doorloopt.
+
+**Eden opnieuw gelezen**
+
+Vervolgens herleest hij het bijbelse paradijsverhaal als herinnering aan
+Afrika. Geografische aanduidingen, namen en motieven uit Genesis worden via
+etymologische vergelijking aan de Nijlvallei en het Afrikaanse binnenland
+gekoppeld. De hof van Eden wordt zo van theologisch beeld tot verbleekte
+herinnering aan de werkelijke oorsprong, en de bijbelse oergeschiedenis tot
+echo van oudere Afrikaanse overlevering.
+
+**Eerst de moeder**
+
+Een kernthema is het oorspronkelijke matriarchaat. In navolging van Diop, die
+Afrika als matriarchale cultuurkring tegenover een patriarchaal Eurazië
+plaatste, betoogt Finch dat de vroegste samenlevingen rond moeder en godin
+waren geordend. Een afzonderlijk hoofdstuk behandelt de vele gedaanten van de
+grote godinnen, van de Afrikaanse oermoeder tot Isis, Neith en Hathor. Het
+patriarchaat verschijnt in dit verhaal als latere breuk die de godin
+onttroonde en de mythen herschreef.
+
+**Egypte als moederbodem van jodendom en christendom**
+
+De slothoofdstukken zetten de stap waar het boek om bekend staat: jodendom en
+christendom als rechtstreekse nazaten van de Egyptische religie. Finch
+vergelijkt bijbelse namen en teksten met Egyptisch materiaal en leunt zwaar op
+Gerald Massey, de negentiende-eeuwse Engelse dichter en autodidact die in
+*Ancient Egypt: The Light of the World* het christendom als herwerkte Osiris-
+en Horusmythe las. De stervende en herrijzende Osiris, de moedergodin met kind
+en het laatste oordeel gelden hier als Egyptische voorafschaduwingen van het
+evangelie.
+
+**Het Grote Jaar**
+
+Het boek sluit af met de astronomische mythologie. De precessie van de aardas,
+die de lentepunt in ongeveer 26.000 jaar door de dierenriem laat wandelen, zou
+in de oudheid gekend en in mythen vastgelegd zijn: elk wereldtijdperk zijn
+eigen godsbeeld. Finch leest de overgang van stier naar ram naar vissen als
+kosmisch draaiboek waarin ook de komst van het christendom past, aangekondigd
+door wat hij de kosmische profetieën van het Grote Jaar noemt.
+
+In latere artikelen heeft Finch deze chronologie verder uitgewerkt tot een
+dubbel Groot Jaar voor de Nijlvallei. Binnen de afrocentrische beweging geldt
+dit deel als zijn eigenste bijdrage; buiten die kring vindt de gedachte dat de
+oude Egyptenaren de precessie kenden en in mythen codeerden geen steun, omdat
+het vroegste onbetwiste bericht over de precessie van de Griekse astronoom
+Hipparchus stamt, uit de tweede eeuw voor Christus.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Old Darkland | Finch' benaming voor Afrika als oud, donker moederland waaruit de echo's van alle latere cultuur klinken. |
+| Afrikaans Eden | De lezing van het paradijsverhaal als verbleekte herinnering aan de werkelijke Afrikaanse oorsprong van de mens. |
+| monogenese | De opvatting dat alle mensen afstammen van één Afrikaanse oorsprong. |
+| oermatriarchaat | De these dat de vroegste samenlevingen rond moeder en godin geordend waren en het patriarchaat een late breuk is. |
+| Grote Jaar | De precessiecyclus van ongeveer 26.000 jaar die volgens Finch als kosmisch draaiboek in de mythen is vastgelegd. |
+| Osiris-mythe | Het Egyptische verhaal van de stervende en herrijzende god, door Finch gelezen als voorafschaduwing van het evangelie. |
+| naamsvergelijking | Finch' methode om bijbelse namen via klankovereenkomst aan Egyptische en Afrikaanse woorden te koppelen. |
+
+#### Waar het argument op rust
+
+Het draagvlak verschilt sterk per laag van het betoog. De Afrikaanse oorsprong
+van de mens is gevestigde wetenschap, destijds en nu, en Finch geeft dat deel
+getrouw weer. Dat Egypte een Afrikaanse beschaving is en dat het vroege
+christendom in Egypte belangrijke ontwikkelingen doormaakte, is evenmin
+omstreden. Ook enkele losse ontleningen van bijbelse literatuur aan Egyptische
+teksten zijn erkend, zoals de verwantschap tussen Spreuken en de leer van
+Amenemope.
+
+De dragende constructies daarboven zijn zwak. De matriarchaatsthese stamt uit
+de negentiende eeuw en is door de antropologie verlaten: matrilineaire
+verwantschap komt voor, een historisch tijdperk van vrouwenheerschappij is
+nooit aangetoond. De afleiding van jodendom en christendom uit de Egyptische
+religie steunt op Massey, wiens etymologieën en parallellen door egyptologen
+als methodisch ondeugdelijk worden beschouwd; klankovereenkomst tussen namen
+bewijst geen ontlening. Voor kennis van de precessie in het oude Egypte
+bestaat geen tekstueel bewijs. Het boek verscheen bij een kleine eigen
+uitgeverij, zonder vakmatige toetsing.
+
+#### Wat er tegen in te brengen valt
+
+Het voornaamste bezwaar is de vermenging van lagen. Door gevestigde
+paleoantropologie, omstreden geschiedschrijving en vrije mythenduiding in één
+doorlopend betoog te gieten, leent het sterke deel zijn gezag aan het zwakke.
+De lezer die met de fossielen instemt, wordt ongemerkt meegenomen naar
+Massey's parallellen en het kosmische draaiboek, terwijl daar telkens een
+andere, veel lossere bewijsstandaard geldt. Vergelijkende mythologie die op
+gelijkenis jaagt, vindt altijd wat zij zoekt; chronologie, context en
+overleveringsgeschiedenis blijven onderbelicht.
+
+Daar staat tegenover dat het boek binnen zijn eigen traditie serieus werk is:
+Finch schrijft helder, kent zijn bronnen en was een van de weinigen die het
+toen verwaarloosde thema van Afrika's plaats in de menselijke voorgeschiedenis
+voor een breed publiek agendeerde. Wie het leest als document van het
+afrocentrische denken rond 1990, met Diop als fundament en Massey als
+bouwmeester, krijgt een representatief en leesbaar overzicht. Wie het leest
+als stand van de wetenschap, wordt op de meeste punten verkeerd geïnformeerd.
+
+#### Wat er concreet mee te doen is
+
+- Scheid bij het lezen de lagen: fossielenbewijs, tekstontleningen en
+mythenduiding vragen elk een eigen bewijsstandaard.
+- Behandel klankovereenkomst tussen namen als aanleiding voor onderzoek, nooit
+als bewijs van ontlening.
+- Toets de matriarchaats- en precessieclaims aan een hedendaags handboek
+antropologie of egyptologie voordat ze worden doorverteld.
+- Gebruik het boek als ingang tot de afrocentrische traditie en lees de
+wetenschappelijke tegenstemmen ernaast.
+
+#### Wat je hierna leest
+
+- 56. Sapiens. Sapiens van Harari vertelt het verhaal van de menselijke
+oorsprong en cultuurontwikkeling volgens de gangbare wetenschap.
+- 410. the hero with a thousand faces. The Hero with a Thousand Faces van
+Campbell laat zien hoe terugkerende mythepatronen ook zonder ontlening
+verklaard kunnen worden.
+- 357. De mens en zijn symbolen. De mens en zijn symbolen van Jung biedt een
+psychologische duiding van dezelfde godinnen- en wedergeboortesymboliek.
+
+## 600. They Came Before Columbus
+
+Ivan Van Sertima, 1976. *They Came Before Columbus: The African Presence in
+Ancient America* (Random House, New York, 1976, xvii + 288 blz., ISBN
+9780394402451; paperback Random House Trade Paperbacks, 2003, ISBN
+9780812968170). In de catalogus van bibliotheek.nl alleen de Engelstalige
+editie; geen Nederlandse vertaling gevonden, de samenvatting is op de Engelse
+editie gebaseerd. Rubriek: geschiedenis en samenleving.
+Tags: `geschiedenis`, `afrika`, `amerika`, `archeologie`
+
+Bekendste werk van de Guyanees-Amerikaanse literatuurwetenschapper Ivan Van
+Sertima, docent Africana Studies aan Rutgers. Hij betoogt dat Afrikanen
+Amerika lang voor Columbus bereikten en de beschavingen van Meso-Amerika
+beïnvloedden: Nubiërs rond 700 voor Christus, af te lezen aan de kolossale
+Olmeekse stenen koppen, en Mandinka uit Mali rond 1311, onder de legendarische
+koning Aboebakari II. Als bewijs voert hij onder meer Columbus' eigen
+berichten, zeestromen, plantenverspreiding en schedelmetingen aan.
+
+Het boek is meeslepend geschreven en werd in afrocentrische kring een
+standaardwerk. De vakwetenschap verwierp de these: een uitvoerige weerlegging
+in *Current Anthropology* (1997) liet zien dat de Olmeekse koppen eeuwen ouder
+zijn dan de Nubische dynastie, dat er in gecontroleerde opgravingen nooit één
+Afrikaans voorwerp in precolumbiaans Amerika is gevonden en dat het botanische
+en skeletbewijs geen stand houdt. Het boek leeft voort als cultureel fenomeen,
+als geschiedschrijving geldt het als weerlegd.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Van Sertima stelt dat Afrikanen Amerika ruim voor Columbus
+bereikten en er sporen van betekenis achterlieten. Rond 700 voor Christus
+zouden Nubische zeevaarders uit het Egypte van de 25e dynastie via de
+Atlantische stromen de Golf van Mexico hebben bereikt en de opkomende Olmeekse
+beschaving hebben beïnvloed; rond 1311 zou een vloot uit het rijk Mali onder
+koning Aboebakari II dezelfde oversteek hebben gemaakt. De kolossale Olmeekse
+koppen met hun in zijn ogen Afrikaanse gelaatstrekken, berichten van Columbus
+zelf, metallurgie, plantenverspreiding en schedelvondsten vormen samen het
+bewijs dat de geschiedschrijving Afrika's aandeel in de Nieuwe Wereld heeft
+weggeschreven.
+
+#### De gang van het boek
+
+**Wat Columbus zelf hoorde**
+
+Het boek opent bij Columbus, die op Hispaniola van de bewoners hoorde dat er
+eerder donkere mannen uit het zuiden waren gekomen met speerpunten van guanín,
+een goudlegering. Van Sertima laat de verhouding goud, zilver en koper van die
+legering overeenkomen met West-Afrikaanse recepturen en verzamelt verdere
+berichten van vroege ontdekkingsreizigers over Afrikaans ogende mensen in de
+Nieuwe Wereld. Deze getuigenissen vormen de raamvertelling waarin de oudere
+contacten worden geplaatst.
+
+**De vloot van Aboebakari II**
+
+Het Mali-hoofdstuk steunt op een bericht van de Arabische geleerde al-Umari:
+in Caïro vertelde Mansa Moesa in 1324 dat zijn voorganger honderden schepen de
+Atlantische Oceaan op stuurde en, toen slechts één schip terugkeerde, zelf met
+een nog grotere vloot vertrok om nooit terug te keren. Van Sertima geeft deze
+koning de naam Aboebakari II en laat de vloot met de Canarische stroom en de
+passaat in Amerika aankomen, waar Mandinka-invloeden in taal, handel en
+gebruiken zouden zijn neergeslagen.
+
+**Nubië en de Olmeken**
+
+De kern van het boek betreft het oudere contact. In de bloeitijd van de
+Nubische farao's van de 25e dynastie zouden expedities de oceaan zijn
+overgestoken en de Olmeekse cultuur aan de Golf van Mexico hebben bevrucht.
+Het voornaamste bewijs zijn de kolossale bazalten koppen van San Lorenzo en La
+Venta, waarvan de brede neuzen en volle lippen volgens Van Sertima Afrikaanse
+gezichten tonen, aangevuld met piramidebouw, mummificeringsgebruiken en andere
+parallellen tussen de Nijlvallei en Meso-Amerika.
+
+Van Sertima put voor deze parallellen ruim uit oudere diffusionistische
+literatuur, met name het driedelige werk van de Harvard-taalkundige Leo Wiener
+uit de jaren twintig over een Afrikaanse aanwezigheid in het oude Amerika.
+Wieners taalkundige en botanische vergelijkingen waren toen al door vakgenoten
+terzijde gelegd; in dit boek keren ze terug als steunbewijs, zonder vermelding
+van die ontvangst.
+
+**Stromen, schepen en de Ra II**
+
+Een technisch deel betoogt dat de oversteek haalbaar was. De Canarische en
+Guinese stromen voeren vrijwel vanzelf naar het Caribisch gebied, en Thor
+Heyerdahl toonde in 1970 met de papyrusboot Ra II dat een vaartuig van
+voor-modern ontwerp de oversteek van Marokko naar Barbados kan volbrengen.
+Afrikaanse scheepsbouw en navigatie waren volgens Van Sertima verder
+ontwikkeld dan de geschiedschrijving aanneemt, zodat het argument van
+onmogelijkheid vervalt.
+
+**Planten, schedels en woorden**
+
+De bewijsvoering wordt afgerond met verspreidingsargumenten: gekweekte katoen,
+de fleskalebas en andere gewassen die aan beide zijden van de oceaan
+voorkomen, schedelanalyses van de Poolse antropoloog Wiercinski die in
+precolumbiaanse graven Afrikaanse kenmerken meende te zien, en
+woordvergelijkingen tussen Mandinka-talen en Amerikaanse talen. Elk spoor
+afzonderlijk acht Van Sertima ondersteunend, samen vormen zij voor hem een
+sluitend web.
+
+**Een weggeschreven hoofdstuk**
+
+Het slot keert terug naar de geschiedschrijving zelf. Dat deze contacten
+onbekend bleven, verklaart Van Sertima uit de gewoonte om Afrika als
+geschiedenisloos continent te behandelen; zijn boek wil een gewist hoofdstuk
+terugschrijven. Die inzet, eerherstel voor Afrikaanse zeevaart en beschaving,
+geeft het boek zijn toon van aanklacht en verklaart de weerklank die het vond
+in het onderwijs en de afrocentrische beweging.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Olmeken | De vroegste grote beschaving van Meso-Amerika, aan de Golfkust van Mexico, door Van Sertima als ontvanger van Afrikaanse invloed opgevoerd. |
+| kolossale koppen | Metershoge bazalten portretkoppen van San Lorenzo en La Venta, voor Van Sertima het zichtbaarste bewijs van Afrikaanse aanwezigheid. |
+| 25e dynastie | De periode waarin Nubische farao's over Egypte heersten, bij Van Sertima de thuisbasis van de vroegste expedities. |
+| Aboebakari II | De koning van Mali die volgens het bericht van al-Umari met een vloot de Atlantische Oceaan op voer en niet terugkeerde. |
+| guanín | De goudlegering van de speerpunten waarover Columbus hoorde, door Van Sertima aan West-Afrikaanse metallurgie gekoppeld. |
+| Ra II | De papyrusboot waarmee Thor Heyerdahl in 1970 de oversteek maakte en daarmee de haalbaarheid van zulke reizen aantoonde. |
+| diffusionisme | De denkrichting die culturele overeenkomsten verklaart uit contact en overdracht in plaats van onafhankelijke ontwikkeling. |
+
+#### Waar het argument op rust
+
+Enkele bouwstenen zijn echt. Het bericht van al-Umari over de Malinese vloot
+bestaat, al vertelt het alleen over vertrek en niet over aankomst. De Ra
+II-tocht bewijst dat de oversteek technisch mogelijk was, wat iets anders is
+dan dat hij plaatsvond. De 25e dynastie was een werkelijke Nubische
+grootmacht. Van Sertima schreef bovendien als literatuurwetenschapper een
+meeslepend boek dat oudere diffusionistische literatuur, vooral het werk van
+Leo Wiener uit de jaren twintig, opnieuw onder de aandacht bracht.
+
+De dragende bewijzen falen echter stuk voor stuk. In gecontroleerde
+opgravingen is in de Amerika's nooit één Afrikaans voorwerp uit
+precolumbiaanse context gevonden, geen scheepsrest, geen inscriptie, geen
+handelsgoed. De gelaatstrekken van de koppen komen overeen met de inheemse
+bevolking van de Golfkust, zoals de Olmeken zichzelf ook elders afbeeldden. De
+Amerikaanse katoensoorten zijn inheems, de fleskalebas kan drijvend zijn
+aangespoeld, en Wiercinski's schedeltypologie geldt als achterhaalde methode.
+Skelet- en later DNA-onderzoek toont geen Afrikaanse bijmenging in
+precolumbiaanse populaties.
+
+#### Wat er tegen in te brengen valt
+
+De vakwetenschap heeft de these niet genegeerd maar onderzocht en verworpen.
+De uitvoerigste weerlegging verscheen in *Current Anthropology* (1997):
+Haslip-Viera, Ortiz de Montellano en Barbour lieten zien dat de chronologie
+alleen al dodelijk is, want de kolossale koppen dateren van ruwweg 1200 tot
+900 voor Christus, eeuwen voordat de 25e dynastie aan de macht kwam, zodat de
+veronderstelde brengers na de koppen arriveren. Zij wezen er bovendien op dat
+de these de Olmeken hun eigen prestatie ontzegt: wat als eerherstel voor
+Afrika is bedoeld, schrijft de inheemse volken van Amerika hun beschaving af.
+Van Sertima antwoordde in hetzelfde tijdschrift, maar op de kernpunten, de
+datering en het ontbreken van elk artefact, kwam geen weerwoord dat
+standhield.
+
+Eerlijk is te zeggen wat het boek wel is: een welsprekend geschreven pleidooi
+uit 1976 dat een terecht punt, de systematische onderschatting van Afrikaanse
+geschiedenis en zeevaart, verbond aan een onhoudbare hoofdclaim. Het boek
+wordt nog altijd gelezen en in sommige lesprogramma's gebruikt, en juist
+daarom is de status van belang: in de archeologie en de geschiedwetenschap
+geldt het als pseudoarcheologie. Wie Afrikaanse prestaties wil documenteren,
+kan beter terecht bij het onderzoek naar Nubië, Mali en de West-Afrikaanse
+rijken zelf, waar het werkelijke materiaal ligt.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik het boek als leerstuk in bronkritiek: ga per claim na wat het bewijs
+is en of het latere toetsing heeft doorstaan.
+- Onderscheid haalbaarheid van gebeurtenis; dat een oversteek kan, bewijst
+niet dat hij plaatsvond.
+- Wees alert op iconografisch bewijs: gelaatstrekken aflezen aan beelden is
+geen betrouwbare methode voor herkomstbepaling.
+- Weeg bij eerherstel-geschiedenis of de correctie van het ene onrecht geen
+nieuw onrecht schept, hier het wegschrijven van inheemse prestaties.
+
+#### Wat je hierna leest
+
+- 63. The Demon-Haunted World. The Demon-Haunted World van Sagan geeft het
+gereedschap waarmee buitengewone claims als deze te wegen zijn.
+- 56. Sapiens. Sapiens van Harari schetst de bevolkingsgeschiedenis van de
+continenten volgens de gangbare wetenschap.
+- 234. Factfulness. Factfulness van Rosling oefent dezelfde discipline op een
+ander terrein: eerst de data, dan het verhaal.
+
+## 601. Nature Knows No Color-Line
+
+J.A. Rogers, 1952. *Nature Knows No Color-Line: Research into the Negro
+Ancestry in the White Race* (in eigen beheer uitgegeven, New York, 1952;
+derde, uitgebreide editie 1960; heruitgave Wesleyan University Press, 2011,
+248 blz., ISBN 9780819575104). Geen Nederlandse vertaling gevonden in de
+catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie
+gebaseerd. Rubriek: geschiedenis en samenleving.
+Tags: `racisme`, `geschiedschrijving`, `afrikaanse diaspora`, `genealogie`
+
+Joel Augustus Rogers (1880-1966), Jamaicaans-Amerikaanse journalist en
+autodidact-historicus, verzamelde een halve eeuw lang materiaal over de
+aanwezigheid van Afrikanen in de Europese en Amerikaanse geschiedenis. In dit
+boek uit 1952 draait hij de gebruikelijke vraag om en zoekt hij de Afrikaanse
+voorouders in de witte bevolking. In elf hoofdstukken loopt hij van het oude
+Griekenland en Rome via het Moorse Spanje naar de adel en vorstenhuizen van
+West-Europa en het witte Amerika, met portretten, wapenschilden en stambomen
+als materiaal.
+
+De rode draad is dat vermenging in de geschiedenis de regel was en de
+kleurlijn een late, politiek gemotiveerde uitvinding. Die algemene stelling
+houdt stand; veel afzonderlijke voorbeelden zijn zwakker onderbouwd. Rogers
+werkte buiten de academie en gaf zijn werk in eigen beheer uit, wat hem
+vrijheid gaf en tegelijk controle onthield. Het boek geldt als pionierswerk
+van de zwarte geschiedschrijving en tegelijk als bron die claim voor claim
+nagelopen moet worden.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Rogers stelt dat de natuur geen kleurlijn kent: overal waar
+mensen met verschillende huidskleuren samenleefden, zijn zij zich gaan
+vermengen, van het oude Griekenland tot de Europese vorstenhuizen en het witte
+Amerika. Kleurvooroordeel is volgens hem geen natuurlijk gegeven en evenmin
+een wetenschappelijk feit; het is een betrekkelijk recente rechtvaardiging
+achteraf van overheersing, slavenhandel en kolonisatie. Wie de stambomen van
+Europa en Amerika werkelijk naloopt, vindt er de Afrikaanse voorouders die uit
+de geschiedschrijving zijn weggeretoucheerd. De scheiding tussen wit en zwart
+is daarmee een mythe die met archiefonderzoek te weerleggen valt.
+
+#### De gang van het boek
+
+**Een verzamelaar buiten de academie**
+
+Rogers werd in 1880 op Jamaica geboren, emigreerde in 1906 naar de Verenigde
+Staten en werkte decennialang als journalist, onder meer voor de Pittsburgh
+Courier. Omdat geen uitgever zijn onderzoek wilde drukken, financierde hij
+zijn reizen langs Europese archieven en musea zelf en gaf hij zijn boeken in
+eigen beheer uit. Dit boek uit 1952 bouwt voort op zijn driedelige *Sex and
+Race* (1941-1944) en verscheen in 1960 in een derde, uitgebreide editie. De
+vraagstelling is omgekeerd aan wat toen gangbaar was: onderzocht wordt de
+Afrikaanse afstamming binnen de witte bevolking.
+
+**Waar het kleurvooroordeel begon**
+
+De openingshoofdstukken behandelen de herkomst van het kleurprobleem en het
+vooroordeel dat witte groepen onderling koesterden, tussen blond en donker,
+tussen noord en zuid, tussen standen. Rogers betoogt dat afkeer van een
+huidskleur steeds volgt op machtsverhoudingen en winstbelangen, en dat de
+slavernij van de oudheid geen raciale grondslag had: Grieken, Romeinen en
+Afrikanen maakten elkaar tot slaaf zonder de huid als rechtvaardiging te
+gebruiken. Pas de trans-Atlantische slavenhandel had een leer nodig die een
+hele bevolkingsgroep blijvend onderaan zette.
+
+**Oudheid: Grieken en Romeinen**
+
+Twee hoofdstukken verzamelen de sporen van Afrikanen in het oude Griekenland
+en Rome: de Ethiopiërs bij Homerus en de heldenfiguur Memnon, Afrikaanse
+soldaten, atleten en geleerden in het Romeinse rijk, en de vanzelfsprekendheid
+waarmee klassieke auteurs over huwelijken over de huidsgrens heen schreven.
+Rogers concludeert dat de klassieke wereld geen kleurlijn trok zoals het
+moderne Westen. Latere archeologie, waaronder onderzoek naar Afrikaanse
+aanwezigheid in Romeins Brittannië, heeft dit algemene beeld grotendeels
+bevestigd.
+
+**Moren, wapenschilden en adel**
+
+Het middendeel behandelt het Iberisch schiereiland, waar tussen 711 en 1492
+Moorse rijken bestonden, en volgt de doorwerking daarvan in Zuid-Europa.
+Rogers leest familienamen als Moor, Morris en Mohr en de morenkoppen in
+honderden Europese familiewapens als sporen van Afrikaanse voorouders of op
+zijn minst van nauw contact. Hij wijst op vereerde zwarte figuren als
+Sint-Mauritius en de zwarte madonna's, en op Alessandro de' Medici, de eerste
+hertog van Florence, wiens moeder volgens de gangbare overlevering een
+Afrikaanse bediende was.
+
+**Vorstenhuizen en het witte Amerika**
+
+Voor Frankrijk voert Rogers onder anderen Alexandre Dumas op, kleinzoon van
+een tot slaaf gemaakte vrouw uit Saint-Domingue, en voor Rusland Poesjkins
+overgrootvader Abram Gannibal. Voor Engeland claimt hij dat koningin
+Charlotte, de vrouw van George III, via de vijftiende-eeuwse Portugese
+edelvrouw Margarita de Castro y Sousa Afrikaanse voorouders had. Het slot gaat
+over de Verenigde Staten: door eeuwen van vermenging en door passing, het
+geruisloos oversteken van de kleurlijn, hebben volgens Rogers miljoenen witte
+Amerikanen Afrikaanse voorouders, wat de one-drop rule tot een onhoudbare
+regel maakt die haar eigen aanhangers zou raken.
+
+**De stelling achter de stapel voorbeelden**
+
+Het betoog is cumulatief: geen enkel voorbeeld draagt de conclusie alleen, de
+optelsom moet laten zien dat raszuiverheid nergens bestaat en nooit bestaan
+heeft. Rogers trekt daaruit een humanistische slotsom: er is één mensheid, en
+de rassenleer van zijn tijd is een politiek werktuig zonder biologische basis.
+Dat hij dit in 1952 schreef, midden in de gesegregeerde Verenigde Staten en
+vóór het moderne genetische onderzoek, verklaart zowel de strijdbare toon als
+de blijvende betekenis van het boek.
+
+De doorwerking is opmerkelijk. Het boek bleef via familie-uitgaven en latere
+herdrukken in omloop, kreeg in 2011 een academische heruitgave bij Wesleyan
+University Press en duikt tot op heden op in publieksdebatten, zoals dat over
+de afkomst van koningin Charlotte na de serie *Bridgerton*. Binnen de zwarte
+gemeenschap in de Verenigde Staten gold Rogers generaties lang als de man die
+de verzwegen geschiedenis boven water haalde; de academische
+geschiedschrijving heeft zijn vragen pas decennia later serieus opgepakt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| kleurlijn | De sociale en juridische scheiding tussen wit en zwart, die Rogers als historisch jong en kunstmatig beschrijft. |
+| Moor | Middeleeuwse verzamelnaam voor moslims uit Noord-Afrika en Iberië, door Rogers gelezen als aanwijzing voor Afrikaanse afkomst. |
+| morenkop | Afbeelding van een zwart hoofd in Europese familiewapens, voor Rogers een spoor van Afrikaanse voorouders of contact. |
+| passing | Het onopgemerkt oversteken van de kleurlijn door Amerikanen met deels Afrikaanse afkomst die als wit gingen leven. |
+| one-drop rule | Amerikaanse regel die iemand met één Afrikaanse voorouder juridisch als zwart aanmerkte. |
+| rasmythe | Rogers' aanduiding voor het idee dat de mensheid uit gescheiden, zuivere rassen zou bestaan. |
+| vermenging | Het krijgen van kinderen over groepsgrenzen heen, volgens Rogers de historische regel en geen uitzondering. |
+
+#### Waar het argument op rust
+
+Rogers onderbouwt zijn betoog met een halve eeuw eigen bronnenonderzoek:
+reisverslagen, portretten, heraldiek, kronieken en genealogieën, verzameld in
+Europese archieven en musea zonder institutionele steun. Zijn algemene
+stellingen zijn sindsdien grotendeels bevestigd: de moderne genetica kent geen
+gescheiden mensenrassen, de Afrikaanse aanwezigheid in de Romeinse wereld is
+archeologisch aangetoond en het Moorse Iberië is gewone handboekstof.
+
+De afzonderlijke genealogische claims rusten op wisselend materiaal. Vaak gaat
+het om portretten en om beschrijvingen als donker of zwart in oude bronnen, en
+die laten meer dan één lezing toe. Henry Louis Gates Jr., die Rogers
+nadrukkelijk als pionier eert en zijn beroemdste lijst met feiten opnieuw
+uitgaf, stelde bij narekening vast dat een flink deel van de details geen
+stand houdt. Het boek is daarmee eerder een verzameling onderzoekssporen dan
+een afgerond bewijs.
+
+#### Wat er tegen in te brengen valt
+
+Het zwakste punt is de methode. Rogers publiceerde zonder redactie of
+collegiale toetsing en las moderne raciale categorieën terug in bronnen die
+anders in elkaar zaten: een Moor was in middeleeuwse teksten lang niet altijd
+een zwarte Afrikaan, en een morenkop in een wapen bewijst geen afstamming. De
+beroemdste claim uit dit boek, de Afrikaanse voorouders van koningin
+Charlotte, loopt via één edelvrouw negen generaties en ruim vier eeuwen
+eerder; hedendaagse genealogen achten die lijn niet aangetoond. Elders in zijn
+oeuvre deed Rogers de claim dat Beethoven Afrikaanse voorouders had, die door
+musicologen wordt verworpen.
+
+Daar staat tegenover dat het boek geschreven is als tegenwicht in een tijd
+waarin de geschiedschrijving zelf diep raciaal vooringenomen was, en die
+polemische functie buigt de bewijslast soms naar het gewenste resultaat. De
+eerlijke balans: de humanistische kernthese, één mensheid zonder biologische
+rassen, is door de latere wetenschap bevestigd; van de honderden voorbeelden
+overleeft een deel de toetsing wel en een deel niet, en het boek zelf biedt
+geen middel om die twee te scheiden.
+
+#### Wat er concreet mee te doen is
+
+- Behandel elk afzonderlijk voorbeeld als een onderzoeksspoor en zoek de
+hedendaagse literatuur erbij voordat het wordt doorverteld.
+- Gebruik het boek als correctie op geschiedbeelden waarin Europa als raciaal
+gesloten wordt voorgesteld.
+- Let bij oude bronnen op wat termen als Moor of zwart in hun eigen tijd
+betekenden.
+- Onderscheid de bewezen kernthese, dat rassen geen biologische basis hebben,
+van de losse genealogische claims eromheen.
+
+#### Wat je hierna leest
+
+- 523. I Write What I Like. I Write What I Like van Steve Biko behandelt de
+psychologische kant van hetzelfde gevecht: hoe een opgelegd
+minderwaardigheidsbeeld van binnenuit wordt afgelegd.
+- 68. Black Rednecks and White Liberals. Black Rednecks and White Liberals
+bestrijdt eveneens gangbare geschiedbeelden over ras, vanuit een
+tegenovergestelde politieke hoek.
+- 56. Sapiens. Sapiens plaatst ras onder de verbeelde ordes waarmee mensen
+grote groepen organiseren en tegen elkaar afgrenzen.
+
+## 602. Civilization or Barbarism
+
+Cheikh Anta Diop, 1981. *Civilization or Barbarism: An Authentic Anthropology*
+(oorspronkelijk *Civilisation ou barbarie*, Présence Africaine, Parijs, 1981;
+Engelse vertaling door Yaa-Lengi Meema Ngemi, Lawrence Hill Books, 1991, 440
+blz., ISBN 9781556520488). Geen Nederlandse vertaling gevonden in de catalogus
+van bibliotheek.nl, die wel de Engelse editie bevat; de samenvatting is op de
+Engelse vertaling gebaseerd. Rubriek: geschiedenis en samenleving.
+Tags: `afrika`, `egypte`, `geschiedschrijving`, `antropologie`, `racisme`
+
+Slotwerk van de Senegalese natuurkundige en historicus Cheikh Anta Diop
+(1923-1986), verschenen in 1981 en in 1991 in het Engels vertaald. Diop
+bundelt dertig jaar onderzoek tot één betoog: de mensheid is in Afrika
+ontstaan, het oude Egypte was een zwarte Afrikaanse beschaving en de vroege
+Griekse wetenschap en filosofie hebben zwaar op de Nijlvallei geleund. Het
+tweede deel toetst marxistische geschiedmodellen aan Afrikaans materiaal en
+werkt zijn theorie van twee cultuurwiegen uit, een zuidelijke matriarchale en
+een noordelijke patriarchale.
+
+Het boek eindigt als pleidooi: Afrika moet zijn geschiedenis terugnemen en
+zich federaal verenigen, en de mensheid moet kiezen tussen beschaving en
+barbarij. Diops eis dat Egypte binnen Afrika wordt bestudeerd is inmiddels
+gemeengoed; zijn scherpere claims, van de melaninetest tot de Griekse
+ontlening, blijven omstreden. De lezer krijgt zowel een geschiedwerk als het
+manifest van een school.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Diop stelt dat de geschiedschrijving over Afrika door de
+koloniale wetenschap is vervalst en van de grond af opnieuw moet worden
+opgebouwd. De mensheid is in Afrika ontstaan, het faraonische Egypte was een
+zwarte Afrikaanse beschaving en vormt voor Afrika wat de klassieke oudheid
+voor Europa is: de wortel waaruit een culturele renaissance kan groeien. De
+vroegste wiskunde, wetenschap en wijsbegeerte ontstonden volgens hem in de
+Nijlvallei en bereikten van daaruit de Egeïsche wereld. Herstel van dat
+historische bewustzijn is voor Diop de voorwaarde voor politieke eenwording
+van Afrika en voor een planetaire beschaving die de mensheid voor barbarij
+behoedt.
+
+#### De gang van het boek
+
+**Slotsom van een levenswerk**
+
+Diop was opgeleid als natuurkundige, leidde het radiokoolstoflaboratorium van
+het IFAN-instituut in Dakar en had sinds *Nations nègres et culture* (1954) de
+stelling verdedigd dat het oude Egypte een zwarte Afrikaanse beschaving was.
+Dit boek uit 1981 is de synthese van dat programma en bestaat uit twee delen:
+een paleontologisch-historisch deel over de oorsprong van mens en beschaving,
+en een sociologisch deel over de wetten die de ontwikkeling van samenlevingen
+sturen. De Engelse vertaling verscheen in 1991, vijf jaar na zijn dood.
+
+**De oorsprong van de mens ligt in Afrika**
+
+Het eerste deel verdedigt de monogenese: de hele mensheid stamt uit één
+Afrikaanse oorsprong, en de raciale verschillen zijn late aanpassingen aan
+klimaat. Diop bespreekt de toenmalige vondsten en bestrijdt theorieën die de
+mens meerdere, gescheiden oorsprongen toedichtten. Hij betoogt verder dat de
+eerste moderne mensen in Europa, naar het toen gangbare beeld van de
+zogenoemde Grimaldi-mens, negroïde trekken hadden, en wijdt een apart
+hoofdstuk aan het Atlantisverhaal, dat hij met behulp van
+radiokoolstofdatering in de historische chronologie probeert te plaatsen.
+
+**Egypte als zwarte Afrikaanse beschaving**
+
+De kern van het eerste deel is de these dat de oude Egyptenaren zwarte
+Afrikanen waren. Diop voert daarvoor meerdere lijnen aan: zijn eigen
+melaninemetingen aan mummiehuid, de getuigenis van Griekse auteurs onder wie
+Herodotus, de Egyptische zelfaanduiding Kmt, de iconografie, en de culturele
+en taalkundige banden met de rest van Afrika, van het koningschap tot
+verwantschapsstelsels. De beschaving van de Nijlvallei is in zijn ogen
+zuidelijk van oorsprong, opgekomen vanuit Nubië en het binnenland.
+
+**Egyptische wetenschap en de Griekse leerlingen**
+
+Diop inventariseert wat de Nijlvallei aan kennis voortbracht: de rekenkunde en
+meetkunde van de papyri Rhind en Moskou, de geneeskunde van de papyrus Edwin
+Smith, de kalender en de sterrenkunde, en de kosmogonieën van Heliopolis en
+Hermopolis, die hij als vroege wijsbegeerte leest. Vervolgens wijst hij op de
+antieke overlevering dat Thales, Pythagoras, Plato en Eudoxus in Egypte
+studeerden, en concludeert dat de Griekse wetenschap een leerling was voordat
+zij leermeester werd. Het Griekse wonder is in zijn lezing de voortzetting van
+een oudere Afrikaanse erfenis.
+
+**Twee wiegen en de motor van de geschiedenis**
+
+Het tweede deel toetst het marxistische stadiamodel en de zogenoemde
+Aziatische productiewijze aan Afrikaans materiaal en vindt beide ontoereikend.
+Diop beschrijft de clan- en stamorganisatie, de verwantschapsstructuren en het
+ontstaan van staatsvormen, en zet zijn theorie van de twee wiegen uiteen: een
+zuidelijke wieg van sedentaire landbouwers met matrilineaire afstamming en een
+noordelijke wieg van nomaden met patriarchale ordening, elk met eigen
+instituties, waarden en godsdienstige voorstellingen. Ook klasse, ras en
+revolutie krijgen binnen dat raamwerk hun plaats.
+
+**Beschaving of barbarij**
+
+Het slot verlaat de geschiedschrijving en wordt programma. Afrika moet volgens
+Diop zijn talen ontwikkelen, zijn energiebronnen beheersen en zich federaal
+verenigen, met het herstelde historische bewustzijn als fundament. De
+titelvraag is aan de hele mensheid gericht: een technische beschaving zonder
+gedeelde menselijke waarden glijdt af naar barbarij, tot en met nucleaire
+zelfvernietiging. Tegenover dat vooruitzicht plaatst hij het ideaal van een
+planetaire beschaving waaraan een herboren Afrika als gelijke deelneemt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| monogenese | Het ontstaan van de gehele mensheid uit één Afrikaanse oorsprong, met raciale verschillen als latere klimaataanpassing. |
+| melaninetest | Door Diop ontwikkelde meting van melanine in mummiehuid om de huidskleur van oude Egyptenaren vast te stellen. |
+| Kmt | Egyptische zelfaanduiding van het land, door Diop vertaald als land of volk van de zwarten. |
+| twee-wiegentheorie | Model dat een zuidelijke, sedentaire en matrilineaire cultuurkring tegenover een noordelijke, nomadische en patriarchale plaatst. |
+| matriarchaat | Ordening waarin afstamming, erfrecht en aanzien via de moederlijn lopen, volgens Diop kenmerkend voor de zuidelijke wieg. |
+| Aziatische productiewijze | Marxistische categorie voor staten met centrale tribuutheffing, die Diop voor Afrika herziet en deels verwerpt. |
+| culturele renaissance | Het herstel van Afrikaans historisch bewustzijn als motor van politieke, wetenschappelijke en culturele opbloei. |
+| barbarij | Bij Diop de ontsporing van een technische beschaving zonder menselijke waarden, tot en met nucleaire zelfvernietiging. |
+
+#### Waar het argument op rust
+
+Diop schreef als getraind natuurwetenschapper met een eigen
+dateringslaboratorium, en een deel van zijn hoofdlijnen is later bevestigd: de
+Afrikaanse oorsprong van de moderne mens is sinds het genetische onderzoek van
+de jaren tachtig en negentig het standaardmodel, en de eis om Egypte als
+Afrikaanse beschaving te bestuderen klinkt door in de UNESCO-reeks General
+History of Africa, waaraan hij zelf een hoofdstuk bijdroeg. Op het eerste
+wereldfestival voor zwarte kunsten in Dakar (1966) werd hij, naast W.E.B. Du
+Bois, geëerd als de schrijver met de grootste invloed op het zwarte denken van
+de twintigste eeuw.
+
+Voor de Egyptethese beroept Diop zich op het UNESCO-symposium van Caïro
+(1974), waar hij en Théophile Obenga tegenover een twintigtal egyptologen
+stonden. Het officiële verslag noteerde dat er geen consensus werd bereikt en
+dat de twee Afrikaanse geleerden hun stellingen grondig voorbereid
+verdedigden; aanhangers lezen dat als overwinning, tegenstanders niet. Het
+bewijs is dus gemengd: sterk waar het op de Afrikaanse oorsprong van de mens
+en de Afrikaanse context van Egypte aankomt, dun waar afzonderlijke metingen
+en tekstlezingen het hele gebouw moeten dragen.
+
+#### Wat er tegen in te brengen valt
+
+De hedendaagse egyptologie verwerpt de binaire vraagstelling zwart of wit als
+anachronisme: de oude Egyptenaren golden er als inheemse Noordoost-Afrikanen
+met grote regionale variatie en continuïteit tot in het heden. De melaninetest
+is bekritiseerd om de kleine en late steekproef en om methodische gebreken, en
+de Grimaldi-these over negroïde eerste Europeanen berust op reconstructies van
+rond 1900 die allang zijn achterhaald. Ook de ontleningsthese ligt onder vuur:
+de verhalen over Griekse filosofen die in Egypte studeerden zijn vaak laat en
+onbetrouwbaar, en classici als Mary Lefkowitz hebben in het afrocentrismedebat
+betoogd dat het bewijsmateriaal die claims niet draagt. Het Atlantishoofdstuk
+is speculatief.
+
+Tegelijk verdient de kritiek zelf context. Diop schreef tegen een egyptologie
+die in de negentiende en vroege twintigste eeuw openlijk racistisch was en
+Egypte buiten Afrika plaatste, en die correctie was raak. Meerdere van zijn
+brede punten zijn van de marge naar het midden geschoven. Het tweede deel
+lijdt aan een ander euvel: de twee wiegen zijn ideaaltypen waarvoor gunstig
+materiaal is geselecteerd, en de politieke slotsom vraagt om een geloofssprong
+die het historische betoog niet afdwingt. Wie het boek beoordeelt, moet dus
+per claim wegen en kan met een totaaloordeel geen kant op.
+
+#### Wat er concreet mee te doen is
+
+- Scheid bij het lezen drie lagen: gevestigde feiten, verdedigbare hypothesen
+en polemiek.
+- Gebruik het boek als tegenwicht bij oudere literatuur die Egypte buiten
+Afrika plaatst.
+- Loop de verwijzingen na; Diop citeert bronnen die zelf controleerbaar zijn.
+- Leg de claims over Griekse ontlening naast het werk van critici als
+Lefkowitz om beide kanten van het debat te kennen.
+
+#### Wat je hierna leest
+
+- 521. Indigenous and Popular Thinking in América. Indigenous and Popular
+Thinking in América van Rodolfo Kusch zoekt eveneens een eigen, buiten Europa
+gewortelde denktraditie, voor Zuid-Amerika.
+- 523. I Write What I Like. I Write What I Like van Steve Biko trekt dezelfde
+lijn door naar de politiek: geestelijke dekolonisatie als voorwaarde voor
+bevrijding.
+- 56. Sapiens. Sapiens biedt het gangbare grote verhaal over de menselijke
+oorsprong waartegen Diops alternatieve lezing zich laat afzetten.
+
+## 603. The Mystical Christ
+
+Manly P. Hall, 1951. *The Mystical Christ: Religion as a Personal Spiritual
+Experience* (Philosophical Research Society, Los Angeles, 1951, 254 blz.;
+paperback-heruitgave ISBN 9780893145149). Vervolg op *How to Understand Your
+Bible* (1943). Geen Nederlandse vertaling gevonden in de catalogus van
+bibliotheek.nl, die van Hall alleen ander werk bevat; de samenvatting is op de
+Engelse editie gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `mystiek`, `christendom`, `esoterie`, `spiritualiteit`
+
+Manly P. Hall (1901-1990), stichter van de Philosophical Research Society in
+Los Angeles en schrijver van *The Secret Teachings of All Ages*, schreef dit
+boek in 1951 als devotioneel vervolg op *How to Understand Your Bible*. Zijn
+uitgangspunt: religie is in de eerste plaats een persoonlijke geestelijke
+ervaring, en leerstellingen komen op de tweede plaats. Hall onderscheidt de
+historische Jezus van het Christusbeginsel en leest de evangeliën als handboek
+voor innerlijke groei: de wonderen als demonstraties van geestelijke wetten,
+het Onzevader en de zaligsprekingen als oefenstof, kruisiging en opstanding
+als inwijdingsdrama naar het patroon van de antieke mysteriescholen.
+
+Het boek staat in de Amerikaanse metafysische traditie en leunt op Halls
+stelling dat Jezus uit de kring van de Essenen voortkwam. Dat schreef hij
+voordat de Dode Zee-rollen goed ontsloten waren; de latere wetenschap heeft
+die stelling niet bevestigd. Als bronnenstudie is het boek zwak, als helder
+geschreven document van het esoterische christendom rond 1950 is het
+representatief.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Hall stelt dat het christendom in zijn kern een
+mysteriereligie is en dat de kerk die kern institutioneel heeft toegedekt.
+Religie die alleen uit leerstellingen en lidmaatschap bestaat, mist volgens
+hem het enige dat telt: de persoonlijke geestelijke ervaring waarin een mens
+het goddelijke rechtstreeks leert kennen. De evangeliën beschrijven onder het
+oppervlak van het verhaal een universeel inwijdingspad dat ieder mens kan
+gaan. De historische Jezus toont dat pad; de mystieke Christus is het beginsel
+dat in ieder mens op ontwaken wacht. Wie de teksten zo leest, vindt er een
+werkboek voor innerlijke omvorming in plaats van een geloofsbelijdenis.
+
+#### De gang van het boek
+
+**Religie als ervaring**
+
+Het openingshoofdstuk, over het pad van geloof, zet het programma neer: geloof
+dat alleen instemming met stellingen is, blijft aan de buitenkant staan, en
+pas de doorleefde ervaring maakt religie werkzaam. Hall schreef het boek als
+tweede deel bij zijn eerdere bijbelcommentaar en richt zich op de devotionele
+kant van het christendom. De toon is die van zijn zondagslezingen in Los
+Angeles: rustig, betogend, gericht op de individuele zoeker en niet op een
+kerkelijk publiek.
+
+De schrijver zelf was toen al dertig jaar een instituut. Hall, geboren in
+Canada en zonder formele opleiding, publiceerde op zijn 27e het
+encyclopedische *The Secret Teachings of All Ages* (1928) en stichtte in 1934
+de Philosophical Research Society, met een bibliotheek van tienduizenden
+esoterische werken. Dit boek is binnen dat oeuvre een buitenbeentje: waar het
+meeste werk vergelijkend en historisch wil zijn, is dit uitdrukkelijk een boek
+voor de binnenkamer, over gebed, geloof en de omgang met vertrouwde teksten.
+
+**De Essenen als bakermat**
+
+Een afzonderlijk hoofdstuk behandelt wat Hall de sociale mystiek van de
+Essenen noemt, de joodse gemeenschap die volgens klassieke auteurs als
+Josephus, Philo en Plinius in afzondering leefde, bezit deelde en zich aan
+studie en reinheid wijdde. Hall neemt de in esoterische kringen oude stelling
+over dat Jezus in deze kring werd gevormd en dat de evangeliën vanuit Esseense
+gebruiken begrepen moeten worden. Daarmee geeft hij het christendom een
+voorgeschiedenis als school in plaats van als plotselinge openbaring.
+
+**Jezus, de mensenzoon**
+
+Twee hoofdstukken volgen het menselijke leven en het openbare optreden van
+Jezus. Hall leest de biografische episoden symbolisch: geboorte, doop,
+verzoeking en verheerlijking markeren stadia die elke leerling op het
+innerlijke pad doormaakt. De gelijkenissen behandelt hij als psychologische
+lessen over hoogmoed, vergeving en waakzaamheid. De wonderverhalen ziet hij
+als aanschouwelijk onderwijs: demonstraties van geestelijke wetten die in
+beginsel voor ieder mens gelden, geen opschorting van de natuur ten gunste van
+één persoon.
+
+**Het Onzevader en de zaligsprekingen**
+
+Het middendeel bevat de meest praktische hoofdstukken: een uitleg van het
+Onzevader regel voor regel en van de zaligsprekingen als opeenvolgende trappen
+van bewustzijn. Gebed is bij Hall geen verzoek om gunsten; het is een oefening
+waarin de bidder zijn eigen wil op het goddelijke afstemt. Deze hoofdstukken
+laten zien waarvoor het boek bedoeld is: dagelijkse omgang met vertrouwde
+teksten, met de esoterische duiding als hulpmiddel bij meditatie.
+
+**De goddelijke tragedie**
+
+De lijdensweek behandelt Hall onder de titel van de goddelijke tragedie.
+Kruisiging en opstanding volgen volgens hem het patroon van de antieke
+mysteriedrama's, waarin de kandidaat symbolisch stierf en in een nieuw
+bewustzijn opstond. De historische vraag wat er in Jeruzalem precies gebeurde,
+acht hij minder belangrijk dan de innerlijke betekenis: de dood van het kleine
+ik en de geboorte van het geestelijke ik. Hier komt zijn levenslange studie
+van mysterietradities het boek binnen.
+
+**Christus in u**
+
+De slothoofdstukken onderscheiden Christus als godszoon van Jezus als
+mensenzoon en eindigen met de Paulinische formule van Christus in u, de hoop
+der heerlijkheid. Het Christusbeginsel is bij Hall universeel: het draagt in
+andere tradities andere namen, en het christendom heeft er geen alleenrecht
+op. De godsdienst van de toekomst is voor hem een religie van ervaring waarin
+instituten dienstbaar zijn aan de innerlijke groei van de gelovige.
+
+Die slotsom plaatst het boek in een herkenbare Amerikaanse lijn, van het New
+Thought-denken tot de theosofie, waarin het christendom wordt herlezen als één
+gestalte van een universele wijsheidsleer. Hall verschilt van veel genoten in
+die stroming door zijn gematigde toon: hij valt de kerken niet aan, vraagt
+geen bekering tot een nieuw stelsel en presenteert zijn lezing als verdieping
+voor wie de eigen traditie te vlak is geworden.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| mystieke Christus | Het universele goddelijke beginsel dat volgens Hall in ieder mens aanwezig is en op ontwaken wacht. |
+| historische Jezus | De mens Jezus van Nazareth, bij Hall de leraar die het inwijdingspad zichtbaar voorleefde. |
+| Essenen | Joodse gemeenschap uit de oudheid waarin Jezus volgens Hall werd gevormd, bekend uit Josephus, Philo en Plinius. |
+| inwijding | Het stapsgewijze proces van innerlijke omvorming dat Hall in de evangeliegebeurtenissen gecodeerd ziet. |
+| mysteriescholen | Antieke genootschappen met een geheime leer en drama's van dood en wedergeboorte, voor Hall het model van het christendom. |
+| geestelijke wet | Vaste werking in de innerlijke wereld die de wonderverhalen volgens Hall aanschouwelijk maken. |
+| Christus in u | Paulinische formule die Hall leest als de kern van het boek: de goddelijke aanwezigheid in de eigen ziel. |
+
+#### Waar het argument op rust
+
+Het boek voert geen wetenschappelijke onderbouwing aan en pretendeert die ook
+niet: er zijn geen noten, geen bronvermeldingen en geen discussie met de
+bijbelwetenschap van dat moment. De Essenenthese steunt op de klassieke
+berichten van Josephus, Philo en Plinius en op een negentiende-eeuwse
+esoterische traditie die Jezus al langer met deze gemeenschap verbond. Hall
+schreef in 1951, toen van de in 1947 gevonden Dode Zee-rollen nog nauwelijks
+iets was gepubliceerd, en kon zijn stelling dus niet aan dat materiaal
+toetsen.
+
+De werkelijke basis van het boek is Halls eigen vergelijkende symboliek:
+overeenkomsten tussen evangelieverhalen en mysterietradities die hij uit
+decennia lezen bijeenbracht. Die overeenkomsten zijn deels reëel en deels het
+product van de vergelijking zelf, en het boek biedt geen criterium om die twee
+uit elkaar te houden. Wat overeind blijft, is de interne samenhang: wie de
+uitgangspunten aanvaardt, krijgt een consistente lezing van het Nieuwe
+Testament.
+
+#### Wat er tegen in te brengen valt
+
+De historisch-kritische bijbelwetenschap deelt vrijwel niets van Halls lezing.
+De later ontsloten Qumran-teksten lieten juist grote verschillen zien tussen
+die gemeenschap en de Jezusbeweging, onder meer in de omgang met
+reinheidsregels en buitenstaanders, en de meeste onderzoekers beschouwen de
+stelling dat Jezus een Esseen was als onbewezen. Ook het beeld van de
+mysteriescholen waarop Hall leunt, stamt uit oudere literatuur; het onderzoek
+sindsdien heeft de parallellen tussen mysteriecultussen en vroeg christendom
+flink teruggesnoeid.
+
+Daarnaast botst de kern van het boek met de traditie die het uitlegt: voor de
+kerken is Christus geen onpersoonlijk beginsel dat in ieder mens sluimert, en
+Halls universalisme lost het specifieke van het christelijke geloof op in een
+algemene mystiek. Wie het boek waardeert, doet dat dan ook meestal om iets
+anders dan de historische claims: als meditatieboek bij het Onzevader en de
+zaligsprekingen en als goed geschreven bron over het Amerikaanse esoterische
+denken van het midden van de twintigste eeuw houdt het zijn plaats.
+
+#### Wat er concreet mee te doen is
+
+- Lees de hoofdstukken over het Onzevader en de zaligsprekingen als
+meditatiestof, los van de historische claims.
+- Gebruik het boek als kennismaking met de esoterische leeswijze van
+vertrouwde bijbelteksten.
+- Toets de Essenenthese aan hedendaagse literatuur over de Dode Zee-rollen
+voordat die wordt doorverteld.
+- Onderscheid bij elke passage wat uitleg van de tekst is en wat inleg vanuit
+Halls eigen stelsel.
+
+#### Wat je hierna leest
+
+- 378. The Kybalion. The Kybalion komt uit hetzelfde esoterische milieu en
+presenteert geestelijke wetten als kern van alle tradities.
+- 242. Autobiography of a Yogi. Autobiography of a Yogi beschrijft religie als
+persoonlijke ervaring vanuit de hindoeïstische traditie, met dezelfde
+universalistische strekking.
+- 102. Ingangen tot Een cursus in wonderen. Ingangen tot Een cursus in
+wonderen behandelt een moderne tekst die het christendom eveneens als
+innerlijk pad herleest.
+
+## 604. The Perennial Philosophy
+
+Aldous Huxley, 1945. *The Perennial Philosophy: An Interpretation of the Great
+Mystics, East and West* (Harper & Brothers, New York, 1945; Britse editie
+Chatto & Windus, 1946; heruitgave Harper Perennial Modern Classics, 2009, 336
+blz., ISBN 9780061724947). Nederlandse vertaling: *Eeuwige wijsheid* (Servire,
+Utrecht, 2004, 318 blz.). Rubriek: filosofie en mystiek.
+Tags: `mystiek`, `vergelijkende religie`, `filosofie`, `spiritualiteit`
+
+Bloemlezing met commentaar waarin Aldous Huxley in 1945 de philosophia
+perennis presenteert: de kern die volgens hem in alle grote religies
+terugkeert. In 27 thematische hoofdstukken, van That Art Thou tot
+Contemplation, ordent hij korte passages van Meester Eckhart, Jan van
+Ruusbroec, Johannes van het Kruis, de Bhagavad Gita, Rumi, Chuang Tzu en
+tientallen anderen, telkens verbonden door eigen beschouwingen. De kern: er is
+een goddelijke Grond onder de wereld van dingen en geesten, de mens kan die
+Grond rechtstreeks kennen, en die kennis, die de kenner verandert, is het
+einddoel van het menselijk bestaan.
+
+Het boek werd bij verschijning breed geprezen en bleef het standaardwerk van
+het perennialisme. De sterkste kritiek kwam later uit de religiewetenschap: de
+eenheid die Huxley vindt, zit voor een deel in zijn selectie. De lezer krijgt
+een rijk citatenboek en een scherp geformuleerde these die het debat over
+mystiek tot vandaag bepaalt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Huxley stelt dat onder de verschillen tussen de grote
+religies één zelfde metafysica ligt, de philosophia perennis: er is een
+goddelijke Grond waaraan de wereld van dingen, levens en geesten haar bestaan
+ontleent; in de kern van de menselijke ziel huist iets dat aan die Grond
+verwant of ermee identiek is; en het einddoel van de mens is de unitieve
+kennis van die Grond. Die kennis vraagt volgens Huxley een omvorming van de
+hele persoon: alleen wie nederig, onthecht en liefdevol wordt, kan waarnemen
+wat de mystici beschrijven, want kennis is een functie van zijn. Alle
+leerstellige verschillen tussen de tradities zijn aan die gedeelde kern
+ondergeschikt.
+
+#### De gang van het boek
+
+**Een bloemlezing als betoog**
+
+Huxley schreef het boek in Californië, midden in de Tweede Wereldoorlog, in de
+jaren waarin hij zich onder invloed van Gerald Heard en de Vedanta Society van
+Swami Prabhavananda in oosterse en westerse mystiek verdiepte. De vorm is die
+van een bloemlezing: honderden korte citaten, thematisch geordend in 27
+hoofdstukken en verbonden door Huxleys eigen commentaar. De keuze voor citaten
+is principieel: de mystici zelf zijn volgens hem de enige bevoegde getuigen,
+en de samensteller doet weinig meer dan hun overeenstemming zichtbaar maken.
+
+**De minimale werkhypothese**
+
+Huxley vat de perennialistische kern samen in drie stellingen: een metafysica
+die achter de wereld van verschijnselen een goddelijke Grond erkent, een
+psychologie die in de ziel iets vindt dat met die Grond verwant of identiek
+is, en een ethiek die het einddoel van de mens in de kennis van die Grond
+legt. Het openingshoofdstuk draagt de Sanskrietformule tat tvam asi, dat zijt
+gij, als titel: de kern van de leer is dat het diepste zelf en de goddelijke
+Grond niet twee zijn.
+
+**Deugd vóór inzicht**
+
+Een groot deel van het boek behandelt de voorwaarden voor mystieke kennis:
+naastenliefde, nederigheid, onthechting, zelfverloochening, waarheidsliefde.
+Huxley vat ze samen in de stelregel dat kennis een functie van zijn is: wat
+iemand kan waarnemen, hangt af van wat diegene geworden is. De zelfzucht is de
+sluier; ascese en oefening zijn geen verdienste op zichzelf, ze dienen om de
+waarnemer te veranderen. Daarmee krijgt het boek naast zijn metafysische ook
+een praktische, morele lading.
+
+**God in de wereld en de afgoden**
+
+Andere hoofdstukken behandelen tijd en eeuwigheid, genade, gebed, stilte,
+geloof en geestelijke oefening, en bevatten Huxleys scherpste
+maatschappijkritiek. Wie het eeuwige uit het oog verliest, vervalt volgens hem
+tot afgoderij: de vergoddelijking van natie, kerk, techniek of vooruitgang.
+Geschreven in 1945 leest die diagnose als commentaar op de oorlog die net
+voorbij was; Huxley voert de verwoesting terug op religies van de tijd, die
+een toekomstig aards doel boven de eeuwige werkelijkheid stellen.
+
+**De bronnen en hun spreiding**
+
+De meest geciteerde auteur is Meester Eckhart, gevolgd door onder anderen
+Ruusbroec, Johannes van het Kruis, Willam Law, Fénelon, Shankara, de Bhagavad
+Gita, Rumi en klassieke taoïstische en boeddhistische teksten. De spreiding is
+breed maar niet evenwichtig: het accent ligt op niet-dualistische mystiek, het
+jodendom en de profetische kant van de westerse religies komen er mager af, en
+de keuze weerspiegelt Huxleys eigen vedantische voorkeur. Wie het boek als
+kaart van de wereldmystiek gebruikt, moet die kleuring kennen.
+
+**Ontvangst en doorwerking**
+
+Het boek werd in de Verenigde Staten een verkoopsucces en kreeg in de pers
+grote lof. De filosoof C.E.M. Joad noemde het daarentegen dogmatisch en
+onverdraagzaam, en latere recensenten vielen over Huxleys goedgelovigheid
+jegens paranormale verschijnselen. De belangrijkste academische tegenstem kwam
+in 1978 van Steven Katz, die betoogde dat mystieke ervaring altijd door taal
+en traditie is gevormd en dat de gevonden eenheid een artefact van de selectie
+is. Het debat tussen perennialisten en contextualisten loopt nog; dit boek
+blijft er het klassieke referentiepunt van. Buiten de academie werkte het lang
+door: het gaf generaties zoekers, van de naoorlogse religieuze vernieuwing tot
+de belangstelling voor oosterse tradities in de jaren zestig, een
+gemeenschappelijk kader en een leeslijst. Huxleys eigen vervolg lag in de
+praktijk: negen jaar later beschreef hij in *The Doors of Perception* zijn
+poging de beschreven ervaring langs chemische weg te benaderen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| philosophia perennis | De volgens Huxley in alle grote tradities terugkerende leer over de goddelijke Grond en de weg daarheen. |
+| goddelijke Grond | De ene werkelijkheid waaraan de wereld van dingen, levens en geesten haar bestaan ontleent. |
+| tat tvam asi | Sanskrietformule, dat zijt gij: het diepste zelf en de goddelijke Grond zijn in de kern één. |
+| unitieve kennis | Kennis door vereniging, waarin de kenner één wordt met wat gekend wordt. |
+| kennis als functie van zijn | Huxleys stelregel dat wat iemand kan waarnemen afhangt van wat diegene geworden is. |
+| onthechting | Het loslaten van zelfzuchtige gehechtheid aan bezit, roem en eigen wil als voorwaarde voor geestelijke kennis. |
+| zelfverloochening | De gestage afbraak van het ik-gerichte zelf, bij de mystici de prijs van de unitieve kennis. |
+| afgoderij | De vergoddelijking van iets eindigs, zoals natie, kerk of vooruitgang, in plaats van de eeuwige Grond. |
+
+#### Waar het argument op rust
+
+De citaten zelf zijn echt, goed gekozen en afkomstig van de belangrijkste
+mystieke auteurs uit meerdere tradities; als leeswijzer naar die bronnen is
+het boek betrouwbaar. Het bewijs voor de these ligt anders. De overeenstemming
+tussen de tradities wordt aangetoond met passages die op grond van hun
+gelijkenis zijn geselecteerd, en verschillen die de mystici zelf zwaar wogen,
+zoals die tussen een persoonlijke God en een onpersoonlijk absolute, of tussen
+genade en eigen inspanning, verdwijnen in de knip. De methode kan de conclusie
+dus niet onafhankelijk toetsen.
+
+Huxley schreef als essayist en gaf geen filologische verantwoording van
+vertalingen en context. De latere religiewetenschap heeft precies daar
+aangegrepen: contextualisten als Katz betogen dat ervaring en traditie
+onlosmakelijk verweven zijn, terwijl perennialisten tot op heden verdedigen
+dat de kernervaring de tradities overstijgt. Dat het boek dit debat nog steeds
+structureert, zegt iets over de scherpte van de these; beslecht is er niets.
+
+#### Wat er tegen in te brengen valt
+
+De selectiebias is het hoofdbezwaar: de eenheid die het boek demonstreert, is
+deels door de samensteller aangebracht. Daarnaast is de spreiding scheef, met
+een zwaar accent op niet-dualistische mystiek en weinig ruimte voor het
+jodendom en voor tradities waarin de wereld en de geschiedenis er werkelijk
+toe doen. Joads verwijt van dogmatisme raakt iets reëels: wie de mystieke weg
+niet gaat, komt er bij Huxley bekaaid af, en zijn minachting voor gewone,
+kerkelijke religiositeit is hoorbaar.
+
+Verder vergt het boek geduld met Huxleys tijdgebonden kanten, waaronder zijn
+vertrouwen in paranormale verschijnselen en een aristocratische opvatting van
+geestelijk leven waarin de volle kennis voor weinigen is weggelegd. Wie het
+als bloemlezing gebruikt en de these als hypothese behandelt, heeft er het
+meest aan; wie het als bewijs van de eenheid der religies leest, neemt de
+conclusie over voordat het onderzoek gedaan is.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik het boek als leeswijzer: noteer welke geciteerde auteurs blijven
+haken en lees die daarna in hun eigen verband.
+- Behandel de drievoudige werkhypothese als toetsbare stelling bij het lezen
+van andere religieuze teksten.
+- Weeg bij elke gevonden overeenkomst tussen tradities of die in de bron zit
+of in de selectie.
+- Neem de stelregel dat kennis een functie van zijn is als praktische
+maatstaf: oefening en levenswandel gaan aan inzicht vooraf.
+
+#### Wat je hierna leest
+
+- 61. Brave New World. Brave New World laat dezelfde schrijver dertien jaar
+eerder zien: de dystopie beschrijft de wereld die overblijft wanneer de
+eeuwige dimensie verdwijnt.
+- 341. The Wisdom of Insecurity. The Wisdom of Insecurity van Alan Watts
+brengt verwante ideeën over niet-dualiteit in een toegankelijker,
+psychologischer vorm.
+- 520. Vivekachudamani. Vivekachudamani is een van de bronnen van de traditie
+waaruit Huxley zijn kernbegrippen haalt, hier in de oorspronkelijke leervorm.
+- 526. The Alchemy of Happiness. The Alchemy of Happiness van al-Ghazali toont
+de islamitische mystiek waaruit Huxley put, met de nadruk op zelfkennis als
+weg naar God.
+
+## 605. The Spirit of Masonry
+
+Foster Bailey, 1957. *The Spirit of Masonry* (Lucis Press, Tunbridge Wells,
+1957; paperback-heruitgave Lucis Press, 1972, ISBN 9780853301264). Nederlandse
+vertaling: *Zin en betekenis van de vrijmetselarij* (Mirananda, Wassenaar,
+1985, 172 blz.). Rubriek: filosofie en mystiek.
+Tags: `vrijmetselarij`, `esoterie`, `symboliek`, `theosofie`
+
+Foster Bailey (1888-1977), 32e-graads vrijmetselaar en medeoprichter van de
+Lucis Trust, het uitgeefhuis van het werk van zijn vrouw Alice Bailey, legt in
+dit boek uit 1957 een theosofische duiding over de vrijmetselarij. De orde is
+voor hem de bewaarster, veelal onbewust, van een inwijdingsweg die teruggaat
+op de antieke mysteriën; het joodse materiaal rond de tempel van Salomo en de
+legende van Hiram Abiff beschouwt hij als een latere bovenlaag. De drie graden
+beschrijven volgens Bailey de weg van de ziel, met de dood en verheffing van
+de meester als beeld van geestelijke wedergeboorte.
+
+Het tweede deel behandelt de toestand van de orde zelf: formalisme,
+teruglopende betekenis en een niet onderkende crisis, die de broederschap
+volgens Bailey alleen te boven komt door haar geestelijke taak weer op te
+nemen. Historici van de vrijmetselarij wijzen de afstammingsclaim af; het boek
+heeft vooral waarde als document van de esoterische stroming binnen en rond de
+orde. De Nederlandse vertaling verscheen in 1985 bij Mirananda.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Bailey stelt dat de vrijmetselarij in wezen een
+mysterieschool is: de bewaarster, vaak zonder het zelf te weten, van een
+inwijdingsweg die ouder is dan alle kerken en die via de antieke mysteriën
+teruggaat op één tijdloze geestelijke traditie. Het rituele bouwen aan de
+tempel van Salomo verbeeldt het bouwen aan de eigen ziel en aan een geestelijk
+verenigde mensheid, en de geest van de vrijmetselarij is de geest van de
+eeuwige Zoektocht naar het goddelijke. Een orde die zichzelf zo begrijpt,
+heeft een taak in de geestelijke toekomst van de mensheid; een orde die bij
+vormen en voorrechten blijft hangen, sterft volgens Bailey af.
+
+#### De gang van het boek
+
+**Schrijver en achtergrond**
+
+Foster Bailey was advocaat van opleiding, hooggegradueerd vrijmetselaar en
+vanaf 1919 de naaste medewerker van zijn vrouw Alice Bailey, met wie hij de
+Lucis Trust en de Arcane School opzette. Het boek verscheen in 1957 bij hun
+eigen Lucis Press en ademt het gedachtegoed van de tijdloze wijsheid uit haar
+geschriften: een geestelijke hiërarchie die de mensheid volgens een Plan
+begeleidt, met inwijding als groeiweg. Het richt zich zowel tot logeleden als
+tot buitenstaanders die willen weten wat de orde in deze visie betekent.
+
+De titel is overigens ouder dan het boek: William Hutchinson publiceerde in
+1775 een maçonniek werk met dezelfde naam. Baileys boek staat daar los van en
+hoort bij een twintigste-eeuwse golf van esoterische duidingen van de orde,
+naast schrijvers als W.L. Wilmshurst en C.W. Leadbeater. Binnen die golf is
+Bailey de meest uitgesproken theosofische stem: bij hem is de vrijmetselarij
+vooral een kanaal waardoor de geestelijke leiding van de mensheid zou werken.
+
+**Oorsprong in de mysteriën**
+
+Het eerste deel opent met de herkomstvraag. Bailey plaatst de wortels van de
+vrijmetselarij ver vóór de schriftelijke bronnen, in de mysteriescholen van
+Egypte en de klassieke wereld, en beschouwt het bijbelse materiaal, de tempel
+van Salomo en de bouwmeester Hiram, als een joodse bijdrage die later over de
+oudere kern is heengelegd. Hij pleit ervoor die kern weer zichtbaar te maken,
+zodat het ritueel zijn universele strekking terugkrijgt en niet aan één volk
+of één godsdienst gebonden blijft.
+
+**Symboliek en landmarks**
+
+Twee hoofdstukken behandelen de maçonnieke symbolen en de zogenoemde
+landmarks, de als onaantastbaar geldende grondregels van de orde. Symbolen
+zijn bij Bailey de taal van de ziel: passer, winkelhaak en werktuigen
+verwijzen naar de bewerking van de eigen natuur, en de tempelbouw naar een
+geestelijk bouwwerk waaraan de hele mensheid werkt. De landmarks herleest hij
+geestelijk, als kernwaarheden over God, ziel en broederschap; een bijlage
+werkt die lezing verder uit.
+
+Kenmerkend voor Baileys benadering is dat het symbool bij hem meer doet dan
+verwijzen: een goed uitgevoerd ritueel zou daadwerkelijk geestelijke energie
+doorgeven aan de deelnemers en aan de wereld eromheen. Een slordig of
+onbegrepen ritueel is in die optiek dus geen onschuldige folklore, en dat
+verklaart de ernst waarmee hij de rituele praktijk van zijn tijd beoordeelt.
+
+**De bouw van de heilige tempel**
+
+Het hart van het boek is de duiding van de graden als inwijdingsweg. De
+leerling, de gezel en de meester doorlopen volgens Bailey dezelfde stadia die
+de kandidaat in de antieke mysteriën doorliep, en de legende van Hiram, de
+bouwmeester die wordt gedood en verheven, is een dood-en-wedergeboortedrama
+zoals meerdere tradities dat kennen. De verheffing van de meester verbeeldt de
+geboorte van het geestelijke bewustzijn. Zo gelezen is elke logewerkplaats een
+oefenplaats voor de ziel.
+
+**Een orde op een kruispunt**
+
+Het tweede deel beoordeelt de orde van zijn eigen tijd. Bailey noemt de
+vrijmetselarij een geestelijk kapitaal van de mensheid, maar ziet een niet
+onderkende crisis: rituelen die werktuiglijk worden afgedraaid, nadruk op rang
+en genootschappelijkheid, en een broederschap die haar eigen erfgoed niet meer
+verstaat. De toekomst ligt volgens hem in een vernieuwde, dienstbare
+vrijmetselarij die meewerkt aan wat hij de komende wereldreligie noemt, waarin
+de afzonderlijke godsdiensten hun gedeelde kern herkennen.
+
+Opvallend is dat Bailey de crisis eerder geestelijk dan organisatorisch opvat.
+Ledental en aanzien interesseren hem weinig; het gevaar zit erin dat de orde
+een gezelligheidsvereniging wordt met een onbegrepen ritueel. Zijn remedie,
+studie van de innerlijke betekenis en dienst aan de samenleving, loopt vooruit
+op discussies die binnen de vrijmetselarij later daadwerkelijk zijn gevoerd,
+ook door lezers die zijn theosofische kader niet delen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| mysteriescholen | Antieke inwijdingsgenootschappen waarvan de vrijmetselarij volgens Bailey de erfgenaam is. |
+| tijdloze wijsheid | De ene geestelijke traditie die volgens de theosofische leer achter alle religies en mysteriën ligt. |
+| het Plan | De in het werk van Alice Bailey beschreven geestelijke leiding van de mensheidsontwikkeling waaraan de orde zou meewerken. |
+| landmarks | De als onaantastbaar geldende grondregels van de vrijmetselarij, door Bailey geestelijk geherinterpreteerd. |
+| Hiram Abiff | De bouwmeester uit de maçonnieke legende wiens dood en verheffing Bailey als wedergeboortedrama leest. |
+| drie graden | Leerling, gezel en meester, bij Bailey drie stadia van één inwijdingsweg van de ziel. |
+| de Zoektocht | Baileys benaming voor de eeuwige speurtocht van de mens naar het goddelijke, de eigenlijke geest van de vrijmetselarij. |
+
+#### Waar het argument op rust
+
+Historisch bewijs voor de kernclaim ontbreekt. De wetenschappelijke
+geschiedschrijving van de vrijmetselarij herleidt de speculatieve orde tot de
+operatieve bouwgilden van de late middeleeuwen en de Londense grootloge van
+1717; een doorlopende lijn naar de mysteriën van Egypte of Eleusis is in de
+bronnen nooit aangetoond. Bailey levert die ook niet: hij beroept zich op de
+esoterische leer uit het werk van Alice Bailey en zegt dat onomwonden. Binnen
+dat kader is het betoog samenhangend, daarbuiten is het niet toetsbaar.
+
+Wat wel vaststaat, is de invloed van deze leeswijze. Het boek wordt binnen de
+esoterische stroming rond de vrijmetselarij veel gelezen, bleef bij Lucis
+Press in druk en kreeg in 1985 een Nederlandse vertaling bij een esoterische
+uitgeverij. Als getuigenis van hoe een twintigste-eeuwse theosofische beweging
+de orde duidde, is het een betrouwbaar en representatief document.
+
+#### Wat er tegen in te brengen valt
+
+Het eerste bezwaar is historisch: de afstamming van de antieke mysteriën is
+een negentiende-eeuwse romantische constructie die door maçonnieke historici
+van de kritische school allang is losgelaten, en reguliere grootloges dragen
+zulke esoterische duidingen ook niet uit. Wie het boek als geschiedenis leest,
+wordt op het verkeerde been gezet; het is leer, geen onderzoek.
+
+Het tweede bezwaar raakt de strekking. Baileys voorstel om het joodse
+materiaal als vreemde bovenlaag uit het ritueel te lichten staat niet los van
+de ambivalente en herhaaldelijk als antisemitisch bekritiseerde passages over
+het jodendom in het oeuvre van Alice Bailey, waaraan dit boek zijn kader
+ontleent. Bovendien vraagt het hele betoog instemming met dat theosofische
+kader, inclusief geestelijke hiërarchie en Plan; wie die uitgangspunten niet
+deelt, houdt een symbolische lezing over die op zichzelf te verdedigen valt,
+en een geschiedbeeld dat dat niet is.
+
+#### Wat er concreet mee te doen is
+
+- Lees het boek naast een wetenschappelijke geschiedenis van de vrijmetselarij
+om leer en feit te kunnen scheiden.
+- Gebruik de symbolische duiding van de graden als voorbeeld van hoe rituelen
+psychologisch gelezen kunnen worden.
+- Weeg bij elke herkomstclaim of er bronnen worden genoemd of alleen
+esoterische overlevering.
+- Betrek bij de waardering het bredere oeuvre van Alice Bailey, inclusief de
+kritiek daarop, omdat dit boek zijn hele begrippenkader daaraan ontleent.
+
+#### Wat je hierna leest
+
+- 378. The Kybalion. The Kybalion presenteert eenzelfde soort geclaimde
+oeroude geheime leer, daar onder hermetische vlag.
+- 357. De mens en zijn symbolen. De mens en zijn symbolen biedt een
+psychologisch kader om dood-en-wedergeboortesymboliek te duiden zonder
+esoterische geschiedclaims.
+- 518. The Life Divine. The Life Divine werkt de gedachte van een geestelijke
+evolutie van de mensheid filosofisch uit, verwant aan Baileys toekomstbeeld.
+
+## 606. Esoteric Christianity
+
+Annie Besant, 1901. *Esoteric Christianity or the Lesser Mysteries*
+(Theosophical Publishing Society, Londen/Benares 1901). Nederlandse vertaling:
+*Esoterisch Christendom, of De kleine mysteriën* (Theosofische
+Uitgeversmaatschappij, Amsterdam 1904; druk 1912, 265 blz.), aanwezig in de
+catalogus van bibliotheek.nl. Rubriek: filosofie en mystiek.
+Tags: `theosofie`, `esoterie`, `christendom`, `mystiek`
+
+Annie Besant, vanaf 1907 voorzitter van de Theosophical Society, betoogt dat
+het christendom net als alle grote religies een binnenkant had: mysteriën voor
+voorbereide leerlingen naast de openbare leer voor de menigte. Het Nieuwe
+Testament en kerkvaders als Clemens van Alexandrië en Origenes zouden daarvan
+sporen tonen. Op die basis herleest zij de leerstukken: drie betekenislagen
+van Christus (historisch, mythisch, mystiek), de verzoening als offerwet, de
+sacramenten als kanalen van geestelijke invloed.
+
+Het boek is een hoofdwerk van de theosofische stroming, geen
+godsdiensthistorische studie. De dragende beweringen steunen op occulte
+archieven die alleen voor geoefende helderzienden toegankelijk zouden zijn,
+waaronder de claim dat Jezus rond 105 v.Chr. geboren werd. Voor de
+geschiedenis van de westerse esoterie is dit een sleuteltekst; als
+geschiedschrijving over het vroege christendom houdt het geen stand.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Besant stelt dat elke grote religie uit twee lagen bestaat:
+een openbare leer voor iedereen en een verborgen leer voor wie eraan toe is.
+Het vroege christendom kende volgens haar zulke mysteriën, met Paulus'
+onderscheid tussen melk voor beginners en vaste spijs voor volmaakten als
+aanwijzing. Toen de kerk die binnenkant in de vierde eeuw kwijtraakte,
+verschraalde de leer tot letterlijk genomen dogma's die ontwikkelde gelovigen
+sindsdien van het geloof wegdrijven. Wie de leerstukken esoterisch herleest,
+met een historische, een mythische en een mystieke Christus, krijgt volgens
+Besant hun oorspronkelijke betekenis terug; met het herstel van gegradueerd
+geestelijk onderwijs zou het christendom geloof en rede weer kunnen verenigen.
+
+#### De gang van het boek
+
+**Twee lagen in elke religie**
+
+Religies richten zich op mensen in alle stadia van ontwikkeling en kunnen
+volgens Besant daarom nooit met één uitleg volstaan. Zij onderscheidt kleine
+mysteriën, de mystieke uitleg van verhalen en leerstukken die in geschrifte
+gegeven mag worden, en grote mysteriën, mondeling overgedragen kennis die
+macht over natuurkrachten zou verlenen en daarom strenge morele voorbereiding
+vergt. Als aanwijzing voert zij aan dat Jezus tot de menigte in gelijkenissen
+sprak en zijn leerlingen apart uitleg gaf, en dat Paulus schrijft over een
+wijsheid die alleen onder de volmaakten wordt gesproken. Het eerste hoofdstuk
+zet ook de toon van het hele boek: de terughoudendheid met hogere kennis wordt
+verdedigd met het argument dat kennis zonder loutering gevaarlijk is.
+
+**De verdwenen mysteriën van de kerk**
+
+In twee hoofdstukken over de verborgen kant van het christendom verzamelt
+Besant citaten van Clemens van Alexandrië, Origenes en andere vroege
+schrijvers over een geheime overlevering binnen de kerk, en wijst zij op de
+praktijk om doopleerlingen buiten delen van leer en ritueel te houden. Met het
+wegzuiveren van de gnostische scholen en het sluiten van de mysteriescholen in
+de vierde eeuw ging volgens haar de sleutel verloren; wat overbleef was de
+letterlijke buitenkant. De moderne afkeer van kerkelijke leer is in haar ogen
+het gevolg van die verminking: ontwikkelde tijdgenoten verwerpen een leer
+waarvan de diepere lezing hun nooit is aangeboden.
+
+**Drie Christussen**
+
+De kern van het boek is de splitsing van de Christusfiguur in drie lagen. De
+historische Jezus werd volgens Besants occulte bronnen rond 105 v.Chr. in
+Palestina geboren, groeide op in een vrome familie en werd gevormd in een
+Esseense gemeenschap en in Egypte. Bij de doop in de Jordaan daalde de
+Christus, in haar stelsel een verheven geestelijk wezen, in het lichaam van de
+discipel Jezus neer en leerde daarin enkele jaren.
+
+De mythische Christus is de zonnegod van het oude wereldbeeld: geboren op 25
+december als het licht begint te wassen, stervend en herrijzend rond de
+lente-equinox, een patroon dat Besant ook bij andere godheden aanwijst. De
+mystieke Christus ten slotte is het goddelijke beginsel dat in het hart van de
+leerling geboren wordt; de evangelieverhalen leest zij als kaart van
+inwijdingsstadia, van geboorte via doop en verheerlijking naar kruisiging,
+opstanding en hemelvaart.
+
+**Leerstukken herlezen**
+
+Drie hoofdstukken passen deze sleutel toe op omstreden dogma's. De verzoening
+ontdoet Besant van de gedachte van plaatsvervangende strafbetaling, die zij
+zedelijk verwerpelijk noemt, en herleest zij als wet van het offer: het
+goddelijke offert zich door in de stof af te dalen, en de mens neemt aan dat
+offer deel door dienstbaarheid. Opstanding en hemelvaart worden stadia van de
+inwijdingsweg, waarin het bewustzijn zich van steeds fijnere lichamen leert
+bedienen. De triniteit verschijnt als drievoudige zelfontvouwing van het ene
+goddelijke leven, die zij parallel zet aan drieheden in andere religies.
+
+**Gebed, vergeving en sacramenten**
+
+De laatste hoofdstukken behandelen de praktijk. Gebed werkt volgens Besant
+langs kenbare lijnen: gerichte gedachte en wil roepen antwoord op van levende
+intelligenties in een bezielde kosmos. Vergeving van zonden plaatst zij binnen
+de karmawet: geen kwijtschelding van gevolgen, wel herstel van de verhouding
+tussen de mens en het goddelijke leven. Sacramenten beschrijft zij als occulte
+handelingen waarin gewijde stof, klank en gebaar geestelijke invloed
+doorgeven; doop en eucharistie zijn in haar lezing werkzame riten en geen
+louter gedachtenis. Het slothoofdstuk over openbaring stelt dat goddelijke
+zelfmededeling doorgaat en niet met de Schrift is afgesloten.
+
+**Programma en plaats in de tijd**
+
+Het boek eindigt waar het begon: bij het pleidooi om het esoterische onderwijs
+binnen het christendom te herstellen, zodat de kerk denkende gelovigen niet
+langer verliest. Daarmee is het ook een programmatekst van de theosofische
+beweging rond 1900, die zich na een sterk op het Oosten gerichte periode
+opnieuw tot het christendom wendde. De herlezing werkte door in de
+Vrij-Katholieke Kerk en in de brede esoterische taal van Christusbewustzijn en
+inwijding die tot in hedendaagse spiritualiteit klinkt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| kleine mysteriën | De mystieke uitleg van religieuze verhalen en leerstukken, die volgens Besant in geschrifte onderwezen mag worden. |
+| grote mysteriën | Mondeling overgedragen occulte kennis die macht zou verlenen en daarom pas na morele loutering werd meegedeeld. |
+| historische Christus | De leraar Jezus die volgens Besants occulte bronnen rond 105 v.Chr. geboren werd en wiens lichaam bij de doop door de Christus werd aangenomen. |
+| mythische Christus | De zonnegodfiguur wier geboorte op 25 december en dood en herrijzenis rond de lente-equinox een kosmisch patroon uitdrukken. |
+| mystieke Christus | Het goddelijke beginsel dat in het hart van de leerling geboren wordt en langs inwijdingsstadia tot wasdom komt. |
+| wet van het offer | Besants herlezing van de verzoening: het goddelijke offert zich door in de stof af te dalen, en de mens herhaalt dat offer in dienstbaarheid. |
+| occulte archieven | Het bovenzinnelijke geheugen van het gebeurde dat geoefende helderzienden zouden kunnen raadplegen, Besants voornaamste bron voor haar historische claims. |
+| inwijding | De trapsgewijze geestelijke ontwikkelingsweg waarvan de evangelieverhalen volgens Besant de kaart vormen. |
+
+#### Waar het argument op rust
+
+Het controleerbare deel van de onderbouwing bestaat uit teksten: uitspraken
+van Paulus over wijsheid onder de volmaakten, het onderscheid tussen
+gelijkenissen voor de menigte en uitleg voor de leerlingen, en passages bij
+Clemens van Alexandrië en Origenes over een niet voor iedereen bestemde leer.
+Die teksten bestaan en de vroege kerk hield doopleerlingen inderdaad buiten
+delen van de liturgie. Zij dragen alleen veel minder dan Besant erop laat
+rusten: dat er gegradueerd onderwijs was, bewijst geen theosofisch leerstelsel
+met meesters, fijnstoffelijke lichamen en reïncarnatie.
+
+De dragende beweringen komen uit een bron die zich aan elke toetsing onttrekt:
+helderziend onderzoek van zogeheten occulte archieven, dat Besant samen met
+Charles Leadbeater verrichtte. De datering van Jezus rond 105 v.Chr. volgt een
+Talmoedische overlevering over Jesjoe ben Pandira, die Blavatsky eerder had
+overgenomen en die de historische wetenschap verwerpt. De parallellen met
+zonnegoden leunen op de vergelijkende mythologie van de negentiende eeuw,
+waarvan het vakgebied sindsdien afstand heeft genomen. Wat overblijft is een
+innerlijk samenhangend stelsel zonder externe steun.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is methodisch: een bron die alleen voor ingewijden
+waarneembaar is, kan door niemand worden nagerekend, en Besant biedt de lezer
+geen enkel criterium om haar helderziende bevindingen van verbeelding te
+onderscheiden. Waar haar claims wel toetsbaar zijn, zoals de geboortedatum van
+Jezus of de afhankelijkheid van de evangeliën van zonnemythen, staan zij haaks
+op de uitkomsten van historisch-kritisch onderzoek. Ook binnen de
+kerkgeschiedenis is haar lezing gedateerd: de geheimhoudingspraktijk van de
+vroege kerk gold catechese en liturgie en wijst niet op een occulte school.
+
+Daarnaast is het boek partijdig in zijn opzet: het bewijst niet dat er
+mysteriën waren, het veronderstelt ze en leest vervolgens alle bronnen in dat
+licht. Wie het als bronnentekst neemt, vindt er wel veel: een scharnierpunt in
+de geschiedenis van de theosofie, de voedingsbodem van de Vrij-Katholieke Kerk
+en de herkomst van esoterische taal die nog altijd omloop heeft. Als
+getuigenis van een beweging is het waardevol; als kennis over het vroege
+christendom niet.
+
+#### Wat er concreet mee te doen is
+
+- Lees het boek als bron voor de geschiedenis van theosofie en westerse
+esoterie, en niet als geschiedschrijving over Jezus.
+- Herken in hedendaagse spirituele taal (Christusbewustzijn, inwijding,
+meesters) de theosofische herkomst van dat vocabulaire.
+- Toets esoterische geschiedenisclaims aan controleerbare bronnen voordat ze
+worden doorverteld.
+
+#### Wat je hierna leest
+
+- 378. The Kybalion. The Kybalion is een esoterisch stelsel uit dezelfde
+jaren, met dezelfde spanning tussen stellige leer en oncontroleerbare bronnen.
+- 127. The Law of Attraction. The Law of Attraction van Atkinson (1906) toont
+de occulte tijdgeest waarin Besants herlezing van het christendom landde.
+- 242. Autobiography of a Yogi. Autobiography of a Yogi biedt de oosterse
+pendant: meesters en inwijding, gepresenteerd als levensverhaal.
+
+## 608. Het gewijde en het profane
+
+Mircea Eliade, 1957. *Das Heilige und das Profane. Vom Wesen des Religiösen*
+(Rowohlt, Hamburg 1957), geschreven voor de pocketreeks Rowohlts Deutsche
+Enzyklopädie; Engels als *The Sacred and the Profane: The Nature of Religion*
+(vertaling Willard R. Trask, Harcourt, Brace, New York 1959, 256 blz.;
+Harvest-paperback ISBN 9780156792011). Nederlandse vertaling: *Het gewijde en
+het profane: een studie over de religieuze essentie* (De Boer/Brand, Hilversum
+1962); in 2006 opnieuw uitgebracht bij Abraxas als *Het heilige en het
+dagelijkse bestaan*. Rubriek: filosofie en mystiek.
+Tags: `godsdienstwetenschap`, `mythe`, `ritueel`, `symboliek`
+
+De Roemeens-Amerikaanse godsdiensthistoricus Mircea Eliade beschrijft hoe de
+religieuze mens ruimte en tijd als ongelijksoortig ervaart: er zijn gewijde
+plaatsen en momenten waar het heilige zich toont, hierofanieën, en die ordenen
+de wereld rond een centrum. Feesten halen de oertijd van de mythen terug;
+natuur, huis en lichaam weerspiegelen de kosmos. Overgangsriten maken van
+leven een geheiligde weg.
+
+Tegenover die homo religiosus staat de moderne, areligieuze mens, die volgens
+Eliade zeldzamer is dan hij denkt: in nieuwjaarsvieringen, verhuisgewoonten,
+film en lectuur leven verkapte religieuze patronen door. Het boekje,
+geschreven als inleiding voor een Duitse pocketreeks, werd een standaardtekst
+in de godsdienstwetenschap. Latere vakgenoten, Jonathan Z. Smith voorop,
+bekritiseerden de losse omgang met bronnen, het essentialisme en de heimwee
+naar de archaïsche mens.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Eliade stelt dat de religieuze mens in een andere
+werkelijkheid leeft dan de moderne: voor hem zijn ruimte en tijd
+ongelijksoortig. Waar het heilige zich toont, ontstaat een vast punt, een
+centrum van waaruit de wereld bewoonbaar wordt; in het feest keert de sterke
+tijd van de oorsprong terug en wordt het scheppingswerk van goden of
+voorouders opnieuw tegenwoordig. Religie is daarmee geen stel opvattingen over
+een andere wereld, zij is een manier om in deze wereld te bestaan. De moderne
+mens die zich volledig profaan waant, vergist zich bovendien: zijn feesten,
+inwijdingsachtige beproevingen en verhalen dragen gedegradeerde vormen van
+dezelfde patronen, want het gewijde behoort tot de structuur van het
+bewustzijn.
+
+#### De gang van het boek
+
+**Vertrekpunt na Otto**
+
+In het voorwoord positioneert Eliade zich uitdrukkelijk tegenover Rudolf Otto:
+waar die de ervaring van het heilige beschreef, wil Eliade het heilige in zijn
+verschijningsvormen vatten. Zijn grondbegrip is de hierofanie, letterlijk het
+verschijnen van het heilige: een steen, een boom of een mens blijft wat hij is
+en wordt tegelijk iets volstrekt anders, drager van een andere orde. Gewijd en
+profaan zijn voor Eliade twee bestaanswijzen die de mens in de geschiedenis
+heeft aangenomen, en het boek is opgezet als rondgang langs vier terreinen:
+ruimte, tijd, natuur en het menselijk bestaan zelf.
+
+**Gewijde ruimte**
+
+Voor de religieuze mens is ruimte ongelijksoortig: rond een geopenbaard vast
+punt wordt uit de chaos een kosmos gesticht. Dat centrum wordt verbeeld als
+wereldas, axis mundi: een paal, berg, tempel of stad die hemel, aarde en
+onderwereld verbindt. Het huis en de tempel zijn imago mundi, een beeld van de
+wereld in het klein, en de drempel markeert de grens tussen twee
+werkelijkheden.
+
+Eliade illustreert dit onder meer met de heilige paal van de Australische
+Achilpa, die hun omzwervingen richting gaf; het voorbeeld werd later berucht
+doordat Jonathan Z. Smith de etnografische bron naplooide en tot een andere
+lezing kwam. Nieuw land bewoonbaar maken is in archaïsche culturen een
+scheppingsdaad herhalen: kosmisering.
+
+**Gewijde tijd en de mythen**
+
+Gewijde tijd is voor Eliade omkeerbaar: het feest herhaalt de tijd van de
+oorsprong, illud tempus, en maakt haar opnieuw tegenwoordig. De mythe is
+daarbij geen verzinsel maar het voorbeeldige verhaal dat vertelt hoe iets
+werkelijk begon, en het ritueel voltrekt wat de mythe vertelt. Nieuwjaarsriten
+herscheppen jaarlijks de wereld; de deelnemer aan het feest wordt tijdgenoot
+van de goden. Zo leeft de religieuze mens in een ritme van profane duur en
+periodieke terugkeer naar de sterke tijd, het patroon dat Eliade eerder de
+eeuwige terugkeer noemde.
+
+**De natuur als tekensysteem**
+
+Voor de homo religiosus is de natuur nooit alleen natuur. De hemel spreekt
+vanzelf van hoogte en transcendentie, al trekken hemelgoden zich in veel
+tradities terug tot een rustende god op afstand, deus otiosus. Water staat
+voor het vormeloze begin, ontbinding en hergeboorte, van zondvloedverhalen tot
+doopriten. De aarde draagt en baart, bomen verbeelden het onuitputtelijke
+leven, maan en zon geven ritmen van vergaan en terugkeren. Deze kosmische
+religiositeit, betoogt Eliade, bleef ook onder het christendom van Europese
+boerengemeenschappen doorleven.
+
+**Het geheiligde bestaan**
+
+Het slothoofdstuk brengt het menselijk leven zelf in kaart: geboorte, huwelijk
+en dood zijn in religieuze culturen overgangen die door riten worden
+voltrokken, en de initiatie is er het model van, een symbolisch sterven
+gevolgd door wedergeboorte als nieuw mens. Lichaam, huis en kosmos worden op
+elkaar betrokken: wonen is zich in het hart van de wereld vestigen. Zo krijgt
+het hele bestaan een sacramentele structuur waarin eten, arbeid en
+seksualiteit aan goddelijke voorbeelden deelhebben.
+
+**De areligieuze mens en zijn restanten**
+
+De moderne mens heeft de wereld ontheiligd en aanvaardt geen ander model van
+menszijn dan wat hij zelf maakt; Eliade neemt die keuze serieus als een tweede
+bestaanswijze. Volledig profaan bestaan acht hij echter zeldzaam: nieuwjaar en
+verhuizing behouden de structuur van vernieuwingsriten, film en literatuur
+voeren mythische patronen op, de psychoanalyse herhaalt het initiatieschema
+van afdaling en terugkeer. Deze gecamoufleerde religiositeit is voor Eliade
+geen curiosum: zij toont dat het gewijde tot de structuur van het bewustzijn
+behoort en hoogstens onherkenbaar wordt, niet verdwijnt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| hierofanie | Het verschijnen van het heilige in een gewoon ding of wezen, dat daardoor drager van een andere orde wordt en toch zichzelf blijft. |
+| homo religiosus | De religieuze mens als bestaanswijze: hij leeft in een geordende kosmos rond een gewijd centrum. |
+| axis mundi | De wereldas, verbeeld als paal, berg, tempel of stad, die hemel, aarde en onderwereld verbindt en het centrum van de wereld markeert. |
+| imago mundi | Huis, tempel of stad als beeld van de kosmos in het klein. |
+| illud tempus | De sterke oertijd van schepping en oorsprong die in mythe en feest opnieuw tegenwoordig wordt. |
+| kosmisering | Het bewoonbaar maken van onbekend gebied als herhaling van de schepping, waardoor chaos kosmos wordt. |
+| deus otiosus | De hemelgod die zich na de schepping terugtrekt en in de cultus plaatsmaakt voor nabijere machten. |
+| initiatie | De rite waarin de mens symbolisch sterft en als nieuw mens herboren wordt, voor Eliade het model van alle overgangen. |
+| gecamoufleerde religiositeit | De gedegradeerde mythische en rituele patronen die in het leven van de moderne, areligieuze mens voortbestaan. |
+
+#### Waar het argument op rust
+
+Het boek steunt op vergelijkend materiaal uit uiteenlopende culturen:
+Australische en Noord-Amerikaanse volken, het oude Nabije Oosten, India, en de
+boerentradities van Europa. Omdat het voor een pocketreeks geschreven is,
+ontbreekt een notenapparaat grotendeels; de voorbeelden zijn samenvattingen
+uit Eliades grotere studies, zoals zijn Traité en De mythe van de eeuwige
+terugkeer. De methode is patroonherkenning: overeenkomstige structuren over
+culturen heen worden als uitingen van één religieuze grondhouding gelezen.
+
+Die methode is de zwakke plek. Tegenvoorbeelden worden niet gezocht, de
+context van elk voorbeeld blijft buiten beeld, en de stap van patroon naar
+wezen, van veel culturen doen iets dergelijks naar dit is de structuur van het
+religieuze bewustzijn, wordt geponeerd en niet aangetoond. Wat het boek wel
+aantoonbaar heeft geleverd, is een begrippenapparaat dat vakliteratuur,
+architectuurtheorie en cultuurkritiek zijn binnengedrongen; als
+beschrijvingstaal heeft het zijn nut bewezen, als bewijsvoering niet.
+
+#### Wat er tegen in te brengen valt
+
+De vakinhoudelijke kritiek is stevig en grotendeels aanvaard. Jonathan Z.
+Smith liet zien dat Eliades sleutelvoorbeeld van de Achilpa-paal op een
+selectieve lezing van de etnografische bron berust, en algemener dat zijn
+universalisme plaatselijke verschillen wegpoetst die er juist toe doen. Het
+spreken over het heilige als zelfstandige werkelijkheid die zich toont, is
+bovendien een theologische aanname in wetenschappelijke verpakking:
+godsdienstwetenschap kan gedrag en teksten onderzoeken, geen manifestaties van
+het heilige vaststellen. Ook de tegenstelling zelf tussen archaïsch en modern
+geldt inmiddels als te grof.
+
+Daarnaast is het boek normatief geladen: de archaïsche mens leeft voller, de
+moderne mens verschraald, en die heimwee stuurt de beschrijving. Over de
+auteur zelf loopt een apart debat: Eliades sympathie voor de fascistische
+IJzeren Garde in het Roemenië van de jaren dertig is gedocumenteerd, en over
+de vraag of die politiek in zijn heimwee naar archaïsche ordening doorklinkt,
+verschillen serieuze onderzoekers van mening. Dat alles ontneemt het boek niet
+zijn plaats: als toegankelijke synthese en als bron van vocabulaire wordt het
+nog altijd gelezen, maar als beschrijving van wat religie is, geldt het niet
+langer als gezaghebbend.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik de begrippen centrum, drempel en wereldas om te ontleden waarom
+sommige plekken, van kathedralen tot herdenkingsplaatsen, als geladen worden
+ervaren.
+- Herken in jaarwisseling, jubilea en inwijdingsproeven de structuur van
+vernieuwings- en overgangsriten, en weeg wat er verloren gaat als die vorm
+verdwijnt.
+- Lees mythen als voorbeeldverhalen over oorsprong en orde in plaats van als
+mislukte natuurwetenschap.
+- Neem bij elk breed cultuurvergelijkend patroon de proef op de som: zoek het
+tegenvoorbeeld en de plaatselijke context voordat het patroon als wezen wordt
+aanvaard.
+
+#### Wat je hierna leest
+
+- 143. Maps of Meaning. Maps of Meaning bouwt zijn mythenanalyse uitdrukkelijk
+op Eliade en erft daarmee ook de bezwaren tegen diens methode.
+- 410. the hero with a thousand faces. The Hero with a Thousand Faces komt uit
+dezelfde vergelijkende school en kreeg dezelfde kritiek op universalisme.
+- 357. De mens en zijn symbolen. De mens en zijn symbolen geeft de
+psychologische pendant: archetypische beelden in dromen in plaats van riten.
+
+## 609. The Sacred Depths of Nature
+
+Ursula Goodenough, 1998. *The Sacred Depths of Nature: How Life Has Emerged
+and Evolved* (tweede, herziene editie, Oxford University Press, 2023, 288
+blz., ISBN 9780197662069; eerste editie 1998). Geen Nederlandse vertaling
+gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse
+editie gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `religieus naturalisme`, `evolutie`, `natuur`, `wetenschap en religie`
+
+De Amerikaanse celbiologe Ursula Goodenough (Washington University in St.
+Louis, dochter van godsdiensthistoricus Erwin Goodenough) vertelt per
+hoofdstuk een stuk natuurwetenschap, van het ontstaan van heelal en leven tot
+cellen, evolutie, bewustzijn, seks en dood, en sluit telkens af met een korte
+persoonlijke reflectie over wat dat verhaal oproept: mysterie, dankbaarheid,
+eerbied.
+
+Die houding noemt zij religieus naturalisme: geen bovennatuur, wel religieuze
+gevoelens bij het wetenschappelijke wereldbeeld, samengevat in een verbond met
+het mysterie en een credo van voortzetting. De tweede editie uit 2023 voegt
+hoofdstukken over menselijke evolutie en ecomoraliteit toe en werkt het begrip
+emergentie verder uit. Het boek geldt als grondtekst van de
+religieus-naturalistische beweging. De wetenschap is degelijk; de reflecties
+zijn beleden, geen betoog, en wie een argument verwacht voor de stap van feit
+naar eerbied vindt dat niet.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Goodenough stelt dat het wetenschappelijke verhaal over het
+ontstaan van heelal, leven en geest, het epos van de evolutie, kan dienen als
+gedeelde kosmologie voor de hele mensheid, en dat dit verhaal dezelfde
+religieuze reacties kan dragen die traditionele scheppingsverhalen droegen:
+verwondering, dankbaarheid, eerbied en aanvaarding. Daarvoor is geen
+bovennatuur nodig. Op de vraag waarom er überhaupt iets is, past volgens haar
+geen antwoord maar een verbond met het mysterie; op de kwetsbaarheid van het
+leven past een credo van voortzetting, de verplichting om de doorgaande keten
+van leven op aarde niet te breken. Religieus gevoel en natuurwetenschap zijn
+in deze opzet geen concurrenten: het gevoel hecht zich aan wat de wetenschap
+werkelijk vindt.
+
+#### De gang van het boek
+
+**Opzet: wetenschap plus reflectie**
+
+Elk hoofdstuk bestaat uit twee delen: eerst een toegankelijk maar precies
+gehouden verhaal over een stuk natuurwetenschap, daarna een reflectie waarin
+Goodenough opschrijft welke gemoedsbeweging dat weten bij haar oproept. Zij
+schrijft nadrukkelijk als biologe en als dochter van een godsdiensthistoricus
+die haar leerde religies ernstig te nemen zonder ze te delen. Het doel is een
+planetair verhaal waar alle culturen zich toe kunnen verhouden, als
+gemeenschappelijke grond onder de bestaande tradities.
+
+**Oorsprongen: heelal, aarde, leven**
+
+De eerste hoofdstukken vertellen de kosmische voorgeschiedenis: het vroege
+heelal, de vorming van sterren en elementen, het ontstaan van de aarde en het
+opduiken van zelfreproducerende chemie, met RNA-achtige moleculen als
+vermoedelijke schakel naar de eerste cellen. In de reflecties verschijnt hier
+het verbond met het mysterie: op de vraag waarom er iets is en niet niets
+geeft Goodenough geen godsbeeld en geen sluitende verklaring, zij besluit de
+vraag te bewonen en het mysterie als mysterie te laten staan, omdat elk
+toegevoegd attribuut het volgens haar zou verkleinen.
+
+**Hoe leven werkt: cellen en emergentie**
+
+Het middendeel behandelt de machinerie van het leven: eiwitten die vouwen en
+herkennen, DNA dat wordt afgelezen en gereguleerd, cellen die signalen
+verwerken. Het sleutelbegrip is emergentie: uit niets dan moleculen ontstaan
+eigenschappen die op het niveau van de delen niet bestaan, iets meer uit niets
+anders dan. In de tweede editie is dit begrip uitgewerkt tot de rode draad van
+het boek. De bijbehorende reflectie zet verbazing in de plaats van een
+ontwerper: dat organisatie zonder plan zulke hoogten bereikt, is voor
+Goodenough zelf reden tot eerbied.
+
+**Evolutie en biodiversiteit**
+
+Vervolgens legt zij het evolutiemechanisme uit: mutatie, selectie,
+soortvorming, en de vertakkende geschiedenis die alle levende wezens tot
+verwanten maakt. De reflecties bezingen hier geen vooruitgang; zij benadrukken
+verwantschap en dankbaarheid, het besef dat elke levende cel een onafgebroken
+lijn van bijna vier miljard jaar voortzet. Het gangbare verwijt dat evolutie
+het leven van betekenis berooft, draait Goodenough om: juist de gedeelde
+afstamming geeft een feitelijke grond aan het gevoel bij het geheel te horen.
+
+**Bewustzijn, gevoel, seks en dood**
+
+De latere hoofdstukken volgen de evolutie van zenuwstelsels, gewaarwording en
+emoties, van seksualiteit als herschikking van erfelijk materiaal, en van de
+meercelligheid die geprogrammeerde celdood en uiteindelijk sterfelijkheid
+meebracht. De reflectie bij de dood is de meest geciteerde van het boek:
+sterfelijkheid is de prijs voor complex, seksueel voortgebracht leven, en
+aanvaarding van die ruil maakt de dood draaglijk zonder beroep op een
+hiernamaals. Gevoelens, ook religieuze, zijn in deze hoofdstukken zelf
+evolutieproducten, wat ze voor Goodenough niet ontwaardt maar verklaart.
+
+**Mens en ecomoraliteit**
+
+De tweede editie sluit af met twee nieuwe hoofdstukken. Het eerste vertelt de
+menselijke evolutie, van rechtop lopen tot taal en cultuur. Het tweede trekt
+de morele consequentie: als het doorgaande leven het gedeelde heilige is,
+volgt daaruit een ecomoraliteit, een verantwoordelijkheid voor ecosystemen en
+klimaat die niet op één traditie steunt maar op het gezamenlijke verhaal. Hier
+wordt het credo van voortzetting praktisch: de mensheid als de soort die het
+epos kent en er daarom voor moet zorgen dat het verder verteld kan worden.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| religieus naturalisme | De houding die religieuze gevoelens en waarden verbindt aan het natuurwetenschappelijke wereldbeeld, zonder bovennatuurlijke aannames. |
+| epos van de evolutie | Het wetenschappelijke verhaal van heelal, leven en geest, door Goodenough voorgesteld als gedeelde kosmologie voor alle culturen. |
+| verbond met het mysterie | Goodenoughs besluit om de vraag waarom er iets is onbeantwoord te laten en het mysterie geen attributen toe te kennen. |
+| credo van voortzetting | Haar geloofsbelijdenis dat het doorgaan van het leven op aarde de dragende waarde is waaraan de mens zich verplicht. |
+| emergentie | Het ontstaan van nieuwe eigenschappen uit de ordening van delen die deze eigenschappen zelf niet bezitten, iets meer uit niets anders dan. |
+| reflecties | De persoonlijke beschouwingen waarmee elk hoofdstuk sluit en die de gemoedsbeweging bij het voorafgaande wetenschapsverhaal verwoorden. |
+| ecomoraliteit | De in de tweede editie uitgewerkte ethiek die uit het credo van voortzetting een verantwoordelijkheid voor biosfeer en klimaat afleidt. |
+
+#### Waar het argument op rust
+
+Het wetenschappelijke deel staat sterk: Goodenough is een vooraanstaand
+celbiologe, auteur van een verbreid leerboek genetica, en de hoofdstukken
+geven de stand van het vak weer zoals een goede docent dat doet. Op dat vlak
+is het boek betrouwbaar en in de tweede editie bijgewerkt. Haar gezag in het
+grensgebied is eveneens reëel: zij was jarenlang president van het Institute
+on Religion in an Age of Science en geldt als boegbeeld van het religieus
+naturalisme.
+
+De reflecties maken geen aanspraak op bewijs en dat zegt het boek eerlijk: het
+zijn belijdenissen, geen afleidingen. Nergens wordt beweerd dat eerbied
+logisch uit biochemie volgt; er wordt getoond hoe eerbied bij biochemie kan
+ontstaan. De overtuigingskracht rust dus op twee pijlers: de juistheid van de
+wetenschap en de herkenbaarheid van de gevoelens. Wie de gevoelens niet deelt,
+krijgt geen argument aangereikt om ze alsnog te krijgen, hooguit een
+voorbeeld.
+
+#### Wat er tegen in te brengen valt
+
+De klassieke kloof tussen zijn en behoren blijft in dit boek onoverbrugd. Dat
+het leven vier miljard jaar doorging, verplicht op zichzelf tot niets; het
+credo van voortzetting is een keuze die met het woord credo ook als keuze
+wordt gemarkeerd, maar de ecomoraliteit van de tweede editie leunt er
+vervolgens zwaar op alsof de stap gezet is. Kritiek komt bovendien van twee
+kanten: gelovige lezers missen transcendentie en vinden religie zonder
+gebedsadres een leeg omhulsel, terwijl seculiere lezers het woord heilig
+misleidend vinden voor wat ook gewoon verwondering kan heten.
+
+Daarnaast is de reikwijdte van de reflecties beperkt: zij verwoorden de
+gevoeligheid van één goedgeplaatste westerse wetenschapper, en of dit epos
+werkelijk als gedeelde kosmologie voor alle culturen kan dienen, wordt
+geponeerd en niet onderzocht. Tradities verschillen juist in wat zij heilig
+noemen, en het boek biedt geen weg om dat verschil te overbruggen. Als
+grondtekst van een beweging is het niettemin geslaagd: het formuleerde een
+positie die sindsdien een eigen literatuur en gemeenschap heeft, en het bewees
+dat een nuchter wetenschapsverhaal eerbiedig verteld kan worden zonder de
+feiten te plooien.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik de tweedeling van het boek als vorm: eerst de feiten zo goed
+mogelijk vertellen, daarna pas de betekenisvraag stellen, en de twee niet
+vermengen.
+- Zet de reflecties in bij natuur- en biologieonderwijs om de existentiële
+kant van evolutie bespreekbaar te maken zonder de wetenschap te verzwakken.
+- Ontleen aan het credo van voortzetting een seculiere formulering voor
+duurzaamheidskeuzes die niet op één levensbeschouwing steunt.
+- Markeer bij eigen teksten en gesprekken, zoals Goodenough doet, wat feit is
+en wat belijdenis; die eerlijkheid is de kern van haar methode.
+
+#### Wat je hierna leest
+
+- 322. An Immense World. An Immense World voedt dezelfde verwondering over het
+leven met zintuigonderzoek, zonder er een religieuze duiding aan te geven.
+- 92. Onze bouwstenen. Onze bouwstenen vertelt het verhaal van de elementen
+waaruit een mens bestaat, een kleiner epos in dezelfde geest.
+- 239. A Short History of Nearly Everything. A Short History of Nearly
+Everything geeft het volledige wetenschapsepos in verteltrant, als bredere
+achtergrond bij Goodenoughs hoofdstukken.
+
+## 610. Love's Body
+
+Norman O. Brown, 1966. *Love's Body* (Random House, New York 1966; heruitgave
+University of California Press, Berkeley 1990, 276 blz., ISBN 9780520071063).
+Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; alleen
+Browns eerdere *Life Against Death* verscheen in het Nederlands (*Leven tegen
+dood*, Ambo, 1972). De samenvatting is op de Engelse editie gebaseerd.
+Rubriek: filosofie en mystiek.
+Tags: `psychoanalyse`, `mystiek`, `filosofie`, `symboliek`
+
+Vervolg op *Life Against Death* (1959), waarin de Amerikaanse classicus Norman
+O. Brown psychoanalyse en geschiedenis samenbracht. In *Love's Body* laat hij
+het betoog los: zestien thematische hoofdstukken, van Liberty en Person tot
+Boundary, Resurrection en Nothing, bestaan uit aforismen en citaatmontages uit
+Freud, Blake, Boehme, de evangeliën en tientallen anderen. De rode draad: de
+zondeval is een val in verdeeldheid; het afgegrensde ik, privébezit, politieke
+vertegenwoordiging en letterlijk genomen taal vormen één samenhangende
+illusie, en bevrijding vraagt symbolisch bewustzijn en de opstanding van het
+lichaam.
+
+Het boek werd een cultboek van de jaren zestig. Herbert Marcuse viel het in
+1967 aan als mystificatie die de politiek ontwapent. Als wetenschap is het
+onbruikbaar en zo ook niet bedoeld; als poëtisch-profetisch document wordt het
+nog gelezen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Brown stelt dat de grondkwaal van de westerse mens verdeling
+is: de scheiding van ziel en lichaam, van zelf en wereld, van het mijne en het
+jouwe, van woord en betekenis. Politieke instituties, het afgegrensde ik en de
+letterlijke lezing van taal en godsdienst zijn volgens hem gestolde vormen van
+dezelfde splitsing, en dus is politieke hervorming binnen die vormen zinloos:
+koning afzetten en parlement invoeren verplaatst de fantasie van
+soevereiniteit, maar heft haar niet op. Werkelijke bevrijding is het oplossen
+van grenzen: de opstanding van het lichaam, de terugkeer van symbolisch
+bewustzijn waarin alles metafoor is en alleen poëzie waarheid zegt. Het boek
+voltrekt die stelling in zijn vorm: aforisme en citaat in plaats van betoog.
+
+#### De gang van het boek
+
+**Van betoog naar aforisme**
+
+Wie van *Life Against Death* komt, treft een ander boek aan: geen doorlopende
+argumentatie, maar genummerde reeksen aforismen waarin citaten uit
+psychoanalyse, theologie, poëzie en antropologie tegen elkaar worden gezet.
+Die vorm is programma: een sluitend betoog hoort volgens Brown bij de
+verdeelde wereld die het boek juist achter zich wil laten, en door disciplines
+door elkaar te citeren suggereert hij dat ze over hetzelfde spreken. De
+hoofdstukken worden naar het einde toe apocalyptischer en paradoxaler; het
+boek wil eerder een ervaring voltrekken dan een these verdedigen.
+
+**Politiek als familiedrama**
+
+De openingshoofdstukken Liberty en Nature herlezen de politieke filosofie met
+Freuds oerhorde-fantasie als sleutel: de broers die de oervader doden en uit
+schuld zijn gezag onder elkaar verdelen. Het debat tussen Filmer en Locke over
+vaderlijk gezag en broederlijk contract wordt zo een familieroman; de moderne
+staat zet het koningschap voort in verhulde vorm. Het lichaamspolitieke, de
+staat als lichaam, is voor Brown geen metafoor die ooit onschuldig was: het is
+een groepsfantasie waarin echte lichamen worden ingelijfd en geofferd.
+
+**Persoon, masker, vertegenwoordiger**
+
+In Person, Representative en Head ontleedt Brown het zelf langs dezelfde lijn.
+Persona betekent masker: de persoon is een rol voor het toneel van anderen,
+geen natuurlijk gegeven. Vertegenwoordiging, politiek in het parlement en
+psychisch in het ik dat namens de driften spreekt, is een fictie die het
+vertegenwoordigde vervangt. Soevereiniteit huist in verbeelding, en wie het
+hoofd van de staat afhakt zonder de verbeelding te veranderen, krijgt een
+nieuw hoofd. Hier raakt het boek zijn politieke zenuw: revolutie zonder
+verandering van bewustzijn herhaalt wat zij bestrijdt.
+
+**Grenzen en waanzin**
+
+Het hoofdstuk Boundary is het scharnier van het boek. De grens van het ik, de
+eigendomsgrens en de landsgrens zijn voor Brown maaksels die voor natuur
+doorgaan; het gezonde verstand dat ze bewaakt, noemt hij de eigenlijke waan.
+De taal van schizofrenen en de taal van mystici getuigen allebei, op eigen
+wijze, tegen de letterlijkheid: zij nemen de grenzen niet serieus die de
+normaliteit heilig houdt. Brown romantiseert de waanzin welbewust als kenbron,
+een van de trekken waarop de kritiek zich later zou richten.
+
+**Eten, vuur, breking, opstanding**
+
+De hoofdstukken Food, Fire en Fraction halen hun beelden uit offer en
+eucharistie: eten als gemeenschap, het gebroken brood als gebroken lichaam dat
+juist in de breking gedeeld bestaan sticht. Resurrection keert de doctrine om
+tot programma: de opstanding van het lichaam is geen gebeurtenis aan het einde
+van de tijd maar het ontwaken uit de letterlijkheid, het lichaam dat weer
+zinnelijk en symbolisch tegelijk mag zijn. Brown leest theologie als verhulde
+psychologie en psychologie als verhulde theologie; de eucharistie wordt bij
+hem het model van niet-verdeeld bestaan.
+
+**Vervulling en niets**
+
+De slothoofdstukken Fulfillment, Judgment, Freedom en Nothing drijven de
+paradox op de spits. Apocalyps betekent onthulling: geen vernietiging van de
+wereld, maar het einde van de letterlijke lezing ervan. Het laatste woord is
+aan de stilte en aan de poëzie; het boek eindigt met de gedachte dat de
+tegenstelling tussen geest en lichaam, woord en daad, spreken en zwijgen
+overwonnen wordt waar alles metafoor blijkt. Wie een program verwacht, krijgt
+een gebaar; dat is geen tekortkoming van het slot maar de consequentie van het
+hele boek.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| val in verdeeldheid | Browns herlezing van de zondeval: niet ongehoorzaamheid maar splitsing, van ziel en lichaam, zelf en wereld, het mijne en het jouwe. |
+| lichaamspolitiek | De staat als gefantaseerd lichaam waarin echte lichamen worden ingelijfd, voor Brown de kern van politieke autoriteit. |
+| persona | De persoon als masker en rol, tegenover het lichamelijke bestaan dat aan alle rollen voorafgaat. |
+| representatie | Vertegenwoordiging als fictie die het vertegenwoordigde vervangt, in het parlement zo goed als in het ik dat namens de driften spreekt. |
+| letterlijkheid | De lezing die tekens voor de zaak zelf neemt; voor Brown de eigenlijke afgodendienst en de kwaal van kerk én wetenschap. |
+| symbolisch bewustzijn | Het bewustzijn dat alles als metafoor verstaat en daarmee de grenzen tussen de dingen vloeibaar maakt. |
+| opstanding van het lichaam | Browns doel: het ontwaken van het zinnelijke, onverdeelde lichaam uit de letterlijkheid, hier en nu in plaats van aan het einde van de tijd. |
+| apocalyps | Letterlijk onthulling: het einde van de letterlijke wereldlezing, niet de vernietiging van de wereld. |
+
+#### Waar het argument op rust
+
+Het boek voert geen bewijs in gangbare zin en verwerpt de eis daartoe
+uitdrukkelijk: bewijzen hoort bij het gerechtshof van de verdeelde wereld. Wat
+het biedt, is montage: honderden citaten uit Freud, Róheim, Blake, Boehme,
+Vico, Joyce en de Schrift, zo geschikt dat er verwantschap oplicht. De
+overtuigingskracht is die van poëzie, resonantie in plaats van afleiding, en
+de lezer die de resonantie niet voelt, heeft geen aangrijpingspunt om het boek
+te weerleggen; het onttrekt zich per vorm aan tegenspraak.
+
+Waar het bouwwerk wel op controleerbare fundamenten rust, zijn die wankel. De
+oerhorde uit Freuds *Totem und Tabu*, dragend voor Browns politieke
+hoofdstukken, geldt in de antropologie al een eeuw als speculatie zonder
+empirische steun, en de psychoanalytische duidingen waarop hij voortbouwt,
+delen in de algemene bewijsproblemen van dat kader. Het boek moet dus gelezen
+worden als wat het is: een visionaire tekst die bronnen gebruikt als
+beeldmateriaal, geen studie die haar stellingen staaft.
+
+#### Wat er tegen in te brengen valt
+
+De scherpste kritiek kwam van een geestverwant. Herbert Marcuse, die in *Eros
+and Civilization* zelf Freud voor maatschappijkritiek had ingezet, verweet
+Brown in Love Mystified (Commentary, februari 1967) mystificatie: door
+bevrijding te verplaatsen naar symboliek en mystiek vervluchtigt de
+seksualiteit tot geestelijkheid en verdwijnt de echte, politieke onvrijheid
+uit beeld. Waar grenzen werkelijk knellen, in arbeid, bezit en macht, helpt
+geen poëtische opheffing van het onderscheid tussen mijn en dijn. Browns
+antwoord, een maand later, aanvaardde de breuk: Marcuse wil de wereld
+veranderen, Brown wil haar anders verstaan.
+
+Daarbuiten geldt het boek academisch als onhoudbaar: de aforistische vorm
+maakt elke toetsing onmogelijk, de Freudiaanse grondslag is gedateerd, en de
+verheerlijking van waanzin als kenbron staat ver af van wat over psychose
+bekend is. Tegelijk is de nawerking aanwijsbaar: het boek voedde de
+tegencultuur van de late jaren zestig, Ernest Becker zette zijn eigen
+doodsanalyse op in gesprek met Brown, en de vraag die het stelt, wat politiek
+nog betekent als instituties op fantasieën rusten, is serieuzer dan de vorm
+doet vermoeden. Als profetie gelezen houdt het zijn plaats; als kennis niet.
+
+#### Wat er concreet mee te doen is
+
+- Lees het boek naast Marcuses kritiek en Browns weerwoord; het
+meningsverschil markeert nog altijd de keuze tussen politieke en innerlijke
+bevrijding.
+- Bestudeer de montagetechniek als retorisch middel en weeg wat een tekst wint
+en verliest zonder betoog.
+- Wantrouw beweringen die zich door hun vorm aan weerlegging onttrekken, hoe
+suggestief de taal ook is.
+
+#### Wat je hierna leest
+
+- 405. The Denial of Death. The Denial of Death bouwt voort op Browns eerdere
+werk en zet er een strakker beargumenteerde doodsanalyse tegenover.
+- 357. De mens en zijn symbolen. De mens en zijn symbolen behandelt
+symboolverlies en symboolherstel langs Jungiaanse weg, met meer methode en
+minder profetie.
+- 564. De spektakelmaatschappij. De spektakelmaatschappij formuleert in
+hetzelfde jaar een verwante kritiek op representatie, maar trekt haar de
+politieke kant op.
+
+## 611. The White Goddess
+
+Robert Graves, 1948. *The White Goddess: A Historical Grammar of Poetic Myth*
+(Faber and Faber, Londen, 1948; herziene en uitgebreide editie 1961, 511 blz.;
+Amerikaanse paperback bij Farrar, Straus and Giroux, ISBN 9780374504939). Geen
+Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de
+samenvatting is op de Engelse editie gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `mythologie`, `poëzie`, `godin`, `keltische traditie`, `neopaganisme`
+
+Literaire mythografie van de Engelse dichter en romanschrijver Robert Graves,
+in een eerste versie geschreven in enkele weken van 1944 en na afwijzingen
+elders door T.S. Eliot bij Faber aangenomen. Graves betoogt dat alle ware
+poëzie teruggaat op één Thema: de verering van een drievoudige maangodin van
+geboorte, liefde en dood, die in de bronstijd door patriarchale hemelgoden zou
+zijn verdrongen. Hij onderbouwt dat met eigenzinnige lezingen van middeleeuwse
+Welshe en Ierse teksten, waaronder het raadselgedicht *Cad Goddeu* en het
+Ierse boomalfabet ogham, dat hij als geheime kalender ontcijfert.
+
+Vakwetenschappers, keltologen voorop, verwerpen het boek als
+geschiedschrijving: de methode is associatief en de bewijsvoering circulair.
+Als document van de dichterlijke verbeelding en als bron van het moderne
+neopaganisme, dat er de drievoudige godin aan ontleende, is het niettemin
+invloedrijk gebleven.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Graves stelt dat de taal van de mythe in heel Europa en het
+Nabije Oosten oorspronkelijk de taal was van een religie rond een drievoudige
+maangodin, en dat echte poëzie tot op vandaag niets anders doet dan die godin
+aanroepen. Het ene Thema van alle ware dichtkunst is de strijd tussen de god
+van het wassende jaar en de god van het afnemende jaar om de liefde van de
+godin, die tegelijk moeder, bruid en doodsvrouw van de dichter is. Toen
+patriarchale stammen met mannelijke hemelgoden de oude ordening verdrongen,
+ging de godinnenreligie ondergronds in raadsels, alfabetten en verminkte
+mythen, en de dichter die zijn ambacht serieus neemt moet die verborgen
+grammatica opnieuw leren lezen.
+
+#### De gang van het boek
+
+**Ontstaan en opzet**
+
+Graves schreef de eerste versie van het boek, toen nog *The Roebuck in the
+Thicket* geheten, in enkele weken van 1944, in een roes die hij zelf als een
+soort ingeving beschreef. Na afwijzingen door andere uitgevers nam T.S. Eliot
+het aan voor Faber and Faber; het verscheen in 1948 en kreeg in 1961 zijn
+definitieve, uitgebreide vorm. De ondertitel, een historische grammatica van
+de poëtische mythe, geeft het programma: mythen vormen samen een taal met
+eigen regels, en wie die regels kent kan verminkte of versleutelde mythen
+terugvertalen naar hun oorspronkelijke betekenis.
+
+**Het ene Thema en de drievoudige godin**
+
+De kern van het boek is de stelling dat alle ware poëzie één verhaal vertelt.
+De godin verschijnt drievoudig, naar de gedaanten van de maan: het jonge
+meisje van de nieuwe maan, de vrouw van de volle maan, de oude vrouw van de
+afnemende maan, verbonden met geboorte, liefde en dood. Om haar gunst strijden
+twee goden, de god van het wassende jaar en zijn duistere tweeling van het
+afnemende jaar, die elkaar bij midzomer en midwinter afwisselen. De dichter
+identificeert zich met de god van het wassende jaar en weet dat zijn nederlaag
+vaststaat.
+
+Graves onderscheidt op grond hiervan twee soorten dichtkunst. Muzenpoëzie
+ontstaat in dienst van de godin en wekt bij de lezer een herkenbare fysieke
+reactie op, waarvoor Graves de rillende nekharen als proef noemt. Apollinische
+poëzie is verstandelijke, hoofse verskunst in dienst van de mannelijke rede;
+volgens Graves is vrijwel de hele klassieke en moderne dichttraditie daartoe
+vervallen.
+
+**De slag der bomen en het raadsel van Taliesin**
+
+Het bewijsmateriaal zoekt Graves vooral in middeleeuwse Welshe en Ierse
+handschriften. Het Welshe gedicht *Cad Goddeu*, de slag der bomen, leest hij
+als een versleuteld verslag van een religieuze machtswisseling waarin een
+alfabetgeheim werd veroverd. Het raadselgedicht *Hanes Taliesin* behandelt hij
+als een puzzel waarvan de oplossing uit lettergrepen en namen bestaat, en ook
+de Ierse *Song of Amergin* herschikt hij tot een kalendergedicht. Steeds is
+het procedé hetzelfde: de overgeleverde tekst zou opzettelijk door
+bardenscholen zijn verhaspeld om de leek buiten te sluiten, en Graves herstelt
+de volgorde.
+
+**Het boomalfabet als kalender**
+
+Een groot deel van het boek gaat over het Ierse ogham-alfabet en het daarmee
+verbonden bomenalfabet Beth-Luis-Nion. Graves betoogt dat de dertien
+medeklinkers een kalender van dertien maanmaanden vormen, elk gewijd aan een
+boom met eigen mythische lading, van de berk van het begin tot de vlier van de
+dood, en dat de klinkers de scharnierpunten van het jaar markeren. Rond deze
+kalender bouwt hij uitweidingen over heilige bomen, vogels, getallen en
+feesten in de Keltische, Griekse en Bijbelse overlevering, tot en met een
+berekening van de verborgen naam van God.
+
+**Iconotropie en de omgeschreven mythen**
+
+Voor de verhouding tussen oude en nieuwe religie muntte Graves het begrip
+iconotropie: latere vertellers beschreven oude cultusafbeeldingen die zij niet
+meer begrepen of niet meer wilden begrijpen, en lazen er een verhaal in dat de
+nieuwe orde beter uitkwam. Zo zouden veel Griekse en Bijbelse mythen
+omgekeerde restanten van godinnenverering zijn. Zijn werkwijze om achter die
+omkeringen te komen noemt hij analeptisch: een bewust teruggrijpen van de
+verbeelding naar het verleden, waarbij intuïtieve sprongen worden toegelaten
+die de gangbare wetenschap zich verbiedt.
+
+**De godin en de moderne wereld**
+
+In de slothoofdstukken keert Graves zich tegen de eigen tijd. De verdringing
+van de godin door mannelijke goden van rede en techniek acht hij de wortel van
+een beschaving die de natuur uitput en de poëzie tot versiering heeft
+verlaagd. Herstel van de dichtkunst vergt volgens hem herstel van eerbied voor
+de godin, al doet hij geen voorspelling over de vorm waarin dat zou kunnen
+gebeuren. Juist deze hoofdstukken zijn later gretig gelezen in kringen die een
+nieuwe natuurreligie zochten.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| de witte godin | De drievoudige maangodin van geboorte, liefde en dood die volgens Graves de oorspronkelijke godheid van Europa en het Nabije Oosten was. |
+| het ene Thema | Het verhaal dat alle ware poëzie zou vertellen: de strijd van de god van het wassende jaar met zijn tweeling van het afnemende jaar om de liefde van de godin. |
+| muzenpoëzie | Dichtkunst die uit dienst aan de godin ontstaat en herkenbaar is aan de lichamelijke huiver die zij bij de lezer oproept. |
+| apollinische poëzie | Verstandelijke verskunst in dienst van de mannelijke rede, volgens Graves de vervallen vorm die de dichttraditie sinds de klassieken beheerst. |
+| iconotropie | Het door Graves gemunte verschijnsel dat een oude cultusafbeelding door latere vertellers verkeerd wordt gelezen, zodat een mythe ontstaat die de nieuwe religie beter past. |
+| analeptische methode | Graves' werkwijze om met bewust toegelaten intuïtieve sprongen van de verbeelding verloren gegane kennis uit het verleden terug te halen. |
+| Beth-Luis-Nion | Het Ierse bomenalfabet dat Graves als kalender van dertien maanmaanden leest, elk gewijd aan een boom met mythische betekenis. |
+| Cad Goddeu | Middeleeuws Welsh gedicht over een slag der bomen, door Graves ontcijferd als versleuteld verslag van een religieuze machtswisseling. |
+
+#### Waar het argument op rust
+
+Het bewijsmateriaal bestaat uit teksten die werkelijk bestaan: *Cad Goddeu* en
+*Hanes Taliesin* staan in middeleeuwse Welshe handschriften, het ogham-alfabet
+is uit Ierse steeninscripties en traktaten bekend, en de klassieke en Bijbelse
+bronnen die Graves aanhaalt zijn controleerbaar. De bewerking van dat
+materiaal is echter geheel de zijne. De datering van de gedichten, de
+veronderstelde bardengeheimen en de kalenderlezing van het alfabet steunen op
+zijn eigen herschikkingen, en waar een tekst zijn lezing tegenspreekt neemt
+hij aan dat de tekst verminkt is overgeleverd. Wie de redenering wil
+natrekken, moet telkens eerst Graves' eigen reconstructie aanvaarden.
+
+Graves was geen filoloog en las de Welshe en Ierse bronnen grotendeels in
+vertaling. Hij presenteerde het boek zelf als het werk van een dichter die met
+analeptische verbeelding verder springt dan de wetenschap durft, en dat is een
+eerlijke typering van de status van het bewijs: het boek documenteert een
+dichterlijke visie, geen houdbare geschiedenis van religie of taal.
+
+#### Wat er tegen in te brengen valt
+
+Vakwetenschappers hebben het boek vrijwel eenparig verworpen. Keltologen
+wijzen erop dat Graves de Welshe en Ierse teksten dateert en leest op manieren
+die de handschriften niet toestaan, en dat het bomenalfabet als kalender een
+constructie van hemzelf is, deels voortbouwend op even onbetrouwbaar werk van
+Edward Davies en Roderick O'Flaherty. Oudhistorici en archeologen vinden voor
+een gedeelde voorhistorische godinnenreligie van Europa en het Nabije Oosten
+geen bewijs; het beeld van een verdrongen matriarchale oerreligie gold in de
+negentiende eeuw als hypothese en is sindsdien verlaten. De historicus Ronald
+Hutton behandelt *The White Goddess* dan ook als literaire schepping die grote
+invloed kreeg op het moderne heidendom, niet als betrouwbare studie.
+
+Daar komt een methodisch bezwaar bij dat ook welwillende lezers treft: de
+redenering is circulair. Het ene Thema wordt eerst als sleutel aangenomen en
+vervolgens in elk gedicht teruggevonden, waarbij afwijkend materiaal tot
+verminking of opzettelijke versleuteling wordt verklaard. Zo is de stelling
+onweerlegbaar gemaakt. De blijvende betekenis van het boek ligt elders: als
+poëtica, als bron van de drievoudige godin in wicca en aanverwante stromingen,
+en als voorbeeld van hoe overtuigend een geleerde verbeelding kan ogen wanneer
+zij zich niets aantrekt van de regels van het vak.
+
+#### Wat er concreet mee te doen is
+
+- Lees het boek als poëtica en als mythografische verbeelding, en ontleen er
+geen feitelijke geschiedenis van Kelten, Grieken of Hebreeën aan.
+- Gebruik het begrip iconotropie als waarschuwing bij elke bronlezing: wie een
+beeld niet meer begrijpt, vult het in naar eigen voorkeur, en dat geldt ook
+voor Graves zelf.
+- Wie de invloed van het boek op het moderne heidendom wil begrijpen, kan de
+drievoudige godin van wicca hier op haar herkomst nalezen.
+- Leg naast elke aanlokkelijke totaalverklaring de vraag welk denkbaar
+materiaal haar zou kunnen weerleggen; bij dit boek is het antwoord
+ontnuchterend.
+
+#### Wat je hierna leest
+
+- 410. the hero with a thousand faces. The Hero with a Thousand Faces zoekt in
+dezelfde jaren naar één oerpatroon achter alle mythen, met vergelijkbare
+zeggingskracht en vergelijkbare methodische zwakte.
+- 357. De mens en zijn symbolen. De mens en zijn symbolen geeft de
+psychologische duiding van mythische beelden waar Graves een historische claim
+aan verbindt.
+- 143. Maps of Meaning. Maps of Meaning is een latere poging om mythische
+structuren als betekeniskaart van de menselijke geest te lezen.
+
+## 612. Het koninkrijk Gods is binnen in u
+
+Leo Tolstoj, 1894. *Het Koninkrijk Gods is binnen in U*, oorspronkelijk
+*Tsarstvo Bozjie vnoetri vas*, wegens de Russische censuur eerst in vertaling
+verschenen (Duitse en andere edities, 1894). De Nederlandse vertaling
+verscheen al in 1895 bij S.L. van Looy en H. Herlings te Amsterdam; recente
+Nederlandse uitgave in de reeks Tolstojwerken (374 blz., ISBN 9789083305059).
+Rubriek: filosofie en mystiek.
+Tags: `christendom`, `geweldloosheid`, `pacifisme`, `ethiek`, `staat`
+
+Religieus-ethisch hoofdwerk van de late Tolstoj, geschreven tussen 1890 en
+1893 en door de Russische censuur verboden, zodat het in 1894 eerst in
+vertaling verscheen. Tolstoj betoogt dat de kern van het christendom niet in
+dogma of ritueel ligt maar in de Bergrede, met als hardste eis het gebod om
+het kwaad niet met geweld te weerstaan. Kerken die oorlog zegenen en staten
+die met leger, politie en dienstplicht regeren, zijn met die eis
+onverenigbaar. Wie het gebod serieus neemt, weigert de eed, de krijgsdienst en
+de deelname aan georganiseerd geweld.
+
+Het boek maakte wereldwijd indruk: Gandhi las het in 1894 en noemde het een
+beslissende invloed op zijn denken over geweldloos verzet, en via hem werkte
+het door tot in de Amerikaanse burgerrechtenbeweging. Het geldt als klassieker
+van het christelijk anarchisme en pacifisme.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Tolstoj stelt dat de leer van Christus geen mystiek stelsel
+is maar een uitvoerbare levensleer, samengevat in de Bergrede en toegespitst
+in het gebod om het kwaad niet met geweld te weerstaan. Kerk en staat hebben
+die leer onschadelijk gemaakt: de kerk door haar achter dogma's en sacramenten
+te verstoppen, de staat door gehoorzaamheid, eed en dienstplicht tot plicht te
+verheffen. Omdat het koninkrijk Gods binnen in de mens ligt, begint de
+verandering van de wereld bij de enkeling die weigert aan geweld mee te
+werken, en geen enkele beroep op orde, vaderland of kerkgezag heft die
+persoonlijke verantwoordelijkheid op.
+
+#### De gang van het boek
+
+**De verzwegen traditie van de geweldloosheid**
+
+Het boek opent met de reacties op Tolstojs eerdere geschrift *Mijn geloof*.
+Tolstoj laat zien dat het gebod uit de Bergrede om het kwaad niet met geweld
+te weerstaan een lange, stelselmatig doodgezwegen traditie heeft: de vroege
+kerk vóór Constantijn, de Tsjechische hervormer Petr Chelcicky, de quakers, en
+Amerikaanse voorvechters van geweldloosheid als William Lloyd Garrison, wiens
+verklaring van 1838 hij afdrukt, en Adin Ballou, wiens vragenboekje over
+weerloosheid hij samenvat. Dat deze stemmen telkens vergeten raken, is voor
+Tolstoj zelf al een teken: de boodschap is te lastig voor kerk en staat om in
+omloop te blijven.
+
+**De afrekening met de kerk**
+
+Vervolgens richt Tolstoj zich op de kerken, de Russisch-orthodoxe voorop. Zij
+noemen de Bergrede onuitvoerbaar, schuiven de verlossing door genade en
+sacrament naar voren en zegenen ondertussen vaandels, oorlogen en
+doodvonnissen. Voor Tolstoj is dat geen bijkomstig falen: een instelling die
+de leer van Christus beheert en tegelijk geweld heiligt, verdraait die leer in
+haar tegendeel. De ware godsdienst bestaat volgens hem in het volgen van het
+gebod, en elk leergezag dat daartussen gaat staan is overbodig of schadelijk.
+
+**Drie levensopvattingen**
+
+Het boek zet drie opvattingen van het leven naast elkaar. In de persoonlijke
+of dierlijke opvatting leeft de mens voor zichzelf. In de maatschappelijke of
+heidense opvatting leeft hij voor de groep: gezin, stam, staat, en dit is de
+opvatting waarop alle bestaande instellingen rusten. In de goddelijke of
+christelijke opvatting leeft hij voor de bron van het leven zelf, en vallen de
+grenzen tussen groepen weg. De geschiedenis is voor Tolstoj de trage overgang
+van de tweede naar de derde opvatting, en het geweldsverbod is precies het
+punt waar die overgang concreet wordt.
+
+**De staat als georganiseerd geweld**
+
+In de meest politieke hoofdstukken beschrijft Tolstoj de staat als een
+bouwwerk van geweld dat zichzelf onzichtbaar maakt. Belasting, politie,
+rechtspraak en leger rusten uiteindelijk op de bereidheid van gewone mensen om
+op bevel te doden. De algemene dienstplicht noemt hij de zelfontmaskering van
+dit stelsel: iedere man wordt persoonlijk voor de keuze gesteld tussen zijn
+geweten en zijn regering. Patriotisme en staatsplechtigheid werken daarbij als
+een soort hypnose die het eigen oordeel in slaap brengt; de publieke opinie
+die door die hypnose heen breekt is voor Tolstoj de werkelijke motor van
+verandering.
+
+**Het treinstation en de gesel**
+
+Het slothoofdstuk verankert het betoog in een scène die Tolstoj zelf
+meemaakte: een trein vol soldaten, onder leiding van een gouverneur, op weg om
+hongerende boeren in het gouvernement Toela af te ranselen vanwege een
+grondgeschil met een landheer. Tolstoj ontleedt hoe ieder in die trein, van
+gouverneur tot soldaat, zijn aandeel voor zichzelf verontschuldigt met
+dienstplicht, bevel of gezinsbelang, terwijl niemand de daad als geheel zou
+willen verdedigen. Zo wordt zichtbaar wat het boek beweert: het kwaad in de
+wereld draait niet op slechte bedoelingen, het draait op gehoorzaamheid.
+
+**Het koninkrijk binnen in u**
+
+De titel, ontleend aan Lucas 17:21, draagt de slotsom. Het koninkrijk Gods is
+geen instelling die ergens gesticht moet worden en geen hiernamaals waarop
+gewacht moet worden; het ligt in het geweten van ieder mens en wordt
+werkelijkheid in de mate waarin mensen ophouden aan geweld mee te werken.
+Tolstoj vraagt geen revolutie en geen partijvorming, hij vraagt
+waarachtigheid: leven naar wat men al weet. Wie dat doet, aanvaardt de
+gevolgen, van spot tot gevangenis, en juist die weerloze consequentie acht hij
+aanstekelijker dan enige machtsgreep.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| niet-weerstaan van het kwaad | Het gebod uit Matteüs 5:39 om het kwaad niet met geweld te beantwoorden, door Tolstoj gelezen als de toetssteen van het hele christendom. |
+| de drie levensopvattingen | De persoonlijke, de maatschappelijke en de goddelijke opvatting van het leven, waarvan de laatste de grenzen van eigenbelang en groep achter zich laat. |
+| hypnose van de staat | Tolstojs aanduiding voor de verdoving van het eigen geweten door patriotisme, plechtigheid en gezagsvertoon. |
+| algemene dienstplicht | Voor Tolstoj het punt waarop het staatsgeweld ieder mens persoonlijk bereikt en dus ook persoonlijk geweigerd kan worden. |
+| publieke opinie | Het gedeelde zedelijke oordeel dat volgens Tolstoj regeringen uiteindelijk dwingt, en dat door enkelingen die weigeren wordt gevormd. |
+| kerkelijk christendom | Tolstojs verzamelnaam voor het geloof van dogma, sacrament en gezag, dat de uitvoerbare leer van de Bergrede zou hebben toegedekt. |
+| het koninkrijk Gods | Naar Lucas 17:21 de werkelijkheid die in het geweten van de mens ligt en zichtbaar wordt zodra mensen naar dat geweten handelen. |
+
+#### Waar het argument op rust
+
+Het betoog rust op drie soorten materiaal. Ten eerste tekstuitleg: Tolstoj
+leest de evangeliën, vooral de Bergrede, als letterlijk bedoelde levensleer en
+documenteert hoe theologen dat lezen hebben afgezwakt. Ten tweede historische
+voorbeelden: de vroege kerk, Chelcicky, de quakers, Garrison en Ballou, plus
+eigentijdse gevallen van Russische dienstweigeraars wier lot hij beschrijft.
+Ten derde eigen waarneming, met de strafexpeditie naar Toela als sluitstuk.
+Binnen zijn premisse, dat de Bergrede het hart van het christendom is, is de
+redenering hecht en de documentatie voor zijn tijd rijk.
+
+De zwakke plek van de bewijsvoering is de premisse zelf. Dat het geweldsverbod
+letterlijk en onvoorwaardelijk bedoeld is, wordt beweerd en geïllustreerd,
+geen exegetisch alternatief krijgt serieus weerwoord. Ook de
+geschiedfilosofische stelling dat de mensheid onderweg is naar de goddelijke
+levensopvatting is een geloofsuitspraak, geen bevinding. Het boek overtuigt
+door morele scherpte en door de ontleding van zelfrechtvaardiging, niet door
+afgewogen weging van tegenargumenten.
+
+#### Wat er tegen in te brengen valt
+
+Het klassieke bezwaar richt zich op de onvoorwaardelijkheid van het
+niet-weerstaan. Tolstoj geeft geen antwoord op de vraag wat er gebeurt wanneer
+georganiseerd kwaad op weerloosheid stuit; de twintigste eeuw heeft die vraag
+met de totalitaire staten alsnog op tafel gelegd, en denkers van Berdjajev tot
+Orwell hebben betoogd dat Tolstojs leer daar geen begaanbare weg biedt. Ook
+binnen zijn eigen kamp valt iets aan te wijzen: de geweldloze campagnes van
+Gandhi en King, die zich op dit boek beriepen, werkten juist met organisatie,
+strategie en politieke druk, middelen waarvoor Tolstoj weinig ruimte laat
+omdat hij alles van de enkeling en diens waarachtigheid verwacht.
+
+Daarnaast is het boek als tekst onevenwichtig: lange polemieken tegen
+inmiddels vergeten critici, herhalingen en een geschiedbeeld waarin
+vooruitgang naar de christelijke levensopvatting als vaststaand wordt
+aangenomen. De kerkkritiek is bovendien zo totaal dat elke gemeenschapsvorm
+van godsdienst verdacht wordt; de Russisch-orthodoxe kerk sloot Tolstoj in
+1901 uit, en ook lezers die zijn ethiek delen kunnen vinden dat hij het kind
+met het badwater weggooit. Als erkende klassieker staat het boek niettemin
+overeind: de ontleding van gehoorzaamheid als drager van het kwaad heeft niets
+aan geldigheid verloren.
+
+#### Wat er concreet mee te doen is
+
+- Toets een instelling niet op haar belijdenis maar op wat zij zegent;
+Tolstojs vraag aan de kerken laat zich aan elke organisatie stellen.
+- Zoek bij een moreel bezwaar het punt waar de eigen medewerking begint; daar
+ligt volgens dit boek de enige plek waar iemand werkelijk iets kan doen.
+- Wantrouw verontschuldigingen die de eigen rol klein maken omdat anderen
+bevelen of omdat het gezin brood nodig heeft; de treinscène uit het
+slothoofdstuk is daarvoor het toetsbeeld.
+- Lees het boek samen met de geschiedenis van Gandhi en King om te zien wat er
+verandert wanneer geweldloosheid van persoonlijke weigering tot strategie
+wordt.
+
+#### Wat je hierna leest
+
+- 235. War and Peace. War and Peace toont de romanschrijver Tolstoj die
+dezelfde vragen over geweld, geschiedenis en persoonlijke verantwoordelijkheid
+nog verhalend onderzoekt.
+- 215. Obedience to Authority. Obedience to Authority levert het experimentele
+bewijs voor wat Tolstoj bij de trein naar Toela beschreef: gewone mensen doen
+kwaad omdat het bevolen wordt.
+- 390. Simone Weil: An Anthology. De anthologie van Simone Weil biedt een
+verwante religieuze ethiek van aandacht en weigering, geschreven onder de druk
+van de totalitaire eeuw.
+
+## 613. The Magus
+
+Francis Barrett, 1801. *The Magus, or Celestial Intelligencer; Being a
+Complete System of Occult Philosophy* (Lackington, Allen and Co., Londen,
+1801, twee delen in één band plus de *Biographia Antiqua*; facsimile-uitgave
+bij Samuel Weiser, 2000, ISBN 9780877289425). Geen Nederlandse vertaling
+gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse
+editie gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `occultisme`, `magie`, `hermetisme`, `esoterie`
+
+Occult compendium van de Londense occultist Francis Barrett, in 1801
+uitgegeven als volledig stelsel van de verborgen wijsbegeerte. Het werk
+behandelt natuurlijke magie van kruiden, stenen en talismannen, alchemie,
+getallenleer, kabbalistische en ceremoniële magie tot en met het oproepen van
+geesten, en sluit af met levensbeschrijvingen van beroemde magiërs. Vrijwel de
+hele inhoud is overgenomen uit oudere bronnen, vooral de zestiende-eeuwse *De
+occulta philosophia* van Cornelius Agrippa, het aan hem toegeschreven vierde
+boek en de *Heptameron*, door Barrett gemoderniseerd en voorzien van eigen
+platen, waaronder handgekleurde demonenkoppen.
+
+Als oorspronkelijk denkwerk stelt het boek weinig voor en de erin beschreven
+magie heeft geen aantoonbare werking. De historische betekenis is er niet
+minder om: het maakte zeldzame magische teksten weer verkrijgbaar en werd zo
+een schakel tussen de renaissancemagie en de occulte opleving van de
+negentiende eeuw.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Barrett stelt dat de magie een eerbiedwaardige en
+samenhangende wetenschap is die ten onrechte door de verlichte tijdgeest wordt
+veracht, en dat de verspreide kennis van natuurlijke magie, alchemie,
+getallenleer en geestenbezwering zich in één stelsel laat samenvatten dat voor
+de ernstige leerling opnieuw toegankelijk gemaakt kan worden. Het boek wil
+geen nieuwe leer brengen; het wil de oude leer redden, ordenen en doorgeven,
+en Barrett bood zich in de tekst zelf aan als leermeester voor wie verder
+wilde. Daarmee is het werk in de kern een pleidooi dat de magische traditie
+van de renaissance ook in de moderne tijd bestaansrecht heeft.
+
+#### De gang van het boek
+
+**Een compendium in twee boeken**
+
+Het werk verscheen in 1801 bij Lackington, Allen and Co. in Londen als twee
+boeken in één band, met als aanhangsel de *Biographia Antiqua*. De ondertitel
+belooft een volledig stelsel van de occulte filosofie, en de opzet volgt die
+belofte: van de zichtbare natuur via de hemellichamen naar de geestenwereld,
+dezelfde opklimming die Agrippa's *De occulta philosophia* uit 1533 hanteert.
+Barrett schrijft in de inleiding dat de veracht geraakte oude wijsheid
+verdedigd en hersteld moet worden tegen het ongeloof van zijn eeuw.
+
+**Natuurlijke magie en alchemie**
+
+Het eerste boek behandelt de natuurlijke magie: de verborgen krachten van
+kruiden, stenen, metalen en dieren, de werking van amuletten en de leer van de
+sympathieën die alle dingen met elkaar en met de planeten verbinden. Daarop
+volgt een deel over alchemie of hermetische filosofie, met de gangbare leer
+van de metalen en de steen der wijzen, en een verhandeling over magnetisme,
+waarin de oude sympathieleer aansluiting zoekt bij het toen actuele dierlijk
+magnetisme van Mesmer. Zo verbindt Barrett de renaissancebronnen met de mode
+van zijn eigen tijd.
+
+**Talismannen, getallen en de hemel**
+
+Een volgend deel beschrijft de constellatoire of talismanische magie: het
+vervaardigen van zegels en talismannen onder de juiste stand van planeten, de
+magische vierkanten van de zeven planeten, de namen en karakters van geesten
+en intelligenties, en de leer van de getallen waarin elke waarde een eigen
+geestelijke lading draagt. Dit is het meest tabellarische deel van het boek,
+met lijsten en figuren die vrijwel letterlijk uit Agrippa stammen en die
+latere occultisten als naslag zijn blijven gebruiken.
+
+**Kabbalistische en ceremoniële magie**
+
+Het tweede boek klimt op naar de kabbalistische en ceremoniële magie: de
+godsnamen, de hiërarchieën van engelen en demonen, de voorbereiding van de
+magiër door reinheid en gebed, de wijding van cirkel, wierook en werktuigen,
+en ten slotte de bezwering en oproeping van geesten. Hier steunt Barrett op
+het aan Agrippa toegeschreven vierde boek en op de *Heptameron* die aan Pietro
+d'Abano wordt toegeschreven, in de zeventiende-eeuwse Engelse vertaling van
+Robert Turner; ook een aan Trithemius toegeschreven handleiding voor het
+schouwen in kristallen kreeg een plaats. De beruchte handgekleurde platen met
+demonenkoppen, waaronder Apollyon en Belial, horen bij dit deel.
+
+**De Biographia Antiqua en de school van Barrett**
+
+Het slot bevat levensbeschrijvingen van beroemde magiërs en wijzen, van
+Zoroaster en Hermes Trismegistus tot Apollonius van Tyana, Roger Bacon en
+Agrippa zelf. Deze galerij moet de magie een stamboom van eerbiedwaardige
+namen geven. Opmerkelijk is de advertentie die Barrett in het boek opnam: wie
+de verborgen wetenschappen ernstig wilde leren, kon zich bij hem thuis in
+Marylebone melden, waar hij een kleine school van ten hoogste twaalf
+leerlingen wilde vormen. Van die school is weinig bekend; van Barrett zelf,
+die zich titels als F.R.C. en professor in de scheikunde toedichtte en naam
+maakte met twee mislukte ballonvaarten, evenmin.
+
+**Doorwerking**
+
+Het boek verkocht matig en Barrett stierf in vergetelheid, maar de tweede
+levensloop van *The Magus* is opmerkelijk. Doordat het de kern van Agrippa en
+de *Heptameron* in één betaalbare band bood, werd het in de negentiende eeuw
+de toegangspoort tot de rituele magie: occultisten in Engeland en daarbuiten
+putten eruit, de Franse magiër Eliphas Lévi kende het materiaal, en via zulke
+kanalen liep de lijn door tot in de magische ordes van het einde van de eeuw.
+Het boek dat vrijwel niets oorspronkelijks bevat, werd zo een van de dragers
+van de moderne occulte opleving.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| occulte filosofie | De uit de renaissance stammende leer dat de wereld door verborgen krachten en overeenkomsten samenhangt en dat de mens die krachten kan leren gebruiken. |
+| natuurlijke magie | Magie die werkt met de verborgen eigenschappen van kruiden, stenen, metalen en dieren, zonder beroep op geesten. |
+| sympathieën | De veronderstelde verwantschappen tussen aardse dingen en hemellichamen waarop de werking van talismannen en middelen zou berusten. |
+| talismanische magie | Het vervaardigen van zegels en voorwerpen onder de juiste planeetstand om er hemelse kracht in vast te leggen. |
+| magische vierkanten | Getallenvierkanten van de zeven planeten waaruit zegels en karakters van geesten worden afgeleid. |
+| ceremoniële magie | De rituele bezwering en oproeping van geesten door een gereinigde magiër binnen een gewijde cirkel. |
+| Heptameron | Aan Pietro d'Abano toegeschreven middeleeuws handboek voor het oproepen van engelen per weekdag, door Barrett in vertaling overgenomen. |
+| Biographia Antiqua | Het aanhangsel met levens van beroemde magiërs, bedoeld om de magie een eerbiedwaardige stamboom te geven. |
+
+#### Waar het argument op rust
+
+Als bron voor de vraag of magie werkt levert het boek niets: het beroept zich
+op autoriteit en ouderdom, niet op toetsing, en de erin beschreven werkingen
+van talismannen, bezweringen en sympathieën zijn nooit aangetoond. De waarde
+van het boek ligt op een ander vlak en is goed gedocumenteerd. Vergelijking
+met de bronnen laat zien dat vrijwel de gehele tekst uit Agrippa's drie
+boeken, het pseudo-Agrippiaanse vierde boek en Turners vertaling van de
+*Heptameron* komt, met gemoderniseerde spelling en kleine ingrepen van
+Barrett. Wie wil weten wat de Engelse magische traditie rond 1800 aan
+materiaal beschikbaar had, vindt hier de betrouwbaarste dwarsdoorsnede.
+
+Over Barrett zelf is de bronnenbasis dun: enkele documenten, de advertentie in
+het boek en berichten over zijn ballonvaarten. Zijn geleerde titels zijn niet
+te verifiëren en worden door historici als zelfverzonnen beschouwd. Ook dat
+hoort bij de status van het werk: het is de compilatie van een liefhebber,
+niet de neerslag van een levende school.
+
+#### Wat er tegen in te brengen valt
+
+Het oudste en hardste verwijt is plagiaat. Vrijwel niets in *The Magus* is van
+Barrett zelf; de occultismehistoricus A.E. Waite oordeelde al rond 1900 dat
+het boek een waardeloze compilatie van andermans werk was. Dat verwijt is
+feitelijk juist en tegelijk onvolledig: juist als compilatie heeft het boek
+geschiedenis gemaakt, en de moderne waardering, ook bij historici van het
+occultisme, geldt Barrett als doorgeefluik en niet als denker. Wie het boek
+leest als oorspronkelijke bron van magische wijsheid, zit er dus tweemaal
+naast: de inhoud is geleend en de geleende inhoud is zelf
+renaissancespeculatie zonder aantoonbare werking.
+
+Daar komt bij dat de wetenschap die Barrett tegen de verlichting wilde
+verdedigen in 1801 al achterhaald was: de correspondentieleer, de
+planeetzegels en de geestenhiërarchieën waren twee eeuwen eerder door de
+opkomende natuurwetenschap terzijde geschoven, en niets in het boek gaat op
+die kritiek in. Het werk is daarmee vooral een historisch document: van grote
+waarde voor wie de route van de renaissancemagie naar het negentiende-eeuwse
+occultisme wil volgen, en zonder waarde als gids voor kennis over de natuur.
+De handel in dure facsimile's en de reputatie van geheim meesterwerk zeggen
+meer over de aantrekkingskracht van het genre dan over de inhoud.
+
+#### Wat er concreet mee te doen is
+
+- Lees het boek als historisch document over wat de magische traditie rond
+1800 omvatte, en toets geen enkele claim erin als natuurkennis.
+- Gebruik het als vindplaats: wie Agrippa of de *Heptameron* wil bestuderen,
+ziet hier welke delen de moderne occulte traditie hebben gevoed.
+- Let bij elke eerbiedwaardig ogende compilatie op de stamboomtruc: een lijst
+beroemde voorgangers vervangt geen bewijs.
+- Wie hedendaagse magische stromingen wil begrijpen, kan hier nagaan hoeveel
+van hun rituele apparaat via dit ene boek is doorgegeven.
+
+#### Wat je hierna leest
+
+- 378. The Kybalion. The Kybalion doet een eeuw later hetzelfde: oude
+hermetische autoriteit opeisen voor een eigentijdse compilatie.
+- 127. The Law of Attraction. The Law of Attraction laat zien hoe de occulte
+correspondentieleer in de twintigste eeuw tot populaire mentaalmagie werd
+omgevormd.
+- 63. The Demon-Haunted World. The Demon-Haunted World geeft het nuchtere
+tegenwicht: waarom zulke stelsels overtuigend aanvoelen en toch geen kennis
+opleveren.
+
+## 614. The Gospel of Mary Magdalene
+
+Jean-Yves Leloup, 1997. *The Gospel of Mary Magdalene* (Inner Traditions,
+2002, 178 blz., ISBN 9780892819119), Engelse vertaling door Joseph Rowe van
+*L'Évangile de Marie: Myriam de Magdala* (Albin Michel, Parijs, 1997), met een
+voorwoord van Jacob Needleman. Van Leloups editie is geen Nederlandse
+vertaling gevonden in de catalogus van bibliotheek.nl; wel bestaat een
+Nederlandse vertaling van het evangelie zelf door Jacob Slavenburg (*Het
+evangelie van Maria Magdalena*, Ankh-Hermes, 1995). De samenvatting is op de
+Engelse editie van Leloup gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `gnostiek`, `maria magdalena`, `vroeg christendom`, `spiritualiteit`
+
+Vertaling van en commentaar op het Evangelie van Maria, een Koptische tekst
+uit de Berlijnse codex die in 1896 in Caïro werd gekocht en pas in 1955
+volledig werd uitgegeven. Van de negentien bladzijden ontbreken er tien. De
+bewaarde tekst bevat een gesprek van de opgestane Christus met zijn leerlingen
+en daarna het visioen van Maria, doorgaans met Maria Magdalena vereenzelvigd,
+over de opstijging van de ziel langs vier machten. Petrus betwist haar gezag,
+Levi verdedigt haar.
+
+De Franse orthodoxe theoloog en psycholoog Jean-Yves Leloup geeft naast zijn
+vertaling een regel-voor-regelcommentaar waarin hij de tekst leest als
+leerschrift over de nous, het innerlijke schouwende vermogen, en over het
+verbond van het mannelijke en het vrouwelijke in de mens. Zijn uitleg is
+meditatief en vrij; wie een historisch-kritische behandeling zoekt, is op
+wetenschappelijke edities aangewezen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Leloup stelt dat het Evangelie van Maria een volwaardig
+leerschrift uit de vroege christenheid is waarin Maria Magdalena optreedt als
+de leerling die de Leraar het diepst heeft begrepen, en dat de kern van die
+leer antropologisch is: tussen lichaam en geest staat de nous, het innerlijke
+schouwende vermogen waardoor de mens visioenen kan ontvangen en de ziel haar
+weg langs de machten van drift, onwetendheid en toorn kan vinden. De
+verwerping van Maria's getuigenis door Petrus staat voor de verdringing van
+het vrouwelijke en van de innerlijke kenweg uit de kerkgeschiedenis, en het
+herstel van dat evenwicht is voor Leloup de blijvende boodschap van de tekst.
+
+#### De gang van het boek
+
+**De lotgevallen van een codex**
+
+Het Evangelie van Maria is overgeleverd in de Berlijnse codex, een Koptisch
+handschrift uit omstreeks de vijfde eeuw dat de Duitse geleerde Carl Reinhardt
+in 1896 in Caïro kocht. Door tegenslagen, waaronder twee wereldoorlogen,
+verscheen de eerste volledige uitgave pas in 1955, bezorgd door Walter Till.
+Twee kleine Griekse fragmenten uit de tweede en derde eeuw bevestigen dat het
+origineel Grieks was en in de tweede eeuw wordt gedateerd. Van de negentien
+bladzijden ontbreken de eerste zes en vier in het midden; iedere lezing van
+deze tekst is dus een lezing van een gehavend geheel.
+
+**Het onderricht van de Opgestane**
+
+De bewaarde tekst begint midden in een gesprek van de opgestane Leraar met
+zijn leerlingen. Op de vraag naar de materie antwoordt hij dat alle naturen
+weer opgelost worden in hun wortel, en op de vraag naar de zonde dat er geen
+zonde op zichzelf bestaat: het is de mens zelf die de zonde maakt door tegen
+zijn oorspronkelijke natuur in te handelen. Hij wenst de leerlingen vrede toe,
+waarschuwt dat niemand hen moet misleiden met een hier of een daar, want de
+Mensenzoon is binnen in hen, en draagt hun op geen andere regels op te leggen
+dan die hij gaf. Daarna gaat hij heen en blijven de leerlingen verslagen
+achter.
+
+**Maria troost en getuigt**
+
+Maria staat op, groet de bedroefde leerlingen en wendt hun hart naar het
+goede. Petrus erkent dat de Leraar haar liefhad boven andere vrouwen en vraagt
+haar de woorden te delen die zij alleen ontving. Maria vertelt dan van haar
+visioen: zij zag de Leraar en vroeg hem waarmee een visioen wordt gezien, met
+de ziel of met de geest. Het antwoord luidt dat het visioen wordt ontvangen
+door de nous, het schouwende vermogen dat tussen ziel en geest staat. Juist op
+dit punt breekt de tekst af; vier bladzijden ontbreken.
+
+**De opstijging van de ziel**
+
+Na de leemte volgt het slot van het visioen: de ziel stijgt op en wordt bij
+elke sfeer ondervraagd door een macht die haar wil vasthouden. Genoemd worden
+de duisternis, de begeerte, de onwetendheid en als vierde de toorn, die zeven
+gedaanten heeft. Tegen elke macht spreekt de ziel een antwoord waarin zij
+verklaart dat wat haar bond gedood of doorzien is, tot zij vrijkomt in stilte
+en rust. Het schema is verwant aan andere gnostische teksten waarin zelfkennis
+de weg vrijmaakt langs de machten die de mens aan de wereld binden.
+
+**Petrus, Levi en het gezag van een vrouw**
+
+Na Maria's verhaal betwijfelt Andreas of de Leraar zulke vreemde dingen heeft
+gezegd, en Petrus vraagt verontwaardigd of de Leraar werkelijk met een vrouw
+sprak buiten het weten van de mannen om. Maria huilt en vraagt of Petrus denkt
+dat zij liegt. Levi neemt het voor haar op: Petrus is altijd heetgebakerd
+geweest, en als de Leraar haar waardig achtte, wie is Petrus dan om haar te
+verwerpen. De leerlingen gaan daarop uit om te verkondigen. Dit slot, waarin
+het gezag van een vrouwelijke leerling uitdrukkelijk wordt verdedigd,
+verklaart veel van de moderne aandacht voor de tekst.
+
+**Leloups commentaar**
+
+Leloup, orthodox theoloog en psycholoog, plaatst naast de Koptische tekst een
+vertaling en een regel-voor-regelcommentaar. Hij leest het evangelie als een
+leerschrift over de innerlijke mens: naast lichaam en ziel kent de mens de
+nous, door hem ook met het beeldend vermogen van de verbeeldingswereld
+verbonden, een begrip dat hij aan de islamkenner Henry Corbin ontleent. Maria
+Magdalena is voor hem de apostel der apostelen, draagster van het
+contemplatieve en het vrouwelijke dat de kerk van Petrus heeft weggedrukt. Het
+commentaar put uit kerkvaders, joodse en Griekse bronnen en moderne
+psychologie, en is uitdrukkelijk meditatief bedoeld: geen filologische editie,
+wel een geestelijke lezing.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Evangelie van Maria | Griekse tekst uit de tweede eeuw, bewaard in een Koptische vertaling, met een onderricht van de Opgestane en het visioen van Maria. |
+| Berlijnse codex | Het in 1896 in Caïro gekochte handschrift (Papyrus Berolinensis 8502) waarin het evangelie samen met drie andere teksten is overgeleverd. |
+| nous | Het schouwende vermogen tussen ziel en geest waarmee volgens de tekst visioenen worden ontvangen, kernbegrip van Leloups uitleg. |
+| de vier machten | Duisternis, begeerte, onwetendheid en de zevenvormige toorn, die de opstijgende ziel ondervragen en moeten loslaten. |
+| klimaat van de ziel | Leloups aanduiding voor de sferen die de ziel doorschrijdt, gelezen als innerlijke toestanden en niet als plaatsen. |
+| de Mensenzoon binnen in u | Het woord van de Leraar dat het goddelijke beeld in de mens zelf te zoeken is en niet in een hier of daar. |
+| apostel der apostelen | Oude eretitel van Maria Magdalena als eerste getuige van de opstanding, door Leloup als sleutel tot de tekst genomen. |
+| het imaginale | Aan Henry Corbin ontleend begrip voor de werkelijkheidslaag van de verbeelding waarin Leloup de visioenen plaatst. |
+
+#### Waar het argument op rust
+
+De tekst zelf staat op stevige bodem: de Berlijnse codex bestaat, de Griekse
+fragmenten bevestigen ouderdom en oorspronkelijke taal, en over de globale
+inhoud van de bewaarde bladzijden bestaat onder geleerden overeenstemming.
+Leloups vertaling volgt de Koptische tekst en wijkt in de weergave niet
+wezenlijk af van wetenschappelijke edities; het boek bevat de vertaalde tekst
+naast de bron, zodat controle mogelijk blijft.
+
+Het commentaar is van andere aard. Dat de tekst een leer over de nous bevat,
+staat er werkelijk; de uitwerking met het imaginale, de verzoening van het
+mannelijke en het vrouwelijke en verbanden met latere mystiek is Leloups eigen
+duiding, die zich niet uit de tweede-eeuwse context laat bewijzen. Ook de
+vereenzelviging van de Maria uit de tekst met Maria Magdalena is gangbaar en
+waarschijnlijk, geen zekerheid: de tekst noemt haar alleen Maria. Wie het boek
+leest, krijgt dus een betrouwbare tekst en een vrije, geestelijke uitleg in
+één band, en doet er goed aan die twee lagen uit elkaar te houden.
+
+#### Wat er tegen in te brengen valt
+
+Het voornaamste bezwaar tegen Leloups boek is de vermenging van genres. Het
+presenteert zich als vertaling met commentaar, maar het commentaar beantwoordt
+geen historische vragen: datering, milieu, verhouding tot andere gnostische
+geschriften en tot het vroege kerkelijke gezagsdebat komen slechts zijdelings
+aan bod, terwijl juist daar de wetenschappelijke discussie speelt.
+Onderzoekers als Karen King en Christopher Tuckett hebben edities gemaakt die
+de tekst in dat debat plaatsen; naast dat werk is Leloup devotie, geen
+onderzoek. Zijn duidingen, van het imaginale tot het heilige paar, zeggen meer
+over twintigste-eeuwse spiritualiteit dan over de tweede eeuw.
+
+Daarnaast vraagt de receptie om nuchterheid. Het boek werd meegezogen in de
+golf van belangstelling rond Maria Magdalena als gezellin van Jezus; de tekst
+zelf draagt daarvoor weinig aan, en over de historische Maria of de
+historische Jezus zegt een geschrift uit de tweede eeuw hoe dan ook niets
+rechtstreeks. Ook de leemten verdienen nadruk: meer dan de helft van het
+evangelie ontbreekt, en elke sluitende totaalduiding, ook die van Leloup, vult
+gaten met gissingen. Als toegang tot een opmerkelijke oude tekst is het boek
+bruikbaar en goed leesbaar; als gids voor wat die tekst historisch betekent,
+is het onvoldoende.
+
+#### Wat er concreet mee te doen is
+
+- Lees eerst de vertaalde tekst zelf, die maar enkele bladzijden beslaat, en
+pas daarna het commentaar; zo blijft zichtbaar wat bron is en wat duiding.
+- Houd bij elke uitspraak over Maria Magdalena de vraag paraat of zij op deze
+tekst steunt of op latere verbeelding.
+- Gebruik het schema van de vier machten desgewenst als beeld voor innerlijke
+gebondenheid, zonder er historische leerstelligheid aan te ontlenen.
+- Leg naast dit boek een wetenschappelijke editie om te zien welke vragen een
+geestelijke lezing onbeantwoord laat.
+
+#### Wat je hierna leest
+
+- 524. The Conference of the Birds. The Conference of the Birds beschrijft
+dezelfde beweging, de ziel die louterend opstijgt langs hindernissen, in de
+Perzische soefitraditie.
+- 526. The Alchemy of Happiness. The Alchemy of Happiness van al-Ghazali is
+een verwante gids voor de innerlijke kenweg binnen een gevestigde godsdienst.
+- 357. De mens en zijn symbolen. De mens en zijn symbolen biedt het
+psychologische kader waarmee moderne lezers als Leloup visioenen en
+zielsbeelden plegen te duiden.
+
+## 615. Passport to Magonia
+
+Jacques Vallée, 1969. *Passport to Magonia: From Folklore to Flying Saucers*
+(Henry Regnery Company, Chicago, 1969; heruitgave bij Daily Grail Publishing,
+2014, 373 blz., ISBN 9780987422484). Geen Nederlandse vertaling van dit boek
+gevonden in de catalogus van bibliotheek.nl; wel verschenen andere titels van
+Vallée in het Nederlands bij Gottmer. De samenvatting is op de Engelse editie
+gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `ufo's`, `folklore`, `mythevorming`, `grenswetenschap`
+
+Studie van de Franse astronoom en informaticus Jacques Vallée, medewerker van
+ufo-onderzoeker J. Allen Hynek en model voor de Franse geleerde in de film
+*Close Encounters*. Vallée legt moderne ufo-meldingen naast de feeën- en
+elfenoverlevering en naast religieuze verschijningen, en vindt telkens
+hetzelfde patroon: kleine wezens, ontvoeringen, verstoorde tijd, uitwisseling
+van voedsel en voorwerpen. De titel verwijst naar Magonia, het wolkenland
+waaruit volgens negende-eeuws volksgeloof luchtschepen kwamen, beschreven door
+aartsbisschop Agobard van Lyon. De slotsom: de buitenaardse verklaring is te
+smal, het verschijnsel gedraagt zich als een terugkerend cultuurverschijnsel
+dat zich naar elke tijd voegt. Het boek sluit af met een catalogus van 923
+landingsmeldingen uit de periode 1868-1968. Binnen de ufologie geldt het als
+klassieker; de wetenschappelijke status van de verklaring blijft speculatief.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Vallée stelt dat de ufo-verschijnselen van de twintigste eeuw
+geen nieuw en geen op zichzelf staand raadsel vormen: dezelfde ontmoetingen,
+kleine wezens uit de lucht, ontvoeringen, verstoorde tijd, wonderlijke
+boodschappen, zijn eeuwenlang beschreven in het feeëngeloof, het volksgeloof
+over luchtschepen en de religieuze verschijningsverhalen. De gangbare
+buitenaardse verklaring acht hij daarom te smal: wie alleen naar ruimteschepen
+zoekt, mist het patroon dat zich in elke cultuur in eigentijdse gedaante
+voordoet. Wat de bron van dat patroon ook is, fysiek, psychisch of iets
+waarvoor begrippen ontbreken, het onderzoek moet bij de verhalen en hun
+terugkerende structuur beginnen, en de wetenschap doet er verkeerd aan het
+materiaal ongelezen weg te lachen.
+
+#### De gang van het boek
+
+**Magonia en de luchtschepen**
+
+Het boek ontleent zijn titel aan aartsbisschop Agobard van Lyon, die omstreeks
+815 optekende dat het volk geloofde in schepen die uit het wolkenland Magonia
+kwamen om oogsten te halen, en die naar eigen zeggen vier mensen voor de dood
+behoedde die als gevallen luchtschippers gelyncht dreigden te worden. Vallée
+opent met dit soort materiaal om te tonen dat verhalen over bezoekers uit de
+lucht ouder zijn dan elke raket. Ook de Amerikaanse luchtschipgolf van
+1896-1897, met meldingen van sigaarvormige vaartuigen en gesprekken met de
+bemanning, krijgt een plaats: elke tijd ziet het verschijnsel in de techniek
+van zijn eigen verbeelding.
+
+**Het goede volk**
+
+Daarna volgt de kern van de vergelijking: de feeënoverlevering. Vallée put uit
+bronnen als *The Secret Commonwealth* van de Schotse predikant Robert Kirk uit
+1691 en het veldwerk van Walter Evans-Wentz over het feeëngeloof in Keltische
+landen uit 1911. De parallellen die hij aanwijst zijn concreet: kleine wezens
+die mensen meenemen, de verstoorde tijd van wie uit het feeënrijk terugkeert,
+verboden en gaven, huwelijken en kinderroof, ringen in het gras naast
+verbrande cirkels in het weiland. De moderne ontvoeringsverhalen, waaronder
+het toen recente geval van Betty en Barney Hill, leest hij als voortzetting
+van dit oude vertelpatroon.
+
+**Verschijningen en wonderen**
+
+Een volgende lijn loopt door de religieuze verschijningen. Vallée behandelt
+onder meer Fatima in 1917, waar duizenden getuigen een dansende, stralende
+schijf aan de hemel meenden te zien, en wijst op de bouwstenen die
+verschijnings- en ufo-verhalen delen: een lichtgestalte, boodschappen aan
+eenvoudige getuigen, voorspellingen, genezingen, en een gemeenschap die het
+gebeurde in het eigen wereldbeeld inpast. De duiding als heilige, fee of
+ruimtevaarder hangt volgens hem af van het geloofskader van de getuige,
+terwijl de structuur van de gebeurtenis dezelfde blijft.
+
+**Pannenkoeken uit een vliegende schotel**
+
+Vallée schuwt het lachwekkende materiaal niet, hij zoekt het juist op omdat
+het oude motieven het zuiverst bewaart. Het geval van kippenboer Joe Simonton
+uit Eagle River, Wisconsin, die in 1961 naar eigen zeggen van drie kleine
+mannen in een schotel pannenkoeken kreeg in ruil voor water, leest hij naast
+de voedseluitwisseling met het goede volk uit de Keltische overlevering. Juist
+zulke absurde details, die een verzinner zou weglaten en een buitenaards
+verkenningsprogramma niet zou opleveren, wijzen er voor Vallée op dat het
+verschijnsel zich als folklore gedraagt en zich weinig aantrekt van wat
+onderzoekers een redelijk bezoek uit de ruimte achten.
+
+**Tegen de enge buitenaardse hypothese**
+
+In de slotbeschouwing trekt Vallée de lijnen samen. De buitenaardse hypothese
+verklaart hooguit een deel van het materiaal en laat de historische diepte
+onverklaard; de louter psychologische verklaring doet dan weer geen recht aan
+fysieke sporen en meervoudige getuigen. Vallée laat de vraag naar de bron
+uitdrukkelijk open: misschien een onbekende fysische werkelijkheid, misschien
+een verschijnsel dat op de verbeelding inwerkt, in latere boeken zou hij
+spreken van een controlesysteem. Hier volstaat de vaststelling dat het
+verschijnsel zich naar de cultuur voegt die het waarneemt, en dat elke
+verklaring die dit gegeven negeert te kort schiet.
+
+**Een eeuw landingen**
+
+Het tweede deel van het boek is een catalogus van 923 meldingen van landingen
+en ontmoetingen van dichtbij uit de periode 1868-1968, samengesteld uit onder
+meer Project Blue Book, Franse en Britse onderzoeksbladen en eigen
+naspeuringen, met per geval plaats, datum en korte beschrijving. Vallée biedt
+de lijst aan als werkmateriaal voor onderzoekers, met de uitdrukkelijke
+waarschuwing dat de kwaliteit van de bronnen wisselt en dat opname geen
+oordeel over echtheid inhoudt. Deze catalogus heeft het boek blijvende waarde
+als naslagwerk gegeven, ook voor wie de duiding niet volgt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Magonia | Het wolkenland waaruit volgens het door Agobard van Lyon beschreven volksgeloof luchtschepen kwamen, bij Vallée beeld voor de herkomst van het hele verschijnsel. |
+| buitenaardse hypothese | De verklaring van ufo's als voertuigen van bezoekers van andere planeten, die Vallée als te smal beoordeelt. |
+| het goede volk | Verzamelnaam voor feeën en elfen in de Keltische overlevering, wier gedrag volgens Vallée het patroon van moderne ontmoetingen voorafschaduwt. |
+| verstoorde tijd | Het motief dat wie het andere rijk bezoekt uren of jaren kwijtraakt, aanwezig in feeënverhalen en in moderne ontvoeringsmeldingen. |
+| ontmoeting van dichtbij | Melding waarbij getuigen een geland voorwerp of zijn inzittenden op korte afstand waarnemen, de categorie waarop de catalogus zich richt. |
+| luchtschipgolf van 1896-1897 | Amerikaanse meldingengolf van sigaarvormige vaartuigen, voor Vallée bewijs dat de verschijningsvorm met de techniek van de tijd meebeweegt. |
+| een eeuw landingen | De catalogus van 923 gevallen uit 1868-1968 waarmee het boek afsluit. |
+
+#### Waar het argument op rust
+
+Het bewijs bestaat uit twee lagen. De folkloristische en historische bronnen,
+Agobard, Kirk, Evans-Wentz, de verschijningsliteratuur, zijn echt en
+controleerbaar, en dat de door Vallée aangewezen motieven daarin voorkomen,
+staat vast. De moderne meldingen komen uit officiële dossiers als Project Blue
+Book, uit onderzoeksbladen en uit persberichten; Vallée geeft zijn bronnen op
+en waarschuwt zelf dat de kwaliteit wisselt en dat krantenmateriaal
+onbetrouwbaar kan zijn. Als verzameling en vergelijking van vertelmateriaal is
+het boek degelijk en voor zijn tijd vernieuwend.
+
+De stap van patroon naar verklaring is veel zwakker onderbouwd. De parallellen
+zijn geselecteerd op gelijkenis en niet stelselmatig getoetst; er is geen
+telling die laat zien hoe vaak motieven wel en niet samenvallen, en een
+gemeenschappelijke bron valt met dit materiaal niet te onderscheiden van een
+veel zuiniger verklaring: dat mensen in alle eeuwen vergelijkbare verhalen
+vertellen omdat verbeelding, angst en verwachting vergelijkbaar werken. Vallée
+erkent die onzekerheid gedeeltelijk en laat de aard van het verschijnsel open,
+maar de suggestie dat er één werkelijkheid achter feeën, engelen en schotels
+zit, blijft een gissing.
+
+#### Wat er tegen in te brengen valt
+
+De sterkste lezing van dit boek is tegelijk de ontnuchterendste: als de
+ufo-verhalen structureel gelijk zijn aan feeën- en verschijningsverhalen, dan
+ligt de gevolgtrekking voor de hand dat ufo's folklore in wording zijn,
+verhalen die een cultuur over zichzelf vertelt. Die lezing verklaart het
+materiaal zonder nieuwe entiteiten, en folkloristen hebben het boek dan ook
+eerder als studie van moderne sagenvorming gewaardeerd dan als bewijs voor een
+onbekend verschijnsel. Vallée zelf houdt de deur open naar een werkelijke, zij
+het onbegrepen bron, en voor die sprong levert het boek geen dwingend
+argument; de latere uitwerking tot een controlesysteem dat de mensheid stuurt,
+is speculatie zonder toetsbare inhoud.
+
+Ook binnen de ufologie kreeg het boek tegenwind: onderzoekers die aan de
+buitenaardse hypothese hechtten, verweten Vallée dat hij het veld terugvoerde
+naar sprookjes, terwijl wetenschappelijke critici erop wijzen dat het
+gezamenlijke gewicht van duizenden zwakke getuigenissen geen sterk bewijs
+oplevert. De catalogus deelt in dat probleem: hij bewaart naast serieus
+onderzochte gevallen ook onnaspeurbare krantenberichten en later ontmaskerde
+vertelsels. Blijvend is de methodische les, dat verhalen over het onverklaarde
+als cultuurmateriaal met een geschiedenis gelezen moeten worden; wie meer wil,
+een aanwijsbare bron achter Magonia, vindt in dit boek gissingen en geen
+bewijs.
+
+#### Wat er concreet mee te doen is
+
+- Lees hedendaagse verhalen over het onverklaarde, van ufo's tot
+verschijningen, eerst als vertelmateriaal met een geschiedenis, en zoek de
+oudere gedaanten van het motief.
+- Wees op zijn hoede voor verklaringen die alleen het eigen tijdperk kennen;
+het luchtschip van 1897 werd de schotel van 1947, en die les geldt ook voor de
+duidingen van nu.
+- Gebruik de catalogus als voorbeeld van net gedocumenteerd bronmateriaal,
+inclusief de bijgeleverde waarschuwing over wisselende kwaliteit.
+- Onderscheid bij elk patroon de vaststelling van de gelijkenis en de
+verklaring ervan; het eerste kan kloppen terwijl het tweede speculatie blijft.
+
+#### Wat je hierna leest
+
+- 63. The Demon-Haunted World. The Demon-Haunted World behandelt hetzelfde
+materiaal vanuit de sceptische kant en legt uit waarom getuigenissen zo vaak
+bedriegen.
+- 410. the hero with a thousand faces. The Hero with a Thousand Faces
+beschrijft hoe terugkerende vertelpatronen over culturen heen ontstaan, het
+mechanisme waarop Vallée's parallellen kunnen berusten.
+- 340. The Holographic Universe. The Holographic Universe laat zien waar het
+speculatieve spoor eindigt wanneer grensverschijnselen tot totaalverklaring
+worden gebundeld.
+
+## 621. Anarchism and American Traditions
+
+Voltairine de Cleyre, 1908. *Anarchism and American Traditions*, essay,
+oorspronkelijk verschenen in het tijdschrift *Mother Earth*, jaargang 3, nr.
+10 en 11 (december 1908 en januari 1909); later herdrukt als pamflet (Free
+Society Group, Chicago, 1932) en opgenomen in verzamelbundels zoals *The
+Voltairine de Cleyre Reader* (AK Press, 2004). Geen Nederlandse vertaling
+gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse
+tekst gebaseerd. Rubriek: staat en vrijheid.
+Tags: `anarchisme`, `vrijheid`, `amerikaanse geschiedenis`, `staatskritiek`
+
+Essay van de Amerikaanse anarchiste Voltairine de Cleyre (1866-1912), voor het
+eerst verschenen in Emma Goldmans tijdschrift *Mother Earth*. De Cleyre
+betoogt dat het anarchisme geen vreemde importwaar is, zoals de Amerikaanse
+pers na de aanslagen van de jaren 1880 en 1890 beweerde. Zij vindt de kern
+ervan terug in de erfenis van de eigen Revolutie: het wantrouwen tegen
+centraal gezag bij Jefferson en Paine, het zelfbestuur van de vroege
+gemeenschappen, de afkeer van staande legers.
+
+Vervolgens beschrijft zij hoe die traditie verloren ging aan handel,
+landspeculatie, verstedelijking en de eigen dynamiek van de regeringsmacht.
+Het essay was tijdens haar leven haar bekendste tekst en wordt nog steeds
+gelezen als brug tussen de Amerikaanse republikeinse traditie en het
+anarchisme. Een dun, retorisch geschreven werk dat historisch meer schetst dan
+bewijst.
+
+### Uitgebreide samenvatting
+
+**De stelling.** De Cleyre stelt dat de beginselen van het anarchisme al
+besloten liggen in de tradities van de Amerikaanse Revolutie zelf. De
+stichters van de republiek gingen uit van wantrouwen tegen elke regering en
+wilden het gezag zo klein mogelijk houden; de anarchist trekt diezelfde
+redenering alleen consequent door en wil helemaal geen regering. Dat de
+Verenigde Staten van haar tijd het omgekeerde laten zien, een groeiend leger,
+een uitdijend ambtenarenapparaat en een politiek in dienst van de handel,
+bewijst volgens haar dat een beperkte regering zichzelf niet beperkt houdt:
+wie het beginsel van gezag half aanvaardt, raakt de vrijheid stap voor stap
+kwijt.
+
+#### De gang van het boek
+
+**De vergeten betekenis van de Revolutie**
+
+Het essay opent met de vaststelling dat de Amerikaanse tradities zijn gevormd
+in ruim anderhalve eeuw kolonisatie en pioniersleven, van Jamestown tot de
+Revolutie, door mensen die religieus gezag en later politiek gezag van zich
+afschudden. De Cleyre verwijt het onderwijs van haar tijd dat het de Revolutie
+reduceert tot veldslagen en heldenverhalen. Schoolkinderen leren belegeringen
+uit het hoofd, maar niet waarom de omwenteling een omwenteling heette: een
+verandering van beginselen over de verhouding tussen mens en gezag, niet enkel
+een wisseling van bestuurders.
+
+**Wat de stichters en de anarchisten delen**
+
+Daarna legt zij de gedachtewereld van de generatie van 1776 naast die van het
+anarchisme. Beide nemen gelijke vrijheid als politiek ideaal. Zij citeert
+Thomas Paine, voor wie regering in het beste geval een noodzakelijk kwaad was,
+en de Kentucky Resolutions van Jefferson, waarin vrij bestuur op wantrouwen
+wordt gegrondvest en vertrouwen overal de voedingsbodem van despotisme heet.
+Jeffersons opmerking dat een kleine opstand van tijd tot tijd een goede zaak
+is, gedaan naar aanleiding van Shays' opstand van 1786, dient als bewijs dat
+de stichters rebellie als gezond tegenwicht zagen.
+
+Het verschil zit volgens De Cleyre in de laatste stap. De stichters geloofden
+dat een klein gehouden, streng begrensde regering de vrijheid kon bewaken; de
+anarchist gelooft dat elke regering, hoe begrensd ook, haar grenzen zal
+overschrijden. Zij illustreert dat met de vrijheid van meningsuiting: wie geen
+wetten over spreken maakt, houdt het spreken vrij, maar wie het spreken bij
+wet vrij verklaart, ziet honderd advocaten bewijzen dat vrijheid geen misbruik
+betekent.
+
+**Hoe de traditie werd uitgehold**
+
+Het middendeel beschrijft de ontwikkelingen die de beginselen van de Revolutie
+hebben ondergraven. De eerste is de aard van de regeringsmacht zelf: eenmaal
+gevestigd ontwikkelt een bestuursapparaat eigen belangen en groeit het door,
+los van de bedoelingen van de oprichters. De tweede is de handel, die volgens
+De Cleyre de papieren dammen van grondwettelijke beperking heeft doorgebroken;
+zij noemt Hamiltons financiële stelsel als vroege stap in die richting.
+
+Als tastbaar bewijs voert zij cijfers aan: het staande leger, onder Jefferson
+zo'n drieduizend man, telt in haar tijd ruim drieëntachtigduizend soldaten, en
+de toenmalige regering-Roosevelt stelde tienduizenden nieuwe functionarissen
+aan. Precies de instellingen die de stichters vreesden, het staande leger en
+de gecentraliseerde bureaucratie, zijn gewoon geworden zonder dat iemand het
+als verraad aan de traditie herkent.
+
+**De zonde van de vaders**
+
+De Cleyre spaart de generatie van de Revolutie zelf niet. Hun fout was dat zij
+politieke vrijheid loskoppelden van economische verhoudingen: zij aanvaardden
+grondbezit, handel en loondienst als vanzelfsprekend en zagen niet dat
+economische afhankelijkheid politieke vrijheid uitholt. In een land met open
+grenzen en vrije grond viel dat aanvankelijk niet op; met het vollopen van het
+continent, de opkomst van de steden en de concentratie van bezit werd de
+rekening zichtbaar. Wie voor zijn brood van een ander afhangt, heeft aan
+stemrecht en grondwetsartikelen weinig.
+
+**Geen moreel appel maar economische verandering**
+
+Het slot is hoopvol van toon en tegelijk terughoudend over de middelen. De
+Cleyre verwacht weinig van morele oproepen aan een publiek dat comfort boven
+vrijheid stelt. De herleving van de vrijheidsgeest moet komen van economische
+ontwikkelingen die mensen dwingen hun afhankelijkheid onder ogen te zien. Zij
+besluit met het vooruitzicht dat wanneer de moderne revolutie is voltooid, de
+geest van de vaders zal herleven die de waardigheid van de mens boven rijkdom
+stelde, en dat er dan geen koningen en geen Amerikanen meer zullen zijn,
+alleen mensen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Amerikaanse tradities | De denkgewoonten uit de koloniale tijd en de jaren van de Revolutie, gevormd door religieuze rebellie en pioniersleven, met wantrouwen tegen gezag als kern. |
+| gelijke vrijheid | Het politieke ideaal dat de generatie van 1776 en de anarchisten volgens De Cleyre delen: ieders vrijheid begrensd door de gelijke vrijheid van de ander. |
+| wantrouwen als grondslag | Het beginsel uit de Kentucky Resolutions dat vrij bestuur op wantrouwen rust en dat vertrouwen in machthebbers despotisme voedt. |
+| noodzakelijk kwaad | Paines omschrijving van regering, door De Cleyre aangehaald als halve waarheid die om voltooiing vraagt: wat kwaad is, moet niet beperkt maar afgeschaft worden. |
+| staand leger | De vaste krijgsmacht in vredestijd, voor de generatie van 1776 het herkenningsteken van tirannie en voor De Cleyre het bewijs dat de republiek van haar beginselen is afgeweken. |
+| commercialisme | De geest van handel en winstbejag die volgens De Cleyre de grondwettelijke beperkingen doorbrak en de politiek in dienst van het bezit stelde. |
+| zelfbestuur | Het vermogen van kleine gemeenschappen om hun zaken zonder centraal gezag te regelen, in de koloniale tijd praktijk en voor De Cleyre de kiem van het anarchisme. |
+
+#### Waar het argument op rust
+
+Het betoog rust op historische verwijzingen die op zichzelf controleerbaar
+zijn: de aangehaalde uitspraken van Paine en Jefferson bestaan, Shays' opstand
+vond plaats, en de groei van leger en ambtenarij in de decennia voor 1908 is
+gedocumenteerd. De Cleyre kende de bronnen goed en citeert doorgaans zuiver.
+Het essay was tijdens haar leven haar bekendste tekst en circuleerde als
+pamflet; latere historici van het Amerikaanse anarchisme behandelen het als de
+klassieke poging om die stroming een inheemse stamboom te geven.
+
+Tegelijk is de bewijsvoering selectief. De Cleyre kiest uit de erfenis van de
+Revolutie de decentralistische lijn van Jefferson en Paine en laat de
+federalistische lijn van Hamilton en Adams als afwijking buiten de eigenlijke
+traditie vallen. Dat is een keuze, geen vaststelling: dezelfde
+stichtersgeneratie schreef ook een grondwet die de centrale macht juist
+versterkte. Wie het essay als geschiedschrijving leest, krijgt een gestileerd
+beeld; als interpretatie van één lijn in die geschiedenis is het goed
+onderbouwd.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is de eenzijdige geschiedopvatting. De Amerikaanse
+Revolutie kende naast de vrijheidsretoriek ook slavernij, landonteigening van
+de oorspronkelijke bevolking en een elite die haar bezit veilig wilde stellen;
+daarover zwijgt het essay vrijwel geheel. De stelling dat de stichters in de
+kern halve anarchisten waren, is retorisch werkzaam maar houdt bij historici
+geen stand: het gros van die generatie wilde een sterkere, geen zwakkere staat
+dan de Britse kroon toestond.
+
+Daarnaast blijft het positieve programma vaag. De Cleyre beschrijft scherp wat
+er verloren ging, maar hoe een samenleving zonder regering eigendom,
+geschillen en verdediging regelt, komt niet verder dan de verwachting dat
+economische ontwikkeling de geest van vrijheid zal wekken. Die verwachting is
+sinds 1908 niet uitgekomen. Het essay overtuigt als diagnose van de kloof
+tussen beleden beginselen en feitelijke praktijk, minder als bewijs dat het
+anarchisme die kloof kan dichten.
+
+#### Wat er concreet mee te doen is
+
+- Toets een beroep op traditie altijd aan de bronnen: wie zich op stichters of
+grondleggers beroept, kiest meestal één lijn uit een verdeeld gezelschap.
+- Beoordeel instellingen niet op hun oprichtingsbeginselen maar op hun
+feitelijke groei; het verschil tussen die twee is de kern van dit essay.
+- Let bij elk pleidooi voor politieke vrijheid op de economische verhoudingen
+eronder; afhankelijkheid in het levensonderhoud holt formele rechten uit.
+
+#### Wat je hierna leest
+
+- 546. How I Found Freedom in an Unfree World. How I Found Freedom in an
+Unfree World werkt de individuele kant uit: persoonlijke vrijheid zoeken
+binnen een staat die niet gaat verdwijnen.
+- 562. Public Opinion. Public Opinion beschrijft hoe de democratische burger
+die De Cleyre wil wakker schudden zijn beeld van de wereld krijgt aangeleverd.
+- 221. The Dictator's Handbook. The Dictator's Handbook geeft de nuchtere
+machtslogica achter het verschijnsel dat regeringen eigen belangen
+ontwikkelen.
+
+## 622. The State
+
+Franz Oppenheimer, 1908. *Der Staat* (eerste Duitse uitgave 1908, geschreven
+als onderdeel van Oppenheimers *System der Soziologie*); Engelse vertaling
+*The State: Its History and Development Viewed Sociologically* door John M.
+Gitterman (The Bobbs-Merrill Company, Indianapolis, 1914, 302 blz.; latere
+drukken bij onder meer Vanguard Press, 1926, en Free Life Editions, 1975). Een
+Nederlandse vertaling verscheen in 1932 als *De staat* en is opgenomen in de
+catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie
+gebaseerd. Rubriek: staat en vrijheid.
+Tags: `staatsvorming`, `sociologie`, `macht`, `staatskritiek`
+
+De Duitse socioloog en econoom Franz Oppenheimer (1864-1943) zet in dit boek
+zijn veroveringstheorie van de staat uiteen. Tegenover de gedachte dat staten
+uit een maatschappelijk verdrag zijn ontstaan, stelt hij dat de staat
+historisch begint als verovering: een groep, meestal herdersvolken of
+zeevaarders, onderwerpt een boerenbevolking en richt een blijvende organisatie
+in om haar arbeid af te romen.
+
+Daarop bouwt hij zijn bekendste onderscheid: het economische middel, ruil van
+eigen arbeid, tegenover het politieke middel, de onbetaalde toe-eigening van
+andermans arbeid. De staat definieert hij als de organisatie van het politieke
+middel. Het boek volgt de staat door zes stadia tot de constitutionele staat
+en eindigt met de verwachting dat het politieke middel ooit verdwijnt. De
+veroveringsthese geldt inmiddels als te eenzijdig, maar het begrippenpaar
+bleef invloedrijk, van Albert Jay Nock tot Ludwig Erhard.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Oppenheimer stelt dat de staat naar zijn ontstaan en wezen
+geen vrucht van overeenstemming is, maar een veroveringsinstelling: een
+organisatie die een winnende groep aan een onderworpen bevolking oplegt om
+haar arbeid blijvend af te romen. Er bestaan volgens hem maar twee wegen naar
+bevrediging van behoeften, eigen arbeid en ruil, het economische middel, en de
+onbetaalde toe-eigening van andermans arbeid, het politieke middel. De staat
+is de organisatie van het politieke middel, en heel zijn geschiedenis, van
+roversbende tot rechtsstaat, is de geleidelijke beschaving van die
+oorspronkelijke roof, met als voorziene eindpunt een samenleving waarin alleen
+het economische middel overblijft.
+
+#### De gang van het boek
+
+**Tegen de verdragstheorie**
+
+Het eerste hoofdstuk zet de eigen, sociologische staatsopvatting af tegen de
+gangbare theorieën. De gedachte dat mensen ooit uit vrije wil een staat
+stichtten om hun veiligheid te regelen, acht Oppenheimer historisch
+onhoudbaar: nergens is een staat aanwijsbaar die zo is ontstaan. In het spoor
+van Ludwig Gumplowicz zoekt hij het begin niet in instemming maar in
+groepsstrijd. Zijn definitie is daarnaar: de staat is naar vorm heerschappij
+en naar inhoud economische uitbuiting van de overwonnenen door de
+overwinnaars.
+
+**Politiek middel en economisch middel**
+
+Hoofdstuk twee bevat de begripskern van het boek. Wie in zijn behoeften wil
+voorzien, kan werken en ruilen, of nemen wat een ander heeft gemaakt. Het
+eerste noemt Oppenheimer het economische middel, het tweede het politieke
+middel. Vrijwel alle staatsgeschiedenis laat zich volgens hem lezen als de
+wisselwerking tussen beide: het politieke middel organiseert zich, verfijnt
+zich en hult zich in recht, terwijl het economische middel de rijkdom
+voortbrengt waarop dat teren mogelijk is.
+
+In hetzelfde hoofdstuk schetst hij de genese in zes stadia: eerst roof en
+doodslag in grensgevechten, dan het sparen van de boer als bron van
+toekomstige oogsten, vervolgens geregelde schatting, daarna vestiging van
+heersers en beheersten op één grondgebied, dan de aanmatiging van rechtspraak
+over de onderworpenen, en ten slotte de vergroeiing tot één volk met de
+gewoonte van heersen en gehoorzamen. Staten ontstaan volgens hem waar
+herdersvolken of zeenomaden op landbouwende bevolkingen stuiten; boeren
+stichten zelf geen staten, zij worden gestaatst.
+
+**Feodale staat en zeestaat**
+
+De hoofdstukken drie tot en met vijf volgen twee ontwikkelingslijnen. De
+primitieve feodale staat ontstaat uit landverovering: de winnaars worden
+grondheren, de verliezers horigen, en de verhouding verhardt tot een
+standenorde. De zeestaat, van de Fenicische en Griekse handelssteden tot
+Venetië, ontstaat uit het samengaan van handel en zeeroof; hier neemt de
+heersende klasse de vorm aan van een koopmanspatriciaat. In beide gevallen
+ziet Oppenheimer dezelfde kern, een minderheid die van het politieke middel
+leeft, alleen het gewaad verschilt.
+
+Voor de verdere ontwikkeling van de feodale staat is het grootgrondbezit
+beslissend. Door wat hij de afsluiting van de bodem noemt, het monopoliseren
+van alle bruikbare grond door een kleine klasse, verliest de vrije boer de
+mogelijkheid zich aan afhankelijkheid te onttrekken. Wie geen eigen grond kan
+krijgen, moet zijn arbeid aanbieden op voorwaarden van de grondbezitters. Dit
+bodemmonopolie is voor Oppenheimer de bron van blijvende uitbuiting, ook lang
+nadat de feodale vormen zijn verdwenen.
+
+**De constitutionele staat**
+
+Hoofdstuk zes brengt het verhaal naar de moderne tijd. Via het absolutisme en
+de opkomst van steden, geldeconomie en burgerij ontwikkelt de feodale staat
+zich tot de constitutionele staat. Recht, parlement en burgerrechten temmen de
+heerschappij, maar heffen haar niet op: zolang het bodemmonopolie en de daarop
+gebouwde vermogensverhoudingen bestaan, blijft de staat naar inhoud een
+instrument waarmee een klasse meer terugneemt dan zij door arbeid en ruil
+verwerft. De rechtsstaat is voor Oppenheimer echte vooruitgang en tegelijk
+onvoltooid.
+
+**De richting van de ontwikkeling**
+
+Het slothoofdstuk trekt de lijn door naar de toekomst. Oppenheimer verwacht
+dat de economische ontwikkeling het bodemmonopolie zal oplossen, onder meer
+door vrije coöperatieve landbouw, en dat daarmee het politieke middel zijn
+voedingsbodem verliest. Wat overblijft noemt hij een maatschappij van
+vrijburgers: een door zelfbestuur geleide samenleving waarin het
+bestuursapparaat onpartijdig beheerder van gemeenschappelijke belangen is en
+ruil van gelijkwaardige prestaties de verhoudingen bepaalt. Hij presenteert
+dat niet als utopie maar als de richting waarin de geschiedenis volgens hem
+feitelijk beweegt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| politiek middel | De bevrediging van behoeften door onbetaalde toe-eigening van andermans arbeid, van roof tot wettelijk geregelde afdracht. |
+| economisch middel | De bevrediging van behoeften door eigen arbeid en vrijwillige ruil van gelijkwaardige prestaties. |
+| staat | In Oppenheimers definitie de organisatie van het politieke middel: naar vorm heerschappij, naar inhoud economische uitbuiting. |
+| veroveringstheorie | De opvatting, overgenomen van Gumplowicz, dat staten ontstaan doordat de ene groep de andere met geweld onderwerpt, niet door een maatschappelijk verdrag. |
+| zes stadia | Oppenheimers reeks van roof, sparen van de overwonnene, geregelde schatting, territoriale vereniging, rechtspraak en volledige vergroeiing tot één volk. |
+| afsluiting van de bodem | Het monopoliseren van alle bruikbare grond door een kleine klasse, waardoor de rest van de bevolking tot afhankelijke arbeid wordt gedwongen. |
+| zeestaat | Staatsvorm van handelssteden waarin een koopmanspatriciaat heerst, ontstaan uit de combinatie van handel en zeeroof. |
+| vrijburgerschap | Oppenheimers toekomstbeeld van een samenleving zonder politiek middel, geleid door zelfbestuur en gebaseerd op ruil van gelijkwaardige prestaties. |
+
+#### Waar het argument op rust
+
+Oppenheimer onderbouwt zijn these met een breed maar tweedehands corpus:
+etnografische beschrijvingen van herdersvolken en veroveringsrijken, klassieke
+geschiedschrijving en de agrarische geschiedenis van Europa. Voor de door hem
+beschreven gevallen, de Germaanse landnames, de Normandische veroveringen, de
+steppenrijken, klopt het patroon van gewapende minderheden die zich als
+heersende klasse over een boerenbevolking leggen; historici erkennen dat veel
+bestaande staten zulke episoden in hun voorgeschiedenis hebben. Ook zijn
+begripsonderscheid staat los van de historische these overeind: dat inkomen
+zowel uit productie als uit afgedwongen overdracht kan komen, is in de moderne
+economie als onderscheid tussen productief gedrag en rent-seeking
+teruggekeerd.
+
+De zwakte zit in de sprong van patroon naar wet. Oppenheimer schreef voor de
+grote archeologische ontdekkingen van de twintigste eeuw en kon de vroegste
+staatsvorming in Mesopotamië, Egypte, China, Meso-Amerika en de Andes niet
+toetsen. Zijn stelling dat geen enkele staat ooit anders dan door verovering
+is ontstaan, was een generalisatie op basis van secundaire stadia: staten die
+zich vormden waar al staten bestonden. Voor de eerste staten in de
+geschiedenis levert het boek geen bewijs, alleen extrapolatie.
+
+#### Wat er tegen in te brengen valt
+
+De vakwetenschappelijke weging is duidelijk: als monocausale verklaring heeft
+de veroveringstheorie het niet gehaald. Antropologen en archeologen, van
+Robert Lowie in de jaren twintig tot het latere onderzoek naar vroege staten,
+lieten zien dat de oudste staten veelal uit interne gelaagdheid zijn gegroeid,
+rond irrigatie, bevolkingsdruk, handel en religieuze centra, zonder
+aanwijsbare externe verovering. Robert Carneiro, die oorlog wel als motor
+ziet, verbond haar aan omsloten landbouwgebieden en gaf daarmee een preciezere
+theorie dan Oppenheimers algemene herdersthese. Het huidige standpunt is dat
+verovering één route naar staatsvorming is, geen wet.
+
+Ook de voorspellende kant is niet uitgekomen. De staat is sinds 1908 niet naar
+het vrijburgerschap toegegroeid maar heeft twee wereldoorlogen, totalitaire
+regimes en een historisch ongeëvenaarde uitbreiding van taken en belastingen
+laten zien. Critici wijzen er bovendien op dat de scherpe tweedeling tussen
+politiek en economisch middel in de praktijk vervaagt: markten hebben
+rechtshandhaving nodig, en veel afdrachten aan de staat financieren
+voorzieningen waar ook de betalers van profiteren. Wie het boek leest als
+geslepen begrippenapparaat met een gedateerde historische bewijsvoering, leest
+het zoals de vakliteratuur het nu weegt.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik het onderscheid tussen produceren en toe-eigenen als analysevraag
+bij elk verdienmodel en elke regeling: wordt hier waarde gemaakt of
+overgeheveld?
+- Wees wantrouwig tegenover oorsprongsverhalen waarin instellingen uit
+vrijwillige overeenstemming ontstaan; vraag naar het feitelijke, vaak
+gewelddadige begin.
+- Let bij vermogensongelijkheid op toegangsmonopolies, in Oppenheimers tijd
+grond, nu bijvoorbeeld vergunningen of netwerken, als mechanisme dat
+afhankelijkheid in stand houdt.
+- Toets grote ontwikkelingswetten aan gevallen die de auteur niet kon kennen;
+de veroveringsthese laat zien hoe een sterk patroon een te sterke wet werd.
+
+#### Wat je hierna leest
+
+- 221. The Dictator's Handbook. The Dictator's Handbook analyseert met moderne
+middelen wat Oppenheimer historisch beschreef: hoe heersende minderheden zich
+in stand houden.
+- 220. Coup d'État. Coup d'État behandelt de machtsgreep als techniek en sluit
+aan op de gedachte dat staten met geweld worden genomen en gehouden.
+- 56. Sapiens. Sapiens plaatst het ontstaan van staten in het bredere verhaal
+van landbouw en samenwerkingsverbanden, met de latere onderzoeksstand.
+
+## 623. Anarchy, State, and Utopia
+
+Robert Nozick, 1974. *Anarchy, State, and Utopia* (Basic Books, New York,
+1974, xvi + 367 blz., ISBN 0465097200; winnaar van de National Book Award
+1975, categorie filosofie en religie). Geen Nederlandse vertaling gevonden in
+de catalogus van bibliotheek.nl, die alleen Engelstalige edities vermeldt; de
+samenvatting is op de Engelse editie gebaseerd. Rubriek: staat en vrijheid.
+Tags: `politieke filosofie`, `libertarisme`, `rechtvaardigheid`,
+`staatskritiek`
+
+Hoofdwerk van de Harvard-filosoof Robert Nozick (1938-2002) en de academische
+grondtekst van het libertarisme. Uitgangspunt is dat individuen rechten hebben
+die als zijbeperkingen elk handelen begrenzen, ook dat van de staat. Deel een
+betoogt tegen de anarchist dat een minimale staat, beperkt tot bescherming
+tegen geweld, diefstal en contractbreuk, zonder rechtenschending kan ontstaan;
+deel twee betoogt tegen Rawls dat elke uitgebreidere staat rechten schendt.
+
+Kern van dat tweede deel is de entitlement-theorie: een verdeling is
+rechtvaardig als zij door rechtmatige verwerving en vrijwillige overdracht is
+ontstaan, wat er ook uit die geschiedenis komt. Het Wilt Chamberlain-voorbeeld
+en de vergelijking van belasting op arbeid met dwangarbeid werden klassiek.
+Deel drie schetst de minimale staat als raamwerk voor uiteenlopende
+vrijwillige gemeenschappen. Het boek won de National Book Award en bepaalde
+decennia van debat over rechtvaardigheid en herverdeling.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Nozick stelt dat individuen rechten hebben die zo sterk zijn
+dat zij de vraag oproepen of er voor de staat nog iets te doen overblijft.
+Zijn antwoord is tweeledig. Tegen de anarchist: een minimale staat, beperkt
+tot bescherming tegen geweld, diefstal, bedrog en contractbreuk, kan langs een
+onzichtbare-handproces uit een natuurtoestand ontstaan zonder iemands rechten
+te schenden, en is dus gerechtvaardigd. Tegen de voorstanders van de
+verzorgingsstaat: elke staat die meer doet, in het bijzonder herverdelen,
+schendt rechten, omdat hij mensen dwingt hun rechtmatig verworven bezit en dus
+een deel van hun arbeid en hun leven aan doelen van anderen af te staan. De
+minimale staat is tegelijk het enige toelaatbare en een inspirerend raamwerk
+voor utopieën.
+
+#### De gang van het boek
+
+**Rechten als zijbeperkingen**
+
+Het boek opent met de beroemde zin dat individuen rechten hebben en dat er
+dingen zijn die geen persoon of groep hun mag aandoen. Nozick vat die rechten
+op als zijbeperkingen: geen doelen die gemaximaliseerd moeten worden, maar
+grenzen die elk handelen op voorhand inperken. De grondslag is Kantiaans,
+mensen zijn doelen in zichzelf en mogen niet als middel voor andermans doelen
+worden gebruikt, en berust op wat hij de gescheidenheid van personen noemt: er
+bestaat geen maatschappelijk geheel dat een offer van de een tegen winst van
+de ander kan wegstrepen, er zijn alleen afzonderlijke levens.
+
+**Van natuurtoestand naar minimale staat**
+
+Deel een neemt de individualistische anarchist serieus en begint in een
+Lockeaanse natuurtoestand. Omdat ieder zijn rechten zelf moet handhaven,
+ontstaan beschermingsverenigingen; concurrentie drijft naar één dominant
+beschermingsagentschap per gebied. Dat agentschap verbiedt onafhankelijken
+riskante eigenrichting tegen zijn cliënten en is daarmee een ultraminimale
+staat: een handhavingsmonopolie dat alleen betalende klanten beschermt.
+
+De stap naar de minimale staat verloopt via het compensatiebeginsel: wie
+anderen een riskante handelwijze verbiedt, moet het nadeel vergoeden, en de
+goedkoopste vergoeding is bescherming. Zo krijgt ook de niet-betalende
+onafhankelijke beschermingsdiensten. Nozick presenteert dit als
+onzichtbare-handverklaring: de staat ontstaat uit eigenbelang van individuen,
+zonder dat iemand hem beoogt en zonder dat rechten worden geschonden. Daarmee
+is het anarchistische bezwaar dat elke staat onrechtmatig begint, in zijn ogen
+weerlegd.
+
+**De entitlement-theorie van rechtvaardigheid**
+
+Deel twee bevat het invloedrijkste materiaal. Rechtvaardigheid in bezit rust
+op drie beginselen: rechtvaardige oorspronkelijke verwerving, rechtvaardige
+vrijwillige overdracht, en rectificatie van onrecht in het verleden.
+Rechtvaardigheid is daarmee historisch: of een verdeling deugt, hangt af van
+hoe zij is ontstaan, en niet van het patroon dat zij vertoont of het
+eindresultaat dat zij oplevert. Bij de verwerving hoort een Lockeaans
+voorbehoud: toe-eigening mag de positie van anderen niet verslechteren.
+
+Tegen alle patroontheorieën richt hij het Wilt Chamberlain-argument. Begin met
+welke rechtvaardig geachte verdeling ook; als een miljoen toeschouwers
+vrijwillig een kwartje extra betalen om Chamberlain te zien spelen, ontstaat
+een nieuwe, ongelijke verdeling uit louter rechtmatige stappen. Wie het
+patroon wil bewaren, moet voortdurend ingrijpen in vrijwillige transacties
+tussen volwassenen. Vrijheid verstoort patronen, luidt de conclusie, en
+herverdelende belasting op arbeidsinkomen staat volgens Nozick op één lijn met
+dwangarbeid: zij eigent zich uren van iemands leven toe voor doelen die hij
+niet koos.
+
+**Het debat met Rawls**
+
+Een lang hoofdstuk behandelt Rawls' *A Theory of Justice*, dat Nozick als het
+belangrijkste werk in de politieke filosofie sinds Mill prijst en vervolgens
+bestrijdt. Zijn kernbezwaar richt zich op het verschilbeginsel, dat
+ongelijkheden alleen toestaat als zij de minstbedeelden ten goede komen. Dat
+behandelt talenten en wat mensen daarmee voortbrengen als collectief bezit
+waarover de samenleving mag beschikken, en dat verdraagt zich volgens Nozick
+niet met het nemen van personen als afzonderlijke doelen. Tegenover de keuze
+achter een sluier van onwetendheid stelt hij de werkelijke geschiedenis van
+verwerving en overdracht als bron van aanspraken.
+
+**Utopia als raamwerk**
+
+Deel drie geeft de minimale staat een wervend slot. Omdat mensen blijvend
+verschillen in wat zij een goed leven vinden, is er niet één beste
+samenleving. De minimale staat is een raamwerk waarbinnen groepen elke
+gemeenschap mogen stichten die zij willen, van commune tot klooster tot
+marktstad, zolang deelname vrijwillig is en vertrek openstaat. Utopie is geen
+blauwdruk maar een omgeving voor vele experimenten. Zo eindigt het boek met de
+stelling dat de minimale staat niet alleen als enige gerechtvaardigd is, maar
+ook inspireert: hij behandelt ieder als onschendbare persoon die zijn leven
+naar eigen inzicht vormgeeft.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| zijbeperkingen | Rechten opgevat als absolute grenzen aan het handelen van anderen, niet als waarden die tegen elkaar mogen worden weggestreept. |
+| minimale staat | De staat die zich beperkt tot bescherming tegen geweld, diefstal, bedrog en contractbreuk, volgens Nozick de meest uitgebreide staat die te rechtvaardigen valt. |
+| ultraminimale staat | Tussenvorm met een handhavingsmonopolie dat alleen betalende cliënten beschermt, opstap in de afleiding van de minimale staat. |
+| entitlement-theorie | Rechtvaardigheid in bezit als historische kwestie van rechtmatige verwerving, vrijwillige overdracht en rectificatie van vroeger onrecht. |
+| patroontheorie | Elke rechtvaardigheidsopvatting die verdeling aan een vast criterium bindt, zoals verdienste of gelijkheid, en daarom vrijwillige ruil moet blijven corrigeren. |
+| Wilt Chamberlain-argument | Gedachte-experiment waarin vrijwillige betalingen aan een basketbalster elke gewenste verdeling verstoren, als bewijs dat vrijheid en patronen botsen. |
+| Lockeaans voorbehoud | De voorwaarde dat toe-eigening van onbeheerde zaken de positie van anderen niet mag verslechteren. |
+| onzichtbare-handverklaring | Verklaring van een instelling als onbedoeld resultaat van individueel handelen, door Nozick gebruikt voor het ontstaan van de staat. |
+| ervaringsmachine | Gedachte-experiment over een machine die elke gewenste ervaring opwekt, bedoeld om te tonen dat mensen meer willen dan aangenaam gevoel. |
+| raamwerk voor utopieën | De minimale staat als neutrale omgeving waarin uiteenlopende vrijwillige gemeenschappen naast elkaar kunnen bestaan. |
+
+#### Waar het argument op rust
+
+De onderbouwing is analytisch, niet empirisch: het boek steunt op
+gedachte-experimenten, tegenvoorbeelden en stapsgewijze afleidingen in de
+traditie van de angelsaksische filosofie. Binnen dat genre geldt het als
+eersteklas werk, ook bij tegenstanders; de argumenten zijn scherp geformuleerd
+en de tegenwerpingen die Nozick zichzelf stelt, zijn vaak sterker dan wat
+critici aanvoerden. De National Book Award van 1975 en de plaats op de lijst
+van invloedrijkste naoorlogse boeken van de Times Literary Supplement tekenen
+de ontvangst.
+
+De grenzen van de bewijsvoering benoemt het boek deels zelf. De grondaanname
+dat individuen de bedoelde sterke rechten hebben, wordt geponeerd en verkend,
+niet afgeleid; Nozick erkent dat een fundering ontbreekt. De rectificatie van
+historisch onrecht, in feite de achilleshiel van elke historische theorie,
+want bestaande bezitsverdelingen zitten vol verovering en slavernij, blijft
+een opengelaten hoofdstuk. En de afleiding van de staat is hypothetisch: zij
+toont hoe een staat rechtmatig had kunnen ontstaan, niet dat enige bestaande
+staat zo is ontstaan.
+
+#### Wat er tegen in te brengen valt
+
+De receptie is omvangrijk en overwegend kritisch, wat het gewicht van het boek
+eerder bevestigt dan ontkracht. Thomas Nagel vatte het vroege bezwaar samen in
+de titel van zijn recensie, libertarisme zonder fundamenten: uit het ontbreken
+van een afleiding van de rechten volgt dat het hele bouwwerk op een aanname
+rust. G.A. Cohen wijdde een boek aan het zelfbezitsargument en betoogde dat
+aanvaarding ervan niet tot Nozicks conclusies dwingt. Rawlsianen wierpen tegen
+dat een reeks afzonderlijk rechtvaardige transacties de achtergrondvoorwaarden
+kan uithollen die transacties rechtvaardig maken, zodat kleine stappen samen
+wel degelijk onrecht kunnen opleveren.
+
+Vanaf de andere flank betoogde Murray Rothbard dat het onzichtbare-handproces
+historisch nergens heeft plaatsgevonden en dat Nozick op eigen premissen
+anarchist had moeten blijven. Anderen, onder wie Thomas Pogge, wezen erop dat
+het utopiaraamwerk weinig bescherming biedt aan wie feitelijk niet weg kan uit
+een gemeenschap. Nozick zelf noemde de libertarische positie van dit boek in
+*The Examined Life* (1989) ernstig tekortschietend, al relativeerde hij die
+afstand later weer in interviews. Wetenschappelijk geldt het boek als
+blijvende klassieker: de meeste vakgenoten verwerpen de conclusies, vrijwel
+niemand ontkent dat de argumenten het debat over rechtvaardigheid decennialang
+hebben gevormd.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij elk rechtvaardigheidsoordeel over een verdeling eerst naar de
+geschiedenis: hoe is dit bezit ontstaan, en waren die stappen rechtmatig?
+- Toets herverdelingsvoorstellen aan het Chamberlain-argument: welk vrijwillig
+gedrag moet blijvend worden gecorrigeerd om het gewenste patroon te bewaren,
+en is dat aanvaardbaar?
+- Gebruik het onderscheid tussen zijbeperkingen en te maximaliseren doelen om
+beleidsredeneringen te ontleden waarin individuele belangen tegen collectieve
+winst worden weggestreept.
+- Neem uit deel drie de ontwerpvraag mee: regel een raamwerk waarbinnen
+groepen verschillend mogen leven, in plaats van één levensvorm voor allen vast
+te leggen.
+
+#### Wat je hierna leest
+
+- 546. How I Found Freedom in an Unfree World. How I Found Freedom in an
+Unfree World vertaalt de libertarische grondhouding naar persoonlijke
+levenskeuzes zonder politieke theorie.
+- 65. Economic Facts and Fallacies. Economic Facts and Fallacies levert de
+empirische kant van het debat over ongelijkheid en herverdeling waar Nozick de
+principiële kant geeft.
+- 155. The Basic Laws of Human Stupidity. The Basic Laws of Human Stupidity
+relativeert met lichte toets de aanname van rationeel handelende individuen
+waarop veel contract- en ruildenken leunt.
+
+## 624. The Politics of Individualism
+
+L. Susan Brown, 1993. *The Politics of Individualism: Liberalism, Liberal
+Feminism and Anarchism* (Black Rose Books, Montreal, 1993, xiii + 198 blz.,
+ISBN 1895431794; herdruk 2002, ISBN 9781551642024). Geen Nederlandse vertaling
+gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse
+editie gebaseerd. Rubriek: staat en vrijheid.
+Tags: `anarchisme`, `feminisme`, `individualisme`, `politieke filosofie`
+
+Politiek-filosofische studie van de Canadese denker L. Susan Brown over de
+verhouding tussen liberalisme, liberaal feminisme en anarchisme. Brown
+onderscheidt twee vormen van individualisme: existentieel individualisme,
+vrijheid als doel in zichzelf, en instrumenteel individualisme, vrijheid als
+middel om eigen belangen na te jagen. Liberale denkers, van John Stuart Mill
+tot Betty Friedan en Janet Radcliffe Richards, huldigen volgens haar beide
+tegelijk, en die spanning ondermijnt hun vrijheidsideaal, zichtbaar in hun
+aanvaarding van loondienst en van de staat.
+
+Tegenover hen plaatst zij Emma Goldman en het anarchisme als consequente
+uitwerking van het existentiële individualisme, verbonden met een vrijwillig
+communisme dat individuele vrijheid intact laat. Met Simone de Beauvoirs
+existentialisme bouwt zij een mensbeeld zonder vaste menselijke natuur. Een
+helder gecomponeerd academisch boek uit de marge van het vakgebied, binnen de
+anarchismestudies regelmatig aangehaald.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Brown stelt dat het liberalisme aan een innerlijke
+tegenspraak lijdt. Het belijdt existentieel individualisme, de waarde van
+vrijheid om de vrijheid zelf, maar koppelt daaraan een instrumenteel
+individualisme van eigendom en eigenbelang dat die vrijheid ondergraaft: wie
+zijn arbeidskracht als bezit verkoopt, levert zijn zelfbeschikking bij de
+poort van de werkplek in. Het liberale feminisme erft die tegenspraak en
+blijft daardoor steken in gelijke toegang tot onvrije instituties. Wie het
+liberale vrijheidsideaal ernstig neemt, komt volgens Brown bij het anarchisme
+uit: de enige stroming die existentieel individualisme consequent doordenkt en
+verbindt met een vrijwillige, communistische organisatievorm die individuele
+vrijheid niet opoffert.
+
+#### De gang van het boek
+
+**Twee soorten individualisme**
+
+De openingshoofdstukken zetten het begrippenkader neer. Existentieel
+individualisme is het geloof in vrijheid omwille van de vrijheid: de mens als
+zelfbepalend wezen dat zijn eigen ontwikkeling vormgeeft, in een gemeenschap
+die ieders vrijheid eerbiedigt. Instrumenteel individualisme ziet vrijheid als
+middel om individuele belangen te bevredigen, met concurrentie en bezit als
+natuurlijke uitdrukkingsvormen. Voortbouwend op C.B. Macphersons analyse van
+het bezitsindividualisme laat Brown zien dat het liberalisme beide vormen
+tegelijk omarmt: het eert de vrije persoon en behandelt die persoon tegelijk
+als eigenaar van zichzelf, die zijn vermogens als waar kan verkopen.
+
+Tegen collectivistische critici verdedigt Brown het individualisme zelf: het
+probleem is volgens haar niet dat het liberalisme het individu vooropstelt,
+maar dat het instrumentele element de existentiële belofte verraadt. Die
+diagnose bepaalt de rest van het boek.
+
+**Mill en de onderwerping van de vrouw**
+
+Als eerste casus dient John Stuart Mill. In zijn pleidooi voor de gelijkheid
+van vrouwen ziet Brown het existentiële individualisme op zijn best:
+zelfontplooiing als hoogste goed, huwelijk als verbond van gelijken. Tegelijk
+aanvaardt Mill de markt, de loondienst en de bestaande arbeidsdeling in het
+gezin, waardoor de vrijheid die hij vrouwen toezegt in de praktijk
+voorwaardelijk blijft. De spanning tussen beide individualismen loopt volgens
+Brown dwars door zijn werk en wordt er nergens in opgelost.
+
+**Friedan, Radcliffe Richards en de grenzen van het liberale feminisme**
+
+Hetzelfde patroon vindt zij bij hedendaagse liberale feministen. Betty Friedan
+bepleit toegang van vrouwen tot betaald werk als weg naar zelfverwerkelijking,
+zonder te vragen of loondienst zelf wel met zelfbeschikking te verenigen valt.
+Janet Radcliffe Richards verdedigt feminisme met liberale argumenten en
+accepteert daarbij marktverhoudingen en staatsgezag als gegeven kader. Op de
+terreinen die Brown naloopt, arbeid, onderwijs, huwelijk en gezin, en
+politiek, blijft het liberale feminisme daardoor hangen in gelijke verdeling
+van posities binnen instituties die het niet ter discussie stelt.
+
+**Goldman en het anarchisme als consequent individualisme**
+
+Tegenover de liberale denkers plaatst Brown de anarchistische traditie, met
+Emma Goldman als middelpunt en zijlicht op Berkman, Kropotkin, Bakoenin en
+Bookchin. Goldman verbindt de bevrijding van de vrouw met de kritiek op
+loondienst, huwelijk als eigendomsverhouding en staat, en denkt daarmee
+volgens Brown het existentiële individualisme wel ten einde. Het anarchisme
+verwerpt de instrumentele bezitslogica en zoekt organisatievormen, vrijwillig,
+federatief, opzegbaar, waarin gemeenschap de vrijheid draagt in plaats van
+beperkt. Hier formuleert Brown ook haar scherpste stelling over arbeid: de
+verkoop van arbeidskracht levert een vorm van overheersing op die zij met
+slavernij durft te vergelijken, omdat de werkende binnen werktijd instrument
+van andermans wil wordt, hoe vrijwillig het contract ook is gesloten.
+
+**Existentialisme en menselijke natuur**
+
+Het zesde hoofdstuk geeft het betoog een wijsgerige bodem. Veel anarchistische
+klassiekers leunen op een welwillende menselijke natuur, een aanname die
+kwetsbaar is voor elke tegenwerping uit de geschiedenis. Brown ruilt haar in
+voor het existentialisme van Simone de Beauvoir: de mens heeft geen vaste
+natuur maar maakt zichzelf, en vrij zijn is het gegevene overstijgen naar een
+open toekomst. Zolang dwang de samenleving ordent, valt over de ware
+menselijke aard niets te zeggen; pas een samenleving van zelfbeschikking zou
+tonen wat mensen zijn. Zo hoeft het anarchisme niet te bewijzen dat de mens
+goed is, alleen dat hij niet vastligt.
+
+**Voorbij het feminisme**
+
+Het slothoofdstuk keert de gebruikelijke verhouding om: niet het anarchisme
+heeft het feminisme nodig als aanvulling, maar het feminisme loopt zonder
+anarchisme tegen zijn plafond. Een feminisme dat alleen gelijke posities
+binnen bestaande machtsstructuren nastreeft, laat de structuur zelf intact.
+Consequent doorgedacht is de bevrijding van vrouwen een onderdeel van de
+bevrijding van personen als zodanig, en die vraagt om het opheffen van
+overheersing in al haar vormen, in de staat, in de arbeid en in het gezin.
+Anarchisme dat die naam verdient, is in Browns ogen noodzakelijk ook
+feministisch.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| existentieel individualisme | Het geloof in vrijheid omwille van de vrijheid zelf, met de zelfbepalende persoon als doel en een gemeenschap die ieders vrijheid eerbiedigt als voorwaarde. |
+| instrumenteel individualisme | Vrijheid opgevat als middel om individuele belangen te bevredigen, verbonden met concurrentie en bezit. |
+| bezitsindividualisme | Macphersons term voor het liberale mensbeeld waarin de persoon eigenaar van zichzelf is en zijn vermogens als waar kan verkopen. |
+| liberaal feminisme | De stroming die gelijkheid van vrouwen nastreeft via gelijke rechten en toegang binnen bestaande markt- en staatsinstituties. |
+| arbeidscontract | Voor Brown geen neutrale ruil maar een overdracht van zelfbeschikking, waarbij de werkende binnen werktijd instrument van andermans wil wordt. |
+| vrijwillig communisme | De anarchistische organisatievorm van gedeelde middelen op basis van vrijwillige, opzegbare verbanden, die individuele vrijheid intact moet laten. |
+| menselijke natuur als open vraag | Browns existentialistische stelling dat pas een samenleving van zelfbeschikking zou tonen wat mensen van nature zijn. |
+
+#### Waar het argument op rust
+
+Het boek is tekstanalyse: Brown leest de besproken auteurs nauwkeurig en
+belegt haar diagnose, de spanning tussen twee individualismen, met citaten uit
+Mill, Friedan, Radcliffe Richards, Goldman en De Beauvoir. Binnen die methode
+is het betoog zorgvuldig en controleerbaar; de lezer kan de interpretaties
+naast de bronnen leggen. Het verscheen bij een kleine politieke uitgeverij
+maar werd besproken in vaktijdschriften, waaronder het Canadian Journal of
+Political Science, en het begrippenpaar existentieel en instrumenteel
+individualisme wordt in de anarchismestudies nog aangehaald.
+
+Empirische onderbouwing ontbreekt vrijwel geheel, en het boek pretendeert die
+ook niet. De stelling dat loondienst zelfbeschikking vervreemdt, wordt
+begripsmatig beargumenteerd, niet met onderzoek naar hoe werkenden hun arbeid
+ervaren. Evenmin toetst Brown haar vrijwillig communisme aan historische
+gevallen. Wie wil weten of haar alternatief werkt, vindt hier een filosofische
+mogelijkheidsredenering, geen bewijs.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar treft de sprong van diagnose naar remedie. Dat het
+liberalisme twee individualismen mengt, maakt nog niet dat de existentiële
+variant alleen in het anarchisme kan overleven; een liberaal kan antwoorden
+dat juist de menging werkbaar is en dat zuiver existentieel individualisme
+zonder eigendomsordening nergens instituties oplevert die vrijheid feitelijk
+beschermen. De vergelijking van vrijwillige loondienst met slavernij overtuigt
+critici niet: zij schuift het verschil tussen opzegbare en onopzegbare
+onderwerping terzijde, en Brown geeft niet aan hoe complexe productie zonder
+enige gezagsverhouding zou lopen.
+
+Daarnaast is de behandeling van de liberale feministen selectief; latere
+lezers wezen erop dat bij Friedan en Radcliffe Richards meer zelfkritiek op
+markt en instituties te vinden is dan Browns schema toelaat. Het boek bleef
+bovendien een marginaal geluid: het wordt binnen anarchistische en
+feministische theorie geciteerd, maar heeft de bredere politieke filosofie
+nauwelijks bereikt, en een uitgewerkte receptie met weerwoord en verfijning,
+zoals rond Nozick of Rawls, is er nooit gekomen. Als scherpe begripsanalyse
+met een onbewezen politieke conclusie wordt het het eerlijkst gewogen.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik het onderscheid tussen vrijheid als doel en vrijheid als middel om
+politieke retoriek te ontleden: welke vrijheid wordt hier eigenlijk beloofd?
+- Vraag bij elk emancipatiestreven of het toegang tot een institutie zoekt of
+de institutie zelf ter discussie stelt, en of dat verschil bewust is gekozen.
+- Toets gezagsverhoudingen in werk en organisatie op Browns criterium: is de
+onderwerping opzegbaar, en wat kost opzeggen feitelijk?
+- Wees terughoudend met argumenten die op een vaste menselijke natuur leunen;
+Browns existentialistische wending laat zien dat die aanname zelden nodig is.
+
+#### Wat je hierna leest
+
+- 3. The Will to Change. The Will to Change onderzoekt wat patriarchale
+structuren met mannen doen en vult Browns feminismekritiek van een andere kant
+aan.
+- 215. Obedience to Authority. Obedience to Authority laat experimenteel zien
+hoe diep de gewoonte van gehoorzaamheid zit die Brown wil opheffen.
+- 546. How I Found Freedom in an Unfree World. How I Found Freedom in an
+Unfree World neemt dezelfde vraag naar zelfbeschikking en trekt er een
+individuele, onpolitieke conclusie uit.
+
+## 625. The Conquest of Bread
+
+Peter Kropotkin, 1892. *La Conquête du pain* (Tresse et Stock, Parijs, 1892,
+met een voorwoord van Élisée Reclus, ontstaan uit artikelen in *Le Révolté*);
+Engelse vertaling *The Conquest of Bread* (Chapman and Hall, Londen, 1906),
+sindsdien in vele edities, waaronder Penguin Classics. Een Nederlandstalige
+uitgave verscheen als *De verovering van brood* bij Metaglos, maar is niet
+aangetroffen in de catalogus van bibliotheek.nl; de samenvatting is op de
+Engelse editie gebaseerd. Rubriek: staat en vrijheid.
+Tags: `anarchisme`, `communisme`, `economie`, `revolutie`
+
+Hoofdwerk van de Russische anarchist Peter Kropotkin (1842-1921), geschreven
+in ballingschap en het meest gelezen programma van het anarchistisch
+communisme. Uitgangspunt is dat alle rijkdom, van akkers tot machines tot
+kennis, het werk van generaties is en daarom niemands privébezit kan zijn.
+Kropotkin bepleit onteigening van productiemiddelen én woningen en
+voedselvoorraden, met als eerste plicht van elke revolutie: brood voor
+iedereen.
+
+Tegen het loonstelsel, ook in de collectivistische variant met arbeidsbonnen,
+stelt hij vrije verdeling naar behoefte, gedragen door vrijwillige
+overeenkomst in plaats van staat. Met cijfers over landbouw en industrie
+betoogt hij dat welvaart voor allen bij een werkdag van rond de vijf uur
+haalbaar is. Het boek voedde de Spaanse collectieven van 1936 en werd na 2008
+herontdekt. De economische naïviteit is vaak aangetoond; de heldere
+uiteenzetting van het ideaal bleef.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Kropotkin stelt dat de gezamenlijke erfenis van de mensheid,
+grond, machines, wetenschap en vakkennis, door generaties samen is
+voortgebracht en daarom aan allen toebehoort. Privébezit van die erfenis is
+toe-eigening van andermans werk, door de staat beschermd. Een revolutie die
+alleen de politieke macht wisselt of het loonstelsel voortzet, mislukt; de
+eerste taak is de verovering van het brood: onteigening van productiemiddelen,
+woningen en voorraden, zodat ieders welzijn onmiddellijk verzekerd is.
+Productie en verdeling kunnen daarna zonder staat worden geregeld door vrije
+overeenkomst, want de bestaande productiekracht is ruim voldoende om ieder
+naar behoefte te laten leven bij een werkdag van enkele uren.
+
+#### De gang van het boek
+
+**Het recht op welzijn**
+
+De openingshoofdstukken leggen de morele grondslag. Elke ploeg, elke spoorlijn
+en elk wetenschappelijk inzicht bouwt voort op het werk van ontelbare
+voorgangers; er bestaat geen product dat aan één maker valt toe te rekenen.
+Daarom verwerpt Kropotkin ook de socialistische leus van het recht op arbeid,
+die de loonafhankelijkheid juist bevestigt, en stelt er het recht op welzijn
+tegenover: welzijn voor allen, als eerste en onvoorwaardelijke aanspraak.
+Armoede is voor hem geen natuurgegeven maar het gevolg van een bezitsorde die
+de gemeenschappelijke erfenis in weinige handen heeft gebracht en die door
+staat en leger in stand wordt gehouden.
+
+**Onteigening, ook van brood en huizen**
+
+Anders dan veel tijdgenoten beperkt Kropotkin de onteigening niet tot
+fabrieken en grond. Ook woningen, kleding en voedselvoorraden moeten
+gemeenschappelijk worden, want een revolutie die haar aanhangers laat hongeren
+en bevriezen, verliest hen. Hij herinnert aan de Franse revoluties, waarin het
+volk de politieke strijd won en vervolgens door broodgebrek en duurte werd
+teruggedreven. Vandaar de titel: de revolutie moet eerst het brood veroveren.
+Praktisch denkt hij aan vrije uitdeling van wat overvloedig is en
+rantsoenering van wat schaars is, georganiseerd door de mensen zelf, per
+straat en per wijk, zonder centraal bestuur.
+
+**Tegen het loonstelsel, ook het collectivistische**
+
+Een afzonderlijk front opent Kropotkin tegen de collectivisten binnen de
+socialistische beweging, die het privébezit willen afschaffen maar belonen
+naar geleverde arbeidsuren, met bonnen in plaats van geld. Wie meet, herschept
+volgens hem het hele apparaat van controle, ongelijkheid en gezag: arbeid laat
+zich niet eerlijk meten, want ieders bijdrage is met die van anderen en met de
+erfenis van vroeger vervlochten. Verdeling moet daarom naar behoefte gaan,
+niet naar prestatie. Het anarchistisch communisme is voor hem geen verre
+einddoel na een overgangsfase, maar het beginsel waarmee de omwenteling meteen
+moet beginnen.
+
+**De haalbaarheid: landbouw, industrie en de vijfurendag**
+
+Het middendeel is het meest empirische. Met productiecijfers uit zijn tijd,
+van de tuinbouw rond Parijs tot de Engelse industrie, betoogt Kropotkin dat
+schaarste geen technisch probleem meer is: de landbouwopbrengsten per hectare
+kunnen veelvoudig omhoog en de industrie produceert al meer dan de behoefte,
+alleen scheef verdeeld en deels aan luxe en oorlog verspild. Als ieder gezond
+volwassen mens meewerkt en nutteloze arbeid vervalt, volstaat volgens zijn
+rekensom een werkdag van ongeveer vijf uur tot het zestigste levensjaar om
+ieder ruim te voorzien.
+
+De resterende tijd is voor wat hij de behoefte aan luxe noemt: wetenschap,
+kunst en liefhebberij, georganiseerd in vrijwillige verenigingen. Hoofdstukken
+over de integratie van hoofd- en handarbeid en van landbouw en industrie
+schetsen decentrale gemeenschappen waarin beide gecombineerd worden, een
+voorafschaduwing van latere pleidooien voor regionale zelfvoorziening.
+
+**Vrije overeenkomst in plaats van staat**
+
+Op de tegenwerping dat zonder dwang niemand werkt en niets georganiseerd
+raakt, antwoordt Kropotkin met voorbeelden van orde zonder bevel: de
+internationale spoorwegverbindingen, tot stand gekomen door afspraken tussen
+maatschappijen zonder wereldregering, de Engelse reddingsmaatschappij,
+wetenschappelijke genootschappen, de vrijwillige samenwerking die het
+dagelijks leven al draagt. Luiheid ziet hij vooral als gevolg van zinloos of
+vernederend werk. De staat de industrie laten centraliseren, waarschuwt hij,
+zou de uitbuiting alleen van meester laten wisselen; die waarschuwing aan het
+adres van het staatssocialisme is achteraf zijn meest profetische bladzijde
+gebleken.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| anarchistisch communisme | De ordening die Kropotkin bepleit: gemeenschappelijk bezit van productiemiddelen én verdeling naar behoefte, zonder staat, geregeld door vrije overeenkomst. |
+| verovering van het brood | De eerste taak van de revolutie: de materiële voorziening van allen veiligstellen door onteigening van voorraden, woningen en productiemiddelen. |
+| recht op welzijn | De aanspraak van ieder mens op een volwaardig bestaan, door Kropotkin gesteld tegenover het beperktere recht op arbeid. |
+| onteigening | De overdracht van de gezamenlijk voortgebrachte rijkdom, van grond tot huizen tot machines, aan de gemeenschap. |
+| loonstelsel | Elke beloning naar gemeten prestatie, ook in bonnen, die volgens Kropotkin controle en ongelijkheid herschept en daarom moet verdwijnen. |
+| vrije overeenkomst | Coördinatie door vrijwillige afspraken tussen personen en verenigingen, als vervanging van wet en bevel. |
+| behoefte aan luxe | De menselijke behoefte aan kunst, wetenschap en liefhebberij boven het naakte bestaan, in vrijwillige verbanden te vervullen. |
+| integratie van arbeid | Het samengaan van hoofd- en handarbeid en van landbouw en industrie in dezelfde mensen en dezelfde streken. |
+
+#### Waar het argument op rust
+
+Kropotkin, van huis uit geograaf, onderbouwt de haalbaarheidsclaim met het
+beste cijfermateriaal van zijn tijd: opbrengsten van de intensieve tuinbouw
+rond Parijs en in Jersey, Engelse en Franse productiestatistieken, tellingen
+van wie er feitelijk produceert en wie niet. Zijn kernwaarneming, dat de
+productiviteit de bestaansnood technisch heeft ingehaald en dat armoede een
+verdelingsvraagstuk is geworden, is door de twintigste eeuw eerder bevestigd
+dan weerlegd. Ook zijn voorbeelden van grootschalige coördinatie zonder
+centraal gezag waren feitelijk juist.
+
+De rekensom daarboven is losser. De vijfurendag berust op gunstige aannamen
+over deelname, motivatie en de afbakening van nuttige arbeid, en de stap van
+technische mogelijkheid naar maatschappelijke werkelijkheid blijft onbewezen.
+De grootste praktijktoets, de Spaanse landbouw- en fabriekscollectieven van
+1936-1939 die zich uitdrukkelijk op dit boek beriepen, functioneerde deels
+behoorlijk, maar kort, in oorlogstijd en onder druk; als bewijs voor of tegen
+kan die episode maar beperkt dienen.
+
+#### Wat er tegen in te brengen valt
+
+De economische hoofdkritiek is klassiek: een economie zonder prijzen mist de
+informatie die verspreide beslissingen coördineert. Wat Mises en Hayek later
+tegen de socialistische planning inbrachten, treft ook Kropotkins vrije
+verdeling naar behoefte, terwijl zijn afwijzing van elke meting het probleem
+nog vergroot: waar niets wordt gemeten, blijft onzichtbaar wat schaars is. Ook
+het prikkelvraagstuk wordt eerder weggewuifd dan opgelost; dat luiheid uit
+slecht werk voortkomt, is een hypothese, geen antwoord op de vraag wie het
+vuile en zware werk doet als niets ertegenover staat. De verwachting dat
+schaarste vrijwel verdwenen was, onderschatte bovendien hoe behoeften
+meegroeien met welvaart.
+
+Politiek-historisch wordt het boek dubbel gewogen. De waarschuwing dat
+staatscentralisatie van de industrie in nieuwe onderdrukking zou eindigen, is
+door de Sovjet-ervaring bevestigd en geldt als Kropotkins sterkste inzicht.
+Maar over de overgang zelf, hoe onteigening zonder burgeroorlog,
+afrekencultuur en nieuwe machtsvorming verloopt, is het boek opvallend
+luchtig; het gaat uit van een bevolking die grotendeels meewil.
+Wetenschappelijk geldt het als klassieker van het politieke denken en als bron
+voor de anarchistische traditie, niet als houdbare economische theorie.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik Kropotkins kernvraag bij elk armoededebat: is dit een
+productieprobleem of een verdelingsprobleem, en welk bewijs beslist dat?
+- Reken bij hervormingsplannen na wat er gebeurt met wie onderaan zit tijdens
+de overgang; de les van de titel is dat elke omwenteling begint bij de
+materiële basis.
+- Zoek in organisaties naar wat door vrije overeenkomst geregeld kan worden
+voordat er een regel of een laag bestuur bijkomt.
+- Toets elk pleidooi voor centralisatie aan Kropotkins waarschuwing: wie de
+middelen concentreert, concentreert de macht, ook met goede bedoelingen.
+
+#### Wat je hierna leest
+
+- 453. The Evolution of Cooperation. The Evolution of Cooperation onderzoekt
+met speltheorie onder welke voorwaarden samenwerking zonder centraal gezag
+standhoudt.
+- 251. The Rational Optimist. The Rational Optimist verdedigt het tegendeel,
+ruil en markten als motor van welvaart, en vormt zo het spiegelbeeld van
+Kropotkins verdeling naar behoefte.
+- 56. Sapiens. Sapiens beschrijft hoe eigendom, geld en staten historisch
+verweven raakten, de kluwen die Kropotkin wilde ontwarren.
+
+## 626. God en de staat
+
+Michail Bakoenin, geschreven 1871, postuum 1882. *God en de staat*, vertaling
+van *Dieu et l'État*, in 1871 geschreven als onderdeel van het onvoltooide
+*L'Empire knouto-germanique et la Révolution sociale* en in 1882 postuum
+bezorgd door Carlo Cafiero en Élisée Reclus. Nederlandse uitgave: Iris,
+Amsterdam, 2004, 123 blz., ISBN 9789080282421; de tekst is ook opgenomen in de
+bundel *God, de staat en andere vormen van dictatuur* (Noordboek, 2022, ISBN
+9789056159108). Gangbare Engelse editie: *God and the State* (Dover, 1970, 89
+blz., ISBN 9780486224831). Rubriek: staat en vrijheid.
+Tags: `anarchisme`, `religie`, `vrijheid`, `politieke filosofie`, `klassieker`
+
+Polemisch geschrift van de Russische anarchist Michail Bakoenin, in 1871
+geschreven als onderdeel van een groter, onvoltooid gebleven werk en in 1882,
+zes jaar na zijn dood, uitgegeven door Carlo Cafiero en Élisée Reclus.
+Bakoenin betoogt dat godsdienst en staat op hetzelfde beginsel rusten: gezag
+dat mensen tot gehoorzaamheid opvoedt. Tegenover Voltaire, die schreef dat God
+uitgevonden zou moeten worden als hij niet bestond, zet hij de omkering dat
+God afgeschaft zou moeten worden als hij werkelijk bestond, omdat zijn bestaan
+de menselijke vrijheid zou opheffen.
+
+Het bleef een fragment: het manuscript breekt midden in het betoog af. Toch
+groeide het uit tot de meest verspreide anarchistische tekst. Opvallend is dat
+de kritiek zich ook richt op een bestuur door geleerden, zoals positivisten en
+marxisten dat voor ogen stond. Deskundigheid erkennen is iets anders dan gezag
+aanvaarden: de laarzenmaker verdient vertrouwen in zaken van laarzen, dwingen
+mag hij niet.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Bakoenin stelt dat godsdienst en staat twee gedaanten van
+hetzelfde beginsel zijn: gezag dat de mens klein houdt. Wie de hemel bevolkt
+met een almachtige God, verklaart de mensheid tot zijn slaaf, en wie die
+logica aanvaardt, aanvaardt ook de aardse heersers die zich op haar beroepen.
+Daarom draait hij Voltaire om: bestond God werkelijk, dan zou hij afgeschaft
+moeten worden. Vrijheid ontstaat waar mensen denken en in opstand komen tegen
+elk opgelegd gezag, dat van de kerk, dat van de staat en ook dat van een
+wetenschap die zich als bestuurder opwerpt.
+
+#### De gang van het boek
+
+**Een fragment uit de nalatenschap**
+
+De tekst is geen afgerond boek. Bakoenin schreef hem in 1871, na de mislukte
+opstand van Lyon waaraan hij had deelgenomen, als onderdeel van een omvangrijk
+manuscript over het Pruisische keizerrijk en de sociale revolutie. Het geheel
+bleef onvoltooid en het hier uitgegeven deel breekt midden in het betoog af.
+Carlo Cafiero en Élisée Reclus vonden het manuscript na Bakoenins dood in
+1876, gaven het in 1882 in het Frans uit als *Dieu et l'État* en de eerste
+Engelse vertaling volgde in 1883. Sindsdien is het fragment het meest gelezen
+werk van Bakoenin en vermoedelijk de meest verspreide anarchistische tekst.
+
+**Dierlijkheid, denken en opstand**
+
+Bakoenin opent met drie beginselen die volgens hem elke menselijke
+ontwikkeling dragen: de menselijke dierlijkheid, het vermogen tot denken en de
+drang tot opstand. De mens is een dier dat zich door verstand en verzet
+geleidelijk aan de blinde natuur ontworstelt. Geschiedenis is voor hem dat
+proces van vermenselijking: van dierlijke onderworpenheid naar bewuste
+vrijheid. Religie hoort bij een vroeg stadium van dat proces. Het
+abstractievermogen dat de mens boven het dier verheft, schept ook de eerste
+goden, en armoede en onwetendheid houden die goden vervolgens in leven.
+
+**Idealisme tegenover materialisme**
+
+Het middendeel is een afrekening met het filosofisch idealisme. Idealisten
+beginnen bij God of bij de zuivere geest en dalen vandaar af naar de mens, en
+eindigen volgens Bakoenin steevast bij onderwerping: wie de volmaaktheid boven
+zich plaatst, maakt van de aarde een oord van gehoorzaamheid. Materialisten
+beginnen bij de materie en klimmen op naar denken en vrijheid. De paradox is
+opzettelijk: juist wie bij het lage begint, komt hoog uit. Kerk en staat
+treden in dit betoog op als bondgenoten die elkaar wederzijds heiligen, met de
+priester en de bestuurder als twee handen van dezelfde macht.
+
+**Als God bestond**
+
+Hier staat de beroemdste zin van het boek. Voltaire had geschreven dat als God
+niet bestond, hij uitgevonden zou moeten worden. Bakoenin keert dat om: als
+God werkelijk bestond, zou hij afgeschaft moeten worden. Het is geen
+godsbewijs of weerlegging daarvan, maar een consequentie-analyse: een
+almachtige, alwetende schepper laat voor menselijke vrijheid geen ruimte, en
+een mensheid die haar vrijheid ernstig neemt kan zo'n heer niet erkennen. Het
+christendom geldt hem daarbij als de meest voldragen vorm van deze logica, met
+Tertullianus' geloofsbelijdenis van het absurde als eerlijkste formulering.
+
+**Het gezag van de laarzenmaker**
+
+Bakoenin verwerpt opgelegd gezag, maar niet deskundigheid. In zaken van
+laarzen raadpleegt hij de laarzenmaker, bij een huis de bouwmeester, en hij
+legt zich bij hun oordeel neer voor zover zijn eigen verstand dat billijkt.
+Wat hij weigert is onfeilbaar, algemeen en dwingend gezag: geen deskundige
+heeft recht op gehoorzaamheid buiten zijn vak, en ook binnen dat vak blijft de
+raadpleging vrijwillig en herroepbaar. Gezag is aanvaardbaar zolang het
+gecontroleerd kan worden en zich laat wegsturen.
+
+**Tegen de regering van geleerden**
+
+Het slot richt zich tegen een gevaar dat Bakoenin in zijn eigen kamp zag: het
+bestuur door wetenschappers, zoals het positivisme van Comte en het
+wetenschappelijk socialisme van Marx dat volgens hem beloofden. Wetenschap
+abstraheert per definitie van het individuele geval en kan het leven zelf
+daarom nooit vatten. Een regering van geleerden zou een nieuwe priesterkaste
+worden, met dezelfde minachting voor de gewone mens als de oude. Wetenschap
+hoort het leven te verlichten als een lantaarn langs de weg; zij hoort niet te
+regeren. Kort na deze passage breekt het manuscript af.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| de drie beginselen | Menselijke dierlijkheid, het denken en de opstand, volgens Bakoenin de drie drijfveren van alle menselijke ontwikkeling. |
+| idealisme | Elke filosofie die bij God of de zuivere geest begint en volgens Bakoenin daardoor onvermijdelijk bij onderwerping van de mens uitkomt. |
+| materialisme | Het uitgangspunt dat denken en vrijheid uit de materie voortkomen, waardoor de mens opklimt in plaats van afdaalt. |
+| antitheologisme | Bakoenins term voor de afwijzing van elk godsgeloof als grondslag van moraal en samenleving. |
+| gezag van de laarzenmaker | Vrijwillig en herroepbaar vertrouwen in een deskundige binnen zijn vak, als tegenhanger van opgelegd en algemeen gezag. |
+| regering van geleerden | Een bestuur van wetenschappers, dat volgens Bakoenin een nieuwe priesterkaste zou opleveren. |
+| sociale revolutie | De omwenteling van onderop die kerk, staat en kapitaal tegelijk moet opheffen, tegenover politieke machtsovername. |
+| vrijheid van allen | Bakoenins opvatting dat de eigen vrijheid pas volledig is wanneer ook alle anderen vrij zijn. |
+
+#### Waar het argument op rust
+
+Het boek voert geen onderzoek aan en pretendeert dat ook niet: het is een
+polemisch essay dat op redenering en historische schetsen drijft. De kern is
+een consequentie-analyse van het godsbegrip, en die staat of valt met de
+aanname dat goddelijk gezag en menselijke vrijheid elkaar uitsluiten. De
+religieverklaring, abstractievermogen plus ellende en onwetendheid, is een
+hypothese uit de negentiende eeuw die Bakoenin nergens toetst; latere
+godsdienstwetenschap laat een aanzienlijk gevarieerder beeld zien.
+
+Wat het werk wel aantoonbaar heeft, is voorspellende waarde op één punt.
+Bakoenins waarschuwing dat een socialisme dat de staatsmacht grijpt en zich op
+wetenschap beroept een nieuwe heersende kaste voortbrengt, hier gericht tegen
+het bestuur door geleerden en in aanverwante geschriften tegen Marx, wordt
+sinds de Sovjet-ervaring breed aangehaald als vooruitziend. Dat maakt de rest
+van het betoog niet waar, maar het verklaart waarom dit fragment blijft
+circuleren.
+
+#### Wat er tegen in te brengen valt
+
+Het is een onaf en rommelig geschrift. Het betoog springt heen en weer, lange
+uitweidingen onderbreken de hoofdlijn en het geheel eindigt midden in een
+gedachte. Wie een systematische anarchistische theorie zoekt, vindt die hier
+niet; het positieve alternatief, de vrije federatie van gemeenschappen, blijft
+in dit fragment vrijwel onuitgewerkt. De toon is bovendien onafgebroken
+retorisch, met tegenstanders die eerder weggehoond dan weerlegd worden.
+
+Inhoudelijk is de zwakste plek de spanning in het gezagsbegrip: Bakoenin
+verwerpt elk opgelegd gezag maar beroept zich zelf voortdurend op natuurwetten
+waaraan de mens nu eenmaal onderworpen zou zijn, zonder uit te leggen wie
+vaststelt wat die wetten inhouden. Ook de gelijkstelling van alle religie aan
+onderwerping is grover dan de godsdienstgeschiedenis toelaat; religieuze
+bewegingen zijn geregeld juist dragers van verzet geweest. Ten slotte
+oordeelde ook het eigen kamp gemengd: marxisten verweten Bakoenin dat zijn
+afkeer van organisatie elke duurzame verandering onmogelijk maakt.
+
+#### Wat er concreet mee te doen is
+
+- Beoordeel elk beroep op gezag per onderwerp en houd het herroepbaar, zoals
+bij de laarzenmaker: vertrouwen binnen het vak, geen gehoorzaamheid
+daarbuiten.
+- Let bij deskundigen die beleid willen maken op de grens tussen verlichten en
+regeren; kennis geeft recht van spreken, geen recht van bevelen.
+- Vraag bij instituties die gehoorzaamheid vragen wie er belang bij heeft dat
+de gehoorzaamheid vanzelfsprekend lijkt.
+
+#### Wat je hierna leest
+
+- 215. Obedience to Authority. Obedience to Authority laat experimenteel zien
+hoe diep de gehoorzaamheid zit die Bakoenin filosofisch bestrijdt.
+- 263. Beyond Good and Evil. Beyond Good and Evil onderzoekt in dezelfde
+periode de morele erfenis van het christendom, met een heel andere conclusie
+over gelijkheid.
+- 269. The Story of Philosophy. The Story of Philosophy plaatst het idealisme
+en materialisme waar Bakoenin op reageert in hun bredere geschiedenis.
+
+## 627. For a New Liberty: The Libertarian Manifesto
+
+Murray Rothbard, 1973. *For a New Liberty: The Libertarian Manifesto*
+(Macmillan, New York, 1973, 327 blz.; herziene editie Collier Books, 1978;
+herdruk Ludwig von Mises Institute, 2006, ISBN 9780945466475). Geen
+Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de
+samenvatting is op de Engelse editie gebaseerd. Rubriek: staat en vrijheid.
+Tags: `libertarisme`, `anarchokapitalisme`, `vrije markt`, `politieke
+filosofie`, `economie`
+
+Het manifest van het Amerikaanse libertarisme, geschreven door econoom Murray
+Rothbard (1926-1995), leerling van Ludwig von Mises. Uitgangspunt is één
+regel: niemand mag geweld beginnen tegen de persoon of het eigendom van een
+ander. Die regel geldt voor iedereen, en dus ook voor de staat. Belasting is
+dan afpersing, dienstplicht dwangarbeid en de staat zelf een organisatie die
+leeft van wat zij anderen afneemt. Rothbard werkt vervolgens per
+beleidsterrein uit hoe politie, rechtspraak, wegen, onderwijs en geld door
+vrijwillige samenwerking en de markt geleverd kunnen worden.
+
+Het boek geldt samen met Nozicks *Anarchy, State, and Utopia* als het
+bepalende werk van het harde libertarisme, en het is er de radicaalste van de
+twee: waar Nozick een minimale staat verdedigt, wil Rothbard er geen. De
+kracht zit in de consistentie, de zwakte in het axioma zelf, dat in het boek
+nauwelijks verdedigd wordt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Rothbard stelt dat de hele politieke filosofie in één axioma
+past: niemand mag agressie plegen tegen de persoon of het rechtmatig verworven
+eigendom van een ander. Iedereen aanvaardt die regel tussen burgers onderling;
+alleen de staat wordt ervan uitgezonderd. Wie de uitzondering schrapt, ziet
+dat belasting afpersing is, dienstplicht dwangarbeid en oorlog massamoord, en
+dat elke dienst die de staat nu levert, van politie tot rechtspraak tot geld,
+door vrijwillige samenwerking op de markt geleverd kan worden. Het
+libertarisme is voor Rothbard geen gematigd midden tussen links en rechts, het
+is de consequente uitwerking van de vrijheidserfenis van de Amerikaanse
+Revolutie.
+
+#### De gang van het boek
+
+**De libertarische erfenis**
+
+Het openingsdeel plaatst het libertarisme in de geschiedenis. Rothbard voert
+het terug op het klassieke liberalisme van de Levellers, John Locke en de
+Amerikaanse Revolutie, die hij leest als een radicale opstand tegen
+staatsmacht. Dat liberalisme verloor in de negentiende eeuw zijn scherpte en
+versmolt met het conservatisme dat het ooit bestreed. Het libertarisme van de
+jaren zeventig is in zijn ogen de terugkeer van de oorspronkelijke, onverdunde
+leer, actueel geworden door de Vietnamoorlog, de dienstplicht en het vastlopen
+van de verzorgingsstaat.
+
+**Eigendom, ruil en het axioma**
+
+De grondslag wordt gelegd in twee beginselen. Zelfeigendom: ieder mens heeft
+het volledige beschikkingsrecht over het eigen lichaam. Oorspronkelijke
+toe-eigening of homesteading: wie onbeheerde natuur met eigen arbeid bewerkt,
+wordt er eigenaar van; latere eigendom ontstaat alleen door vrijwillige ruil
+of schenking. Uit die twee volgt het nonaggressie-axioma. Alle rechten zijn
+bij Rothbard eigendomsrechten, ook de vrijheid van meningsuiting: die reikt
+precies zover als het eigendom waarop gesproken wordt. Een apart mensenrecht
+naast eigendom is in dit stelsel overbodig en zelfs verwarrend.
+
+**De staat als georganiseerde roof**
+
+In navolging van Franz Oppenheimer onderscheidt Rothbard twee manieren om aan
+welvaart te komen: het economische middel, produceren en ruilen, en het
+politieke middel, afnemen met dwang. De staat is de organisatie van het
+politieke middel: een groep die op een grondgebied het monopolie op geweld en
+op de belastingheffing bezit. Met Albert Jay Nock en Randolph Bourne, van wie
+de uitspraak stamt dat oorlog de gezondheid van de staat is, beschrijft hij
+hoe intellectuelen door de eeuwen heen de rol van hofleverancier van
+legitimatie vervulden, in ruil voor aanzien en posities.
+
+**Toepassingen: van dienstplicht tot onderwijs**
+
+Het middendeel loopt de beleidsterreinen van de vroege jaren zeventig langs.
+Dienstplicht en verplichte jurydienst zijn vormen van onvrijwillige
+dienstbaarheid. Drugsverboden, censuur, afluisterpraktijken en zedenwetgeving
+schenden het beschikkingsrecht over het eigen lichaam en eigendom. De
+leerplicht en de staatsschool krijgen een eigen hoofdstuk: Rothbard bepleit
+volledig particulier onderwijs, betaald door ouders en fondsen, met een beroep
+op de diversiteit van gezinnen tegenover de eenvormigheid van het
+staatscurriculum. De verzorgingsstaat houdt volgens hem armoede in stand door
+afhankelijkheid te belonen; particuliere onderlinge hulp, zoals de
+broederschappen van voor de New Deal, deed het beter.
+
+**Geld, conjunctuur en de publieke sector**
+
+De economische hoofdstukken passen de Oostenrijkse conjunctuurtheorie toe:
+crises ontstaan doordat de centrale bank de geldhoeveelheid oppompt, wat
+ondernemers tot slechte investeringen verleidt die later gesaneerd moeten
+worden. Inflatie is bij Rothbard altijd het werk van de staat en zijn bank.
+Daarna volgt de privatisering van de publieke sector: wegen door eigenaren die
+per gebruik afrekenen, politie en beveiliging door verzekeraars met een direct
+belang bij schadepreventie, rechtspraak door concurrerende arbitrage. Als
+historische steun voert hij onder meer het koopmansrecht aan en het oude
+Ierland, dat naar zijn lezing ongeveer duizend jaar zonder staat functioneerde
+met vrijwillige rechtskringen.
+
+**Oorlog, buitenland en strategie**
+
+Het buitenlandhoofdstuk is het scherpst: oorlog is voor Rothbard de ergste
+staatsactiviteit, omdat zij massaal agressie pleegt tegen onschuldigen en de
+staat thuis laat groeien. Hij bepleit strikte non-interventie en leest de
+Koude Oorlog revisionistisch, met de Verenigde Staten als medeveroorzaker. Het
+slotdeel gaat over strategie: geen geleidelijke verwatering, maar een kader
+van consequente libertariërs dat de zuivere leer bewaakt en uitdraagt, naar
+het voorbeeld van eerdere ideologische bewegingen. Rothbard eindigt
+optimistisch: omdat vrijheid werkt en dwang faalt, heeft het libertarisme de
+tijd mee.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| nonaggressie-axioma | De regel dat niemand als eerste geweld of dwang mag gebruiken tegen de persoon of het eigendom van een ander. |
+| zelfeigendom | Het volledige beschikkingsrecht van ieder mens over het eigen lichaam, bij Rothbard de bron van alle overige rechten. |
+| homesteading | Oorspronkelijke toe-eigening: eigendom ontstaat door onbeheerde natuur met eigen arbeid te bewerken. |
+| economisch tegenover politiek middel | Oppenheimers onderscheid tussen welvaart verwerven door produceren en ruilen of door afnemen met dwang. |
+| anarchokapitalisme | De ordening zonder staat waarin alle diensten, ook politie en rechtspraak, door de markt worden geleverd. |
+| Oostenrijkse conjunctuurtheorie | De verklaring van economische crises uit kunstmatige kredietverruiming door de centrale bank. |
+| oorlog als gezondheid van de staat | Bournes formule, door Rothbard overgenomen, voor het verschijnsel dat staten in oorlogstijd het snelst groeien. |
+| non-interventie | Het buitenlandbeleid dat elke militaire bemoeienis buiten de eigen verdediging afwijst. |
+
+#### Waar het argument op rust
+
+De onderbouwing is vrijwel geheel deductief: uit zelfeigendom en homesteading
+wordt de rest afgeleid. Die axioma's zelf worden in het boek nauwelijks
+verdedigd; ze worden als natuurrechtelijk vanzelfsprekend gepresenteerd. Wie
+ze aanvaardt, krijgt een opmerkelijk consistent bouwwerk; wie ze betwijfelt,
+vindt in het boek weinig dat de twijfel wegneemt. De economische delen leunen
+op de Oostenrijkse school van Mises en Hayek, binnen de economische wetenschap
+een minderheidspositie die wiskundige modellen en empirische toetsing
+grotendeels afwijst.
+
+De empirische steun bestaat uit historische illustraties: het middeleeuwse
+koopmansrecht, particuliere wegen en vooral het staatloze Ierland. Historici
+hebben op die voorbeelden het nodige afgedongen; het Ierse stelsel kende
+bijvoorbeeld wel degelijk aristocratische machtsverhoudingen en is moeilijk te
+vergelijken met een moderne samenleving. Dat de voorbeelden bestaan is juist,
+dat ze bewijzen wat Rothbard ermee wil bewijzen is omstreden.
+
+#### Wat er tegen in te brengen valt
+
+De vakfilosofische ontvangst is hard geweest. Edward Feser, zelf jarenlang
+libertariër, oordeelde dat het kernargument voor zelfeigendom filosofisch
+vrijwel niets waard is omdat het aanneemt wat het moet bewijzen; Matt
+Zwolinski, redacteur van een libertaire denktank, kwam tot een vergelijkbaar
+oordeel over het axioma. Robert Nozick wierp binnen het eigen kamp tegen dat
+concurrerende beschermingsagentschappen vanzelf naar een dominante agent
+toegroeien, waarmee de staat langs de achterdeur terugkeert. En de klassieke
+tegenwerping van publieke goederen, wie betaalt landsverdediging als niemand
+gedwongen kan worden, wordt in het boek meer weggeredeneerd dan beantwoord.
+
+Daar staat tegenover dat de invloed van het boek buiten kijf staat: David Boaz
+noemt het samen met Nozicks werk het bepalende manifest van het harde
+libertarisme, en het vormde generaties activisten, onder wie de beweging rond
+Ron Paul. Wie het leest moet twee dingen tegelijk vasthouden: als politiek
+program is het nooit ergens beproefd, als consequentie-oefening dwingt het
+elke lezer om te benoemen waar en waarom de staat wel gerechtvaardigd zou
+zijn. Ook de sociale vraag blijft liggen: wat er in deze orde gebeurt met wie
+niets bezit en niets kan ruilen, krijgt weinig aandacht.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik het onderscheid tussen economische en politieke middelen als toets
+bij beleidsvoorstellen: wordt hier geproduceerd of herverdeeld, en van wie
+naar wie.
+- Leg bij elke overheidstaak de vraag van Rothbard aan: zou dit door
+vrijwillige samenwerking geleverd kunnen worden, en zo nee, waarom precies
+niet.
+- Neem de axioma's serieus als oefening en toets ze daarna zelf: wie het
+nonaggressiebeginsel ergens wil doorbreken, moet kunnen zeggen waar de grens
+ligt en wie die bewaakt.
+
+#### Wat je hierna leest
+
+- 546. How I Found Freedom in an Unfree World. How I Found Freedom in an
+Unfree World verscheen in hetzelfde jaar en trekt de libertaire gedachte naar
+het persoonlijke leven in plaats van naar de politiek.
+- 65. Economic Facts and Fallacies. Economic Facts and Fallacies toetst
+overheidsingrijpen empirisch waar Rothbard axiomatisch redeneert.
+- 221. The Dictator's Handbook. The Dictator's Handbook beschrijft de staat
+eveneens als zelfzuchtige machine, maar dan op basis van politicologisch
+onderzoek.
+
+## 628. Hegemony and Socialist Strategy
+
+Ernesto Laclau en Chantal Mouffe, 1985. *Hegemony and Socialist Strategy:
+Towards a Radical Democratic Politics* (Verso, Londen, 1985, 197 blz., ISBN
+0860910679; tweede editie met nieuw voorwoord van de auteurs, Verso, 2001,
+ISBN 9781859843307). Geen Nederlandse vertaling gevonden in de catalogus van
+bibliotheek.nl; wel is Mouffes latere *On the Political* vertaald als *Over
+het politieke* (Klement, 2008). De samenvatting is op de Engelse editie
+gebaseerd. Rubriek: staat en vrijheid.
+Tags: `postmarxisme`, `democratie`, `politieke filosofie`, `ideologie`,
+`discours`
+
+Academisch werk uit 1985 van de Argentijnse politiek filosoof Ernesto Laclau
+en de Belgische politiek filosofe Chantal Mouffe, geschreven in de crisis van
+het marxisme na de opkomst van Thatcher en de nieuwe sociale bewegingen. Hun
+diagnose: het marxisme rust op een onhoudbare aanname, namelijk dat de
+arbeidersklasse een door de economie vastgelegde historische missie heeft.
+Politieke identiteiten liggen nergens vast; ze worden gemaakt in taal en
+praktijk, door wat de auteurs articulatie noemen. Links moet daarom hegemonie
+opbouwen: uiteenlopende strijdpunten als feminisme, milieu, antiracisme en
+arbeid verbinden tot een keten rond het project van radicale en plurale
+democratie.
+
+Het boek stichtte het postmarxisme, leverde het theoretisch gereedschap van
+bewegingen als Podemos en geldt tegelijk als notoir moeilijk: het jargon uit
+de structuralistische taalfilosofie en psychoanalyse maakt het voor
+ongeoefende lezers zwaar toegankelijk. Wie de moeite neemt, vindt de
+invloedrijkste theorie over hoe politieke meerderheden gemaakt worden.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Laclau en Mouffe stellen dat het klassieke marxisme rust op
+een aanname die de geschiedenis heeft weerlegd: dat de economie de
+maatschappij bepaalt en de arbeidersklasse daardoor een vaststaande
+historische missie heeft. Politieke identiteiten en belangen liggen nergens op
+voorhand vast; ze worden geproduceerd in discours, door praktijken die losse
+elementen tot een samenhangend project verbinden. Politiek is daarmee een
+strijd om hegemonie: welk project slaagt erin uiteenlopende eisen en groepen
+aan elkaar te koppelen en zijn eigen lezing van de werkelijkheid als
+vanzelfsprekend te vestigen. Voor links betekent dit de opdracht om feminisme,
+antiracisme, milieu en arbeid te verbinden in een project van radicale en
+plurale democratie, zonder één klasse of één waarheid in het middelpunt.
+
+#### De gang van het boek
+
+**Genealogie van een begrip**
+
+De eerste twee hoofdstukken vormen een ideeëngeschiedenis van het begrip
+hegemonie. Laclau en Mouffe laten zien hoe het marxisme van de Tweede
+Internationale telkens vastliep op feiten die de theorie niet voorspelde: de
+arbeidersklasse versplinterde in plaats van zich te verenigen, en revoluties
+kwamen waar ze volgens het schema niet konden komen. Bij Rosa Luxemburg,
+Bernstein, Kautsky en Sorel duikt hegemonie op als noodverband: een term voor
+politieke verbindingen die de economische theorie niet kon verklaren. Lenin
+gebruikt het begrip voor de klassenalliantie onder leiding van de partij.
+
+**Gramsci als kantelpunt**
+
+Antonio Gramsci gaat volgens de auteurs het verst. Zijn hegemonie is
+intellectueel en moreel leiderschap: een klasse heerst pas duurzaam wanneer
+zij haar wereldbeeld tot het gezond verstand van de hele samenleving weet te
+maken, en daarvoor moet zij bondgenootschappen smeden die de eigen
+klassengrens overschrijden. Toch houdt ook Gramsci vast aan een laatste rest
+economisme: uiteindelijk moet de leidende kern een fundamentele klasse zijn.
+Precies die rest schrappen Laclau en Mouffe. Daarmee verlaten ze naar eigen
+zeggen het marxisme als afgerond bouwwerk, vandaar de zelfbenoeming
+postmarxisme: met Marx als bron, voorbij Marx als systeem.
+
+**Het sociale als discours**
+
+Het derde hoofdstuk bouwt het eigen begrippenapparaat op, met gereedschap van
+Saussure, Derrida, Lacan, Wittgenstein en Foucault. Articulatie is elke
+praktijk die losse elementen tot momenten van een samenhangend geheel maakt;
+zo'n geheel heet een discours. Knooppunten zijn de bevoorrechte termen, zoals
+het volk of de vrijheid, waaromheen betekenissen tijdelijk vastklikken. Omdat
+betekenis nooit definitief vastligt, is geen enkele maatschappelijke orde ooit
+af: de maatschappij als voltooide totaliteit bestaat niet, er zijn alleen
+pogingen haar vast te leggen. De auteurs benadrukken dat dit geen ontkenning
+van de werkelijkheid is; het betekent dat feiten pas politieke betekenis
+krijgen binnen een discours.
+
+**Antagonisme en de grens van elke orde**
+
+Antagonisme is het tweede kernbegrip: het conflict waarin de aanwezigheid van
+de ander verhindert dat een identiteit zichzelf voltooit. Waar een boer zijn
+land verliest aan een grootgrondbezitter, is de tegenstelling niet uit
+objectieve klassenposities af te leiden; zij ontstaat waar een discours de
+verhouding als onrecht articuleert. Twee logica's structureren dat veld: de
+logica van het verschil, die eisen los van elkaar behandelt en inkapselt, en
+de logica van de equivalentie, die uiteenlopende eisen aan elkaar koppelt
+omdat ze tegenover dezelfde tegenstander staan. Een equivalentieketen smeden
+is de kern van hegemoniale politiek.
+
+**Radicale en plurale democratie**
+
+Het slothoofdstuk trekt de politieke conclusie. Sinds de democratische
+revolutie van de achttiende eeuw, een begrip dat de auteurs aan Tocqueville en
+Claude Lefort ontlenen, breidt de eis van gelijkheid en zelfbestuur zich uit
+naar steeds meer terreinen: van politiek naar arbeid, sekse, huidskleur en
+natuurverhouding. De nieuwe sociale bewegingen van de jaren zeventig zijn
+voortzettingen van die beweging. Links moet de democratie dan ook
+radicaliseren in plaats van haar als burgerlijke schijn af te doen. Radicale
+en plurale democratie aanvaardt dat conflict blijvend is en dat geen enkel
+project de maatschappij definitief mag sluiten; het totalitarisme is precies
+de poging dat wel te doen.
+
+**Doorwerking**
+
+Het boek werd het stichtingsdocument van het postmarxisme en van de Essex
+School voor discoursanalyse. De tweede editie van 2001 bevestigde de these
+tegen de derde weg van Blair: consensuspolitiek verdoezelt tegenstellingen die
+later elders terugkeren. Laclau werkte de lijn uit tot een theorie van het
+populisme, Mouffe tot het agonistische model van democratie; partijen als
+Podemos in Spanje en La France insoumise beriepen zich uitdrukkelijk op dit
+gedachtegoed. Ook de analyse van rechts-populisme leunt tot op heden op hun
+begrippen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| hegemonie | Het politieke leiderschap dat ontstaat wanneer een project uiteenlopende groepen en eisen aan zich bindt en zijn wereldbeeld tot gezond verstand maakt. |
+| articulatie | Elke praktijk die losse elementen zo met elkaar verbindt dat hun betekenis erdoor verandert. |
+| discours | Het gestructureerde geheel van betekenissen dat uit articulatie voortkomt en waarbinnen feiten politieke betekenis krijgen. |
+| knooppunt | Een bevoorrechte term, zoals het volk of de vrijheid, waaromheen een discours zijn betekenissen tijdelijk vastlegt. |
+| antagonisme | Het conflict waarin de aanwezigheid van de ander een identiteit verhindert zichzelf te voltooien, en dat de grens van elke orde toont. |
+| equivalentieketen | De koppeling van uiteenlopende eisen die gelijkwaardig worden doordat ze tegenover dezelfde tegenstander staan. |
+| klassenreductionisme | De door de auteurs verworpen aanname dat politieke identiteit rechtstreeks uit de economische klassenpositie volgt. |
+| radicale en plurale democratie | Het linkse project dat de democratische gelijkheidseis naar steeds meer terreinen uitbreidt zonder de maatschappij ooit definitief te willen sluiten. |
+| postmarxisme | De positie die Marx als bron behoudt maar het marxisme als gesloten systeem met een gegarandeerde afloop verlaat. |
+
+#### Waar het argument op rust
+
+Dit is zuivere theorie: het boek bevat geen empirisch onderzoek en pretendeert
+dat niet. De onderbouwing bestaat uit twee bewegingen. De eerste is een
+gedetailleerde herlezing van een eeuw marxistische debatten, met de
+terugkerende bevinding dat de theorie telkens ad-hocreparaties nodig had waar
+de werkelijkheid het schema doorkruiste; die reconstructie wordt ook door
+critici als degelijk erkend. De tweede is de overname van inzichten uit de
+structuralistische taalfilosofie en psychoanalyse, en die staat of valt met de
+aanvaarding van dat gedachtegoed zelf.
+
+Een praktijktoets van eigen makelij ontbreekt, maar kwam later van buiten:
+Podemos en La France insoumise bouwden hun strategie uitdrukkelijk op dit
+raamwerk, met wisselend electoraal resultaat, en de begrippen
+equivalentieketen en leeg knooppunt worden breed gebruikt in de analyse van
+populisme van links en rechts. Dat een theorie bruikbaar blijkt voor
+tegengestelde politieke projecten kan als bevestiging gelden van haar
+kernstelling, dat identiteiten maakbaar zijn, en tegelijk als waarschuwing dat
+zij zelf geen richting geeft.
+
+#### Wat er tegen in te brengen valt
+
+De felste aanval kwam van de marxistische filosoof Norman Geras, die het boek
+in New Left Review oppervlakkig obscurantisme noemde en de auteurs verweet een
+karikatuur van Marx te bestrijden; Laclau en Mouffe antwoordden met het essay
+Post-Marxism without Apologies, waarna Geras zijn kritiek herhaalde. Serieuzer
+dan de toon van die polemiek is de onderliggende vraag: als alle identiteit
+discursief geproduceerd wordt, waarop rust dan nog het oordeel dat de ene orde
+rechtvaardiger is dan de andere. Het verwijt van relativisme is nooit geheel
+weerlegd, al wijzen de auteurs erop dat discursief iets anders is dan
+onwerkelijk.
+
+Daarnaast is er de toegankelijkheid: het boek is ook naar academische
+maatstaven moeilijk, en een lezer zonder voorkennis van Saussure, Lacan en de
+marxistische traditie moet flink investeren voordat het betoog opengaat.
+Materialistische critici houden bovendien vol dat het afscheid van de
+economische analyse de kritiek op het kapitalisme tandeloos maakt: wie klasse
+tot één identiteit onder vele verklaart, verliest het zicht op
+machtsverschillen die niet in taal maar in eigendom wortelen. De invloed van
+het boek staat buiten kijf; of de erfenis, de populismestrategie van links,
+per saldo gewerkt heeft, is een open en omstreden vraag.
+
+#### Wat er concreet mee te doen is
+
+- Analyseer politieke coalities als equivalentieketens: welke uiteenlopende
+eisen worden aan elkaar geknoopt, en tegenover welke gezamenlijke
+tegenstander.
+- Let in politieke taal op knooppunt-woorden als het volk, de elite of de
+gewone man, en op wat er telkens onder geschoven wordt.
+- Vraag bij elke vanzelfsprekend ogende politieke identiteit hoe zij gemaakt
+is en wat er buiten valt.
+- Reken consensuspolitiek niet automatisch als winst: verdwenen
+tegenstellingen keren volgens dit boek elders en grimmiger terug.
+
+#### Wat je hierna leest
+
+- 562. Public Opinion. Public Opinion beschreef zestig jaar eerder hoe beelden
+in de hoofden de politieke werkelijkheid vormen, vanuit een liberaal
+perspectief.
+- 564. De spektakelmaatschappij. De spektakelmaatschappij is de marxistische
+mediakritiek waar het postmarxisme zich van afzette maar veel aan dankt.
+- 566. Manufacturing Consent. Manufacturing Consent houdt vast aan de
+economische verklaring van meningsvorming die Laclau en Mouffe juist loslaten.
+
+## 629. Against the State: An Anarcho-Capitalist Manifesto
+
+Llewellyn H. Rockwell Jr., 2014. *Against the State: An Anarcho-Capitalist
+Manifesto* (Rockwell Communications/LewRockwell.com, 2014, 190 blz., ISBN
+9780990463108, in eigen beheer uitgegeven). Geen Nederlandse vertaling
+gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse
+editie gebaseerd. Rubriek: staat en vrijheid.
+Tags: `anarchokapitalisme`, `libertarisme`, `politiek`, `manifest`
+
+Populariserend manifest van Llewellyn (Lew) Rockwell (1944), oprichter van het
+Ludwig von Mises Institute, jarenlang medewerker van congreslid Ron Paul en
+uitgever van de website LewRockwell.com. Het boek past Rothbards
+anarchokapitalisme toe op de Verenigde Staten van na 2001 en 2008: de
+oorlogsstaat met zijn drones en interventies, de politiestaat van
+afluisterprogramma's en drugsoorlog, de Federal Reserve met haar geldpers en
+bankenredding, en de verstrengeling van grote bedrijven en overheid die
+Rockwell Amerikaans fascisme noemt. De slothoofdstukken betogen dat een
+beperkte overheid een mythe is gebleken en dat alleen een staatloze orde van
+eigendom, contract en arbitrage overblijft.
+
+Het is een dun, stellig en vlot geschreven strijdschrift, in eigen beheer
+uitgegeven en vrijwel uitsluitend binnen de eigen kring besproken. Wie de
+argumenten zoekt, kan beter bij Rothbard zelf terecht; wie wil weten hoe de
+hedendaagse anarchokapitalistische beweging naar Amerika kijkt, vindt hier het
+compactste overzicht.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Rockwell stelt dat de Amerikaanse staat niet te repareren
+valt met verkiezingen, grondwetten of hervormingen, omdat elke staat naar zijn
+aard een geweldsmonopolie is dat groeit ten koste van wie het zegt te
+beschermen. De oorlogen, de afluisterprogramma's, de drugsoorlog, de geldpers
+van de Federal Reserve en de verstrengeling van overheid en grootbedrijf zijn
+geen ontsporingen van een verder gezond stelsel; ze zijn wat een staat doet
+zodra hij kan. Wie dat inziet, moet de conclusie van Rothbard aanvaarden: het
+project van de beperkte overheid is mislukt, en alle taken van de staat horen
+over te gaan op vrijwillige samenwerking, eigendom, contract en markt.
+
+#### De gang van het boek
+
+**Een manifest uit de Rothbard-school**
+
+Rockwell schrijft uitdrukkelijk als erfgenaam van Murray Rothbard, met wie hij
+in 1982 het Mises Institute oprichtte. Het boek verscheen in 2014 in eigen
+beheer via zijn bedrijf Rockwell Communications en is bedoeld als kort,
+toegankelijk overzicht van het anarchokapitalistische standpunt voor een breed
+publiek, in de stijl van zijn website-columns: korte hoofdstukken, stellige
+zinnen, veel actualiteit. De eerste hoofdstukken behandelen elk een kant van
+de Amerikaanse staat, de laatste trekken de conclusie dat geen enkele
+hervorming volstaat.
+
+**De oorlogsstaat**
+
+Het eerste front is de buitenlandse politiek. Rockwell loopt de interventies
+van de Verenigde Staten langs, van de wereldoorlogen tot Irak, Afghanistan en
+het drone-programma, en betoogt in lijn met Rothbard dat oorlog de ergste
+staatsactiviteit is: massaal geweld tegen onschuldigen buiten de grenzen en
+een groeimotor voor de staat binnen de grenzen. Oorlogspropaganda en het
+aanwijzen van steeds nieuwe vijanden houden volgens hem de begrotingen en de
+volgzaamheid op peil. De verwijzing naar Randolph Bournes formule dat oorlog
+de gezondheid van de staat is, keert hier terug als rode draad.
+
+**De politiestaat**
+
+Het tweede front is binnenlands: de burgerrechten. Rockwell behandelt de
+afluisterprogramma's van de NSA die in 2013 door Edward Snowden werden
+onthuld, de drugsoorlog met haar gevangenispopulatie, de militarisering van de
+lokale politie en de controles van de TSA op vliegvelden. Zijn punt is telkens
+hetzelfde: bevoegdheden die met een beroep op veiligheid worden verworven,
+worden nooit teruggegeven en richten zich uiteindelijk op de eigen bevolking.
+De staat voert volgens hem oorlog naar twee kanten, naar buiten met legers en
+naar binnen met toezicht en dwang.
+
+**De Fed en het geld**
+
+Een afzonderlijk hoofdstuk, door Rockwell aangeduid als de oorlog van de
+bankiers tegen Amerika, behandelt de Federal Reserve. Sinds de loskoppeling
+van het goud kan de staat zijn uitgaven financieren met de geldpers, wat
+volgens de Oostenrijkse conjunctuurtheorie zeepbellen en crises voortbrengt en
+via inflatie een verborgen belasting heft op spaarders. De bankenredding van
+2008 en de daaropvolgende opkoopprogramma's gelden hem als bewijs dat het
+stelsel verliezen socialiseert en winsten privatiseert. Het gezonde
+alternatief is voor Rockwell marktgeld, in de praktijk een terugkeer naar door
+goud gedekt geld zonder centrale bank.
+
+**Amerikaans fascisme**
+
+Het scherpste etiket bewaart Rockwell voor de economische ordening zelf.
+Fascisme gebruikt hij als technische term voor corporatisme: een stelsel
+waarin eigendom formeel privaat blijft maar de staat en verbonden
+grootbedrijven de richting bepalen, met subsidies, aanbestedingen,
+vergunningen en gereguleerde markten als instrumenten. De Amerikaanse economie
+is in die lezing geen vrije markt en de kritiek op het grootkapitaal treft dus
+niet de markt maar het bondgenootschap tussen bedrijfstop en staat. Dit
+hoofdstuk leunt sterk op eerder werk uit de eigen school, onder anderen Robert
+Higgs over de groei van de staat in crisistijd.
+
+**Waarom beperkt niet bestaat en wat er dan wel kan**
+
+De slothoofdstukken trekken de conclusie. De Amerikaanse grondwet was het
+serieuste experiment in het beperken van een staat, en zij heeft de groei naar
+de huidige omvang niet verhinderd; dat is voor Rockwell geen uitvoeringsfout
+maar een bewijs dat het beperken van een geweldsmonopolie principieel niet
+lukt, omdat de staat zelf de scheidsrechter over zijn eigen grenzen is. Het
+alternatief schetst hij met Rothbard: rechtspraak door concurrerende
+arbitrage, beveiliging door verzekeraars, wegen en onderwijs door eigenaren en
+ouders. De strategie is geen politieke machtsgreep maar delegitimatie: de
+staat de instemming onthouden en om hem heen bouwen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| anarchokapitalisme | De ordening zonder staat waarin eigendom, contract en markt alle diensten leveren, inclusief recht en beveiliging. |
+| oorlogsstaat | Rockwells aanduiding voor een staat die structureel van oorlog en vijandbeelden leeft en erdoor groeit. |
+| politiestaat | Het binnenlandse spiegelbeeld daarvan: toezicht, drugsoorlog en gemilitariseerde politie gericht op de eigen bevolking. |
+| fiatgeld | Geld zonder dekking dat de staat naar believen kan bijmaken, volgens Rockwell de motor achter crises en verborgen belasting. |
+| corporatisme | De verstrengeling van staat en grootbedrijf waarin eigendom formeel privaat blijft maar de staat de richting bepaalt, door Rockwell Amerikaans fascisme genoemd. |
+| mythe van de beperkte overheid | De stelling dat een geweldsmonopolie zichzelf nooit blijvend laat begrenzen, omdat het over zijn eigen grenzen oordeelt. |
+| delegitimatie | De strategie om de staat instemming en medewerking te onthouden in plaats van hem via de politiek te veroveren. |
+
+#### Waar het argument op rust
+
+Het boek bevat geen eigen onderzoek en weinig nieuwe argumentatie: het leunt
+op Rothbard, Mises en Higgs voor de theorie en op de actualiteit voor de
+illustraties. Die illustraties, de Snowden-onthullingen, de bankenredding van
+2008, het drone-programma, kloppen als feiten en zijn goed gedocumenteerd; de
+vraag is of ze de veel verdergaande conclusie dragen dat elke staat
+onverbeterlijk is. Die stap wordt beweerd en herhaald, maar nergens tegen de
+sterkste tegenwerpingen verdedigd.
+
+Weging vraagt ook de herkomst: het boek is in eigen beheer uitgegeven, zonder
+externe redactie of onafhankelijke recensies van betekenis, en de lovende
+ontvangst bleef vrijwel beperkt tot de eigen kring van LewRockwell.com en het
+Mises Institute, met instemming van onder anderen Ron Paul. Als bron voor wat
+de hedendaagse anarchokapitalistische beweging vindt is het daarmee
+betrouwbaar; als zelfstandige onderbouwing van die standpunten is het dun.
+
+#### Wat er tegen in te brengen valt
+
+De klassieke tegenwerpingen tegen een staatloze orde, wie beschermt de zwakke
+tegen de sterke, hoe voorkomt concurrerende beveiliging dat de grootste
+aanbieder zelf een staat wordt, wat gebeurt er met landsverdediging en
+rechtszekerheid, worden in dit boek nauwelijks behandeld; Rothbards eigen
+manifest uit 1973 ging er dieper op in. Ook het woord fascisme rekt Rockwell
+op: als elke gemengde economie fascistisch heet, verliest de term zijn
+onderscheidend vermogen. Het betoog is bovendien geheel op de Verenigde Staten
+gericht; op Europese verhoudingen past het maar gedeeltelijk.
+
+Daarbij hoort de context van de schrijver: Rockwell is een omstreden figuur
+binnen het libertarisme, als architect van de paleolibertarische koers uit de
+jaren negentig die toenadering zocht tot cultureel rechts. Wie het boek leest,
+leest dus geen afgewogen inleiding maar het strijdschrift van een vleugel. Dat
+gezegd zijnde is de kernvraag die het opwerpt serieus en ouder dan Rockwell:
+als de Amerikaanse grondwet de groei van de staat niet heeft tegengehouden,
+waarop rust dan het vertrouwen dat een volgende begrenzing wel houdt. Die
+vraag verdient een beter antwoord dan de meeste critici geven, en een beter
+boek dan Rockwell erover schreef.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij elke nieuwe veiligheidsbevoegdheid wat het afbouwpad is; het boek
+documenteert dat zulke bevoegdheden zelden worden teruggegeven.
+- Onderscheid bij kritiek op het grootkapitaal of de markt faalt of juist het
+bondgenootschap tussen bedrijf en staat; dat onderscheid is bruikbaar ongeacht
+de conclusie die Rockwell eraan verbindt.
+- Lees het manifest naast empirischer werk over staatsvorming en instituties,
+als radicale tegenstem die de bewijslast bij de staat legt.
+
+#### Wat je hierna leest
+
+- 546. How I Found Freedom in an Unfree World. How I Found Freedom in an
+Unfree World kiest bij dezelfde diagnose de persoonlijke uitweg in plaats van
+het politieke manifest.
+- 221. The Dictator's Handbook. The Dictator's Handbook onderbouwt de stelling
+dat machthebbers structureel hun eigen belang dienen met politicologisch
+onderzoek.
+- 566. Manufacturing Consent. Manufacturing Consent analyseert
+oorlogspropaganda en medevolgzame media vanuit de tegenovergestelde politieke
+hoek.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
@@ -115075,64 +120235,67 @@ Alfabetisch, met de nummers van de titels die de tag dragen.
 `adverteren` 308 · `advies` 473 · `adviespraktijk` 151 · `adviseren` 511 ·
 `affirmaties` 117, 184, 188, 190, 380, 403, 439, 560 · `afhankelijkheid` 167 ·
 `afleiding` 290 · `aforismen` 2, 17, 179, 216, 218, 228, 391, 394, 462, 473,
-535 · `afrika` 589 · `afrocentrisme` 588, 589 · `afscheid nemen` 285 ·
-`afschrikking` 217 · `afvallen` 557 · `afwezige-vader` 4 · `agenda` 512 ·
-`agressie` 223, 339 · `alcohol` 4 · `algoritmen` 476, 477, 479 · `alledaags`
-89 · `allegorie` 222, 524 · `allocatie` 507 · `amazon` 257 · `ambacht` 6, 12,
-13, 17, 18 · `ambitie` 75 · `Amerika` 114, 431 · `amerikaans` 117, 118, 120,
-132, 133, 134, 136, 158 · `amerikaanse droom` 284 · `Amerikaanse geschiedenis`
-402 · `amerikaanse revolutie` 243 · `Amsterdam` 295 · `anatomie` 241, 412 ·
-`Andalusië` 8 · `Andes` 521 · `angst` 53, 58, 107, 119, 131, 136, 140, 181,
-214, 252, 341, 401, 440, 548 · `angst voor de dood` 377 · `animatie` 41 ·
-`Antarctica` 36 · `anthologie` 189 · `antieke filosofie` 586 · `antropologie`
-223, 410 · `antwerpen` 113 · `apartheid` 26, 523 · `Apple` 46, 231 · `apps`
-294 · `arbeid` 6, 173, 297, 390 · `arbeidsethos` 266 · `archetype` 360 ·
-`archetypen` 357, 404, 407, 409, 410 · `Argentinië` 521 · `argumentatie` 421,
-437, 511 · `argumenten` 63 · `argumenteren` 438 · `Aristoteles` 438 ·
-`armoede` 26, 234, 254 · `Arthashastra` 370 · `assertiviteit` 162 ·
-`asymmetrie` 282 · `atletiek` 31 · `atomisme` 281 · `Auschwitz` 48 ·
-`Australië` 447 · `autobiografie` 358, 440 · `automatisering` 297, 539 ·
-`autonomie` 6, 50 · `autoriteit` 215 · `autotelie` 200 · `backtesten` 482, 502
-· `banken en verzekeraars` 497 · `barok` 216 · `basisbehoeften` 107 · `bbc` 82
-· `bedrijfsbestuur` 567 · `bedrijfscultuur` 170, 257, 270 · `bedrijfsgroei`
-350 · `bedrijfsleven` 209, 293 · `bedrijfsonderzoek` 353 · `bedrijfssystemen`
-264 · `beeldcultuur` 563 · `beeldverhaal` 561 · `beginners` 112 · `behoeften`
-35 · `beinvloeding` 123, 126 · `beïnvloeding` 399 · `bekentenis` 60 ·
-`belangenverstrengeling` 138 · `beleggen` 21, 64, 144, 233, 277, 351, 474,
-476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 492, 496,
-498, 499, 500, 501, 502, 503, 504, 505 · `beleid` 65 · `beloningssysteem` 418
-· `bemiddeling` 35 · `beroemdheden` 128 · `beroemdheid` 563 ·
-`beschadigd-bestand` 115, 130 · `beschaving` 57 · `beslissen` 55 ·
-`beslissingen` 197 · `besluiten` 47, 59, 69, 137 · `besluitvorming` 151, 166,
-170, 174, 209, 270, 282, 283, 293, 299, 364, 396, 423, 424, 426, 450, 451,
-468, 475, 510 · `bestseller` 8, 37, 250 · `betekenis` 143 · `bethel` 559 ·
-`betrokkenheid` 472 · `beurs` 80, 488 · `beurshandel` 487 · `beursrendement`
-353 · `beweging` 77, 84 · `bewijs` 63 · `bewustwording` 103 · `bewustzijn`
-148, 169, 200, 275, 340, 377, 518, 580, 585 · `bewustzijnsniveaus` 449 ·
-`bezit` 37 · `bhagavad gita` 569 · `bias` 209 · `bijeenkomsten` 304 ·
-`bijgeloof` 63 · `bijna-doodervaring` 585 · `biografie` 31, 46, 189, 231, 240,
-241, 243, 247, 266, 267, 269, 320, 328, 402, 454, 514, 537, 558 · `biohacking`
-316 · `biologie` 66, 88, 89, 90, 91, 322 · `biologie van gedrag` 273 ·
-`biologische klok` 326, 329, 552 · `biotechnologie` 236, 413 · `blackjack` 505
-· `bloedvaten` 86 · `bloedwaarden` 313 · `blokkade` 14 · `boeddhisme` 111,
-287, 333, 341, 401, 528 · `bootstrapping` 369 · `brainstormen` 33 · `branding`
-443 · `brein` 414 · `brieven` 292, 517 · `broers` 10 · `budgetteren` 159, 233,
-464 · `buitenlandse hulp` 221 · `burgerschap` 243 · `burn-out` 135, 207, 400,
-551, 552 · `bushido` 535 · `cafeïne` 52 · `Californië` 10 · `carl jung` 258 ·
-`carrière` 146, 158, 388 · `cases` 40 · `cashflow` 37 · `celbiologie` 419 ·
-`chakra's` 432 · `challenger` 62 · `Chanakya` 370 · `channeling` 549 · `chaos`
-74, 347 · `chapbook` 100 · `charismatisch christendom` 559 · `China` 348 ·
-`Chinese filosofie` 389, 394 · `Chinese geschiedenis` 219 · `chiropractie` 432
-· `christendom` 162, 201, 391 · `chronobiologie` 326, 329 · `cijfers` 39, 65 ·
+535 · `afrika` 589, 596, 597, 599, 600, 602 · `afrikaanse diaspora` 601 ·
+`afrocentrisme` 588, 589, 597 · `afscheid nemen` 285 · `afschrikking` 217 ·
+`afvallen` 557 · `afwezige-vader` 4 · `agenda` 512 · `agressie` 223, 339 ·
+`alcohol` 4 · `algoritmen` 476, 477, 479 · `alledaags` 89 · `allegorie` 222,
+524 · `allocatie` 507 · `amazon` 257 · `ambacht` 6, 12, 13, 17, 18 · `ambitie`
+75 · `amerika` 600 · `Amerika` 114, 431 · `amerikaans` 117, 118, 120, 132,
+133, 134, 136, 158 · `amerikaanse droom` 284 · `amerikaanse geschiedenis` 621
+· `Amerikaanse geschiedenis` 402 · `amerikaanse revolutie` 243 · `Amsterdam`
+295 · `anarchisme` 621, 624, 625, 626 · `anarchokapitalisme` 627, 629 ·
+`anatomie` 241, 412 · `Andalusië` 8 · `Andes` 521 · `angst` 53, 58, 107, 119,
+131, 136, 140, 181, 214, 252, 341, 401, 440, 548 · `angst voor de dood` 377 ·
+`animatie` 41 · `Antarctica` 36 · `anthologie` 189 · `antieke filosofie` 586 ·
+`antropologie` 223, 410, 602 · `antwerpen` 113 · `apartheid` 26, 523 · `Apple`
+46, 231 · `apps` 294 · `arbeid` 6, 173, 297, 390 · `arbeidsethos` 266 ·
+`archeologie` 600 · `archetype` 360 · `archetypen` 357, 404, 407, 409, 410 ·
+`Argentinië` 521 · `argumentatie` 421, 437, 511 · `argumenten` 63 ·
+`argumenteren` 438 · `Aristoteles` 438 · `armoede` 26, 234, 254 ·
+`Arthashastra` 370 · `assertiviteit` 162 · `asymmetrie` 282 · `atletiek` 31 ·
+`atomisme` 281 · `Auschwitz` 48 · `Australië` 447 · `autobiografie` 358, 440 ·
+`automatisering` 297, 539 · `autonomie` 6, 50 · `autoriteit` 215 · `autotelie`
+200 · `backtesten` 482, 502 · `banken en verzekeraars` 497 · `barok` 216 ·
+`basisbehoeften` 107 · `bbc` 82 · `bedrijfsbestuur` 567 · `bedrijfscultuur`
+170, 257, 270 · `bedrijfsgroei` 350 · `bedrijfsleven` 209, 293 ·
+`bedrijfsonderzoek` 353 · `bedrijfssystemen` 264 · `beeldcultuur` 563 ·
+`beeldverhaal` 561 · `beginners` 112 · `behoeften` 35 · `beinvloeding` 123,
+126 · `beïnvloeding` 399 · `bekentenis` 60 · `belangenverstrengeling` 138 ·
+`beleggen` 21, 64, 144, 233, 277, 351, 474, 476, 477, 478, 479, 480, 481, 482,
+483, 484, 485, 486, 489, 490, 492, 496, 498, 499, 500, 501, 502, 503, 504, 505
+· `beleid` 65 · `beloningssysteem` 418 · `bemiddeling` 35 · `beroemdheden` 128
+· `beroemdheid` 563 · `beschadigd-bestand` 115, 130 · `beschaving` 57 ·
+`beslissen` 55 · `beslissingen` 197 · `besluiten` 47, 59, 69, 137 ·
+`besluitvorming` 151, 166, 170, 174, 209, 270, 282, 283, 293, 299, 364, 396,
+423, 424, 426, 450, 451, 468, 475, 510 · `bestseller` 8, 37, 250 · `betekenis`
+143 · `bethel` 559 · `betrokkenheid` 472 · `beurs` 80, 488 · `beurshandel` 487
+· `beursrendement` 353 · `beweging` 77, 84 · `bewijs` 63 · `bewustwording` 103
+· `bewustzijn` 148, 169, 200, 275, 340, 377, 518, 580, 585 ·
+`bewustzijnsniveaus` 449 · `bezit` 37 · `bhagavad gita` 569 · `bias` 209 ·
+`bijeenkomsten` 304 · `bijgeloof` 63 · `bijna-doodervaring` 585 · `biografie`
+31, 46, 189, 231, 240, 241, 243, 247, 266, 267, 269, 320, 328, 402, 454, 514,
+537, 558 · `biohacking` 316 · `biologie` 66, 88, 89, 90, 91, 322 · `biologie
+van gedrag` 273 · `biologische klok` 326, 329, 552 · `biotechnologie` 236, 413
+· `blackjack` 505 · `bloedvaten` 86 · `bloedwaarden` 313 · `blokkade` 14 ·
+`boeddhisme` 111, 287, 333, 341, 401, 528 · `bootstrapping` 369 ·
+`brainstormen` 33 · `branding` 443 · `brein` 414 · `brieven` 292, 517 ·
+`broers` 10 · `budgetteren` 159, 233, 464 · `buitenlandse hulp` 221 ·
+`burgerschap` 243 · `burn-out` 135, 207, 400, 551, 552 · `bushido` 535 ·
+`cafeïne` 52 · `Californië` 10 · `carl jung` 258 · `carrière` 146, 158, 388 ·
+`cases` 40 · `cashflow` 37 · `celbiologie` 419 · `chakra's` 432 · `challenger`
+62 · `Chanakya` 370 · `channeling` 549 · `chaos` 74, 347 · `chapbook` 100 ·
+`charismatisch christendom` 559 · `China` 348 · `Chinese filosofie` 389, 394 ·
+`Chinese geschiedenis` 219 · `chiropractie` 432 · `christendom` 162, 201, 391,
+603, 606, 612 · `chronobiologie` 326, 329 · `cijfers` 39, 65 ·
 `civilisatiekritiek` 298 · `coaching` 161, 291, 441 · `cognitieve
 gedragstherapie` 147, 153, 373 · `cognitieve herstructurering` 177 ·
 `cognitieve vertekening` 234 · `cognitieve wetenschap` 467 · `cognitieve-bias`
 59 · `collectief bewustzijn` 435 · `collectief onbewuste` 357, 360, 362 ·
 `columns` 89, 90 · `comfortzone` 187 · `commando` 97 · `communicatie` 34, 35,
 122, 145, 152, 156, 162, 164, 183, 186, 193, 213, 305, 338, 356, 398, 399,
-444, 466, 475, 539, 555 · `complexiteit` 170, 268, 300, 347, 423 ·
-`complimenten geven` 356 · `concentratie` 70, 441 · `concurrentie` 293 ·
-`conditionering` 61, 519 · `conflict` 35, 42, 43, 212, 305 ·
+444, 466, 475, 539, 555 · `communisme` 625 · `complexiteit` 170, 268, 300,
+347, 423 · `complimenten geven` 356 · `concentratie` 70, 441 · `concurrentie`
+293 · `conditionering` 61, 519 · `conflict` 35, 42, 43, 212, 305 ·
 `conflictbemiddeling` 304 · `conflicthantering` 271 · `conformisme` 211 ·
 `consistentie` 553 · `consumptie` 463 · `consumptiekeuzes` 299 ·
 `consumptiemaatschappij` 564 · `content` 308 · `content creatie` 365 ·
@@ -115146,8 +120309,8 @@ Grote` 536 · `dagboek` 2, 109, 224, 286, 579 · `dagboekaantekeningen` 226 ·
 `dagelijkse praktijk` 442 · `dankbaarheid` 129, 433 · `darmbacteriën` 417 ·
 `dataïsme` 236 · `daten` 166 · `de ander` 574 · `debat` 28 · `debuutboek` 226
 · `degrowth` 298 · `dekoloniaal denken` 521 · `delegeren` 434 · `deliberate
-practice` 376 · `dementie` 84, 85, 225 · `democratie` 98, 562 · `denken` 310,
-509 · `denkfouten` 55, 59, 142, 396, 437, 510, 514 · `denkmethode` 471 ·
+practice` 376 · `dementie` 84, 85, 225 · `democratie` 98, 562, 628 · `denken`
+310, 509 · `denkfouten` 55, 59, 142, 396, 437, 510, 514 · `denkmethode` 471 ·
 `denkmodellen` 426 · `depressie` 403 · `derivaten` 494, 495 · `design
 thinking` 150 · `destructiviteit` 223 · `deugd` 247, 459, 581 · `diagnose` 104
 · `dialoog` 335, 572 · `dichotomie van controle` 194 · `dichtwerk` 524 ·
@@ -115155,78 +120318,81 @@ thinking` 150 · `destructiviteit` 223 · `deugd` 247, 459, 581 · `diagnose` 10
 555 · `dierenzintuigen` 322 · `dierlijke-cognitie` 383 · `dierproeven` 330 ·
 `differentiatie` 165 · `digitaal` 81 · `diplomatie` 243 · `direct response`
 350 · `DISC` 156, 429 · `discipline` 12, 13, 22, 30, 106, 133, 137, 146, 445,
-462, 480, 481, 482, 487, 488, 545 · `disruptie` 293 · `DNA` 419 · `docenten`
-116 · `doelen` 58, 136, 158, 542 · `doelen stellen` 367, 427, 448 ·
-`doelgericht-oefenen` 50 · `doelgroep` 446 · `doelstellingen` 256 ·
+462, 480, 481, 482, 487, 488, 545 · `discours` 628 · `disruptie` 293 · `DNA`
+419 · `docenten` 116 · `doelen` 58, 136, 158, 542 · `doelen stellen` 367, 427,
+448 · `doelgericht-oefenen` 50 · `doelgroep` 446 · `doelstellingen` 256 ·
 `donkere-triade` 124 · `dood` 98, 169, 292, 535 · `doodsangst` 405 ·
 `doorzetten` 20 · `doorzettingsvermogen` 185, 249, 289, 324 · `dopamine` 314,
 418 · `drogredenen` 421 · `dromen` 52, 357, 358, 359, 360 · `drugs` 568 ·
 `dummies` 112 · `durfkapitaal` 47 · `duurzaamheid` 92 · `dystopie` 61 ·
 `e-commerce` 257 · `e-mail` 70, 512 · `e-mailmarketing` 309 · `ecologie` 298 ·
-`economie` 65, 98, 217, 251, 297, 347, 423, 450, 452, 478 · `economische
-geschiedenis` 155 · `educatief` 327 · `eenvoud` 170, 205, 379 · `eenzaamheid`
-7, 96, 98, 111, 288, 302 · `eer` 530, 534 · `eerlijk` 47 · `eerlijkheid` 62 ·
-`eerste-versie` 19 · `ego` 75, 102, 149, 435 · `ego en zelf` 409 ·
-`ego-depletie` 382 · `eigen bedrijf` 210 · `eigen-beheer` 107, 140, 142 ·
-`eigen-oordeel` 58, 546 · `eigenaarschap` 97 · `eindigheid` 442 · `einstein`
-94 · `elektriciteit` 267 · `elektrische auto's` 266 · `EMDR` 386 · `emigratie`
-240 · `emotie-eten` 557 · `emoties` 3, 43, 137, 142, 147, 153, 177, 330, 331,
-449, 457, 470, 488, 542 · `empathie` 35, 67, 303, 577 · `energetisch werk` 560
-· `energie` 92, 195, 291, 377 · `energiewerk` 432 · `entropie` 539 ·
-`epigenetica` 208, 415 · `epos` 5, 530, 531, 532 · `erfelijkheid` 419 ·
-`erfenis` 39 · `erkenningszucht` 406 · `erotiek` 113, 164 · `esoterie` 378,
-590 · `essay` 3, 9, 21, 57, 59, 63, 64, 68, 96, 197, 232 · `essaybundel` 390,
-425 · `essays` 523 · `eten` 103 · `ethiek` 282, 299, 413, 574 ·
+`economie` 65, 98, 217, 251, 297, 347, 423, 450, 452, 478, 625, 627 ·
+`economische geschiedenis` 155 · `educatief` 327 · `eenvoud` 170, 205, 379 ·
+`eenzaamheid` 7, 96, 98, 111, 288, 302 · `eer` 530, 534 · `eerlijk` 47 ·
+`eerlijkheid` 62 · `eerste-versie` 19 · `ego` 75, 102, 149, 435 · `ego en
+zelf` 409 · `ego-depletie` 382 · `egypte` 596, 597, 599, 602 · `eigen bedrijf`
+210 · `eigen-beheer` 107, 140, 142 · `eigen-oordeel` 58, 546 · `eigenaarschap`
+97 · `eindigheid` 442 · `einstein` 94 · `elektriciteit` 267 · `elektrische
+auto's` 266 · `emancipatie` 598 · `EMDR` 386 · `emigratie` 240 · `emotie-eten`
+557 · `emoties` 3, 43, 137, 142, 147, 153, 177, 330, 331, 449, 457, 470, 488,
+542 · `empathie` 35, 67, 303, 577 · `energetisch werk` 560 · `energie` 92,
+195, 291, 377 · `energiewerk` 432 · `entropie` 539 · `epigenetica` 208, 415 ·
+`epos` 5, 530, 531, 532 · `erfelijkheid` 419 · `erfenis` 39 ·
+`erkenningszucht` 406 · `erotiek` 113, 164 · `esoterie` 378, 590, 603, 605,
+606, 613 · `essay` 3, 9, 21, 57, 59, 63, 64, 68, 96, 197, 232 · `essaybundel`
+390, 425 · `essays` 523 · `eten` 103 · `ethiek` 282, 299, 413, 574, 612 ·
 `evangelisatie` 201 · `evolutie` 56, 66, 89, 90, 91, 239, 318, 322, 323, 332,
-339, 347, 383, 518 · `evolutiebiologie` 452, 453 · `evolutionaire-psychologie`
-67 · `excellentie` 553 · `executives` 344 · `existentialisme` 405 ·
-`expeditie` 36 · `experiment` 79, 215 · `experimenten` 280, 424 ·
-`experimenteren` 265 · `expertise` 283, 320, 376 · `extraversie` 361 · `fabel`
-8, 42, 135, 167, 252 · `facilitatie` 304 · `falen` 23, 72, 75, 312, 422 ·
-`familie` 45, 325, 466 · `familieconflict` 178 · `familiegeschiedenis` 114,
-235 · `familieroman` 10 · `fantasy` 192, 203 · `FBI` 154, 271 ·
-`FBI-onderzoek` 431 · `feedback` 41, 296, 541, 542 · `feiten` 43 · `feminisme`
-3 · `fenomenologie` 574, 577, 582 · `fictie` 100, 115 · `film` 41 ·
-`filosofie` 1, 6, 71, 93, 199, 211, 216, 224, 247, 255, 263, 292, 299, 383,
-390, 391, 392, 393, 421, 436, 442, 521, 588 · `filosofiegeschiedenis` 269 ·
-`filosofische antropologie` 584 · `financiële geletterdheid` 163 · `financiële
-markten` 268, 351, 480, 481, 483, 499, 501 · `financiële onafhankelijkheid`
-264 · `financiele vrijheid` 277 · `financiële wiskunde` 497, 507 ·
-`financiële-discipline` 464 · `financiën` 334, 395, 425 · `financiering` 172 ·
-`fitnessbranche` 307, 544 · `flitshandel` 499 · `flow` 78, 187, 200 · `focus`
-175, 197, 448, 513 · `fotoboek` 189 · `foutcultuur` 422 · `fouten maken` 509 ·
-`franchise` 544 · `frankrijk` 115 · `Franse-Weerstand` 390 · `freelance` 515 ·
-`Fulani` 522 · `fysieke uitdaging` 323 · `fysiologie` 318, 412, 458 ·
-`Galenus` 328 · `gaslighting` 123 · `gastheerschap` 304 · `gastvrijheid` 531 ·
-`gebed` 83, 259, 573 · `gebruikersgedrag` 294 · `gedachten` 148, 177 ·
-`gedachtenjournal` 176 · `gedrag` 21, 22, 89, 90, 138, 154, 280, 330, 383, 425
-· `gedragsbiologie` 322, 339 · `gedragseconomie` 424, 426, 514 ·
-`gedragsonderzoek` 302, 382 · `gedragspatronen` 161 · `gedragspsychologie` 294
-· `gedragstypen` 156 · `gedragsverandering` 238, 290, 457, 469 ·
-`gedragswetenschap` 166, 209, 305, 468, 469, 510 · `geduld` 21, 351 · `geest`
-584 · `geestelijke gezondheid` 193 · `geestelijke oefeningen` 586 ·
-`gegevensanalyse` 486 · `gehechtheid` 166 · `geheim genootschap` 202 ·
-`geheugen` 66, 85, 175, 414 · `gehoorzaamheid` 215 · `geïllustreerd boek` 176
-· `geld` 21, 37, 38, 56, 76, 121, 132, 133, 158, 159, 433, 463, 464 ·
-`geldmanagement` 492, 493 · `geldmindset` 395 · `geldpsychologie` 233, 264 ·
-`geloof` 45, 83, 201, 554 · `geluk` 79, 93, 160, 228, 335, 516, 526, 579 ·
-`gemeenschap` 9, 96, 304, 461 · `geneeskunde` 49, 328 · `generaties` 114 ·
-`generatieve drift` 315 · `genetica` 413, 419 · `genezing` 340 · `genot en
-pijn` 314 · `gentechnologie` 413 · `geologie` 239 · `geopolitiek` 220 ·
-`geschiedenis` 30, 36, 56, 57, 68, 93, 94, 212, 218, 250, 258, 298, 328, 381,
-425, 440, 588, 589 · `geschiedenis van de geneeskunde` 412 ·
-`geschiedfilosofie` 235 · `gesprek` 43, 95, 302, 444 · `gesprekstechniek` 182,
-186, 438 · `gevangenendilemma` 453 · `gevolgen` 67 · `gewaarzijn` 519 ·
-`geweld` 45, 90, 214 · `gewicht` 138 · `gewoontelus` 238 · `gewoonten` 187,
-373 · `gewoontes` 7, 11, 13, 22, 25, 58, 70, 76, 77, 79, 88, 97, 103, 133,
-134, 135, 138, 147, 157, 158, 181, 207, 208, 224, 230, 290, 334, 382, 439,
-442, 445, 513, 557 · `gewoontevorming` 146, 161, 168, 188, 244, 291, 294, 396,
-397, 411, 540 · `gezag` 62 · `gezin` 547 · `gezinnen` 327 · `gezondheid` 52,
-88, 171, 181, 318, 323, 329, 332, 412, 414, 415 · `gezondheidspsychologie` 458
-· `gezondheidszorg` 313, 317, 422 · `ggz` 104 · `giftige relaties` 429 ·
-`gijzelingsonderhandelaar` 271 · `godsdienstkritiek` 341 ·
-`godsdienstwetenschap` 578 · `goeroe` 242 · `Google` 512 · `Graallegende` 408
-· `grandiositeit` 404 · `gratie` 374 · `grenzen` 72, 105, 109, 120, 122, 187,
+339, 347, 383, 518, 609 · `evolutiebiologie` 452, 453 ·
+`evolutionaire-psychologie` 67 · `excellentie` 553 · `executives` 344 ·
+`existentialisme` 405 · `expeditie` 36 · `experiment` 79, 215 · `experimenten`
+280, 424 · `experimenteren` 265 · `expertise` 283, 320, 376 · `extraversie`
+361 · `fabel` 8, 42, 135, 167, 252 · `facilitatie` 304 · `falen` 23, 72, 75,
+312, 422 · `familie` 45, 325, 466 · `familieconflict` 178 ·
+`familiegeschiedenis` 114, 235 · `familieroman` 10 · `fantasy` 192, 203 ·
+`FBI` 154, 271 · `FBI-onderzoek` 431 · `feedback` 41, 296, 541, 542 · `feiten`
+43 · `feminisme` 3, 624 · `fenomenologie` 574, 577, 582 · `fictie` 100, 115 ·
+`film` 41 · `filosofie` 1, 6, 71, 93, 199, 211, 216, 224, 247, 255, 263, 292,
+299, 383, 390, 391, 392, 393, 421, 436, 442, 521, 588, 597, 604, 610 ·
+`filosofiegeschiedenis` 269 · `filosofische antropologie` 584 · `financiële
+geletterdheid` 163 · `financiële markten` 268, 351, 480, 481, 483, 499, 501 ·
+`financiële onafhankelijkheid` 264 · `financiele vrijheid` 277 · `financiële
+wiskunde` 497, 507 · `financiële-discipline` 464 · `financiën` 334, 395, 425 ·
+`financiering` 172 · `fitnessbranche` 307, 544 · `flitshandel` 499 · `flow`
+78, 187, 200 · `focus` 175, 197, 448, 513 · `folklore` 615 · `fotoboek` 189 ·
+`foutcultuur` 422 · `fouten maken` 509 · `franchise` 544 · `frankrijk` 115 ·
+`Franse-Weerstand` 390 · `freelance` 515 · `Fulani` 522 · `fysieke uitdaging`
+323 · `fysiologie` 318, 412, 458 · `Galenus` 328 · `gaslighting` 123 ·
+`gastheerschap` 304 · `gastvrijheid` 531 · `gebed` 83, 259, 573 ·
+`gebruikersgedrag` 294 · `gedachten` 148, 177 · `gedachtenjournal` 176 ·
+`gedrag` 21, 22, 89, 90, 138, 154, 280, 330, 383, 425 · `gedragsbiologie` 322,
+339 · `gedragseconomie` 424, 426, 514 · `gedragsonderzoek` 302, 382 ·
+`gedragspatronen` 161 · `gedragspsychologie` 294 · `gedragstypen` 156 ·
+`gedragsverandering` 238, 290, 457, 469 · `gedragswetenschap` 166, 209, 305,
+468, 469, 510 · `geduld` 21, 351 · `geest` 584 · `geestelijke gezondheid` 193
+· `geestelijke oefeningen` 586 · `gegevensanalyse` 486 · `gehechtheid` 166 ·
+`geheim genootschap` 202 · `geheugen` 66, 85, 175, 414 · `gehoorzaamheid` 215
+· `geïllustreerd boek` 176 · `geld` 21, 37, 38, 56, 76, 121, 132, 133, 158,
+159, 433, 463, 464 · `geldmanagement` 492, 493 · `geldmindset` 395 ·
+`geldpsychologie` 233, 264 · `geloof` 45, 83, 201, 554 · `geluk` 79, 93, 160,
+228, 335, 516, 526, 579 · `gemeenschap` 9, 96, 304, 461 · `genealogie` 601 ·
+`geneeskunde` 49, 328 · `generaties` 114 · `generatieve drift` 315 ·
+`genetica` 413, 419 · `genezing` 340 · `genot en pijn` 314 · `gentechnologie`
+413 · `geologie` 239 · `geopolitiek` 220 · `geschiedenis` 30, 36, 56, 57, 68,
+93, 94, 212, 218, 250, 258, 298, 328, 381, 425, 440, 588, 589, 597, 598, 600 ·
+`geschiedenis van de geneeskunde` 412 · `geschiedfilosofie` 235 ·
+`geschiedschrijving` 601, 602 · `gesprek` 43, 95, 302, 444 ·
+`gesprekstechniek` 182, 186, 438 · `gevangenendilemma` 453 · `gevolgen` 67 ·
+`gewaarzijn` 519 · `geweld` 45, 90, 214 · `geweldloosheid` 612 · `gewicht` 138
+· `gewoontelus` 238 · `gewoonten` 187, 373 · `gewoontes` 7, 11, 13, 22, 25,
+58, 70, 76, 77, 79, 88, 97, 103, 133, 134, 135, 138, 147, 157, 158, 181, 207,
+208, 224, 230, 290, 334, 382, 439, 442, 445, 513, 557 · `gewoontevorming` 146,
+161, 168, 188, 244, 291, 294, 396, 397, 411, 540 · `gezag` 62 · `gezin` 547 ·
+`gezinnen` 327 · `gezondheid` 52, 88, 171, 181, 318, 323, 329, 332, 412, 414,
+415 · `gezondheidspsychologie` 458 · `gezondheidszorg` 313, 317, 422 · `ggz`
+104 · `giftige relaties` 429 · `gijzelingsonderhandelaar` 271 · `gnostiek` 614
+· `godin` 611 · `godsdienstkritiek` 341 · `godsdienstwetenschap` 578, 608 ·
+`goeroe` 242 · `Google` 512 · `Graallegende` 408 · `grandiositeit` 404 ·
+`gratie` 374 · `grenswetenschap` 615 · `grenzen` 72, 105, 109, 120, 122, 187,
 466 · `grenzen stellen` 151, 204, 406, 429 · `Griekenland` 537 · `Griekse
 literatuur` 536 · `griekse mythologie` 261 · `Griekse oudheid` 530, 531 ·
 `groei` 222 · `groeiaandelen` 474 · `groeimentaliteit` 116 · `groepsdenken`
@@ -115237,53 +120403,54 @@ literatuur` 536 · `griekse mythologie` 261 · `Griekse oudheid` 530, 531 ·
 86, 128 · `Harvard` 457 · `Hay House` 380 · `hechting` 145, 152, 317, 386 ·
 `hedendaags India` 202 · `hedgefondsen` 505 · `heelal` 99, 262 · `heldendom`
 532 · `heldenreis` 410 · `helderheid` 82, 436 · `herhaling` 125, 134 ·
-`herkomst` 127 · `hermetische filosofie` 378 · `heroverwegen` 28 · `hersenen`
-51, 84, 85, 86, 327 · `hersenonderzoek` 330, 333 · `hersenspoeling` 384 ·
-`herstel` 87, 552, 583 · `het gesprek` 416 · `Himalaya` 191 · `hindoeïsme`
-169, 199, 527, 569 · `Hindoeïstische mythologie` 192, 202 · `hindoemythologie`
-203 · `Hinge` 166 · `hiphop` 440 · `historische portretten` 248 · `historische
-roman` 529 · `hofcultuur` 216 · `hollywood` 555 · `Hollywood` 178 ·
-`Holocaust` 48 · `holografie` 340 · `homoseksualiteit` 325 · `hoop` 255, 319 ·
-`hormonen` 80, 339 · `hospice` 416 · `houding` 117 · `huisvesting` 65 ·
-`humanisme` 236 · `humor` 16, 19, 26, 105, 227, 561 · `husserl` 577 ·
-`huwelijk` 9, 34, 165 · `Huxley` 54 · `hybride werken` 512 · `hyperrealiteit`
-565 · `hypnose` 123, 124, 125 · `Idaho` 45 · `ideeën` 206 ·
+`herkomst` 127 · `hermetische filosofie` 378 · `hermetisme` 613 ·
+`heroverwegen` 28 · `hersenen` 51, 84, 85, 86, 327 · `hersenonderzoek` 330,
+333 · `hersenspoeling` 384 · `herstel` 87, 552, 583 · `het gesprek` 416 ·
+`Himalaya` 191 · `hindoeïsme` 169, 199, 527, 569 · `Hindoeïstische mythologie`
+192, 202 · `hindoemythologie` 203 · `Hinge` 166 · `hiphop` 440 · `historische
+portretten` 248 · `historische roman` 529 · `hofcultuur` 216 · `hollywood` 555
+· `Hollywood` 178 · `Holocaust` 48 · `holografie` 340 · `homoseksualiteit` 325
+· `hoop` 255, 319 · `hormonen` 80, 339 · `hospice` 416 · `houding` 117 ·
+`huisvesting` 65 · `humanisme` 236 · `humor` 16, 19, 26, 105, 227, 561 ·
+`husserl` 577 · `huwelijk` 9, 34, 165 · `Huxley` 54 · `hybride werken` 512 ·
+`hyperrealiteit` 565 · `hypnose` 123, 124, 125 · `Idaho` 45 · `ideeën` 206 ·
 `ideeëngeschiedenis` 269 · `identiteit` 22, 115, 192, 261, 374, 375, 467, 559
-· `identiteitskapitaal` 51 · `ierland` 110 · `IJsland` 185, 533 · `ik-vorm`
-113 · `illustraties` 109, 327 · `imitatie` 11 · `imperfectionisme` 442 ·
-`import` 20 · `India` 163, 171, 172, 180, 189, 191, 196, 199, 203, 226, 242,
-365, 370, 518, 520, 527 · `individualisme` 9, 96 · `individualiteit` 263 ·
-`individuatie` 359, 360, 408, 409 · `individuele-verantwoordelijkheid` 299 ·
-`industrie` 348 · `inheems denken` 521 · `initiatie` 407, 408, 522 ·
-`inleiding` 452, 456 · `innerlijk-kind` 109 · `innerlijk-werkleven` 472 ·
-`innerlijke stem` 377 · `innerlijke vrede` 548 · `innovatie` 206, 251, 293,
-306, 471 · `instagram` 129 · `instituties` 392 · `integraal bewustzijn` 580 ·
-`integriteit` 547 · `intelligentie` 383 · `internationale betrekkingen` 455 ·
-`internet` 60, 198 · `interviews` 58, 277, 289 · `intimiteit` 122, 145, 164,
-165 · `introspectie` 579 · `introversie` 33, 361 · `intuitie` 128 · `intuïtie`
-214, 283, 320 · `investeren` 270, 348 · `invloed` 11 · `invoeling` 577 ·
-`inzicht` 587 · `irrationaliteit` 424 · `islam` 526 · `islamitische filosofie`
-525 · `Israël` 514 · `Italiaanse non-fictie` 211 · `Italië` 155 · `jaloezie`
-19 · `Japan` 77, 205, 261, 335, 346, 379, 462, 517, 528, 535 · `japanse
-filosofie` 576 · `jaren negentig` 348 · `jaren-tachtig` 139 · `jaren-twintig`
-94 · `jazztijdperk` 284 · `jeff bezos` 257 · `jeugd` 53, 104, 115 · `John
-Harrison` 321 · `joint ventures` 348 · `jonge liefde` 180 · `jongeren` 25 ·
-`jongvolwassenen` 569 · `jongvolwassenenroman` 295 · `joodse filosofie` 572,
-574 · `journaling` 147 · `journalistiek` 4, 7, 46, 82, 238, 257, 285, 401,
-499, 566 · `Jung` 143, 358, 359 · `Jungiaanse psychologie` 404, 407, 408, 409,
-410 · `kaakontwikkeling` 332 · `Kabul` 184 · `Kaïn-en-Abel` 10 · `kalmte` 248,
-389 · `kameraadschap` 529 · `kanker` 419 · `kans` 64 · `kansdenken` 487 ·
-`kansen` 137 · `kansrekening` 282, 456, 484, 490, 496, 504, 505 ·
-`kapitalisme` 298 · `karakter` 97, 537 · `Karel de Grote` 534 · `karma` 184 ·
-`karmel` 573 · `Kasjmir` 180 · `keegan` 110 · `Kelly-criterium` 504 · `kennis`
-81, 508 · `kennisleer` 525, 587 · `kenniswerk` 6, 50, 400, 472 · `kernwaarden`
-245 · `kernwapens` 454 · `keuzes` 51, 71, 72, 510 · `Kierkegaard` 405 ·
-`kinderboek` 167 · `kinderjaren` 152 · `kinesiologie` 449 · `klantcontact`
-182, 186 · `klantpsychologie` 367 · `klantrelaties` 246 · `klantvalidatie` 265
-· `klantwaarde` 309 · `klassenverschil` 284 · `klassieke bronnen` 286 ·
-`klassieke tekst` 219, 394 · `klassieker` 10, 24, 38, 48, 61, 83, 127, 135,
-144, 173, 213, 254, 351, 420, 520, 537 · `klein-beginnen` 40 ·
-`kleine-bedrijven` 172 · `kleine-stappen` 22, 133 · `kleurboek` 327 ·
+· `identiteitskapitaal` 51 · `ideologie` 628 · `ierland` 110 · `IJsland` 185,
+533 · `ik-vorm` 113 · `illustraties` 109, 327 · `imitatie` 11 ·
+`imperfectionisme` 442 · `import` 20 · `India` 163, 171, 172, 180, 189, 191,
+196, 199, 203, 226, 242, 365, 370, 518, 520, 527 · `individualisme` 9, 96, 624
+· `individualiteit` 263 · `individuatie` 359, 360, 408, 409 ·
+`individuele-verantwoordelijkheid` 299 · `industrie` 348 · `inheems denken`
+521 · `initiatie` 407, 408, 522 · `inleiding` 452, 456 · `innerlijk-kind` 109
+· `innerlijk-werkleven` 472 · `innerlijke stem` 377 · `innerlijke vrede` 548 ·
+`innovatie` 206, 251, 293, 306, 471 · `instagram` 129 · `instituties` 392 ·
+`integraal bewustzijn` 580 · `integriteit` 547 · `intelligentie` 383 ·
+`internationale betrekkingen` 455 · `internet` 60, 198 · `interviews` 58, 277,
+289 · `intimiteit` 122, 145, 164, 165 · `introspectie` 579 · `introversie` 33,
+361 · `intuitie` 128 · `intuïtie` 214, 283, 320 · `investeren` 270, 348 ·
+`invloed` 11 · `invoeling` 577 · `inzicht` 587 · `irrationaliteit` 424 ·
+`islam` 526 · `islamitische filosofie` 525 · `Israël` 514 · `Italiaanse
+non-fictie` 211 · `Italië` 155 · `jaloezie` 19 · `Japan` 77, 205, 261, 335,
+346, 379, 462, 517, 528, 535 · `japanse filosofie` 576 · `jaren negentig` 348
+· `jaren-tachtig` 139 · `jaren-twintig` 94 · `jazztijdperk` 284 · `jeff bezos`
+257 · `jeugd` 53, 104, 115 · `John Harrison` 321 · `joint ventures` 348 ·
+`jonge liefde` 180 · `jongeren` 25 · `jongvolwassenen` 569 ·
+`jongvolwassenenroman` 295 · `joodse filosofie` 572, 574 · `journaling` 147 ·
+`journalistiek` 4, 7, 46, 82, 238, 257, 285, 401, 499, 566 · `Jung` 143, 358,
+359 · `Jungiaanse psychologie` 404, 407, 408, 409, 410 · `kaakontwikkeling`
+332 · `Kabul` 184 · `Kaïn-en-Abel` 10 · `kalmte` 248, 389 · `kameraadschap`
+529 · `kanker` 419 · `kans` 64 · `kansdenken` 487 · `kansen` 137 ·
+`kansrekening` 282, 456, 484, 490, 496, 504, 505 · `kapitalisme` 298 ·
+`karakter` 97, 537 · `Karel de Grote` 534 · `karma` 184 · `karmel` 573 ·
+`Kasjmir` 180 · `keegan` 110 · `Kelly-criterium` 504 · `keltische traditie`
+611 · `kennis` 81, 508 · `kennisleer` 525, 587 · `kenniswerk` 6, 50, 400, 472
+· `kernwaarden` 245 · `kernwapens` 454 · `keuzes` 51, 71, 72, 510 ·
+`Kierkegaard` 405 · `kinderboek` 167 · `kinderjaren` 152 · `kinesiologie` 449
+· `klantcontact` 182, 186 · `klantpsychologie` 367 · `klantrelaties` 246 ·
+`klantvalidatie` 265 · `klantwaarde` 309 · `klassenverschil` 284 · `klassieke
+bronnen` 286 · `klassieke tekst` 219, 394 · `klassieker` 10, 24, 38, 48, 61,
+83, 127, 135, 144, 173, 213, 254, 351, 420, 520, 537, 626 · `klein-beginnen`
+40 · `kleine-bedrijven` 172 · `kleine-stappen` 22, 133 · `kleurboek` 327 ·
 `klimaatfictie` 203 · `klimaatverandering` 299 · `klinische psychologie` 460 ·
 `klokkenmakerij` 321 · `kolonialisme` 298 · `korea` 111 · `kort` 59, 99, 100,
 101, 110, 140 · `kort-boek` 11, 13, 16, 27, 38, 57, 445 · `kort-stuk` 19, 30 ·
@@ -115306,30 +120473,31 @@ manufacturing` 265 · `leefstijl` 86, 103, 138, 171 · `leertijd` 320 · `leger`
 `levenskeuzes` 150, 546 · `levenskunst` 27, 199, 216, 227, 586 ·
 `levenslessen` 285, 447 · `levensloop` 91 · `levensverhaal` 385 ·
 `levenswijsheid` 473 · `lezen` 18, 420 · `lezing` 436 · `lezingen` 169 ·
-`libertarisme` 546 · `lichaam` 80 · `lichaamsgericht werken` 386 ·
-`lichaamstaal` 125, 126, 154, 303, 338, 399 · `lichaamswerk` 432 · `licht` 525
-· `liefde` 3, 131, 160, 295 · `liefdesroman` 180 · `lifestyle` 278 · `lijden`
-48, 73, 160, 310, 390 · `list` 531 · `literair` 110 · `literatuur` 49 ·
-`logica` 421, 437 · `logotherapie` 48 · `Long-Island` 4 · `longevity` 415 ·
-`loopbaan` 50, 51, 150, 349, 515, 547 · `loslaten` 377, 449 · `losmaken` 45 ·
-`lotsbestemming` 261 · `luchtvaart` 422 · `luisteren` 24, 35, 305, 444 ·
-`machinaal leren` 484, 485, 486, 503 · `macht` 212, 250, 263, 381, 388, 440 ·
-`machtspolitiek` 220 · `machtstheorie` 221 · `machtsverhoudingen` 155 ·
-`magisch realisme` 261 · `management` 42, 47, 170, 183, 256, 350, 353, 364,
-472 · `managementtheorie` 547 · `manifesteren` 128, 129, 130, 131, 132, 190,
-196, 433, 543, 560 · `manipulatie` 123, 124, 125, 126, 212, 213, 381, 384, 429
-· `mannelijkheid` 3, 406, 407, 408 · `mannen` 7 · `mannenbeweging` 407 ·
-`mantelzorg` 225 · `mantra` 403 · `manuscript` 359 · `marketing` 13, 40, 60,
-172, 183, 279, 280, 307, 308, 309, 350, 443, 446 · `marktmicrostructuur` 477,
-478 · `marxisme` 564 · `McKinsey` 511 · `media` 54, 60, 100, 562, 563, 564,
-565, 566 · `medische ethiek` 416 · `meditatie` 111, 141, 149, 169, 205, 208,
-228, 230, 237, 242, 333, 377, 401, 431, 527, 528, 590 · `meesterschap` 296,
-320, 553 · `meetsystemen` 392 · `memento mori` 286 · `memoir` 4, 7, 18, 20,
-26, 45, 49, 62, 95, 106, 178, 185, 191, 226, 229, 242, 289, 324, 325, 348,
-385, 402, 403, 431, 447, 505 · `mens en dier` 584 · `menselijk gedrag` 155 ·
-`mensenkennis` 126, 356 · `mentale gezondheid` 315 · `mentale helderheid` 148
-· `mentale weerbaarheid` 229, 323, 372, 373, 374, 545 · `mentalisme` 378, 399
-· `mentorschap` 4, 285, 289, 320, 402 · `merken` 279 · `metabolisme` 313 ·
+`libertarisme` 546, 623, 627, 629 · `lichaam` 80 · `lichaamsgericht werken`
+386 · `lichaamstaal` 125, 126, 154, 303, 338, 399 · `lichaamswerk` 432 ·
+`licht` 525 · `liefde` 3, 131, 160, 295 · `liefdesroman` 180 · `lifestyle` 278
+· `lijden` 48, 73, 160, 310, 390 · `list` 531 · `literair` 110 · `literatuur`
+49 · `logica` 421, 437 · `logotherapie` 48 · `Long-Island` 4 · `longevity` 415
+· `loopbaan` 50, 51, 150, 349, 515, 547 · `loslaten` 377, 449 · `losmaken` 45
+· `lotsbestemming` 261 · `luchtvaart` 422 · `luisteren` 24, 35, 305, 444 ·
+`machinaal leren` 484, 485, 486, 503 · `macht` 212, 250, 263, 381, 388, 440,
+622 · `machtspolitiek` 220 · `machtstheorie` 221 · `machtsverhoudingen` 155 ·
+`magie` 613 · `magisch realisme` 261 · `management` 42, 47, 170, 183, 256,
+350, 353, 364, 472 · `managementtheorie` 547 · `manifest` 629 · `manifesteren`
+128, 129, 130, 131, 132, 190, 196, 433, 543, 560 · `manipulatie` 123, 124,
+125, 126, 212, 213, 381, 384, 429 · `mannelijkheid` 3, 406, 407, 408 ·
+`mannen` 7 · `mannenbeweging` 407 · `mantelzorg` 225 · `mantra` 403 ·
+`manuscript` 359 · `maria magdalena` 614 · `marketing` 13, 40, 60, 172, 183,
+279, 280, 307, 308, 309, 350, 443, 446 · `marktmicrostructuur` 477, 478 ·
+`marxisme` 564 · `McKinsey` 511 · `media` 54, 60, 100, 562, 563, 564, 565, 566
+· `medische ethiek` 416 · `meditatie` 111, 141, 149, 169, 205, 208, 228, 230,
+237, 242, 333, 377, 401, 431, 527, 528, 590 · `meesterschap` 296, 320, 553 ·
+`meetsystemen` 392 · `memento mori` 286 · `memoir` 4, 7, 18, 20, 26, 45, 49,
+62, 95, 106, 178, 185, 191, 226, 229, 242, 289, 324, 325, 348, 385, 402, 403,
+431, 447, 505 · `mens en dier` 584 · `menselijk gedrag` 155 · `mensenkennis`
+126, 356 · `mentale gezondheid` 315 · `mentale helderheid` 148 · `mentale
+weerbaarheid` 229, 323, 372, 373, 374, 545 · `mentalisme` 378, 399 ·
+`mentorschap` 4, 285, 289, 320, 402 · `merken` 279 · `metabolisme` 313 ·
 `metafysica` 102, 518, 584, 587 · `meten` 69, 133 · `methode` 81 ·
 `microbedrijf` 40, 172 · `microbioom` 417 · `middelbare-leeftijd` 7 ·
 `middeleeuwen` 534 · `midlife` 324 · `militaire geschiedenis` 568 · `militaire
@@ -115343,18 +120511,19 @@ strategie` 220 · `millennials` 159 · `minderheden` 68 · `mindful` 103 ·
 `moraalkritiek` 391 · `moreel` 36 · `mormonisme` 560 · `motivatie` 117, 139,
 146, 183, 200, 207, 315, 427, 468, 469, 472 · `Motley Fool` 474 · `motoren` 6
 · `motorfietsen` 325 · `muziek` 17, 85 · `mystiek` 340, 390, 524, 525, 573,
-578 · `mythologie` 73, 143, 357, 360, 407, 408, 409 · `mythologische fantasy`
-202 · `mythologische fictie` 203 · `NAD+` 415 · `nalatenschap` 178 ·
-`napoleontische oorlogen` 235 · `narcisme` 258, 404 · `naslag` 99, 112 ·
-`naslagwerk` 59, 225, 426, 477, 478, 486, 491, 500, 504 · `nationalisme` 237 ·
-`natuur` 191, 323 · `natuurkunde` 62, 94, 240, 262, 281, 300, 326 ·
-`navigatie` 321 · `navy seals` 229, 364 · `nazisme` 223 · `necrofilie` 223 ·
-`nederland` 96 · `nederlands` 93, 97, 100, 101, 102, 103, 104, 105, 106, 107,
-108, 128, 130, 131, 141 · `nederlands-auteur` 140 · `nederlandstalig` 113 ·
-`negatieve emoties` 176 · `negentig dagen` 188 · `nepnieuws` 237 · `netwerken`
-24, 246, 300, 388, 508 · `neurobiologie` 119 · `neurochirurgie` 49, 414 ·
-`neurologie` 325 · `neuroplasticiteit` 175, 208, 414 · `neurose` 575 ·
-`neurowetenschap` 52, 208, 238, 275, 314, 326, 330, 331, 333, 339, 340, 386,
+578, 603, 604, 606, 610 · `mythe` 608 · `mythevorming` 615 · `mythologie` 73,
+143, 357, 360, 407, 408, 409, 599, 611 · `mythologische fantasy` 202 ·
+`mythologische fictie` 203 · `NAD+` 415 · `nalatenschap` 178 · `napoleontische
+oorlogen` 235 · `narcisme` 258, 404 · `naslag` 99, 112 · `naslagwerk` 59, 225,
+426, 477, 478, 486, 491, 500, 504 · `nationalisme` 237 · `natuur` 191, 323,
+609 · `natuurkunde` 62, 94, 240, 262, 281, 300, 326 · `navigatie` 321 · `navy
+seals` 229, 364 · `nazisme` 223 · `necrofilie` 223 · `nederland` 96 ·
+`nederlands` 93, 97, 100, 101, 102, 103, 104, 105, 106, 107, 108, 128, 130,
+131, 141 · `nederlands-auteur` 140 · `nederlandstalig` 113 · `negatieve
+emoties` 176 · `negentig dagen` 188 · `neopaganisme` 611 · `nepnieuws` 237 ·
+`netwerken` 24, 246, 300, 388, 508 · `neurobiologie` 119 · `neurochirurgie`
+49, 414 · `neurologie` 325 · `neuroplasticiteit` 175, 208, 414 · `neurose` 575
+· `neurowetenschap` 52, 208, 238, 275, 314, 326, 330, 331, 333, 339, 340, 386,
 418, 513, 585 · `neurowetenschap-voor-kinderen` 327 · `neusademing` 318 · `new
 age` 149, 435, 449, 549 · `new thought` 259, 380, 555 · `NeXT` 46 ·
 `Nietzsche` 391 · `nieuwe gedachte` 127, 378 · `nieuws` 60, 90 ·
@@ -115362,7 +120531,7 @@ age` 149, 435, 449, 549 · `new thought` 259, 380, 555 · `NeXT` 46 ·
 `Nobelprijs` 55 · `non-dualiteit` 520 · `non-fictie` 420 · `non-verbaal` 399 ·
 `non-verbale communicatie` 154 · `noodlot` 533 · `Noordse mythologie` 533 ·
 `notitieboeken` 241 · `novelle` 173 · `numineus` 578 · `obesitas` 417 ·
-`observeren` 15 · `obsessieve liefde` 284 · `occultisme` 378 ·
+`observeren` 15 · `obsessieve liefde` 284 · `occultisme` 378, 613 ·
 `ochtendroutine` 14, 134, 244 · `oefenen` 29, 397 · `oefening` 141, 296 ·
 `oefeningen` 15, 35, 87, 103, 109, 118, 120, 122, 130, 549 · `okinawa` 77 ·
 `okr` 256 · `omgangsvormen` 24, 398 · `omkering` 105 · `omstreden` 37, 73, 76,
@@ -115374,26 +120543,27 @@ age` 149, 435, 449, 549 · `new thought` 259, 380, 555 · `NeXT` 46 ·
 · `ondernemers` 174 · `ondernemerschap` 157, 163, 185, 197, 198, 210, 222,
 228, 231, 245, 249, 276, 278, 289, 306, 307, 308, 312, 350, 365, 369, 370,
 395, 403, 427, 431, 434, 465, 544, 567, 570 · `onderwijs` 6, 23, 33, 45, 63,
-65, 68, 116, 237, 349, 509 · `onderwijskritiek` 37 · `onderzoek` 23, 28, 29,
-32, 33, 39, 44, 55, 62, 78, 79, 80, 84, 85, 86, 88, 152, 305 ·
+65, 68, 116, 237, 349, 509, 598 · `onderwijskritiek` 37 · `onderzoek` 23, 28,
+29, 32, 33, 39, 44, 55, 62, 78, 79, 80, 84, 85, 86, 88, 152, 305 ·
 `onderzoeksdebat` 53 · `onderzoeksethiek` 215 · `onderzoekskritiek` 52, 415 ·
 `ongemak` 323 · `ongeneeslijke ziekte` 285 · `online ondernemen` 309 ·
 `onsterfelijkheid` 236, 405 · `onthechting` 462 · `ontmoeten` 304 ·
 `ontmoeting` 572 · `ontologie` 344 · `ontslagen` 47 · `ontwerp` 550 ·
 `ontwikkeling` 46, 85 · `ontwikkelingslanden` 234 · `onvolmaaktheid` 379 ·
 `onzekerheid` 268, 341, 375, 423, 515, 516 · `oordeel` 59, 69 · `oorlog` 31,
-57, 66, 364, 568 · `oorlogvoering` 218 · `opdrachten` 116 · `opgetekend` 97 ·
-`opgeven` 249 · `opgroeien` 4, 295 · `opoffering` 554 · `opties` 494, 495, 506
-· `optimisme` 251 · `optogenetica` 331 · `opvoeding` 3, 23, 29, 44, 53, 73,
-162, 193, 290 · `opwekking` 558 · `orale traditie` 522 · `orde` 73, 74 ·
-`organisatie` 28, 41, 69, 238, 388, 422, 468 · `organisatiecultuur` 183, 273,
-353 · `orthodontie` 332 · `Orwell` 54 · `Otto Rank` 405 · `oud china` 272 ·
-`Oude Rome` 328 · `Oudengels` 532 · `ouder-worden` 5 · `ouderdom` 77, 84, 91,
-95, 191, 402, 416 · `oudheid` 2, 247, 292, 536, 537, 588, 589 · `outsourcen`
-278 · `overdenken` 148 · `overfitting` 484, 485, 502, 503 · `overgave` 431 ·
-`overleven` 31, 36 · `overlevingsvertekening` 64 · `overtuigen` 24, 182, 253,
-356, 367, 438 · `overtuiging` 280 · `overtuigingen` 28, 132, 139, 143, 469,
-487 · `overvloed` 17 · `oxytocine` 458 · `Pacific` 31 · `pacifisme` 240 ·
+57, 66, 364, 568 · `oorlogvoering` 218 · `oorsprong` 599 · `opdrachten` 116 ·
+`opgetekend` 97 · `opgeven` 249 · `opgroeien` 4, 295 · `opoffering` 554 ·
+`opties` 494, 495, 506 · `optimisme` 251 · `optogenetica` 331 · `opvoeding` 3,
+23, 29, 44, 53, 73, 162, 193, 290 · `opwekking` 558 · `orale traditie` 522 ·
+`orde` 73, 74 · `organisatie` 28, 41, 69, 238, 388, 422, 468 ·
+`organisatiecultuur` 183, 273, 353 · `orthodontie` 332 · `Orwell` 54 · `Otto
+Rank` 405 · `oud china` 272 · `Oude Rome` 328 · `Oudengels` 532 ·
+`ouder-worden` 5 · `ouderdom` 77, 84, 91, 95, 191, 402, 416 · `oudheid` 2,
+247, 292, 536, 537, 588, 589 · `outsourcen` 278 · `overdenken` 148 ·
+`overfitting` 484, 485, 502, 503 · `overgave` 431 · `overleven` 31, 36 ·
+`overlevingsvertekening` 64 · `overtuigen` 24, 182, 253, 356, 367, 438 ·
+`overtuiging` 280 · `overtuigingen` 28, 132, 139, 143, 469, 487 · `overvloed`
+17 · `oxytocine` 458 · `Pacific` 31 · `pacifisme` 240, 612 ·
 `Padma-onderscheiding` 189 · `palliatieve zorg` 416, 447 · `para` 81 ·
 `parabel` 38, 244, 246 · `paradigma` 543 · `paranormaal` 340, 362 · `passie`
 50, 198 · `pastoraat` 34 · `patiëntenverhalen` 331 · `patiëntverhalen` 414 ·
@@ -115404,14 +120574,15 @@ financiën` 163, 233, 395 · `persoonlijke ontwikkeling` 161, 465, 467 ·
 580 · `Perzië` 524, 525, 526, 536 · `piekeren` 105, 176 · `pijn` 85, 255 ·
 `pijnlichaam` 435 · `Pixar` 41, 46 · `placebo` 387, 469 · `planeten` 99 ·
 `planning` 70, 276 · `plantaardig-dieet` 324 · `plastische chirurgie` 411 ·
-`plato` 581 · `plicht` 2 · `podcast` 136, 465, 513 · `poëzie` 204 · `poker`
-137 · `polarisatie` 305 · `polemiek` 67 · `politicologie` 220, 221, 453, 455 ·
-`politiek` 54, 219, 438 · `politieke economie` 566 · `politieke filosofie` 394
-· `populair` 77, 129, 133 · `populair-wetenschappelijk` 88, 239, 326, 418, 451
-· `populaire filosofie` 194 · `populaire psychologie` 156, 429 ·
-`portefeuille` 474 · `portefeuillebeheer` 507 · `portefeuilletheorie` 503 ·
-`portretten` 75, 94 · `positief denken` 83, 179, 516 · `positiegrootte` 489,
-490, 491, 493, 504, 506 · `positieve-psychologie` 207 · `positionering` 443 ·
+`plato` 581 · `plicht` 2 · `podcast` 136, 465, 513 · `poëzie` 204, 611 ·
+`poker` 137 · `polarisatie` 305 · `polemiek` 67 · `politicologie` 220, 221,
+453, 455 · `politiek` 54, 219, 438, 629 · `politieke economie` 566 ·
+`politieke filosofie` 394, 623, 624, 626, 627, 628 · `populair` 77, 129, 133 ·
+`populair-wetenschappelijk` 88, 239, 326, 418, 451 · `populaire filosofie` 194
+· `populaire psychologie` 156, 429 · `portefeuille` 474 · `portefeuillebeheer`
+507 · `portefeuilletheorie` 503 · `portretten` 75, 94 · `positief denken` 83,
+179, 516 · `positiegrootte` 489, 490, 491, 493, 504, 506 ·
+`positieve-psychologie` 207 · `positionering` 443 · `postmarxisme` 628 ·
 `postmodernisme` 565 · `postuum` 49 · `Praag` 173 · `praktijk` 459 ·
 `praktisch` 118, 121, 140, 159, 172 · `prentenboek` 167 · `presenteren` 82,
 253 · `prestatie` 168, 291, 372, 397, 488, 545 · `prestatiebeoordeling` 256 ·
@@ -115424,7 +120595,7 @@ financiën` 163, 233, 395 · `persoonlijke ontwikkeling` 161, 465, 467 ·
 `programmering` 439 · `projecten` 81 · `projectie` 107, 108 · `propaganda` 60,
 384, 562, 566 · `propositielogica` 437 · `protocol` 69 · `pseudokennis` 126 ·
 `pseudoniem` 378 · `psychedelica` 275 · `psychiatrie` 1, 48, 95, 96, 104, 213,
-314, 315, 317, 331 · `psychoanalyse` 223, 360, 361, 405, 409, 575 ·
+314, 315, 317, 331 · `psychoanalyse` 223, 360, 361, 405, 409, 575, 610 ·
 `psychologie` 23, 28, 29, 55, 73, 78, 79, 105, 138, 143, 147, 152, 154, 162,
 200, 211, 213, 214, 250, 254, 258, 296, 310, 338, 357, 358, 375, 381, 382,
 384, 387, 424, 444, 457, 463, 467, 468, 469, 487, 501, 514, 538, 541, 542, 582
@@ -115432,59 +120603,62 @@ financiën` 163, 233, 395 · `persoonlijke ontwikkeling` 161, 465, 467 ·
 `psychopathie` 429 · `psychotherapie` 164, 227, 386, 406 · `PTSS` 386 ·
 `publiceren` 13 · `publiek opbouwen` 369 · `publieksfilosofie` 269 ·
 `Pulitzer` 5 · `puzzels` 451 · `Python` 486 · `quantum` 94 · `queeste` 522 ·
-`quilten` 114 · `quotes` 179 · `radicale transparantie` 270 · `RAND` 454, 456
-· `Rat-Pack` 178 · `rationaliteit` 454 · `rationele keuze` 455 · `recht` 393 ·
-`rechtspraak` 69 · `reclame` 206, 279, 443, 446, 563 · `reeks` 114, 192 ·
-`regimeverandering` 220 · `reïncarnatie` 202 · `reïnventie` 344 ·
-`reisverhaal` 1 · `reizen` 278 · `relaties` 34, 51, 101, 120, 122, 145, 152,
-162, 164, 166, 167, 195, 213, 334, 335, 381, 398, 406, 466 · `relatietherapie`
-165 · `relativiteitstheorie` 240, 281 · `religie` 56, 572 · `religieuze
-symboliek` 409 · `REM` 52 · `remarkable` 446 · `Renaissance` 15, 241 · `rente`
-38 · `replicatie` 79 · `reputatie` 388 · `retorica` 253, 438 · `revisie` 18 ·
-`ridderepos` 534 · `rijkdom` 57, 228 · `risico` 64, 80, 144, 268, 282, 351,
-423, 425, 480, 481, 482, 487, 496, 500, 501 · `risicobeheer` 479, 489, 490,
-491, 492, 493, 494, 497, 498, 504, 506 · `ritueel` 404, 590 · `rituelen` 304 ·
-`rivier als symbool` 287 · `roem-en-eenzaamheid` 178 · `roeping` 8, 9, 12, 160
-· `roman` 61, 113, 114, 115, 254, 554 · `Rome` 537 · `romeinse oudheid` 232 ·
-`rouw` 95, 467 · `rouwverwerking` 204 · `ruimte en tijd` 281 · `ruimtevaart`
-266 · `russische literatuur` 235 · `rust` 32 · `SaaS` 434 · `sadisme` 223 ·
-`saga` 533 · `Salinas` 10 · `samenleving` 90, 98, 319 · `samenwerken` 25 ·
-`samenwerking` 453 · `samoerai` 346, 462, 517, 535 · `Sanskriet` 520 · `Santa
-Fe Institute` 347 · `satire` 155 · `satori` 528 · `scepsis` 63, 585 ·
-`schaalgroei` 434 · `schaalvergroting` 350 · `schaamte` 32, 44, 317, 470 ·
-`schaarste` 92, 249 · `schaduw` 404 · `scheiding` 556 · `scheikunde` 92 ·
-`school` 53, 84 · `schrijven` 11, 12, 14, 18, 19, 81, 436, 511 ·
-`schrijverschap` 191, 325 · `schuld` 254 · `schulden` 20, 38, 121, 159, 464 ·
-`seksualiteit` 100, 145, 164, 165, 316 · `selectoraattheorie` 221 · `seminar`
-139, 543 · `Shaolin` 389 · `Silicon Valley` 306 · `simulatie` 565 ·
-`sirtuïnen` 415 · `situationisme` 564 · `slaap` 52, 87, 88, 171, 181, 316,
-329, 414 · `slaapapneu` 332 · `slavernij` 68 · `smartphone` 53, 288 · `sociale
-besmetting` 303 · `sociale media` 53, 70, 194, 198, 204, 288, 365 · `sociale
-psychologie` 215, 280, 302, 319 · `sociale-vaardigheden` 398 · `sociologie`
-300 · `soefisme` 524, 526 · `software` 276, 484 · `somberheid` 119 ·
-`spanning` 101 · `sparen` 21, 38, 159, 233, 464 · `Sparta` 529 ·
-`specialisatie` 349 · `speedreading` 175 · `spel` 550 · `spelen` 32 ·
-`spellen` 392 · `speltheorie` 217, 221, 450, 451, 452, 453, 454, 455, 456 ·
-`spiegelneuronen` 303 · `spiegeloefening` 380 · `spiegelogie` 108 ·
-`spieropbouw` 316 · `spijt` 447 · `spiritualiteit` 8, 14, 27, 102, 108, 141,
-149, 160, 169, 184, 190, 195, 196, 199, 242, 310, 358, 377, 431, 435, 449,
-519, 526, 556, 583, 590 · `spirituele zoektocht` 287, 524 · `sport` 20, 349 ·
-`sportpsychologie` 372, 374, 441 · `sportwetenschap` 461 · `spreekangst` 253 ·
-`spreker` 117, 134 · `staartrisico` 494, 496 · `staatsgreep` 220 · `stalking`
-214 · `standaarden` 396 · `Stanford` 150, 388, 458 · `start-ups` 306 ·
-`startups` 265 · `statistiek` 55, 65, 69, 234, 268, 300, 426, 476, 479, 483,
-484, 485, 497, 500, 502, 503, 507 · `statistiek van uitzonderingen` 274 ·
-`status` 39, 66, 463 · `stereotypen` 562 · `sterfelijkheid` 2, 71, 232, 295,
-416, 516 · `sterrenkunde` 99 · `sterven` 49, 95, 275, 447 · `stijl` 18, 436 ·
-`stoicijns` 75, 140, 142 · `stoïcijnse filosofie` 153, 228, 232, 286, 423, 459
-· `stoïcijnse levenshouding` 402 · `stoïcijnse-houding` 462 · `stoïcisme` 2,
-30, 194, 247, 248, 292, 516, 586 · `stommiteit` 155 · `storytelling` 253, 279
-· `strategie` 212, 217, 218, 219, 249, 250, 260, 272, 293, 306, 346, 353, 370,
-426, 440, 443, 450, 451, 456 · `streken` 112 · `stress` 80, 87, 106, 118, 187,
-387, 458 · `stressmanagement` 153 · `stressregulatie` 372 · `strip` 452 ·
-`structuur` 82, 511 · `studieboek` 421, 437, 497, 498, 507 · `studietechniek`
-420 · `succes` 75, 76, 274 · `superkrachten` 203 · `supplementen` 171, 316 ·
-`surveillance` 393 · `syllogismen` 437 · `symboliek` 357, 360, 522 ·
+`quilten` 114 · `quotes` 179 · `racisme` 601, 602 · `radicale transparantie`
+270 · `RAND` 454, 456 · `Rat-Pack` 178 · `rationaliteit` 454 · `rationele
+keuze` 455 · `recht` 393 · `rechtspraak` 69 · `rechtvaardigheid` 623 ·
+`reclame` 206, 279, 443, 446, 563 · `reeks` 114, 192 · `regimeverandering` 220
+· `reïncarnatie` 202 · `reïnventie` 344 · `reisverhaal` 1 · `reizen` 278 ·
+`relaties` 34, 51, 101, 120, 122, 145, 152, 162, 164, 166, 167, 195, 213, 334,
+335, 381, 398, 406, 466 · `relatietherapie` 165 · `relativiteitstheorie` 240,
+281 · `religie` 56, 572, 596, 599, 626 · `religieus naturalisme` 609 ·
+`religieuze symboliek` 409 · `REM` 52 · `remarkable` 446 · `Renaissance` 15,
+241 · `rente` 38 · `replicatie` 79 · `reputatie` 388 · `retorica` 253, 438 ·
+`revisie` 18 · `revolutie` 625 · `ridderepos` 534 · `rijkdom` 57, 228 ·
+`risico` 64, 80, 144, 268, 282, 351, 423, 425, 480, 481, 482, 487, 496, 500,
+501 · `risicobeheer` 479, 489, 490, 491, 492, 493, 494, 497, 498, 504, 506 ·
+`ritueel` 404, 590, 608 · `rituelen` 304 · `rivier als symbool` 287 ·
+`roem-en-eenzaamheid` 178 · `roeping` 8, 9, 12, 160 · `roman` 61, 113, 114,
+115, 254, 554 · `Rome` 537 · `romeinse oudheid` 232 · `rouw` 95, 467 ·
+`rouwverwerking` 204 · `ruimte en tijd` 281 · `ruimtevaart` 266 · `russische
+literatuur` 235 · `rust` 32 · `SaaS` 434 · `sadisme` 223 · `saga` 533 ·
+`Salinas` 10 · `samenleving` 90, 98, 319 · `samenwerken` 25 · `samenwerking`
+453 · `samoerai` 346, 462, 517, 535 · `Sanskriet` 520 · `Santa Fe Institute`
+347 · `satire` 155 · `satori` 528 · `scepsis` 63, 585 · `schaalgroei` 434 ·
+`schaalvergroting` 350 · `schaamte` 32, 44, 317, 470 · `schaarste` 92, 249 ·
+`schaduw` 404 · `scheiding` 556 · `scheikunde` 92 · `school` 53, 84 ·
+`schrijven` 11, 12, 14, 18, 19, 81, 436, 511 · `schrijverschap` 191, 325 ·
+`schuld` 254 · `schulden` 20, 38, 121, 159, 464 · `seksualiteit` 100, 145,
+164, 165, 316 · `selectoraattheorie` 221 · `seminar` 139, 543 · `Shaolin` 389
+· `Silicon Valley` 306 · `simulatie` 565 · `sirtuïnen` 415 · `situationisme`
+564 · `slaap` 52, 87, 88, 171, 181, 316, 329, 414 · `slaapapneu` 332 ·
+`slavernij` 68 · `smartphone` 53, 288 · `sociale besmetting` 303 · `sociale
+media` 53, 70, 194, 198, 204, 288, 365 · `sociale psychologie` 215, 280, 302,
+319 · `sociale-vaardigheden` 398 · `sociologie` 300, 622 · `soefisme` 524, 526
+· `software` 276, 484 · `somberheid` 119 · `spanning` 101 · `sparen` 21, 38,
+159, 233, 464 · `Sparta` 529 · `specialisatie` 349 · `speedreading` 175 ·
+`spel` 550 · `spelen` 32 · `spellen` 392 · `speltheorie` 217, 221, 450, 451,
+452, 453, 454, 455, 456 · `spiegelneuronen` 303 · `spiegeloefening` 380 ·
+`spiegelogie` 108 · `spieropbouw` 316 · `spijt` 447 · `spiritualiteit` 8, 14,
+27, 102, 108, 141, 149, 160, 169, 184, 190, 195, 196, 199, 242, 310, 358, 377,
+431, 435, 449, 519, 526, 556, 583, 590, 596, 603, 604, 614 · `spirituele
+zoektocht` 287, 524 · `sport` 20, 349 · `sportpsychologie` 372, 374, 441 ·
+`sportwetenschap` 461 · `spreekangst` 253 · `spreker` 117, 134 ·
+`staartrisico` 494, 496 · `staat` 612 · `staatsgreep` 220 · `staatskritiek`
+621, 622, 623 · `staatsvorming` 622 · `stalking` 214 · `standaarden` 396 ·
+`Stanford` 150, 388, 458 · `start-ups` 306 · `startups` 265 · `statistiek` 55,
+65, 69, 234, 268, 300, 426, 476, 479, 483, 484, 485, 497, 500, 502, 503, 507 ·
+`statistiek van uitzonderingen` 274 · `status` 39, 66, 463 · `stereotypen` 562
+· `sterfelijkheid` 2, 71, 232, 295, 416, 516 · `sterrenkunde` 99 · `sterven`
+49, 95, 275, 447 · `stijl` 18, 436 · `stoicijns` 75, 140, 142 · `stoïcijnse
+filosofie` 153, 228, 232, 286, 423, 459 · `stoïcijnse levenshouding` 402 ·
+`stoïcijnse-houding` 462 · `stoïcisme` 2, 30, 194, 247, 248, 292, 516, 586 ·
+`stommiteit` 155 · `storytelling` 253, 279 · `strategie` 212, 217, 218, 219,
+249, 250, 260, 272, 293, 306, 346, 353, 370, 426, 440, 443, 450, 451, 456 ·
+`streken` 112 · `stress` 80, 87, 106, 118, 187, 387, 458 · `stressmanagement`
+153 · `stressregulatie` 372 · `strip` 452 · `structuur` 82, 511 · `studieboek`
+421, 437, 497, 498, 507 · `studietechniek` 420 · `succes` 75, 76, 274 ·
+`superkrachten` 203 · `supplementen` 171, 316 · `surveillance` 393 ·
+`syllogismen` 437 · `symboliek` 357, 360, 522, 605, 608, 610 ·
 `synchroniciteit` 362 · `synchronisatie` 303 · `systeem` 22, 142 ·
 `systeemtheorie` 165 · `systematisch handelen` 482, 502 · `taal` 26, 27, 436 ·
 `taal en macht` 344 · `tactische empathie` 271 · `talent` 23, 29, 274 ·
@@ -115496,38 +120670,39 @@ psychologie` 215, 280, 302, 319 · `sociale-vaardigheden` 398 · `sociologie`
 111, 174, 570 · `tekenen` 15 · `tekstkwaliteit` 124 · `televisie` 54 ·
 `temperament` 33 · `tempo` 552 · `termijnmarkten` 480, 482 · `testament` 462 ·
 `tevredenheid` 463 · `Texas` 5, 385 · `The Secret` 433 · `theeceremonie` 379 ·
-`theologie` 578, 587 · `therapie` 51, 107, 118, 119, 120, 121, 122, 145, 466 ·
-`Thermopylae` 529 · `thriller` 101, 202 · `thuiskomst` 531 · `thuiszorg` 225 ·
-`tieners` 193 · `tijd` 71, 232, 262, 292, 334, 442 · `tijdmanagement` 434 ·
-`tijdsbeleving` 326 · `timemanagement` 311, 448 · `toekomst` 236 · `toeval`
-21, 64, 93, 137, 274, 362, 483 · `Tolteeks` 27 · `toon` 72, 118, 119, 121,
-132, 145 · `topprestatie` 374 · `topsport` 422, 460, 545 · `totalitarisme` 384
-· `trading` 492, 493, 495 · `training` 376 · `transpersoonlijke psychologie`
-583 · `trauma` 104, 119, 195, 229, 317, 386 · `trendvolgen` 480, 501 ·
-`trilling` 127 · `trilogie` 202, 203, 248 · `TRIZ` 471 · `Troje` 530 ·
-`tuinontwerp` 205 · `tumoronderdrukker` 419 · `twaalf-weken` 14 · `twaalfde
-eeuw` 525 · `tweede-wereldoorlog` 115 · `tweelingonderzoek` 417 · `twintigers`
-51 · `typologie` 361 · `uitdaging-vaardigheid` 200 · `uitgeven` 463 · `uitleg`
-99, 102 · `uitleggen` 82 · `uitstel` 71, 140 · `uitstelgedrag` 12, 311, 513 ·
-`uitstellen` 16 · `uitvinding` 267 · `ultra-triatlon` 324 · `ultralopen` 229 ·
-`umwelt` 322 · `Upanishaden` 169 · `vaardigheden` 40, 50, 349, 397 ·
-`vaardigheid` 64, 296 · `vader-en-dochter` 178, 226 · `vader-en-zoon` 1, 173,
-287 · `vaderschap` 49, 226, 324, 385 · `vakbonden` 297 · `vakmanschap` 1, 206,
-320, 346, 376, 553 · `variantie` 137 · `vastgoed` 37, 448, 570 · `vechtkunst`
-389 · `vedanta` 518 · `vedische filosofie` 230 · `veedrift` 5 · `veerkracht`
-106, 153, 174, 177, 189, 317, 375, 459, 460, 461, 467, 470 · `veiligheid` 43,
-214 · `veiligheidsmarge` 144 · `veldwerk` 521 · `verandering` 170, 252, 375,
-467 · `verantwoordelijkheid` 42, 72, 73, 74, 93, 184, 282, 335, 364 ·
-`verbinding` 302, 550 · `verdriet` 111, 227 · `Verenigde-Staten` 464 ·
-`vergaderen` 42 · `vergaderingen` 276 · `vergankelijkheid` 379, 532 ·
-`vergelijkende mythologie` 410 · `vergeving` 31, 102, 120, 548, 556 ·
-`verhaal` 74 · `verhaalstructuur` 410 · `verhaalvorm` 135 · `verhalen` 56,
-101, 110, 136, 196, 470 · `verhalenbundel` 206 · `verhouding` 113 ·
-`verhoudingen` 110 · `verkeer` 300 · `verklaringen` 68 · `verkoop` 132, 182,
-185, 186, 188, 246, 280, 307, 308, 350, 367, 427 · `verkooptrechters` 309 ·
-`verkopen` 210 · `verlangen` 76, 100, 113, 130, 164, 418 · `verleiding` 381 ·
-`verlichting` 243, 287 · `verlies` 95, 373 · `vermaak` 61 · `vermogen` 39, 463
-· `vermogen opbouwen` 395 · `vermogensbeheer` 498 · `vermogensopbouw` 163,
+`theologie` 578, 587 · `theosofie` 605, 606 · `therapie` 51, 107, 118, 119,
+120, 121, 122, 145, 466 · `Thermopylae` 529 · `thriller` 101, 202 ·
+`thuiskomst` 531 · `thuiszorg` 225 · `tieners` 193 · `tijd` 71, 232, 262, 292,
+334, 442 · `tijdmanagement` 434 · `tijdsbeleving` 326 · `timemanagement` 311,
+448 · `toekomst` 236 · `toeval` 21, 64, 93, 137, 274, 362, 483 · `Tolteeks` 27
+· `toon` 72, 118, 119, 121, 132, 145 · `topprestatie` 374 · `topsport` 422,
+460, 545 · `totalitarisme` 384 · `trading` 492, 493, 495 · `training` 376 ·
+`transpersoonlijke psychologie` 583 · `trauma` 104, 119, 195, 229, 317, 386 ·
+`trendvolgen` 480, 501 · `trilling` 127 · `trilogie` 202, 203, 248 · `TRIZ`
+471 · `Troje` 530 · `tuinontwerp` 205 · `tumoronderdrukker` 419 ·
+`twaalf-weken` 14 · `twaalfde eeuw` 525 · `tweede-wereldoorlog` 115 ·
+`tweelingonderzoek` 417 · `twintigers` 51 · `typologie` 361 · `ufo's` 615 ·
+`uitdaging-vaardigheid` 200 · `uitgeven` 463 · `uitleg` 99, 102 · `uitleggen`
+82 · `uitstel` 71, 140 · `uitstelgedrag` 12, 311, 513 · `uitstellen` 16 ·
+`uitvinding` 267 · `ultra-triatlon` 324 · `ultralopen` 229 · `umwelt` 322 ·
+`Upanishaden` 169 · `vaardigheden` 40, 50, 349, 397 · `vaardigheid` 64, 296 ·
+`vader-en-dochter` 178, 226 · `vader-en-zoon` 1, 173, 287 · `vaderschap` 49,
+226, 324, 385 · `vakbonden` 297 · `vakmanschap` 1, 206, 320, 346, 376, 553 ·
+`variantie` 137 · `vastgoed` 37, 448, 570 · `vechtkunst` 389 · `vedanta` 518 ·
+`vedische filosofie` 230 · `veedrift` 5 · `veerkracht` 106, 153, 174, 177,
+189, 317, 375, 459, 460, 461, 467, 470 · `veiligheid` 43, 214 ·
+`veiligheidsmarge` 144 · `veldwerk` 521 · `verandering` 170, 252, 375, 467 ·
+`verantwoordelijkheid` 42, 72, 73, 74, 93, 184, 282, 335, 364 · `verbinding`
+302, 550 · `verdriet` 111, 227 · `verenigde staten` 598 · `Verenigde-Staten`
+464 · `vergaderen` 42 · `vergaderingen` 276 · `vergankelijkheid` 379, 532 ·
+`vergelijkende mythologie` 410 · `vergelijkende religie` 604 · `vergeving` 31,
+102, 120, 548, 556 · `verhaal` 74 · `verhaalstructuur` 410 · `verhaalvorm` 135
+· `verhalen` 56, 101, 110, 136, 196, 470 · `verhalenbundel` 206 · `verhouding`
+113 · `verhoudingen` 110 · `verkeer` 300 · `verklaringen` 68 · `verkoop` 132,
+182, 185, 186, 188, 246, 280, 307, 308, 350, 367, 427 · `verkooptrechters` 309
+· `verkopen` 210 · `verlangen` 76, 100, 113, 130, 164, 418 · `verleiding` 381
+· `verlichting` 243, 287 · `verlies` 95, 373 · `vermaak` 61 · `vermogen` 39,
+463 · `vermogen opbouwen` 395 · `vermogensbeheer` 498 · `vermogensopbouw` 163,
 264, 277 · `veroudering` 171, 387, 415 · `verpleeghuis` 416 · `verpleegkunde`
 225 · `verplichting` 9 · `verraad` 534 · `verslaving` 18, 238, 275, 294, 314,
 324, 325, 418, 554, 568, 583 · `vertrouwen` 42, 273, 279, 319 · `vervloekt
@@ -115543,7 +120718,8 @@ goud` 533 · `vervolg` 74, 131 · `vervreemding` 173 · `verwachting` 387 ·
 `voorzichtigheid` 216 · `vorming` 224 · `vorstenspiegel` 536 · `vragen
 stellen` 509 · `vragen-stellen` 475 · `vreemden` 302 · `vreugde` 549 ·
 `vriendelijkheid` 551 · `vriendschap` 5, 7, 114, 292, 295, 319, 514 · `vrije
-tijd` 78, 288 · `vrije wil` 10, 236, 339 · `vrijheid` 61, 546 · `vroeg
+markt` 627 · `vrije tijd` 78, 288 · `vrije wil` 10, 236, 339 · `vrijheid` 61,
+546, 621, 626 · `vrijmetselarij` 605 · `vroeg christendom` 614 · `vroeg
 pensioen` 264 · `vrouwenhaat` 110 · `waardebeleggen` 144, 351 ·
 `waardecreatie` 246, 508 · `waarden` 72, 142, 392, 457, 461, 553 ·
 `waardering` 24, 34 · `waarheid` 263 · `waarneming` 154, 283, 322, 541, 582 ·
@@ -115554,38 +120730,38 @@ rust` 512 · `werkboek` 14, 122, 150 · `werkcultuur` 551 · `werkdruk` 400 ·
 `werkplek` 33, 43 · `werktempo` 400 · `werkwijze` 16 · `West-Afrika` 522 ·
 `West-Point` 29 · `westen` 67 · `western` 5 · `westerse filosofie` 269, 341 ·
 `wet van aantrekking` 127, 190, 433, 543 · `wetenschap` 63, 66, 93, 94, 328,
-485 · `wetenschappers` 239 · `wetenschapsfilosofie` 483 ·
-`wetenschapsgeschiedenis` 239, 240, 321, 347, 413, 419 ·
-`wetenschapsjournalistiek` 387, 412 · `wijn` 112 · `wilskracht` 238 · `Wired`
-473 · `wiskunde` 116, 454, 456, 490, 505, 509 · `wisselstroom` 267 · `woede`
-119, 120 · `woestijn` 8 · `Wolfgang Pauli` 362 · `wraak` 101, 533 · `WRAP` 510
-· `wrok` 530 · `wu wei` 394 · `Yale` 215 · `yin-yang` 394 · `yoga` 195, 242,
-518 · `young adult` 192 · `youtube` 245 · `zakelijk` 307 · `zakelijke
-communicatie` 182 · `zakendoen` 348, 367, 465, 508 · `zeereis` 36 · `zeevaart`
-321 · `zeldzaam` 144 · `zelfacceptatie` 176, 335, 561 · `zelfbedrog` 66 ·
-`zelfbeeld` 25, 27, 105, 107, 108, 129, 138, 197, 367, 372, 411, 439, 538,
-540, 559, 575 · `zelfbeheersing` 75, 148, 212, 248, 286, 314, 382, 389, 396 ·
-`zelfbescherming` 214 · `zelfcompassie` 32, 551 · `zelfdiscipline` 2, 158,
-229, 244, 311, 544 · `zelfevaluatie` 270 · `zelfexperiment` 316, 318, 417 ·
-`zelfhaat` 575 · `zelfhulp` 15, 22, 25, 34, 58, 72, 76, 79, 83, 117, 134, 135,
-136, 146, 147, 148, 149, 150, 151, 152, 153, 156, 157, 158, 161, 162, 166,
-168, 174, 175, 176, 177, 179, 181, 184, 187, 188, 190, 193, 194, 195, 196,
-199, 204, 207, 208, 209, 210, 211, 213, 222, 224, 230, 255, 259, 291, 310,
-334, 338, 356, 373, 380, 389, 395, 398, 401, 403, 406, 411, 427, 429, 432,
-435, 439, 449, 459, 465, 513, 540, 543, 546, 548, 556, 557, 561, 569, 570 ·
-`zelfkennis` 258, 260, 361, 519, 526 · `zelfliefde` 190, 195, 204, 380, 403,
-549 · `zelfonderzoek` 315, 470, 520, 527, 579 · `zelfontplooiing` 393 ·
-`zelfontwikkeling` 179 · `zelfpraat` 161 · `zelfpromotie` 388 ·
-`zelfpublicatie` 174 · `zelfregulatie` 153, 165, 177, 541, 542 ·
-`zelfsabotage` 161, 344 · `zelfspot` 19 · `zelfspraak` 439 · `zelfstandig` 40,
-515 · `zelfstandig denken` 211 · `zelfstandig ondernemen` 198 · `zelfstandig
-starten` 210 · `zelfsturing` 142, 168 · `zelfuitgegeven` 123, 124, 125, 126 ·
-`zelfverbetering` 243 · `zelfvertrouwen` 157, 187, 312, 365, 440, 441 ·
-`zelfwaarde` 168 · `zelfwaardering` 121 · `zelfzorg` 109, 225, 466 · `zen`
-141, 346, 441, 517, 528, 576 · `zenboeddhisme` 205, 379 · `zenuwstelsel` 87 ·
-`zestiende eeuw` 573 · `zeven-stappen` 129 · `ziekte` 74, 180, 295 ·
-`zingeving` 9, 48, 77, 91, 160, 183, 200, 201, 237, 245, 255, 515, 547 ·
-`zintuigen` 582 · `zitten` 84 · `zorg` 96 · `Zuid-Afrika` 26, 266, 523 ·
+485 · `wetenschap en religie` 609 · `wetenschappers` 239 ·
+`wetenschapsfilosofie` 483 · `wetenschapsgeschiedenis` 239, 240, 321, 347,
+413, 419 · `wetenschapsjournalistiek` 387, 412 · `wijn` 112 · `wijsheid` 596 ·
+`wilskracht` 238 · `Wired` 473 · `wiskunde` 116, 454, 456, 490, 505, 509 ·
+`wisselstroom` 267 · `woede` 119, 120 · `woestijn` 8 · `Wolfgang Pauli` 362 ·
+`wraak` 101, 533 · `WRAP` 510 · `wrok` 530 · `wu wei` 394 · `Yale` 215 ·
+`yin-yang` 394 · `yoga` 195, 242, 518 · `young adult` 192 · `youtube` 245 ·
+`zakelijk` 307 · `zakelijke communicatie` 182 · `zakendoen` 348, 367, 465, 508
+· `zeereis` 36 · `zeevaart` 321 · `zeldzaam` 144 · `zelfacceptatie` 176, 335,
+561 · `zelfbedrog` 66 · `zelfbeeld` 25, 27, 105, 107, 108, 129, 138, 197, 367,
+372, 411, 439, 538, 540, 559, 575 · `zelfbeheersing` 75, 148, 212, 248, 286,
+314, 382, 389, 396 · `zelfbescherming` 214 · `zelfcompassie` 32, 551 ·
+`zelfdiscipline` 2, 158, 229, 244, 311, 544 · `zelfevaluatie` 270 ·
+`zelfexperiment` 316, 318, 417 · `zelfhaat` 575 · `zelfhulp` 15, 22, 25, 34,
+58, 72, 76, 79, 83, 117, 134, 135, 136, 146, 147, 148, 149, 150, 151, 152,
+153, 156, 157, 158, 161, 162, 166, 168, 174, 175, 176, 177, 179, 181, 184,
+187, 188, 190, 193, 194, 195, 196, 199, 204, 207, 208, 209, 210, 211, 213,
+222, 224, 230, 255, 259, 291, 310, 334, 338, 356, 373, 380, 389, 395, 398,
+401, 403, 406, 411, 427, 429, 432, 435, 439, 449, 459, 465, 513, 540, 543,
+546, 548, 556, 557, 561, 569, 570 · `zelfkennis` 258, 260, 361, 519, 526 ·
+`zelfliefde` 190, 195, 204, 380, 403, 549 · `zelfonderzoek` 315, 470, 520,
+527, 579 · `zelfontplooiing` 393 · `zelfontwikkeling` 179 · `zelfpraat` 161 ·
+`zelfpromotie` 388 · `zelfpublicatie` 174 · `zelfregulatie` 153, 165, 177,
+541, 542 · `zelfsabotage` 161, 344 · `zelfspot` 19 · `zelfspraak` 439 ·
+`zelfstandig` 40, 515 · `zelfstandig denken` 211 · `zelfstandig ondernemen`
+198 · `zelfstandig starten` 210 · `zelfsturing` 142, 168 · `zelfuitgegeven`
+123, 124, 125, 126 · `zelfverbetering` 243 · `zelfvertrouwen` 157, 187, 312,
+365, 440, 441 · `zelfwaarde` 168 · `zelfwaardering` 121 · `zelfzorg` 109, 225,
+466 · `zen` 141, 346, 441, 517, 528, 576 · `zenboeddhisme` 205, 379 ·
+`zenuwstelsel` 87 · `zestiende eeuw` 573 · `zeven-stappen` 129 · `ziekte` 74,
+180, 295 · `zingeving` 9, 48, 77, 91, 160, 183, 200, 201, 237, 245, 255, 515,
+547 · `zintuigen` 582 · `zitten` 84 · `zorg` 96 · `Zuid-Afrika` 26, 266, 523 ·
 `zuinigheid` 39 · `zuivere ervaring` 576 · `zwaar` 143 · `zwaardvechten` 346,
 517 · `zwart bewustzijn` 523 · `zwarte gaten` 99, 262
 

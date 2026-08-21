@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The State &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Oppenheimer stelt dat de staat naar zijn ontstaan en wezen geen vrucht van overeenstemming is, maar een veroveringsinstelling: een organisatie die een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-622">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">622 &middot; Staat en vrijheid</p>
+    <h1>The State</h1>
+    <p class="lede">Franz Oppenheimer, 1908</p>
+    <p class="stats">
+      <span><b>1322</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="622"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Oppenheimer stelt dat de staat naar zijn ontstaan en wezen geen vrucht van overeenstemming is, maar een veroveringsinstelling: een organisatie die een winnende groep aan een onderworpen bevolking oplegt om haar arbeid blijvend af te romen. Er bestaan volgens hem maar twee wegen naar bevrediging van behoeften, eigen arbeid en ruil, het economische middel, en de onbetaalde toe-eigening van andermans arbeid, het politieke middel. De staat is de organisatie van het politieke middel, en heel zijn geschiedenis, van roversbende tot rechtsstaat, is de geleidelijke beschaving van die oorspronkelijke roof, met als voorziene eindpunt een samenleving waarin alleen het economische middel overblijft.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Tegen de verdragstheorie</h3>
+      <p>Het eerste hoofdstuk zet de eigen, sociologische staatsopvatting af tegen de gangbare theorieën. De gedachte dat mensen ooit uit vrije wil een staat stichtten om hun veiligheid te regelen, acht Oppenheimer historisch onhoudbaar: nergens is een staat aanwijsbaar die zo is ontstaan. In het spoor van Ludwig Gumplowicz zoekt hij het begin niet in instemming maar in groepsstrijd. Zijn definitie is daarnaar: de staat is naar vorm heerschappij en naar inhoud economische uitbuiting van de overwonnenen door de overwinnaars.</p>
+      <h3>Politiek middel en economisch middel</h3>
+      <p>Hoofdstuk twee bevat de begripskern van het boek. Wie in zijn behoeften wil voorzien, kan werken en ruilen, of nemen wat een ander heeft gemaakt. Het eerste noemt Oppenheimer het economische middel, het tweede het politieke middel. Vrijwel alle staatsgeschiedenis laat zich volgens hem lezen als de wisselwerking tussen beide: het politieke middel organiseert zich, verfijnt zich en hult zich in recht, terwijl het economische middel de rijkdom voortbrengt waarop dat teren mogelijk is.</p>
+      <p>In hetzelfde hoofdstuk schetst hij de genese in zes stadia: eerst roof en doodslag in grensgevechten, dan het sparen van de boer als bron van toekomstige oogsten, vervolgens geregelde schatting, daarna vestiging van heersers en beheersten op één grondgebied, dan de aanmatiging van rechtspraak over de onderworpenen, en ten slotte de vergroeiing tot één volk met de gewoonte van heersen en gehoorzamen. Staten ontstaan volgens hem waar herdersvolken of zeenomaden op landbouwende bevolkingen stuiten; boeren stichten zelf geen staten, zij worden gestaatst.</p>
+      <h3>Feodale staat en zeestaat</h3>
+      <p>De hoofdstukken drie tot en met vijf volgen twee ontwikkelingslijnen. De primitieve feodale staat ontstaat uit landverovering: de winnaars worden grondheren, de verliezers horigen, en de verhouding verhardt tot een standenorde. De zeestaat, van de Fenicische en Griekse handelssteden tot Venetië, ontstaat uit het samengaan van handel en zeeroof; hier neemt de heersende klasse de vorm aan van een koopmanspatriciaat. In beide gevallen ziet Oppenheimer dezelfde kern, een minderheid die van het politieke middel leeft, alleen het gewaad verschilt.</p>
+      <p>Voor de verdere ontwikkeling van de feodale staat is het grootgrondbezit beslissend. Door wat hij de afsluiting van de bodem noemt, het monopoliseren van alle bruikbare grond door een kleine klasse, verliest de vrije boer de mogelijkheid zich aan afhankelijkheid te onttrekken. Wie geen eigen grond kan krijgen, moet zijn arbeid aanbieden op voorwaarden van de grondbezitters. Dit bodemmonopolie is voor Oppenheimer de bron van blijvende uitbuiting, ook lang nadat de feodale vormen zijn verdwenen.</p>
+      <h3>De constitutionele staat</h3>
+      <p>Hoofdstuk zes brengt het verhaal naar de moderne tijd. Via het absolutisme en de opkomst van steden, geldeconomie en burgerij ontwikkelt de feodale staat zich tot de constitutionele staat. Recht, parlement en burgerrechten temmen de heerschappij, maar heffen haar niet op: zolang het bodemmonopolie en de daarop gebouwde vermogensverhoudingen bestaan, blijft de staat naar inhoud een instrument waarmee een klasse meer terugneemt dan zij door arbeid en ruil verwerft. De rechtsstaat is voor Oppenheimer echte vooruitgang en tegelijk onvoltooid.</p>
+      <h3>De richting van de ontwikkeling</h3>
+      <p>Het slothoofdstuk trekt de lijn door naar de toekomst. Oppenheimer verwacht dat de economische ontwikkeling het bodemmonopolie zal oplossen, onder meer door vrije coöperatieve landbouw, en dat daarmee het politieke middel zijn voedingsbodem verliest. Wat overblijft noemt hij een maatschappij van vrijburgers: een door zelfbestuur geleide samenleving waarin het bestuursapparaat onpartijdig beheerder van gemeenschappelijke belangen is en ruil van gelijkwaardige prestaties de verhoudingen bepaalt. Hij presenteert dat niet als utopie maar als de richting waarin de geschiedenis volgens hem feitelijk beweegt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">politiek middel</td><td>De bevrediging van behoeften door onbetaalde toe-eigening van andermans arbeid, van roof tot wettelijk geregelde afdracht.</td></tr>
+          <tr><td class="term">economisch middel</td><td>De bevrediging van behoeften door eigen arbeid en vrijwillige ruil van gelijkwaardige prestaties.</td></tr>
+          <tr><td class="term">staat</td><td>In Oppenheimers definitie de organisatie van het politieke middel: naar vorm heerschappij, naar inhoud economische uitbuiting.</td></tr>
+          <tr><td class="term">veroveringstheorie</td><td>De opvatting, overgenomen van Gumplowicz, dat staten ontstaan doordat de ene groep de andere met geweld onderwerpt, niet door een maatschappelijk verdrag.</td></tr>
+          <tr><td class="term">zes stadia</td><td>Oppenheimers reeks van roof, sparen van de overwonnene, geregelde schatting, territoriale vereniging, rechtspraak en volledige vergroeiing tot één volk.</td></tr>
+          <tr><td class="term">afsluiting van de bodem</td><td>Het monopoliseren van alle bruikbare grond door een kleine klasse, waardoor de rest van de bevolking tot afhankelijke arbeid wordt gedwongen.</td></tr>
+          <tr><td class="term">zeestaat</td><td>Staatsvorm van handelssteden waarin een koopmanspatriciaat heerst, ontstaan uit de combinatie van handel en zeeroof.</td></tr>
+          <tr><td class="term">vrijburgerschap</td><td>Oppenheimers toekomstbeeld van een samenleving zonder politiek middel, geleid door zelfbestuur en gebaseerd op ruil van gelijkwaardige prestaties.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Oppenheimer onderbouwt zijn these met een breed maar tweedehands corpus: etnografische beschrijvingen van herdersvolken en veroveringsrijken, klassieke geschiedschrijving en de agrarische geschiedenis van Europa. Voor de door hem beschreven gevallen, de Germaanse landnames, de Normandische veroveringen, de steppenrijken, klopt het patroon van gewapende minderheden die zich als heersende klasse over een boerenbevolking leggen; historici erkennen dat veel bestaande staten zulke episoden in hun voorgeschiedenis hebben. Ook zijn begripsonderscheid staat los van de historische these overeind: dat inkomen zowel uit productie als uit afgedwongen overdracht kan komen, is in de moderne economie als onderscheid tussen productief gedrag en rent-seeking teruggekeerd.</p>
+      <p>De zwakte zit in de sprong van patroon naar wet. Oppenheimer schreef voor de grote archeologische ontdekkingen van de twintigste eeuw en kon de vroegste staatsvorming in Mesopotamië, Egypte, China, Meso-Amerika en de Andes niet toetsen. Zijn stelling dat geen enkele staat ooit anders dan door verovering is ontstaan, was een generalisatie op basis van secundaire stadia: staten die zich vormden waar al staten bestonden. Voor de eerste staten in de geschiedenis levert het boek geen bewijs, alleen extrapolatie.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De vakwetenschappelijke weging is duidelijk: als monocausale verklaring heeft de veroveringstheorie het niet gehaald. Antropologen en archeologen, van Robert Lowie in de jaren twintig tot het latere onderzoek naar vroege staten, lieten zien dat de oudste staten veelal uit interne gelaagdheid zijn gegroeid, rond irrigatie, bevolkingsdruk, handel en religieuze centra, zonder aanwijsbare externe verovering. Robert Carneiro, die oorlog wel als motor ziet, verbond haar aan omsloten landbouwgebieden en gaf daarmee een preciezere theorie dan Oppenheimers algemene herdersthese. Het huidige standpunt is dat verovering één route naar staatsvorming is, geen wet.</p>
+      <p>Ook de voorspellende kant is niet uitgekomen. De staat is sinds 1908 niet naar het vrijburgerschap toegegroeid maar heeft twee wereldoorlogen, totalitaire regimes en een historisch ongeëvenaarde uitbreiding van taken en belastingen laten zien. Critici wijzen er bovendien op dat de scherpe tweedeling tussen politiek en economisch middel in de praktijk vervaagt: markten hebben rechtshandhaving nodig, en veel afdrachten aan de staat financieren voorzieningen waar ook de betalers van profiteren. Wie het boek leest als geslepen begrippenapparaat met een gedateerde historische bewijsvoering, leest het zoals de vakliteratuur het nu weegt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik het onderscheid tussen produceren en toe-eigenen als analysevraag bij elk verdienmodel en elke regeling: wordt hier waarde gemaakt of overgeheveld?</li>
+        <li>Wees wantrouwig tegenover oorsprongsverhalen waarin instellingen uit vrijwillige overeenstemming ontstaan; vraag naar het feitelijke, vaak gewelddadige begin.</li>
+        <li>Let bij vermogensongelijkheid op toegangsmonopolies, in Oppenheimers tijd grond, nu bijvoorbeeld vergunningen of netwerken, als mechanisme dat afhankelijkheid in stand houdt.</li>
+        <li>Toets grote ontwikkelingswetten aan gevallen die de auteur niet kon kennen; de veroveringsthese laat zien hoe een sterk patroon een te sterke wet werd.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Der Staat</i> (eerste Duitse uitgave 1908, geschreven als onderdeel van Oppenheimers <i>System der Soziologie</i>); Engelse vertaling <i>The State: Its History and Development Viewed Sociologically</i> door John M. Gitterman (The Bobbs-Merrill Company, Indianapolis, 1914, 302 blz.; latere drukken bij onder meer Vanguard Press, 1926, en Free Life Editions, 1975). Een Nederlandse vertaling verscheen in 1932 als <i>De staat</i> en is opgenomen in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De Duitse socioloog en econoom Franz Oppenheimer (1864-1943) zet in dit boek zijn veroveringstheorie van de staat uiteen. Tegenover de gedachte dat staten uit een maatschappelijk verdrag zijn ontstaan, stelt hij dat de staat historisch begint als verovering: een groep, meestal herdersvolken of zeevaarders, onderwerpt een boerenbevolking en richt een blijvende organisatie in om haar arbeid af te romen.</p><p>Daarop bouwt hij zijn bekendste onderscheid: het economische middel, ruil van eigen arbeid, tegenover het politieke middel, de onbetaalde toe-eigening van andermans arbeid. De staat definieert hij als de organisatie van het politieke middel. Het boek volgt de staat door zes stadia tot de constitutionele staat en eindigt met de verwachting dat het politieke middel ooit verdwijnt. De veroveringsthese geldt inmiddels als te eenzijdig, maar het begrippenpaar bleef invloedrijk, van Albert Jay Nock tot Ludwig Erhard.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>staatsvorming</li><li>sociologie</li><li>macht</li><li>staatskritiek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="221"><a href="221.html">The Dictator's Handbook</a>. The Dictator's Handbook analyseert met moderne middelen wat Oppenheimer historisch beschreef: hoe heersende minderheden zich in stand houden.</li>
+          <li value="220"><a href="220.html">Coup d'État</a>. Coup d'État behandelt de machtsgreep als techniek en sluit aan op de gedachte dat staten met geweld worden genomen en gehouden.</li>
+          <li value="56"><a href="56.html">Sapiens</a>. Sapiens plaatst het ontstaan van staten in het bredere verhaal van landbouw en samenwerkingsverbanden, met de latere onderzoeksstand.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

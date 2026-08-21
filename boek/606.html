@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Esoteric Christianity &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Besant stelt dat elke grote religie uit twee lagen bestaat: een openbare leer voor iedereen en een verborgen leer voor wie eraan toe is. Het vroege…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-606">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">606 &middot; Filosofie en mystiek</p>
+    <h1>Esoteric Christianity</h1>
+    <p class="lede">Annie Besant, 1901</p>
+    <p class="stats">
+      <span><b>1343</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="606"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Besant stelt dat elke grote religie uit twee lagen bestaat: een openbare leer voor iedereen en een verborgen leer voor wie eraan toe is. Het vroege christendom kende volgens haar zulke mysteriën, met Paulus' onderscheid tussen melk voor beginners en vaste spijs voor volmaakten als aanwijzing. Toen de kerk die binnenkant in de vierde eeuw kwijtraakte, verschraalde de leer tot letterlijk genomen dogma's die ontwikkelde gelovigen sindsdien van het geloof wegdrijven. Wie de leerstukken esoterisch herleest, met een historische, een mythische en een mystieke Christus, krijgt volgens Besant hun oorspronkelijke betekenis terug; met het herstel van gegradueerd geestelijk onderwijs zou het christendom geloof en rede weer kunnen verenigen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Twee lagen in elke religie</h3>
+      <p>Religies richten zich op mensen in alle stadia van ontwikkeling en kunnen volgens Besant daarom nooit met één uitleg volstaan. Zij onderscheidt kleine mysteriën, de mystieke uitleg van verhalen en leerstukken die in geschrifte gegeven mag worden, en grote mysteriën, mondeling overgedragen kennis die macht over natuurkrachten zou verlenen en daarom strenge morele voorbereiding vergt. Als aanwijzing voert zij aan dat Jezus tot de menigte in gelijkenissen sprak en zijn leerlingen apart uitleg gaf, en dat Paulus schrijft over een wijsheid die alleen onder de volmaakten wordt gesproken. Het eerste hoofdstuk zet ook de toon van het hele boek: de terughoudendheid met hogere kennis wordt verdedigd met het argument dat kennis zonder loutering gevaarlijk is.</p>
+      <h3>De verdwenen mysteriën van de kerk</h3>
+      <p>In twee hoofdstukken over de verborgen kant van het christendom verzamelt Besant citaten van Clemens van Alexandrië, Origenes en andere vroege schrijvers over een geheime overlevering binnen de kerk, en wijst zij op de praktijk om doopleerlingen buiten delen van leer en ritueel te houden. Met het wegzuiveren van de gnostische scholen en het sluiten van de mysteriescholen in de vierde eeuw ging volgens haar de sleutel verloren; wat overbleef was de letterlijke buitenkant. De moderne afkeer van kerkelijke leer is in haar ogen het gevolg van die verminking: ontwikkelde tijdgenoten verwerpen een leer waarvan de diepere lezing hun nooit is aangeboden.</p>
+      <h3>Drie Christussen</h3>
+      <p>De kern van het boek is de splitsing van de Christusfiguur in drie lagen. De historische Jezus werd volgens Besants occulte bronnen rond 105 v.Chr. in Palestina geboren, groeide op in een vrome familie en werd gevormd in een Esseense gemeenschap en in Egypte. Bij de doop in de Jordaan daalde de Christus, in haar stelsel een verheven geestelijk wezen, in het lichaam van de discipel Jezus neer en leerde daarin enkele jaren.</p>
+      <p>De mythische Christus is de zonnegod van het oude wereldbeeld: geboren op 25 december als het licht begint te wassen, stervend en herrijzend rond de lente-equinox, een patroon dat Besant ook bij andere godheden aanwijst. De mystieke Christus ten slotte is het goddelijke beginsel dat in het hart van de leerling geboren wordt; de evangelieverhalen leest zij als kaart van inwijdingsstadia, van geboorte via doop en verheerlijking naar kruisiging, opstanding en hemelvaart.</p>
+      <h3>Leerstukken herlezen</h3>
+      <p>Drie hoofdstukken passen deze sleutel toe op omstreden dogma's. De verzoening ontdoet Besant van de gedachte van plaatsvervangende strafbetaling, die zij zedelijk verwerpelijk noemt, en herleest zij als wet van het offer: het goddelijke offert zich door in de stof af te dalen, en de mens neemt aan dat offer deel door dienstbaarheid. Opstanding en hemelvaart worden stadia van de inwijdingsweg, waarin het bewustzijn zich van steeds fijnere lichamen leert bedienen. De triniteit verschijnt als drievoudige zelfontvouwing van het ene goddelijke leven, die zij parallel zet aan drieheden in andere religies.</p>
+      <h3>Gebed, vergeving en sacramenten</h3>
+      <p>De laatste hoofdstukken behandelen de praktijk. Gebed werkt volgens Besant langs kenbare lijnen: gerichte gedachte en wil roepen antwoord op van levende intelligenties in een bezielde kosmos. Vergeving van zonden plaatst zij binnen de karmawet: geen kwijtschelding van gevolgen, wel herstel van de verhouding tussen de mens en het goddelijke leven. Sacramenten beschrijft zij als occulte handelingen waarin gewijde stof, klank en gebaar geestelijke invloed doorgeven; doop en eucharistie zijn in haar lezing werkzame riten en geen louter gedachtenis. Het slothoofdstuk over openbaring stelt dat goddelijke zelfmededeling doorgaat en niet met de Schrift is afgesloten.</p>
+      <h3>Programma en plaats in de tijd</h3>
+      <p>Het boek eindigt waar het begon: bij het pleidooi om het esoterische onderwijs binnen het christendom te herstellen, zodat de kerk denkende gelovigen niet langer verliest. Daarmee is het ook een programmatekst van de theosofische beweging rond 1900, die zich na een sterk op het Oosten gerichte periode opnieuw tot het christendom wendde. De herlezing werkte door in de Vrij-Katholieke Kerk en in de brede esoterische taal van Christusbewustzijn en inwijding die tot in hedendaagse spiritualiteit klinkt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">kleine mysteriën</td><td>De mystieke uitleg van religieuze verhalen en leerstukken, die volgens Besant in geschrifte onderwezen mag worden.</td></tr>
+          <tr><td class="term">grote mysteriën</td><td>Mondeling overgedragen occulte kennis die macht zou verlenen en daarom pas na morele loutering werd meegedeeld.</td></tr>
+          <tr><td class="term">historische Christus</td><td>De leraar Jezus die volgens Besants occulte bronnen rond 105 v.Chr. geboren werd en wiens lichaam bij de doop door de Christus werd aangenomen.</td></tr>
+          <tr><td class="term">mythische Christus</td><td>De zonnegodfiguur wier geboorte op 25 december en dood en herrijzenis rond de lente-equinox een kosmisch patroon uitdrukken.</td></tr>
+          <tr><td class="term">mystieke Christus</td><td>Het goddelijke beginsel dat in het hart van de leerling geboren wordt en langs inwijdingsstadia tot wasdom komt.</td></tr>
+          <tr><td class="term">wet van het offer</td><td>Besants herlezing van de verzoening: het goddelijke offert zich door in de stof af te dalen, en de mens herhaalt dat offer in dienstbaarheid.</td></tr>
+          <tr><td class="term">occulte archieven</td><td>Het bovenzinnelijke geheugen van het gebeurde dat geoefende helderzienden zouden kunnen raadplegen, Besants voornaamste bron voor haar historische claims.</td></tr>
+          <tr><td class="term">inwijding</td><td>De trapsgewijze geestelijke ontwikkelingsweg waarvan de evangelieverhalen volgens Besant de kaart vormen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het controleerbare deel van de onderbouwing bestaat uit teksten: uitspraken van Paulus over wijsheid onder de volmaakten, het onderscheid tussen gelijkenissen voor de menigte en uitleg voor de leerlingen, en passages bij Clemens van Alexandrië en Origenes over een niet voor iedereen bestemde leer. Die teksten bestaan en de vroege kerk hield doopleerlingen inderdaad buiten delen van de liturgie. Zij dragen alleen veel minder dan Besant erop laat rusten: dat er gegradueerd onderwijs was, bewijst geen theosofisch leerstelsel met meesters, fijnstoffelijke lichamen en reïncarnatie.</p>
+      <p>De dragende beweringen komen uit een bron die zich aan elke toetsing onttrekt: helderziend onderzoek van zogeheten occulte archieven, dat Besant samen met Charles Leadbeater verrichtte. De datering van Jezus rond 105 v.Chr. volgt een Talmoedische overlevering over Jesjoe ben Pandira, die Blavatsky eerder had overgenomen en die de historische wetenschap verwerpt. De parallellen met zonnegoden leunen op de vergelijkende mythologie van de negentiende eeuw, waarvan het vakgebied sindsdien afstand heeft genomen. Wat overblijft is een innerlijk samenhangend stelsel zonder externe steun.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is methodisch: een bron die alleen voor ingewijden waarneembaar is, kan door niemand worden nagerekend, en Besant biedt de lezer geen enkel criterium om haar helderziende bevindingen van verbeelding te onderscheiden. Waar haar claims wel toetsbaar zijn, zoals de geboortedatum van Jezus of de afhankelijkheid van de evangeliën van zonnemythen, staan zij haaks op de uitkomsten van historisch-kritisch onderzoek. Ook binnen de kerkgeschiedenis is haar lezing gedateerd: de geheimhoudingspraktijk van de vroege kerk gold catechese en liturgie en wijst niet op een occulte school.</p>
+      <p>Daarnaast is het boek partijdig in zijn opzet: het bewijst niet dat er mysteriën waren, het veronderstelt ze en leest vervolgens alle bronnen in dat licht. Wie het als bronnentekst neemt, vindt er wel veel: een scharnierpunt in de geschiedenis van de theosofie, de voedingsbodem van de Vrij-Katholieke Kerk en de herkomst van esoterische taal die nog altijd omloop heeft. Als getuigenis van een beweging is het waardevol; als kennis over het vroege christendom niet.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het boek als bron voor de geschiedenis van theosofie en westerse esoterie, en niet als geschiedschrijving over Jezus.</li>
+        <li>Herken in hedendaagse spirituele taal (Christusbewustzijn, inwijding, meesters) de theosofische herkomst van dat vocabulaire.</li>
+        <li>Toets esoterische geschiedenisclaims aan controleerbare bronnen voordat ze worden doorverteld.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Esoteric Christianity or the Lesser Mysteries</i> (Theosophical Publishing Society, Londen/Benares 1901). Nederlandse vertaling: <i>Esoterisch Christendom, of De kleine mysteriën</i> (Theosofische Uitgeversmaatschappij, Amsterdam 1904; druk 1912, 265 blz.), aanwezig in de catalogus van bibliotheek.nl.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Annie Besant, vanaf 1907 voorzitter van de Theosophical Society, betoogt dat het christendom net als alle grote religies een binnenkant had: mysteriën voor voorbereide leerlingen naast de openbare leer voor de menigte. Het Nieuwe Testament en kerkvaders als Clemens van Alexandrië en Origenes zouden daarvan sporen tonen. Op die basis herleest zij de leerstukken: drie betekenislagen van Christus (historisch, mythisch, mystiek), de verzoening als offerwet, de sacramenten als kanalen van geestelijke invloed.</p><p>Het boek is een hoofdwerk van de theosofische stroming, geen godsdiensthistorische studie. De dragende beweringen steunen op occulte archieven die alleen voor geoefende helderzienden toegankelijk zouden zijn, waaronder de claim dat Jezus rond 105 v.Chr. geboren werd. Voor de geschiedenis van de westerse esoterie is dit een sleuteltekst; als geschiedschrijving over het vroege christendom houdt het geen stand.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>theosofie</li><li>esoterie</li><li>christendom</li><li>mystiek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="378"><a href="378.html">The Kybalion</a>. The Kybalion is een esoterisch stelsel uit dezelfde jaren, met dezelfde spanning tussen stellige leer en oncontroleerbare bronnen.</li>
+          <li value="127"><a href="127.html">The Law of Attraction</a>. The Law of Attraction van Atkinson (1906) toont de occulte tijdgeest waarin Besants herlezing van het christendom landde.</li>
+          <li value="242"><a href="242.html">Autobiography of a Yogi</a>. Autobiography of a Yogi biedt de oosterse pendant: meesters en inwijding, gepresenteerd als levensverhaal.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
