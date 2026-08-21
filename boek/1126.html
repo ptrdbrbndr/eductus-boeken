@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Circle of Isis &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Reed brengt de Egyptische goden onder in de rituele vorm van de wicca en baseert haar beschrijvingen naar eigen zeggen vooral op wat zij en haar coven in…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1126">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1126 &middot; Filosofie en mystiek</p>
+    <h1>Circle of Isis</h1>
+    <p class="lede">Ellen Cannon Reed, 2002</p>
+    <p class="stats">
+      <span><b>1726</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1126"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Reed brengt de Egyptische goden onder in de rituele vorm van de wicca en baseert haar beschrijvingen naar eigen zeggen vooral op wat zij en haar coven in meditatie en ritueel hebben ondervonden. Zij noemt dat zelf een vertaling: zoals Fitzgerald de Rubaiyat niet woord voor woord maar naar de geest overzette, wil zij Egyptische denkbeelden overzetten naar een hedendaagse heidense praktijk. Daarmee legt zij de maatstaf niet bij wat egyptologisch houdbaar is maar bij wat in de omgang met de goden werkt, en zij schrijft er ronduit bij dat de lezer zich niet druk hoeft te maken wanneer het ontvangene botst met wat historici zeggen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar het boek vandaan komt</h3>
+      <p>Het boek opent met een persoonlijk verhaal. Op oudejaarsavond 1974 riep Reed in wanhoop Isis aan en beleefde een aanwezigheid die haar leven een richting gaf. De mensen die zij daarna vond, waren wicca's, en zo kwam zij bij een pad terecht dat Egyptisch van inhoud en wiccaans van vorm is.</p>
+      <p>Zij was sinds 1975 wicca en vanaf 1977 hogepriesteres van de coven Sothistar in de omgeving van Los Angeles. Eerder schreef zij over de kabbala en de tarot binnen dezelfde stroming. Haar eigen tekening van het onderwerp is dat de meeste boeken over Egyptische goden geschreven zijn door mensen voor wie het andermans goden waren.</p>
+      <h3>Deel een: de goden en godinnen</h3>
+      <p>Het eerste en langste deel behandelt ongeveer vierentwintig godheden, aangeduid met een Egyptische naamsvorm in plaats van de Griekse: Aset voor Isis, Asar voor Osiris, Tehuti voor Thoth, Nebet Het voor Nephthys, Het Heret voor Hathor, Anpu voor Anubis, Heru sa Aset voor Horus. Daarnaast Nut, Geb, Ra, Set, Bast, Khnum, Bes, Shu, Sekhmet, Ptah, Khonsu, Seshat, Khephera, Mut, Tefnut, Tanent en Neith, met een sluithoofdstuk over overige goden.</p>
+      <p>Elke ingang combineert drie soorten materiaal: wat uit de Egyptische overlevering bekend is, wat Reed en haar coven bij deze godheid hebben ervaren, en een lied. Bij Het Heret laat zij de werkwijze zien aan het menat-halssnoer: haar naslagwerken zeggen er weinig over, en zij vult die leemte met wat haar meditaties opleverden, een uitleg in termen van evenwicht en tegenwicht.</p>
+      <h3>Deel twee: rituelen en contactrituelen</h3>
+      <p>Het tweede deel gaat over de omgang met de goden. Reed beschrijft meditatievormen, geleide meditaties en het contactritueel, waarin een groep zich op één godheid richt en daarna de ervaringen naast elkaar legt. Haar instructie daarbij is dat een deelnemer zich niet moet laten hinderen door verschil met wat egyptologen zeggen: waar het om gaat is wie de goden nu zijn.</p>
+      <p>Verder staan er uitgewerkte rituelen in: de viering van de geboortedagen van de goden op de vijf toegevoegde dagen aan het einde van het jaar, een zegening van een kind, een feest voor Bast. Daarna volgen liederen, recepten voor wierook en oliën, een lijst van voedsel dat in Egypte beschikbaar was met bijbehorende gerechten, en gebeden. Zij vermeldt dat de meeste rituelen voor dit boek zijn geschreven en niet de vaste rituelen van haar coven zijn.</p>
+      <h3>Deel drie: magie en gereedschap</h3>
+      <p>Het derde deel is praktisch. Het begint bij heka, het Egyptische woord voor magische werkzaamheid, dat volgens de overlevering door Ra aan de mensen is gegeven. Reed onderscheidt magie voor geestelijke groei van magie voor stoffelijke zaken en verwerpt de gangbare namen hoge en lage magie omdat die een waardeoordeel meedragen.</p>
+      <p>Daarna volgen werkbeschrijvingen: amuletten, was- en oesjabti-figuren, het maken van een sistrum, een scarabee, een kilt, een nemyss en een toverstaf. Een apart hoofdstuk geeft een tekenlijst met hiërogliefen, samengesteld uit Budge, de grammatica van Mercer en het werk van een maker van een hiërogliefenteksverwerker; op één plaats wijkt zij beargumenteerd van Budge af.</p>
+      <h3>Twee zelfbedachte orakels</h3>
+      <p>Het boek sluit het praktische deel af met twee waarzegvormen die Reed naar eigen zeggen zelf heeft ontworpen. Het Udjat-orakel bestaat uit een doek van ongeveer veertig centimeter in het vierkant, aan beide zijden beschilderd of geborduurd, met eenentwintig stukjes waarop hiërogliefenwoorden staan; elk stukje staat voor een levensgebied en veel ervan zijn aan een godheid gekoppeld. De Pyramide van Nebet Het is korter en eenvoudiger.</p>
+      <p>Geen van beide bestaat als product, zodat de gebruiker ze zelf moet maken. Reed voert dat aan als voordeel. Het is tegelijk het duidelijkste voorbeeld van wat het boek doet: een moderne vorm met een Egyptisch uiterlijk.</p>
+      <h3>De bijlagen</h3>
+      <p>Bijlage A geeft een lijst met Egyptische woorden waaruit een lezer een eigen naam kan samenstellen, met de aantekening dat het schrift geen zwakke klinkers weergaf en de klinkers dus vrij te kiezen zijn. Bijlage B is een kalender die op 19 juli begint, de dag waarop Sirius in de oudheid bij zonsopgang terugkeerde, en die het Egyptische jaar van twaalf maanden van dertig dagen plus vijf toegevoegde dagen volgt.</p>
+      <p>De inhoud van die kalender komt grotendeels uit de zogeheten Kaïro-kalender, een papyrus met gunstige en ongunstige dagen. Reed vermeldt dat zij een deel van de aantekeningen heeft herschreven, dat niet alle notities begrepen worden en dat er eigen bevindingen van de coven aan zijn toegevoegd. Daarna volgen een verklarende woordenlijst, adressen, een literatuurlijst en een register.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Tamera</td><td>Reeds schrijfwijze van Ta Mera, geliefd land, een oude naam voor Egypte die zij door het hele boek gebruikt.</td></tr>
+          <tr><td class="term">Tameran</td><td>Haar aanduiding voor de oude Egyptenaren en voor alles wat op hun cultuur teruggaat, bedoeld om het herhaalde oude Egyptenaren te vermijden.</td></tr>
+          <tr><td class="term">heka</td><td>Het Egyptische woord voor magische werkzaamheid, in de overlevering door Ra aan de mensen gegeven zodat zij de onzichtbare wereld zelf konden hanteren.</td></tr>
+          <tr><td class="term">contactritueel</td><td>Een groepsritueel dat zich op één godheid richt en waarna de deelnemers hun ervaringen vergelijken; Reeds voornaamste kenbron.</td></tr>
+          <tr><td class="term">udjat</td><td>Het oog van Horus, in het boek het middelpunt van de doek van het eerste orakel.</td></tr>
+          <tr><td class="term">nemyss</td><td>De gestreepte hoofddoek uit de Egyptische beeldtaal, in ceremoniële kringen als kledingstuk nagemaakt; het boek geeft een naaipatroon.</td></tr>
+          <tr><td class="term">sistrum</td><td>Een rammelaar die in de Egyptische eredienst bij Hathor en Isis hoorde, met een bouwbeschrijving in deel drie.</td></tr>
+          <tr><td class="term">menat</td><td>Een zwaar kralensnoer met tegenwicht dat bij Hathor hoort; Reed gebruikt het om te tonen hoe zij een leemte in de bronnen met meditatie opvult.</td></tr>
+          <tr><td class="term">toegevoegde dagen</td><td>De vijf epagomenale dagen buiten de twaalf maanden van dertig dagen, in de overlevering de geboortedagen van vijf goden en in het boek een jaarlijks feest.</td></tr>
+          <tr><td class="term">coven</td><td>De besloten wicca-groep; die van Reed heet Sothistar, genoemd naar Sothis, de Egyptische naam voor Sirius.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Er zijn drie lagen in het boek te onderscheiden. De eerste is wat de egyptologie kent: de goden en hun beeldtaal, de kalender van twaalf maanden van dertig dagen met vijf toegevoegde dagen, de terugkeer van Sirius als jaarbegin, de Kaïro-papyrus met gunstige en ongunstige dagen, en de tekenlijst met hiërogliefen.</p>
+      <p>De tweede laag is de literatuur waaruit zij put. De lijst achterin leunt zwaar op E.A. Wallis Budge, wiens woordenboek en vertalingen in goedkope herdrukken overal verkrijgbaar zijn en waarvan de lezingen al lang voor 2002 door de egyptologie waren ingehaald. Daarnaast staan er wel vakboeken in, waaronder Bob Briers <i>Ancient Egyptian Magic</i> en Henri Frankforts werk over de Egyptische godsdienst, en verder museumcatalogi, occulte werken en theosofische uitgaven uit het begin van de twintigste eeuw.</p>
+      <p>De derde laag is van haarzelf. Beide orakels heeft zij ontworpen, de meeste rituelen zijn voor dit boek geschreven, de liederen zijn eigen werk, de uitleg van het menat komt uit haar meditaties, en aan de kalender zijn bevindingen van de coven toegevoegd. Voor die laag bestaat geen andere toets dan de ervaring van de betrokkenen, en Reed vraagt er ook geen andere voor.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De maatstaf is het kernprobleem. Wat in een contactritueel wordt ontvangen, valt niet na te gaan, en Reed zet dat gegeven om in een aanwijzing: laat je niet hinderen wanneer het botst met wat de egyptologen zeggen. Daarmee wordt het vakgebied vrijblijvend. Elders schrijft zij juist dat haar bevindingen de wetenschap eerder aanvullen dan tegenspreken, en die twee uitspraken laten zich moeilijk verenigen.</p>
+      <p>Het onderscheid tussen oud en modern staat éénmaal helder in de inleiding en verdwijnt daarna uit het zicht. De kalenderbijlage is het scherpste voorbeeld: herschreven notities uit een papyrus en toevoegingen van een hedendaagse coven staan in dezelfde lijst, zonder markering per regel. Een lezer die de bijlage gebruikt, kan de twee niet uit elkaar houden.</p>
+      <p>In de inleiding gebruikt Reed het begrip hamitisch, een negentiende-eeuwse indeling die op het bijbelse geslacht van Cham teruggaat en die zowel taalkundig als raciaal is gebruikt. De taalkunde spreekt sinds lang van Afro-Aziatisch, en de raciale lezing erachter geldt als een afgeschreven en schadelijke constructie. Dat zij die term in 2002 nog aanhaalt, en er via een oud boek over Keltische mythen een verband mee legt, laat zien hoe oud haar naslagwerken zijn.</p>
+      <p>De uitspraakkwestie loopt op hetzelfde uit. Het Egyptisch werd zonder klinkers geschreven, zodat vormen als Aset, Tehuti en Nebet Het afspraken zijn en geen weergave van hoe het klonk. Reed erkent dat en trekt de gevolgtrekking dat de lezer maar moet nemen wat goed klinkt, met de opmerking dat de goden ook bij een verkeerde uitspraak antwoorden. Als geloofsuitspraak is dat consequent; als taalkundige mededeling is het een lege.</p>
+      <p>Wat pleit voor het boek, is dat het over de eigen aard eerlijk is. Reed schrijft dat de Egyptenaren geen heksen waren, dat haar coven de oude godsdienst niet nabootst, en dat de rituelen in dit boek voor dit boek zijn gemaakt. Dat is meer openheid dan verwante titels doorgaans geven. Het neemt niet weg dat het boek in de praktijk als bron over het oude Egypte wordt gelezen, en daarvoor is het ongeschikt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de inleiding voordat er iets uit de bijlagen wordt overgenomen; alleen daar staat wat het boek wel en niet wil zijn.</li>
+        <li>Zoek elke godheid na in een hedendaags egyptologisch naslagwerk voordat de beschrijving hier voor bekend wordt aangenomen.</li>
+        <li>Behandel de kalenderbijlage als twee bronnen door elkaar en zoek de papyrusnotities apart op in een vakuitgave.</li>
+        <li>Gebruik de literatuurlijst als vindplaats voor de oudere occulte ontvangst van Egypte, en niet als stand van zaken in het vak.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Circle of Isis: Ancient Egyptian Magic for Modern Witches</i> (New Page Books, onderdeel van The Career Press, Franklin Lakes NJ, 2002, 319 blz., ISBN 1-56414-568-9). Op het omslag staat de spelling <i>Magick</i>, in de catalogusgegevens <i>Magic</i>. Later opnieuw uitgebracht door Red Wheel/Weiser. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Ellen Cannon Reed was hogepriesteres van de wicca-coven Sothistar en werkte een kwart eeuw met Egyptische goden binnen een wiccaans raamwerk. Dit boek geeft daarvan verslag: beschrijvingen van vierentwintig goden en godinnen, rituelen, liederen, gereedschap, hiërogliefen en twee zelfbedachte orakels.</p><p>Zij zegt in de inleiding uitdrukkelijk dat dit geen reconstructie van de Egyptische godsdienst is. In de rest van het boek staan oude gegevens en eigen ervaringen wel in dezelfde toon naast elkaar, en dat maakt het onderscheid voor een onvoorbereide lezer moeilijk te trekken.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>egypte</li><li>magie</li><li>ritueel</li><li>neopaganisme</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1120"><a href="1120.html">The Isis Thesis</a>. Judy Kay King doet in <i>The Isis Thesis</i> hetzelfde onderwerp met een tegenovergestelde houding: zij wil haar lezing juist wetenschappelijk laten klinken.</li>
+          <li value="1122"><a href="1122.html">The Temples of Light</a>. Danielle Rama Hoffman werkt in <i>Temples of Light</i> met dezelfde Egyptische beeldtaal, maar dan langs de weg van doorgeving in plaats van ritueel.</li>
+          <li value="596"><a href="596.html">Selections from the Husia</a>. Maulana Karenga presenteert in <i>Selections from the Husia</i> Egyptische teksten in vertaling; het verschil met een moderne heidense bewerking is daaraan goed af te lezen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

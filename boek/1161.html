@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Human Personality and Its Survival of Bodily Death &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Myers stelt dat de vraag naar het voortbestaan van de persoonlijkheid na de dood geen zaak van geloof hoeft te blijven, maar met dezelfde middelen te…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1161">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1161 &middot; Filosofie en mystiek</p>
+    <h1>Human Personality and Its Survival of Bodily Death</h1>
+    <p class="lede">Frederic W.H. Myers, 1903</p>
+    <p class="stats">
+      <span><b>2121</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1161"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Myers stelt dat de vraag naar het voortbestaan van de persoonlijkheid na de dood geen zaak van geloof hoeft te blijven, maar met dezelfde middelen te onderzoeken is als elke andere vraag over de natuur. Zijn antwoord loopt via een psychologische stelling die hij eerst apart opbouwt: onder de wakende, sprekende mens ligt een veel groter geheel, het subliminale zelf, waarvan het gewone bewustzijn slechts een selectie is die het aardse leven van ons vraagt. Slaap, hysterie, hypnose, de ingeving van de kunstenaar, automatisch schrift en verschijningen zijn volgens hem stuk voor stuk openingen naar dat grotere zelf. Als dat zelf werkelijk meer omvat dan het lichaam nodig heeft, dan is de gedachte dat het het lichaam overleeft in zijn ogen geen sprong meer, maar de laatste stap in een aaneengesloten reeks. De hele last van het boek rust op de vraag of die reeks houdbaar is, en of de duizenden getuigenverklaringen waarop hij steunt dat gewicht kunnen dragen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een vraag die volgens Myers nooit onderzocht is</h3>
+      <p>Het eerste hoofdstuk opent met een verwijt aan zijn tijd. De mens heeft, schrijft Myers, de methode die hij bij alle andere vraagstukken het meest doeltreffend vond nooit toegepast op het vraagstuk dat hem het meest aangaat. Overtuigingen over een leven na de dood worden bewaard in een afgesloten deel van de geest, gewijd aan godsdienst of aan bijgeloof, maar niet aan waarneming of proefneming. Hij wil die muur weghalen.</p>
+      <p>Hij matigt zichzelf daarbij uitdrukkelijk. Met wetenschappelijk bedoelt hij, zegt hij, een gezag waaraan hij zich onderwerpt en niet een norm waaraan hij beweert te voldoen. Wat hij hier kan bieden is een wetenschap in wording, zoals de grote vakken ooit begonnen toen een paar monniken aan de edele metalen sleutelden. In een voetnoot legt hij zijn eigen positie vast: de Society for Psychical Research werd opgericht in 1882, met W.F. Barrett als aanjager, Henry Sidgwick als eerste voorzitter en Edmund Gurney als eerste secretaris, terwijl Myers en Gurney samen het Literary Committee leidden dat het bewijsmateriaal moest verzamelen.</p>
+      <h3>Het subliminale zelf</h3>
+      <p>De kern van het boek is een begrippenpaar. Supraliminaal noemt Myers wat boven de drempel van het bewustzijn ligt, subliminaal wat eronder blijft. Het nieuwe zit in de tweede helft van zijn definitie: hij rekt de term op tot gevoel, gedachte of vermogen dat niet door eigen zwakte onder de drempel blijft, maar door de bouw van de persoonlijkheid. De drempel moet men zich niet voorstellen als de ingang van een kamer, schrijft hij, maar als een steen die door de zee wordt overspoeld, met golven die er nu eens wel en dan weer niet overheen slaan.</p>
+      <p>Daarmee draait hij de gangbare verhouding om. Het waakbewustzijn is bij hem niet het geheel van de persoon maar een werkselectie, gevormd door wat het lichaam op aarde nodig heeft. Het subliminale zelf is het ruimere geheel waaruit die selectie is genomen. Myers zet zijn vaktaal vast in een glossarium van tientallen bladzijden, met een asterisk bij de woorden die hij zelf heeft bedacht, omdat een nieuw onderwerp volgens hem gebaat is bij termen van Griekse of Latijnse herkomst die in elke taal bruikbaar zijn.</p>
+      <h3>Van afbraak naar vermogen: hysterie, genie, slaap en hypnose</h3>
+      <p>De hoofdstukken twee tot en met vijf lopen langs toestanden die op zichzelf niets met de dood te maken hebben. Myers legt in zijn inleiding uit waarom hij bij afbraak begint. In hysterie ziet hij een inkrimping van het bewustzijnsspectrum: waarnemingen die bewust zouden moeten zijn zakken weg, en handelingen die aan de wil onderworpen zouden moeten zijn ontsnappen eraan. De hysterische patient staat dan tot de gewone mens ongeveer zoals de gewone mens volgens hem tot zijn eigen volledige zelf staat.</p>
+      <p>Genie is bij hem de spiegel daarvan. Waar hysterie een verduistering van het spectrum is, is genie een oplichten ervan: een subliminale opwelling, het naar boven komen van gedachten die onder de drempel zijn gerijpt. Myers keert zich daarmee tegen de toen gangbare school die de geniale mens bij de misdadiger en de krankzinnige indeelde. Slaap en hypnose behandelt hij in dezelfde lijn, als toestanden waarin de drempel verschuift en het subliminale zelf meer ruimte krijgt, met hypnose bovendien als iets wat in de geneeskunde werkt terwijl niemand kan verklaren waarom.</p>
+      <h3>Hallucinatie, telepathie en de census</h3>
+      <p>Hoofdstuk zes gaat over zintuiglijk automatisme, Myers' term voor hallucinatie in ruime zin. Hier komt het materiaal binnen dat de SPR jarenlang verzamelde, en hier voert hij de twee woorden op die hij in 1882 zelf muntte: telepathie, de overdracht van indrukken van de ene geest op de andere buiten de erkende zintuigen om, en telesthesie, het waarnemen van een toestand op afstand zonder dat er een zendende geest aan te pas komt.</p>
+      <p>Het zwaarste stuk onderbouwing in dit deel is de Census of Hallucinations, uitgevoerd tussen 1889 en 1892 onder leiding van Sidgwick, met Myers zelf in de commissie, en gepubliceerd in 1894 in de Proceedings van de SPR. Vierhonderdtien verzamelaars legden elk aan vijfentwintig volwassenen dezelfde vraag voor, over een levendige indruk van zien, horen of aangeraakt worden zonder aanwijsbare oorzaak. Van de zeventienduizend ondervraagden bleven na aftrek van dromen, ziektebeelden met ijlkoorts en onduidelijke gevallen 1684 bevestigende antwoorden over. De vraag die de commissie wilde beantwoorden was of het aantal hallucinaties dat met een werkelijke gebeurtenis samenviel te groot was om toeval te heten.</p>
+      <h3>De stap naar de doden</h3>
+      <p>Het tweede deel maakt de overgang die de titel aankondigt. Telepathie is naar zijn aard niet beperkt tot geesten die nog een lichaam hebben, redeneert Myers, en dus onderzoekt hij in hoofdstuk zeven verschijningen van overledenen, in hoofdstuk acht motorisch automatisme, waaronder automatisch schrift, en in hoofdstuk negen trance, bezetenheid en extase.</p>
+      <p>Hier komen de mediums in beeld die de SPR langdurig heeft bestudeerd, onder wie de Amerikaanse Leonora Piper, de Engelse geestelijke William Stainton Moses, wiens privaatverslagen Myers na diens dood mocht doornemen, en D.D. Home. Myers is op dit punt minder stellig dan zijn tegenstanders hem toeschreven. Hij houdt vol dat bij alle grote mediums de diepte van de trance sterk wisselt en dat het subliminale zelf van het medium soms in een droomachtige, onbedoelde vorm een vreemde persoonlijkheid nabootst. Zijn conclusie luidt niettemin dat mededeling met herkenbaar geidentificeerde overledenen wat hem betreft is aangetoond.</p>
+      <h3>De vorm van het boek</h3>
+      <p>Het werk is opgezet als een handboek en niet als een betoog dat in één ruk gelezen wil worden. Er is een glossarium, een uitleg van het verwijssysteem, en een reeks syllabussen die per hoofdstuk in genummerde stellingen samenvatten wat er komen gaat. Alle alinea's van de hoofdtekst dragen doorlopende nummers, zodat een verwijzing naar een geval altijd op dezelfde plek uitkomt. De appendices bij de hoofdstukken twee, vier, vijf, zes, zeven, acht en negen beslaan samen honderden bladzijden en bevatten de brieven, verklaringen en verslagen zelf.</p>
+      <p>Die opzet maakt zichtbaar wat Myers wilde nalaten. Hij noemt zijn eigen tekst in het voorwoord een gebrekkig leerboek voor een onderzoeksveld dat om een voorlopige ordening vraagt, in de hoop dat verdere verzameling van bewijs die ordening zo snel mogelijk zal vervangen. Het boek is met andere woorden bedoeld als beginpunt van een vak, en het is precies op dat punt dat de latere geschiedenis het antwoord heeft gegeven.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Subliminaal</td><td>Van gedachten, gevoelens en vermogens die onder de drempel van het bewustzijn blijven, bij Myers niet door eigen zwakte maar door de bouw van de persoonlijkheid.</td></tr>
+          <tr><td class="term">Supraliminaal</td><td>Het geestelijk leven boven de drempel, de gewone wakende toestand.</td></tr>
+          <tr><td class="term">Subliminaal zelf</td><td>Het ruimere geheel van de persoon waarvan het waakbewustzijn volgens Myers slechts een selectie is.</td></tr>
+          <tr><td class="term">Drempel</td><td>De grens tussen beide, door Myers vergeleken met een door de zee overspoelde steen en niet met de ingang van een kamer.</td></tr>
+          <tr><td class="term">Telepathie</td><td>Door Myers in 1882 gemunte term voor de overdracht van indrukken van de ene geest op de andere buiten de erkende zintuigen om.</td></tr>
+          <tr><td class="term">Telesthesie</td><td>Zijn tweede term uit 1882, voor het waarnemen van een verre toestand zonder dat er een zendende geest bij betrokken is.</td></tr>
+          <tr><td class="term">Zintuiglijk automatisme</td><td>Zijn verzamelnaam voor hallucinaties, waaronder de verschijningen die hij als telepathisch opvat.</td></tr>
+          <tr><td class="term">Motorisch automatisme</td><td>Bewegingen zonder bewuste wil, waaronder automatisch schrift en het spreken in trance.</td></tr>
+          <tr><td class="term">Subliminale opwelling</td><td>Zijn omschrijving van de ingeving van het genie: onder de drempel gerijpte ideeen die in het gewone bewustzijn doorbreken.</td></tr>
+          <tr><td class="term">Metetheriaal</td><td>Zijn woord voor wat achter of voorbij de ether zou liggen, de omgeving waarin de ziel volgens hem bestaat.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op een verzameling getuigenverklaringen, niet op proeven die iemand kan herhalen. Myers en Gurney hadden die verzameling opgezet in <i>Phantasms of the Living</i> (1886) en uitgebouwd in de Proceedings van de SPR; het grootste deel bestaat uit brieven en verklaringen die na afloop zijn opgeschreven. Myers probeert de zwakke plekken te ondervangen door te vragen om verslagen uit de eerste hand, om bevestiging door derden en om het tijdstip van optekening.</p>
+      <p>Het sterkste stuk is de Census of Hallucinations, omdat die als enige de zelfselectie aanpakt: de verzamelaars moesten hun vijfentwintig ondervraagden kiezen zonder te letten op de kans op een bevestigend antwoord, en een deel van de antwoorden werd apart verzameld bij complete huishoudens om te toetsen of de hoofdverzameling scheef stond. Wat er nergens staat is een proef waarin telepathie onder gecontroleerde omstandigheden wordt opgewekt en gemeten. De kracht van het materiaal is de omvang; de zwakte is dat tienduizend verklaringen niet meer wegen dan één, zolang de bron van vertekening in alle tienduizend dezelfde kan zijn.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het oudste en zwaarste bezwaar richt zich op precies die opzet. Charles Sanders Peirce betoogde over <i>Phantasms of the Living</i> dat uit anekdotes geen wetenschappelijke conclusie te trekken valt en wees op de onzekerheid in de gebruikte getallen; de astronoom Simon Newcomb kwam tot het oordeel dat geen van de beschreven wonderen telepathie bewijst. Het bezwaar is niet dat de getuigen liegen, maar dat een herinnering aan een voorval dat achteraf betekenis kreeg scherper en beter passend wordt naarmate zij vaker wordt verteld, en dat een verzameling die alleen treffers binnenkrijgt de missers nooit ziet.</p>
+      <p>Myers is bovendien meermalen bedrogen. Douglas Blackburn en George Albert Smith werden door hem als echte gedachtelezers gepresenteerd; Blackburn bekende later dat het bedrog was. Bij het medium Eusapia Palladino stelden onderzoekers vast dat de verschijnselen tijdens de zittingen in Cambridge op trucage berustten, waarna Myers overtuigd bleef dat een deel ervan echt was. Dat patroon, waarbij ontmaskering het vertrouwen in de rest niet aantast, telt mee bij de beoordeling van het geheel.</p>
+      <p>Er zit ook een bezwaar in de theorie zelf. Het subliminale zelf is zo ruim opgezet dat het zowel de ingeving van de dichter als de verlamming van de hysterische patiënt als het spreken van een medium kan dekken; er is geen waarneming denkbaar die het begrip zou weerleggen. Daar komt bij dat het boek halverwege van vak wisselt. Zolang Myers over drempels en dissociatie schrijft, doet hij psychologie; zodra hij een metetheriale wereld invoert waarin de ziel bestaat, doet hij metafysica, zonder dat het bewijsmateriaal in die overgang meegroeit.</p>
+      <p>De uitkomst van de eeuw die volgde is het meest feitelijke bezwaar. De parapsychologie is blijven bestaan, met steeds strakkere opzetten, van kaartproeven tot ganzfeld-experimenten, maar zij heeft geen resultaat opgeleverd dat door onafhankelijke onderzoekers betrouwbaar te herhalen is; C.E.M. Hansel stelde na doorlichting van de klassieke gevallen dat geen ervan de toets doorstond. Het pleidooi van Myers voor toepassing van de wetenschappelijke methode is dus ingewilligd, en het antwoord dat die methode gaf is niet het zijne. Dat maakt het boek niet waardeloos. William James prees het om zijn reikwijdte en om de volharding waarmee de feiten waren verzameld, terwijl hij vaststelde dat Myers het voortbestaan niet had aangetoond, en de bundel <i>Irreducible Mind</i> (2007) van Edward en Emily Kelly met Alan Gauld en Bruce Greyson bracht zijn psychologie van het gelaagde zelf opnieuw onder de aandacht, zonder dat die buiten een kleine kring aanvaard raakte.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de hoofdstukken over hysterie, slaap, genie en hypnose als afzonderlijke psychologie; ze staan of vallen niet met de slotconclusie van het boek.</li>
+        <li>Zoek bij een geval dat overtuigt eerst het bijbehorende appendix op en kijk wanneer de verklaring is opgeschreven en door wie zij is bevestigd.</li>
+        <li>Gebruik het glossarium: Myers hanteert tientallen zelfgemunte termen, door het hele boek heen in een vaste betekenis.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Human Personality and Its Survival of Bodily Death</i> (Longmans, Green and Co., Londen, New York en Bombay, 1903, twee delen van samen ongeveer 1360 blz.; eerste druk februari 1903, herdruk maart 1903). Postuum verschenen: Myers stierf op 17 januari 1901 in Rome, Richard Hodgson voltooide het manuscript en Alice Johnson verzorgde de appendices en de drukgang. Het boek is opgedragen aan Henry Sidgwick en Edmund Gurney. Een verkorting in één band bezorgde Myers' zoon Leopold Hamilton Myers (Longmans, copyright 1906); een tweede verkorting verscheen in 1961 onder redactie van Susy Smith met een voorwoord van Aldous Huxley. Het werk is rechtenvrij en staat volledig op archive.org. Nederlandse uitgave: <i>Menselijke persoonlijkheid en haar voortbestaan na de lichamelijke dood</i> (Van Warven, Kampen, 2022, vertaald door Gerard T.N. Burger, 536 blz., ISBN 9789493175952), één band tegenover de twee van het origineel.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Myers wilde de vraag of iets van de persoon de dood overleeft behandelen zoals de natuurwetenschap elke andere vraag behandelt: gevallen verzamelen, vergelijken en wegen. Zijn antwoord loopt via het subliminale zelf, een groter geheel onder het gewone bewustzijn, dat volgens hem zichtbaar wordt in slaap, hypnose, hysterie, ingeving bij kunstenaars, automatisch schrift en verschijningen, en dat aan het eind van de reeks ook het lichaam zou overleven.</p><p>Het boek verscheen in 1903, twee jaar na Myers' dood, in twee delen van samen ongeveer 1360 bladzijden, waarvan een groot deel bestaat uit gevalsbeschrijvingen in appendices. Het bleef het standaardwerk van de vroege parapsychologie. Wetenschapshistorici lezen het tegenwoordig vooral om zijn psychologie van het onbewuste en om wat het laat zien over hoe rond 1900 bewijs werd verzameld, niet om zijn conclusie.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>parapsychologie</li><li>bewustzijn</li><li>psychologie</li><li>spiritisme</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="936"><a href="936.html">The Varieties of Religious Experience</a>. James onderzocht in dezelfde jaren en met dezelfde inzameling van verslagen de religieuze ervaring, en trok bij vergelijkbaar materiaal een voorzichtiger conclusie.</li>
+          <li value="340"><a href="340.html">The Holographic Universe</a>. Talbot verzamelt bijna een eeuw later hetzelfde soort verschijnselen, maar zoekt de verklaring in de natuurkunde in plaats van in de psychologie.</li>
+          <li value="677"><a href="677.html">The Siren Call of Hungry Ghosts</a>. Fisher beschrijft van binnenuit hoe overtuigend mediamieke mededelingen kunnen zijn en waarom ze toch niet kloppen; het scherpste tegenwicht bij hoofdstuk negen.</li>
+          <li value="663"><a href="663.html">Supernature</a>. Watson doet in 1973 een vergelijkbare poging om grensverschijnselen bij de wetenschap in te lijven, met dezelfde zwakke plek in de onderbouwing.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

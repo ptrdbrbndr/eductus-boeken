@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 21
-augustus 2026: 830 titels in 21 rubrieken.
+augustus 2026: 878 titels in 21 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -13,25 +13,25 @@ bij de volgende build verloren.
 | Rubriek | Waar de rubriek over gaat | Titels |
 | --- | --- | --- |
 | Vakmanschap en aandacht | werken met je handen, en wat kwaliteit dan is | 1, 6, 320, 346, 376, 462, 517, 535, 553, 800 |
-| Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9, 71, 72, 77, 91, 95, 105, 107, 109, 111, 134, 135, 141, 145, 149, 150, 160, 167, 169, 187, 199, 201, 204, 205, 216, 227, 228, 230, 232, 242, 255, 263, 292, 299, 334, 335, 341, 377, 379, 390, 391, 394, 405, 416, 435, 442, 449, 459, 461, 473, 515, 516, 518, 519, 520, 524, 525, 526, 527, 528, 546, 547, 556, 561, 569, 579, 586 |
+| Levenskunst | hoe iemand zijn leven inricht en welke oefening daarbij hoort | 2, 8, 9, 71, 72, 77, 91, 95, 105, 107, 109, 111, 134, 135, 141, 145, 149, 150, 160, 167, 169, 187, 199, 201, 204, 205, 216, 227, 228, 230, 232, 242, 255, 263, 292, 299, 334, 335, 341, 377, 379, 390, 391, 394, 405, 416, 435, 442, 449, 459, 461, 473, 515, 516, 518, 519, 520, 524, 525, 526, 527, 528, 546, 547, 556, 561, 569, 579, 586, 1168 |
 | Mannen, vriendschap, verbinding | mannenrollen en het onderhouden van vriendschap | 3, 7, 406, 407, 408 |
 | Roman en memoir | verhalend werk, autobiografisch of fictie | 4, 5, 10, 61, 100, 101, 110, 113, 114, 115, 173, 178, 180, 191, 192, 202, 203, 226, 235, 254, 261, 284, 287, 295, 325, 358, 385, 402, 431, 505, 522, 529, 530, 531, 532, 533, 534, 554, 558, 618, 819, 830, 914, 915, 916, 917, 918, 919, 920, 921, 922, 923, 924, 934, 942, 1114 |
 | Maken en scheppen | aan het werk komen en blijven als maker | 11, 12, 13, 14, 15, 16, 17, 41, 206, 241, 312, 445, 471, 550, 824, 828, 832, 952 |
 | Werk en aandacht | concentratie, aantekeningen en het inrichten van je eigen werk | 70, 78, 81, 151, 170, 197, 200, 207, 249, 256, 276, 278, 288, 290, 311, 400, 420, 448, 472, 512, 552 |
 | Schrijfambacht | schrijven als vak, door schrijvers zelf uitgelegd | 18, 19 |
 | Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153, 157, 158, 161, 168, 176, 177, 181, 193, 209, 211, 224, 238, 244, 252, 268, 274, 282, 283, 291, 296, 310, 349, 382, 392, 396, 397, 411, 422, 423, 424, 425, 426, 436, 439, 450, 451, 452, 469, 475, 487, 488, 509, 510, 514, 538, 540, 542, 803 |
-| Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275, 303, 313, 314, 315, 316, 317, 318, 326, 329, 330, 331, 332, 333, 339, 357, 359, 360, 361, 386, 387, 401, 404, 409, 410, 412, 414, 415, 417, 418, 419, 432, 441, 458, 541, 557, 575, 583, 585, 671, 755, 759, 763, 767, 801, 802, 829, 943, 1121 |
+| Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275, 303, 313, 314, 315, 316, 317, 318, 326, 329, 330, 331, 332, 333, 339, 357, 359, 360, 361, 386, 387, 401, 404, 409, 410, 412, 414, 415, 417, 418, 419, 432, 441, 458, 541, 557, 575, 583, 585, 671, 755, 759, 763, 767, 801, 802, 829, 943, 1121, 1128, 1130, 1131, 1134, 1135, 1138, 1153, 1159, 1160, 1162 |
 | Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63, 123, 124, 125, 126, 212, 213, 215, 250, 258, 280, 381, 384, 388, 429, 440, 562, 563, 564, 565, 566, 664, 667, 668, 672, 673, 674, 686, 925, 926, 927, 928, 929, 930, 931 |
 | Reclame en overtuiging | hoe reclame verkoopt en wat het vak over zijn eigen werking beweert | 443, 695, 696, 697, 698, 699, 700, 701, 702, 703, 704, 705 |
 | Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144, 159, 163, 172, 183, 185, 198, 210, 222, 231, 233, 243, 245, 246, 257, 260, 264, 265, 266, 270, 277, 279, 293, 294, 306, 307, 308, 309, 344, 348, 350, 351, 353, 365, 369, 370, 395, 427, 434, 446, 463, 464, 465, 474, 476, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 491, 492, 494, 496, 499, 501, 502, 503, 544, 567, 570, 804, 807, 808, 809, 810, 811, 812, 814, 816, 900, 901, 902, 903, 904, 905, 906, 907, 908, 909, 911, 912, 913 |
 | Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156, 162, 182, 186, 253, 271, 273, 302, 304, 305, 338, 356, 364, 367, 398, 399, 438, 444, 466, 468, 508, 511, 551 |
 | Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140, 174, 189, 194, 229, 247, 248, 286, 289, 323, 324, 372, 373, 374, 375, 389, 457, 460, 467, 470, 513, 545 |
 | Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49, 285, 447 |
-| Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537, 568, 588, 589, 591, 592, 593, 594, 595, 597, 598, 599, 600, 601, 602, 665, 680, 681, 682, 683, 684, 685, 687, 688, 689, 690, 691, 692, 693, 694, 715, 716, 717, 718, 719, 720, 721, 722, 723, 750, 751, 752, 764, 766, 821, 822, 825, 833, 834, 933, 939, 1111, 1113, 1116 |
+| Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537, 568, 588, 589, 591, 592, 593, 594, 595, 597, 598, 599, 600, 601, 602, 665, 680, 681, 682, 683, 684, 685, 687, 688, 689, 690, 691, 692, 693, 694, 715, 716, 717, 718, 719, 720, 721, 722, 723, 750, 751, 752, 764, 766, 821, 822, 825, 833, 834, 933, 939, 1111, 1113, 1116, 1145, 1146, 1148, 1155 |
 | Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347, 383, 413, 539, 555, 648, 649, 650, 651, 653, 654, 655, 656, 657, 658, 659, 660, 661, 662, 760, 761, 762, 805, 818, 820, 823, 938, 941, 944, 945, 946, 947, 948, 949, 950, 951 |
 | Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102, 108, 117, 127, 128, 129, 130, 131, 132, 136, 139, 179, 184, 188, 190, 196, 259, 340, 362, 378, 380, 403, 433, 543, 548, 549, 559, 560, 768 |
-| Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122, 327, 421, 437, 456, 477, 478, 493, 495, 497, 498, 500, 504, 506, 507, 806, 813, 815, 817, 831 |
-| Filosofie en mystiek | wijsgerige hoofdwerken en mystieke teksten over wat werkelijk is en hoe te leven | 572, 573, 574, 576, 577, 578, 580, 581, 582, 584, 587, 590, 596, 603, 604, 605, 606, 608, 609, 610, 611, 612, 613, 614, 615, 630, 631, 632, 633, 634, 635, 636, 637, 638, 639, 640, 641, 642, 643, 644, 645, 646, 647, 652, 663, 666, 669, 670, 675, 676, 677, 678, 679, 754, 756, 757, 758, 765, 769, 835, 836, 932, 936, 937, 940, 1100, 1101, 1102, 1103, 1104, 1105, 1106, 1107, 1108, 1109, 1110, 1112, 1115, 1117, 1118, 1119, 1120, 1122 |
+| Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122, 327, 421, 437, 456, 477, 478, 493, 495, 497, 498, 500, 504, 506, 507, 806, 813, 815, 817, 831, 1127, 1129, 1132, 1133, 1136, 1137 |
+| Filosofie en mystiek | wijsgerige hoofdwerken en mystieke teksten over wat werkelijk is en hoe te leven | 572, 573, 574, 576, 577, 578, 580, 581, 582, 584, 587, 590, 596, 603, 604, 605, 606, 608, 609, 610, 611, 612, 613, 614, 615, 630, 631, 632, 633, 634, 635, 636, 637, 638, 639, 640, 641, 642, 643, 644, 645, 646, 647, 652, 663, 666, 669, 670, 675, 676, 677, 678, 679, 754, 756, 757, 758, 765, 769, 835, 836, 932, 936, 937, 940, 1100, 1101, 1102, 1103, 1104, 1105, 1106, 1107, 1108, 1109, 1110, 1112, 1115, 1117, 1118, 1119, 1120, 1122, 1123, 1124, 1125, 1126, 1139, 1140, 1141, 1142, 1143, 1144, 1147, 1149, 1150, 1151, 1152, 1154, 1156, 1157, 1158, 1161, 1163, 1164, 1165, 1166, 1167, 1169, 1170 |
 | Staat en vrijheid | politieke denkers over macht, gezag en het vrije individu | 616, 617, 619, 620, 621, 622, 623, 624, 625, 626, 627, 628, 629, 753, 826, 827, 910, 935 |
 
 Een titel kan in één rubriek staan en toch tags uit een andere dragen. De tags
@@ -168196,6 +168196,11235 @@ genetica staan.
 handleiding met oefeningen, bruikbaar om te zien hoe dit genre zich over de
 eeuw ontwikkelde.
 
+## 1123. Wezen en werking van planeten
+
+Karen Hamaker-Zondag, 1985. *Wezen en werking van planeten*, deel 2 van de
+reeks *De astrologische duiding* (Schors, Amsterdam, 243 blz., ISBN
+978-90-6378-048-7; latere drukken bij Symbolon). Engelse vertaling: *Planetary
+Symbolism in the Horoscope* (Samuel Weiser, York Beach, 1985, ix + 196 blz.,
+ISBN 0-87728-623-X), deel 2 van The Jungian Symbolism & Astrology Series; de
+catalogusgegevens van die uitgave vermelden alleen dat het om een vertaling
+van *De astrologische duiding* gaat en noemen geen vertaler. Het jaar van de
+eerste Nederlandse druk is uit de beschikbare catalogi niet met zekerheid vast
+te stellen; de samenvatting volgt de Engelse editie van 1985. Rubriek:
+filosofie en mystiek.
+Tags: `astrologie`, `jung`, `archetypen`, `planeten`
+
+Karen Hamaker-Zondag behandelt de planeten in een geboortehoroscoop als
+symbolen voor psychische functies, en verbindt die functies met Jungs begrip
+archetype. Het boek is het tweede deel van haar Nederlandse leergang en
+veronderstelt kennis van het eerste deel, over de vier elementen en de drie
+kruisen.
+
+De kern is een werkwijze: uit de grondbetekenis van een planeet en de aard van
+het teken waarin zij staat, laat de duiding zich volgens haar afleiden in
+plaats van opzoeken. Voor de aanspraak zelf, dat een planeetstand iets zegt
+over een karakter, levert het boek geen onderzoek; dat de astrologie die
+aanspraak niet waarmaakt, is buiten het boek om herhaaldelijk vastgesteld.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Voor Hamaker-Zondag staat een planeet in de horoscoop voor
+een psychische functie, en die functie draagt een archetypische inhoud in de
+zin van Jung: een grondvorm die bij iedereen terugkeert en zich per mens
+anders invult. Uit die grondbetekenis, gekruist met het element en het kruis
+van het teken waarin de planeet staat, laat zich volgens haar de duiding
+afleiden. Zij richt de astrologie daarmee op aanleg, spanning en ontwikkeling
+in een karakter, en houdt afstand van de gedachte dat een stand aanwijst welke
+gebeurtenissen komen gaan. Wie het boek volgt, leert geen betekenissen uit het
+hoofd maar leert ze samenstellen.
+
+#### De gang van het boek
+
+**De planeet als psychische functie**
+
+Het boek begint bij de vraag wat een planeet in een horoscoop voorstelt.
+Hamaker-Zondag verwerpt de gedachte dat het hemellichaam zelf iets
+veroorzaakt. Zij behandelt de planeet als het symbool van een werkzaamheid in
+de psyche: een manier waarop iemand waarneemt, verlangt, zich verdedigt of
+zich bindt. Die werkzaamheid heeft volgens haar een archetypische kern,
+waarmee zij bedoelt dat de grondvorm bij ieder mens voorkomt en de invulling
+per persoon verschilt.
+
+Uit die opzet volgt haar bezwaar tegen kookboekastrologie. Een lijst van
+kant-en-klare betekenissen bij elke stand geeft een uitkomst zonder de weg
+ernaartoe, en dan kan de duider geen onderscheid maken tussen twee mensen bij
+wie dezelfde stand anders uitpakt. Zij wil de lezer bij de grondbetekenis
+brengen, zodat de uitwerking daarna zelf te maken is.
+
+**De planeten één voor één**
+
+Het middendeel loopt de planeten af, van Zon en Maan via de sneller lopende
+lichamen tot de traag lopende buitenplaneten. Elke planeet krijgt eerst een
+omschrijving van de functie waar zij voor staat, en pas daarna de vormen
+waarin die functie zich in een leven kan tonen.
+
+Daarbij hoort een punt dat telkens terugkeert: hetzelfde gedrag kan uit
+verschillende bronnen komen. Agressie bij de een hangt samen met een andere
+planetaire achtergrond dan agressie bij de ander, en de duiding moet dat
+verschil kunnen benoemen. Wie alleen naar het gedrag kijkt, komt bij de
+verkeerde oorzaak uit.
+
+**Planeten door de tekens, geordend per element**
+
+Het grootste deel van het boek behandelt de planeten in de tekens. De ordening
+volgt niet de dierenriem maar de vier elementen: de vuurtekens bij elkaar, dan
+aarde, lucht en water. Die volgorde is een didactische keuze. Zij laat zien
+dat de twaalf combinaties per planeet uiteenvallen in vier families, en dat
+wie de familie begrijpt de afzonderlijke combinatie kan afleiden.
+
+Op die manier bouwt zij de duiding op uit twee grootheden: de functie van de
+planeet en de wijze waarop het element en het kruis van het teken die functie
+kleuren. Het boek geeft daarvan uitgewerkte voorbeelden en laat zien hoe twee
+gegevens die elkaar tegenspreken tot een spanning in het karakter leiden in
+plaats van tot een tegenstrijdige uitspraak.
+
+**Psychische moeilijkheden en de horoscoop**
+
+Een deel van het boek gaat over de vraag hoe psychische problemen zich in een
+horoscoop laten terugvinden. Hamaker-Zondag werkt hier met de jungiaanse
+gedachte dat wat iemand niet in zichzelf toelaat, elders wordt gezocht of aan
+anderen wordt toegeschreven. Een planeetfunctie die in het bewuste leven
+weinig ruimte krijgt, keert volgens haar terug in projectie, in dwangmatig
+gedrag of in klachten.
+
+De uitspraken blijven hier op het niveau van patronen. Het boek belooft geen
+diagnose en geeft geen gevalsbeschrijvingen uit een behandelpraktijk; het
+beschrijft samenhangen die de auteur in de duidingspraktijk meent te zien.
+
+**Een leerboek met oefeningen**
+
+De vorm is die van een cursusboek. Er staan oefeningen in, en de bijlagen
+bevatten sleutelwoordenlijsten bij de planeten, de elementen en de kruisen,
+zodat de lezer de bouwstenen bij de hand heeft. Het boek hoort bij het
+onderwijs dat Hamaker-Zondag in Nederland gaf; zij richtte daarvoor een
+astrologische school op en daarnaast een stichting voor jungiaanse
+psychologie.
+
+De reeks waarin het verscheen loopt door: na de elementen en kruisen en dit
+deel over de planeten volgen delen over de huizen, over huisheren en
+huizenverbanden en over de analyse van aspecten. Het boek is dus een schakel
+en geen zelfstandige inleiding.
+
+**De Engelse uitgave**
+
+Samuel Weiser bracht de vertaling in 1985 uit als tweede deel van een reeks
+die het jungiaanse karakter in de titel zet. Diezelfde reeks bevat ook de
+vertaling van het eerste Nederlandse deel, over elementen en kruisen. De
+Engelse editie is met bijna tweehonderd bladzijden aanzienlijk dunner dan de
+Nederlandse van ruim tweehonderdveertig, en de titelbeschrijving noemt geen
+vertaler.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| archetype | In Jungs zin een grondvorm van beleven die bij ieder mens voorkomt en zich per persoon anders invult; Hamaker-Zondag koppelt elke planeet aan zo'n grondvorm. |
+| symbool | Een teken dat meer betekent dan één omschrijving kan vangen, en dat daarom volgens haar niet in een vaste vertaling is om te zetten. |
+| element | Vuur, aarde, lucht of water als de vier grondkleuren van de dierenriemtekens, in haar eerste deel verbonden met Jungs vier psychologische functies. |
+| kruis | De indeling van de tekens in het cardinale, het vaste en het veranderlijke kruis, door haar gelezen als een verschil in de manier waarop psychische energie in beweging komt. |
+| psychische inhoud | Het geheel van drijfveren, angsten en beelden dat volgens haar met een planeet meekomt en dat in gedrag zichtbaar wordt. |
+| projectie | Het toeschrijven aan anderen van een eigen, niet toegelaten aandrift; in haar duiding een van de vormen waarin een weggedrukte planeetfunctie terugkomt. |
+| duiding | Het samenstellen van een uitspraak over een horoscoop uit de losse gegevens, in haar opvatting een afleiding en geen opzoekhandeling. |
+| sleutelwoord | Een kort trefwoord bij een planeet, element of kruis, bedoeld als bouwsteen bij het afleiden en niet als eindoordeel. |
+| individuatie | Jungs term voor het proces waarin iemand de eigen, ook onwelkome, kanten leert kennen en opnemen; in dit boek het doel waaraan de duiding zou moeten bijdragen. |
+
+#### Waar het argument op rust
+
+De onderbouwing in het boek is van één soort: samenhang binnen het stelsel
+zelf. Hamaker-Zondag laat zien dat de betekenissen die de astrologische
+overlevering aan planeten en tekens hecht zich logisch laten combineren, en
+dat de uitkomst dan niet willekeurig oogt. Daarnaast beroept zij zich op wat
+zij in de duidingspraktijk heeft gezien. Onderzoek waarin uitspraken vooraf
+zijn vastgelegd en achteraf getoetst, staat er niet in.
+
+De jungiaanse laag levert geen extra steun, al kan het zo lijken. Jung deed
+zelf één astrologisch experiment, beschreven in zijn werk over synchroniciteit
+uit 1952, waarin hij zocht naar overeenkomende standen bij echtparen. De
+aanvankelijke uitkomst verdween naarmate de steekproef groeide, en Jung heeft
+het resultaat ook niet als bewijs voor een astrologische werking
+gepresenteerd. Zijn begrippenkader is bovendien in de academische psychologie
+zelf omstreden, zodat het lenen ervan de astrologie geen bewijskracht
+toevoegt.
+
+Buiten het boek om is de aanspraak wel getoetst. Shawn Carlson beschreef in
+1985 in *Nature* een dubbelblinde opzet waarin astrologen geboortehoroscopen
+moesten koppelen aan persoonlijkheidsprofielen; zij scoorden op kansniveau.
+Geoffrey Dean en Ivan Kelly vergeleken in 2003 ruim tweeduizend mensen die in
+Londen binnen enkele minuten van elkaar waren geboren, en vonden in honderden
+gemeten eigenschappen geen overeenkomst. Wat het boek beschrijft, houdt bij
+dat soort toetsen geen stand.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is eenvoudig: de astrologie heeft geen aangetoonde
+voorspellende waarde. Dat is geen kwestie van smaak en ook geen ontbrekende
+meting, maar de uitkomst van herhaald onderzoek met vooraf vastgelegde
+criteria. Wie het boek leest als een beschrijving van hoe mensen in elkaar
+zitten, leest een stelsel dat buiten zichzelf niets aanwijsbaars raakt.
+
+De werkwijze die het boek bruikbaar maakt voor een cursist, maakt het tegelijk
+onweerlegbaar. Doordat elke stand door element, kruis, huis, aspect en
+bewustzijnsniveau anders kan uitpakken, is er geen waarneming denkbaar die met
+een duiding in strijd is. Daar komt bij dat de omschrijvingen breed genoeg
+zijn om op veel mensen te passen; Bertram Forer liet in 1948 zien dat
+proefpersonen één en dezelfde algemene karakterschets als treffend over
+zichzelf beoordeelden.
+
+Hamaker-Zondag zegt zelf niet te willen voorspellen. Haar doel met het duiden
+is inzicht in de ontwikkeling van een mens en in de samenhang tussen
+psychische moeilijkheden en de stand van de planeten; de horoscoop moet
+zelfkennis dienen en geen uitslag geven. Dat is een bescheidener aanspraak dan
+die van de voorspellende astrologie, en dit boek maakt haar waar in de zin dat
+het geen uitspraken over de toekomst doet. In haar werk als geheel is de grens
+minder scherp: zij schreef ook een handboek voor uurhoekastrologie, en dat vak
+beantwoordt juist concrete vragen over hoe iets afloopt.
+
+Wat het boek niet doet, is de eigen grondslag ter discussie stellen. Dat de
+overlevering een planeet aan een bepaalde functie koppelt, wordt als gegeven
+genomen; waar die toekenning vandaan komt en waarom zij zou kloppen, komt niet
+aan de orde. Voor de historische kant van die vraag moet de lezer elders zijn.
+
+#### Wat er concreet mee te doen is
+
+- Lees eerst het deel over elementen en kruisen; dit boek bouwt daarop voort
+en is zonder die begrippen half te volgen.
+- Gebruik het als woordenboek van symbolen en als kennismaking met een
+duidingstraditie, en niet als bron van uitspraken over wat er gaat gebeuren.
+- Leg een duiding vooraf schriftelijk vast en laat een ander die later
+vergelijken met een even lange beschrijving die bij een willekeurige andere
+horoscoop hoort.
+- Scheid bij het lezen de drie lagen: de astrologische overlevering, de
+jungiaanse begrippen die eroverheen zijn gelegd, en de praktijkervaring van de
+auteur.
+
+#### Wat je hierna leest
+
+- 1118. Saturn: A New Look at an Old Devil. Liz Greene doet in *Saturn*
+hetzelfde met één planeet: een jungiaanse lezing van een klassiek astrologisch
+gegeven.
+- 1119. Mysteries of the Dark Moon. Demetra George bouwt in *Mysteries of the
+Dark Moon* op vergelijkbare wijze een symboolduiding rond de donkere maanfase.
+- 646. The Pregnant Darkness. Monika Wikman laat in *The Pregnant Darkness*
+zien hoe een jungiaans analytica met alchemistische symboliek werkt, buiten de
+astrologie om.
+- 632. The Complete Picatrix. De *Picatrix* toont de oudere,
+magisch-praktische astrologie waar de psychologische lezing zich juist van
+afkeert.
+
+## 1124. Women of Wisdom
+
+Tsultrim Allione, 1984. *Women of Wisdom* (Routledge & Kegan Paul, Londen en
+Boston, 1984, ISBN 0-7102-0240-7), met een voorwoord van Chögyam Trungpa.
+Herziene en uitgebreide editie: Snow Lion, Ithaca NY, 2000, ISBN
+1-55939-141-3, met een sterk uitgebreide autobiografische inleiding en een
+literatuurlijst op blz. 315-320. Er bestaat geen Nederlandse vertaling; de
+samenvatting is op de Engelse editie gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `boeddhisme`, `biografie`, `mystiek`, `feminisme`
+
+Tsultrim Allione, geboren als Joan Rousmanière Ewing, vertaalde zes Tibetaanse
+levensverhalen van vrouwelijke beoefenaars en zette daar haar eigen verhaal
+naast. Zij was op haar tweeëntwintigste een van de eerste Amerikaanse vrouwen
+die in de Tibetaans-boeddhistische traditie tot non werd gewijd, en gaf haar
+geloften na ongeveer vier jaar terug.
+
+De vertaalde teksten heten in het Tibetaans namtar, verhalen van volledige
+bevrijding: een stichtelijk genre en geen geschiedschrijving. Het boek valt
+daarmee in twee lagen uiteen, de vertalingen en haar eigen lezing ervan, en
+die lagen doen verschillende dingen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Allione stelt dat de Tibetaans-boeddhistische overlevering
+vrouwen wel degelijk als volwaardige beoefenaars kent en hun levens heeft
+opgeschreven, terwijl de instellingen van diezelfde traditie hun tegelijk een
+ondergeschikte plaats gaven. Zij vertaalt zes van die levensverhalen en leest
+ze zo dat de hindernissen die in elk verhaal terugkeren, uithuwelijking,
+moederschap, armoede en geringschatting, niet de omweg naar de beoefening zijn
+maar het materiaal ervan. Haar eigen levensverhaal staat er als zevende naast,
+om te laten zien welke vraag westerse vrouwen naar deze teksten toe drijft.
+
+#### De gang van het boek
+
+**Een westerse non en wat zij miste**
+
+Het boek opent met haar eigen weg. Geboren in 1947 in Maine, reisde zij op
+haar negentiende naar India en Nepal en liet zich op haar tweeëntwintigste
+door de zestiende Karmapa in Bodhgaya tot non wijden. Ongeveer vier jaar later
+gaf zij haar geloften terug, trouwde en kreeg vier kinderen, van wie er een
+aan wiegendood stierf.
+
+Uit die jaren komt de vraag die het boek draagt. In de kloosterlijke wereld
+waarin zij werd opgeleid, waren de voorbeelden mannen; nonnen bogen voor
+iedere monnik, ongeacht hun eigen verwerkelijking, en de volledige wijding
+voor vrouwen bestaat in de Tibetaanse traditie niet. Wat zij zocht waren
+vrouwen die de weg hadden afgelegd zonder het gewone leven te hoeven
+ontkennen.
+
+**Wat een namtar is**
+
+Allione legt het genre uit voordat zij aan het vertalen gaat. Een namtar,
+letterlijk een verhaal van volledige bevrijding, is een stichtelijke
+levensbeschrijving die in Tibet werd voorgelezen, gezongen en soms als toneel
+opgevoerd. Het doel is de lezer of toehoorder tot beoefening te bewegen, niet
+om vast te leggen wat er precies is gebeurd.
+
+Dat maakt de zes teksten tot een bijzonder soort bron. Zij vertellen wat een
+traditie de moeite van het onthouden waard vond aan het leven van een vrouw,
+en welke moeilijkheden zij als herkenbaar veronderstelde bij het publiek dat
+ernaar luisterde.
+
+**Nangsa Obum en Machig Ongjo**
+
+Nangsa Obum is de bekendste van de zes en hoort bij de delog-verhalen, over
+iemand die na de dood terugkeert met een boodschap. Zij wordt tegen haar zin
+uitgehuwelijkt, in het huis van haar man mishandeld en gaat eraan ten onder;
+na haar terugkeer verlaat zij dat leven voor de beoefening. Het verhaal wordt
+in Tibet ook als volksopera gespeeld.
+
+Machig Ongjo leefde in de twaalfde eeuw en was een schakel in de overdracht
+van de Rechung-fluisterlijn: zij ontving die van Khyungtsang Repa en gaf haar
+door aan Zhang Lotsawa. Zij staat te boek als zowel diens partner in
+beoefening als volledig gewijde non, een combinatie die laat zien dat de
+latere regels niet altijd zo strak lagen.
+
+**Machig Labdrön en de chöd**
+
+Machig Labdrön (1055-1149) is de zwaarste naam in het boek. Aan haar wordt de
+chöd toegeschreven, een beoefening waarin de beoefenaar het eigen lichaam in
+de verbeelding wegschenkt aan alles wat angst aanjaagt; chöd betekent
+afsnijden, en wat wordt afgesneden is de hechting aan een ik. Het is een van
+de weinige stromingen in het Tibetaanse boeddhisme die aan een vrouw wordt
+teruggevoerd en die vanuit Tibet naar India werd uitgevoerd in plaats van
+andersom.
+
+Allione beoefent chöd sinds 1973 en dat kleurt haar behandeling. Zij leest de
+beoefening als een omgangswijze met angst en met wat een mens in zichzelf
+afwijst, en legt de nadruk op de plaats die het lichaam erin heeft.
+
+**Jomo Memo, Drenchen Rema en A-Yu Khadro**
+
+Jomo Memo (1248-1283) was tertön: iemand die verborgen teksten terugvindt. Zij
+zou als tiener zulke terma hebben gevonden, gold als partner van Guru Chöwang
+en werd in de overlevering als een verschijningsvorm van Yeshe Tsogyal gezien.
+Drenchen Rema is van de zes de minst gedocumenteerde.
+
+A-Yu Khadro (1839-1953) is de enige die tot in de twintigste eeuw leefde en
+daarmee de best na te gaan figuur. Haar levensverhaal is opgetekend door
+Namkhai Norbu, die in 1951 als jongen van veertien naar haar werd gestuurd
+voor een inwijding en haar vertelling opschreef; Allione vertaalde die tekst.
+De keten loopt dus van haar mondelinge verslag via een Tibetaanse schrijver
+naar een Engelse vertaalster.
+
+**De dakini als lezing**
+
+Over de zes verhalen heen legt Allione een uitleg. Zij onderscheidt de
+absolute kant, waarin geest geen geslacht heeft, van de betrekkelijke kant,
+waarin een weg wel bij een bepaald mens moet passen; met dat onderscheid kan
+zij over verschillen tussen mannen en vrouwen spreken zonder de leer tegen te
+spreken.
+
+Het begrip dat zij daarvoor gebruikt is de dakini, Tibetaans khandroma. In
+haar lezing staat die voor een beweeglijke, ongebonden werkzaamheid die de
+beoefenaar tegenkomt en waarmee hij of zij moet leren omgaan. Elk van de zes
+levens leest zij als een vorm waarin die werkzaamheid zich toont.
+
+**De editie van 2000**
+
+In de herziene uitgave bij Snow Lion is haar eigen verhaal uitgegroeid tot
+ongeveer tachtig bladzijden, met een nieuw voorwoord. Daarmee verschuift het
+zwaartepunt van de vertalingen naar de vertaalster. In 1993 stichtte zij een
+retraitecentrum in Colorado; in 2007 werd zij door twee lama's erkend als een
+verschijningsvorm van Machig Labdrön.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| namtar | Tibetaans rnam thar, verhaal van volledige bevrijding: een stichtelijk levensverhaal dat de lezer tot beoefening moet bewegen. |
+| dakini | Tibetaans khandroma, letterlijk zij die door de ruimte gaat; in de traditie zowel een verlichte vrouwelijke godheid als een menselijke leermeesteres of partner in beoefening. |
+| chöd | Afsnijden; een beoefening waarin het eigen lichaam in de verbeelding wordt weggegeven, toegeschreven aan Machig Labdrön. |
+| terma | Een tekst of voorwerp dat volgens de Nyingma-overlevering is verborgen om later te worden teruggevonden. |
+| tertön | Degene die zo'n verborgen tekst terugvindt; Jomo Memo geldt als een van de eerste vrouwen in die rol. |
+| delog | Iemand die na een schijnbare dood terugkeert en verslag doet van wat er aan gene zijde te zien was; het genre waartoe het verhaal van Nangsa Obum behoort. |
+| yogini | Een vrouwelijke beoefenaar buiten het klooster om, die in grotten en op begraafplaatsen oefent. |
+| Vajrayana | De tantrische vorm van het boeddhisme waarin deze levensverhalen thuishoren en waarin lichaam en verlangen tot de weg behoren. |
+| twee waarheden | Het onderscheid tussen de absolute en de betrekkelijke kant van de werkelijkheid, dat Allione gebruikt om over sekseverschil te kunnen spreken. |
+
+#### Waar het argument op rust
+
+Het materiaal bestaat uit zes Tibetaanse teksten die Allione zelf vertaalde,
+met hulp van Tibetaanse leraren in Nepal en India. De herkomst verschilt per
+tekst. Het verhaal van A-Yu Khadro is het jongst en het best na te gaan: het
+gaat terug op een mondeling verslag dat Namkhai Norbu in 1951 optekende. De
+andere vijf komen uit oudere Tibetaanse handschriften en drukken, waarvan de
+ouderdom en het auteurschap doorgaans niet vaststaan.
+
+Voor de autobiografische helft is er maar één bron, haar eigen herinnering.
+Dat is geen verzwegen zwakte: zij zet het deel er juist bij om duidelijk te
+maken vanuit welke vraag zij de zes verhalen leest.
+
+Wat de zes teksten kunnen dragen, is beperkt maar niet gering. Zij tonen dat
+de Tibetaanse overlevering vrouwenlevens de moeite van het opschrijven waard
+vond, dat die levens als voorbeeld werden voorgelezen, en dat de traditie de
+belemmeringen voor vrouwen zelf benoemt. Voor jaartallen, gebeurtenissen en
+uitspraken van de betrokken vrouwen zijn het geen betrouwbare bronnen.
+
+#### Wat er tegen in te brengen valt
+
+De kern van het bezwaar zit in het genre. Een namtar volgt vaste bouwstenen:
+een voorteken bij de geboorte, tegenwerking door familie, de ontmoeting met de
+leraar, jaren in afzondering, wonderen en tekenen bij het sterven. Wie zulke
+teksten als levensbeschrijvingen leest, haalt uit de herhaalde bouwstenen een
+geschiedenis die er niet in zit. Allione legt het genre uit, maar presenteert
+de teksten in de rest van het boek toch als levensverhalen en gebruikt ze als
+zodanig.
+
+Daar komt het bronprobleem bij. Van Machig Labdrön stammen de bewaarde
+levensbeschrijvingen uit eeuwen na haar dood, en zij lopen onderling uiteen.
+Van Drenchen Rema is buiten deze tekst nauwelijks iets bekend. De historische
+figuur is in de meeste gevallen niet te bereiken; wat te bereiken is, is de
+voorstelling die latere generaties van haar hadden.
+
+Het begrip dakini krijgt in het boek een invulling die in Tibet niet zo
+bestaat. Khandroma dekt in het Tibetaans een reeks van betekenissen: een
+verlichte godheid, een menselijke vrouw die met een beoefenaar samenwerkt, en
+een klasse geesten die ook gevaarlijk kan zijn. De lezing als een innerlijk
+vrouwelijk beginsel komt uit de westerse, deels jungiaanse ontvangst van de
+jaren zeventig en tachtig; Judith Simmer-Brown werkte die lijn later uit in
+*Dakini's Warm Breath* (2001). Als uitleg is het bruikbaar, als weergave van
+een Tibetaanse categorie is het onjuist.
+
+Het bredere bezwaar betreft de toe-eigening. Donald Lopez liet in *Prisoners
+of Shangri-La* (1998) zien hoe westerse lezers Tibet tot een geestelijke
+voorraadkamer maakten en er vooral in vonden wat zij zelf misten. Een boek dat
+Tibetaanse yogini's als voorbeeld aan westerse vrouwen aanbiedt, staat in die
+traditie, en Alliones latere erkenning als verschijningsvorm van Machig
+Labdrön is zowel binnen de traditie als van buitenaf verschillend uitgelegd.
+Daartegenover staat dat het boek een onderwerp opende: het bronkritische
+onderzoek naar Tibetaanse vrouwenlevens door Janet Gyatso, Kurtis Schaeffer,
+Hildegard Diemberger en Holly Gayley kwam pas daarna op gang.
+
+#### Wat er concreet mee te doen is
+
+- Lees de zes teksten als getuigenissen van wat een traditie over vrouwen
+wilde vertellen, en niet als verslag van wat er gebeurde.
+- Houd de vertaalde tekst en Alliones inleiding uit elkaar; de uitleg over de
+dakini komt van haar en niet uit de namtar.
+- Begin bij A-Yu Khadro wie wil weten hoe zo'n leven eruitzag toen er nog
+getuigen waren.
+- Zoek voor de historische kant bij Gyatso, Schaeffer of Diemberger; die
+werken met dezelfde soort teksten en met bronkritiek.
+
+#### Wat je hierna leest
+
+- 1125. Passionate Enlightenment. Miranda Shaw stelt in *Passionate
+Enlightenment* dezelfde vraag voor het Indiase tantrisch boeddhisme, met een
+academisch apparaat en dezelfde bronproblemen.
+- 758. Shamanic Voices. Joan Halifax verzamelt in *Shamanic Voices* op een
+vergelijkbare manier verhalen van beoefenaars, met dezelfde spanning tussen
+getuigenis en duiding.
+- 754. Mystiek. Evelyn Underhill deed in *Mystiek* hetzelfde voor de
+christelijke traditie: levens van mystici gelezen als stadia van een weg.
+- 1117. The Great Cosmic Mother. Sjoo en Mor zoeken in *The Great Cosmic
+Mother* vrouwelijke religieuze macht in de voorgeschiedenis, met veel losser
+bronmateriaal.
+
+## 1125. Passionate Enlightenment
+
+Miranda Shaw, 1994. *Passionate Enlightenment: Women in Tantric Buddhism*
+(Princeton University Press, Princeton, 1994, xv + 291 blz., 18
+zwart-witillustraties, ISBN 0-691-03380-3 gebonden, 0-691-01090-0 ingenaaid).
+Heruitgave in de reeks Princeton Classics, 2022, met een nieuw voorwoord van
+de auteur. Er bestaat geen Nederlandse vertaling; de samenvatting is op de
+Engelse editie gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `boeddhisme`, `feminisme`, `godsdienstwetenschap`, `seksualiteit`
+
+Miranda Shaw bestrijdt de gangbare lezing waarin vrouwen in het Indiase
+tantrisch boeddhisme vooral middel waren tot de verlichting van een man. Zij
+voert aan dat vrouwen in de Pala-periode, ruwweg de achtste tot de twaalfde
+eeuw, mee aan de wieg van de stroming stonden: als lerares, als inwijdster en
+als schrijfster.
+
+Het boek won drie prijzen en kreeg tegelijk stevige methodische kritiek,
+vooral op de vraag of een vrouwennaam in het colofon van een Tibetaanse
+vertaling volstaat om vrouwelijk auteurschap aan te nemen. Beide kanten van
+die discussie zijn in dit geval de moeite waard.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Shaw stelt dat het beeld van het Indiase tantrisch boeddhisme
+als een mannenzaak waarin vrouwen als hulpmiddel dienden, niet uit de bronnen
+komt maar uit de aannames waarmee negentiende- en twintigste-eeuwse
+onderzoekers die bronnen lazen. Zij voert daartegen aan dat de teksten uit de
+Pala-periode mannen opdragen vrouwen te eren, dat er meer dan veertig werken
+in de canon staan waarvan het colofon een vrouwennaam draagt, en dat de
+vereniging van man en vrouw in die teksten wederkerig is bedoeld. Wie haar
+volgt, moet aannemen dat vrouwen medegrondlegger waren van een van de
+invloedrijkste religieuze bewegingen van middeleeuws India.
+
+#### De gang van het boek
+
+**Sporen van hemeldanseressen**
+
+Het openingshoofdstuk gaat over de geschiedschrijving zelf. Shaw laat zien hoe
+het beeld ontstond: vroege westerse studies lazen de tantrische teksten door
+een victoriaanse bril, vonden er losbandigheid in en namen aan dat de vrouwen
+die erin voorkomen werktuig waren. Latere onderzoekers namen dat beeld over
+zonder het aan de teksten te toetsen.
+
+Daartegenover zet zij haar eigen werkwijze: twee jaar veldwerk in India en
+Nepal, lezing van Sanskriet- en Tibetaanse teksten, en een zoektocht in de
+Tibetaanse canon naar werken die op naam van vrouwen staan. Meer dan veertig
+zulke werken kwamen daaruit naar voren, waarvan een deel niet eerder was
+opgemerkt.
+
+**Het tantrisch boeddhisme in India**
+
+Het tweede hoofdstuk schetst het toneel. Onder de Pala-dynastie in Oost-India
+ontstaat een beweging die zich deels buiten de kloosters afspeelt, rond
+rondtrekkende beoefenaars, de siddha's, en rond bijeenkomsten op
+begraafplaatsen en in bosjes. De teksten die daarbij horen, de zogenoemde
+yogini-tantra's, geven vrouwelijke figuren een opvallende plaats.
+
+Shaw benadrukt dat die beweging niet aan de kloosterorde onderworpen was.
+Juist daar zoekt zij de ruimte waarin vrouwen konden optreden zonder de
+kloosterregels die hun elders de weg versperden.
+
+**Wat de teksten over vrouwen voorschrijven**
+
+Het derde hoofdstuk verzamelt de passages die het gangbare beeld tegenspreken.
+In de tantrische geloften staat het verbod om vrouwen te kleineren; er zijn
+voorschriften om vrouwen te eren, hun onderricht aan te nemen en een
+vrouwelijke leraar dezelfde eerbied te betuigen als een mannelijke. Sommige
+teksten dragen de beoefenaar op iedere vrouw als een verschijningsvorm van de
+godin te behandelen.
+
+Deze passages zijn er werkelijk en waren tot dan toe grotendeels genegeerd.
+Dat is de sterkste kant van het boek: het maakt zichtbaar wat de literatuur
+wel degelijk bevat.
+
+**Kringen en namen**
+
+De hoofdstukken vier en vijf brengen de bijeenkomsten en de personen in beeld.
+De ganacakra, de rituele kring waarin werd gegeten, gezongen en gedanst,
+beschrijft Shaw als een plaats waar rang en kaste werden losgelaten en waar
+vrouwen konden voorgaan.
+
+Daarnaast reconstrueert zij levens van met name genoemde vrouwen.
+Lakshminkara, in de overlevering een prinses die haar hof verliet, is de
+bekendste. Van anderen is nauwelijks meer bekend dan de naam en de tekst die
+eraan hangt, en Shaw vult die leemtes in met wat de latere Tibetaanse
+overlevering erover zegt.
+
+**De verhouding tussen partners**
+
+Het zesde hoofdstuk bevat haar meest omstreden herlezing. Waar de gangbare
+uitleg de vrouwelijke partner als middel ziet, leest Shaw de teksten zo dat de
+vereniging voor beiden werkt en dat de vrouw doorgaans de kennis inbrengt. Zij
+wijst op voorschriften waarin de man de vrouw dient, op de eed van
+geheimhouding die beiden bindt, en op passages waarin het verbreken van de
+verhouding voor de man de zwaarste overtreding is.
+
+Ook keert zij zich tegen de westerse fixatie op het seksuele. In haar lezing
+gaat het om de juiste verhouding tussen twee mensen, waarvan de lichamelijke
+kant één aspect is.
+
+**Één schrijfster in het bijzonder**
+
+Het zevende hoofdstuk is aan Sahajayoginicinta gewijd, wier naam Shaw
+weergeeft als de spontane, juweelachtige yogini. Van haar hand is een
+verhandeling overgeleverd over de verhouding tussen hartstocht en verlichting.
+Shaw geeft die tekst in vertaling en gebruikt hem als proefstuk: hier zou een
+vrouw in eigen woorden de leer uiteenzetten in plaats van erin voor te komen.
+Het achtste hoofdstuk trekt de balans.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| tantra | De stroming binnen het boeddhisme die rituelen, verbeelding, lichaam en verlangen tot de weg naar verlichting rekent. |
+| yogini | Een vrouwelijke beoefenaar; in de yogini-tantra's ook de aanduiding voor de vrouwelijke godheden die daarin het middelpunt vormen. |
+| dakini | Sanskriet voor een vrouwelijke geestesverschijning; Shaw vertaalt de Tibetaanse weergave als hemeldanseres en gebruikt die in haar titelbeeld. |
+| siddha | Een verwerkelijkte beoefenaar buiten het klooster om; de traditie kent lijsten van vierentachtig van hen, waaronder enkele vrouwen. |
+| mudra | Letterlijk zegel; in deze teksten ook de aanduiding voor de partner in de beoefening, en juist daarom een woord waarover de uitleg uiteenloopt. |
+| maithuna | De rituele vereniging van twee beoefenaars, in Shaws lezing bedoeld als wederzijdse weg en niet als dienst van de een aan de ander. |
+| sahaja | Het aangeborene of vanzelf ontstane; de aanduiding voor de ongekunstelde staat die deze stroming nastreeft. |
+| ganacakra | De rituele kring met eten, zang en dans waarin de beoefenaars samenkwamen. |
+| Pala-periode | De tijd van de Pala-dynastie in Oost-India, achtste tot twaalfde eeuw, waarin het tantrisch boeddhisme zijn vorm kreeg. |
+| colofon | De slotaantekening van een handschrift of canonieke vertaling waarin auteur, vertaler en herkomst staan; de plaats waar Shaw haar vrouwelijke auteurs vindt. |
+
+#### Waar het argument op rust
+
+Shaws grondslag is tekstueel. Zij werkt met Sanskriet en Tibetaans, met nadruk
+op de Tengyur, het deel van de Tibetaanse canon met commentaren en
+verhandelingen, omdat van veel Indiase werken alleen de Tibetaanse vertaling
+over is. Daarnaast gebruikt zij beeldmateriaal en levensbeschrijvingen van de
+siddha's, en twee jaar veldwerk in India en Nepal.
+
+Het sterkst staat zij waar zij citeert. Dat de tantrische geloften het
+kleineren van vrouwen verbieden en dat er voorschriften bestaan om vrouwen te
+eren, is met de teksten in de hand vast te stellen en was in de vakliteratuur
+overgeslagen. Dat is een controleerbare correctie op wat daarvoor werd
+geschreven.
+
+Zwakker staat zij waar zij van voorschrift naar werkelijkheid overstapt. Een
+verbod is een aanwijzing dat het verboden gedrag voorkwam, en zegt op zichzelf
+weinig over de feitelijke positie van vrouwen. Hetzelfde geldt voor de
+levensbeschrijvingen van de siddha's: dat zijn stichtelijke verhalen met vaste
+motieven, geen archiefstukken.
+
+De ontvangst was niet mals maar ook niet eenstemmig. Het boek kreeg de James
+Henry Breasted Prize van de American Historical Association, de Tricycle-prijs
+en in 1995 de Critics' Choice-onderscheiding; Liz Wilson noemde het in
+*History of Religions* een boek dat een terrein opende. Andere vakgenoten
+oordeelden aanmerkelijk terughoudender.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar betreft de toeschrijving. Een colofon van een Tibetaanse
+vertaling is een laat en bewerkt document; een vrouwelijk klinkende naam erin
+bewijst niet dat een vrouw het Sanskriete origineel schreef. In deze
+literatuur zijn schuilnamen, eretitels en toeschrijvingen aan een lijnstichter
+gewoon, en van verschillende namen die Shaw als auteur opvoert is de
+identiteit onder vakgenoten niet vast te stellen. Wie het aantal van veertig
+werken door vrouwen als vaststaand aanneemt, neemt daarmee de zwakste schakel
+van het betoog over.
+
+Ronald Davidson bracht in *Indian Esoteric Buddhism* (2002) in dat de
+Pala-bronnen vrouwen overwegend in de rol van partner en van zinnebeeld tonen,
+en dat Shaw een moderne opvatting van gelijkwaardigheid in middeleeuwse
+teksten terugleest. Zijn bezwaar richt zich zowel op haar vertaalkeuzes als op
+de stap van tekst naar samenleving.
+
+Een derde punt betreft de talen. Waar de Indiase werken alleen in Tibetaanse
+vertaling bestaan, leunt het betoog op die vertaling en op secundaire
+literatuur; recensenten hebben betwijfeld of het Sanskriete materiaal overal
+met dezelfde grondigheid is behandeld als het Tibetaanse. Voor een stelling
+die op de precieze bewoording van colofons rust, is dat een reëel bezwaar.
+
+Daar staat iets tegenover dat in de kritiek weleens wegvalt. De lezing die
+Shaw bestreed, berustte zelf niet op onderzoek maar op de aanname dat vrouwen
+in deze teksten geen zelfstandige plaats konden hebben. Zij liet zien dat er
+materiaal ligt waar niemand naar had gekeken, en het onderzoek dat daarna
+kwam, met meer bronkritiek en minder stelligheid, is zonder haar boek moeilijk
+denkbaar. Haar latere *Buddhist Goddesses of India* (2006) werd op dat punt
+beheerster ontvangen.
+
+Wat het boek niet doet, is de eigen zekerheid inperken. De toon is die van een
+zaak die rond is; de plaatsen waar de bron dun is, worden niet als zodanig
+gemarkeerd. Een lezer die het apparaat niet naslaat, kan het onderscheid
+tussen een geciteerd voorschrift en een gereconstrueerd leven niet maken.
+
+#### Wat er concreet mee te doen is
+
+- Lees de geciteerde tekstplaatsen en de gevolgtrekkingen apart; het eerste is
+controleerbaar, het tweede is duiding.
+- Neem het aantal van veertig vrouwelijke auteurs niet over zonder erbij te
+zetten waar die toeschrijving op berust.
+- Zet er de kritiek van Davidson naast; de twee boeken lezen dezelfde bronnen
+met tegengestelde uitkomst.
+- Gebruik het als voorbeeld van hoe een vakgebied een aanname eeuwenlang kan
+doorgeven zonder haar te toetsen.
+
+#### Wat je hierna leest
+
+- 1124. Women of Wisdom. Tsultrim Allione stelt in *Women of Wisdom* dezelfde
+vraag voor Tibet, met vertaalde levensverhalen in plaats van een academisch
+betoog.
+- 1117. The Great Cosmic Mother. Sjoo en Mor zoeken in *The Great Cosmic
+Mother* naar vrouwelijke religieuze macht in de voorgeschiedenis; het verschil
+in bronbehandeling met Shaw is leerzaam.
+- 640. Kabbalah. Gershom Scholem laat in *Kabbalah* zien wat filologische
+bronkritiek met een mystieke overlevering doet.
+
+## 1126. Circle of Isis
+
+Ellen Cannon Reed, 2002. *Circle of Isis: Ancient Egyptian Magic for Modern
+Witches* (New Page Books, onderdeel van The Career Press, Franklin Lakes NJ,
+2002, 319 blz., ISBN 1-56414-568-9). Op het omslag staat de spelling *Magick*,
+in de catalogusgegevens *Magic*. Later opnieuw uitgebracht door Red
+Wheel/Weiser. Er bestaat geen Nederlandse vertaling; de samenvatting is op de
+Engelse editie gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `egypte`, `magie`, `ritueel`, `neopaganisme`
+
+Ellen Cannon Reed was hogepriesteres van de wicca-coven Sothistar en werkte
+een kwart eeuw met Egyptische goden binnen een wiccaans raamwerk. Dit boek
+geeft daarvan verslag: beschrijvingen van vierentwintig goden en godinnen,
+rituelen, liederen, gereedschap, hiërogliefen en twee zelfbedachte orakels.
+
+Zij zegt in de inleiding uitdrukkelijk dat dit geen reconstructie van de
+Egyptische godsdienst is. In de rest van het boek staan oude gegevens en eigen
+ervaringen wel in dezelfde toon naast elkaar, en dat maakt het onderscheid
+voor een onvoorbereide lezer moeilijk te trekken.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Reed brengt de Egyptische goden onder in de rituele vorm van
+de wicca en baseert haar beschrijvingen naar eigen zeggen vooral op wat zij en
+haar coven in meditatie en ritueel hebben ondervonden. Zij noemt dat zelf een
+vertaling: zoals Fitzgerald de Rubaiyat niet woord voor woord maar naar de
+geest overzette, wil zij Egyptische denkbeelden overzetten naar een
+hedendaagse heidense praktijk. Daarmee legt zij de maatstaf niet bij wat
+egyptologisch houdbaar is maar bij wat in de omgang met de goden werkt, en zij
+schrijft er ronduit bij dat de lezer zich niet druk hoeft te maken wanneer het
+ontvangene botst met wat historici zeggen.
+
+#### De gang van het boek
+
+**Waar het boek vandaan komt**
+
+Het boek opent met een persoonlijk verhaal. Op oudejaarsavond 1974 riep Reed
+in wanhoop Isis aan en beleefde een aanwezigheid die haar leven een richting
+gaf. De mensen die zij daarna vond, waren wicca's, en zo kwam zij bij een pad
+terecht dat Egyptisch van inhoud en wiccaans van vorm is.
+
+Zij was sinds 1975 wicca en vanaf 1977 hogepriesteres van de coven Sothistar
+in de omgeving van Los Angeles. Eerder schreef zij over de kabbala en de tarot
+binnen dezelfde stroming. Haar eigen tekening van het onderwerp is dat de
+meeste boeken over Egyptische goden geschreven zijn door mensen voor wie het
+andermans goden waren.
+
+**Deel een: de goden en godinnen**
+
+Het eerste en langste deel behandelt ongeveer vierentwintig godheden,
+aangeduid met een Egyptische naamsvorm in plaats van de Griekse: Aset voor
+Isis, Asar voor Osiris, Tehuti voor Thoth, Nebet Het voor Nephthys, Het Heret
+voor Hathor, Anpu voor Anubis, Heru sa Aset voor Horus. Daarnaast Nut, Geb,
+Ra, Set, Bast, Khnum, Bes, Shu, Sekhmet, Ptah, Khonsu, Seshat, Khephera, Mut,
+Tefnut, Tanent en Neith, met een sluithoofdstuk over overige goden.
+
+Elke ingang combineert drie soorten materiaal: wat uit de Egyptische
+overlevering bekend is, wat Reed en haar coven bij deze godheid hebben
+ervaren, en een lied. Bij Het Heret laat zij de werkwijze zien aan het
+menat-halssnoer: haar naslagwerken zeggen er weinig over, en zij vult die
+leemte met wat haar meditaties opleverden, een uitleg in termen van evenwicht
+en tegenwicht.
+
+**Deel twee: rituelen en contactrituelen**
+
+Het tweede deel gaat over de omgang met de goden. Reed beschrijft
+meditatievormen, geleide meditaties en het contactritueel, waarin een groep
+zich op één godheid richt en daarna de ervaringen naast elkaar legt. Haar
+instructie daarbij is dat een deelnemer zich niet moet laten hinderen door
+verschil met wat egyptologen zeggen: waar het om gaat is wie de goden nu zijn.
+
+Verder staan er uitgewerkte rituelen in: de viering van de geboortedagen van
+de goden op de vijf toegevoegde dagen aan het einde van het jaar, een zegening
+van een kind, een feest voor Bast. Daarna volgen liederen, recepten voor
+wierook en oliën, een lijst van voedsel dat in Egypte beschikbaar was met
+bijbehorende gerechten, en gebeden. Zij vermeldt dat de meeste rituelen voor
+dit boek zijn geschreven en niet de vaste rituelen van haar coven zijn.
+
+**Deel drie: magie en gereedschap**
+
+Het derde deel is praktisch. Het begint bij heka, het Egyptische woord voor
+magische werkzaamheid, dat volgens de overlevering door Ra aan de mensen is
+gegeven. Reed onderscheidt magie voor geestelijke groei van magie voor
+stoffelijke zaken en verwerpt de gangbare namen hoge en lage magie omdat die
+een waardeoordeel meedragen.
+
+Daarna volgen werkbeschrijvingen: amuletten, was- en oesjabti-figuren, het
+maken van een sistrum, een scarabee, een kilt, een nemyss en een toverstaf.
+Een apart hoofdstuk geeft een tekenlijst met hiërogliefen, samengesteld uit
+Budge, de grammatica van Mercer en het werk van een maker van een
+hiërogliefenteksverwerker; op één plaats wijkt zij beargumenteerd van Budge
+af.
+
+**Twee zelfbedachte orakels**
+
+Het boek sluit het praktische deel af met twee waarzegvormen die Reed naar
+eigen zeggen zelf heeft ontworpen. Het Udjat-orakel bestaat uit een doek van
+ongeveer veertig centimeter in het vierkant, aan beide zijden beschilderd of
+geborduurd, met eenentwintig stukjes waarop hiërogliefenwoorden staan; elk
+stukje staat voor een levensgebied en veel ervan zijn aan een godheid
+gekoppeld. De Pyramide van Nebet Het is korter en eenvoudiger.
+
+Geen van beide bestaat als product, zodat de gebruiker ze zelf moet maken.
+Reed voert dat aan als voordeel. Het is tegelijk het duidelijkste voorbeeld
+van wat het boek doet: een moderne vorm met een Egyptisch uiterlijk.
+
+**De bijlagen**
+
+Bijlage A geeft een lijst met Egyptische woorden waaruit een lezer een eigen
+naam kan samenstellen, met de aantekening dat het schrift geen zwakke klinkers
+weergaf en de klinkers dus vrij te kiezen zijn. Bijlage B is een kalender die
+op 19 juli begint, de dag waarop Sirius in de oudheid bij zonsopgang
+terugkeerde, en die het Egyptische jaar van twaalf maanden van dertig dagen
+plus vijf toegevoegde dagen volgt.
+
+De inhoud van die kalender komt grotendeels uit de zogeheten Kaïro-kalender,
+een papyrus met gunstige en ongunstige dagen. Reed vermeldt dat zij een deel
+van de aantekeningen heeft herschreven, dat niet alle notities begrepen worden
+en dat er eigen bevindingen van de coven aan zijn toegevoegd. Daarna volgen
+een verklarende woordenlijst, adressen, een literatuurlijst en een register.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Tamera | Reeds schrijfwijze van Ta Mera, geliefd land, een oude naam voor Egypte die zij door het hele boek gebruikt. |
+| Tameran | Haar aanduiding voor de oude Egyptenaren en voor alles wat op hun cultuur teruggaat, bedoeld om het herhaalde oude Egyptenaren te vermijden. |
+| heka | Het Egyptische woord voor magische werkzaamheid, in de overlevering door Ra aan de mensen gegeven zodat zij de onzichtbare wereld zelf konden hanteren. |
+| contactritueel | Een groepsritueel dat zich op één godheid richt en waarna de deelnemers hun ervaringen vergelijken; Reeds voornaamste kenbron. |
+| udjat | Het oog van Horus, in het boek het middelpunt van de doek van het eerste orakel. |
+| nemyss | De gestreepte hoofddoek uit de Egyptische beeldtaal, in ceremoniële kringen als kledingstuk nagemaakt; het boek geeft een naaipatroon. |
+| sistrum | Een rammelaar die in de Egyptische eredienst bij Hathor en Isis hoorde, met een bouwbeschrijving in deel drie. |
+| menat | Een zwaar kralensnoer met tegenwicht dat bij Hathor hoort; Reed gebruikt het om te tonen hoe zij een leemte in de bronnen met meditatie opvult. |
+| toegevoegde dagen | De vijf epagomenale dagen buiten de twaalf maanden van dertig dagen, in de overlevering de geboortedagen van vijf goden en in het boek een jaarlijks feest. |
+| coven | De besloten wicca-groep; die van Reed heet Sothistar, genoemd naar Sothis, de Egyptische naam voor Sirius. |
+
+#### Waar het argument op rust
+
+Er zijn drie lagen in het boek te onderscheiden. De eerste is wat de
+egyptologie kent: de goden en hun beeldtaal, de kalender van twaalf maanden
+van dertig dagen met vijf toegevoegde dagen, de terugkeer van Sirius als
+jaarbegin, de Kaïro-papyrus met gunstige en ongunstige dagen, en de tekenlijst
+met hiërogliefen.
+
+De tweede laag is de literatuur waaruit zij put. De lijst achterin leunt zwaar
+op E.A. Wallis Budge, wiens woordenboek en vertalingen in goedkope herdrukken
+overal verkrijgbaar zijn en waarvan de lezingen al lang voor 2002 door de
+egyptologie waren ingehaald. Daarnaast staan er wel vakboeken in, waaronder
+Bob Briers *Ancient Egyptian Magic* en Henri Frankforts werk over de
+Egyptische godsdienst, en verder museumcatalogi, occulte werken en
+theosofische uitgaven uit het begin van de twintigste eeuw.
+
+De derde laag is van haarzelf. Beide orakels heeft zij ontworpen, de meeste
+rituelen zijn voor dit boek geschreven, de liederen zijn eigen werk, de uitleg
+van het menat komt uit haar meditaties, en aan de kalender zijn bevindingen
+van de coven toegevoegd. Voor die laag bestaat geen andere toets dan de
+ervaring van de betrokkenen, en Reed vraagt er ook geen andere voor.
+
+#### Wat er tegen in te brengen valt
+
+De maatstaf is het kernprobleem. Wat in een contactritueel wordt ontvangen,
+valt niet na te gaan, en Reed zet dat gegeven om in een aanwijzing: laat je
+niet hinderen wanneer het botst met wat de egyptologen zeggen. Daarmee wordt
+het vakgebied vrijblijvend. Elders schrijft zij juist dat haar bevindingen de
+wetenschap eerder aanvullen dan tegenspreken, en die twee uitspraken laten
+zich moeilijk verenigen.
+
+Het onderscheid tussen oud en modern staat éénmaal helder in de inleiding en
+verdwijnt daarna uit het zicht. De kalenderbijlage is het scherpste voorbeeld:
+herschreven notities uit een papyrus en toevoegingen van een hedendaagse coven
+staan in dezelfde lijst, zonder markering per regel. Een lezer die de bijlage
+gebruikt, kan de twee niet uit elkaar houden.
+
+In de inleiding gebruikt Reed het begrip hamitisch, een negentiende-eeuwse
+indeling die op het bijbelse geslacht van Cham teruggaat en die zowel
+taalkundig als raciaal is gebruikt. De taalkunde spreekt sinds lang van
+Afro-Aziatisch, en de raciale lezing erachter geldt als een afgeschreven en
+schadelijke constructie. Dat zij die term in 2002 nog aanhaalt, en er via een
+oud boek over Keltische mythen een verband mee legt, laat zien hoe oud haar
+naslagwerken zijn.
+
+De uitspraakkwestie loopt op hetzelfde uit. Het Egyptisch werd zonder klinkers
+geschreven, zodat vormen als Aset, Tehuti en Nebet Het afspraken zijn en geen
+weergave van hoe het klonk. Reed erkent dat en trekt de gevolgtrekking dat de
+lezer maar moet nemen wat goed klinkt, met de opmerking dat de goden ook bij
+een verkeerde uitspraak antwoorden. Als geloofsuitspraak is dat consequent;
+als taalkundige mededeling is het een lege.
+
+Wat pleit voor het boek, is dat het over de eigen aard eerlijk is. Reed
+schrijft dat de Egyptenaren geen heksen waren, dat haar coven de oude
+godsdienst niet nabootst, en dat de rituelen in dit boek voor dit boek zijn
+gemaakt. Dat is meer openheid dan verwante titels doorgaans geven. Het neemt
+niet weg dat het boek in de praktijk als bron over het oude Egypte wordt
+gelezen, en daarvoor is het ongeschikt.
+
+#### Wat er concreet mee te doen is
+
+- Lees de inleiding voordat er iets uit de bijlagen wordt overgenomen; alleen
+daar staat wat het boek wel en niet wil zijn.
+- Zoek elke godheid na in een hedendaags egyptologisch naslagwerk voordat de
+beschrijving hier voor bekend wordt aangenomen.
+- Behandel de kalenderbijlage als twee bronnen door elkaar en zoek de
+papyrusnotities apart op in een vakuitgave.
+- Gebruik de literatuurlijst als vindplaats voor de oudere occulte ontvangst
+van Egypte, en niet als stand van zaken in het vak.
+
+#### Wat je hierna leest
+
+- 1120. The Isis Thesis. Judy Kay King doet in *The Isis Thesis* hetzelfde
+onderwerp met een tegenovergestelde houding: zij wil haar lezing juist
+wetenschappelijk laten klinken.
+- 1122. The Temples of Light. Danielle Rama Hoffman werkt in *Temples of
+Light* met dezelfde Egyptische beeldtaal, maar dan langs de weg van doorgeving
+in plaats van ritueel.
+- 596. Selections from the Husia. Maulana Karenga presenteert in *Selections
+from the Husia* Egyptische teksten in vertaling; het verschil met een moderne
+heidense bewerking is daaraan goed af te lezen.
+
+## 1127. Gunn's Domestic Medicine
+
+John C. Gunn, 1830. *Gunn's Domestic Medicine, or Poor Man's Friend, in the
+Hours of Affliction, Pain and Sickness* (eerste druk in eigen beheer gedrukt
+te Knoxville, Tennessee, 1830; het copyright werd daar op 30 augustus 1830
+gedeponeerd). Deze samenvatting volgt de tweede druk, gedrukt door F. S.
+Heiskell te Knoxville in 1833, ruim 500 blz., die de tekst van 1830 vrijwel
+ongewijzigd overneemt en het gedeponeerde copyright vooraf afdrukt. Latere
+drukken lopen ver uiteen: Gunn breidde het werk in 1857 zelf sterk uit, en
+onder titels als *Gunn's New Domestic Physician* en *New Revised Edition* liep
+de reeks door tot de Jubilee-uitgave van 1876 en een laatste geregistreerde
+druk in 1920. De University of Tennessee Press bracht in 1986 een facsimile
+van de eerste druk uit met een inleiding van Charles E. Rosenberg. Er bestaat
+geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.
+Rubriek: naslag en praktijk.
+Tags: `geneeskunde`, `zelfzorg`, `naslagwerk`, `negentiende eeuw`
+
+Gunn was arts in Knoxville, Tennessee, en schreef zijn boek voor gezinnen die
+dagen reizen van de dichtstbijzijnde arts woonden. Hij legt in gewone taal uit
+hoe ziekten te herkennen zijn, welke middelen erbij horen, welke inheemse
+planten dienst kunnen doen en hoe een leek een ader opent, een breuk zet of in
+het uiterste geval een arm afzet. De ondertitel belooft dat de praktijk van de
+geneeskunde is teruggebracht tot beginselen van gezond verstand.
+
+De opzet is die van een compleet huishoudboek: eerst de hartstochten en de
+leefregels, dan een lange lijst ziekten met behandeling, daarna vrouwen- en
+kinderziekten met verloskunde, vervolgens een Amerikaanse kruidenkast met
+dispensatorium en tot slot heelkunde. Het werd een van de meest verkochte
+Amerikaanse boeken van de negentiende eeuw en bleef bijna een eeuw in druk, in
+edities die onderling ver uiteenlopen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Gunn stelt dat de geneeskunde in de kern eenvoudig is en dat
+haar moeilijkheid grotendeels gemaakt is. Latijnse namen en geleerde termen
+dienen volgens hem om te verbergen hoe weinig er werkelijk bekend is en om de
+rekening hoog te houden. Wie ver van een arts woont hoeft daarom niet af te
+wachten: de werkzame middelen zijn weinig in getal, ze groeien voor een groot
+deel in eigen land, en de handgrepen zijn te leren zolang iemand ze in gewone
+taal opschrijft. Dat is wat dit boek doet, van de eerste tekenen van koorts
+tot het afzetten van een been met een voorsnijmes. De belofte is niet dat de
+lezer arts wordt, maar dat onwetendheid geen doodsoorzaak meer hoeft te zijn.
+
+#### De gang van het boek
+
+**Een boek voor wie geen arts kan halen**
+
+De inleiding schetst het westen van de Verenigde Staten als een land dat in
+een mensenleven van wildernis in dorpen en stoomvaart is veranderd, en waarin
+de bewoners nog altijd zonder medische hulp zitten. Gunn koppelt daaraan twee
+stellingen die het hele boek dragen. De eerste is dat elk land de middelen
+voortbrengt om zijn eigen ziekten te genezen, zodat ingevoerde en vaak
+vervalste drogerijen overbodig zijn. De tweede is dat vakjargon een vorm van
+bedrog is: hij zet een lange lijst apothekerslatijn naast de gewone namen, van
+*Panax quinquefolium* voor ginseng tot *Podophyllum peltatum* voor de
+mei-appel, om te laten zien dat de geleerdheid vooral in de etiketten zit.
+
+Hij voorspelt daarbij dat de dag komt waarop calomel en kwikmiddelen niet meer
+gebruikt zullen worden. Die zin staat in de inleiding van hetzelfde boek dat
+verderop doseringen van twintig en dertig grein calomel voorschrijft.
+
+**De hartstochten eerst**
+
+De eerste vijfenzeventig bladzijden gaan niet over ziekten maar over
+gemoedstoestanden: toorn, vrees, vreugde, jaloezie, verdriet, hoop, liefde,
+godsdienst en onmatigheid. Gunn behandelt ze als lichamelijke oorzaken. Wie
+zijn hartstochten laat lopen bederft de spijsvertering, verzwakt hart en
+zenuwstelsel en legt de grond voor ziekte; een kalm gemoed werkt tegen elke
+aanleg in. De maag noemt hij de werkplaats van het hele lichaam.
+
+Deze opzet komt uit de achttiende-eeuwse leer van de zes niet-natuurlijke
+dingen, waarin lucht, voedsel, beweging, slaap, uitscheiding en
+gemoedsbewegingen samen de gezondheid bepalen. Gunn geeft er een sterk
+godsdienstige inkleuring aan: ziekte is voor een groot deel de prijs van
+overtreding, van de mens en van de beschaving.
+
+**Leefregels: lucht, beweging, bad, voedsel**
+
+Daarna volgen korte hoofdstukken over beweging, het koude bad, het lauwe bad
+en het voedsel. Het zijn de nuchterste bladzijden van het boek en tegelijk de
+enige waarvan het advies vandaag nog grotendeels overeind blijft: matig eten,
+veel buitenlucht, dagelijkse arbeid, regelmatig wassen.
+
+**De lijst met ziekten**
+
+Het grootste deel bestaat uit ziektebeschrijvingen op alfabetische volgorde in
+de index en thematisch in de tekst: galkoorts, zenuwkoorts, koorts met
+tussenpozen, leverziekten, tering met casussen, dysenterie, waterzucht,
+pleuris, jicht, huiduitslag, geslachtsziekten, vergiftigingen. Bij elke ziekte
+staan de kentekenen, dan de behandeling, dan het beloop.
+
+De behandeling is die van de reguliere geneeskunde van zijn tijd, en niet
+zachter. Braakmiddelen, purgeermiddelen, klysma's, blaartrekkende pleisters en
+aderlating komen overal terug. Voor galkoorts schrijft hij twintig grein
+calomel met twintig grein jalappe voor, met castorolie erachteraan; hij noemt
+de beroemde tien-en-tien van Benjamin Rush; bij zware gevallen gaat hij naar
+dertig grein. Kwijlen door kwik behandelt hij als een aanvaardbaar
+bijverschijnsel, met een zwavelbad om het kwik er weer uit te krijgen.
+
+**Vrouwen, kinderen en verloskunde**
+
+Vanaf ongeveer bladzijde 261 gaat het over menstruatie, witte vloed,
+zwangerschap en de tekenen daarvan, misgeboorte, bevalling, moeilijke
+bevalling, kraamvrouwenkoorts en de verzorging van pasgeborenen, met een apart
+stuk aanwijzingen voor vroedvrouwen. Gunn is hard over de vroedvrouwen van
+zijn streek en schrijft sterfgevallen toe aan hun haast bij het verwijderen
+van de nageboorte, maar hij richt zich wel tot hen: het stuk is uitdrukkelijk
+bedoeld voor iedereen die geroepen kan worden.
+
+Voor kinderen behandelt hij stuipen, kroep, spruw, tandjes krijgen, wormen,
+mazelen en kinkhoest. Ook hier zijn de middelen die van de volwassen praktijk,
+in kleinere dosis.
+
+**De Amerikaanse kruidenkast**
+
+Bijna zestig bladzijden beschrijven inheemse planten met hun gebruik:
+sassafras, sarsaparilla, kornoelje, ginseng, pokewortel, bloedwortel,
+pleuriswortel, gladde iep, wormkruid, doornappel, tabak. Gunn schrijft hier
+als iemand die de planten kent en toetst; over ginseng meldt hij nuchter dat
+Amerikaanse artsen er niet meer in zien dan een aangenaam bitter en een licht
+versterkend middel voor de maag, ondanks de Chinese reputatie en prijs.
+
+Daarna volgt een dispensatorium: hoe men castorolie maakt, hoe men klysma's
+zet, hoe men roots en kruiden droogt en bewaart, plus een indeling van de
+middelen in braakmiddelen, purgeermiddelen, pijnstillers, krampstillers,
+versterkende middelen en prikkelende middelen, met recepten voor laudanum,
+paregorische elixer en antimoonwijn.
+
+**Heelkunde met huishoudelijk gereedschap**
+
+Het laatste deel gaat over ongevallen: kneuzingen, wonden aan de schedel,
+hersenschudding en hersendrukking, botbreuken van neus tot voet,
+ontwrichtingen, versterving. Het bevat ook aanwijzingen voor aderlating aan
+arm en voet, met de waarschuwingen die daarbij horen, en voor plaatselijke
+bloedafname.
+
+Het bekendste stuk is dat over amputatie. Gunn erkent dat zelfs bedreven
+chirurgen twijfelen wanneer een lidmaat eraf moet, maar stelt dat de
+verrichting zelf niets meer vraagt dan vastheid van hand. Bij gebrek aan
+instrumenten noemt hij een groot voorsnijmes, een pennemes, een zaag van de
+timmerman, een reep leer als terugtrekker, gewaste draad voor ligaturen en een
+schoenmakersels om de vaten op te halen. Daarna beschrijft hij arm, dij, been,
+onderarm en vingers apart.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| domestic medicine | Huisgeneeskunde: het genre handboeken waarmee gezinnen zonder arts zichzelf konden behandelen, in Engeland begonnen met William Buchan en in Amerika voortgezet door Gunn. |
+| Poor Man's Friend | De ondertitel waarmee Gunn zijn boek positioneert tegenover de honoraria en de geheimtaal van de stadsdokter. |
+| calomel | Kwikchloride, het meest gebruikte purgeermiddel van de Amerikaanse geneeskunde in deze periode, door Gunn in doses van twintig tot dertig grein voorgeschreven. |
+| jalappe | Hars van een Mexicaanse klimplant, gebruikt als sterk purgeermiddel en bij Gunn vrijwel altijd met calomel gecombineerd. |
+| salivatie | Het overvloedig kwijlen met gezwollen tandvlees en metaalsmaak dat optreedt bij kwikvergiftiging, in Gunns tijd beschouwd als teken dat het middel aansloeg. |
+| aderlating | Het openen van een ader met een lancet om bloed af te tappen, door Gunn beschreven als vaardigheid die iedereen zou moeten bezitten. |
+| klysma | Vloeistof die via de endeldarm wordt ingebracht om de darm te legen of een middel toe te dienen, in dit boek een standaardhandeling bij koorts en koliek. |
+| simples | Enkelvoudige geneesmiddelen uit plant of wortel, tegenover de samengestelde bereidingen van de apotheek; Gunn bouwt daar zijn Amerikaanse kruidenkast op. |
+| de hartstochten | Gemoedsbewegingen als toorn, vrees en verdriet, bij Gunn behandeld als lichamelijke ziekteoorzaken en daarom als eerste onderwerp van het boek. |
+
+#### Waar het argument op rust
+
+Het boek voert geen onderzoek aan in enige moderne zin. Het steunt op drie
+bronnen: Gunns eigen praktijk en die van collega's, de gangbare leerboeken en
+tijdschriften van de reguliere geneeskunde, en de plantenkennis van kolonisten
+en indianen. Verwijzingen zijn schaars en losjes; hij noemt Hippocrates,
+Boerhaave, Cullen, Rush en een enkele keer een jaargang van de *Medical
+Recorder*.
+
+De onderbouwing per ziekte bestaat uit gezag en anekdote: dit is wat men doet,
+dit heb ik zien werken. Getallen ontbreken, uitkomsten worden niet geteld, en
+gevallen die anders afliepen komen alleen ter sprake als hij ze zelf leerzaam
+vindt. De doseringstabellen zijn wel precies, wat het boek bruikbaar maakte en
+tegelijk gevaarlijk.
+
+Wat het boek als bron sterk maakt is niet het bewijs maar de volledigheid. Het
+geeft een gesloten beeld van wat een ontwikkelde Amerikaanse plattelandsarts
+rond 1830 wist, dacht en deed, inclusief zijn godsdienstige en morele
+aannames.
+
+#### Wat er tegen in te brengen valt
+
+De ernstigste tegenwerping is dat het boek zijn eigen belofte niet houdt. Gunn
+opent met een aanval op vakjargon, ingevoerde drogerijen en kwik, en schrijft
+vervolgens een therapie voor die vrijwel gelijk is aan die van de artsen die
+hij bekritiseert. Charles Rosenberg heeft dat over het genre in het algemeen
+vastgesteld: huisgeneeskundige handboeken verspreidden de leer van de
+reguliere geneeskunde onder mensen die die geneeskunde niet konden betalen, in
+plaats van er een alternatief voor te bieden.
+
+Van de behandelingen is het meeste schadelijk of werkeloos. Herhaalde grote
+doses calomel leverden kwikvergiftiging op, met verlies van tanden en
+beschadiging van het tandvlees en de nieren; aderlating bij koorts verzwakte
+juist wie al verzwakt was; braak- en purgeermiddelen bij dysenterie en cholera
+versnelden het vochtverlies. De aanwijzingen voor amputatie met een
+voorsnijmes en een timmermanszaag, geschreven vóór verdoving en vóór enige
+notie van infectiepreventie, moeten in de praktijk vaker gedood dan gered
+hebben.
+
+De kruidenkast is het onderdeel dat het langst standhield, maar ook daar geldt
+dat vrijwel geen van de toegeschreven werkingen ooit is bevestigd. Waar Gunn
+iets doet wat vandaag nog verdedigbaar is, gaat het om onthouding en
+verzorging: rust, verse lucht, matig eten, schoon water, en zijn eigen
+nuchtere afwijzing van de reputatie van ginseng.
+
+Wie het boek leest moet ook op de druk letten. Na 1857 werd de tekst zwaar
+uitgebreid en deels herschreven, en de latere "New Revised"-uitgaven bevatten
+stof die Gunn zelf niet schreef. Uitspraken over "Gunn" op grond van een druk
+uit 1880 zeggen weinig over het boek van 1830.
+
+Ten slotte draagt het boek de vooroordelen van zijn tijd zonder aarzeling. De
+inleiding schetst indianen als wilden en de beschaving als bron van
+verwekelijking. Slaafgemaakte mensen komen erin voor als gevallen en als bron
+van kennis: de werking van de gele es tegen buikkramp is volgens Gunn ontdekt
+door te kijken naar een slavin op de West-Indische eilanden die de wortel in
+het bos zocht en het sap toediende. Zij blijft naamloos, de vondst heet een
+toevalligheid, en over de instelling zelf staat in het hele boek geen woord.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik het boek als bron over de gewone geneeskundige praktijk in de
+Verenigde Staten rond 1830, niet als bron over volksgeneeskunde alleen.
+- Noteer bij elk citaat de druk en het jaar; de verschillen tussen 1830, 1857
+en de latere uitgaven zijn groot genoeg om conclusies om te draaien.
+- Vergelijk de doseringstabellen met de eigen inleiding: de tegenspraak tussen
+wat Gunn over kwik zegt en wat hij voorschrijft is de kortste ingang tot de
+spanning in het genre.
+- Lees het hoofdstuk over de hartstochten als leerstuk, niet als aanhangsel:
+het laat zien hoe leefwijze en zedelijkheid destijds tot de geneeskunde werden
+gerekend.
+
+#### Wat je hierna leest
+
+- 1129. The Hydropathic Encyclopedia. Trall bouwt tien jaar later een volledig
+tegenstelsel op tegen precies de middelen die Gunn voorschrijft.
+- 1132. Over ziekenverpleging. Nightingale beschrijft in hetzelfde decennium
+wat verzorging zonder medicatie kan doen, met een veel strengere blik op
+waarneming.
+- 1133. Dr. Chase's Recipes; or, Information for Everybody. Chase zet het
+Amerikaanse receptenboek voort als handel, met dezelfde belofte van
+zelfredzaamheid en nog minder toetsing.
+
+## 1128. Lectures to Ladies on Anatomy and Physiology
+
+Mary S. Gove, 1842. *Lectures to Ladies on Anatomy and Physiology* (Saxton &
+Peirce, Boston, 1842, 300 blz.). Het boek verscheen onder de naam Mrs. Mary S.
+Gove; de auteur heette bij haar geboorte Mary Sargeant Neal, trouwde in 1831
+met Hiram Gove, verliet hem in 1842 en publiceerde na haar huwelijk met Thomas
+Low Nichols in 1848 als Mary Gove Nichols, de naam waaronder bibliotheken het
+werk nu vaak catalogiseren. De lezingen gaan terug op de reeks die zij vanaf
+1838 in Boston hield. Een uitgebreide versie verscheen later als *Lectures to
+Women on Anatomy and Physiology, with an Appendix on Water Cure*. Er bestaat
+geen Nederlandse vertaling; de samenvatting is op de eerste Bostonse druk van
+1842 gebaseerd. Rubriek: brein en lichaam.
+Tags: `anatomie`, `fysiologie`, `gezondheid`, `negentiende eeuw`
+
+Gove hield vanaf 1838 in Boston openbare lessen anatomie en fysiologie voor
+vrouwen, op verzoek van een damesgezelschap dat de stof te delicaat vond voor
+een gemengd publiek. Dat een vrouw over het lichaam sprak was omstreden genoeg
+om haar uit de quakergemeenschap te doen zetten. Dit boek bundelt veertien van
+die lezingen.
+
+De inhoud loopt van botten, spieren en zintuigen via bloedsomloop, ademhaling
+en maag naar diëtetiek, vochten, zenuwstelsel, ruggengraatziekten en
+opvoeding. De rode draad is dat vrouwen ziek worden van gewoonten die zij niet
+doorzien: het rijgkorset, kamers zonder verse lucht, prikkelend voedsel en
+scholing zonder beweging.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Gove stelt dat het grootste deel van de ziekten waaraan
+vrouwen in haar tijd lijden voortkomt uit onwetendheid over het eigen lichaam,
+en dat die onwetendheid geen natuurlijke toestand is maar in stand gehouden
+wordt door het idee dat kennis van anatomie voor vrouwen ongepast zou zijn.
+Wie weet hoe de ribben, de longen en de lever liggen, zal het rijgkorset niet
+meer dragen; wie weet hoe de maag werkt, begrijpt waarom prikkelend voedsel en
+gebrek aan lucht schaden. Kennis is bij haar dus geen wetenschappelijke luxe
+maar de eerste voorwaarde voor gezondheid, en zij moet aan vrouwen worden
+overgedragen door een vrouw die openlijk voor een klas staat.
+
+#### De gang van het boek
+
+**Hoe de lezingen ontstonden**
+
+Het voorwoord beantwoordt de vraag waarom een vrouw zich met deze stof
+bemoeit. Gove schrijft dat zij vanaf haar kinderjaren nooit gezond is geweest
+en dat de grond voor haar longziekte op haar veertiende gelegd is door nauwe
+kleding. Vanaf haar achttiende las zij medische en pathologische werken, maar
+verborg dat, omdat zij niet bespot wilde worden om lectuur die vrouwen zelden
+lazen.
+
+In 1837 hoorde zij in Lynn, Massachusetts, de lezingen van Sylvester Graham.
+Die kennis maakte volgens haar pas bruikbaar wat zij al wist: zij kende de
+bouw van de maag, maar niet de oorzaken die haar werking ontregelen. Zij noemt
+Graham een van de grootste weldoeners die de wereld ooit heeft gehad en
+schrijft het meeste van wat in haar boek praktisch bruikbaar is aan zijn
+onderricht toe. Ook bedankt zij artsen die haar boeken leenden, hun
+verzamelingen openstelden en haar bij ontledingen toelieten.
+
+**Veertien lezingen, van bot tot opvoeding**
+
+De inhoudsopgave laat de opbouw zien. Lezing I verdedigt het nut van de studie
+zelf; II en III behandelen de vorming, het aantal en de ligging van de botten;
+IV de spieren en het oog, oor en de neus; V bloedsomloop, ademhaling en
+ventilatie; VI de maag; VII tot IX de diëtetiek; X de lichaamsvochten; XI en
+XII het zenuwstelsel; XIII ziekten van de ruggengraat; XIV opvoeding.
+
+Het is een leergang, geen betoog: eerst de bouw, dan de werking, dan de
+leefregels die daaruit volgen. De anatomie is die van de leerboeken van haar
+tijd en bevat weinig eigens. Het eigene zit in wat zij eraan vastknoopt.
+
+**Het korset**
+
+De felste bladzijden gaan over het rijgen. Gove beschrijft hoe samendrukking
+de spieren van borst en rug hun werk ontneemt, waardoor die verslappen en de
+drager het gevoel krijgt dat zij zonder korset in elkaar zakt. Dat gevoel is
+voor haar het bewijs van de schade, niet het argument ervoor. Zij noemt de
+gevolgen die zij ziet: verkleuring van de lippen, een vale huid, benauwdheid,
+bloedingen uit de longen, verkromming van de ruggengraat.
+
+Zij voert zichzelf op als geval. Op haar veertiende bijna vernietigd door
+samendrukking, vijftien jaar zo krom dat zij een blijvende afwijking
+vermoedde, en hersteld door oefeningen die zij later in haar lessen gaf. Zij
+noemt zich een wrak dat weet dat het kort zal leven, en zegt dat zij liever
+mishandeld en verkeerd voorgesteld wordt dan te zwijgen. Van de aandoening
+waaraan haar tijdgenoten dachten, longtering, is zij overigens niet gestorven;
+zij werd vierenzeventig.
+
+**Diëtetiek, met afstand tot de eigen partij**
+
+Drie lezingen gaan over voeding. Gove eet zelf geen vlees en gelooft dat
+vleeseters minder gezond zijn en korter leven, maar zij weigert daar een
+stelsel van te maken. Wie zegt matig te leven omdat hij geen vlees eet en
+vervolgens buitensporig veel plantaardig voedsel naar binnen werkt, doet
+zichzelf volgens haar meer kwaad dan wie matig vlees eet. Zij citeert William
+Cullen dat plantaardig voedsel de bloedvaten niet overvult en de geest vrij
+laat, en dat vlees aanzet tot volbloedigheid.
+
+Zij verbindt voedsel ook aan zedelijkheid: prikkelend eten wekt volgens haar
+de dierlijke neigingen. Dat is de kern van het grahamisme, en zij weet dat het
+als overdreven geldt. Zij verdedigt het met verwijzing naar gezaghebbende
+medische schrijvers, niet met eigen waarnemingen.
+
+**Zenuwstelsel, ruggengraat en de geheime ondeugd**
+
+In de lezingen over het zenuwstelsel en de ruggengraat komt zij op
+zelfbevrediging, die zij als oorzaak van een lange rij ziekten opvoert:
+dyspepsie, ziekten van de ruggengraat, hoofdpijn, epilepsie, verzwakt
+gezichtsvermogen, hartkloppingen, bloeden uit de longen, diabetes, witte
+vloed, en soms plotselinge dood. Haar bronnen zijn Léopold Deslandes en
+Samuel-Auguste Tissot, plus jaarverslagen van gestichten; zij citeert het
+vijfde jaarverslag van het State Lunatic Hospital in Worcester, Massachusetts,
+over het aantal opnamen dat aan deze oorzaak werd toegeschreven.
+
+Zij vertelt dat zij pas rond 1834 uit een medisch werk vernam dat de gewoonte
+ook bij vrouwen voorkwam, en verzet zich tegen de opvatting dat zwijgen
+veiliger is. Dit is het onderdeel van haar programma dat het slechtst is
+verouderd, en tegelijk het onderdeel dat het duidelijkst laat zien hoe
+medische autoriteit destijds werkte: een keten van citaten zonder tegenspraak.
+
+**Opvoeding als sluitstuk**
+
+De laatste lezing gaat over opvoeding. Gove noemt haar tijd de eeuw van de
+ontdekking en klaagt dat mensen hun denken uitbesteden en kant-en-klare
+leerstellingen aannemen. Zij weigert lichamelijke en verstandelijke vorming te
+scheiden en illustreert dat met een ijsplant die zij zo goed verzorgde dat hij
+het meeste blad en de meeste bloemen gaf en daaraan doodging: zo hebben wij
+onze kinderen doodgekweekt.
+
+Zij leunt hier zwaar op geciteerd materiaal, onder meer uit de *Common School
+Journal*, het blad van de Massachusettse schoolhervorming. Haar eigen bijdrage
+is de eis dat lichamelijke opvoeding niet naast maar onder het leren komt te
+staan.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| fysiologie | De leer van de werking van het levende lichaam, bij Gove niet als vak gepresenteerd maar als kennis waarop men zijn dagelijkse gewoonten hoort te baseren. |
+| de wetten van leven en gezondheid | De vaste uitdrukking waarmee de Amerikaanse gezondheidshervorming aangaf dat gezondheid door natuurlijke regels wordt beheerst die men kan kennen en dus kan overtreden. |
+| tight lacing | Het strak rijgen van het korset, in dit boek de voornaamste enkelvoudige ziekteoorzaak bij vrouwen. |
+| close dressing | Gove's woord voor nauwsluitende kleding in het algemeen, waaraan zij haar eigen longziekte toeschrijft. |
+| het grahamstelsel | De leefwijze van Sylvester Graham: grof volkorenbrood, geen vlees, geen prikkelende kruiden, geen alcohol, koud water, en seksuele matiging als onderdeel van hetzelfde geheel. |
+| ventilatie | De aanvoer van verse lucht in woon- en slaapvertrekken, bij Gove een terugkerend punt tot in het bezwaar tegen wiegen met een kap. |
+| consumptie | De negentiende-eeuwse naam voor longtering, door Gove aan samendrukking van de borst en aan leefwijze toegeschreven in plaats van aan besmetting. |
+| frenologie | De leer dat karaktereigenschappen aan afzonderlijke hersendelen en aan de schedelvorm af te lezen zijn; Gove haalt George Combe instemmend aan en noemt de leer aantrekkelijk. |
+| de geheime ondeugd | De omschrijving waarmee zelfbevrediging werd aangeduid, in dit boek behandeld als oorzaak van zenuw-, rug- en geestesziekten. |
+
+#### Waar het argument op rust
+
+Gove was geen arts en had geen opleiding. Haar kennis kwam uit medische boeken
+die zij zelfstandig las, uit anatomische verzamelingen en ontledingen waartoe
+artsen haar toelieten, en uit Grahams lezingen. Zij zegt dat in het voorwoord
+zonder omhaal.
+
+Het bewijs in het boek bestaat uit drie soorten. Ten eerste anatomische feiten
+uit de leerboeken van haar tijd, die zij correct en toegankelijk weergeeft.
+Ten tweede gezagsargumenten: Cullen, Bell, Combe, Deslandes, Tissot, en
+jaarverslagen van gestichten. Ten derde gevallen die zij zelf zag of was,
+zoals de dame die na anatomieles het korset aflegde en binnen korte tijd haar
+kleur terugkreeg.
+
+Wat ontbreekt is elke vorm van telling of vergelijking. Waar zij een oorzaak
+aanwijst, gebeurt dat op grond van samenvallen: deze vrouw reeg en werd ziek,
+dus het rijgen deed het. Bij het korset was die redenering deels raak, omdat
+de mechanische werking direct waarneembaar is. Bij het zenuwstelsel leverde
+dezelfde redenering onhoudbare uitkomsten op.
+
+Het sterkste bewijsstuk in het boek is de klas zelf. Dat honderden vrouwen
+betaalden om deze stof te horen, en dat zij de reeks jaar na jaar herhaalde,
+laat zien hoe groot de behoefte was aan kennis die hun elders onthouden werd.
+
+#### Wat er tegen in te brengen valt
+
+De leer over zelfbevrediging is onjuist en heeft schade aangericht. Zij is
+niet van Gove afkomstig, zij nam haar over van Tissot en Deslandes en gaf haar
+door, maar zij versterkte die door haar aan een vrouwelijk publiek te
+presenteren als medisch vaststaand. Latere schrijvers, onder wie John Harvey
+Kellogg, bouwden op dezelfde bronnen door.
+
+De kritiek op het korset was in richting terecht en in omvang overdreven. Dat
+strak rijgen de ademhaling beperkt, de romp vervormt en de rugspieren
+verzwakt, is aannemelijk en deels aangetoond; dat het de voornaamste oorzaak
+was van tering, onvruchtbaarheid en vroege dood, en dat de schade erfelijk aan
+kinderen werd doorgegeven, is dat niet. Haar eigen levensloop spreekt de
+doodsvoorspelling tegen die zij in het boek over zichzelf uitspreekt.
+
+Het grahamisme dat zij verdedigt rust op een fysiologie van prikkeling die
+geen stand hield: het idee dat vlees, kruiden en alcohol dezelfde soort
+overprikkeling veroorzaken die uiteindelijk de zenuwen uitput. Historici van
+de Amerikaanse gezondheidshervorming, onder meer James Whorton en Stephen
+Nissenbaum, hebben laten zien hoe nauw die leer verweven was met opvattingen
+over seksuele beheersing, wat verklaart waarom voeding en zedelijkheid bij
+Gove in één betoog zitten.
+
+Het boek gaat bovendien voorbij aan de oorzaken die het meeste gewicht hadden.
+Over besmetting, drinkwater, kraamvrouwenkoorts en armoede staat vrijwel
+niets, terwijl juist die de sterfte bepaalden. De verklaring wordt consequent
+bij het gedrag van de vrouw gelegd, wat de schuld dicht bij het slachtoffer
+brengt.
+
+Wat overeind blijft is niet de leer maar de handeling. Het boek is een van de
+eerste gevallen waarin een vrouw in het openbaar de bouw van het menselijk
+lichaam aan vrouwen uitlegde, en het staat er zelf bij stil wat dat kostte.
+
+#### Wat er concreet mee te doen is
+
+- Lees het voorwoord eerst: daar staat waar de kennis vandaan komt en welke
+autoriteit de auteur wel en niet claimt.
+- Scheid de anatomische lezingen van de leefregels; het eerste deel is een
+getrouwe weergave van de kennis van 1842, het tweede is hervormingsleer.
+- Volg de verwijzingen naar Tissot en Deslandes door als men wil zien hoe een
+medische dwaling zich in de negentiende eeuw via citaten voortplantte.
+- Gebruik het boek naast bronnen over de gezondheidshervorming zelf; los
+gelezen lijkt het persoonlijker en oorspronkelijker dan het is.
+
+#### Wat je hierna leest
+
+- 1129. The Hydropathic Encyclopedia. Trall werkt dezelfde hervormingsleer uit
+tot een volledig medisch stelsel, met de watergeneeskunde als middel.
+- 1130. The Laws of Life. Blackwell behandelt tien jaar later hetzelfde
+onderwerp met een medische titel op zak, en met een strengere opbouw.
+- 1134. Plain Facts for Old and Young. Kellogg zet de leer over
+zelfbevrediging voort die Gove hier van Tissot en Deslandes overneemt, met
+verstrekkender gevolgen.
+
+## 1129. The Hydropathic Encyclopedia
+
+Russell Thacher Trall, 1851. *The Hydropathic Encyclopedia: A System of
+Hydropathy and Hygiene, in Eight Parts* (Fowlers and Wells, New York, 1851,
+twee delen; deel I telt 460 blz. en behandelt anatomie, fysiologie, hygiëne en
+diëtetiek, deel II telt 494 blz. en behandelt theorie en praktijk, pathologie,
+chirurgie en verloskunde). Het copyright staat op naam van Fowlers and Wells,
+1851; het voorwoord is gedagtekend New York, 15 Laight Street. Deze
+samenvatting volgt de eerste uitgave; van het werk verschenen tot in de jaren
+zeventig herdrukken, waaronder die van 1853, 1855 en 1857. Er bestaat geen
+Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.
+Rubriek: naslag en praktijk.
+Tags: `geneeskunde`, `gezondheid`, `voeding`, `naslagwerk`
+
+Trall was arts, redacteur van de *Water-Cure Journal* en leidde twee
+waterkuurinrichtingen in New York. Met dit werk in twee delen wilde hij de
+watergeneeskunde uit de sfeer van losse handleidingen halen en haar neerzetten
+als een volledig stelsel: anatomie, fysiologie, hygiëne, voeding,
+behandelleer, ziekteleer, heelkunde en verloskunde in acht delen achter
+elkaar.
+
+De inzet is polemisch. Tegenover aderlaten, calomel, braakmiddelen en
+blaartrekkers zet hij water, lucht, licht, voedsel, warmte, beweging en rust,
+met als grondstelling dat het lichaam zelf geneest en de behandelaar alleen
+omstandigheden levert. Het boek diende ook als leerboek voor de opleiding die
+hij twee jaar later in New York begon.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Trall stelt dat ziekte geen ding is dat het lichaam
+binnendringt en dat bestreden moet worden, maar de afwezigheid van gezondheid:
+een verstoorde balans die ontstaat door verkeerd gebruik van lucht, licht,
+water, voedsel, beweging, slaap en gemoed. Daaruit volgt voor hem dat elke
+stof die het lichaam als vreemd behandelt, van kwik tot opium, per definitie
+geen geneesmiddel is maar een tweede aanslag, en dat de enige verdedigbare
+geneeskunde bestaat uit het wegnemen van de oorzaken en het bijstaan van het
+herstelvermogen dat in het organisme zelf zit. Water is daarbij het middel dat
+alles kan wat de aanwijzingen vragen, omdat het oplost, uitspoelt, verwarmt,
+afkoelt en prikkelt zonder zelf te beschadigen.
+
+#### De gang van het boek
+
+**Wat het boek wil zijn**
+
+Het voorwoord stelt vast dat de bestaande literatuur over de waterkuur
+onsamenhangend is: geen enkel werk brengt de vakken bij elkaar die voor een
+volledig stelsel nodig zijn. Trall wil dat gat vullen met een boek dat
+tegelijk gids voor gezinnen, leerboek voor studenten en handboek voor artsen
+is. Hij verontschuldigt zich voor de beknoptheid: het aantal onderwerpen dwong
+hem tot uiterste kortheid, juist waar hij nieuwe stellingen poneert en
+bestaande bestrijdt.
+
+De inleiding maakt de inzet duidelijk. Wie de heersende praktijk wil omkeren
+en een stelsel wil invoeren dat botst met gewoonte, opleiding en
+beroepsbelang, moet volgens hem rekenen op de zwaarst mogelijke bewijslast.
+
+**Een strijdbare geschiedenis vooraf**
+
+De inleiding opent met een geschiedenis van de geneeskunde van de oudheid tot
+zijn eigen tijd, langs Hippocrates, de Alexandrijnse school, Galenus, de
+Arabische school, de alchemisten, Paracelsus, Boerhaave, Haller, Cullen en het
+brunoniaanse stelsel. De lijn die hij trekt is dat de leerstellingen elkaar
+steeds hebben afgelost terwijl de behandeling gelijk bleef: wie het over de
+oorzaak oneens was, liet toch aderlaten, blaren trekken, zweten, braken en
+purgeren. Uit die tegenstrijdigheid leidt hij af dat de theorieën er nooit toe
+deden.
+
+Daarna volgt een geschiedenis van het baden, van de oudheid via de
+middeleeuwen tot de badgewoonten van uiteenlopende volken, met verzamelde
+uitspraken van artsen ten gunste van water als geneesmiddel.
+
+**Anatomie en fysiologie**
+
+De eerste twee delen zijn een gewoon anatomisch en fysiologisch leerboek met
+platen: botten, banden, spieren, bindweefsel, slagaders, aders, lymfevaten,
+zenuwen, zintuigen en ingewanden, gevolgd door weefselleer, zintuiglijke
+waarneming, stem en spraak, de afzonderlijke functies, de temperamenten en een
+hoofdstuk over menselijke rassen.
+
+Hier volgt Trall grotendeels de gangbare wetenschap, met enkele uitstapjes die
+dat niet zijn: hij behandelt mesmerische verschijnselen als onderdeel van de
+zenuwleer, houdt de indeling in vier temperamenten aan, en neemt de raciale
+indeling van zijn tijd over als natuurlijke ordening. Dat laatste hoofdstuk is
+naar huidige maatstaven zonder waarde en verdient alleen aandacht als
+tijdsbeeld.
+
+**Hygiëne en voeding**
+
+Deel III behandelt wat hij de hygiënische middelen noemt: lucht, licht, drank,
+voedsel, temperatuur, beweging, slaap, kleding, baden, uitscheiding, de
+hartstochten en de levensduur. Het is de kern van zijn positieve leer, want al
+deze middelen zijn volgens hem samen zowel de oorzaak van ziekte als het
+instrument van genezing.
+
+Deel IV gaat over voeding en opent met de vraag welk voedsel bij de mens
+hoort. Trall voert vijf soorten bewijs aan: bijbels, anatomisch, fysiologisch,
+medisch, scheikundig en proefondervindelijk. Het anatomische deel bestaat uit
+citaten van vergelijkend anatomen, onder wie Cuvier, William Lawrence, Thomas
+Bell en Linnaeus, die de mens naar gebit en spijsverteringskanaal bij de
+vruchtenetende dieren plaatsen. Daarna volgen hoofdstukken over hydropathische
+keuken, met bereidingen zonder vet, zout en kruiden, en over dieetschema's
+voor inrichtingen en zieken.
+
+**De leer en de handgrepen**
+
+Deel V bevat de kern. Trall zet de verhouding van water tot het gezonde
+lichaam in zeven stellingen: water vormt het grootste deel van het lichaam,
+ruim driekwart van het bloed, meer dan zeven achtste van de hersenstof; het is
+het enige voertuig voor voedingsstoffen, het enige middel om afvalstoffen af
+te voeren, het enige oplosmiddel dat in alle weefsels kan doordringen zonder
+ze te beschadigen. Alleen verkeerde temperatuur en te grote hoeveelheid kunnen
+kwaad.
+
+Daarna volgt de omschrijving van ziekte als negatieve grootheid en de
+uitspraak dat de natuur de ware arts is: het herstellend vermogen zit in het
+levende organisme, en de geneeskunst kan niet meer doen dan gunstige
+omstandigheden leveren. Trall verklaart hier ook waarom hij patiënten tijdens
+de waterbehandeling ziet kwijlen als bij een kwikkuur: het lichaam zou het
+eerder toegediende kwik door osmose uitdrijven.
+
+Het praktische hoofdstuk beschrijft ruim veertig verrichtingen: de natte
+laken-inpakking, de halve pak, de douche, het wrijflaken, het zitbad, het
+stortbad, het zweetbad, het dampbad, het rivierbad, de voet-, hoofd-, oog-,
+oor-, neus- en mondbaden, kompressen, buik- en borstwikkels, wrijving,
+drinkwater en klysma's. Bij de inpakking geeft hij tijden van vijftien minuten
+tot twee uur, materialen, de volgorde van dekens en lakens, en de
+nabehandeling. Een apart hoofdstuk behandelt de crisis: de verergering in de
+vorm van diarree, steenpuisten of koortsigheid die tijdens de kuur optreedt en
+die hij als teken van herstel leest.
+
+**Ziekteleer, heelkunde en verloskunde**
+
+Deel VI loopt van koortsen en ontstekingen via spijsverteringsziekten,
+huidziekten en geestesziekten tot vergiftigingen, telkens met de
+waterbehandeling als antwoord. Deel VII behandelt heelkunde: verband, wonden,
+gezwellen, zweren, breuken, ontwrichtingen, misvormingen en operaties, met
+verdoving genoemd als beschikbaar hulpmiddel.
+
+Deel VIII gaat over verloskunde en de kinderkamer. Trall wil de gewone
+bevalling terug in handen van geschoolde vrouwen, met de chirurg alleen voor
+ongevallen en complicaties, en wijt het uitblijven van die scholing aan het
+belang van het beroep dat zich ertegen keert. Hij verzet zich tegen het geven
+van moederkoren en andere middelen tijdens de bevalling, en behandelt in het
+laatste hoofdstuk kleding, bad, voedsel, slaap en beweging van zuigelingen,
+met een aparte paragraaf tegen het toedienen van geneesmiddelen aan kinderen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| hydropathie | De behandeling van ziekte met water in uiteenlopende toepassingen, bij Trall uitgebreid tot een volledig medisch stelsel. |
+| hygiënische middelen | Lucht, licht, water, voedsel, temperatuur, beweging, slaap, kleding, uitscheiding en gemoed, bij Trall tegelijk de oorzaken van ziekte en de instrumenten van genezing. |
+| ziekte als negatieve grootheid | Trall's grondstelling dat ziekte geen zelfstandig bestaand iets is maar de afwezigheid van het evenwicht dat gezondheid heet. |
+| de natuur als ware arts | Het uitgangspunt dat het herstellend vermogen in het organisme zelf zit en dat de behandelaar alleen voorwaarden kan scheppen. |
+| natte laken-inpakking | Het inwikkelen van de patiënt in een uitgewrongen nat laken met dekens erover, door Trall gepresenteerd als vervanging van aderlaten, antimoon, calomel en opium. |
+| crisis | De verergering tijdens de kuur, in de vorm van diarree, steenpuisten of koorts, die binnen het stelsel als teken van genezing geldt. |
+| zitbad | Het bad waarin alleen het bekken en de bovenbenen in het water zitten, in dit boek een van de meest voorgeschreven verrichtingen. |
+| allopathie | Trall's aanduiding voor de heersende geneeskunde die met tegengestelde prikkels werkt, gebruikt als afgrenzing tegenover zijn eigen stelsel. |
+| endosmose en exosmose | De uitwisseling van vloeistoffen door een vlies tot beide zijden gelijk zijn, door Trall gebruikt om te verklaren hoe water kwik uit het lichaam zou verwijderen. |
+| vruchtenetend | De indeling waarin de mens naar gebit en darmkanaal bij de vruchten- en plantenetende dieren wordt geplaatst, de grond van Trall's vegetarisme. |
+
+#### Waar het argument op rust
+
+Het boek bevat geen enkel gecontroleerd onderzoek en telt geen uitkomsten. De
+onderbouwing bestaat uit drie lagen. De eerste is gezag: uitgebreide citaten
+van James Manby Gully, Joel Shew, Edward Johnson en anderen uit de
+waterkuurliteratuur, en van vergelijkend anatomen voor het voedingsvraagstuk.
+De tweede is fysiologische redenering: uit de zeven stellingen over water
+leidt hij af wat water moet kunnen doen. De derde is eigen praktijkervaring
+uit twee inrichtingen, in de vorm van gevallen zonder aantallen.
+
+Waar hij naar aanschouwelijk bewijs grijpt, is dat zwak. De osmoseproef met
+een reageerbuis, pekel en een blaas, overgenomen uit Edward Johnson, toont een
+verschijnsel in glaswerk en wordt vervolgens zonder tussenstap op het levende
+lichaam toegepast. Als proef voor de reinigende werking van de inpakking stelt
+hij voor een goed doorvoede stedeling een uur in te pakken en op de stank af
+te gaan.
+
+Het sterkste deel van zijn bewijsvoering is negatief en historisch: de
+vaststelling dat de leerstellingen over de oorzaak van ziekte elkaar
+eeuwenlang tegenspraken terwijl de behandeling dezelfde bleef. Dat argument
+raakt een echt zwak punt van de geneeskunde van zijn tijd, ook al onderbouwt
+het zijn eigen alternatief niet.
+
+#### Wat er tegen in te brengen valt
+
+Trall had gelijk op het punt waar het meeste op het spel stond. Aderlaten,
+herhaalde grote doses calomel, antimoon, blaartrekkers en opium waren
+gemiddeld schadelijk, en de sterfte die eraan is toe te schrijven was reëel.
+Zijn oordeel dat drieduizend jaar geneeskunde meer mensen heeft gedood dan
+gered is retorisch, maar de richting ervan wordt door de latere
+geschiedschrijving over de zogeheten heroïsche geneeskunde bevestigd. Ook zijn
+verzet tegen het routinematig medicineren van bevalling en zuigeling, en zijn
+pleidooi voor scholing van vrouwen als verloskundige, hielden beter stand dan
+het stelsel eromheen.
+
+Zijn eigen leer rustte echter op even weinig bewijs. De omschrijving van
+ziekte als afwezigheid van gezondheid is niet te weerleggen en daarmee ook
+niet te toetsen. De crisisleer maakt elke verslechtering tijdens de
+behandeling tot bewijs van vooruitgang, wat de kuur immuun maakt voor
+tegenspraak; Trall ziet dat probleem half in wanneer hij waarschuwt dat
+sommige artsen de crisis kunstmatig opdrijven, maar hij trekt er geen
+conclusie uit.
+
+De verklaring dat water eerder toegediend kwik door osmose uitdrijft, is
+fysiologisch onjuist. Het verschijnsel dat hij beschreef, kwijlen en
+metaalsmaak bij patiënten die jaren geen kwik hadden gehad, had andere
+oorzaken, waaronder mondontsteking en de suggestie die van de kuur zelf
+uitging.
+
+De algemene stelling dat geen enkel medicijn ooit geneest, was ook naar de
+kennis van 1851 te breed. Kinine bij malaria en de koepokinenting waren toen
+al bekend als werkzaam; Trall behandelt de koepokken in zijn hoofdstuk over
+koortsen zonder de inenting als uitzondering op zijn regel te erkennen.
+
+Historici van de watergeneeskunde, onder wie Susan Cayleff en Jane Donegan,
+wijzen erop dat het gunstige effect van de inrichtingen vooral kwam van wat er
+níet gebeurde: geen aderlating, geen kwik, wel rust, regelmaat, eenvoudig
+eten, beweging en het wegvallen van de omstandigheden die de patiënt ziek
+maakten. Water was daarbij aanleiding en ritueel, niet werkzame stof. Dezelfde
+historici merken op dat het stelsel vrouwen toegang gaf tot medisch gezag die
+de reguliere opleidingen hun weigerden, wat een deel van de aantrekkingskracht
+verklaart.
+
+Het advies dat de meeste vrouwen zich de verloskunde zonder leraar eigen
+kunnen maken, is binnen dit boek de gevaarlijkste zin. Trall zwakt hem af met
+de chirurg voor complicaties, maar de onderschatting van wat er bij een
+bevalling mis kan gaan blijft staan.
+
+#### Wat er concreet mee te doen is
+
+- Lees deel V vóór de rest; daar staat de leer, en de overige zeven delen zijn
+er de uitwerking van.
+- Scheid de kritiek op de reguliere praktijk van het voorgestelde alternatief;
+het eerste houdt stand, het tweede niet.
+- Let bij de crisisleer op de vorm van het argument: een leer die elke
+uitkomst als bevestiging leest, is niet te toetsen, ook niet met
+welwillendheid.
+- Gebruik het werk als naslag over wat een negentiende-eeuwse
+waterkuurinrichting feitelijk deed; de beschrijvingen van de verrichtingen
+zijn nauwkeurig genoeg om het dagprogramma te reconstrueren.
+
+#### Wat je hierna leest
+
+- 1127. Gunn's Domestic Medicine. Gunn schrijft twintig jaar eerder het
+huisboek waarin precies de middelen staan die Trall wil afschaffen.
+- 1128. Lectures to Ladies on Anatomy and Physiology. Gove komt uit dezelfde
+hervormingsbeweging en gaat later zelf met de watergeneeskunde werken.
+- 1137. Health in the Household. Dodds brengt het hygiënische stelsel terug
+tot een huishoudboek, met dezelfde uitgangspunten en minder polemiek.
+
+## 1130. The Laws of Life
+
+Elizabeth Blackwell, 1852. *The Laws of Life, with Special Reference to the
+Physical Education of Girls* (George P. Putnam, 10 Park Place, New York, 1852,
+180 blz.). Het boek bevat zes lezingen die Blackwell in het voorjaar van 1852
+in New York voor een klas dames hield; de opdracht "To American Women" is
+gedagtekend 44 University Place, juni 1852. Zij noemt het werk daar de eerste
+vrucht van haar medische studie. Blackwell was in januari 1849 aan Geneva
+Medical College in de staat New York gepromoveerd en was daarmee de eerste
+vrouw met een Amerikaanse artsentitel. Van het boek verschenen herdrukken,
+waaronder een uitgave uit 1859. Er bestaat geen Nederlandse vertaling; de
+samenvatting is op de eerste druk van 1852 gebaseerd. Rubriek: brein en
+lichaam.
+Tags: `onderwijs`, `fysiologie`, `lichaam`, `negentiende eeuw`
+
+Blackwell hield deze zes lezingen drie jaar na haar promotie, voor een
+betalend publiek van vrouwen in New York. Zij behandelt eerst wat zij de
+wetten van het leven noemt, beweging en ordening in de groei, dan het
+onderscheid tussen het onwillekeurige en het willekeurige deel van het
+lichaam, en pas daarna het onderwijs.
+
+De laatste twee lezingen vormen de kern: een aanklacht tegen scholen waarin
+meisjes tussen hun zevende en zestiende jaar dagelijks zes uur in slecht
+geventileerde lokalen over een lessenaar gebogen zitten, en een voorstel tot
+hervorming waarin lichamelijke vorming de grondslag van het leerplan wordt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Blackwell stelt dat er een vaste ordening in de menselijke
+groei zit waarin het lichaam voorgaat: de stoffelijke ontwikkeling moet af
+zijn voordat het verstand zwaar belast kan worden, en tot dat moment hoort de
+vorming van de geest ondergeschikt te blijven aan de vorming van het lichaam.
+Het onderwijs voor meisjes draait die volgorde precies om, en doet dat juist
+in de jaren waarin het lichaam zijn zwaarste werk verricht. De zwakte die haar
+tijdgenoten aan de vrouwelijke natuur toeschreven is volgens haar daarom geen
+natuur maar uitkomst: het gevolg van negen jaar stilzitten in bedorven lucht,
+met een verstand dat wordt overvraagd terwijl het lichaam wordt genegeerd.
+
+#### De gang van het boek
+
+**Zes lezingen aan een klas dames**
+
+De opdracht aan de Amerikaanse vrouwen legt het karakter van het boek vast.
+Blackwell publiceert de lezingen op verzoek van haar klas en om aandacht te
+vragen voor een verwaarloosd deel van de opvoeding. Zij noemt ze uitdrukkelijk
+schetsen van de waarheid en aanwijzingen voor de juiste methode, niet een
+volledige behandeling van het onderwerp.
+
+De zes lezingen heten Introductory, General Laws, The Organic Life, The
+Related Life, Criticism en Reform. De eerste vier bouwen het kader op, de
+laatste twee passen het toe.
+
+**Het kader: beweging en ordening**
+
+De inleidende lezing begint bij het scheppingsverhaal en het beeld van de
+eerste mens, en zet daarmee de toon: de gezondheid die de mens hoort te
+bereiken is een goddelijk bedoelde toestand, en wie de wetten van het leven
+overtreedt vervalt daarvan. Dat theologische raamwerk verdwijnt in het hele
+boek niet uit beeld.
+
+In de tweede lezing werkt zij twee wetten uit. De eerste is de wet van de
+oefening: beweging is de grondvorm van alle bestaan, ook waar zij niet
+zichtbaar is. Zij laat dat zien aan een slapende zuigeling, in wie elk orgaan
+bezig is materiaal te verzamelen en door dat werk te groeien. De tweede is de
+wet van de ordening: groei verloopt in een vaste volgorde en laat zich niet
+vervroegen. Zij haalt daarvoor de sterrenkunde en de aardlagen aan, van een
+nevel die zich tot ster verdicht tot de geologische lagen waarin het leven pas
+laat verschijnt.
+
+Daaraan koppelt zij het begrip periodiciteit: vermogens van lichaam en geest
+verschijnen niet tegelijk maar na elkaar, elk op hun tijd.
+
+**Het organische en het gerelateerde leven**
+
+De derde lezing voert het onderscheid in dat de rest van het boek draagt. Het
+organische leven is het deel van het lichaam dat blijft werken zonder wil:
+hart, longen, maag, huid. Dat deel heeft een vast type, laat zich niet
+opvoeden, en elke inmenging is bemoeizucht. Het gerelateerde leven is het deel
+dat de wil bedient: hersenen, zintuigen, spierstelsel. Dat deel is wel te
+vormen, en juist daar ligt de taak.
+
+Voor het organische leven formuleert zij twee plichten die zij tot in de
+laatste lezing herhaalt: vrijheid om te werken, en materiaal om mee te werken.
+Vrijheid betekent geen samendrukking en geen belemmering; materiaal betekent
+verse lucht, water, voedsel en licht. Wie die twee levert, doet voor dit deel
+van het lichaam alles wat gedaan kan worden.
+
+**Kritiek op de school**
+
+De vijfde lezing legt de maatstaf naast de praktijk. Kinderen gaan rond hun
+zevende naar school en blijven er tot hun zestiende, precies de jaren van het
+wisselen van het gebit tot de puberteit, waarin het lichaam onophoudelijk
+beslag legt op de levenskracht. In die jaren wordt volgens Blackwell het
+lichaam eenvoudig genegeerd.
+
+Zij noemt de bezwaren stuk voor stuk. Het beste deel van de dag, doorgaans van
+negen tot drie, gaat op aan verstandelijk werk. De lokalen zijn slecht te
+luchten: in de zomer met open ramen nog moeilijk, in de winter met gesloten
+ramen en gloeiend hete kachels onmogelijk, zodat de lucht met menselijke
+uitwaseming verzadigd raakt en volgens haar als een traag werkend gif inwerkt.
+Er is zelden een speelplaats; de pauze is te kort en de kinderen zijn te
+uitgeput om te bewegen. De houding aan de lessenaar drukt de borst in, trekt
+de schouders naar voren en de rechterschouder omhoog, waardoor de smalle
+borstkas en de scheve schouders ontstaan die zij bij schoolmeisjes overal
+ziet. Over kostscholen is zij het scherpst.
+
+Ook het onderwijs zelf bekritiseert zij: het spreekt vrijwel alleen het
+verstand aan, oefent de zintuigen nauwelijks, illustreert de
+natuurwetenschappen met slechte prenten, en dwingt kinderen tot uit het hoofd
+leren wat zij niet begrijpen.
+
+**Hervorming**
+
+De zesde lezing begint met de vaststelling dat gewoonten waarin men is
+opgevoed als natuur aanvoelen, en dat men daarom naar andere tijden en volken
+moet kijken om te zien wat toevallig is. Zij vertelt hoe zij in Londen
+dagelijks de veemarkt van Smithfield moest oversteken en te horen kreeg dat
+die er altijd zou blijven omdat er geld mee gemoeid was; datzelfde jaar nam
+het parlement een wet aan om hem te verplaatsen.
+
+Haar voorbeeld is Griekenland. Zij beschrijft de gymnasia, de driedeling van
+de opvoeding in grammatica, muziek en lichaamsoefening, en het gegeven dat de
+lichaamsoefening evenveel tijd kreeg als de andere twee samen en levenslang
+werd voortgezet. Zij beschrijft ook de inrichting van de gebouwen en het
+toezicht van de gymnasiarch.
+
+De praktische voorstellen aan het slot zijn bescheiden en concreet: hoge, goed
+geluchte lokalen, een ruim en deels beschaduwd terrein bij elke school, en
+korte perioden van verstandelijk werk die telkens door beweging worden
+afgesloten. Zij richt zich daarbij tot moeders, omdat de verandering volgens
+haar van de publieke opinie moet komen. Het boek eindigt met een oproep aan
+hen om die plicht als heilig te beschouwen. Wat na de schooltijd komt, laat
+zij uitdrukkelijk liggen: daarvoor was de reeks te kort.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| de wetten van het leven | De natuurlijke regels waaraan groei en gezondheid volgens Blackwell gebonden zijn en die men kan kennen, volgen of overtreden. |
+| goddelijke ordening van de groei | Het uitgangspunt dat de ontwikkeling in een vastgestelde volgorde verloopt waarin het lichaam voorgaat op de geest. |
+| de wet van de oefening | De stelling dat beweging de grondvorm van alle bestaan is, ook in organen die zonder zichtbare inspanning hun werk doen. |
+| organisch leven | Het deel van het lichaam dat buiten de wil om functioneert, zoals hart, longen, maag en huid, en dat zich niet laat opvoeden. |
+| gerelateerd leven | Het deel van het lichaam dat de wil dient, zoals hersenen, zintuigen en spieren, en dat wel gevormd kan en moet worden. |
+| vrijheid om te werken en materiaal om mee te werken | Blackwells twee plichten tegenover het organische leven: geen belemmering, en aanvoer van lucht, water, voedsel en licht. |
+| periodiciteit | Het beginsel dat vermogens van lichaam en geest elk op hun eigen tijd verschijnen en niet vervroegd kunnen worden. |
+| lichamelijke opvoeding | Bij Blackwell niet een vak naast de andere, maar de grondslag waarop het overige leren hoort te rusten. |
+| tweede dentitie | Het wisselen van het melkgebit, door haar aangehaald als teken dat het lichaam in deze jaren zwaardere voeding en meer ruimte vraagt. |
+
+#### Waar het argument op rust
+
+De grondslag van het betoog is deels theologisch en deels fysiologisch. Het
+onderscheid tussen organisch en gerelateerd leven komt uit de Franse
+fysiologie van het begin van de eeuw, waar Xavier Bichat het leven in een
+organisch en een animaal deel had gesplitst; Blackwell neemt die tweedeling
+over, hernoemt het tweede tot het gerelateerde leven en geeft haar een
+opvoedkundige wending.
+
+Voor de schadelijke werking van bedorven lucht, van gebogen houding en van
+gebrek aan beweging beroept zij zich op wat iedereen kan waarnemen: de smalle
+borstkas en de scheve schouders van schoolmeisjes, het benauwde gevoel in een
+volle collegezaal. Zij voert geen metingen aan, geen vergelijking tussen
+scholen, geen aantallen. Zij verwijst wel naar haar klinische werk in Londen,
+Parijs en New York, maar zonder gevallen te beschrijven.
+
+Het argument uit de geschiedenis, de Griekse gymnasia, is beschrijvend en
+idealiserend. Zij ontleent de gegevens aan de klassieke handboeken van haar
+tijd en trekt uit de plaats die de lichaamsoefening in Athene innam de
+conclusie dat de uitkomst navolging verdient, zonder die uitkomst zelf te
+onderzoeken.
+
+Blackwell zelf is over de status van haar betoog eerlijk. Zij noemt de
+lezingen omtrekken en aanwijzingen en biedt ze aan als voorschot op later
+werk, niet als afgerond onderzoek.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar betreft de premisse. Uit de stelling dat het lichaam
+eerst af moet zijn en dat verstandelijke inspanning in de puberteit ten koste
+gaat van de lichamelijke groei, volgt evengoed het tegendeel van wat Blackwell
+wil. Twintig jaar later gebruikte de Bostonse arts Edward H. Clarke in *Sex in
+Education* (1873) precies deze redenering om te betogen dat meisjes geen
+middelbaar en hoger onderwijs zouden moeten volgen, omdat de studie hun
+voortplantingsvermogen zou beschadigen. Blackwell trekt de omgekeerde
+conclusie, een sterker lichaam zodat meisjes méér kunnen, maar haar redenering
+biedt tegen Clarke's gebruik geen weerstand.
+
+Het godsdienstige raamwerk draagt meer gewicht dan de fysiologie. Waar de
+vraag is wat een kind aankan, luidt het antwoord dat er een goddelijke
+ordening bestaat die men niet mag schenden. Dat is een stelling die geen
+tegenspraak toelaat, en zij vervangt op de plaatsen waar het aankomt de
+waarneming.
+
+Het boek noemt de oorzaken van ziekte en sterfte die in 1852 het zwaarst wogen
+nauwelijks. Over besmetting, drinkwater, kraamvrouwenkoorts, armoede en
+fabrieksarbeid staat vrijwel niets. Het publiek is dan ook duidelijk
+afgebakend: het gaat om de dochters van gezinnen die schoolgeld en lezinggeld
+konden betalen.
+
+Wat het onderwijs betreft was Blackwell in richting raak. Slechte ventilatie,
+langdurig stilzitten in een gebogen houding, het ontbreken van beweging en het
+uit het hoofd leren zonder begrip zijn later door schoolartsen en
+onderwijskundigen bevestigd als schadelijk, en veel van wat zij voorstelde,
+speelplaatsen, luchten, beweging tussen de lessen, is gewoon geworden. De
+verklaring die zij eraan gaf, verlies van levenskracht doordat de geest de
+voorrang neemt, hield niet stand.
+
+Ten slotte weegt haar latere loopbaan mee bij de vraag hoeveel gezag men aan
+haar oordeel toekent. Blackwell verzette zich in de decennia daarna tegen
+dierproeven en tegen de verplichte pokkeninenting en stond daarmee buiten de
+ontwikkeling die de geneeskunde in haar leven doormaakte. Haar plaats in de
+geschiedenis berust op wat zij afdwong en op wat zij voor andere vrouwen
+mogelijk maakte, niet op haar bijdrage aan de kennis.
+
+#### Wat er concreet mee te doen is
+
+- Lees de vijfde lezing apart als bron over het Amerikaanse schoollokaal rond
+1850; de beschrijving van kachels, ramen, lessenaars en pauzes is nauwkeurig.
+- Houd de premisse en de gevolgtrekking uit elkaar; dezelfde fysiologische
+aanname bediende korte tijd later het tegenovergestelde politieke doel.
+- Vergelijk de twee plichten tegenover het organische leven, vrijheid en
+materiaal, met wat andere hervormers van deze jaren over kleding en lucht
+schreven; de overlap is groot.
+- Neem de opdracht en het slot mee bij de vraag tot wie het boek zich richt:
+het spreekt moeders aan als de partij die de verandering kan afdwingen.
+
+#### Wat je hierna leest
+
+- 1128. Lectures to Ladies on Anatomy and Physiology. Gove hield tien jaar
+eerder vergelijkbare lezingen voor vrouwen, zonder opleiding en met een
+fellere toon.
+- 1129. The Hydropathic Encyclopedia. Trall bouwt in dezelfde jaren op
+vergelijkbare hygiënische uitgangspunten een compleet behandelstelsel.
+- 1131. Letters to the People on Health and Happiness. Beecher brengt kort
+hierna de gezondheid van Amerikaanse vrouwen in kaart en komt met eigen
+cijfers waar Blackwell er geen geeft.
+
+## 1131. Letters to the People on Health and Happiness
+
+Catharine E. Beecher, 1855. *Letters to the People on Health and Happiness*
+(Harper & Brothers, New York, 1855, 192 blz. plus 29 blz. noten). De
+samenvatting volgt de eerste druk, die volledig te lezen is in de digitale
+collectie van de National Library of Medicine en op archive.org. Er bestaat
+geen Nederlandse vertaling. Let op de verwarring met Beechers bekendere *A
+Treatise on Domestic Economy* (1841), een huishoudleerboek; dat is een ander
+werk. Rubriek: brein en lichaam.
+Tags: `gezondheid`, `negentiende eeuw`, `beweging`, `opvoeding`
+
+Beecher reisde jarenlang door de noordelijke staten en vroeg aan honderden
+getrouwde vrouwen om de initialen van tien vrouwen uit hun eigen plaats op te
+schrijven, met daarachter hun indruk van de gezondheid van elk. Uit ongeveer
+tweehonderd plaatsen kwamen antwoorden waarin de respondent vaak geen enkele
+volkomen gezonde vrouw kon noemen.
+
+Op die uitkomst bouwt ze een aanklacht tegen de opvoeding van Amerikaanse
+meisjes en een programma van frisse lucht, lichaamsoefening, eenvoudige kost,
+ruimere kleding en een beroepsopleiding voor vrouwen in onderwijs, ziekenzorg
+en huishouding. Ze legde er haar eigen ziektegeschiedenis naast, met dertien
+gezondheidsinstellingen en een reeks behandelingen die geen van alle hielpen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** De gezondheid van Amerikaanse vrouwen is in twee generaties
+zo hard achteruitgegaan dat een volledig gezonde getrouwde vrouw in de meeste
+plaatsen niet meer te vinden is, en dat komt door de manier waarop meisjes
+worden grootgebracht: opgesloten in schoolbanken, zonder lichaamsoefening, in
+slecht geventileerde huizen, in kleding die de romp samendrukt, en daarna
+belast met een huishouden waarvoor niemand hen heeft opgeleid. Beecher stelt
+dat dit geen noodlot is en geen ziekte, maar het voorspelbare gevolg van
+geschonden natuurwetten, en dat de opvoeding van het lichaam net zo goed een
+schoolvak moet worden als rekenen.
+
+#### De gang van het boek
+
+**Vijfentwintig brieven in vijf delen**
+
+Het boek bestaat uit vijfentwintig genummerde brieven, gericht aan werkplaats,
+kantoor, kinderkamer en keuken tegelijk, gevolgd door vijf noten. Deel één
+(brief 2 tot 9) beschrijft de organen, van botten en spieren tot huid, nieren
+en dierlijke warmte. Deel twee (10 tot 13) geeft per orgaanstelsel de wetten
+van gezondheid, deel drie (14 tot 16) de gangbare schendingen daarvan.
+
+Deel vier (17 tot 19) levert het bewijsmateriaal: haar eigen
+ziektegeschiedenis, de enquête onder vrouwen, en een aanklacht tegen de
+medische behandeling. Deel vijf (20 tot 25) geeft de remedies, van
+gezondheidsinstellingen en het afschaffen van de huisapotheek tot kleding en
+een organisatievoorstel.
+
+**Het Griekse argument**
+
+In de eerste brief zet Beecher de Grieken tegenover de Amerikanen. De Grieken
+hadden twee soorten scholen, één voor de geest en één voor het lichaam, en
+waardeerden de tweede nog hoger dan de eerste. Amerikanen bouwen scholen voor
+de geest en doen voor het lichaam niets, of erger dan niets.
+
+Zij verbindt daaraan een erfelijkheidsredenering: zwakke ouders krijgen zwakke
+kinderen, die op hun beurt nog zwakkere kinderen krijgen. Het verval versnelt
+zichzelf, en dat maakt de zaak in haar ogen dringend.
+
+**De enquête**
+
+In brief achttien beschrijft Beecher haar werkwijze. Ze vroeg getrouwde
+vrouwen die ze op reis of in gezondheidsinstellingen ontmoette om de initialen
+op te schrijven van de tien getrouwde vrouwen die ze in hun woonplaats het
+beste kenden, en daarachter hun indruk van de gezondheid van elk. Zo
+verzamelde ze in één jaar gegevens uit ongeveer tweehonderd plaatsen in bijna
+alle vrije staten.
+
+Ze definieert haar termen. Volkomen gezond is een vrouw die de hele dag staand
+huishoudelijk werk kan doen zonder schade en gewoonlijk pijnvrij is. Wel is
+een vrouw die meestal gezond is maar geen inspanning verdraagt. Delicaat is
+een vrouw met een broze constitutie die snel bezwijkt voor vermoeidheid of
+opwinding.
+
+De lijsten staan afgedrukt, plaats voor plaats, met de klacht per vrouw
+erachter: hoofdpijn, tering, bekkenklachten, waterzucht, gal. Onder Milwaukee,
+Essex, New Bedford, Paxton en Crown Point staat dezelfde zin: geen enkele
+volkomen gezonde vrouw in de plaats bekend. Ze voegt haar eigen kring toe: van
+negen getrouwde zussen en schoonzussen zijn er zeven delicaat of invalide, van
+veertien getrouwde nichten geen enkele volledig gezond.
+
+**Haar eigen behandeling**
+
+Brief zeventien is een verslag van wat er in ruim twintig jaar met haar is
+gedaan. Kalomel en jalappe op kostschool, carbonaat van ijzer met theelepels
+tegelijk maand na maand, een chirurg die de zenuwen van een gewonde hand en
+voet doorsneed, weken met puisten van braakwijnsteen over de ruggengraat,
+homeopathische korrels, galvanisme, twee helderzienden, en een lector in
+psychologie die haar dagenlang naar een zilveren zesstuiver liet staren.
+
+Daarna bracht ze bijna een jaar door in de bekendste watergeneesinrichting: om
+vier uur ingepakt in een nat laken, twee tot drie uur erin, dan zwetend in het
+koudste dompelbad, vijf of zes glazen water, om elf uur tien minuten onder een
+stortbad dat achttien voet viel, om drie uur een half uur in een zitbad, en
+dag en nacht natte windsels. Drie maanden wachtten arts en patiënt op de
+crisis die de kwade sappen naar buiten zou drijven. Er kwam één steenpuist.
+
+Het keerpunt was een instelling waar oefening het hoofdmiddel was. Elizabeth
+Blackwell gaf haar de Europese werken over het stelsel van de Zweed Pehr
+Henrik Ling. Zes weken oefeningen voor de longen verruimden haar borstkas zo
+dat alle kleding twee duim in de taille en drie duim over de borst moest
+worden uitgelegd. In tien tot twaalf jaar verbleef ze in dertien verschillende
+gezondheidsinstellingen.
+
+**De aanklacht in brief negentien**
+
+Beecher meldt dat inwendige verzakkingen bij vrouwen, ook bij jonge meisjes,
+werden behandeld met dagelijkse uitwendige en inwendige handelingen, achter
+gegrendelde deuren en gesloten gordijnen, met niemand aanwezig behalve patiënt
+en behandelaar. Vervolgens schrijft ze dat haar in twee jaar tijd uit
+onaanvechtbare bron verhalen zijn gedaan van vrouwen die zich hadden moeten
+verweren, en van vrouwen bij wie het misging zonder mogelijkheid tot verhaal,
+omdat openbaarheid het slachtoffer zwaarder zou treffen dan de dader.
+
+Zij noemt geen instelling en geen naam, en stelt uitdrukkelijk dat in geen van
+de huizen waar zij zelf verbleef ooit iets is voorgevallen. Het hoofdstuk
+opent met een verhandeling over kiesheid, waarin ze betoogt dat zwijgen over
+zulke zaken zelf een vorm van onfatsoen is zodra er ziekte of zedelijke schade
+uit voortkomt.
+
+**Wat er moet gebeuren**
+
+De remedies zijn eenvoudig en herhalen zich: dag en nacht frisse lucht in
+slaapkamers, dagelijkse lichaamsoefening, ontspanning, eenvoudige kost, koud
+water op de huid, kleding die de romp niet samendrukt, en het afschaffen van
+de huisapotheek. Beecher legt de fysiologie van de waterkuur uit en verdedigt
+die, terwijl ze de zware variant afwijst voor wat zij het prikkelbare
+Amerikaanse gestel noemt.
+
+Het slot is institutioneel. De American Woman's Educational Association wil
+blijvend gedoteerde opleidingen voor vrouwen met drie afdelingen: een
+kweekschoolafdeling, een gezondheidsafdeling en een huishoudelijke afdeling.
+De vereniging bood een bibliotheek, apparatuur en twintigduizend dollar
+dotatie aan elke stad die zelf een gebouw neerzette en het inkomen van vier
+leraren garandeerde. Milwaukee en Dubuque gingen erop in, met ongeveer
+tweehonderd en honderd leerlingen.
+
+Het kopijrecht van dit boek en van haar aangekondigde *Physiology and
+Calisthenics for Common Schools* droeg Beecher over aan de bestuurders van die
+vereniging. In de laatste brief noemt ze de vrouw de door de hemel aangestelde
+bewaakster van de gezondheid in het gezin, zoals de arts dat is in de
+gemeenschap, en vraagt ze predikanten om schending van de gezondheidswetten
+vanaf de kansel zonde te noemen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Laws of health | De natuurwetten voor lichaam en zenuwen die Beecher als door God gegeven beschouwt, zodat overtreding ervan zonde is en geen ongeluk. |
+| Health establishment | Verzamelnaam voor de kuurinrichtingen waar chronisch zieken maanden verbleven; de beste daarvan zijn volgens haar de watergeneesinrichtingen. |
+| Crisis | De huiduitslag of etterbuil waarop de waterarts wachtte als teken dat de kwade sappen het lichaam verlieten. |
+| Morbid humors | De ziekmakende stoffen in het bloed die volgens de waterkuur via de huid naar buiten moesten worden getrokken. |
+| Vigorous, well, delicate, sickly | De vier categorieën waarin Beecher haar respondenten de gezondheid van hun kennissen liet indelen. |
+| Calisthenics | Het stelsel van lichaamsoefeningen zonder toestellen dat zij als schoolvak wilde invoeren, ontleend aan de Zweed Ling. |
+| Domestic economy | Het huishouden opgevat als een vak dat onderwezen en beheerst moet worden, niet als iets dat vanzelf komt. |
+| American Woman's Educational Association | De vereniging die zij oprichtte om gedoteerde vrouwenopleidingen met een onderwijs-, gezondheids- en huishoudafdeling te stichten. |
+
+#### Waar het argument op rust
+
+Het draagvlak van het boek is één zelf uitgevoerde enquête. De vraag was niet
+naar diagnoses maar naar indrukken: elke respondent koos zelf tien kennissen
+en gaf haar oordeel over hun gezondheid. Er is geen steekproefkader, geen
+onderzoek van de vrouwen zelf, geen vergelijking met mannen en geen eerdere
+meting waartegen de gestelde achteruitgang kon worden afgezet. Beecher ziet
+een deel van deze zwakte en bespreekt die: gezonde vrouwen weten weinig van de
+kwalen van hun vriendinnen, respondenten willen graag in een gezonde plaats
+wonen, en hoe nauwkeuriger ze doorvroeg hoe slechter het beeld werd. Zij
+splitst haar uitkomsten in betrouwbaarder en minder betrouwbare lijsten en
+laat de zwakste weg.
+
+De redenering over verval over generaties heen rust op haar herinnering aan
+blozende kinderen dertig jaar eerder en op reizigersindrukken van Engelse
+vrouwen. Dat is een oordeel over de tijd waarin ze opgroeide, geen
+trendmeting. Haar bewering dat het op het platteland en onder
+arbeidersgezinnen niet beter is, komt uit gesprekken met dominees en
+koetsiers. De aanklacht in brief negentien berust op mondelinge mededelingen
+van ongenoemde vrouwen; ze publiceert geen enkel geval en levert daarmee niets
+dat toen of nu getoetst kan worden.
+
+Het sterkste deel van het boek is haar eigen ziektegeschiedenis, omdat het één
+ding hard maakt: een patiënt met geld en toegang kon in het midden van de
+negentiende eeuw twaalf behandelingen ondergaan waarvan er geen enkele werkte.
+De borstomtrek die na zes weken oefening moest worden uitgelegd is de enige
+meting in het boek die zij zelf verrichtte. Brief achttien is daarmee
+bruikbaar als bron over de beleving van ziekte onder blanke, noordelijke,
+protestantse middenklassevrouwen, en niet als schatting van hoe vaak ziekte
+werkelijk voorkwam.
+
+#### Wat er tegen in te brengen valt
+
+De codering bouwt de conclusie in. Beecher schrijft dat bij vrouwen die als
+ziekelijk of delicaat zijn aangemerkt geen vergissing mogelijk is, terwijl
+vrouwen die als gezond te boek staan verborgen kwalen kunnen hebben. Elke fout
+in de meting duwt daarmee dezelfde kant op. Dat is precies wat ze had moeten
+uitsluiten.
+
+De groep die ze beschrijft is smal. In het boek komen geen tot slaaf gemaakte
+vrouwen voor, geen fabrieksarbeidsters uit de immigratiegolf, geen katholieke
+gezinnen. Ze spreekt niettemin over het Amerikaanse volk. Kraamvrouwensterfte,
+in die jaren wel geteld, laat ze buiten beschouwing, terwijl dat de ene
+meetbare doodsoorzaak was die haar these had kunnen dragen.
+
+Zij verdedigt de fysiologie van de waterkuur, met kwade sappen die door de
+huid worden uitgedreven, in hetzelfde boek waarin ze verslag doet van een jaar
+waarin die behandeling haar niets bracht. De les die ze uit haar eigen
+geschiedenis trekt, dat oefening werkte en de rest niet, dringt niet door tot
+de hoofdstukken over remedies.
+
+De oplossing die ze voorstelt laat de verdeling van het werk staan. Het beroep
+van de vrouw omvat in haar statuten onderwijs, ziekenzorg en het gezinsleven,
+en niets daarbuiten. Beecher was tegen vrouwenkiesrecht en werkte dat later
+uit in *Woman Suffrage and Woman's Profession* (1871). Wie het boek leest als
+vroege vrouwenemancipatie leest er iets in wat er niet staat.
+
+Het erfelijkheidsargument waarmee ze opent, waarin zwakte zich over generaties
+opstapelt tot het volk zelf vervalt, loopt vooruit op het ontaardingsdenken
+dat later in de eeuw veel schade heeft aangericht.
+
+Wat het boek wel goed doet, is de aandacht verleggen van middelen naar
+omstandigheden. De aanbevelingen die overeind zijn gebleven, ventilatie,
+dagelijkse beweging, ruimere kleding en het afschaffen van kalomel in de
+huisapotheek, staan er allemaal in, gedragen door een enquête die dat gewicht
+niet kon dragen.
+
+#### Wat er concreet mee te doen is
+
+- Vergelijk haar vraagstelling met een moderne vragenlijst en zoek de plek
+waar het oordeel van een respondent voor een meting doorgaat.
+- Lees brief achttien als bron over hoe ziekte werd beleefd, niet als cijfer
+over hoe vaak ziekte voorkwam.
+- Neem brief zeventien erbij bij de vraag wat een behandeling waard is zonder
+vergelijkingsgroep.
+
+#### Wat je hierna leest
+
+- 1130. The Laws of Life. Elizabeth Blackwell, die Beecher in dit boek bij
+naam noemt als degene die haar op het bewegingsstelsel van Ling wees, schreef
+zelf over dezelfde vraag.
+- 1128. Lectures to Ladies on Anatomy and Physiology. Mary Gove Nichols hield
+al een decennium eerder anatomielessen voor vrouwen en werkte vanuit dezelfde
+overtuiging dat onwetendheid over het eigen lichaam ziek maakt.
+- 1129. The Hydropathic Encyclopedia. Trall zette de waterkuur die Beecher
+hier verdedigt en ondergaat volledig op papier, met de fysiologie erachter.
+- 1132. Over ziekenverpleging. Nightingale richtte zich vier jaar later tot
+dezelfde lezeressen, met een strengere scheiding tussen verplegen en dokteren.
+
+## 1132. Over ziekenverpleging
+
+Florence Nightingale, 1859. *Notes on Nursing: What It Is, and What It Is Not*
+(Harrison, 59 Pall Mall, Londen, 1859, 79 blz.). Deze samenvatting volgt die
+eerste druk. In juli 1860 verscheen bij dezelfde uitgever een herziene en
+uitgebreide versie die Nightingale zelf de library standard edition noemde, in
+nieuw zetsel, 16 plus 224 blz., oplage 2.000, met een supplementair hoofdstuk.
+In april 1861 volgde het aparte goedkope *Notes on Nursing for the Labouring
+Classes* (96 blz., zes pence), waarin voor het eerst het hoofdstuk over
+zuigelingenzorg, Minding Baby, was opgenomen. Nederlandse uitgave: *Over
+ziekenverpleging. Wat men, om de herstelling te bevorderen, te doen en te
+vermijden heeft*, vertaald door Anne Dorothée Busken Huet-van der Tholl
+(Amsterdam, 1862), in 2005 ongewijzigd herdrukt met een nieuwe inleiding van
+M.J. van Lieburg en Nannie Wiegman (Erasmus Publishing, Rotterdam, 231 blz.,
+ISBN 90-5235-178-3). Rubriek: naslag en praktijk.
+Tags: `verpleegkunde`, `gezondheidszorg`, `negentiende eeuw`, `geschiedenis
+van de geneeskunde`
+
+Nightingale betoogt dat het merendeel van wat aan een ziekte wordt
+toegeschreven, in werkelijkheid komt van gebrek aan frisse lucht, licht,
+warmte, rust, schoonmaak of eten op tijd. Verplegen is in haar omschrijving
+het in orde brengen van die omstandigheden, zodat de natuur haar herstelwerk
+kan doen; genezen doet geen medicijn.
+
+Het boek is geen leerboek voor verpleegkundigen maar een reeks aanwijzingen
+voor vrouwen die thuis voor een zieke zorgen. Het verwierp de opvatting dat
+besmettelijke ziekten van persoon op persoon overspringen, en dat is de plek
+waar Nightingale het mis had.
+
+### Uitgebreide samenvatting
+
+**De stelling.** De klachten die bij een zieke voor onvermijdelijke symptomen
+doorgaan, komen meestal niet van de ziekte maar van de omstandigheden waarin
+de zieke ligt: bedorven lucht, kou, donker, lawaai, vuil, en eten dat op het
+verkeerde moment of helemaal niet wordt gegeven. Ziekte zelf is volgens
+Nightingale een herstelproces dat de natuur in gang zet. Medicijnen en
+chirurgie nemen alleen belemmeringen weg; genezen doet de natuur. Verplegen
+bestaat er dan uit de patiënt in de beste toestand te brengen waarin de natuur
+op hem kan inwerken, en dat is een vak dat geleerd moet worden zoals ieder
+ander vak.
+
+#### De gang van het boek
+
+**Wat de titel belooft**
+
+In het voorwoord zegt Nightingale dat dit geen regelboek is en al helemaal
+geen handleiding om verpleegkundigen op te leiden. Het zijn aanwijzingen ter
+overdenking, gericht aan vrouwen die de zorg voor de gezondheid van een ander
+dragen. Bijna elke vrouw in Engeland heeft ooit zo iemand onder haar hoede,
+schrijft ze, dus is elke vrouw verpleegster.
+
+Het boek telt veertien korte hoofdstukken en een aanhangsel, van ventilatie en
+verwarming via klein beheer, geluid, eten, bed, licht en reinheid tot de
+waarneming van de zieke.
+
+**Lucht, licht, bed**
+
+De grondregel van het verplegen luidt: houd de lucht die de patiënt inademt
+even zuiver als de buitenlucht, zonder hem te laten afkoelen. Daaruit volgt de
+rest: ramen open, deuren dicht, geen lucht uit gangen, geen dampen uit riolen,
+geen natte was in de ziekenkamer, geen ontsmettingsrook die alleen de reuk
+verhult. De angst voor nachtlucht valt ze aan: er is 's nachts geen andere
+lucht dan buitenlucht, en de keuze staat tussen buitenlucht en bedorven
+kamerlucht.
+
+Voor de gezondheid van huizen noemt ze vijf punten: zuivere lucht, zuiver
+water, doelmatige afvoer, reinheid en licht. Licht komt direct na lucht:
+zieken draaien hun gezicht ernaartoe, ook al kost het pijn om te draaien.
+Bedden horen bij het raam, laag, smal, van ijzer, zonder gordijnen, met
+beddengoed dat wordt gelucht in plaats van opgevouwen.
+
+**Klein beheer, geluid en eten**
+
+Onder klein beheer verstaat Nightingale het regelen dat wat een verzorger doet
+wanneer hij aanwezig is, ook gebeurt wanneer hij dat niet is. Daar gaat
+volgens haar de meeste zorg mis, zelden uit onwil en meestal doordat niemand
+de overdracht heeft geregeld. Nodeloos lawaai noemt ze de wreedste vorm van
+gebrek aan zorg. Fluisteren in de kamer is erger dan gewoon spreken, en een
+patiënt mag nooit uit zijn eerste slaap worden gewekt.
+
+Twee hoofdstukken gaan over voedsel. Het tijdstip telt: wie om acht uur niets
+kan, kan om half acht misschien wel iets. Het tweede hoofdstuk keert zich
+tegen de heersende ziekenkost: runderbouillon bevat volgens haar bijna geen
+voedingswaarde, gelei evenmin, en een patiënt op gelei vermagert. Haar regel
+is dat waarneming en niet scheikunde de ziekenkost bepaalt.
+
+**Kwebbelende hoop en waarnemen**
+
+Het scherpste hoofdstuk gaat over bezoekers die de zieke verzekeren dat het
+meevalt, genezingen aandragen van iemand die het erger had, en middelen
+opdringen. Nightingale noemt dat de plaag van het ziekbed. De zieke wil niet
+over zichzelf praten en heeft niets aan troost die zijn eigen oordeel
+tegenspreekt; wat wel helpt is nieuws van buiten.
+
+Het langste hoofdstuk gaat over waarnemen, en dat noemt ze de belangrijkste
+praktische les van het boek. Stel geen sturende vragen: wie vraagt of iemand
+goed geslapen heeft krijgt een beleefdheid, wie vraagt hoeveel uur krijgt een
+gegeven. Zij keert zich tegen gemiddelden: een sterftecijfer zegt hoeveel er
+per duizend sterven, niet wie. Nauwkeurige waarneming wijst de straat, het
+huis en de verdieping aan waar het overschot valt. Bijgeloof noemt ze de
+vrucht van slechte waarneming.
+
+In het slot komen drie punten samen. Verstandig verplegen is bij chirurgische
+gevallen even nodig als bij inwendige ziekten, kinderen zijn voor dezelfde
+invloeden gevoeliger, en de gedachte dat een teleurstelling in de liefde van
+een vrouw een goede verpleegster maakt, vergelijkt zij met de parochie die een
+oude man tot schoolmeester benoemde omdat hij te oud was om op de varkens te
+passen.
+
+**Wat zij over besmetting schrijft**
+
+Ziekten zijn bijvoeglijke naamwoorden, geen zelfstandige, schrijft
+Nightingale: toestanden, zoals vuil en schoon toestanden zijn. Zij is opgevoed
+met de gedachte dat pokken van een eerste geval afstammen zoals elke hond van
+een eerste hond, en zegt sindsdien met eigen ogen pokken te hebben zien
+ontstaan in overvolle zalen waar niemand ze kon hebben opgelopen. Ook meent ze
+te hebben gezien hoe aanhoudende koorts bij toenemende overbevolking overging
+in tyfoïd en daarna in tyfus.
+
+Haar praktische gevolgtrekking luidt: goede verpleging negeert besmetting,
+behalve om haar te voorkomen; reinheid, open ramen en onafgebroken aandacht
+voor de patiënt zijn de enige verdediging die een verpleegster nodig heeft.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Reparative process | Haar opvatting dat ziekte zelf een herstelpoging van de natuur is tegen een vergiftiging of verval dat weken of jaren eerder begon. |
+| First rule of nursing | De grondregel om de lucht binnen even zuiver te houden als de buitenlucht, zonder de patiënt af te koelen. |
+| Petty management | Het regelen dat wat de verzorger doet als hij aanwezig is, ook gebeurt als hij er niet is. |
+| Health of houses | De vijf punten waaraan een woning moet voldoen: zuivere lucht, zuiver water, doelmatige afvoer, reinheid en licht. |
+| Chattering hopes and advices | Het opgewekte spreken en het opdringen van middelen door bezoekers, dat zij de plaag van het ziekbed noemt. |
+| Observation of the sick | Het geoefend waarnemen van feiten aan het bed, dat volgens haar de kern van het vak uitmaakt en dat sturende vragen bederven. |
+| Diseases are adjectives, not noun substantives | Haar formule voor de opvatting dat ziekten toestanden zijn en geen zelfstandige, overdraagbare wezens. |
+
+#### Waar het argument op rust
+
+Het boek zelf bevat vrijwel geen cijfers. Het is een reeks vaststellingen op
+grond van wat Nightingale in particuliere huizen en in ziekenhuizen zag; de
+enige plek waar zij over statistiek schrijft is een pleidooi tegen
+gemiddelden. Het gezag achter deze bladzijden ligt in de Krimoorlog en in het
+werk dat daarop volgde.
+
+Wat dat werk aantoonde is te preciseren. In het Barrack Hospital in Scutari
+liep de sterfte onder behandelde gevallen in februari 1855 op tot ongeveer 42
+procent. In maart 1855 arriveerde een sanitaire commissie die de riolen
+doorspoelde, de beerputten leegde, de ventilatie verbeterde en een
+paardenkadaver uit de watervoorziening haalde; binnen enkele maanden zakte de
+sterfte naar enkele procenten. Dat is een sterke samenval in de tijd, geen
+bewijs van het mechanisme: tegelijk daalde het aantal opnames, verbeterde de
+bevoorrading en liep de winter af. Nightingale zocht de oorzaak tijdens de
+oorlog zelf in de voeding. Haar minst geciteerde cijfers zijn de
+vergelijkingen met de hospitalen dichter bij het front, waaruit blijkt dat
+haar eigen hospitaal de hoogste sterfte had.
+
+Na de oorlog werkte zij met William Farr aan de koninklijke commissie voor de
+gezondheid van het leger. Haar *Notes on Matters Affecting the Health,
+Efficiency, and Hospital Administration of the British Army* (1858) telde
+ongeveer 830 bladzijden en bevatte de poolvlakdiagrammen die lieten zien dat
+veel meer soldaten stierven aan te voorkomen ziekte dan aan verwondingen. In
+oktober 1858 werd zij op voordracht van Farr als eerste vrouw lid van de
+Statistical Society of London.
+
+De aanbevelingen in dit boek rusten dus op waarnemingen uit legerhospitalen en
+op verbanden in tijdreeksen. Op onderdelen had ze gelijk zonder het te kunnen
+aantonen: runderbouillon en gelei zijn inderdaad vrijwel voedingswaardeloos.
+
+#### Wat er tegen in te brengen valt
+
+De kern van haar ziekteleer is onjuist. Ziekten zijn geen toestanden die uit
+vuil ontstaan, pokken springen niet spontaan op in een benauwde zaal, en
+koorts verandert bij overbevolking niet in tyfus. In dezelfde jaren
+publiceerde Pasteur zijn werk over gisting, in 1867 volgde Listers antisepsis.
+Nightingale nam de ziektekiemleer pas in de jaren zeventig en tachtig aan,
+onder invloed van Farr; deze tekst uit 1859 doet dat niet.
+
+De zin dat goede verpleging besmetting negeert, is letterlijk gelezen
+gevaarlijk advies. Dat het in de praktijk goed uitpakte komt doordat luchten,
+wassen en schoonmaken de overdracht van ziektekiemen toch verminderden. Het
+reukvermogen speelt bij haar bovendien de rol van meetinstrument, zodat
+gevaren zonder geur buiten haar systeem vielen.
+
+De verhouding tot de arts is er een van gehoorzaamheid. Nightingale schrijft
+dat vrouwen niet moeten dokteren, dat medische kennis aan een beroepsgroep
+toebehoort, en dat kennis van gezondheidswetten de verpleegster juist
+volgzamer maakt. Latere verpleegkundigen wijzen dit aan als een van de
+oorzaken waardoor het beroep een eeuw lang ondergeschikt bleef.
+
+Het boek spreekt uitsluitend vrouwen aan en gaat er zonder argument van uit
+dat het bewaken van gezondheid vrouwenwerk is. Er is geen verwijzingsapparaat,
+geen reeks gevallen, geen enkel getal dat een lezer kan narekenen. Het boek
+werkt op gezag; dat het gezag verdiend was, doet daaraan niets af.
+
+#### Wat er concreet mee te doen is
+
+- Ga bij een klacht eerst na of ze bij de ziekte hoort of bij de
+omstandigheden: lucht, licht, warmte, rust, reinheid, eten op tijd.
+- Vraag hoeveel uur iemand geslapen heeft, niet of hij goed geslapen heeft.
+- Noteer wat een zieke in vierentwintig uur werkelijk heeft gegeten, niet wat
+op het blad is gezet.
+
+#### Wat je hierna leest
+
+- 1131. Letters to the People on Health and Happiness. Beecher richtte zich
+vier jaar eerder tot dezelfde lezeressen en kwam met een enquête in plaats van
+een grondregel.
+- 1127. Gunn's Domestic Medicine. Gunn schreef het soort huisboek dat
+Nightingale bestrijdt: de leek die zelf gaat dokteren.
+- 1133. Dr. Chase's Recipes; or, Information for Everybody. Chase verkocht per
+colportage precies wat zij het amateurdokteren noemt, in receptvorm.
+
+## 1133. Dr. Chase's Recipes; or, Information for Everybody
+
+Alvin Wood Chase, 1864. *Dr. Chase's Recipes; or, Information for Everybody:
+An Invaluable Collection of about Eight Hundred Practical Recipes* (uitgegeven
+door de auteur, Ann Arbor, Michigan, 1864, 384 blz.). Deze samenvatting volgt
+die druk, op het titelblad aangeduid als tiende editie en zesendertigste
+duizendtal, met copyrightinschrijving uit 1863; de bundel groeide daarna nog
+tientallen drukken door, vanaf de verkoop aan Rice A. Beal onder andere
+eigenaars, en telde rond 1900 ongeveer 1300 bladzijden. Er bestaat geen
+Nederlandse vertaling. Rubriek: naslag en praktijk.
+Tags: `naslagwerk`, `gezondheid`, `geneesmiddelen`, `negentiende eeuw`
+
+Chase begon in 1856 met een pamflet van zestien bladzijden en bouwde dat druk
+na druk uit tot een huisboek met ongeveer achthonderd recepten over
+vierhonderd onderwerpen, geordend naar beroep: kruidenier, kroegbaas, arts,
+looier, schilder, smid, hoefsmid, barbier, bakker, verver en het gezin. Naast
+een hoestdrank staat een voorschrift voor inkt, azijn zonder appels en het
+berekenen van rente.
+
+Het boek werd uitsluitend huis aan huis door reizende verkopers gesleten en
+verkocht in tientallen jaren miljoenen exemplaren. Op zijn tweeënvijftigste
+verkocht Chase zijn drukkerij, zijn platen en het recht op zijn eigen naam,
+waarna latere drukken door anderen werden bewerkt en uitgebreid.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Alle praktische kennis die een gezin, een werkplaats of een
+boerderij nodig heeft, past in één gebonden deel van een dollar, mits ze per
+beroep is geordend, in gewone taal is opgeschreven en door de samensteller
+zelf is uitgeprobeerd. Chase stelt daarmee dat het onderscheid tussen een
+recept voor schoensmeer, een voorschrift voor azijn en een middel tegen kroep
+bij een kind geen wezenlijk onderscheid is: het zijn alle drie
+werkvoorschriften die iemand met een notitieboekje kan verzamelen en
+beproeven, en die geen beroepsgroep hoort te monopoliseren.
+
+#### De gang van het boek
+
+**Hoe het boek is ontstaan**
+
+In het voorwoord bij de tiende druk legt Chase uit hoe hij aan zijn stof kwam.
+Hij had jarenlang een drogisterij en kruidenierszaak gedreven, ging na zijn
+achtendertigste medicijnen studeren en begon in 1856 zijn eerste recepten in
+een pamflet van enkele bladzijden uit te geven. Sindsdien reisde hij tussen
+New York en Iowa, verkocht het werk en schreef onderweg voor. Tot 1863 waren
+er volgens hem ruim drieëntwintigduizend exemplaren verkocht.
+
+Zijn werkwijze had hij altijd bij zich in een notitieboekje. Werd er in zijn
+bijzijn een voorschrift gegeven of een bruikbare opmerking gemaakt, dan
+schreef hij die op, probeerde haar bij de eerste gelegenheid uit, en nam haar
+bij gebleken deugdelijkheid in de volgende druk op. Aan informatie, proeven,
+reizen en illustraties zegt hij ruim tweeduizend dollar te hebben uitgegeven.
+
+**De ordening naar beroep**
+
+De inhoud is verdeeld in afdelingen: kruideniers en winkeliers, de saloon, de
+medische afdeling, looiers en schoen- en tuigmakers, schilders, smeden,
+blikslagers, juweliers, hoefsmeden, barbiers en toilet, bakkers en koken,
+allerlei, verven, rente, en een verklarende woordenlijst. Achterin staat een
+alfabetische index.
+
+De vorm is opzettelijk. Beschouwingen en uitleg zijn in groot zetsel gezet, de
+voorschriften zelf in kleiner, zodat een lezer in één oogopslag ziet wat hij
+zoekt. Chase noemt de toelichtingen bij de recepten het kenmerkende van zijn
+boek: ook zonder een enkel voorschrift zou het volgens hem als leesboek zijn
+prijs waard zijn.
+
+Wat er zoal in staat: azijn maken in drie weken of in drie dagen, cider zonder
+appels, boter en eieren bewaren, zeven regels om vals geld te herkennen, rente
+berekenen met één vermenigvuldiging en één deling, zwarte en rode en
+onuitwisbare inkt, gelei zonder fruit, mondlijm voor gescheurd papier, en het
+Washing-Fluid dat hij naar eigen zeggen bijna acht jaar bij elke was
+gebruikte. Aan de andere kant van het boek staan twintig voorschriften voor
+oogkwalen, een dozijn smeersels, middelen tegen kinkhoest en kroep, en de
+behandeling van spat bij paarden.
+
+**De medische afdeling**
+
+De medische afdeling opent met een waarschuwing: laat de drogist alles wat hij
+levert van een naam voorzien, en houd arsenicum, fosfor, laudanum en zuren
+buiten het bereik van kinderen. Daarna volgt een geheelonthoudersbetoog.
+Artsen die brandewijn, rum en gin voorschrijven houden volgens Chase de
+drankzucht in stand, half omdat ze zelf drinken. Zuivere alcohol en
+zelfgemaakte vruchtwijnen doen in een geneesmiddel hetzelfde werk, en de koper
+weet dan tenminste wat erin zit.
+
+Hij geeft alcoholpercentages van wijnen en bieren om te laten zien dat elke
+fles vruchtwijn aan diezelfde drankzucht bijdraagt. Aan het boek is verder een
+behandeling van pleuritis, longontsteking en andere ontstekingsziekten
+toegevoegd, en een deel over vrouwenzwakte en onregelmatigheden, dat volgens
+het voorwoord geen vrouw boven de tien of veertien jaar zou mogen missen.
+
+**Het boek als handelswaar**
+
+Chase verkoopt zichzelf in het voorwoord uitvoerig. Het boek is alleen bij
+reizende verkopers te krijgen, schrijft hij, want in een boekhandel zou niet
+één op de vijftig het ooit zien. Hij noemt de prijs, één dollar gebonden en
+twee dollar in Californië, en somt op wat losse recepten elders kosten: iemand
+die in Battle Creek een waswatervoorschrift voor twee dollar sleet, een
+koopman die een paard gaf voor een cementrecept, een heer uit Detroit die
+driehonderd dollar betaalde voor een middel tegen spat.
+
+Hij drukt een afdeling References af met verklaringen van tevreden kopers, en
+vertelt hoe een man tien mijl omreed om het boek te halen omdat een boer er
+twintig dollar mee had bespaard aan een paard. Zijn slotformule is dat het
+boek ofwel het grootste bedrog van de dag is, ofwel het beste werk in zijn
+soort in de Engelse taal.
+
+**Wat er daarna met de naam gebeurde**
+
+Chase liet tijdens de burgeroorlog een stoomdrukkerij bouwen aan North Main
+Street in Ann Arbor, opgeleverd in 1864, met zes persen, gasverlichting en een
+stoomlift. In 1865 telde de zesentwintigste druk 384 bladzijden. Op
+tweeënvijftigjarige leeftijd verkocht hij het bedrijf, de platen, de rechten
+en het gebruik van zijn eigen naam aan Rice A. Beal en trok zich terug in Sauk
+Rapids, Minnesota, met de afspraak nooit meer te publiceren.
+
+Hij kwam terug, bracht in 1873 *Dr. Chase's Family Physician, Farrier,
+Bee-Keeper, and Second Receipt Book* uit, en verloor de rechtszaak die Beal
+wegens contractbreuk aanspande; de opbrengst ging naar Beal. Chase stierf op
+16 mei 1885 aan een longontsteking zonder zijn fortuin te hebben herwonnen. In
+1887 verscheen een gedenkuitgave.
+
+Onder Beal en diens opvolgers groeide de bundel door. Toen het bedrijf in 1900
+werd verkocht, telde het werk ongeveer 1300 bladzijden, had het ongeveer
+zestig drukken beleefd en waren er meer dan een miljoen exemplaren van
+verkocht; in 1931 werd het totaal op vier miljoen gesteld. De latere *Dr.
+Chase's Third, Last and Complete Receipt Book and Household Physician* is niet
+meer door Chase samengesteld.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Recipe of receipt | Bij Chase geen kookvoorschrift alleen, maar elk werkvoorschrift, van inkt en looivloeistof tot een hoestdrank. |
+| Department | De vaste indeling naar beroepsgroep waarin hij alle voorschriften onderbrengt, met de index als enige dwarsverbinding. |
+| Traveling agent | De colporteur die het boek aan de deur verkocht; de enige verkoopweg die Chase toestond. |
+| Practical Therapeutist | De aanduiding die hij op het titelblad achter zijn naam zet, naast de letters M.D. |
+| References | De afdeling met verklaringen van tevreden kopers die hij als bewijsmateriaal in het voorwerk opneemt. |
+| Farriers' department | De afdeling voor paarden- en veeziekten, volgens hem de afdeling die een boer honderdmaal de prijs van het boek kan besparen. |
+| Good Samaritan Liniment | Zijn eigen smeersel, waarvan hij schrijft dat het voor gewoon gebruik zijns gelijke in de wereld niet heeft. |
+| Washing-Fluid | Het wasmiddelvoorschrift dat hij naar eigen zeggen bijna acht jaar bij elke was gebruikte. |
+| Female debility | De verzamelterm voor vrouwenklachten waarvoor hij een aparte behandeling aan het boek toevoegde. |
+
+#### Waar het argument op rust
+
+Chase geeft zijn bewijsvoering zelf prijs, en die bestaat uit drie dingen: het
+notitieboekje, één eigen proef, en de verkoop. Hij noteerde wat vaklieden en
+artsen in zijn bijzijn zeiden, probeerde het bij gelegenheid uit en drukte het
+af. Er zijn geen aantekeningen van die proeven, geen mislukkingen, geen
+navolging op langere termijn en geen enkele vergelijking. Het enige
+zelfcorrigerende element is dat hij tussen drukken voorschriften herziet of
+laat vallen, wat hij ook meldt.
+
+Als aanprijzing gebruikt hij getuigenissen: de afdeling References en de
+verhalen in het voorwoord over een boer die twintig dollar bespaarde en een
+oogwater dat meer dan twintig dollar waard heette. Hij wijst er zelf op dat de
+verklaarders elkaar niet kennen, en probeert daarmee samenspanning uit te
+sluiten. Dat maakt de getuigenissen onafhankelijk van elkaar, niet juist.
+
+Het meest controleerbare bewijs in het boek is commercieel: ruim
+drieëntwintigduizend exemplaren tot 1863, zesendertigduizend op het titelblad
+van 1864, ruim een miljoen tegen 1900 en vier miljoen tegen 1931. Wat dat
+aantoont is vraag, en niet dat de voorschriften werkten.
+
+Een deel van de inhoud is wel gewoon te controleren en grotendeels juist:
+azijn maken, inkt aanmaken, cement, boter en eieren bewaren, rente berekenen.
+Dat is ambachtelijke kennis waarvan de proef binnen een week uitwijst of ze
+deugt. Voor de medische afdeling geldt dat niet, en juist daar heeft Chase de
+minste grond.
+
+Op het titelblad staat M.D. achter zijn naam en het voorwoord van 1863 zegt
+dat hij als arts is afgestudeerd. Volgens de documentatie van de Ann Arbor
+District Library volgde hij colleges aan de universiteit van Michigan en
+behaalde hij in 1868 een diploma na een cursus van zestien weken aan het
+Eclectic Medical Institute in Cincinnati, vier jaar na deze druk. Wie het boek
+als medisch gezag leest, moet dat verschil kennen.
+
+#### Wat er tegen in te brengen valt
+
+De vorm van het boek is zelf het bezwaar. Door een middel tegen kroep bij een
+kind in dezelfde reeks te zetten als schoensmeer en inkt, suggereert Chase dat
+er één soort kennis in het geding is en dat uitproberen bij alle drie
+hetzelfde betekent. Bij inkt is het resultaat meteen zichtbaar, bij een ziek
+kind niet.
+
+Zijn waarschuwing in de medische afdeling gaat over etiketten en over kinderen
+die bij de kast kunnen. Ze gaat niet over wat de middelen doen. Veel
+preparaten van die jaren bevatten opium, alcohol, kwik of antimoon, en het
+boek biedt geen enkele ingang om na te gaan wat een voorschrift bevat en wat
+dat betekent. Er is een korte verklarende woordenlijst en verder geen
+doseringsleer.
+
+De getuigenissenafdeling is precies de techniek van de patentmedicijnhandel
+waartegen Chase zich afzet. Zijn bezwaar tegen de kwakzalvers is dat zij te
+veel vragen voor één voorschrift, niet dat zij niets bewijzen.
+
+Wat er ten gunste van het boek te zeggen valt, is dat het goedkoop was, dat
+een aanzienlijk deel ervan uit gewone ambachtskennis bestond, en dat het
+gemiddelde alternatief in 1864, een arts op uren rijden die aderliet of
+kalomel gaf, niet aantoonbaar beter was. Chase raadt bovendien af om de sterke
+drank van de handel als geneesmiddel te gebruiken, en dat was verstandig
+advies.
+
+De uitgeversgeschiedenis is een waarschuwing bij elke aanhaling. Vanaf 1869 is
+Dr. Chase een handelsnaam en geen auteur. De bundel verdrievoudigde onder
+anderen in omvang, en een bladzijde uit een druk van na 1869 kan niet zonder
+meer aan Chase worden toegeschreven. Bij dit boek is de eerste vraag altijd
+welk jaar en welke uitgever.
+
+#### Wat er concreet mee te doen is
+
+- Controleer bij een negentiende-eeuws boek met Dr. Chase op de rug eerst jaar
+en uitgever: vanaf 1869 is de naam een handelsmerk.
+- Lees het voorwoord van 1864 als bron over colportage: prijs, verkoopkanaal
+en de reden waarom het boek de boekhandel meed.
+- Gebruik de indeling naar beroep als voorbeeld van kennisordening naar
+gebruiker in plaats van naar onderwerp.
+- Leg de afdeling References naast moderne klantbeoordelingen en kijk welk
+argument in beide gevallen wordt gemaakt.
+
+#### Wat je hierna leest
+
+- 1127. Gunn's Domestic Medicine. Gunn schreef het bekendste Amerikaanse
+huisdokterboek van de generatie voor Chase, met dezelfde belofte dat de leek
+zichzelf kan behelpen.
+- 1129. The Hydropathic Encyclopedia. Trall bracht de tegenovergestelde
+aanpak: één samenhangend stelsel op basis van water, in plaats van een
+verzameling losse voorschriften.
+- 1132. Over ziekenverpleging. Nightingale bestrijdt precies het
+amateurdokteren dat Chase per colporteur aan de deur bracht.
+
+## 1134. Plain Facts for Old and Young
+
+John Harvey Kellogg, 1877. *Plain Facts for Old and Young* (Segner & Condit,
+Burlington, Iowa, 1881, 512 blz.). Deze samenvatting volgt die druk, met
+copyrightinschrijving uit 1879 en een voorwoord van oktober 1879, waarin
+Kellogg meldt dat er twee hoofdstukken zijn bijgekomen, één voor jongens en
+één voor meisjes. Het boek verscheen in 1877 voor het eerst, onder de titel
+*Plain Facts about Sexual Life*. Latere drukken heten *Plain Facts for Old and
+Young: Embracing the Natural History and Hygiene of Organic Life* (onder meer
+1888, 1891 en 1903) en zijn opnieuw sterk uitgebreid; de passages die
+tegenwoordig het meest worden aangehaald, over zilverdraad door de voorhuid en
+over onverdund carbolzuur op de clitoris, staan in die latere drukken en niet
+in de druk van 1881. Er bestaat geen Nederlandse vertaling. Rubriek: brein en
+lichaam.
+Tags: `seksualiteit`, `gezondheid`, `voeding`, `negentiende eeuw`
+
+Kellogg, arts en directeur van het sanatorium in Battle Creek, betoogt dat de
+voortplantingsfunctie uitsluitend voor voortplanting dient en dat elke andere
+aanwending het lichaam sloopt. Zelfbevrediging is in zijn voorstelling de
+zwaarste vorm daarvan, met tering, epilepsie en krankzinnigheid als gevolg,
+herkenbaar aan negenendertig verdachte tekenen.
+
+Prikkelend voedsel is voor hem de voornaamste oorzaak: vlees, specerijen,
+eieren, thee, koffie en chocolade drijven het bloed naar de geslachtsorganen.
+Bij kleine jongens beveelt hij besnijdenis aan zonder verdoving, opdat de pijn
+als straf wordt ervaren. Onderzoek naar een van deze beweringen heeft hij
+nooit gedaan.
+
+### Uitgebreide samenvatting
+
+**De stelling.** De voortplantingsfunctie heeft één doel, voortplanting, en
+dat leidt Kellogg af uit het seizoensgebonden paren van dieren; elke andere
+aanwending is een overtreding van een natuurwet en wordt met ziekte bestraft.
+Daaruit volgt zijn hele boek: onthouding buiten en grote matiging binnen het
+huwelijk, geen anticonceptie, en vooral een levenslange strijd tegen
+zelfbevrediging, die hij aanwijst als oorzaak van spijsverteringsklachten,
+tering, hartziekte, epilepsie, ruggenmergprikkeling, krankzinnigheid,
+baarmoederkanker en onvruchtbaarheid. De sleutel tot beheersing ligt volgens
+hem in het bord: prikkelend voedsel maakt kuisheid onmogelijk, flauwe granen
+en fruit maken haar bereikbaar.
+
+#### De gang van het boek
+
+**Waarom het boek er is**
+
+In de inleiding zet Kellogg zich af tegen de bestaande lectuur over
+seksualiteit, die naar zijn oordeel uit overdrijving bestaat en dient als
+reclame voor kwakzalvers en middeltjes. Hij behandelt drie bezwaren tegen
+voorlichting: dat het onderwerp te kies is voor jongeren, dat kennis
+gevaarlijk is, en dat jonge mensen het zelf wel ontdekken. Zijn antwoord luidt
+telkens dat gedeeltelijke kennis gevaarlijker is dan volledige, en dat
+kinderen die het thuis niet horen het elders horen, en dan slechter.
+
+Zijn stijlmiddel is bewust gekozen. Hij springt voortdurend over naar planten
+en lagere dieren, zodat de menselijke voortplanting volgens hem van
+zinnelijkheid wordt ontdaan en als een gegeven uit de natuurlijke historie kan
+worden bekeken.
+
+**De opbouw in tien delen**
+
+Na de inleiding volgen: geslacht in levende vormen, de seksuele betrekkingen,
+kuisheid, onthouding, echtelijke overdaad, het voorkomen van bevruchting,
+kindermoord en abortus, het sociale kwaad, de heimelijke ondeugd, en een
+hoofdstuk voor jongens en een voor meisjes.
+
+Het eerste deel is een handboek voortplantingsleer: van bevruchting bij
+bloemen tot zwangerschap, geboorte, anatomie, puberteit, menstruatie en haar
+stoornissen, tweelingen, erfelijkheid en invloeden voor de geboorte.
+Daartussen staan uitspraken die de toon zetten, zoals dat brunettes van nature
+vroegrijp zijn en dat vroege rijping vroeg verval betekent. Het deel eindigt
+met besnijdenis en castratie.
+
+Het deel over de seksuele betrekkingen behandelt vroegrijpheid, het juiste
+moment om te trouwen, leeftijdsverschil, verkering, veelwijverij,
+echtscheiding en wie niet met wie mag trouwen.
+
+**Het bord en de kuisheid**
+
+Het hoofdstuk over kuisheid draagt de kern van zijn leer. Vlees, specerijen,
+eieren, thee, koffie, chocolade en alle prikkelende stoffen werken volgens
+Kellogg rechtstreeks op de voortplantingsorganen: ze vermeerderen de
+plaatselijke bloedtoevoer en wekken langs de zenuwen de hartstochten. Een man
+die op varkensvlees, wittebrood, taart en kruiden leeft en daarbij thee en
+koffie drinkt en tabak gebruikt, schrijft hij, kan net zo goed proberen te
+vliegen als kuis te denken.
+
+Hij trekt die redenering door tot in het onwaarschijnlijke. Als predikanten
+zedelijk struikelen, komt dat mede doordat gastvrouwen hun de rijkste cake en
+de scherpste sauzen voorzetten. Verder wijst hij op slechte boeken, ledigheid,
+kleding, rondedansen, verstopping, darmwormen en plaatselijke onzindelijkheid.
+
+Het hoofdstuk over onthouding stelt dat onthouding niet schadelijk is en geen
+impotentie veroorzaakt, en noemt vijf hulpmiddelen: de wil, het dieet,
+lichaamsbeweging, baden en godsdienst. In het hoofdstuk over echtelijke
+overdaad staat dat overmaat bij vrouwen de grootste oorzaak van
+baarmoederziekte is; anticonceptie noemt hij echtelijke onanie, en abortus en
+kindermoord veroordeelt hij in de scherpste termen.
+
+**De heimelijke ondeugd**
+
+Het langste hoofdstuk gaat over zelfbevrediging. Kellogg geeft negenendertig
+genummerde verdachte tekenen waaraan ouders en verzorgers de gewoonte zouden
+kunnen herkennen. Daarbij staan algemene zwakte, vroege verschijnselen van
+tering, ronde schouders, zwakke rug, stijve gewrichten, bleekheid, acne,
+nagelbijten, hartkloppingen, bedwateren, klei eten, tabaksgebruik,
+wisselvalligheid, onbetrouwbaarheid, voorliefde voor eenzaamheid,
+verlegenheid, onnatuurlijke vrijpostigheid, gemaakte vroomheid en verwarde
+gedachten.
+
+Bij het eerste teken schrijft hij dat algemene zwakte bij een eerder gezond
+kind, als er geen andere oorzaak is aan te wijzen, veilig aan de heimelijke
+ondeugd kan worden toegeschreven, hoe onverdacht het kind ook lijkt, en dat
+vergissingen dan zeldzaam zullen zijn. Daarna volgt de lijst gevolgen: bij
+jongens en mannen prostaatvergroting, vernauwing, verlamming, epilepsie,
+ruggenmergprikkeling en krankzinnigheid; bij meisjes en vrouwen witte vloed,
+baarmoederziekte, baarmoederkanker, onvruchtbaarheid en het slinken van de
+borsten.
+
+**Wat hij voorschrijft**
+
+Bij jonge kinderen, bij wie zedelijke overwegingen volgens hem niet aanslaan,
+noemt hij het inbinden van de delen, het vastbinden van de handen, het
+bedekken van de organen met een kooi, en dag-en-nachttoezicht door een oudere
+persoon. Dan volgt de passage die het boek zijn reputatie heeft bezorgd: een
+middel dat bij kleine jongens bijna altijd werkt is besnijdenis, uit te voeren
+door een chirurg zonder verdoving, omdat de korte pijn een heilzame werking op
+de geest heeft, vooral wanneer die met het denkbeeld van straf wordt
+verbonden. In het anatomische hoofdstuk noemt hij ook een overeenkomstige
+ingreep bij meisjes.
+
+Bij ouderen komt het aan op zedelijke overreding, beheersing van de gedachten
+en godsdienst, aangevuld met vier tot vijf mijl lopen per dag, koude zitbaden,
+opstijgende douches, buikbandages en elektriciteit. Uitdrukkelijk verwerpt hij
+drie destijds gangbare raadgevingen: prostitutiebezoek, het huwelijk als
+geneesmiddel, en werktuigen als ringen en pessaria. Het huwelijk als middel
+noemt hij het gebruiken van een vrouw als medicijnflesje, en hij haalt Acton
+aan met de vraag wat het jonge meisje heeft misdaan dat zij aan zo'n
+berekening wordt opgeofferd. Drogisten en kwakzalvers die op de angst van
+jonge mannen teren, valt hij fel aan.
+
+Zijn dieetregels voor de aangedane patiënt zijn precies: nooit te veel eten;
+twee maaltijden per dag, niets binnen vier of vijf uur voor het slapen; geen
+specerijen, peper, gember, mosterd, kaneel, kruidnagel, zout of zuur; geen
+dierlijk voedsel, ook geen vis, gevogelte, oesters, eieren of melk; geen wijn,
+bier, thee, koffie of chocolade en geen warme dranken; geen tabak. Wat
+overblijft zijn fruit, granen en groenten, met grahammeel, havermout en rijp
+fruit als hoofdbestanddelen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Solitary vice | Kelloggs aanduiding voor zelfbevrediging, ook heimelijke ondeugd of zelfmisbruik genoemd, in zijn boek de ernstigste van alle overtredingen. |
+| Continence | Volledige onthouding, die volgens hem geen enkele schade doet en zowel buiten als grotendeels binnen het huwelijk geboden is. |
+| Marital excess | Elke echtelijke gemeenschap die niet op voortplanting is gericht, door hem als hoofdoorzaak van vrouwenziekten aangewezen. |
+| Conjugal onanism | Zijn term voor anticonceptie binnen het huwelijk, die hij op één lijn stelt met het vernietigen van leven. |
+| The social evil | Prostitutie, met als oorzaken die hij noemt overdaad in eten, mode, armoede, onwetendheid en sentimentele lectuur. |
+| Stimulating food | Vlees, vis, eieren, melk, specerijen, zout, thee, koffie en chocolade, die volgens hem de bloedtoevoer naar de geslachtsorganen vergroten. |
+| Signs of self-abuse | De negenendertig genummerde verdachte tekenen waarmee ouders de gewoonte bij een kind zouden kunnen vaststellen. |
+| Ante-natal influences | De invloeden tijdens de zwangerschap waaraan hij blijvende gevolgen voor het karakter van het kind toeschrijft. |
+| Sexual precocity | Vroege ontwikkeling van de geslachtsdrift, die hij toeschrijft aan voeding, erfelijkheid en omgeving en als voorbode van vroeg verval ziet. |
+
+#### Waar het argument op rust
+
+Kellogg voert zichzelf op met zijn titels: lid van de American Public Health
+Association en van de Michigan State Board of Health, medisch directeur van
+het sanatorium in Battle Creek. Zijn artsentitel behaalde hij in 1875 aan het
+Bellevue Hospital Medical College in New York. Die geloofsbrieven zijn echt,
+en ze dragen in dit boek het gewicht dat elders door onderzoek zou moeten
+worden gedragen.
+
+Het materiaal bestaat uit drie soorten. Aanhalingen uit tijdgenoten van
+dezelfde school, met name Acton, Milton en Copland. Eigen
+ziektegeschiedenissen uit het sanatorium, verteld zonder namen, aantallen of
+afloop. En redeneringen naar analogie: omdat lagere dieren seizoensgebonden
+paren, zou voortplanting het enige doel van de menselijke functie zijn. Die
+laatste redenering zet hij zelf als methode uiteen.
+
+Er is geen enkel onderzoek. Kellogg telt niet hoeveel van zijn patiënten de
+negenendertig tekenen vertoonden zonder de gewoonte te hebben, of omgekeerd,
+en hij meldt geen enkel geval waarin zijn behandeling faalde. Zijn lijst is zo
+opgesteld dat ze niet kan worden weerlegd: als geen andere oorzaak is aan te
+wijzen, luidt het oordeel schuldig.
+
+De voedingsleer rust op niets. Dat vlees, eieren, specerijen, thee en
+chocolade het bloed naar de geslachtsorganen zouden drijven, wordt beweerd en
+herhaald, en op geen bladzijde gemeten.
+
+Wat hij niet uit de lucht greep is de stand van de medische opvatting in zijn
+tijd. Krankzinnigheid door zelfbevrediging was in de jaren zeventig een
+gangbare diagnose in Europa en Amerika; bijzonder aan Kellogg is de
+gestrengheid van wat hij eruit afleidde, niet het uitgangspunt.
+
+Zijn praktische adviezen over slaap, wandelen, matiging en baden waren op
+zichzelf ongevaarlijk, en het sanatorium in Battle Creek trok er decennialang
+een welgestelde clientèle mee. Dat is een handelsresultaat.
+
+#### Wat er tegen in te brengen valt
+
+De centrale beweringen zijn onjuist. Zelfbevrediging veroorzaakt geen tering,
+geen epilepsie, geen krankzinnigheid, geen baarmoederkanker en geen
+onvruchtbaarheid. De negenendertig tekenen hebben geen diagnostische waarde;
+ronde schouders, bleekheid, verlegenheid, nagelbijten en bedwateren komen bij
+talloze kinderen voor die niets van de gewoonte weten. De lijst functioneert
+als een toets die alleen schuldig kan luiden.
+
+De ingrepen die hij aanbeveelt, zijn schadelijk. Besnijdenis bij kleine
+jongens, uitgevoerd zonder verdoving met de bedoeling dat het kind de pijn als
+straf ervaart, is een aanbeveling om een kind te laten lijden voor een
+aandoening die niet bestaat. Voor meisjes noemt hij een overeenkomstige
+ingreep. Latere drukken gaan verder en beschrijven zilverdraad door de
+voorhuid en onverdund carbolzuur op de clitoris. Deze voorschriften zijn in de
+praktijk gebracht, en dat hoort bij het boek te worden vermeld.
+
+Kellogg deed naar geen van deze beweringen onderzoek. Hij toetste niets, telde
+niets en publiceerde geen enkel geval dat zijn leer weersprak. Wat hij had was
+een sanatorium, een uitgeverij en een artsendiploma.
+
+Het kader is eerder godsdienstig dan medisch. Kellogg groeide op in de
+zevendedagsadventistische kerk, werd beschermeling van Ellen G. White en haar
+man James, en nam in oktober 1876 de leiding over van het Western Health
+Reform Institute in Battle Creek, dat hij het jaar daarop tot sanatorium
+omdoopte. De gedachte dat flauw graanvoedsel de hartstochten bedaart, was er
+al bij Sylvester Graham en bij White; Kellogg leverde er een fysiologisch
+klinkende verpakking bij. In 1907 werd hij na een leerstellig conflict uit de
+kerk gezet en hield hij het sanatorium.
+
+Het bekende verhaal dat hij cornflakes bedacht om zelfbevrediging tegen te
+gaan, drukt dit alles samen tot één anekdote. Het boek betoogt inderdaad, met
+zoveel woorden, dat flauwe granen de kuisheid dienen. Het schrijft nergens dat
+een bepaald product daarvoor is gemaakt.
+
+De latere Kellogg is erger dan deze. Hij richtte in 1906 de Race Betterment
+Foundation mee op en besteedde zijn laatste decennia aan eugenetica en
+rassenscheiding. De hoofdstukken over erfelijkheid en over invloeden voor de
+geboorte in dit boek zijn daarvan de aanzet.
+
+Wat het boek wel doet en wat een eerlijke lezing moet noemen: Kellogg keert
+zich tegen het onwetend houden van kinderen, verwerpt prostitutie en het
+huwelijk als geneesmiddel, verwerpt de handel in middeltjes en werktuigen, en
+gaat de kwakzalvers te lijf die van de angst van jonge mannen leven. Wat hij
+ervoor in de plaats stelt is toezicht, schaamte en pijn.
+
+#### Wat er concreet mee te doen is
+
+- Ga bij elke aangehaalde Kellogg-passage na uit welke druk zij komt; de
+bekendste citaten staan in drukken van na 1881.
+- Lees de lijst met negenendertig tekenen als voorbeeld van een toets die niet
+kan falen, en zoek de zin waarin dat wordt vastgelegd.
+- Leg zijn afleiding uit dierlijk gedrag naast een moderne redenering van
+dieronderzoek naar de mens en benoem waar de stap wordt overgeslagen.
+
+#### Wat je hierna leest
+
+- 1138. De weg tot gezondheid. Ellen G. White schreef de adventistische
+gezondheidsleer waaruit Kellogg zijn uitgangspunten haalde en waaraan hij een
+artsentitel toevoegde.
+- 1135. The Perfect Way in Diet. Anna Kingsford verdedigde in dezelfde jaren
+een vleesloos dieet met een geheel andere onderbouwing en een geheel ander
+motief.
+- 1136. Tokology. Stockham schreef kort na deze druk over seksualiteit en
+bevalling vanuit het gezichtspunt van de vrouw, en kwam tot tegenovergestelde
+adviezen.
+
+## 1135. The Perfect Way in Diet
+
+Anna Kingsford, 1881. *The Perfect Way in Diet: A Treatise Advocating a Return
+to the Natural and Ancient Food of our Race* (Kegan Paul, Trench & Co.,
+Londen, 1881, 121 blz.). Herziene en uitgebreide vertaling van haar Parijse
+proefschrift *De l'Alimentation Végétale chez l'Homme*, in juli 1880 verdedigd
+aan de Faculté de Médecine. Niet te verwarren met *The Perfect Way, or the
+Finding of Christ* (Field & Tuer, Londen, 1882), haar esoterische boek met
+Edward Maitland. Er bestaat geen Nederlandse vertaling; deze samenvatting
+berust op het gedigitaliseerde Wellcome-exemplaar van de druk van 1881.
+Rubriek: brein en lichaam.
+Tags: `vegetarisme`, `voeding`, `geneeskunde`, `negentiende eeuw`
+
+Medisch pleidooi voor plantaardige voeding, geschreven als proefschrift en
+daarna omgewerkt tot boek. Kingsford verdedigde de Franse versie in 1880 in
+Parijs en werd daarmee een van de eerste Engelse vrouwen met een artsentitel;
+zij haalde die zonder ooit een dierproef te doen. Het boek loopt vier lijnen
+af: de vergelijkende anatomie, de scheikunde van de voedingsstoffen, de
+eetgewoonten van hele volken en de vleesziekten van haar tijd.
+
+De toon is die van een strijdschrift: het boek is opgedragen aan de leden van
+de Vegetarian Society, waarvan zij ondervoorzitter was, en het weegt geen
+tegenargumenten. Wie de theosofische Kingsford zoekt, moet elders zijn. In
+deze tekst komt geen occult woord voor; het latere *The Perfect Way, or the
+Finding of Christ* is een ander boek met een andere pretentie.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Kingsford stelt dat de mens naar lichaamsbouw een
+vruchteneter is en dat vlees eten daarom geen natuurlijke behoefte is maar
+aangeleerde gewoonte. Aan die gewoonte hangt volgens haar een rekening op vier
+niveaus tegelijk: ziekte bij de eter, wreedheid tegenover het dier,
+verspilling van landbouwgrond en verruwing van de samenleving. Wie de
+anatomie, de scheikunde, de gewoonten van de grote volken en de statistieken
+over ziek vlees naast elkaar legt, houdt naar haar oordeel geen verdediging
+van het vleesgebruik over die op meer rust dan op gewenning.
+
+#### De gang van het boek
+
+**Een proefschrift dat een strijdschrift werd**
+
+In het voorwoord zet Kingsford de herkomst zelf uiteen. De tekst is een
+herziene en uitgebreide vertaling van haar *Thèse pour le Doctorat*, die zij
+in juli 1880 in Parijs presenteerde onder de titel *De l'Alimentation Végétale
+chez l'Homme*. Die Franse versie werd in Parijs gedrukt en daarna door dr. A.
+Aderholdt in het Duits vertaald en van aantekeningen voorzien; het onthaal van
+die twee edities bracht haar tot de Engelse uitgave.
+
+De opdracht luidt: aan de leden van de Vegetarian Society, door hun
+ondervoorzitter. Kingsford schrijft er zonder omhaal bij dat zij vooral de
+lichamelijke en maatschappelijke kanten behandelt en de zedelijke en
+wijsgerige slechts aanstipt, omdat die te ingewikkeld zijn voor een boek dat
+algemeen gelezen moet worden. Een bijlage met citaten uit voorgangers van het
+pythagorische stelsel, die in de Franse en Duitse editie stond, liet zij hier
+weg.
+
+**De anatomische redenering**
+
+De eerste vraag die zij stelt is of de mens van nature vleesetend, grasetend,
+alleseter of vruchteneter is. Zij houdt zich aan de indeling van Linnaeus,
+plaatst mens en mensapen samen in de orde der Primaten en vergelijkt
+vervolgens schedel, hersenwindingen, gebit en darmkanaal van mens,
+orang-oetan, gorilla en chimpansee. Haar conclusie is dat de mens naar bouw
+thuishoort bij dieren die van vruchten en zaden leven, en zij roept daarvoor
+Cuvier, Owen, Lawrence, Charles Bell, Flourens en Pouchet als getuigen op.
+
+Op het bezwaar dat de mens door vuur en kruiden nu eenmaal alles kan verteren,
+antwoordt zij dat boomvruchten en zaden het eigenlijke voedsel zijn, bij
+voorkeur ongekookt, en dat koken alleen geoorloofd is voor knollen, wortels en
+harde vruchten die rauw niet te kauwen zijn. Ter illustratie wijst zij op de
+apen in de Jardin des Plantes, die brood, gekookte aardappel, sla en appels
+kregen.
+
+**Kracht, volken en scheikunde**
+
+Tegen het idee dat spierkracht vlees vereist, zet zij de trekdieren: paard,
+os, olifant en kameel doen het zware werk van de wereld zonder ooit vlees te
+proeven. Zij noemt het dagrantsoen van de Romeinse soldaat, een pond gerst,
+drie ons olie en een pint dunne wijn, en wijst erop dat de vleesetende volken
+destijds ruim een kwart van de mensheid uitmaakten. Daarna volgt een opsomming
+van landstreken, van de brahmaanse kasten en de boeddhisten van China en Japan
+tot de Egyptische fellah, telkens met reisverslagen erbij.
+
+Het scheikundige deel is het meest vaktechnische. Zij verdeelt de
+voedingsstoffen in stikstofhoudende en stikstofloze, splitst de laatste in
+vetten en koolhydraten en geeft formules voor glucose, levulose en rietsuiker.
+Vervolgens stelt zij vast dat Liebigs leer, waarin eiwit de bron van
+spierkracht zou zijn en vet alleen warmte levert, inmiddels was verlaten:
+proeven op mensen wezen uit dat arbeidsvermogen uit de verbranding van
+koolstof en waterstof komt. Daarmee valt naar haar oordeel het voornaamste
+scheikundige argument voor vlees weg.
+
+**Ziek vlees**
+
+Het hoofdstuk over de gevaren van vlees eten is het feitelijkst onderbouwde
+deel. Zij onderscheidt vier manieren waarop vlees schadelijk wordt:
+parasieten, ziekten van het levende dier, vergiften die het dier innam en
+bederf na de dood. Voor de cijfers gaat zij naar officiële bronnen, vooral
+naar hoogleraar Gamgee en de rapporten van de medische dienst van de Privy
+Council: drie tot vijf procent van de Ierse varkens zou blaasworm dragen, en
+een vijfde van al het geconsumeerde vlees zou van zieke dieren komen.
+
+Als sprekend geval beschrijft zij de trichinose-uitbraak in Helstadt in
+Pruisen in 1863, waar honderddrie mensen van een schotel worst aten en meer
+dan twintig van hen binnen een maand stierven. Zouten en roken helpen daar
+niet tegen, tekent zij aan, en verhitting alleen als elke vezel de temperatuur
+haalt.
+
+**Genezing, economie en de rest van het dier**
+
+In het deel over ziektebehandeling verzamelt zij gevallen waarin een dieet van
+meel, melk en rijp fruit klierziekten en zweren zou hebben genezen, onder meer
+een geval van dr. Knight uit Truro en een verslag uit *The Lancet* van 14 mei
+1842 over een driejarig kind in Stockport.
+
+Het economische deel rekent voor dat een akker tarwe veel meer mensen voedt
+dan dezelfde akker vlees; zij citeert Greg, die op tweeëntwintig akkers
+weiland per vleesetende volwassene uitkomt. Daarna behandelt zij nog de
+slachthuizen, het vervoer van vee, de overfokkerij, de leerhandel, de
+bonthandel en de mestvraag: elk bezwaar tegen afschaffing van het vleesgebruik
+wil zij vooraf weerlegd hebben. Het boek eindigt met de aanklacht van
+Pythagoras uit Ovidius, na een opening in dichtvorm uit Edwin Arnolds *The
+Light of Asia*.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| kreophagie | Kingsfords eigen woord voor het eten van dierlijk vlees, gevormd uit het Griekse kreas, vlees; wie het doet noemt zij een kreophagist. |
+| frugivoor | Vruchteneter: het dieet waartoe de mens volgens haar naar bouw van gebit, darm en hersenen behoort. |
+| Primaten | De orde van Linnaeus waarin mens en mensapen samen staan; op die indeling bouwt haar hele anatomische vergelijking. |
+| pythagorisch stelsel | Haar aanduiding voor de klassieke traditie van vleesloos eten, die zij met Ovidius' Pythagoras-rede tot slot van het boek maakt. |
+| stikstofhoudende en stikstofloze voedingsstoffen | De negentiende-eeuwse tweedeling waarmee zij de voedingsleer opzet: eiwitten tegenover vetten en koolhydraten. |
+| leer van Liebig | De inmiddels verlaten opvatting dat eiwit de bron van spierkracht is en vet alleen lichaamswarmte levert; het weerleggen daarvan draagt haar scheikundige betoog. |
+| trichina spiralis | De spierworm uit varkensvlees waarvan zij de Pruisische uitbraak van 1863 als schoolvoorbeeld gebruikt. |
+
+#### Waar het argument op rust
+
+De anatomische hoofdstukken leunen vrijwel geheel op gezag. Kingsford doet
+geen eigen metingen maar rijgt uitspraken van Cuvier, Owen, Flourens en
+Pouchet aaneen; het bewijs bestaat eruit dat vooraanstaande anatomen de mens
+frugivoor noemden. Het scheikundige deel staat er beter voor: haar weergave
+van de nederlaag van Liebigs eiwitleer klopt met de stand van zaken rond 1880.
+
+Het sterkste materiaal staat in het hoofdstuk over ziek vlees. Daar gebruikt
+zij officiële stukken, met name de rapporten van de medische dienst van de
+Britse Privy Council en de cijfers van Gamgee, en die cijfers waren voor haar
+tijd reëel. De therapeutische gevallen zijn van andere orde: losse
+ziektegeschiedenissen uit correspondentie en oude jaargangen van *The Lancet*,
+zonder controlegroep, zonder reeks en zonder navolging. Dat het proefschrift
+in Parijs werd aangenomen, betekent dat de faculteit de samenvatting van de
+literatuur aanvaardde, niet dat zij de genezingsclaims onderschreef.
+
+#### Wat er tegen in te brengen valt
+
+De anatomische kern is het zwakst gebleken. Menselijke darm, gebit en de
+behoefte aan vitamine B12 worden nu gelezen als die van een alleseter, en de
+indeling van Linnaeus zegt niets over verplicht dieet. Ook de vergelijking
+houdt geen stand: van chimpansees is sinds de jaren zestig vastgelegd dat zij
+jagen en vlees eten, het tegendeel van wat Kingsford over de mensapen beweert.
+
+De ziektecijfers zijn wel juist maar dragen een ander besluit dan zij eruit
+haalt. Blaasworm en trichine pleiten voor vleeskeuring, koeling en verhitting,
+en dat is ook wat ervan gekomen is; als argument tegen vlees op zichzelf
+verdwijnen ze zodra de keuring werkt. De genezingsverhalen over klierziekten
+houden geen rekening met spontaan herstel, dat bij deze aandoeningen gewoon
+voorkomt.
+
+De vergelijking van volken neemt reisverslagen op hun woord en verwart armoede
+met beginsel: dat de Egyptische fellah geen vlees at, kwam voort uit wat hij
+kon betalen. Gebreksziekten die met zulke diëten samengingen komen in het boek
+niet voor. Het weegt bovendien nergens tegenargumenten; het slot met de gouden
+eeuw van Ovidius laat zien dat de bewijslijn in een moreel oerbeeld eindigt en
+niet in de paleontologie.
+
+#### Wat er concreet mee te doen is
+
+- Lees het boek als bron voor de geschiedenis van de voedingsleer, niet als
+handleiding.
+- Houd de vier bewijslijnen uit elkaar: de anatomische is verouderd, de
+scheikundige was destijds correct, de statistische ging over vleeskeuring en
+de therapeutische bestond uit losse gevallen.
+- Controleer wat de aangehaalde autoriteiten werkelijk beweerden; Kingsford
+citeert kort en zonder tegenstem.
+
+#### Wat je hierna leest
+
+- 1137. Health in the Household. Susanna Dodds vertaalt dezelfde overtuiging
+naar de keuken, met recepten in plaats van betoog.
+- 1129. The Hydropathic Encyclopedia. Trall levert het Amerikaanse handboek
+van de hygiënische school waaruit veel van dit gedachtegoed komt.
+- 1134. Plain Facts for Old and Young. Kellogg koppelt vleesloze voeding aan
+seksuele onthouding en toont hoe ver de hervormingsbeweging kon gaan.
+
+## 1136. Tokology
+
+Alice Bunker Stockham, 1883. *Tokology: A Book for Every Woman* (Sanitary
+Publishing Company, Chicago, 1883; talloze latere drukken tot in de jaren
+tien, ruim 370 blz.). Deze samenvatting volgt de herziene editie van R. F.
+Fenno & Company, New York, met inschrijving uit 1893, die integraal bij
+Project Gutenberg staat. Er bestaat geen Nederlandse vertaling; het boek
+verscheen wel in het Duits, Frans, Fins, Zweeds, Japans en Russisch, waarbij
+Tolstoj de Russische vertaling liet maken. Rubriek: naslag en praktijk.
+Tags: `geneeskunde`, `zwangerschap`, `voeding`, `negentiende eeuw`
+
+Handboek over zwangerschap, bevalling en vrouwenziekten van een van de vroege
+vrouwelijke artsen in de Verenigde Staten. Stockham studeerde in 1854 af aan
+het Eclectic Medical College in Cincinnati en schreef dit boek uit een
+praktijk van dertig jaar. De belofte staat in het eerste hoofdstuk: bevallen
+hoeft geen pijn te doen, mits de vrouw haar kleding, voeding, beweging en
+huwelijksleven zelf op orde brengt.
+
+Het boek werd in eigen beheer uitgegeven en van deur tot deur verkocht door
+vrouwelijke colporteurs; in het eerste decennium gingen er minstens
+honderdvijftigduizend exemplaren uit. De medische inhoud is wisselend van
+kwaliteit: de waarschuwingen tegen korsetten, moederkoren en verdovende
+zuigelingensiropen waren terecht, de leer dat vruchtenzuur de botten van het
+kind zacht houdt was dat niet.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Stockham betoogt dat de zware bevalling in het beschaafde
+Westen geen vloek en geen natuurwet is, maar de optelsom van vermijdbare
+oorzaken: knellende kleding, verkeerd eten, gebrek aan beweging, bedompte
+slaapkamers en seksuele onmatigheid binnen het huwelijk. Wie die oorzaken
+wegneemt, kan volgens haar vrijwel zonder pijn baren en zonder ingrijpen van
+instrumenten herstellen. Daarachter ligt een tweede stelling die het boek zijn
+karakter geeft: de kennis over het eigen lichaam hoort bij de vrouw zelf te
+liggen en niet bij de dokter, en zolang die kennis wordt achtergehouden blijft
+zij het slachtoffer van gewoonte en gezag.
+
+#### De gang van het boek
+
+**Boek, verkoopkanaal en editie**
+
+*Tokology* verscheen in 1883 in Chicago in eigen beheer en werd niet via de
+boekhandel verspreid maar van deur tot deur, door vrouwelijke colporteurs die
+er zelf een inkomen mee verdienden. Het boek toont dat kanaal ook in zichzelf:
+onder de aangehaalde brieven zit er een van een lezeres die tot in haar
+laatste zwangerschapsweek voor *Tokology* bleef colporteren en twee weken na
+de bevalling weer op pad ging. In het eerste decennium gingen er minstens
+honderdvijftigduizend exemplaren uit; een advertentie in *The Woman's Tribune*
+uit 1892 claimde er tweehonderdduizend.
+
+De hier samengevatte herziene editie telt drieëntwintig hoofdstukken, gevolgd
+door bijna tweehonderd recepten, een woordenlijst en drie registers. Achterin
+staat bovendien een toegevoegd stuk, *A Familiar Letter to the Reader from the
+Author*, waarin Stockham vragen beantwoordt die de eerste druk had opgeroepen.
+Dat is het meest omstreden deel van het boek.
+
+**De belofte van de pijnloze bevalling**
+
+Het eerste hoofdstuk opent met de uitspraak van een reiziger dat hij geen
+land, stam of stand kent waar de bevalling zoveel pijn en moeite geeft als in
+de Verenigde Staten. Stockham bouwt daarop haar hele redenering: als vrouwen
+elders minder lijden, is het lijden hier aangeleerd en dus af te leren. Zij
+bestrijdt daarmee uitdrukkelijk de lezing van de vloek over Eva als een
+medisch gegeven.
+
+De rest van het boek is de uitwerking van die stelling in leefregels. Wie zich
+eraan houdt, krijgt volgens haar een lichte bevalling; wie het resultaat niet
+haalt, heeft naar haar oordeel bij navraag altijd een van de voorschriften
+laten liggen.
+
+**Het regime: kleding, bad, voeding, beweging**
+
+De hygiënehoofdstukken vormen de kern. Kleedhervorming krijgt de meeste
+ruimte: korsetten, banden en zware rokken moeten weg, en zij beschrijft
+alternatieven bij naam, van de chemiloon en het prinsessengewaad tot de
+gedeelde rok. Haar vergelijking is die van de veehouder, die een drachtige
+merrie ook geen band om het middel zou doen.
+
+Bij het baden staat het zitbad centraal, dat zij het beste bad voor een
+zwangere noemt, naast omslagen, warme kompressen en de thermale kuur thuis.
+Bij de voeding luidt de regel: geen vet, geen suiker, geen kruiderij, weinig
+zout, niet drinken tijdens het eten en zoveel mogelijk uit granen, groenten en
+fruit. Vlees kan volgens haar door sommigen worden verdragen, maar ouders die
+het beste van zichzelf willen doorgeven kunnen het beter laten.
+
+Het diethoofdstuk voert de theorie van de Londense chemicus Rowbotham op, die
+in 1841 in een pamflet beschreef hoe zijn vrouw op een dieet van appels,
+sinaasappels en citroensap in de laatste zwangerschapsmaanden vrijwel pijnloos
+beviel. De gedachte was dat vruchtenzuur de kalkvorming in het skelet van het
+kind zou remmen. Stockham neemt dat verslag vrijwel integraal over, inclusief
+de opmerking dat de botten van het kind op kraakbeen leken.
+
+**Onthouding in het huwelijk**
+
+Hoofdstuk elf gaat over wat zij kuisheid binnen het huwelijk noemt. Zij zet
+drie opvattingen naast elkaar: dat geslachtsgemeenschap voor de man een
+lichamelijke noodzaak is en voor de vrouw niet, dat het een wederzijdse
+liefdesdaad is met meer doelen dan voortplanting, en dat het uitsluitend voor
+voortplanting dient. Zij bestrijdt de eerste met het argument dat niemand weet
+wat voor vrouwen natuurlijk is zolang zij worden opgevoed in onderdrukking en
+angst voor zwangerschap.
+
+Haar eigen positie neigt naar onthouding, met het belang van het toekomstige
+kind als grond. Vijftien jaar later maakte zij daarvan een aparte leer in
+*Karezza* (1896): gemeenschap zonder zaadlozing, als geestelijke oefening. Dat
+woord komt in *Tokology* nog niet voor.
+
+**Bevalling, kraambed en zuigeling**
+
+De praktische hoofdstukken beschrijven de stadia van de baring, de inrichting
+van het bed en het beleid tijdens de eerste fase, met als leidende gedachte
+dat de verloskundige zo min mogelijk moet doen. Zij waarschuwt tegen
+moederkoren en zilverkaars als weeënmiddel vanwege hun giftigheid, tegen het
+routineus aanleggen van instrumenten en tegen het wassen van het kind vlak na
+de geboorte.
+
+Bij de zuigeling is moedermelk de norm; kunstvoeding krijgt een analyse en een
+reeks waarschuwingen over de fles. Bij de kinderziekten keert zij zich tegen
+de gangbare kalmerende siropen, die opium bevatten, en tegen het insnijden van
+het tandvlees bij het doorkomen van tanden.
+
+**Vrouwenziekten, abortus en overgang**
+
+Het hoofdstuk over vrouwenziekten opent met de bewering dat negen tienden van
+de Amerikaanse vrouwen aan baarmoederklachten lijdt. Zij wijt dat aan kleding,
+voeding, gebrek aan beweging en misbruik van de huwelijksrelatie, en zij keert
+zich fel tegen de behandeling met bijtmiddelen en sondes die destijds in de
+gynaecologie gangbaar was. Voor de behandeling grijpt zij naar warmte,
+zitbaden en oefeningen, en op enkele plaatsen naar homeopathische verdunningen
+zoals aconiet en secale.
+
+In het hoofdstuk over abortus onderscheidt zij miskraam van opgewekte
+vruchtafdrijving. Zij stelt dat het leven bij de bevruchting begint en
+verwerpt het onderscheid tussen voor en na het voelen van leven. Tegelijk legt
+zij de oorzaak van de meeste vruchtafdrijvingen bij ongewenste zwangerschap en
+bij aandrang van de man, en zij tekent aan dat vrouwen in haar praktijk vaker
+om hulp bij onvruchtbaarheid vroegen dan om beperking van het gezin.
+
+**De brief achterin**
+
+In *A Familiar Letter* loopt zij de theorieën langs waarmee tijdgenoten het
+geslacht van het kind meenden te kunnen sturen, van Sixt en Thury tot Girou en
+Terry, en verwerpt ze alle als onbewezen. Vervolgens behandelt zij de
+beperking van het kindertal. Onthouding blijft haar eerste raad; voor wie dat
+niet kan opbrengen beschrijft zij een vruchtbare periode van twee tot veertien
+dagen na de eisprong, met de rest van de maand als veilig.
+
+Haar principiële uitspraak staat er onomwonden: geen kennis mag worden
+achtergehouden die de voorwaarden voor goed ouderschap veiligstelt. Precies
+dat standpunt bracht haar later in aanvaring met de zedenwetgeving.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| tokologie | Verouderde term voor verloskunde, van het Griekse tokos, geboorte; Stockham koos hem om het boek buiten de dokterspraktijk te plaatsen. |
+| painless childbirth | De centrale belofte van het boek: een bevalling zonder pijn als beloning voor een goed gevoerd leefregime. |
+| continence | Onthouding binnen het huwelijk, door haar verdedigd op grond van het belang van het kind en van de gezondheid van de vrouw. |
+| fruit diet | Het dieet van appels, sinaasappels en citroenzuur dat de botvorming van het kind zou remmen en de baring zou verlichten. |
+| zitbad | Bad waarin alleen het bekken in het water zit; bij Stockham het voornaamste middel tegen zowat elke klacht in de zwangerschap. |
+| meddlesome midwifery | Haar aanduiding voor onnodig ingrijpen tijdens de baring, waartegen zij het hele verloskundige hoofdstuk richt. |
+| feticide | Haar term voor opgewekte vruchtafdrijving, die zij scherp onderscheidt van de spontane miskraam. |
+| kleedhervorming | De beweging tegen korset en zware rokken, waarvan zij de kledingstukken bij naam noemt en aanbeveelt. |
+| Karezza | Haar latere leer van gemeenschap zonder zaadlozing, uitgewerkt in het boek van die naam uit 1896 en nog niet aanwezig in *Tokology*. |
+
+#### Waar het argument op rust
+
+Het boek steunt op drie soorten materiaal: haar eigen praktijk van ongeveer
+dertig jaar, brieven van lezeressen die het regime volgden, en overgenomen
+verslagen van anderen. Van die drie is alleen het eerste medisch van
+betekenis, en zij geeft er geen aantallen bij. De brieven zijn geselecteerd,
+door de betrokkenen zelf opgeschreven en door haar eigen uitgeverij
+gepubliceerd; ze bewijzen dat er tevreden lezeressen waren, meer niet. Het
+pamflet van Rowbotham uit 1841, dat de kern van het diethoofdstuk vormt, is de
+beschrijving van één bevalling door de echtgenoot van de patiënte.
+
+Op de punten waar zij tegen de heersende praktijk inging, had zij gelijk, en
+dat is aanwijsbaar. Korsetten beperkten inderdaad ademhaling en bloedsomloop;
+moederkoren als weeënmiddel was gevaarlijk; instrumentele verlossingen waren
+te talrijk en te ruw; kalmerende zuigelingensiropen bevatten opium; hygiëne op
+de kraamafdeling deed er, zoals zij bij Playfair leest, wel degelijk toe. Voor
+de kernbelofte, dat voeding de pijn van de bevalling bepaalt, geeft zij geen
+onderbouwing die die naam verdient.
+
+#### Wat er tegen in te brengen valt
+
+De opzet maakt de these onweerlegbaar. Waar lezeressen melden dat het niet
+werkte, stelt Stockham vast dat bij navraag altijd blijkt dat een deel van de
+voorschriften niet is opgevolgd. Dat schrijft zij zelf op, zonder er de
+gevolgtrekking bij te maken: een leer die elke uitzondering verklaart uit
+ongehoorzaamheid, kan niet meer aan de werkelijkheid worden getoetst.
+
+De vergelijking met vrouwen buiten Europa en Amerika berust op reisanekdotes
+en op een romantisch beeld van de natuurlijke bevalling. De moedersterfte in
+de aangehaalde streken lag hoger, niet lager; dat gegeven ontbreekt in het
+boek volledig.
+
+De vruchtzuurtheorie is niet alleen ongefundeerd maar mogelijk schadelijk. Een
+pasgeborene met botten die op kraakbeen lijken, is naar hedendaags inzicht een
+teken van een tekort en geen bewijs van een geslaagd experiment. De
+homeopathische verdunningen die zij hier en daar voorschrijft, hebben geen
+werking boven placebo.
+
+De keerzijde van haar boodschap dat de vrouw zelf verantwoordelijk is voor de
+uitkomst, is dat zij ook de schuld krijgt als het misgaat. En de
+anticonceptieregel achterin, met veertien dagen vruchtbaarheid na de eisprong
+en de rest van de maand veilig, is qua tijdrekening onjuist en heeft
+ongewenste zwangerschappen gekost.
+
+Wat er van de zedenwetgeving over te zeggen valt, hoort er feitelijk bij: niet
+*Tokology* maar haar pamflet *The Wedding Night* bracht haar in 1905 op
+tweeënzeventigjarige leeftijd in botsing met de Comstock-wet, nadat een
+postinspecteur een exemplaar had besteld. Zij werd veroordeeld, kreeg een
+boete van tweehonderdvijftig dollar, werd verdedigd door Clarence Darrow en
+zag haar uitgeverij sluiten.
+
+#### Wat er concreet mee te doen is
+
+- Lees het als bron over de gezondheidshervorming en over vrouwelijk
+auteurschap in de negentiende eeuw, niet als medisch advies.
+- Scheid de hoofdstukken over kleding, hygiëne en ingrijpen tijdens de baring,
+die grotendeels standhielden, van de hoofdstukken over dieet en botvorming,
+die dat niet deden.
+- Let bij de brieven van lezeressen op wie ze schreef en wie ze uitgaf; het
+zijn verkoopdocumenten zowel als getuigenissen.
+
+#### Wat je hierna leest
+
+- 1128. Lectures to Ladies on Anatomy and Physiology. Mary Gove Nichols deed
+dertig jaar eerder hetzelfde: anatomie uitleggen aan vrouwen die het niet
+mochten weten.
+- 1130. The Laws of Life. Elizabeth Blackwell schrijft over hetzelfde
+onderwerp vanuit een reguliere medische opleiding.
+- 1132. Over ziekenverpleging. Nightingale werkt de ziekenkamer uit die
+Stockham alleen aanstipt.
+- 1134. Plain Facts for Old and Young. Kellogg behandelt seksualiteit en
+onthouding vanuit dezelfde beweging, maar met een tegenovergesteld oordeel
+over de vrouw.
+
+## 1137. Health in the Household
+
+Susanna W. Dodds, 1885. *Health in the Household, or Hygienic Cookery* (Fowler
+& Wells, New York; inschrijving 1883, druk van 1885, 602 blz.). Van dit boek
+bestaan drukken van 1883 tot 1901; deze samenvatting volgt de tweede editie
+van Fowler & Wells Co. uit 1891, waarvan het gedigitaliseerde exemplaar van de
+universiteit van Leeds integraal raadpleegbaar is. Deel I verscheen in 1884
+ook afzonderlijk als *The Diet Question*. Er bestaat geen Nederlandse
+vertaling. Rubriek: naslag en praktijk.
+Tags: `voeding`, `vegetarisme`, `kookboek`, `negentiende eeuw`
+
+Kookboek en leerboek in één band, uit de Amerikaanse hygiënische school.
+Susanna Dodds studeerde in 1864 af aan het Hygeio-Therapeutic College van
+Russell Trall en dreef met haar zuster een sanatorium in St. Louis. Haar
+keuken kent geen zout, geen kruiderij, geen bakvet en grotendeels geen gist:
+van de veertig broodsoorten in het middendeel gaat meer dan de helft zonder
+gist of soda.
+
+De opbouw verraadt de spanning waarin het boek staat. Deel I geeft de theorie,
+deel II de recepten die daaruit volgen, en deel III, ruim driehonderd
+bladzijden lang, bevat wat zij zelf het compromis noemt: puddingen, taarten en
+vervolgens rundvlees, varken, wild, gevogelte en vis, voor huishoudens die de
+leer niet aankunnen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Dodds stelt dat een huishouden zonder zout, vet, kruiderij,
+gist en vlees kan koken en dat het resultaat voedzamer is dan de gangbare
+tafel en even smakelijk, zodra de tong aan de verandering gewend is. De
+redenering loopt van de samenstelling van de voedingsmiddelen naar de keuken:
+wat het lichaam opbouwt zit al in graan, groente en fruit, en alles wat
+daaraan wordt toegevoegd om de smaak te prikkelen kost het lichaam werk zonder
+iets te leveren. Het bijzondere aan het boek is dat het zijn eigen stelling
+meteen weer relativeert door er een derde deel met vleesrecepten aan vast te
+binden, dat zij zonder verdediging het wereldse hoofdstuk noemt.
+
+#### De gang van het boek
+
+**Drie delen in één band**
+
+Deel I heet *The Reason Why* en beslaat ongeveer honderd bladzijden theorie.
+Deel II, *The Hygienic Dietary*, geeft de recepten die strikt volgens die
+theorie zijn opgezet en loopt van bladzijde 101 tot 258. Deel III, *The
+Compromise*, beslaat de resterende ruim driehonderd bladzijden en bevat alles
+wat in het stelsel niet thuishoort. Het geheel telt 602 bladzijden.
+
+Het voorwoord is gedateerd St. Louis, 21 september 1883, en de inschrijving
+bij het copyright dateert uit datzelfde jaar. Dodds legt daar de reden voor de
+driedeling uit: er kwam dringend vraag naar een boek voor mensen wier familie
+en kennissen nog niet overtuigd waren, en men besloot dat werk met het
+hygiënische kookboek in één band te binden.
+
+**De school waaruit het komt**
+
+Dodds studeerde in 1864 af aan het New York Hygeio-Therapeutic College van
+Russell Thacher Trall en opende in 1878 met haar zuster Mary het sanatorium
+Dodds' Hygeian Home in St. Louis; in 1887 richtten zij daar een eigen
+hygiënische medische opleiding op. Zij was ondervoorzitter van de Vegetarian
+Society of America.
+
+Dat verband staat ook in het boek zelf. Voor deel II noemt zij als
+geraadpleegde en soms letterlijk overgenomen werken het *Hygeian Home
+Cook-Book* van Trall, het *Health Reformer's Cook-Book* uit Battle Creek en
+*How to Prepare Food* van Lucretia Jackson. Voor deel III noemt zij Catharine
+Beecher, Marion Harland, Emma P. Ewing en de *Buckeye Cookery*. Het motto op
+de titelpagina komt van Felix Oswald: geen kruid dan honger, geen prikkel dan
+beweging.
+
+**De leer in deel I**
+
+Elk hoofdstuk begint met tabellen over de samenstelling van voedingsmiddelen,
+ontleend aan de fysioloog Pavy. Daarop bouwt zij haar rangorde: granen boven
+vlees, volkoren boven witte bloem. Haar telling is dat de volle tarwekorrel
+vijftien bouwstoffen bevat en het zetmeel waaruit witte bloem bestaat drie, en
+dat wit brood daarmee de dunste steun is waarop een mens kan leunen.
+
+Bij vlees voert zij aan dat Liebigs stikstofleer inmiddels is verlaten, met
+Frankland en Traube als weerleggers en Trall als kroongetuige, en zij haalt
+landbouwstatistieken aan over ziekten onder vee: in 1879 zou de Verenigde
+Staten meer dan zestien miljoen dollar aan gestorven landbouwdieren hebben
+verloren, waarvan twee derde varkens. Het hoofdstuk over varkensvlees is een
+regelrechte aanklacht, waarin het sanitaire en het bijbelse argument door
+elkaar lopen.
+
+Het langste polemische hoofdstuk gaat over zout. Dat keukenzout in bloed,
+zweet en tranen wordt aangetroffen, bewijst volgens haar niets: whisky, jodium
+en strychnine zijn er ook in terug te vinden na inname. Wie het zout laat
+staan, merkt naar haar zeggen binnen weken dat zweet en speeksel hun zoute
+smaak verliezen. Verder verwerpt zij peper en specerijen, drinken tijdens de
+maaltijd, thee en koffie, en zij bespreekt of twee maaltijden per dag niet
+beter zijn dan drie.
+
+**De keuken in deel II**
+
+Deel II opent niet met een recept maar met vier voorwaarden voor goed brood:
+goed graan, goed gereinigd en gemalen, goed gemengd en goed gebakken. Daarna
+volgen de ongegiste broden, de gerezen broden, eenvoudige vruchtencakes,
+gestoomde granen, pappen, gebak, groenten, soepen, vruchten en vruchtensappen,
+drank en voedsel voor zieken en zuigelingen, en het inmaken en wecken.
+
+De recepten zijn met opzet uitvoerig. Dodds schrijft in het voorwoord dat
+kookboeken juist datgene weglaten wat de lezer het hardst nodig heeft, de
+hoeveelheden en verhoudingen, en dat zij liever langdradig is dan onvolledig.
+Wat in de recepten ontbreekt, is even veelzeggend als wat erin staat: geen
+zout, geen bakpoeder, geen reuzel. Ook noemt zij een merk bij naam, de
+Grahambloem van Ferdinand Schumacher uit Akron in Ohio, met de aanbeveling
+zijn fijnste maalsel te bestellen.
+
+**Het compromis in deel III**
+
+Deel III noemt zij zelf het wereldse deel. Hier komen gestoomde broden met
+soda en karnemelk, maiskoeken, griddle-cakes, taarten, puddingen, vlaas,
+geleien en dan de vleeshoofdstukken: rund, schaap en lam, varken, hert,
+gevogelte, wild, vis, oesters, vleespasteien, stoofschotels, hachee en eieren.
+De omvang is aanzienlijk: de vleesrecepten alleen al beslaan ruim honderd
+bladzijden.
+
+Dodds verdedigt dit deel niet inhoudelijk. Zij verklaart alleen dat de veertig
+broodsoorten uit deel II onvoldoende waren voor de vraag, en dat deze
+gerechten in het hygiënische stelsel niet thuishoren. Wie deel I heeft gelezen
+weet dat zij hier tegen haar eigen leer in kookt; het boek laat die spanning
+onopgelost staan.
+
+**Hoe theorie en recept zich verhouden**
+
+In deel II is de band tussen leer en keuken strak. De weigering van zout,
+gist, soda en vet is geen smaakkwestie maar rechtstreeks gevolg van de
+hoofdstukken ervoor: gisting zou de voedingswaarde van meel aantasten, zout
+zou het lichaam werk kosten, vet en suiker zouden de spijsvertering belasten.
+Het advies over Grahambloem komt letterlijk uit het theoriehoofdstuk over
+tarwe.
+
+In deel III is die band doorgesneden. Daar wordt gekookt volgens de gewoonte
+van de tijd, met bronnen uit de gangbare kookliteratuur. Het boek is daarmee
+tegelijk een leerstellig traktaat en een algemeen huishoudboek, en de lezer
+moet zelf besluiten welke helft hij gebruikt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| hygiënisch stelsel | De negentiende-eeuwse Amerikaanse school die geneesmiddelen afwees en genezing zocht in voeding, water, lucht, licht en beweging. |
+| hygeio-therapie | Tralls naam voor die behandelwijze, en de opleiding waaraan Dodds in 1864 haar titel haalde. |
+| Grahambloem | Ongebuilde volkoren tarwebloem, genoemd naar Sylvester Graham; de basis van vrijwel al het brood in deel II. |
+| ongegist brood | Brood zonder gist of soda; meer dan de helft van de veertig broodsoorten in deel II hoort tot deze categorie. |
+| the compromise | Haar eigen naam voor deel III, het wereldse deel met puddingen en vleesgerechten voor niet-overtuigde huisgenoten. |
+| proximate principles | De destijds gangbare term voor de scheikundige bestanddelen die uit lichaamsweefsel te winnen zijn; haar zoutbetoog draait om de vraag wat hun aanwezigheid bewijst. |
+| condiment | Verzamelnaam voor zout, peper en specerijen, in dit boek als prikkelmiddel afgewezen en niet als smaakmaker. |
+| tabellen van Pavy | De voedingswaardetabellen van de Britse fysioloog Frederick Pavy, waarmee elk theoriehoofdstuk opent en waarop de hele rangorde van voedingsmiddelen rust. |
+
+#### Waar het argument op rust
+
+Het feitelijke fundament is smal en van één soort: samenstellingstabellen. Dat
+granen meer droge stof bevatten dan vlees is juist, maar het argument dat
+volkoren daarom vijf keer zo voedzaam is als witte bloem berust op het tellen
+van chemische elementen, en dat is geen maat voor voedingswaarde. Er staat in
+het hele boek geen voedingsproef, geen patiëntenreeks en geen meting uit haar
+eigen sanatorium.
+
+Waar zij de stand van de wetenschap weergeeft, doet zij dat correct. Haar
+mededeling dat Liebigs leer over stikstof en spierkracht was verlaten, klopt
+met wat rond 1880 gangbaar was, en de landbouwstatistieken over veeziekten
+haalt zij uit de rapporten van het ministerie in Washington. Haar zoutbetoog
+is redenering en waarneming zonder meting: dat wie zout laat staan binnen
+weken minder zout zweet, geeft zij als ervaringsfeit zonder bron. Voor deel II
+en III geeft zij haar bronnen wel netjes op, inclusief de toegeving dat zij op
+plaatsen letterlijk heeft overgenomen.
+
+#### Wat er tegen in te brengen valt
+
+Het zoutbetoog is het zwakste punt en tegelijk het meest herhaalde. Natrium is
+een gereguleerd verlies en geen verontreiniging, en de vergelijking met
+strychnine gaat mank; langdurig strikt zoutloos eten is bij hitte en zware
+arbeid gevaarlijk. Ook de afwijzing van gist en soda rust op de aanname dat
+gisting voedingswaarde vernietigt, waarvoor zij geen enkele meting geeft.
+
+Deel III ondermijnt de rest van het boek. Als de leer uit deel I zo stevig
+staat als daar wordt beweerd, horen honderd bladzijden vleesrecepten er niet
+in. Dodds lost dat niet met een argument op maar met een woord: werelds. Wie
+het boek als betoog leest, houdt daarmee een onopgeloste tegenstrijdigheid
+over.
+
+Het varkenshoofdstuk mengt sanitaire cijfers met een religieus
+reinheidsargument, en gebruikt de tweede lijn waar de eerste tekortschiet. Het
+aanbevelen van één fabrikant bij naam past slecht bij een werk dat zich als
+wetenschappelijk aandient; de uitgever, Fowler & Wells, was een frenologisch
+huis dat ook waren verkocht.
+
+Het boek is bovendien een samenvoeging en geen nieuw werk: deel I verscheen
+los als *The Diet Question*, deel II leunt op de kookboeken van Trall en van
+Battle Creek. De datering is navenant rommelig, met drukken van 1883 tot 1901.
+Ten slotte wordt Dodds in naslagwerken de vierde vrouwelijke arts van Amerika
+genoemd; die telling houdt geen stand, want het Female Medical College of
+Pennsylvania leverde al vanaf 1851 vrouwelijke afgestudeerden af.
+
+#### Wat er concreet mee te doen is
+
+- Lees deel I als leerstellige tekst en deel II als bron voor de
+keukenpraktijk van de hygiënische beweging.
+- Vergelijk de recepten in deel II met die in deel III om te zien wat de leer
+feitelijk verbood.
+- Neem de voedingsclaims niet over: de rangorde in dit boek berust op tabellen
+met droge stof en niet op voedingsonderzoek.
+
+#### Wat je hierna leest
+
+- 1129. The Hydropathic Encyclopedia. Trall is haar leermeester; zijn handboek
+levert de leer waarvan dit de keukenuitwerking is.
+- 1135. The Perfect Way in Diet. Kingsford voert dezelfde zaak als medisch
+betoog, zonder recepten.
+- 1131. Letters to the People on Health and Happiness. Catharine Beecher, die
+zij in deel III als bron noemt, staat voor het huishoudboek dat zij wilde
+vervangen.
+- 1133. Dr. Chase's Recipes; or, Information for Everybody. Chase laat zien
+hoe hetzelfde publiek werd bediend met recepten zonder enige leer erachter.
+
+## 1138. De weg tot gezondheid
+
+Ellen G. White, 1905. *The Ministry of Healing* (Pacific Press Publishing
+Association, Mountain View, Californië, 12 september 1905, 541 blz., ruim
+honderd illustraties). Nederlandse uitgave: *De weg tot gezondheid* (E.G.
+White Stichting, 1998, ISBN 9789080129825). Deze samenvatting berust op de
+Engelse tekst in de druk van 1909. Rubriek: brein en lichaam.
+Tags: `religie`, `gezondheid`, `voeding`, `adventisme`
+
+Het voornaamste gezondheidsboek van de medeoprichtster van het
+zevendedagsadventisme. Geneeskunde, voeding, opvoeding, huwelijk en geloof
+lopen erin in elkaar over: ziekte is het gevolg van overtreden wetten,
+genezing komt door de natuur ruimte te geven, en de arts werkt als medewerker
+van Christus. De acht middelen die het boek noemt zijn frisse lucht, zonlicht,
+matigheid, rust, beweging, goede voeding, water en vertrouwen op God.
+
+White ontleende haar gezag aan visioenen, waarvan dat van 6 juni 1863 in
+Otsego de gezondheidsleer inluidde. Sinds Ronald Numbers' *Prophetess of
+Health* (1976) is aangetoond dat de inhoud grotendeels teruggaat op hervormers
+als Jackson, Trall en Coles; het achtjarige onderzoek van Fred Veltman stelde
+voor een ander boek van haar hand een aanzienlijke letterlijke afhankelijkheid
+van bronnen zonder bronvermelding vast.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Voor White is er geen scheiding tussen de wetten van het
+lichaam en de wetten van God: elke ziekte gaat terug op overtreding, en
+genezing bestaat eruit die overtreding te staken en de natuur haar herstelwerk
+te laten doen. Geneesmiddelen zijn in dit boek geen hulp maar vergif dat de
+kwaal verplaatst; wat wel helpt is frisse lucht, zonlicht, matigheid, rust,
+beweging, goede voeding, water en vertrouwen op God. Daarmee is de arts geen
+technicus maar een leraar en een medewerker van Christus, en zijn voeding,
+huwelijk, opvoeding en zielszorg onderdelen van één en dezelfde leer.
+
+#### De gang van het boek
+
+**Wat voor boek het is**
+
+*The Ministry of Healing* verscheen op 12 september 1905 bij de Pacific Press
+in Mountain View, telt 541 bladzijden en meer dan honderd illustraties. Het is
+opgedragen aan artsen en verpleegkundigen in alle landen. White stond de
+opbrengst af om schulden van adventistische sanatoria af te lossen; het
+voorwoord van de uitgever vermeldt dat de uitgevers er geen winst op maken.
+
+White schreef het boek niet hoofdstuk voor hoofdstuk. Haar literaire
+assistente Marian Davis stelde het samen uit eerder geschreven materiaal over
+gezondheid en bracht dat in hoofdstukken onder. Dat is aan de tekst te merken:
+het boek herhaalt zichzelf en de zeven afdelingen verschillen sterk van toon.
+
+De opbouw loopt van het leven van Christus als genezer, via het werk van de
+arts en het medische zendingswerk, naar de verzorging van de zieke, de
+gezondheidsbeginselen, het gezin, de kennis van God en ten slotte de noden van
+de werker. De laatste twee afdelingen zijn stichtelijk en niet medisch.
+
+**De geneeskunde: natuur in plaats van middelen**
+
+De medische kern staat in de hoofdstukken over de arts als opvoeder en over
+het gebruik van geneesmiddelen. Geneesmiddelen zijn volgens White vergiften;
+als een patiënt na inname herstelt, komt dat doordat de natuur genoeg
+levenskracht had om het gif uit te drijven. In de meeste gevallen verandert
+het middel volgens haar alleen de vorm en de plaats van de ziekte, en
+gepatenteerde huismiddelen legden naar haar oordeel de grondslag voor drank-,
+opium- en morfineverslaving.
+
+Daartegenover staat de zin die het bekendst is geworden: frisse lucht,
+zonlicht, matigheid, rust, beweging, goede voeding, het gebruik van water en
+vertrouwen op goddelijke kracht zijn de ware geneesmiddelen. Ziekte noemt zij
+een poging van de natuur om het lichaam te bevrijden van de gevolgen van
+wetsovertreding. De uitwerking is praktisch: vasten van een of twee
+maaltijden, enkele dagen vruchtendieet, koude en warme baden, buitenwerk,
+wandelen, en voor overspannen hoofdarbeiders een verblijf op het land.
+
+Het gebed voor de zieke krijgt een apart hoofdstuk, en het is opvallend
+voorzichtig. White schrijft dat wij niet weten wat wij bidden moeten, dat de
+bede altijd de onderwerping aan Gods wil moet bevatten, en dat wie niet
+geneest daarom niet als ongelovig mag worden weggezet. Genezing door
+goddelijke tussenkomst bestaat volgens haar, maar niet alle zieken worden
+genezen.
+
+**De afwijzing van de gedachtegenezing**
+
+Het hoofdstuk *Mind-Cure* keert zich tegen de gedachtegenezing en het
+hypnotisme die rond 1900 opkwamen, met de Christian Science op de achtergrond.
+Whites bezwaar is niet dat het niet werkt maar dat het van de verkeerde bron
+komt: de leer dat de ene geest de andere beheerst noemt zij een vinding van
+Satan, en van alle dwalingen onder christenen de gevaarlijkste.
+
+In hetzelfde hoofdstuk verdedigt zij wel de invloed van de geest op het
+lichaam. Meeleven, tact en het winnen van vertrouwen zijn volgens haar vaak
+van meer nut dan de vakkundigste behandeling die koel wordt gegeven, en een
+arts die onverschillig aan het ziekbed verschijnt doet zijn patiënt schade. De
+grens tussen het toegelaten en het verboden gebruik van de geest trekt zij op
+theologische en niet op waarneembare gronden.
+
+**Voeding**
+
+De afdeling over gezondheidsbeginselen bevat de hoofdstukken over algemene
+hygiëne, de hygiëne van Israël, kleding, voeding, vlees als voedsel, uitersten
+in het dieet, genotmiddelen en drankbestrijding. De redenering over vlees is
+heilshistorisch: het dieet van Eden bevatte geen dierlijk voedsel, pas na de
+zondvloed kwam de toestemming, en Israël kreeg manna en geen vlees. Daarnaast
+geeft zij twee praktische gronden: wie vlees eet, eet granen en groenten uit
+de tweede hand, en dierziekten namen zo toe dat vlees tuberculose en kanker
+zou overbrengen. Varkensvlees wijst zij onvoorwaardelijk af.
+
+Het hoofdstuk over uitersten in het dieet is de tegenhanger. Wie in armoede
+leeft of in streken zonder fruit en noten, moet melk en eieren niet worden
+ontzegd; niet iedereen verdraagt hetzelfde; niemand mag zichzelf tot maatstaf
+voor anderen maken; en de hervorming moet geleidelijk zijn. Twee maaltijden
+per dag noemt zij doorgaans gunstig, met uitzonderingen. Deze bladzijden staan
+haaks op het beeld van een strakke leefregel en zijn binnen de beweging vaak
+aangehaald.
+
+**Gezin, opvoeding en de werker**
+
+Bijna de helft van het boek is niet medisch. De afdeling over het gezin
+behandelt de keuze van een huwelijkspartner, de inrichting en ligging van het
+huis, de taak van de moeder, de opvoeding van het kind en de invloed van het
+gezinsleven, waarbij opvoeding als voorbereiding op zendingswerk wordt
+opgevat.
+
+De laatste twee afdelingen gaan over de kennis van God, het gevaar van
+speculatief denken, het valse en het ware in de opvoeding, en over wat de
+werker in het dagelijks leven nodig heeft. Hier is het boek stichtelijk proza;
+de gezondheidsleer is dan al afgerond.
+
+**Gezag en herkomst**
+
+White ontleende haar gezag aan visioenen. Voor de gezondheidsleer geldt het
+visioen van 6 juni 1863 in Otsego in Michigan als beginpunt; kort daarna
+verschenen haar eerste geschriften over het onderwerp. In 1864 verbleef zij in
+de watergeneesinrichting van James Caleb Jackson in Dansville.
+
+Ronald Numbers stelde in *Prophetess of Health* (1976) vast dat de inhoud van
+die gezondheidsboodschap grotendeels aansluit bij wat hervormers als Jackson,
+Trall en Larkin Coles al hadden geschreven, en dat het verblijf in Dansville
+haar leer heeft gevormd. Het boek veroorzaakte grote onrust in de kerk en
+kostte Numbers zijn aanstelling in Loma Linda.
+
+Van 1980 tot 1988 onderzocht Fred Veltman in opdracht van de kerk zelf het
+gebruik van bronnen in *The Desire of Ages*. Zijn rapport van meer dan
+tweeduizendvijfhonderd bladzijden kwam uit op gemiddeld 31,4 procent van de
+tekst die in enige mate op schriftelijke bronnen teruggaat, met de aantekening
+dat de werkelijke afhankelijkheid groter is dan de woordelijke overeenkomsten
+laten zien, omdat ook de opbouw van de hoofdstukken die van de bronnen volgt.
+Hij concludeerde dat White zelf, en niet haar assistenten, de formuleringen
+zonder bronvermelding overnam.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| gezondheidshervorming | De adventistische leer dat gezond leven een geloofsplicht is, ingezet met het visioen van 1863 en in dit boek tot een geheel gemaakt. |
+| de acht natuurlijke geneesmiddelen | Frisse lucht, zonlicht, matigheid, rust, beweging, goede voeding, water en vertrouwen op goddelijke kracht: de opsomming die het hele medische deel draagt. |
+| medisch zendingswerk | De opvatting dat verpleging en genezing bij de verkondiging horen en dat de arts als medewerker van Christus optreedt. |
+| mind-cure | De gedachtegenezing van rond 1900, die zij afwijst als beheersing van de ene geest door de andere en toeschrijft aan Satan. |
+| wetsovertreding | Haar verklaring voor ziekte: lichamelijke en zedelijke wetten zijn van dezelfde orde, en lijden volgt op het overtreden ervan. |
+| Eden-dieet | Het oorspronkelijke vleesloze voedsel uit het scheppingsverhaal, dat zij als de door God bedoelde norm neemt. |
+| extremes in diet | Het hoofdstuk waarin zij haar eigen voedingsleer inbindt: geen vaste regel voor iedereen, melk en eieren niet ontzeggen waar niets anders is. |
+| sanatorium | De adventistische geneesinrichting waar het boek voor bestemd is en waarvan de schulden met de opbrengst werden afbetaald. |
+
+#### Waar het argument op rust
+
+In het boek zelf staat geen onderzoek. Er is geen enkele patiëntenreeks, geen
+meting en geen verwijzing buiten de Schrift; de vorm is die van stellige
+uitspraak, geïllustreerd met bijbelplaatsen. Wie de vraag stelt waarop de
+bewering rust dat geneesmiddelen vergif zijn, vindt in de tekst geen antwoord
+dat verder gaat dan de bewering zelf.
+
+Daar staat tegenover dat de leefregels op een aantal punten overeenkomen met
+wat later houdbaar bleek: niet roken, geen alcohol, meer groente en fruit,
+buiten bewegen, wassen, en afblijven van de patentmiddelen die destijds opium
+bevatten. Loma Linda University voert sinds 1958 cohortonderzoek onder
+adventisten uit, en die studies vinden bij vegetarische adventisten lagere
+sterfte aan hart- en vaatziekten en aan enkele kankers. Dat is bewijs voor de
+leefwijze, niet voor de manier waarop White eraan kwam.
+
+#### Wat er tegen in te brengen valt
+
+De herkomstvraag is het zwaarste bezwaar en komt uit het onderzoek zelf.
+Numbers liet in 1976 zien dat passages die als bij visioen gegeven werden
+gepresenteerd, aanwijsbare voorgangers hebben in de gezondheidsliteratuur die
+White aantoonbaar kende; Walter Rea breidde dat in 1982 uit naar haar overige
+werk. Veltman, aangesteld door de kerk, kwam in 1988 op gemiddeld 31,4 procent
+letterlijke afhankelijkheid in *The Desire of Ages*, en oordeelde dat de
+werkelijke afhankelijkheid groter is.
+
+Het antwoord van het White Estate is historisch verdedigbaar: overnemen zonder
+bronvermelding was in de negentiende eeuw gebruikelijker, het auteursrecht
+werkte anders, en inspiratie sluit het gebruik van bronnen niet uit. Het
+verschuift wel de grond onder de aanspraak. Wie zegt dat hem iets is getoond,
+doet een andere bewering dan wie zegt dat hij goed heeft gelezen.
+
+Medisch was de afwijzing van geneesmiddelen in 1905 al achterhaald. De
+ziektekiemleer was gevestigd, difterie-antiserum was sinds 1894 in gebruik en
+aspirine sinds 1899. Een leer die alle middelen vergif noemt, kost levens in
+de gevallen waarin behandeling bestond; het boek maakt daarvoor nergens een
+uitzondering.
+
+De grondgedachte dat alle lijden voortkomt uit overtreden wetten, zoals het
+voorwoord onomwonden stelt, legt de verantwoordelijkheid bij de zieke. Het
+boek zwakt dat op enkele plaatsen af, maar het maakt de gedachte niet
+ongedaan. Ten slotte trekt het hoofdstuk over gedachtegenezing zijn grens met
+een theologisch argument terwijl het even verderop zelf vertrouwen, meeleven
+en verwachting als heilzaam aanbeveelt.
+
+#### Wat er concreet mee te doen is
+
+- Houd de drie lagen uit elkaar: de leefregels, de theologische onderbouwing
+en de aanspraak op visioenen.
+- Zoek bij elke gezondheidsuitspraak op wat de hervormers voor 1863 al
+schreven; dat is de manier om vast te stellen wat hier nieuw is.
+- Lees het hoofdstuk over uitersten in het dieet naast dat over vlees als
+voedsel; ze corrigeren elkaar.
+
+#### Wat je hierna leest
+
+- 1134. Plain Facts for Old and Young. Kellogg leidde het adventistische
+sanatorium in Battle Creek en bouwde dezelfde leer uit tot een eigen stelsel.
+- 1129. The Hydropathic Encyclopedia. Trall levert het handboek van de
+watergeneeskunde waaruit een groot deel van de adventistische gezondheidsleer
+stamt.
+- 1137. Health in the Household. Dodds toont hoe dezelfde beginselen zonder
+religieus gezag werden verdedigd, in de vorm van een kookboek.
+
+## 1139. Het Orion mysterie
+
+Robert Bauval en Adrian Gilbert, 1994. *The Orion Mystery: Unlocking the
+Secrets of the Pyramids* (Heinemann, Londen, 1994, 325 blz. plus 16 blz.
+platen, ISBN 0434000744). Nederlandse uitgave: *Het Orion mysterie: het
+raadsel van de piramiden onthuld*, vertaald door Peter Bosma en anderen
+(Fibula, Houten, 1994, 272 blz., ISBN 9026961308), later herdrukt bij Het
+Spectrum. Rubriek: filosofie en mystiek.
+Tags: `egypte`, `archeologie`, `sterrenkunde`, `pseudowetenschap`
+
+De in Alexandrië geboren Belgische bouwkundig ingenieur Robert Bauval betoogt
+samen met de Britse schrijver Adrian Gilbert dat de drie piramiden van Gizeh
+op de grond de drie sterren van de gordel van Orion weergeven, en dat het hele
+piramideveld van Aboe Roasj tot Dasjoer een kaart is van het sterrengebied
+rond Orion, met de Nijl als Melkweg. Hun onderbouwing bestaat uit de schachten
+in de Grote Piramide, die Alexander Badawy en Virginia Trimble in 1964 op
+sterren betrokken, en uit de sterrenpassages in de piramideteksten.
+
+Sterrenkundigen en egyptologen wijzen de correlatie af: de kaart van Gizeh
+staat in het boek op zijn kop en de hoeken lopen tientallen graden uit de pas.
+Wat overeind blijft is het deel dat al vóór Bauval bestond, het
+sterrenkarakter van de dodenreligie van het Oude Rijk en de gerichtheid van de
+schachten.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Bauval en Gilbert stellen dat de drie piramiden van Gizeh
+samen één plan uitvoeren in plaats van los van elkaar te staan: op de grond
+geven zij de drie sterren van de gordel van Orion weer, waarbij de kleinste
+piramide van Menkaure op dezelfde manier uit de lijn is geschoven als de
+zwakste gordelster Mintaka. Dat plan reikt volgens hen verder dan Gizeh. Het
+piramideveld tussen Aboe Roasj en Dasjoer beeldt het hele sterrengebied rond
+Orion af, met de Nijl als Melkweg, zodat de necropool van Memphis een kopie is
+van de Doeat, het sterrenrijk waarheen de dode koning volgens de
+piramideteksten opsteeg. De schachten in de Grote Piramide wijzen die reis
+aan, en de stand van de gordel voert terug naar de oertijd die de Egyptenaren
+de Eerste Keer noemden.
+
+#### De gang van het boek
+
+**Vragen die de handboeken laten liggen**
+
+Het boek opent met een reeks anomalieën. Waarom bouwde Snofroe binnen één
+regering twee reusachtige piramiden bij Dasjoer, samen bijna negen miljoen ton
+steen tegen 850.000 ton voor de trappenpiramide van Djoser? Waarom draagt geen
+enkele piramide van de vierde dynastie een inscriptie van de bouwheer, terwijl
+vanaf Oenas de wanden vol tekst staan? En na de vierde dynastie volgt een
+scherpe terugval in bouwkundig kunnen. Bauval, ingenieur van beroep, leest die
+reeks als aanwijzing dat er een ontwerp achter zat dat met het grafmodel
+alleen niet te verklaren is.
+
+**De piramideteksten en de sterrenbestemming**
+
+Een lang deel gaat over de piramideteksten: de duizenden regels hiërogliefen
+die Gaston Maspero op 28 februari 1881 aantrof in de piramide van Oenas,
+laatste koning van de vijfde dynastie, en daarna in vier piramiden van de
+zesde dynastie. Het boek volgt de vertaalgeschiedenis van Maspero via Kurt
+Sethe en Samuel Mercer naar de vertaling van Raymond Faulkner uit 1969, die
+als de gezaghebbende geldt.
+
+De inzet is dat in deze teksten een sterrenleer schuilgaat en geen los
+samenraapsel van spreuken. De dode koning heet Osiris, Osiris valt samen met
+Sahoe, de Egyptische naam voor Orion, en zijn bestemming ligt in de Doeat, die
+Faulkner tot deel van de zichtbare hemel rekende en niet tot een onderwereld
+onder de grond. Bauval betoogt dat de teksten ouder materiaal bewaren dan de
+dynastie waarin ze gehouwen werden en dus ook over de bouwers van Gizeh iets
+zeggen. Egyptologen erkennen die ouderdom op taalkundige gronden maar missen
+hard bewijs.
+
+**De schachten van de Grote Piramide**
+
+De tweede pijler zijn de vier smalle schachten die uit de koningskamer en de
+koninginnekamer omhoog lopen. Alexander Badawy, egyptoloog en kenner van de
+Egyptische bouwkunst, opperde dat het geen luchtkanalen waren maar symbolische
+wegen voor de ziel, en vroeg in 1964 de sterrenkundige Virginia Trimble om
+berekeningen. Zij kwamen uit op doelen rond 2500 v.Chr.: de zuidelijke
+koningsschacht op Alnitak in de gordel van Orion, de noordelijke op Thuban in
+de Draak. Trimble stelde vast dat in die periode geen andere ster van
+vergelijkbare helderheid binnen anderhalve graad van de betrokken declinatie
+stond. Bauval vulde het stel aan met Sirius en Kochab voor de twee schachten
+van de koninginnekamer, die zijn voorgangers hadden laten liggen omdat ze voor
+onafgemaakt doorgingen.
+
+Aan dit deel is de actualiteit van 1993 verweven. De Duitse ingenieur Rudolf
+Gantenbrink liet in maart van dat jaar zijn robot Upuaut 2 de zuidelijke
+schacht van de koninginnekamer in rijden en stuitte na ongeveer vijfenzestig
+meter op een blokkade met twee koperen pennen, in de pers meteen tot deur
+gedoopt. Het boek gebruikt die vondst als aanleiding.
+
+**De correlatie**
+
+De kern is het naast elkaar leggen van een luchtfoto van Gizeh en een opname
+van de gordel van Orion. De afwijking van Menkaure uit de lijn van Khufu en
+Khafre beantwoordt volgens de auteurs aan die van Mintaka, en ook de
+onderlinge grootte van de piramiden zou de helderheid van de sterren volgen.
+Vervolgens rekt Bauval het beeld op: Aboe Roasj krijgt de plaats van Saiph,
+Zawyat al-Aryan die van Bellatrix, en de twee piramiden van Dasjoer die van
+Aldebaran en Epsilon Tauri in de Hyaden, de V-vormige sterrenhoop die hij met
+Seth verbindt. De Nijl staat voor de Melkweg.
+
+**De Eerste Keer en de datering**
+
+Uit de precessie, de tolbeweging van de aardas met een omlooptijd van ongeveer
+26.000 jaar, leidt Bauval een tijdsaanwijzing af. De gordel van Orion beweegt
+in die cyclus langzaam op en neer ten opzichte van de horizon; het laagste
+punt valt volgens zijn berekening omstreeks 10450 v.Chr. Dat jaartal koppelt
+hij aan Tep Zepi, de Eerste Keer, de oertijd waarin volgens Egyptische teksten
+Osiris over Egypte heerste. Gizeh zou zo een sterrenklok zijn die naar die
+oertijd wijst. De auteurs houden vast aan de vierde dynastie als bouwtijd en
+zien in het jaartal alleen een verwijzing van de bouwers naar hun mythische
+begin. In het latere werk van Bauval met Graham Hancock werd het cijfer
+afgerond op 10.500 v.Chr. en kreeg het een veel zwaardere lading.
+
+**De verwachting waarmee het boek sluit**
+
+Het slot formuleert een voorspelling: als Gizeh naar de Eerste Keer verwijst,
+moeten er nog onontdekte ruimten bij horen. Een bijlage haalt de passage uit
+de Papyrus Westcar aan waarin Khufu zoekt naar het getal van de geheime kamers
+van het heiligdom van Thoth, en leest de blokkade in de schacht in dat licht.
+Zeven bijlagen dragen de onderbouwing, waaronder een herdruk van Trimbles
+artikel uit 1964.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Sahoe | De Egyptische naam voor het sterrenbeeld dat wij Orion noemen, in de piramideteksten gelijkgesteld aan de god Osiris. |
+| Doeat | Het rijk waar de dode koning heen gaat; Faulkner las het als deel van de zichtbare sterrenhemel en niet als onderwereld onder de grond. |
+| Rostau | Oude naam voor het necropoolgebied bij Gizeh, door Bauval opgevat als aardse tegenhanger van de hemelstreek rond de gordel. |
+| Tep Zepi of de Eerste Keer | De gouden oertijd waarin volgens Egyptische teksten eerst de goden en daarna Osiris over Egypte heersten. |
+| Precessie | De tolbeweging van de aardas waardoor de hele sterrenhemel in ongeveer 26.000 jaar één ronde langs de horizon opschuift. |
+| Piramideteksten | De oudste bekende religieuze teksten ter wereld, vanaf omstreeks 2300 v.Chr. gehouwen in de wanden van vijf piramiden bij Saqqara. |
+| Correlatietheorie | Bauvals stelling dat de ligging van bouwwerken op de grond de onderlinge stand van sterren aan de hemel weergeeft. |
+
+#### Waar het argument op rust
+
+De stevigste steun komt van buiten het boek. Dat de schachten van de Grote
+Piramide op sterren gericht zijn en een symbolische functie hadden is geen
+vondst van Bauval maar van Badawy en Trimble, in 1964 gepubliceerd in twee
+vakbladen. Dat de dodenreligie van het Oude Rijk sterk op sterren is gericht
+en dat Osiris met Orion samenvalt is evenmin omstreden; het staat in Faulkners
+vertaling zelf te lezen.
+
+Bauval bracht zijn these voor het boek naar buiten in *Discussions in
+Egyptology*, vanaf deel 13 uit 1989. Dat blad kent geen strenge collegiale
+toetsing, maar de stukken zijn openbaar en na te rekenen, en John Legon
+leverde er in 1995 een weerwoord. Het boek citeert daarnaast brieven van
+egyptologen als I.E.S. Edwards en Jaromir Malek, met hun vraag om
+onafhankelijke bevestiging erin.
+
+Zwakker is de kern. De correlatie berust op een visuele indruk, een foto naast
+een foto. Het boek geeft geen maat waarmee de gelijkenis te toetsen valt, geen
+berekening van de kans dat drie punten toevallig zo liggen, en geen
+vergelijking met andere drietallen. De uitbreiding naar Dasjoer, Zawyat
+al-Aryan en Aboe Roasj betrekt monumenten van uiteenlopende ouderdom bij één
+ontwerp zonder aan te tonen dat de bouwers ze als één geheel zagen.
+
+Ook de datering op 10450 v.Chr. volgt uit een keuze. Dat de gordel toen zijn
+laagste stand bereikte is na te rekenen; dat de Egyptenaren dat konden
+berekenen en er betekenis aan hechtten is een aanname, waarvoor geen
+Egyptische tekst wordt aangevoerd.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar geldt de kaart zelf. Ed Krupp, directeur van het Griffith
+Observatory in Los Angeles, wees erop dat de knik in de piramidelijn naar het
+noorden uitwijkt en die in de gordel van Orion naar het zuiden. De twee vallen
+alleen samen als er één wordt omgekeerd, en dat is in het boek gebeurd: de
+kaarten van Gizeh staan met het zuiden boven, zonder dat dit bij de
+afbeeldingen wordt vermeld. Krupp achtte dat des te bezwaarlijker omdat de
+auteurs bij de schachten het verschil tussen noord en zuid juist zwaar laten
+wegen.
+
+Anthony Fairall, sterrenkundige aan de universiteit van Kaapstad, rekende de
+hoeken na met planetariumapparatuur. De gordel van Orion maakte in de
+betrokken periode een hoek van ongeveer 47 tot 50 graden met het noorden,
+terwijl de piramidelijn er 38 maakt. Krupp stelde daarnaast vast dat de
+verhouding tussen helderheid en piramidegrootte niet uitkomt, omdat de
+helderste gordelster niet bij de grootste piramide hoort, en dat bij de
+uitbreiding naar de Hyaden de oriëntatie ongeveer 45 graden uit de pas loopt.
+
+Een deel van de bekendste kritiek treft strikt genomen het vervolg. De Sfinx
+als sterrenbeeld Leeuw en het jaartal 10.500 v.Chr. komen uit *Keeper of
+Genesis*, dat Bauval in 1996 met Graham Hancock schreef; in dit boek komt de
+Sfinx nauwelijks voor. Krupp en Fairall brachten daartegen in dat de
+dierenriem uit Mesopotamië komt en in Egypte pas in de Grieks-Romeinse tijd
+opduikt, en dat het lentepunt omstreeks 10.500 v.Chr. in de Maagd stond. De
+bezwaren tegen de oriëntatie en de hoeken raken dit boek wel rechtstreeks.
+
+Op de omkering antwoordde Bauval met een beroep op artistieke vrijheid van de
+bouwers en op de zuidelijke oriëntatie van het Egyptische wereldbeeld. Krupp
+hield daartegen dat de these zo haar toetsbaarheid verliest: wie noord naar
+believen zuid mag laten betekenen, kan elke figuur op elke andere leggen. De
+BBC-uitzending *Atlantis Reborn* uit november 1999 legde de bezwaren voor;
+Hancock en Bauval klaagden bij de Broadcasting Standards Commission, die in
+november 2000 negen van de tien klachtpunten afwees.
+
+Wat de egyptologie wél aanvaardt is beperkter. Dat de piramiden met behulp van
+sterren op het ware noorden zijn gericht is onomstreden; Kate Spence stelde in
+2000 in *Nature* voor dat dit gebeurde met de gelijktijdige meridiaandoorgang
+van Kochab en Mizar, wat de kleine afwijkingen verklaart die van piramide tot
+piramide meeschuiven met de tijd. De sterrenbetekenis van de schachten wordt
+breed maar niet algemeen gedeeld; Gantenbrink zelf verwierp zowel de
+luchtkanaal- als de sterrenpoortverklaring, en tegenwerpingen wijzen erop dat
+de hellingen ook uit de meetkunde van het bouwwerk volgen. De stap naar één
+sterrenkaart over veertig kilometer woestijn zet vrijwel niemand in het vak.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij elke gestelde overeenkomst tussen bouwwerk en hemel welke meting
+haar had kunnen weerleggen. Ontbreekt die, dan is de overeenkomst getoond en
+niet getoetst.
+- Controleer bij kaarten en sterrenbeelden waar het noorden ligt. Een
+omgekeerde kaart is de goedkoopste manier om twee figuren op elkaar te laten
+lijken.
+- Scheid wat al vakliteratuur was van wat de auteur toevoegt: hier ligt die
+grens bij Badawy en Trimble uit 1964 tegenover de correlatietheorie uit 1989.
+- Zoek bij een omstreden jaartal uit welke publicatie het bevat: 10450 en
+10.500 v.Chr. horen bij verschillende boeken en verschillende beweringen.
+
+#### Wat je hierna leest
+
+- 1140. De lans van het lot. Ravenscroft over de Heilige Lans: een verhaal dat
+zich als geschiedschrijving aandient en op onnavolgbare bronnen rust.
+- 63. The Demon-Haunted World. Sagans gereedschapskist tegen onzin bevat de
+vragen die bij een correlatie als deze horen.
+- 647. The Forbidden Universe. Picknett en Prince doen met de
+wetenschapsgeschiedenis wat Bauval met de egyptologie doet: een echt vakdebat
+oprekken tot voorbij de bronnen.
+- 591. Nile Valley Contributions to Civilization. Browder bepleit een heel
+andere herwaardering van het oude Egypte, vanuit de Afrocentrische
+geschiedschrijving; ook daar loopt de grens tussen aanvaard en betwist
+materiaal door het boek heen.
+
+## 1140. De lans van het lot
+
+Trevor Ravenscroft, 1972. *The Spear of Destiny: The Occult Power Behind the
+Spear Which Pierced the Side of Christ* (Neville Spearman, Londen, 1972;
+Amerikaanse editie G.P. Putnam's Sons, New York, 1973; herdruk Samuel Weiser,
+York Beach, 1982, xxii en 362 blz., ISBN 0877285470). Nederlandse uitgave: *De
+lans van het lot* (Ankh-Hermes, Deventer, 1974); de latere uitgave bij Aspekt
+in Soesterberg, tweede druk 2021, 399 blz., ISBN 9789464241068, is vertaald
+door Bob Snoijink. Rubriek: filosofie en mystiek.
+Tags: `occultisme`, `tweede-wereldoorlog`, `mythevorming`, `esoterie`
+
+Ravenscroft beschrijft de Heilige Lans in de schatkamer van de Weense Hofburg
+als een talisman die zijn bezitter de wereldheerschappij geeft, en Hitler als
+de man die dat vermogen ten kwade aanwendde. Het boek presenteert zich als
+geschiedschrijving en voert als bron de antroposoof Walter Johannes Stein op,
+die volgens Ravenscroft de jonge Hitler in Wenen kende en later Churchill
+adviseerde. Stein overleed in 1957 en heeft over dit alles zelf niets
+gepubliceerd.
+
+Historici van het nationaalsocialisme wijzen het werk af; Nicholas
+Goodrick-Clarke rekent het tot de crypto-geschiedenis, boeken over
+nazi-occultisme die primaire bronnen negeren en elkaars fouten overnemen. Het
+effect van het boek is er niet minder om: het vestigde het beeld van Hitler
+als zwarte magiër in de populaire cultuur.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Ravenscroft beweert dat de Heilige Lans in de Weltliche
+Schatzkammer van de Weense Hofburg, de speer waarmee volgens het
+Johannesevangelie de zijde van Christus werd doorstoken, al bijna tweeduizend
+jaar een talisman is die zijn bezitter het lot van de wereld in handen geeft,
+ten goede of ten kwade. Hitler zou als jonge man in het Weense schathuis voor
+die speerpunt een visioen hebben gehad, zich vervolgens langs occulte weg
+hebben laten inwijden en de lans bij de Anschluss van 1938 als persoonlijk
+bezit hebben opgeeist. Op 30 april 1945 openden Amerikaanse militairen in
+Neurenberg de kluis waarin de lans lag; diezelfde dag pleegde Hitler in
+Berlijn zelfmoord. Het boek brengt dit niet als roman maar als geschiedenis,
+gebaseerd op wat de antroposoof Walter Johannes Stein de auteur zou hebben
+verteld.
+
+#### De gang van het boek
+
+**De legende van Longinus**
+
+De proloog geeft de speer een voorgeschiedenis die veel verder terugreikt dan
+de evangeliën. De lans zou door de profeet Pinehas zijn gesmeed, door Jozua
+zijn geheven bij de val van Jericho, door Saul naar David zijn geworpen en
+door Herodes zijn gedragen bij de kindermoord. Op Golgotha stak de Romeinse
+centurio Gaius Cassius er de zijde van Christus mee door en genas van zijn
+staar; sindsdien heet hij Longinus. Bronnen voor deze reeks voert Ravenscroft
+niet aan, hij vertelt haar als vaststaand. Daarna volgt de doorgifte via
+Constantijn, Karel de Grote en de Duitse keizers naar de Habsburgers.
+
+**Walter Johannes Stein als bron**
+
+De inleiding stelt Stein voor: in Wenen geboren doctor in de wijsbegeerte,
+leerling van Rudolf Steiner, leraar geschiedenis aan de eerste vrije school in
+Stuttgart en schrijver van *Weltgeschichte im Lichte des heiligen Gral: Das
+neunte Jahrhundert* uit 1928. Volgens Ravenscroft zocht hij Stein na lezing
+van dat boek onaangekondigd op in diens huis in Kensington en ontving tien
+jaar lang wat Stein zelf had willen publiceren. Stein zou tijdens de oorlog
+vertrouwelijk adviseur van Churchill zijn geweest over de drijfveren van de
+nazitop, en zou in de zomer van 1957 zijn gestorven drie dagen nadat hij
+besloot het boek te gaan schrijven. Zo krijgt het werk het karakter van een
+overgedragen nalatenschap.
+
+**Het schathuis van de Hofburg**
+
+Het derde hoofdstuk beschrijft de scène waar alles op rust. De werkloze Hitler
+bezoekt in Wenen herhaaldelijk de Schatzkammer, staat voor de ijzeren
+speerpunt en voelt daar een aanwezigheid. Ravenscroft laat hem in de eerste
+persoon spreken over een venster op de toekomst dat zich in één flits opende
+en over de zekerheid dat zijn bloed ooit het vat van de volksgeest zou worden.
+Volgens het boek zag Stein hem daar staan en herkende hem als de eigenaar van
+een zwaar beschreven exemplaar van Wolfram von Eschenbachs *Parzival* dat hij
+in een Weens antiquariaat had gekocht.
+
+**Inwijding, Klingsor en de Thule-kring**
+
+Het middendeel bouwt daaruit een leer op. Hitler zou zijn helderziendheid met
+peyote hebben verkregen, onder leiding van de boekhandelaar Ernst Pretzsche
+uit wiens winkel het Parzival-exemplaar kwam, en de moderne belichaming zijn
+van Klingsor, de zwarte tovenaar uit *Parzival*, die Stein op zijn beurt met
+de historische Landulf II van Capua vereenzelvigde. Verder passeren Dietrich
+Eckart, Guido von List, Lanz von Liebenfels, de Thule-Gesellschaft en vooral
+Karl Haushofer, in het boek de geestelijke architect van de
+veroveringsplannen. Himmler krijgt een occult bureau binnen de SS
+toegeschreven, met een astrologische ongediertebestrijding waarbij de as van
+kampslachtoffers over Duits grondgebied zou zijn uitgestrooid.
+
+**Een nieuwe techniek van historisch onderzoek**
+
+Hoofdstuk vijftien legt uit hoe de kennis in het boek verkregen is. Stein zou
+zich een vorig leven hebben herinnerd als graaf Hugo van Tours, vertrouweling
+van Karel de Grote, en gebeurtenissen uit de negende eeuw rechtstreeks hebben
+waargenomen, waaronder de kroning in Rome met Kerstmis 800; pas achteraf zocht
+hij in archieven bevestiging. Ravenscroft noemt dit een nieuwe techniek van
+historisch onderzoek en past haar ook op zijn eigen materiaal toe. Hij beroept
+zich daarbij op Wolfram von Eschenbach, die schreef dat zijn verhaal niet uit
+boeken kwam, en op diens kroniek van Anschau, voor Ravenscroft geen plaatsnaam
+maar een toestand van verhoogd bewustzijn.
+
+**Neurenberg en 30 april 1945**
+
+De epiloog volgt de lans na de Anschluss. Op 13 oktober 1938 gaat zij met de
+rest van de rijkskleinodiën per pantsertrein naar Neurenberg, naar de
+Katharinenkirche, de zaal van de meistersingers. Bombardementen dwingen tot
+verhuizing naar een kluis in een tunnel onder de burcht. Bij het zoeken naar
+een nog veiliger plek verwisselen de Neurenbergse ambtenaren het
+Mauritiuszwaard met de Mauritiuslans, zodat de speer achterblijft terwijl
+kroon, scepter en rijksappel elders worden ingemetseld. Amerikaanse militairen
+stuiten op 30 april 1945 op de kluis, volgens Ravenscroft om tien over twee in
+de middag, ruim een uur voor Hitlers zelfmoord in Berlijn.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Heilige Lans | De speerpunt in de Weense Hofburg die volgens de overlevering de zijde van Christus doorstak, in dit boek de spil van de wereldgeschiedenis. |
+| Longinus | De naam die de overlevering geeft aan de soldaat die stak; Ravenscroft vult hem in als de centurio Gaius Cassius. |
+| Reichskleinodiën | De rijksinsignia van het Heilige Roomse Rijk waarmee de lans in Wenen bewaard werd: kroon, scepter, rijksappel en zwaarden. |
+| Klingsor | De zwarte tovenaar uit Wolfram von Eschenbachs *Parzival*, door Stein met Landulf II van Capua en door Ravenscroft met Hitler vereenzelvigd. |
+| Anschau | Bij Wolfram een plaatsnaam; bij Stein en Ravenscroft een bewustzijnstoestand waarin het verleden rechtstreeks waarneembaar zou zijn. |
+| Nieuwe techniek van historisch onderzoek | Ravenscrofts aanduiding voor het langs helderziende weg achterhalen van feiten, met archiefcontrole pas achteraf. |
+| Antroposofie | De door Rudolf Steiner gestichte geesteswetenschap waarin Stein was opgeleid en waaraan het boek zijn begrippen ontleent. |
+| Occult bureau | De door Ravenscroft aan Himmler toegeschreven dienst voor occulte zaken binnen de SS, waarvan in de archieven geen spoor bestaat. |
+
+#### Waar het argument op rust
+
+Het boek voert zijn gezag terug op één persoon. Vrijwel alles wat het over
+Hitler in Wenen, over de speer en over de occulte kern van de partij beweert,
+staat er op gezag van Stein. Stein stierf in 1957 en publiceerde van dit
+materiaal zelf niets: geen artikel, geen lezing, geen brief die als bron wordt
+aangewezen. Geen enkele bewering die op hem teruggaat valt dus bij hem na te
+trekken.
+
+Dat probleem wordt scherper door wat de auteur er zelf over zei. In het geding
+met James Herbert verklaarde Ravenscroft dat het boek tot stand was gekomen
+met een combinatie van gewone methoden en het gebruik van een medium. Zijn
+eigen inleiding beschrijft de werkwijze van Stein als het aflezen van een
+bovenzinnelijke kroniek, met archiefonderzoek als naderhand gezochte
+bevestiging. Wie die methode aanvaardt, aanvaardt daarmee dat de kern van het
+boek niet toetsbaar is; wie haar afwijst, houdt geen bron over.
+
+De best onderbouwde laag is die welke niets bovennatuurlijks nodig heeft. De
+overbrenging van de rijkskleinodiën naar Neurenberg in 1938, de verstopping
+onder de burcht en de vondst in 1945 leunen op een Amerikaans militair rapport
+dat in het boek geciteerd wordt, met namen van Neurenbergse ambtenaren als
+burgemeester Willi Liebel en Heinz Schmeissner. Dat deel is in de archieven
+terug te vinden; de duiding die Ravenscroft eraan geeft komt er niet uit
+voort.
+
+Wat ontbreekt is even veelzeggend. Er is geen uitspraak van Hitler, geen
+getuigenis van een medewerker en geen partijstuk waarin de Weense lans
+voorkomt. Er is geen bron voor de peyotesessies, geen bron voor het occulte
+bureau en geen bron voor Steins adviseurschap bij Churchill. Waar het boek
+voetnoten heeft, verwijzen die grotendeels naar de mondelinge overlevering van
+Stein of naar antroposofische literatuur.
+
+#### Wat er tegen in te brengen valt
+
+Historici van het nationaalsocialisme wijzen het boek af. Nicholas
+Goodrick-Clarke, die in *The Occult Roots of Nazism* uit 1985 de werkelijke
+esoterische voorlopers van de nazi-ideologie in kaart bracht, rekent
+Ravenscroft tot wat hij crypto-geschiedenis noemt: populair werk over
+nazi-occultisme uit de jaren zestig en zeventig dat primaire bronnen negeert
+en elkaars onjuistheden overneemt. Hij noemt het tegelijk het invloedrijkste
+Engelstalige boek over nazi-mystiek, wat bij hem geen aanbeveling is maar een
+vaststelling over de schade. Esoteriehistoricus Joscelyn Godwin noemde het een
+bloedstollend werk van historische herschepping.
+
+De concrete correcties zijn talrijk. Karl Haushofer was geen lid van de
+Thule-Gesellschaft en geen inwijder van Hitler; die voorstelling stamt uit *Le
+matin des magiciens* van Pauwels en Bergier uit 1960 en is door Ravenscroft in
+aangedikte vorm overgenomen. Van een occult bureau onder Himmler bestaat geen
+archiefspoor, en van belangstelling van Hitler voor de Hofburglans buiten dit
+boek geen enkele aanwijzing. Ken Anderson liep in *Hitler and the Occult* uit
+1995 de achtergrondgeschiedenis na en noemde haar onbetrouwbaar.
+
+Steins eigen nalatenschap spreekt het boek tegen. *Das neunte Jahrhundert*
+behandelt de lans binnen de middeleeuwse graalliteratuur en zwijgt over de
+twintigste eeuw. In zijn andere geschriften en in de biografie die Johannes
+Tautz in 1990 over hem schreef komen Hitler, de speer en het adviseurschap bij
+Churchill niet voor. Onduidelijk is zelfs of Ravenscroft Stein bij leven
+sprak: later zei hij dat het contact via een medium liep, terwijl de inleiding
+een vriendschap van tien jaar beschrijft.
+
+Ook over zichzelf klopt het verhaal niet. Ravenscroft schreef zijn inzicht toe
+aan ervaringen in Duitse krijgsgevangenschap na een commando-operatie tegen
+Rommel; de militair historicus Michael Asher stelde vast dat hij ten tijde van
+die operatie al gevangen zat. Los daarvan is de kern van de legende
+ondergraven: een metallurgisch onderzoek van de Weense lans door Robert
+Feather in 2003 dateerde het lemmet in de zevende eeuw, ruim zes eeuwen na de
+kruisiging.
+
+De rechtszaak die vaak bij dit boek genoemd wordt is te verifiëren en pakte in
+het voordeel van Ravenscroft uit. In Ravenscroft tegen Herbert, gepubliceerd
+als [1980] RPC 193, oordeelde het High Court dat James Herbert met zijn roman
+*The Spear* uit 1978 inbreuk had gemaakt op het auteursrecht: hij had voor
+zijn achtergrond vrijwel uitsluitend Ravenscrofts boek gebruikt en er waren
+ongeveer vijftig gevallen van rechtstreekse overname van tekst. De uitspraak
+zegt iets over de omvang van het overschrijven en niets over de waarheid van
+het overgeschrevene.
+
+Blijft de werking van het boek zelf. Het is in vele talen vertaald, nooit uit
+de handel geweest, en heeft het beeld van Hitler als zwarte magiër in romans,
+films en spellen gevestigd. Daar zit een bezwaar van eigen aard aan: wie de
+misdaden van het naziregime aan bovennatuurlijke machten toeschrijft, verlegt
+de verantwoordelijkheid weg van mensen, instellingen en beslissingen. Als bron
+voor de Duitse geschiedenis is het boek onbruikbaar; als document van
+naoorlogse mythevorming heeft het betekenis.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij een boek dat zich als geschiedschrijving aandient naar de bron van
+de bron. Verwijst alles naar één overleden verteller, dan valt er niets na te
+trekken.
+- Scheid de goed gedocumenteerde laag van de onnavolgbare. Hier loopt die
+grens tussen de archiefstukken over de rijkskleinodiën en alles wat aan Stein
+wordt toegeschreven.
+- Leg een populair boek over nazi-occultisme naast een vakhistorische studie
+zoals die van Goodrick-Clarke en kijk welke namen in beide voorkomen.
+- Let op verklaringen die menselijke daden aan bovenmenselijke machten
+toeschrijven. Zij verklaren minder dan zij lijken te doen en verplaatsen de
+verantwoordelijkheid.
+
+#### Wat je hierna leest
+
+- 1139. Het Orion mysterie. Bauval en Gilbert doen met Gizeh iets
+vergelijkbaars, met dit verschil dat daar wel na te rekenen valt wat er
+beweerd wordt.
+- 63. The Demon-Haunted World. Sagan behandelt precies de vraag hoe om te gaan
+met een bewering waarvan de bron zich aan controle onttrekt.
+- 606. Esoteric Christianity. Besant geeft de theosofische leer waaruit
+Steiners antroposofie voortkwam, het begrippenkader waarin Ravenscroft
+schrijft.
+- 683. Wall Street and the Rise of Hitler. Sutton legt een andere alomvattende
+verklaring van Hitlers opkomst aan, ditmaal economisch, met dezelfde neiging
+alles op één oorzaak te herleiden.
+
+## 1141. UFOs and the National Security State
+
+Richard M. Dolan, 2000. *UFOs and the National Security State: Chronology of a
+Cover-Up, 1941-1973* (Keyhole Publishing, Rochester, 2000; herziene editie bij
+Hampton Roads Publishing, Charlottesville, 2002, 478 blz., ISBN
+9781571743176), met een voorwoord van Jacques Vallée. Dit is deel 1 van twee;
+deel 2, *The Cover-Up Exposed, 1973-1991*, verscheen later. Er bestaat geen
+Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.
+Rubriek: filosofie en mystiek.
+Tags: `ufo's`, `geheime diensten`, `koude oorlog`, `geschiedenis`
+
+Chronologisch verslag van de Amerikaanse omgang met ufo-meldingen tussen 1941
+en 1973, geschreven door een historicus met een masterstitel geschiedenis van
+de Universiteit van Rochester. Dolan werkt met vrijgegeven overheidsstukken:
+het Twining-memo van 1947, de projecten Sign, Grudge en Blue Book, het rapport
+van het door de CIA belegde Robertson-panel uit 1953, de
+luchtmachtvoorschriften die melding en openbaarmaking regelden, en het
+Condon-rapport van 1969.
+
+Zijn stelling is dat het onderwerp bij de naoorlogse defensie- en
+inlichtingenwereld terechtkwam en daar in gesloten kanalen verdween, terwijl
+het naar buiten toe werd afgedaan. Binnen de ufologie geldt het als het best
+gedocumenteerde naslagwerk van het vak; de sprong van aangetoonde
+geheimhouding naar een verzwegen niet-menselijke aanwezigheid blijft een
+gevolgtrekking die de stukken zelf niet dragen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Dolan behandelt de ufo-kwestie niet als een raadsel uit de
+sterrenkunde maar als een geschiedenis van bestuur. Vanaf 1947 kwamen de
+meldingen terecht bij de legerluchtmacht en de inlichtingendiensten, en die
+namen ze volgens hem serieus: ze richtten onderzoeksprojecten in, legden
+meldplichten op, verboden militairen erover te spreken en bagatelliseerden het
+onderwerp tegelijk in het openbaar. De naoorlogse veiligheidsstaat, met zijn
+compartimentering, zijn geheimhoudingsregels en zijn geringe parlementaire
+controle, is volgens Dolan precies het soort apparaat waarin een onderwerp
+decennialang buiten het zicht van kiezer en Congres kan blijven. Wat er
+inhoudelijk gaande was laat hij grotendeels open; dat er stelselmatig en met
+opzet is misleid, beschouwt hij als aangetoond.
+
+#### De gang van het boek
+
+**Voor 1947: foo fighters en spookraketten**
+
+Het openingsdeel loopt tot juni 1947 en verklaart het jaartal in de
+ondertitel. Dolan begint bij een melding uit september 1941 van een zeeman aan
+boord van de SS Pulaski, die een groenachtig lichtende bol beschreef van
+ongeveer een halve maansdiameter. Daarna komen de foo fighters, de
+lichtverschijnselen die geallieerde en Duitse bemanningen in de laatste
+oorlogsjaren rond hun toestellen meldden, en de spookraketten die in 1946
+boven Scandinavië werden gezien en door de Zweedse en Amerikaanse legerleiding
+werden onderzocht.
+
+De strekking van dit deel is dat het verschijnsel al voor de vliegende
+schotels van 1947 een militaire zaak was, onderzocht binnen de kaders van
+luchtverdediging en spionage, en dat de eerste reflex van elke krijgsmacht
+bestond uit geheimhouding tegenover het publiek en overleg met bondgenoten.
+
+**1947 tot 1951: het probleem beheersbaar maken**
+
+De waarneming van Kenneth Arnold op 24 juni 1947 zette het onderwerp in de
+kranten; de meldingen bij Roswell volgden twee weken later. Dolan gaat langs
+het memo dat generaal Nathan Twining in september 1947 aan het
+luchtmachtcommando stuurde, waarin staat dat het gemelde verschijnsel iets
+werkelijks is en niet ingebeeld, en langs de opeenvolgende
+onderzoeksprojecten: Sign vanaf eind 1947, Grudge vanaf 1949 en Blue Book
+vanaf 1952.
+
+In deze jaren plaatst hij ook de zogeheten Estimate of the Situation, een
+intern stuk uit 1948 waarin de onderzoekers een buitenaardse verklaring zouden
+hebben overwogen en dat door de luchtmachtleiding zou zijn vernietigd. Dolan
+meldt eerlijk dat dit document nooit is opgedoken en dat het verhaal berust op
+de herinnering van Edward Ruppelt, die Blue Book later leidde. Het patroon dat
+hij hier vastlegt is de omslag van onderzoek naar beeldbeheer: van serieuze
+evaluatie naar het verklaren van meldingen als vergissingen.
+
+**1952 en 1953: het Robertson-panel en de dichtgedraaide kraan**
+
+De zomer van 1952 leverde de grootste meldingengolf tot dan toe, met
+radarwaarnemingen boven Washington en een persconferentie van de luchtmacht op
+29 juli. De reactie kwam een half jaar later: van 14 tot 18 januari 1953
+vergaderde een door de CIA samengesteld panel onder leiding van natuurkundige
+Howard Robertson. Het adviseerde het onderwerp van zijn bijzondere status te
+ontdoen, het publiek te leren meldingen zelf te verklaren, daarbij media in te
+schakelen, en particuliere ufo-groepen in de gaten te houden wegens hun
+mogelijke misbruik door een vijand.
+
+Dolan behandelt dit panel als het scharnier van zijn hele verhaal, en de
+documenten geven hem hier veel houvast: het advies om te ontnuchteren en het
+toezicht op burgergroepen staan er letterlijk. In hetzelfde jaar verscheen
+luchtmachtvoorschrift 200-2, dat de melding van waarnemingen intern regelde en
+openbaarmaking beperkte, terwijl de gezamenlijke stafinstructie JANAP 146 het
+voor militair en burgerpersoneel strafbaar maakte om over gemelde waarnemingen
+naar buiten te treden.
+
+**1956 tot 1966: het gevecht om openheid**
+
+Het middendeel van het boek gaat over de tegenkracht. In 1956 richtte een
+groep gepensioneerde officieren en burgers NICAP op, dat onder leiding van
+majoor buiten dienst Donald Keyhoe jarenlang aandrong op openbare
+hoorzittingen in het Congres. Dolan volgt de briefwisselingen, de
+commissieplannen die telkens sneuvelden en de manier waarop de luchtmacht via
+Blue Book de publieke verklaring van meldingen in handen hield.
+
+Voor Dolan is dit de meest onderschatte lijn van het onderwerp: een
+burgerbeweging die met de middelen van de rechtsstaat opheldering vroeg en die
+stelselmatig werd afgehouden, niet met een weerlegging maar met vertraging,
+spot en procedurele blokkades.
+
+**1966 tot 1969: Condon en het sluiten van Blue Book**
+
+Onder druk van meldingengolven en van het Congres liet de luchtmacht in 1966
+een onderzoek uitvoeren aan de Universiteit van Colorado onder leiding van
+natuurkundige Edward Condon. Dolan besteedt veel ruimte aan het interne memo
+van projectcoördinator Robert Low uit augustus 1966, waarin staat dat het
+project naar buiten toe objectief moest lijken terwijl de uitkomst voor
+ingewijden vaststond. Dat memo lekte uit en kostte de commissie twee
+medewerkers.
+
+Het rapport verscheen in januari 1969 en concludeerde dat verder onderzoek de
+wetenschap niets zou opleveren, hoewel een deel van de behandelde gevallen in
+het rapport zelf onverklaard bleef. Op 17 december 1969 sloot de luchtmacht
+Project Blue Book. Dolan leest die volgorde als het beoogde einde van een
+openbaar dossier, niet als het einde van het onderzoek zelf.
+
+**1970 tot 1973 en de slotsom**
+
+Het laatste hoofdstuk behandelt de jaren waarin het onderwerp officieel niet
+meer bestond en de meldingen toch doorgingen, met een nieuwe golf in het
+najaar van 1973. Dolan verzamelt in deze periode meldingen rond militaire
+terreinen, waaronder kernwapenlocaties, en stelt dat de officiele afwezigheid
+van onderzoek niet betekent dat er geen onderzoek was.
+
+In de conclusie zet hij zijn redenering uiteen. Er is volgens hem een
+aantoonbaar verschil tussen wat de overheid intern deed en wat zij naar buiten
+zei; die kloof is met stukken te documenteren. Waar het onderwerp na 1969
+terechtkwam, kan hij niet met documenten laten zien, en hij schrijft dat ook.
+Zijn verwachting dat de zaak in zwaar afgeschermde programma's terechtkwam,
+presenteert hij als de meest waarschijnlijke lezing, niet als bewezen feit.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| national security state | De na 1947 gegroeide bestuurslaag van defensie, inlichtingendiensten en gelieerde bedrijven die volgens Dolan grotendeels buiten normale politieke controle werkt. |
+| foo fighters | Lichtverschijnselen die vliegtuigbemanningen in de Tweede Wereldoorlog rond hun toestellen meldden, door alle partijen aanvankelijk voor vijandelijke techniek gehouden. |
+| spookraketten | De meldingen van raketachtige objecten boven Scandinavië in 1946, onderzocht door de Zweedse legerleiding met Amerikaanse en Britse betrokkenheid. |
+| Project Blue Book | Het openbare onderzoeksproject van de Amerikaanse luchtmacht naar ufo-meldingen van 1952 tot de sluiting in december 1969. |
+| Robertson-panel | De door de CIA samengestelde commissie die in januari 1953 adviseerde het onderwerp te ontnuchteren en particuliere ufo-groepen in de gaten te houden. |
+| AFR 200-2 en JANAP 146 | Amerikaanse militaire voorschriften uit de jaren vijftig die interne melding van waarnemingen verplichtten en openbaarmaking ervan verboden. |
+| Condon-rapport | Het onderzoek van de Universiteit van Colorado uit 1966 tot 1968 dat verder wetenschappelijk onderzoek afraadde en de luchtmacht de grond gaf om Blue Book te sluiten. |
+| compartimentering | Het verdelen van geheime kennis over gescheiden kringen, waardoor zelfs bevoegde toezichthouders geen overzicht van het geheel hebben. |
+
+#### Waar het argument op rust
+
+De onderste laag van dit boek is degelijk en controleerbaar. Het Twining-memo,
+de projectdossiers van Sign, Grudge en Blue Book, het verslag van het
+Robertson-panel, de luchtmachtvoorschriften, het Low-memo en het
+Condon-rapport zijn vrijgegeven stukken die iedereen kan opvragen en nalezen.
+Dolan citeert ze met vindplaats, geeft honderden eindnoten en gebruikt
+daarnaast onderzoeksbladen, krantenberichten en biografieën. Dat de
+Amerikaanse krijgsmacht ufo-meldingen serieus onderzocht, dat zij het
+onderwerp intern anders behandelde dan in haar persberichten, en dat zij
+militairen verbood erover te spreken, staat op grond van dit materiaal vast.
+Het is de verdienste van het boek dat het die geschiedenis in één doorlopende
+chronologie legt in plaats van in losse gevallen.
+
+De bovenste laag rust op iets anders. De gevolgtrekking dat achter die
+geheimhouding kennis van een niet-menselijke aanwezigheid schuilgaat, volgt
+niet uit de stukken; die tonen bezorgdheid, verwarring en beeldbeheer, geen
+wetenschap over wat de objecten waren. Waar Dolan verder gaat dan het papier,
+gebruikt hij getuigenverklaringen van militairen die decennia later spraken,
+en die verklaringen dragen minder dan het archiefwerk eromheen doet vermoeden.
+Hij is daar meestal open over: bij de Estimate of the Situation noteert hij
+zelf dat het document ontbreekt. Toch loopt de vertelling stelselmatig één
+kant op, waardoor gedocumenteerde geheimhouding en de veronderstelde inhoud
+daarvan voor de lezer in elkaar schuiven.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat er een tweede verklaring bestaat die dezelfde
+documenten dekt en die Dolan te snel afdoet. De veiligheidsstaat had in deze
+jaren redenen genoeg om over luchtwaarnemingen te zwijgen die niets met
+buitenaardse techniek te maken hadden: het beschermen van radar- en
+sensorbereik, het verbergen van eigen geheime programma's zoals de U-2, de
+Corona-satellieten en de ballonvluchten van Project Mogul, en de zorg van het
+Robertson-panel zelf dat een stroom meldingen de meldkanalen zou verstoppen op
+het moment dat er werkelijk iets binnenkwam. Wie dat rijtje serieus neemt,
+verklaart de geheimhouding, de spot en de meldplicht zonder één vliegende
+schotel. Dolan noemt die verklaringen wel, maar geeft de lezer geen toets
+waarmee de twee lezingen uit elkaar te houden zijn.
+
+Daaraan zit een tweede probleem vast: de stelling is zo gebouwd dat zij niet
+kan worden weerlegd. Als het beste bewijs per definitie nog geheim is, dan
+bevestigt het uitblijven van een sluitend document de these in plaats van haar
+te ondermijnen. Zestig jaar aan verzoeken op grond van de Amerikaanse
+openbaarheidswet heeft veel dossiers opgeleverd en geen enkel stuk waarin een
+overheidsdienst schrijft wat zij zou weten. Voor Dolan is dat een teken van
+goede afscherming; voor een historicus die de gewone regels aanhoudt is het
+een reden om de conclusie op te schorten.
+
+Ten slotte de omgeving waarin het boek staat. Het verscheen eerst in eigen
+beheer en later bij een uitgeverij van esoterische titels, zonder de
+vakinhoudelijke beoordeling die een academische reeks kent, en de lof kwam
+vrijwel volledig uit de ufologie zelf. Dat het documentatiewerk daar als het
+beste van het vak geldt, zegt weinig over de toetsing ervan buiten die kring.
+Dolan leende zijn naam in 2015 ook aan de presentatie van de zogeheten
+Roswell-dia's, aangekondigd als een foto van een buitenaards lichaam en binnen
+enkele weken herkend als een museumopstelling van een gemummificeerd kind uit
+een negentiende-eeuwse opgraving. Dat staat los van dit boek uit 2000, maar
+het zegt iets over de maatstaf die hij hanteert wanneer materiaal in zijn
+richting wijst.
+
+#### Wat er concreet mee te doen is
+
+- Houd bij elk dossier over geheimhouding twee vragen uit elkaar: is
+aangetoond dat er iets is verzwegen, en is aangetoond wát er is verzwegen. Het
+eerste kan vaststaan terwijl het tweede open is.
+- Vraag bij elke complottheorie welke waarneming haar zou weerleggen. Blijft
+dat antwoord leeg, dan is de theorie geen uitspraak over de wereld meer.
+- Gebruik het notenapparaat: zoek in een boek als dit twee of drie
+verwijzingen op in het origineel en kijk of de tekst zegt wat de auteur ervan
+maakt.
+- Onderscheid bij oude gevallen het archiefstuk uit de tijd zelf van de
+getuigenverklaring die tientallen jaren later is afgelegd; die twee hebben
+niet hetzelfde gewicht.
+
+#### Wat je hierna leest
+
+- 615. Passport to Magonia. Passport to Magonia van Jacques Vallée, die het
+voorwoord bij Dolan schreef, behandelt hetzelfde materiaal met een verklaring
+die de buitenaardse hypothese juist afwijst.
+- 685. The CIA and the Cult of Intelligence. The CIA and the Cult of
+Intelligence beschrijft de compartimentering en de zwakke controle op
+inlichtingendiensten die Dolan als verklaringsmodel gebruikt, op grond van
+dienstervaring.
+- 1143. Witness to Roswell. Witness to Roswell werkt één van de gevallen uit
+die Dolan alleen in zijn chronologie plaatst, en laat zien hoe die zaak op
+getuigen berust in plaats van op stukken.
+- 63. The Demon-Haunted World. The Demon-Haunted World levert de toetsvraag
+die in dit boek ontbreekt: wat zou er te zien zijn als de stelling onjuist
+was.
+
+## 1142. The Day After Roswell
+
+Philip J. Corso met William J. Birnes, 1997. *The Day After Roswell* (Pocket
+Books, New York, 1997, 341 blz., ISBN 0671004611), geschreven met journalist
+en ghostwriter William J. Birnes. De eerste oplage bevatte een voorwoord van
+senator Strom Thurmond, dat op diens verzoek uit latere drukken is gehaald. Er
+bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie
+gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `ufo's`, `complotdenken`, `technologiegeschiedenis`, `memoir`
+
+Memoires van Philip Corso, luitenant-kolonel buiten dienst, die beweert dat
+hij in 1961 en 1962 op het Pentagon een archiefkast beheerde met wrakstukken
+van het toestel dat in 1947 bij Roswell zou zijn neergestort, en dat hij die
+stukken zonder vermelding van hun herkomst doorsluisde naar Amerikaanse
+bedrijven. Geïntegreerde schakelingen, lasers, glasvezel, nachtzichtapparatuur
+en supersterke vezels zouden zo hun weg naar de industrie hebben gevonden.
+
+Het boek haalde de Amerikaanse bestsellerlijst en is ook binnen de ufologie
+omstreden gebleven. De uitvindingsgeschiedenis van elk van die technieken is
+gedocumenteerd en wijst elders heen, het voorwoord van senator Thurmond bleek
+voor een ander boek geschreven, en op talrijke natrekbare punten klopt het
+verhaal niet.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Corso beweert dat de Amerikaanse landmacht na de bergingen
+bij Roswell in juli 1947 een verzameling wrakstukken van niet-menselijke
+herkomst apart heeft gehouden, en dat hij die verzameling veertien jaar later
+als hoofd van de afdeling buitenlandse technologie in het Pentagon onder zijn
+hoede kreeg. Zijn opdracht zou zijn geweest de stukken zonder vermelding van
+hun herkomst uit te zetten bij defensiebedrijven, die ze als eigen vondst
+mochten octrooieren. Daarmee zou de naoorlogse elektronica en materiaalkunde
+niet uit menselijk vernuft zijn voortgekomen maar uit nagemaakte techniek, en
+zou het ruimtewapenprogramma van president Reagan in werkelijkheid een
+verdedigingswapen tegen buitenaardse bezoekers zijn geweest. Alles in het boek
+rust op zijn geheugen; documenten legt hij niet over.
+
+#### De gang van het boek
+
+**De woestijn bij Roswell en de kist in Fort Riley**
+
+Het boek opent bij de bergingsoperatie van juli 1947, die Corso beschrijft
+alsof hij erbij was, terwijl hij er niet was. Wat hij als eigen ervaring
+aandraagt speelt in dezelfde zomer in Fort Riley in Kansas, waar hij
+wachtdienst had toen een konvooi met kisten passeerde. Hij zou een dekzeil
+hebben opgelicht en in een met vloeistof gevulde kist een klein lichaam hebben
+gezien met een grote schedel en vier vingers.
+
+Deze scène is de spil van het hele boek. Er is geen tweede getuige, geen
+vrachtbrief en geen dienststuk dat het konvooi of de kist noemt; het verhaal
+bestaat uit zijn herinnering, vijftig jaar later opgetekend.
+
+**Het nut file op het Pentagon**
+
+In 1961 wordt Corso naar eigen zeggen aangesteld bij de onderzoeksafdeling van
+de landmacht, onder luitenant-generaal Arthur Trudeau. Bij zijn bureau hoorde
+een archiefkast met materiaal dat niemand wilde hebben en die hij tegenover
+Trudeau het nut file noemde. Daarin zaten volgens hem dunne buigzame
+glasdraden die licht geleidden, grijze schijfjes ter grootte van een muntstuk
+met ingeetste schakelingen, een sterk lichtgevoelig oogstuk, een flinterdunne
+folie die niet te scheuren was en een onbekend metaalachtig weefsel.
+
+Corso beschrijft hoe hij deze voorwerpen zelf uitzocht, er adviesnota's over
+schreef en met Trudeau een plan maakte om ze bij bevriende wetenschappers en
+bedrijven te plaatsen. Genoemd worden Bell Labs, IBM, Monsanto, Dow, General
+Electric en Hughes.
+
+**De doofpot en de strategie**
+
+Twee hoofdstukken gaan over de vraag waarom het geheim werd gehouden. Corso
+schetst een besluitvorming die in 1947 begon bij generaal Nathan Twining en
+die uitliep op de keuze het onderwerp bij het publiek belachelijk te maken en
+de kennis tot een kleine kring te beperken. In zijn voorstelling ontstond een
+werkgroep buiten de gewone bevelslijn, deels binnen de CIA, die de Amerikaanse
+regering op dit dossier feitelijk overvleugelde.
+
+Het motief dat hij aandraagt is tweeledig: de Sovjet-Unie mocht niet weten wat
+er lag, en het Amerikaanse publiek zou de waarheid niet verdragen. Voor beide
+beweringen levert hij geen bron aan buiten zijn eigen ambtsherinnering.
+
+**De EBE als biologisch werktuig**
+
+Een apart hoofdstuk gaat over de wezens, die hij aanduidt met de afkorting
+EBE. Op grond van sectierapporten die hij zegt te hebben gelezen, opgesteld in
+het militair hospitaal Walter Reed, beschrijft hij ze niet als een bezoekend
+volk maar als gekweekte, genetisch bewerkte werktuigen zonder eigen
+spijsvertering, gebouwd om ruimtevluchten te doorstaan.
+
+Die duiding heeft gevolgen voor de rest van het boek: de bezoekers zijn bij
+Corso geen leraren of gasten maar een dreiging die biologisch materiaal van de
+aarde haalt, tot en met veemutilaties en ontvoeringen.
+
+**Het uitzaaien bij de industrie**
+
+De middenhoofdstukken behandelen elk voorwerp uit de kast. Het lichtgevoelige
+oogstuk wordt bij Corso de beeldversterker voor nachtzicht, de gegraveerde
+schijfjes worden de geïntegreerde schakeling en daarmee de
+halfgeleiderindustrie, een lichtbundelend onderdeel wordt de laser, de
+glasdraden worden glasvezel, het onscheurbare weefsel wordt de vezel die later
+als kogelwerend materiaal bekend werd, en een verder onbegrepen stuk wordt het
+deeltjesbundelwapen.
+
+De werkwijze die hij beschrijft is telkens dezelfde: hij legt het voorwerp bij
+een onderzoeker neer als buitgemaakt buitenlands materiaal, laat de vraag
+stellen of zoiets te maken valt, en houdt de herkomst achter. In zijn
+voorstelling weten de uitvinders zelf niet dat zij natekenen. Opvallend is dat
+hij in datzelfde hoofdstuk noteert dat de landmacht toen al tien jaar aan
+nachtzicht werkte en Duits oorlogsmateriaal in handen had.
+
+**Star Wars en het einde van de oorlog met de EBE's**
+
+Het slot springt naar de jaren tachtig. Het ruimteschild dat president Reagan
+in 1983 aankondigde was volgens Corso nooit tegen Sovjetraketten gericht maar
+tegen buitenaardse vaartuigen, en het werkte: toen de wapens eenmaal in een
+baan om de aarde waren beproefd, wisten de bezoekers dat de aarde verdedigd
+was. Ook de toenadering tussen Reagan en Gorbatsjov verklaart hij uit een
+gedeelde tegenstander.
+
+De laatste bladzijden trekken de lijn door naar de computer en de moderne
+wapenindustrie: alles zou terug te voeren zijn op wat er in juli 1947 in de
+woestijn van New Mexico werd geraapt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| nut file | Corso's eigen benaming voor de archiefkast met wrakstukken die hij op het Pentagon zou hebben beheerd. |
+| Foreign Technology desk | De functie binnen de onderzoeksafdeling van de landmacht waarin hij buitenlandse wapentechniek beoordeelde en waaronder het geheime werk zou hebben gevallen. |
+| EBE | Afkorting voor extraterrestrial biological entity, bij Corso geen bezoekend wezen maar een gekweekt biologisch werktuig. |
+| uitzaaien | Zijn woord voor het bij bedrijven onderbrengen van een voorwerp zonder de herkomst te noemen, zodat het bedrijf de vinding als eigen werk octrooieert. |
+| supertenacity | De term waarmee hij het onscheurbare vezelmateriaal uit de kast aanduidt, in het boek verbonden met later kogelwerend textiel. |
+| Project Corona | Het Amerikaanse spionagesatellietprogramma, waarvan hij de opzet aan zichzelf en generaal Trudeau toeschrijft. |
+| Strategic Defense Initiative | Het ruimteschildprogramma van 1983, in dit boek gepresenteerd als verdedigingswapen tegen buitenaardse vaartuigen. |
+| de werkgroep | De naamloze kring buiten de gewone bevelslijn die volgens Corso het dossier beheerde en waaraan hij een eigen wil toeschrijft. |
+
+#### Waar het argument op rust
+
+Het boek voert geen enkel document aan. Er is geen dienstopdracht, geen memo,
+geen ontvangstbewijs, geen inventaris van de kast en geen naam van een
+ingenieur die een voorwerp aannam. Wat er is, is de herinnering van één man,
+opgeschreven door een ghostwriter, vijftig jaar na de gebeurtenissen en een
+jaar voor Corso's dood in 1998. De enige steun in het boek komt van derden die
+niet meer konden bevestigen of ontkennen: de sleutelpassage over de schijfjes
+uit het wrak stamt uit een gesprek dat Corso met Hermann Oberth zou hebben
+gehad, waarin Oberth vertelt wat Wernher von Braun hem zei over wat generaal
+Twining hem toonde. Alle drie waren dood toen het boek verscheen.
+
+Ook binnen het boek zelf staat het bewijs onder druk. Corso had geen opleiding
+in natuurkunde of techniek, en beschrijft hoe hij zonder die achtergrond kon
+vaststellen wat een onbekend voorwerp was en waartoe het diende. Bij het
+nachtzicht noteert hij zelf dat het leger al een decennium aan
+beeldversterkers werkte en Duitse apparatuur uit de oorlog bezat, wat de
+veronderstelde herkomst overbodig maakt. Het patroon is telkens dat de
+gedocumenteerde geschiedenis van een uitvinding gewoon doorloopt en dat zijn
+verhaal er los overheen ligt.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar komt uit de techniekgeschiedenis, die op elk punt is na
+te lopen en nergens uitkomt waar Corso haar plaatst. De geïntegreerde
+schakeling werd in september 1958 gedemonstreerd door Jack Kilby bij Texas
+Instruments, gevolgd door Robert Noyce bij Fairchild in 1959, dus jaren
+voordat Corso naar eigen zeggen in 1961 de kast kreeg. De eerste werkende
+laser bouwde Theodore Maiman in mei 1960 bij Hughes, voortbouwend op de maser
+van Charles Townes uit 1954 en op het artikel van Townes en Arthur Schawlow
+uit 1958. Glasvezel als drager van signalen werd in 1966 voorgesteld door
+Charles Kao, die er in 2009 de Nobelprijs voor kreeg, en werd bruikbaar toen
+Corning in 1970 het lichtverlies onder de vereiste drempel bracht. De vezel
+die als kogelwerend materiaal bekend werd, ontdekte Stephanie Kwolek in 1965
+bij DuPont, een bedrijf dat in het boek niet eens voorkomt. Nachtzicht is nog
+ouder: Amerikaanse infraroodkijkers werden in 1945 op Okinawa ingezet en de
+Duitse tegenhanger draaide al eerder, allemaal voor juli 1947.
+
+Daarnaast zijn er de aantoonbare fouten in zijn eigen loopbaan en tijdlijn.
+Hij plaatst een ontmoeting op het hoofdkantoor van de CIA in Langley voordat
+dat gebouw in gebruik was, met een functionaris die toen in Londen zat en van
+wie hij de naam verkeerd spelt. De eerste lanceringen van het
+Corona-satellietprogramma, dat hij mede aan zichzelf toeschrijft, gingen twee
+jaar aan zijn Pentagon-aanstelling vooraf. Een luchtdoelraket beschrijft hij
+als warmtezoekend terwijl die radargestuurd is, en de datum van het
+Roswell-persbericht klopt niet. Corso bleef tien jaar luitenant-kolonel zonder
+bevordering en nam in 1963 ontslag; voor de posten en de invloed die hij
+zichzelf toekent is buiten zijn eigen woord geen spoor gevonden. Al in 1966
+verschenen er in de Amerikaanse pers beschuldigingen aan zijn adres over
+onbetrouwbaarheid, en een in 2011 vrijgegeven Brits defensiememo wijst zijn
+beweringen af onder verwijzing naar een eerdere staat van dienst van
+ongeloofwaardige verklaringen.
+
+Het derde punt betreft de steunbetuiging die het boek de meeste schijn van
+gezag gaf. Senator Strom Thurmond schreef het voorwoord in de veronderstelling
+dat het om Corso's militaire memoires ging. Na verschijning liet hij weten van
+geen doofpot te weten en er ook niet in te geloven, en de uitgever haalde de
+tekst uit volgende drukken. Wie het boek nu leest zonder dat te weten, ziet
+een aanbeveling die er in werkelijkheid niet is. Het geheel werd in 2001 door
+een Britse krant in een lijst van literaire vervalsingen opgenomen. Dat is
+geen bewijs dat Corso alles verzon; het is wel de vaststelling dat een
+bewering van deze omvang uitsluitend op zijn woord rust en dat elk punt dat
+wel te controleren valt, tegen hem uitvalt.
+
+#### Wat er concreet mee te doen is
+
+- Zoek bij een bewering over verzwegen techniek eerst de gewone
+uitvindingsgeschiedenis op: naam, jaar, laboratorium en octrooi zijn bij dit
+soort vindingen doorgaans goed vastgelegd.
+- Controleer wat een aanbeveling voorin een boek werkelijk aanbeveelt, en of
+degene die haar schreef de inhoud kende.
+- Let op de keten van getuigen: een verhaal dat via twee overleden
+tussenpersonen bij de auteur komt, is niet natrekbaar en telt niet als
+bevestiging.
+- Neem de details die wel te toetsen zijn, zoals data, plaatsen en
+typeaanduidingen, als steekproef voor de betrouwbaarheid van het geheel.
+
+#### Wat je hierna leest
+
+- 1141. UFOs and the National Security State. UFOs and the National Security
+State laat zien hoe hetzelfde onderwerp eruitziet wanneer een auteur zich wel
+aan vrijgegeven stukken houdt.
+- 1143. Witness to Roswell. Witness to Roswell behandelt dezelfde gebeurtenis
+van juli 1947, met getuigenverklaringen in plaats van met Corso's
+technologieverhaal.
+- 63. The Demon-Haunted World. The Demon-Haunted World bespreekt precies dit
+soort claims en waarom de omvang van een bewering bepaalt hoeveel bewijs
+ervoor nodig is.
+
+## 1143. Witness to Roswell
+
+Thomas J. Carey en Donald R. Schmitt, 2007. *Witness to Roswell: Unmasking the
+60-Year Cover-Up* (New Page Books, Franklin Lakes, 2007, 256 blz., ISBN
+9781564149435). De uitgebreide editie verscheen in 2009 als *Witness to
+Roswell: Unmasking the Government's Biggest Cover-up* (318 blz., ISBN
+9781601630667); die editie is hier gevolgd. Er bestaat geen Nederlandse
+vertaling; de samenvatting is op de Engelse editie gebaseerd. Rubriek:
+filosofie en mystiek.
+Tags: `ufo's`, `complotdenken`, `geheugen`, `bronnenkritiek`
+
+Verzameling getuigenverklaringen over de gebeurtenissen bij Roswell in juli
+1947, bijeengebracht door twee onderzoekers die er decennia aan werkten en
+naar eigen zeggen meer dan zeshonderd mensen spraken. Het boek is niet
+chronologisch opgebouwd maar per kring van getuigen: de boer die het puin
+vond, de inlichtingenofficier van de basis, de familieleden die het van hen
+hoorden, de begrafenisondernemer, de burgers die zeggen te zijn bedreigd.
+
+Het pronkstuk is een in 2002 ondertekende en tot na zijn dood verzegelde
+verklaring van Walter Haut, de voorlichter die in 1947 het persbericht over
+een geborgen schijf uitgaf. Vrijwel al het materiaal is tientallen jaren na
+dato opgetekend, en een deel van de kroongetuigen uit dit onderzoek is
+inmiddels onhoudbaar gebleken.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Carey en Schmitt stellen dat er in juli 1947 ten noorden van
+Roswell een niet-menselijk vaartuig is neergekomen, dat de bemanning is
+geborgen, en dat de Amerikaanse overheid dat sindsdien met wisselende
+verklaringen verhult. Hun bewijsvoering is niet documentair maar op getuigen
+gebouwd: zij menen dat het aantal getuigen, hun onderlinge onafhankelijkheid
+en het gegeven dat velen pas op hun sterfbed of via nabestaanden spraken,
+samen een last vormen die niet meer met vergissing of fantasie te verklaren
+is. De overheid heeft in zestig jaar vijf verschillende verklaringen gegeven,
+van weerballon tot proefpoppen, en volgens de auteurs bewijst juist die reeks
+wisselingen dat de eerste versie, het persbericht over een geborgen schijf, de
+juiste was.
+
+#### De gang van het boek
+
+**De week van juli 1947**
+
+Het boek begint bij wat vaststaat. Op 8 juli 1947 gaf de voorlichter van de
+vliegbasis Roswell, luitenant Walter Haut, in opdracht van basiscommandant
+William Blanchard een persbericht uit waarin stond dat het leger een
+neergestorte schijf in handen had. Het bericht ging de wereld over. Nog
+diezelfde dag corrigeerde brigadegeneraal Roger Ramey het in Fort Worth naar
+een weerballon, en liet zich met de resten fotograferen.
+
+Daaromheen leggen de auteurs de context: de eerste schotelmeldingen van juni
+1947, de aanwezigheid van de enige kernwapeneenheid ter wereld op deze basis,
+en de gespannen sfeer van het eerste koudeoorlogsjaar.
+
+**De opzet: getuigen in kringen**
+
+In plaats van een doorlopend verhaal geven Carey en Schmitt de zaak per groep
+getuigen. Zij beschrijven hun eigen zoekwerk: het natrekken van
+personeelslijsten van de basis, het aanschrijven van nabestaanden, het
+bijhouden van wie met wie sprak. Het totaal aantal mensen dat zij in de loop
+van hun onderzoek benaderden stellen zij op meer dan zeshonderd.
+
+Die opzet heeft een gevolg dat de auteurs niet benoemen: de lezer krijgt geen
+tijdlijn waarin verklaringen elkaar kunnen tegenspreken, maar reeksen citaten
+die elkaar aanvullen. Wat niet paste, komt in dit boek nauwelijks aan bod.
+
+**De militairen**
+
+De zwaarste namen zijn militair. Majoor Jesse Marcel, inlichtingenofficier van
+de basis, verklaarde in 1978 tegenover onderzoeker Stanton Friedman dat het
+materiaal dat hij ophaalde niet van deze aarde was; met die verklaring begon
+de moderne Roswell-literatuur. Brigadegeneraal Thomas DuBose, in 1947 stafchef
+van Ramey, bevestigde later dat de weerballon een dekverhaal was dat van
+hogerhand kwam. Brigadegeneraal Arthur Exon, destijds gestationeerd op Wright
+Field, verklaarde dat er materiaal werd onderzocht en dat een kleine groep het
+dossier beheerde.
+
+De auteurs behandelen die drie als het geraamte van hun zaak. Bij DuBose gaat
+het over het dekverhaal, niet over de inhoud van de kisten; bij Exon over wat
+hij hoorde, niet over wat hij zag. Dat onderscheid wordt in het boek zelden
+aangehouden.
+
+**De burgers en de dreiging**
+
+Een tweede laag bestaat uit burgers. Boer Mac Brazel, die het puinveld vond,
+werd volgens zijn familie dagenlang op de basis vastgehouden en herriep daarna
+zijn eerste verhaal. Frankie Rowe, dochter van een brandweerman, vertelde over
+een bezoek van militairen bij haar thuis met de waarschuwing te zwijgen.
+Begrafenisondernemer Glenn Dennis verklaarde dat de basis kleine kisten
+bestelde en dat een verpleegster hem over een sectie op niet-menselijke
+lichamen vertelde.
+
+Deze verhalen over intimidatie vormen bij Carey en Schmitt de verklaring
+waarom er zo lang gezwegen is, en tegelijk de reden waarom het zwijgen zelf
+als bewijs telt.
+
+**De verklaring van Walter Haut**
+
+Het middelpunt van dit boek is een verklaring die Haut in december 2002 liet
+notariëren en die verzegeld bleef tot na zijn dood in 2005. Daarin staat dat
+zijn persbericht van 1947 klopte, dat er twee vindplaatsen waren, dat hij zelf
+in een hangar puin en lichamen onder een dekzeil heeft gezien, en dat
+commandant Blanchard hem dat toonde. De volledige tekst is in het boek
+afgedrukt.
+
+De auteurs presenteren dit als het einde van de discussie: de man die het
+oorspronkelijke bericht schreef, bevestigde het aan het einde van zijn leven
+onder ede.
+
+**De rekening met de officiele verklaringen**
+
+Het laatste deel keert zich tegen de overheidsverklaringen. Na de weerballon
+van 1947 kwam het rapport van de luchtmacht uit 1994 met Project Mogul, een
+geheime ballontrein met radarreflectors die Sovjet-kernproeven moest opvangen.
+In 1997 volgde een tweede rapport dat de verhalen over lichamen toeschreef aan
+proefpoppen die uit grote hoogte werden gedropt.
+
+Op dit punt hebben Carey en Schmitt een sterk argument: die poppen werden pas
+vanaf de jaren vijftig gebruikt, jaren na 1947, en het rapport lost dat op met
+de aanname dat getuigen gebeurtenissen uit verschillende jaren in hun geheugen
+hebben samengevoegd. De auteurs noemen dat een geheugenverklaring die de
+luchtmacht wel op haar tegenstanders toepast en niet op haar eigen getuigen.
+Dat zij diezelfde verklaring ook op hun eigen materiaal zouden moeten
+toepassen, komt niet ter sprake.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| persbericht van 8 juli 1947 | De verklaring van de vliegbasis Roswell dat het leger een neergestorte schijf had geborgen, nog dezelfde dag herroepen als weerballon. |
+| deathbed confession | Verklaring die iemand kort voor zijn dood of onder verzegeling voor na zijn dood aflegt, in dit boek behandeld als bijzonder betrouwbaar. |
+| affidavit | Onder ede afgelegde en door een notaris gewaarmerkte schriftelijke verklaring, de vorm waarin Haut zijn tekst in 2002 vastlegde. |
+| twee vindplaatsen | De veronderstelling van de auteurs dat het puinveld op de ranch en de plek van het vaartuig met de lichamen niet dezelfde locatie waren. |
+| Project Mogul | Het geheime ballonprogramma waarmee de luchtmacht in 1994 het gevonden materiaal verklaarde, bedoeld om Sovjet-kernproeven op afstand op te vangen. |
+| Case Closed | Het luchtmachtrapport uit 1997 dat de verhalen over lichamen toeschreef aan proefpoppen uit latere jaren. |
+| puinveld | Het terrein op de ranch waar Brazel het materiaal vond, in het boek onderscheiden van de plek waar de bemanning zou zijn geborgen. |
+| getuigenkring | De ordening van het boek naar groepen betrokkenen in plaats van naar tijdsverloop. |
+
+#### Waar het argument op rust
+
+Wat aan documenten voorhanden is, is smal, en de auteurs gebruiken het goed:
+het persbericht van 8 juli 1947, de herroeping van dezelfde dag, de persfoto's
+uit Ramey's kantoor en de personeelsgegevens van de basis. Daarbovenop komt de
+mondelinge overlevering, en die vormt de eigenlijke bewijslast. Het probleem
+is dat vrijwel elke verklaring dertig tot zestig jaar na de gebeurtenis is
+opgetekend, dat een aanzienlijk deel tweedehands is, kinderen en kleinkinderen
+die vertellen wat een inmiddels overleden vader zou hebben gezegd, en dat de
+gesprekken zijn gevoerd door onderzoekers die de gezochte uitkomst al kenden
+en de getuige daarvan meestal op de hoogte brachten.
+
+Daar komt de tijdsvolgorde bij. Tot 1978 was er geen Roswell-verhaal; het
+ontstond met het interview van Marcel en werd landelijk bekend door het boek
+van Berlitz en Moore uit 1980, gevolgd door een stroom televisieprogramma's,
+een museum in de stad zelf en een filmindustrie. Wie in de jaren negentig of
+later voor het eerst over 1947 wordt bevraagd, herinnert zich niet in een lege
+ruimte. Dat maakt getuigen niet oneerlijk, maar het betekent dat het aantal
+verklaringen niet als optelsom van onafhankelijke waarnemingen mag worden
+gelezen, en juist die optelsom is het argument van het boek.
+
+#### Wat er tegen in te brengen valt
+
+Het geheugen werkt niet als een archief maar als een reconstructie: bij elke
+herinnering wordt het verhaal opnieuw opgebouwd uit brokstukken, en wat er
+sinds de gebeurtenis is bijgekomen, aan verhalen, beelden en vragen van
+anderen, bouwt mee. Na vijftig jaar is de gedetailleerdheid van een verklaring
+geen maat voor de juistheid ervan, en het vertrouwen waarmee iemand vertelt
+evenmin. De verzegelde verklaring voor na de dood, die de auteurs als de
+zuiverste vorm van getuigenis behandelen, ontsnapt daar niet aan; zij is
+alleen niet meer aan de verteller te toetsen.
+
+Bij de kroongetuigen van dit onderzoek is dat geen theoretisch bezwaar. Glenn
+Dennis gaf de onderzoekers een valse naam voor de verpleegster die het
+sectieverhaal zou hebben verteld, waarna Carey en Schmitt hem als getuige
+lieten vallen; het verhaal over de kleine kisten bleef intussen wel
+rondzingen. Frank Kaufmann, jarenlang de belangrijkste getuige voor de
+bergingsplek in eerder werk van Schmitt, bleek na zijn dood documenten te
+hebben vervalst. De verklaring van Haut is op een andere manier bezwaarlijk:
+hij had een halve eeuw volgehouden dat hij alleen het persbericht had
+geschreven en niets had gezien, in bandopnamen uit zijn laatste jaren spreekt
+hij zichzelf binnen één gesprek tegen over de vraag of hij lichamen zag, en de
+gladde tekst van 2002 is niet door hem opgesteld maar door Schmitt op grond
+van eerdere uitlatingen opgeschreven en hem ter ondertekening voorgelegd.
+Onderzoeker Kevin Randle, jarenlang Schmitts medeauteur, heeft juist op die
+punten bezwaar gemaakt.
+
+Ten slotte de maatstaf van de auteurs zelf. Schmitt heeft eerder toegegeven
+zijn opleiding en werkkring verkeerd te hebben voorgesteld. In 2015 traden
+Carey en Schmitt in Mexico-Stad op als gezicht van de zogeheten Roswell-dia's,
+gepresenteerd als foto's van een buitenaards lichaam uit 1947; binnen enkele
+weken was het bijschrift op de dia ontcijferd en bleek het te gaan om een
+gemummificeerd kind uit een negentiende-eeuwse opgraving, tentoongesteld in
+een Amerikaans museum. Dat gebeurde na dit boek, maar het raakt de vraag die
+het boek oproept: welke controle voeren deze onderzoekers uit voordat zij iets
+bewijs noemen. Wat overeind blijft is de kleine, harde kern van 1947, een
+basis die een schijf meldde en die melding binnen uren introk. Waarom dat
+gebeurde is een goede vraag; het antwoord dat dit boek geeft, rust op
+getuigenmateriaal dat het gewicht niet kan dragen.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij elke getuigenverklaring niet alleen wat er gezegd wordt, maar
+wanneer het voor het eerst is gezegd en wat de verteller op dat moment al uit
+andere bron kende.
+- Scheid eerstehands waarneming van wat iemand van een ander hoorde; in
+verzamelingen als deze lopen die twee door elkaar.
+- Let erop of een auteur ook de verklaringen weergeeft die niet in zijn
+verhaal passen; ontbreken die volledig, dan is de selectie zelf het probleem.
+- Behandel een groot aantal getuigen niet als optelsom van bewijs wanneer zij
+allemaal door dezelfde onderzoeker met dezelfde verwachting zijn bevraagd.
+
+#### Wat je hierna leest
+
+- 1142. The Day After Roswell. The Day After Roswell doet over dezelfde
+gebeurtenis een veel grotere bewering op basis van één herinnering, en laat
+zien waar deze bewijsvorm eindigt.
+- 691. Accessories After the Fact. Accessories After the Fact toont hoe
+bronnenkritiek op een omstreden overheidsonderzoek eruitziet wanneer zij wel
+stelselmatig wordt uitgevoerd.
+- 1124. Women of Wisdom. Why We Remember legt uit waarom herinnering
+reconstructie is, en waarom een gedetailleerde verklaring na vijftig jaar geen
+maat voor juistheid is.
+- 1141. UFOs and the National Security State. UFOs and the National Security
+State plaatst Roswell in de bredere gedocumenteerde geschiedenis van het
+overheidsonderzoek naar ufo-meldingen.
+
+## 1144. The Andreasson Affair
+
+Raymond E. Fowler, 1979. *The Andreasson Affair: The Documented Investigation
+of a Woman's Abduction Aboard a UFO* (Prentice-Hall, Englewood Cliffs, 1979,
+239 blz., ISBN 0130366080), met een inleiding van J. Allen Hynek. Latere
+herdrukken dragen de ondertitel *The True Story of a Close Encounter of the
+Fourth Kind*; Fowler schreef er drie vervolgdelen bij. Er bestaat geen
+Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.
+Rubriek: filosofie en mystiek.
+Tags: `ufo's`, `hypnose`, `geheugen`, `paranormaal`
+
+Verslag van een onderzoek dat het Center for UFO Studies in 1977 liet
+uitvoeren naar de melding van Betty Andreasson, huisvrouw uit South Ashburnham
+in Massachusetts, die stelde in januari 1967 uit haar huis te zijn meegenomen
+aan boord van een vaartuig. Het verhaal kwam in veertien hypnosesessies naar
+boven, tien jaar na dato, en beslaat een lichamelijk onderzoek, een reis door
+een onderaards landschap, een brandende reuzenvogel en een stem die zij voor
+God hield.
+
+Fowler geeft grote delen van de sessieverslagen letterlijk weer en beschrijft
+de geloofwaardigheidstoetsen die het team uitvoerde. De methode is het zwakke
+punt: hypnose haalt geen herinneringen op maar vergroot de vatbaarheid voor
+suggestie, en de sturende vragen van de onderzoekers staan in de afgedrukte
+gesprekken zelf.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Fowler betoogt dat het verhaal van Betty Andreasson niet als
+verzinsel of als ziektebeeld kan worden weggezet en dat er iets werkelijks is
+gebeurd waarvoor de gangbare verklaringen tekortschieten. Zijn redenering
+steunt op drie pijlers: de getuige en haar dochter kwamen goed door alle
+karakter- en betrouwbaarheidstoetsen, hun onder hypnose verkregen verslagen
+bevatten details die overeenkomen met andere ontvoeringsmeldingen waarvan zij
+geen weet konden hebben, en het verhaal bevat elementen die zij vanuit haar
+streng christelijke wereldbeeld niet zou hebben verzonnen. Dat de wezens door
+dichte deuren gingen en haar gedachten beheersten, brengt hem tot de
+gevolgtrekking dat een louter fysieke buitenaardse verklaring niet volstaat en
+dat het verschijnsel ook een geestelijke kant heeft.
+
+#### De gang van het boek
+
+**25 januari 1967**
+
+Het boek opent met het gezin. Betty Andreasson, moeder van zeven kinderen,
+woonde in een opgeknapte boerderij in South Ashburnham; haar man lag na een
+verkeersongeval van december 1966 in het ziekenhuis, haar ouders logeerden bij
+haar. Op de avond van 25 januari 1967 viel het licht uit en scheen er een roze
+gloed door het keukenraam. Haar vader zag door het achterraam kleine wezens
+naderen.
+
+Meer dan dit is bewust herinnerd. De rest van de avond was voor iedereen in
+huis leeg, en dat gat is de aanleiding voor alles wat volgt.
+
+**Hoe de zaak bij het onderzoek kwam**
+
+In 1975 schreef Andreasson een brief aan J. Allen Hynek, de astronoom die het
+Center for UFO Studies leidde. Hynek liet de brief eerst liggen en gaf hem
+daarna door aan Raymond Fowler, oud-NICAP-onderzoeker en destijds directeur
+voor Massachusetts van het onderzoeksnetwerk MUFON.
+
+In 1977 volgde een onderzoek van twaalf maanden met een team van zes: Fowler,
+Joseph Santangelo, Jules Vaillancourt, David Webb, Fred Youngren en
+hypnotiseur Harold Edelstein. Er kwamen veertien hypnosesessies, telkens
+gevolgd door een gesprek waarin de onderzoekers doorvroegen. Ook dochter
+Becky, in 1967 elf jaar oud, werd onder hypnose gebracht.
+
+**Aan boord en het onderzoek**
+
+Onder hypnose beschrijft Andreasson hoe vier tot vijf wezens van ongeveer een
+meter twintig door de gesloten keukendeur binnenkwamen, met een grote
+peervormige schedel, schuine ogen en drie vingers, gekleed in blauwe overalls
+met een vogelembleem. De rest van het gezin stond bewegingloos; de leider
+noemde zich telepathisch Quazgaa.
+
+Aan boord volgt een lichamelijk onderzoek dat zij als pijnlijk beschrijft: een
+lange buigzame naald door haar linkerneusgat, waarbij zij iets als een vlies
+hoorde scheuren, en een tweede door haar navel. Op de vraag waar dat voor
+diende antwoordt zij dat het iets met voortplanting te maken had en dat er
+onderdelen ontbraken, waarna zij zelf verklaart dat zij een
+baarmoederverwijdering had ondergaan.
+
+**Het groene rijk en de feniks**
+
+Het middendeel is het vreemdste. Zij wordt over een zwarte baan door een
+tunnel en langs kristallen gevoerd naar een landschap met een groenblauwe
+hemel, waar zij hoofdloze wezens en glazen bollen ziet. Aan het einde staat
+zij tegenover een reusachtige vogel die verbrandt tot as, waaruit een dikke
+worm kruipt. Uit het licht achter de vogel spreekt een stem die haar zegt dat
+zij is uitgekozen om iets aan de wereld door te geven.
+
+Andreasson, opgegroeid in een pinkstergemeente en actief in haar geloof, zegt
+in de sessie dat zij dit als God verstond, door zijn Zoon. Fowler zoekt de
+vogel na in een encyclopedie en herkent de feniks uit de oudheid, die uit zijn
+eigen as herrijst; het lemma vermeldt daarbij dat de feniks in de
+vroegchristelijke kunst een teken van de opstanding is.
+
+**De terugkeer, het blauwe boek en de boodschappen**
+
+Terug in huis krijgt zij van Quazgaa vier boekjes met lege lichtgevende
+bladzijden mee, waarvan er één zou blijven; Becky zou dat blauwe boek in de
+dagen erna in huis hebben gezien, waarna het verdween. De wezens vragen om
+kennis die door vuur is beproefd, waarop zij hun haar bijbel toont.
+
+In de latere sessies gebeurt iets waar de onderzoekers geen raad mee weten:
+Andreasson stapt uit de herbeleving en spreekt in het heden, klaagt dat haar
+handen worden beheerst, en begint in een onbekende taal te spreken, gevolgd
+door losse zinnen over een basis 32, over wetenschappers die het verleden
+moeten begraven en over een deur die geopend gaat worden. Fowler drukt de
+klanken fonetisch af zonder ze te duiden.
+
+**De weging door het team**
+
+In de slothoofdstukken en de bijlagen legt Fowler verantwoording af. Het team
+vroeg buren, kennissen en een predikant naar het karakter van moeder en
+dochter en kreeg overal hetzelfde beeld: eerlijk, stabiel, hardwerkend. Een
+psychiater sprak Andreasson zonder over de melding te beginnen en vond geen
+aanwijzing voor een stoornis; hij tekende erbij aan dat haar sterke
+geloofsbetrokkenheid haar objectiviteit als getuige kan hebben aangetast. Een
+gecertificeerd analist voerde metingen uit met een Psychological Stress
+Evaluator, een apparaat dat leugens uit stemtrillingen zou aflezen, en
+concludeerde dat beiden de waarheid spraken.
+
+Hypnotiseur Edelstein hield zich voorzichtiger: hij vond dat zij geloofden wat
+zij vertelden en dat een deel ervan op iets werkelijks berustte, maar zei
+erbij niet te kunnen bepalen hoeveel. Hynek schrijft in zijn inleiding dat als
+het geheel een gezamenlijk psychisch drama zou zijn, het nog altijd een goede
+studie in de abnormale psychologie zou opleveren.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| close encounter of the third kind | Hyneks aanduiding voor een melding waarbij naast een voorwerp ook inzittenden worden waargenomen; deze zaak geldt als een geval van de vierde soort, met meegenomen worden erbij. |
+| regressieve hypnose | Techniek waarbij iemand in trance naar een eerder tijdstip wordt teruggevoerd om het opnieuw te beleven, in dit onderzoek de bron van vrijwel alle inhoud. |
+| debriefing | Het gesprek na elke hypnosesessie waarin de onderzoekers doorvroegen op wat de getuige had verteld. |
+| Quazgaa | De naam die de leider van de wezens zich in het verhaal telepathisch geeft. |
+| het blauwe boek | Het boekje met lege lichtgevende bladzijden dat zij naar eigen zeggen meekreeg en dat daarna uit huis verdween. |
+| de feniks | De brandende reuzenvogel uit het middendeel, door Fowler herkend als de klassieke vogel die uit zijn eigen as herrijst. |
+| Psychological Stress Evaluator | Apparaat dat stress en leugen uit onhoorbare trillingen in de stem zou aflezen, in het boek als leugendetector gepresenteerd. |
+| kennis beproefd door vuur | De vraag die de wezens haar stellen en die zij met haar bijbel beantwoordt, in het boek gelezen als aanwijzing dat het bezoek een geestelijke lading had. |
+
+#### Waar het argument op rust
+
+Er is in deze zaak geen fysiek spoor. Geen foto, geen bodemafdruk, geen
+radarwaarneming, geen voorwerp; het blauwe boek was al verdwenen voordat er
+iemand naar keek. Wat er wel is, is het bewust herinnerde gat: het gezin
+herinnerde zich een stroomstoring en een licht, en verder niets. Alle inhoud,
+de wezens, het vaartuig, het onderzoek, het groene landschap, de vogel en de
+boodschappen, is tien jaar later onder hypnose ontstaan. De bevestiging door
+dochter Becky is geen onafhankelijke bevestiging, want ook zij werd onder
+hypnose bevraagd, na haar moeder, in dezelfde kamer en met hetzelfde team.
+
+De toetsen die het team uitvoerde meten iets anders dan waar het om gaat.
+Karakterreferenties en een psychiatrisch gesprek kunnen laten zien dat iemand
+eerlijk is en niet in de war; ze kunnen niet laten zien of een herinnering
+klopt. Dat verschil is bepalend, want bij dit soort verhalen is oneerlijkheid
+zelden de verklaring. De stemstressmeting die het boek als leugendetector
+opvoert, is bovendien geen meetinstrument: bij herhaalde beproeving onder
+gecontroleerde omstandigheden komt stemanalyse niet boven het toevalsniveau
+uit, en de Amerikaanse wetenschapsraad oordeelde in 2003 dat het onderzoek
+naar de geldigheid ervan verre van bemoedigend is. Wat als bekroning van de
+bewijsvoering is opgevoerd, voegt dus niets toe.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar geldt de methode zelf. Hypnose is geen manier om
+herinneringen op te halen. Zij verhoogt de vatbaarheid voor suggestie en het
+vertrouwen waarmee iemand vertelt, zonder de juistheid te verhogen, en zij
+maakt het waarschijnlijker dat de betrokkene beeld en gissing als herinnering
+gaat ervaren. Het onderzoek van Elizabeth Loftus en anderen liet vanaf de
+jaren zeventig zien hoe eenvoudig een herinnering aan iets wat nooit gebeurde
+bij een gewone proefpersoon te wekken is, alleen al door de vraagstelling of
+door een bevestigend verhaal van een naaste. Om die reden weigeren rechtbanken
+in veel landen getuigenverklaringen die onder hypnose tot stand zijn gekomen.
+
+In dit boek is dat mechanisme met eigen ogen te volgen, omdat Fowler de
+gesprekken letterlijk afdrukt. De onderzoekers stellen gesloten en sturende
+vragen: of het een boring of een prik was en in welk neusgat, of het teken op
+de uniformen hetzelfde was als de vogel, waarbij Fowler zelf het Amerikaanse
+wapen met de zeearend ter sprake brengt en zij daarna bevestigt. Bij de
+boodschappen wordt gevraagd of iets bij de eerder genoemde formules hoort,
+waarna het antwoord die kant op gaat. Dat is geen kwade opzet, het is de
+gewone gang van zaken bij een ondervraging waarin de vragensteller een
+verwachting heeft.
+
+Er is een tweede, hardere toets die in precies dezelfde jaren werd uitgevoerd.
+Alvin Lawson hypnotiseerde met W.C. McCall een groep proefpersonen zonder
+belangstelling voor ufo's en vroeg hun zich een ontvoering voor te stellen. De
+verhalen die zij vertelden bevatten dezelfde soort details als de meldingen
+van echte ontvoerden en waren daar in structuur niet van te onderscheiden.
+Daarmee vervalt het argument waar Fowler het meeste op leunt: dat Andreasson
+dingen wist die zij niet kon weten. Dat een verhaal past bij andere
+ontvoeringsverhalen zegt alleen dat er een gedeeld verhaalpatroon bestaat, dat
+in deze jaren via de zaak Betty en Barney Hill, boeken, films en televisie
+ruim voorhanden was.
+
+Blijft de vraag wat het verhaal dan wel is. De meest voor de hand liggende
+lezing is die welke Fowler kort overweegt en weer verwerpt: een religieuze
+visioentekst in het beeldmateriaal van zijn tijd. Een pinkstergelovige vrouw
+met een zwaar jaar achter de rug ziet wezens die zij zelf voor engelen houdt,
+wordt gevraagd naar kennis beproefd door vuur, toont haar bijbel, krijgt vier
+boeken die op haar bijbel lijken, ziet een vogel die verbrandt en herrijst,
+hoort de stem van God door zijn Zoon en wordt aangewezen als boodschapper.
+Fowler wijst die lezing af omdat de feniks geen gangbaar christelijk beeld zou
+zijn, maar de encyclopedie die hij in zijn eigen boek citeert noemt de feniks
+juist een vroegchristelijk teken van de opstanding. Het verloop van de zaak in
+de drie vervolgdelen is bovendien wat de literatuur over valse herinneringen
+voorspelt: bij voortgezette hypnose groeide het verhaal door, met eerdere
+ontmoetingen in haar kinderjaren en implantaten. Een zaak die onder herhaalde
+behandeling steeds meer gaat opleveren, wordt daar niet sterker van.
+
+#### Wat er concreet mee te doen is
+
+- Behandel elke herinnering die onder hypnose is ontstaan als nieuw materiaal
+en niet als teruggehaalde inhoud; het verschil is met het blote oog niet te
+zien, ook niet voor degene die het vertelt.
+- Kijk bij een ondervraging naar de vragen en niet alleen naar de antwoorden;
+in afgedrukte gesprekken is sturing vaak letterlijk terug te vinden.
+- Scheid de vraag of iemand eerlijk is van de vraag of zijn herinnering klopt;
+karakterreferenties en psychiatrisch onderzoek beantwoorden alleen de eerste.
+- Wantrouw apparatuur die als leugendetector wordt opgevoerd en zoek op wat
+gecontroleerd onderzoek naar dat apparaat heeft opgeleverd.
+
+#### Wat je hierna leest
+
+- 615. Passport to Magonia. Passport to Magonia laat zien dat de motieven uit
+dit verhaal, de kleine wezens, de verstoorde tijd, de opdracht aan een
+uitverkorene, eeuwen ouder zijn dan de ufo.
+- 63. The Demon-Haunted World. The Demon-Haunted World behandelt de
+ontvoeringsliteratuur rechtstreeks en legt uit waarom getuigenissen onder
+hypnose geen bewijs opleveren.
+- 1124. Women of Wisdom. Why We Remember geeft de stand van zaken over
+herinnering als reconstructie, het onderzoek waarop de kritiek op deze methode
+berust.
+
+## 1145. Rule by Secrecy
+
+Jim Marrs, 2000. *Rule by Secrecy: The Hidden History That Connects the
+Trilateral Commission, the Freemasons, and the Great Pyramids* (HarperCollins,
+New York, 2000, 467 blz., ISBN 9780060193683; pocketuitgave Perennial, 2001,
+ISBN 9780060931841). Nederlandse uitgave: *Regeren vanuit het duister*
+(Ankh-Hermes, Deventer, 464 blz., ISBN 9789043907347). Rubriek: geschiedenis
+en samenleving.
+Tags: `complotdenken`, `elites`, `geschiedenis`, `macht`
+
+De Texaanse journalist Jim Marrs, bekend van zijn boek over de moord op
+Kennedy, trekt hier in vijf delen één lijn van de Trilaterale Commissie en de
+Bilderbergconferentie terug via de vrijmetselarij, de Illuminati en de
+Tempeliers naar de mysteriescholen van de oudheid. Elk deel gaat verder terug
+in de tijd dan het vorige.
+
+De eerste helft steunt op instellingen die werkelijk bestaan, ledenlijsten
+publiceren en achter gesloten deuren vergaderen. Het slot neemt de vertalingen
+van Zecharia Sitchin over en eindigt bij de Anunnaki, buitenaardse bezoekers
+van een planeet Nibiru die de mens zouden hebben gemaakt. Wie het boek
+gebruikt, moet die twee helften uit elkaar houden.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Marrs stelt dat er achter de zichtbare politiek een
+doorlopende keten van besloten genootschappen loopt die oorlogen begint en
+beëindigt, geldstelsels en rentestanden stuurt en bepaalt wat er in het nieuws
+komt, en dat die keten niet bij de negentiende-eeuwse bankiers begint maar
+teruggaat tot de mysteriescholen van de oudheid en uiteindelijk tot Soemerië.
+Zijn methode is die van de aaneenschakeling: wie de Trilaterale Commissie
+natrekt komt bij de Round Table-groepen, wie die natrekt bij de
+vrijmetselarij, wie die natrekt bij de Tempeliers, en zo door tot bij de
+Anunnaki. Het boek staat of valt daarmee bij de vraag of elke schakel in die
+ketting even sterk is als de vorige, en dat is zij niet.
+
+#### De gang van het boek
+
+**Deel I: de instellingen van nu**
+
+Het eerste deel behandelt achtereenvolgens de Trilaterale Commissie, de
+Council on Foreign Relations, de Bilderbergconferentie, de families
+Rockefeller, Morgan en Rothschild, het Federal Reserve-stelsel, de Round
+Table-groepen en het Royal Institute of International Affairs, Cecil Rhodes en
+zijn leermeester John Ruskin, het Yale-genootschap Skull and Bones en de grote
+belastingvrije stichtingen. Marrs beschrijft per groep wie erin zit, wanneer
+zij is opgericht en hoe de lidmaatschappen elkaar overlappen.
+
+Dit deel is het best gedocumenteerde van het boek, omdat het over organisaties
+gaat die bestaan en waarover archiefmateriaal beschikbaar is. Marrs sluit het
+af met een hoofdstuk over de pers, waarin hij betoogt dat de aanwezigheid van
+hoofdredacteuren bij deze bijeenkomsten verklaart waarom erover niet wordt
+bericht.
+
+**Deel II: de vingerafdrukken van samenzwering**
+
+Het tweede deel loopt de twintigste eeuw langs: het Report from Iron Mountain,
+de Golfoorlog, Vietnam, de moord op Kennedy, de zaken van Amerikaanse
+bedrijven die tijdens de oorlog met de vijand handelden, Korea, de opkomst van
+de nazipartij met haar theosofische en Thule-achtergrond, beide wereldoorlogen
+en de Russische Revolutie. Steeds is de vraag dezelfde: wie verdiende eraan en
+wie zat in welk bestuur.
+
+Hier verschuift de bewijsvoering. Waar deel I namen en data geeft, geeft deel
+II vooral gelijktijdigheid: iemand die bij een conflict betrokken was, blijkt
+lid van de Council on Foreign Relations, en dat lidmaatschap wordt behandeld
+als verklaring.
+
+**Deel III: opstand en revolutie**
+
+Het derde deel gaat over de Amerikaanse Burgeroorlog, de Franse Revolutie, de
+Amerikaanse Revolutie, de antivrijmetselaarsbeweging van de jaren dertig van
+de negentiende eeuw, Francis Bacon en zijn *New Atlantis*, de Beierse
+Illuminati van Adam Weishaupt (opgericht in 1776 in Ingolstadt en tien jaar
+later door de keurvorst verboden), de vrijmetselarij zelf en de rozenkruisers.
+Marrs behandelt de Illuminati als een orde die het verbod overleefde en zich
+in andere genootschappen voortzette.
+
+**Deel IV: de oudere genootschappen**
+
+Het vierde deel behandelt de Tempeliers, de middeleeuwse sekte van de
+Assassijnen, de Katharen en de Albigenzenkruistocht, de ondergang van de
+Tempelorde in 1307 en verder, en vervolgens de Priorij van Sion en de
+Merovingische koningen. Marrs neemt hier het verhaal over dat via het boek
+*The Holy Blood and the Holy Grail* bekend werd: een geheime orde die een
+bloedlijn bewaakt.
+
+**Deel V: van Rome naar Soemerië**
+
+Het laatste deel gaat over de Romeinse mysteriegodsdiensten, de kabbala, de
+Egyptische inwijdingen, de vraag of Mozes een Egyptische priester was, en komt
+dan bij Soemerië uit. Marrs volgt Sitchin: ongeveer 450.000 jaar geleden
+zouden de Anunnaki van de planeet Nibiru naar de aarde zijn gekomen om goud te
+delven, zouden zij de mens door ingrijpen in het erfelijk materiaal als
+arbeidskracht hebben gemaakt, en zou hun onderlinge oorlog geëindigd zijn in
+kernexplosies op de Sinaï en bij Sodom en Gomorra, waarvan een radioactieve
+storm de Soemerische beschaving vernietigde.
+
+Marrs schrijft in het slotwoord dat er drie mogelijkheden overblijven: de
+kleine binnenkring vergaart macht in de hoop contact te krijgen met onze
+niet-menselijke makers, of zij heeft dat contact al, of zij is die makers
+zelf. Hij besluit met de mededeling dat het merendeel van wat in dit boek
+staat waar is.
+
+**Wat vaststaat en wat gevolgtrekking is**
+
+Een deel van het feitenmateriaal is niet omstreden. De Council on Foreign
+Relations bestaat sinds 1921 en geeft het tijdschrift *Foreign Affairs* uit.
+De Bilderbergconferentie kwam in mei 1954 voor het eerst bijeen in Hotel de
+Bilderberg in Oosterbeek, vergadert sindsdien jaarlijks zonder notulen en
+zonder pers, en publiceert wel een deelnemerslijst. De Trilaterale Commissie
+werd in 1973 opgericht op initiatief van David Rockefeller met Zbigniew
+Brzezinski als eerste directeur, en publiceert ledenlijsten en rapporten. Dat
+bestuurders, bankiers en hoofdredacteuren elkaar daar buiten de openbaarheid
+spreken, is geen theorie maar de opzet.
+
+De gevolgtrekking is een andere zaak. Uit het feit dat een gezelschap besloten
+vergadert volgt niet dat het besluiten neemt die regeringen uitvoeren, en al
+helemaal niet dat het oorlogen begint. Die stap vraagt om bewijs van een
+andere soort: een besluit, een opdracht, een uitvoering. Marrs levert dat
+nergens en vervangt het door het aantal verbanden. Het boek is daardoor
+bruikbaar als naslag over wie waar zat, en onbruikbaar als bewijsvoering over
+wat daar besloten werd.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Trilaterale Commissie | In 1973 opgericht overlegorgaan van bestuurders uit Noord-Amerika, Europa en Japan, bij Marrs het zichtbare topje van de keten. |
+| Bilderbergconferentie | Jaarlijkse besloten bijeenkomst van politici, bankiers en industriëlen, sinds 1954, waarvan geen verslag naar buiten komt. |
+| Council on Foreign Relations | Amerikaans genootschap voor buitenlandse politiek uit 1921, door Marrs behandeld als de Amerikaanse tak van de Britse Round Table-groepen. |
+| Round Table-groepen | De kring rond Cecil Rhodes en Alfred Milner, door de historicus Carroll Quigley beschreven en door Marrs als de spil van het hele netwerk genomen. |
+| Report from Iron Mountain | In 1967 verschenen tekst die zich voordoet als geheim regeringsrapport over de noodzaak van oorlog, door Marrs als vermoedelijk echt behandeld. |
+| Priorij van Sion | Genootschap dat volgens Marrs sinds de middeleeuwen een koninklijke bloedlijn bewaakt. |
+| Anunnaki | In Sitchins lezing van de Soemerische teksten de buitenaardse wezens die de mens zouden hebben gemaakt; in de teksten zelf een aanduiding voor goden van vorstelijke afkomst. |
+| Nibiru | De planeet met een baan van 3600 jaar waar de Anunnaki volgens Sitchin vandaan zouden komen. |
+
+#### Waar het argument op rust
+
+Marrs geeft veertig bladzijden bronvermeldingen, geordend per bladzijde van de
+hoofdtekst, met auteur, uitgave en paginanummer. Dat is meer dan de meeste
+boeken in dit genre bieden en het maakt narekenen mogelijk. Voor de
+hoofdstukken over de Round Table-groepen leunt hij op Carroll Quigley,
+hoogleraar in Georgetown, die in *Tragedy and Hope* (1966) schreef dat hij het
+netwerk van binnenuit had bestudeerd. Dat is een controleerbare bron van
+academische herkomst, en de gegevens die Marrs eruit haalt kloppen doorgaans
+met wat Quigley schreef.
+
+Het probleem zit in de vermenging. Dezelfde notenlijst leidt bij het hoofdstuk
+over de Bilderbergconferentie naar David Icke, die in eigen werk betoogt dat
+de wereld door van gedaante wisselende reptielen wordt bestuurd, en in het
+laatste deel naar Sitchin, Laurence Gardner, Lloyd Pye en Alan Alford. In de
+opmaak van het boek ziet een noot naar een hoogleraar er precies hetzelfde uit
+als een noot naar een auteur zonder enige toetsing. De lezer die niet elke
+noot naslaat, krijgt geen onderscheid aangeboden.
+
+De opbouw van het argument is dezelfde als in *Crossfire*: geen enkel verband
+draagt de stelling, samen moeten zij dat wel doen. Die redenering werkt alleen
+als de losse verbanden onafhankelijk van elkaar zijn vastgesteld. Bij Marrs
+zijn zij dat vaak niet, omdat het ene verband bij het volgende als vaststaand
+wordt aangenomen.
+
+#### Wat er tegen in te brengen valt
+
+Het duidelijkste bezwaar is te dateren. Marrs behandelt het Report from Iron
+Mountain als vermoedelijk authentiek en schrijft dat de ernstige toon en het
+notenapparaat de beschuldiging van verzinsel weerspreken. Leonard C. Lewin had
+in de *New York Times Book Review* van 19 maart 1972 al bekend dat hij de
+tekst zelf had geschreven, op een idee van Victor Navasky van het satirische
+blad *Monocle* en met medeweten van onder anderen E.L. Doctorow. Die
+bekentenis was in 2000 al achtentwintig jaar oud. Marrs kent haar, noemt haar
+terzijde en gaat verder alsof zij het gewicht van het stuk niet raakt.
+
+Hetzelfde geldt voor de Priorij van Sion. Die is in 1956 in Annemasse als
+kleine Franse vereniging ingeschreven door Pierre Plantard; de middeleeuwse
+stamreeksen waarop het verhaal rust, zijn in de jaren zestig door zijn kring
+in de Bibliothèque nationale gedeponeerd, en Plantard heeft de vervalsing in
+1993 onder ede tegenover een Franse rechter erkend. Marrs behandelt de orde
+als oud en werkelijk.
+
+Het laatste deel heeft geen steun in het vak. Sitchin was geen assyrioloog;
+geen enkele vakbeoefenaar van het Soemerisch of Akkadisch onderschrijft zijn
+vertalingen, en de sleutelvertaling waarop alles rust, anunnaki als zij die
+uit de hemel kwamen, is onjuist: het woord duidt goden van vorstelijke afkomst
+aan. Daarmee rust het slot van het boek, en daarmee de hele afloop van de
+ketting, op materiaal dat op geen enkel punt de toets van het vakgebied
+doorstaat.
+
+Het grondprobleem is dat geheimhouding als bewijs wordt gebruikt. Dat de
+Bilderbergconferentie geen notulen bijhoudt, is een feit. Dat zij daarom
+oorlogen uitlokt, volgt daar niet uit, en het volgt evenmin uit honderd andere
+zulke feiten naast elkaar. Marrs erkent die stap nergens en zet haar daarom
+ook nergens onder druk. Wie het boek leest voor wat het aan verifieerbare
+gegevens over instellingen en lidmaatschappen bevat, houdt iets over; wie het
+leest als bewijs van een plan, leest iets wat er niet in staat.
+
+#### Wat er concreet mee te doen is
+
+- Lees deel I met de bronnenlijst ernaast en kijk per bewering of de noot naar
+een archiefstuk, een jaarverslag of een historicus wijst, of naar een andere
+auteur uit hetzelfde genre.
+- Schrijf bij elke passage twee zinnen op: wat er is vastgesteld, en wat eruit
+is afgeleid. Bij Marrs staan die twee vrijwel altijd in dezelfde alinea.
+- Ga voor de Round Table-groepen terug naar Quigley zelf, die hetzelfde
+netwerk beschreef en er andere gevolgtrekkingen aan verbond.
+- Behandel deel V los van de rest. Het rust op één auteur wiens vertaalwerk
+door het vakgebied wordt verworpen.
+
+#### Wat je hierna leest
+
+- 690. Crossfire. Marrs' eerdere boek over de moord op Kennedy, met dezelfde
+werkwijze van opstapelen; deel II van *Rule by Secrecy* is er een verkorte
+weergave van.
+- 682. Tragedy and Hope. De historicus op wie Marrs zich het vaakst beroept.
+Quigley beschrijft hetzelfde netwerk en trekt er andere conclusies uit.
+- 680. None Dare Call It Conspiracy. De pamflettaire voorganger uit 1971, die
+Quigley op dezelfde selectieve manier gebruikt.
+- 1146. Conspirators' Hierarchy: The Story of the Committee of 300. Hetzelfde
+onderwerp zonder enige bronvermelding; het verschil in verantwoording tussen
+beide boeken is het leerzaamste eraan.
+
+## 1146. Conspirators' Hierarchy: The Story of the Committee of 300
+
+John Coleman, 1991. *Conspirators' Hierarchy: The Story of the Committee of
+300* (in eigen beheer uitgebracht, voorwoord gedateerd november 1991;
+handelsuitgave America West Publishers, 1992, 343 blz., ISBN 9780922356577).
+Herziene en uitgebreide vierde druk bij Joseph Holding Corporation en Global
+Insights Publications, 1994 en 1997, 487 blz., ISBN 9780963401946; latere
+herdrukken bij Omnia Veritas. Nederlandse uitgave: *De hiërarchie van de
+samenzweerders: Geschiedenis van het comité van 300* (Omnia Veritas, ISBN
+9781805401193). Rubriek: geschiedenis en samenleving.
+Tags: `complotdenken`, `elites`, `macht`, `bronnenkritiek`
+
+Coleman, die zichzelf voorstelt als voormalig officier van de Britse
+inlichtingendienst, beweert dat een orgaan van driehonderd personen, door hem
+de Olympiërs genoemd, boven alle regeringen staat en oorlogen, drugshandel,
+popmuziek en bevolkingsomvang bestuurt. Het boek verscheen in november 1991 en
+groeide in latere drukken van 343 naar bijna vijfhonderd bladzijden.
+
+De naam gaat terug op een zin van de Duitse industrieel Walther Rathenau uit
+december 1909 over driehonderd mannen die de economie van Europa leiden.
+Coleman noemt Rathenau nergens. Het boek bevat geen enkele noot die een
+bewering aan een vindplaats koppelt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Coleman stelt dat boven alle regeringen een comité van
+driehonderd personen staat dat voortkomt uit de Britse Oost-Indische Compagnie
+en in stand wordt gehouden door de Britse aristocratie en wat hij de Zwarte
+Adel noemt, en dat dit comité de wereld volgens een uitgeschreven plan
+bestuurt: deïndustrialisatie, nulgroei, bevolkingsvermindering, opzettelijke
+verspreiding van verdovende middelen en het kweken van een jeugdcultuur die
+verzet onmogelijk maakt. Alles wat er in de wereld misgaat is in dat verhaal
+gewild en uitgevoerd, van de moord op de Italiaanse premier Aldo Moro tot het
+bestaan van de Beatles. Het boek levert bij die stelling geen enkele noot.
+Daarmee verschuift de vraag: niet of zij waar is, maar of er iets is waaraan
+zij te toetsen valt.
+
+#### De gang van het boek
+
+**Het voorwoord en de aangevoerde loopbaan**
+
+Coleman opent met de mededeling dat hij in zijn loopbaan als beroepsofficier
+van de inlichtingendienst herhaaldelijk toegang had tot streng geheime
+stukken, en dat hij tijdens veldwerk als politiek officier in Angola een reeks
+documenten onder ogen kreeg waaruit het bestaan van het comité bleek. Er staan
+geen jaartallen bij, geen dienstonderdeel, geen namen, geen documentnummers.
+
+Het grootste deel van het voorwoord bestaat uit aanvallen op andere auteurs
+binnen hetzelfde genre, die hij aanduidt als door de overheid betaalde
+verklikkers, aangestuurd door een groep homoseksuelen die bij conservatieve
+kringen in aanzien staat. Die toon keert door het hele boek terug en bepaalt
+mede hoe de rest gelezen moet worden.
+
+**De gevalsbeschrijvingen aan het begin**
+
+Het eerste hoofdstuk begint bij het naamloze zij dat volgens Coleman de dienst
+uitmaakt, en werkt dat uit aan de hand van de moord op Aldo Moro. Moro werd in
+maart 1978 door de Rode Brigades ontvoerd en in mei van dat jaar dood
+teruggevonden. Coleman verwijst naar een verklaring die een medewerker van
+Moro, Corrado Guerzoni, op 10 november 1982 in een Romeinse rechtszaal aflegde
+over een dreigement aan Moro's adres, en concludeert daaruit dat Henry
+Kissinger namens het comité dreigde en dat de moord vervolgens door de
+vrijmetselaarsloge P2 werd uitgevoerd, om Italië te deïndustrialiseren en de
+bevolking te verkleinen.
+
+De structuur van dit voorbeeld herhaalt zich door het boek: een gebeurtenis
+die werkelijk plaatsvond, een getuigenis die werkelijk werd afgelegd, en
+daaraan vastgeknoopt een opdrachtgever en een motief waarvoor geen enkele bron
+wordt aangevoerd.
+
+**De instellingen: Tavistock, de Club van Rome, de RIIA**
+
+Coleman tekent een bevelsketen die loopt van de Club van Rome via de NAVO en
+het Royal Institute of International Affairs naar het comité. De spil is het
+Tavistock Institute of Human Relations in Londen, een bestaand instituut voor
+groepspsychologie en organisatieonderzoek dat in 1947 werd verzelfstandigd. In
+Colemans boek is Tavistock de motor van de massaconditionering en de
+opdrachtgever van vrijwel elke culturele verandering sinds de oorlog. De term
+Tavistock keert meer dan honderd keer terug.
+
+**De Beatles als proefneming**
+
+Het bekendste hoofdstuk stelt dat de Beatles door het Tavistock Institute zijn
+samengesteld en dat Theodor Adorno hun teksten schreef en hun muziek
+componeerde, samen met die van de latere Britse groepen. Tavistock en het
+Stanford Research Institute zouden signaalwoorden hebben bedacht waarmee een
+nieuwe jeugdgroep werd afgesplitst en aan verdovende middelen gewend.
+
+In deze passages laat Coleman zijn stijl volledig los. Popmuziek noemt hij
+hier de duivelse muziek van Adorno, en hij zet het woord liefde neer met een
+vergelijking waarin hij homoseksualiteit met vuil gelijkstelt. Dat is geen
+terzijde: het is de plek waar duidelijk wordt dat de cultuurdiagnose van het
+boek een morele afkeer is die achteraf een bestuurlijke oorzaak krijgt
+toegewezen.
+
+**Nulgroei en bevolkingsvermindering**
+
+Het rapport *De grenzen aan de groei*, dat de Club van Rome in 1972 liet
+verschijnen, leest Coleman niet als waarschuwing maar als werkplan. Oorlogen,
+hongersnoden en ziekten zijn in zijn lezing de middelen waarmee de
+wereldbevolking wordt teruggebracht, en hij hanteert daarbij de term nutteloze
+eters voor wie geschrapt zou zijn. De deïndustrialisatie van westerse landen
+en het opzettelijk in stand houden van de handel in verdovende middelen horen
+bij hetzelfde plan; de handel zelf voert hij terug op de opiumhandel van de
+Britse Oost-Indische Compagnie in China.
+
+**De lijsten achterin**
+
+Ongeveer een kwart van het boek bestaat uit lijsten: instellingen die onder
+invloed staan van het comité, van de Wereldraad van Kerken en de
+Warren-commissie tot de Trilaterale Commissie en de vrijmetselarij; banken;
+advocatenkantoren; accountantskantoren; Tavistock-instellingen in de Verenigde
+Staten. Daarna volgt de lijst van vroegere en huidige leden, ruim driehonderd
+namen op alfabet.
+
+Die lijst is het punt waarop het boek zichzelf tegenspreekt. Er staan levende
+bestuurders in, zoals George Bush, Henry Kissinger en David Rockefeller, maar
+ook mensen die al lang dood waren toen het boek verscheen, zoals Chaim
+Weizmann (overleden in 1952), opperrechter Earl Warren en de Fabian-socialist
+Sidney Webb. Bij verschillende namen staat de toevoeging of een door de
+familie aan te wijzen plaatsvervanger. Een gezelschap dat vergadert en besluit
+kan zulke leden niet hebben. Wat er staat is geen ledenlijst maar een register
+van mensen die Coleman van invloed verdenkt.
+
+**De bibliografie**
+
+Achterin staat een alfabetische lijst van titels, geordend op titel en niet op
+auteur, zonder paginaverwijzingen. Bij sommige titels staat een alinea eigen
+toelichting. Bij het Watergate-boek van Fred Thompson vertelt Coleman
+bijvoorbeeld dat hij Thompson opzocht nadat inbreker Bernard Barker hem bij
+een supermarkt in Coral Gables had verteld waar die te vinden was. Zulke
+passages vervangen de verantwoording: de lezer krijgt een anekdote over hoe de
+auteur ergens kwam, in plaats van een verwijzing naar een stuk dat hij kan
+nalezen. In de lopende tekst staat geen enkel notencijfer.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Comité van 300 | Het orgaan van driehonderd personen dat volgens Coleman boven alle regeringen staat en de wereldpolitiek bepaalt. |
+| de Olympiërs | Colemans naam voor de binnenkring van dat comité, die zich naar zijn zeggen aan goden gelijk acht. |
+| Zwarte Adel | Aanduiding voor Venetiaanse en andere Europese adellijke families die in het boek de oudste laag van het comité vormen. |
+| Tavistock | Bij Coleman de Londense instelling die alle massapsychologische bewerking van het Westen ontwerpt en uitvoert. |
+| Club van Rome | In Colemans lezing het uitvoerend orgaan dat de nulgroei en de bevolkingsvermindering in praktijk brengt. |
+| nulgroei | De opzettelijke afbraak van industrie en bevolkingsomvang die het comité volgens Coleman nastreeft. |
+| nutteloze eters | Colemans weergave van de term waarmee het comité zou aanduiden welke bevolkingsgroepen geschrapt kunnen worden. |
+| signaalwoorden | Woorden die volgens Coleman door Tavistock rond popmuziek zijn bedacht om een afgezonderde jeugdgroep te sturen. |
+
+#### Waar het argument op rust
+
+Het boek rust op het woord van de auteur. De documenten uit Angola waarop de
+kernbewering steunt, worden niet weergegeven, niet gedateerd, niet genummerd
+en zijn nergens gedeponeerd. Van Colemans loopbaan bij de Britse
+inlichtingendienst bestaat geen onafhankelijke bevestiging: de bewering komt
+uit het voorwoord en is daarna overgenomen door uitgevers en op flapteksten
+herhaald. Wie haar wil narekenen, komt telkens weer bij dezelfde bron uit,
+namelijk Coleman zelf.
+
+De bibliografie telt ongeveer honderdvijftig titels maar is niet gekoppeld aan
+de tekst. Er is dus geen bewering in het boek waarvan een lezer kan
+vaststellen op welke bladzijde van welk werk zij berust. Waar controleerbare
+zaken voorkomen, zoals de verklaring van Guerzoni in november 1982, gaat het
+om gebeurtenissen die inderdaad hebben plaatsgevonden; de stap van zo'n
+gebeurtenis naar het comité is telkens Colemans eigen toevoeging.
+
+Op de plaatsen waar het boek wel te toetsen is, houdt het geen stand. De
+Britse Oost-Indische Compagnie, die Coleman als oorsprong en voortbestaande
+kern van het comité behandelt, werd in 1874 opgeheven op grond van de East
+India Stock Dividend Redemption Act. Theodor Adorno, die de teksten en de
+muziek van de Beatles zou hebben geschreven, stierf in augustus 1969,
+verachtte populaire muziek en schreef daar in zijn eigen werk met minachting
+over; de wording van de band in Liverpool vanaf 1960, de rol van manager Brian
+Epstein en producer George Martin zijn tot in de agenda's gedocumenteerd.
+
+#### Wat er tegen in te brengen valt
+
+De vorm van dit boek, een genummerde groep verborgen bestuurders met een
+ledenlijst en een uitgeschreven plan, is in de literatuur over
+samenzweringsdenken beschreven als een terugkerend model. Michael Barkun noemt
+dit type de superconspiracy: een verhaal waarin alle afzonderlijke complotten
+aan één bovenliggende hand worden opgehangen, zodat er geen gebeurtenis meer
+overblijft die zonder opdracht plaatsvindt. Het model is historisch te
+dateren. Het ontstaat in 1797 en 1798, wanneer Augustin Barruel en John
+Robison de Franse Revolutie verklaren uit de Beierse Illuminati, en het krijgt
+zijn definitieve vorm in de *Protocollen van de wijzen van Sion* van 1903,
+waarvan *The Times* in augustus 1921 aantoonde dat zij zijn overgeschreven uit
+een Franse satire van Maurice Joly uit 1864.
+
+Die herkomst is bij Coleman niet toevallig. De naam van zijn comité komt van
+een zin die Rathenau in december 1909 in de Weense *Neue Freie Presse*
+schreef, waarin hij als kritiek vaststelde dat driehonderd mannen die elkaar
+allen kennen de economie van Europa leiden. Rathenau bedoelde daarmee de
+oligarchische ontwikkeling van het bedrijfsleven en verklaarde in 1921
+uitdrukkelijk dat het niet om joden ging. Vanaf 1912 werd de zin door Theodor
+Fritsch juist als bekentenis van joodse overheersing gepresenteerd. Coleman
+laat Rathenau weg, houdt het getal aan, en vult zijn ketting met de Zwarte
+Adel en het universeel zionisme. De antisemitische lijn in het boek is daarmee
+geen bijverschijnsel van de vorm; zij zit in de herkomst van de vorm zelf.
+
+Het uitgeversverband zegt iets over het bedoelde publiek. America West
+Publishers, dat de handelsuitgave verzorgde, gaf in dezelfde jaren en met
+aansluitende nummers de Phoenix Journals uit, teksten die zouden zijn
+doorgegeven door een buitenaardse commandant met de naam Gyeorgos Ceres
+Hatonn. Dat bewijst niets over Colemans beweringen, maar het plaatst het boek
+in de markt waarvoor het geschreven is.
+
+De invloed staat in geen verhouding tot de onderbouwing. Colemans indeling en
+woordkeus zijn overgenomen door latere auteurs en circuleren zelfstandig
+verder, los van het boek. Een exemplaar behoorde tot de Engelstalige boeken
+die in 2011 in het complex van Osama bin Laden in Abbottabad werden
+aangetroffen en die de CIA later openbaar heeft gemaakt. Een boek zonder één
+noot heeft dus wel degelijk gevolgen gehad; dat is een reden om te weten wat
+erin staat, en geen reden om aan te nemen dat het klopt.
+
+#### Wat er concreet mee te doen is
+
+- Zoek bij elke bewering die het boek doet, de vindplaats op. Waar die er niet
+is, en dat is vrijwel overal, noteer dat als eigenschap van het boek en niet
+als tijdgebrek van de lezer.
+- Vergelijk de ledenlijst achterin met sterfjaren. Dat is de snelste toets op
+de vraag of het om een vergaderend orgaan gaat.
+- Lees de zin van Rathenau uit 1909 in zijn geheel na en leg die naast
+Colemans gebruik van het getal driehonderd.
+- Gebruik het boek om de vorm te leren herkennen: één noemer, een naamlijst,
+een plan, en geen enkele gebeurtenis die zonder opdracht mag gebeuren.
+
+#### Wat je hierna leest
+
+- 1145. Rule by Secrecy. Hetzelfde onderwerp met veertig bladzijden
+bronvermeldingen; het verschil in verantwoording laat zien wat een
+notenapparaat wel en niet oplevert.
+- 682. Tragedy and Hope. De historicus die het netwerk van Round Table-groepen
+werkelijk uit archieven beschreef, en die door dit genre selectief wordt
+aangehaald.
+- 680. None Dare Call It Conspiracy. De Amerikaanse voorloper uit 1971, met
+dezelfde ketting van instellingen maar zonder de ledenlijst.
+- 915. The Eye in the Pyramid. De romancyclus die dit soort ledenlijsten en
+hiërarchieën uitvergroot tot satire, en die daarmee de vorm blootlegt.
+
+## 1147. Sinister Forces
+
+Peter Levenda, 2005-2006. *Sinister Forces: A Grimoire of American Political
+Witchcraft*, drie delen bij TrineDay, Walterville (Oregon): Book One *The
+Nine* (2005, 397 blz., ISBN 9780975290620, met een voorwoord van Jim Hougan),
+Book Two *A Warm Gun* (2005, 480 blz., ISBN 9780975290637, met een inleiding
+van Dick Russell), Book Three *The Manson Secret* (2006, 432 blz., ISBN
+9780975290644, met een inleiding van Paul Krassner). Paperbackuitgaven in
+2011. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse
+editie gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `occultisme`, `complotdenken`, `geheime diensten`, `amerikaanse
+geschiedenis`
+
+Levenda betoogt in drie delen dat het Amerikaanse politieke geweld van de
+twintigste eeuw pas begrijpelijk wordt wanneer naast politiek en geweld een
+derde grootheid wordt meegenomen: het occulte, waarmee hij alles bedoelt wat
+verborgen is gehouden. Hij verbindt de mindcontrolprogramma's van de CIA met
+naziwetenschappers, mediums, de Manson-groep en een reeks moorden.
+
+Hij noemt zijn werk zelf een grimoire, een handboek voor het oproepen van
+geesten, en werkt associatief: gelijktijdigheid en toeval behandelt hij als
+aanwijzing in plaats van als ruis. De documenten waarop hij steunt zijn vaak
+echt; de verbindingen ertussen zijn dat meestal niet.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Levenda stelt dat de Amerikaanse naoorlogse geschiedenis niet
+te verklaren is met politiek en geweld alleen, en dat er een derde dimensie
+bij hoort die hij het occulte noemt: alles wat geheim, verborgen of onbekend
+is gehouden, van geheime programma's tot inwijdingsgenootschappen en
+spiritistische kringen. In dezelfde jaren waarin de CIA met BLUEBIRD,
+ARTICHOKE en MK-ULTRA zocht naar de geprogrammeerde moordenaar, ontstonden
+volgens hem de Manson-groep, de Process Church en de kring rond de mediumieke
+entiteiten die de Negen worden genoemd, en die gelijktijdigheid is naar zijn
+oordeel zelf een gegeven waarmee een historicus moet werken. Hij noemt zijn
+boek daarom een grimoire en niet een geschiedwerk, en dat is meer dan een
+pose: het is de aankondiging dat toeval hier als aanwijzing telt.
+
+#### De gang van het boek
+
+**Wat de ondertitel aankondigt**
+
+Een grimoire is een handboek met formules om geesten op te roepen. Jim Hougan
+noemt het werk in zijn voorwoord dan ook een handleiding voor het aanroepen
+van demonen, en somt de demonen op: Charles Manson en CIA-directeur Richard
+Helms, Aleister Crowley en David Ferrie, Jack Parsons en de Son of Sam.
+
+Levenda zegt in zijn inleiding dat hij het onderwerp niet met afstandelijke
+objectiviteit kan behandelen, dat de academische geschiedschrijving
+betrokkenheid van de onderzoeker afkeurt, en dat hij tot die betrokkenheid
+veroordeeld is omdat hij de jaren in kwestie zelf heeft meegemaakt. Hij
+vermeldt ook waar het idee vandaan komt: een tweedelig stuk van Craig Karpel
+in de *Village Voice* tijdens Watergate, getiteld Patriotic Witchcraft.
+
+**Deel één: The Nine**
+
+Het eerste deel valt uiteen in drie afdelingen. Deep Background behandelt een
+occulte voorgeschiedenis van Amerika: de grafheuvels van de moundbuilders, de
+heksenprocessen van Salem, het ontstaan van de mormoonse kerk, en vervolgens
+Ashland in Kentucky, waar Manson opgroeide en waar in 1969 een familielid van
+hem, Darwin Scott, met een keukenmes werd doodgestoken in een zaak die nooit
+is opgelost. Levenda reed er heen en beschrijft wat hij aantrof.
+
+Agents of the Devil gaat over Operatie Paperclip, over naziwetenschap en
+psychologische oorlogvoering, en over BLUEBIRD, ARTICHOKE en MK-ULTRA.
+Crossfire behandelt de moord op Kennedy en de Hollywoodwereld rond de film
+*Rosemary's Baby*. De Negen uit de titel zijn de entiteiten die de kring rond
+arts en parapsycholoog Andrija Puharich vanaf de jaren vijftig meende te
+ontvangen, en het gezelschap dat zich daaromheen vormde.
+
+**Deel twee: A Warm Gun**
+
+Het tweede deel gaat over de politieke moorden. Levenda werkt de vraag uit of
+Sirhan Sirhan onder hypnose handelde toen hij Robert Kennedy doodschoot,
+behandelt Nixon en wat hij de Dark Tower noemt, legt de middeleeuwse sekte van
+de Assassijnen naast latere vormen van terrorisme, en zet
+ondervragingstechnieken van de inlichtingendiensten naast sjamanistische en
+rituele praktijken.
+
+De redenering is hier het meest zichtbaar. Waar hij zich op de vrijgegeven
+stukken over mindcontrol baseert, staat hij op vaste grond. Waar hij van de
+ene naam naar de andere loopt, moet de lezer zelf beslissen of hij het spoor
+volgt.
+
+**Deel drie: The Manson Secret**
+
+Het derde deel behandelt de methode van Stanislavski, waarmee acteurs zich een
+ander karakter eigen maken, als tegenhanger van inwijding en van bewuste
+persoonlijkheidsverandering. Daaromheen komen filmmaker Kenneth Anger en zijn
+belangstelling voor Crowley, regisseur Donald Cammell en diens vader C.J.
+Cammell die de eerste levensbeschrijving van Crowley schreef, de kring rond de
+Rolling Stones, Jim Morrison, David Lynch, de dood van Marilyn Monroe en de
+vraag hoe een moordenaar wordt gemaakt.
+
+**Toeval als werkwijze**
+
+Levenda vertelt dat hij tijdens zijn onderzoek ontdekte dat hij via een
+vroegere werkgever twee handdrukken verwijderd was van de moorden op Sharon
+Tate en het echtpaar LaBianca, en dat hij daarna nog zulke gevallen tegenkwam.
+Zijn gevolgtrekking is dat toeval zelf een verwaarloosde factor in de
+geschiedenis is, en hij beroept zich daarbij op Jungs begrip synchroniciteit.
+
+Dat is het scharnier van het hele werk. Een voorbeeld staat in het hoofdstuk
+over BLUEBIRD: Levenda leidt de naam van dat CIA-project terug naar het
+toneelstuk *L'Oiseau bleu* van Maurice Maeterlinck uit 1908, wijst op
+overeenkomsten tussen de zoektocht in dat stuk en de zoektocht van de CIA, en
+komt tot de opvatting dat de bedenker van de projectnaam meer op het oog had
+dan een waarheidsserum. Wie de premisse deelt, ziet daar een aanwijzing. Wie
+haar niet deelt, ziet een naam die iemand mooi vond.
+
+**Wat de uitgever ervan zegt**
+
+Op de achterflap van deel twee staat dat dit geen speculatieve
+geschiedschrijving is maar berust op primaire bronnen en historische
+documenten. Dat staat op gespannen voet met de ondertitel die de auteur zelf
+koos. Beide beweringen zijn ten dele waar: de documenten zijn echt en worden
+met paginanummer en uitgave aangehaald, en het verband ertussen is het werk
+van de schrijver.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| grimoire | Handboek met formules voor het oproepen van geesten; Levenda gebruikt het woord als aanduiding van zijn eigen genre. |
+| de Negen | De groep entiteiten die de kring rond Andrija Puharich vanaf de jaren vijftig meende te ontvangen, en die de titel van deel één levert. |
+| MK-ULTRA | Het CIA-programma voor gedragsbeïnvloeding waarvan de administratie in 1973 op last van directeur Richard Helms werd vernietigd. |
+| BLUEBIRD en ARTICHOKE | De voorlopers van MK-ULTRA uit de jaren vijftig, gericht op hypnose, ondervraging en bescherming tegen vijandelijke beïnvloeding. |
+| Weltanschauungskrieg | Het Duitse woord voor oorlogvoering om het wereldbeeld, waaruit volgens Levenda de Amerikaanse term psychologische oorlogvoering is vertaald. |
+| synchroniciteit | Jungs term voor betekenisvol toeval, door Levenda gebruikt om samenvallende gebeurtenissen als gegeven te behandelen. |
+| Process Church of the Final Judgment | In 1966 in Londen ontstane groepering die in dit genre steeds met de Manson-kring in verband wordt gebracht. |
+| parapolitiek | Aanduiding voor het onderzoek naar het gebied waar inlichtingenwerk, misdaad en politiek in elkaar overlopen. |
+
+#### Waar het argument op rust
+
+Levenda werkt met een notenapparaat. Hij geeft auteur, uitgever, jaar, ISBN en
+paginanummer, en hij vermeldt uitdrukkelijk waar hij een bron alleen voor
+feitelijke gegevens gebruikt. Bij zijn hoofdstukken over Manson schrijft hij
+in de noten dat hij de levensloopgegevens ontleent aan Vincent Bugliosi, Ed
+Sanders, John Gilmore en Nikolas Schreck, en dat hij hun theorieën niet
+onderschrijft maar hun ruwe gegevens gebruikt. Dat is een verantwoording die
+in dit genre zelden voorkomt.
+
+De harde kern van het materiaal is echt en openbaar. Wat de CIA aan
+mindcontrolonderzoek deed, is bekend uit de senaatsonderzoeken van de jaren
+zeventig en uit de financiële stukken die aan de vernietigingsopdracht van
+1973 ontsnapten en later zijn vrijgegeven. Levenda leunt daarvoor grotendeels
+op het werk van John Marks, dat hij bij naam en pagina aanhaalt. Zijn eerdere
+boek over nazi-occultisme berustte op eigen onderzoek in het Amerikaanse
+nationaal archief en de Library of Congress, en dat materiaal keert hier
+terug.
+
+De zwakte zit tussen de documenten. De losse feiten zijn per stuk vaak juist;
+wat ze aan elkaar bindt is de nabijheid in tijd, plaats of naam. Levenda
+verhult dat niet, hij benoemt het als methode. Het gevolg is dat de lezer die
+de premisse over betekenisvol toeval niet aanvaardt, met een reeks juiste
+gegevens overblijft waaruit geen conclusie volgt.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat de werkwijze niet te weerleggen is. Wanneer twee
+zaken dicht bij elkaar liggen in tijd of plaats, telt dat als vondst; ligt er
+niets dichtbij, dan wordt er verder gezocht. Er is geen waarneming denkbaar
+die het betoog tegenspreekt. Een geschiedwerk dat zo is opgezet kan wel
+materiaal aandragen, maar het kan geen stelling toetsen, en dus ook niet
+vaststellen dat een verband ontbreekt.
+
+Op detailniveau glijdt het soms uit. In de passage over Maeterlinck schrijft
+Levenda dat in *Het leven der bijen* uit 1901 het begrip meme wordt
+geïntroduceerd, bedacht door een Duitse psycholoog die hij Richard Sauder
+noemt en die ook het begrip engram zou hebben gemunt. Het begrip engram komt
+van de Duitse zoöloog Richard Semon, in 1904; het woord meme komt van Richard
+Dawkins, in 1976. Zulke fouten zijn klein, maar zij zitten precies op de
+plaatsen waar de verbanden worden gelegd.
+
+De uitgeversclaim dat het geen speculatieve geschiedschrijving is, houdt geen
+stand tegenover de eigen ondertitel van de auteur. Wie deel twee koopt op
+grond van die flaptekst, krijgt iets anders dan wordt aangekondigd. De drie
+delen tellen samen ruim dertienhonderd bladzijden en er zit veel herhaling in.
+
+Het meest gevoelige punt is de verbinding tussen Manson en de Process Church,
+die in dit hele genre terugkeert. Die verbinding komt oorspronkelijk uit het
+boek van Ed Sanders uit 1971, en juist dat hoofdstuk is na juridische stappen
+uit de Amerikaanse edities verwijderd. Wie er nu over leest, leest over een
+claim die de oorspronkelijke uitgever heeft ingetrokken. Levenda gebruikt
+Sanders voor gegevens en niet voor die theorie, maar de sfeer van het verband
+blijft in het boek aanwezig zonder dat de herkomst ervan wordt gewogen.
+
+#### Wat er concreet mee te doen is
+
+- Lees per hoofdstuk eerst de noten. Daar staat welk deel op vrijgegeven
+stukken berust en welk deel op andere auteurs uit hetzelfde genre.
+- Markeer elke overgang tussen twee onderwerpen en schrijf op waarom die
+overgang wordt gemaakt: een document, een getuigenis of een gelijkenis.
+- Gebruik het als bronnenoverzicht en niet als betoog. De verwijzingen naar
+het MK-ULTRA-materiaal zijn bruikbaar los van de stelling van het boek.
+- Leg het naast een gedocumenteerde behandeling van hetzelfde onderwerp, om te
+zien welk deel van het verhaal zonder de derde dimensie overeind blijft.
+
+#### Wat je hierna leest
+
+- 665. The Search for the "Manchurian Candidate". De gedocumenteerde
+tegenhanger over MK-ULTRA, geschreven op de financiële stukken die aan de
+vernietiging van 1973 ontkwamen; Levenda haalt dit boek herhaaldelijk bij naam
+en pagina aan.
+- 750. Acid Dreams. Over LSD, de CIA en de tegencultuur van de jaren zestig,
+hetzelfde terrein met journalistieke in plaats van associatieve methode.
+- 1148. The Family. Het boek waaruit de verbinding tussen de Manson-groep en
+het occulte milieu oorspronkelijk stamt, inclusief het hoofdstuk dat er later
+uit is gehaald.
+- 925. Cosmic Trigger I: Final Secret of the Illuminati. Een memoir uit
+hetzelfde milieu waarin betekenisvol toeval eveneens als leidraad wordt
+genomen, maar dan met openlijke twijfel aan de eigen waarneming.
+
+## 1148. The Family
+
+Ed Sanders, 1971. *The Family: The Story of Charles Manson's Dune Buggy Attack
+Battalion* (E.P. Dutton, New York, 1971, 412 blz., ISBN 0525103007; Britse
+uitgave Rupert Hart-Davis, Londen, 1972). Herziene edities in 1990 en in 2002
+bij Thunder's Mouth Press onder de kortere titel *The Family*, 560 blz., ISBN
+9781560253969, met een nawoord over de rechtszaken; heruitgave Hachette, 2023.
+Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse
+edities gebaseerd. Rubriek: geschiedenis en samenleving.
+Tags: `misdaad`, `sekten`, `onderzoeksjournalistiek`, `jaren zestig`
+
+Dichter en Fugs-oprichter Ed Sanders verhuisde in 1970 naar Los Angeles,
+volgde het proces tegen Charles Manson en zijn volgelingen en werkte anderhalf
+jaar aan een reconstructie van de groep: het procesdossier van
+vijfentwintigduizend bladzijden, sectierapporten, knipsels en eigen gesprekken
+op het Spahn-filmranch en in Death Valley.
+
+Het resultaat is een chronologisch dossier in korte, harde zinnen, zonder
+psychologische duiding. Waar Sanders bij zijn materiaal blijft, is het boek
+nog altijd de volste beschrijving van hoe die groep leefde. Waar hij een
+breder occult netwerk aanneemt, loopt hij op zijn bewijs vooruit, met gevolgen
+die tot een rechtszaak en tot een geschrapt hoofdstuk hebben geleid.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Sanders betoogt dat de moorden van augustus 1969 geen
+plotselinge uitbarsting waren maar het sluitstuk van twee jaar waarin een
+groep jonge mensen onder Manson leefde van diefstal, verdovende middelen,
+dwang en een zelfgemaakte godsdienst, en dat het spoor van die groep doorloopt
+in een breder milieu van Californische occulte genootschappen. Het eerste deel
+van die stelling draagt hij met eigen veldwerk en processtukken. Het tweede
+deel is de plek waar het boek verder gaat dan zijn materiaal, en het is ook
+precies het deel dat na juridische stappen uit latere edities is verdwenen.
+
+#### De gang van het boek
+
+**Wie het schreef en hoe**
+
+Ed Sanders was dichter, medeoprichter van de rockgroep The Fugs, uitgever van
+een eigen tijdschrift en houder van een boekwinkel in New York. Hij had geen
+journalistieke opleiding en werd door de zaak zelf tot onderzoeker gemaakt.
+Hij nam het volledige procesverslag door, ongeveer vijfentwintigduizend
+bladzijden, plus enkele duizenden bladzijden knipsels en de sectierapporten,
+en bracht dat onder in onderwerps- en tijdmappen.
+
+Voor het veldwerk schakelde hij hulponderzoekers in en gebruikte hij
+vermommingen, omdat een deel van Mansons omgeving gewelddadig was. Robert
+Christgau, die het boek in de *New York Times* besprak, meldde de regel die
+Sanders zichzelf oplegde: niets gebruiken wat niet van minstens twee
+afzonderlijke personen afkomstig was.
+
+**De vorm: een dossier in tijdsvolgorde**
+
+Het boek volgt de chronologie, van Mansons jeugd en gevangenisjaren via zijn
+vrijlating in maart 1967, de tijd in Haight-Ashbury in San Francisco, de
+intrek op het Spahn Movie Ranch bij Los Angeles, de moord op muziekleraar Gary
+Hinman, de moorden bij het huis van Sharon Tate en bij het echtpaar LaBianca
+op 8, 9 en 10 augustus 1969, de vlucht naar het Barker-ranch in Death Valley,
+de arrestaties en het proces.
+
+Sanders schrijft kort en droog, verzint eigen samenstellingen, weigert te
+psychologiseren en spreekt geen oordeel uit over de daders. Christgau noemde
+die gegevensdrift een bewuste keuze van een dichter en vond het boek er
+waarachtiger door. Andere lezers hebben het om dezelfde reden een vierhonderd
+bladzijden dik politiedossier genoemd.
+
+**Het aanvalsbataljon uit de ondertitel**
+
+De ondertitel is letterlijk bedoeld. De groep bouwde uit gesloopte
+auto-onderdelen duinbuggy's om zich in de woestijn te kunnen verplaatsen, en
+Manson sprak over een bodemloze put in Death Valley waarin de zijnen de
+komende ondergang zouden overleven. Sanders neemt de woorden van de groep zelf
+serieus als beschrijving van wat zij geloofde, en niet als achteraf bedachte
+verklaring. Dat is de sterkste keuze in het boek: het laat zien dat de leer
+waaronder gemoord werd, in de groep dagelijks werd gesproken.
+
+**Het bredere netwerk**
+
+Sanders plaatst de groep in een Californisch landschap van kleine
+genootschappen: de Process Church of the Final Judgment, de Solar Lodge, een
+afsplitsing rond de Ordo Templi Orientis, en de Church of Satan van Anton
+LaVey. Hij suggereert verkeer en overlap tussen die groepen en de
+Manson-kring.
+
+Voor dat deel had hij aanmerkelijk minder materiaal dan voor de rest. Zijn
+beeld van de Solar Lodge kwam grotendeels van Grady McMurtry, destijds hoofd
+van de Ordo Templi Orientis, die in het boek zelf niet bij naam wordt genoemd.
+Latere beschrijvingen door mensen die bij die loge betrokken waren, geven een
+aanzienlijk minder dramatisch beeld dan Sanders.
+
+**Het hoofdstuk dat verdween**
+
+De Process Church spande een smaadprocedure aan tegen de Amerikaanse uitgever
+wegens het hoofdstuk waarin zij met Manson in verband werd gebracht. De
+uitgever schikte en haalde het hoofdstuk uit alle volgende drukken; in nog
+niet verkochte exemplaren werd een blad geplakt met de mededeling dat wat in
+het boek over de Process stond, ongegrond was. Daarna klaagde de Process de
+Britse uitgever aan, verloor die zaak en moest de proceskosten dragen.
+
+In de herziene edities van 1990 en 2002 zijn niet alleen dat hoofdstuk maar
+ook de overige verwijzingen naar de Process en naar de Solar Lodge weg. De
+editie van 2002 bevat een nawoord waarin Sanders de juridische geschiedenis
+beschrijft. Wie het boek nu koopt, leest dus een andere versie dan die van
+1971, en de sterkste bewering eruit is voor de hedendaagse lezer niet meer te
+controleren.
+
+**Wat het boek de taal in bracht**
+
+In dit boek staat de eerste bekende vindplaats van het woord snuff film.
+Sanders geeft een gesprek weer met een anonieme voormalige omgangsgenoot van
+de groep, die vertelt dat er een moord op film is vastgelegd tijdens een
+ritueel. Er is bij de inval op het Spahn-ranch filmapparatuur aangetroffen,
+maar er is nooit zulke film opgedoken, niet daar en nergens anders. Het woord
+is blijven bestaan en heeft een hardnekkige mythe gevoed, die in de jaren
+zeventig en tachtig zelfstandig verder is gegroeid. Het is het duidelijkste
+voorbeeld van wat er gebeurt wanneer één anonieme bron zonder voorbehoud wordt
+afgedrukt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| de Family | De naam waaronder de groep rond Manson zichzelf en elkaar aanduidde. |
+| duinbuggy-aanvalsbataljon | Sanders' aanduiding voor de gemotoriseerde woestijnopzet waarmee de groep zich op de verwachte ondergang voorbereidde. |
+| Spahn Movie Ranch | Het vervallen filmdecor bij Los Angeles waar de groep in 1968 en 1969 woonde en werkte. |
+| bodemloze put | De schuilplaats in Death Valley waarover Manson sprak, ontleend aan het bijbelboek Openbaring. |
+| Helter Skelter | Mansons naam voor de rassenoorlog die hij verwachtte en waaruit hij als heerser zou opstaan, ontleend aan een liedtitel van de Beatles. |
+| Process Church of the Final Judgment | De in 1966 in Londen ontstane groepering waarover het hoofdstuk ging dat na de schikking uit het boek verdween. |
+| Solar Lodge | Californische afsplitsing rond de Ordo Templi Orientis, door Sanders in verband gebracht met het milieu rond Manson. |
+| snuff film | Een op film vastgelegde echte moord; het begrip is voor het eerst in dit boek te vinden en berust daar op één anonieme zegsman. |
+
+#### Waar het argument op rust
+
+De onderbouwing van het feitelijke deel is voor dit onderwerp uitzonderlijk
+stevig. Sanders werkte met het volledige procesverslag, met sectierapporten en
+met eigen gesprekken op de plaatsen zelf, en hield zich aan de regel dat een
+gegeven van twee onafhankelijke personen moest komen. Hij deed dat in een
+periode waarin de zaak nog niet was afgerond en getuigen bereikbaar waren.
+Daarom wordt het boek nog steeds aangehaald als de volste beschrijving van het
+dagelijks bestaan van de groep, ook door auteurs die zijn conclusies niet
+delen.
+
+Zijn stijl draagt aan die stevigheid bij. Doordat hij niet duidt en niet
+verklaart, blijft zichtbaar wat er is waargenomen en door wie. Wie de
+bronvermeldingen naloopt, kan bij veel passages nagaan waar het vandaan komt.
+
+Waar hij zijn materiaal verlaat, is dat aan de tekst niet te zien, en dat is
+het echte gebrek. De hoofdstukken over de occulte genootschappen zijn in
+dezelfde toon geschreven als de hoofdstukken over het procesdossier, terwijl
+zij op één zegsman berusten of op wat er in het milieu rondging. Voor de Solar
+Lodge kwam dat materiaal van de toenmalige leider van een concurrerende orde,
+die zelf buiten schot bleef. De sfeer van betrouwbaarheid die de rest van het
+boek verdient, komt zo terecht op passages die haar niet verdienen.
+
+#### Wat er tegen in te brengen valt
+
+Het scherpste bezwaar is de aanname van een samenhangend occult netwerk.
+Sanders neemt aan dat de Manson-groep geen op zichzelf staand verschijnsel was
+maar een uitloper van een breder milieu dat elkaar kende en beïnvloedde. Voor
+die aanname bestond in 1971 aanzienlijk minder grond dan voor de rest van het
+boek, en de uitgever heeft dat na de schikking feitelijk erkend door het
+hoofdstuk terug te trekken. Dat de Britse rechter de Process in het ongelijk
+stelde, zegt iets over het Britse smaadrecht en niet over de juistheid van de
+bewering.
+
+De naast liggende vergelijking is *Helter Skelter* van openbaar aanklager
+Vincent Bugliosi en Curt Gentry uit 1974, dat later veel meer lezers kreeg.
+Beide auteurs hadden een belang: Bugliosi moest één motief overeind houden dat
+een jury overtuigde, Sanders had een opvatting over een tegencultuur die van
+binnenuit was aangetast. Bugliosi is de betere bron voor de zaak zoals die is
+bewezen, Sanders voor hoe de groep leefde. Geen van beide boeken is een
+onafhankelijke beschrijving.
+
+De vorm heeft een prijs. Doordat Sanders niet weegt en niet ordent naar
+zekerheid, krijgt de lezer het bevestigde en het gehoorde in dezelfde stem
+aangeboden. Christgau, die het boek gunstig besprak, wees er bovendien op dat
+Sanders zijn stelling over de kwetsbaarheid van de bloemenbeweging één keer
+noemt en er daarna nooit meer op terugkomt, zodat de lezer de gevolgtrekking
+zelf moet maken.
+
+Het duurzaamste gevolg van het boek is een woord dat een mythe werd. Uit één
+anonieme verklaring over een gefilmde moord is het begrip snuff film ontstaan,
+dat sindsdien in politieonderzoeken, kranten en films een eigen leven leidt
+zonder dat er ooit een geval is aangetoond. Dat is de duidelijkste illustratie
+van wat er misgaat wanneer een journalist die verder streng is, één keer een
+onbevestigde bewering zonder voorbehoud opneemt.
+
+#### Wat er concreet mee te doen is
+
+- Ga na welke editie voorhanden is. De tekst van 1971 en die van 2002
+verschillen op het punt waar de meeste discussie over gaat.
+- Lees het nawoord van de editie van 2002 eerst; daarin staat welke passages
+zijn verdwenen en waarom.
+- Scheid bij het lezen de passages die op processtukken teruggaan van de
+passages die op één zegsman rusten. De stijl maakt dat onderscheid niet voor
+de lezer.
+- Leg het naast het verslag van de aanklager om te zien hoe hetzelfde
+feitenmateriaal twee verschillende verhalen kan dragen.
+
+#### Wat je hierna leest
+
+- 1147. Sinister Forces. Bouwt op Sanders' gegevens voort en trekt de lijn
+naar mindcontrol en occultisme door; Levenda gebruikt dit boek uitdrukkelijk
+voor feiten en niet voor de theorie.
+- 750. Acid Dreams. Over LSD, de inlichtingendiensten en de tegencultuur
+waarin de Manson-groep ontstond, geschreven met dezelfde journalistieke
+inslag.
+- 665. The Search for the "Manchurian Candidate". De gedocumenteerde
+behandeling van de vraag of iemand tot moordenaar te programmeren valt, waar
+dit boek alleen naar suggereert.
+
+## 1149. Before the Pharaohs
+
+Edward F. Malkowski, 2006. *Before the Pharaohs: Egypt's Mysterious
+Prehistory* (Bear & Company, Rochester, Vermont, 2006, 336 blz., ISBN 978 1
+59143 048 3; de eerste druk verscheen in december 2005). Er bestaat geen
+Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.
+Rubriek: filosofie en mystiek.
+Tags: `egypte`, `archeologie`, `grenswetenschap`, `wetenschapsgeschiedenis`
+
+Malkowski verzamelt argumenten voor de stelling dat de Egyptische beschaving
+voortkomt uit een oudere en technisch verder ontwikkelde cultuur die uit de
+archeologische chronologie is weggevallen. Het geologische debat over de
+watererosie rond de Sfinx vormt de opening; daarna volgen het klimaat van de
+groene Sahara, de steenbewerking in hardsteen, de megalieten van Nabta Playa
+en een mondelinge overlevering over een land dat Bu Wizzer heet.
+
+Het boek is een compilatie. Het brengt het werk van John Anthony West, Robert
+Schoch, Colin Reader, Christopher Dunn, Thomas Brophy en Stephen Mehler onder
+één stelling samen. Wat die auteurs onderling verdeeld houdt, verdwijnt
+daarbij grotendeels uit beeld.
+
+### Uitgebreide samenvatting
+
+**De stelling.** De dynastieke Egyptenaren hebben hun steenbewerking, hun
+sterrenkunde en hun bouwkunst geërfd van een oudere beschaving die aan het
+einde van de laatste ijstijd ten onder ging, en zij hebben daar zelf weinig
+aan toegevoegd. De gangbare chronologie, waarin de Sfinx omstreeks 2500 v.Chr.
+onder Chefren is uitgehouwen, dekt volgens Malkowski daarom alleen de laatste
+fase van een veel langere geschiedenis. De door regen gemaakte verwering rond
+het beeld is het zichtbaarste spoor van die verdwenen cultuur.
+
+#### De gang van het boek
+
+**Het erosieargument**
+
+Het boek opent met de Sfinx. René Schwaller de Lubicz merkte al in de jaren
+vijftig op dat de verwering van het beeld en van de uitgehakte put eromheen op
+water lijkt te wijzen. John Anthony West nam die waarneming over en zocht in
+1990 een geoloog die haar wilde toetsen: Robert Schoch van Boston University.
+Schoch bekeek de golvende, verticaal ingesneden profielen in de wanden van de
+put en kwam uit op langdurige regenval als meest waarschijnlijke oorzaak.
+Omdat Egypte sinds het derde millennium v.Chr. te droog is voor zulke
+verwering, dateerde hij het uithakken van de romp tussen 7000 en 5000 v.Chr.,
+met een kop die later zou zijn bijgewerkt.
+
+Schoch en West brachten dit in oktober 1991 naar de jaarvergadering van de
+Geological Society of America in San Diego. In februari 1992 wijdde de
+American Association for the Advancement of Science er in Chicago een aparte
+zitting aan. Malkowski geeft die geschiedenis uitvoerig weer, inclusief het
+seismisch onderzoek waarmee Schoch en Thomas Dobecki de diepte van de
+verweerde laag onder de put maten.
+
+**Wat geologen en egyptologen ertegen inbrachten**
+
+Het weerwoord komt in het boek aan bod, al weegt het lichter dan de these
+zelf. James Harrell van de University of Toledo voerde aan dat de insnijdingen
+door haloclastie zijn ontstaan: zoutkristallen die in de poriën van kalksteen
+groeien en weer krimpen en zo het oppervlak losdrukken. Het vocht daarvoor zat
+volgens hem in het zand dat de Sfinx het grootste deel van zijn bestaan heeft
+bedekt. K. Lal Gauri kwam langs een andere weg bij hetzelfde proces uit en
+zocht de vochtbron in dauw en luchtvochtigheid. Beiden wezen erop dat er tot
+omstreeks 2200 v.Chr. nog zware buien in Egypte vielen, zodat regen ook binnen
+de gangbare datering beschikbaar blijft als verklaring.
+
+Mark Lehner bestreed een tweede pijler. Schoch had de onregelmatige achterkant
+van de granieten bekleding van de nabijgelegen tempels gelezen als diepe
+verwering van de kalksteen daaronder, wat een lange blootstelling vóór het
+aanbrengen van dat graniet zou vergen. Volgens Lehner kapten de steenhouwers
+de kalksteen onregelmatig weg om het graniet passend te maken, een werkwijze
+die bij de daltempel van Mycerinus goed te zien is. Daarnaast staat het
+archeologische bezwaar dat Kenneth Feder heeft geformuleerd: van een cultuur
+die rond 7000 v.Chr. zo'n monument kon uithakken ontbreekt elk spoor.
+
+**Colin Reader en de kleine verschuiving**
+
+Het tweede hoofdstuk steunt sterk op de Britse geoloog Colin Reader, die het
+erosiepatroon opnieuw bekeek en tot een tussenpositie kwam. Bij Reader is de
+schade veroorzaakt door water dat na hevige buien van het hoger gelegen
+plateau de put in stroomde, en veel minder door regen die rechtstreeks op de
+steen viel. Dat verklaart volgens hem waarom bouwwerken op hoge grond
+nauwelijks zulke sporen dragen. Reader plaatst de Sfinx daarom in de
+vroegdynastieke tijd, ruwweg rond 3000 v.Chr., ouder dan de piramide van
+Cheops maar hooguit enkele eeuwen ouder dan de gangbare datum.
+
+Malkowski voert Reader op als steun voor de gedachte dat de chronologie
+wringt. Readers eigen uitkomst ligt duizenden jaren van die van Schoch af en
+laat geen ruimte voor een verloren beschaving.
+
+**Klimaat en de megalieten van Nabta Playa**
+
+Het derde en vierde hoofdstuk gaan over de Sahara. Fred Wendorf en zijn
+medewerkers hebben de natte perioden in de oostelijke Sahara in kaart
+gebracht: tussen ongeveer 8000 en 6000 v.Chr. was het gebied grasland met
+seizoensmeren, waarna het in stappen verdroogde. In die natte fase lag Nabta
+Playa, waar veehouders zich telkens opnieuw vestigden en megalieten
+oprichtten, waaronder een steenkring met zichtlijnen naar het noorden en naar
+de zonsopgang bij de zomerzonnewende.
+
+Malkowski gebruikt Nabta Playa als bewijs dat er ver vóór de eerste dynastie
+sterrenkundige kennis in de regio bestond. Hij leunt daarbij op Thomas Brophy,
+die de stenen leest als een sterrenkaart die tienduizenden jaren terugreikt.
+Wendorf en de astronoom J. McKim Malville hebben één rekenfout in hun eigen
+werk erkend nadat Brophy die aanwees, maar zijn verdergaande conclusie
+afgewezen.
+
+**Steenbewerking en de piramide als werktuig**
+
+Halverwege verschuift het argument van geologie naar techniek. Flinders Petrie
+merkte al op dat vroeg Egyptisch werk in graniet en dioriet buitengewoon
+nauwkeurig is. Christopher Dunn, machinebouwer van beroep, mat granieten
+kisten in het Serapeum bij Sakkara op en concludeerde dat de vlakheid en de
+haaksheid ervan met koperen beitels en zand onbereikbaar zijn. Malkowski leest
+het steenwerk daarop als geërfde vaardigheid.
+
+Dunns voorstel dat de piramide van Cheops trillingen uit de aardkorst opving
+en omzette in bruikbare energie, krijgt in hoofdstuk zes een eigen
+behandeling. Het steunt op de vaststelling dat in de grote piramiden geen
+mummies of grafgiften zijn aangetroffen.
+
+**Herkomst, mummies en een mondelinge overlevering**
+
+De laatste hoofdstukken zoeken de verdwenen cultuur buiten Egypte. Hoofdstuk
+acht behandelt het onderzoek van Svetla Balabanova, die in 1992 in haar van de
+mummie Henut Taui nicotine en cocaïne aantrof, stoffen uit planten die vóór
+Columbus alleen in Amerika groeiden. Malkowski verbindt dat met Augustus Le
+Plongeon, die in de negentiende eeuw meende Maya-inscripties te kunnen lezen
+als het verhaal van een koningin die na een ramp naar Egypte vluchtte.
+
+Hoofdstuk elf voert Bu Wizzer op, de naam die Stephen Mehler ontleent aan
+Abd'el Hakim Awyan, een Egyptische gids die zich drager noemde van een
+mondelinge overlevering. In die lezing is de Sfinx tienduizenden jaren oud en
+oorspronkelijk vrouwelijk, en waren de piramiden werktuigen die met water
+werkten. Het slothoofdstuk zoekt aansluiting bij de megalithische tempels van
+Malta en bij schedelvondsten op de Canarische Eilanden.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| watererosiehypothese | De stelling dat de golvende, verticaal ingesneden verwering rond de Sfinx door langdurige regenval is gemaakt en dus van vóór de verdroging van Egypte dateert. |
+| sfinxput | De uitgehakte kuil waarin de Sfinx ligt; de wanden daarvan dragen de verwering waar het hele debat om draait. |
+| haloclastie | Verwering doordat zoutkristallen in de poriën van steen groeien en krimpen en zo het oppervlak losdrukken, het proces waarmee critici de insnijdingen verklaren. |
+| afvloeiingserosie | Readers verklaring dat de schade komt van regenwater dat van het hoger gelegen plateau de put in stroomde en niet van neerslag op de steen zelf. |
+| geomechanische centrale | Dunns voorstel dat de piramide van Cheops trillingen uit de aardkorst opving en in bruikbare energie omzette. |
+| neter | Egyptisch woord dat gewoonlijk met 'god' wordt vertaald; in de symbolistische lezing duidt het een eigenschap van het goddelijke aan in plaats van een afzonderlijke godheid. |
+| Zep Tepi | De 'eerste keer' uit de Egyptische scheppingsteksten, door Malkowski gelezen als de herinnering aan een werkelijke voorbeschaving. |
+| Bu Wizzer | Naam die in Mehlers weergave van de mondelinge overlevering staat voor het land van Osiris, de veronderstelde voorloper van dynastiek Egypte. |
+| khemitologie | Mehlers benaming voor de studie van die overlevering, bedoeld als tegenhanger van de academische egyptologie. |
+
+#### Waar het argument op rust
+
+Het geologische deel is het stevigste. De waarneming staat vast: de wanden van
+de sfinxput verweren anders dan veel vierdedynastieke bouwwerken op hetzelfde
+plateau, en Schoch heeft dat op vakcongressen verdedigd. Malkowski noemt de
+critici bij naam.
+
+De keten wordt zwakker zodra er een jaartal aan wordt gehangen. Een
+verweringspatroon bevat geen klok. Om van vorm naar datum te komen zijn
+aannames nodig over hoe snel deze kalksteen onder deze omstandigheden slijt,
+en die snelheid is niet onafhankelijk vastgesteld. Voor het seismisch
+onderzoek geldt hetzelfde: de dieptes zijn gemeten, de omrekening naar
+leeftijd berust op een aangenomen slijtsnelheid. De datering van het
+bouwmateriaal wijst de andere kant op. De blokken van de sfinxtempel komen uit
+de put zelf, en luminescentiedatering van de tempels levert het midden tot
+late derde millennium v.Chr. op.
+
+Voor de rest van het boek komt het bewijs uit de tweede hand. Malkowski heeft
+geen veldwerk gedaan; hij vat West, Schoch, Reader, Wendorf, Brophy, Dunn,
+Balabanova en Mehler samen. Die auteurs verschillen sterk in methode en in de
+mate waarin hun werk is nagekeken, en in het boek staan zij naast elkaar alsof
+zij elkaar versterken.
+
+#### Wat er tegen in te brengen valt
+
+Het geologische kernargument is beantwoord, en dat antwoord blijft in het boek
+half staan. Harrell en Gauri leggen de insnijdingen bij zoutverwering, een
+proces dat in het kalksteen van Gizeh aantoonbaar werkzaam is; het Getty
+Conservation Institute stelde begin jaren negentig vast dat zoutkristallisatie
+een deel van de schade verklaart. Lehner ontkrachtte de aanwijzing uit het
+graniet met een bouwtechnische waarneming die op het terrein te controleren
+is. En de klimaatgegevens die Malkowski zelf aanhaalt, waarin de Sahara pas
+rond 2500 v.Chr. definitief verdroogt, ondergraven de aanname dat er na 5000
+v.Chr. geen regen meer was om de Sfinx mee te verweren.
+
+Het archeologische bezwaar blijft onbeantwoord. Wie de Sfinx uithakt moet
+gevoed, gehuisvest en begraven worden. Voor de vierde dynastie is dat allemaal
+teruggevonden, tot en met de nederzetting van de bouwlieden bij Gizeh en de
+namen van werkploegen die in de ontlastingskamers boven de koningskamer zijn
+gekrast. Voor de millennia die Schoch en Malkowski daarvóór plaatsen is er
+niets. Ook het technische argument houdt slechter stand dan het boek
+suggereert. Denys Stocks heeft in honderden proeven met nagebouwd gereedschap
+laten zien dat koperen zagen en boren met kwartszand als slijpmiddel hardsteen
+wel degelijk bewerken, en dat de sporen daarvan overeenkomen met wat op de
+artefacten te zien is.
+
+Het boek gebruikt zijn eigen bronnen selectief. Reader wordt als kroongetuige
+opgevoerd terwijl zijn conclusie, een Sfinx uit de vroegdynastieke tijd, de
+these van een verloren beschaving juist uitsluit. Malville en Wendorf hebben
+Brophy's sterrenkaart afgewezen. Balabanova's uitslagen zijn nooit onder
+gecontroleerde omstandigheden herhaald op vers opgegraven materiaal;
+besmetting van negentiende-eeuwse museumstukken en andere bronnen van nicotine
+in de Oude Wereld zijn nooit uitgesloten. Le Plongeons lezing van de
+Maya-inscripties berustte op het alfabet van Landa, dat als sleutel niet
+werkt; het schrift is pas vanaf de jaren vijftig ontcijferd en levert het
+verhaal van koningin Moo niet op.
+
+De zwakste schakel is Bu Wizzer. Die overlevering rust op één informant,
+doorgegeven via één auteur, zonder tekst, vindplaats of tweede getuige. Er is
+geen manier om haar te toetsen, terwijl een bewering over vijfenzestigduizend
+jaar geschiedenis juist een zware toets nodig heeft. Voor de Canarische
+schedels geldt iets vergelijkbaars: genoomonderzoek uit 2017 aan voorkoloniale
+resten wijst de Guanchen aan als nauw verwant met Noord-Afrikaanse Berbers,
+waarmee de lijn naar een Atlantische restbevolking overbodig wordt.
+
+#### Wat er concreet mee te doen is
+
+- Scheid bij elke datering de waarneming van de omrekening: een vorm in steen
+levert pas een jaartal op als je een slijtsnelheid aanneemt.
+- Zoek bij een claim over een verdwenen beschaving naar het huishouden:
+woningen, afval, graven, gereedschap. Monumenten alleen zijn te weinig.
+- Ga na of een aangehaalde vakgenoot de conclusie van het boek zelf
+onderschrijft.
+- Behandel een laboratoriumuitslag die nooit onder controle is herhaald als
+een open vraag.
+
+#### Wat je hierna leest
+
+- 63. The Demon-Haunted World. Sagan levert de maatstaf waarmee dit soort
+beweringen te wegen zijn, inclusief de vraag hoeveel bewijs een buitengewone
+claim nodig heeft.
+- 602. Civilization or Barbarism. Diop leest de Egyptische oudheid ook tegen
+de gangbare draad in, maar met een historisch en taalkundig apparaat in plaats
+van een verloren beschaving.
+- 1152. Lost Science. Vassilatos past dezelfde vorm, een reeks weggedrukte
+doorbraken, toe op de techniekgeschiedenis van de negentiende en twintigste
+eeuw.
+
+## 1150. The Gods of Eden
+
+William Bramley, 1989. *The Gods of Eden* (Dahlin Family Press, 1989, 535
+blz., ISBN 978 0 940291 00 3; heruitgave Avon Books, New York, 1993, 505 blz.,
+ISBN 978 0 380 71807 8). Er bestaat geen Nederlandse vertaling; de
+samenvatting is op de Avon-editie gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `complotdenken`, `ufo`, `geschiedenis`, `vrijmetselarij`
+
+Bramley begon in 1979 aan een onderzoek naar de oorzaken van oorlog en kwam
+uit bij een buitenaardse macht die de mensheid volgens hem sinds de oudheid
+beheert. Die macht, de Custodians, houdt mensen onwetend via religie en werkt
+op aarde door een genootschap dat hij de Brotherhood of the Snake noemt. In
+eenenveertig hoofdstukken loopt het boek van Sumerische kleitabletten via de
+Zwarte Dood en de vrijmetselarij naar de twintigste eeuw.
+
+Het is opgezet als geschiedschrijving, met noten en een bibliografie, en houdt
+zich naar eigen zeggen aan de gangbare jaartallen en personen. Wat het
+toevoegt is een verklaring die overal past en waarvan de auteur nergens
+aangeeft hoe zij zou kunnen worden weerlegd.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Bramley leest de wereldgeschiedenis als het werk van een
+buitenaardse macht die de aarde als strafkolonie beheert. Die macht, die hij
+de Custodians noemt, liet zich in de oudheid als God vereren, richtte een
+genootschap op dat kennis zou vrijgeven en haar in plaats daarvan achterhoudt,
+en houdt de mensheid sindsdien in gareel met religieuze verdeeldheid, oorlog
+en epidemieën. Oorlog is in dit boek een bestuursinstrument in andermans
+handen, en daaruit verklaart Bramley waarom hij nooit ophoudt.
+
+#### De gang van het boek
+
+**Van oorlogsonderzoek naar vliegende schotels**
+
+De eerste hoofdstukken vertellen hoe de auteur bij zijn onderwerp kwam. Hij
+zocht een oorzaak voor het feit dat oorlog in elke eeuw terugkeert, en stuitte
+volgens eigen zeggen telkens op verhalen over verschijningen aan de hemel op
+de momenten dat conflicten losbraken. Vliegende schotels vond hij aanvankelijk
+onbelangrijk; het patroon dwong hem er in zijn eigen weergave toe.
+
+Daarmee is de vorm van het boek gegeven. Bramley werkt chronologisch en
+behandelt per hoofdstuk een periode, waarbij hij bij elke periode zoekt naar
+hemelverschijnselen, geheime genootschappen en religieuze omslagpunten.
+
+**De Custodians en de Brotherhood of the Snake**
+
+De kern staat in de hoofdstukken vier tot en met acht. Bramley leest
+Sumerische scheppings- en zondvloedteksten letterlijk: de goden die daarin een
+werkras kneden zijn voor hem een buitenaardse bezetting. Eén van hen, Ea, zou
+de mensheid hebben willen bevrijden en daartoe de Brotherhood of the Snake
+hebben opgericht, waarna dat genootschap door de tegenpartij is overgenomen en
+tot beheersinstrument gemaakt.
+
+In het hoofdstuk over de piramidebouwers voert hij aan dat de piramide van
+Cheops zich uitstekend leent als bakenpunt voor luchtvaart, omdat de zijden
+nauwkeurig op de windstreken staan en het bouwwerk vlak bij de dertigste
+breedtegraad ligt. Hij haalt daarnaast een krantenbericht uit november 1966
+aan over zes objecten met lange schaduwen op een foto van de maansonde Lunar
+Orbiter 2.
+
+**Religie als beheersinstrument**
+
+Van hoofdstuk zeven tot zestien loopt Bramley langs Jehova, de joodse
+profeten, Jezus, de Openbaring van Johannes, de pest van Justinianus en
+Mohammed. Zijn redenering is telkens dezelfde: de stichters waren oprecht, hun
+boodschap is daarna gekaapt en omgebogen tot een leer die gehoorzaamheid en
+verwachting van een eindtijd kweekt.
+
+De kruistochten behandelt hij in de gebruikelijke termen. Hij beschrijft de
+bloedbaden bij de inname van Jeruzalem in 1099, het ontstaan van de
+Hospitaalridders en de Tempeliers, de Duitse Orde en de Assassijnen onder
+Hasan-i Sabbah. Die weergave komt overeen met de handboeken van zijn tijd;
+nieuw is alleen de toevoeging dat het genootschap erachter zat.
+
+**De Zwarte Dood**
+
+Hoofdstuk achttien is het bekendste van het boek. Bramley geeft eerst een
+gangbare beschrijving van de pest: builenpest die via vlooien overgaat en
+longpest die van mens op mens gaat, een uitbraak in Europa tussen 1347 en
+1350, ruim vijfentwintig miljoen doden. Vervolgens noemt hij vier raadsels:
+uitbraken zonder voorafgaande rattenplaag, uitbraken in de zomer en in
+dunbevolkte streken, besmetting van afgelegen gemeenschappen zonder contact,
+en een abrupt einde van golven.
+
+Zijn oplossing is biologische oorlogvoering vanuit de lucht. Hij baseert zich
+vrijwel geheel op Johannes Nohls kroniekencompilatie *The Black Death* uit
+1926 en op een zestiende-eeuws wonderboek van Conrad Lycosthenes. Daaruit
+haalt hij berichten over stinkende nevels die aan uitbraken voorafgingen, over
+kometen en vuurbollen, en over zwartgeklede gestalten met zeisen. Van een
+bericht uit Brandenburg in 1559 stelt hij voor dat de zeisen sproeiapparatuur
+waren en dat de omstanders de beweging verkeerd hebben uitgelegd. De
+afbeelding van de Dood met een zeis komt in zijn lezing uit die verschijningen
+voort.
+
+**Van de rozenkruisers naar het papiergeld**
+
+De tweede helft van het boek loopt van Luther en de rozenkruisers via de
+Tempeliersnalatenschap, de graaf van Saint-Germain en de Amerikaanse en Franse
+omwentelingen naar Marx, de Sovjet-Unie en de Verenigde Staten van de jaren
+tachtig. Steeds dezelfde figuur keert terug: een genootschap met
+inwijdingsgraden dat aan beide kanten van een conflict actief is.
+
+Een apart spoor is het geld. Bramley beschouwt een geldstelsel waarin banken
+geld scheppen tegen schuld als een van de belangrijkste beheersmiddelen, en
+wijdt daar meerdere hoofdstukken aan. Het laatste deel van het boek behandelt
+nieuwe religieuze bewegingen, de mormoonse openbaring en de moderne
+ufo-getuigenverhalen als voortzetting van hetzelfde patroon.
+
+**De uitweg en de verantwoording**
+
+De slothoofdstukken zijn opbouwend van toon. Wie iets wil veranderen hoeft
+volgens Bramley niet rijk of machtig te zijn: eerst het eigen leven op orde,
+dan familie en vrienden, dan een verband met een fatsoenlijk doel, dan
+verantwoordelijkheid voor de soort als geheel. Hij bepleit daarnaast een
+geldstelsel zonder bankgeschapen schuld.
+
+In het laatste hoofdstuk verantwoordt hij zijn werkwijze. Hij schrijft dat hij
+jaartallen, personen en gebeurtenissen heeft aangehouden zoals historici die
+aannemen, dat hij zijn probleem niet was dat er te weinig materiaal was maar
+dat er te veel was, en dat hij enkele theorieën heeft laten liggen omdat hij
+ze voor zichzelf niet voldoende kon vaststellen. Hij noemt daarbij ook de
+antisemitische inslag van Nesta Webster als waarschuwing dat een vastgeroeste
+vooringenomenheid dit soort onderzoek onbruikbaar maakt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Custodians | Bramley's naam voor de buitenaardse macht die de aarde volgens hem als bewaakte kolonie beheert en zich als God heeft laten vereren. |
+| Brotherhood of the Snake | Het genootschap dat in het boek oorspronkelijk werd opgericht om geestelijke kennis vrij te geven en daarna in dienst van de bewakers kwam te staan. |
+| Ea | De Sumerische god die Bramley leest als het lid van de bezetting dat de mensheid wilde helpen en daarmee de valstrik mede bouwde. |
+| werkras | De mensheid zoals Bramley haar in de Sumerische teksten terugleest: een soort die is gemaakt om arbeid te verrichten voor de goden. |
+| Custodial religion | Elke godsdienst waarin de bewakers zich volgens het boek als hoogste macht laten vereren om gehoorzaamheid en onderlinge verdeeldheid te kweken. |
+| Doom Prophets | Bramley's aanduiding voor de reeks eindtijdverkondigers die volgens hem opzettelijk een verwachting van vernietiging in stand houden. |
+| Robo-Sapiens | Het beeld van de mens als geestelijk wezen dat door leerstelsels en beloningen tot voorspelbaar gedrag is afgericht. |
+| Funny Money | Zijn aanduiding voor papiergeld dat door banken tegen schuld wordt geschapen en dat hij als beheersmiddel behandelt. |
+| Escape from Eden | Het slotidee dat bevrijding begint bij persoonlijke verantwoordelijkheid in de eigen omgeving en van daaruit naar buiten groeit. |
+
+#### Waar het argument op rust
+
+Het boek is uitgerust als geschiedwerk. Er staan noten onder de hoofdstukken
+en achterin een bibliografie van enkele honderden titels, en Bramley verwijst
+geregeld naar bladzijde en editie. Waar hij gangbare gebeurtenissen navertelt,
+klopt die weergave in grote lijnen met de handboeken van eind jaren tachtig.
+De doden- en jaartallen bij de Zwarte Dood, de gang van de kruistochten, het
+ontstaan van de ridderorden en de opkomst van de Assassijnen zijn correct
+weergegeven; moderne schattingen leggen de sterfte in Europa hoger, op ruwweg
+dertig tot zestig procent van de bevolking.
+
+De dragende beweringen rusten op ander materiaal. Voor de oudheid leest hij
+Sumerische en Bijbelse teksten letterlijk als verslagen van technische
+gebeurtenissen. Voor de pest gebruikt hij vrijwel uitsluitend Nohls
+kroniekenbundel uit 1926 en een wonderboek uit 1557, twee werken die
+middeleeuwse verhalen verzamelen zonder ze te wegen. Voor de moderne tijd
+leunt hij op de literatuur over geheime genootschappen, waaronder Nesta
+Webster, van wie hij de vooringenomenheid zelf signaleert.
+
+Zijn eigen slothoofdstuk maakt duidelijk wat de toets is. Hij verwierp de
+theorie dat George Washington door Adam Weishaupt is vervangen, de theorie dat
+de maanlandingen in een studio zijn gefilmd en de theorie van een holle aarde,
+omdat hij daar naar eigen zeggen niet genoeg materiaal voor vond om ze voor
+zichzelf vast te stellen. Persoonlijke overtuiging is daarmee de zeef. Wat de
+zeef doorlaat, wordt in het boek als aanwijzing behandeld.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is methodisch. Er staat in de eenenveertig hoofdstukken
+geen enkele waarneming beschreven die de stelling zou ontkrachten. Verschijnt
+er iets aan de hemel, dan is dat de bewaker; verschijnt er niets, dan houdt
+hij een laag profiel, zoals Bramley aan het slot van hoofdstuk zeventien
+uitdrukkelijk stelt. Een verklaring die door beide uitkomsten wordt bevestigd,
+verklaart niets. De brede lezing van bronnen als aanwijzing zonder criterium
+heeft bovendien tot gevolg dat een dertiende-eeuwse kroniek, een
+zestiende-eeuws wonderboek en een krantenbericht uit 1966 in het boek dezelfde
+bewijskracht krijgen.
+
+Bij de Zwarte Dood is de fout aanwijsbaar. De middeleeuwse geneeskunde werkte
+met de miasmaleer, waarin bedorven lucht de oorzaak van ziekte was. Dat
+tijdgenoten massaal stinkende nevels rapporteerden is precies wat die leer
+voorspelt; het is daarom geen onafhankelijke aanwijzing voor een verstoven
+ziektekiem. De raadsels die Bramley opsomt zijn overigens serieus: Graham
+Twigg betwistte in 1984 op vakinhoudelijke gronden dat de pestbacterie de
+dader was, en Samuel Cohn deed dat later opnieuw. Die vraag is beslist door
+oud DNA. Uit de resten in het pestgrafveld East Smithfield in Londen,
+aangelegd in 1348 en 1349, is *Yersinia pestis* gereconstrueerd, en hetzelfde
+is elders in Europa gelukt. Longpest gaat bovendien van mens op mens over,
+waarmee besmetting van afgelegen gemeenschappen zonder ratten geen raadsel
+meer is.
+
+Ook het religieuze geweld van 1348 en 1349 heeft geen buitenaardse hand nodig.
+De geselaarsprocessies, de beschuldiging van bronvergiftiging en de
+vernietiging van de joodse gemeenschappen in Straatsburg, Bazel en Mainz staan
+uitvoerig in de bronnen, met aanwijsbare drijfveren: paniek, stedelijke
+schulden aan joodse geldschieters en een kerk die de geselaars veroordeelde
+maar de pogroms niet kon tegenhouden. Bramley is te prijzen om zijn
+waarschuwing tegen Websters antisemitisme, maar zijn eigen bouwwerk, waarin
+alle godsdienst een beheerssysteem van buiten is, heeft dezelfde vorm als de
+complottheorieën waartegen hij waarschuwt.
+
+Op een aantal punten is het boek eenvoudig onjuist. De piramide van Cheops
+plaatst hij rond 2000 v.Chr., ongeveer vijf eeuwen te laat; de gangbare
+datering ligt bij 2560 v.Chr. De maanfoto van november 1966 bestaat, maar
+fotometrische analyse van de schaduwlengte levert voor het grootste object een
+hoogte op die voor een gewoon rotsblok normaal is. En de gedachte dat de
+vrijmetselarij achter de Amerikaanse omwenteling zat, wordt niet gedragen door
+de ledenlijsten: van de ondertekenaars van de Onafhankelijkheidsverklaring is
+maar een kleine minderheid aantoonbaar ingewijd geweest.
+
+Tot slot is er de herkomst van het wereldbeeld. Bramley is een pseudoniem, en
+in de noten en de bibliografie staan werken van L. Ron Hubbard, uitgegeven
+door de Church of Scientology. Het beeld van de mens als geestelijk wezen dat
+op een gevangeniswereld is gestrand onder buitenaards beheer volgt de
+kosmologie van die beweging op de voet. Dat maakt het niet vanzelf onjuist,
+maar het verklaart waarom een boek dat zich als onderzoek presenteert bij een
+uitkomst uitkomt die van tevoren vaststond.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij elke verklaring welke waarneming haar zou omverwerpen. Blijft het
+antwoord uit, dan is het geen historische stelling.
+- Ga na waar tijdgenoten hun beschrijving vandaan hadden: een leer die ziekte
+aan bedorven lucht toeschreef, brengt vanzelf berichten over bedorven lucht
+voort.
+- Scheid bij dit soort boeken de navertelling van de toevoeging. De
+navertelling klopt vaak; de toevoeging draagt de stelling.
+- Zoek op wat er sinds het verschijningsjaar aan hard bewijs is bijgekomen.
+Voor dit boek is dat het oude DNA uit de pestgrafvelden.
+
+#### Wat je hierna leest
+
+- 615. Passport to Magonia. Vallée leest dezelfde verschijningen aan de hemel
+als folklore die zich aan de tijd aanpast, wat een tegenmodel oplevert voor
+Bramley's letterlijke lezing.
+- 1145. Rule by Secrecy. Marrs bouwt een vergelijkbare doorlopende lijn van de
+oudheid naar het heden, met dezelfde methodische zwakte.
+- 635. Freemasonry and the Ancient Gods. Ward geeft de oudere vorm van de
+gedachte dat de vrijmetselarij een oeroude godsdienst voortzet, waar Bramley
+op voortbouwt.
+- 1147. Sinister Forces. Levenda werkt met hetzelfde materiaal maar houdt de
+vraag naar het verband nadrukkelijker open.
+
+## 1151. De mysterieuze Jezus
+
+Timothy Freke en Peter Gandy, 1999. *De mysterieuze Jezus: was Jezus
+oorspronkelijk een heidense god?* (vertaald door Manda Plettenburg en Bram
+Moerland, Synthese, Den Haag, 2005, 439 blz., ISBN 978 90 6271 937 2).
+Oorspronkelijke titel: *The Jesus Mysteries: Was the "Original Jesus" a Pagan
+God?* (Thorsons, Londen, 1999). Rubriek: filosofie en mystiek.
+Tags: `vroeg christendom`, `gnostiek`, `godsdienstwetenschap`, `mythevorming`
+
+Freke en Gandy stellen dat het christendom is begonnen als een joodse variant
+van de antieke mysteriegodsdiensten, en dat Jezus oorspronkelijk een mythische
+figuur was in de trant van de god die zij Osiris-Dionysus noemen. De gnostici
+zijn in hun lezing de oorspronkelijke christenen; de kerk die de evangeliën
+als geschiedenis ging lezen kwam later en drukte hen weg.
+
+Het boek loopt in twaalf hoofdstukken van de heidense mysteriën via de
+kerkvaders naar de vorming van het Nieuwe Testament. Het is populariserend
+geschreven, met noten en een register, en het is buiten de vakwereld veel
+gelezen en binnen die vakwereld vrijwel unaniem afgewezen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Het verhaal over Jezus is volgens Freke en Gandy geen verslag
+van een leven maar een joodse bewerking van een veel oudere mythe: die van de
+stervende en herrijzende godmens die in de mysteriecultussen van de
+Middellandse Zee onder namen als Osiris, Dionysos, Attis, Adonis en Mithras
+werd vereerd. De gnostici die deze mythe als inwijdingsverhaal lazen waren de
+eerste christenen; de bisschoppen die haar tot geschiedenis verklaarden kwamen
+later, en zij hebben de sporen van de herkomst opgeruimd.
+
+#### De gang van het boek
+
+**De onaanvaardbare gedachte**
+
+Het eerste hoofdstuk zet de vraag op tafel en beschrijft hoe de auteurs erop
+kwamen. Zij vertrekken bij een klein voorwerp: een gesneden steen met een
+gekruisigde figuur en het opschrift Orpheos Bakkikos, die op het omslag staat
+afgebeeld en die volgens hen aantoont dat een heidense god vóór het
+christendom aan het kruis werd verbeeld.
+
+Daarna volgt het programma: als de gelijkenissen tussen Jezus en de
+mysteriegoden zo talrijk zijn, en als de vroegste christelijke schrijvers die
+gelijkenissen zelf al signaleerden, dan is afhankelijkheid de eenvoudigste
+verklaring.
+
+**Osiris-Dionysus als één figuur**
+
+Het tweede hoofdstuk beschrijft de antieke mysteriën en voert de samengestelde
+godheid in die het hele boek draagt. Freke en Gandy behandelen Osiris,
+Dionysos, Attis, Adonis, Bacchus en Mithras als plaatselijke namen voor
+dezelfde godmens, en stellen de biografie daarvan samen uit trekken die bij
+verschillende cultussen zijn opgetekend.
+
+In een lijst zetten zij die biografie naast die van Jezus. Genoemd worden
+onder meer geboorte uit een sterfelijke maagd op 25 december, herders bij de
+geboorte, water in wijn veranderd op een bruiloft, een intocht op een ezel,
+een dood rond het paasfeest als verzoening, een afdaling naar de onderwereld,
+een opstanding op de derde dag, een hemelvaart en een maaltijd van brood en
+wijn.
+
+**Duivelse nabootsing**
+
+Het derde hoofdstuk voert het argument aan waar de auteurs het meeste gewicht
+aan hechten. Justinus de Martelaar en Tertullianus, beiden uit de tweede en
+derde eeuw, erkennen dat er heidense riten bestaan die op de christelijke
+lijken, en verklaren dat door te stellen dat demonen de christelijke mysteriën
+vooruit hebben nagebootst.
+
+Freke en Gandy lezen dat als een bekentenis. De gelijkenis werd door de
+kerkvaders zelf gezien en moest worden weggeredeneerd; de verklaring die zij
+gaven is voor een moderne lezer onbruikbaar, en wat overblijft is de
+gelijkenis.
+
+**Van Plato naar de gnostici**
+
+De hoofdstukken vier tot en met zes verbinden de mysteriën met het platonisme
+en behandelen daarna de gnostische geschriften. De auteurs onderscheiden
+buitenmysteriën, bedoeld voor de menigte en verteld als verhaal, en
+binnenmysteriën, waarin de ingewijde het verhaal op zichzelf betrekt en zelf
+de rol van de stervende god vervult.
+
+In die opzet zijn de gnostici geen afsplitsing maar de bewaarders van de
+binnenkant. Het hoofdstuk over de Jezus-code leest de evangeliën als een
+inwijdingstekst met een dubbele bodem, met de doop, de zalving, het laatste
+avondmaal en de opstanding als opeenvolgende graden.
+
+**De ontbrekende man en de joodse mysteriën**
+
+Hoofdstuk zeven bespreekt het bewijs voor een historische Jezus: de passages
+bij Flavius Josephus en Tacitus, het zwijgen van tijdgenoten als Philo, de
+late datering van de evangeliën en de bewerkingen die daarin zijn aan te
+wijzen. De auteurs concluderen dat er van de man zelf geen spoor overblijft.
+
+Hoofdstuk acht en negen zoeken de brug. Paulus wordt gelezen als gnosticus die
+over een hemelse Christus schrijft en niet over een leraar die hij gekend
+heeft. Voor de joodse kant wijzen zij op Philo van Alexandrië, die de Thora
+allegorisch las, en op de Therapeuten die hij beschrijft, als bewijs dat een
+joodse mysteriegemeenschap denkbaar was.
+
+**De nabootsende kerk**
+
+De laatste hoofdstukken beschrijven hoe volgens de auteurs de letterlijke
+lezing won. Een kerk van bisschoppen kreeg de overhand op de vrijere
+gnostische kringen, het Nieuwe Testament werd samengesteld en gesloten, en de
+martelaarsverhalen leverden een geschiedenis van vervolging op die de eigen
+macht rechtvaardigde. Na Constantijn werd die lezing staatsleer en verdwenen
+de tegenteksten.
+
+Het slothoofdstuk keert de conclusie om: wie het verhaal als mythe leest
+verliest niets, omdat de mythe over de lezer zelf gaat. De schrijvers
+presenteren hun boek daarmee ook als een geestelijk voorstel en niet alleen
+als een historische stelling.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Osiris-Dionysus | De samengestelde godheid die de auteurs invoeren als gemeenschappelijke noemer voor de mysteriegoden van de Middellandse Zee. |
+| mysteriegodsdienst | Antieke cultus met een inwijdingsrite en een geheim gedeelte dat alleen aan ingewijden werd verteld. |
+| buitenmysteriën | De openbare, verhalende laag van zo'n cultus, bedoeld voor wie nog niet is ingewijd. |
+| binnenmysteriën | De inwijdingslaag waarin de deelnemer het verhaal op zichzelf toepast en zelf de dood en terugkeer van de god doorleeft. |
+| literalisten | De aanduiding die het boek gebruikt voor christenen die het evangelieverhaal als gebeurde geschiedenis lezen. |
+| gnosis | Kennis die uit eigen ervaring komt in plaats van uit geloof aan overgeleverde feiten, in het boek het merk van het oorspronkelijke christendom. |
+| duivelse nabootsing | De verklaring van kerkvaders dat demonen de christelijke riten vooraf hadden nagedaan, door de auteurs gelezen als erkenning van de gelijkenis. |
+| Orpheos Bakkikos | Een gesneden steen met een gekruisigde figuur en dat opschrift, door de auteurs opgevoerd als voorchristelijke kruisiging van een heidense god. |
+| Therapeuten | Joodse contemplatieve gemeenschap bij Alexandrië die Philo beschrijft, bij Freke en Gandy het bewijs dat een joodse mysteriecultus mogelijk was. |
+
+#### Waar het argument op rust
+
+Een deel van het materiaal is onbetwist. De mysteriecultussen bestonden,
+kenden inwijdingsgraden en werkten met verhalen over dood en terugkeer.
+Justinus en Tertullianus schrijven werkelijk dat demonen de christelijke
+mysteriën hebben nagebootst; die teksten zijn te lezen en de auteurs geven ze
+correct weer. Dat de evangeliën decennia na de gebeurtenissen zijn geschreven,
+dat zij theologisch zijn vormgegeven en dat de Testimonium Flavianum bij
+Josephus christelijke bewerking bevat, is in de vakliteratuur gangbaar goed.
+
+De verbindende stappen zijn zwakker. De biografie van Osiris-Dionysus is door
+de auteurs zelf samengesteld: geen antieke bron kent die figuur, en de tien
+punten zijn stuk voor stuk aan een andere cultus, streek en eeuw ontleend. Een
+deel van die punten is bovendien later dan het christendom. De datum 25
+december komt voor Jezus voor het eerst voor in de Chronograaf van 354, in
+hetzelfde stuk waarin ook het feest van Sol Invictus op die dag staat; voor
+Osiris of Dionysos is die geboortedatum in antieke bronnen niet te vinden.
+
+De vraag of Jezus heeft bestaan wordt in de vakwereld wel degelijk gesteld.
+Richard Carrier verdedigde in *On the Historicity of Jesus* (Sheffield Phoenix
+Press, 2014) een mythische lezing in een boek dat een academische
+beoordelingsprocedure heeft doorlopen. Dat is een minderheidspositie en zij
+wordt door de grote meerderheid van vakhistorici verworpen, maar zij bestaat
+als beargumenteerde stelling. Freke en Gandy hebben daar naar het oordeel van
+Carrier zelf niet aan bijgedragen.
+
+#### Wat er tegen in te brengen valt
+
+De zwaarste inhoudelijke tegenwerping raakt de categorie zelf. Jonathan Z.
+Smith liet in zijn artikel over stervende en herrijzende goden in de
+*Encyclopedia of Religion* uit 1987 zien dat die groep grotendeels een
+negentiende-eeuwse constructie is, gebouwd door James Frazer op losse en soms
+verkeerd gelezen bronnen. Osiris keert in de Egyptische teksten terug als
+heerser over de doden en niet als levende onder de levenden; over Mithras is
+geen dood of opstanding overgeleverd. Tryggve Mettinger bracht in 2001 tegen
+Smith in dat er voor Dumuzi, Baäl en Melqart wel voorchristelijke voorbeelden
+zijn, maar hij concludeerde daaruit geen afhankelijkheid van het christelijke
+opstandingsgeloof. De categorie is dus omstreden, en zij vormt bij Freke en
+Gandy de dragende balk.
+
+De methode is een tweede bezwaar. Door alle mysteriegoden tot één figuur samen
+te voegen ontstaat een verzameling waaruit voor bijna elk evangelisch motief
+wel ergens een parallel te trekken is. Gelijkenis is daarmee gegarandeerd en
+zegt niets meer over ontlening. Voor afhankelijkheid zou nodig zijn dat de
+parallel ouder is dan het christendom, dat hij binnen bereik lag van de
+schrijvers en dat hij op die plek zo niet ergens anders vandaan kon komen. Het
+boek toetst geen van die drie voorwaarden.
+
+Het oordeel van vakgenoten is scherp en breed. De oudheidkundige Chris Forbes
+van Macquarie University noemt de auteurs popularisatoren en hun betoog
+verward; nieuwtestamenticus Paul Barnett wijst op verouderde
+literatuurverwijzingen; N.T. Wright vergeleek een debat erover met een
+sterrenkundige die moet aantreden tegen het idee dat de maan van kaas is. Bart
+Ehrman, zelf ongelovig en geen verdediger van de kerk, oordeelde in *Did Jesus
+Exist?* (2012) dat het boek onjuiste gegevens bevat en geen wetenschappelijk
+werk is. Ook Carrier, die de historiciteit van Jezus betwijfelt, noemde de
+behandeling van de antieke wereld in dit boek zonder waarde en waarschuwde
+lezers ervoor.
+
+Ook het omslagbeeld is een probleem. De steen met de gekruisigde Orpheos
+Bakkikos is in de Tweede Wereldoorlog verdwenen, zodat authenticiteit noch
+vervalsing nog te bewijzen valt; er is serieus voor gepleit dat het om een
+negentiende-eeuwse vervalsing gaat. Bovendien komt de figuur volgens de lezing
+van vakgenoten uit de Orfische en bakchische sfeer en niet uit die van Osiris.
+Een voorwerp dat het hele betoog moet openen, kan geen bewijslast dragen die
+er niet is.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij elke parallel naar de datering van de bron, niet naar de datering
+van de god.
+- Let op samengestelde figuren. Wie meerdere cultussen tot één godheid
+samenvoegt, bouwt de gelijkenis die hij wil aantonen zelf.
+- Scheid de vraag of iets historisch is van de vraag of het waar of waardevol
+is; het boek verwart die twee bewust.
+
+#### Wat je hierna leest
+
+- 940. The Gnostic Religion. Jonas behandelt de gnostiek als eigen
+godsdienstige beweging met eigen bronnen, en laat zien hoeveel er over te
+zeggen is zonder een mythische Jezus.
+- 614. The Gospel of Mary Magdalene. Leloup geeft een gnostisch evangelie met
+vertaling en toelichting, zodat de teksten waar Freke en Gandy naar wijzen
+zelf te lezen zijn.
+- 608. Het gewijde en het profane. Eliade werkt met dezelfde vergelijkende
+methode en toont daarmee ook de grens ervan: overeenkomst in vorm bewijst geen
+ontlening.
+- 765. The Road to Eleusis: Unveiling the Secret of the Mysteries. Wasson,
+Hofmann en Ruck onderzoeken één mysteriecultus in detail, wat een maatstaf
+geeft voor wat er over zulke riten werkelijk bekend is.
+
+## 1152. Lost Science
+
+Gerry Vassilatos, 1999. *Lost Science* (Adventures Unlimited Press, Kempton,
+Illinois, 1999, 347 blz., ISBN 978 0 932813 75 6). Er bestaat geen Nederlandse
+vertaling; de samenvatting is op de Engelse editie gebaseerd. Rubriek:
+filosofie en mystiek.
+Tags: `uitvinding`, `techniekgeschiedenis`, `pseudowetenschap`,
+`complotdenken`
+
+Vassilatos brengt negen uitvinders bijeen van wie het werk volgens hem is
+weggedrukt door bedrijven, overheden of beroepsverenigingen. Karl von
+Reichenbach, Antonio Meucci, Nathan Stubblefield, Nikola Tesla, Royal Rife,
+Thomas Henry Moray, Thomas Townsend Brown, Vladimir Gavreau en Philo
+Farnsworth krijgen elk een hoofdstuk.
+
+Het boek is verhalend geschreven, zonder noten, met achterin een bibliografie
+van enkele tientallen titels waarvan een groot deel van esoterische kleine
+uitgeverijen komt. Het tiende hoofdstuk verlaat de biografieën en betoogt dat
+de moderne natuurkunde het verkeerde uitgangspunt heeft gekozen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** De wereld loopt volgens Vassilatos eeuwen achter op waar zij
+had kunnen staan, omdat een reeks uitvinders die energie, geneeskunde en
+voortstuwing hadden kunnen omvormen stelselmatig is tegengewerkt door
+overheden, bedrijven en beroepsverenigingen. Het patroon is in zijn weergave
+overal hetzelfde: een werkend apparaat, een demonstratie die overtuigt, en
+daarna geldschieters die zich terugtrekken, apparatuur die verdwijnt en een
+naam die uit de vakliteratuur wordt geschrapt.
+
+#### De gang van het boek
+
+**Reichenbach en de od-kracht**
+
+Het eerste hoofdstuk behandelt Karl von Reichenbach, een Duitse chemicus en
+industrieel die paraffine en creosoot uit teer isoleerde en daarmee een
+vermogen verdiende. Vanaf het midden van de negentiende eeuw wijdde hij zich
+aan wat hij od noemde: een uitstraling die volgens hem uit magneten,
+kristallen, planten en mensen komt en die alleen door gevoelige proefpersonen
+in het donker wordt waargenomen.
+
+Vassilatos beschrijft de proeven uitvoerig en leest de afwijzing door de
+Duitse academische wereld als angst. Dat Reichenbachs waarnemers wisten wat er
+voor hen stond en dat er geen blindering was, komt in het hoofdstuk niet aan
+de orde.
+
+**Meucci, Stubblefield en Tesla**
+
+De hoofdstukken twee tot en met vier gaan over telefonie, draadloze overdracht
+en energieoverdracht. Antonio Meucci ontwikkelde in New York vanaf de jaren
+vijftig van de negentiende eeuw een spreekverbinding en legde in 1871 een
+voorlopige octrooiverklaring vast die hij door geldgebrek niet kon verlengen.
+Nathan Stubblefield demonstreerde in 1902 in Philadelphia en Washington een
+draadloze telefoon die met inductie en aardgeleiding werkte en kreeg daar in
+1908 octrooi op.
+
+Bij Tesla concentreert Vassilatos zich op Wardenclyffe, de toren op Long
+Island waarmee Tesla energie zonder draad wilde verspreiden. Het project liep
+vast toen J.P. Morgan de financiering staakte, en de toren werd in 1917
+gesloopt. In dit boek is dat afbreken een besluit van belanghebbenden bij een
+brandstofeconomie.
+
+**Rife en de straalbuis**
+
+Het vijfde hoofdstuk is het langste en het meest stellige. Royal Rife bouwde
+in de jaren dertig lichtmicroscopen met bijzondere belichting en meende
+daarmee levende ziekteverwekkers te zien die hij vervolgens met afgestemde
+straling kapot kon maken. Vassilatos beschrijft een kliniek die Milbank
+Johnson in 1934 in San Diego opzette, waar volgens hem vijftien uitbehandelde
+kankerpatiënten binnen zestig dagen genezen werden verklaard, gevolgd door
+meer klinieken tussen 1934 en 1938.
+
+Daarna volgt de ondergang. Vassilatos schrijft dat de American Medical
+Association onder leiding van Morris Fishbein de apparaten liet terugroepen en
+vernietigen, dat artsen die ermee doorgingen hun praktijk zouden verliezen, en
+dat Rife tijdens een rechtszaak psychisch is gebroken. Het hoofdstuk eindigt
+met de stelling dat genezing minder oplevert dan langdurige behandeling.
+
+**Moray, Brown en Gavreau**
+
+De hoofdstukken zes tot en met acht behandelen drie apparaten. Thomas Henry
+Moray demonstreerde in de jaren twintig en dertig een kastje dat volgens hem
+tientallen kilowatts uit de ruimte betrok, met als hart een halfgeleidend
+mineraal dat hij de Zweedse steen noemde en dat hij nooit heeft laten
+onderzoeken. Thomas Townsend Brown zag geladen condensatoren in de richting
+van hun positieve pool bewegen en las dat als een verband tussen elektriciteit
+en zwaartekracht.
+
+Vladimir Gavreau werkte bij het Franse onderzoeksinstituut CNRS in Marseille
+en stuitte in de jaren zestig op infrageluid toen zijn medewerkers pijn kregen
+zonder dat de microfoons iets registreerden. Vassilatos maakt daar een
+wapenverhaal van. Hij had die geschiedenis al eerder gepubliceerd in het
+tijdschrift van de Borderland Sciences Research Foundation, de stichting die
+ook een deel van zijn bronnen uitgeeft.
+
+**Farnsworth en de fusor**
+
+Het negende hoofdstuk gaat over Philo Farnsworth, die de elektronische
+televisie mede uitvond en later met multipactorbuizen werkte. Daarin zag hij
+kleine, stabiele lichtpunten hangen die hij als opgesloten heet gas herkende.
+Uit dat idee ontstond de fusor, een buis waarin deuteriumionen naar een
+middelpunt worden gestuurd.
+
+Volgens Vassilatos bereikte het apparaat in 1967 het punt waarop opbrengst en
+invoer gelijk waren, waarna ITT het project stopzette. De fusor bestaat
+werkelijk, produceert werkelijk fusiereacties en wordt tot op heden door
+amateurs gebouwd.
+
+**Geest, vuur en thermodynamica**
+
+Het slothoofdstuk verlaat de biografieën. Vassilatos betoogt dat de
+natuurwetenschap sinds de negentiende eeuw gevangen zit in wat hij het
+vuurparadigma noemt: alles wordt gemeten in warmte, arbeid en rendement, en
+wat zich daar niet in laat uitdrukken telt niet mee.
+
+Daartegenover stelt hij een oudere natuurfilosofie waarin bewustzijn zelf een
+vorm van straling is en waarin dromen en symbolen kenbronnen zijn. Alchemie en
+geomantie worden genoemd als de kunsten die uit dat inzicht voortkwamen. Het
+hoofdstuk maakt duidelijk dat het boek uiteindelijk een esoterisch en geen
+technisch betoog is.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| od | Reichenbachs naam voor de uitstraling die volgens hem uit magneten, kristallen en levende wezens komt en alleen door gevoelige waarnemers wordt gezien. |
+| aetherische energie | De verzamelnaam die Vassilatos gebruikt voor een energiebron die overal aanwezig zou zijn en waar de behandelde apparaten uit zouden putten. |
+| Zweedse steen | Het halfgeleidende mineraal dat Moray als hart van zijn ontvanger opvoerde en dat nooit door anderen is onderzocht of nagemaakt. |
+| straalbuis | Rife's gasgevulde buis die straling van een gekozen frequentie afgeeft, bedoeld om ziekteverwekkers te vernietigen. |
+| BX | Rife's aanduiding voor het door hem veronderstelde kankerverwekkende micro-organisme dat hij in zijn microscoop meende te zien. |
+| elektrogravitatie | Browns verklaring dat de beweging van geladen condensatoren op een verband tussen elektrische lading en zwaartekracht wijst. |
+| infrageluid | Geluid onder de gehoorgrens van ongeveer twintig hertz, waar Gavreau lichamelijke werking aan toeschreef. |
+| fusor | Farnsworths buis waarin ionen naar een middelpunt worden versneld om daar kernfusie op gang te brengen. |
+| vuurparadigma | Vassilatos' term voor een natuurwetenschap die alleen erkent wat zich in warmte en arbeid laat meten. |
+
+#### Waar het argument op rust
+
+Een deel van de levens is goed gedocumenteerd en wordt correct weergegeven.
+Reichenbach isoleerde werkelijk paraffine en creosoot. Meucci werkte aan een
+spreekverbinding voordat Bell octrooi kreeg; het Amerikaanse Huis van
+Afgevaardigden erkende in 2002 zijn aandeel in de ontwikkeling van de
+telefoon. Stubblefield gaf in 1902 openbare demonstraties. Tesla bouwde
+Wardenclyffe en verloor de financiering van Morgan. Farnsworth vond de fusor
+uit en die buis doet wat hij belooft. Voor deze feiten heeft de lezer het boek
+niet nodig, maar het geeft ze goed weer.
+
+Voor de dragende bewering, dat er is weggedrukt, ontbreekt de onderbouwing.
+Het boek heeft geen noten. Achterin staat een bibliografie van enkele
+tientallen boeken en tijdschriften, waarvan een groot deel is uitgegeven of
+herdrukt door de Borderland Sciences Research Foundation en Rex Research, twee
+kleine uitgevers die zich op grensgebied richten. In de dankbetuiging staan
+namen uit dezelfde kring, onder wie Preston Nichols, bekend van het
+Montauk-verhaal. Archiefstukken, rechtbankdossiers of bedrijfsarchieven worden
+niet aangehaald.
+
+Waar de geschiedenis wel op stukken te controleren is, wijkt het boek af. De
+rechtszaak rond Rife in 1939 was een burgerlijk geschil binnen het bedrijf
+Beam Ray: technicus Philip Hoyland klaagde de vennootschap en haar bestuurders
+aan om zeggenschap over de apparatuur, en hij verloor. Er was geen
+strafvervolging en geen gerechtelijk bevel tot vernietiging van apparaten.
+Fishbein was hoofdredacteur van het blad van de American Medical Association;
+die vereniging heeft geen aandeelhouders, zodat de bewering dat hij daar
+grootaandeelhouder was niet kan kloppen.
+
+#### Wat er tegen in te brengen valt
+
+Per hoofdstuk valt aan te wijzen waar de bronnen worden losgelaten.
+Reichenbachs od is nooit onder blindering aangetoond en zijn proefopstellingen
+sloten suggestie niet uit. Morays apparaat is nooit door een buitenstaander
+onderzocht: hij weigerde het te laten openen, de Zweedse steen is nooit
+geanalyseerd en het geheel is met de uitvinder verdwenen. Het effect waar
+Brown zijn zwaartekrachtsverklaring op bouwde is opgehelderd: bij metingen in
+vacuüm van R.L. Talley bij het Amerikaanse luchtmachtlaboratorium in 1988 en
+bij de proeven van Martin Tajmar in 2004, waarbij de luchtstroom rond de
+elektroden werd afgeschermd, bleef de stuwkracht weg. Het gaat om ionenwind,
+een verschijnsel dat sinds lang bekend is. Bij Gavreau is het onderzoek naar
+infrageluid echt, maar het wapen bestaat vooral in navertellingen; van de
+beschreven opstelling met gesynchroniseerde zuigers in lange buizen is geen
+bouw of beproeving gedocumenteerd.
+
+Het hoofdstuk over Rife is het meest problematisch, omdat er gezondheidsclaims
+in staan. Een lichtmicroscoop kan virussen niet zichtbaar maken: de golflengte
+van zichtbaar licht stelt een grens rond tweehonderd nanometer, en daaronder
+valt wat Rife meende te zien. De kliniek van 1934 is bekend uit een enkele
+typoscriptrapportage die nooit in universiteitsarchieven is teruggevonden en
+die geen patiëntendossiers, geen controlegroep en geen onafhankelijke
+bevestiging kent. De American Cancer Society en Cancer Research UK stellen
+vast dat er geen betrouwbaar bewijs is dat zulke apparaten kanker genezen. Wie
+het hoofdstuk als geschiedenis leest, leest het als een medische belofte.
+
+Ook bij Farnsworth klopt de duiding niet. Dat de fusor geen netto energie
+levert komt door de natuurkunde van het apparaat: de ionen verliezen door
+onderlinge botsingen en remstraling meer energie dan de fusiereacties
+opleveren, en dat is onafhankelijk van wie het project financiert. Het staken
+door ITT wordt in het boek als bewijs van tegenwerking gebruikt; het past even
+goed bij een bedrijf dat besluit dat een moeilijk pad te duur is.
+
+Achter de losse gevallen ligt het probleem van de vorm. Het
+weggedrukte-uitvindersverhaal is bijna niet te weerleggen, omdat het ontbreken
+van bewijs er als bewijs in wordt opgenomen: de apparatuur is immers
+verdwenen, de publicaties zijn geschrapt, de getuigen zijn tot zwijgen
+gebracht. Om zo'n claim wel toetsbaar te maken zijn drie dingen nodig. Ten
+eerste een werkende opstelling of een volledige beschrijving die door
+onafhankelijke partijen kan worden nagebouwd en gemeten. Ten tweede documenten
+die het onderdrukken zelf vastleggen: correspondentie, besluiten,
+rechtbankdossiers, bedrijfsarchieven, met vindplaats. Ten derde een verklaring
+waarom concurrenten, buitenlandse overheden en beroepsgenoten die niets met de
+belanghebbende partij te maken hebben, de vondst niet hebben opgepakt.
+Vassilatos levert geen van drieën, en waar hij aan het eerste toekomt, bij
+Brown en bij de fusor, is het antwoord ongunstig voor zijn stelling.
+
+#### Wat er concreet mee te doen is
+
+- Vraag bij een onderdrukt apparaat naar de beschrijving die nabouw toelaat,
+en niet naar de getuigenverhalen erover.
+- Zoek de papieren van het onderdrukken zelf op: een rechtszaak heeft een
+dossier en een vonnis, en die zijn opvraagbaar.
+- Ga na of het apparaat elders ter wereld is opgepakt. Een vinding die overal
+wordt genegeerd, vraagt om een verklaring die verder reikt dan één land of één
+bedrijf.
+- Scheid de biografie van de claim: dat iemand slecht is behandeld, zegt niets
+over de vraag of zijn apparaat werkte.
+
+#### Wat je hierna leest
+
+- 267. Tesla: Inventor of the Electrical Age. Carlson beschrijft Tesla met
+archiefmateriaal, waarmee te zien is hoeveel van het Wardenclyffe-verhaal met
+financiering en techniek te verklaren is.
+- 63. The Demon-Haunted World. Sagan behandelt precies deze klasse beweringen
+en geeft de vragen waarmee ze zijn te wegen.
+- 1149. Before the Pharaohs. Malkowski gebruikt dezelfde vorm op de oudheid:
+verloren kennis, weggedrukt door een vakwereld die haar niet wil zien.
+- 1156. The Source Field Investigations. Wilcock bouwt op ditzelfde repertoire
+van onderdrukte apparaten en veldenergie voort, met nog minder
+terughoudendheid.
+
+## 1153. The Aryan Christ
+
+Richard Noll, 1997. *The Aryan Christ: The Secret Life of Carl Jung* (Random
+House, New York, 1997, xvi + 334 blz., ISBN 0-679-44945-0). Er bestaat geen
+Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.
+Rubriek: brein en lichaam.
+Tags: `jung`, `wetenschapsgeschiedenis`, `religieuze beweging`, `biografie`
+
+Noll, klinisch psycholoog en destijds docent wetenschapsgeschiedenis in
+Harvard, reconstrueert de eerste zestig jaar van Jungs leven uit brieven,
+dagboeken en seminarnotities in Amerikaanse en Europese archieven. Zijn
+stelling is dat Jung een religieuze beweging stichtte en die in psychologische
+taal verpakte, met wortels in de Duitse volkse cultuur van rond 1900 en in de
+zonnecultus die classici van die tijd aan de Ariërs toeschreven.
+
+Het boek verscheen na *The Jung Cult* (1994) en kreeg zowel bijval als
+grondige weerlegging. Sonu Shamdasani liet in *Cult Fictions* (1998) zien dat
+het document waarop de cultusthese steunt niet is wat Noll ervan maakt. Wat
+overeind bleef, is Nolls beschrijving van hoe streng de nalatenschap van Jung
+het bronnenmateriaal beheerde.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Jung presenteerde zichzelf als arts en wetenschapper, en die
+presentatie is volgens Noll een bewust aangebrachte laag over iets anders: een
+heidense verlossingsleer met Jung als profeet en met de analyse als inwijding.
+Noll wil aantonen dat het middelpunt van Jungs leven een visioen uit december
+1913 was waarin Jung zichzelf tot god verklaard zag, dat de kring in Zürich
+zich vanaf 1916 rond die ervaring vormde, en dat de begrippen collectief
+onbewuste en archetype pas te begrijpen zijn tegen de achtergrond van de
+Duitse volkse cultuur waarin Jung opgroeide.
+
+#### De gang van het boek
+
+**Waarom het boek geen biografie heet**
+
+Noll opent met de mededeling dat dit geen biografie is en dat een volledige
+biografie voorlopig niet te schrijven valt. Daarvoor zou de nalatenschap alles
+moeten openstellen: Jungs privédagboeken, de volledige correspondentie, het
+Rode Boek, en de papieren van Emma Jung, van Toni Wolff en van Jungs vroege
+medewerker J.J. Honegger. Over Emma Jung, schrijft hij, weten we nauwelijks
+drie bladzijden aan feiten.
+
+In hetzelfde voorwoord zet hij *Herinneringen, dromen, gedachten* uit 1962
+opzij als bron. Dat boek is volgens hem geen autobiografie maar een montage:
+Aniela Jaffé zette gesprekken, oude lezingen en enkele door Jung zelf
+geschreven hoofdstukken in de ik-vorm bij elkaar, en de familie liet passages
+schrappen of afzwakken. Noll verwijst naar het onderzoek van Alan Elms en naar
+de klacht van R.F.C. Hull, de vertaler van Jungs verzameld werk, dat juist de
+uitspraken over de christelijke theologie waren gladgestreken.
+
+Over zijn methode is hij open: geschiedschrijving noemt hij construeren en
+geen reconstrueren, en het boek is geschreven als verhalende geschiedenis, in
+scènes.
+
+**Deel een: de innerlijke vaderlanden**
+
+Het eerste deel plaatst Jung in zijn Duitstalige omgeving. Noll begint bij de
+toren in Bollingen, die Jung vanaf 1923 bouwde, bij de muurschildering van de
+geestgids Philemon en bij de stenen in de tuin waarin Jung de namen van zijn
+vaderlijke voorouders hakte. Daaruit haalt hij het begrip Ahnenerbe, de
+voorouderlijke erfenis die volgens Jung in ieder mens meeklinkt, en verbindt
+hij Jung met de negentiende-eeuwse cultus van Volk, bloed en landschap. Als
+beginpunt neemt hij het studentenfeest op de Wartburg in oktober 1817, met
+fakkeloptocht, oud-Duitse kledij en vuren.
+
+Vervolgens komen Jungs seances met zijn nicht Helene Preiswerk vanaf 1895 aan
+bod, zijn lezingen voor het studentengenootschap Zofingia en zijn bezoek aan
+München in december 1900. Noll leunt hier op de psychiatriehistoricus Henri
+Ellenberger, die de kiemcel van Jungs psychologie in juist die lezingen en
+seances zag.
+
+Het scherpste hoofdstuk gaat over verborgen herinneringen. Jung bouwde
+*Wandlungen und Symbole der Libido* (1911-1912) op rond de fantasieën van de
+Amerikaanse Miss Frank Miller, die haar visioenen zelf had gepubliceerd om te
+laten zien dat ze uit vergeten lectuur voortkwamen; Jung keerde die uitleg om.
+Bij de patiënt Emile Schwyzer, die een uit de zon hangende buis zag, stelt
+Noll vast dat het materiaal in 1909 door Honegger was verzameld, dat Jung de
+zaak later aan zichzelf toeschreef en de datum naar 1906 verschoof, en dat hij
+vanaf de jaren dertig beweerde dat de Mithrasliturgie pas in 1910 was gedrukt,
+terwijl hij in 1911 zelf het boek van G.R.S. Mead uit 1907 als bron noemde.
+
+**Deel twee: de mysteriën**
+
+Het middendeel bevat de kern van het betoog. Een hoofdstuk over veelwijverij
+behandelt de invloed van Otto Gross en de verhouding met Sabina Spielrein en
+Toni Wolff, en Nolls stelling dat Jung meervoudige verhoudingen als
+geestelijke weg verdedigde. Een hoofdstuk over zonneverering laat zien hoe
+Jung de libido opvatte als algemene levenskracht en aansloot bij de
+zonnemythologie van taalgeleerden als Friedrich Max Müller, die het oude
+Arische geloof als zonnecultus beschreef.
+
+Dan komt het hoofdstuk over de deificatie. In december 1913 bracht Jung
+zichzelf herhaaldelijk in trance met technieken uit het spiritisme, later
+actieve verbeelding genoemd. In een van die toestanden veranderde zijn hoofd
+in dat van een leeuw en werd hij naar eigen zeggen een god: de Deus
+Leontocephalus uit de Mithrasheiligdommen, de god die Jung in 1951 de titel
+van zijn boek *Aion* gaf, met een foto van diezelfde leeuwkoppige figuur
+voorin. Noll baseert zich op de notities van het seminar dat Jung tussen maart
+en juli 1925 gaf, opgetekend door Cary de Angulo, door Jung nagekeken en in
+november 1925 onder de deelnemers verspreid. Die tekst was tot de uitgave van
+1989 alleen te lezen met toestemming van de eigen analyticus en na ongeveer
+honderd uur goedgekeurde analyse. Uit die passage, die Jaffé buiten het
+autobiografische boek hield, leidt Noll af dat de deificatie de
+sleutelgebeurtenis is die daarna is weggeredigeerd.
+
+Het deel sluit met Zürich 1916, toen ruim veertig mensen zich rond Jung
+verzamelden, de Psychologische Club werd opgericht en Jung de *Septem Sermones
+ad Mortuos* schreef, de zeven preken aan de doden, ondertekend met de naam van
+een gnosticus en handelend over de godheid Abraxas.
+
+**Deel drie: de apostelen**
+
+Het derde deel bestaat uit drie levensbeschrijvingen van vrouwen uit Jungs
+eerste kring: Fanny Bowditch Katz, Edith Rockefeller McCormick en Constance
+Long. Noll noemt hen de eerste groep apostelen. Hij put hier uit de
+handschriftenafdeling van de Countway Library of Medicine van Harvard Medical
+School, waaronder de papieren van Fanny Bowditch Katz en het biografisch
+archief over Jung.
+
+Dit is het documentair sterkste deel, omdat brieven en dagboeken van patiënten
+laten zien hoe de analyse in Zürich door de deelnemers zelf werd ervaren. De
+uitspraak dat analyse religie is komt uit dat materiaal en niet uit Jungs
+eigen pen.
+
+**Deel vier: van volkse profeet tot wijze oude man**
+
+Het slotdeel beschrijft hoe Jung na de Eerste Wereldoorlog Angelsaksische
+leerlingen aantrok die het Duitse cultuurgoed achter zijn taal niet herkenden
+en zijn ideeën als algemeen menselijk overnamen. Noll citeert de brief aan
+Oskar Schmitz van 26 mei 1923, waarin Jung het christendom een vreemde ent op
+de gevelde eiken van Wotan noemt en schrijft dat de Germaanse mens nog altijd
+aan die verminking lijdt.
+
+Noll stelt verder dat Jung joodse patiënten jarenlang uit zijn binnenste kring
+hield en doorverwees. Het boek eindigt bij de jaren dertig, wanneer de volkse
+profeet in de openbaarheid plaatsmaakt voor de figuur van de wijze oude man.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Volk | Duits begrip voor een volk dat door bloed, taal en landschap samenhangt, veel zwaarder geladen dan het Nederlandse woord. |
+| Ahnenerbe | Voorouderlijke erfenis: het idee dat de ervaringen van voorgeslachten in het gemoed van de nakomeling doorwerken. |
+| volkse beweging | De Duitstalige stroming van rond 1900 die nationale wedergeboorte zocht in natuur, oud-Germaanse religie en lichaamscultuur. |
+| deificatie | Vergoddelijking: het punt in de antieke mysteriecultus waarop de ingewijde zichzelf als god ervaart, door Noll gebruikt voor Jungs visioen van december 1913. |
+| Deus Leontocephalus | De leeuwkoppige god uit de Mithrasheiligdommen, in Nolls lezing de gedaante die Jung in zijn visioen aannam en die hij later Aion noemde. |
+| cryptomnesie | Verborgen herinnering: het opduiken van eerder gelezen of gehoord materiaal dat de betrokkene niet meer als herinnering herkent. |
+| actieve verbeelding | Jungs methode om in een half wakende toestand innerlijke beelden te laten optreden en er een gesprek mee aan te gaan. |
+| Abraxas | Gnostische godheid die goed en kwaad in zich verenigt, hoofdfiguur in de zeven preken aan de doden uit 1916. |
+| charismatische beweging | Godsdienstsociologisch begrip voor een groep die haar gezag ontleent aan de persoon van een stichter, door Noll op de Zürichse kring toegepast. |
+
+#### Waar het argument op rust
+
+Het boek rust op archiefwerk. De sterkste onderdelen zijn de brieven en
+dagboeken van Fanny Bowditch Katz in de Countway Library, de seminarnotities
+van 1925 die pas in 1989 algemeen toegankelijk werden, en de brief aan Oskar
+Schmitz. Waar Noll uit deze stukken citeert, is na te gaan wat er staat.
+
+Eén punt is documentair hard en wordt ook door Jung-gezinde lezers erkend: de
+verschuiving van data en toeschrijving rond Emile Schwyzer. Wat daaruit volgt
+is minder vast, want het gaat om één casus en de theorie van het collectief
+onbewuste staat of valt er niet mee.
+
+De grote conclusie steunt op dunner materiaal. Dat Jung zichzelf voor een
+verlosser hield en zijn kring als mysteriecultus inrichtte, leidt Noll af uit
+visioenverslagen, uit de indruk die volgelingen van hem hadden en uit één
+tekst uit 1916. De verhalende vorm maakt bovendien lastig te zien waar het
+document ophoudt en de reconstructie begint.
+
+Noll had bij het schrijven geen toegang tot het Rode Boek, de zwarte
+notitieboeken en de protocollen van Jaffé.
+
+#### Wat er tegen in te brengen valt
+
+De uitvoerigste weerlegging staat in *Cult Fictions* van Sonu Shamdasani
+(Routledge, 1998), een boekje van ruim honderd bladzijden tegenover de bijna
+zevenhonderdvijftig bladzijden van Nolls twee delen. Shamdasani laat zien dat
+de tekst die Noll presenteert als Jungs openingsrede bij de stichting van de
+club in 1916 door hem alleen met de eerste zin wordt geciteerd, en drukt de
+betrokken stukken alsnog volledig af. Zijn oordeel is hard: verzinsels,
+verkeerde voorstellingen en fouten. Wie de cultusthese wil aanhouden, moet
+eerst dit boek beantwoorden.
+
+Jungiaanse recensenten voeren aan dat Noll symbolische taal letterlijk leest.
+Jung waarschuwde herhaaldelijk tegen inflatie, de vereenzelviging met een
+archetypisch beeld, en beschreef die als een fase die overwonnen moet worden.
+Wie het visioen van 1913 als geloofsbelijdenis opvat in plaats van als
+beschreven ervaring, verandert de betekenis van de bron.
+
+Het woord Arisch in de titel doet werk dat het bewijsmateriaal niet doet. Noll
+vraagt zijn lezer uitdrukkelijk zich een wereld voor te stellen waarin Hitler
+en de Holocaust nog niet bestaan, en gebruikt tegelijk een titel die precies
+die associatie oproept. Dat de zonnemythologie van rond 1900 met het woord
+Arisch werkte, staat vast; dat Jung daarmee een voorloper van het
+nationaalsocialisme was, volgt er niet uit.
+
+Er is ook een belangenvraag. Princeton University Press annuleerde Nolls
+bundel *Mysteria: Jung and the Ancient Mysteries* toen die al in drukproef
+was, nadat de nalatenschap haar goedkeuring van hem als bezorger introk; de
+uitgeverij had zich contractueel verplicht die goedkeuring te vragen. De ruzie
+over toegang tot de bronnen loopt dus door het boek heen, aan beide kanten.
+
+Wat Noll over de bronnen zelf zegt, is minder omstreden dan zijn conclusie. De
+Engelse uitgave van *Herinneringen, dromen, gedachten* mist passages die in de
+Duitse wel staan, uitspraken over Toni Wolff en over de dood van Emma Jung
+vielen weg en opmerkingen over de christelijke leer werden verzacht. Die
+redactie is inmiddels ook van jungiaanse zijde beschreven.
+
+Sinds 1997 is het beeld veranderd. Het Rode Boek verscheen in 2009 in een
+uitgave die Shamdasani zelf bezorgde, de zwarte notitieboeken volgden in 2020
+en de protocollen van Jaffé zijn uitgegeven. Veel van wat Noll gesloten noemde
+ligt nu open, en dat pleit hem noch vrij noch schuldig: het maakt zijn
+stellingen voor het eerst controleerbaar.
+
+#### Wat er concreet mee te doen is
+
+- Lees het boek naast *Cult Fictions*, niet in plaats daarvan. Wie alleen Noll
+leest, houdt een verhaal over dat op één omstreden document rust.
+- Scheid bij het lezen de vaststelbare feiten van de gevolgtrekking. Data,
+brieven en archiefstukken zijn na te gaan; het woord cultus is een oordeel.
+- Ga na welke uitgave van een bron voorligt. Bij Jung verschilt de Engelse
+tekst van de Duitse, en wie de toegang tot een archief beheert, beïnvloedt
+welk beeld er ontstaat.
+
+#### Wat je hierna leest
+
+- 358. Herinneringen, dromen, gedachten. Het boek dat Noll als beheerd
+zelfportret behandelt, met alle vragen over wie het geschreven heeft.
+- 359. Het Rode Boek. De visioenen uit de jaren waarover Noll schrijft, in
+2009 alsnog uitgegeven en te vergelijken met zijn lezing.
+- 360. Archetypen. De begrippen archetype en collectief onbewuste in Jungs
+eigen formulering, waar Nolls kritiek zich op richt.
+- 937. Eranos: An Alternative Intellectual History of the Twentieth Century.
+De Eranos-kring als milieu waarin Jungs ideeën en de westerse esoterie elkaar
+raakten.
+
+## 1154. The Black Sun: The Alchemy and Art of Darkness
+
+Stanton Marlan, 2005. *The Black Sun: The Alchemy and Art of Darkness* (Texas
+A&M University Press, College Station, 2005, 266 blz., ISBN 1-58544-425-1),
+deel 10 in de reeks Carolyn and Ernest Fay Series in Analytical Psychology,
+met een voorwoord van reeksredacteur David H. Rosen. Er bestaat geen
+Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd. Niet
+te verwarren met *Black Sun: Aryan Cults, Esoteric Nazism and the Politics of
+Identity* van Nicholas Goodrick-Clarke (New York University Press, 2002) en
+met *Soleil noir* van Julia Kristeva (1987), over depressie en melancholie.
+Rubriek: filosofie en mystiek.
+Tags: `alchemie`, `jung`, `dieptepsychologie`, `esoterie`
+
+Marlan, jungiaans analyticus in Pittsburgh, werkt in dit boek één
+alchemistisch beeld uit: de sol niger of zwarte zon, die bij Jung slechts een
+randfiguur was. Het boek komt voort uit de Fay-lezingen die hij in 2003 gaf en
+is rijk geïllustreerd met alchemistische prenten, moderne schilderkunst en
+tekeningen van twee van zijn eigen analysanten.
+
+Zijn stelling is dat duisternis in de westerse cultuur alleen als tegenpool
+van licht is gelezen en daardoor nooit op eigen waarde is bekeken. De
+redenering loopt via Goethe, Dante, de kabbala, de taoïstische alchemie en de
+zwarte doeken van Rothko en Reinhardt naar een herziening van Jungs begrip van
+het Zelf.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Duisternis wordt in de westerse denktrant behandeld als
+afwezigheid van licht en als doorgangsfase op weg naar inzicht, en juist die
+behandeling maakt haar onzichtbaar. Marlan houdt vol dat de alchemistische
+zwarte zon een toestand aanduidt die in zichzelf betekenis draagt en zelfs een
+eigen soort licht geeft, en dat de psychotherapie daar iets aan verliest
+wanneer zij de zwartste ervaringen van patiënten meteen als voorstadium van
+herstel opvat. Daaruit volgt een herziening van Jungs Zelf: geen sluitende
+vereniging van tegendelen, maar een begrip met een onherleidbaar duistere
+kern.
+
+#### De gang van het boek
+
+**Inleiding: een beeld dat blijft steken**
+
+Marlan vertelt hoe hij de zwarte zon voor het eerst tegenkwam in Jungs
+alchemistische geschriften en daarna in de analyse van een vrouw bij wie het
+beeld ingrijpend was. Wat hij voor een zeldzaamheid hield, bleek volgens hem
+veel vaker voor te komen en telkens te raken aan sterfelijkheid.
+
+Hij noemt het beeld een koan, een zenraadsel dat niet op te lossen en niet weg
+te leggen is, en verwijst naar de Mumonkan, de dertiende-eeuwse verzameling
+van de Chinese zenmeester Mumon, waarin een koan wordt vergeleken met een
+gloeiende ijzeren bal die men niet kan uitspugen. Hij kondigt aan dat er
+weinig verdoving en veel zout in de wond zal zitten, met een aangehaald
+oordeel van Miguel de Unamuno dat lijden alleen door meer lijden geneest.
+
+**Hoofdstuk 1: de donkere kant van het licht**
+
+Het eerste hoofdstuk zet uiteen hoe licht in de filosofie het vaste beeld voor
+bewustzijn werd en hoe de alchemie dat licht juist afbreekt. Marlan volgt de
+koning als beeld van het ego dat moet worden ontleed, vergiftigd en gedood
+voordat er iets nieuws kan ontstaan, en gebruikt daarvoor het schema van de
+bewerkingen dat Edward Edinger opstelde in *The Anatomy of the Psyche*.
+
+Hij tekent aan dat de nigredo bij de meeste auteurs alleen als beginfase geldt
+en dat hij daar niet in meegaat. Zijn voorstel is de zwartheid op zichzelf te
+bekijken, omdat het goud dat men voorbij de duisternis zoekt volgens hem in
+die duisternis zelf ligt. Jung zag in de zwarte zon ook een schaduw van de zon
+en een andere zon, verbonden met Saturnus, maar liet die kant grotendeels
+liggen.
+
+**Hoofdstuk 2: de afdaling**
+
+Hier verzamelt Marlan plaatsen waar de zwarte zon opduikt. Hij begint bij de
+nacht van Faust bij Goethe en bij de poort van Dantes hel, en gaat naar het
+gedicht El Desdichado van Gérard de Nerval, waarin de zwarte zon van de
+melancholie voorkomt. Aan de hand daarvan bespreekt hij Julia Kristeva, die
+haar boek over depressie naar dit beeld noemde en de zwarte zon las als teken
+van rouw die niet voltooid kan worden en die de plaats van de verloren ander
+inneemt.
+
+Daarnaast staan twee klinische beschrijvingen. Bij de ene analysande komt de
+zon voor als ontploffende zwarte vorm, verbonden met zelfmoordgedachten. Bij
+de andere, die jarenlang in analyse was, verandert het beeld gaandeweg en gaan
+haar tekeningen en woorden een andere kant op. Marlan legt naast dat materiaal
+beelden uit kunst, religie en literatuur, een werkwijze die in de jungiaanse
+traditie amplificatie heet.
+
+**Hoofdstuk 3: analyse als donker ambacht**
+
+Analyse betekent uiteenleggen, en Marlan zet dat naast de alchemistische
+bewerkingen mortificatio en putrefactio. Hij bespreekt het werk van de
+jungiaanse analyticus Donald Kalsched over trauma, en met name diens gedachte
+dat archetypische afweer het Zelf beschermt tegen uiteenvallen.
+
+Daar zet hij iets tegenover. Als men de duistere krachten in het gemoed even
+een bedoeling toeschrijft, dan is die bedoeling volgens hem niet bescherming
+maar afsterving: het Zelf wordt naar het ondenkbare gedreven dat de
+afweertheorie juist wil vermijden. Hij bespreekt ook het begrip egocide van
+David Rosen, de symbolische dood van het ego als voorwaarde voor vernieuwing,
+en stelt dat de vernieuwing bij hem niet ná de zwartheid komt maar in de
+gelijktijdigheid van zwart en oplichtend zit.
+
+**Hoofdstuk 4: het licht van de natuur**
+
+Het vierde hoofdstuk gaat over het lumen naturae, het licht dat volgens de
+alchemisten in de stof zelf schijnt. Marlan verzamelt voorstellingen van een
+fijnstoffelijk lichaam uit de kabbala, de tantra en de taoïstische alchemie,
+en betrekt daar de zwarte doeken van moderne schilders bij: Max Ernst, Mark
+Rothko, Ad Reinhardt, Pierre Soulages en Anselm Kiefer, kunstenaars die een
+deel van hun loopbaan aan zwart op zwart besteedden.
+
+Als scharnier gebruikt hij een tekening van een patiënte die Jung in zijn
+*Alchemical Studies* beschrijft, met een zwarte zon ter hoogte van de
+zonnevlecht, de plaats waarheen volgens Jung de goden zich in de moderne tijd
+hebben teruggetrokken.
+
+**Hoofdstuk 5 en epiloog: het Zelf onder doorhaling**
+
+In het slothoofdstuk stelt Marlan voor de zwarte zon te lezen als beeld van
+wat hij het niet-Zelf noemt. Dat is geen tweede naam voor het Zelf en ook geen
+ontkenning ervan, maar de erkenning dat elke voorstelling van heelheid
+tekortschiet. Hij ontleent aan de latere Franse filosofie de gedachte van een
+woord onder doorhaling: het Zelf wordt opgeschreven en tegelijk als
+ontoereikend gemerkt.
+
+In de epiloog houdt hij die paradox aan als eindstand. Het archetypische beeld
+heeft in zijn voorstelling twee polen: aan de ene kant letterlijke
+vernietiging en de dood, aan de andere kant leegte, eros en zelfvergetelheid.
+Het doel van het boek is niet om voorbij de duisternis te komen, schrijft hij,
+maar om de duisternis zelf op te lichten.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| sol niger | Latijn voor zwarte zon: alchemistisch beeld van een zon die verduistert en tegelijk een eigen donker schijnsel geeft. |
+| nigredo | De zwarte fase van het alchemistische werk, in de dieptepsychologie gelezen als afdaling in het onbewuste. |
+| mortificatio | De bewerking van doden en zwart maken, met bijbehorende beelden van marteling, verminking en verval. |
+| putrefactio | Het rotten: het uiteenvallen van organisch materiaal dat in het alchemistische recept op de mortificatio volgt. |
+| prima materia | De ruwe uitgangsstof waarmee het werk begint en waartoe alles eerst moet worden teruggebracht. |
+| lumen naturae | Het licht van de natuur: een licht dat volgens de alchemisten in de stof zelf huist en niet van de hemelse zon komt. |
+| mysterium coniunctionis | De vereniging van tegendelen, bij Jung de titel van zijn laatste grote alchemistische werk en het beeld van voltooiing. |
+| amplificatie | Jungs werkwijze om een droombeeld te verhelderen door er verwante beelden uit mythe, religie en kunst naast te leggen. |
+| egocide | Term van David Rosen voor de symbolische dood van het ego, bedoeld als alternatief voor zelfdoding. |
+| niet-Zelf | Marlans term voor de onbenoembare kern van het Zelf, ontleend aan de boeddhistische anatta en aan de negatieve theologie. |
+
+#### Waar het argument op rust
+
+Het boek staat stevig in de teksten. Marlan werkt met Jungs alchemistische
+banden, met zeventiende-eeuwse bronnen zoals Mylius, met prenten uit de
+*Splendor Solis* van 1582 en met beeldmateriaal dat in het boek is afgedrukt:
+zeventien kleurenplaten en drieënzeventig zwart-witafbeeldingen. Wie wil
+nagaan of het beeld van de zwarte zon werkelijk in de alchemistische
+literatuur voorkomt, kan dat aan de hand van deze verwijzingen doen.
+
+Voor de psychologische kant leunt hij op gesprekspartners binnen zijn eigen
+vak: James Hillman, Donald Kalsched, Wolfgang Giegerich, David Rosen. Dat zijn
+onderlinge discussies, geen onafhankelijke toetsen.
+
+Het klinische materiaal bestaat uit twee analyses die hij zelf voerde, zelf
+beschrijft en zelf uitlegt, met toestemming afgedrukte tekeningen. Er is geen
+vergelijkingsgroep, geen tweede beoordelaar en geen gestandaardiseerde meting.
+Als illustratie van hoe het beeld eruitziet is het bruikbaar; als steun voor
+de stelling dat de zwarte zon een archetypisch gegeven is, is het te smal.
+
+De verbinding tussen alchemistische beelden en psychische processen wordt
+gelegd door gelijkenis. Marlan toont dat een tekening van een patiënte lijkt
+op een oude prent. Dat is een waarneembare overeenkomst, maar het laat open of
+daar een aangeboren beeldvoorraad achter zit dan wel een gedeelde culturele
+voorraad die iedereen in de westerse wereld heeft opgedaan.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar geldt de methode. Amplificatie kan niet mislukken: bij
+elk beeld is wel een mythe, een prent of een gedicht te vinden dat erop lijkt,
+en de keuze wordt gemaakt door dezelfde persoon die de uitleg geeft. Zolang
+niet is vastgelegd welke vondst de stelling zou weerleggen, is er geen manier
+om een goede lezing van een gezochte te onderscheiden.
+
+Daarachter ligt de bredere vraag naar de empirische stand van de analytische
+psychologie. Het collectief onbewuste en het archetype zijn zo geformuleerd
+dat er geen waarneming denkbaar is die ze onderuithaalt. Wat de behandeling
+betreft is het beeld gunstiger dan vaak wordt aangenomen: de overzichtsstudie
+van Christian Roesler uit 2013 vond in Duitse en Zwitserse uitkomstonderzoeken
+verbeteringen die tot zes jaar na afloop standhielden. Die onderzoeken zijn
+echter overwegend naturalistisch en niet gerandomiseerd, en zij zeggen
+bovendien niets over de juistheid van de theorie waarmee gewerkt wordt.
+
+Er zit een gevaarlijke suggestie in het voorwoord. Reeksredacteur David Rosen
+vermeldt daar dat het beeld van een ontploffende zwarte zon bij een patiënte
+een aneurysma in haar hersenen vooraf zou kunnen hebben aangekondigd. Marlan
+doet die bewering in de hoofdtekst niet, maar zij staat er wel, en er is niets
+dat een voorspellende waarde van dromen of tekeningen staaft.
+
+De klinische toepassing van het betoog is riskant. De stelling dat de
+duisternis niet als voorstadium van herstel gelezen moet worden, verschuift de
+blik weg van behandelbare depressie. Marlan waarschuwt zelf voor het gevaar en
+beschrijft een suïcidale patiënte, maar het boek geeft geen aanwijzing hoe een
+behandelaar onderscheidt tussen een toestand die uitgehouden mag worden en een
+toestand die ingrijpen vraagt.
+
+Het beroep op de latere Franse filosofie blijft aan de oppervlakte. Termen als
+doorhaling en spoor worden overgenomen als beeldspraak zonder het argument
+waaruit ze voortkomen, en dragen daardoor niet meer dan een sfeer.
+
+Ten slotte de verwarring rond de titel, die de lezer opgemerkt moet hebben. Er
+bestaan twee andere bekende boeken met bijna dezelfde naam: dat van Nicholas
+Goodrick-Clarke uit 2002 over naoorlogse esoterische neonazi-groepen, en dat
+van Julia Kristeva uit 1987 over melancholie. Marlan behandelt Kristeva
+uitvoerig. Het teken dat door extreemrechtse groepen zwarte zon wordt genoemd
+komt in zijn boek niet voor, en die geschiedenis blijft dus buiten beeld.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik de alchemistische termen als beeldtaal voor toestanden, niet als
+verklaring ervan. Nigredo beschrijft hoe iets voelt; het zegt niets over de
+oorzaak.
+- Scheid bij het lezen de tekstgeschiedenis van de klinische bewering. Dat sol
+niger in oude bronnen voorkomt staat vast; wat het bij een patiënt betekent
+staat niet vast.
+- Bij ernstige somberheid: neem de gedachte dat duisternis eigen waarde heeft
+niet als reden om hulp uit te stellen.
+- Voor wie het beeldmateriaal zoekt: de waarde van dit boek zit vooral in de
+verzamelde prenten en schilderijen en in de verwijzingen daarnaar.
+
+#### Wat je hierna leest
+
+- 646. The Pregnant Darkness. Hetzelfde veld van alchemie, droom en jungiaanse
+praktijk, uit dezelfde jaren en met dezelfde methodische bezwaren.
+- 409. Ego and Archetype. Edinger, wiens schema van de alchemistische
+bewerkingen Marlan in zijn eerste hoofdstuk overneemt.
+- 360. Archetypen. De begrippen archetype en collectief onbewuste bij Jung
+zelf, die Marlan aan het eind ter discussie stelt.
+- 1153. The Aryan Christ. De historische kritiek op de herkomst van Jungs
+denken, tegenwicht bij een boek dat binnen de traditie blijft.
+
+## 1155. De kelk en het zwaard
+
+Riane Eisler, 1987. *The Chalice and the Blade: Our History, Our Future*
+(Harper & Row, San Francisco, 1987, xxiii + 261 blz.; paperback HarperCollins
+1988, ISBN 978-0-06-250289-6). Nederlandse uitgave: *De kelk en het zwaard:
+onze geschiedenis, onze toekomst*, vertaald door Marleen Close (Entheon,
+Nijmegen, 1997, 315 blz., ISBN 90-7614-901-1). Rubriek: geschiedenis en
+samenleving.
+Tags: `archeologie`, `feminisme`, `geschiedschrijving`, `patriarchaat`
+
+Eisler, jurist en socioloog, in 1931 in Wenen geboren en in 1939 met haar
+ouders voor de nazi's naar Cuba gevlucht, stelt in dit boek twee grondvormen
+van samenleven tegenover elkaar: een verbindend model en een overheersend
+model. Het neolithische Oud-Europa en het minoïsche Kreta gelden bij haar als
+voorbeelden van het eerste, tot ruiterlijke volken van de steppe het tweede
+opdrongen.
+
+Het boek werd in ruim vijfentwintig talen vertaald en gaf een generatie lezers
+een woordenschat voor de vraag of overheersing onvermijdelijk is. De
+archeologische onderbouwing is intussen op vrijwel alle punten aangevochten,
+deels omdat de bronnen waarop Eisler steunt zelf omstreden zijn geraakt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Eisler leest de geschiedenis van de mensheid als een strijd
+tussen twee inrichtingen van de samenleving, en niet als een oplopende reeks
+beschavingen. In de ene brengt verschil geen rangorde met zich mee; in de
+andere heerst de ene helft van de mensheid over de andere met geweld of met de
+dreiging daarvan. Haar bewering is dat de eerste inrichting in het
+neolithische Oud-Europa en op Kreta werkelijk heeft bestaan, dat zij tussen
+ruwweg 4300 en 1500 voor onze jaartelling door binnenvallende groepen is
+verdrongen, en dat die omslag dus een gebeurtenis in de tijd is en geen
+eigenschap van de menselijke natuur.
+
+#### De gang van het boek
+
+**Twee modellen en een theorie**
+
+In de inleiding zet Eisler haar begrippenpaar neer. Het overheersende model,
+dat in de omgangstaal patriarchaat of matriarchaat heet, rangschikt de ene
+helft van de mensheid boven de andere. Het verbindende model ordent
+verhoudingen door koppeling in plaats van rangschikking; verschil betekent
+daar geen minderwaardigheid.
+
+Die tweedeling vat zij samen als Cultural Transformation theory. De richting
+van de culturele ontwikkeling liep oorspronkelijk naar het verbindende model,
+tot een periode van ontwrichting een omslag bracht. De titel verwijst naar dat
+keerpunt: de kelk staat voor de levengevende krachten, het zwaard voor de
+macht om leven te nemen. De uitdrukking over de dodelijke macht van het zwaard
+ontleent zij aan de archeologe Marija Gimbutas.
+
+**Het paleolithicum, het neolithicum en Oud-Europa**
+
+De eerste twee hoofdstukken behandelen de grotkunst van West-Europa, de
+vrouwenbeeldjes uit Willendorf en elders, en de neolithische nederzettingen.
+Eisler steunt op het werk van de Britse archeoloog James Mellaart in
+Çatalhöyük en Hacilar in Anatolië en op Gimbutas' Oud-Europa, het gebied in
+Zuidoost-Europa waar tussen ongeveer 6500 en 3500 voor onze jaartelling een
+ontwikkelde landbouwcultuur bloeide.
+
+Haar lezing is dat de beeldjes en wandschilderingen één godin verbeelden die
+de vruchtbaarheid van mens, dier en akker omvatte, en dat de bijbehorende
+samenleving geen wapenopslag, geen versterkingen en geen standenverschil in
+graven kende. Het hoofdstuk sluit met de vaststelling dat dit geen
+matriarchaat was: als het geen patriarchaat is hoeft het niet het spiegelbeeld
+daarvan te zijn.
+
+**Kreta als proefgeval**
+
+Het derde hoofdstuk noemt de opgravingen op Kreta een archeologische bom.
+Eisler beschrijft de minoïsche cultuur, ruwweg tussen 2000 en 1450 voor onze
+jaartelling, als een samenleving zonder muren om haar paleizen, met vrouwen op
+prominente plaatsen in de fresco's, met een kunst vol zee, bloemen en dieren,
+en met een welvaart die breed verspreid was. Zij leunt daarbij op de Griekse
+archeoloog Nicolas Platon, die het boek ook aanprees.
+
+Kreta is in haar betoog het beslissende geval: als één ontwikkelde
+bronstijdcultuur zonder oorlogsverheerlijking heeft bestaan, dan is
+overheersing geen noodzaak. Het hoofdstuk eindigt met de gedachte dat de
+vakwereld dit over het hoofd zag omdat het buiten haar verwachtingen viel.
+
+**De omslag: metaal, ruiters en oorlog**
+
+Hoofdstuk vier beschrijft de invallen. Eisler neemt Gimbutas'
+Koergan-hypothese over: in golven trokken herdersvolken uit de Pontische
+steppe Europa binnen, met paard, wapen en een hemelgod. Metaalbewerking werd
+daarbij vooral wapenbewerking, en dat viel volgens haar samen met mannelijke
+overmacht. Oorlog, slavernij en mensenoffers verschijnen in het beeld dat zij
+van de eeuwen daarna geeft.
+
+De ondergang van Kreta plaatst zij aan het einde van die reeks; wat volgt is
+een beschaving die zij als afgeknot beschouwt.
+
+**Sporen in mythe en geloof**
+
+De hoofdstukken vijf tot en met negen zoeken resten van de oude inrichting in
+latere overlevering. Het gouden geslacht bij Hesiodus, de sage van Atlantis,
+de tuin van Eden en de Soemerische kleitabletten leest Eisler als
+herinneringen aan een verloren tijd. In de twee hoofdstukken met de titel over
+de omgekeerde werkelijkheid behandelt zij Griekse mythen waarin het doden van
+de moeder geen misdaad heet, als teken van een omgekeerde waardering.
+
+Daarna volgt haar lezing van het vroege christendom. Jezus plaatst zij aan de
+verbindende kant, evenals de geschriften die buiten de bijbelse canon vielen
+en de latere ketterse bewegingen. Dat zijn voor haar de gylanische
+onderstromen die telkens werden onderdrukt.
+
+In hoofdstuk tien voert zij twee nieuwe termen in als scherpere vervangers van
+haar beginwoorden: androcratie voor een stelsel dat door mannen met geweld
+wordt bestuurd, en gylanie voor het verbindende alternatief. Zij onderscheidt
+daarbij hiërarchieën van overheersing van wat zij verwezenlijkingshiërarchieën
+noemt, de opbouw van molecuul naar cel naar orgaan, die geen rangorde van
+mensen inhoudt.
+
+**De onvoltooide omslag en de toekomst**
+
+De laatste drie hoofdstukken en de epiloog gaan over het heden. Eisler leest
+de moderne geschiedenis als een onvoltooide poging om uit het overheersende
+model te komen, waarbij de wereldlijke ideologieën van de negentiende en
+twintigste eeuw de androcratische uitgangspunten volgens haar niet raakten.
+
+Het slot zet twee toekomsten tegenover elkaar: een waarin het overheersende
+model met kernwapens en milieuschade doorloopt, en een waarin wetenschap,
+politiek en economie zich rond verbinding vormen. Aan de toon van deze
+hoofdstukken is de kernwapenvrees van 1987 te merken.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| verbindend model | Eislers term voor een samenleving die verhoudingen op koppeling ordent, waarin verschil tussen mensen geen rangorde meebrengt. |
+| overheersend model | Een samenleving waarin de ene helft van de mensheid over de andere is gerangschikt en die rangorde met geweld of dreiging wordt gehandhaafd. |
+| gylanie | Eislers eigen woord voor het verbindende model, uit het Griekse gyne (vrouw) en andros (man), met een l die verbinding en ontknoping aanduidt. |
+| androcratie | Haar term voor bestuur door mannen op grond van geweld, bedoeld als preciezere vervanger van het woord patriarchaat. |
+| Cultural Transformation theory | De aanname dat achter alle verscheidenheid van culturen twee grondmodellen liggen en dat de geschiedenis van het ene naar het andere is omgeslagen. |
+| Oud-Europa | Gimbutas' naam voor de neolithische landbouwculturen op de Balkan en in Zuidoost-Europa van vóór de instroom uit de steppe. |
+| Koergan-golven | Gimbutas' reconstructie van opeenvolgende bewegingen van steppevolken naar Europa, genoemd naar hun grafheuvels. |
+| verwezenlijkingshiërarchie | Eislers naam voor de opbouw van eenvoudige naar samengestelde niveaus, die zij onderscheidt van hiërarchieën die mensen boven mensen plaatsen. |
+| kelk en zwaard | De twee zinnebeelden uit de titel: de kelk voor de macht om leven te geven, het zwaard voor de macht om het te nemen. |
+
+#### Waar het argument op rust
+
+Eisler heeft zelf niet opgegraven. Haar bewijsvoering bestaat uit het
+samenbrengen van andermans werk, en dat werk is voor het grootste deel
+afkomstig van twee mensen: Marija Gimbutas voor Oud-Europa en de
+Koergan-golven, en James Mellaart voor Çatalhöyük en Hacilar. Voor Kreta
+steunt zij vooral op Nicolas Platon. De elf figuren achter in het boek zijn
+chronologieën en kaarten die rechtstreeks aan Gimbutas en Mellaart zijn
+ontleend.
+
+De redenering is grotendeels een redenering uit afwezigheid: geen
+versterkingen, geen wapens in graven, geen afbeeldingen van veldslagen, dus
+geen oorlog en dus geen overheersing. Zulk bewijs is zwakker dan het lijkt,
+omdat het even goed kan betekenen dat het materiaal nog niet gevonden of niet
+herkend is.
+
+De sprong van voorwerp naar samenlevingsvorm doet het meeste werk en wordt het
+minst verantwoord. Van vrouwenbeeldje naar godinnenverering, en van
+godinnenverering naar gelijkwaardigheid, zijn twee gevolgtrekkingen die elk
+apart onderbouwd zouden moeten worden.
+
+Het deel over mythe en geloof werkt anders: daar leest Eisler teksten als
+herinneringen aan een verloren toestand, wat een uitleg is en geen vondst.
+
+#### Wat er tegen in te brengen valt
+
+De godinnenlezing waarop het boek staat, was al vóór 1987 aangevochten en is
+daarna verder afgebrokkeld. Peter Ucko liet in 1968 in zijn studie van
+neolithische beeldjes uit Egypte en Kreta zien dat die beeldjes uiteenlopende
+functies kunnen hebben gehad en niet tot één moedergodin zijn terug te
+brengen. Brian Hayden betoogde in 1986 dat de vondsten in Oud-Europa eerder op
+aanvullende rollen dan op een heilig matriarchaat wijzen. Lynn Meskell zette
+de bezwaren tegen Gimbutas' methode in 1995 op een rij in het tijdschrift
+*Antiquity*, onder de titel Goddesses, Gimbutas and New Age archaeology.
+
+Van de twee steunpilaren is Mellaart de zwakste geworden. Na zijn dood in 2012
+stelde de geoarcheoloog Eberhard Zangger in 2018 na onderzoek van zijn
+nagelaten papieren vast dat Mellaart wandschilderingen had nagemaakt en
+tekeningen van niet-bestaande inscripties had geproduceerd; de zogeheten
+Beyköy-inscriptie werd door specialisten in het Luwisch als vervalsing
+afgewezen. Dat maakt niet alles ongeldig wat hij ooit publiceerde, maar het
+betekent wel dat de afbeeldingen waarop Eislers Çatalhöyük-hoofdstuk rust
+apart moeten worden nagelopen.
+
+Ian Hodder groef Çatalhöyük vanaf 1993 opnieuw op, met veel fijnere methoden.
+Zijn ploeg vond ook mannelijke en dierlijke beeldjes, deels in Mellaarts
+afvalhopen, en concludeerde dat er voor een moedergodinreligie of een
+matriarchaat geen aanwijzing is. Twee bevindingen wijzen wel Eislers kant op:
+over meer dan duizend jaar zijn er geen sporen van verwoesting door oorlog, en
+voeding en positie van mannen en vrouwen verschilden er nauwelijks. Het beeld
+dat daaruit ontstaat is gelijkwaardigheid zonder godin.
+
+De vreedzaamheid van Kreta houdt in deze vorm geen stand. De bekende
+slangengodin uit Knossos is voor een aanzienlijk deel een aanvulling van
+opgraver Arthur Evans: hoofd, een arm en het katachtige dier op de hoofdtooi
+zijn toegevoegd. Bij Anemospilia bij Archanes vonden Yannis en Efi
+Sakellarakis in 1979 een heiligdom met vier skeletten, waaronder een jonge man
+op een verhoging met een bronzen kling, wat zij als een door een aardbeving
+onderbroken mensenoffer lazen; die uitleg is zelf betwist, onder anderen door
+Dennis Hughes. In het Noordhuis bij Knossos kwamen in hetzelfde jaar
+kinderbotten met snijsporen tevoorschijn, ook omstreden. Barry Molloy bracht
+in 2012 in het jaarboek van de Britse School in Athene de wapens, de graven en
+de beeldtaal bij elkaar en betoogde dat oorlogvoering in het bronstijdse Kreta
+veel dieper in de samenleving zat dan de oude voorstelling toeliet.
+
+Ook binnen het feminisme is het boek bestreden. Cynthia Eller betoogde in *The
+Myth of Matriarchal Prehistory* (2000) dat er voor een algemene vroege fase
+van vrouwelijk gezag geen bewijs is en dat een verzonnen verleden een slechte
+grondslag is voor een politieke zaak, omdat het dezelfde beelden van
+vrouwelijkheid bevestigt die het wil bestrijden.
+
+Eén deel van Gimbutas' werk heeft het beter gedaan dan de rest. Onderzoek naar
+oud dna uit 2015, van de groepen rond Wolfgang Haak en Morten Allentoft, liet
+een omvangrijke trek vanuit de Pontische steppe naar Midden-Europa rond 3000
+voor onze jaartelling zien. Dat bevestigt de migratie die Gimbutas
+veronderstelde. Het zegt niets over godinnen, en het zegt evenmin dat wat
+verdrongen werd vreedzaam was.
+
+Als denkraamwerk heeft het boek wel gewerkt. Eisler gaf een woordenschat
+waarmee de vraag te stellen valt of ongelijkheid een vaste eigenschap van
+samenlevingen is; die is in vredesonderzoek en onderwijs opgepakt en zij
+bouwde er haar latere werk over zorg en economie op voort. Als beschrijving
+van het neolithicum is het achterhaald. De zwakte van het schema blijft dat
+elk tegenvoorbeeld als invloed van het overheersende model kan worden
+weggeschreven.
+
+#### Wat er concreet mee te doen is
+
+- Behandel het boek als ideeëngeschiedenis uit de jaren tachtig en controleer
+elke archeologische bewering bij recenter vakwerk.
+- Scheid de twee lagen: het onderscheid tussen verbinden en overheersen is een
+denkmiddel, de bewering over het neolithicum is een historische claim die
+apart moet worden getoetst.
+- Ga bij redeneringen uit afwezigheid na wat er nog niet gevonden kan zijn:
+geen wapens in de grond is iets anders dan geen geweld.
+- Let bij een beroemd voorwerp op welke delen door de opgraver zijn aangevuld.
+
+#### Wat je hierna leest
+
+- 56. Sapiens. Een ander groot verhaal over de landbouwrevolutie, met dezelfde
+neiging tot brede greep en dezelfde kwetsbaarheid daarvoor.
+- 611. The White Goddess. Graves' godinnenmythologie, een oudere en even
+omstreden poging om één vrouwelijke godheid achter de Europese overlevering te
+zien.
+- 939. Het civilisatieproces. Elias over de lange lijn van geweldsbeheersing,
+een tegenmodel dat de omslag anders dateert en anders verklaart.
+- 3. The Will to Change. Het patriarchaat als leefbare vraag in het heden,
+zonder beroep op een verloren voortijd.
+
+## 1156. The Source Field Investigations
+
+David Wilcock, 2011. *The Source Field Investigations: The Hidden Science and
+Lost Civilizations Behind the 2012 Prophecies* (Dutton, New York, 2011, 560
+blz., ISBN 978-0-525-95204-6). Voorwoord van scenarioschrijver James V. Hart,
+inleiding van Graham Hancock. Er bestaat geen Nederlandse vertaling; de
+samenvatting is op de Engelse editie gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `bewustzijn`, `new age`, `grenswetenschap`, `pseudowetenschap`
+
+David Wilcock betoogt dat ruimte, tijd, materie, leven en bewustzijn alle
+voortkomen uit één veld, dat hij het bronveld noemt, en dat piramides, de
+pijnappelklier en het DNA er alle drie mee in verbinding staan. Hij bouwt dat
+op uit honderden verwijzingen, waarvan een groot deel naar Russisch onderzoek
+dat zelden of nooit is herhaald.
+
+Het boek verscheen in de aanloop naar december 2012 en eindigt in de
+verwachting van een gouden tijdperk. De opbouw is overzichtelijk en de toon is
+niet dreigend, maar de onderbouwing houdt bij nazoeken op vrijwel geen enkel
+punt stand.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Wilcock stelt dat alle ruimte, tijd, materie, biologisch
+leven en bewustzijn voortkomen uit één veld dat hij het bronveld noemt, en dat
+dit veld niet alleen meetbaar is maar zelf bewust: gedachten werken erin door,
+planten en cellen reageren erop, en de beweging van het zonnestelsel door de
+melkweg zet er met vaste tussenpozen grote biologische veranderingen in gang.
+Daaruit trekt hij twee conclusies. De bouwers van de piramides beschikten over
+een techniek om dat veld af te tappen, en de datum van 21 december 2012
+markeert het begin van een aantoonbare sprong in de menselijke biologie en
+cultuur.
+
+#### De gang van het boek
+
+**Bewustzijn buiten de schedel**
+
+Het boek opent met een voorwoord van scenarioschrijver James V. Hart en een
+inleiding van Graham Hancock, die de lezer vast waarschuwt dat critici de
+tekst op fouten zullen doorzoeken en dat men zich daar niet door moet laten
+ontmoedigen. Wilcock begint zijn eigen betoog met hypnose. Hij vertelt over
+Cleve Backster, die als student een kamergenoot onder hypnose een handtekening
+liet zetten waar die zich niets van herinnerde, en later een verhaal van
+Michael Talbot naspeelt over een gehypnotiseerde man die zijn eigen dochter
+niet meer kon zien.
+
+Daaruit leidt Wilcock af dat de waarneming van vaste materie zelf een soort
+afspraak is. Hoofdstuk één gaat verder met Backsters latere werk, waarin
+planten aan een leugendetector zouden reageren op de bedoelingen van mensen in
+de kamer. Wilcock noemt dat het Backster-effect en gebruikt het als het eerste
+bewijsstuk dat geest zich niet tot het zenuwstelsel beperkt.
+
+**De pijnappelklier als ontvanger**
+
+Hoofdstuk drie behandelt de pijnappelklier. Wilcock zet correct op een rij wat
+er anatomisch over bekend is: de klier ligt ongeveer in het meetkundige midden
+van de hersenmassa, valt buiten de bloed-hersenbarrière, heeft een met vocht
+gevulde holte en verkalkt met de jaren tot het witte stipje dat op een
+hersenscan zichtbaar is. Vervolgens legt hij daarnaast de dennenappel in
+religieuze kunst, van de staf van Dionysus tot die van de paus, en concludeert
+dat oude culturen deze klier als derde oog vereerden.
+
+Hij erkent zelf dat er geen metingen bestaan van lichtvorming binnen een
+levende pijnappelklier. De stap van iconografie naar orgaanfunctie wordt niet
+gedekt door onderzoek, maar door de veronderstelling dat de ouden iets wisten
+wat wij zijn kwijtgeraakt.
+
+**Piramides als apparaat**
+
+De hoofdstukken zeven en acht gaan over de Grote Piramide en over
+piramidekracht. Het zwaartepunt ligt bij Alexander Golod, een Moskouse
+ingenieur die vanaf 1990 in Rusland en Oekraïne piramides bouwde van
+pvc-buizen met glasvezelplaten, in de verhouding van de gulden snede en zonder
+enig metaal. In 2001 stonden er zeventien, de grootste vierenveertig meter
+hoog. Wilcock somt de gerapporteerde uitkomsten op: effecten op gezondheid,
+landbouw en ecologie, en kristallen uit de piramides die aan boord van
+ruimtestation Mir zijn meegevlogen.
+
+In dezelfde alinea schrijft hij dat geen enkel gangbaar vaktijdschrift die
+uitkomsten wilde publiceren, en verklaart dat uit de belangen van
+machtsgroepen die zich bedreigd zouden voelen. Dat is het scharnier van het
+hele boek: het ontbreken van publicatie wordt niet als een tekort in het
+bewijs gelezen, maar als bevestiging van het verhaal.
+
+**DNA, licht en het fantoomeffect**
+
+De hoofdstukken negen en tien draaien om de Russische bioloog Peter Gariaev.
+Volgens Wilcock plaatste Gariaev in 1984 DNA in een kwartsbuisje, belichtte
+het met een zwakke laser en zag het molecuul licht opnemen en in een spiraal
+vasthouden. Toen hij het buisje weghaalde, bleef de lichtspiraal volgens dit
+verslag tot dertig dagen op dezelfde plek staan en herstelde zich zelfs na een
+stoot vloeibare stikstof. Wilcock noemt dat het DNA-fantoomeffect en leidt
+eruit af dat elk lichaam een energetische dubbelganger heeft.
+
+In hoofdstuk tien staat de meest opzienbarende bewering van het boek: Gariaev
+zou een groene laser door salamandereieren en vervolgens door kikkereieren
+hebben gestuurd, waarna de kikkereieren zich tot salamanders ontwikkelden die
+zich later normaal voortplantten. Wilcock schrijft dat hij hiervan in 2000
+hoorde en dat het zijn leven veranderde, omdat het voor hem bewees dat
+evolutie in één sprong kan verlopen.
+
+**Tijd, torsie en meetkunde**
+
+Deel twee verlegt het onderwerp naar tijd en ruimte. Nikolai Kozyrev staat
+centraal met de gedachte dat tijd niet rechtlijnig door de ruimte gaat maar
+draait, wat Russische onderzoekers torsie noemen; Wilcock houdt de term
+bronveld aan. Simon Shnoll levert de bewering dat metingen aan uiteenlopende
+processen geen willekeurige spreiding vertonen maar telkens dezelfde vormen
+aannemen, samenhangend met de stand van aarde, zon en sterren.
+
+Daarnaast keert Wilcock terug naar Kepler en diens idee dat de planeetbanen
+door de vijf regelmatige veelvlakken worden bepaald. Hij zegt daarvoor het
+sluitende bewijs te hebben gevonden in *A Little Book of Coincidence* van John
+Martineau, en verbindt diezelfde meetkunde met DNA, eiwitvorming en een
+wereldwijd energieraster.
+
+**Naar 2012 en daarna**
+
+De laatste hoofdstukken brengen alles samen op de datum. De Maya-kalender, de
+precessie van de equinoxen en een omloop van het zonnestelsel door het
+melkwegvlak worden op elkaar gelegd tot één klok. Hoofdstuk negentien zoekt de
+oorsprong van het idee van een gouden eeuw op in de klassieke literatuur en
+steunt daarbij op een artikel van H. C. Baldry uit *Classical Quarterly* uit
+1952, een van de weinige plaatsen waar Wilcock rechtstreeks een
+wetenschappelijk tijdschrift aanhaalt.
+
+Het slothoofdstuk gaat over openbaarmaking van buitenaards contact. Daar komen
+de schedels van Boskop ter sprake, die volgens een artikel in *Discover* uit
+2009 zouden wijzen op een mensensoort met een aanzienlijk groter
+voorhoofdsgebied. Ook de Cayce-lezingen en de gechannelde reeks *The Law of
+One* keren terug als bron, naast Ian Stevensons onderzoek naar kinderen die
+zich een vorig leven zouden herinneren.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| bronveld | Wilcocks naam voor één alomtegenwoordig veld waaruit ruimte, tijd, materie, leven en bewustzijn zouden voortkomen en dat zelf bewust zou zijn. |
+| Backster-effect | De bewering van Cleve Backster dat planten en losse cellen via een leugendetector meetbaar reageren op de bedoelingen van mensen in de omgeving. |
+| DNA-fantoomeffect | Het gerapporteerde verschijnsel dat een lichtspiraal blijft staan op de plek waar een DNA-monster is weggenomen. |
+| torsie | De draaiing die volgens Kozyrev en zijn navolgers in de tijd zelf zit en die Wilcock gelijkstelt aan zijn bronveld. |
+| piramidekracht | De veronderstelde werking van piramidevormige bouwsels op gezondheid, groei en materiaaleigenschappen, in het boek vooral gebaseerd op Golods bouwwerken. |
+| pijnappelklier | De erwtgrote klier midden in de hersenen die Wilcock aanwijst als het orgaan waarmee de mens het bronveld zou waarnemen. |
+| precessie | De langzame tolbeweging van de aardas in ongeveer 26.000 jaar, die Wilcock als kloktijd voor de voorspellingen gebruikt. |
+| The Law of One | Een gechannelde tekstreeks uit de jaren tachtig die Wilcock in het slotdeel als informatiebron naast wetenschappelijk werk zet. |
+
+#### Waar het argument op rust
+
+Het notenapparaat is omvangrijk, maar de verwijzingen leiden zelden naar een
+tijdschrift met beoordeling door vakgenoten. Ze leiden naar websites, naar
+samenvattingen van Russisch werk in Engelse vertaling, naar populaire boeken
+en naar Wilcocks eigen eerdere teksten. Voor Backster is de bron diens eigen
+boek *Primary Perception* uit 2003, niet gepubliceerd onderzoek. Pogingen om
+Backsters plantproeven onder gecontroleerde omstandigheden te herhalen,
+waaronder een studie die in 1975 in *Science* verscheen, vonden geen effect.
+
+Voor Gariaev geldt hetzelfde in scherpere vorm. Zijn golfgenetica verscheen
+buiten de gangbare vakliteratuur, en de bewering dat kikkereieren zich onder
+laserbelichting tot salamanders ontwikkelden is nooit onafhankelijk bevestigd.
+Wilcock behandelt haar niettemin als vaststaand en bouwt er zijn hele
+evolutiehoofdstuk op.
+
+Bij Golods piramides schrijft Wilcock het zelf op: geen enkel gangbaar
+tijdschrift nam de uitkomsten op. Wat overblijft is een samenvatting op de
+website van een piramide-onderzoeksvereniging en een Engelse weergave door
+Volodymyr Krasnoholovets, waarvan Wilcock opmerkt dat de vertaling moeilijk te
+volgen was.
+
+Het Boskop-materiaal is een goed te controleren geval. Het artikel in
+*Discover* was een bewerking uit een populair boek; antropologen hebben laten
+zien dat het beeld van een grootbrainig volk ontstond doordat uit een gemengde
+reeks vondsten telkens de grootste schedels werden geselecteerd. Van een
+aparte mensensoort met een dertig procent groter brein is geen sprake.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar zit in de bouw van het betoog. Elk hoofdstuk behandelt de
+uitkomst van het vorige als vastgesteld en gebruikt die als fundament voor de
+volgende stap. Backster draagt de pijnappelklier, de pijnappelklier draagt de
+piramides, de piramides dragen het DNA en het DNA draagt de datum. Valt de
+eerste steen weg, dan valt de hele rij. Doordat elke steen op zichzelf zwak
+is, is er nauwelijks een punt waarop het boek nog corrigeerbaar is.
+
+Daar komt bij dat het boek zijn eigen weerlegging uitschakelt. Wanneer
+onderzoek niet in vaktijdschriften staat, is dat volgens Wilcock een teken van
+tegenwerking door belanghebbenden. Daarmee telt afwezigheid van publicatie als
+bevestiging, en is er geen waarneming meer denkbaar die het model kan
+tegenspreken.
+
+De Russische natuurkunde waarop hij leunt heeft in eigen land een geschiedenis
+die hij niet noemt. De commissie tegen pseudowetenschap van de Russische
+Academie van Wetenschappen heeft het torsieveldprogramma van Akimov en Sjipov
+aangemerkt als bedrog en beschreven hoe het aan overheidsgeld kwam. Wilcock
+presenteert diezelfde lijn als onderdrukte kennis.
+
+En dan is er de voorspelling zelf. Het boek zet in op een aanwijsbare
+verandering rond december 2012 in biologie, bewustzijn en samenleving. Die is
+niet opgetreden. Dat is geen detail, want het is de enige toetsbare uitspraak
+die het boek doet.
+
+Wat er wel voor pleit, moet ook worden genoemd. Wilcock schrijft ordelijk,
+laat vrijwel altijd zien waar hij zijn materiaal vandaan heeft en verkoopt
+geen ondergangsscenario. Juist doordat hij zijn bronnen noemt, is het boek na
+te lopen. Dat maakt het een bruikbaar overzicht van wat er in dit genre rond
+2011 circuleerde, en een slechte gids voor wat er in de natuurkunde of de
+biologie bekend is.
+
+#### Wat er concreet mee te doen is
+
+- Zoek bij elke opzienbarende bewering de oorspronkelijke publicatie op en
+kijk of die door vakgenoten is beoordeeld.
+- Behandel de zin dat iets niet gepubliceerd kon worden als een bewering die
+zelf bewijs nodig heeft, niet als verklaring.
+- Scheid het referaat van het Russische onderzoek van de gevolgtrekking die
+Wilcock eraan verbindt.
+- Lees het boek als tijdsdocument over het 2012-genre, niet als bron over
+hersenen, DNA of zwaartekracht.
+
+#### Wat je hierna leest
+
+- 340. The Holographic Universe. Wilcock noemt *The Holographic Universe* van
+Michael Talbot met zoveel woorden als voorbeeld en ontleent er verhalen aan;
+het is de directe voorganger van dit boek.
+- 1152. Lost Science. *Lost Science* van Gerry Vassilatos werkt dezelfde
+figuur uit: uitvinders en onderzoekers wier werk zou zijn weggedrukt.
+- 663. Supernature. *Supernature* van Lyall Watson deed in 1973 een
+vergelijkbare poging om randverschijnselen in een biologisch kader te vatten,
+met dezelfde bewijsproblemen.
+- 63. The Demon-Haunted World. *The Demon-Haunted World* van Carl Sagan levert
+het gereedschap om precies dit soort ketenredeneringen te ontleden.
+
+## 1157. Gods, Genes and Consciousness
+
+Paul Von Ward, 2004. *Gods, Genes, and Consciousness: Nonhuman Intervention in
+Human History* (Hampton Roads Publishing, Charlottesville, 2004, xxxi + 411
+blz., ISBN 1-57174-379-0). In 2011 verscheen een bewerkte versie onder de
+titel *We've Never Been Alone: A History of Extraterrestrial Intervention*. Er
+bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie
+gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `ufo`, `esoterie`, `mythologie`, `genetica`
+
+Paul Von Ward bundelt goden, engelen, opgestegen meesters, geestgidsen en
+buitenaardse bezoekers in één verzamelnaam: Advanced Beings, afgekort AB's.
+Zijn stelling is dat zulke wezens werkelijk hebben bestaan, binnen een
+natuurlijke kosmos, en dat zij de menselijke godsdienst, taal, techniek en
+zelfs het genoom hebben beïnvloed.
+
+Hij presenteert dat uitdrukkelijk niet als geloof maar als een hypothese die
+getoetst kan worden aan teksten, fossielen, genetica en taalgeschiedenis. Het
+boek voert die toets zelf niet uit: er wordt materiaal verzameld dat bij de
+hypothese past, zonder dat wordt aangegeven wat haar zou kunnen weerleggen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Von Ward betoogt dat de goden, engelen, hemelse legers,
+opgestegen meesters en buitenaardse bezoekers uit de wereldliteratuur geen
+symbolen of verzinsels zijn maar verslagen van ontmoetingen met werkelijk
+bestaande wezens, die hij samenvat onder de naam Advanced Beings of AB's.
+Advanced betekent bij hem niet in alle opzichten hoger, alleen in het bezit
+van technieken of vermogens die verder ontwikkeld waren. Die wezens zouden
+hebben ingegrepen in de menselijke ontwikkeling, tot in het genoom toe, en hun
+sporen zouden terug te vinden zijn in heilige teksten, in bouwwerken, in
+taalfamilies en in de sprongen in het fossiele bestand. De vraag of dat zo is,
+betoogt hij, wordt door wetenschap en godsdienst allebei ontweken en zou
+gewoon onderzocht moeten worden.
+
+#### De gang van het boek
+
+**Waarom de vraag niet gesteld wordt**
+
+Het boek opent met een klacht over de instellingen. De natuurwetenschap sluit
+de mogelijkheid van niet-menselijke tussenkomst bij voorbaat uit omdat zij
+buiten haar werkterrein valt, en de godsdienst sluit haar uit omdat de
+betrokken wezens daar bovennatuurlijk moeten blijven. Von Ward stelt voor
+beide uitsluitingen te laten vallen en de vraag als een gewone historische
+vraag te behandelen.
+
+Daarmee zet hij ook zijn eigen positie neer. Hij noemt zich interdisciplinair
+kosmoloog en psycholoog, met een achtergrond in de marine, de diplomatie en
+het kerkelijk werk, en pleit voor wat hij natuurlijke spiritualiteit noemt:
+een heelal dat zichzelf leert kennen en waarin niets buitennatuurlijk hoeft te
+zijn.
+
+**Wat een AB is**
+
+De kern van het model is een samenvoeging. Alle verslagen van niet-menselijk
+bewustzijn, hoe verschillend van herkomst ook, worden onder één categorie
+gebracht. Goden uit Soemerische kleitabletten, engelen uit de Hebreeuwse
+bijbel, deva's uit de Veda's, Griekse goden, opgestegen meesters uit de
+theosofie, stemmen die via mediums spreken en inzittenden van vliegende
+schotels vallen samen onder AB.
+
+Von Ward verdedigt die samenvoeging met het argument dat de beschreven
+eigenschappen op elkaar lijken: de wezens komen van boven, beschikken over
+vervoermiddelen en wapens, geven onderricht, stellen wetten en gaan
+verbintenissen aan met uitgekozen groepen. Wie de bovennatuurlijke laag
+wegneemt, houdt volgens hem in alle gevallen hetzelfde over.
+
+**Heilige teksten als verslag**
+
+Het grootste deel van het boek bestaat uit hernieuwde lezingen van bekende
+teksten. Het Oude Testament, de Soemerische en Akkadische verhalen rond Enki
+en Enlil, de Veda's en de Griekse mythologie worden naast elkaar gelegd en
+behandeld als op zijn minst gedeeltelijke weergaven van wat mensen hebben
+meegemaakt.
+
+Von Ward zoekt daarbij systematisch naar overeenkomsten tussen ver uit elkaar
+liggende culturen: een grote vloed, een verbond met een uitverkoren groep,
+hemelse strijd, gaven van landbouw en schrift. Die overeenkomsten zijn voor
+hem het voornaamste teken dat er iets werkelijks achter zit. Hij dateert de
+vloed rond elfduizend vijfhonderd jaar geleden en veronderstelt dat de
+overlevenden bij het herstellen van de beschaving hulp kregen.
+
+**Genen, fossielen en de sprong naar de moderne mens**
+
+Het genetische deel is waar de titel op doelt. Von Ward wijst op wat hij ziet
+als gaten in de gangbare afstammingsleer: de snelheid waarmee moderne
+kenmerken opkwamen, de omvang van de hersenen, het ontstaan van taal. Hij
+oppert dat AB's hun eigen erfelijk materiaal met dat van bestaande
+mensachtigen hebben vermengd.
+
+Hier valt op hoe het argument werkt. Wat de evolutiebiologie nog niet volledig
+verklaart, wordt niet als openstaande vraag genoteerd maar als ruimte voor de
+hypothese ingeboekt. Verklaringen die de vakliteratuur wel biedt, zoals
+culturele overdracht, gedeelde denkneigingen bij mensen en de geleidelijke
+opbouw van taal en landbouw, komen in het boek zijdelings ter sprake en worden
+niet stelselmatig tegenover de eigen verklaring gezet.
+
+**Taal, bouwwerken en kennisoverdracht**
+
+Verder werkt Von Ward de gedachte uit dat AB's hebben bijgedragen aan
+sterrenkunde, landbouw, bouwkunst en geneeskunde. De onverklaarde precisie van
+oude bouwwerken en de plotselinge opkomst van schrift en kalenderrekening
+dienen als aanwijzing.
+
+In dit deel neemt hij ook motieven over uit de bestaande literatuur van het
+genre, waaronder de ondergang van Atlantis en een strijd tussen twee partijen
+die hij met vogel- en slangensymboliek aanduidt. Voor die episodes bestaat
+geen archeologisch materiaal, en het boek levert dat ook niet.
+
+**De gevolgen voor godsdienst en zelfbeeld**
+
+Het slotdeel is het meest persoonlijke en het minst omstreden. Von Ward
+betoogt dat de hedendaagse godsdienstige tegenstellingen, tot en met geweld in
+naam van het geloof, teruggaan op begrippen als goddelijke openbaring en
+uitverkoren volk. Als die begrippen ooit zijn ontstaan uit contact met wezens
+die machtig maar niet volmaakt waren, verliezen ze hun absolute aanspraak.
+
+Daarmee komt de bedoeling van het boek naar voren. Het gaat Von Ward minder om
+schotels dan om het ontmantelen van het bovennatuurlijke: alles wat als
+goddelijk is doorgegeven, hoort volgens hem thuis binnen één natuurlijk heelal
+waarin de mens zichzelf opnieuw kan plaatsen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Advanced Beings (AB's) | Von Wards verzamelnaam voor alle gerapporteerde niet-menselijke wezens, van goden en engelen tot buitenaardse bezoekers en gechannelde stemmen. |
+| AB-interventiehypothese | De stelling dat zulke wezens werkelijk hebben ingegrepen in de menselijke geschiedenis, door Von Ward aangeboden als toetsbaar model in plaats van geloofsartikel. |
+| natuurlijk heelal | Het uitgangspunt dat niets buitennatuurlijk is en dat alle beschreven wezens dus binnen de natuurwetten moeten passen. |
+| natuurlijke spiritualiteit | Von Wards eigen term voor een levensbeschouwing die uitgaat van een zichzelf lerend heelal zonder buitennatuurlijke god. |
+| goddelijke openbaring | Het begrip dat volgens Von Ward zijn gezag verliest zodra de openbarende partij als een gewoon, feilbaar wezen wordt gezien. |
+| uitverkoren volk | De voorstelling dat een groep een bijzondere afspraak met een hogere macht heeft, door Von Ward geduid als de neerslag van een verbintenis met een AB. |
+| Anunnaki | De Soemerische godengroep rond Enki en Enlil, in het boek gelezen als een verslag van feitelijke bezoekers. |
+| de grote vloed | Een wereldwijd overgeleverde overstroming die Von Ward rond elfduizend vijfhonderd jaar geleden dateert en als breukpunt in de menselijke geschiedenis behandelt. |
+
+#### Waar het argument op rust
+
+De methode die Von Ward zelf opgeeft, bestaat uit vier stappen. Hij brengt
+alle verslagen van niet-menselijk bewustzijn onder één noemer, leest heilige
+teksten en mythen als op zijn minst gedeeltelijke weergave van menselijke
+ervaring, legt verhalen uit verschillende culturen naast elkaar om
+terugkerende patronen te vinden, en toetst het resulterende beeld aan
+fossielen, artefacten, genetisch onderzoek en taalgeschiedenis. Hij benadrukt
+dat dit een hypothese is en geen geloofsartikel, en dat de lezer haar mag
+verwerpen zodra het materiaal tegenvalt.
+
+De uitvoering blijft daarbij achter. De toets werkt maar één kant op.
+Overeenkomst tussen mythen telt als steun, verschil telt niet als tegenspraak.
+Er staat nergens welke waarneming de hypothese zou weerleggen, en zonder die
+opgave is de toets geen toets maar een verzameling.
+
+De derde en vierde stap worden bovendien niet losgekoppeld. Het fossiele,
+genetische en taalkundige materiaal wordt niet zelfstandig gewogen, maar
+aangevoerd als bevestiging van de lezing die uit de teksten al was gehaald.
+Waar de vakliteratuur onzekerheid meldt, leest Von Ward ruimte voor zijn
+model, en dat is een andere stap dan hij zelf aankondigt.
+
+Wat de opzet wel oplevert, is een bruikbaar overzicht. Wie wil zien welke
+tekstplaatsen, bouwwerken en vondsten binnen deze traditie steeds terugkeren,
+vindt ze hier bij elkaar, met verwijzingen, in een boek dat een bibliografie
+van negen bladzijden en een register meebrengt.
+
+#### Wat er tegen in te brengen valt
+
+De zwakste schakel is de omgang met mythe. Von Ward gaat uit van een tekst die
+minstens gedeeltelijk feitelijk is, maar mythe en gelijkenis zijn niet als
+woordelijk verslag bedoeld, en dat geldt voor de Soemerische verhalen even
+goed als voor de bijbelse. Zolang dat uitgangspunt niet zelf wordt
+beargumenteerd, ligt de uitkomst in de vraagstelling besloten.
+
+Het argument uit overeenkomst draagt niet wat het moet dragen. Dat ver
+uiteenliggende culturen verhalen kennen over vloed, hemelstrijd en gaven van
+bovenaf, is precies wat de vergelijkende godsdienstwetenschap en de cognitieve
+antropologie ook zonder bezoekers verklaren, uit ontlening, uit gedeelde
+ervaring met overstromingen en uit overeenkomstige menselijke denkneigingen.
+Von Ward zet die verklaringen niet naast de zijne om te kijken welke het beter
+doet.
+
+Recensenten hebben er verder op gewezen dat het boek gangbare verklaringen op
+de ene bladzijde afwijst en op de andere overneemt zonder die wisseling te
+verantwoorden, en dat episodes als de ondergang van Atlantis en de strijd
+tussen vogel- en slangenpartijen zonder archeologische grond worden ingevoerd.
+
+Er is nog een verschil dat vaak wordt weggelezen. Von Ward voert de AB's niet
+aan om iets bovennatuurlijks te bewijzen, maar juist om het bovennatuurlijke
+af te schaffen. Dat maakt het boek minder wonderlijk dan verwant werk, en het
+maakt de vorm van de fout scherper zichtbaar: hij belooft de wetenschappelijke
+omgangsvorm en levert de opsomming die bij het genre hoort.
+
+Wat overeind blijft, is de vraag zelf. Of alle overgeleverde
+godsvoorstellingen op ervaring teruggaan en wat die ervaring dan was, is een
+verdedigbare onderzoeksvraag. Dit boek stelt haar duidelijk en beantwoordt
+haar niet.
+
+#### Wat er concreet mee te doen is
+
+- Lees eerst de opgegeven methode in het openingsdeel en houd die naast wat er
+in de hoofdstukken daadwerkelijk gebeurt.
+- Vraag bij elk hoofdstuk welke vondst het model zou tegenspreken; ontbreekt
+zo'n vondst, dan is het geen toets.
+- Zoek bij elke gestelde overeenkomst tussen mythen op wat de vergelijkende
+godsdienstwetenschap er zonder tussenkomst over zegt.
+- Gebruik de bibliografie als ingang naar de brontekstuitgaven, niet als
+bevestiging van de gevolgtrekking.
+
+#### Wat je hierna leest
+
+- 1150. The Gods of Eden. *The Gods of Eden* van William Bramley werkt
+dezelfde grondgedachte uit, met meer nadruk op sturing en minder op genetica.
+- 1149. Before the Pharaohs. *Before the Pharaohs* van Edward F. Malkowski
+behandelt het Egyptische deel van hetzelfde argument over onverklaarde
+bouwkunst.
+- 615. Passport to Magonia. *Passport to Magonia* van Jacques Vallée legt
+hetzelfde verband tussen goden, feeën en schotelinzittenden, maar trekt er de
+tegenovergestelde conclusie uit.
+- 1141. UFOs and the National Security State. *UFOs and the National Security
+State* van Richard M. Dolan laat zien hoe een archiefgebonden aanpak van
+hetzelfde onderwerp eruitziet.
+
+## 1158. The Spectrum of Consciousness
+
+Ken Wilber, 1977. *The Spectrum of Consciousness* (Quest Books, Theosophical
+Publishing House, Wheaton, Illinois, 1977; tweede editie 1993, 385 blz., ISBN
+978-0-8356-0695-0). Met een voorwoord van John White en een nieuw voorwoord
+van de auteur bij de tweede editie. Er bestaat geen Nederlandse vertaling; de
+samenvatting is op de Engelse editie gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `bewustzijn`, `transpersoonlijke psychologie`, `mystiek`,
+`psychotherapie`
+
+Ken Wilber schreef dit boek in de winter van 1973, aan het eind van zijn
+studie biochemie, in ongeveer drie maanden. Zijn stelling is dat bewustzijn
+uit meerdere lagen bestaat en dat elke school van psychologie, psychotherapie
+en religie zich op een andere laag richt, zodat die scholen elkaar niet
+tegenspreken maar aanvullen.
+
+Het is de kiem van het integrale model waarmee hij later bekend werd. Wilber
+heeft onderdelen ervan zelf herzien, en de kritiek dat het model niet te
+weerleggen is en tradities gelijkschakelt die inhoudelijk botsen, is nooit
+weggenomen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Wilber stelt dat bewustzijn geen enkelvoudig gegeven is maar
+een spectrum van niveaus, ontstaan doordat een oorspronkelijke ongedeelde
+werkelijkheid stap voor stap in tweeën is gesneden: eerst kenner tegenover
+gekende, dan verleden tegenover toekomst, dan geest tegenover lichaam, ten
+slotte het aanvaarde zelf tegenover het verworpen deel daarvan. Elke snede
+levert een nieuw niveau met een eigen soort lijden en dus een eigen soort
+behandeling. Daaruit volgt zijn kernbewering: psychoanalyse, transactionele
+analyse, gestalttherapie, existentiële psychologie, jungiaanse analyse en de
+oosterse contemplatieve wegen zijn geen concurrerende opvattingen over
+dezelfde geest, maar behandelingen van verschillende lagen, en zij kunnen
+daarom tot één geheel worden samengevoegd.
+
+#### De gang van het boek
+
+**Twee manieren van kennen**
+
+Deel een heet Evolution en begint met het onderscheid tussen twee wijzen van
+kennen. De eerste is symbolisch: zij werkt door te scheiden, te benoemen en in
+kaart te brengen, en veronderstelt altijd een kenner tegenover iets gekends.
+De tweede is niet-duaal: daarin vallen kenner en gekende samen. Wilber haalt
+Arthur Eddington aan, die symbolische kennis onderscheidde van wat hij intieme
+kennis noemde, en het mahayana-boeddhisme, waar dezelfde tweedeling *vijnana*
+en *prajna* heet.
+
+De pointe is niet dat de eerste wijze slecht is. De pointe is dat de westerse
+psychologie alleen de eerste erkent en de tweede daarom als onzin of als
+ziekteverschijnsel moet lezen. Wilber schrijft in zijn voorwoord bij de eerste
+druk dat de zielkunde van zijn tijd is teruggebracht tot ratten in doolhoven
+en oedipale complexen.
+
+**De oerscheiding en de vier splitsingen**
+
+Vervolgens beschrijft hij hoe het spectrum ontstaat. De Primaire Dualiteit is
+de eerste snede: in kennisleer die tussen kenner en gekende, in de zijnsleer
+die tussen het oneindige en het eindige, in de godsdienst de zondeval. Wilber
+leunt hier op de vormenlogica van G. Spencer Brown en op de *Ontwaking van het
+geloof* die aan Asvaghosha wordt toegeschreven.
+
+Daarna volgen drie verdere sneden. De tweede scheidt verleden van toekomst en
+levert de tijdgebonden ervaring. De derde, die hij de tertiaire dualiteit
+noemt, drijft een wig tussen geest en lichaam en levert het ego. De vierde
+splitst het ego zelf in een aanvaard deel en een verworpen deel, in Jungs
+termen persona en schaduw. Elke snede gaat volgens dezelfde drieslag:
+dualiteit, verdringing, projectie.
+
+**De niveaus van het spectrum**
+
+Wilber onderscheidt drie hoofdniveaus en vier smallere banden. Het Ego-niveau
+is wat men voelt wanneer men zich vader, advocaat of Amerikaan voelt: het
+zelfbeeld met zijn bewuste en onbewuste kanten. Het Existentiële niveau is wat
+daaronder ligt: het gevoel als totaal organisme te bestaan, afgescheiden van
+de omgeving. Het niveau van Mind, met hoofdletter, is de ervaring van eenheid
+met het heelal, die volgens hem niet een bijzondere toestand is maar de grond
+van alle andere ervaring.
+
+De vier smallere banden liggen ertussen. Het Schaduwniveau ligt boven het ego
+en bevat wat men van zichzelf afstoot. De biosociale band ligt tussen ego en
+existentieel niveau en bestaat uit taal, logica en sociale conditionering. De
+transpersoonlijke banden liggen tussen het existentiële niveau en Mind. De
+filosofische band bestaat uit de opvattingen waarmee men de scheiding
+rechtvaardigt.
+
+**De tradities naast elkaar gelegd**
+
+Hoofdstuk zes legt bestaande stelsels op het spectrum. De vedanta-leer van de
+omhulsels, met een schets die Wilber aan Ramana Maharshi ontleent, wordt punt
+voor punt naast zijn eigen niveaus gezet, met Brahman-Atman als het niveau van
+Mind. Uit de yogacara-school van het mahayana neemt hij de reeks *alaya*,
+*manas* en *manovijnana* over, waarbij de *alaya* met de transpersoonlijke
+banden overeenkomt en *manas* met de zetel van de dualistische neiging.
+
+Ook westerse auteurs krijgen een plaats. Hubert Benoit, wiens boek over zen en
+psychotherapie Wilber uitdrukkelijk noemt, onderscheidt volgens hem dezelfde
+drie hoofdlagen onder andere namen, en hetzelfde geldt voor Wei Wu Wei. In een
+noot vermeldt Wilber dat hij bij gebrek aan ruimte de vergelijking met Roberto
+Assagioli en met het werk van Stanislav Grof heeft weggelaten.
+
+**Terug omhoog: een therapie per laag**
+
+Deel twee heet Involution en behandelt de weg terug. Het begint bij de
+schaduw. Wilber stelt vast dat de talloze theorieën over de eigenlijke
+menselijke behoefte, van Rank en Adler tot Perls en Rogers, één
+veronderstelling delen: de mens is van delen van zichzelf vervreemd. Op dat
+niveau werken psychoanalyse, transactionele analyse en gestalttherapie, die de
+projectie ongedaan maken.
+
+Het hoofdstuk The Great Filter behandelt de biosociale band: taal, logica en
+sociale conditionering zeven de ervaring voor. Man as Centaur behandelt het
+existentiële niveau, waar geest en lichaam weer één zijn; hier plaatst hij
+Perls, Rogers en Maslow. A No-Man's Land gaat over de transpersoonlijke
+banden, die hij het minst verkende deel noemt en waar Jung, Assagioli en Grof
+werken. Het slothoofdstuk That Which is Always Already gaat over Mind, dat
+volgens hem geen niveau is dat men bereikt maar de grond waarop men al staat.
+
+**Wat het boek zelf wil zijn**
+
+Wilber noemt zijn opzet nadrukkelijk een synthese en geen eclecticisme: de
+scholen worden niet naast elkaar gelegd maar op één ordening geplaatst. Hij
+schrijft ook dat elk boek dat een synthese van oost en west belooft,
+jammerlijk moet tekortschieten, en dat wat volgt niet meer dan het geraamte
+van dat spectrum is.
+
+In zijn voorwoord bij de tweede editie uit 1993 houdt hij aan de opzet vast en
+corrigeert hij de terminologie: in dit boek gebruikte hij evolutie voor de
+beweging weg van de geest en involutie voor de terugkeer, in navolging van
+Coomaraswamy, terwijl hij later de omgekeerde woordkeus van Aurobindo overnam.
+Hij merkt daar ook op dat de ontwikkeling van de afzonderlijke niveaus pas in
+*The Atman Project* en *Up from Eden* is uitgewerkt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| spectrum van bewustzijn | Wilbers beeld van bewustzijn als een reeks lagen, van het afgesplitste zelfbeeld tot de ongedeelde eenheid, waarin elke laag een eigen soort lijden kent. |
+| Mind | Met hoofdletter geschreven: het niveau waarop het onderscheid tussen kenner en gekende wegvalt, door Wilber niet als toestand maar als grond van alle ervaring behandeld. |
+| Primaire Dualiteit | De oorspronkelijke snede tussen subject en object waaruit volgens Wilber alle latere scheidingen voortkomen. |
+| persona en schaduw | Het aanvaarde deel van het zelfbeeld tegenover het verworpen deel, dat naar buiten wordt geprojecteerd en als klacht terugkeert. |
+| existentieel niveau | De laag waarop men zich als totaal organisme ervaart, verbonden geest en lichaam, maar nog gescheiden van de omgeving. |
+| biosociale band | De zeef van taal, logica en sociale conditionering die volgens Wilber tussen het ego en het existentiële niveau in staat. |
+| transpersoonlijke banden | Het gebied tussen het existentiële niveau en Mind, waar archetypen, visioenen en buitenlichamelijke ervaringen thuishoren. |
+| Centaur | Wilbers beeld voor de ongedeelde eenheid van geest en lichaam, die op het Ego-niveau in ruiter en paard uiteenvalt. |
+| vijnana en prajna | De boeddhistische termen voor scheidende, symbolische kennis tegenover niet-dualistisch weten, die Wilber gelijkstelt aan zijn twee manieren van kennen. |
+
+#### Waar het argument op rust
+
+De onderbouwing is tekstueel en vergelijkend, niet empirisch. Wilber leest
+psychologische scholen en contemplatieve stelsels naast elkaar en laat zien
+dat hun beschrijvingen op elkaar afgebeeld kunnen worden. Dat is een reële
+prestatie: de lijst met vindplaatsen is lang en de vergelijking van vedanta,
+yogacara, psychoanalyse en gestalttherapie is doorwrocht.
+
+Voor de aanspraak op wetenschappelijkheid steunt hij op een eigen redenering.
+Oosterse disciplines als vedanta en zen zijn volgens hem geen theorieën maar
+reeksen voorschriften die, correct uitgevoerd, tot een bepaalde vaststelling
+leiden, en dat maakt ze in zijn ogen proeven in strikte zin. Wie de uitkomst
+niet wil onderzoeken omdat hem de gegevens niet bevallen, gedraagt zich
+onwetenschappelijk.
+
+Wat ontbreekt is elke vorm van uitkomstonderzoek. De toewijzing van een school
+aan een niveau berust op wat de betrokken auteurs zeggen te behandelen, niet
+op vergelijking van behandelresultaten. Wilber erkent dat zelf: bij de vraag
+of iemand met plankenkoorts naar een psychoanalyticus of naar een
+gedragstherapeut moet, zegt hij dat alleen tijd en verder onderzoek dat kunnen
+uitwijzen.
+
+Ook de tijdgebondenheid van het materiaal telt mee. Het boek werkt met de
+stand van 1973, waaronder de alfagolf- en terugkoppelingsliteratuur en de
+dubbele-bindtheorie van Bateson over schizofrenie. Die laatste heeft als
+verklaring van schizofrenie geen stand gehouden, en zij draagt in dit boek de
+beschrijving van de vierde splitsing mee.
+
+#### Wat er tegen in te brengen valt
+
+Het sterkste bezwaar is dat het model niet te weerleggen valt. Er is geen
+waarneming denkbaar die zou aantonen dat een niveau niet bestaat of dat een
+school op de verkeerde band is geplaatst. Wie iets op het niveau van Mind niet
+vindt, heeft volgens de opzet het niveau eenvoudig niet bereikt, en dat maakt
+van elke tegenwerping een bewijs van de eigen stelling.
+
+Het begrip niveau doet bovendien te veel werk tegelijk. Het staat afwisselend
+voor een ontwikkelingsstadium, voor een ervaringstoestand, voor een soort
+klacht en voor een school van behandeling. Zolang die betekenissen niet uit
+elkaar worden gehouden, blijft de aansluiting tussen de lagen een
+woordkwestie. Wilber heeft dat probleem later zelf onderkend en vanaf *The
+Atman Project* stadia van toestanden gescheiden.
+
+De tweede grote tegenwerping betreft het gelijkschakelen van tradities. De
+advaita-vedanta stelt een onveranderlijk Zelf dat samenvalt met Brahman; het
+mahayana ontkent juist elk blijvend zelf en spreekt van leegte. Wilber plaatst
+beide op hetzelfde niveau van Mind en behandelt het verschil als een kwestie
+van woordkeus. Godsdienstwetenschappers die de eeuwige wijsbegeerte hebben
+aangevochten, wijzen erop dat mystieke ervaring altijd binnen een leerstellig
+kader wordt geordend en dat wie de kaders wegneemt, niet de gedeelde kern
+overhoudt maar zijn eigen kader oplegt.
+
+Daarbij komt dat de contemplatieve tradities in het boek vrijwel uitsluitend
+via Engelstalige bemiddelaars binnenkomen, onder wie D. T. Suzuki,
+Coomaraswamy en Huston Smith. Dat is de bronsituatie van 1973, maar het
+betekent wel dat de vergelijking loopt over lezingen die zelf al op een
+westers publiek waren gericht.
+
+Ten slotte de plaats van het boek in Wilbers eigen werk. Hij is het
+niveaumodel trouw gebleven, maar heeft onderdelen ervan verlaten: de woordkeus
+rond evolutie en involutie draaide hij om, hij voegde het onderscheid tussen
+preverbale en transverbale verwarring toe, en vanaf *Sex, Ecology,
+Spirituality* uit 1995 verving hij de enkelvoudige ladder door een model met
+vier kwadranten. Wie het integrale denken wil kennen, leest hier de kiem en
+niet de volwassen vorm.
+
+#### Wat er concreet mee te doen is
+
+- Houd bij het lezen bij welke betekenis van het woord niveau in een bepaalde
+alinea in het geding is: stadium, toestand, klacht of school.
+- Vergelijk hoofdstuk zes met een filologische inleiding op vedanta en op
+yogacara voordat de gelijkstelling wordt overgenomen.
+- Lees het voorwoord bij de tweede editie eerst; daar staat welke onderdelen
+Wilber zelf heeft bijgesteld.
+- Gebruik de indeling per laag als ordeningsmiddel voor de therapieliteratuur,
+niet als aanwijzing welke behandeling werkt.
+
+#### Wat je hierna leest
+
+- 518. The Life Divine. *The Life Divine* van Sri Aurobindo levert het
+evolutieschema waarvan Wilber de terminologie later overnam.
+- 769. The Supreme Doctrine: Psychological Studies in Zen Thought. *The
+Supreme Doctrine* van Hubert Benoit wordt in dit boek uitdrukkelijk aangehaald
+als westerse voorloper van dezelfde drie hoofdlagen.
+- 604. The Perennial Philosophy. *The Perennial Philosophy* van Aldous Huxley
+is de bloemlezing waaruit Wilbers aanname van één gedeelde kern in alle
+tradities voortkomt.
+- 580. Ursprung und Gegenwart. *Ursprung und Gegenwart* van Jean Gebser doet
+hetzelfde voor de cultuurgeschiedenis: bewustzijn als opeenvolging van
+structuren.
+
+## 1159. Altered States of Consciousness
+
+Charles T. Tart (redactie), 1969. *Altered States of Consciousness: A Book of
+Readings*, samengesteld en ingeleid door Charles T. Tart (John Wiley & Sons,
+New York, 1969, 575 blz., SBN 471 84560 4). Latere edities bij Anchor Books en
+Doubleday (1972) en bij HarperSanFrancisco (derde editie, 1990, 589 blz.). Er
+bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie
+gebaseerd. Rubriek: brein en lichaam.
+Tags: `bewustzijn`, `psychedelica`, `meditatie`, `hypnose`
+
+Dit is een academische bundel, geen betoog van één auteur. Charles Tart,
+destijds psycholoog aan de University of California in Davis, bracht
+vijfendertig artikelen samen in acht afdelingen, van de toestand tussen waken
+en slapen tot de elektro-encefalografie van zen en yoga, elk met een eigen
+redactionele inleiding.
+
+De bundel bepaalde vijftien jaar lang wat het vakgebied inhield. Een deel van
+de opgenomen onderzoekslijnen is uitgegroeid tot serieuze wetenschap, een
+ander deel is bij nacontrole onhoudbaar gebleken, en de bundel zelf maakt het
+onderscheid niet zichtbaar.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Tarts uitgangspunt is dat de psychologie een categorie
+verschijnselen stelselmatig buiten beeld houdt. Een veranderde
+bewustzijnstoestand definieert hij eenvoudig: de persoon voelt niet slechts
+een verschil in graad, maar een verschil in soort in de werking van zijn
+geest. Over zulke toestanden bestaat volgens hem veel klinisch materiaal
+zolang ze als ziekteverschijnsel gelden, en vrijwel niets zolang mensen ze
+opzoeken omdat ze er iets aan hebben. Die scheefheid wil de bundel
+rechttrekken. Daarbij hoort een tweede stelling, die de latere reputatie van
+het boek bepaalde: alleen ondergaan is onvoldoende, want wie zich tot eigen
+ervaring beperkt loopt evenveel kans zijn waanideeën te ordenen als iets te
+ontdekken, en dus moet de wetenschappelijke werkwijze mee naar binnen.
+
+#### De gang van het boek
+
+**Wat de bundel is**
+
+De opzet is die van een leerboek. Vijfendertig teksten, verdeeld over acht
+afdelingen, elk voorafgegaan door een inleiding van Tart waarin hij de
+bijdragen plaatst en de lezer op zwakke plekken wijst. De artikelen bevatten
+samen ruim duizend verwijzingen naar de vakliteratuur, en er is een apart
+register op auteurs.
+
+Tart schrijft in zijn inleiding dat een tekst zowel prikkelend als deugdelijk
+moest zijn, dat de bijdragen uiteenlopen van nuchter proefondervindelijk werk
+tot zeer speculatieve stukken, en dat die spreiding de staat van het vakgebied
+weergeeft.
+
+**Algemene beschouwingen**
+
+De eerste afdeling opent met het overzichtsartikel van Arnold Ludwig uit de
+*Archives of General Psychiatry* van 1966, dat de voorwaarden voor het
+ontstaan van zulke toestanden ordent en wijst op de sociale en culturele taken
+die ze in veel samenlevingen vervullen. Daarna volgt Arthur Deikman met zijn
+analyse van mystieke ervaring als deautomatisering: het tijdelijk uitschakelen
+van de ingesleten, ordenende waarnemingsroutines.
+
+De afdeling sluit met een verslag van Milton Erickson van een reeks gesprekken
+met Aldous Huxley over diens eigen bewustzijnstoestanden, waaronder de
+toestand waarin Huxley naar eigen zeggen een groot deel van zijn werk schreef.
+Tart vermeldt dat Huxleys *The Doors of Perception* uit 1954 zijn eigen
+belangstelling voor het onderwerp had gewekt.
+
+**De grens van de slaap en de droom**
+
+De tweede en derde afdeling gaan over de hypnagoge toestand en over dromen.
+Gerald Vogel, David Foulkes en Harry Trosman beschrijven hoe ego-functies bij
+het inslapen uiteenvallen; Bertini, Lewis en Witkin doen verslag van een
+proefopzet om die overgang meetbaar te maken. Foulkes vat de theorievorming
+over droomvorming samen en Tart zelf geeft een literatuuroverzicht over
+pogingen dromen proefondervindelijk te sturen.
+
+In dezelfde afdeling staan twee heel verschillende teksten. Frederik van Eeden
+beschrijft in *A Study of Dreams* uit 1913 de heldere droom waarin de dromer
+weet dat hij droomt; Van Eeden bedacht daar zelf de term voor. Kilton Stewart
+beschrijft in *Dream Theory in Malaya* een volk dat zijn dromen in de ochtend
+collectief zou bespreken en sturen. Tart voegt er een eigen stuk aan toe over
+wat hij de high dream noemt.
+
+**Meditatie en hypnose**
+
+De vierde afdeling behandelt meditatie: twee artikelen van Edward Maupin, over
+de oefening zelf en over de grote verschillen tussen personen in hun reactie
+erop, een proefopzet van Deikman en een stuk van Wolfgang Kretschmer over
+meditatie in de psychotherapie.
+
+De vijfde afdeling is de omvangrijkste en gaat over hypnose. Ronald Shor
+levert twee kernartikelen, over hypnose als het loslaten van wat hij de
+algemene werkelijkheidsoriëntatie noemt en over de drie afmetingen van
+hypnotische diepte. Verder staan er stukken in van Stanley Krippner over de
+verhouding tussen trance en scheppend werk, van Tart over wederzijdse hypnose
+van twee proefpersonen tegelijk, en van Wolfgang Luthe over autogene training.
+
+**Middelen**
+
+De zesde en zevende afdeling gaan over middelen, gescheiden in lichte en
+zware. In de eerste staan een feitenblad over cannabis van een
+studentenvereniging, een anoniem verslag van de werking ervan, een stuk van
+James Fadiman over een plantenextract en het beroemde stukje van William James
+over lachgas.
+
+De zevende afdeling behandelt de psychedelica. Robert Mogar schetst de stand
+van het LSD-onderzoek, Walter Pahnke en William Richards bespreken de
+gelijkenis tussen het middelbeeld en de mystieke ervaring, en Willis Harman
+doet met vier medeonderzoekers verslag van een proef waarin ingenieurs en
+ontwerpers onder invloed aan echte werkproblemen werkten. Malcolm Bowers en
+Daniel Freedman leggen de overeenkomst bloot tussen deze toestanden en acute
+psychose, en Tart sluit af met een literatuurgids.
+
+**De psychofysiologie**
+
+De achtste afdeling is de meest technische. Akira Kasamatsu en Tomio Hirai
+brengen hersenfilmpjes van zenmonniken tijdens zazen, Anand, Chhina en Singh
+doen hetzelfde bij yogi's, en Joe Kamiya beschrijft hoe proefpersonen met een
+toon als terugkoppeling hun alfaritme leerden aansturen.
+
+Deze afdeling gaf de bundel haar aanzien binnen de academische psychologie:
+hier werd contemplatieve praktijk aan meetapparatuur gekoppeld, en dat maakte
+het onderwerp voor tijdschriften bespreekbaar.
+
+**Tarts inleiding en de state-specific sciences**
+
+De inleiding van 1969 is nuchterder dan haar reputatie. Tart definieert een
+veranderde toestand aan de hand van het oordeel van de persoon zelf, wijst
+erop dat de westerse cultuur zulke toestanden vrijwel uitsluitend als ziekte
+behandelt, en waarschuwt dat wie zich alleen op ervaring verlaat, zijn
+waanideeën ordent in plaats van iets vast te stellen. Van state-specific
+sciences is daar nog geen sprake.
+
+Dat voorstel deed Tart drie jaar later, in *Science* van 16 juni 1972, onder
+de titel States of Consciousness and State-Specific Sciences. Zijn gedachte is
+dat de vier stappen van wetenschap, waarnemen, theorievorming, voorspelling en
+openbare toetsing, ook binnen een veranderde toestand kunnen worden gezet,
+door onderzoekers die in die toestand geoefend zijn. Dat stuk gaf de bundel
+achteraf haar programma en bepaalt hoe zij sindsdien gelezen wordt, in de
+latere edities inbegrepen.
+
+Het voorstel is nooit uitgevoerd. Openbare toetsing veronderstelt dat twee
+onderzoekers kunnen vaststellen dat zij zich in dezelfde toestand bevinden, en
+juist daarvoor geeft Tart geen criterium: de toestand wordt immers door het
+oordeel van de betrokkene bepaald. Er bestaat dan ook geen enkele
+state-specific science, en de discussie erover is in de wetenschapsfilosofie
+blijven steken bij de vraag of het voorstel überhaupt uitvoerbaar is.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| veranderde bewustzijnstoestand | Tarts omschrijving: de persoon ervaart geen verschil in graad maar in soort in de werking van zijn geest. |
+| hypnagoge toestand | De korte overgangsfase tussen waken en slapen, met beelden en denkfragmenten die niet aan de gewone regels van het waakdenken gehoorzamen. |
+| deautomatisering | Deikmans term voor het tijdelijk uitschakelen van ingesleten waarnemings- en denkroutines, door hem gebruikt om mystieke ervaring te verklaren. |
+| heldere droom | De door Frederik van Eeden benoemde droom waarin de dromer weet dat hij droomt en helder van geest is. |
+| algemene werkelijkheidsoriëntatie | Shors begrip voor het achtergrondbesef van waar men is en wie men is, dat bij hypnose naar de rand van de aandacht verdwijnt. |
+| autogene training | De door Schultz ontwikkelde en door Luthe beschreven reeks zelfsuggesties waarmee men lichamelijke ontspanning oproept. |
+| alfaritme-terugkoppeling | Kamiya's opzet waarin een toon aangeeft wanneer het alfaritme aanwezig is, zodat de proefpersoon het leert aansturen. |
+| state-specific sciences | Tarts voorstel om waarnemen, theorievorming, voorspellen en openbare toetsing binnen één bepaalde bewustzijnstoestand uit te voeren. |
+| wederzijdse hypnose | Tarts proefopzet waarin twee personen elkaar afwisselend in trance brengen en een gedeelde ervaring rapporteren. |
+
+#### Waar het argument op rust
+
+De bundel doet zelf geen bewering; hij bepaalt welke beweringen meetellen. De
+maat die Tart aanlegt is dat een tekst prikkelend en deugdelijk moet zijn, en
+hij zegt er open bij dat de kwaliteit sterk uiteenloopt. Die eerlijkheid is
+een verdienste en tegelijk de zwakke plek: aan de vormgeving is niet af te
+zien welk stuk op meetgegevens rust en welk op een reisverslag.
+
+Sommige lijnen zijn overeind gebleven en verder gedragen. Van Eedens
+beschrijving van de heldere droom bleef een halve eeuw een curiositeit tot
+Keith Hearne in 1975 en Stephen LaBerge rond 1980 dromers lieten afspreken met
+hun ogen een tevoren vastgelegd patroon te maken; die oogbewegingen werden
+tijdens de remslaap geregistreerd en maakten van de heldere droom een meetbaar
+verschijnsel. Deikmans deautomatisering wordt nog steeds aangehaald in
+meditatieonderzoek. Het slaaponderzoek van Foulkes groeide uit tot een van de
+degelijkste onderdelen van het vakgebied.
+
+Andere lijnen hielden geen stand. Het bekendste voorbeeld is Kilton Stewarts
+stuk over de Senoi. G. William Domhoff toonde in *The Mystique of Dreams* uit
+1985 aan dat Stewart in totaal ongeveer negen weken bij deze bevolkingsgroep
+verbleef, verdeeld over twee bezoeken in 1934 en 1938, dat hij hun taal niet
+sprak, dat onderdelen van zijn artikel uit 1951 in strijd zijn met zijn eigen
+proefschrift van 1948, en dat latere veldwerkers de beschreven droompraktijk
+niet aantroffen. Toch bouwde een hele droomwerkbeweging erop voort.
+
+De alfagolf-lijn liep vast. Kamiya's proeven leidden tot een markt in
+alfatraining met beloften over gemoedstoestand die de gegevens niet droegen;
+in 1976 werd in de vakliteratuur betwist of proefpersonen hun alfaniveau in
+het donker met gesloten ogen wel boven de uitgangswaarde konden brengen. Wat
+overbleef is de techniek van terugkoppeling zelf, niet de eraan gehangen
+belofte.
+
+Ook de psychedelische lijn vraagt een precisering. Pahnke's onderzoek naar de
+gelijkenis van middel en mystieke ervaring werd het model voor het hedendaagse
+psilocybineonderzoek, maar toen Rick Doblin in 1991 de deelnemers opspoorde,
+bleek Pahnke een ernstige bijwerking bij een deelnemer niet te hebben gemeld.
+De lijn is dus voortgezet met strengere verslaglegging dan de bundel liet
+zien.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is het naast elkaar zetten van ongelijksoortige
+maatstaven zonder waarschuwing in de opmaak. Een geregistreerd hersenfilmpje
+van zenmonniken, een klinisch overzichtsartikel uit een medisch tijdschrift,
+een anoniem gebruikersverslag en een voorlichtingsblad van een
+studentenvereniging krijgen dezelfde vorm van hoofdstuk met nummer. Tart
+schrijft in zijn inleidingen wel wat hij van een tekst vindt, maar dat is een
+oordeel van de redacteur, geen kenmerk van het stuk.
+
+De grondcategorie is bovendien poreus. Wanneer een toestand veranderd heet
+zodra de persoon zelf een verschil in soort meent te ervaren, valt vrijwel
+elke ongewone belevenis binnen de omschrijving en is er geen maat om twee
+gevallen te vergelijken. Tart erkent dat en beroept zich op de onvolgroeidheid
+van het vak, maar het probleem is nooit opgelost en het maakt de latere
+state-specific sciences bij voorbaat lastig.
+
+Er is ook een kwestie van evenwicht. Tart levert zelf drie artikelen, een
+literatuurgids en alle inleidingen, en verschillende auteurs komen twee of
+drie keer terug. Dat maakt de bundel meer de weerslag van één kring dan de
+doorsnede van een vakgebied.
+
+Wat de bundel wel doet en wat dertig jaar later niemand meer betwist: hij
+haalde het onderwerp uit de sfeer van het ziektebeeld. Dat dromen, meditatie,
+hypnose en middelenwerking onderzoekbare onderwerpen zijn en niet bij voorbaat
+stoornissen, is inmiddels vanzelfsprekend, en dit boek heeft daar meer aan
+bijgedragen dan enig ander werk uit die jaren. Dat het daarbij ook
+onbetrouwbaar materiaal het vak in droeg, hoort bij dezelfde geschiedenis.
+
+#### Wat er concreet mee te doen is
+
+- Kijk bij elk hoofdstuk eerst waar het oorspronkelijk verscheen; de herkomst
+zegt meer over de bewijskracht dan de plaats in de bundel.
+- Zoek bij elk onderzoek dat overtuigt op wat er sinds 1969 mee gebeurd is
+voordat de uitkomst wordt overgenomen.
+- Lees Stewarts stuk over de Senoi naast Domhoffs weerlegging; samen leveren
+ze een leerzaam voorbeeld van hoe een verzinsel een vakgebied binnenkomt.
+- Behandel het voorstel voor state-specific sciences als aparte tekst uit 1972
+en niet als onderdeel van de oorspronkelijke inleiding.
+
+#### Wat je hierna leest
+
+- 936. The Varieties of Religious Experience. *The Varieties of Religious
+Experience* van William James is de rechtstreekse voorloper; zijn stuk over
+lachgas staat in deze bundel afgedrukt.
+- 275. How to Change Your Mind. *How to Change Your Mind* van Michael Pollan
+beschrijft hoe de psychedelische onderzoekslijn uit deze bundel na dertig jaar
+stilstand terugkeerde.
+- 1160. The Psychology of Consciousness. *The Psychology of Consciousness* van
+Robert Ornstein verscheen drie jaar later uit dezelfde beweging en werkt
+hetzelfde materiaal populariserend uit.
+- 759. The Antipodes of the Mind. *The Antipodes of the Mind* van Benny Shanon
+laat zien hoe de fenomenologische aanpak van deze bundel er dertig jaar later
+uitziet.
+
+## 1160. The Psychology of Consciousness
+
+Robert E. Ornstein, 1972. *The Psychology of Consciousness* (The Viking Press,
+New York, en W. H. Freeman, San Francisco, 1972, 247 blz.). Herziene edities
+verschenen bij Harcourt Brace Jovanovich (1977) en bij Penguin (1986).
+Nederlandse uitgave: *Het menselijk bewustzijn: synthese van rationeel en
+intuïtief bewustzijn*, vertaald door Maurits Mok (Lemniscaat, Rotterdam, 1974,
+239 blz., ISBN 978-90-6069-171-7). Rubriek: brein en lichaam.
+Tags: `bewustzijn`, `hersenen`, `neurowetenschap`, `meditatie`
+
+Robert Ornstein betoogde in 1972 dat de psychologie maar de helft van de geest
+bestudeerde: de talige, ontledende, op volgorde werkende helft. De andere
+helft, ruimtelijk en in één keer overziend, zou in de linker- en
+rechterhersenhelft een lichamelijke grondslag hebben, en in de oosterse
+contemplatieve tradities al eeuwen geoefend worden.
+
+Het boek werd op honderden universiteiten voorgeschreven en bracht de
+tweedeling tussen linker- en rechterhersenhelft in het algemene spraakgebruik.
+In die populaire vorm is zij niet houdbaar; Ornstein zelf heeft het beeld in
+1997 bijgesteld.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Ornstein stelt dat het gewone waakbewustzijn geen
+afspiegeling van de wereld is maar een constructie: de zintuigen en het
+zenuwstelsel werken vooral beperkend, ze laten door wat voor overleving van
+belang is en houden de rest tegen. Wat overblijft is een lineaire, talige,
+ontledende manier van doen die de westerse wetenschap tot enige vorm van
+kennen heeft verheven. Daarnaast bestaat een tweede manier, ruimtelijk,
+gelijktijdig en niet in taal te vangen, die volgens hem is verwaarloosd. Zijn
+kernbewering is dat deze twee manieren corresponderen met de twee
+hersenhelften, en dat de esoterische scholen van soefisme, zen en yoga moeten
+worden gelezen als oefenstelsels voor de tweede manier. Een volledige
+psychologie moet beide bestuderen.
+
+#### De gang van het boek
+
+**Een psychologie die de helft weglaat**
+
+Het eerste hoofdstuk, Toward a Complete Psychology, is een klacht over het
+vak. De proefondervindelijke psychologie van dat moment had geen plaats voor
+bewustzijn, voor aandacht die zich naar binnen richt, voor meditatie of voor
+intuïtief weten, niet omdat die verschijnselen ontbraken maar omdat de
+gangbare methode ze niet kon vatten.
+
+Ornstein stelt daar geen breuk met de wetenschap tegenover maar een verruiming
+ervan. Hij wil de meetopstelling behouden en het onderwerpenveld vergroten, en
+hij schrijft voor een lezerspubliek van studenten, wat de opzet en de toon van
+het boek verklaart.
+
+**Bewustzijn als constructie**
+
+Het tweede hoofdstuk, A Personal Construction, bevat de scherpste gedachte van
+het boek. De zintuigen worden meestal voorgesteld als vensters die de wereld
+binnenlaten, maar Ornstein draait dat om: ze werken vooral als filter. Het oog
+neemt een smalle band van het spectrum waar, het oor een beperkt bereik van
+trillingen, en het zenuwstelsel selecteert daarbinnen nog eens op verandering
+en op nut.
+
+Wat men gewoon bewustzijn noemt is daarmee een persoonlijke constructie,
+gebouwd voor overleven en niet voor waarheid. Ornstein gebruikt dit om te
+betogen dat oefening die de gewone selectie doorbreekt geen ontsnapping aan de
+werkelijkheid is maar een verruiming van wat er binnenkomt. Hier voert hij ook
+de leerverhalen in, vooral de verhalen over Nasrudin die hij aan Idries Shah
+ontleent, als teksten die met opzet niet in één betekenis oplosbaar zijn.
+
+**Twee zijden van het brein**
+
+Het derde hoofdstuk, Two Sides of the Brain, is waar het boek zijn faam en
+zijn probleem vandaan haalt. Ornstein vat het werk samen van Roger Sperry en
+zijn medewerkers, onder wie Michael Gazzaniga, aan patiënten bij wie de
+hersenbalk was doorgesneden om ernstige epilepsie te bestrijden. Bij hen bleek
+de linkerhelft toegang te hebben tot spraak en benoeming, terwijl de
+rechterhelft beter presteerde op ruimtelijke taken maar niet kon vertellen wat
+zij deed.
+
+Vervolgens legt Ornstein die bevinding op zijn tweedeling in manieren van
+kennen. Links wordt de ontledende, opeenvolgende, talige modus, rechts de
+gelijktijdige, ruimtelijke, beeldende. Daarna gaat hij een stap verder en zet
+in tabelvorm de traditionele tegenstellingen ernaast die hij in verschillende
+culturen aantreft, waaronder dag en nacht, rede en intuïtie, en de tweedeling
+die in oosterse stelsels met termen als yang en yin wordt aangeduid.
+
+**De esoterische psychologieën**
+
+Het middendeel behandelt soefisme, zen en yoga als wat Ornstein de
+traditionele esoterische psychologieën noemt. Zijn stelling is dat deze
+scholen geen godsdienstige leerstelsels zijn maar praktische opleidingen,
+gericht op het tijdelijk buiten werking stellen van de gewone selectie.
+
+Het soefisme krijgt het meeste gewicht, vrijwel geheel via het werk van Idries
+Shah, met wie Ornstein samenwerkte. De leerverhalen worden gepresenteerd als
+oefenmateriaal waarvan de werking pas optreedt als de talige uitleg wordt
+losgelaten. Dat is een aantrekkelijke gedachte en tegelijk een die zichzelf
+tegen tegenwerpingen beschermt.
+
+**Meditatie, terugkoppeling en zelfregeling**
+
+Het volgende deel koppelt de tradities aan meetbaar onderzoek. Ornstein
+bespreekt meditatie als een vorm van herhaalde, gelijkblijvende aandacht die
+de gewone ordening laat verslappen, en verbindt dat met Deikmans begrip
+deautomatisering. Hij haalt de hersenfilmpjes aan van Kasamatsu en Hirai bij
+zenmonniken en het onderzoek van Anand en medewerkers bij yogi's.
+
+Daarnaast beschrijft hij het toen nieuwe veld van de biologische
+terugkoppeling, waaronder het werk van Joe Kamiya over aansturing van het
+alfaritme. Ornstein deed samen met David Galin zelf onderzoek naar verschillen
+in hersenactiviteit tussen de twee helften bij uiteenlopende taken, en die
+metingen vormen de eigen bijdrage van het boek aan het bewijsmateriaal.
+
+**Uitbreidingen van het bewustzijn**
+
+Het slotdeel gaat over wat Ornstein uitbreidingen van het bewustzijn noemt,
+waaronder parapsychologisch onderzoek. Hij behandelt dat voorzichtig, als een
+gebied waar de vraagstelling volgens hem legitiem is ook al is de bewijslast
+niet geleverd.
+
+In de latere edities, vanaf 1977 en opnieuw in 1986, is dit deel het sterkst
+herzien en is er nieuw materiaal opgenomen, waaronder verdere teksten uit de
+soefitraditie en nieuwer onderzoek naar hersenhelften. De grondstructuur van
+het boek bleef daarbij intact.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| twee bewustzijnsmodi | Ornsteins onderscheid tussen een ontledende, talige, opeenvolgende manier van kennen en een gelijktijdige, ruimtelijke, niet-talige manier. |
+| de zintuigen als filter | De opvatting dat waarneming vooral beperkt in plaats van ontvangt, en dat het zenuwstelsel selecteert op wat voor overleving telt. |
+| persoonlijke constructie | Het gewone waakbewustzijn opgevat als een door het organisme gebouwd model, niet als weergave van de werkelijkheid. |
+| commissurotomie | De ingreep waarbij de hersenbalk wordt doorgesneden, oorspronkelijk tegen ernstige epilepsie, die de gescheiden werking van de hersenhelften zichtbaar maakte. |
+| esoterische psychologieën | Ornsteins naam voor soefisme, zen en yoga, door hem gelezen als praktische opleidingen en niet als leerstelsels. |
+| leerverhaal | Het soefiverhaal, vaak over Nasrudin, dat volgens Ornstein juist werkt doordat het zich niet tot één uitleg laat herleiden. |
+| deautomatisering | Het door Deikman ingevoerde begrip voor het uitschakelen van ingesleten waarnemings- en denkroutines, dat Ornstein op meditatie toepast. |
+| alfaterugkoppeling | Het meten van het alfaritme met een hoorbaar signaal, zodat de proefpersoon kan proberen dat ritme aan te sturen. |
+| lineaire tegenover gelijktijdige tijd | Ornsteins onderscheid tussen tijd als opeenvolging van gebeurtenissen en tijd als één samenhangend geheel dat in één keer wordt overzien. |
+
+#### Waar het argument op rust
+
+De onderbouwing bestaat uit drie soorten materiaal van sterk verschillend
+gewicht. Het eerste is het onderzoek aan patiënten met een doorgesneden
+hersenbalk uit de groep van Sperry, die daarvoor in 1981 de Nobelprijs voor
+Geneeskunde kreeg. Dat werk is degelijk en is sindsdien op hoofdlijnen
+bevestigd.
+
+Het tweede is Ornsteins eigen onderzoek met David Galin naar verschillen in
+hersenactiviteit tussen links en rechts tijdens uiteenlopende taken. Dat waren
+serieuze metingen, maar de verschillen die daarbij gevonden werden zijn klein
+en dragen niet het brede onderscheid waarvoor ze in het boek worden ingezet.
+
+Het derde is de beschrijving van de contemplatieve tradities, die vrijwel
+geheel via één bemiddelaar loopt, Idries Shah, wiens weergave van het soefisme
+onder soefikenners omstreden is. Dit materiaal is over de werking van hersenen
+geen bewijs van welke aard dan ook.
+
+De beslissende stap in het boek is het overbruggen van die drie: een bevinding
+over wat losgekoppelde hersenhelften afzonderlijk kunnen, wordt gelezen als
+een algemene leer over twee manieren van in de wereld staan. Voor die stap
+ontbreekt de onderbouwing, en Ornstein maakt haar in het boek ook niet
+expliciet.
+
+#### Wat er tegen in te brengen valt
+
+Wat er van de oorspronkelijke bevindingen klopt, is te omschrijven. De
+patiënten van Sperry en Gazzaniga waren een handvol mensen bij wie de
+verbinding tussen de hersenhelften chirurgisch was verbroken. Bij hen bleek
+dat de gescheiden helften afzonderlijk kunnen waarnemen en handelen en dat de
+sprekende helft achteraf verklaringen verzint voor wat de andere heeft gedaan.
+Dat is een bevinding over losgekoppelde hersenen, niet over gewone hersenen,
+waarin de balk met tweehonderd miljoen vezels beide kanten voortdurend
+gelijkschakelt.
+
+Wat er ook klopt, is de lateralisatie zelf. Bij de meeste rechtshandigen zit
+taalverwerking overwegend links, en bepaalde ruimtelijke en aandachtsfuncties
+leunen naar rechts. Dat is de kern die is blijven staan.
+
+Wat niet standhoudt, is het beeld dat Ornstein daaromheen bouwde en dat via
+het onderwijs en de bedrijfstrainingen een eigen leven ging leiden: mensen die
+links- of rechtshersenig zouden zijn, met bijbehorende karakters en talenten.
+Onderzoekers van de universiteit van Utah bekeken in 2013 rusttoestandopnamen
+van 1011 personen tussen zeven en negenentwintig jaar en vonden geen
+aanwijzing dat iemand het ene halfnetwerk sterker gebruikt dan het andere. Er
+bestaat geen linkerbrein-persoon.
+
+De koppeling van de tweedeling aan oost en west is het zwakste deel. Zij maakt
+van tradities met hun eigen strenge ontledende scholing, waaronder de
+boeddhistische logica en de islamitische rechtsgeleerdheid, de intuïtieve
+helft van een westers paar. Dat is een versimpeling die meer zegt over de
+belangstelling van westerse lezers rond 1972 dan over de tradities zelf.
+
+Bij dat alles hoort een correctie ten gunste van Ornstein. Hij schrijft
+nergens dat mensen in twee typen uiteenvallen; die stap werd gezet door de
+populaire literatuur die op zijn boek volgde. En hij is er zelf op
+teruggekomen: in *The Right Mind: Making Sense of the Hemispheres* uit 1997
+stelt hij het beeld bij en beschrijft hij de rechterhelft niet langer als de
+zetel van creativiteit maar als de kant die context en groter verband
+vasthoudt. Dat is een openlijke herziening van een auteur die zijn eigen
+succesvolle these terugnam.
+
+#### Wat er concreet mee te doen is
+
+- Houd de bevindingen aan patiënten met een doorgesneden hersenbalk gescheiden
+van wat er over gewone hersenen wordt beweerd.
+- Lees hoofdstuk twee over waarneming als filter apart; dat deel is het best
+verouderd en staat los van de hersenhelften.
+- Leg *The Right Mind* uit 1997 ernaast om te zien wat Ornstein zelf heeft
+ingetrokken.
+- Behandel elke test of training die mensen als links- of rechtshersenig
+indeelt als onjuist, ook wanneer dit boek als bron wordt genoemd.
+
+#### Wat je hierna leest
+
+- 1159. Altered States of Consciousness. *Altered States of Consciousness* van
+Charles Tart is de academische bundel waaruit dit boek drie jaar later
+voortkwam.
+- 763. Consciousness and the Brain: Deciphering How the Brain Codes Our
+Thoughts. *Consciousness and the Brain* van Stanislas Dehaene laat zien hoe
+het hersenonderzoek naar bewustzijn er veertig jaar later voorstaat.
+- 333. Altered Traits. *Altered Traits* van Goleman en Davidson weegt de
+meditatiebevindingen die Ornstein aanhaalde opnieuw, met strengere maatstaven.
+- 943. Frames of Mind. *Frames of Mind* van Howard Gardner is het klassieke
+voorbeeld van hetzelfde patroon: een genuanceerd wetenschappelijk voorstel dat
+in het onderwijs tot een typologie verhardde.
+
+## 1161. Human Personality and Its Survival of Bodily Death
+
+Frederic W.H. Myers, 1903. *Human Personality and Its Survival of Bodily
+Death* (Longmans, Green and Co., Londen, New York en Bombay, 1903, twee delen
+van samen ongeveer 1360 blz.; eerste druk februari 1903, herdruk maart 1903).
+Postuum verschenen: Myers stierf op 17 januari 1901 in Rome, Richard Hodgson
+voltooide het manuscript en Alice Johnson verzorgde de appendices en de
+drukgang. Het boek is opgedragen aan Henry Sidgwick en Edmund Gurney. Een
+verkorting in één band bezorgde Myers' zoon Leopold Hamilton Myers (Longmans,
+copyright 1906); een tweede verkorting verscheen in 1961 onder redactie van
+Susy Smith met een voorwoord van Aldous Huxley. Het werk is rechtenvrij en
+staat volledig op archive.org. Nederlandse uitgave: *Menselijke
+persoonlijkheid en haar voortbestaan na de lichamelijke dood* (Van Warven,
+Kampen, 2022, vertaald door Gerard T.N. Burger, 536 blz., ISBN 9789493175952),
+één band tegenover de twee van het origineel. Rubriek: filosofie en mystiek.
+Tags: `parapsychologie`, `bewustzijn`, `psychologie`, `spiritisme`
+
+Myers wilde de vraag of iets van de persoon de dood overleeft behandelen zoals
+de natuurwetenschap elke andere vraag behandelt: gevallen verzamelen,
+vergelijken en wegen. Zijn antwoord loopt via het subliminale zelf, een groter
+geheel onder het gewone bewustzijn, dat volgens hem zichtbaar wordt in slaap,
+hypnose, hysterie, ingeving bij kunstenaars, automatisch schrift en
+verschijningen, en dat aan het eind van de reeks ook het lichaam zou
+overleven.
+
+Het boek verscheen in 1903, twee jaar na Myers' dood, in twee delen van samen
+ongeveer 1360 bladzijden, waarvan een groot deel bestaat uit
+gevalsbeschrijvingen in appendices. Het bleef het standaardwerk van de vroege
+parapsychologie. Wetenschapshistorici lezen het tegenwoordig vooral om zijn
+psychologie van het onbewuste en om wat het laat zien over hoe rond 1900
+bewijs werd verzameld, niet om zijn conclusie.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Myers stelt dat de vraag naar het voortbestaan van de
+persoonlijkheid na de dood geen zaak van geloof hoeft te blijven, maar met
+dezelfde middelen te onderzoeken is als elke andere vraag over de natuur. Zijn
+antwoord loopt via een psychologische stelling die hij eerst apart opbouwt:
+onder de wakende, sprekende mens ligt een veel groter geheel, het subliminale
+zelf, waarvan het gewone bewustzijn slechts een selectie is die het aardse
+leven van ons vraagt. Slaap, hysterie, hypnose, de ingeving van de kunstenaar,
+automatisch schrift en verschijningen zijn volgens hem stuk voor stuk
+openingen naar dat grotere zelf. Als dat zelf werkelijk meer omvat dan het
+lichaam nodig heeft, dan is de gedachte dat het het lichaam overleeft in zijn
+ogen geen sprong meer, maar de laatste stap in een aaneengesloten reeks. De
+hele last van het boek rust op de vraag of die reeks houdbaar is, en of de
+duizenden getuigenverklaringen waarop hij steunt dat gewicht kunnen dragen.
+
+#### De gang van het boek
+
+**Een vraag die volgens Myers nooit onderzocht is**
+
+Het eerste hoofdstuk opent met een verwijt aan zijn tijd. De mens heeft,
+schrijft Myers, de methode die hij bij alle andere vraagstukken het meest
+doeltreffend vond nooit toegepast op het vraagstuk dat hem het meest aangaat.
+Overtuigingen over een leven na de dood worden bewaard in een afgesloten deel
+van de geest, gewijd aan godsdienst of aan bijgeloof, maar niet aan waarneming
+of proefneming. Hij wil die muur weghalen.
+
+Hij matigt zichzelf daarbij uitdrukkelijk. Met wetenschappelijk bedoelt hij,
+zegt hij, een gezag waaraan hij zich onderwerpt en niet een norm waaraan hij
+beweert te voldoen. Wat hij hier kan bieden is een wetenschap in wording,
+zoals de grote vakken ooit begonnen toen een paar monniken aan de edele
+metalen sleutelden. In een voetnoot legt hij zijn eigen positie vast: de
+Society for Psychical Research werd opgericht in 1882, met W.F. Barrett als
+aanjager, Henry Sidgwick als eerste voorzitter en Edmund Gurney als eerste
+secretaris, terwijl Myers en Gurney samen het Literary Committee leidden dat
+het bewijsmateriaal moest verzamelen.
+
+**Het subliminale zelf**
+
+De kern van het boek is een begrippenpaar. Supraliminaal noemt Myers wat boven
+de drempel van het bewustzijn ligt, subliminaal wat eronder blijft. Het nieuwe
+zit in de tweede helft van zijn definitie: hij rekt de term op tot gevoel,
+gedachte of vermogen dat niet door eigen zwakte onder de drempel blijft, maar
+door de bouw van de persoonlijkheid. De drempel moet men zich niet voorstellen
+als de ingang van een kamer, schrijft hij, maar als een steen die door de zee
+wordt overspoeld, met golven die er nu eens wel en dan weer niet overheen
+slaan.
+
+Daarmee draait hij de gangbare verhouding om. Het waakbewustzijn is bij hem
+niet het geheel van de persoon maar een werkselectie, gevormd door wat het
+lichaam op aarde nodig heeft. Het subliminale zelf is het ruimere geheel
+waaruit die selectie is genomen. Myers zet zijn vaktaal vast in een glossarium
+van tientallen bladzijden, met een asterisk bij de woorden die hij zelf heeft
+bedacht, omdat een nieuw onderwerp volgens hem gebaat is bij termen van
+Griekse of Latijnse herkomst die in elke taal bruikbaar zijn.
+
+**Van afbraak naar vermogen: hysterie, genie, slaap en hypnose**
+
+De hoofdstukken twee tot en met vijf lopen langs toestanden die op zichzelf
+niets met de dood te maken hebben. Myers legt in zijn inleiding uit waarom hij
+bij afbraak begint. In hysterie ziet hij een inkrimping van het
+bewustzijnsspectrum: waarnemingen die bewust zouden moeten zijn zakken weg, en
+handelingen die aan de wil onderworpen zouden moeten zijn ontsnappen eraan. De
+hysterische patient staat dan tot de gewone mens ongeveer zoals de gewone mens
+volgens hem tot zijn eigen volledige zelf staat.
+
+Genie is bij hem de spiegel daarvan. Waar hysterie een verduistering van het
+spectrum is, is genie een oplichten ervan: een subliminale opwelling, het naar
+boven komen van gedachten die onder de drempel zijn gerijpt. Myers keert zich
+daarmee tegen de toen gangbare school die de geniale mens bij de misdadiger en
+de krankzinnige indeelde. Slaap en hypnose behandelt hij in dezelfde lijn, als
+toestanden waarin de drempel verschuift en het subliminale zelf meer ruimte
+krijgt, met hypnose bovendien als iets wat in de geneeskunde werkt terwijl
+niemand kan verklaren waarom.
+
+**Hallucinatie, telepathie en de census**
+
+Hoofdstuk zes gaat over zintuiglijk automatisme, Myers' term voor hallucinatie
+in ruime zin. Hier komt het materiaal binnen dat de SPR jarenlang verzamelde,
+en hier voert hij de twee woorden op die hij in 1882 zelf muntte: telepathie,
+de overdracht van indrukken van de ene geest op de andere buiten de erkende
+zintuigen om, en telesthesie, het waarnemen van een toestand op afstand zonder
+dat er een zendende geest aan te pas komt.
+
+Het zwaarste stuk onderbouwing in dit deel is de Census of Hallucinations,
+uitgevoerd tussen 1889 en 1892 onder leiding van Sidgwick, met Myers zelf in
+de commissie, en gepubliceerd in 1894 in de Proceedings van de SPR.
+Vierhonderdtien verzamelaars legden elk aan vijfentwintig volwassenen dezelfde
+vraag voor, over een levendige indruk van zien, horen of aangeraakt worden
+zonder aanwijsbare oorzaak. Van de zeventienduizend ondervraagden bleven na
+aftrek van dromen, ziektebeelden met ijlkoorts en onduidelijke gevallen 1684
+bevestigende antwoorden over. De vraag die de commissie wilde beantwoorden was
+of het aantal hallucinaties dat met een werkelijke gebeurtenis samenviel te
+groot was om toeval te heten.
+
+**De stap naar de doden**
+
+Het tweede deel maakt de overgang die de titel aankondigt. Telepathie is naar
+zijn aard niet beperkt tot geesten die nog een lichaam hebben, redeneert
+Myers, en dus onderzoekt hij in hoofdstuk zeven verschijningen van
+overledenen, in hoofdstuk acht motorisch automatisme, waaronder automatisch
+schrift, en in hoofdstuk negen trance, bezetenheid en extase.
+
+Hier komen de mediums in beeld die de SPR langdurig heeft bestudeerd, onder
+wie de Amerikaanse Leonora Piper, de Engelse geestelijke William Stainton
+Moses, wiens privaatverslagen Myers na diens dood mocht doornemen, en D.D.
+Home. Myers is op dit punt minder stellig dan zijn tegenstanders hem
+toeschreven. Hij houdt vol dat bij alle grote mediums de diepte van de trance
+sterk wisselt en dat het subliminale zelf van het medium soms in een
+droomachtige, onbedoelde vorm een vreemde persoonlijkheid nabootst. Zijn
+conclusie luidt niettemin dat mededeling met herkenbaar geidentificeerde
+overledenen wat hem betreft is aangetoond.
+
+**De vorm van het boek**
+
+Het werk is opgezet als een handboek en niet als een betoog dat in één ruk
+gelezen wil worden. Er is een glossarium, een uitleg van het verwijssysteem,
+en een reeks syllabussen die per hoofdstuk in genummerde stellingen
+samenvatten wat er komen gaat. Alle alinea's van de hoofdtekst dragen
+doorlopende nummers, zodat een verwijzing naar een geval altijd op dezelfde
+plek uitkomt. De appendices bij de hoofdstukken twee, vier, vijf, zes, zeven,
+acht en negen beslaan samen honderden bladzijden en bevatten de brieven,
+verklaringen en verslagen zelf.
+
+Die opzet maakt zichtbaar wat Myers wilde nalaten. Hij noemt zijn eigen tekst
+in het voorwoord een gebrekkig leerboek voor een onderzoeksveld dat om een
+voorlopige ordening vraagt, in de hoop dat verdere verzameling van bewijs die
+ordening zo snel mogelijk zal vervangen. Het boek is met andere woorden
+bedoeld als beginpunt van een vak, en het is precies op dat punt dat de latere
+geschiedenis het antwoord heeft gegeven.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Subliminaal | Van gedachten, gevoelens en vermogens die onder de drempel van het bewustzijn blijven, bij Myers niet door eigen zwakte maar door de bouw van de persoonlijkheid. |
+| Supraliminaal | Het geestelijk leven boven de drempel, de gewone wakende toestand. |
+| Subliminaal zelf | Het ruimere geheel van de persoon waarvan het waakbewustzijn volgens Myers slechts een selectie is. |
+| Drempel | De grens tussen beide, door Myers vergeleken met een door de zee overspoelde steen en niet met de ingang van een kamer. |
+| Telepathie | Door Myers in 1882 gemunte term voor de overdracht van indrukken van de ene geest op de andere buiten de erkende zintuigen om. |
+| Telesthesie | Zijn tweede term uit 1882, voor het waarnemen van een verre toestand zonder dat er een zendende geest bij betrokken is. |
+| Zintuiglijk automatisme | Zijn verzamelnaam voor hallucinaties, waaronder de verschijningen die hij als telepathisch opvat. |
+| Motorisch automatisme | Bewegingen zonder bewuste wil, waaronder automatisch schrift en het spreken in trance. |
+| Subliminale opwelling | Zijn omschrijving van de ingeving van het genie: onder de drempel gerijpte ideeen die in het gewone bewustzijn doorbreken. |
+| Metetheriaal | Zijn woord voor wat achter of voorbij de ether zou liggen, de omgeving waarin de ziel volgens hem bestaat. |
+
+#### Waar het argument op rust
+
+Het boek rust op een verzameling getuigenverklaringen, niet op proeven die
+iemand kan herhalen. Myers en Gurney hadden die verzameling opgezet in
+*Phantasms of the Living* (1886) en uitgebouwd in de Proceedings van de SPR;
+het grootste deel bestaat uit brieven en verklaringen die na afloop zijn
+opgeschreven. Myers probeert de zwakke plekken te ondervangen door te vragen
+om verslagen uit de eerste hand, om bevestiging door derden en om het tijdstip
+van optekening.
+
+Het sterkste stuk is de Census of Hallucinations, omdat die als enige de
+zelfselectie aanpakt: de verzamelaars moesten hun vijfentwintig ondervraagden
+kiezen zonder te letten op de kans op een bevestigend antwoord, en een deel
+van de antwoorden werd apart verzameld bij complete huishoudens om te toetsen
+of de hoofdverzameling scheef stond. Wat er nergens staat is een proef waarin
+telepathie onder gecontroleerde omstandigheden wordt opgewekt en gemeten. De
+kracht van het materiaal is de omvang; de zwakte is dat tienduizend
+verklaringen niet meer wegen dan één, zolang de bron van vertekening in alle
+tienduizend dezelfde kan zijn.
+
+#### Wat er tegen in te brengen valt
+
+Het oudste en zwaarste bezwaar richt zich op precies die opzet. Charles
+Sanders Peirce betoogde over *Phantasms of the Living* dat uit anekdotes geen
+wetenschappelijke conclusie te trekken valt en wees op de onzekerheid in de
+gebruikte getallen; de astronoom Simon Newcomb kwam tot het oordeel dat geen
+van de beschreven wonderen telepathie bewijst. Het bezwaar is niet dat de
+getuigen liegen, maar dat een herinnering aan een voorval dat achteraf
+betekenis kreeg scherper en beter passend wordt naarmate zij vaker wordt
+verteld, en dat een verzameling die alleen treffers binnenkrijgt de missers
+nooit ziet.
+
+Myers is bovendien meermalen bedrogen. Douglas Blackburn en George Albert
+Smith werden door hem als echte gedachtelezers gepresenteerd; Blackburn
+bekende later dat het bedrog was. Bij het medium Eusapia Palladino stelden
+onderzoekers vast dat de verschijnselen tijdens de zittingen in Cambridge op
+trucage berustten, waarna Myers overtuigd bleef dat een deel ervan echt was.
+Dat patroon, waarbij ontmaskering het vertrouwen in de rest niet aantast, telt
+mee bij de beoordeling van het geheel.
+
+Er zit ook een bezwaar in de theorie zelf. Het subliminale zelf is zo ruim
+opgezet dat het zowel de ingeving van de dichter als de verlamming van de
+hysterische patiënt als het spreken van een medium kan dekken; er is geen
+waarneming denkbaar die het begrip zou weerleggen. Daar komt bij dat het boek
+halverwege van vak wisselt. Zolang Myers over drempels en dissociatie
+schrijft, doet hij psychologie; zodra hij een metetheriale wereld invoert
+waarin de ziel bestaat, doet hij metafysica, zonder dat het bewijsmateriaal in
+die overgang meegroeit.
+
+De uitkomst van de eeuw die volgde is het meest feitelijke bezwaar. De
+parapsychologie is blijven bestaan, met steeds strakkere opzetten, van
+kaartproeven tot ganzfeld-experimenten, maar zij heeft geen resultaat
+opgeleverd dat door onafhankelijke onderzoekers betrouwbaar te herhalen is;
+C.E.M. Hansel stelde na doorlichting van de klassieke gevallen dat geen ervan
+de toets doorstond. Het pleidooi van Myers voor toepassing van de
+wetenschappelijke methode is dus ingewilligd, en het antwoord dat die methode
+gaf is niet het zijne. Dat maakt het boek niet waardeloos. William James prees
+het om zijn reikwijdte en om de volharding waarmee de feiten waren verzameld,
+terwijl hij vaststelde dat Myers het voortbestaan niet had aangetoond, en de
+bundel *Irreducible Mind* (2007) van Edward en Emily Kelly met Alan Gauld en
+Bruce Greyson bracht zijn psychologie van het gelaagde zelf opnieuw onder de
+aandacht, zonder dat die buiten een kleine kring aanvaard raakte.
+
+#### Wat er concreet mee te doen is
+
+- Lees de hoofdstukken over hysterie, slaap, genie en hypnose als
+afzonderlijke psychologie; ze staan of vallen niet met de slotconclusie van
+het boek.
+- Zoek bij een geval dat overtuigt eerst het bijbehorende appendix op en kijk
+wanneer de verklaring is opgeschreven en door wie zij is bevestigd.
+- Gebruik het glossarium: Myers hanteert tientallen zelfgemunte termen, door
+het hele boek heen in een vaste betekenis.
+
+#### Wat je hierna leest
+
+- 936. The Varieties of Religious Experience. James onderzocht in dezelfde
+jaren en met dezelfde inzameling van verslagen de religieuze ervaring, en trok
+bij vergelijkbaar materiaal een voorzichtiger conclusie.
+- 340. The Holographic Universe. Talbot verzamelt bijna een eeuw later
+hetzelfde soort verschijnselen, maar zoekt de verklaring in de natuurkunde in
+plaats van in de psychologie.
+- 677. The Siren Call of Hungry Ghosts. Fisher beschrijft van binnenuit hoe
+overtuigend mediamieke mededelingen kunnen zijn en waarom ze toch niet
+kloppen; het scherpste tegenwicht bij hoofdstuk negen.
+- 663. Supernature. Watson doet in 1973 een vergelijkbare poging om
+grensverschijnselen bij de wetenschap in te lijven, met dezelfde zwakke plek
+in de onderbouwing.
+
+## 1162. The Natural Mind: A New Way of Looking at Drugs and the Higher Consciousness
+
+Andrew Weil, 1972. *The Natural Mind: A New Way of Looking at Drugs and the
+Higher Consciousness* (Houghton Mifflin, Boston, 1972, ca. 229 blz., ISBN
+0395139368). De ondertitel wisselt per editie: de herziene uitgave van 1986
+heet *The Natural Mind: An Investigation of Drugs and the Higher
+Consciousness* (Houghton Mifflin, Boston, 248 blz., ISBN 039540469X) en bevat
+een nieuw voorwoord van de auteur uit mei 1985; de uitgave van 2004 draagt de
+ondertitel *A Revolutionary Approach to the Drug Problem* (ISBN 0618465138).
+Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse tekst
+gebaseerd, met het voorwoord bij de editie van 1986 erbij. Rubriek: brein en
+lichaam.
+Tags: `psychedelica`, `bewustzijn`, `verslaving`, `tegencultuur`
+
+Andrew Weil was arts en had als laatstejaars student geneeskunde in Boston de
+eerste gecontroleerde marihuana-experimenten met onervaren proefpersonen
+opgezet, gepubliceerd in *Science* in december 1968. Dit eerste boek,
+geschreven in 1971, bouwt op één stelling: de neiging om het bewustzijn af en
+toe te veranderen is een aangeboren drift, en het middel is daarbij zelden de
+oorzaak van wat erop volgt. Weil leidt daaruit af dat het drugsbeleid van zijn
+tijd op een denkfout rust en dat de oplossing ligt in het aanleren van andere
+wegen naar diezelfde toestanden.
+
+Het boek draagt de sporen van het moment waarop het geschreven is, met
+uithalen naar de overheid, de psychiatrie en de universiteit; in het voorwoord
+bij de herziene editie legt Weil dat zelf uit. Zijn bewijsvoering berust
+vrijwel geheel op eigen ervaring en eigen waarneming, met één uitzondering:
+zijn eigen laboratoriumwerk aan marihuana. Wie het leest doet er goed aan het
+te nemen voor wat het is, een geschrift uit 1971 en geen stand van zaken.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Weil stelt dat de wens om het bewustzijn periodiek te
+veranderen geen aangeleerde afwijking is maar een aangeboren drift,
+vergelijkbaar met honger of de geslachtsdrift. Hij ziet die drift al bij
+kleuters die zich duizelig ronddraaien, en hij wijst erop dat vrijwel elke
+bekende samenleving er een vorm voor heeft gevonden. Uit die premisse trekt
+hij twee conclusies. De eerste is dat een middel niet de oorzaak is van de
+toestand die erop volgt: verwachting en omgeving bepalen grotendeels de
+uitkomst, en het middel werkt hoogstens als aanleiding. De tweede is dat het
+drugsbeleid van zijn tijd op een denkfout rust, omdat het de drift zelf
+probeert te onderdrukken in plaats van haar naar andere vormen te leiden.
+
+#### De gang van het boek
+
+**De vooringenomenheid die aan het onderwerp kleeft**
+
+Het eerste hoofdstuk gaat niet over drugs maar over de manier waarop erover
+wordt gesproken. Weil stelt dat er geen onbevangen deskundige bestaat en dat
+alle beschikbare gegevens door waardeoordelen zijn gekleurd. Hij onderscheidt
+bewuste vooringenomenheid, die met een enkele vraag te achterhalen is, van
+onbewuste vooringenomenheid, die het zicht filtert zonder dat de spreker het
+merkt. Zijn stelling is dat het tweede het ergst is bij groepen die zichzelf
+voor onbevangen houden, artsen en farmacologen voorop.
+
+Hij illustreert dat met twee tegengestelde voorbeelden. Een agent van het
+Federal Narcotics Bureau vertelde hem in 1968 dat marihuana mensen agressief
+maakt, op grond van één ervaring: vermomd als beatnik had hij een bijeenkomst
+in Greenwich Village bezocht en zich daar bekendgemaakt als agent, waarna
+iedereen agressief werd. Een radicale socioloog beweerde in februari 1970 dat
+marihuana het gemeenschapsleven bevordert, omdat hij in communes had gezien
+dat de afwas werd opgelost door er stoned een spel van te maken. Beiden sloten
+af met dezelfde zin: dat heb ik met eigen ogen gezien.
+
+Daarop volgt Weils methodische punt. Onderzoek dat soms ja, soms nee en
+meestal geen verschil oplevert, wijst er volgens hem op dat de verkeerde vraag
+is gesteld, namelijk dat er een oorzakelijk verband is verondersteld waar
+alleen samenloop bestaat. Hij besluit met de opmerking dat wetenschap geen
+absolute waarheid oplevert maar bruikbare modellen, en dat de heersende
+modellen over drugs hun bruikbaarheid hebben verloren.
+
+**De aangeboren drift**
+
+In het tweede hoofdstuk voert Weil zijn hoofdstelling in. Het gebruik van
+bedwelmende middelen is volgens hem overal en altijd aangetroffen; als enige
+uitzondering noemt hij de Inuit, die niets konden verbouwen. Dat de gewoonte
+zo wijdverbreid is, wijst volgens hem op een biologisch kenmerk van de soort
+en niet op een culturele mode. Wat er in zijn tijd verandert is alleen de
+voorkeur voor een ander middel, en dat alcohol daarbij niet als drug meetelt
+noemt hij zelf een schoolvoorbeeld van gekleurd denken.
+
+Zijn sterkste beeld haalt hij bij kinderen. Drie- en vierjarigen draaien
+zichzelf tot duizelens toe rond, en dat gebeurt op een leeftijd waarop van
+sociale aanpassing nauwelijks sprake kan zijn. Weil vertelt dat hij dat zelf
+urenlang deed, en dat de misselijkheid en het duizelen hem bijzaak leken naast
+de toestand die erop volgde. Hij trekt de lijn door naar zijn eigen jaren aan
+Harvard: het bericht in 1960 over een student die aan mescaline zou zijn
+overleden, het lezen van Huxleys *The Doors of Perception*, een gesprek met
+Timothy Leary in diens werkkamer aan Divinity Avenue, en vanaf 1961 een dozijn
+eigen mescaline-sessies met zeven medestudenten.
+
+Uit die sessies haalt hij twee waarnemingen. De eerste is dat de uitkomsten
+sterk uiteenliepen, ook bij dezelfde persoon. De tweede is de verklaring die
+Leary en Alpert daarvoor gaven: set, de verwachting van de gebruiker binnen
+zijn hele persoonlijkheid, en setting, de fysieke en sociale omgeving. Weil
+merkt op dat set en setting de farmacologische werking kunnen overvleugelen,
+en dat hij bij zijn eerste dosis mescaline door zenuwachtigheid vier uur lang
+niets voelde. Vervolgens plaatst hij dagdromen, trance, hypnose, meditatie en
+het roeseffect op één doorlopende lijn, met het wegvallen van het ik-gevoel
+als gemeenschappelijk kenmerk.
+
+**Marihuana en het actieve placebo**
+
+Het vierde hoofdstuk gaat over zijn eigen onderzoek. Samen met Norman Zinberg
+en Judith Nelsen gaf Weil in 1968 in Boston marihuana aan proefpersonen in een
+dubbelblinde opzet, waarbij naast een sigaret met werkzame stof een sigaret
+werd gebruikt waaruit de werkzame stof was verwijderd. Onder de deelnemers
+waren mensen die nog nooit hadden gerookt. De uitkomst die hem het meest
+bezighield, was dat die onervaren proefpersonen grotendeels niet high werden,
+terwijl ervaren gebruikers dat wel deden bij dezelfde dosis.
+
+Daaruit trekt hij zijn bekendste gevolgtrekking: high worden is een
+aangeleerde reactie, en marihuana kan het beste een actief placebo worden
+genoemd, een stof waarvan de zichtbare geestelijke werking berust op
+verwachting bij een geringe lichamelijke prikkel. Hij voegt eraan toe dat
+iemand die high is en gewend is aan de taken die hem worden voorgelegd, zich
+in meetbare zin niet van een nuchtere persoon laat onderscheiden. Het
+hoofdstuk met aanwijzingen uit de Amazone zet daar niet-westers gebruik naast;
+Weils punt is dat de bezorgde Amerikaan en de inheemse gebruiker dezelfde fout
+maken door de werking in de stof te leggen in plaats van in de geest.
+
+**Straightland en Stonesville**
+
+De twee hoofdstukken die het hart van het boek vormen zetten twee denkwijzen
+tegenover elkaar. Weil kiest de woorden straight en stoned omdat ze in het
+spraakgebruik lagen en meteen begrepen werden; het gaat hem uitdrukkelijk niet
+om een aanbeveling voor middelen. Straight denken beschrijft hij als een
+houding waarin zintuiglijke gegevens worden gelijkgesteld aan de hele
+werkelijkheid, wat neerkomt op een doorlopend materialisme. Het denkt vanuit
+het ik, onderscheidt en rangschikt, houdt zelf en niet-zelf uit elkaar en komt
+daardoor uit bij afzondering, zwartgalligheid en wanhoop.
+
+Stoned denken beschrijft hij als een houding waarin intuïtie naast het
+verstand meetelt, waarin tegenspraak niet meteen hoeft te worden opgelost en
+waarin het gevoel van samenhang tussen dingen en mensen niet wordt
+weggeredeneerd. Waar het straight denken in of-of-vormen redeneert, redeneert
+het stoned denken in en-en-vormen. Weil houdt vol dat die tweede modus voor
+iedereen bereikbaar is en dat middelen daar slechts één en bepaald niet de
+beste toegangsweg toe zijn.
+
+**De oplossing die hij voorstelt**
+
+Het slot van het boek trekt de conclusie die de titel dekt: de bron van het
+probleem is dat de cultuur geen voorziening kent voor een gewone menselijke
+behoefte. Zolang de enige erkende weg naar een andere bewustzijnstoestand
+langs verboden of getolereerde middelen loopt, blijft het probleem in stand.
+Weil bepleit dat mensen, en vooral kinderen, andere wegen leren kennen:
+meditatie, ademhaling, hypnose, aandachtsoefeningen. Het voordeel van middelen
+is dat ze snel werken zonder inspanning; hun nadeel is dat ze bij regelmatig
+gebruik de gezochte ervaring niet vasthouden en de speelruimte juist
+versmallen.
+
+In het voorwoord bij de editie van 1986 vat hij zijn eigen boek strenger samen
+dan hij het geschreven heeft. Hij zegt dat hij het vandaag veel korter zou
+opschrijven, zonder het meeste betoog. Ook weerspreekt hij daar de lezing van
+zijn critici: hij heeft niet beweerd dat mensen met een behoefte aan drugs
+geboren worden, maar met een drang om met bewustzijnsverandering te
+experimenteren. In datzelfde voorwoord staat de metafysische kern die zijn
+latere werk over gezondheid en genezing draagt: bewustzijn is primair en de
+stoffelijke werkelijkheid volgt daaruit.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| aangeboren drift naar bewustzijnsverandering | Weils grondstelling dat de wens om af en toe anders te ervaren tot de aanleg van de soort behoort en niet door de cultuur wordt aangeleerd. |
+| niet-gewone bewustzijnstoestand | Elke toestand die afwijkt van het gewone waakbewustzijn, van dagdromen en trance tot meditatie, roes en mystieke vervoering. |
+| straight denken | Denken dat de zintuiglijke gegevens gelijkstelt aan de werkelijkheid, vanuit het ik onderscheidt en in of-of-vormen redeneert. |
+| stoned denken | Denken dat intuïtie naast het verstand toelaat, tegenspraak verdraagt en samenhang aanneemt waar het straight denken scheidt. |
+| actief placebo | Weils aanduiding voor een stof waarvan de zichtbare geestelijke werking vooral op verwachting berust bij een geringe lichamelijke prikkel. |
+| set en setting | De verwachting van de gebruiker en de fysieke en sociale omgeving, door Leary en Alpert ingevoerd en door Weil als hoofdverklaring gebruikt. |
+| onbewuste vooringenomenheid | Een gezichtspunt dat de waarneming filtert zonder dat de waarnemer het opmerkt, volgens Weil het gevaarlijkst bij wie zich onbevangen waant. |
+| bruikbaar model | Zijn maatstaf voor kennis: niet of een voorstelling waar is, maar of zij beschrijving, voorspelling en handelen vergemakkelijkt. |
+| gebruik tegenover misbruik | Het onderscheid dat Weil handhaaft en dat volgens hem in het beleid van zijn tijd stelselmatig werd uitgewist. |
+
+#### Waar het argument op rust
+
+Eén onderdeel van het boek rust op gecontroleerd onderzoek. Het artikel van
+Weil, Zinberg en Nelsen in *Science* van 13 december 1968 beschrijft de eerste
+gecontroleerde toediening van marihuana aan onervaren proefpersonen, met een
+dubbelblinde opzet waarin naast een sigaret met werkzame stof een sigaret
+zonder werkzame stof werd gebruikt. Dat de onervaren deelnemers grotendeels
+niet high werden, is een echte waarneming uit dat werk en is later door
+anderen bevestigd als aanwijzing dat het effect deels wordt aangeleerd.
+
+De hoofdstelling zelf rust daar niet op. Voor de aangeboren drift voert Weil
+aan: de wijdverbreidheid van bedwelmende middelen, kinderen die zich duizelig
+draaien, zijn eigen herinneringen, en zijn eigen mescaline-sessies aan
+Harvard. Dat is waarneming en herinnering, geen meting. Hij zegt dat zelf
+ronduit: zijn gezag is zijn eigen ervaring en niet zijn artsdiploma, en hij
+plaatst zich in de traditie van zorgvuldige zelfwaarneming waarvan hij Humphry
+Davy met zijn proeven op lachgas uit 1799 als voorbeeld noemt.
+
+Een reeks opzienbarende beweringen in het boek staat op de rug van
+ooggetuigenverslagen zonder protocol. Weil meldt dat hij een yogi zag die zijn
+hartritme op afroep kon ontregelen en weer herstellen, en een yogi die binnen
+een minuut een verschil van ongeveer tien graden Fahrenheit tussen zijn beide
+handen kon opwekken. Hij zag ook een keizersnede onder alleen hypnose. Zulke
+waarnemingen zijn niet weerlegd, maar ze zijn evenmin gecontroleerd, en Weil
+bouwt er wel een verwachting over de geneeskunde op.
+
+In het voorwoord uit 1985 voert hij later onderzoek aan ter ondersteuning, met
+name de ontdekking van endorfinen. Dat de hersenen zelf morfineachtige stoffen
+aanmaken, past bij zijn beeld dat de toestand van binnenuit komt. Het
+bevestigt echter niet de sterkere stelling dat bewustzijn primair is en de
+stoffelijke wereld daaruit voortkomt; die stap zet hij zonder verdere
+onderbouwing.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar betreft de vorm van de hoofdstelling. Weil rekent
+dagdromen, trance, hypnose, meditatie, roes en mystieke vervoering alle tot de
+niet-gewone toestanden en plaatst ze op één lijn. Als vrijwel elke afwijking
+van het gewone waakbewustzijn als uiting van dezelfde drift telt, dan is er
+geen waarneming denkbaar die de stelling kan weerleggen. De recensent van
+*Kirkus* formuleerde dat in 1972 al scherp: Weil poneert zijn premisse en
+behandelt haar daarna als vaststaand, en het bezwaar geldt de zorgeloosheid en
+de zelfverzekerdheid van de presentatie eerder dan het idee zelf.
+
+Het begrip actief placebo kreeg dezelfde kritiek. Het benoemt dat een middel
+de toestand alleen aanleiding geeft, maar het legt niet uit hoe dat werkt, en
+het laat zich op elke uitkomst toepassen. Voor stoffen met een sterk
+dosisafhankelijk effect houdt de gedachte bovendien geen stand. Bij opiaten,
+alcohol en stimulantia is de samenhang tussen dosis en werking goed
+gedocumenteerd; set en setting kleuren die werking, maar ze vervangen de
+farmacologie niet. Weil generaliseert een bevinding over marihuana bij
+onervaren gebruikers naar het hele veld.
+
+Zijn argument over vooringenomenheid werkt tegen hem. Als er geen feiten
+bestaan die niet door waardeoordelen zijn gekleurd, geldt dat evengoed voor
+zijn eigen zelfwaarneming, die hij juist als de meest directe kennisbron
+presenteert. Hij erkent het probleem in het eerste hoofdstuk en past het
+daarna vooral toe op anderen. Wie het boek gebruikt als vrijbrief om
+laboratoriumonderzoek af te doen als bevooroordeeld, houdt niets over om zijn
+eigen aanspraken mee te toetsen.
+
+Een aantal beweringen is slecht verouderd, waaronder zijn overtuiging dat er
+nooit een pijnstiller zonder verslavende werking gevonden zal worden. Ook de
+tweedeling straight tegenover stoned is een waardeoordeel dat als waarneming
+wordt gebracht: welke van beide denkwijzen betere uitkomsten oplevert, wordt
+nergens getoetst. En hoewel Weil terecht opmerkt dat zijn critici hem verkeerd
+citeerden, blijft zijn praktische voorstel, ritueel gebruik van middelen in
+natuurlijke vorm onder begeleiding, een aanbeveling en geen neutrale
+vaststelling.
+
+Het boek doet ten slotte weinig met de schaduwzijde die het wel noemt. Weil
+onderscheidt gebruik van misbruik, maar de bladzijden over wat er misgaat
+blijven kort naast de bladzijden over wat er te winnen valt. In het voorwoord
+van 1985 erkent hij dat niemand in 1971 de cocaïnegolf voorzag en dat
+sigarettenverslaving de hardnekkigste van alle bleek. Dat zijn geen kleine
+correcties op een boek dat beweert de sleutel tot het drugsprobleem in handen
+te hebben.
+
+#### Wat er concreet mee te doen is
+
+- Lees het eerste hoofdstuk als oefening in het opsporen van
+vooringenomenheid, ook bij bronnen die zeggen alleen feiten te geven.
+- Stel bij elke uitspraak waarin een middel het gedrag verklaart de vraag of
+er sprake is van oorzaak of van samenloop.
+- Houd Weils waarneming (verwachting en omgeving doen ertoe) uit elkaar van
+zijn conclusie (het middel doet er nauwelijks toe).
+- Gebruik zijn onderscheid tussen gebruik en misbruik om beleidstaal te
+toetsen die beide op één hoop gooit.
+- Neem er nieuwer werk naast voordat men iets uit dit boek als stand van zaken
+doorgeeft.
+
+#### Wat je hierna leest
+
+- 275. How to Change Your Mind. Pollan behandelt dezelfde vragen een halve
+eeuw later, met het onderzoek erbij dat Weil nog niet had.
+- 759. The Antipodes of the Mind. Shanon doet wat Weil aankondigt en niet
+uitvoert: de ervaring zelf stelselmatig in kaart brengen.
+- 765. The Road to Eleusis: Unveiling the Secret of the Mysteries. Wasson,
+Hofmann en Ruck betogen dat een rituele omgang met een psychoactief middel in
+de oudheid bestond, precies het model dat Weil bepleit.
+- 936. The Varieties of Religious Experience. James beschrijft in 1902 al de
+veranderde bewustzijnstoestand als bron van religieuze ervaring, en doet dat
+met meer terughoudendheid.
+
+## 1163. The Reenchantment of the World
+
+Morris Berman, 1981. *The Reenchantment of the World* (Cornell University
+Press, Ithaca, 1981, 357 blz., ISBN 0801413478 gebonden en 0801492254 in
+paperback; daarnaast een pocketuitgave bij Bantam in 1984, ISBN 0553241710).
+Er bestaat geen Nederlandse vertaling; wel een Spaanse, *El reencantamiento
+del mundo*. De samenvatting is op de Engelse editie gebaseerd. Rubriek:
+filosofie en mystiek.
+Tags: `wetenschapsgeschiedenis`, `cultuurkritiek`, `bewustzijn`, `filosofie`
+
+Morris Berman promoveerde in 1971 aan Johns Hopkins in de geschiedenis van de
+wetenschap. In dit boek beschrijft hij hoe het westen een verhouding tot de
+wereld verloor waarin de kenner deel uitmaakte van wat hij kende, en hoe
+daarvoor in de zeventiende eeuw een houding in de plaats kwam waarin kennis
+juist afstand vereist. De titel is een antwoord op Max Weber, die de
+moderniteit had gekenschetst als de onttovering van de wereld.
+
+De eerste helft is wetenschapsgeschiedenis met een duidelijke stelling; de
+tweede helft is een voorstel voor een andere kennisleer, waarvoor Berman bij
+Gregory Bateson en Wilhelm Reich te rade gaat. Dat tweede deel, en met name
+het hoofdstuk over Reich, is het meest bestreden onderdeel van het boek en ook
+het deel waar Berman zelf later afstand van nam.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Berman betoogt dat de westerse mens tot in de zeventiende
+eeuw in een deelnemende verhouding tot de wereld stond, waarin het onderscheid
+tussen waarnemer en waargenomene niet scherp werd getrokken, en dat de
+wetenschappelijke revolutie die verhouding heeft vervangen door een
+niet-deelnemend bewustzijn waarin kennis pas ontstaat door afstand te nemen
+van wat men kent. Dat niet-deelnemende bewustzijn noemt hij vervreemd
+bewustzijn, en hij houdt het verantwoordelijk voor twee zaken tegelijk: de
+roofbouw op de natuur en een leegte in het persoonlijke leven die door
+consumptie wordt opgevuld. Zijn voorstel is geen terugkeer naar de
+middeleeuwen, maar een kennisleer waarin de kenner opnieuw in het gekende
+wordt opgenomen.
+
+#### De gang van het boek
+
+**De titel als tegenzet**
+
+Berman ontleent zijn uitgangspunt aan Weber, die in *Wissenschaft als Beruf*
+sprak van de onttovering van de wereld: het besef dat er in beginsel geen
+onberekenbare machten meer zijn en dat men alles door berekening kan
+beheersen. Berman keert die formule om en vraagt wat er nodig zou zijn voor
+een hertovering.
+
+Het begrip waarmee hij werkt, deelnemend bewustzijn, is zijn eigen bewerking
+van Owen Barfields oorspronkelijke deelname. Hij omschrijft het als
+versmelting of vereenzelviging met de omgeving, een psychische heelheid die
+volgens hem al lang van het toneel verdwenen is. Dat is het spoor dat hij door
+de vier eeuwen heen volgt.
+
+**De geboorte van het moderne wetenschappelijke bewustzijn**
+
+Het eerste hoofdstuk opent bij Descartes in 1637 en zet uiteen wat historici
+van de wetenschap de mechanische filosofie noemen: alle verklaring wordt
+teruggebracht tot stof en beweging. Berman beschrijft hoe de vraag waarom iets
+gebeurt plaatsmaakt voor de vraag hoe het gebeurt, en hoe het atomisme de
+gedachte doorvoert dat een ding de som van zijn delen is, niet meer en niet
+minder. De uitkomst noemt hij positivisme: wat niet meetbaar is, heeft in de
+proefondervindelijke wijsbegeerte geen plaats.
+
+Zijn behandeling van Galilei is kenmerkend voor de opzet. Dat de kardinalen
+weigerden door de telescoop te kijken, wijt Berman niet aan koppigheid of
+vrees voor de waarheid, maar aan een botsing van categorieën: een door
+ambachtslieden vervaardigd werktuig inzetten om een wijsgerige of theologische
+twist te beslechten, gold destijds als een verwarring van twee gescheiden
+werelden met elk hun eigen stand. Galilei zelf hanteerde volgens hem een
+ingenieursbenadering waarin hij afstand nam van de natuur om haar beter te
+vatten, en juist die zet noemt Berman niet-deelnemend bewustzijn.
+
+**Waarom die omslag doorzette**
+
+Het tweede hoofdstuk plaatst de omslag in de samenleving die haar droeg.
+Berman haalt Peter Berger aan: ideeën slagen in de geschiedenis niet omdat ze
+waar zijn, maar door hun verhouding tot bepaalde maatschappelijke processen.
+Wetenschappelijke ideeën vormen daarop geen uitzondering. Het denken in
+vooruitgang en opeenstapeling hoort volgens hem bij de wereld van het
+vroegmoderne Europa, en de mechanische natuuropvatting paste bij een
+samenleving die de wereld als een rekensom begon te zien.
+
+Daarmee zet hij zijn methodische eis kracht bij: de wetenschap moet worden
+bekeken als een denkstelsel dat bij een bepaald tijdvak past, en niet als een
+boventijdelijke waarheid. Die eis draagt de rest van het boek, want zonder
+haar valt de mogelijkheid van een andere kennisleer weg.
+
+**De onttovering, in twee delen**
+
+De twee hoofdstukken met de titel *The Disenchantment of the World* behandelen
+wat er verdween. Bermans hoofdvoorbeeld is de alchemie, die hij leest als de
+laatste deelnemende wetenschap: de alchemist werkte met meditatie, vasten,
+ademhalingsoefeningen en soms het reciteren van formules, technieken die de
+scheiding tussen het bewuste en het onbewuste deel van de geest doorbreken.
+Hij vergelijkt de alchemist met een mijnwerker die de ene ader na de andere
+volgt, zonder dat er één goed antwoord bestaat.
+
+Newton speelt daarin een dubbelrol. Berman wijst erop dat Newton een groot
+deel van zijn leven aan alchemie besteedde, en hij haalt Frank Manuel aan voor
+de opmerking dat een wereldbeeld waarin elke gebeurtenis in een sluitend
+stelsel past normaal gesproken een ziektebeeld heet, en dat het Newtons geluk
+was dat Europa zijn stelsel als afbeelding van de werkelijkheid aanvaardde.
+Bermans punt is dat de alchemie niet is weerlegd maar verdrongen, en dat de
+winnende partij die uitkomst achteraf als vooruitgang heeft beschreven.
+
+**Polanyi en Reich**
+
+Het hoofdstuk *Prolegomena to Any Future Metaphysics* haalt Michael Polanyi
+binnen. Diens stelling is dat het toekennen van waarheid aan een methode
+altijd een niet-redelijke verbintenis vereist, in Polanyi's woorden een
+fiduciaire daad, en dat de samenhang van een denkstelsel geen maatstaf voor
+waarheid is maar alleen voor bestendigheid. Berman leidt daaruit af dat kennis
+eerst lijfelijk wordt opgedaan en dat het verstand pas achteraf de categorieën
+aanlegt.
+
+Dat lijfelijke spoor loopt in het hoofdstuk *Eros Regained* uit op Wilhelm
+Reich. Berman zet Reich, met R.D. Laing en anderen, in tegen de
+egopsychologie, van Freud tot Rollo May, en gebruikt Reichs opvatting van het
+lichaam als plaats van kennen om aan zijn deelnemende kennisleer een
+lichamelijke bodem te geven. Het is het meest gewaagde hoofdstuk van het boek,
+en het hoofdstuk waar de meeste lezers afhaken.
+
+**De metafysica van morgen**
+
+In de twee hoofdstukken die daarop volgen komt Bateson aan het woord. Berman
+neemt van hem het idee over dat geest geen substantie is maar een patroon van
+betrekkingen, en dat een kennisleer die de natuur recht doet de kenner in het
+gekende moet opnemen. Onderzoek gaat dan niet meer over losse eenheden die
+tegenover de geest staan, maar over de verhouding tussen wat tot nu toe
+onderwerp en voorwerp heette.
+
+Zijn bekendste passage staat hier: wanneer een indiaan een regendans uitvoert,
+veronderstelt hij geen mechanisch antwoord maar nodigt hij de wolken uit, en
+zoals elke minnaar kunnen die er wel of niet toe geneigd zijn. De westerse
+tegenhanger, wolken bezaaien vanuit een vliegtuig, dwingt de uitkomst af en
+levert naast regen lawaai en vervuiling op. Berman voegt daar Susanne Langer
+aan toe: een wending in de wijsbegeerte bestaat niet uit nieuwe antwoorden op
+oude vragen maar uit het verwerpen van die vragen. En hij ontleent aan Bateson
+het beeld van een stelsel dat op hol slaat doordat het bepaalde grootheden
+blijft opjagen, met de waarschuwing dat wie tegen de ecologie van een stelsel
+vecht verliest, vooral wanneer hij wint.
+
+**De politiek van het bewustzijn**
+
+Het slothoofdstuk vraagt hoe zo'n verandering zich maatschappelijk zou kunnen
+voltrekken. Berman is hier het minst concreet, en hij houdt uitdrukkelijk
+afstand van de mystieke en occulte stromingen die zich in dezelfde jaren op
+vergelijkbare taal beriepen. Hij haalt Weber aan met de opmerking dat wie voor
+de werkelijkheid terugschrikt altijd bij het geloof van zijn vaderen
+terechtkan, en hij verwijt die stelsels dat zij, zoals Langer over
+niet-discursieve denkvormen zei, uiteindelijk het denken zelf overboord
+zetten.
+
+Wat hij wel vasthoudt is dat er iets stoffelijks buiten ons bestaat, en dat de
+ontkenning daarvan hem niet interesseert. Zijn punt is dat wij met dat
+stoffelijke in een systemische verhouding staan, het ongemerkt met ons eigen
+onbewuste doortrekken en er daardoor aantreffen wat wij zoeken.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| deelnemend bewustzijn | Bermans term voor een houding waarin de waarnemer zich niet los van de waargenomen wereld denkt maar zich ermee vereenzelvigt. |
+| niet-deelnemend bewustzijn | De tegenhanger die volgens hem met Galilei en Descartes doorbreekt: kennen door afstand nemen, met de onderzoeker buiten het onderzochte. |
+| onttovering | Webers *Entzauberung der Welt*, het besef dat er geen onberekenbare machten meer zijn en dat alles in beginsel door berekening te beheersen valt. |
+| mechanische filosofie | De opvatting dat alle natuurverklaring uiteindelijk in termen van stof en beweging moet worden gegeven. |
+| oorspronkelijke deelname | Owen Barfields begrip voor een oudere denkwijze zonder scherpe scheiding tussen bewustzijn en wereld, waaraan Berman zijn eigen term ontleent. |
+| stilzwijgende kennis | Polanyi's begrip voor het weten dat aan het uitgesproken oordeel voorafgaat en er niet volledig in valt uit te schrijven. |
+| fiduciaire daad | Polanyi's aanduiding voor de niet-redelijke verbintenis die het toekennen van waarheid aan een methode altijd vergt. |
+| op hol geslagen stelsel | Batesons beeld van een systeem dat bepaalde grootheden blijft opjagen en daarmee de evenwichtsvoorwaarden schendt die het in stand houden. |
+| mimesis | Het meebewegen met wat men wil kennen, door Berman geplaatst tegenover de beheersing die de moderne techniek uitoefent. |
+
+#### Waar het argument op rust
+
+Voor de eerste helft staat Berman op zijn eigen vakgebied. Hij is gepromoveerd
+historicus van de wetenschap en de hoofdstukken over de zeventiende eeuw
+rusten op de gangbare literatuur van dat moment, met honderden noten. Zijn
+behandeling van Newtons alchemie sloot aan bij onderzoek dat toen recent was,
+onder meer van Betty Jo Teeter Dobbs, die het boek in 1983 in *Isis* besprak.
+Het werk is ook gerecenseerd in de *American Historical Review* van 1983, door
+David A. Hollinger; het is dus door de vakbladen serieus genomen.
+
+De aard van het bewijs verandert halverwege. Het bestaan van een deelnemend
+bewustzijn in vroeger eeuwen is een gevolgtrekking uit teksten en praktijken,
+niet iets wat rechtstreeks is vastgesteld. Hoe mensen in de vijftiende eeuw
+hun verhouding tot de wereld beleefden, laat zich niet meten, en Berman erkent
+dat hij een geschiedenis van het bewustzijn schrijft. De lezer moet daarbij
+bedenken dat het hoofdonderwerp van het boek nergens rechtstreeks
+gedocumenteerd is.
+
+De tweede helft levert geen bewijs maar een voorstel. Batesons kennisleer is
+een wijsgerig bouwsel; Berman biedt geen toets waarmee zij tegenover de
+gangbare opvatting zou kunnen worden afgewogen. Voor het Reich-hoofdstuk geldt
+dat sterker: de orgonleer waarop Reichs latere werk berust, heeft geen
+aanvaarde empirische steun, en Berman leunt daar op literatuur die Reich
+welgezind is.
+
+Wat het boek wel levert is een samenhangende lezing van vier eeuwen die de
+lezer in staat stelt de gangbare vertelling erover te bevragen. De recensent
+van *Kirkus* noemde het in 1982 popularisering op hoog niveau, en merkte
+tegelijk op dat de onderdelen niet nieuw zijn en dat Berman vaag blijft over
+de politieke uitvoering.
+
+#### Wat er tegen in te brengen valt
+
+Het hoofdstuk over Reich is het zwakste deel en verdient een eerlijke
+behandeling. Reichs waarnemingen aan wat hij bionen noemde werden door
+tijdgenoten weggezet als artefacten van de preparatie, en de orgonleer die hij
+daarop bouwde geldt in de wetenschap als schijnwetenschap. In 1954 verkreeg de
+Amerikaanse voedsel- en warenautoriteit een rechterlijk verbod tegen zijn
+orgonapparaten, zijn boeken werden vernietigd en Reich stierf in 1957 in de
+gevangenis. James Strick heeft in *Wilhelm Reich, Biologist* (Harvard
+University Press, 2015) betoogd dat Reichs microscopiewerk uit de jaren dertig
+historisch serieuzer moet worden genomen dan gebruikelijk, maar dat is een
+uitspraak over methode en voorrang, geen eerherstel voor de orgonleer. Berman
+gebruikt Reichs lichaamsenergie als bodem onder een nieuwe kennisleer, en
+juist die stap weigeren de meeste lezers hem.
+
+De geschiedschrijving is sinds 1981 een andere kant op gegaan. Het verhaal van
+één kantelpunt bij Descartes en Newton wordt door historici van de wetenschap
+niet meer zo verteld; Steven Shapin opende *The Scientific Revolution* (1996)
+met de zin dat er niet zoiets als de wetenschappelijke revolutie bestond, en
+dat dit boek daarover gaat. Bermans beeld van één samenhangend voormodern
+deelnemend bewustzijn strijkt bovendien enorme verschillen glad tussen
+scholastiek, hermetisme, ambachtelijke kennis en volksgeloof.
+
+Ook het onttoveringsverhaal zelf staat inmiddels ter discussie. Jason
+Josephson-Storm laat in *The Myth of Disenchantment* (2017) met archiefwerk
+zien dat magie, spiritisme en occultisme dwars door de loopbanen van de
+grondleggers van de moderne wetenschap en sociale wetenschap heen liepen, tot
+in Webers eigen omgeving. Als de wereld nooit onttoverd is geweest, verliest
+een programma van hertovering zijn aanleiding. Daar komt bij dat Berman Webers
+begrip oprekt: Weber sprak over de verdwijning van magie uit de heilsmiddelen
+en over de beheersbaarheid door berekening, niet over het verlies van een
+zintuiglijke versmelting met de natuur.
+
+Berman is er zelf op teruggekomen. In *The Cybernetic Dream of the
+Twenty-First Century* (*Journal of Humanistic Psychology*, 1986) betoogt hij
+dat het nieuwe holistische paradigma niet werkelijk met het mechanisme breekt
+en dat het even vormelijk, abstract en lichaamloos is; in de noten
+onderscheidt hij daarbij de vroege Bateson van de late. In *Coming to Our
+Senses* (1989) verlegt hij het zwaartepunt van de systeemleer naar het
+lichaam, en in *Wandering God* (2000) vervangt hij het schema opnieuw. Wie het
+boek leest, leest dus een positie die de auteur zelf binnen vijf jaar had
+bijgesteld.
+
+Ten slotte is het boek als geschiedenis sterker dan als voorstel. Het toont
+overtuigend dat de moderne natuurwetenschap een historische vorm heeft en niet
+vanzelf spreekt. Wat het niet toont, is dat een deelnemende kennisleer
+werkbaar is: er staat geen enkel voorbeeld in van een onderzoek dat langs die
+weg iets heeft opgeleverd wat de gangbare weg niet oplevert. Dat gat maakt het
+slot ook politiek onbepaald, zoals de recensenten destijds al opmerkten.
+
+#### Wat er concreet mee te doen is
+
+- Lees de eerste helft als wetenschapsgeschiedenis en de tweede als voorstel;
+het boek wisselt daar van bewijsvorm zonder dat aan te kondigen.
+- Toets de stelling dat kennen afstand vereist aan het eigen vak: waar levert
+afstand nemen inzicht op en waar juist blindheid.
+- Gebruik Polanyi's stilzwijgende kennis als vraag welke oordelen in het eigen
+werk niet zijn uit te schrijven en toch meewegen.
+- Zet Weber zelf ernaast voordat men de onttoveringsthese overneemt; Bermans
+gebruik is ruimer dan Webers formulering.
+- Behandel het Reich-hoofdstuk als een keuze van de auteur uit 1981, niet als
+een weergave van de stand van zaken.
+
+#### Wat je hierna leest
+
+- 580. Ursprung und Gegenwart. Gebser beschrijft dezelfde breuk als een
+opeenvolging van bewustzijnsstructuren, met het perspectief als kantelpunt.
+- 948. The Copernican Revolution. Kuhn behandelt de omslag naar het moderne
+wereldbeeld als vakhistoricus, zonder Bermans doel om er iets anders voor in
+de plaats te stellen.
+- 1167. The Idea of the World: A Multi-Disciplinary Argument for the Mental
+Nature of Reality. Kastrup probeert wel te leveren wat Berman aankondigt: een
+uitgewerkte kennisleer waarin bewustzijn het uitgangspunt is.
+- 604. The Perennial Philosophy. Huxley zoekt de gemeenschappelijke kern van
+de mystieke tradities die Berman als voormoderne deelname beschrijft.
+
+## 1164. Space-Time and Beyond
+
+Bob Toben, met Jack Sarfatti en Fred Alan Wolf, 1975. *Space-Time and Beyond:
+Toward an Explanation of the Unexplainable*, door Bob Toben, in gesprek met de
+natuurkundigen Jack Sarfatti en Fred Alan Wolf (E.P. Dutton, New York, 1975,
+175 blz., ISBN 9780525473992). Herziene uitgave: *Space-Time and Beyond,
+Revised Edition* (Dutton, 1982, 174 blz., ISBN 9780525477105), waarop alleen
+Toben en Wolf nog als auteur staan; Sarfatti haalde zijn naam eraf. Daarna als
+pocket bij Bantam (1983, 198 blz., ISBN 9780553131291). De titel wordt vaak
+verkeerd geciteerd als *Space, Time and Beyond*; het koppelteken tussen space
+en time hoort erbij. Er bestaat geen Nederlandse vertaling; de samenvatting is
+op de Engelse editie gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `kwantumfysica`, `bewustzijn`, `esoterie`, `wetenschapsgeschiedenis`
+
+Een getekend boek over natuurkunde: Toben maakte de tekeningen en de
+handgeschreven bijschriften, Sarfatti en Wolf leverden de natuurkundige tekst.
+Ruim de helft van de bladzijden bestaat uit lijntekeningen, die telkens vóór
+de bijbehorende toelichting staan.
+
+De inhoud loopt van kwantumschuim, zwarte gaten, wormgaten en antimaterie naar
+de stelling dat bewustzijn en heelal niet los van elkaar bestaan, en van
+daaruit naar telepathie en andere verschijnselen die de natuurkunde niet
+behandelt. Het boek staat aan het begin van de golf van kwantummystiek uit de
+jaren zeventig en is daardoor vooral van belang als document van die periode.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Toben, Sarfatti en Wolf stellen dat de natuurkunde van de
+twintigste eeuw al heeft aangetoond wat de meeste natuurkundigen niet hardop
+willen zeggen: dat de waarnemer geen buitenstaander is, dat scheiding tussen
+dingen op het diepste niveau niet bestaat, en dat de ruimtetijd zelf een
+onrustige, veranderlijke structuur heeft waarin verbindingen mogelijk zijn die
+de gewone ervaring uitsluit. Uit die drie punten leiden zij af dat bewustzijn
+en heelal hetzelfde proces zijn, en dat verschijnselen die als onverklaarbaar
+te boek staan daarmee een plaats krijgen. De eerste helft van die redenering
+bestaat uit natuurkunde die in leerboeken staat. De tweede helft bestaat uit
+een analogie die de auteurs als gevolgtrekking presenteren. Waar de ene
+overgaat in de andere maakt het boek zelf niet duidelijk, en dat is de kern
+van wat er tegen in te brengen valt.
+
+#### De gang van het boek
+
+**Een boek dat vooral getekend is**
+
+De vorm is het eerste wat opvalt. Bob Toben was tekenaar, niet natuurkundige.
+Het boek is een quarto in slappe kaft van 175 bladzijden waarvan meer dan de
+helft uit lijntekeningen met handgeschreven bijschriften bestaat. De opzet is
+bewust: eerst een reeks tekeningen, daarna het commentaar erbij, met als
+motivering dat beide hersenhelften aan bod moeten komen. Wie het boek
+doorbladert leest daardoor eerst een beeldverhaal en pas daarna de uitleg.
+
+De rolverdeling staat op het titelblad zelf. Toben tekende en schreef, de
+natuurkundigen Jack Sarfatti en Fred Alan Wolf leverden de inhoud in gesprek.
+Op de achtergrond staat nog een derde figuur: Carlo Suarès, die door de
+auteurs wordt opgevoerd als kenner van wat zij de energiecode van de kabbala
+noemen. Die combinatie, een tekenaar als schrijver, twee natuurkundigen als
+bron en een kabbalist als gids, bepaalt hoe het boek gelezen moet worden.
+
+**De natuurkunde die erin staat**
+
+Het natuurkundige materiaal is grotendeels echt en voor 1975 ook actueel. Aan
+bod komen de kwantummechanica en het aandeel van de waarneming daarin, de
+relativiteitstheorie en de gekromde ruimtetijd, zwarte gaten, antimaterie, en
+het kwantumschuim: het beeld van John Archibald Wheeler waarin de ruimtetijd
+op de allerkleinste schaal geen glad vlak is maar een borrelende structuur
+waarin verbindingen tussen ver uiteenliggende punten kunnen ontstaan en weer
+verdwijnen.
+
+Ook de wormgaten komen uit die hoek. Een verbinding tussen twee ver
+uiteenliggende gebieden van de ruimtetijd is een oplossing die uit de algemene
+relativiteitstheorie volgt en die in de vakliteratuur serieus wordt besproken.
+Het boek gebruikt dat beeld voortdurend, en de tekeningen maken er hun
+terugkerende motief van: trechters, tunnels, doorgangen naar een andere plek
+of een andere tijd.
+
+**De sprong naar bewustzijn**
+
+Vanaf het midden verschuift het boek. De waarnemer, die in de kwantummechanica
+een technische rol vervult bij het vaststellen van een meetuitkomst, wordt bij
+Toben en zijn gesprekspartners een bewustzijn dat de werkelijkheid mede maakt.
+Het kwantumschuim, dat in de natuurkunde over afstanden gaat die vele ordes
+kleiner zijn dan een atoomkern, wordt de plaats waar geest en materie in
+elkaar overlopen. Wormgaten worden verbindingen waarlangs niet alleen deeltjes
+maar ook gedachten zouden kunnen reizen.
+
+Op die basis komen verschijnselen ter sprake waar de natuurkunde geen
+uitspraak over doet: gedachteoverdracht, waarnemingen buiten het lichaam,
+contact met andere tijden. De redenering is telkens dezelfde. De natuurkunde
+laat zien dat het heelal op de bodem samenhangend en niet-gescheiden is; het
+onverklaarde verschijnsel veronderstelt samenhang zonder gewone verbinding;
+dus past het verschijnsel in het beeld. Dat de tweede stap een gelijkenis is
+en geen afleiding, wordt niet vermeld.
+
+**Waar de natuurkunde ophoudt**
+
+Op één punt is het verschil hard te maken en niet een kwestie van smaak.
+Sarfatti verdedigde in deze jaren dat de kwantummechanica het mogelijk maakt
+om signalen sneller dan het licht te versturen, en het boek ademt die
+overtuiging. Dat is onjuist gebleken. Het zogeheten no-signalling-resultaat
+laat zien dat verstrengeling tussen twee deeltjes wel correlaties oplevert die
+niet met gewone oorzaken te verklaren zijn, maar geen middel om er informatie
+mee over te dragen: wie alleen naar zijn eigen kant kijkt, ziet toeval en
+verder niets.
+
+De geschiedenis heeft daar een aardige wending aan gegeven. Toen Nick Herbert
+in 1981 een concreet ontwerp voor zo'n sneller-dan-lichtverbinding
+publiceerde, leidde de weerlegging ervan in 1982 tot het no-cloning-theorema:
+onbekende kwantumtoestanden laten zich niet kopieren. Dat resultaat is later
+het fundament geworden van kwantumcryptografie. De kring rond Sarfatti had dus
+ongelijk op de manier waarop soms iets nuttigs ontstaat, maar ongelijk had
+zij.
+
+**Het gezelschap waaruit het boek voortkwam**
+
+Het boek is niet los te zien van zijn omgeving. Sarfatti richtte in 1975 in
+San Francisco en bij het Esalen Institute in Big Sur de Physics/Consciousness
+Research Group op, met geld van onder anderen Werner Erhard van est. In
+dezelfde jaren kwam in Berkeley de informele Fundamental Fysiks Group bijeen,
+waar natuurkundigen de grondslagen van de kwantummechanica bespraken buiten de
+gebaande paden om. De wetenschapshistoricus David Kaiser beschreef die kring
+in *How the Hippies Saved Physics* (2011) en liet zien dat hun aanhoudende
+vraag naar sneller-dan-lichtverbinding, en de precieze redenen waarom die niet
+kan, mede aan de wieg stonden van de kwantuminformatica.
+
+Uit hetzelfde milieu kwamen de bekendere boeken die daarna verschenen: Fritjof
+Capra's *The Tao of Physics* (1975) en Gary Zukav's *The Dancing Wu Li
+Masters* (1979), aan het laatste waarvan Sarfatti meewerkte. *Space-Time and
+Beyond* ging daar in dezelfde maanden aan vooraf en is van de drie het minst
+gelezen, maar in vorm het meest uitgesproken.
+
+**De tweede editie en het uiteenvallen**
+
+In 1982 verscheen bij dezelfde uitgever een herziene uitgave, en daarop staan
+alleen Toben en Wolf nog als auteur. Sarfatti heeft zijn naam eraf gehaald.
+Dat is voor de beoordeling van het boek van belang: de natuurkundige die het
+meest voor de fysische inhoud tekende, wilde er zeven jaar later niet meer aan
+verbonden zijn.
+
+Fred Alan Wolf ging juist door op deze weg en werd met latere boeken over
+kwantummechanica en bewustzijn een bekende naam in het populaire circuit.
+Toben publiceerde vrijwel niets meer. Het boek bleef daarna in druk als pocket
+bij Bantam en wordt in de tweedehandshandel voor hoge bedragen aangeboden,
+meer als voorwerp uit een bepaalde tijd dan als natuurkundige inleiding.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Kwantumschuim | Wheelers beeld van de ruimtetijd op de allerkleinste schaal als een borrelende, telkens veranderende structuur in plaats van een glad vlak. |
+| Wormgat | Een uit de algemene relativiteitstheorie volgende verbinding tussen twee ver uiteenliggende gebieden van de ruimtetijd, in het boek het terugkerende beeld voor doorgangen. |
+| Waarnemer | In de kwantummechanica de meetopstelling die een uitkomst vastlegt, in dit boek stilzwijgend opgerekt tot een bewustzijn dat de werkelijkheid mede voortbrengt. |
+| Antimaterie | Deeltjes met tegengestelde lading die bij ontmoeting met gewone materie verdwijnen onder uitzending van straling, door het boek gebruikt om tijd in twee richtingen voor te stellen. |
+| Non-lokaliteit | Het gegeven dat twee verstrengelde deeltjes samenhangen op een manier die niet met een gewone verbinding tussen beide te verklaren is. |
+| Superlichtsnelle verbinding | De veronderstelling dat non-lokaliteit gebruikt kan worden om berichten sneller dan het licht te versturen; de aanname die de kring rond Sarfatti dreef en die weerlegd is. |
+| Het onverklaarbare | De verzamelnaam uit de ondertitel voor gedachteoverdracht, ervaringen buiten het lichaam en verwante verschijnselen die het boek een natuurkundige plaats wil geven. |
+| Energiecode van de kabbala | De lezing van de Hebreeuwse letters als getalswaarden waarmee Carlo Suarès werkte en waarnaar het boek verwijst als een van zijn bronnen. |
+
+#### Waar het argument op rust
+
+Het boek levert geen bewijs in de gebruikelijke zin. Er staan geen
+meetresultaten in, geen proefopzetten en geen verwijzingen naar artikelen in
+de lopende tekst; wel is er achterin een geannoteerde literatuurlijst met
+suggesties voor verder lezen. De natuurkundige onderbouwing bestaat uit de
+mondelinge uitleg van twee natuurkundigen, weergegeven door een tekenaar, en
+die uitleg is voor de gevestigde onderwerpen correct.
+
+Voor het tweede deel van het betoog is er in het geheel geen onderbouwing. De
+verschijnselen die het boek wil verklaren zijn niet vastgesteld, en dat het
+beeld van kwantumschuim en wormgaten ze zou kunnen dekken is een vergelijking,
+geen voorspelling: er wordt geen waarneming genoemd waarmee het idee te
+toetsen zou zijn. Sarfatti en Wolf publiceerden in deze periode wel in
+vaktijdschriften over de grondslagen van de kwantummechanica, maar de stap
+naar bewustzijn die in dit boek wordt gezet is nooit in die vorm in de
+vakliteratuur verdedigd.
+
+#### Wat er tegen in te brengen valt
+
+Het hoofdbezwaar is de onaangekondigde verschuiving van betekenis. De
+waarnemer uit de kwantummechanica en het bewustzijn uit de psychologie zijn
+twee verschillende dingen; de eerste is een meetopstelling, de tweede een
+ervaring. Het boek gebruikt één woord voor allebei en trekt daar conclusies
+uit. Hetzelfde gebeurt met non-lokaliteit, die van een precies omschreven
+statistisch verband verandert in de algemene stelling dat alles met alles
+verbonden is en dat er dus geen afstand bestaat.
+
+De concrete natuurkundige fout is aanwijsbaar. De aanname dat verstrengeling
+berichten sneller dan het licht toelaat, die de hele kring rond Sarfatti
+bezighield, is onhoudbaar gebleken, en de weerlegging ervan is inmiddels
+standaardstof. Wie het boek nu leest, leest dus een natuurkundig wereldbeeld
+waarvan het scharnierpunt niet klopt.
+
+Dat de herziene uitgave zonder Sarfatti verscheen, is het duidelijkste oordeel
+dat er over dit boek te geven valt, en het komt van binnenuit. Fred Alan Wolf
+ging juist door en bracht deze manier van redeneren naar een veel groter
+publiek. De vraag welke van beide reacties de juiste was, wordt door de latere
+natuurkunde eenduidig beantwoord.
+
+Wat het boek wel doet, verdient een eerlijke vermelding. Het brengt lastige
+natuurkunde in beeld op een manier die zonder wiskunde begrijpelijk blijft, en
+als tijdsdocument is het van belang voor wie wil begrijpen hoe de
+kwantummystiek van de jaren zeventig is ontstaan. De kring waaruit het
+voortkwam heeft, zoals Kaiser laat zien, ondanks haar verkeerde uitgangspunt
+bijgedragen aan vragen die later vruchtbaar bleken. Dat is iets anders dan
+gelijk hebben.
+
+#### Wat er concreet mee te doen is
+
+- Behandel de hoofdstukken over ruimtetijd, zwarte gaten en kwantumschuim als
+populaire natuurkunde uit 1975 en controleer ze aan een recent boek voordat je
+er iets uit overneemt.
+- Let bij elke bladzijde op het woord waarnemer en vraag of er een
+meetopstelling of een mens bedoeld wordt; het antwoord verschuift halverwege.
+- Lees de herziene uitgave van 1982 en de eerste van 1975 naast elkaar als je
+wilt zien wat de betrokkenen zelf hebben teruggenomen.
+
+#### Wat je hierna leest
+
+- 653. Speakable and Unspeakable in Quantum Mechanics. Bell schrijft zelf over
+non-lokaliteit en laat zien wat er precies wel en niet uit zijn stelling
+volgt; het beste tegengif bij de sprongen in dit boek.
+- 761. Mindful Universe: Quantum Mechanics and the Participating Observer.
+Stapp verdedigt de rol van bewustzijn in de kwantummechanica wel binnen de
+regels van het vak, en maakt zo zichtbaar wat hier ontbreekt.
+- 340. The Holographic Universe. Talbot bouwt zestien jaar later hetzelfde
+soort brug tussen natuurkunde en paranormale verschijnselen, met dezelfde
+ongemarkeerde overgang.
+- 930. Quantum Psychology. Wilson gebruikt de kwantummechanica opzettelijk als
+taalspel en niet als bewijs, wat het verschil met dit boek scherp maakt.
+
+## 1165. Science and the Akashic Field
+
+Ervin Laszlo, 2004. *Science and the Akashic Field: An Integral Theory of
+Everything* (Inner Traditions, Rochester, Vermont, 2004, 208 blz., ISBN
+9781594770425). Tweede, uitgebreide editie 2007 (ISBN 9781594771811), met
+nieuw materiaal en een deel over dierentelepathie. Nederlandse uitgave:
+*Kosmische visie: wetenschap en het Akasha-veld* (Ankh-Hermes, Deventer, 2006,
+vertaald door Gerard Grasman, 211 blz., ISBN 9789020283594). Rubriek:
+filosofie en mystiek.
+Tags: `kwantumfysica`, `bewustzijn`, `esoterie`, `wetenschapsfilosofie`
+
+Laszlo betoogt dat er een informatieveld aan de bodem van de werkelijkheid
+ligt dat alles met alles verbindt en alles wat gebeurt bewaart. Hij noemt het
+het A-veld, naar het sanskrietwoord akasha, en stelt dat de natuurkunde dat
+veld inmiddels heeft teruggevonden in het nulpuntsveld van het kwantumvacuum.
+
+Die gelijkstelling is het scharnierpunt van het boek en houdt geen stand. Het
+nulpuntsveld bestaat, maar het is geen geheugen, en de theorie waarmee Laszlo
+het tot geheugen maakt, komt uit een hoek die door de Russische Academie van
+Wetenschappen als pseudowetenschap is aangemerkt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Laszlo stelt dat de natuurwetenschap in vier vakgebieden
+tegelijk op raadsels stuit die zij met haar huidige uitgangspunten niet kan
+oplossen: de fijnafstemming van de kosmos, de verstrengeling in de
+kwantumfysica, de snelheid en samenhang van de biologische evolutie, en
+verschijnselen in het bewustzijnsonderzoek waarbij mensen iets lijken te weten
+wat hun zintuigen hun niet konden vertellen. Zijn oplossing is één aanname:
+naast materie en energie is informatie een zelfstandige grootheid in de
+natuur, gedragen door een veld dat overal aanwezig is, alles registreert en
+alles met alles in verband brengt. Dat veld noemt hij het A-veld, en hij
+vereenzelvigt het met het nulpuntsveld van het kwantumvacuum, dat in de
+natuurkunde bestaat. Op die vereenzelviging rust het hele boek. Zij is precies
+het punt waarop het uit elkaar valt, want het nulpuntsveld zoals de
+natuurkunde het kent bewaart geen geschiedenis.
+
+#### De gang van het boek
+
+**Deel een: de zoektocht naar een integrale theorie van alles**
+
+Het boek bestaat uit twee delen van samen negen hoofdstukken. Het eerste deel
+opent met een klacht over de snaartheorie. De theorieën van alles waaraan
+natuurkundigen werken zijn volgens Laszlo hoogstens theorieën van elk fysisch
+ding; leven, geest en cultuur horen ook tot de werkelijkheid en komen er niet
+in voor. Ken Wilber, die eerder een boek met die titel schreef, beschrijft
+volgens hem alleen hoe zo'n theorie eruit zou moeten zien. Laszlo wil haar
+leveren.
+
+Hoofdstuk twee zet zijn werkwijze uiteen langs de bekende gedachte van de
+wetenschappelijke omwenteling: raadsels stapelen zich op, het heersende model
+kan ze niet plaatsen, en er ontstaat ruimte voor een ander uitgangspunt.
+Hoofdstuk drie levert de lijst raadsels, verdeeld over kosmologie,
+kwantumfysica, biologie en bewustzijnsonderzoek. De opzet is dat een werkelijk
+fundamentele eigenschap van de werkelijkheid zich in alle vier de gebieden
+moet laten zien.
+
+**Het vacuum als geheugen**
+
+Hoofdstuk vier is het natuurkundige hart. Laszlo schetst hoe het vacuum in de
+twintigste eeuw van lege ruimte veranderde in een drager van het nulpuntsveld,
+het veld waarin energie aanwezig blijft ook wanneer alle klassieke vormen van
+energie zijn verdwenen. Dat deel is juist; hij verwijst er onder meer bij naar
+het werk van Harold Puthoff.
+
+Dan volgt de stap waar alles op aankomt. Om het veld informatie te laten
+dragen, roept Laszlo de torsiegolftheorie in van de Russische onderzoekers
+G.I. Sjipov en A.E. Akimov. Deeltjes met spin zouden in het vacuum minieme
+wervels achterlaten die als magnetische sporen op een schijf informatie
+bewaren; waar twee zulke golven elkaar kruisen ontstaat een
+interferentiepatroon dat informatie over het geheel draagt. Die golven zouden
+zich volgens de Russische auteurs voortplanten met ongeveer een miljard maal
+de lichtsnelheid. Omdat het vacuum wrijvingsloos is, aldus Laszlo, dooft dat
+patroon nooit uit en is het geheugen van het heelal eeuwig.
+
+In dezelfde passage stapt hij en passant over op het geheugen van water, met
+homeopathische verdunningen als voorbeeld. Dat is niet terzijde: het laat zien
+hoe laag de drempel ligt waarmee materiaal het betoog binnenkomt.
+
+**Het bewijsmateriaal in vier vakken**
+
+Hoofdstuk vijf loopt de vier gebieden nog een keer langs, nu als bewijs voor
+het A-veld. In de kosmologie gaat het om de fijnafstemming van de
+natuurconstanten en om de gedachte van opeenvolgende heelallen die informatie
+doorgeven. In de kwantumfysica om verstrengeling en om het beeld van David
+Bohm van een impliciete orde waarin alle toestanden vastliggen. In de biologie
+om de vraag hoe evolutie in de beschikbare tijd tot zulke samenhangende vormen
+kon komen.
+
+Het vierde gebied is het losste. Laszlo voert daar telepathie tussen
+tweelingen aan, invloed van de ene geest op het lichaam van de andere, en de
+statistische uitkomsten van ganzfeld-proeven en proeven met invloed op
+afstand. Hij stelt daarbij dat de gangbare verklaringen, van zintuiglijke
+aanwijzingen tot bedrog en fouten van de proefleider, zijn overwogen en de
+uitkomsten niet kunnen dekken. Dat is de weergave van de parapsychologen zelf;
+de bredere psychologie deelt die conclusie niet.
+
+**Hoe het veld zou werken**
+
+Hoofdstuk zes beschrijft het werkingsmechanisme. Het A-veld is niet
+waarneembaar, zegt Laszlo, maar dat geldt ook voor het zwaartekrachtsveld: men
+ziet het vallen en niet het veld. Zijn veld werkt via holografische
+interferentiepatronen, waarbij een patroon het sterkst inwerkt op patronen die
+er sterk op lijken. Een amoebe wordt daardoor het duidelijkst geïnformeerd
+door andere amoeben, een mens door andere mensen.
+
+Op dit punt is Laszlo zelf opvallend eerlijk. Dat het A-veld alles met alles
+in verband brengt noemt hij de eenvoudigste en zinvolste verklaring van wat
+hij heeft opgesomd, maar hij voegt eraan toe dat dit op zichzelf een fabel is,
+hoe aannemelijk ook, en nog geen wetenschappelijke theorie. Die zin staat in
+de tekst en wordt door de rest van het boek niet ingelost.
+
+**Deel twee: leven, dood en kosmisch bewustzijn**
+
+Het tweede deel past het beeld toe. Hoofdstuk zeven behandelt de oorsprong en
+de bestemming van het heelal en van het leven, met een voorstelling van
+opeenvolgende heelallen die elkaars informatie erven. Hoofdstuk acht gaat over
+bewustzijn, met de stelling dat bewustzijn niet in de mens is ontstaan maar
+tot het weefsel van de kosmos behoort.
+
+Het slot van dat hoofdstuk gaat over onsterfelijkheid en reincarnatie. Laszlo
+behandelt bijna-doodervaringen, uittredingen, herinneringen aan vorige levens
+en wat hij communicatie met overledenen noemt. Hij beroept zich onder meer op
+de psychotherapeut Allan Botkin, die zulke ervaringen bij bijna drieduizend
+patiënten zou hebben opgewekt met een reeks snelle oogbewegingen, en op
+mediums als James Van Praagh en John Edward. In het A-veld is voor die
+verschijnselen een plaats: wat een mens heeft meegemaakt blijft in het veld
+bestaan, ook wanneer het lichaam er niet meer is. Hoofdstuk negen sluit af met
+een lyrisch stuk, gevolgd door een terugblik op veertig jaar eigen werk.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Akasha | Sanskrietwoord voor ether of doordringende ruimte, in de Indiase filosofie het eerste van vijf elementen; Laszlo ontleent er de naam van zijn veld aan. |
+| A-veld | Laszlo's naam voor het veronderstelde kosmische informatieveld dat alles verbindt en alles bewaart. |
+| In-formatie | Term die hij van David Bohm overneemt voor een boodschap die de ontvanger niet alleen bereikt maar ook vormt. |
+| Geïnformeerd heelal | Zijn aanduiding voor een kosmos die niet alleen uit materie en energie bestaat maar informatie als derde grootheid kent. |
+| Nulpuntsveld | Het veld waarin volgens de kwantumveldentheorie energie overblijft ook als alle klassieke energie is weggehaald; in de natuurkunde een bestaand begrip. |
+| Torsiegolf | De door Sjipov en Akimov veronderstelde vacuumwerveling die informatie zou dragen en zich miljarden malen sneller dan het licht zou verplaatsen. |
+| Holoveld | Zijn term voor het vacuum opgevat als holografisch geheugen, waarin patronen zich koppelen aan patronen die op hen lijken. |
+| A-veldeffect | De veronderstelde uitwerking van het veld: samenhang en afstemming tussen dingen die verder geen verbinding met elkaar hebben. |
+| Integrale theorie van alles | Een theorie die naast de natuurkunde ook leven, geest en cultuur omvat; wat Laszlo met dit boek zegt te leveren. |
+
+#### Waar het argument op rust
+
+Er liggen geen publicaties in gecontroleerde natuurkundetijdschriften onder
+het A-veld. Laszlo is filosoof en systeemtheoreticus, geen natuurkundige; hij
+promoveerde aan de Sorbonne en was hoogleraar filosofie, systeemtheorie en
+toekomstonderzoek. Zijn veld is nooit in de vorm van een toetsbare theorie in
+een natuurkundig vakblad verdedigd, en er is geen meting waaruit het volgt.
+Het boek is dan ook geschreven als populaire uiteenzetting: het verwijst wel
+naar literatuur, maar bevat geen berekeningen, geen voorspellingen met
+getallen en geen enkel eigen experiment.
+
+De onderdelen die wel uit de vakliteratuur komen, dragen het gebouw niet. Het
+nulpuntsveld bestaat en het Casimir-effect is gemeten. Verstrengeling bestaat
+en is talloze malen aangetoond. Maar geen van beide levert wat Laszlo nodig
+heeft, namelijk een medium dat de geschiedenis van deeltjes, organismen en
+mensen opslaat en weer afgeeft. Die eigenschap komt in het boek van elders:
+van de torsiegolftheorie, en die theorie hoort niet tot de natuurkunde.
+
+Wat Laszlo als bewijs voor het A-veld opvoert, is bovendien overwegend
+negatief van vorm. Het bestaat uit raadsels: dingen die volgens hem
+onverklaard zijn. Een verzameling open vragen in vier vakgebieden onderbouwt
+echter geen bepaald antwoord; zij laat alleen zien dat er open vragen zijn.
+Het boek doet nergens een voorspelling waarmee het A-veld te weerleggen zou
+zijn, en Laszlo geeft in hoofdstuk zes zelf toe dat hij op dat moment nog geen
+wetenschappelijke theorie in handen heeft.
+
+#### Wat er tegen in te brengen valt
+
+Het gebruik van het nulpuntsveld komt niet overeen met wat dat begrip in de
+vakliteratuur betekent. In de kwantumveldentheorie is het nulpuntsveld de
+laagst mogelijke energietoestand: fluctuaties zonder structuur, zonder
+voorkeursrichting en zonder inhoud. Precies die eigenschappen maken het
+ongeschikt als geheugen. Een geheugen vereist toestanden die verschillen
+naargelang wat er eerder is gebeurd en die stabiel blijven; de vacuumtoestand
+is per definitie de toestand waarin dat verschil er niet is. Laszlo gebruikt
+de naam van een bestaand begrip voor iets wat dat begrip niet is.
+
+De brug die hij bouwt om dat gat te dichten, is het zwakste punt van het boek.
+De torsiegolftheorie van Sjipov en Akimov is geen omstreden randgebied maar
+een geval dat in Rusland is uitgezocht en afgewezen. Akimov leidde een centrum
+dat met staatsgeld onderzoek naar torsievelden deed; toen de Academie van
+Wetenschappen van de USSR de zaak onderzocht, bleek er honderden miljoenen
+roebel te zijn uitgegeven zonder enige wetenschappelijke toetsing, waarna het
+centrum werd gesloten. De Russische Academie van Wetenschappen heeft de
+torsieveldtheorie sindsdien als pseudowetenschap aangemerkt. Wie deze theorie
+als drager van zijn hele bouwwerk kiest, kiest niet een gewaagde maar een
+verworpen positie.
+
+Ook de logica van het betoog is zwak. De vorm ervan is telkens: hier is iets
+onverklaards, mijn veld zou het kunnen verklaren, dus is er reden om het veld
+aan te nemen. Zolang niet is aangegeven welke waarneming het veld zou
+tegenspreken, kan die redenering elk raadsel opnemen zonder ooit ergens op
+stuk te lopen. Laszlo noemt de fijnafstemming van de natuurconstanten, de
+snelheid van de evolutie en de uitkomsten van parapsychologische proeven in
+één adem, terwijl die drie in status en in kwaliteit van bewijs ver
+uiteenlopen.
+
+Het vierde bezwaar betreft de bronnenkeuze. Naast de torsiegolftheorie neemt
+Laszlo het watergeheugen van de homeopathie mee, en in het tweede deel mediums
+en een therapeut die contact met overledenen zegt op te wekken. Voor het lezen
+van het boek maakt dat weinig verschil, want het is vlot en vriendelijk
+geschreven; voor de beoordeling ervan wel. Een theorie die het onderscheid
+tussen gemeten natuurkunde en niet-getoetste claims niet maakt, kan niet als
+natuurkunde worden aangeboden, hoe uitdrukkelijk de ondertitel dat ook doet.
+
+#### Wat er concreet mee te doen is
+
+- Splits bij het lezen de hoofdstukken drie tot en met vijf in twee stapels:
+verschijnselen die in vakbladen zijn vastgesteld en verschijnselen die dat
+niet zijn.
+- Zoek bij elke natuurkundige term die Laszlo gebruikt op wat die term in de
+natuurkunde betekent voordat je aanneemt dat hij hem in die betekenis
+gebruikt.
+- Onthoud de zin in hoofdstuk zes waarin hij zijn eigen voorstel een fabel
+noemt, en houd de rest van het boek daartegen aan.
+
+#### Wat je hierna leest
+
+- 1164. Space-Time and Beyond. Toben en de zijnen zetten in 1975 dezelfde stap
+van kwantumfysica naar bewustzijn, met dezelfde ongemarkeerde overgang tussen
+theorie en beeldspraak.
+- 340. The Holographic Universe. Talbot gebruikt eveneens een holografisch
+beeld en beroept zich net als Laszlo op Bohm, maar zonder de aanspraak een
+theorie van alles te leveren.
+- 650. Quantum Mechanics and Experience. Albert legt uit wat de
+kwantummechanica werkelijk over meting en werkelijkheid zegt, en maakt daarmee
+zichtbaar hoe ver dit boek daarvan afligt.
+- 208. Breaking the Habit of Being Yourself. Dispenza gebruikt kwantumfysica
+op vergelijkbare wijze als grondslag onder een leer over gedachtekracht en
+genezing.
+
+## 1166. Quantum Mind
+
+Arnold Mindell, 2000. *Quantum Mind: The Edge Between Physics and Psychology*
+(Lao Tse Press, Portland, Oregon, 2000, 629 blz., ISBN 1887078649), met
+literatuuropgave en register. Latere druk bij Deep Democracy Exchange (2012,
+ISBN 9781619710122). Niet te verwarren met Mindells latere *The Quantum Mind
+and Healing* (Hampton Roads, 2004), dat over lichamelijke klachten gaat. Er
+bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie
+gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `kwantumfysica`, `bewustzijn`, `psychologie`, `sjamanisme`
+
+Mindell, opgeleid als natuurkundig ingenieur en daarna jungiaans analyticus,
+koppelt in dit boek zijn procesgerichte psychologie aan begrippen uit de
+wiskunde en de kwantummechanica. Zijn hoofdgedachte is dat de werkelijkheid
+twee lagen heeft: wat mensen gezamenlijk vaststellen, en wat daarbuiten valt
+en in de omgang wordt weggelaten.
+
+Voor die tweede laag gebruikt hij het imaginaire deel van de golffunctie als
+beeld, en hij leest dromen, lichamelijke signalen, sjamanistische praktijk en
+groepsprocessen door datzelfde raster. Het is een dik boek van ruim zeshonderd
+bladzijden met oefeningen, waarin de natuurkundige termen soms als
+vergelijking en soms als bewering worden gebruikt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Mindell stelt dat de gangbare psychologie net als de gangbare
+natuurkunde alleen het deel van de werkelijkheid behandelt waarover mensen het
+eens kunnen worden, en dat zij daarmee het grootste deel weglaat. Wat
+overblijft na die weglating noemt hij de consensuswerkelijkheid; wat wordt
+weggelaten, dromen, stemmingen, vage gebaren, ingevingen, lichamelijke
+gewaarwordingen, noemt hij de niet-consensuele werkelijkheid. Zijn stelling is
+dat die tweede laag geen restpost is maar de bodem van de eerste, en dat de
+wiskunde die de natuurkunde gebruikt daar al naar verwijst: het imaginaire
+deel van de kwantumgolffunctie is niet meetbaar en heeft toch gevolgen die wel
+meetbaar zijn, precies zoals de weggelaten kant van een menselijke ervaring
+gevolgen heeft. Uit die overeenkomst bouwt hij een psychologie waarin
+waarnemen, dromen en genezen één proces zijn. De vraag die het boek oproept is
+of die overeenkomst een argument is of een beeld.
+
+#### De gang van het boek
+
+**Tellen als handeling, niet als aflezen**
+
+Het boek begint niet bij de natuurkunde maar bij het rekenen. Mindell betoogt
+dat wiskunde een culturele handeling is: wat men telt en wat men niet meetelt,
+hangt af van wie men is. Zijn voorbeelden gaan over samenlevingen die zonen
+wel en dochters niet meetellen. Daar haalt hij zijn kernwoord vandaan:
+buitensluiten of wegstrepen, het onopgemerkt terzijde schuiven van wat niet in
+de gedeelde beschrijving past.
+
+Getallen zijn bij hem dan ook geen eigenschappen van dingen maar de uitkomst
+van een wisselwerking tussen de teller en wat geteld wordt. Diezelfde gedachte
+past hij toe op het natuurkundig experiment: al door een bepaalde proef te
+kiezen, bepaalt de onderzoeker mede wat eruit komt. Hij haalt er de
+onvolledigheidsstelling van Gödel bij om aannemelijk te maken dat een systeem
+zijn eigen volledigheid nooit van binnenuit kan aantonen.
+
+**Twee werkelijkheden en het imaginaire getal**
+
+De consensuswerkelijkheid is wat door gedeelde afspraak en wetenschappelijk
+gezag als werkelijk geldt. De niet-consensuele werkelijkheid is alles wat
+mensen wel ervaren maar niet gezamenlijk kunnen vaststellen: dromen,
+gevoelens, ingevingen, plotselinge invallen, ervaringen rond het sterven.
+Mindell brengt ze alle onder één noemer en noemt ze in zijn eigen taal dromen.
+
+Het beeld waarmee hij die tweede laag denkbaar maakt is het complexe getal.
+Een kwantumgolffunctie heeft een reële en een imaginaire component; de
+imaginaire component is op zichzelf niet te meten en bepaalt toch mee wat er
+gemeten wordt. Zo, redeneert Mindell, verhoudt het weggelaten deel van een
+ervaring zich tot het deel dat mensen kunnen benoemen. Hij gaat verder in
+dezelfde lijn: optellen is een ervaring versterken, kwadrateren is een
+ervaring zichzelf laten opdrijven zoals een stemming zichzelf voedt, en de
+wiskundige bewerking waarbij het imaginaire deel van teken wisselt is bij hem
+een omkering die de ervaring pas meetbaar maakt.
+
+**Flirts, aandacht en het sentiente niveau**
+
+Het scharnier tussen beide lagen noemt Mindell de flirt: het minieme signaal
+dat de aandacht even trekt en dat men meestal wegwuift voordat het bewust
+wordt. Een geluid, een kleur, een beweging aan de rand van het gezichtsveld,
+een vage aandrang. Zijn werkwijze bestaat er grotendeels uit dat men die
+signalen opmerkt en er aandacht aan geeft, waardoor ze zich ontvouwen.
+
+Hij trekt de vergelijking met de natuurkunde door tot in de omkering: niet
+alleen ziet de waarnemer het ding, het ding vraagt ook om de aandacht van de
+waarnemer. Ziet men iets, zegt hij, dan alleen omdat men ook gezien wordt. Op
+dit vlak, dat hij het sentiente of essentieniveau noemt, is nog geen sprake
+van gescheiden dingen; er zijn alleen betrekkingen die nog niet zijn
+uitgekristalliseerd. Toevalligheden die betekenisvol lijken, in het spoor van
+Jung synchroniciteiten, zijn bij hem flirts die zich op dat niveau afspelen.
+
+**Van individu naar groep**
+
+Het middendeel past het raster toe op de praktijk waaruit Mindell voortkwam.
+Dromen zijn bij hem niet alleen nachtelijke beelden maar ook aanhoudende
+lichamelijke klachten en terugkerende patronen in relaties, opvattingen die
+hij al in zijn eerdere werk over het droomlichaam had ontwikkeld. Chronische
+klachten blijven volgens hem juist bestaan omdat de reguliere geneeskunde de
+niet-consensuele kant ervan wegstreept.
+
+Van het individu gaat hij naar de groep. Rolwisseling, het tijdelijk innemen
+van de positie van de ander, is bij hem hetzelfde als de gedaanteverwisseling
+van de sjamaan: een manier om terug te halen wat men bij zichzelf heeft
+weggestreept. Tegenstellingen binnen een groep vat hij op als de manier waarop
+een geheel in evenwicht blijft, met een verwijzing naar het optellen van spin
+tot nul. Zijn conclusie is dat maatschappelijke verandering aandacht voor
+beide lagen tegelijk vereist.
+
+**Mythe, geometrie en schepping**
+
+Een aanzienlijk deel van het boek bestaat uit vergelijkend materiaal. Mindell
+haalt Aboriginal, Griekse en hindoeïstische verhalen aan, symbolen van de
+Navajo en de Delaware, en gewijde meetkunde uit vrijmetselaarskringen, telkens
+om te laten zien dat de tweedeling die hij voorstelt in oudere tradities al
+bestond. De sjamaan is bij hem het voorbeeld van de waarnemer die zichzelf
+niet buiten de waarneming plaatst.
+
+Ook de kosmologie krijgt die behandeling. Stephen Hawkings voorstel om het
+begin van het heelal in imaginaire tijd te beschrijven leest Mindell als de
+bewering dat het heelal met dromen begon en zichzelf vervolgens tot
+werkelijkheid dacht. Het hoofdstuk over de geschiedenis van de wetenschap
+voegt daar een sociale lezing aan toe: bij de opkomst van de objectieve
+wetenschap in de renaissance verving de ene onderdrukker van de persoonlijke
+ervaring volgens hem de andere.
+
+**Wat het boek van de lezer vraagt**
+
+*Quantum Mind* is geen boek om alleen te lezen. Door de tekst heen staan
+psychologische oefeningen waarmee de lezer wiskundige en natuurkundige
+begrippen aan den lijve zou moeten ondervinden: tellen en wegstrepen,
+kwadrateren, parallelle werelden, gedaanteverwisseling. Dat is de opzet van
+Mindells hele oeuvre en het verklaart de omvang van bijna zeshonderddertig
+bladzijden.
+
+Het slot kijkt vooruit. De volgende ronde in natuurkunde, wiskunde en
+psychologie zal volgens Mindell beginnen bij non-lokaliteit en ongedeelde
+heelheid in plaats van bij deeltjes, en zal het ervaren zowel als het gemeten
+deel van de wereld moeten omvatten. Hij plaatst zichzelf daarbij uitdrukkelijk
+in de lijn van Wolfgang Pauli, Carl Jung en David Bohm.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Consensuswerkelijkheid | Het deel van de werkelijkheid waarover mensen het eens zijn en dat door meting en gezag wordt bevestigd. |
+| Niet-consensuele werkelijkheid | Alles wat wel ervaren maar niet gezamenlijk vastgesteld wordt: dromen, stemmingen, ingevingen, vage lichamelijke signalen. |
+| Wegstrepen | Het onopgemerkt terzijde schuiven van ervaringen die niet in het gedeelde beeld passen; bij Mindell de oorzaak van zowel klachten als conflicten. |
+| Flirt | Het minieme signaal dat de aandacht even trekt voordat het bewust wordt; het aanknopingspunt van zijn hele werkwijze. |
+| Sentiente essentie | Het diepste niveau, waarop nog geen gescheiden dingen bestaan maar alleen betrekkingen die zich nog niet hebben uitgekristalliseerd. |
+| Droomniveau | De tussenlaag van beelden, rollen en figuren, tussen de sentiente essentie en de consensuswerkelijkheid in. |
+| Droomlichaam | Zijn eerdere begrip voor de samenhang tussen droombeelden en lichamelijke klachten, hier ingepast in het driedelige model. |
+| Proceswerk | De naam van zijn methode: het volgen van wat zich in ervaring en gedrag aandient, in plaats van het toepassen van een vooraf vastgesteld schema. |
+| Gedaanteverwisseling | Het innemen van een rol of positie die men bij zichzelf had weggestreept, door hem ontleend aan sjamanistische praktijk. |
+| Zelfweerspiegelend heelal | Zijn beeld van een kosmos die zichzelf waarneemt en daardoor tot werkelijkheid wordt. |
+
+#### Waar het argument op rust
+
+Mindell heeft een natuurkundige opleiding: hij behaalde in 1964 aan het MIT
+een mastergraad in toegepaste natuurkunde en werktuigbouwkunde en deed
+onderzoek aan de ETH in Zurich, voordat hij in 1970 het diploma van jungiaans
+analyticus haalde en in 1972 in de psychologie promoveerde. Hij weet dus
+waarover hij schrijft wanneer hij de natuurkundige begrippen weergeeft, en de
+weergave van het dubbelspletenexperiment, van de golffunctie en van de
+stelling van Bell klopt in grote lijnen.
+
+Voor zijn psychologische stellingen levert het boek geen onderzoek. Er zijn
+geen metingen, geen controlegroepen en geen uitkomsten die door anderen zijn
+nagegaan. Wat er wel is, zijn gevallen uit zijn eigen praktijk, oefeningen die
+de lezer bij zichzelf kan doen, en vergelijkend materiaal uit mythologie en
+sjamanisme. Dat is een legitieme vorm van klinisch werk, maar het is een
+andere soort onderbouwing dan de natuurkunde in de eerste hoofdstukken
+suggereert.
+
+De kernbewering van het boek, dat de wiskunde van de kwantummechanica ook de
+structuur van de menselijke ervaring beschrijft, is geen uitkomst maar een
+uitgangspunt. Er wordt nergens een voorspelling uit afgeleid die zou kunnen
+mislukken. Wie de vergelijking overtuigend vindt, vindt het boek overtuigend;
+wie haar niet overtuigend vindt, houdt een reeks losse waarnemingen over.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar gaat over het gebruik van de natuurkundige termen.
+Imaginaire getallen, golffunctie, non-lokaliteit en virtuele deeltjes hebben
+in de natuurkunde een scherpe, wiskundig vastgelegde betekenis waarin niets
+over ervaring wordt gezegd. Mindell zet ze in als vergelijking, en tot zover
+is er niets aan de hand: een vergelijking mag verhelderen. Het probleem is dat
+hij ze op andere bladzijden letterlijk gebruikt, alsof het dezelfde zaak
+betreft. De stelling van Bell gaat over correlaties tussen metingen aan
+deeltjes; zij zegt niet dat mensen op afstand van elkaar weten, en die stap
+wordt in het boek gezet zonder dat er iets wordt bijgeleverd.
+
+Wat er gebeurt als een begrip die dubbelrol krijgt, is te zien aan het
+virtuele deeltje. Mindell voert het op als voorbeeld van iets wat niet direct
+waarneembaar is maar wel gevolgen heeft, en breidt de term daarna uit tot de
+schaduw, het innerlijke kind en de gedachten die door iemands hoofd gaan. Hij
+voegt er zelfs aan toe dat het niet uitmaakt of zulke entiteiten werkelijk
+bestaan, omdat ze dingen verklaren en niet te weerleggen zijn. Dat laatste is
+precies waarom het geen natuurkunde is: onweerlegbaarheid is in de
+natuurwetenschap een gebrek en geen aanbeveling.
+
+Een tweede bezwaar is de omvang van de aanspraak. Het boek behandelt
+achtereenvolgens rekenen, natuurkunde, dromen, chronische ziekte,
+groepsdynamiek, politiek, mythologie en kosmologie met één verklaringsschema.
+Een raster dat op zoveel ongelijksoortige gebieden past, past waarschijnlijk
+omdat het weinig uitsluit. Er is in de zeshonderd bladzijden geen geval te
+vinden waarvan Mindell zegt dat het niet in zijn model past.
+
+Een derde punt is de reikwijdte van de ontvangst. *Quantum Mind* is besproken
+en gewaardeerd binnen de kring van de procesgerichte psychologie en in bladen
+op het grensvlak van wetenschap en spiritualiteit; buiten die kring is er in
+de psychologie en de natuurkunde nauwelijks op gereageerd. Proceswerk zelf is
+als psychotherapeutische stroming erkend en heeft een opleidingsinstituut in
+Zwitserland, maar de brug naar de natuurkunde die dit boek slaat, wordt door
+geen van beide vakken gedragen.
+
+Wat overeind blijft is de psychologie, en die is de moeite waard. Het
+onderscheid tussen wat mensen benoemen en wat zij wegstrepen, de aandacht voor
+het signaal dat men bijna niet opmerkt, en de gedachte dat een klacht blijft
+bestaan zolang de betekenis ervan buiten beschouwing blijft, zijn bruikbare
+denkgereedschappen. Ze hebben de kwantummechanica alleen niet nodig, en het
+boek wordt zwakker doordat het doet alsof van wel.
+
+#### Wat er concreet mee te doen is
+
+- Lees de psychologische hoofdstukken eerst en de natuurkundige daarna; de
+eerste staan op eigen benen, de tweede leveren er een beeld bij dat geen
+bewijs is.
+- Streep bij elke natuurkundige term in gedachten het woord kwantum weg en
+kijk of de zin dan nog iets beweert; blijft er niets over, dan droeg de term
+de bewering.
+- Doe een van de oefeningen voordat je over de theorie oordeelt; het boek is
+als werkboek geschreven en het betoog leunt op wat de lezer bij zichzelf
+vaststelt.
+- Verwar dit boek niet met *The Quantum Mind and Healing* uit 2004, dat een
+veel kortere en praktischer toepassing op lichamelijke klachten is.
+
+#### Wat je hierna leest
+
+- 362. Synchroniciteit. Jung werkt in zijn opstel over synchroniciteit
+hetzelfde grensgebied uit waar Mindell zijn flirts plaatst, en met dezelfde
+onopgeloste vraag over oorzakelijkheid.
+- 653. Speakable and Unspeakable in Quantum Mechanics. Bell laat precies zien
+wat non-lokaliteit betekent en wat er niet uit volgt; het onmisbare correctief
+bij de manier waarop dit boek de term gebruikt.
+- 761. Mindful Universe: Quantum Mechanics and the Participating Observer.
+Stapp verdedigt een rol voor bewustzijn in de kwantummechanica binnen de
+regels van het vak, en biedt zo een vergelijking met Mindells veel vrijere
+aanpak.
+- 1165. Science and the Akashic Field. Laszlo bouwt in dezelfde jaren een
+allesomvattend veld op kwantumbegrippen, met dezelfde onaangekondigde overgang
+van natuurkunde naar beeldspraak.
+
+## 1167. The Idea of the World: A Multi-Disciplinary Argument for the Mental Nature of Reality
+
+Bernardo Kastrup, 2019. *The Idea of the World: A Multi-Disciplinary Argument
+for the Mental Nature of Reality* (iff Books, een imprint van John Hunt
+Publishing, Winchester, 2019, 312 blz., ISBN 9781785357398), met een voorwoord
+van Menas C. Kafatos en een nawoord van Edward F. Kelly onder de titel
+*Science and spirituality: an emerging vision*. Het boek bestaat uit tien
+eerder in vakbladen verschenen artikelen uit 2016 tot en met 2018, aangevuld
+met vijf inleidende hoofdstukken en een nabeschouwing. Er bestaat geen
+Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.
+Rubriek: filosofie en mystiek.
+Tags: `bewustzijn`, `filosofie`, `geest`, `wetenschapsfilosofie`
+
+Bernardo Kastrup is computeringenieur van huis uit, werkte bij CERN en Philips
+Research, en promoveerde in 2019 aan de Radboud Universiteit een tweede maal,
+nu in de wijsbegeerte. Dit boek bundelt tien artikelen die hij tussen 2016 en
+2018 in vakbladen publiceerde, met vijf inleidende hoofdstukken ertussen en
+een nabeschouwing aan het slot. Het is dus geen doorlopend betoog maar een
+verzameling, wat de lezer merkt aan de herhalingen en aan hoofdstukken die op
+zichzelf staan.
+
+De stelling die de bundel bijeenhoudt heet analytisch idealisme: er bestaat
+één universeel bewustzijn, en afzonderlijke subjecten ontstaan doordat dat
+bewustzijn zich plaatselijk afsplitst, zoals bij dissociatie. Kastrup
+verdedigt die opvatting niet op mystieke gronden maar met de gereedschappen
+van de analytische wijsbegeerte, en hij voert de dissociatieve
+identiteitsstoornis aan als bewijsmodel.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Kastrup verdedigt dat fenomenaal bewustzijn het enige is wat
+op zichzelf bestaat, en dat materie geen drager van ervaring is maar de
+buitenkant ervan zoals die zich aan een waarnemer vertoont. Afzonderlijke
+subjecten ontstaan volgens hem doordat dat ene bewustzijn zich plaatselijk
+afsluit, op dezelfde wijze waarop de psychiatrie dissociatie beschrijft: elk
+levend organisme is zo'n afgesplitst deel, en het lichaam is de waargenomen
+buitenkant van de grens die de afsplitsing trekt. Alles wat niet leeft is dan
+de buitenkant van de gedachten van het universele bewustzijn. Zijn argument is
+uitdrukkelijk niet religieus maar economisch van vorm: deze opvatting zou
+minder onverklaarde grootheden nodig hebben dan het fysicalisme, het
+panpsychisme en het kosmopsychisme, en zij zou het zogenoemde harde probleem
+van het bewustzijn niet oproepen.
+
+#### De gang van het boek
+
+**Wat voor boek dit is**
+
+De bundel bestaat uit vijftien hoofdstukken: vijf inleidingen op de onderdelen
+en tien artikelen die eerder als vakartikel zijn verschenen. Kastrup schrijft
+zelf dat hij die artikelen van meet af aan zo heeft opgezet dat ze samen een
+boek zouden vormen, en dat hij de bladen mede koos op hun beleid over open
+toegang en hergebruik van auteursrecht.
+
+De belangrijkste zijn: *Conflating abstraction with empirical observation: the
+false mind-matter dichotomy* (*Constructivist Foundations*, 2018), *The quest
+to solve problems that don't exist* (*Studia Humana*, 2017), *An ontological
+solution to the mind-body problem* (*Philosophies*, 2017), *Making sense of
+the mental universe* (*Philosophy and Cosmology*, 2017), *On the plausibility
+of idealism: refuting criticisms* (*Disputatio*, 2017), *There is an
+unconscious, but it may well be conscious* (*Europe's Journal of Psychology*,
+2017), *Self-transcendence correlates with brain function impairment* en *What
+neuroimaging of the psychedelic state tells us about the mind-body problem*
+(beide in *Journal of Cognition and Neuroethics*, 2017 en 2016), *The
+physicalist worldview as neurotic ego-defense mechanism* (*SAGE Open*, 2016)
+en *Not its own meaning: a hermeneutic of the world* (*Humanities*, 2017). De
+uitvoerigste versie van zijn dissociatie-argument verscheen los hiervan als
+*The universe in consciousness* in *Journal of Consciousness Studies* (2018)
+en staat niet in de bundel.
+
+**Wat er volgens hem mis is met het uitgangspunt**
+
+Het eerste deel valt het fysicalisme aan. Kastrups kernbezwaar is dat het een
+abstractie verwart met een waarneming: alles wat wij ooit waarnemen doet zich
+binnen bewustzijn voor, en materie buiten alle bewustzijn is een verklarende
+constructie waarvan nooit een geval is aangetroffen. Wie die constructie tot
+grondslag maakt, haalt zich het harde probleem op de hals, want uit ladingen,
+massa's en onderlinge betrekkingen valt niet af te leiden hoe warmte of rood
+aanvoelen.
+
+Hij scherpt dat aan met een argument dat hij aan Greg Rosenberg ontleent en
+dat op Russell teruggaat: de natuurkunde beschrijft de dingen uitsluitend in
+termen van kale verschillen ten opzichte van andere dingen. Uit een structuur
+van kale verschillen volgen geen ervaringskwaliteiten; het is omgekeerd, de
+kwaliteiten dragen die structuur. Het tweede hoofdstuk van dit deel betoogt
+dat een aantal vraagstukken in de hedendaagse ontologie kunstproducten zijn
+van het gekozen begrippenapparaat en verdwijnt zodra men dat apparaat wisselt.
+
+**Het voorstel: één bewustzijn dat zich afsplitst**
+
+Het tweede deel bevat de opbouwende kant. Er is één bewustzijn dat in patronen
+van zelfopwekking bestaat; die patronen roepen elkaar op, zoals een gedachte
+een herinnering oproept. De psychiatrie kent de onderbreking van dat verband
+onder de naam dissociatie, en in de zwaarste vorm, de dissociatieve
+identiteitsstoornis, leidt zij tot meerdere afzonderlijke centra van
+zelfbewustzijn, in de vakliteratuur alters genoemd. Kastrup gebruikt de
+grafentheorie als beeld: een samenhangende graaf die uiteenvalt, waarbij een
+deelgraaf niet meer vanuit de rest bereikbaar is.
+
+Dat is zijn oplossing voor de vraag hoe uit één subject vele subjecten kunnen
+ontstaan. Een alter behoudt de aard van het geheel, bewustzijn en zelfgevoel,
+maar krijgt een eigen ervaringsveld doordat de grens getrokken is. Levende
+wezens zijn volgens hem precies die alters, en de stofwisseling is de
+buitenkant van de dissociatieve grens; zintuigen zijn de buitenkant van
+diezelfde grens, waar de gedachten van het omringende bewustzijn tegenaan
+botsen. Wat wij waarneming noemen is de ervaring van dat botsingspatroon. Om
+te verklaren waarom waarneming zo anders voelt dan gedachten haalt hij Donald
+Hoffmans opvatting van waarneming als bedieningsschil erbij, en het werk van
+Karl Friston over Markov-dekens, dat langs een geheel andere weg tot
+vergelijkbare gevolgtrekkingen komt.
+
+**Het weerleggen van tegenwerpingen**
+
+Het derde deel behandelt de bezwaren die tegen idealisme plegen te worden
+ingebracht. De belangrijkste is dat het op solipsisme zou uitlopen. Kastrups
+antwoord luidt dat de wereld juist niet privé is: zij is de buitenkant van de
+gedachten van het universele bewustzijn, waar elk alter tegenaan kijkt, en
+daarom is zij voor alle alters dezelfde en niet met een wilsbesluit te
+veranderen.
+
+Het tweede hoofdstuk van dit deel herinterpreteert het onbewuste. Wat de
+psychologie onbewust noemt is volgens Kastrup wel degelijk ervaren, alleen
+niet door het alter dat het woord voert; het is afgesplitst, niet donker. Hij
+wijst erop dat de dieptepsychologie in de praktijk al met dat beeld werkt,
+omdat zij aanneemt dat afgesplitste inhoud voortdurend op het uitvoerende ik
+inwerkt.
+
+**Het beroep op de neurowetenschap**
+
+Het vierde deel bevat het empirische aanbod. Kastrup vat de
+beeldvormingsstudies van het psychedelische verschijnsel samen: bij
+psilocybine werd in het onderzoek van Carhart-Harris en anderen uit 2012
+alleen daling van de doorbloeding gemeten en nergens stijging, en bij LSD in
+2016 werd weliswaar plaatselijk meer doorbloeding in de visuele schors gezien,
+maar toonde magneto-encefalografie opnieuw daling van de activiteit door de
+hele hersenen heen. Terwijl de ervaring rijker wordt, neemt de
+hersenactiviteit af.
+
+Dat noemt hij tegen de verwachting in vanuit het fysicalisme, dat ervaring
+geheel door hersenactiviteit gevormd acht. Het tweede hoofdstuk van dit deel
+voegt daaraan toe dat ervaringen van zelfoverstijging samengaan met
+verminderde werking van bepaalde hersendelen. Kastrup leest beide bevindingen
+als aanwijzing dat de hersenen ervaring afschermen in plaats van voortbrengen.
+
+**De omgeving van het betoog**
+
+Het vijfde deel staat wat verder van de kern. Het ene hoofdstuk betoogt dat
+het fysicalisme zich laat begrijpen als een neurotisch afweermechanisme van
+het ik, een psychologische verklaring van de aantrekkingskracht van de
+tegenpartij. Het andere leest de wereld als tekst die niet zijn eigen
+betekenis draagt, een hermeneutische toepassing van de ontologie.
+
+De nabeschouwing trekt de lijnen samen en verbindt de opvatting met vragen die
+gewoonlijk aan religie worden overgelaten. Het nawoord van Edward F. Kelly,
+hoofdauteur van *Irreducible Mind* en *Beyond Physicalism*, plaatst het geheel
+in een bredere stroming die de gangbare opvatting van geest en hersenen
+bestrijdt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| analytisch idealisme | Kastrups opvatting dat fenomenaal bewustzijn het enige is wat op zichzelf bestaat, verdedigd met de middelen van de analytische wijsbegeerte. |
+| universeel bewustzijn | Het ene, niet aan ruimte gebonden bewustzijn dat in zijn ontwerp de grondslag van alles is. |
+| dissociatie | De in de psychiatrie beschreven onderbreking van de normale samenhang tussen ervaringsinhouden, door Kastrup tot metafysisch beginsel gemaakt. |
+| alter | Een afgesplitst centrum van zelfbewustzijn; in zijn voorstel is elk levend organisme zo'n alter van het universele bewustzijn. |
+| decompositieprobleem | De vraag hoe één subject aanleiding kan geven tot vele afzonderlijke subjecten, het spiegelbeeld van het combinatieprobleem van het panpsychisme. |
+| extrinsieke verschijning | De buitenkant die een ervaringsproces vertoont aan een waarnemer buiten dat proces; hersenen zijn in deze opvatting de extrinsieke verschijning van een innerlijk leven. |
+| hard probleem van het bewustzijn | Chalmers' aanduiding voor de onmogelijkheid ervaringskwaliteiten af te leiden uit de meetbare eigenschappen van fysieke opstellingen. |
+| combinatieprobleem | Het bezwaar tegen het panpsychisme dat onduidelijk blijft hoe vele kleine ervaringen één samenhangende ervaring kunnen vormen. |
+| zuinigheidsbeginsel | De maatstaf waar Kastrup zijn zaak op bouwt: de opvatting die met de minste onverklaarde grootheden toe kan, verdient de voorkeur. |
+
+#### Waar het argument op rust
+
+Het meeste gewicht ligt bij begripsanalyse en niet bij metingen. De sterkste
+onderdelen zijn negatief: dat materie buiten bewustzijn nooit is waargenomen
+maar wordt afgeleid, en dat uit een structuur van kale verschillen geen
+ervaringskwaliteiten volgen, zijn argumenten die in de vakwijsbegeerte serieus
+worden genomen en die niet van Kastrup zelf afkomstig hoeven te zijn om te
+werken.
+
+Empirisch steunt hij op twee zaken. De eerste is de klinische literatuur over
+dissociatie. Zijn opvallendste voorbeeld is de casus die Strasburger en
+Waldvogel in 2015 beschreven: een Duitse vrouw bij wie sommige alters zeiden
+blind te zijn, terwijl de hersenactiviteit die normaal met zien samengaat bij
+die alters op het elektro-encefalogram ontbrak en terugkeerde zodra een ziend
+alter de leiding nam. Daarnaast gebruikt hij Morton Prince over de zaak Miss
+Beauchamp en Stephen Braude over gelijktijdig bewuste alters. Dat is echte
+klinische literatuur en zij toont dat dissociatie een ervaringsveld
+daadwerkelijk kan afgrenzen.
+
+De tweede is de beeldvorming van het psychedelische verschijnsel. Dat de
+doorbloeding en de gemeten activiteit dalen terwijl de ervaring rijker wordt,
+is een reëel en herhaald resultaat. De gevolgtrekking eruit is het punt van
+geschil: dezelfde gegevens worden in het gangbare kader gelezen als het
+wegvallen van sturing van bovenaf, en later werk over toegenomen wanorde en
+signaaldiversiteit heeft het beeld ingewikkelder gemaakt dan het in 2016 leek.
+
+Wat de bundel boven vergelijkbaar werk uittilt is dat de hoofdstukken door
+vakgenoten zijn beoordeeld voordat zij verschenen. Daarbij hoort de
+kanttekening dat de betrokken bladen overwegend klein, interdisciplinair of
+vrij toegankelijk zijn en niet de bladen die in de wijsbegeerte van de geest
+de toon zetten, en dat Kastrup zelf aangeeft mede op hergebruiksbeleid te
+hebben geselecteerd. Zijn promotie in 2019 aan de Radboud Universiteit op
+ditzelfde materiaal is wel een gewone academische kwalificatie.
+
+#### Wat er tegen in te brengen valt
+
+Het centrale bezwaar is het decompositieprobleem, en de vraag is of Kastrups
+antwoord het oplost of verplaatst. David Chalmers heeft in zijn overzicht van
+idealistische posities uiteengezet dat het samenstellen van gewone subjecten
+uit een kosmisch subject minstens zo lastig is als het combinatieprobleem
+waaraan het panpsychisme lijdt. Dissociatie is daarop geen verklaring maar een
+naam: de psychiatrie stelt vast dát ervaringsvelden uiteen kunnen vallen, zij
+zegt niet wat maakt dat één veld er twee worden. Een onopgehelderd
+verschijnsel inzetten om een metafysisch vraagstuk te beslechten, verschuift
+de onwetendheid.
+
+Ook als analogie is het model kwetsbaar. Alters bij een patiënt delen een
+lichaam, een zenuwstelsel, een levensgeschiedenis en vaak geheugensporen, zij
+ontstaan doorgaans na trauma en zij kunnen onder behandeling weer samengaan.
+Kastrups voorstel vraagt om grenzen die blijvend zijn, die met miljarden
+tegelijk voorkomen, die precies met stofwisseling samenvallen en die geen van
+alle door de wil te doorbreken zijn. Niets daarvan volgt uit de klinische
+gevallen. Dat de grens bij het leven wordt getrokken is bovendien beredeneerd
+en niet aangetoond, met het ongemakkelijke gevolg dat een bacterie een eigen
+ervaringsveld heeft en een orkaan niet.
+
+Het beroep op zuinigheid draagt meer dan het kan houden. Hoeveel grootheden
+een opvatting nodig heeft, hangt af van hoe men ze telt, en een fysicalist zal
+tegenwerpen dat een universeel subject met een binnenkant, plus een
+niet-uitgelegd afsplitsingsmechanisme, plus een verklaring waarom die
+afsplitsingen zo betrouwbaar met natuurwetten sporen, niet duidelijk goedkoper
+is dan materie. Zolang uit het voorstel geen voorspelling volgt die anders
+uitvalt dan onder de gangbare opvatting, blijft het een herbeschrijving.
+
+Over de plaats van dit werk in de vakwijsbegeerte valt iets nuchters te
+zeggen. Idealisme wordt daar besproken en Chalmers behandelt het in *Idealism
+and the Mind-Body Problem* (2019) als een serieuze mogelijkheid; Kastrup komt
+in die gesprekken voor. Tegelijk staat hij ver van de meerderheidspositie, en
+het grootste deel van zijn bereik ligt bij lezingen, podcasts en columns in
+*Scientific American* in plaats van bij de bladen die de agenda bepalen. Zijn
+woordenwisselingen met onder anderen Philip Goff worden deels op weblogs en in
+scherpe bewoordingen gevoerd. Dat zegt iets over de vorm van het debat en
+niets over de houdbaarheid van de stelling, maar het verklaart wel waarom het
+werk buiten het vak bekender is dan erbinnen.
+
+De bundelvorm werkt ten slotte tegen het boek. Tien afzonderlijk geschreven
+artikelen betekent dat hetzelfde terrein herhaaldelijk wordt afgelegd, dat de
+begrippen tussen hoofdstukken licht verschuiven en dat de bezwaren die in het
+derde deel worden weerlegd deels door de auteur zelf zijn opgeworpen. Het
+hoofdstuk waarin het fysicalisme als neurotische afweer wordt geduid, valt
+bovendien uit de toon: het gaat over de beweegredenen van tegenstanders in
+plaats van over hun argumenten, wat in een werk dat zich op analytische
+maatstaven beroept een vreemde figuur is.
+
+#### Wat er concreet mee te doen is
+
+- Begin bij de hoofdstukken over de ontologische oplossing en het mentale
+universum; daar staat het voorstel, de rest is verdediging en toelichting.
+- Houd de twee lagen uit elkaar: het bezwaar tegen het fysicalisme kan raak
+zijn zonder dat het eigen alternatief daarmee gedragen wordt.
+- Vraag bij elke keer dat het woord zuiniger valt na wat er precies geteld
+wordt en volgens welke telling.
+- Lees een stuk van de dissociatieliteratuur zelf voordat men de analogie
+overneemt; de klinische gevallen zeggen minder dan het model vraagt.
+- Wie de vakdiscussie wil volgen, leest Chalmers over idealisme ernaast en let
+op waar Kastrup daarvan afwijkt.
+
+#### Wat je hierna leest
+
+- 652. The Rediscovery of the Mind. Searle bestrijdt zowel het fysicalisme dat
+Kastrup aanvalt als het idealisme waar hij op uitkomt, en laat zien hoe een
+derde weg eruitziet.
+- 767. The Case Against Reality: Why Evolution Hid the Truth from Our Eyes.
+Hoffman levert de opvatting van waarneming als bedieningsschil die Kastrup in
+zijn eigen bouwwerk inpast.
+- 761. Mindful Universe: Quantum Mechanics and the Participating Observer.
+Stapp bepleit langs de weg van de kwantummechanica eveneens dat bewustzijn
+niet uit de natuurbeschrijving is weg te laten.
+- 1163. The Reenchantment of the World. Berman schetst de geschiedenis van het
+wereldbeeld waartegen Kastrup zich keert, en komt tot een veel voorzichtiger
+voorstel.
+
+## 1168. Als je wereld instort
+
+Pema Chödrön, 1997. *When Things Fall Apart: Heart Advice for Difficult Times*
+(Shambhala, Boston, 1997, 148 blz., ISBN 978-1-57062-160-4). Nederlandse
+uitgave: *Als je wereld instort: adviezen voor moeilijke tijden*, vertaald
+door Arya Kiekens, verschenen bij Servire in Utrecht in 1998 en sindsdien
+herdrukt bij Ten Have (ISBN 978-90-259-1374-8). Rubriek: levenskunst.
+Tags: `boeddhisme`, `meditatie`, `angst`, `tegenslag`
+
+Chödrön bundelt tweeëntwintig korte lezingen die zij tussen 1987 en 1994 hield
+in Gampo Abbey, het klooster in Nova Scotia dat zij vanaf 1984 opzette en
+leidde. De draad erdoorheen is dat pijn, angst en verlies geen storing zijn in
+een verder werkbaar leven, maar de plaats waar het oefenen begint.
+
+Zij werkt met een handvol praktijken uit het Tibetaans boeddhisme: maitri,
+vriendelijkheid tegenover jezelf zonder voorwaarden; tonglen, het inademen van
+wat pijn doet en het uitademen van opluchting; en het herkennen van het
+ogenblik waarop een gemoedstoestand je te pakken krijgt. Het boek geeft geen
+stappenplan en belooft geen uitkomst.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Chödrön behandelt het uiteenvallen van een leven niet als een
+storing die verholpen moet worden. Haar stelling is dat de zekerheid waarnaar
+mensen bij tegenslag terugverlangen er nooit geweest is, en dat het wegvallen
+ervan de enige opening geeft naar een bestaan dat niet op ontwijking rust. Zij
+belooft geen herstel van de oude toestand en geen goede afloop. Zij vraagt om
+bij het gevoel te blijven dat je liever kwijt was, lang genoeg om te merken
+dat het uit zichzelf van vorm verandert.
+
+#### De gang van het boek
+
+**Waar de tekst vandaan komt**
+
+Het boek bestaat uit tweeëntwintig korte hoofdstukken, bewerkt uit lezingen
+die Chödrön tussen 1987 en 1994 hield in Gampo Abbey. Zij werd in 1936 in New
+York geboren als Deirdre Blomfield-Brown, werkte jaren als onderwijzeres en
+werd in 1974 in Londen tot novice gewijd bij Chime Rinpoche. In 1972 had zij
+de Tibetaanse leraar Chögyam Trungpa ontmoet, die haar hoofdleraar werd; in
+1981 ontving zij in Hongkong de volledige wijding.
+
+De hoofdstukken staan los van elkaar, dragen titels als *Intimacy with Fear*
+en *Six Kinds of Loneliness*, en lopen niet van eenvoudig naar ingewikkeld.
+Wie het boek achter elkaar leest, komt dezelfde handvol aanwijzingen telkens
+in een ander voorbeeld tegen.
+
+**Maitri: vriendelijkheid zonder voorwaarde**
+
+Maitri is het Sanskriet voor welwillendheid. Chödrön gebruikt het woord voor
+de houding tegenover de eigen ervaring: opmerken wat er is, ook wanneer dat
+jaloezie, wrok of paniek is, zonder er een oordeel of een verbeterplan aan
+vast te knopen. Werken aan jezelf gaat volgens haar uit van de aanname dat er
+iets mis is dat weg moet, en die aanname is zelf de vorm van vijandigheid waar
+het om gaat.
+
+Meditatie is in dit boek dan ook geen techniek om rustig te worden. Zitten
+dient om te zien welke gedachten en stemmingen zich aandienen, ze te benoemen
+en terug te keren naar de adem. Wat er tijdens het zitten gebeurt, is in haar
+behandeling nooit een fout.
+
+**Het ogenblik waarop iets je te pakken krijgt**
+
+Een groot deel van het boek gaat over de beweging waarmee iemand vastraakt: er
+is een prikkel, er volgt een onaangename spanning, en daarna komt vrijwel
+meteen het bekende gedrag dat die spanning moet wegnemen. Chödrön beschrijft
+dat in de hoofdstukken over de vier mara's, vier gedaanten van de verleiding,
+en over de acht wereldse dharma's, vier tegengestelde paren die het oordeel
+sturen: genot en pijn, winst en verlies, roem en schande, lof en blaam. Zolang
+die paren onopgemerkt blijven, bepalen zij wat iemand als goed of slecht
+nieuws ervaart.
+
+De Tibetaanse term shenpa is de naam die Chödrön later aan dat vastklitten
+heeft gegeven, in *Getting Unstuck* (2005) en *Taking the Leap* (2009), naar
+onderricht van Dzigar Kongtrül. Shenpa duidt op het haakje waaraan de reactie
+vastzit, het trekje vlak voordat er woorden of redenen bij komen. Het
+verschijnsel wordt in dit boek beschreven; de term zelf staat in dat latere
+werk uitgelegd.
+
+**Tonglen: de omgekeerde ademhaling**
+
+Tonglen betekent geven en nemen. Bij het inademen richt de mediterende zich op
+de pijn van iemand die het zwaar heeft; bij het uitademen stuurt hij daar
+ruimte of opluchting naartoe. De volgorde is omgekeerd aan wat iemand uit
+zichzelf zou doen. De praktijk komt uit de Tibetaanse lojong-traditie, de
+reeks spreuken voor geestesoefening die in de elfde eeuw met Atisha in Tibet
+werd ingevoerd.
+
+Chödrön beschrijft tonglen in vier stappen: een korte stilte, dan het werken
+met de ademhaling zonder inhoud, dan een concrete situatie, en ten slotte het
+uitbreiden naar iedereen die in hetzelfde zit. Wat er volgens haar gebeurt, is
+dat de gewoonte om ongemak weg te duwen losser komt te zitten.
+
+**Eenzaamheid, hopeloosheid en de dood**
+
+Het hoofdstuk over de zes soorten eenzaamheid keert de gebruikelijke
+waardering om. Eenzaamheid vraagt in Chödröns behandeling niet om gezelschap,
+want het zoeken van gezelschap is juist de manier waarop iemand aan zichzelf
+ontsnapt. Zij noemt zes kanten van een eenzaamheid die uit te houden valt,
+waaronder minder verlangen, tevredenheid, het nalaten van overbodige
+bedrijvigheid, en geen zekerheid zoeken bij de eigen gedachten.
+
+Het hoofdstuk over hopeloosheid gaat verder. Hoop en angst horen volgens haar
+bij elkaar: hopen op een betere toestand houdt de afkeer van de huidige in
+stand. Wat zij hopeloosheid noemt, is het opgeven van de gedachte dat er ooit
+een plek komt waar het klaar is. Zij verbindt dat met de dood, die zij
+behandelt als de dagelijkse ervaring dat elke toestand ophoudt.
+
+**Drie manieren om met chaos om te gaan**
+
+In een van de latere hoofdstukken zet Chödrön drie werkwijzen naast elkaar. De
+eerste is de strijd staken: gaan zitten en gedachten en stemmingen laten
+passeren zonder er iets van te vinden. De tweede is het gif als medicijn
+gebruiken: woede, jaloezie of angst op het moment zelf inademen namens
+iedereen die hetzelfde voelt, wat neerkomt op tonglen midden in het dagelijks
+leven. De derde is elke opkomende toestand behandelen als wijsheid die zich al
+heeft aangediend; die is de moeilijkste en krijgt de minste woorden.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| maitri | Sanskriet voor welwillendheid; bij Chödrön de houding waarin iemand de eigen ervaring toelaat zonder er verbetering aan te verbinden. |
+| tonglen | Tibetaanse ademoefening waarbij de pijn van een ander wordt ingeademd en opluchting wordt uitgeademd. |
+| bodhicitta | het open, kwetsbare hart dat volgens de Tibetaanse leer onder de afweer ligt en waar de oefening zich op richt. |
+| de vier mara's | vier gedaanten van verleiding: hechten aan genot, terugdeinzen voor lichamelijk ongemak, dichtklappen bij hevige emoties, en doodsangst. |
+| de acht wereldse dharma's | vier tegengestelde paren, genot en pijn, winst en verlies, roem en schande, lof en blaam, die ongemerkt bepalen wat iemand als goed nieuws ervaart. |
+| shenpa | Tibetaans voor het haakje waaraan een reactie vastzit, het vastklitten vlak voordat er woorden bij komen; door Chödrön vooral in haar latere boeken uitgewerkt. |
+| lojong | Tibetaanse geestesoefening met korte spreuken, de traditie waaruit tonglen afkomstig is. |
+| samsara | de kringloop van steeds hetzelfde reageren die volgens de boeddhistische leer het lijden in stand houdt. |
+| geen vaste grond | Chödröns aanduiding voor de ervaring dat er geen toestand bestaat waarop iemand blijvend kan steunen. |
+
+#### Waar het argument op rust
+
+Het boek doet geen beroep op onderzoek. Het gezag ervan berust op
+overlevering: Chödrön geeft door wat zij van Chögyam Trungpa en uit de
+lojong-traditie ontving, en zij verwijst naar leraren en klassieke bronnen.
+Voor wie de leer aanvaardt is dat een grond; voor wie dat niet doet, blijft er
+geen argument over dat los van de traditie staat.
+
+De voorbeelden zijn kort, persoonlijk en anekdotisch; ze komen uit het
+kloosterleven in Nova Scotia en uit haar eigen ervaring. Herkenbaarheid is de
+enige toets die het boek aanbiedt. Meditatie op aandacht en op mededogen wordt
+sinds de jaren negentig ook in laboratoria bestudeerd, met bescheiden en lang
+niet altijd herhaalbare uitkomsten, maar Chödrön beroept zich daar nergens op.
+
+#### Wat er tegen in te brengen valt
+
+Wat het boek niet is, is een behandeling. Het gaat over gewoon verdriet,
+gewone angst en gewone tegenslag. De aanwijzing om bij een pijnlijk gevoel te
+blijven en er verder niets aan te doen, is bij een depressie, een
+posttraumatische stoornis of een acute crisis niet zonder risico, en dat
+onderscheid wordt nergens gemaakt. Er staat niets in over wanneer iemand beter
+hulp kan zoeken.
+
+Een tweede bezwaar betreft de reikwijdte. Het lijden dat Chödrön behandelt, is
+telkens het lijden van de enkeling aan zijn eigen reacties. Over lijden dat
+uit armoede, geweld of uitsluiting voortkomt zegt het boek niets, en de
+aansporing om te stoppen met hopen op verandering laat zich in zo'n geval ook
+lezen als berusting.
+
+Het derde punt raakt de herkomst. Het boek verscheen bij Shambhala
+Publications en staat in de traditie die Chögyam Trungpa in het Westen
+vestigde. Trungpa dronk zwaar, had seksuele verhoudingen met leerlingen en gaf
+in 1975 tijdens een seminarie in Snowmass opdracht de dichter W.S. Merwin en
+zijn partner Dana Naone tegen hun wil te ontkleden; hij stierf in 1987, met
+een gezondheid die door jarenlang drinken was ondermijnd. Zijn opvolger Ösel
+Tendzin bleek in december 1988 al bijna drie jaar te weten dat hij besmet was
+met hiv, terwijl hij onbeschermde seks met leerlingen bleef hebben zonder hun
+dat te vertellen; ten minste één van hen overleed aan aids.
+
+Chödrön was Trungpa's leerling en is hem als leraar blijven verdedigen. Toen
+in 2018 via de rapporten van Buddhist Project Sunshine beschuldigingen van
+seksueel wangedrag tegen zijn zoon en opvolger Sakyong Mipham naar buiten
+kwamen en het bestuur hem in januari 2020 opnieuw wilde laten onderwijzen,
+trad zij terug als acharya van Shambhala. Dat zegt op zichzelf niets over de
+juistheid van de leer in dit boek. Het legt er wel een vraag naast: wat een
+onderricht over onvoorwaardelijke vriendelijkheid waard is in een gemeenschap
+waarin de overgave aan de leraar stelselmatig is misbruikt.
+
+#### Wat er concreet mee te doen is
+
+- Lees één hoofdstuk per keer en laat het staan; het boek is niet op doorlezen
+gebouwd.
+- Merk bij ergernis het ogenblik op tussen de prikkel en de reactie, en houd
+dat drie ademhalingen lang vast voordat je iets zegt.
+- Probeer tonglen eerst op een klein ongemak van iemand die je goed kent.
+- Zoek bij aanhoudende somberheid of angstklachten hulp die dit boek niet
+levert.
+
+#### Wat je hierna leest
+
+- 341. The Wisdom of Insecurity. Alan Watts stelt in *The Wisdom of
+Insecurity* uit 1951 dezelfde diagnose in westerse bewoordingen: het zoeken
+naar zekerheid is zelf de bron van de onrust.
+- 149. The Power of Now. *The Power of Now* van Eckhart Tolle gaat eveneens
+over het loslaten van de greep op de toekomst, zonder traditie of leraar
+erachter en met een veel stelliger belofte.
+- 377. The Untethered Soul. Michael Singer beschrijft in *The Untethered Soul*
+een verwante oefening in overgave, in een taal die uit de yoga komt.
+- 333. Altered Traits. Goleman en Davidson zetten in *Altered Traits* op een
+rij wat het laboratoriumonderzoek naar meditatie heeft opgeleverd, inclusief
+de studies die niet standhielden.
+
+## 1169. The Woman in the Shaman's Body
+
+Barbara Tedlock, 2005. *The Woman in the Shaman's Body: Reclaiming the
+Feminine in Religion and Medicine* (Bantam, New York, 2005, 378 blz., ISBN
+978-0-553-10853-8). Er bestaat geen Nederlandse vertaling; de samenvatting is
+op de Engelse editie gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `sjamanisme`, `antropologie`, `feminisme`, `ritueel`
+
+Tedlock (1942-2023) was hoogleraar antropologie aan de universiteit van
+Buffalo en deed jarenlang veldwerk bij de Zuni in New Mexico en bij de
+K'iche'-Maya in het Guatemalteekse hoogland, waar zij in 1976 samen met haar
+man Dennis Tedlock tot dagbewaarder werd ingewijd. In dit boek betoogt zij dat
+het sjamanisme oorspronkelijk vrouwenwerk was en dat de wetenschappelijke
+overlevering dat heeft toegedekt.
+
+Het boek loopt op twee sporen. Het ene is een herlezing van een eeuw
+etnografie, waarin vrouwen volgens haar stelselmatig als helpster van een
+mannelijke sjamaan zijn beschreven. Het andere is het verslag van haar eigen
+leerweg bij haar Maya-leraren don Andrés en doña Talín.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Tedlock stelt dat het beeld van de sjamaan als man voortkomt
+uit de manier waarop westerse onderzoekers hebben gekeken en niet uit wat zij
+aantroffen. Waar een echtpaar samen genas, noteerden zij een sjamaan met
+assistente; waar het gezag van een genezeres op menstruatie, bevalling en
+droom berustte, zagen zij huishoudelijke folklore. Haar verdergaande claim is
+dat vrouwen niet alleen aanwezig waren, maar de oorspronkelijke dragers van
+het ambt, en dat juist de lichamelijke ervaringen die de westerse
+godsdienstwetenschap als onrein of oninteressant terzijde legde de bron van
+dat gezag vormden.
+
+#### De gang van het boek
+
+**Twee boeken onder één band**
+
+Wie dit boek leest, leest er twee. Het eerste is een vakinhoudelijk betoog:
+een herlezing van etnografische verslagen uit Siberië, Mongolië, Korea, het
+Amazonegebied en Noord-Amerika, met de vraag hoe daarin over vrouwen is
+geschreven. Het tweede is een verslag in de ik-vorm van Tedlocks eigen
+scholing bij de K'iche'-Maya, waarin zij vertelt wat zij leerde, droomde en
+meemaakte.
+
+Die twee sporen zijn afwisselend door het boek gevlochten. Tedlock verdedigt
+die vorm onder de naam narratieve etnografie: de opvatting dat de onderzoeker
+in de tekst hoort te staan, omdat wat zij te weten komt van haar aanwezigheid
+afhangt. Voor de beoordeling van het boek loont het de twee lagen uit elkaar
+te houden, omdat zij op verschillende manieren te controleren zijn.
+
+**Haar eigen leerweg**
+
+Tedlock kwam in de jaren zeventig met haar man in Momostenango, in het
+hoogland van Guatemala, en werd daar in 1976 samen met hem opgeleid door de
+dagbewaarder Andrés Xiloj en diens vrouw Talín. De opleiding beslaat één ronde
+van de tweehonderdzestigdaagse rituele telling. In die tijd leert de leerling
+de voortekens bij elke dagnaam, de plaatsen waar geofferd wordt, en het lezen
+van wat de K'iche' koyopa noemen, bloedbliksem: schokjes en trekkingen in het
+eigen lichaam die tijdens een waarzegging als antwoord worden gelezen.
+
+Zij beschrijft ook haar grootmoeder van Ojibwe-afkomst, en zij gebruikt haar
+eigen dromen als materiaal. Deze laag geeft het boek zijn zeggingskracht en
+maakt het tegelijk het lastigst te toetsen: het gaat om ervaringen die alleen
+zij heeft gehad.
+
+**Het bezwaar tegen Eliade en de vroege veldwerkers**
+
+De belangrijkste tegenstander in het boek is Mircea Eliade, wiens studie over
+het sjamanisme uit 1951 het vak decennialang heeft bepaald. Tedlock verwijt
+hem twee dingen. Hij werkte vrijwel geheel met tweedehands bronnen van
+wisselende kwaliteit, en zijn model van de sjamaan als de man die naar de
+hemel opstijgt maakte van vrouwelijke praktijken een afgeleide of ontaarde
+vorm.
+
+Daarnaast wijst zij op de schrijfpraktijk van vroege veldwerkers. Wanneer twee
+mensen samen een genezing uitvoerden, werd de vrouw in het verslag helpster,
+ook wanneer beiden zeiden dat zij het werk deelden. Dit deel van het betoog is
+het best gedocumenteerd: het gaat over teksten die er liggen en die iedereen
+kan nalezen.
+
+**Het lichaam als bron van gezag**
+
+De kern van Tedlocks positieve betoog is dat het sjamanistische gezag van
+vrouwen op lichamelijke ervaring rust. Zij leest menstruatie niet als een
+taboe dat vrouwen buitensluit; in veel tradities geldt de menstruatietijd
+volgens haar juist als een periode van verscherpte waarneming. De bevalling
+behandelt zij als een doorleefde grenservaring die in de opleiding van
+genezeressen meetelt, en een deel van het boek gaat over wat zij
+sjamanistische verloskunde noemt: de vroedvrouw die tegelijk ritueel handelt.
+
+Ook erotiek en extase krijgen ruimte. Trance is in haar beschrijving een
+lichamelijke toestand, bereikt door aanraking, beweging, ademhaling en
+opwinding, en geen geestelijke gebeurtenis los van het lichaam. Dat verklaart
+volgens haar meteen waarom de negentiende- en twintigste-eeuwse
+godsdienstwetenschap er weinig raad mee wist: die zocht naar leerstellingen en
+visioenen.
+
+**Dromen, planten en weefsels**
+
+Een apart deel gaat over dromen. Tedlock had daarover al eerder gepubliceerd
+als redacteur van de bundel *Dreaming: Anthropological and Psychological
+Interpretations* uit 1987. Haar punt is dat het vertellen en uitleggen van
+dromen in veel gemeenschappen een openbare, geregelde bezigheid is met eigen
+omgangsvormen, en dat vrouwen daarin vaak de gezaghebbende uitleggers zijn.
+
+Verder behandelt zij plantenkennis en kruidengeneeskunde, en het weven. Bij
+het weven legt zij een verband tussen de patronen, de hemellichamen en
+godinnenfiguren, en zij betoogt dat het handwerk van vrouwen een drager is van
+kosmologische kennis die door onderzoekers als versiering is afgedaan.
+
+**Rollen die schuiven**
+
+Het boek besteedt aandacht aan mensen die tussen de gangbare rollen in staan.
+Tedlock beschrijft genderwisseling in sjamanistische tradities: mannen die als
+vrouw optreden, vrouwen die als man leven, en het gezag dat daaruit voortkomt.
+Zij noemt onder meer de Kutenai in het noordwesten van de Verenigde Staten.
+
+Ook behandelt zij vrouwen als krijger, jager en profetes. Die hoofdstukken
+dienen om te laten zien dat de taakverdeling waarop het oude beeld steunt in
+de bronnen zelf lang niet zo scherp ligt.
+
+**De omvang van de claim**
+
+Het bereik van het boek loopt van rotstekeningen in Afrika tot hedendaagse
+ceremonies in Noord-Mongolië. Die spreiding is de reden dat het betoog indruk
+maakt en tegelijk de reden dat het kwetsbaar is: hoe verder terug in de tijd,
+hoe minder het materiaal kan zeggen over wie welke rol vervulde.
+
+Er staan twee stellingen naast elkaar die vaak als één worden gelezen. De
+eerste is dat vrouwen in de bekende tradities veel vaker sjamaan waren dan de
+verslagen doen vermoeden. De tweede is dat het ambt oorspronkelijk van vrouwen
+was. De eerste rust op documenten, de tweede op gevolgtrekking.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| sjamaan | in Tedlocks gebruik iemand die in een veranderde bewustzijnstoestand namens een gemeenschap geneest, waarzegt en bemiddelt; het woord komt uit het Evenki van Siberië. |
+| ajq'ij (dagbewaarder) | K'iche'-Maya beroepsbeoefenaar die de tweehonderdzestigdaagse telling beheerst en daarmee waarzegt, offert en geneest. |
+| koyopa (bloedbliksem) | schokjes in het eigen lichaam die een K'iche'-waarzegger tijdens een raadpleging als antwoord leest. |
+| narratieve etnografie | Tedlocks term voor een onderzoeksverslag waarin de onderzoeker als deelnemer zichtbaar in de tekst blijft staan. |
+| sjamanistische verloskunde | haar aanduiding voor de vroedvrouw die tegelijk ritueel handelt en de bevalling als geestelijke overgang begeleidt. |
+| extase | de veranderde toestand waarin het sjamanistisch werk wordt gedaan; bij Tedlock langs lichamelijke weg bereikt. |
+| droomgetuigenis | het openbaar vertellen en uitleggen van dromen als geregelde en gezaghebbende bezigheid binnen een gemeenschap. |
+| genderwisseling | het aannemen van de rol, kleding en taken van het andere geslacht binnen een rituele functie. |
+| inwijding | de opleiding die eindigt in erkenning door leraren en gemeenschap; bij de K'iche' één ronde van tweehonderdzestig dagen. |
+
+#### Waar het argument op rust
+
+De stevigste grond onder het boek is Tedlocks eigen veldwerk. Zij publiceerde
+daarover eerder in *Time and the Highland Maya* (1982) over Momostenango en in
+*The Beautiful and the Dangerous* (1992) over de Zuni. Dat werk is in het vak
+gewogen en is de reden dat haar waarnemingen over de K'iche' gewicht in de
+schaal leggen.
+
+De tweede grond is tekstueel: het naast elkaar leggen van etnografische
+verslagen en het aanwijzen waar de beschrijving afwijkt van wat de beschreven
+personen zelf zeiden. Die bewijsvoering is navolgbaar, want de bronnen liggen
+er nog.
+
+De derde grond is de zwakste. Voor de bewering over de oorsprong leunt zij op
+prehistorisch materiaal, rotskunst en graven, en op de spreiding van
+vrouwelijke sjamanen over ver uiteenliggende gebieden. Rotskunst en grafgiften
+leggen geen functie vast, en spreiding in het heden zegt weinig over volgorde
+in het verleden. Het boek verscheen bovendien bij een publieksuitgeverij, met
+eindnoten in plaats van een doorlopend notenapparaat, waardoor niet elke stap
+in het betoog terug te volgen is.
+
+#### Wat er tegen in te brengen valt
+
+De historische claim is van een soort die met het beschikbare materiaal niet
+te beslissen valt. Wie beweert dat het sjamanisme oorspronkelijk vrouwenwerk
+was, moet iets weten over een tijd waaruit geen enkele beschrijving van rollen
+bestaat. Uit een graf met bijzondere bijgiften volgt niet welke handelingen de
+begravene verrichtte, en uit een rotstekening volgt niet wie de tekenaar was
+of wie er is afgebeeld. Haar aantoonbare punt, dat vrouwen uit de verslagen
+zijn weggeschreven, staat veel steviger dan haar oorsprongspunt, en het boek
+nodigt uit om ze als één stelling te lezen.
+
+Daarbovenop staat de vraag of de categorie zelf houdbaar is. Het woord sjamaan
+komt uit het Evenki en sloeg oorspronkelijk op Siberische beroepsbeoefenaars.
+Alice Kehoe betoogde in *Shamans and Religion* uit 2000 dat het uitrekken van
+die term over Maya-dagbewaarders, Koreaanse mudang en Amazonegenezers meer
+verhult dan verheldert, en dat Eliade daarin de grootste hand heeft gehad. Wie
+dat bezwaar aanvaardt, houdt geen wereldwijd verschijnsel over waarover een
+uitspraak over de oorsprong nog zin heeft. Tedlock deelt Kehoes kritiek op
+Eliade en gebruikt tegelijk de categorie die Kehoe afwijst.
+
+Het derde punt betreft het onderzoek zelf. Deelnemende waarneming waarbij de
+onderzoeker ingewijde wordt, levert kennis op die anders gesloten blijft; dat
+is de reden dat antropologen het doen. De prijs is dat de positie van waaruit
+toetsing zou moeten plaatsvinden dezelfde positie is die tot de zaak
+verplicht. Wie leerling is van don Andrés, heeft beloften gedaan over wat zij
+doorvertelt en hoe. Tedlocks narratieve etnografie maakt dat probleem
+zichtbaar door de onderzoeker in de tekst te zetten. Opgelost is het daarmee
+niet; het is verplaatst naar de lezer, die volledig op haar verslag is
+aangewezen.
+
+Ten slotte de omgeving waarin het boek terechtkomt. Het verscheen bij een
+publieksuitgeverij, met flapteksten over een mythe die aan diggelen gaat, in
+een markt waar cursussen sjamanisme aan westerse deelnemers worden verkocht.
+Kehoe en anderen hebben die neosjamanistische praktijk aangewezen als
+toe-eigening van inheemse tradities. Tedlock werkte jarenlang met bij naam
+genoemde leraren in een bestaande gemeenschap, wat haar van dat verwijt
+onderscheidt, al levert het boek wel materiaal aan een lezerskring die dat
+onderscheid niet maakt.
+
+#### Wat er concreet mee te doen is
+
+- Houd bij het lezen de twee lagen uit elkaar: het herlezen van bronnen en het
+verslag van haar eigen inwijding.
+- Toets een uitspraak over de prehistorie aan de vraag welk voorwerp of welke
+tekst haar zou kunnen weerleggen.
+- Kijk bij oudere etnografie na hoe de rollen zijn benoemd en of de beschreven
+personen zelf aan het woord komen.
+- Lees haar eerdere vakwerk erbij wanneer de Maya-hoofdstukken je overtuigen;
+daar staat het onderzoek dat eronder ligt.
+
+#### Wat je hierna leest
+
+- 758. Shamanic Voices. Joan Halifax bracht in *Shamanic Voices* uit 1979
+verslagen van sjamanen in de eerste persoon bijeen; Tedlock werkt met
+hetzelfde soort materiaal en stelt er een andere vraag aan.
+- 608. Het gewijde en het profane. *Het gewijde en het profane* van Mircea
+Eliade geeft het model van godsdienstwetenschap waartegen Tedlock zich keert.
+- 611. The White Goddess. Robert Graves bouwde in *The White Goddess* een
+oergodin op uit poëtisch en mythologisch materiaal; dat boek laat zien hoe ver
+zo'n reconstructie van de bronnen af kan komen te staan.
+- 1170. States of Grace. Charlene Spretnak zet in *States of Grace* een
+verwant beroep op een vrouwelijk religieus verleden in, daar als bouwsteen
+voor een cultuurfilosofisch betoog.
+
+## 1170. States of Grace
+
+Charlene Spretnak, 1991. *States of Grace: The Recovery of Meaning in the
+Postmodern Age* (HarperSanFrancisco, San Francisco, 1991, 337 blz., ISBN
+978-0-06-250824-9). Er bestaat geen Nederlandse vertaling; de samenvatting is
+op de Engelse editie gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `postmodernisme`, `cultuurfilosofie`, `religie`, `feminisme`
+
+Spretnak (1946) is schrijfster en filosofe, medeoprichter van de Amerikaanse
+Groenen en een van de bekendste stemmen in het ecofeminisme. In dit boek uit
+1991 aanvaardt zij de postmoderne afrekening met de moderniteit en stelt zij
+vast dat er daarna niets is overgebleven om op te leven.
+
+Zij zet vier religieuze tradities in tegen die leegte: het boeddhisme, de
+inheemse tradities van Noord-Amerika, de godinnenspiritualiteit en het
+semitische erfgoed van jodendom, christendom en islam. Wat zij daaruit
+samenstelt noemt zij ecologisch postmodernisme.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Spretnak neemt de postmoderne kritiek op de moderniteit over:
+het geloof in vooruitgang, het losstaande ik en de natuurwetenschap als enig
+geldig wereldbeeld hebben mensen losgemaakt van hun lichaam, hun omgeving en
+elkaar. Haar bezwaar richt zich op wat er daarna gebeurde. Het deconstructieve
+postmodernisme heeft volgens haar de bouwwerken van de moderniteit afgebroken
+zonder iets na te laten waarmee te leven valt, omdat het elke betekenis tot
+cultureel voortbrengsel verklaart en daarmee ook de ervaring van verbondenheid
+met de aarde tot louter verhaal maakt. De vier wijsheidstradities bewaren
+volgens haar wel kennis van lichaam, plaats en gemeenschap, en uit die kennis
+wil zij een wereldbeeld opbouwen dat zowel de moderniteit als haar afbraak
+achter zich laat.
+
+#### De gang van het boek
+
+**De diagnose: leegte na de afbraak**
+
+Het betoog begint bij een verlies. De moderniteit heeft volgens Spretnak de
+wereld in stukken gesneden en alleen de natuurwetenschap als geldig beeld
+daarvan overgehouden. Het postmodernisme heeft vervolgens laten zien dat ook
+dat beeld het voortbrengsel van een bepaalde cultuur is. Wat zij bij die
+tweede stap mist, is enige aanwijzing hoe er dan geleefd moet worden.
+
+Spretnak beschrijft een tijd waarin betekenis als willekeurig geldt. Zij
+verbindt die toestand met de ecologische crisis: wie de aarde alleen als
+voorstelling kan denken, houdt geen grond over om haar te ontzien. Dat verband
+is de spil van het boek.
+
+**Wat zij het deconstructieve postmodernisme verwijt**
+
+Onder deconstructief postmodernisme vat Spretnak het werk samen dat in de
+Amerikaanse geesteswetenschappen van de jaren tachtig onder die noemer
+circuleerde, met Derrida, Foucault en Lyotard als de namen die zij noemt. Haar
+verwijt luidt dat deze denkers de gedachte hebben gevestigd dat alles taal en
+machtsverhouding is, dat er onder de voorstelling geen ervaring ligt, en dat
+elk beroep op natuur of lichaam verdacht is als een poging het toevallige tot
+noodzakelijk te verklaren.
+
+Zij noteert wat dat volgens haar politiek oplevert: een houding waarin verzet
+even goed te ontleden valt als onderdrukking, en waarin een beweging die zich
+op de aarde beroept nauwelijks meer iets kan zeggen. Het boek sluit af met een
+appendix over feministische lezingen van de westerse filosofiegeschiedenis,
+waarin zij die uitgangspunten uitwerkt.
+
+**Het boeddhisme**
+
+Van het boeddhisme neemt Spretnak de leer over de aard van de geest en over de
+herkomst van angst, begeerte en geweld. Zij leest de traditie als een
+uitgewerkte beschrijving van hoe het gevoel een afgescheiden ik te zijn
+ontstaat en zichzelf in stand houdt, en van de oefening waarmee dat gevoel
+doorzien wordt. Het aantrekkelijke van deze traditie is voor haar dat zij
+daarvoor geen godsleer nodig heeft.
+
+Zij plaatst er een aantekening bij. Het boeddhisme kent in haar behandeling
+een neiging tot terugtrekking uit de wereld, en zij zoekt uitdrukkelijk de
+kant van de traditie op waarin mededogen tot handelen leidt.
+
+**De inheemse tradities van Noord-Amerika**
+
+Bij de inheemse tradities gaat het Spretnak om verwantschap: het besef in een
+web van betrekkingen te staan waarin dieren, planten en plaatsen partij zijn
+en geen decor. Zij benadrukt dat kennis daar aan een bepaalde plek gebonden is
+en zich niet als algemene leer laat overplanten.
+
+Dat laatste levert een spanning op die in de opzet van het boek besloten ligt.
+Een Amerikaanse auteur van Europese afkomst die deze tradities aanhaalt voor
+een algemeen lezerspubliek, gebruikt kennis waarvan de dragers zeggen dat die
+aan hun gemeenschap gebonden is. Het hoofdstuk berust op Engelstalige
+literatuur en niet op eigen veldwerk, en dat is een ander soort toegang dan de
+tradities zelf erkennen.
+
+**De godinnenspiritualiteit**
+
+Het derde deel gaat over wat Spretnak godinnenspiritualiteit noemt: de
+hedendaagse beweging die zich beroept op een prehistorisch verleden waarin het
+heilige vrouwelijk werd gedacht en de samenleving niet op overheersing
+berustte. Zij was met dat materiaal vertrouwd; haar eerste boek, *Lost
+Goddesses of Early Greece* uit 1978, bewerkte Griekse godinnenmythen tot een
+laag die ouder zou zijn dan de olympische.
+
+De inzet is hier lichamelijk. Wat deze traditie volgens haar te bieden heeft,
+is een omgang met het lichaam, met seksualiteit en met wat zij het
+aardelichaam noemt, waarin die zaken niet lager staan dan de geest. De
+archeologische onderbouwing komt van Marija Gimbutas, wier reconstructie van
+een vreedzaam, moedergericht Oud-Europa dat door ruitervolken uit de steppe
+werd omvergeworpen in die jaren nog gezag had.
+
+**Het semitische erfgoed**
+
+Het vierde deel behandelt jodendom, christendom en islam samen. Spretnak zoekt
+daar wat de andere drie tradities volgens haar minder scherp hebben: een leer
+over rechtvaardigheid, over verplichting jegens de vreemdeling en over
+gemeenschap als plaats waar het heilige zich voordoet. Zij haalt de
+profetische lijn naar voren en de nadruk op geschiedenis als het toneel waarop
+het ertoe doet wat mensen doen.
+
+Zij erkent dat juist deze tradities de scherpste vorm van het scheidingsdenken
+hebben voortgebracht: God tegenover schepping, geest tegenover stof, man
+tegenover vrouw. Haar keuze is om binnen de traditie de lijnen te zoeken die
+dat tegenspreken.
+
+**Ecologisch postmodernisme**
+
+Het slot brengt de vier bij elkaar onder een naam die Spretnak zelf heeft
+gemunt: ecologisch postmodernisme. De kern is dat alles wat bestaat in
+betrekkingen bestaat en in beweging is, dat de mens daarin geen uitzondering
+vormt, en dat betekenis uit die verbondenheid voortkomt in plaats van uit een
+cultureel akkoord.
+
+Haar voorstel sluit aan bij wat in dezelfde jaren constructief postmodernisme
+heette, de stroming rond David Ray Griffin die teruggreep op de
+procesfilosofie van Whitehead. Spretnak legt de nadruk op ervaring en ritueel:
+een wereldbeeld dat alleen op papier bestaat, verandert volgens haar niets.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| deconstructief postmodernisme | Spretnaks verzamelnaam voor het denken dat betekenis als cultureel voortbrengsel en daarmee als willekeurig behandelt. |
+| ecologisch postmodernisme | haar eigen tegenvoorstel: een wereldbeeld waarin alles in betrekking en in beweging bestaat en waarin betekenis uit verbondenheid voortkomt. |
+| wijsheidstradities | de vier overleveringen die zij bespreekt: boeddhisme, de inheemse tradities van Noord-Amerika, godinnenspiritualiteit en het semitische erfgoed. |
+| aardelichaam (Earthbody) | haar term voor de aarde begrepen als lichaam waarvan het menselijk lichaam een onderdeel is. |
+| staat van genade | de titelterm; het doorleefde besef van verbondenheid dat volgens haar in alle vier tradities wordt beschreven en geoefend. |
+| ecofeminisme | de opvatting dat de overheersing van de natuur en de overheersing van vrouwen uit dezelfde denkvorm voortkomen. |
+| kosmologie | bij Spretnak het verhaal dat een cultuur over de ordening van het geheel vertelt, niet het vakgebied van de sterrenkunde. |
+| Oud-Europa | Gimbutas' aanduiding voor de neolithische culturen tussen de Adriatische en de Egeïsche Zee, door Spretnak overgenomen als godinnencultuur. |
+
+#### Waar het argument op rust
+
+Dit is een betoog en geen onderzoeksverslag. Spretnak voert geen eigen
+materiaal aan; zij leest bronnen en secundaire literatuur en trekt daar een
+lijn doorheen. De vraag naar de bewijskracht valt bij zo'n boek uiteen in twee
+vragen: is haar weergave van de tradities getrouw, en houdt de gevolgtrekking
+stand.
+
+Haar positie geeft het betoog op één punt gewicht. Spretnak schreef in 1984
+samen met Fritjof Capra *Green Politics*, over de Duitse Groenen, en richtte
+kort daarna de Amerikaanse Groenen mee op. De politieke inzet van het boek,
+dat een wereldbeeld gevolgen heeft voor hoe mensen met land en lichaam omgaan,
+komt uit die praktijk en ligt er niet los bovenop.
+
+De vier delen verschillen sterk in stevigheid. De hoofdstukken over het
+boeddhisme en over het semitische erfgoed rusten op tekstuele tradities die
+iedereen kan naslaan, ook al leest zij die in vertaling en in samenvatting.
+Het hoofdstuk over de godinnenspiritualiteit rust op een archeologische
+reconstructie die toen al werd bestreden en die sindsdien grotendeels is
+verlaten. Dat verschil werkt door in het geheel, omdat de vier delen als
+gelijkwaardig worden gepresenteerd.
+
+#### Wat er tegen in te brengen valt
+
+Het eerste bezwaar betreft haar tegenstander. Spretnak behandelt Derrida,
+Foucault en Lyotard als vertegenwoordigers van één positie, en vat die positie
+samen als de leer dat betekenis willekeurig is. Geen van hen heeft dat
+beweerd. Derrida heeft herhaaldelijk bestreden dat deconstructie neerkomt op
+de gedachte dat alles kan; Foucaults werk bestaat uit historisch onderzoek met
+een uitgesproken morele inzet; Lyotards bezwaar gold de rechtvaardiging van
+instellingen door grote verhalen en niet de betekenis als zodanig. Wat zij
+bestrijdt lijkt eerder op de versie die in de Amerikaanse geesteswetenschappen
+van de jaren tachtig rondging dan op het werk van die auteurs zelf.
+
+Het tweede bezwaar komt uit dezelfde hoek en raakt haar eigen werkwijze. Als
+het verwijt aan de moderniteit is dat zij de ervaring van één cultuur tot
+algemeen menselijke maat heeft verheven, dan doet een boek dat vier tradities
+uitkamt op wat zij gemeen hebben iets vergelijkbaars. De tradities worden
+gelezen op wat in haar betoog past, in vertaling en verkorting, en de plaatsen
+waar hun aanspraken elkaar uitsluiten blijven onbesproken. Een boeddhistische
+ontkenning van een blijvend zelf en een profetische godsleer laten zich niet
+zonder verlies in hetzelfde wereldbeeld schuiven.
+
+Het derde bezwaar treft het godinnendeel. De reconstructie van Marija
+Gimbutas, waarin neolithische beeldjes als godinnenverering en Oud-Europa als
+een vreedzame, moedergerichte beschaving worden gelezen, is in de jaren
+negentig door vakarcheologen afgewezen; Lynn Meskell in 1995 en Ruth Tringham
+en Margaret Conkey in 1998 betoogden dat de beeldjes die betekenis niet
+dragen. Cynthia Eller stelde in *The Myth of Matriarchal Prehistory* uit 1999
+dat een feministische politiek die op dit verleden steunt op zand is gebouwd.
+Spretnak heeft die afwijzing niet aanvaard: in 2011 publiceerde zij het
+artikel *Anatomy of a Backlash*, waarin zij de verwerping van Gimbutas als een
+georganiseerde reactie beschrijft. Van Gimbutas' werk is het steppedeel, de
+herkomst van de Indo-Europese talen, sindsdien door onderzoek aan oud DNA
+ondersteund; het godinnendeel is dat niet.
+
+Ten slotte blijft onduidelijk wat het voorstel in de praktijk vraagt. Spretnak
+beschrijft een wereldbeeld en de ervaringen die erbij horen, en zij stelt dat
+ritueel en deelname nodig zijn. Welke gemeenschap dat ritueel draagt, en hoe
+iemand zonder traditie eraan komt zonder opnieuw te lenen bij tradities die
+niet de zijne zijn, staat er niet.
+
+#### Wat er concreet mee te doen is
+
+- Lees eerst het hoofdstuk over de traditie die je het minst kent; daar valt
+het sterkst op hoe zij samenvat.
+- Zet bij elke bewering over het neolithicum de vraag welk vondstmateriaal
+haar draagt.
+- Neem Derrida, Foucault of Lyotard er zelf bij voordat je haar weergave van
+hen overneemt.
+- Onderscheid haar diagnose van de moderniteit, die breed wordt gedeeld, van
+haar tegenvoorstel, dat dat niet wordt.
+
+#### Wat je hierna leest
+
+- 565. Simulacres et simulation. Baudrillard levert in *Simulacres et
+simulation* precies het soort denken waar Spretnak zich tegen keert: een
+wereld waarin het onderscheid tussen beeld en werkelijkheid is verdwenen.
+- 1163. The Reenchantment of the World. Morris Berman beschrijft in *The
+Reenchantment of the World* hetzelfde verlies aan verbondenheid, tien jaar
+eerder en met de wetenschapsgeschiedenis als ingang.
+- 1169. The Woman in the Shaman's Body. Barbara Tedlock werkt in *The Woman in
+the Shaman's Body* een verwante aanspraak op een vrouwelijk religieus verleden
+uit, met veldwerk als grondslag in plaats van cultuurkritiek.
+- 604. The Perennial Philosophy. Aldous Huxley bracht in *The Perennial
+Philosophy* uit 1945 al de kern van meerdere tradities samen; dezelfde vraag
+naar wat er bij zo'n samenvoeging verdwijnt geldt daar.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
@@ -168210,109 +179439,112 @@ Alfabetisch, met de nummers van de titels die de tag dragen.
 `acceptance and commitment therapy` 457, 460 · `achttiende eeuw` 321 ·
 `acteren` 385 · `actie` 427 · `actualiteit` 237 · `actueel` 67 · `adel` 235 ·
 `ademhaling` 87, 118, 318, 332, 432 · `adleriaanse-psychologie` 335 ·
-`advaita` 527, 1101 · `advaita vedanta` 520, 1102 · `adverteren` 308 ·
-`advies` 473 · `adviespraktijk` 151 · `adviseren` 511 · `affirmaties` 117,
-184, 188, 190, 380, 403, 439, 560 · `afhankelijkheid` 167 · `afleiding` 290 ·
-`aforismen` 2, 17, 179, 216, 218, 228, 391, 394, 462, 473, 535, 832 · `afrika`
-589, 591, 593, 594, 595, 596, 597, 599, 600, 602, 1111, 1112, 1113 ·
-`afrikaanse diaspora` 601 · `afrocentrisme` 588, 589, 591, 592, 593, 595, 597
-· `afscheid nemen` 285 · `afschrikking` 217 · `afvallen` 557 ·
+`advaita` 527, 1101 · `advaita vedanta` 520, 1102 · `adventisme` 1138 ·
+`adverteren` 308 · `advies` 473 · `adviespraktijk` 151 · `adviseren` 511 ·
+`affirmaties` 117, 184, 188, 190, 380, 403, 439, 560 · `afhankelijkheid` 167 ·
+`afleiding` 290 · `aforismen` 2, 17, 179, 216, 218, 228, 391, 394, 462, 473,
+535, 832 · `afrika` 589, 591, 593, 594, 595, 596, 597, 599, 600, 602, 1111,
+1112, 1113 · `afrikaanse diaspora` 601 · `afrocentrisme` 588, 589, 591, 592,
+593, 595, 597 · `afscheid nemen` 285 · `afschrikking` 217 · `afvallen` 557 ·
 `afwezige-vader` 4 · `agenda` 512 · `agressie` 223, 339 · `alchemie` 631, 633,
-642, 646, 1104 · `alcohol` 4 · `algoritmen` 476, 477, 479 · `alledaags` 89 ·
-`alledaagse werkelijkheid` 721 · `allegorie` 222, 524, 631, 1107 · `allocatie`
-507, 813 · `amazon` 257 · `ambacht` 6, 12, 13, 17, 18, 832 · `ambitie` 75 ·
-`amerika` 600 · `Amerika` 114, 431 · `amerikaans` 117, 118, 120, 132, 133,
-134, 136, 158 · `amerikaanse buitenlandpolitiek` 693, 694 · `amerikaanse
-droom` 284 · `amerikaanse geschiedenis` 621, 691, 827 · `Amerikaanse
-geschiedenis` 402 · `amerikaanse revolutie` 243, 924 · `Amsterdam` 295 ·
-`anarchisme` 616, 620, 621, 624, 625, 626, 916, 917, 926 ·
-`anarchokapitalisme` 627, 629 · `anatomie` 241, 412 · `Andalusië` 8 · `Andes`
-521 · `angst` 53, 58, 107, 119, 131, 136, 140, 181, 214, 252, 341, 401, 440,
-548 · `angst voor de dood` 377 · `animatie` 41 · `anomie` 715 · `Antarctica`
-36 · `anthologie` 189 · `antieke filosofie` 586 · `antropologie` 223, 410,
-602, 716, 717, 718, 719, 722, 723, 758, 764, 1115 · `antwerpen` 113 ·
-`apartheid` 26, 523 · `Apple` 46, 231 · `apps` 294 · `arbeid` 6, 173, 297,
-390, 905 · `arbeidsethos` 266 · `archeologie` 600, 762, 1117 · `archetype` 360
-· `archetypen` 357, 404, 407, 409, 410 · `Argentinië` 521 · `argumentatie`
-421, 437, 511 · `argumenten` 63 · `argumenteren` 438 · `Aristoteles` 438 ·
-`armoede` 26, 234, 254 · `Arthashastra` 370 · `assertiviteit` 162 ·
-`astrologie` 632, 836, 1118, 1119 · `asymmetrie` 282 · `atletiek` 31 ·
-`atomisme` 281 · `Auschwitz` 48 · `Australië` 447 · `autobiografie` 358, 440,
-1108 · `automatisering` 297, 539 · `autonomie` 6, 50 · `autoriteit` 215 ·
-`autotelie` 200 · `ayahuasca` 759 · `backtesten` 482, 502 · `banken en
-verzekeraars` 497 · `barok` 216 · `basisbehoeften` 107 · `bbc` 82 ·
-`bedrijfsbestuur` 567 · `bedrijfscultuur` 170, 257, 270 · `bedrijfsgroei` 350
-· `bedrijfsleven` 209, 293, 903 · `bedrijfsonderzoek` 353 · `bedrijfssystemen`
-264 · `beeldcultuur` 563, 828 · `beeldverhaal` 561 · `beginners` 112 ·
-`behoeften` 35 · `beinvloeding` 123, 126 · `beïnvloeding` 399 · `bekentenis`
-60 · `belangenverstrengeling` 138, 752 · `beleggen` 21, 64, 144, 233, 277,
-351, 474, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490,
-492, 496, 498, 499, 500, 501, 502, 503, 504, 505, 804, 807, 808, 810, 811,
-812, 813, 814, 815, 816, 817 · `beleid` 65 · `belichaamde cognitie` 755 ·
-`beloningssysteem` 418 · `bemiddeling` 35 · `beroemdheden` 128 · `beroemdheid`
-563 · `beschadigd-bestand` 115, 130 · `beschaving` 57, 593, 820, 939 ·
-`beslissen` 55 · `beslissingen` 197 · `besluiten` 47, 59, 69, 137 ·
-`besluitvorming` 151, 166, 170, 174, 209, 270, 282, 283, 293, 299, 364, 396,
-423, 424, 426, 450, 451, 468, 475, 510, 906, 908, 909 · `bestseller` 8, 37,
-250 · `betekenis` 143 · `bethel` 559 · `betrokkenheid` 472 · `beurs` 80, 488,
-814 · `beurshandel` 487 · `beurskrach` 809 · `beursrendement` 353 · `beweging`
-77, 84 · `bewijs` 63, 658, 660 · `bewustwording` 103 · `bewustzijn` 148, 169,
-200, 275, 340, 377, 518, 580, 585, 652, 663, 759, 760, 761, 763, 767, 918,
-927, 928 · `bewustzijnsniveaus` 449 · `bezit` 37 · `bhagavad gita` 569 ·
-`bias` 209 · `bijeenkomsten` 304 · `bijgeloof` 63 · `bijna-doodervaring` 585 ·
-`biografie` 31, 46, 189, 231, 240, 241, 243, 247, 266, 267, 269, 320, 328,
-402, 454, 514, 537, 558, 649, 658, 659, 689, 821, 905 · `biohacking` 316 ·
-`biologie` 66, 88, 89, 90, 91, 322, 663, 818, 823, 941, 949, 950, 1120 ·
-`biologie van gedrag` 273 · `biologische klok` 326, 329, 552 ·
-`biotechnologie` 236, 413 · `blackjack` 505 · `bloedvaten` 86 · `bloedwaarden`
-313 · `bloemlezing` 758 · `blokkade` 14 · `boeddhisme` 111, 287, 333, 341,
-401, 528, 755, 1106, 1109, 1110 · `bootstrapping` 369 · `brainstormen` 33 ·
-`branding` 443 · `brein` 414 · `brieven` 292, 517 · `broers` 10 ·
-`bronnenkritiek` 691 · `bronnenuitgave` 641 · `budgetteren` 159, 233, 464 ·
-`buitenlandse hulp` 221 · `burgerlijk verzet` 617 · `burgerschap` 243 ·
-`burn-out` 135, 207, 400, 551, 552 · `bushido` 535 · `cafeïne` 52 ·
-`Californië` 10 · `carl jung` 258 · `carrière` 146, 158, 388 · `cases` 40 ·
-`cashflow` 37 · `celbiologie` 419 · `censuur` 685 · `chakra's` 432 ·
-`challenger` 62 · `Chanakya` 370 · `channeling` 549, 670, 677, 678, 679, 768,
-1122 · `chaos` 74, 347 · `chapbook` 100 · `charismatisch christendom` 559 ·
-`China` 348 · `Chinese filosofie` 389, 394, 1104, 1105 · `Chinese
-geschiedenis` 219 · `chiropractie` 432 · `christendom` 162, 201, 391, 603,
-606, 612, 754 · `chronobiologie` 326, 329 · `cia` 693, 750 · `cijfers` 39, 65
-· `civilisatiekritiek` 298 · `classificatie` 719 · `coaching` 161, 291, 441 ·
-`cognitie` 656 · `cognitieve gedragstherapie` 147, 153, 373 · `cognitieve
-herstructurering` 177 · `cognitieve neurowetenschap` 763 · `cognitieve
-psychologie` 759 · `cognitieve vertekening` 234 · `cognitieve wetenschap` 467
-· `cognitieve-bias` 59 · `cognitiewetenschap` 755, 767 · `collectief
-bewustzijn` 435 · `collectief onbewuste` 357, 360, 362 · `columns` 89, 90 ·
-`coma` 763 · `comfortzone` 187 · `commando` 97 · `communicatie` 34, 35, 122,
-145, 152, 156, 162, 164, 183, 186, 193, 213, 305, 338, 356, 398, 399, 444,
-466, 475, 539, 555 · `communisme` 625 · `complexiteit` 170, 268, 300, 347, 423
-· `complimenten geven` 356 · `complotdenken` 667, 668, 672, 676, 683, 684,
-688, 690, 914, 915, 916, 917, 920, 921, 923, 925, 926, 931 · `complottheorie`
-680 · `concentratie` 70, 441, 802 · `concurrentie` 293, 902 · `conditionering`
-61, 519 · `conflict` 35, 42, 43, 212, 305 · `conflictbemiddeling` 304 ·
-`conflicthantering` 271 · `conformisme` 211 · `consistentie` 553 · `consument`
-703, 704 · `consumptie` 463 · `consumptiekeuzes` 299 ·
-`consumptiemaatschappij` 564 · `content` 308 · `content creatie` 365 ·
-`content marketing` 369 · `copywriting` 695, 697, 698, 699, 701 · `corruptie`
-221 · `creativiteit` 11, 12, 13, 14, 15, 16, 17, 74, 206, 312, 349, 418, 445,
-471, 472, 475, 550, 702, 803, 952 · `cricket` 174 · `crisis` 47, 807 ·
-`CRISPR` 413 · `cultuur` 68, 274, 764, 825 · `cultuurfilosofie` 580, 826, 1116
-· `cultuurgeschiedenis` 822 · `cultuurkritiek` 54, 405, 592, 672, 722, 824 ·
-`cursus` 108, 130, 201 · `cursus-in-wonderen` 102, 131, 548 · `cybernetica`
-411, 539, 540, 541 · `cynisme` 250, 319 · `Cyrus de Grote` 536 · `dagboek` 2,
-109, 224, 286, 579 · `dagboekaantekeningen` 226 · `dagboekmethode` 78 ·
-`dagboekonderzoek` 472 · `dagelijkse gewoontes` 205 · `dagelijkse praktijk`
-442 · `dankbaarheid` 129, 433 · `darmbacteriën` 417 · `dataïsme` 236 · `daten`
-166 · `de ander` 574 · `debat` 28 · `debuutboek` 226 · `deeltjesfysica` 648 ·
-`degrowth` 298 · `dekoloniaal denken` 521 · `delegeren` 434 · `deliberate
-practice` 376 · `dementie` 84, 85, 225 · `democratie` 98, 562, 619, 628, 753,
-910 · `denken` 310, 509, 664 · `denkfouten` 55, 59, 142, 396, 437, 510, 514,
-817 · `denkmethode` 471 · `denkmodellen` 426, 928 · `depressie` 403 ·
-`derivaten` 494, 495, 810 · `design thinking` 150 · `destructiviteit` 223 ·
-`deugd` 247, 459, 581 · `diagnose` 104 · `dialoog` 335, 572 · `dichotomie van
-controle` 194 · `dichtwerk` 524 · `dictatuur` 221 · `dienstbaarheid` 230, 245,
-535 · `diepe-tijd` 239 · `dieptepsychologie` 646, 1118 · `dieren` 555 ·
+642, 646, 1104, 1154 · `alcohol` 4 · `algoritmen` 476, 477, 479 · `alledaags`
+89 · `alledaagse werkelijkheid` 721 · `allegorie` 222, 524, 631, 1107 ·
+`allocatie` 507, 813 · `amazon` 257 · `ambacht` 6, 12, 13, 17, 18, 832 ·
+`ambitie` 75 · `amerika` 600 · `Amerika` 114, 431 · `amerikaans` 117, 118,
+120, 132, 133, 134, 136, 158 · `amerikaanse buitenlandpolitiek` 693, 694 ·
+`amerikaanse droom` 284 · `amerikaanse geschiedenis` 621, 691, 827, 1147 ·
+`Amerikaanse geschiedenis` 402 · `amerikaanse revolutie` 243, 924 ·
+`Amsterdam` 295 · `anarchisme` 616, 620, 621, 624, 625, 626, 916, 917, 926 ·
+`anarchokapitalisme` 627, 629 · `anatomie` 241, 412, 1128 · `Andalusië` 8 ·
+`Andes` 521 · `angst` 53, 58, 107, 119, 131, 136, 140, 181, 214, 252, 341,
+401, 440, 548, 1168 · `angst voor de dood` 377 · `animatie` 41 · `anomie` 715
+· `Antarctica` 36 · `anthologie` 189 · `antieke filosofie` 586 ·
+`antropologie` 223, 410, 602, 716, 717, 718, 719, 722, 723, 758, 764, 1115,
+1169 · `antwerpen` 113 · `apartheid` 26, 523 · `Apple` 46, 231 · `apps` 294 ·
+`arbeid` 6, 173, 297, 390, 905 · `arbeidsethos` 266 · `archeologie` 600, 762,
+1117, 1139, 1149, 1155 · `archetype` 360 · `archetypen` 357, 404, 407, 409,
+410, 1123 · `Argentinië` 521 · `argumentatie` 421, 437, 511 · `argumenten` 63
+· `argumenteren` 438 · `Aristoteles` 438 · `armoede` 26, 234, 254 ·
+`Arthashastra` 370 · `assertiviteit` 162 · `astrologie` 632, 836, 1118, 1119,
+1123 · `asymmetrie` 282 · `atletiek` 31 · `atomisme` 281 · `Auschwitz` 48 ·
+`Australië` 447 · `autobiografie` 358, 440, 1108 · `automatisering` 297, 539 ·
+`autonomie` 6, 50 · `autoriteit` 215 · `autotelie` 200 · `ayahuasca` 759 ·
+`backtesten` 482, 502 · `banken en verzekeraars` 497 · `barok` 216 ·
+`basisbehoeften` 107 · `bbc` 82 · `bedrijfsbestuur` 567 · `bedrijfscultuur`
+170, 257, 270 · `bedrijfsgroei` 350 · `bedrijfsleven` 209, 293, 903 ·
+`bedrijfsonderzoek` 353 · `bedrijfssystemen` 264 · `beeldcultuur` 563, 828 ·
+`beeldverhaal` 561 · `beginners` 112 · `behoeften` 35 · `beinvloeding` 123,
+126 · `beïnvloeding` 399 · `bekentenis` 60 · `belangenverstrengeling` 138, 752
+· `beleggen` 21, 64, 144, 233, 277, 351, 474, 476, 477, 478, 479, 480, 481,
+482, 483, 484, 485, 486, 489, 490, 492, 496, 498, 499, 500, 501, 502, 503,
+504, 505, 804, 807, 808, 810, 811, 812, 813, 814, 815, 816, 817 · `beleid` 65
+· `belichaamde cognitie` 755 · `beloningssysteem` 418 · `bemiddeling` 35 ·
+`beroemdheden` 128 · `beroemdheid` 563 · `beschadigd-bestand` 115, 130 ·
+`beschaving` 57, 593, 820, 939 · `beslissen` 55 · `beslissingen` 197 ·
+`besluiten` 47, 59, 69, 137 · `besluitvorming` 151, 166, 170, 174, 209, 270,
+282, 283, 293, 299, 364, 396, 423, 424, 426, 450, 451, 468, 475, 510, 906,
+908, 909 · `bestseller` 8, 37, 250 · `betekenis` 143 · `bethel` 559 ·
+`betrokkenheid` 472 · `beurs` 80, 488, 814 · `beurshandel` 487 · `beurskrach`
+809 · `beursrendement` 353 · `beweging` 77, 84, 1131 · `bewijs` 63, 658, 660 ·
+`bewustwording` 103 · `bewustzijn` 148, 169, 200, 275, 340, 377, 518, 580,
+585, 652, 663, 759, 760, 761, 763, 767, 918, 927, 928, 1156, 1158, 1159, 1160,
+1161, 1162, 1163, 1164, 1165, 1166, 1167 · `bewustzijnsniveaus` 449 · `bezit`
+37 · `bhagavad gita` 569 · `bias` 209 · `bijeenkomsten` 304 · `bijgeloof` 63 ·
+`bijna-doodervaring` 585 · `biografie` 31, 46, 189, 231, 240, 241, 243, 247,
+266, 267, 269, 320, 328, 402, 454, 514, 537, 558, 649, 658, 659, 689, 821,
+905, 1124, 1153 · `biohacking` 316 · `biologie` 66, 88, 89, 90, 91, 322, 663,
+818, 823, 941, 949, 950, 1120 · `biologie van gedrag` 273 · `biologische klok`
+326, 329, 552 · `biotechnologie` 236, 413 · `blackjack` 505 · `bloedvaten` 86
+· `bloedwaarden` 313 · `bloemlezing` 758 · `blokkade` 14 · `boeddhisme` 111,
+287, 333, 341, 401, 528, 755, 1106, 1109, 1110, 1124, 1125, 1168 ·
+`bootstrapping` 369 · `brainstormen` 33 · `branding` 443 · `brein` 414 ·
+`brieven` 292, 517 · `broers` 10 · `bronnenkritiek` 691, 1143, 1146 ·
+`bronnenuitgave` 641 · `budgetteren` 159, 233, 464 · `buitenlandse hulp` 221 ·
+`burgerlijk verzet` 617 · `burgerschap` 243 · `burn-out` 135, 207, 400, 551,
+552 · `bushido` 535 · `cafeïne` 52 · `Californië` 10 · `carl jung` 258 ·
+`carrière` 146, 158, 388 · `cases` 40 · `cashflow` 37 · `celbiologie` 419 ·
+`censuur` 685 · `chakra's` 432 · `challenger` 62 · `Chanakya` 370 ·
+`channeling` 549, 670, 677, 678, 679, 768, 1122 · `chaos` 74, 347 · `chapbook`
+100 · `charismatisch christendom` 559 · `China` 348 · `Chinese filosofie` 389,
+394, 1104, 1105 · `Chinese geschiedenis` 219 · `chiropractie` 432 ·
+`christendom` 162, 201, 391, 603, 606, 612, 754 · `chronobiologie` 326, 329 ·
+`cia` 693, 750 · `cijfers` 39, 65 · `civilisatiekritiek` 298 · `classificatie`
+719 · `coaching` 161, 291, 441 · `cognitie` 656 · `cognitieve gedragstherapie`
+147, 153, 373 · `cognitieve herstructurering` 177 · `cognitieve
+neurowetenschap` 763 · `cognitieve psychologie` 759 · `cognitieve vertekening`
+234 · `cognitieve wetenschap` 467 · `cognitieve-bias` 59 ·
+`cognitiewetenschap` 755, 767 · `collectief bewustzijn` 435 · `collectief
+onbewuste` 357, 360, 362 · `columns` 89, 90 · `coma` 763 · `comfortzone` 187 ·
+`commando` 97 · `communicatie` 34, 35, 122, 145, 152, 156, 162, 164, 183, 186,
+193, 213, 305, 338, 356, 398, 399, 444, 466, 475, 539, 555 · `communisme` 625
+· `complexiteit` 170, 268, 300, 347, 423 · `complimenten geven` 356 ·
+`complotdenken` 667, 668, 672, 676, 683, 684, 688, 690, 914, 915, 916, 917,
+920, 921, 923, 925, 926, 931, 1142, 1143, 1145, 1146, 1147, 1150, 1152 ·
+`complottheorie` 680 · `concentratie` 70, 441, 802 · `concurrentie` 293, 902 ·
+`conditionering` 61, 519 · `conflict` 35, 42, 43, 212, 305 ·
+`conflictbemiddeling` 304 · `conflicthantering` 271 · `conformisme` 211 ·
+`consistentie` 553 · `consument` 703, 704 · `consumptie` 463 ·
+`consumptiekeuzes` 299 · `consumptiemaatschappij` 564 · `content` 308 ·
+`content creatie` 365 · `content marketing` 369 · `copywriting` 695, 697, 698,
+699, 701 · `corruptie` 221 · `creativiteit` 11, 12, 13, 14, 15, 16, 17, 74,
+206, 312, 349, 418, 445, 471, 472, 475, 550, 702, 803, 952 · `cricket` 174 ·
+`crisis` 47, 807 · `CRISPR` 413 · `cultuur` 68, 274, 764, 825 ·
+`cultuurfilosofie` 580, 826, 1116, 1170 · `cultuurgeschiedenis` 822 ·
+`cultuurkritiek` 54, 405, 592, 672, 722, 824, 1163 · `cursus` 108, 130, 201 ·
+`cursus-in-wonderen` 102, 131, 548 · `cybernetica` 411, 539, 540, 541 ·
+`cynisme` 250, 319 · `Cyrus de Grote` 536 · `dagboek` 2, 109, 224, 286, 579 ·
+`dagboekaantekeningen` 226 · `dagboekmethode` 78 · `dagboekonderzoek` 472 ·
+`dagelijkse gewoontes` 205 · `dagelijkse praktijk` 442 · `dankbaarheid` 129,
+433 · `darmbacteriën` 417 · `dataïsme` 236 · `daten` 166 · `de ander` 574 ·
+`debat` 28 · `debuutboek` 226 · `deeltjesfysica` 648 · `degrowth` 298 ·
+`dekoloniaal denken` 521 · `delegeren` 434 · `deliberate practice` 376 ·
+`dementie` 84, 85, 225 · `democratie` 98, 562, 619, 628, 753, 910 · `denken`
+310, 509, 664 · `denkfouten` 55, 59, 142, 396, 437, 510, 514, 817 ·
+`denkmethode` 471 · `denkmodellen` 426, 928 · `depressie` 403 · `derivaten`
+494, 495, 810 · `design thinking` 150 · `destructiviteit` 223 · `deugd` 247,
+459, 581 · `diagnose` 104 · `dialoog` 335, 572 · `dichotomie van controle` 194
+· `dichtwerk` 524 · `dictatuur` 221 · `dienstbaarheid` 230, 245, 535 ·
+`diepe-tijd` 239 · `dieptepsychologie` 646, 1118, 1154 · `dieren` 555 ·
 `dierenzintuigen` 322 · `dierkunde` 760 · `dierlijke-cognitie` 383 ·
 `dierproeven` 330 · `differentiatie` 165 · `digitaal` 81 · `diplomatie` 243 ·
 `direct response` 350 · `direct-marketing` 695, 697, 698, 699 · `DISC` 156,
@@ -168331,192 +179563,195 @@ controle` 194 · `dichtwerk` 524 · `dictatuur` 221 · `dienstbaarheid` 230, 245
 `eenzaamheid` 7, 96, 98, 111, 288, 302 · `eer` 530, 534 · `eerlijk` 47 ·
 `eerlijkheid` 62 · `eerste-versie` 19 · `ego` 75, 102, 149, 435 · `ego en
 zelf` 409 · `ego-depletie` 382 · `egypte` 591, 594, 595, 596, 597, 599, 602,
-1120, 1122 · `eigen bedrijf` 210 · `eigen-beheer` 107, 140, 142 ·
-`eigen-oordeel` 58, 546 · `eigenaarschap` 97 · `eindigheid` 442 · `einstein`
-94 · `elektriciteit` 267 · `elektrische auto's` 266 · `eleusis` 765 · `elites`
-682 · `emancipatie` 598 · `EMDR` 386 · `emigratie` 240 · `emotie-eten` 557 ·
-`emoties` 3, 43, 137, 142, 147, 153, 177, 330, 331, 449, 457, 470, 488, 542 ·
-`empathie` 35, 67, 303, 577 · `enactivisme` 755 · `energetisch werk` 560 ·
-`energie` 92, 195, 291, 377 · `energiewerk` 432 · `entropie` 539, 818 ·
-`epigenetica` 208, 415 · `epos` 5, 530, 531, 532 · `erfelijkheid` 419 ·
-`erfenis` 39 · `erkenningszucht` 406 · `erotiek` 113, 164, 914 · `esoterie`
-378, 590, 603, 605, 606, 613, 630, 631, 632, 633, 634, 635, 642, 643, 644,
-645, 647, 670, 678, 679, 836, 917, 928, 937, 1119, 1120 · `essay` 3, 9, 21,
-57, 59, 63, 64, 68, 96, 197, 232, 952, 1116 · `essaybundel` 390, 425, 620,
-926, 927, 934 · `essays` 523, 656, 830 · `esthetica` 756 · `esthetiek` 824,
-828, 832 · `eten` 103 · `ethiek` 282, 299, 413, 574, 612, 665, 819 ·
-`etnobotanie` 765 · `etnografie` 764 · `eurazië` 694 · `europa` 751 ·
-`evangelisatie` 201 · `evolutie` 56, 66, 89, 90, 91, 239, 318, 322, 323, 332,
-339, 347, 383, 518, 609, 760, 762, 767, 820, 823, 829, 950 ·
-`evolutiebiologie` 452, 453 · `evolutionaire-psychologie` 67 · `excellentie`
-553 · `executives` 344 · `existentialisme` 405, 940 · `existentiefilosofie`
-757 · `expeditie` 36 · `experiment` 79, 215 · `experimenten` 280, 424 ·
-`experimenteren` 265 · `expertise` 283, 320, 376 · `extra dimensies` 648 ·
-`extraversie` 361 · `fabel` 8, 42, 135, 167, 252 · `facilitatie` 304 · `falen`
-23, 72, 75, 312, 422 · `familie` 45, 325, 466 · `familieconflict` 178 ·
-`familiegeschiedenis` 114, 235 · `familieroman` 10 · `fantasy` 192, 203 ·
-`farmaceutische industrie` 752 · `fascisme` 753 · `FBI` 154, 271 ·
-`FBI-onderzoek` 431 · `federalisme` 619 · `feedback` 41, 296, 541, 542 ·
-`feiten` 43 · `feminisme` 3, 620, 624, 1117, 1121 · `fenomenologie` 574, 577,
-582, 721, 755, 757, 759 · `fictie` 100, 115 · `film` 41, 832 · `filologie` 641
-· `filosofie` 1, 6, 71, 93, 199, 211, 216, 224, 247, 255, 263, 292, 299, 383,
-390, 391, 392, 393, 421, 436, 442, 521, 588, 592, 594, 597, 604, 610, 652,
-654, 932, 948, 1109, 1111, 1112, 1115 · `filosofie van de biologie` 760 ·
-`filosofiegeschiedenis` 269, 639 · `filosofische antropologie` 584 ·
-`financiële geletterdheid` 163 · `financiële markten` 268, 351, 480, 481, 483,
-499, 501, 806, 807, 808, 809, 810, 811, 814, 816, 903 · `financiële
-onafhankelijkheid` 264 · `financiele vrijheid` 277 · `financiële wiskunde`
-497, 507, 810 · `financiële-discipline` 464 · `financiën` 334, 395, 425 ·
-`financiering` 172 · `fitnessbranche` 307, 544 · `flitshandel` 499 · `flow`
-78, 187, 200 · `focus` 175, 197, 448, 513 · `folklore` 615, 669 · `fotoboek`
-189 · `foutcultuur` 422 · `fouten maken` 509 · `fractals` 811 · `franchise`
-544 · `frankrijk` 115 · `Franse-Weerstand` 390 · `freelance` 515 · `Fulani`
-522 · `fysieke uitdaging` 323 · `fysiologie` 318, 412, 458 · `Galenus` 328 ·
-`gaslighting` 123 · `gastheerschap` 304 · `gastvrijheid` 531 · `gebed` 83,
-259, 573 · `gebruikersgedrag` 294 · `gedachten` 148, 177 · `gedachtenjournal`
-176 · `gedrag` 21, 22, 89, 90, 138, 154, 280, 330, 383, 425, 802 ·
-`gedragsbiologie` 322, 339 · `gedragseconomie` 424, 426, 514 ·
-`gedragsonderzoek` 302, 382 · `gedragspatronen` 161 · `gedragspsychologie`
-294, 817 · `gedragstypen` 156 · `gedragsverandering` 238, 290, 457, 469 ·
-`gedragswetenschap` 166, 209, 305, 468, 469, 510 · `geduld` 21, 351, 800 ·
-`geest` 584, 652 · `geestelijke gezondheid` 193 · `geestelijke oefeningen` 586
-· `gegevensanalyse` 486 · `gehechtheid` 166 · `geheim genootschap` 202 ·
-`geheime diensten` 665, 668, 684, 685, 750 · `geheime genootschappen` 751 ·
-`geheugen` 66, 85, 175, 414, 766, 801 · `gehoorzaamheid` 215, 617 ·
-`geïllustreerd boek` 176 · `geld` 21, 37, 38, 56, 76, 121, 132, 133, 158, 159,
-433, 463, 464 · `geldmanagement` 492, 493 · `geldmindset` 395 ·
-`geldpsychologie` 233, 264 · `geldstelsel` 680 · `geloof` 45, 83, 201, 554 ·
-`geluk` 79, 93, 160, 228, 335, 516, 526, 579 · `gemeenschap` 9, 96, 304, 461 ·
-`genealogie` 601 · `geneeskunde` 49, 328, 823 · `geneesmiddelen` 752 ·
-`generaties` 114 · `generatieve drift` 315 · `genetica` 413, 419, 818, 941 ·
-`genezing` 340 · `genot en pijn` 314 · `gentechnologie` 413 · `geografie` 825
-· `geologie` 239 · `geopolitiek` 220, 692, 694 · `geschiedenis` 30, 36, 56,
-57, 68, 93, 94, 212, 218, 250, 258, 298, 328, 381, 425, 440, 588, 589, 591,
-593, 595, 597, 598, 600, 619, 634, 665, 667, 681, 682, 683, 684, 685, 687,
-689, 690, 693, 806, 807, 821, 833, 931, 935, 939, 944 · `geschiedenis van de
-geneeskunde` 412 · `geschiedfilosofie` 235 · `geschiedschrijving` 601, 602 ·
-`gesprek` 43, 95, 302, 444 · `gesprekstechniek` 182, 186, 438 · `getallen`
-657, 835 · `gevangenendilemma` 453 · `gevolgen` 67 · `gewaarzijn` 519 ·
-`geweld` 45, 90, 214 · `geweldloosheid` 612 · `gewicht` 138 · `gewoontelus`
-238 · `gewoonten` 187, 373 · `gewoontes` 7, 11, 13, 22, 25, 58, 70, 76, 77,
-79, 88, 97, 103, 133, 134, 135, 138, 147, 157, 158, 181, 207, 208, 224, 230,
-290, 334, 382, 439, 442, 445, 513, 557 · `gewoontevorming` 146, 161, 168, 188,
-244, 291, 294, 396, 397, 411, 540 · `gezag` 62 · `gezin` 547 · `gezinnen` 327
-· `gezondheid` 52, 88, 171, 181, 318, 323, 329, 332, 412, 414, 415, 823 ·
-`gezondheidspsychologie` 458 · `gezondheidszorg` 313, 317, 422 · `ggz` 104 ·
-`giftige relaties` 429 · `gijzelingsonderhandelaar` 271 · `globale werkruimte`
-763 · `gnostiek` 614, 666, 940 · `godin` 611, 1117, 1119 · `godsdienstkritiek`
-341 · `godsdienstpsychologie` 754 · `godsdienstwetenschap` 578, 608, 640, 641,
-835, 940 · `goeroe` 242 · `Google` 512 · `Graallegende` 408 · `grandiositeit`
-404 · `gratie` 374 · `grenswetenschap` 615 · `grenzen` 72, 105, 109, 120, 122,
-187, 466 · `grenzen stellen` 151, 204, 406, 429 · `Griekenland` 537 · `Griekse
-literatuur` 536 · `griekse mythologie` 261 · `Griekse oudheid` 530, 531 ·
-`groei` 222 · `groeiaandelen` 474 · `groeimentaliteit` 116 · `groepsdenken`
-339 · `groepsgedrag` 303 · `grondstoffen` 92 · `grondwet` 616, 619 ·
-`groot-verhaal` 56 · `grootouders` 91 · `habitus` 723 · `handboek` 493, 495 ·
-`handel` 80, 251 · `handelen` 30, 476, 477, 478, 479, 501 ·
-`handelspsychologie` 488, 489 · `handelssysteem` 489, 491 · `handelssystemen`
-484, 486, 500, 502 · `handleiding` 112, 699 · `hart` 86, 128 · `Harvard` 457 ·
-`Hay House` 380 · `hechting` 145, 152, 317, 386 · `hedendaags India` 202 ·
-`hedgefondsen` 505, 810 · `heelal` 99, 262 · `heldendom` 532 · `heldenreis`
-410 · `helderheid` 82, 436 · `herhaling` 125, 134 · `herkomst` 127 ·
-`hermetische filosofie` 378 · `hermetisme` 613, 631, 632, 633, 638, 639, 642,
-647, 766 · `heroverwegen` 28 · `hersenen` 51, 84, 85, 86, 327, 801, 829 ·
-`hersenonderzoek` 330, 333, 763 · `hersenspoeling` 384, 668 · `herstel` 87,
-552, 583 · `het gesprek` 416 · `Himalaya` 191 · `hindoeïsme` 169, 199, 527,
-569, 1102 · `Hindoeïstische mythologie` 192, 202 · `hindoemythologie` 203 ·
-`Hinge` 166 · `hiphop` 440 · `historische portretten` 248 · `historische
-roman` 529, 922, 923, 924 · `hofcultuur` 216 · `hollywood` 555 · `Hollywood`
-178 · `Holocaust` 48 · `holografie` 340 · `homoseksualiteit` 325 · `hoop` 255,
-319 · `hormonen` 80, 339 · `hospice` 416 · `houding` 117 · `huisvesting` 65 ·
-`humanisme` 236, 643 · `humor` 16, 19, 26, 105, 227, 561 · `husserl` 577 ·
-`huwelijk` 9, 34, 165 · `Huxley` 54 · `hybride werken` 512 · `hypermoderne
-school` 831 · `hyperrealiteit` 565 · `hypnose` 123, 124, 125, 668 · `Idaho` 45
-· `ideeen` 702 · `ideeën` 206 · `ideeëngeschiedenis` 269, 751, 766, 932 ·
-`identiteit` 22, 115, 192, 261, 374, 375, 467, 559, 1116 ·
-`identiteitskapitaal` 51 · `ideologie` 628 · `ierland` 110 · `IJsland` 185,
-533 · `ik-vorm` 113 · `illustraties` 109, 327 · `imitatie` 11 ·
-`imperfectionisme` 442 · `import` 20 · `india` 649 · `India` 163, 171, 172,
-180, 189, 191, 196, 199, 203, 226, 242, 365, 370, 518, 520, 527, 1101 ·
-`individualisme` 9, 96, 624 · `individualiteit` 263 · `individuatie` 359, 360,
-408, 409, 646 · `individuele-verantwoordelijkheid` 299 · `indonesië` 692 ·
-`industrie` 348, 905 · `inheems denken` 521 · `initiatie` 407, 408, 522, 921,
-922, 1114 · `inleiding` 452, 456 · `inlichtingendiensten` 687, 688, 689 ·
-`innerlijk-kind` 109 · `innerlijk-werkleven` 472 · `innerlijke stem` 377 ·
-`innerlijke vrede` 548 · `innovatie` 206, 251, 293, 306, 471, 901 ·
-`instagram` 129 · `instemming` 616 · `instituties` 392 · `integraal
-bewustzijn` 580 · `integriteit` 547 · `intelligentie` 383, 943 ·
-`internationale betrekkingen` 455 · `internet` 60, 198 · `internetcultuur` 666
-· `interpretatie` 764 · `interviews` 58, 277, 289 · `intimiteit` 122, 145,
-164, 165 · `introspectie` 579 · `introversie` 33, 361 · `intuitie` 128 ·
-`intuïtie` 214, 283, 320 · `investeren` 270, 348 · `invloed` 11 · `invoeling`
-577 · `inwijding` 636 · `inzicht` 587 · `irrationaliteit` 424 · `islam` 526,
-1108 · `islamitische filosofie` 525, 1107 · `Israël` 514 · `Italiaanse
-non-fictie` 211 · `Italië` 155 · `jaloezie` 19 · `japan` 902 · `Japan` 77,
-205, 261, 335, 346, 379, 462, 517, 528, 535 · `japanse filosofie` 576, 1106 ·
-`jaren negentig` 348 · `jaren zestig` 750 · `jaren-tachtig` 139 ·
-`jaren-twintig` 94 · `jaren-vijftig` 704 · `jazztijdperk` 284 · `jeff bezos`
-257 · `jeugd` 53, 104, 115, 834 · `jodendom` 630, 640, 942 · `John Harrison`
-321 · `joint ventures` 348 · `jonge liefde` 180 · `jongeren` 25 ·
-`jongvolwassenen` 569 · `jongvolwassenenroman` 295 · `joodse filosofie` 572,
-574 · `journaling` 147 · `journalistiek` 4, 7, 46, 82, 238, 257, 285, 401,
-499, 566, 669, 690, 816, 903, 950 · `jung` 646, 937, 1118 · `Jung` 143, 358,
-359 · `Jungiaanse psychologie` 404, 407, 408, 409, 410, 1121 ·
-`kaakontwikkeling` 332 · `kabbala` 630, 634, 640, 643, 644 · `Kabul` 184 ·
-`Kaïn-en-Abel` 10 · `kalmte` 248, 389 · `kameraadschap` 529 · `kanker` 419 ·
-`kans` 64, 805 · `kansdenken` 487 · `kansen` 137 · `kansrekening` 282, 456,
-484, 490, 496, 504, 505, 812, 946 · `kapitalisme` 298, 682, 821, 910, 933 ·
-`karakter` 97, 537 · `Karel de Grote` 534 · `karma` 184 · `karmel` 573 ·
-`kashmir-shaivisme` 1100, 1103 · `Kasjmir` 180 · `katholicisme` 672 · `keegan`
-110 · `Kelly-criterium` 504, 812 · `keltische traditie` 611 · `kennedy` 690 ·
-`kennedy-moord` 691 · `kennis` 81, 508 · `kennis en macht` 720 · `kennisleer`
-525, 587, 929, 1107, 1111, 1112 · `kennissociologie` 721 · `kennistheorie`
-654, 820 · `kenniswerk` 6, 50, 400, 472 · `kernwaarden` 245 · `kernwapens`
-454, 944 · `keuzes` 51, 71, 72, 510 · `Kierkegaard` 405 · `kinderboek` 167 ·
-`kinderjaren` 152 · `kinesiologie` 449 · `klantcontact` 182, 186 ·
-`klantpsychologie` 367 · `klantrelaties` 246 · `klantvalidatie` 265 ·
-`klantwaarde` 309 · `klassenverschil` 284 · `klassieke bronnen` 286, 1105 ·
-`klassieke tekst` 219, 394 · `klassieker` 10, 24, 38, 48, 61, 83, 127, 135,
-144, 173, 213, 254, 351, 420, 520, 537, 616, 617, 618, 619, 620, 626, 695,
-696, 701, 702, 715, 716, 717, 718, 719, 754, 757, 910, 936, 938, 948 ·
-`kleding` 833 · `klein-beginnen` 40 · `kleine-bedrijven` 172 ·
+1120, 1122, 1126, 1139, 1149 · `eigen bedrijf` 210 · `eigen-beheer` 107, 140,
+142 · `eigen-oordeel` 58, 546 · `eigenaarschap` 97 · `eindigheid` 442 ·
+`einstein` 94 · `elektriciteit` 267 · `elektrische auto's` 266 · `eleusis` 765
+· `elites` 682, 1145, 1146 · `emancipatie` 598 · `EMDR` 386 · `emigratie` 240
+· `emotie-eten` 557 · `emoties` 3, 43, 137, 142, 147, 153, 177, 330, 331, 449,
+457, 470, 488, 542 · `empathie` 35, 67, 303, 577 · `enactivisme` 755 ·
+`energetisch werk` 560 · `energie` 92, 195, 291, 377 · `energiewerk` 432 ·
+`entropie` 539, 818 · `epigenetica` 208, 415 · `epos` 5, 530, 531, 532 ·
+`erfelijkheid` 419 · `erfenis` 39 · `erkenningszucht` 406 · `erotiek` 113,
+164, 914 · `esoterie` 378, 590, 603, 605, 606, 613, 630, 631, 632, 633, 634,
+635, 642, 643, 644, 645, 647, 670, 678, 679, 836, 917, 928, 937, 1119, 1120,
+1140, 1154, 1157, 1164, 1165 · `essay` 3, 9, 21, 57, 59, 63, 64, 68, 96, 197,
+232, 952, 1116 · `essaybundel` 390, 425, 620, 926, 927, 934 · `essays` 523,
+656, 830 · `esthetica` 756 · `esthetiek` 824, 828, 832 · `eten` 103 · `ethiek`
+282, 299, 413, 574, 612, 665, 819 · `etnobotanie` 765 · `etnografie` 764 ·
+`eurazië` 694 · `europa` 751 · `evangelisatie` 201 · `evolutie` 56, 66, 89,
+90, 91, 239, 318, 322, 323, 332, 339, 347, 383, 518, 609, 760, 762, 767, 820,
+823, 829, 950 · `evolutiebiologie` 452, 453 · `evolutionaire-psychologie` 67 ·
+`excellentie` 553 · `executives` 344 · `existentialisme` 405, 940 ·
+`existentiefilosofie` 757 · `expeditie` 36 · `experiment` 79, 215 ·
+`experimenten` 280, 424 · `experimenteren` 265 · `expertise` 283, 320, 376 ·
+`extra dimensies` 648 · `extraversie` 361 · `fabel` 8, 42, 135, 167, 252 ·
+`facilitatie` 304 · `falen` 23, 72, 75, 312, 422 · `familie` 45, 325, 466 ·
+`familieconflict` 178 · `familiegeschiedenis` 114, 235 · `familieroman` 10 ·
+`fantasy` 192, 203 · `farmaceutische industrie` 752 · `fascisme` 753 · `FBI`
+154, 271 · `FBI-onderzoek` 431 · `federalisme` 619 · `feedback` 41, 296, 541,
+542 · `feiten` 43 · `feminisme` 3, 620, 624, 1117, 1121, 1124, 1125, 1155,
+1169, 1170 · `fenomenologie` 574, 577, 582, 721, 755, 757, 759 · `fictie` 100,
+115 · `film` 41, 832 · `filologie` 641 · `filosofie` 1, 6, 71, 93, 199, 211,
+216, 224, 247, 255, 263, 292, 299, 383, 390, 391, 392, 393, 421, 436, 442,
+521, 588, 592, 594, 597, 604, 610, 652, 654, 932, 948, 1109, 1111, 1112, 1115,
+1163, 1167 · `filosofie van de biologie` 760 · `filosofiegeschiedenis` 269,
+639 · `filosofische antropologie` 584 · `financiële geletterdheid` 163 ·
+`financiële markten` 268, 351, 480, 481, 483, 499, 501, 806, 807, 808, 809,
+810, 811, 814, 816, 903 · `financiële onafhankelijkheid` 264 · `financiele
+vrijheid` 277 · `financiële wiskunde` 497, 507, 810 · `financiële-discipline`
+464 · `financiën` 334, 395, 425 · `financiering` 172 · `fitnessbranche` 307,
+544 · `flitshandel` 499 · `flow` 78, 187, 200 · `focus` 175, 197, 448, 513 ·
+`folklore` 615, 669 · `fotoboek` 189 · `foutcultuur` 422 · `fouten maken` 509
+· `fractals` 811 · `franchise` 544 · `frankrijk` 115 · `Franse-Weerstand` 390
+· `freelance` 515 · `Fulani` 522 · `fysieke uitdaging` 323 · `fysiologie` 318,
+412, 458, 1128, 1130 · `Galenus` 328 · `gaslighting` 123 · `gastheerschap` 304
+· `gastvrijheid` 531 · `gebed` 83, 259, 573 · `gebruikersgedrag` 294 ·
+`gedachten` 148, 177 · `gedachtenjournal` 176 · `gedrag` 21, 22, 89, 90, 138,
+154, 280, 330, 383, 425, 802 · `gedragsbiologie` 322, 339 · `gedragseconomie`
+424, 426, 514 · `gedragsonderzoek` 302, 382 · `gedragspatronen` 161 ·
+`gedragspsychologie` 294, 817 · `gedragstypen` 156 · `gedragsverandering` 238,
+290, 457, 469 · `gedragswetenschap` 166, 209, 305, 468, 469, 510 · `geduld`
+21, 351, 800 · `geest` 584, 652, 1167 · `geestelijke gezondheid` 193 ·
+`geestelijke oefeningen` 586 · `gegevensanalyse` 486 · `gehechtheid` 166 ·
+`geheim genootschap` 202 · `geheime diensten` 665, 668, 684, 685, 750, 1141,
+1147 · `geheime genootschappen` 751 · `geheugen` 66, 85, 175, 414, 766, 801,
+1143, 1144 · `gehoorzaamheid` 215, 617 · `geïllustreerd boek` 176 · `geld` 21,
+37, 38, 56, 76, 121, 132, 133, 158, 159, 433, 463, 464 · `geldmanagement` 492,
+493 · `geldmindset` 395 · `geldpsychologie` 233, 264 · `geldstelsel` 680 ·
+`geloof` 45, 83, 201, 554 · `geluk` 79, 93, 160, 228, 335, 516, 526, 579 ·
+`gemeenschap` 9, 96, 304, 461 · `genealogie` 601 · `geneeskunde` 49, 328, 823,
+1127, 1129, 1135, 1136 · `geneesmiddelen` 752, 1133 · `generaties` 114 ·
+`generatieve drift` 315 · `genetica` 413, 419, 818, 941, 1157 · `genezing` 340
+· `genot en pijn` 314 · `gentechnologie` 413 · `geografie` 825 · `geologie`
+239 · `geopolitiek` 220, 692, 694 · `geschiedenis` 30, 36, 56, 57, 68, 93, 94,
+212, 218, 250, 258, 298, 328, 381, 425, 440, 588, 589, 591, 593, 595, 597,
+598, 600, 619, 634, 665, 667, 681, 682, 683, 684, 685, 687, 689, 690, 693,
+806, 807, 821, 833, 931, 935, 939, 944, 1141, 1145, 1150 · `geschiedenis van
+de geneeskunde` 412, 1132 · `geschiedfilosofie` 235 · `geschiedschrijving`
+601, 602, 1155 · `gesprek` 43, 95, 302, 444 · `gesprekstechniek` 182, 186, 438
+· `getallen` 657, 835 · `gevangenendilemma` 453 · `gevolgen` 67 · `gewaarzijn`
+519 · `geweld` 45, 90, 214 · `geweldloosheid` 612 · `gewicht` 138 ·
+`gewoontelus` 238 · `gewoonten` 187, 373 · `gewoontes` 7, 11, 13, 22, 25, 58,
+70, 76, 77, 79, 88, 97, 103, 133, 134, 135, 138, 147, 157, 158, 181, 207, 208,
+224, 230, 290, 334, 382, 439, 442, 445, 513, 557 · `gewoontevorming` 146, 161,
+168, 188, 244, 291, 294, 396, 397, 411, 540 · `gezag` 62 · `gezin` 547 ·
+`gezinnen` 327 · `gezondheid` 52, 88, 171, 181, 318, 323, 329, 332, 412, 414,
+415, 823, 1128, 1129, 1131, 1133, 1134, 1138 · `gezondheidspsychologie` 458 ·
+`gezondheidszorg` 313, 317, 422, 1132 · `ggz` 104 · `giftige relaties` 429 ·
+`gijzelingsonderhandelaar` 271 · `globale werkruimte` 763 · `gnostiek` 614,
+666, 940, 1151 · `godin` 611, 1117, 1119 · `godsdienstkritiek` 341 ·
+`godsdienstpsychologie` 754 · `godsdienstwetenschap` 578, 608, 640, 641, 835,
+940, 1125, 1151 · `goeroe` 242 · `Google` 512 · `Graallegende` 408 ·
+`grandiositeit` 404 · `gratie` 374 · `grenswetenschap` 615, 1149, 1156 ·
+`grenzen` 72, 105, 109, 120, 122, 187, 466 · `grenzen stellen` 151, 204, 406,
+429 · `Griekenland` 537 · `Griekse literatuur` 536 · `griekse mythologie` 261
+· `Griekse oudheid` 530, 531 · `groei` 222 · `groeiaandelen` 474 ·
+`groeimentaliteit` 116 · `groepsdenken` 339 · `groepsgedrag` 303 ·
+`grondstoffen` 92 · `grondwet` 616, 619 · `groot-verhaal` 56 · `grootouders`
+91 · `habitus` 723 · `handboek` 493, 495 · `handel` 80, 251 · `handelen` 30,
+476, 477, 478, 479, 501 · `handelspsychologie` 488, 489 · `handelssysteem`
+489, 491 · `handelssystemen` 484, 486, 500, 502 · `handleiding` 112, 699 ·
+`hart` 86, 128 · `Harvard` 457 · `Hay House` 380 · `hechting` 145, 152, 317,
+386 · `hedendaags India` 202 · `hedgefondsen` 505, 810 · `heelal` 99, 262 ·
+`heldendom` 532 · `heldenreis` 410 · `helderheid` 82, 436 · `herhaling` 125,
+134 · `herkomst` 127 · `hermetische filosofie` 378 · `hermetisme` 613, 631,
+632, 633, 638, 639, 642, 647, 766 · `heroverwegen` 28 · `hersenen` 51, 84, 85,
+86, 327, 801, 829, 1160 · `hersenonderzoek` 330, 333, 763 · `hersenspoeling`
+384, 668 · `herstel` 87, 552, 583 · `het gesprek` 416 · `Himalaya` 191 ·
+`hindoeïsme` 169, 199, 527, 569, 1102 · `Hindoeïstische mythologie` 192, 202 ·
+`hindoemythologie` 203 · `Hinge` 166 · `hiphop` 440 · `historische portretten`
+248 · `historische roman` 529, 922, 923, 924 · `hofcultuur` 216 · `hollywood`
+555 · `Hollywood` 178 · `Holocaust` 48 · `holografie` 340 · `homoseksualiteit`
+325 · `hoop` 255, 319 · `hormonen` 80, 339 · `hospice` 416 · `houding` 117 ·
+`huisvesting` 65 · `humanisme` 236, 643 · `humor` 16, 19, 26, 105, 227, 561 ·
+`husserl` 577 · `huwelijk` 9, 34, 165 · `Huxley` 54 · `hybride werken` 512 ·
+`hypermoderne school` 831 · `hyperrealiteit` 565 · `hypnose` 123, 124, 125,
+668, 1144, 1159 · `Idaho` 45 · `ideeen` 702 · `ideeën` 206 ·
+`ideeëngeschiedenis` 269, 751, 766, 932 · `identiteit` 22, 115, 192, 261, 374,
+375, 467, 559, 1116 · `identiteitskapitaal` 51 · `ideologie` 628 · `ierland`
+110 · `IJsland` 185, 533 · `ik-vorm` 113 · `illustraties` 109, 327 ·
+`imitatie` 11 · `imperfectionisme` 442 · `import` 20 · `india` 649 · `India`
+163, 171, 172, 180, 189, 191, 196, 199, 203, 226, 242, 365, 370, 518, 520,
+527, 1101 · `individualisme` 9, 96, 624 · `individualiteit` 263 ·
+`individuatie` 359, 360, 408, 409, 646 · `individuele-verantwoordelijkheid`
+299 · `indonesië` 692 · `industrie` 348, 905 · `inheems denken` 521 ·
+`initiatie` 407, 408, 522, 921, 922, 1114 · `inleiding` 452, 456 ·
+`inlichtingendiensten` 687, 688, 689 · `innerlijk-kind` 109 ·
+`innerlijk-werkleven` 472 · `innerlijke stem` 377 · `innerlijke vrede` 548 ·
+`innovatie` 206, 251, 293, 306, 471, 901 · `instagram` 129 · `instemming` 616
+· `instituties` 392 · `integraal bewustzijn` 580 · `integriteit` 547 ·
+`intelligentie` 383, 943 · `internationale betrekkingen` 455 · `internet` 60,
+198 · `internetcultuur` 666 · `interpretatie` 764 · `interviews` 58, 277, 289
+· `intimiteit` 122, 145, 164, 165 · `introspectie` 579 · `introversie` 33, 361
+· `intuitie` 128 · `intuïtie` 214, 283, 320 · `investeren` 270, 348 ·
+`invloed` 11 · `invoeling` 577 · `inwijding` 636 · `inzicht` 587 ·
+`irrationaliteit` 424 · `islam` 526, 1108 · `islamitische filosofie` 525, 1107
+· `Israël` 514 · `Italiaanse non-fictie` 211 · `Italië` 155 · `jaloezie` 19 ·
+`japan` 902 · `Japan` 77, 205, 261, 335, 346, 379, 462, 517, 528, 535 ·
+`japanse filosofie` 576, 1106 · `jaren negentig` 348 · `jaren zestig` 750,
+1148 · `jaren-tachtig` 139 · `jaren-twintig` 94 · `jaren-vijftig` 704 ·
+`jazztijdperk` 284 · `jeff bezos` 257 · `jeugd` 53, 104, 115, 834 · `jodendom`
+630, 640, 942 · `John Harrison` 321 · `joint ventures` 348 · `jonge liefde`
+180 · `jongeren` 25 · `jongvolwassenen` 569 · `jongvolwassenenroman` 295 ·
+`joodse filosofie` 572, 574 · `journaling` 147 · `journalistiek` 4, 7, 46, 82,
+238, 257, 285, 401, 499, 566, 669, 690, 816, 903, 950 · `jung` 646, 937, 1118,
+1123, 1153, 1154 · `Jung` 143, 358, 359 · `Jungiaanse psychologie` 404, 407,
+408, 409, 410, 1121 · `kaakontwikkeling` 332 · `kabbala` 630, 634, 640, 643,
+644 · `Kabul` 184 · `Kaïn-en-Abel` 10 · `kalmte` 248, 389 · `kameraadschap`
+529 · `kanker` 419 · `kans` 64, 805 · `kansdenken` 487 · `kansen` 137 ·
+`kansrekening` 282, 456, 484, 490, 496, 504, 505, 812, 946 · `kapitalisme`
+298, 682, 821, 910, 933 · `karakter` 97, 537 · `Karel de Grote` 534 · `karma`
+184 · `karmel` 573 · `kashmir-shaivisme` 1100, 1103 · `Kasjmir` 180 ·
+`katholicisme` 672 · `keegan` 110 · `Kelly-criterium` 504, 812 · `keltische
+traditie` 611 · `kennedy` 690 · `kennedy-moord` 691 · `kennis` 81, 508 ·
+`kennis en macht` 720 · `kennisleer` 525, 587, 929, 1107, 1111, 1112 ·
+`kennissociologie` 721 · `kennistheorie` 654, 820 · `kenniswerk` 6, 50, 400,
+472 · `kernwaarden` 245 · `kernwapens` 454, 944 · `keuzes` 51, 71, 72, 510 ·
+`Kierkegaard` 405 · `kinderboek` 167 · `kinderjaren` 152 · `kinesiologie` 449
+· `klantcontact` 182, 186 · `klantpsychologie` 367 · `klantrelaties` 246 ·
+`klantvalidatie` 265 · `klantwaarde` 309 · `klassenverschil` 284 · `klassieke
+bronnen` 286, 1105 · `klassieke tekst` 219, 394 · `klassieker` 10, 24, 38, 48,
+61, 83, 127, 135, 144, 173, 213, 254, 351, 420, 520, 537, 616, 617, 618, 619,
+620, 626, 695, 696, 701, 702, 715, 716, 717, 718, 719, 754, 757, 910, 936,
+938, 948 · `kleding` 833 · `klein-beginnen` 40 · `kleine-bedrijven` 172 ·
 `kleine-stappen` 22, 133 · `kleurboek` 327 · `klimaatfictie` 203 ·
 `klimaatverandering` 299 · `klinische psychologie` 460 · `klokkenluider` 752 ·
 `klokkenmakerij` 321 · `kolonialisme` 298, 592, 1111, 1112, 1113, 1116 ·
-`koopgedrag` 705 · `koppen` 697, 699 · `korea` 111 · `kort` 59, 99, 100, 101,
-110, 140 · `kort-boek` 11, 13, 16, 27, 38, 57, 445, 832 · `kort-stuk` 19, 30 ·
-`korte-teksten` 111 · `korte-vorm` 473 · `kosmologie` 239, 262, 281, 645, 647,
-648, 651, 655, 938, 945, 948, 1115 · `koude oorlog` 217, 220, 384, 454, 456,
-680, 689, 692, 693 · `krijgsgevangenschap` 31 · `krijgskunde` 212, 218, 219,
-272 · `krijgskunst` 346 · `kritiek` 24, 41, 50 · `kritiek geven` 356 ·
-`kritisch denken` 420, 421 · `kroeg` 4 · `kruistochtgeest` 534 · `kunst` 11,
-445 · `kunstenaars` 312 · `kunstgeschiedenis` 241, 312, 822, 828 · `kunstmatig
-leven` 347 · `kunstmatige intelligentie` 236, 237, 297, 652 · `kwaad` 404 ·
-`kwaliteit` 1, 400, 912 · `kwantificering` 392 · `kwantitatief handelen` 506 ·
-`kwantitatieve analyse` 498 · `kwantitatieve financiën` 485, 503, 816 ·
-`kwantumfysica` 208, 340, 432, 433, 918, 919, 920, 930 · `kwantummechanica`
-362, 655, 761, 818 · `kwantumzwaartekracht` 281 · `kwetsbaarheid` 32, 44, 470
-· `kyotoschool` 576 · `landbouw` 56, 98 · `landmark forum` 344 · `landschap`
-825 · `leadgeneratie` 308 · `lean manufacturing` 265, 912 · `leefstijl` 86,
-103, 138, 171 · `leertijd` 320 · `leger` 106, 180, 222 · `leiderschap` 36, 41,
-44, 46, 97, 106, 157, 170, 183, 218, 222, 231, 260, 273, 344, 353, 364, 370,
-389, 434, 465, 468, 475, 536, 544, 551, 900, 907, 911 · `leidinggeven` 156 ·
+`kookboek` 1137 · `koopgedrag` 705 · `koppen` 697, 699 · `korea` 111 · `kort`
+59, 99, 100, 101, 110, 140 · `kort-boek` 11, 13, 16, 27, 38, 57, 445, 832 ·
+`kort-stuk` 19, 30 · `korte-teksten` 111 · `korte-vorm` 473 · `kosmologie`
+239, 262, 281, 645, 647, 648, 651, 655, 938, 945, 948, 1115 · `koude oorlog`
+217, 220, 384, 454, 456, 680, 689, 692, 693, 1141 · `krijgsgevangenschap` 31 ·
+`krijgskunde` 212, 218, 219, 272 · `krijgskunst` 346 · `kritiek` 24, 41, 50 ·
+`kritiek geven` 356 · `kritisch denken` 420, 421 · `kroeg` 4 ·
+`kruistochtgeest` 534 · `kunst` 11, 445 · `kunstenaars` 312 ·
+`kunstgeschiedenis` 241, 312, 822, 828 · `kunstmatig leven` 347 · `kunstmatige
+intelligentie` 236, 237, 297, 652 · `kwaad` 404 · `kwaliteit` 1, 400, 912 ·
+`kwantificering` 392 · `kwantitatief handelen` 506 · `kwantitatieve analyse`
+498 · `kwantitatieve financiën` 485, 503, 816 · `kwantumfysica` 208, 340, 432,
+433, 918, 919, 920, 930, 1164, 1165, 1166 · `kwantummechanica` 362, 655, 761,
+818 · `kwantumzwaartekracht` 281 · `kwetsbaarheid` 32, 44, 470 · `kyotoschool`
+576 · `landbouw` 56, 98 · `landmark forum` 344 · `landschap` 825 ·
+`leadgeneratie` 308 · `lean manufacturing` 265, 912 · `leefstijl` 86, 103,
+138, 171 · `leertijd` 320 · `leger` 106, 180, 222 · `leiderschap` 36, 41, 44,
+46, 97, 106, 157, 170, 183, 218, 222, 231, 260, 273, 344, 353, 364, 370, 389,
+434, 465, 468, 475, 536, 544, 551, 900, 907, 911 · `leidinggeven` 156 ·
 `leren` 175, 296, 349, 397, 422, 441, 509, 538, 801, 803 · `lesmateriaal` 116
 · `leugendetectie` 154, 338 · `levensinrichting` 334 · `levenskeuzes` 150, 546
 · `levenskunst` 27, 199, 216, 227, 586 · `levenslessen` 285, 447 ·
 `levensloop` 91 · `levensverhaal` 385 · `levenswijsheid` 473 · `lezen` 18, 420
 · `lezing` 436 · `lezingen` 169 · `libertarisme` 546, 623, 627, 629, 926, 927
-· `lichaam` 80, 757 · `lichaamsgericht werken` 386 · `lichaamstaal` 125, 126,
-154, 303, 338, 399 · `lichaamswerk` 432 · `licht` 525 · `liefde` 3, 131, 160,
-295 · `liefdesroman` 180 · `lifestyle` 278 · `lijden` 48, 73, 160, 310, 390 ·
-`list` 531 · `literair` 110 · `literatuur` 49, 934, 1113 · `logica` 421, 437 ·
-`logotherapie` 48 · `Long-Island` 4 · `longevity` 415 · `loopbaan` 50, 51,
-150, 349, 515, 547, 803 · `loslaten` 377, 449 · `losmaken` 45 ·
+· `lichaam` 80, 757, 1130 · `lichaamsgericht werken` 386 · `lichaamstaal` 125,
+126, 154, 303, 338, 399 · `lichaamswerk` 432 · `licht` 525 · `liefde` 3, 131,
+160, 295 · `liefdesroman` 180 · `lifestyle` 278 · `lijden` 48, 73, 160, 310,
+390 · `list` 531 · `literair` 110 · `literatuur` 49, 934, 1113 · `logica` 421,
+437 · `logotherapie` 48 · `Long-Island` 4 · `longevity` 415 · `loopbaan` 50,
+51, 150, 349, 515, 547, 803 · `loslaten` 377, 449 · `losmaken` 45 ·
 `lotsbestemming` 261 · `lsd` 750 · `luchtvaart` 422 · `luisteren` 24, 35, 305,
 444 · `maatschappijkritiek` 674, 826 · `machinaal leren` 484, 485, 486, 503 ·
-`macht` 212, 250, 263, 381, 388, 440, 617, 622, 683, 684, 685, 753, 935 ·
-`machtspolitiek` 220 · `machtstheorie` 221 · `machtsverhoudingen` 155 ·
-`magie` 613, 632, 634, 637, 638, 639, 641 · `magisch realisme` 261 ·
+`macht` 212, 250, 263, 381, 388, 440, 617, 622, 683, 684, 685, 753, 935, 1145,
+1146 · `machtspolitiek` 220 · `machtstheorie` 221 · `machtsverhoudingen` 155 ·
+`magie` 613, 632, 634, 637, 638, 639, 641, 1126 · `magisch realisme` 261 ·
 `management` 42, 47, 170, 183, 256, 350, 353, 364, 472, 900, 901, 902, 904,
 907, 908, 909, 912 · `managementtheorie` 547 · `manifest` 629 · `manifesteren`
 128, 129, 130, 131, 132, 190, 196, 433, 543, 560, 768 · `manipulatie` 123,
@@ -168528,73 +179763,75 @@ leven` 347 · `kunstmatige intelligentie` 236, 237, 297, 652 · `kwaad` 404 ·
 478 · `marxisme` 564 · `McKinsey` 511 · `media` 54, 60, 100, 562, 563, 564,
 565, 566, 666, 673, 674, 686, 931 · `medische ethiek` 416 · `meditatie` 111,
 141, 149, 169, 205, 208, 228, 230, 237, 242, 333, 377, 401, 431, 527, 528,
-590, 630, 638, 836, 1104, 1106, 1109, 1110, 1122 · `meesterschap` 296, 320,
-553 · `meetprobleem` 650, 653 · `meetsystemen` 392 · `melanesië` 717 ·
-`memento mori` 286 · `memoir` 4, 7, 18, 20, 26, 45, 49, 62, 95, 106, 178, 185,
-191, 226, 229, 242, 289, 324, 325, 348, 385, 402, 403, 431, 447, 505, 671,
-752, 819, 830, 900, 911, 925, 934, 941, 942, 949, 1114 · `mens en dier` 584 ·
-`menselijk gedrag` 155 · `mensenkennis` 126, 356 · `menstruatie` 1121 ·
-`mentale gezondheid` 315 · `mentale helderheid` 148 · `mentale weerbaarheid`
-229, 323, 372, 373, 374, 545 · `mentalisme` 378, 399 · `mentorschap` 4, 285,
-289, 320, 402 · `merken` 279, 700, 701, 705 · `metabolisme` 313 · `metafysica`
-102, 518, 584, 587 · `meten` 69, 133, 695, 697 · `methode` 81, 764 ·
-`microbedrijf` 40, 172 · `microbioom` 417 · `middelbare-leeftijd` 7 ·
-`middeleeuwen` 534, 632, 822, 947, 1107 · `midden-oosten` 720 · `midlife` 324
-· `militaire geschiedenis` 568 · `militaire strategie` 220 · `millennials` 159
-· `minderheden` 68 · `minderheidsstandpunt` 761 · `mindful` 103 ·
-`mindfulness` 141, 147, 149, 177, 333, 401 · `mindset` 146, 181, 188, 387, 458
-· `minimalisme` 181 · `misdaad` 254 · `misleiding` 219, 272, 677 ·
-`mislukking` 516 · `missie` 567 · `mitochondriën` 313 · `mode` 833 ·
-`modellen` 300 · `modelleren` 139 · `modellering` 455 · `moed` 44, 529 ·
-`moeder-en-zoon` 26 · `moederkoren` 765 · `momentum` 481 · `monniksleven` 230
-· `monomythe` 410 · `monopolie` 306 · `monsters` 532 · `Monty-Python` 16 ·
-`moraal` 9, 57, 67, 263 · `moraalfilosofie` 581 · `moraalkritiek` 391 ·
-`moreel` 36 · `mormonisme` 560 · `motivatie` 117, 139, 146, 183, 200, 207,
-315, 427, 468, 469, 472 · `motivatieonderzoek` 703, 704 · `Motley Fool` 474 ·
-`motoren` 6 · `motorfietsen` 325 · `muziek` 17, 85, 762, 824, 952 ·
-`muziekfilosofie` 756 · `mysteriecultus` 765 · `mystiek` 340, 390, 524, 525,
-573, 578, 603, 604, 606, 610, 630, 636, 640, 666, 754, 835, 936, 1100, 1103,
-1109, 1110 · `mythe` 608 · `mythe en ritueel` 756 · `mythevorming` 615 ·
-`mythologie` 73, 143, 357, 360, 407, 408, 409, 599, 611, 1117, 1119 ·
+590, 630, 638, 836, 1104, 1106, 1109, 1110, 1122, 1159, 1160, 1168 ·
+`meesterschap` 296, 320, 553 · `meetprobleem` 650, 653 · `meetsystemen` 392 ·
+`melanesië` 717 · `memento mori` 286 · `memoir` 4, 7, 18, 20, 26, 45, 49, 62,
+95, 106, 178, 185, 191, 226, 229, 242, 289, 324, 325, 348, 385, 402, 403, 431,
+447, 505, 671, 752, 819, 830, 900, 911, 925, 934, 941, 942, 949, 1114, 1142 ·
+`mens en dier` 584 · `menselijk gedrag` 155 · `mensenkennis` 126, 356 ·
+`menstruatie` 1121 · `mentale gezondheid` 315 · `mentale helderheid` 148 ·
+`mentale weerbaarheid` 229, 323, 372, 373, 374, 545 · `mentalisme` 378, 399 ·
+`mentorschap` 4, 285, 289, 320, 402 · `merken` 279, 700, 701, 705 ·
+`metabolisme` 313 · `metafysica` 102, 518, 584, 587 · `meten` 69, 133, 695,
+697 · `methode` 81, 764 · `microbedrijf` 40, 172 · `microbioom` 417 ·
+`middelbare-leeftijd` 7 · `middeleeuwen` 534, 632, 822, 947, 1107 ·
+`midden-oosten` 720 · `midlife` 324 · `militaire geschiedenis` 568 ·
+`militaire strategie` 220 · `millennials` 159 · `minderheden` 68 ·
+`minderheidsstandpunt` 761 · `mindful` 103 · `mindfulness` 141, 147, 149, 177,
+333, 401 · `mindset` 146, 181, 188, 387, 458 · `minimalisme` 181 · `misdaad`
+254, 1148 · `misleiding` 219, 272, 677 · `mislukking` 516 · `missie` 567 ·
+`mitochondriën` 313 · `mode` 833 · `modellen` 300 · `modelleren` 139 ·
+`modellering` 455 · `moed` 44, 529 · `moeder-en-zoon` 26 · `moederkoren` 765 ·
+`momentum` 481 · `monniksleven` 230 · `monomythe` 410 · `monopolie` 306 ·
+`monsters` 532 · `Monty-Python` 16 · `moraal` 9, 57, 67, 263 ·
+`moraalfilosofie` 581 · `moraalkritiek` 391 · `moreel` 36 · `mormonisme` 560 ·
+`motivatie` 117, 139, 146, 183, 200, 207, 315, 427, 468, 469, 472 ·
+`motivatieonderzoek` 703, 704 · `Motley Fool` 474 · `motoren` 6 ·
+`motorfietsen` 325 · `muziek` 17, 85, 762, 824, 952 · `muziekfilosofie` 756 ·
+`mysteriecultus` 765 · `mystiek` 340, 390, 524, 525, 573, 578, 603, 604, 606,
+610, 630, 636, 640, 666, 754, 835, 936, 1100, 1103, 1109, 1110, 1124, 1158 ·
+`mythe` 608 · `mythe en ritueel` 756 · `mythevorming` 615, 1140, 1151 ·
+`mythologie` 73, 143, 357, 360, 407, 408, 409, 599, 611, 1117, 1119, 1157 ·
 `mythologische fantasy` 202 · `mythologische fictie` 203 · `NAD+` 415 ·
 `nalatenschap` 178 · `napoleontische oorlogen` 235 · `narcisme` 258, 404 ·
 `naslag` 99, 112 · `naslagwerk` 59, 225, 426, 477, 478, 486, 491, 500, 504,
-640, 661, 662, 806, 813, 815, 817, 835, 931 · `nationalisme` 237 · `natuur`
-191, 323, 609, 830 · `natuurkunde` 62, 94, 240, 262, 281, 300, 326, 648, 650,
-651, 653, 655, 657, 818, 819, 944, 945, 947 · `navigatie` 321 · `navy seals`
-229, 364 · `nazisme` 223 · `neanderthaler` 762 · `necrofilie` 223 ·
-`nederland` 96 · `nederlands` 93, 97, 100, 101, 102, 103, 104, 105, 106, 107,
-108, 128, 130, 131, 141 · `nederlands-auteur` 140 · `nederlandstalig` 113 ·
-`negatieve emoties` 176 · `negentiende eeuw` 751 · `negentig dagen` 188 ·
-`neopaganisme` 611, 637 · `nepnieuws` 237 · `netwerken` 24, 246, 300, 388, 508
-· `neurobiologie` 119 · `neurochirurgie` 49, 414 · `neurologie` 325 ·
+640, 661, 662, 806, 813, 815, 817, 835, 931, 1127, 1129, 1133 · `nationalisme`
+237 · `natuur` 191, 323, 609, 830 · `natuurkunde` 62, 94, 240, 262, 281, 300,
+326, 648, 650, 651, 653, 655, 657, 818, 819, 944, 945, 947 · `navigatie` 321 ·
+`navy seals` 229, 364 · `nazisme` 223 · `neanderthaler` 762 · `necrofilie` 223
+· `nederland` 96 · `nederlands` 93, 97, 100, 101, 102, 103, 104, 105, 106,
+107, 108, 128, 130, 131, 141 · `nederlands-auteur` 140 · `nederlandstalig` 113
+· `negatieve emoties` 176 · `negentiende eeuw` 751, 1127, 1128, 1130, 1131,
+1132, 1133, 1134, 1135, 1136, 1137 · `negentig dagen` 188 · `neopaganisme`
+611, 637, 1126 · `nepnieuws` 237 · `netwerken` 24, 246, 300, 388, 508 ·
+`neurobiologie` 119 · `neurochirurgie` 49, 414 · `neurologie` 325 ·
 `neuroplasticiteit` 175, 208, 414 · `neurose` 575 · `neurowetenschap` 52, 208,
-238, 275, 314, 326, 330, 331, 333, 339, 340, 386, 418, 513, 585, 801, 829, 943
-· `neurowetenschap-voor-kinderen` 327 · `neusademing` 318 · `new age` 149,
-435, 449, 549, 670, 678, 679, 768, 1122 · `new thought` 259, 380, 555 · `NeXT`
-46 · `Nietzsche` 391 · `nieuwe gedachte` 127, 378 · `nieuws` 60, 90 ·
-`nieuwsgierigheid` 15, 28, 62, 241, 550, 803 · `Nike` 20 · `nlp` 123, 125, 139
-· `Nobelprijs` 55 · `non-dualiteit` 520, 1100, 1102 · `non-fictie` 420 ·
-`non-verbaal` 399 · `non-verbale communicatie` 154 · `noodlot` 533 · `Noordse
-mythologie` 533 · `notitieboeken` 241 · `novelle` 173 · `numineus` 578 ·
-`obesitas` 417 · `observeren` 15 · `obsessieve liefde` 284 · `occultisme` 378,
-613, 634, 637, 638, 644, 676, 914, 915, 921, 924, 925 · `ochtendroutine` 14,
-134, 244 · `octopus` 760 · `oefenen` 29, 397, 800 · `oefening` 141, 296 ·
-`oefeningen` 15, 35, 87, 103, 109, 118, 120, 122, 130, 549 · `okinawa` 77 ·
-`okr` 256 · `oligarchie` 618 · `omgangsvormen` 24, 398, 939 · `omkering` 105 ·
-`omstreden` 37, 73, 76, 83 · `onbegrepen-klachten` 104 · `onbetrouwbaar` 123,
-124, 125, 126 · `onbetrouwbare verteller` 284 · `onbewezen` 127, 128, 129,
-130, 131, 132, 139 · `onbewuste` 16, 283, 358, 359 · `onderbewuste` 124 ·
-`onderbewustzijn` 259 · `onderbouwing` 87, 108, 117, 134, 135, 136 ·
-`onderhandelen` 159, 186, 217, 260, 271, 272, 305, 444, 450, 455 ·
-`ondernemen` 20, 39, 40, 47, 172, 446, 476 · `ondernemers` 174 ·
+238, 275, 314, 326, 330, 331, 333, 339, 340, 386, 418, 513, 585, 801, 829,
+943, 1160 · `neurowetenschap-voor-kinderen` 327 · `neusademing` 318 · `new
+age` 149, 435, 449, 549, 670, 678, 679, 768, 1122, 1156 · `new thought` 259,
+380, 555 · `NeXT` 46 · `Nietzsche` 391 · `nieuwe gedachte` 127, 378 · `nieuws`
+60, 90 · `nieuwsgierigheid` 15, 28, 62, 241, 550, 803 · `Nike` 20 · `nlp` 123,
+125, 139 · `Nobelprijs` 55 · `non-dualiteit` 520, 1100, 1102 · `non-fictie`
+420 · `non-verbaal` 399 · `non-verbale communicatie` 154 · `noodlot` 533 ·
+`Noordse mythologie` 533 · `notitieboeken` 241 · `novelle` 173 · `numineus`
+578 · `obesitas` 417 · `observeren` 15 · `obsessieve liefde` 284 ·
+`occultisme` 378, 613, 634, 637, 638, 644, 676, 914, 915, 921, 924, 925, 1140,
+1147 · `ochtendroutine` 14, 134, 244 · `octopus` 760 · `oefenen` 29, 397, 800
+· `oefening` 141, 296 · `oefeningen` 15, 35, 87, 103, 109, 118, 120, 122, 130,
+549 · `okinawa` 77 · `okr` 256 · `oligarchie` 618 · `omgangsvormen` 24, 398,
+939 · `omkering` 105 · `omstreden` 37, 73, 76, 83 · `onbegrepen-klachten` 104
+· `onbetrouwbaar` 123, 124, 125, 126 · `onbetrouwbare verteller` 284 ·
+`onbewezen` 127, 128, 129, 130, 131, 132, 139 · `onbewuste` 16, 283, 358, 359
+· `onderbewuste` 124 · `onderbewustzijn` 259 · `onderbouwing` 87, 108, 117,
+134, 135, 136 · `onderhandelen` 159, 186, 217, 260, 271, 272, 305, 444, 450,
+455 · `ondernemen` 20, 39, 40, 47, 172, 446, 476 · `ondernemers` 174 ·
 `ondernemerschap` 157, 163, 185, 197, 198, 210, 222, 228, 231, 245, 249, 276,
 278, 289, 306, 307, 308, 312, 350, 365, 369, 370, 395, 403, 427, 431, 434,
 465, 544, 567, 570, 901, 905, 906, 908, 911, 913 · `onderwijs` 6, 23, 33, 45,
-63, 65, 68, 116, 237, 349, 509, 598, 667, 803, 943 · `onderwijskritiek` 37 ·
-`onderzoek` 23, 28, 29, 32, 33, 39, 44, 55, 62, 78, 79, 80, 84, 85, 86, 88,
-152, 305, 691, 705, 906, 909, 946, 949, 950, 951 · `onderzoeksdebat` 53 ·
-`onderzoeksethiek` 215 · `onderzoeksjournalistiek` 665, 687, 688, 692 ·
+63, 65, 68, 116, 237, 349, 509, 598, 667, 803, 943, 1130 · `onderwijskritiek`
+37 · `onderzoek` 23, 28, 29, 32, 33, 39, 44, 55, 62, 78, 79, 80, 84, 85, 86,
+88, 152, 305, 691, 705, 906, 909, 946, 949, 950, 951 · `onderzoeksdebat` 53 ·
+`onderzoeksethiek` 215 · `onderzoeksjournalistiek` 665, 687, 688, 692, 1148 ·
 `onderzoekskritiek` 52, 415 · `ongemak` 323 · `ongeneeslijke ziekte` 285 ·
 `online ondernemen` 309 · `onsterfelijkheid` 236, 405 · `onthechting` 462 ·
 `ontmoeten` 304 · `ontmoeting` 572 · `ontologie` 344 · `ontslagen` 47 ·
@@ -168603,8 +179840,8 @@ mythologie` 533 · `notitieboeken` 241 · `novelle` 173 · `numineus` 578 ·
 59, 69 · `oorlog` 31, 57, 66, 364, 568 · `oorlogvoering` 218 · `oorsprong` 599
 · `opdrachten` 116 · `opgetekend` 97 · `opgeven` 249 · `opgroeien` 4, 295 ·
 `opoffering` 554 · `opties` 494, 495, 506 · `optimisme` 251 · `optogenetica`
-331 · `opvoeding` 3, 23, 29, 44, 53, 73, 162, 193, 290 · `opwekking` 558 ·
-`orale traditie` 522 · `orde` 73, 74 · `organisatie` 28, 41, 69, 238, 388,
+331 · `opvoeding` 3, 23, 29, 44, 53, 73, 162, 193, 290, 1131 · `opwekking` 558
+· `orale traditie` 522 · `orde` 73, 74 · `organisatie` 28, 41, 69, 238, 388,
 422, 468, 900, 904, 906, 911 · `organisatiecultuur` 183, 273, 353 ·
 `oriëntalisme` 720 · `orthodontie` 332 · `Orwell` 54 · `Otto Rank` 405 · `oud
 china` 272 · `Oude Rome` 328 · `Oudengels` 532 · `ouder-worden` 5 · `ouderdom`
@@ -168615,31 +179852,32 @@ china` 272 · `Oude Rome` 328 · `Oudengels` 532 · `ouder-worden` 5 · `ouderdo
 `overtuigingen` 28, 132, 139, 143, 469, 487, 768 · `overvloed` 17 ·
 `oxytocine` 458 · `Pacific` 31 · `pacifisme` 240, 612 · `Padma-onderscheiding`
 189 · `palliatieve zorg` 416, 447 · `para` 81 · `parabel` 38, 244, 246 ·
-`paradigma` 543 · `paranormaal` 340, 362, 669, 677, 929 · `parapsychologie`
-637 · `parawetenschap` 663 · `passie` 50, 198 · `pastoraat` 34 ·
-`patiëntenverhalen` 331 · `patiëntverhalen` 414 · `patriarchaat` 3 ·
-`pelgrimage` 8 · `pensioen` 277 · `perceptie` 30 · `perfectionisme` 19, 32,
-44, 575 · `persoonlijk merk` 198, 365 · `persoonlijke financiën` 163, 233, 395
-· `persoonlijke ontwikkeling` 161, 465, 467 · `persoonlijkheid` 33, 338, 538 ·
-`persoonlijkheidstypen` 361 · `perspectief` 580 · `Perzië` 524, 525, 526, 536
-· `piekeren` 105, 176 · `pijn` 85, 255 · `pijnlichaam` 435 · `Pixar` 41, 46 ·
-`plaats` 825 · `placebo` 387, 469 · `planeten` 99 · `planning` 70, 276 ·
-`plantaardig-dieet` 324 · `plastische chirurgie` 411 · `plato` 581 · `plicht`
-2 · `podcast` 136, 465, 513 · `poëzie` 204, 611, 1110, 1115 · `poker` 137 ·
-`polarisatie` 305 · `polemiek` 67 · `politicologie` 220, 221, 453, 455 ·
-`politiek` 54, 219, 438, 629, 680, 681, 688 · `politiek geloof` 751 ·
-`politieke analyse` 753 · `politieke economie` 566, 933 · `politieke
-filosofie` 394, 623, 624, 626, 627, 628, 935 · `politieke orde` 716 ·
-`populair` 77, 129, 133 · `populair-wetenschappelijk` 88, 239, 326, 418, 451 ·
-`populaire filosofie` 194 · `populaire psychologie` 156, 429 · `portefeuille`
-474 · `portefeuillebeheer` 507, 813 · `portefeuilletheorie` 503 · `portretten`
-75, 94 · `positief denken` 83, 179, 516 · `positiegrootte` 489, 490, 491, 493,
-504, 506, 812 · `positieve-psychologie` 207 · `positionering` 443, 696, 913 ·
-`postkoloniale studies` 720 · `postmarxisme` 628 · `postmodernisme` 565 ·
-`postuum` 49 · `pr` 686 · `Praag` 173 · `praktijk` 459 · `praktisch` 118, 121,
-140, 159, 172 · `prentenboek` 167 · `presenteren` 82, 253 · `prestatie` 168,
-291, 372, 397, 488, 545 · `prestatiebeoordeling` 256 · `prestatiecultuur` 461
-· `prestatieonderzoek` 376 · `prestige` 515 · `preventie` 86, 313 ·
+`paradigma` 543 · `paranormaal` 340, 362, 669, 677, 929, 1144 ·
+`parapsychologie` 637, 1161 · `parawetenschap` 663 · `passie` 50, 198 ·
+`pastoraat` 34 · `patiëntenverhalen` 331 · `patiëntverhalen` 414 ·
+`patriarchaat` 3, 1155 · `pelgrimage` 8 · `pensioen` 277 · `perceptie` 30 ·
+`perfectionisme` 19, 32, 44, 575 · `persoonlijk merk` 198, 365 · `persoonlijke
+financiën` 163, 233, 395 · `persoonlijke ontwikkeling` 161, 465, 467 ·
+`persoonlijkheid` 33, 338, 538 · `persoonlijkheidstypen` 361 · `perspectief`
+580 · `Perzië` 524, 525, 526, 536 · `piekeren` 105, 176 · `pijn` 85, 255 ·
+`pijnlichaam` 435 · `Pixar` 41, 46 · `plaats` 825 · `placebo` 387, 469 ·
+`planeten` 99, 1123 · `planning` 70, 276 · `plantaardig-dieet` 324 ·
+`plastische chirurgie` 411 · `plato` 581 · `plicht` 2 · `podcast` 136, 465,
+513 · `poëzie` 204, 611, 1110, 1115 · `poker` 137 · `polarisatie` 305 ·
+`polemiek` 67 · `politicologie` 220, 221, 453, 455 · `politiek` 54, 219, 438,
+629, 680, 681, 688 · `politiek geloof` 751 · `politieke analyse` 753 ·
+`politieke economie` 566, 933 · `politieke filosofie` 394, 623, 624, 626, 627,
+628, 935 · `politieke orde` 716 · `populair` 77, 129, 133 ·
+`populair-wetenschappelijk` 88, 239, 326, 418, 451 · `populaire filosofie` 194
+· `populaire psychologie` 156, 429 · `portefeuille` 474 · `portefeuillebeheer`
+507, 813 · `portefeuilletheorie` 503 · `portretten` 75, 94 · `positief denken`
+83, 179, 516 · `positiegrootte` 489, 490, 491, 493, 504, 506, 812 ·
+`positieve-psychologie` 207 · `positionering` 443, 696, 913 · `postkoloniale
+studies` 720 · `postmarxisme` 628 · `postmodernisme` 565, 1170 · `postuum` 49
+· `pr` 686 · `Praag` 173 · `praktijk` 459 · `praktisch` 118, 121, 140, 159,
+172 · `prentenboek` 167 · `presenteren` 82, 253 · `prestatie` 168, 291, 372,
+397, 488, 545 · `prestatiebeoordeling` 256 · `prestatiecultuur` 461 ·
+`prestatieonderzoek` 376 · `prestige` 515 · `preventie` 86, 313 ·
 `prijsstelling` 307 · `prijzen` 23, 424 · `prikkels` 60, 65 · `prioriteiten`
 25, 196 · `prioriteren` 151, 311, 448 · `privacy` 393, 687 · `proactief` 25 ·
 `producer` 17 · `product` 446 · `productie` 912 · `productiviteit` 151, 175,
@@ -168647,64 +179885,66 @@ filosofie` 394, 623, 624, 626, 627, 628, 935 · `politieke orde` 716 ·
 `productontwerp` 231, 294 · `productontwikkeling` 265, 471 · `proeven` 112 ·
 `programmering` 439 · `projecten` 81 · `projectie` 107, 108 · `propaganda` 60,
 384, 562, 566, 686 · `propositielogica` 437 · `protocol` 69 · `pseudokennis`
-126 · `pseudoniem` 378 · `pseudowetenschap` 673, 1120 · `psychedelica` 275,
-765, 925 · `psychiatrie` 1, 48, 95, 96, 104, 213, 314, 315, 317, 331, 671 ·
-`psychoanalyse` 223, 360, 361, 405, 409, 575, 610, 703, 833 · `psychologie`
-23, 28, 29, 55, 73, 78, 79, 105, 138, 143, 147, 152, 154, 162, 200, 211, 213,
-214, 250, 254, 258, 296, 310, 338, 357, 358, 375, 381, 382, 384, 387, 424,
-444, 457, 463, 467, 468, 469, 487, 501, 514, 538, 541, 542, 582, 665, 801,
-802, 828, 928, 936, 943, 951 · `psychologische flexibiliteit` 460 ·
-`psychologische functies` 361 · `psychopathie` 429 · `psychose` 671 ·
-`psychotherapie` 164, 227, 386, 406, 769 · `PTSS` 386 · `publiceren` 13 ·
-`publiek opbouwen` 369 · `publieksfilosofie` 269 · `Pulitzer` 5 · `punk` 834 ·
-`puzzels` 451 · `Python` 486 · `quantum` 94, 650, 653 · `queeste` 522 ·
-`quilten` 114 · `quotes` 179 · `racisme` 601, 602 · `radicale transparantie`
-270 · `RAND` 454, 456 · `Rat-Pack` 178 · `rationaliteit` 454 · `rationele
-keuze` 455 · `recht` 393, 827 · `rechtsfilosofie` 827 · `rechtsgeschiedenis`
-827 · `rechtspraak` 69 · `rechtvaardigheid` 623 · `reclame` 206, 279, 443,
-446, 563, 673, 695, 696, 697, 698, 699, 700, 701, 702, 705 · `reclamebureau`
-701 · `reclamegeschiedenis` 700, 703 · `reclamekritiek` 704 ·
-`reclameonderzoek` 696 · `reclametheorie` 700 · `reeks` 114, 192 ·
-`regimeverandering` 220 · `reïncarnatie` 202, 645 · `reïnventie` 344 ·
-`reisverhaal` 1 · `reizen` 278 · `relaties` 34, 51, 101, 120, 122, 145, 152,
-162, 164, 166, 167, 195, 213, 334, 335, 381, 398, 406, 466 · `relatietherapie`
-165 · `relativiteitstheorie` 240, 281, 945 · `religie` 56, 572, 596, 599, 626,
-936, 937 · `religieus naturalisme` 609 · `religieuze beweging` 670 ·
-`religieuze symboliek` 409 · `religiewetenschap` 758 · `REM` 52 · `remarkable`
-446 · `renaissance` 639, 643, 766 · `Renaissance` 15, 241 · `rente` 38, 806 ·
-`replicatie` 79 · `reputatie` 388 · `retorica` 253, 438, 766 · `revisie` 18 ·
-`revolutie` 625 · `ridderepos` 534 · `ridderideaal` 822 · `rijkdom` 57, 228 ·
-`risico` 64, 80, 144, 268, 282, 351, 423, 425, 480, 481, 482, 487, 496, 500,
-501, 804, 811, 815, 816 · `risicobeheer` 479, 489, 490, 491, 492, 493, 494,
-497, 498, 504, 506, 810 · `ritueel` 404, 590, 608, 719, 1103, 1114 ·
-`rituelen` 304 · `rivier als symbool` 287 · `roem-en-eenzaamheid` 178 ·
-`roeping` 8, 9, 12, 160 · `roman` 61, 113, 114, 115, 254, 554, 904, 915, 916,
-917, 918, 919, 920, 921 · `Rome` 537 · `romeinse oudheid` 232 · `rouw` 95, 467
-· `rouwverwerking` 204 · `rozenkruisers` 631, 645 · `ruil` 717, 718 · `ruimte
-en tijd` 281 · `ruimtevaart` 266, 819 · `russische literatuur` 235 · `rust` 32
-· `SaaS` 434 · `sadisme` 223 · `saga` 533 · `Salinas` 10 · `samenleving` 90,
-98, 319 · `samenwerken` 25 · `samenwerking` 453 · `samoerai` 346, 462, 517,
-535 · `Sanskriet` 520, 1100, 1102 · `Santa Fe Institute` 347 · `satire` 155,
-914, 915, 916, 918, 919, 920, 923 · `satori` 528, 769 · `scepsis` 63, 585,
-675, 927, 929, 1108 · `schaalgroei` 434 · `schaalvergroting` 350 · `schaamte`
-32, 44, 317, 470 · `schaarste` 92, 249 · `schaduw` 404 · `schaken` 831 ·
+126 · `pseudoniem` 378 · `pseudowetenschap` 673, 1120, 1139, 1152, 1156 ·
+`psychedelica` 275, 765, 925, 1159, 1162 · `psychiatrie` 1, 48, 95, 96, 104,
+213, 314, 315, 317, 331, 671 · `psychoanalyse` 223, 360, 361, 405, 409, 575,
+610, 703, 833 · `psychologie` 23, 28, 29, 55, 73, 78, 79, 105, 138, 143, 147,
+152, 154, 162, 200, 211, 213, 214, 250, 254, 258, 296, 310, 338, 357, 358,
+375, 381, 382, 384, 387, 424, 444, 457, 463, 467, 468, 469, 487, 501, 514,
+538, 541, 542, 582, 665, 801, 802, 828, 928, 936, 943, 951, 1161, 1166 ·
+`psychologische flexibiliteit` 460 · `psychologische functies` 361 ·
+`psychopathie` 429 · `psychose` 671 · `psychotherapie` 164, 227, 386, 406,
+769, 1158 · `PTSS` 386 · `publiceren` 13 · `publiek opbouwen` 369 ·
+`publieksfilosofie` 269 · `Pulitzer` 5 · `punk` 834 · `puzzels` 451 · `Python`
+486 · `quantum` 94, 650, 653 · `queeste` 522 · `quilten` 114 · `quotes` 179 ·
+`racisme` 601, 602 · `radicale transparantie` 270 · `RAND` 454, 456 ·
+`Rat-Pack` 178 · `rationaliteit` 454 · `rationele keuze` 455 · `recht` 393,
+827 · `rechtsfilosofie` 827 · `rechtsgeschiedenis` 827 · `rechtspraak` 69 ·
+`rechtvaardigheid` 623 · `reclame` 206, 279, 443, 446, 563, 673, 695, 696,
+697, 698, 699, 700, 701, 702, 705 · `reclamebureau` 701 ·
+`reclamegeschiedenis` 700, 703 · `reclamekritiek` 704 · `reclameonderzoek` 696
+· `reclametheorie` 700 · `reeks` 114, 192 · `regimeverandering` 220 ·
+`reïncarnatie` 202, 645 · `reïnventie` 344 · `reisverhaal` 1 · `reizen` 278 ·
+`relaties` 34, 51, 101, 120, 122, 145, 152, 162, 164, 166, 167, 195, 213, 334,
+335, 381, 398, 406, 466 · `relatietherapie` 165 · `relativiteitstheorie` 240,
+281, 945 · `religie` 56, 572, 596, 599, 626, 936, 937, 1138, 1170 · `religieus
+naturalisme` 609 · `religieuze beweging` 670, 1153 · `religieuze symboliek`
+409 · `religiewetenschap` 758 · `REM` 52 · `remarkable` 446 · `renaissance`
+639, 643, 766 · `Renaissance` 15, 241 · `rente` 38, 806 · `replicatie` 79 ·
+`reputatie` 388 · `retorica` 253, 438, 766 · `revisie` 18 · `revolutie` 625 ·
+`ridderepos` 534 · `ridderideaal` 822 · `rijkdom` 57, 228 · `risico` 64, 80,
+144, 268, 282, 351, 423, 425, 480, 481, 482, 487, 496, 500, 501, 804, 811,
+815, 816 · `risicobeheer` 479, 489, 490, 491, 492, 493, 494, 497, 498, 504,
+506, 810 · `ritueel` 404, 590, 608, 719, 1103, 1114, 1126, 1169 · `rituelen`
+304 · `rivier als symbool` 287 · `roem-en-eenzaamheid` 178 · `roeping` 8, 9,
+12, 160 · `roman` 61, 113, 114, 115, 254, 554, 904, 915, 916, 917, 918, 919,
+920, 921 · `Rome` 537 · `romeinse oudheid` 232 · `rouw` 95, 467 ·
+`rouwverwerking` 204 · `rozenkruisers` 631, 645 · `ruil` 717, 718 · `ruimte en
+tijd` 281 · `ruimtevaart` 266, 819 · `russische literatuur` 235 · `rust` 32 ·
+`SaaS` 434 · `sadisme` 223 · `saga` 533 · `Salinas` 10 · `samenleving` 90, 98,
+319 · `samenwerken` 25 · `samenwerking` 453 · `samoerai` 346, 462, 517, 535 ·
+`Sanskriet` 520, 1100, 1102 · `Santa Fe Institute` 347 · `satire` 155, 914,
+915, 916, 918, 919, 920, 923 · `satori` 528, 769 · `scepsis` 63, 585, 675,
+927, 929, 1108 · `schaalgroei` 434 · `schaalvergroting` 350 · `schaamte` 32,
+44, 317, 470 · `schaarste` 92, 249 · `schaduw` 404 · `schaken` 831 ·
 `scheiding` 556 · `scheikunde` 92, 942 · `schizofrenie` 671 · `school` 53, 84
 · `schrijven` 11, 12, 14, 18, 19, 81, 436, 511 · `schrijverschap` 191, 325,
 934 · `schuld` 254 · `schulden` 20, 38, 121, 159, 464 · `seksualiteit` 100,
-145, 164, 165, 316, 672 · `sekten` 675 · `selectoraattheorie` 221 ·
-`semantiek` 664, 930 · `seminar` 139, 543 · `semiotiek` 834 · `Shaolin` 389 ·
-`Silicon Valley` 306 · `simulatie` 565 · `sirtuïnen` 415 · `situationisme` 564
-· `sjamanisme` 758 · `slaap` 52, 87, 88, 171, 181, 316, 329, 414 ·
-`slaapapneu` 332 · `slavernij` 68 · `smartphone` 53, 288 · `sociale
-besmetting` 303 · `sociale media` 53, 70, 194, 198, 204, 288, 365 · `sociale
-psychologie` 215, 280, 302, 319 · `sociale-vaardigheden` 398 · `socialisme`
-618 · `sociobiologie` 722 · `sociologie` 300, 622, 715, 721, 723, 805, 826,
-834, 939 · `soedan` 716 · `soefisme` 524, 526, 1108 · `software` 276, 484 ·
-`somberheid` 119 · `spanning` 101 · `sparen` 21, 38, 159, 233, 464 · `Sparta`
-529 · `specialisatie` 349, 803 · `speculatie` 808, 809 · `speedreading` 175 ·
-`spel` 550 · `spelen` 32 · `spellen` 392 · `speltheorie` 217, 221, 450, 451,
-452, 453, 454, 455, 456, 656 · `spiegelneuronen` 303 · `spiegeloefening` 380 ·
-`spiegelogie` 108 · `spieropbouw` 316 · `spijt` 447 · `spiritisme` 677 ·
+145, 164, 165, 316, 672, 1125, 1134 · `sekten` 675, 1148 ·
+`selectoraattheorie` 221 · `semantiek` 664, 930 · `seminar` 139, 543 ·
+`semiotiek` 834 · `Shaolin` 389 · `Silicon Valley` 306 · `simulatie` 565 ·
+`sirtuïnen` 415 · `situationisme` 564 · `sjamanisme` 758, 1166, 1169 · `slaap`
+52, 87, 88, 171, 181, 316, 329, 414 · `slaapapneu` 332 · `slavernij` 68 ·
+`smartphone` 53, 288 · `sociale besmetting` 303 · `sociale media` 53, 70, 194,
+198, 204, 288, 365 · `sociale psychologie` 215, 280, 302, 319 ·
+`sociale-vaardigheden` 398 · `socialisme` 618 · `sociobiologie` 722 ·
+`sociologie` 300, 622, 715, 721, 723, 805, 826, 834, 939 · `soedan` 716 ·
+`soefisme` 524, 526, 1108 · `software` 276, 484 · `somberheid` 119 ·
+`spanning` 101 · `sparen` 21, 38, 159, 233, 464 · `Sparta` 529 ·
+`specialisatie` 349, 803 · `speculatie` 808, 809 · `speedreading` 175 · `spel`
+550 · `spelen` 32 · `spellen` 392 · `speltheorie` 217, 221, 450, 451, 452,
+453, 454, 455, 456, 656 · `spiegelneuronen` 303 · `spiegeloefening` 380 ·
+`spiegelogie` 108 · `spieropbouw` 316 · `spijt` 447 · `spiritisme` 677, 1161 ·
 `spiritualiteit` 8, 14, 27, 102, 108, 141, 149, 160, 169, 184, 190, 195, 196,
 199, 242, 310, 358, 377, 431, 435, 449, 519, 526, 556, 583, 590, 596, 603,
 604, 614, 679, 754, 1101 · `spirituele zoektocht` 287, 524 · `sport` 20, 349 ·
@@ -168716,11 +179956,11 @@ psychologie` 215, 280, 302, 319 · `sociale-vaardigheden` 398 · `socialisme`
 268, 300, 426, 476, 479, 483, 484, 485, 497, 500, 502, 503, 507, 715, 804,
 805, 811, 909, 946, 951 · `statistiek van uitzonderingen` 274 · `status` 39,
 66, 463 · `stereotypen` 562 · `sterfelijkheid` 2, 71, 232, 295, 416, 516 ·
-`sterrenkunde` 99 · `sterven` 49, 95, 275, 447 · `stijl` 18, 436 · `stoicijns`
-75, 140, 142 · `stoïcijnse filosofie` 153, 228, 232, 286, 423, 459 ·
-`stoïcijnse levenshouding` 402 · `stoïcijnse-houding` 462 · `stoïcisme` 2, 30,
-194, 247, 248, 292, 516, 586 · `stommiteit` 155 · `storytelling` 253, 279 ·
-`strategie` 212, 217, 218, 219, 249, 250, 260, 272, 293, 306, 346, 353, 370,
+`sterrenkunde` 99, 1139 · `sterven` 49, 95, 275, 447 · `stijl` 18, 436 ·
+`stoicijns` 75, 140, 142 · `stoïcijnse filosofie` 153, 228, 232, 286, 423, 459
+· `stoïcijnse levenshouding` 402 · `stoïcijnse-houding` 462 · `stoïcisme` 2,
+30, 194, 247, 248, 292, 516, 586 · `stommiteit` 155 · `storytelling` 253, 279
+· `strategie` 212, 217, 218, 219, 249, 250, 260, 272, 293, 306, 346, 353, 370,
 426, 440, 443, 450, 451, 456, 694, 831, 901, 902, 907, 908 · `streken` 112 ·
 `stress` 80, 87, 106, 118, 187, 387, 458 · `stressmanagement` 153 ·
 `stressregulatie` 372 · `strip` 452 · `structuur` 82, 511 · `studieboek` 421,
@@ -168734,12 +179974,12 @@ psychologie` 215, 280, 302, 319 · `sociale-vaardigheden` 398 · `socialisme`
 · `taaloorsprong` 762 · `taboe` 719 · `tactische empathie` 271 · `talent` 23,
 29, 274 · `tantra` 1103 · `taoïsme` 341, 394, 1104, 1105 · `tarieven` 121 ·
 `tarot` 644 · `teams` 42, 273, 364, 468 · `teamvorming` 260 · `teamwork` 156,
-256 · `techniek` 1, 6, 43, 61, 92 · `techniekgeschiedenis` 666, 820 ·
+256 · `techniek` 1, 6, 43, 61, 92 · `techniekgeschiedenis` 666, 820, 1152 ·
 `technische analyse` 483, 500 · `technologie` 160, 288, 294, 306, 393, 499,
-907 · `technologiebedrijven` 293 · `technologiegeschiedenis` 231, 267 ·
+907 · `technologiebedrijven` 293 · `technologiegeschiedenis` 231, 267, 1142 ·
 `technologiekritiek` 297, 539, 674, 826 · `tegen-productiviteit` 71 ·
-`tegencultuur` 750 · `tegenslag` 30, 111, 174, 570 · `tekenen` 15 ·
-`tekstkwaliteit` 124 · `televisie` 54, 674, 820 · `temperament` 33 · `tempo`
+`tegencultuur` 750, 1162 · `tegenslag` 30, 111, 174, 570, 1168 · `tekenen` 15
+· `tekstkwaliteit` 124 · `televisie` 54, 674, 820 · `temperament` 33 · `tempo`
 552 · `termijnmarkten` 480, 482 · `testament` 462 · `tevredenheid` 463 ·
 `Texas` 5, 385 · `The Secret` 433 · `theeceremonie` 379 · `thelema` 644 ·
 `theologie` 578, 587, 830 · `theosofie` 605, 606, 645, 836 · `therapie` 51,
@@ -168750,70 +179990,71 @@ psychologie` 215, 280, 302, 319 · `sociale-vaardigheden` 398 · `socialisme`
 93, 137, 274, 362, 483 · `Tolteeks` 27 · `tonaliteit` 824 · `toon` 72, 118,
 119, 121, 132, 145 · `topprestatie` 374 · `topsport` 422, 460, 545 ·
 `totalitarisme` 384, 935 · `trading` 492, 493, 495 · `training` 376 ·
-`transpersoonlijke psychologie` 583 · `trauma` 104, 119, 195, 229, 317, 386 ·
-`trendvolgen` 480, 501 · `trilling` 127 · `trilogie` 202, 203, 248 · `TRIZ`
-471 · `Troje` 530 · `tuinontwerp` 205 · `tumoronderdrukker` 419 ·
-`twaalf-weken` 14 · `twaalfde eeuw` 525 · `tweede-wereldoorlog` 115, 819 ·
-`tweelingonderzoek` 417 · `twintigers` 51 · `twintigste eeuw` 682, 769 ·
-`typologie` 361 · `ufo` 669, 678 · `ufo's` 615, 675, 676 ·
-`uitdaging-vaardigheid` 200 · `uitgeven` 463 · `uitleg` 99, 102 · `uitleggen`
-82 · `uitstel` 71, 140 · `uitstelgedrag` 12, 311, 513 · `uitstellen` 16 ·
-`uitvinding` 267 · `ultra-triatlon` 324 · `ultralopen` 229 · `umwelt` 322 ·
-`Upanishaden` 169 · `usp` 696 · `utopie` 681, 919 · `vaardigheden` 40, 50,
-349, 397 · `vaardigheid` 64, 296 · `vader-en-dochter` 178, 226 ·
-`vader-en-zoon` 1, 173, 287 · `vaderschap` 49, 226, 324, 385 · `vakbonden` 297
-· `vakmanschap` 1, 206, 320, 346, 376, 553 · `variantie` 137 · `vastgoed` 37,
-448, 570 · `vechtkunst` 389 · `vedanta` 518 · `vedische filosofie` 230 ·
-`veedrift` 5 · `veerkracht` 106, 153, 174, 177, 189, 317, 375, 459, 460, 461,
-467, 470 · `veiligheid` 43, 214 · `veiligheidsmarge` 144 · `veldonderzoek` 759
-· `veldwerk` 521, 716, 717 · `verandering` 170, 252, 375, 467 ·
-`verantwoordelijkheid` 42, 72, 73, 74, 93, 184, 282, 335, 364 · `verbinding`
-302, 550 · `verdriet` 111, 227 · `verenigde staten` 598, 667, 687, 688, 689,
-690, 753 · `Verenigde-Staten` 464 · `vergaderen` 42 · `vergaderingen` 276 ·
-`vergankelijkheid` 379, 532 · `vergelijkende mythologie` 410, 635 ·
-`vergelijkende religie` 604 · `vergeving` 31, 102, 120, 548, 556 · `verhaal`
-74 · `verhaalstructuur` 410 · `verhaalvorm` 135 · `verhalen` 56, 101, 110,
-136, 196, 470, 903, 942 · `verhalenbundel` 206 · `verhouding` 113 ·
-`verhoudingen` 110 · `verkeer` 300 · `verklaringen` 68 · `verkoop` 132, 182,
-185, 186, 188, 246, 280, 307, 308, 350, 367, 427, 913 · `verkooptrechters` 309
-· `verkopen` 210 · `verlangen` 76, 100, 113, 130, 164, 418, 698, 703 ·
-`verleiding` 381 · `verlichting` 243, 287, 922 · `verlies` 95, 373 · `vermaak`
-61 · `vermogen` 39, 463 · `vermogen opbouwen` 395 · `vermogensbeheer` 498,
-813, 815 · `vermogensopbouw` 163, 264, 277 · `veroudering` 171, 387, 415 ·
-`verpleeghuis` 416 · `verpleegkunde` 225 · `verplichting` 9 · `verraad` 534 ·
-`verslaving` 18, 238, 275, 294, 314, 324, 325, 418, 554, 568, 583 ·
-`vertrouwen` 42, 273, 279, 319 · `vervloekt goud` 533 · `vervolg` 74, 131 ·
-`vervreemding` 173 · `verwachting` 387 · `verwachtingen` 425 ·
-`verwachtingswaarde` 492 · `verwantschap` 722 · `verwondering` 227 ·
-`verzekeren` 496 · `verzet` 523 · `vier deugden` 194 · `visioenen` 359, 758 ·
-`visualisatie` 259, 411, 540 · `visualiseren` 116 · `vlaams` 89, 91, 98, 109 ·
-`voeding` 86, 88, 171, 313, 316, 329, 332, 417 · `voedingswetenschap` 417 ·
-`volatiliteit` 494, 495, 506 · `volharding` 29 · `volledigheid` 167 ·
-`voorbede` 558 · `voorbeelden` 128 · `voorbereiding` 82 · `voordrachten` 519 ·
-`voorkeuren` 89 · `vooroordelen` 55, 283 · `voorspellen` 455 ·
-`voorspellingen` 268 · `vooruitgang` 251 · `vooruitgangsdenken` 298 ·
-`voorzichtigheid` 216 · `vorming` 224 · `vorstenspiegel` 536 · `vragen
-stellen` 509 · `vragen-stellen` 475 · `vreemden` 302 · `vreugde` 549 ·
-`vriendelijkheid` 551 · `vriendschap` 5, 7, 114, 292, 295, 319, 514 · `vrije
-markt` 627 · `vrije tijd` 78, 288 · `vrije wil` 10, 236, 339, 761 · `vrijheid`
-61, 546, 620, 621, 626, 826 · `vrijmetselarij` 605, 635, 636, 922, 923, 924 ·
-`vroeg christendom` 614 · `vroeg pensioen` 264 · `vrouwenhaat` 110 ·
-`waardebeleggen` 144, 351, 817 · `waardecreatie` 246, 508 · `waarden` 72, 142,
-392, 457, 461, 553 · `waardering` 24, 34, 814, 815 · `waarheid` 263 ·
-`waarneming` 154, 283, 322, 541, 582, 757, 767, 825, 828, 830, 930 ·
-`wabi-sabi` 379 · `wales` 558 · `Wall Street` 144, 351, 499 · `wederkerigheid`
-718 · `weerbaarheid` 194 · `weerstand` 12, 538 · `welvaart` 251, 334 ·
-`welvaartsbewustzijn` 433 · `wereldbeeld` 234, 932 · `wereldbouw` 192 ·
-`wereldorde` 681 · `werk` 70, 78, 151, 252, 466 · `werk en rust` 512 ·
-`werkboek` 14, 122, 150 · `werkcultuur` 551 · `werkdruk` 400 · `werkplek` 33,
-43 · `werktempo` 400 · `werkwijze` 16, 702 · `West-Afrika` 522, 1114 ·
-`West-Point` 29 · `westen` 67 · `western` 5 · `westerse filosofie` 269, 341 ·
-`westerse psychologie` 769 · `wet van aantrekking` 127, 190, 433, 543 ·
-`wetenschap` 63, 66, 93, 94, 328, 485 · `wetenschap en religie` 609 ·
-`wetenschappers` 239 · `wetenschapsfilosofie` 483, 650, 653, 654, 664, 761,
-767, 805, 929, 938 · `wetenschapsgeschiedenis` 239, 240, 321, 347, 413, 419,
-633, 642, 647, 649, 651, 654, 657, 658, 659, 660, 661, 662, 663, 805, 818,
-819, 820, 823, 932, 937, 938, 941, 944, 945, 946, 947, 948, 949, 951 ·
+`transpersoonlijke psychologie` 583, 1158 · `trauma` 104, 119, 195, 229, 317,
+386 · `trendvolgen` 480, 501 · `trilling` 127 · `trilogie` 202, 203, 248 ·
+`TRIZ` 471 · `Troje` 530 · `tuinontwerp` 205 · `tumoronderdrukker` 419 ·
+`twaalf-weken` 14 · `twaalfde eeuw` 525 · `tweede-wereldoorlog` 115, 819, 1140
+· `tweelingonderzoek` 417 · `twintigers` 51 · `twintigste eeuw` 682, 769 ·
+`typologie` 361 · `ufo` 669, 678, 1150, 1157 · `ufo's` 615, 675, 676, 1141,
+1142, 1143, 1144 · `uitdaging-vaardigheid` 200 · `uitgeven` 463 · `uitleg` 99,
+102 · `uitleggen` 82 · `uitstel` 71, 140 · `uitstelgedrag` 12, 311, 513 ·
+`uitstellen` 16 · `uitvinding` 267, 1152 · `ultra-triatlon` 324 · `ultralopen`
+229 · `umwelt` 322 · `Upanishaden` 169 · `usp` 696 · `utopie` 681, 919 ·
+`vaardigheden` 40, 50, 349, 397 · `vaardigheid` 64, 296 · `vader-en-dochter`
+178, 226 · `vader-en-zoon` 1, 173, 287 · `vaderschap` 49, 226, 324, 385 ·
+`vakbonden` 297 · `vakmanschap` 1, 206, 320, 346, 376, 553 · `variantie` 137 ·
+`vastgoed` 37, 448, 570 · `vechtkunst` 389 · `vedanta` 518 · `vedische
+filosofie` 230 · `veedrift` 5 · `veerkracht` 106, 153, 174, 177, 189, 317,
+375, 459, 460, 461, 467, 470 · `vegetarisme` 1135, 1137 · `veiligheid` 43, 214
+· `veiligheidsmarge` 144 · `veldonderzoek` 759 · `veldwerk` 521, 716, 717 ·
+`verandering` 170, 252, 375, 467 · `verantwoordelijkheid` 42, 72, 73, 74, 93,
+184, 282, 335, 364 · `verbinding` 302, 550 · `verdriet` 111, 227 · `verenigde
+staten` 598, 667, 687, 688, 689, 690, 753 · `Verenigde-Staten` 464 ·
+`vergaderen` 42 · `vergaderingen` 276 · `vergankelijkheid` 379, 532 ·
+`vergelijkende mythologie` 410, 635 · `vergelijkende religie` 604 ·
+`vergeving` 31, 102, 120, 548, 556 · `verhaal` 74 · `verhaalstructuur` 410 ·
+`verhaalvorm` 135 · `verhalen` 56, 101, 110, 136, 196, 470, 903, 942 ·
+`verhalenbundel` 206 · `verhouding` 113 · `verhoudingen` 110 · `verkeer` 300 ·
+`verklaringen` 68 · `verkoop` 132, 182, 185, 186, 188, 246, 280, 307, 308,
+350, 367, 427, 913 · `verkooptrechters` 309 · `verkopen` 210 · `verlangen` 76,
+100, 113, 130, 164, 418, 698, 703 · `verleiding` 381 · `verlichting` 243, 287,
+922 · `verlies` 95, 373 · `vermaak` 61 · `vermogen` 39, 463 · `vermogen
+opbouwen` 395 · `vermogensbeheer` 498, 813, 815 · `vermogensopbouw` 163, 264,
+277 · `veroudering` 171, 387, 415 · `verpleeghuis` 416 · `verpleegkunde` 225,
+1132 · `verplichting` 9 · `verraad` 534 · `verslaving` 18, 238, 275, 294, 314,
+324, 325, 418, 554, 568, 583, 1162 · `vertrouwen` 42, 273, 279, 319 ·
+`vervloekt goud` 533 · `vervolg` 74, 131 · `vervreemding` 173 · `verwachting`
+387 · `verwachtingen` 425 · `verwachtingswaarde` 492 · `verwantschap` 722 ·
+`verwondering` 227 · `verzekeren` 496 · `verzet` 523 · `vier deugden` 194 ·
+`visioenen` 359, 758 · `visualisatie` 259, 411, 540 · `visualiseren` 116 ·
+`vlaams` 89, 91, 98, 109 · `voeding` 86, 88, 171, 313, 316, 329, 332, 417,
+1129, 1134, 1135, 1136, 1137, 1138 · `voedingswetenschap` 417 · `volatiliteit`
+494, 495, 506 · `volharding` 29 · `volledigheid` 167 · `voorbede` 558 ·
+`voorbeelden` 128 · `voorbereiding` 82 · `voordrachten` 519 · `voorkeuren` 89
+· `vooroordelen` 55, 283 · `voorspellen` 455 · `voorspellingen` 268 ·
+`vooruitgang` 251 · `vooruitgangsdenken` 298 · `voorzichtigheid` 216 ·
+`vorming` 224 · `vorstenspiegel` 536 · `vragen stellen` 509 · `vragen-stellen`
+475 · `vreemden` 302 · `vreugde` 549 · `vriendelijkheid` 551 · `vriendschap`
+5, 7, 114, 292, 295, 319, 514 · `vrije markt` 627 · `vrije tijd` 78, 288 ·
+`vrije wil` 10, 236, 339, 761 · `vrijheid` 61, 546, 620, 621, 626, 826 ·
+`vrijmetselarij` 605, 635, 636, 922, 923, 924, 1150 · `vroeg christendom` 614,
+1151 · `vroeg pensioen` 264 · `vrouwenhaat` 110 · `waardebeleggen` 144, 351,
+817 · `waardecreatie` 246, 508 · `waarden` 72, 142, 392, 457, 461, 553 ·
+`waardering` 24, 34, 814, 815 · `waarheid` 263 · `waarneming` 154, 283, 322,
+541, 582, 757, 767, 825, 828, 830, 930 · `wabi-sabi` 379 · `wales` 558 · `Wall
+Street` 144, 351, 499 · `wederkerigheid` 718 · `weerbaarheid` 194 ·
+`weerstand` 12, 538 · `welvaart` 251, 334 · `welvaartsbewustzijn` 433 ·
+`wereldbeeld` 234, 932 · `wereldbouw` 192 · `wereldorde` 681 · `werk` 70, 78,
+151, 252, 466 · `werk en rust` 512 · `werkboek` 14, 122, 150 · `werkcultuur`
+551 · `werkdruk` 400 · `werkplek` 33, 43 · `werktempo` 400 · `werkwijze` 16,
+702 · `West-Afrika` 522, 1114 · `West-Point` 29 · `westen` 67 · `western` 5 ·
+`westerse filosofie` 269, 341 · `westerse psychologie` 769 · `wet van
+aantrekking` 127, 190, 433, 543 · `wetenschap` 63, 66, 93, 94, 328, 485 ·
+`wetenschap en religie` 609 · `wetenschappers` 239 · `wetenschapsfilosofie`
+483, 650, 653, 654, 664, 761, 767, 805, 929, 938, 1165, 1167 ·
+`wetenschapsgeschiedenis` 239, 240, 321, 347, 413, 419, 633, 642, 647, 649,
+651, 654, 657, 658, 659, 660, 661, 662, 663, 805, 818, 819, 820, 823, 932,
+937, 938, 941, 944, 945, 946, 947, 948, 949, 951, 1149, 1153, 1163, 1164 ·
 `wetenschapsjournalistiek` 387, 412 · `wijn` 112 · `wijsheid` 596 ·
 `wilskracht` 238 · `Wired` 473 · `wiskunde` 116, 454, 456, 490, 505, 509, 649,
 656, 657, 658, 659, 660, 661, 662, 812 · `wisselstroom` 267 · `woede` 119, 120
@@ -168842,13 +180083,13 @@ communicatie` 182 · `zakendoen` 348, 367, 465, 508 · `zeepbellen` 808 ·
 198 · `zelfstandig starten` 210 · `zelfsturing` 142, 168 · `zelfuitgegeven`
 123, 124, 125, 126 · `zelfverbetering` 243 · `zelfvertrouwen` 157, 187, 312,
 365, 440, 441 · `zelfwaarde` 168 · `zelfwaardering` 121 · `zelfzorg` 109, 225,
-466 · `zen` 141, 346, 441, 517, 528, 576, 769, 800, 952, 1106 ·
+466, 1127 · `zen` 141, 346, 441, 517, 528, 576, 769, 800, 952, 1106 ·
 `zenboeddhisme` 205, 379 · `zenuwstelsel` 87 · `zestiende eeuw` 573 ·
 `zeven-stappen` 129 · `ziekte` 74, 180, 295, 823 · `zingeving` 9, 48, 77, 91,
 160, 183, 200, 201, 237, 245, 255, 515, 547 · `zintuigen` 582 · `zitten` 84 ·
 `zorg` 96 · `Zuid-Afrika` 26, 266, 523 · `zuinigheid` 39 · `zuivere ervaring`
-576 · `zwaar` 143 · `zwaardvechten` 346, 517 · `zwart bewustzijn` 523 ·
-`zwarte gaten` 99, 262, 651
+576 · `zwaar` 143 · `zwaardvechten` 346, 517 · `zwangerschap` 1136 · `zwart
+bewustzijn` 523 · `zwarte gaten` 99, 262, 651
 
 ## Leesroutes
 

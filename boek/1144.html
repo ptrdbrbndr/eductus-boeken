@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Andreasson Affair &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Fowler betoogt dat het verhaal van Betty Andreasson niet als verzinsel of als ziektebeeld kan worden weggezet en dat er iets werkelijks is gebeurd…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1144">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1144 &middot; Filosofie en mystiek</p>
+    <h1>The Andreasson Affair</h1>
+    <p class="lede">Raymond E. Fowler, 1979</p>
+    <p class="stats">
+      <span><b>1900</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1144"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Fowler betoogt dat het verhaal van Betty Andreasson niet als verzinsel of als ziektebeeld kan worden weggezet en dat er iets werkelijks is gebeurd waarvoor de gangbare verklaringen tekortschieten. Zijn redenering steunt op drie pijlers: de getuige en haar dochter kwamen goed door alle karakter- en betrouwbaarheidstoetsen, hun onder hypnose verkregen verslagen bevatten details die overeenkomen met andere ontvoeringsmeldingen waarvan zij geen weet konden hebben, en het verhaal bevat elementen die zij vanuit haar streng christelijke wereldbeeld niet zou hebben verzonnen. Dat de wezens door dichte deuren gingen en haar gedachten beheersten, brengt hem tot de gevolgtrekking dat een louter fysieke buitenaardse verklaring niet volstaat en dat het verschijnsel ook een geestelijke kant heeft.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>25 januari 1967</h3>
+      <p>Het boek opent met het gezin. Betty Andreasson, moeder van zeven kinderen, woonde in een opgeknapte boerderij in South Ashburnham; haar man lag na een verkeersongeval van december 1966 in het ziekenhuis, haar ouders logeerden bij haar. Op de avond van 25 januari 1967 viel het licht uit en scheen er een roze gloed door het keukenraam. Haar vader zag door het achterraam kleine wezens naderen.</p>
+      <p>Meer dan dit is bewust herinnerd. De rest van de avond was voor iedereen in huis leeg, en dat gat is de aanleiding voor alles wat volgt.</p>
+      <h3>Hoe de zaak bij het onderzoek kwam</h3>
+      <p>In 1975 schreef Andreasson een brief aan J. Allen Hynek, de astronoom die het Center for UFO Studies leidde. Hynek liet de brief eerst liggen en gaf hem daarna door aan Raymond Fowler, oud-NICAP-onderzoeker en destijds directeur voor Massachusetts van het onderzoeksnetwerk MUFON.</p>
+      <p>In 1977 volgde een onderzoek van twaalf maanden met een team van zes: Fowler, Joseph Santangelo, Jules Vaillancourt, David Webb, Fred Youngren en hypnotiseur Harold Edelstein. Er kwamen veertien hypnosesessies, telkens gevolgd door een gesprek waarin de onderzoekers doorvroegen. Ook dochter Becky, in 1967 elf jaar oud, werd onder hypnose gebracht.</p>
+      <h3>Aan boord en het onderzoek</h3>
+      <p>Onder hypnose beschrijft Andreasson hoe vier tot vijf wezens van ongeveer een meter twintig door de gesloten keukendeur binnenkwamen, met een grote peervormige schedel, schuine ogen en drie vingers, gekleed in blauwe overalls met een vogelembleem. De rest van het gezin stond bewegingloos; de leider noemde zich telepathisch Quazgaa.</p>
+      <p>Aan boord volgt een lichamelijk onderzoek dat zij als pijnlijk beschrijft: een lange buigzame naald door haar linkerneusgat, waarbij zij iets als een vlies hoorde scheuren, en een tweede door haar navel. Op de vraag waar dat voor diende antwoordt zij dat het iets met voortplanting te maken had en dat er onderdelen ontbraken, waarna zij zelf verklaart dat zij een baarmoederverwijdering had ondergaan.</p>
+      <h3>Het groene rijk en de feniks</h3>
+      <p>Het middendeel is het vreemdste. Zij wordt over een zwarte baan door een tunnel en langs kristallen gevoerd naar een landschap met een groenblauwe hemel, waar zij hoofdloze wezens en glazen bollen ziet. Aan het einde staat zij tegenover een reusachtige vogel die verbrandt tot as, waaruit een dikke worm kruipt. Uit het licht achter de vogel spreekt een stem die haar zegt dat zij is uitgekozen om iets aan de wereld door te geven.</p>
+      <p>Andreasson, opgegroeid in een pinkstergemeente en actief in haar geloof, zegt in de sessie dat zij dit als God verstond, door zijn Zoon. Fowler zoekt de vogel na in een encyclopedie en herkent de feniks uit de oudheid, die uit zijn eigen as herrijst; het lemma vermeldt daarbij dat de feniks in de vroegchristelijke kunst een teken van de opstanding is.</p>
+      <h3>De terugkeer, het blauwe boek en de boodschappen</h3>
+      <p>Terug in huis krijgt zij van Quazgaa vier boekjes met lege lichtgevende bladzijden mee, waarvan er één zou blijven; Becky zou dat blauwe boek in de dagen erna in huis hebben gezien, waarna het verdween. De wezens vragen om kennis die door vuur is beproefd, waarop zij hun haar bijbel toont.</p>
+      <p>In de latere sessies gebeurt iets waar de onderzoekers geen raad mee weten: Andreasson stapt uit de herbeleving en spreekt in het heden, klaagt dat haar handen worden beheerst, en begint in een onbekende taal te spreken, gevolgd door losse zinnen over een basis 32, over wetenschappers die het verleden moeten begraven en over een deur die geopend gaat worden. Fowler drukt de klanken fonetisch af zonder ze te duiden.</p>
+      <h3>De weging door het team</h3>
+      <p>In de slothoofdstukken en de bijlagen legt Fowler verantwoording af. Het team vroeg buren, kennissen en een predikant naar het karakter van moeder en dochter en kreeg overal hetzelfde beeld: eerlijk, stabiel, hardwerkend. Een psychiater sprak Andreasson zonder over de melding te beginnen en vond geen aanwijzing voor een stoornis; hij tekende erbij aan dat haar sterke geloofsbetrokkenheid haar objectiviteit als getuige kan hebben aangetast. Een gecertificeerd analist voerde metingen uit met een Psychological Stress Evaluator, een apparaat dat leugens uit stemtrillingen zou aflezen, en concludeerde dat beiden de waarheid spraken.</p>
+      <p>Hypnotiseur Edelstein hield zich voorzichtiger: hij vond dat zij geloofden wat zij vertelden en dat een deel ervan op iets werkelijks berustte, maar zei erbij niet te kunnen bepalen hoeveel. Hynek schrijft in zijn inleiding dat als het geheel een gezamenlijk psychisch drama zou zijn, het nog altijd een goede studie in de abnormale psychologie zou opleveren.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">close encounter of the third kind</td><td>Hyneks aanduiding voor een melding waarbij naast een voorwerp ook inzittenden worden waargenomen; deze zaak geldt als een geval van de vierde soort, met meegenomen worden erbij.</td></tr>
+          <tr><td class="term">regressieve hypnose</td><td>Techniek waarbij iemand in trance naar een eerder tijdstip wordt teruggevoerd om het opnieuw te beleven, in dit onderzoek de bron van vrijwel alle inhoud.</td></tr>
+          <tr><td class="term">debriefing</td><td>Het gesprek na elke hypnosesessie waarin de onderzoekers doorvroegen op wat de getuige had verteld.</td></tr>
+          <tr><td class="term">Quazgaa</td><td>De naam die de leider van de wezens zich in het verhaal telepathisch geeft.</td></tr>
+          <tr><td class="term">het blauwe boek</td><td>Het boekje met lege lichtgevende bladzijden dat zij naar eigen zeggen meekreeg en dat daarna uit huis verdween.</td></tr>
+          <tr><td class="term">de feniks</td><td>De brandende reuzenvogel uit het middendeel, door Fowler herkend als de klassieke vogel die uit zijn eigen as herrijst.</td></tr>
+          <tr><td class="term">Psychological Stress Evaluator</td><td>Apparaat dat stress en leugen uit onhoorbare trillingen in de stem zou aflezen, in het boek als leugendetector gepresenteerd.</td></tr>
+          <tr><td class="term">kennis beproefd door vuur</td><td>De vraag die de wezens haar stellen en die zij met haar bijbel beantwoordt, in het boek gelezen als aanwijzing dat het bezoek een geestelijke lading had.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Er is in deze zaak geen fysiek spoor. Geen foto, geen bodemafdruk, geen radarwaarneming, geen voorwerp; het blauwe boek was al verdwenen voordat er iemand naar keek. Wat er wel is, is het bewust herinnerde gat: het gezin herinnerde zich een stroomstoring en een licht, en verder niets. Alle inhoud, de wezens, het vaartuig, het onderzoek, het groene landschap, de vogel en de boodschappen, is tien jaar later onder hypnose ontstaan. De bevestiging door dochter Becky is geen onafhankelijke bevestiging, want ook zij werd onder hypnose bevraagd, na haar moeder, in dezelfde kamer en met hetzelfde team.</p>
+      <p>De toetsen die het team uitvoerde meten iets anders dan waar het om gaat. Karakterreferenties en een psychiatrisch gesprek kunnen laten zien dat iemand eerlijk is en niet in de war; ze kunnen niet laten zien of een herinnering klopt. Dat verschil is bepalend, want bij dit soort verhalen is oneerlijkheid zelden de verklaring. De stemstressmeting die het boek als leugendetector opvoert, is bovendien geen meetinstrument: bij herhaalde beproeving onder gecontroleerde omstandigheden komt stemanalyse niet boven het toevalsniveau uit, en de Amerikaanse wetenschapsraad oordeelde in 2003 dat het onderzoek naar de geldigheid ervan verre van bemoedigend is. Wat als bekroning van de bewijsvoering is opgevoerd, voegt dus niets toe.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar geldt de methode zelf. Hypnose is geen manier om herinneringen op te halen. Zij verhoogt de vatbaarheid voor suggestie en het vertrouwen waarmee iemand vertelt, zonder de juistheid te verhogen, en zij maakt het waarschijnlijker dat de betrokkene beeld en gissing als herinnering gaat ervaren. Het onderzoek van Elizabeth Loftus en anderen liet vanaf de jaren zeventig zien hoe eenvoudig een herinnering aan iets wat nooit gebeurde bij een gewone proefpersoon te wekken is, alleen al door de vraagstelling of door een bevestigend verhaal van een naaste. Om die reden weigeren rechtbanken in veel landen getuigenverklaringen die onder hypnose tot stand zijn gekomen.</p>
+      <p>In dit boek is dat mechanisme met eigen ogen te volgen, omdat Fowler de gesprekken letterlijk afdrukt. De onderzoekers stellen gesloten en sturende vragen: of het een boring of een prik was en in welk neusgat, of het teken op de uniformen hetzelfde was als de vogel, waarbij Fowler zelf het Amerikaanse wapen met de zeearend ter sprake brengt en zij daarna bevestigt. Bij de boodschappen wordt gevraagd of iets bij de eerder genoemde formules hoort, waarna het antwoord die kant op gaat. Dat is geen kwade opzet, het is de gewone gang van zaken bij een ondervraging waarin de vragensteller een verwachting heeft.</p>
+      <p>Er is een tweede, hardere toets die in precies dezelfde jaren werd uitgevoerd. Alvin Lawson hypnotiseerde met W.C. McCall een groep proefpersonen zonder belangstelling voor ufo's en vroeg hun zich een ontvoering voor te stellen. De verhalen die zij vertelden bevatten dezelfde soort details als de meldingen van echte ontvoerden en waren daar in structuur niet van te onderscheiden. Daarmee vervalt het argument waar Fowler het meeste op leunt: dat Andreasson dingen wist die zij niet kon weten. Dat een verhaal past bij andere ontvoeringsverhalen zegt alleen dat er een gedeeld verhaalpatroon bestaat, dat in deze jaren via de zaak Betty en Barney Hill, boeken, films en televisie ruim voorhanden was.</p>
+      <p>Blijft de vraag wat het verhaal dan wel is. De meest voor de hand liggende lezing is die welke Fowler kort overweegt en weer verwerpt: een religieuze visioentekst in het beeldmateriaal van zijn tijd. Een pinkstergelovige vrouw met een zwaar jaar achter de rug ziet wezens die zij zelf voor engelen houdt, wordt gevraagd naar kennis beproefd door vuur, toont haar bijbel, krijgt vier boeken die op haar bijbel lijken, ziet een vogel die verbrandt en herrijst, hoort de stem van God door zijn Zoon en wordt aangewezen als boodschapper. Fowler wijst die lezing af omdat de feniks geen gangbaar christelijk beeld zou zijn, maar de encyclopedie die hij in zijn eigen boek citeert noemt de feniks juist een vroegchristelijk teken van de opstanding. Het verloop van de zaak in de drie vervolgdelen is bovendien wat de literatuur over valse herinneringen voorspelt: bij voortgezette hypnose groeide het verhaal door, met eerdere ontmoetingen in haar kinderjaren en implantaten. Een zaak die onder herhaalde behandeling steeds meer gaat opleveren, wordt daar niet sterker van.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Behandel elke herinnering die onder hypnose is ontstaan als nieuw materiaal en niet als teruggehaalde inhoud; het verschil is met het blote oog niet te zien, ook niet voor degene die het vertelt.</li>
+        <li>Kijk bij een ondervraging naar de vragen en niet alleen naar de antwoorden; in afgedrukte gesprekken is sturing vaak letterlijk terug te vinden.</li>
+        <li>Scheid de vraag of iemand eerlijk is van de vraag of zijn herinnering klopt; karakterreferenties en psychiatrisch onderzoek beantwoorden alleen de eerste.</li>
+        <li>Wantrouw apparatuur die als leugendetector wordt opgevoerd en zoek op wat gecontroleerd onderzoek naar dat apparaat heeft opgeleverd.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Andreasson Affair: The Documented Investigation of a Woman's Abduction Aboard a UFO</i> (Prentice-Hall, Englewood Cliffs, 1979, 239 blz., ISBN 0130366080), met een inleiding van J. Allen Hynek. Latere herdrukken dragen de ondertitel <i>The True Story of a Close Encounter of the Fourth Kind</i>; Fowler schreef er drie vervolgdelen bij. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Verslag van een onderzoek dat het Center for UFO Studies in 1977 liet uitvoeren naar de melding van Betty Andreasson, huisvrouw uit South Ashburnham in Massachusetts, die stelde in januari 1967 uit haar huis te zijn meegenomen aan boord van een vaartuig. Het verhaal kwam in veertien hypnosesessies naar boven, tien jaar na dato, en beslaat een lichamelijk onderzoek, een reis door een onderaards landschap, een brandende reuzenvogel en een stem die zij voor God hield.</p><p>Fowler geeft grote delen van de sessieverslagen letterlijk weer en beschrijft de geloofwaardigheidstoetsen die het team uitvoerde. De methode is het zwakke punt: hypnose haalt geen herinneringen op maar vergroot de vatbaarheid voor suggestie, en de sturende vragen van de onderzoekers staan in de afgedrukte gesprekken zelf.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ufo's</li><li>hypnose</li><li>geheugen</li><li>paranormaal</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="615"><a href="615.html">Passport to Magonia</a>. Passport to Magonia laat zien dat de motieven uit dit verhaal, de kleine wezens, de verstoorde tijd, de opdracht aan een uitverkorene, eeuwen ouder zijn dan de ufo.</li>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. The Demon-Haunted World behandelt de ontvoeringsliteratuur rechtstreeks en legt uit waarom getuigenissen onder hypnose geen bewijs opleveren.</li>
+          <li value="1124"><a href="1124.html">Women of Wisdom</a>. Why We Remember geeft de stand van zaken over herinnering als reconstructie, het onderzoek waarop de kritiek op deze methode berust.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

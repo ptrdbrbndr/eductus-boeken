@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>States of Grace &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Spretnak neemt de postmoderne kritiek op de moderniteit over: het geloof in vooruitgang, het losstaande ik en de natuurwetenschap als enig geldig…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1170">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1170 &middot; Filosofie en mystiek</p>
+    <h1>States of Grace</h1>
+    <p class="lede">Charlene Spretnak, 1991</p>
+    <p class="stats">
+      <span><b>1784</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1170"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Spretnak neemt de postmoderne kritiek op de moderniteit over: het geloof in vooruitgang, het losstaande ik en de natuurwetenschap als enig geldig wereldbeeld hebben mensen losgemaakt van hun lichaam, hun omgeving en elkaar. Haar bezwaar richt zich op wat er daarna gebeurde. Het deconstructieve postmodernisme heeft volgens haar de bouwwerken van de moderniteit afgebroken zonder iets na te laten waarmee te leven valt, omdat het elke betekenis tot cultureel voortbrengsel verklaart en daarmee ook de ervaring van verbondenheid met de aarde tot louter verhaal maakt. De vier wijsheidstradities bewaren volgens haar wel kennis van lichaam, plaats en gemeenschap, en uit die kennis wil zij een wereldbeeld opbouwen dat zowel de moderniteit als haar afbraak achter zich laat.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De diagnose: leegte na de afbraak</h3>
+      <p>Het betoog begint bij een verlies. De moderniteit heeft volgens Spretnak de wereld in stukken gesneden en alleen de natuurwetenschap als geldig beeld daarvan overgehouden. Het postmodernisme heeft vervolgens laten zien dat ook dat beeld het voortbrengsel van een bepaalde cultuur is. Wat zij bij die tweede stap mist, is enige aanwijzing hoe er dan geleefd moet worden.</p>
+      <p>Spretnak beschrijft een tijd waarin betekenis als willekeurig geldt. Zij verbindt die toestand met de ecologische crisis: wie de aarde alleen als voorstelling kan denken, houdt geen grond over om haar te ontzien. Dat verband is de spil van het boek.</p>
+      <h3>Wat zij het deconstructieve postmodernisme verwijt</h3>
+      <p>Onder deconstructief postmodernisme vat Spretnak het werk samen dat in de Amerikaanse geesteswetenschappen van de jaren tachtig onder die noemer circuleerde, met Derrida, Foucault en Lyotard als de namen die zij noemt. Haar verwijt luidt dat deze denkers de gedachte hebben gevestigd dat alles taal en machtsverhouding is, dat er onder de voorstelling geen ervaring ligt, en dat elk beroep op natuur of lichaam verdacht is als een poging het toevallige tot noodzakelijk te verklaren.</p>
+      <p>Zij noteert wat dat volgens haar politiek oplevert: een houding waarin verzet even goed te ontleden valt als onderdrukking, en waarin een beweging die zich op de aarde beroept nauwelijks meer iets kan zeggen. Het boek sluit af met een appendix over feministische lezingen van de westerse filosofiegeschiedenis, waarin zij die uitgangspunten uitwerkt.</p>
+      <h3>Het boeddhisme</h3>
+      <p>Van het boeddhisme neemt Spretnak de leer over de aard van de geest en over de herkomst van angst, begeerte en geweld. Zij leest de traditie als een uitgewerkte beschrijving van hoe het gevoel een afgescheiden ik te zijn ontstaat en zichzelf in stand houdt, en van de oefening waarmee dat gevoel doorzien wordt. Het aantrekkelijke van deze traditie is voor haar dat zij daarvoor geen godsleer nodig heeft.</p>
+      <p>Zij plaatst er een aantekening bij. Het boeddhisme kent in haar behandeling een neiging tot terugtrekking uit de wereld, en zij zoekt uitdrukkelijk de kant van de traditie op waarin mededogen tot handelen leidt.</p>
+      <h3>De inheemse tradities van Noord-Amerika</h3>
+      <p>Bij de inheemse tradities gaat het Spretnak om verwantschap: het besef in een web van betrekkingen te staan waarin dieren, planten en plaatsen partij zijn en geen decor. Zij benadrukt dat kennis daar aan een bepaalde plek gebonden is en zich niet als algemene leer laat overplanten.</p>
+      <p>Dat laatste levert een spanning op die in de opzet van het boek besloten ligt. Een Amerikaanse auteur van Europese afkomst die deze tradities aanhaalt voor een algemeen lezerspubliek, gebruikt kennis waarvan de dragers zeggen dat die aan hun gemeenschap gebonden is. Het hoofdstuk berust op Engelstalige literatuur en niet op eigen veldwerk, en dat is een ander soort toegang dan de tradities zelf erkennen.</p>
+      <h3>De godinnenspiritualiteit</h3>
+      <p>Het derde deel gaat over wat Spretnak godinnenspiritualiteit noemt: de hedendaagse beweging die zich beroept op een prehistorisch verleden waarin het heilige vrouwelijk werd gedacht en de samenleving niet op overheersing berustte. Zij was met dat materiaal vertrouwd; haar eerste boek, <i>Lost Goddesses of Early Greece</i> uit 1978, bewerkte Griekse godinnenmythen tot een laag die ouder zou zijn dan de olympische.</p>
+      <p>De inzet is hier lichamelijk. Wat deze traditie volgens haar te bieden heeft, is een omgang met het lichaam, met seksualiteit en met wat zij het aardelichaam noemt, waarin die zaken niet lager staan dan de geest. De archeologische onderbouwing komt van Marija Gimbutas, wier reconstructie van een vreedzaam, moedergericht Oud-Europa dat door ruitervolken uit de steppe werd omvergeworpen in die jaren nog gezag had.</p>
+      <h3>Het semitische erfgoed</h3>
+      <p>Het vierde deel behandelt jodendom, christendom en islam samen. Spretnak zoekt daar wat de andere drie tradities volgens haar minder scherp hebben: een leer over rechtvaardigheid, over verplichting jegens de vreemdeling en over gemeenschap als plaats waar het heilige zich voordoet. Zij haalt de profetische lijn naar voren en de nadruk op geschiedenis als het toneel waarop het ertoe doet wat mensen doen.</p>
+      <p>Zij erkent dat juist deze tradities de scherpste vorm van het scheidingsdenken hebben voortgebracht: God tegenover schepping, geest tegenover stof, man tegenover vrouw. Haar keuze is om binnen de traditie de lijnen te zoeken die dat tegenspreken.</p>
+      <h3>Ecologisch postmodernisme</h3>
+      <p>Het slot brengt de vier bij elkaar onder een naam die Spretnak zelf heeft gemunt: ecologisch postmodernisme. De kern is dat alles wat bestaat in betrekkingen bestaat en in beweging is, dat de mens daarin geen uitzondering vormt, en dat betekenis uit die verbondenheid voortkomt in plaats van uit een cultureel akkoord.</p>
+      <p>Haar voorstel sluit aan bij wat in dezelfde jaren constructief postmodernisme heette, de stroming rond David Ray Griffin die teruggreep op de procesfilosofie van Whitehead. Spretnak legt de nadruk op ervaring en ritueel: een wereldbeeld dat alleen op papier bestaat, verandert volgens haar niets.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">deconstructief postmodernisme</td><td>Spretnaks verzamelnaam voor het denken dat betekenis als cultureel voortbrengsel en daarmee als willekeurig behandelt.</td></tr>
+          <tr><td class="term">ecologisch postmodernisme</td><td>haar eigen tegenvoorstel: een wereldbeeld waarin alles in betrekking en in beweging bestaat en waarin betekenis uit verbondenheid voortkomt.</td></tr>
+          <tr><td class="term">wijsheidstradities</td><td>de vier overleveringen die zij bespreekt: boeddhisme, de inheemse tradities van Noord-Amerika, godinnenspiritualiteit en het semitische erfgoed.</td></tr>
+          <tr><td class="term">aardelichaam (Earthbody)</td><td>haar term voor de aarde begrepen als lichaam waarvan het menselijk lichaam een onderdeel is.</td></tr>
+          <tr><td class="term">staat van genade</td><td>de titelterm; het doorleefde besef van verbondenheid dat volgens haar in alle vier tradities wordt beschreven en geoefend.</td></tr>
+          <tr><td class="term">ecofeminisme</td><td>de opvatting dat de overheersing van de natuur en de overheersing van vrouwen uit dezelfde denkvorm voortkomen.</td></tr>
+          <tr><td class="term">kosmologie</td><td>bij Spretnak het verhaal dat een cultuur over de ordening van het geheel vertelt, niet het vakgebied van de sterrenkunde.</td></tr>
+          <tr><td class="term">Oud-Europa</td><td>Gimbutas' aanduiding voor de neolithische culturen tussen de Adriatische en de Egeïsche Zee, door Spretnak overgenomen als godinnencultuur.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Dit is een betoog en geen onderzoeksverslag. Spretnak voert geen eigen materiaal aan; zij leest bronnen en secundaire literatuur en trekt daar een lijn doorheen. De vraag naar de bewijskracht valt bij zo'n boek uiteen in twee vragen: is haar weergave van de tradities getrouw, en houdt de gevolgtrekking stand.</p>
+      <p>Haar positie geeft het betoog op één punt gewicht. Spretnak schreef in 1984 samen met Fritjof Capra <i>Green Politics</i>, over de Duitse Groenen, en richtte kort daarna de Amerikaanse Groenen mee op. De politieke inzet van het boek, dat een wereldbeeld gevolgen heeft voor hoe mensen met land en lichaam omgaan, komt uit die praktijk en ligt er niet los bovenop.</p>
+      <p>De vier delen verschillen sterk in stevigheid. De hoofdstukken over het boeddhisme en over het semitische erfgoed rusten op tekstuele tradities die iedereen kan naslaan, ook al leest zij die in vertaling en in samenvatting. Het hoofdstuk over de godinnenspiritualiteit rust op een archeologische reconstructie die toen al werd bestreden en die sindsdien grotendeels is verlaten. Dat verschil werkt door in het geheel, omdat de vier delen als gelijkwaardig worden gepresenteerd.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het eerste bezwaar betreft haar tegenstander. Spretnak behandelt Derrida, Foucault en Lyotard als vertegenwoordigers van één positie, en vat die positie samen als de leer dat betekenis willekeurig is. Geen van hen heeft dat beweerd. Derrida heeft herhaaldelijk bestreden dat deconstructie neerkomt op de gedachte dat alles kan; Foucaults werk bestaat uit historisch onderzoek met een uitgesproken morele inzet; Lyotards bezwaar gold de rechtvaardiging van instellingen door grote verhalen en niet de betekenis als zodanig. Wat zij bestrijdt lijkt eerder op de versie die in de Amerikaanse geesteswetenschappen van de jaren tachtig rondging dan op het werk van die auteurs zelf.</p>
+      <p>Het tweede bezwaar komt uit dezelfde hoek en raakt haar eigen werkwijze. Als het verwijt aan de moderniteit is dat zij de ervaring van één cultuur tot algemeen menselijke maat heeft verheven, dan doet een boek dat vier tradities uitkamt op wat zij gemeen hebben iets vergelijkbaars. De tradities worden gelezen op wat in haar betoog past, in vertaling en verkorting, en de plaatsen waar hun aanspraken elkaar uitsluiten blijven onbesproken. Een boeddhistische ontkenning van een blijvend zelf en een profetische godsleer laten zich niet zonder verlies in hetzelfde wereldbeeld schuiven.</p>
+      <p>Het derde bezwaar treft het godinnendeel. De reconstructie van Marija Gimbutas, waarin neolithische beeldjes als godinnenverering en Oud-Europa als een vreedzame, moedergerichte beschaving worden gelezen, is in de jaren negentig door vakarcheologen afgewezen; Lynn Meskell in 1995 en Ruth Tringham en Margaret Conkey in 1998 betoogden dat de beeldjes die betekenis niet dragen. Cynthia Eller stelde in <i>The Myth of Matriarchal Prehistory</i> uit 1999 dat een feministische politiek die op dit verleden steunt op zand is gebouwd. Spretnak heeft die afwijzing niet aanvaard: in 2011 publiceerde zij het artikel <i>Anatomy of a Backlash</i>, waarin zij de verwerping van Gimbutas als een georganiseerde reactie beschrijft. Van Gimbutas' werk is het steppedeel, de herkomst van de Indo-Europese talen, sindsdien door onderzoek aan oud DNA ondersteund; het godinnendeel is dat niet.</p>
+      <p>Ten slotte blijft onduidelijk wat het voorstel in de praktijk vraagt. Spretnak beschrijft een wereldbeeld en de ervaringen die erbij horen, en zij stelt dat ritueel en deelname nodig zijn. Welke gemeenschap dat ritueel draagt, en hoe iemand zonder traditie eraan komt zonder opnieuw te lenen bij tradities die niet de zijne zijn, staat er niet.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees eerst het hoofdstuk over de traditie die je het minst kent; daar valt het sterkst op hoe zij samenvat.</li>
+        <li>Zet bij elke bewering over het neolithicum de vraag welk vondstmateriaal haar draagt.</li>
+        <li>Neem Derrida, Foucault of Lyotard er zelf bij voordat je haar weergave van hen overneemt.</li>
+        <li>Onderscheid haar diagnose van de moderniteit, die breed wordt gedeeld, van haar tegenvoorstel, dat dat niet wordt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>States of Grace: The Recovery of Meaning in the Postmodern Age</i> (HarperSanFrancisco, San Francisco, 1991, 337 blz., ISBN 978-0-06-250824-9). Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Spretnak (1946) is schrijfster en filosofe, medeoprichter van de Amerikaanse Groenen en een van de bekendste stemmen in het ecofeminisme. In dit boek uit 1991 aanvaardt zij de postmoderne afrekening met de moderniteit en stelt zij vast dat er daarna niets is overgebleven om op te leven.</p><p>Zij zet vier religieuze tradities in tegen die leegte: het boeddhisme, de inheemse tradities van Noord-Amerika, de godinnenspiritualiteit en het semitische erfgoed van jodendom, christendom en islam. Wat zij daaruit samenstelt noemt zij ecologisch postmodernisme.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>postmodernisme</li><li>cultuurfilosofie</li><li>religie</li><li>feminisme</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="565"><a href="565.html">Simulacres et simulation</a>. Baudrillard levert in <i>Simulacres et simulation</i> precies het soort denken waar Spretnak zich tegen keert: een wereld waarin het onderscheid tussen beeld en werkelijkheid is verdwenen.</li>
+          <li value="1163"><a href="1163.html">The Reenchantment of the World</a>. Morris Berman beschrijft in <i>The Reenchantment of the World</i> hetzelfde verlies aan verbondenheid, tien jaar eerder en met de wetenschapsgeschiedenis als ingang.</li>
+          <li value="1169"><a href="1169.html">The Woman in the Shaman's Body</a>. Barbara Tedlock werkt in <i>The Woman in the Shaman's Body</i> een verwante aanspraak op een vrouwelijk religieus verleden uit, met veldwerk als grondslag in plaats van cultuurkritiek.</li>
+          <li value="604"><a href="604.html">The Perennial Philosophy</a>. Aldous Huxley bracht in <i>The Perennial Philosophy</i> uit 1945 al de kern van meerdere tradities samen; dezelfde vraag naar wat er bij zo'n samenvoeging verdwijnt geldt daar.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

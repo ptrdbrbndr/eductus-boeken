@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quantum Mind &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Mindell stelt dat de gangbare psychologie net als de gangbare natuurkunde alleen het deel van de werkelijkheid behandelt waarover mensen het eens kunnen…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1166">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1166 &middot; Filosofie en mystiek</p>
+    <h1>Quantum Mind</h1>
+    <p class="lede">Arnold Mindell, 2000</p>
+    <p class="stats">
+      <span><b>1990</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1166"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Mindell stelt dat de gangbare psychologie net als de gangbare natuurkunde alleen het deel van de werkelijkheid behandelt waarover mensen het eens kunnen worden, en dat zij daarmee het grootste deel weglaat. Wat overblijft na die weglating noemt hij de consensuswerkelijkheid; wat wordt weggelaten, dromen, stemmingen, vage gebaren, ingevingen, lichamelijke gewaarwordingen, noemt hij de niet-consensuele werkelijkheid. Zijn stelling is dat die tweede laag geen restpost is maar de bodem van de eerste, en dat de wiskunde die de natuurkunde gebruikt daar al naar verwijst: het imaginaire deel van de kwantumgolffunctie is niet meetbaar en heeft toch gevolgen die wel meetbaar zijn, precies zoals de weggelaten kant van een menselijke ervaring gevolgen heeft. Uit die overeenkomst bouwt hij een psychologie waarin waarnemen, dromen en genezen één proces zijn. De vraag die het boek oproept is of die overeenkomst een argument is of een beeld.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Tellen als handeling, niet als aflezen</h3>
+      <p>Het boek begint niet bij de natuurkunde maar bij het rekenen. Mindell betoogt dat wiskunde een culturele handeling is: wat men telt en wat men niet meetelt, hangt af van wie men is. Zijn voorbeelden gaan over samenlevingen die zonen wel en dochters niet meetellen. Daar haalt hij zijn kernwoord vandaan: buitensluiten of wegstrepen, het onopgemerkt terzijde schuiven van wat niet in de gedeelde beschrijving past.</p>
+      <p>Getallen zijn bij hem dan ook geen eigenschappen van dingen maar de uitkomst van een wisselwerking tussen de teller en wat geteld wordt. Diezelfde gedachte past hij toe op het natuurkundig experiment: al door een bepaalde proef te kiezen, bepaalt de onderzoeker mede wat eruit komt. Hij haalt er de onvolledigheidsstelling van Gödel bij om aannemelijk te maken dat een systeem zijn eigen volledigheid nooit van binnenuit kan aantonen.</p>
+      <h3>Twee werkelijkheden en het imaginaire getal</h3>
+      <p>De consensuswerkelijkheid is wat door gedeelde afspraak en wetenschappelijk gezag als werkelijk geldt. De niet-consensuele werkelijkheid is alles wat mensen wel ervaren maar niet gezamenlijk kunnen vaststellen: dromen, gevoelens, ingevingen, plotselinge invallen, ervaringen rond het sterven. Mindell brengt ze alle onder één noemer en noemt ze in zijn eigen taal dromen.</p>
+      <p>Het beeld waarmee hij die tweede laag denkbaar maakt is het complexe getal. Een kwantumgolffunctie heeft een reële en een imaginaire component; de imaginaire component is op zichzelf niet te meten en bepaalt toch mee wat er gemeten wordt. Zo, redeneert Mindell, verhoudt het weggelaten deel van een ervaring zich tot het deel dat mensen kunnen benoemen. Hij gaat verder in dezelfde lijn: optellen is een ervaring versterken, kwadrateren is een ervaring zichzelf laten opdrijven zoals een stemming zichzelf voedt, en de wiskundige bewerking waarbij het imaginaire deel van teken wisselt is bij hem een omkering die de ervaring pas meetbaar maakt.</p>
+      <h3>Flirts, aandacht en het sentiente niveau</h3>
+      <p>Het scharnier tussen beide lagen noemt Mindell de flirt: het minieme signaal dat de aandacht even trekt en dat men meestal wegwuift voordat het bewust wordt. Een geluid, een kleur, een beweging aan de rand van het gezichtsveld, een vage aandrang. Zijn werkwijze bestaat er grotendeels uit dat men die signalen opmerkt en er aandacht aan geeft, waardoor ze zich ontvouwen.</p>
+      <p>Hij trekt de vergelijking met de natuurkunde door tot in de omkering: niet alleen ziet de waarnemer het ding, het ding vraagt ook om de aandacht van de waarnemer. Ziet men iets, zegt hij, dan alleen omdat men ook gezien wordt. Op dit vlak, dat hij het sentiente of essentieniveau noemt, is nog geen sprake van gescheiden dingen; er zijn alleen betrekkingen die nog niet zijn uitgekristalliseerd. Toevalligheden die betekenisvol lijken, in het spoor van Jung synchroniciteiten, zijn bij hem flirts die zich op dat niveau afspelen.</p>
+      <h3>Van individu naar groep</h3>
+      <p>Het middendeel past het raster toe op de praktijk waaruit Mindell voortkwam. Dromen zijn bij hem niet alleen nachtelijke beelden maar ook aanhoudende lichamelijke klachten en terugkerende patronen in relaties, opvattingen die hij al in zijn eerdere werk over het droomlichaam had ontwikkeld. Chronische klachten blijven volgens hem juist bestaan omdat de reguliere geneeskunde de niet-consensuele kant ervan wegstreept.</p>
+      <p>Van het individu gaat hij naar de groep. Rolwisseling, het tijdelijk innemen van de positie van de ander, is bij hem hetzelfde als de gedaanteverwisseling van de sjamaan: een manier om terug te halen wat men bij zichzelf heeft weggestreept. Tegenstellingen binnen een groep vat hij op als de manier waarop een geheel in evenwicht blijft, met een verwijzing naar het optellen van spin tot nul. Zijn conclusie is dat maatschappelijke verandering aandacht voor beide lagen tegelijk vereist.</p>
+      <h3>Mythe, geometrie en schepping</h3>
+      <p>Een aanzienlijk deel van het boek bestaat uit vergelijkend materiaal. Mindell haalt Aboriginal, Griekse en hindoeïstische verhalen aan, symbolen van de Navajo en de Delaware, en gewijde meetkunde uit vrijmetselaarskringen, telkens om te laten zien dat de tweedeling die hij voorstelt in oudere tradities al bestond. De sjamaan is bij hem het voorbeeld van de waarnemer die zichzelf niet buiten de waarneming plaatst.</p>
+      <p>Ook de kosmologie krijgt die behandeling. Stephen Hawkings voorstel om het begin van het heelal in imaginaire tijd te beschrijven leest Mindell als de bewering dat het heelal met dromen begon en zichzelf vervolgens tot werkelijkheid dacht. Het hoofdstuk over de geschiedenis van de wetenschap voegt daar een sociale lezing aan toe: bij de opkomst van de objectieve wetenschap in de renaissance verving de ene onderdrukker van de persoonlijke ervaring volgens hem de andere.</p>
+      <h3>Wat het boek van de lezer vraagt</h3>
+      <p><i>Quantum Mind</i> is geen boek om alleen te lezen. Door de tekst heen staan psychologische oefeningen waarmee de lezer wiskundige en natuurkundige begrippen aan den lijve zou moeten ondervinden: tellen en wegstrepen, kwadrateren, parallelle werelden, gedaanteverwisseling. Dat is de opzet van Mindells hele oeuvre en het verklaart de omvang van bijna zeshonderddertig bladzijden.</p>
+      <p>Het slot kijkt vooruit. De volgende ronde in natuurkunde, wiskunde en psychologie zal volgens Mindell beginnen bij non-lokaliteit en ongedeelde heelheid in plaats van bij deeltjes, en zal het ervaren zowel als het gemeten deel van de wereld moeten omvatten. Hij plaatst zichzelf daarbij uitdrukkelijk in de lijn van Wolfgang Pauli, Carl Jung en David Bohm.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Consensuswerkelijkheid</td><td>Het deel van de werkelijkheid waarover mensen het eens zijn en dat door meting en gezag wordt bevestigd.</td></tr>
+          <tr><td class="term">Niet-consensuele werkelijkheid</td><td>Alles wat wel ervaren maar niet gezamenlijk vastgesteld wordt: dromen, stemmingen, ingevingen, vage lichamelijke signalen.</td></tr>
+          <tr><td class="term">Wegstrepen</td><td>Het onopgemerkt terzijde schuiven van ervaringen die niet in het gedeelde beeld passen; bij Mindell de oorzaak van zowel klachten als conflicten.</td></tr>
+          <tr><td class="term">Flirt</td><td>Het minieme signaal dat de aandacht even trekt voordat het bewust wordt; het aanknopingspunt van zijn hele werkwijze.</td></tr>
+          <tr><td class="term">Sentiente essentie</td><td>Het diepste niveau, waarop nog geen gescheiden dingen bestaan maar alleen betrekkingen die zich nog niet hebben uitgekristalliseerd.</td></tr>
+          <tr><td class="term">Droomniveau</td><td>De tussenlaag van beelden, rollen en figuren, tussen de sentiente essentie en de consensuswerkelijkheid in.</td></tr>
+          <tr><td class="term">Droomlichaam</td><td>Zijn eerdere begrip voor de samenhang tussen droombeelden en lichamelijke klachten, hier ingepast in het driedelige model.</td></tr>
+          <tr><td class="term">Proceswerk</td><td>De naam van zijn methode: het volgen van wat zich in ervaring en gedrag aandient, in plaats van het toepassen van een vooraf vastgesteld schema.</td></tr>
+          <tr><td class="term">Gedaanteverwisseling</td><td>Het innemen van een rol of positie die men bij zichzelf had weggestreept, door hem ontleend aan sjamanistische praktijk.</td></tr>
+          <tr><td class="term">Zelfweerspiegelend heelal</td><td>Zijn beeld van een kosmos die zichzelf waarneemt en daardoor tot werkelijkheid wordt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Mindell heeft een natuurkundige opleiding: hij behaalde in 1964 aan het MIT een mastergraad in toegepaste natuurkunde en werktuigbouwkunde en deed onderzoek aan de ETH in Zurich, voordat hij in 1970 het diploma van jungiaans analyticus haalde en in 1972 in de psychologie promoveerde. Hij weet dus waarover hij schrijft wanneer hij de natuurkundige begrippen weergeeft, en de weergave van het dubbelspletenexperiment, van de golffunctie en van de stelling van Bell klopt in grote lijnen.</p>
+      <p>Voor zijn psychologische stellingen levert het boek geen onderzoek. Er zijn geen metingen, geen controlegroepen en geen uitkomsten die door anderen zijn nagegaan. Wat er wel is, zijn gevallen uit zijn eigen praktijk, oefeningen die de lezer bij zichzelf kan doen, en vergelijkend materiaal uit mythologie en sjamanisme. Dat is een legitieme vorm van klinisch werk, maar het is een andere soort onderbouwing dan de natuurkunde in de eerste hoofdstukken suggereert.</p>
+      <p>De kernbewering van het boek, dat de wiskunde van de kwantummechanica ook de structuur van de menselijke ervaring beschrijft, is geen uitkomst maar een uitgangspunt. Er wordt nergens een voorspelling uit afgeleid die zou kunnen mislukken. Wie de vergelijking overtuigend vindt, vindt het boek overtuigend; wie haar niet overtuigend vindt, houdt een reeks losse waarnemingen over.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar gaat over het gebruik van de natuurkundige termen. Imaginaire getallen, golffunctie, non-lokaliteit en virtuele deeltjes hebben in de natuurkunde een scherpe, wiskundig vastgelegde betekenis waarin niets over ervaring wordt gezegd. Mindell zet ze in als vergelijking, en tot zover is er niets aan de hand: een vergelijking mag verhelderen. Het probleem is dat hij ze op andere bladzijden letterlijk gebruikt, alsof het dezelfde zaak betreft. De stelling van Bell gaat over correlaties tussen metingen aan deeltjes; zij zegt niet dat mensen op afstand van elkaar weten, en die stap wordt in het boek gezet zonder dat er iets wordt bijgeleverd.</p>
+      <p>Wat er gebeurt als een begrip die dubbelrol krijgt, is te zien aan het virtuele deeltje. Mindell voert het op als voorbeeld van iets wat niet direct waarneembaar is maar wel gevolgen heeft, en breidt de term daarna uit tot de schaduw, het innerlijke kind en de gedachten die door iemands hoofd gaan. Hij voegt er zelfs aan toe dat het niet uitmaakt of zulke entiteiten werkelijk bestaan, omdat ze dingen verklaren en niet te weerleggen zijn. Dat laatste is precies waarom het geen natuurkunde is: onweerlegbaarheid is in de natuurwetenschap een gebrek en geen aanbeveling.</p>
+      <p>Een tweede bezwaar is de omvang van de aanspraak. Het boek behandelt achtereenvolgens rekenen, natuurkunde, dromen, chronische ziekte, groepsdynamiek, politiek, mythologie en kosmologie met één verklaringsschema. Een raster dat op zoveel ongelijksoortige gebieden past, past waarschijnlijk omdat het weinig uitsluit. Er is in de zeshonderd bladzijden geen geval te vinden waarvan Mindell zegt dat het niet in zijn model past.</p>
+      <p>Een derde punt is de reikwijdte van de ontvangst. <i>Quantum Mind</i> is besproken en gewaardeerd binnen de kring van de procesgerichte psychologie en in bladen op het grensvlak van wetenschap en spiritualiteit; buiten die kring is er in de psychologie en de natuurkunde nauwelijks op gereageerd. Proceswerk zelf is als psychotherapeutische stroming erkend en heeft een opleidingsinstituut in Zwitserland, maar de brug naar de natuurkunde die dit boek slaat, wordt door geen van beide vakken gedragen.</p>
+      <p>Wat overeind blijft is de psychologie, en die is de moeite waard. Het onderscheid tussen wat mensen benoemen en wat zij wegstrepen, de aandacht voor het signaal dat men bijna niet opmerkt, en de gedachte dat een klacht blijft bestaan zolang de betekenis ervan buiten beschouwing blijft, zijn bruikbare denkgereedschappen. Ze hebben de kwantummechanica alleen niet nodig, en het boek wordt zwakker doordat het doet alsof van wel.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de psychologische hoofdstukken eerst en de natuurkundige daarna; de eerste staan op eigen benen, de tweede leveren er een beeld bij dat geen bewijs is.</li>
+        <li>Streep bij elke natuurkundige term in gedachten het woord kwantum weg en kijk of de zin dan nog iets beweert; blijft er niets over, dan droeg de term de bewering.</li>
+        <li>Doe een van de oefeningen voordat je over de theorie oordeelt; het boek is als werkboek geschreven en het betoog leunt op wat de lezer bij zichzelf vaststelt.</li>
+        <li>Verwar dit boek niet met <i>The Quantum Mind and Healing</i> uit 2004, dat een veel kortere en praktischer toepassing op lichamelijke klachten is.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Quantum Mind: The Edge Between Physics and Psychology</i> (Lao Tse Press, Portland, Oregon, 2000, 629 blz., ISBN 1887078649), met literatuuropgave en register. Latere druk bij Deep Democracy Exchange (2012, ISBN 9781619710122). Niet te verwarren met Mindells latere <i>The Quantum Mind and Healing</i> (Hampton Roads, 2004), dat over lichamelijke klachten gaat. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Mindell, opgeleid als natuurkundig ingenieur en daarna jungiaans analyticus, koppelt in dit boek zijn procesgerichte psychologie aan begrippen uit de wiskunde en de kwantummechanica. Zijn hoofdgedachte is dat de werkelijkheid twee lagen heeft: wat mensen gezamenlijk vaststellen, en wat daarbuiten valt en in de omgang wordt weggelaten.</p><p>Voor die tweede laag gebruikt hij het imaginaire deel van de golffunctie als beeld, en hij leest dromen, lichamelijke signalen, sjamanistische praktijk en groepsprocessen door datzelfde raster. Het is een dik boek van ruim zeshonderd bladzijden met oefeningen, waarin de natuurkundige termen soms als vergelijking en soms als bewering worden gebruikt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>kwantumfysica</li><li>bewustzijn</li><li>psychologie</li><li>sjamanisme</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="362"><a href="362.html">Synchroniciteit</a>. Jung werkt in zijn opstel over synchroniciteit hetzelfde grensgebied uit waar Mindell zijn flirts plaatst, en met dezelfde onopgeloste vraag over oorzakelijkheid.</li>
+          <li value="653"><a href="653.html">Speakable and Unspeakable in Quantum Mechanics</a>. Bell laat precies zien wat non-lokaliteit betekent en wat er niet uit volgt; het onmisbare correctief bij de manier waarop dit boek de term gebruikt.</li>
+          <li value="761"><a href="761.html">Mindful Universe: Quantum Mechanics and the Participating Observer</a>. Stapp verdedigt een rol voor bewustzijn in de kwantummechanica binnen de regels van het vak, en biedt zo een vergelijking met Mindells veel vrijere aanpak.</li>
+          <li value="1165"><a href="1165.html">Science and the Akashic Field</a>. Laszlo bouwt in dezelfde jaren een allesomvattend veld op kwantumbegrippen, met dezelfde onaangekondigde overgang van natuurkunde naar beeldspraak.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

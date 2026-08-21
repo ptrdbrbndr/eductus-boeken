@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Gods of Eden &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Bramley leest de wereldgeschiedenis als het werk van een buitenaardse macht die de aarde als strafkolonie beheert. Die macht, die hij de Custodians noemt,…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1150">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1150 &middot; Filosofie en mystiek</p>
+    <h1>The Gods of Eden</h1>
+    <p class="lede">William Bramley, 1989</p>
+    <p class="stats">
+      <span><b>1888</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1150"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Bramley leest de wereldgeschiedenis als het werk van een buitenaardse macht die de aarde als strafkolonie beheert. Die macht, die hij de Custodians noemt, liet zich in de oudheid als God vereren, richtte een genootschap op dat kennis zou vrijgeven en haar in plaats daarvan achterhoudt, en houdt de mensheid sindsdien in gareel met religieuze verdeeldheid, oorlog en epidemieën. Oorlog is in dit boek een bestuursinstrument in andermans handen, en daaruit verklaart Bramley waarom hij nooit ophoudt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Van oorlogsonderzoek naar vliegende schotels</h3>
+      <p>De eerste hoofdstukken vertellen hoe de auteur bij zijn onderwerp kwam. Hij zocht een oorzaak voor het feit dat oorlog in elke eeuw terugkeert, en stuitte volgens eigen zeggen telkens op verhalen over verschijningen aan de hemel op de momenten dat conflicten losbraken. Vliegende schotels vond hij aanvankelijk onbelangrijk; het patroon dwong hem er in zijn eigen weergave toe.</p>
+      <p>Daarmee is de vorm van het boek gegeven. Bramley werkt chronologisch en behandelt per hoofdstuk een periode, waarbij hij bij elke periode zoekt naar hemelverschijnselen, geheime genootschappen en religieuze omslagpunten.</p>
+      <h3>De Custodians en de Brotherhood of the Snake</h3>
+      <p>De kern staat in de hoofdstukken vier tot en met acht. Bramley leest Sumerische scheppings- en zondvloedteksten letterlijk: de goden die daarin een werkras kneden zijn voor hem een buitenaardse bezetting. Eén van hen, Ea, zou de mensheid hebben willen bevrijden en daartoe de Brotherhood of the Snake hebben opgericht, waarna dat genootschap door de tegenpartij is overgenomen en tot beheersinstrument gemaakt.</p>
+      <p>In het hoofdstuk over de piramidebouwers voert hij aan dat de piramide van Cheops zich uitstekend leent als bakenpunt voor luchtvaart, omdat de zijden nauwkeurig op de windstreken staan en het bouwwerk vlak bij de dertigste breedtegraad ligt. Hij haalt daarnaast een krantenbericht uit november 1966 aan over zes objecten met lange schaduwen op een foto van de maansonde Lunar Orbiter 2.</p>
+      <h3>Religie als beheersinstrument</h3>
+      <p>Van hoofdstuk zeven tot zestien loopt Bramley langs Jehova, de joodse profeten, Jezus, de Openbaring van Johannes, de pest van Justinianus en Mohammed. Zijn redenering is telkens dezelfde: de stichters waren oprecht, hun boodschap is daarna gekaapt en omgebogen tot een leer die gehoorzaamheid en verwachting van een eindtijd kweekt.</p>
+      <p>De kruistochten behandelt hij in de gebruikelijke termen. Hij beschrijft de bloedbaden bij de inname van Jeruzalem in 1099, het ontstaan van de Hospitaalridders en de Tempeliers, de Duitse Orde en de Assassijnen onder Hasan-i Sabbah. Die weergave komt overeen met de handboeken van zijn tijd; nieuw is alleen de toevoeging dat het genootschap erachter zat.</p>
+      <h3>De Zwarte Dood</h3>
+      <p>Hoofdstuk achttien is het bekendste van het boek. Bramley geeft eerst een gangbare beschrijving van de pest: builenpest die via vlooien overgaat en longpest die van mens op mens gaat, een uitbraak in Europa tussen 1347 en 1350, ruim vijfentwintig miljoen doden. Vervolgens noemt hij vier raadsels: uitbraken zonder voorafgaande rattenplaag, uitbraken in de zomer en in dunbevolkte streken, besmetting van afgelegen gemeenschappen zonder contact, en een abrupt einde van golven.</p>
+      <p>Zijn oplossing is biologische oorlogvoering vanuit de lucht. Hij baseert zich vrijwel geheel op Johannes Nohls kroniekencompilatie <i>The Black Death</i> uit 1926 en op een zestiende-eeuws wonderboek van Conrad Lycosthenes. Daaruit haalt hij berichten over stinkende nevels die aan uitbraken voorafgingen, over kometen en vuurbollen, en over zwartgeklede gestalten met zeisen. Van een bericht uit Brandenburg in 1559 stelt hij voor dat de zeisen sproeiapparatuur waren en dat de omstanders de beweging verkeerd hebben uitgelegd. De afbeelding van de Dood met een zeis komt in zijn lezing uit die verschijningen voort.</p>
+      <h3>Van de rozenkruisers naar het papiergeld</h3>
+      <p>De tweede helft van het boek loopt van Luther en de rozenkruisers via de Tempeliersnalatenschap, de graaf van Saint-Germain en de Amerikaanse en Franse omwentelingen naar Marx, de Sovjet-Unie en de Verenigde Staten van de jaren tachtig. Steeds dezelfde figuur keert terug: een genootschap met inwijdingsgraden dat aan beide kanten van een conflict actief is.</p>
+      <p>Een apart spoor is het geld. Bramley beschouwt een geldstelsel waarin banken geld scheppen tegen schuld als een van de belangrijkste beheersmiddelen, en wijdt daar meerdere hoofdstukken aan. Het laatste deel van het boek behandelt nieuwe religieuze bewegingen, de mormoonse openbaring en de moderne ufo-getuigenverhalen als voortzetting van hetzelfde patroon.</p>
+      <h3>De uitweg en de verantwoording</h3>
+      <p>De slothoofdstukken zijn opbouwend van toon. Wie iets wil veranderen hoeft volgens Bramley niet rijk of machtig te zijn: eerst het eigen leven op orde, dan familie en vrienden, dan een verband met een fatsoenlijk doel, dan verantwoordelijkheid voor de soort als geheel. Hij bepleit daarnaast een geldstelsel zonder bankgeschapen schuld.</p>
+      <p>In het laatste hoofdstuk verantwoordt hij zijn werkwijze. Hij schrijft dat hij jaartallen, personen en gebeurtenissen heeft aangehouden zoals historici die aannemen, dat hij zijn probleem niet was dat er te weinig materiaal was maar dat er te veel was, en dat hij enkele theorieën heeft laten liggen omdat hij ze voor zichzelf niet voldoende kon vaststellen. Hij noemt daarbij ook de antisemitische inslag van Nesta Webster als waarschuwing dat een vastgeroeste vooringenomenheid dit soort onderzoek onbruikbaar maakt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Custodians</td><td>Bramley's naam voor de buitenaardse macht die de aarde volgens hem als bewaakte kolonie beheert en zich als God heeft laten vereren.</td></tr>
+          <tr><td class="term">Brotherhood of the Snake</td><td>Het genootschap dat in het boek oorspronkelijk werd opgericht om geestelijke kennis vrij te geven en daarna in dienst van de bewakers kwam te staan.</td></tr>
+          <tr><td class="term">Ea</td><td>De Sumerische god die Bramley leest als het lid van de bezetting dat de mensheid wilde helpen en daarmee de valstrik mede bouwde.</td></tr>
+          <tr><td class="term">werkras</td><td>De mensheid zoals Bramley haar in de Sumerische teksten terugleest: een soort die is gemaakt om arbeid te verrichten voor de goden.</td></tr>
+          <tr><td class="term">Custodial religion</td><td>Elke godsdienst waarin de bewakers zich volgens het boek als hoogste macht laten vereren om gehoorzaamheid en onderlinge verdeeldheid te kweken.</td></tr>
+          <tr><td class="term">Doom Prophets</td><td>Bramley's aanduiding voor de reeks eindtijdverkondigers die volgens hem opzettelijk een verwachting van vernietiging in stand houden.</td></tr>
+          <tr><td class="term">Robo-Sapiens</td><td>Het beeld van de mens als geestelijk wezen dat door leerstelsels en beloningen tot voorspelbaar gedrag is afgericht.</td></tr>
+          <tr><td class="term">Funny Money</td><td>Zijn aanduiding voor papiergeld dat door banken tegen schuld wordt geschapen en dat hij als beheersmiddel behandelt.</td></tr>
+          <tr><td class="term">Escape from Eden</td><td>Het slotidee dat bevrijding begint bij persoonlijke verantwoordelijkheid in de eigen omgeving en van daaruit naar buiten groeit.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek is uitgerust als geschiedwerk. Er staan noten onder de hoofdstukken en achterin een bibliografie van enkele honderden titels, en Bramley verwijst geregeld naar bladzijde en editie. Waar hij gangbare gebeurtenissen navertelt, klopt die weergave in grote lijnen met de handboeken van eind jaren tachtig. De doden- en jaartallen bij de Zwarte Dood, de gang van de kruistochten, het ontstaan van de ridderorden en de opkomst van de Assassijnen zijn correct weergegeven; moderne schattingen leggen de sterfte in Europa hoger, op ruwweg dertig tot zestig procent van de bevolking.</p>
+      <p>De dragende beweringen rusten op ander materiaal. Voor de oudheid leest hij Sumerische en Bijbelse teksten letterlijk als verslagen van technische gebeurtenissen. Voor de pest gebruikt hij vrijwel uitsluitend Nohls kroniekenbundel uit 1926 en een wonderboek uit 1557, twee werken die middeleeuwse verhalen verzamelen zonder ze te wegen. Voor de moderne tijd leunt hij op de literatuur over geheime genootschappen, waaronder Nesta Webster, van wie hij de vooringenomenheid zelf signaleert.</p>
+      <p>Zijn eigen slothoofdstuk maakt duidelijk wat de toets is. Hij verwierp de theorie dat George Washington door Adam Weishaupt is vervangen, de theorie dat de maanlandingen in een studio zijn gefilmd en de theorie van een holle aarde, omdat hij daar naar eigen zeggen niet genoeg materiaal voor vond om ze voor zichzelf vast te stellen. Persoonlijke overtuiging is daarmee de zeef. Wat de zeef doorlaat, wordt in het boek als aanwijzing behandeld.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar is methodisch. Er staat in de eenenveertig hoofdstukken geen enkele waarneming beschreven die de stelling zou ontkrachten. Verschijnt er iets aan de hemel, dan is dat de bewaker; verschijnt er niets, dan houdt hij een laag profiel, zoals Bramley aan het slot van hoofdstuk zeventien uitdrukkelijk stelt. Een verklaring die door beide uitkomsten wordt bevestigd, verklaart niets. De brede lezing van bronnen als aanwijzing zonder criterium heeft bovendien tot gevolg dat een dertiende-eeuwse kroniek, een zestiende-eeuws wonderboek en een krantenbericht uit 1966 in het boek dezelfde bewijskracht krijgen.</p>
+      <p>Bij de Zwarte Dood is de fout aanwijsbaar. De middeleeuwse geneeskunde werkte met de miasmaleer, waarin bedorven lucht de oorzaak van ziekte was. Dat tijdgenoten massaal stinkende nevels rapporteerden is precies wat die leer voorspelt; het is daarom geen onafhankelijke aanwijzing voor een verstoven ziektekiem. De raadsels die Bramley opsomt zijn overigens serieus: Graham Twigg betwistte in 1984 op vakinhoudelijke gronden dat de pestbacterie de dader was, en Samuel Cohn deed dat later opnieuw. Die vraag is beslist door oud DNA. Uit de resten in het pestgrafveld East Smithfield in Londen, aangelegd in 1348 en 1349, is <i>Yersinia pestis</i> gereconstrueerd, en hetzelfde is elders in Europa gelukt. Longpest gaat bovendien van mens op mens over, waarmee besmetting van afgelegen gemeenschappen zonder ratten geen raadsel meer is.</p>
+      <p>Ook het religieuze geweld van 1348 en 1349 heeft geen buitenaardse hand nodig. De geselaarsprocessies, de beschuldiging van bronvergiftiging en de vernietiging van de joodse gemeenschappen in Straatsburg, Bazel en Mainz staan uitvoerig in de bronnen, met aanwijsbare drijfveren: paniek, stedelijke schulden aan joodse geldschieters en een kerk die de geselaars veroordeelde maar de pogroms niet kon tegenhouden. Bramley is te prijzen om zijn waarschuwing tegen Websters antisemitisme, maar zijn eigen bouwwerk, waarin alle godsdienst een beheerssysteem van buiten is, heeft dezelfde vorm als de complottheorieën waartegen hij waarschuwt.</p>
+      <p>Op een aantal punten is het boek eenvoudig onjuist. De piramide van Cheops plaatst hij rond 2000 v.Chr., ongeveer vijf eeuwen te laat; de gangbare datering ligt bij 2560 v.Chr. De maanfoto van november 1966 bestaat, maar fotometrische analyse van de schaduwlengte levert voor het grootste object een hoogte op die voor een gewoon rotsblok normaal is. En de gedachte dat de vrijmetselarij achter de Amerikaanse omwenteling zat, wordt niet gedragen door de ledenlijsten: van de ondertekenaars van de Onafhankelijkheidsverklaring is maar een kleine minderheid aantoonbaar ingewijd geweest.</p>
+      <p>Tot slot is er de herkomst van het wereldbeeld. Bramley is een pseudoniem, en in de noten en de bibliografie staan werken van L. Ron Hubbard, uitgegeven door de Church of Scientology. Het beeld van de mens als geestelijk wezen dat op een gevangeniswereld is gestrand onder buitenaards beheer volgt de kosmologie van die beweging op de voet. Dat maakt het niet vanzelf onjuist, maar het verklaart waarom een boek dat zich als onderzoek presenteert bij een uitkomst uitkomt die van tevoren vaststond.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij elke verklaring welke waarneming haar zou omverwerpen. Blijft het antwoord uit, dan is het geen historische stelling.</li>
+        <li>Ga na waar tijdgenoten hun beschrijving vandaan hadden: een leer die ziekte aan bedorven lucht toeschreef, brengt vanzelf berichten over bedorven lucht voort.</li>
+        <li>Scheid bij dit soort boeken de navertelling van de toevoeging. De navertelling klopt vaak; de toevoeging draagt de stelling.</li>
+        <li>Zoek op wat er sinds het verschijningsjaar aan hard bewijs is bijgekomen. Voor dit boek is dat het oude DNA uit de pestgrafvelden.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Gods of Eden</i> (Dahlin Family Press, 1989, 535 blz., ISBN 978 0 940291 00 3; heruitgave Avon Books, New York, 1993, 505 blz., ISBN 978 0 380 71807 8). Er bestaat geen Nederlandse vertaling; de samenvatting is op de Avon-editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Bramley begon in 1979 aan een onderzoek naar de oorzaken van oorlog en kwam uit bij een buitenaardse macht die de mensheid volgens hem sinds de oudheid beheert. Die macht, de Custodians, houdt mensen onwetend via religie en werkt op aarde door een genootschap dat hij de Brotherhood of the Snake noemt. In eenenveertig hoofdstukken loopt het boek van Sumerische kleitabletten via de Zwarte Dood en de vrijmetselarij naar de twintigste eeuw.</p><p>Het is opgezet als geschiedschrijving, met noten en een bibliografie, en houdt zich naar eigen zeggen aan de gangbare jaartallen en personen. Wat het toevoegt is een verklaring die overal past en waarvan de auteur nergens aangeeft hoe zij zou kunnen worden weerlegd.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>complotdenken</li><li>ufo</li><li>geschiedenis</li><li>vrijmetselarij</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="615"><a href="615.html">Passport to Magonia</a>. Vallée leest dezelfde verschijningen aan de hemel als folklore die zich aan de tijd aanpast, wat een tegenmodel oplevert voor Bramley's letterlijke lezing.</li>
+          <li value="1145"><a href="1145.html">Rule by Secrecy</a>. Marrs bouwt een vergelijkbare doorlopende lijn van de oudheid naar het heden, met dezelfde methodische zwakte.</li>
+          <li value="635"><a href="635.html">Freemasonry and the Ancient Gods</a>. Ward geeft de oudere vorm van de gedachte dat de vrijmetselarij een oeroude godsdienst voortzet, waar Bramley op voortbouwt.</li>
+          <li value="1147"><a href="1147.html">Sinister Forces</a>. Levenda werkt met hetzelfde materiaal maar houdt de vraag naar het verband nadrukkelijker open.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

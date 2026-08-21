@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Witness to Roswell &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Carey en Schmitt stellen dat er in juli 1947 ten noorden van Roswell een niet-menselijk vaartuig is neergekomen, dat de bemanning is geborgen, en dat de…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1143">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1143 &middot; Filosofie en mystiek</p>
+    <h1>Witness to Roswell</h1>
+    <p class="lede">Thomas J. Carey en Donald R. Schmitt, 2007</p>
+    <p class="stats">
+      <span><b>1716</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1143"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Carey en Schmitt stellen dat er in juli 1947 ten noorden van Roswell een niet-menselijk vaartuig is neergekomen, dat de bemanning is geborgen, en dat de Amerikaanse overheid dat sindsdien met wisselende verklaringen verhult. Hun bewijsvoering is niet documentair maar op getuigen gebouwd: zij menen dat het aantal getuigen, hun onderlinge onafhankelijkheid en het gegeven dat velen pas op hun sterfbed of via nabestaanden spraken, samen een last vormen die niet meer met vergissing of fantasie te verklaren is. De overheid heeft in zestig jaar vijf verschillende verklaringen gegeven, van weerballon tot proefpoppen, en volgens de auteurs bewijst juist die reeks wisselingen dat de eerste versie, het persbericht over een geborgen schijf, de juiste was.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De week van juli 1947</h3>
+      <p>Het boek begint bij wat vaststaat. Op 8 juli 1947 gaf de voorlichter van de vliegbasis Roswell, luitenant Walter Haut, in opdracht van basiscommandant William Blanchard een persbericht uit waarin stond dat het leger een neergestorte schijf in handen had. Het bericht ging de wereld over. Nog diezelfde dag corrigeerde brigadegeneraal Roger Ramey het in Fort Worth naar een weerballon, en liet zich met de resten fotograferen.</p>
+      <p>Daaromheen leggen de auteurs de context: de eerste schotelmeldingen van juni 1947, de aanwezigheid van de enige kernwapeneenheid ter wereld op deze basis, en de gespannen sfeer van het eerste koudeoorlogsjaar.</p>
+      <h3>De opzet: getuigen in kringen</h3>
+      <p>In plaats van een doorlopend verhaal geven Carey en Schmitt de zaak per groep getuigen. Zij beschrijven hun eigen zoekwerk: het natrekken van personeelslijsten van de basis, het aanschrijven van nabestaanden, het bijhouden van wie met wie sprak. Het totaal aantal mensen dat zij in de loop van hun onderzoek benaderden stellen zij op meer dan zeshonderd.</p>
+      <p>Die opzet heeft een gevolg dat de auteurs niet benoemen: de lezer krijgt geen tijdlijn waarin verklaringen elkaar kunnen tegenspreken, maar reeksen citaten die elkaar aanvullen. Wat niet paste, komt in dit boek nauwelijks aan bod.</p>
+      <h3>De militairen</h3>
+      <p>De zwaarste namen zijn militair. Majoor Jesse Marcel, inlichtingenofficier van de basis, verklaarde in 1978 tegenover onderzoeker Stanton Friedman dat het materiaal dat hij ophaalde niet van deze aarde was; met die verklaring begon de moderne Roswell-literatuur. Brigadegeneraal Thomas DuBose, in 1947 stafchef van Ramey, bevestigde later dat de weerballon een dekverhaal was dat van hogerhand kwam. Brigadegeneraal Arthur Exon, destijds gestationeerd op Wright Field, verklaarde dat er materiaal werd onderzocht en dat een kleine groep het dossier beheerde.</p>
+      <p>De auteurs behandelen die drie als het geraamte van hun zaak. Bij DuBose gaat het over het dekverhaal, niet over de inhoud van de kisten; bij Exon over wat hij hoorde, niet over wat hij zag. Dat onderscheid wordt in het boek zelden aangehouden.</p>
+      <h3>De burgers en de dreiging</h3>
+      <p>Een tweede laag bestaat uit burgers. Boer Mac Brazel, die het puinveld vond, werd volgens zijn familie dagenlang op de basis vastgehouden en herriep daarna zijn eerste verhaal. Frankie Rowe, dochter van een brandweerman, vertelde over een bezoek van militairen bij haar thuis met de waarschuwing te zwijgen. Begrafenisondernemer Glenn Dennis verklaarde dat de basis kleine kisten bestelde en dat een verpleegster hem over een sectie op niet-menselijke lichamen vertelde.</p>
+      <p>Deze verhalen over intimidatie vormen bij Carey en Schmitt de verklaring waarom er zo lang gezwegen is, en tegelijk de reden waarom het zwijgen zelf als bewijs telt.</p>
+      <h3>De verklaring van Walter Haut</h3>
+      <p>Het middelpunt van dit boek is een verklaring die Haut in december 2002 liet notariëren en die verzegeld bleef tot na zijn dood in 2005. Daarin staat dat zijn persbericht van 1947 klopte, dat er twee vindplaatsen waren, dat hij zelf in een hangar puin en lichamen onder een dekzeil heeft gezien, en dat commandant Blanchard hem dat toonde. De volledige tekst is in het boek afgedrukt.</p>
+      <p>De auteurs presenteren dit als het einde van de discussie: de man die het oorspronkelijke bericht schreef, bevestigde het aan het einde van zijn leven onder ede.</p>
+      <h3>De rekening met de officiele verklaringen</h3>
+      <p>Het laatste deel keert zich tegen de overheidsverklaringen. Na de weerballon van 1947 kwam het rapport van de luchtmacht uit 1994 met Project Mogul, een geheime ballontrein met radarreflectors die Sovjet-kernproeven moest opvangen. In 1997 volgde een tweede rapport dat de verhalen over lichamen toeschreef aan proefpoppen die uit grote hoogte werden gedropt.</p>
+      <p>Op dit punt hebben Carey en Schmitt een sterk argument: die poppen werden pas vanaf de jaren vijftig gebruikt, jaren na 1947, en het rapport lost dat op met de aanname dat getuigen gebeurtenissen uit verschillende jaren in hun geheugen hebben samengevoegd. De auteurs noemen dat een geheugenverklaring die de luchtmacht wel op haar tegenstanders toepast en niet op haar eigen getuigen. Dat zij diezelfde verklaring ook op hun eigen materiaal zouden moeten toepassen, komt niet ter sprake.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">persbericht van 8 juli 1947</td><td>De verklaring van de vliegbasis Roswell dat het leger een neergestorte schijf had geborgen, nog dezelfde dag herroepen als weerballon.</td></tr>
+          <tr><td class="term">deathbed confession</td><td>Verklaring die iemand kort voor zijn dood of onder verzegeling voor na zijn dood aflegt, in dit boek behandeld als bijzonder betrouwbaar.</td></tr>
+          <tr><td class="term">affidavit</td><td>Onder ede afgelegde en door een notaris gewaarmerkte schriftelijke verklaring, de vorm waarin Haut zijn tekst in 2002 vastlegde.</td></tr>
+          <tr><td class="term">twee vindplaatsen</td><td>De veronderstelling van de auteurs dat het puinveld op de ranch en de plek van het vaartuig met de lichamen niet dezelfde locatie waren.</td></tr>
+          <tr><td class="term">Project Mogul</td><td>Het geheime ballonprogramma waarmee de luchtmacht in 1994 het gevonden materiaal verklaarde, bedoeld om Sovjet-kernproeven op afstand op te vangen.</td></tr>
+          <tr><td class="term">Case Closed</td><td>Het luchtmachtrapport uit 1997 dat de verhalen over lichamen toeschreef aan proefpoppen uit latere jaren.</td></tr>
+          <tr><td class="term">puinveld</td><td>Het terrein op de ranch waar Brazel het materiaal vond, in het boek onderscheiden van de plek waar de bemanning zou zijn geborgen.</td></tr>
+          <tr><td class="term">getuigenkring</td><td>De ordening van het boek naar groepen betrokkenen in plaats van naar tijdsverloop.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Wat aan documenten voorhanden is, is smal, en de auteurs gebruiken het goed: het persbericht van 8 juli 1947, de herroeping van dezelfde dag, de persfoto's uit Ramey's kantoor en de personeelsgegevens van de basis. Daarbovenop komt de mondelinge overlevering, en die vormt de eigenlijke bewijslast. Het probleem is dat vrijwel elke verklaring dertig tot zestig jaar na de gebeurtenis is opgetekend, dat een aanzienlijk deel tweedehands is, kinderen en kleinkinderen die vertellen wat een inmiddels overleden vader zou hebben gezegd, en dat de gesprekken zijn gevoerd door onderzoekers die de gezochte uitkomst al kenden en de getuige daarvan meestal op de hoogte brachten.</p>
+      <p>Daar komt de tijdsvolgorde bij. Tot 1978 was er geen Roswell-verhaal; het ontstond met het interview van Marcel en werd landelijk bekend door het boek van Berlitz en Moore uit 1980, gevolgd door een stroom televisieprogramma's, een museum in de stad zelf en een filmindustrie. Wie in de jaren negentig of later voor het eerst over 1947 wordt bevraagd, herinnert zich niet in een lege ruimte. Dat maakt getuigen niet oneerlijk, maar het betekent dat het aantal verklaringen niet als optelsom van onafhankelijke waarnemingen mag worden gelezen, en juist die optelsom is het argument van het boek.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het geheugen werkt niet als een archief maar als een reconstructie: bij elke herinnering wordt het verhaal opnieuw opgebouwd uit brokstukken, en wat er sinds de gebeurtenis is bijgekomen, aan verhalen, beelden en vragen van anderen, bouwt mee. Na vijftig jaar is de gedetailleerdheid van een verklaring geen maat voor de juistheid ervan, en het vertrouwen waarmee iemand vertelt evenmin. De verzegelde verklaring voor na de dood, die de auteurs als de zuiverste vorm van getuigenis behandelen, ontsnapt daar niet aan; zij is alleen niet meer aan de verteller te toetsen.</p>
+      <p>Bij de kroongetuigen van dit onderzoek is dat geen theoretisch bezwaar. Glenn Dennis gaf de onderzoekers een valse naam voor de verpleegster die het sectieverhaal zou hebben verteld, waarna Carey en Schmitt hem als getuige lieten vallen; het verhaal over de kleine kisten bleef intussen wel rondzingen. Frank Kaufmann, jarenlang de belangrijkste getuige voor de bergingsplek in eerder werk van Schmitt, bleek na zijn dood documenten te hebben vervalst. De verklaring van Haut is op een andere manier bezwaarlijk: hij had een halve eeuw volgehouden dat hij alleen het persbericht had geschreven en niets had gezien, in bandopnamen uit zijn laatste jaren spreekt hij zichzelf binnen één gesprek tegen over de vraag of hij lichamen zag, en de gladde tekst van 2002 is niet door hem opgesteld maar door Schmitt op grond van eerdere uitlatingen opgeschreven en hem ter ondertekening voorgelegd. Onderzoeker Kevin Randle, jarenlang Schmitts medeauteur, heeft juist op die punten bezwaar gemaakt.</p>
+      <p>Ten slotte de maatstaf van de auteurs zelf. Schmitt heeft eerder toegegeven zijn opleiding en werkkring verkeerd te hebben voorgesteld. In 2015 traden Carey en Schmitt in Mexico-Stad op als gezicht van de zogeheten Roswell-dia's, gepresenteerd als foto's van een buitenaards lichaam uit 1947; binnen enkele weken was het bijschrift op de dia ontcijferd en bleek het te gaan om een gemummificeerd kind uit een negentiende-eeuwse opgraving, tentoongesteld in een Amerikaans museum. Dat gebeurde na dit boek, maar het raakt de vraag die het boek oproept: welke controle voeren deze onderzoekers uit voordat zij iets bewijs noemen. Wat overeind blijft is de kleine, harde kern van 1947, een basis die een schijf meldde en die melding binnen uren introk. Waarom dat gebeurde is een goede vraag; het antwoord dat dit boek geeft, rust op getuigenmateriaal dat het gewicht niet kan dragen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij elke getuigenverklaring niet alleen wat er gezegd wordt, maar wanneer het voor het eerst is gezegd en wat de verteller op dat moment al uit andere bron kende.</li>
+        <li>Scheid eerstehands waarneming van wat iemand van een ander hoorde; in verzamelingen als deze lopen die twee door elkaar.</li>
+        <li>Let erop of een auteur ook de verklaringen weergeeft die niet in zijn verhaal passen; ontbreken die volledig, dan is de selectie zelf het probleem.</li>
+        <li>Behandel een groot aantal getuigen niet als optelsom van bewijs wanneer zij allemaal door dezelfde onderzoeker met dezelfde verwachting zijn bevraagd.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Witness to Roswell: Unmasking the 60-Year Cover-Up</i> (New Page Books, Franklin Lakes, 2007, 256 blz., ISBN 9781564149435). De uitgebreide editie verscheen in 2009 als <i>Witness to Roswell: Unmasking the Government's Biggest Cover-up</i> (318 blz., ISBN 9781601630667); die editie is hier gevolgd. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Verzameling getuigenverklaringen over de gebeurtenissen bij Roswell in juli 1947, bijeengebracht door twee onderzoekers die er decennia aan werkten en naar eigen zeggen meer dan zeshonderd mensen spraken. Het boek is niet chronologisch opgebouwd maar per kring van getuigen: de boer die het puin vond, de inlichtingenofficier van de basis, de familieleden die het van hen hoorden, de begrafenisondernemer, de burgers die zeggen te zijn bedreigd.</p><p>Het pronkstuk is een in 2002 ondertekende en tot na zijn dood verzegelde verklaring van Walter Haut, de voorlichter die in 1947 het persbericht over een geborgen schijf uitgaf. Vrijwel al het materiaal is tientallen jaren na dato opgetekend, en een deel van de kroongetuigen uit dit onderzoek is inmiddels onhoudbaar gebleken.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ufo's</li><li>complotdenken</li><li>geheugen</li><li>bronnenkritiek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1142"><a href="1142.html">The Day After Roswell</a>. The Day After Roswell doet over dezelfde gebeurtenis een veel grotere bewering op basis van één herinnering, en laat zien waar deze bewijsvorm eindigt.</li>
+          <li value="691"><a href="691.html">Accessories After the Fact</a>. Accessories After the Fact toont hoe bronnenkritiek op een omstreden overheidsonderzoek eruitziet wanneer zij wel stelselmatig wordt uitgevoerd.</li>
+          <li value="1124"><a href="1124.html">Women of Wisdom</a>. Why We Remember legt uit waarom herinnering reconstructie is, en waarom een gedetailleerde verklaring na vijftig jaar geen maat voor juistheid is.</li>
+          <li value="1141"><a href="1141.html">UFOs and the National Security State</a>. UFOs and the National Security State plaatst Roswell in de bredere gedocumenteerde geschiedenis van het overheidsonderzoek naar ufo-meldingen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

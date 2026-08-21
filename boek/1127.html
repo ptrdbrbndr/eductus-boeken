@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gunn's Domestic Medicine &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Gunn stelt dat de geneeskunde in de kern eenvoudig is en dat haar moeilijkheid grotendeels gemaakt is. Latijnse namen en geleerde termen dienen volgens…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1127">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1127 &middot; Naslag en praktijk</p>
+    <h1>Gunn's Domestic Medicine</h1>
+    <p class="lede">John C. Gunn, 1830</p>
+    <p class="stats">
+      <span><b>1745</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1127"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Gunn stelt dat de geneeskunde in de kern eenvoudig is en dat haar moeilijkheid grotendeels gemaakt is. Latijnse namen en geleerde termen dienen volgens hem om te verbergen hoe weinig er werkelijk bekend is en om de rekening hoog te houden. Wie ver van een arts woont hoeft daarom niet af te wachten: de werkzame middelen zijn weinig in getal, ze groeien voor een groot deel in eigen land, en de handgrepen zijn te leren zolang iemand ze in gewone taal opschrijft. Dat is wat dit boek doet, van de eerste tekenen van koorts tot het afzetten van een been met een voorsnijmes. De belofte is niet dat de lezer arts wordt, maar dat onwetendheid geen doodsoorzaak meer hoeft te zijn.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een boek voor wie geen arts kan halen</h3>
+      <p>De inleiding schetst het westen van de Verenigde Staten als een land dat in een mensenleven van wildernis in dorpen en stoomvaart is veranderd, en waarin de bewoners nog altijd zonder medische hulp zitten. Gunn koppelt daaraan twee stellingen die het hele boek dragen. De eerste is dat elk land de middelen voortbrengt om zijn eigen ziekten te genezen, zodat ingevoerde en vaak vervalste drogerijen overbodig zijn. De tweede is dat vakjargon een vorm van bedrog is: hij zet een lange lijst apothekerslatijn naast de gewone namen, van <i>Panax quinquefolium</i> voor ginseng tot <i>Podophyllum peltatum</i> voor de mei-appel, om te laten zien dat de geleerdheid vooral in de etiketten zit.</p>
+      <p>Hij voorspelt daarbij dat de dag komt waarop calomel en kwikmiddelen niet meer gebruikt zullen worden. Die zin staat in de inleiding van hetzelfde boek dat verderop doseringen van twintig en dertig grein calomel voorschrijft.</p>
+      <h3>De hartstochten eerst</h3>
+      <p>De eerste vijfenzeventig bladzijden gaan niet over ziekten maar over gemoedstoestanden: toorn, vrees, vreugde, jaloezie, verdriet, hoop, liefde, godsdienst en onmatigheid. Gunn behandelt ze als lichamelijke oorzaken. Wie zijn hartstochten laat lopen bederft de spijsvertering, verzwakt hart en zenuwstelsel en legt de grond voor ziekte; een kalm gemoed werkt tegen elke aanleg in. De maag noemt hij de werkplaats van het hele lichaam.</p>
+      <p>Deze opzet komt uit de achttiende-eeuwse leer van de zes niet-natuurlijke dingen, waarin lucht, voedsel, beweging, slaap, uitscheiding en gemoedsbewegingen samen de gezondheid bepalen. Gunn geeft er een sterk godsdienstige inkleuring aan: ziekte is voor een groot deel de prijs van overtreding, van de mens en van de beschaving.</p>
+      <h3>Leefregels: lucht, beweging, bad, voedsel</h3>
+      <p>Daarna volgen korte hoofdstukken over beweging, het koude bad, het lauwe bad en het voedsel. Het zijn de nuchterste bladzijden van het boek en tegelijk de enige waarvan het advies vandaag nog grotendeels overeind blijft: matig eten, veel buitenlucht, dagelijkse arbeid, regelmatig wassen.</p>
+      <h3>De lijst met ziekten</h3>
+      <p>Het grootste deel bestaat uit ziektebeschrijvingen op alfabetische volgorde in de index en thematisch in de tekst: galkoorts, zenuwkoorts, koorts met tussenpozen, leverziekten, tering met casussen, dysenterie, waterzucht, pleuris, jicht, huiduitslag, geslachtsziekten, vergiftigingen. Bij elke ziekte staan de kentekenen, dan de behandeling, dan het beloop.</p>
+      <p>De behandeling is die van de reguliere geneeskunde van zijn tijd, en niet zachter. Braakmiddelen, purgeermiddelen, klysma's, blaartrekkende pleisters en aderlating komen overal terug. Voor galkoorts schrijft hij twintig grein calomel met twintig grein jalappe voor, met castorolie erachteraan; hij noemt de beroemde tien-en-tien van Benjamin Rush; bij zware gevallen gaat hij naar dertig grein. Kwijlen door kwik behandelt hij als een aanvaardbaar bijverschijnsel, met een zwavelbad om het kwik er weer uit te krijgen.</p>
+      <h3>Vrouwen, kinderen en verloskunde</h3>
+      <p>Vanaf ongeveer bladzijde 261 gaat het over menstruatie, witte vloed, zwangerschap en de tekenen daarvan, misgeboorte, bevalling, moeilijke bevalling, kraamvrouwenkoorts en de verzorging van pasgeborenen, met een apart stuk aanwijzingen voor vroedvrouwen. Gunn is hard over de vroedvrouwen van zijn streek en schrijft sterfgevallen toe aan hun haast bij het verwijderen van de nageboorte, maar hij richt zich wel tot hen: het stuk is uitdrukkelijk bedoeld voor iedereen die geroepen kan worden.</p>
+      <p>Voor kinderen behandelt hij stuipen, kroep, spruw, tandjes krijgen, wormen, mazelen en kinkhoest. Ook hier zijn de middelen die van de volwassen praktijk, in kleinere dosis.</p>
+      <h3>De Amerikaanse kruidenkast</h3>
+      <p>Bijna zestig bladzijden beschrijven inheemse planten met hun gebruik: sassafras, sarsaparilla, kornoelje, ginseng, pokewortel, bloedwortel, pleuriswortel, gladde iep, wormkruid, doornappel, tabak. Gunn schrijft hier als iemand die de planten kent en toetst; over ginseng meldt hij nuchter dat Amerikaanse artsen er niet meer in zien dan een aangenaam bitter en een licht versterkend middel voor de maag, ondanks de Chinese reputatie en prijs.</p>
+      <p>Daarna volgt een dispensatorium: hoe men castorolie maakt, hoe men klysma's zet, hoe men roots en kruiden droogt en bewaart, plus een indeling van de middelen in braakmiddelen, purgeermiddelen, pijnstillers, krampstillers, versterkende middelen en prikkelende middelen, met recepten voor laudanum, paregorische elixer en antimoonwijn.</p>
+      <h3>Heelkunde met huishoudelijk gereedschap</h3>
+      <p>Het laatste deel gaat over ongevallen: kneuzingen, wonden aan de schedel, hersenschudding en hersendrukking, botbreuken van neus tot voet, ontwrichtingen, versterving. Het bevat ook aanwijzingen voor aderlating aan arm en voet, met de waarschuwingen die daarbij horen, en voor plaatselijke bloedafname.</p>
+      <p>Het bekendste stuk is dat over amputatie. Gunn erkent dat zelfs bedreven chirurgen twijfelen wanneer een lidmaat eraf moet, maar stelt dat de verrichting zelf niets meer vraagt dan vastheid van hand. Bij gebrek aan instrumenten noemt hij een groot voorsnijmes, een pennemes, een zaag van de timmerman, een reep leer als terugtrekker, gewaste draad voor ligaturen en een schoenmakersels om de vaten op te halen. Daarna beschrijft hij arm, dij, been, onderarm en vingers apart.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">domestic medicine</td><td>Huisgeneeskunde: het genre handboeken waarmee gezinnen zonder arts zichzelf konden behandelen, in Engeland begonnen met William Buchan en in Amerika voortgezet door Gunn.</td></tr>
+          <tr><td class="term">Poor Man's Friend</td><td>De ondertitel waarmee Gunn zijn boek positioneert tegenover de honoraria en de geheimtaal van de stadsdokter.</td></tr>
+          <tr><td class="term">calomel</td><td>Kwikchloride, het meest gebruikte purgeermiddel van de Amerikaanse geneeskunde in deze periode, door Gunn in doses van twintig tot dertig grein voorgeschreven.</td></tr>
+          <tr><td class="term">jalappe</td><td>Hars van een Mexicaanse klimplant, gebruikt als sterk purgeermiddel en bij Gunn vrijwel altijd met calomel gecombineerd.</td></tr>
+          <tr><td class="term">salivatie</td><td>Het overvloedig kwijlen met gezwollen tandvlees en metaalsmaak dat optreedt bij kwikvergiftiging, in Gunns tijd beschouwd als teken dat het middel aansloeg.</td></tr>
+          <tr><td class="term">aderlating</td><td>Het openen van een ader met een lancet om bloed af te tappen, door Gunn beschreven als vaardigheid die iedereen zou moeten bezitten.</td></tr>
+          <tr><td class="term">klysma</td><td>Vloeistof die via de endeldarm wordt ingebracht om de darm te legen of een middel toe te dienen, in dit boek een standaardhandeling bij koorts en koliek.</td></tr>
+          <tr><td class="term">simples</td><td>Enkelvoudige geneesmiddelen uit plant of wortel, tegenover de samengestelde bereidingen van de apotheek; Gunn bouwt daar zijn Amerikaanse kruidenkast op.</td></tr>
+          <tr><td class="term">de hartstochten</td><td>Gemoedsbewegingen als toorn, vrees en verdriet, bij Gunn behandeld als lichamelijke ziekteoorzaken en daarom als eerste onderwerp van het boek.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen onderzoek aan in enige moderne zin. Het steunt op drie bronnen: Gunns eigen praktijk en die van collega's, de gangbare leerboeken en tijdschriften van de reguliere geneeskunde, en de plantenkennis van kolonisten en indianen. Verwijzingen zijn schaars en losjes; hij noemt Hippocrates, Boerhaave, Cullen, Rush en een enkele keer een jaargang van de <i>Medical Recorder</i>.</p>
+      <p>De onderbouwing per ziekte bestaat uit gezag en anekdote: dit is wat men doet, dit heb ik zien werken. Getallen ontbreken, uitkomsten worden niet geteld, en gevallen die anders afliepen komen alleen ter sprake als hij ze zelf leerzaam vindt. De doseringstabellen zijn wel precies, wat het boek bruikbaar maakte en tegelijk gevaarlijk.</p>
+      <p>Wat het boek als bron sterk maakt is niet het bewijs maar de volledigheid. Het geeft een gesloten beeld van wat een ontwikkelde Amerikaanse plattelandsarts rond 1830 wist, dacht en deed, inclusief zijn godsdienstige en morele aannames.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De ernstigste tegenwerping is dat het boek zijn eigen belofte niet houdt. Gunn opent met een aanval op vakjargon, ingevoerde drogerijen en kwik, en schrijft vervolgens een therapie voor die vrijwel gelijk is aan die van de artsen die hij bekritiseert. Charles Rosenberg heeft dat over het genre in het algemeen vastgesteld: huisgeneeskundige handboeken verspreidden de leer van de reguliere geneeskunde onder mensen die die geneeskunde niet konden betalen, in plaats van er een alternatief voor te bieden.</p>
+      <p>Van de behandelingen is het meeste schadelijk of werkeloos. Herhaalde grote doses calomel leverden kwikvergiftiging op, met verlies van tanden en beschadiging van het tandvlees en de nieren; aderlating bij koorts verzwakte juist wie al verzwakt was; braak- en purgeermiddelen bij dysenterie en cholera versnelden het vochtverlies. De aanwijzingen voor amputatie met een voorsnijmes en een timmermanszaag, geschreven vóór verdoving en vóór enige notie van infectiepreventie, moeten in de praktijk vaker gedood dan gered hebben.</p>
+      <p>De kruidenkast is het onderdeel dat het langst standhield, maar ook daar geldt dat vrijwel geen van de toegeschreven werkingen ooit is bevestigd. Waar Gunn iets doet wat vandaag nog verdedigbaar is, gaat het om onthouding en verzorging: rust, verse lucht, matig eten, schoon water, en zijn eigen nuchtere afwijzing van de reputatie van ginseng.</p>
+      <p>Wie het boek leest moet ook op de druk letten. Na 1857 werd de tekst zwaar uitgebreid en deels herschreven, en de latere "New Revised"-uitgaven bevatten stof die Gunn zelf niet schreef. Uitspraken over "Gunn" op grond van een druk uit 1880 zeggen weinig over het boek van 1830.</p>
+      <p>Ten slotte draagt het boek de vooroordelen van zijn tijd zonder aarzeling. De inleiding schetst indianen als wilden en de beschaving als bron van verwekelijking. Slaafgemaakte mensen komen erin voor als gevallen en als bron van kennis: de werking van de gele es tegen buikkramp is volgens Gunn ontdekt door te kijken naar een slavin op de West-Indische eilanden die de wortel in het bos zocht en het sap toediende. Zij blijft naamloos, de vondst heet een toevalligheid, en over de instelling zelf staat in het hele boek geen woord.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik het boek als bron over de gewone geneeskundige praktijk in de Verenigde Staten rond 1830, niet als bron over volksgeneeskunde alleen.</li>
+        <li>Noteer bij elk citaat de druk en het jaar; de verschillen tussen 1830, 1857 en de latere uitgaven zijn groot genoeg om conclusies om te draaien.</li>
+        <li>Vergelijk de doseringstabellen met de eigen inleiding: de tegenspraak tussen wat Gunn over kwik zegt en wat hij voorschrijft is de kortste ingang tot de spanning in het genre.</li>
+        <li>Lees het hoofdstuk over de hartstochten als leerstuk, niet als aanhangsel: het laat zien hoe leefwijze en zedelijkheid destijds tot de geneeskunde werden gerekend.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Gunn's Domestic Medicine, or Poor Man's Friend, in the Hours of Affliction, Pain and Sickness</i> (eerste druk in eigen beheer gedrukt te Knoxville, Tennessee, 1830; het copyright werd daar op 30 augustus 1830 gedeponeerd). Deze samenvatting volgt de tweede druk, gedrukt door F. S. Heiskell te Knoxville in 1833, ruim 500 blz., die de tekst van 1830 vrijwel ongewijzigd overneemt en het gedeponeerde copyright vooraf afdrukt. Latere drukken lopen ver uiteen: Gunn breidde het werk in 1857 zelf sterk uit, en onder titels als <i>Gunn's New Domestic Physician</i> en <i>New Revised Edition</i> liep de reeks door tot de Jubilee-uitgave van 1876 en een laatste geregistreerde druk in 1920. De University of Tennessee Press bracht in 1986 een facsimile van de eerste druk uit met een inleiding van Charles E. Rosenberg. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Gunn was arts in Knoxville, Tennessee, en schreef zijn boek voor gezinnen die dagen reizen van de dichtstbijzijnde arts woonden. Hij legt in gewone taal uit hoe ziekten te herkennen zijn, welke middelen erbij horen, welke inheemse planten dienst kunnen doen en hoe een leek een ader opent, een breuk zet of in het uiterste geval een arm afzet. De ondertitel belooft dat de praktijk van de geneeskunde is teruggebracht tot beginselen van gezond verstand.</p><p>De opzet is die van een compleet huishoudboek: eerst de hartstochten en de leefregels, dan een lange lijst ziekten met behandeling, daarna vrouwen- en kinderziekten met verloskunde, vervolgens een Amerikaanse kruidenkast met dispensatorium en tot slot heelkunde. Het werd een van de meest verkochte Amerikaanse boeken van de negentiende eeuw en bleef bijna een eeuw in druk, in edities die onderling ver uiteenlopen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>geneeskunde</li><li>zelfzorg</li><li>naslagwerk</li><li>negentiende eeuw</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1129"><a href="1129.html">The Hydropathic Encyclopedia</a>. Trall bouwt tien jaar later een volledig tegenstelsel op tegen precies de middelen die Gunn voorschrijft.</li>
+          <li value="1132"><a href="1132.html">Over ziekenverpleging</a>. Nightingale beschrijft in hetzelfde decennium wat verzorging zonder medicatie kan doen, met een veel strengere blik op waarneming.</li>
+          <li value="1133"><a href="1133.html">Dr. Chase's Recipes; or, Information for Everybody</a>. Chase zet het Amerikaanse receptenboek voort als handel, met dezelfde belofte van zelfredzaamheid en nog minder toetsing.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

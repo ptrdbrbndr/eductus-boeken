@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Source Field Investigations &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Wilcock stelt dat alle ruimte, tijd, materie, biologisch leven en bewustzijn voortkomen uit één veld dat hij het bronveld noemt, en dat dit veld niet…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1156">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1156 &middot; Filosofie en mystiek</p>
+    <h1>The Source Field Investigations</h1>
+    <p class="lede">David Wilcock, 2011</p>
+    <p class="stats">
+      <span><b>1731</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1156"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Wilcock stelt dat alle ruimte, tijd, materie, biologisch leven en bewustzijn voortkomen uit één veld dat hij het bronveld noemt, en dat dit veld niet alleen meetbaar is maar zelf bewust: gedachten werken erin door, planten en cellen reageren erop, en de beweging van het zonnestelsel door de melkweg zet er met vaste tussenpozen grote biologische veranderingen in gang. Daaruit trekt hij twee conclusies. De bouwers van de piramides beschikten over een techniek om dat veld af te tappen, en de datum van 21 december 2012 markeert het begin van een aantoonbare sprong in de menselijke biologie en cultuur.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Bewustzijn buiten de schedel</h3>
+      <p>Het boek opent met een voorwoord van scenarioschrijver James V. Hart en een inleiding van Graham Hancock, die de lezer vast waarschuwt dat critici de tekst op fouten zullen doorzoeken en dat men zich daar niet door moet laten ontmoedigen. Wilcock begint zijn eigen betoog met hypnose. Hij vertelt over Cleve Backster, die als student een kamergenoot onder hypnose een handtekening liet zetten waar die zich niets van herinnerde, en later een verhaal van Michael Talbot naspeelt over een gehypnotiseerde man die zijn eigen dochter niet meer kon zien.</p>
+      <p>Daaruit leidt Wilcock af dat de waarneming van vaste materie zelf een soort afspraak is. Hoofdstuk één gaat verder met Backsters latere werk, waarin planten aan een leugendetector zouden reageren op de bedoelingen van mensen in de kamer. Wilcock noemt dat het Backster-effect en gebruikt het als het eerste bewijsstuk dat geest zich niet tot het zenuwstelsel beperkt.</p>
+      <h3>De pijnappelklier als ontvanger</h3>
+      <p>Hoofdstuk drie behandelt de pijnappelklier. Wilcock zet correct op een rij wat er anatomisch over bekend is: de klier ligt ongeveer in het meetkundige midden van de hersenmassa, valt buiten de bloed-hersenbarrière, heeft een met vocht gevulde holte en verkalkt met de jaren tot het witte stipje dat op een hersenscan zichtbaar is. Vervolgens legt hij daarnaast de dennenappel in religieuze kunst, van de staf van Dionysus tot die van de paus, en concludeert dat oude culturen deze klier als derde oog vereerden.</p>
+      <p>Hij erkent zelf dat er geen metingen bestaan van lichtvorming binnen een levende pijnappelklier. De stap van iconografie naar orgaanfunctie wordt niet gedekt door onderzoek, maar door de veronderstelling dat de ouden iets wisten wat wij zijn kwijtgeraakt.</p>
+      <h3>Piramides als apparaat</h3>
+      <p>De hoofdstukken zeven en acht gaan over de Grote Piramide en over piramidekracht. Het zwaartepunt ligt bij Alexander Golod, een Moskouse ingenieur die vanaf 1990 in Rusland en Oekraïne piramides bouwde van pvc-buizen met glasvezelplaten, in de verhouding van de gulden snede en zonder enig metaal. In 2001 stonden er zeventien, de grootste vierenveertig meter hoog. Wilcock somt de gerapporteerde uitkomsten op: effecten op gezondheid, landbouw en ecologie, en kristallen uit de piramides die aan boord van ruimtestation Mir zijn meegevlogen.</p>
+      <p>In dezelfde alinea schrijft hij dat geen enkel gangbaar vaktijdschrift die uitkomsten wilde publiceren, en verklaart dat uit de belangen van machtsgroepen die zich bedreigd zouden voelen. Dat is het scharnier van het hele boek: het ontbreken van publicatie wordt niet als een tekort in het bewijs gelezen, maar als bevestiging van het verhaal.</p>
+      <h3>DNA, licht en het fantoomeffect</h3>
+      <p>De hoofdstukken negen en tien draaien om de Russische bioloog Peter Gariaev. Volgens Wilcock plaatste Gariaev in 1984 DNA in een kwartsbuisje, belichtte het met een zwakke laser en zag het molecuul licht opnemen en in een spiraal vasthouden. Toen hij het buisje weghaalde, bleef de lichtspiraal volgens dit verslag tot dertig dagen op dezelfde plek staan en herstelde zich zelfs na een stoot vloeibare stikstof. Wilcock noemt dat het DNA-fantoomeffect en leidt eruit af dat elk lichaam een energetische dubbelganger heeft.</p>
+      <p>In hoofdstuk tien staat de meest opzienbarende bewering van het boek: Gariaev zou een groene laser door salamandereieren en vervolgens door kikkereieren hebben gestuurd, waarna de kikkereieren zich tot salamanders ontwikkelden die zich later normaal voortplantten. Wilcock schrijft dat hij hiervan in 2000 hoorde en dat het zijn leven veranderde, omdat het voor hem bewees dat evolutie in één sprong kan verlopen.</p>
+      <h3>Tijd, torsie en meetkunde</h3>
+      <p>Deel twee verlegt het onderwerp naar tijd en ruimte. Nikolai Kozyrev staat centraal met de gedachte dat tijd niet rechtlijnig door de ruimte gaat maar draait, wat Russische onderzoekers torsie noemen; Wilcock houdt de term bronveld aan. Simon Shnoll levert de bewering dat metingen aan uiteenlopende processen geen willekeurige spreiding vertonen maar telkens dezelfde vormen aannemen, samenhangend met de stand van aarde, zon en sterren.</p>
+      <p>Daarnaast keert Wilcock terug naar Kepler en diens idee dat de planeetbanen door de vijf regelmatige veelvlakken worden bepaald. Hij zegt daarvoor het sluitende bewijs te hebben gevonden in <i>A Little Book of Coincidence</i> van John Martineau, en verbindt diezelfde meetkunde met DNA, eiwitvorming en een wereldwijd energieraster.</p>
+      <h3>Naar 2012 en daarna</h3>
+      <p>De laatste hoofdstukken brengen alles samen op de datum. De Maya-kalender, de precessie van de equinoxen en een omloop van het zonnestelsel door het melkwegvlak worden op elkaar gelegd tot één klok. Hoofdstuk negentien zoekt de oorsprong van het idee van een gouden eeuw op in de klassieke literatuur en steunt daarbij op een artikel van H. C. Baldry uit <i>Classical Quarterly</i> uit 1952, een van de weinige plaatsen waar Wilcock rechtstreeks een wetenschappelijk tijdschrift aanhaalt.</p>
+      <p>Het slothoofdstuk gaat over openbaarmaking van buitenaards contact. Daar komen de schedels van Boskop ter sprake, die volgens een artikel in <i>Discover</i> uit 2009 zouden wijzen op een mensensoort met een aanzienlijk groter voorhoofdsgebied. Ook de Cayce-lezingen en de gechannelde reeks <i>The Law of One</i> keren terug als bron, naast Ian Stevensons onderzoek naar kinderen die zich een vorig leven zouden herinneren.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">bronveld</td><td>Wilcocks naam voor één alomtegenwoordig veld waaruit ruimte, tijd, materie, leven en bewustzijn zouden voortkomen en dat zelf bewust zou zijn.</td></tr>
+          <tr><td class="term">Backster-effect</td><td>De bewering van Cleve Backster dat planten en losse cellen via een leugendetector meetbaar reageren op de bedoelingen van mensen in de omgeving.</td></tr>
+          <tr><td class="term">DNA-fantoomeffect</td><td>Het gerapporteerde verschijnsel dat een lichtspiraal blijft staan op de plek waar een DNA-monster is weggenomen.</td></tr>
+          <tr><td class="term">torsie</td><td>De draaiing die volgens Kozyrev en zijn navolgers in de tijd zelf zit en die Wilcock gelijkstelt aan zijn bronveld.</td></tr>
+          <tr><td class="term">piramidekracht</td><td>De veronderstelde werking van piramidevormige bouwsels op gezondheid, groei en materiaaleigenschappen, in het boek vooral gebaseerd op Golods bouwwerken.</td></tr>
+          <tr><td class="term">pijnappelklier</td><td>De erwtgrote klier midden in de hersenen die Wilcock aanwijst als het orgaan waarmee de mens het bronveld zou waarnemen.</td></tr>
+          <tr><td class="term">precessie</td><td>De langzame tolbeweging van de aardas in ongeveer 26.000 jaar, die Wilcock als kloktijd voor de voorspellingen gebruikt.</td></tr>
+          <tr><td class="term">The Law of One</td><td>Een gechannelde tekstreeks uit de jaren tachtig die Wilcock in het slotdeel als informatiebron naast wetenschappelijk werk zet.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het notenapparaat is omvangrijk, maar de verwijzingen leiden zelden naar een tijdschrift met beoordeling door vakgenoten. Ze leiden naar websites, naar samenvattingen van Russisch werk in Engelse vertaling, naar populaire boeken en naar Wilcocks eigen eerdere teksten. Voor Backster is de bron diens eigen boek <i>Primary Perception</i> uit 2003, niet gepubliceerd onderzoek. Pogingen om Backsters plantproeven onder gecontroleerde omstandigheden te herhalen, waaronder een studie die in 1975 in <i>Science</i> verscheen, vonden geen effect.</p>
+      <p>Voor Gariaev geldt hetzelfde in scherpere vorm. Zijn golfgenetica verscheen buiten de gangbare vakliteratuur, en de bewering dat kikkereieren zich onder laserbelichting tot salamanders ontwikkelden is nooit onafhankelijk bevestigd. Wilcock behandelt haar niettemin als vaststaand en bouwt er zijn hele evolutiehoofdstuk op.</p>
+      <p>Bij Golods piramides schrijft Wilcock het zelf op: geen enkel gangbaar tijdschrift nam de uitkomsten op. Wat overblijft is een samenvatting op de website van een piramide-onderzoeksvereniging en een Engelse weergave door Volodymyr Krasnoholovets, waarvan Wilcock opmerkt dat de vertaling moeilijk te volgen was.</p>
+      <p>Het Boskop-materiaal is een goed te controleren geval. Het artikel in <i>Discover</i> was een bewerking uit een populair boek; antropologen hebben laten zien dat het beeld van een grootbrainig volk ontstond doordat uit een gemengde reeks vondsten telkens de grootste schedels werden geselecteerd. Van een aparte mensensoort met een dertig procent groter brein is geen sprake.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar zit in de bouw van het betoog. Elk hoofdstuk behandelt de uitkomst van het vorige als vastgesteld en gebruikt die als fundament voor de volgende stap. Backster draagt de pijnappelklier, de pijnappelklier draagt de piramides, de piramides dragen het DNA en het DNA draagt de datum. Valt de eerste steen weg, dan valt de hele rij. Doordat elke steen op zichzelf zwak is, is er nauwelijks een punt waarop het boek nog corrigeerbaar is.</p>
+      <p>Daar komt bij dat het boek zijn eigen weerlegging uitschakelt. Wanneer onderzoek niet in vaktijdschriften staat, is dat volgens Wilcock een teken van tegenwerking door belanghebbenden. Daarmee telt afwezigheid van publicatie als bevestiging, en is er geen waarneming meer denkbaar die het model kan tegenspreken.</p>
+      <p>De Russische natuurkunde waarop hij leunt heeft in eigen land een geschiedenis die hij niet noemt. De commissie tegen pseudowetenschap van de Russische Academie van Wetenschappen heeft het torsieveldprogramma van Akimov en Sjipov aangemerkt als bedrog en beschreven hoe het aan overheidsgeld kwam. Wilcock presenteert diezelfde lijn als onderdrukte kennis.</p>
+      <p>En dan is er de voorspelling zelf. Het boek zet in op een aanwijsbare verandering rond december 2012 in biologie, bewustzijn en samenleving. Die is niet opgetreden. Dat is geen detail, want het is de enige toetsbare uitspraak die het boek doet.</p>
+      <p>Wat er wel voor pleit, moet ook worden genoemd. Wilcock schrijft ordelijk, laat vrijwel altijd zien waar hij zijn materiaal vandaan heeft en verkoopt geen ondergangsscenario. Juist doordat hij zijn bronnen noemt, is het boek na te lopen. Dat maakt het een bruikbaar overzicht van wat er in dit genre rond 2011 circuleerde, en een slechte gids voor wat er in de natuurkunde of de biologie bekend is.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Zoek bij elke opzienbarende bewering de oorspronkelijke publicatie op en kijk of die door vakgenoten is beoordeeld.</li>
+        <li>Behandel de zin dat iets niet gepubliceerd kon worden als een bewering die zelf bewijs nodig heeft, niet als verklaring.</li>
+        <li>Scheid het referaat van het Russische onderzoek van de gevolgtrekking die Wilcock eraan verbindt.</li>
+        <li>Lees het boek als tijdsdocument over het 2012-genre, niet als bron over hersenen, DNA of zwaartekracht.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Source Field Investigations: The Hidden Science and Lost Civilizations Behind the 2012 Prophecies</i> (Dutton, New York, 2011, 560 blz., ISBN 978-0-525-95204-6). Voorwoord van scenarioschrijver James V. Hart, inleiding van Graham Hancock. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>David Wilcock betoogt dat ruimte, tijd, materie, leven en bewustzijn alle voortkomen uit één veld, dat hij het bronveld noemt, en dat piramides, de pijnappelklier en het DNA er alle drie mee in verbinding staan. Hij bouwt dat op uit honderden verwijzingen, waarvan een groot deel naar Russisch onderzoek dat zelden of nooit is herhaald.</p><p>Het boek verscheen in de aanloop naar december 2012 en eindigt in de verwachting van een gouden tijdperk. De opbouw is overzichtelijk en de toon is niet dreigend, maar de onderbouwing houdt bij nazoeken op vrijwel geen enkel punt stand.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>bewustzijn</li><li>new age</li><li>grenswetenschap</li><li>pseudowetenschap</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="340"><a href="340.html">The Holographic Universe</a>. Wilcock noemt <i>The Holographic Universe</i> van Michael Talbot met zoveel woorden als voorbeeld en ontleent er verhalen aan; het is de directe voorganger van dit boek.</li>
+          <li value="1152"><a href="1152.html">Lost Science</a>. <i>Lost Science</i> van Gerry Vassilatos werkt dezelfde figuur uit: uitvinders en onderzoekers wier werk zou zijn weggedrukt.</li>
+          <li value="663"><a href="663.html">Supernature</a>. <i>Supernature</i> van Lyall Watson deed in 1973 een vergelijkbare poging om randverschijnselen in een biologisch kader te vatten, met dezelfde bewijsproblemen.</li>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. <i>The Demon-Haunted World</i> van Carl Sagan levert het gereedschap om precies dit soort ketenredeneringen te ontleden.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

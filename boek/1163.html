@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Reenchantment of the World &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Berman betoogt dat de westerse mens tot in de zeventiende eeuw in een deelnemende verhouding tot de wereld stond, waarin het onderscheid tussen waarnemer…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1163">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1163 &middot; Filosofie en mystiek</p>
+    <h1>The Reenchantment of the World</h1>
+    <p class="lede">Morris Berman, 1981</p>
+    <p class="stats">
+      <span><b>2236</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1163"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Berman betoogt dat de westerse mens tot in de zeventiende eeuw in een deelnemende verhouding tot de wereld stond, waarin het onderscheid tussen waarnemer en waargenomene niet scherp werd getrokken, en dat de wetenschappelijke revolutie die verhouding heeft vervangen door een niet-deelnemend bewustzijn waarin kennis pas ontstaat door afstand te nemen van wat men kent. Dat niet-deelnemende bewustzijn noemt hij vervreemd bewustzijn, en hij houdt het verantwoordelijk voor twee zaken tegelijk: de roofbouw op de natuur en een leegte in het persoonlijke leven die door consumptie wordt opgevuld. Zijn voorstel is geen terugkeer naar de middeleeuwen, maar een kennisleer waarin de kenner opnieuw in het gekende wordt opgenomen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De titel als tegenzet</h3>
+      <p>Berman ontleent zijn uitgangspunt aan Weber, die in <i>Wissenschaft als Beruf</i> sprak van de onttovering van de wereld: het besef dat er in beginsel geen onberekenbare machten meer zijn en dat men alles door berekening kan beheersen. Berman keert die formule om en vraagt wat er nodig zou zijn voor een hertovering.</p>
+      <p>Het begrip waarmee hij werkt, deelnemend bewustzijn, is zijn eigen bewerking van Owen Barfields oorspronkelijke deelname. Hij omschrijft het als versmelting of vereenzelviging met de omgeving, een psychische heelheid die volgens hem al lang van het toneel verdwenen is. Dat is het spoor dat hij door de vier eeuwen heen volgt.</p>
+      <h3>De geboorte van het moderne wetenschappelijke bewustzijn</h3>
+      <p>Het eerste hoofdstuk opent bij Descartes in 1637 en zet uiteen wat historici van de wetenschap de mechanische filosofie noemen: alle verklaring wordt teruggebracht tot stof en beweging. Berman beschrijft hoe de vraag waarom iets gebeurt plaatsmaakt voor de vraag hoe het gebeurt, en hoe het atomisme de gedachte doorvoert dat een ding de som van zijn delen is, niet meer en niet minder. De uitkomst noemt hij positivisme: wat niet meetbaar is, heeft in de proefondervindelijke wijsbegeerte geen plaats.</p>
+      <p>Zijn behandeling van Galilei is kenmerkend voor de opzet. Dat de kardinalen weigerden door de telescoop te kijken, wijt Berman niet aan koppigheid of vrees voor de waarheid, maar aan een botsing van categorieën: een door ambachtslieden vervaardigd werktuig inzetten om een wijsgerige of theologische twist te beslechten, gold destijds als een verwarring van twee gescheiden werelden met elk hun eigen stand. Galilei zelf hanteerde volgens hem een ingenieursbenadering waarin hij afstand nam van de natuur om haar beter te vatten, en juist die zet noemt Berman niet-deelnemend bewustzijn.</p>
+      <h3>Waarom die omslag doorzette</h3>
+      <p>Het tweede hoofdstuk plaatst de omslag in de samenleving die haar droeg. Berman haalt Peter Berger aan: ideeën slagen in de geschiedenis niet omdat ze waar zijn, maar door hun verhouding tot bepaalde maatschappelijke processen. Wetenschappelijke ideeën vormen daarop geen uitzondering. Het denken in vooruitgang en opeenstapeling hoort volgens hem bij de wereld van het vroegmoderne Europa, en de mechanische natuuropvatting paste bij een samenleving die de wereld als een rekensom begon te zien.</p>
+      <p>Daarmee zet hij zijn methodische eis kracht bij: de wetenschap moet worden bekeken als een denkstelsel dat bij een bepaald tijdvak past, en niet als een boventijdelijke waarheid. Die eis draagt de rest van het boek, want zonder haar valt de mogelijkheid van een andere kennisleer weg.</p>
+      <h3>De onttovering, in twee delen</h3>
+      <p>De twee hoofdstukken met de titel <i>The Disenchantment of the World</i> behandelen wat er verdween. Bermans hoofdvoorbeeld is de alchemie, die hij leest als de laatste deelnemende wetenschap: de alchemist werkte met meditatie, vasten, ademhalingsoefeningen en soms het reciteren van formules, technieken die de scheiding tussen het bewuste en het onbewuste deel van de geest doorbreken. Hij vergelijkt de alchemist met een mijnwerker die de ene ader na de andere volgt, zonder dat er één goed antwoord bestaat.</p>
+      <p>Newton speelt daarin een dubbelrol. Berman wijst erop dat Newton een groot deel van zijn leven aan alchemie besteedde, en hij haalt Frank Manuel aan voor de opmerking dat een wereldbeeld waarin elke gebeurtenis in een sluitend stelsel past normaal gesproken een ziektebeeld heet, en dat het Newtons geluk was dat Europa zijn stelsel als afbeelding van de werkelijkheid aanvaardde. Bermans punt is dat de alchemie niet is weerlegd maar verdrongen, en dat de winnende partij die uitkomst achteraf als vooruitgang heeft beschreven.</p>
+      <h3>Polanyi en Reich</h3>
+      <p>Het hoofdstuk <i>Prolegomena to Any Future Metaphysics</i> haalt Michael Polanyi binnen. Diens stelling is dat het toekennen van waarheid aan een methode altijd een niet-redelijke verbintenis vereist, in Polanyi's woorden een fiduciaire daad, en dat de samenhang van een denkstelsel geen maatstaf voor waarheid is maar alleen voor bestendigheid. Berman leidt daaruit af dat kennis eerst lijfelijk wordt opgedaan en dat het verstand pas achteraf de categorieën aanlegt.</p>
+      <p>Dat lijfelijke spoor loopt in het hoofdstuk <i>Eros Regained</i> uit op Wilhelm Reich. Berman zet Reich, met R.D. Laing en anderen, in tegen de egopsychologie, van Freud tot Rollo May, en gebruikt Reichs opvatting van het lichaam als plaats van kennen om aan zijn deelnemende kennisleer een lichamelijke bodem te geven. Het is het meest gewaagde hoofdstuk van het boek, en het hoofdstuk waar de meeste lezers afhaken.</p>
+      <h3>De metafysica van morgen</h3>
+      <p>In de twee hoofdstukken die daarop volgen komt Bateson aan het woord. Berman neemt van hem het idee over dat geest geen substantie is maar een patroon van betrekkingen, en dat een kennisleer die de natuur recht doet de kenner in het gekende moet opnemen. Onderzoek gaat dan niet meer over losse eenheden die tegenover de geest staan, maar over de verhouding tussen wat tot nu toe onderwerp en voorwerp heette.</p>
+      <p>Zijn bekendste passage staat hier: wanneer een indiaan een regendans uitvoert, veronderstelt hij geen mechanisch antwoord maar nodigt hij de wolken uit, en zoals elke minnaar kunnen die er wel of niet toe geneigd zijn. De westerse tegenhanger, wolken bezaaien vanuit een vliegtuig, dwingt de uitkomst af en levert naast regen lawaai en vervuiling op. Berman voegt daar Susanne Langer aan toe: een wending in de wijsbegeerte bestaat niet uit nieuwe antwoorden op oude vragen maar uit het verwerpen van die vragen. En hij ontleent aan Bateson het beeld van een stelsel dat op hol slaat doordat het bepaalde grootheden blijft opjagen, met de waarschuwing dat wie tegen de ecologie van een stelsel vecht verliest, vooral wanneer hij wint.</p>
+      <h3>De politiek van het bewustzijn</h3>
+      <p>Het slothoofdstuk vraagt hoe zo'n verandering zich maatschappelijk zou kunnen voltrekken. Berman is hier het minst concreet, en hij houdt uitdrukkelijk afstand van de mystieke en occulte stromingen die zich in dezelfde jaren op vergelijkbare taal beriepen. Hij haalt Weber aan met de opmerking dat wie voor de werkelijkheid terugschrikt altijd bij het geloof van zijn vaderen terechtkan, en hij verwijt die stelsels dat zij, zoals Langer over niet-discursieve denkvormen zei, uiteindelijk het denken zelf overboord zetten.</p>
+      <p>Wat hij wel vasthoudt is dat er iets stoffelijks buiten ons bestaat, en dat de ontkenning daarvan hem niet interesseert. Zijn punt is dat wij met dat stoffelijke in een systemische verhouding staan, het ongemerkt met ons eigen onbewuste doortrekken en er daardoor aantreffen wat wij zoeken.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">deelnemend bewustzijn</td><td>Bermans term voor een houding waarin de waarnemer zich niet los van de waargenomen wereld denkt maar zich ermee vereenzelvigt.</td></tr>
+          <tr><td class="term">niet-deelnemend bewustzijn</td><td>De tegenhanger die volgens hem met Galilei en Descartes doorbreekt: kennen door afstand nemen, met de onderzoeker buiten het onderzochte.</td></tr>
+          <tr><td class="term">onttovering</td><td>Webers <i>Entzauberung der Welt</i>, het besef dat er geen onberekenbare machten meer zijn en dat alles in beginsel door berekening te beheersen valt.</td></tr>
+          <tr><td class="term">mechanische filosofie</td><td>De opvatting dat alle natuurverklaring uiteindelijk in termen van stof en beweging moet worden gegeven.</td></tr>
+          <tr><td class="term">oorspronkelijke deelname</td><td>Owen Barfields begrip voor een oudere denkwijze zonder scherpe scheiding tussen bewustzijn en wereld, waaraan Berman zijn eigen term ontleent.</td></tr>
+          <tr><td class="term">stilzwijgende kennis</td><td>Polanyi's begrip voor het weten dat aan het uitgesproken oordeel voorafgaat en er niet volledig in valt uit te schrijven.</td></tr>
+          <tr><td class="term">fiduciaire daad</td><td>Polanyi's aanduiding voor de niet-redelijke verbintenis die het toekennen van waarheid aan een methode altijd vergt.</td></tr>
+          <tr><td class="term">op hol geslagen stelsel</td><td>Batesons beeld van een systeem dat bepaalde grootheden blijft opjagen en daarmee de evenwichtsvoorwaarden schendt die het in stand houden.</td></tr>
+          <tr><td class="term">mimesis</td><td>Het meebewegen met wat men wil kennen, door Berman geplaatst tegenover de beheersing die de moderne techniek uitoefent.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Voor de eerste helft staat Berman op zijn eigen vakgebied. Hij is gepromoveerd historicus van de wetenschap en de hoofdstukken over de zeventiende eeuw rusten op de gangbare literatuur van dat moment, met honderden noten. Zijn behandeling van Newtons alchemie sloot aan bij onderzoek dat toen recent was, onder meer van Betty Jo Teeter Dobbs, die het boek in 1983 in <i>Isis</i> besprak. Het werk is ook gerecenseerd in de <i>American Historical Review</i> van 1983, door David A. Hollinger; het is dus door de vakbladen serieus genomen.</p>
+      <p>De aard van het bewijs verandert halverwege. Het bestaan van een deelnemend bewustzijn in vroeger eeuwen is een gevolgtrekking uit teksten en praktijken, niet iets wat rechtstreeks is vastgesteld. Hoe mensen in de vijftiende eeuw hun verhouding tot de wereld beleefden, laat zich niet meten, en Berman erkent dat hij een geschiedenis van het bewustzijn schrijft. De lezer moet daarbij bedenken dat het hoofdonderwerp van het boek nergens rechtstreeks gedocumenteerd is.</p>
+      <p>De tweede helft levert geen bewijs maar een voorstel. Batesons kennisleer is een wijsgerig bouwsel; Berman biedt geen toets waarmee zij tegenover de gangbare opvatting zou kunnen worden afgewogen. Voor het Reich-hoofdstuk geldt dat sterker: de orgonleer waarop Reichs latere werk berust, heeft geen aanvaarde empirische steun, en Berman leunt daar op literatuur die Reich welgezind is.</p>
+      <p>Wat het boek wel levert is een samenhangende lezing van vier eeuwen die de lezer in staat stelt de gangbare vertelling erover te bevragen. De recensent van <i>Kirkus</i> noemde het in 1982 popularisering op hoog niveau, en merkte tegelijk op dat de onderdelen niet nieuw zijn en dat Berman vaag blijft over de politieke uitvoering.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het hoofdstuk over Reich is het zwakste deel en verdient een eerlijke behandeling. Reichs waarnemingen aan wat hij bionen noemde werden door tijdgenoten weggezet als artefacten van de preparatie, en de orgonleer die hij daarop bouwde geldt in de wetenschap als schijnwetenschap. In 1954 verkreeg de Amerikaanse voedsel- en warenautoriteit een rechterlijk verbod tegen zijn orgonapparaten, zijn boeken werden vernietigd en Reich stierf in 1957 in de gevangenis. James Strick heeft in <i>Wilhelm Reich, Biologist</i> (Harvard University Press, 2015) betoogd dat Reichs microscopiewerk uit de jaren dertig historisch serieuzer moet worden genomen dan gebruikelijk, maar dat is een uitspraak over methode en voorrang, geen eerherstel voor de orgonleer. Berman gebruikt Reichs lichaamsenergie als bodem onder een nieuwe kennisleer, en juist die stap weigeren de meeste lezers hem.</p>
+      <p>De geschiedschrijving is sinds 1981 een andere kant op gegaan. Het verhaal van één kantelpunt bij Descartes en Newton wordt door historici van de wetenschap niet meer zo verteld; Steven Shapin opende <i>The Scientific Revolution</i> (1996) met de zin dat er niet zoiets als de wetenschappelijke revolutie bestond, en dat dit boek daarover gaat. Bermans beeld van één samenhangend voormodern deelnemend bewustzijn strijkt bovendien enorme verschillen glad tussen scholastiek, hermetisme, ambachtelijke kennis en volksgeloof.</p>
+      <p>Ook het onttoveringsverhaal zelf staat inmiddels ter discussie. Jason Josephson-Storm laat in <i>The Myth of Disenchantment</i> (2017) met archiefwerk zien dat magie, spiritisme en occultisme dwars door de loopbanen van de grondleggers van de moderne wetenschap en sociale wetenschap heen liepen, tot in Webers eigen omgeving. Als de wereld nooit onttoverd is geweest, verliest een programma van hertovering zijn aanleiding. Daar komt bij dat Berman Webers begrip oprekt: Weber sprak over de verdwijning van magie uit de heilsmiddelen en over de beheersbaarheid door berekening, niet over het verlies van een zintuiglijke versmelting met de natuur.</p>
+      <p>Berman is er zelf op teruggekomen. In <i>The Cybernetic Dream of the Twenty-First Century</i> (<i>Journal of Humanistic Psychology</i>, 1986) betoogt hij dat het nieuwe holistische paradigma niet werkelijk met het mechanisme breekt en dat het even vormelijk, abstract en lichaamloos is; in de noten onderscheidt hij daarbij de vroege Bateson van de late. In <i>Coming to Our Senses</i> (1989) verlegt hij het zwaartepunt van de systeemleer naar het lichaam, en in <i>Wandering God</i> (2000) vervangt hij het schema opnieuw. Wie het boek leest, leest dus een positie die de auteur zelf binnen vijf jaar had bijgesteld.</p>
+      <p>Ten slotte is het boek als geschiedenis sterker dan als voorstel. Het toont overtuigend dat de moderne natuurwetenschap een historische vorm heeft en niet vanzelf spreekt. Wat het niet toont, is dat een deelnemende kennisleer werkbaar is: er staat geen enkel voorbeeld in van een onderzoek dat langs die weg iets heeft opgeleverd wat de gangbare weg niet oplevert. Dat gat maakt het slot ook politiek onbepaald, zoals de recensenten destijds al opmerkten.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de eerste helft als wetenschapsgeschiedenis en de tweede als voorstel; het boek wisselt daar van bewijsvorm zonder dat aan te kondigen.</li>
+        <li>Toets de stelling dat kennen afstand vereist aan het eigen vak: waar levert afstand nemen inzicht op en waar juist blindheid.</li>
+        <li>Gebruik Polanyi's stilzwijgende kennis als vraag welke oordelen in het eigen werk niet zijn uit te schrijven en toch meewegen.</li>
+        <li>Zet Weber zelf ernaast voordat men de onttoveringsthese overneemt; Bermans gebruik is ruimer dan Webers formulering.</li>
+        <li>Behandel het Reich-hoofdstuk als een keuze van de auteur uit 1981, niet als een weergave van de stand van zaken.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Reenchantment of the World</i> (Cornell University Press, Ithaca, 1981, 357 blz., ISBN 0801413478 gebonden en 0801492254 in paperback; daarnaast een pocketuitgave bij Bantam in 1984, ISBN 0553241710). Er bestaat geen Nederlandse vertaling; wel een Spaanse, <i>El reencantamiento del mundo</i>. De samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Morris Berman promoveerde in 1971 aan Johns Hopkins in de geschiedenis van de wetenschap. In dit boek beschrijft hij hoe het westen een verhouding tot de wereld verloor waarin de kenner deel uitmaakte van wat hij kende, en hoe daarvoor in de zeventiende eeuw een houding in de plaats kwam waarin kennis juist afstand vereist. De titel is een antwoord op Max Weber, die de moderniteit had gekenschetst als de onttovering van de wereld.</p><p>De eerste helft is wetenschapsgeschiedenis met een duidelijke stelling; de tweede helft is een voorstel voor een andere kennisleer, waarvoor Berman bij Gregory Bateson en Wilhelm Reich te rade gaat. Dat tweede deel, en met name het hoofdstuk over Reich, is het meest bestreden onderdeel van het boek en ook het deel waar Berman zelf later afstand van nam.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>wetenschapsgeschiedenis</li><li>cultuurkritiek</li><li>bewustzijn</li><li>filosofie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="580"><a href="580.html">Ursprung und Gegenwart</a>. Gebser beschrijft dezelfde breuk als een opeenvolging van bewustzijnsstructuren, met het perspectief als kantelpunt.</li>
+          <li value="948"><a href="948.html">The Copernican Revolution</a>. Kuhn behandelt de omslag naar het moderne wereldbeeld als vakhistoricus, zonder Bermans doel om er iets anders voor in de plaats te stellen.</li>
+          <li value="1167"><a href="1167.html">The Idea of the World: A Multi-Disciplinary Argument for the Mental Nature of Reality</a>. Kastrup probeert wel te leveren wat Berman aankondigt: een uitgewerkte kennisleer waarin bewustzijn het uitgangspunt is.</li>
+          <li value="604"><a href="604.html">The Perennial Philosophy</a>. Huxley zoekt de gemeenschappelijke kern van de mystieke tradities die Berman als voormoderne deelname beschrijft.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

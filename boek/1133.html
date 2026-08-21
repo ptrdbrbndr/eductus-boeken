@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dr. Chase's Recipes; or, Information for Everybody &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Alle praktische kennis die een gezin, een werkplaats of een boerderij nodig heeft, past in één gebonden deel van een dollar, mits ze per beroep is…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1133">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1133 &middot; Naslag en praktijk</p>
+    <h1>Dr. Chase's Recipes; or, Information for Everybody</h1>
+    <p class="lede">Alvin Wood Chase, 1864</p>
+    <p class="stats">
+      <span><b>1747</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1133"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Alle praktische kennis die een gezin, een werkplaats of een boerderij nodig heeft, past in één gebonden deel van een dollar, mits ze per beroep is geordend, in gewone taal is opgeschreven en door de samensteller zelf is uitgeprobeerd. Chase stelt daarmee dat het onderscheid tussen een recept voor schoensmeer, een voorschrift voor azijn en een middel tegen kroep bij een kind geen wezenlijk onderscheid is: het zijn alle drie werkvoorschriften die iemand met een notitieboekje kan verzamelen en beproeven, en die geen beroepsgroep hoort te monopoliseren.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Hoe het boek is ontstaan</h3>
+      <p>In het voorwoord bij de tiende druk legt Chase uit hoe hij aan zijn stof kwam. Hij had jarenlang een drogisterij en kruidenierszaak gedreven, ging na zijn achtendertigste medicijnen studeren en begon in 1856 zijn eerste recepten in een pamflet van enkele bladzijden uit te geven. Sindsdien reisde hij tussen New York en Iowa, verkocht het werk en schreef onderweg voor. Tot 1863 waren er volgens hem ruim drieëntwintigduizend exemplaren verkocht.</p>
+      <p>Zijn werkwijze had hij altijd bij zich in een notitieboekje. Werd er in zijn bijzijn een voorschrift gegeven of een bruikbare opmerking gemaakt, dan schreef hij die op, probeerde haar bij de eerste gelegenheid uit, en nam haar bij gebleken deugdelijkheid in de volgende druk op. Aan informatie, proeven, reizen en illustraties zegt hij ruim tweeduizend dollar te hebben uitgegeven.</p>
+      <h3>De ordening naar beroep</h3>
+      <p>De inhoud is verdeeld in afdelingen: kruideniers en winkeliers, de saloon, de medische afdeling, looiers en schoen- en tuigmakers, schilders, smeden, blikslagers, juweliers, hoefsmeden, barbiers en toilet, bakkers en koken, allerlei, verven, rente, en een verklarende woordenlijst. Achterin staat een alfabetische index.</p>
+      <p>De vorm is opzettelijk. Beschouwingen en uitleg zijn in groot zetsel gezet, de voorschriften zelf in kleiner, zodat een lezer in één oogopslag ziet wat hij zoekt. Chase noemt de toelichtingen bij de recepten het kenmerkende van zijn boek: ook zonder een enkel voorschrift zou het volgens hem als leesboek zijn prijs waard zijn.</p>
+      <p>Wat er zoal in staat: azijn maken in drie weken of in drie dagen, cider zonder appels, boter en eieren bewaren, zeven regels om vals geld te herkennen, rente berekenen met één vermenigvuldiging en één deling, zwarte en rode en onuitwisbare inkt, gelei zonder fruit, mondlijm voor gescheurd papier, en het Washing-Fluid dat hij naar eigen zeggen bijna acht jaar bij elke was gebruikte. Aan de andere kant van het boek staan twintig voorschriften voor oogkwalen, een dozijn smeersels, middelen tegen kinkhoest en kroep, en de behandeling van spat bij paarden.</p>
+      <h3>De medische afdeling</h3>
+      <p>De medische afdeling opent met een waarschuwing: laat de drogist alles wat hij levert van een naam voorzien, en houd arsenicum, fosfor, laudanum en zuren buiten het bereik van kinderen. Daarna volgt een geheelonthoudersbetoog. Artsen die brandewijn, rum en gin voorschrijven houden volgens Chase de drankzucht in stand, half omdat ze zelf drinken. Zuivere alcohol en zelfgemaakte vruchtwijnen doen in een geneesmiddel hetzelfde werk, en de koper weet dan tenminste wat erin zit.</p>
+      <p>Hij geeft alcoholpercentages van wijnen en bieren om te laten zien dat elke fles vruchtwijn aan diezelfde drankzucht bijdraagt. Aan het boek is verder een behandeling van pleuritis, longontsteking en andere ontstekingsziekten toegevoegd, en een deel over vrouwenzwakte en onregelmatigheden, dat volgens het voorwoord geen vrouw boven de tien of veertien jaar zou mogen missen.</p>
+      <h3>Het boek als handelswaar</h3>
+      <p>Chase verkoopt zichzelf in het voorwoord uitvoerig. Het boek is alleen bij reizende verkopers te krijgen, schrijft hij, want in een boekhandel zou niet één op de vijftig het ooit zien. Hij noemt de prijs, één dollar gebonden en twee dollar in Californië, en somt op wat losse recepten elders kosten: iemand die in Battle Creek een waswatervoorschrift voor twee dollar sleet, een koopman die een paard gaf voor een cementrecept, een heer uit Detroit die driehonderd dollar betaalde voor een middel tegen spat.</p>
+      <p>Hij drukt een afdeling References af met verklaringen van tevreden kopers, en vertelt hoe een man tien mijl omreed om het boek te halen omdat een boer er twintig dollar mee had bespaard aan een paard. Zijn slotformule is dat het boek ofwel het grootste bedrog van de dag is, ofwel het beste werk in zijn soort in de Engelse taal.</p>
+      <h3>Wat er daarna met de naam gebeurde</h3>
+      <p>Chase liet tijdens de burgeroorlog een stoomdrukkerij bouwen aan North Main Street in Ann Arbor, opgeleverd in 1864, met zes persen, gasverlichting en een stoomlift. In 1865 telde de zesentwintigste druk 384 bladzijden. Op tweeënvijftigjarige leeftijd verkocht hij het bedrijf, de platen, de rechten en het gebruik van zijn eigen naam aan Rice A. Beal en trok zich terug in Sauk Rapids, Minnesota, met de afspraak nooit meer te publiceren.</p>
+      <p>Hij kwam terug, bracht in 1873 <i>Dr. Chase's Family Physician, Farrier, Bee-Keeper, and Second Receipt Book</i> uit, en verloor de rechtszaak die Beal wegens contractbreuk aanspande; de opbrengst ging naar Beal. Chase stierf op 16 mei 1885 aan een longontsteking zonder zijn fortuin te hebben herwonnen. In 1887 verscheen een gedenkuitgave.</p>
+      <p>Onder Beal en diens opvolgers groeide de bundel door. Toen het bedrijf in 1900 werd verkocht, telde het werk ongeveer 1300 bladzijden, had het ongeveer zestig drukken beleefd en waren er meer dan een miljoen exemplaren van verkocht; in 1931 werd het totaal op vier miljoen gesteld. De latere <i>Dr. Chase's Third, Last and Complete Receipt Book and Household Physician</i> is niet meer door Chase samengesteld.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Recipe of receipt</td><td>Bij Chase geen kookvoorschrift alleen, maar elk werkvoorschrift, van inkt en looivloeistof tot een hoestdrank.</td></tr>
+          <tr><td class="term">Department</td><td>De vaste indeling naar beroepsgroep waarin hij alle voorschriften onderbrengt, met de index als enige dwarsverbinding.</td></tr>
+          <tr><td class="term">Traveling agent</td><td>De colporteur die het boek aan de deur verkocht; de enige verkoopweg die Chase toestond.</td></tr>
+          <tr><td class="term">Practical Therapeutist</td><td>De aanduiding die hij op het titelblad achter zijn naam zet, naast de letters M.D.</td></tr>
+          <tr><td class="term">References</td><td>De afdeling met verklaringen van tevreden kopers die hij als bewijsmateriaal in het voorwerk opneemt.</td></tr>
+          <tr><td class="term">Farriers' department</td><td>De afdeling voor paarden- en veeziekten, volgens hem de afdeling die een boer honderdmaal de prijs van het boek kan besparen.</td></tr>
+          <tr><td class="term">Good Samaritan Liniment</td><td>Zijn eigen smeersel, waarvan hij schrijft dat het voor gewoon gebruik zijns gelijke in de wereld niet heeft.</td></tr>
+          <tr><td class="term">Washing-Fluid</td><td>Het wasmiddelvoorschrift dat hij naar eigen zeggen bijna acht jaar bij elke was gebruikte.</td></tr>
+          <tr><td class="term">Female debility</td><td>De verzamelterm voor vrouwenklachten waarvoor hij een aparte behandeling aan het boek toevoegde.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Chase geeft zijn bewijsvoering zelf prijs, en die bestaat uit drie dingen: het notitieboekje, één eigen proef, en de verkoop. Hij noteerde wat vaklieden en artsen in zijn bijzijn zeiden, probeerde het bij gelegenheid uit en drukte het af. Er zijn geen aantekeningen van die proeven, geen mislukkingen, geen navolging op langere termijn en geen enkele vergelijking. Het enige zelfcorrigerende element is dat hij tussen drukken voorschriften herziet of laat vallen, wat hij ook meldt.</p>
+      <p>Als aanprijzing gebruikt hij getuigenissen: de afdeling References en de verhalen in het voorwoord over een boer die twintig dollar bespaarde en een oogwater dat meer dan twintig dollar waard heette. Hij wijst er zelf op dat de verklaarders elkaar niet kennen, en probeert daarmee samenspanning uit te sluiten. Dat maakt de getuigenissen onafhankelijk van elkaar, niet juist.</p>
+      <p>Het meest controleerbare bewijs in het boek is commercieel: ruim drieëntwintigduizend exemplaren tot 1863, zesendertigduizend op het titelblad van 1864, ruim een miljoen tegen 1900 en vier miljoen tegen 1931. Wat dat aantoont is vraag, en niet dat de voorschriften werkten.</p>
+      <p>Een deel van de inhoud is wel gewoon te controleren en grotendeels juist: azijn maken, inkt aanmaken, cement, boter en eieren bewaren, rente berekenen. Dat is ambachtelijke kennis waarvan de proef binnen een week uitwijst of ze deugt. Voor de medische afdeling geldt dat niet, en juist daar heeft Chase de minste grond.</p>
+      <p>Op het titelblad staat M.D. achter zijn naam en het voorwoord van 1863 zegt dat hij als arts is afgestudeerd. Volgens de documentatie van de Ann Arbor District Library volgde hij colleges aan de universiteit van Michigan en behaalde hij in 1868 een diploma na een cursus van zestien weken aan het Eclectic Medical Institute in Cincinnati, vier jaar na deze druk. Wie het boek als medisch gezag leest, moet dat verschil kennen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De vorm van het boek is zelf het bezwaar. Door een middel tegen kroep bij een kind in dezelfde reeks te zetten als schoensmeer en inkt, suggereert Chase dat er één soort kennis in het geding is en dat uitproberen bij alle drie hetzelfde betekent. Bij inkt is het resultaat meteen zichtbaar, bij een ziek kind niet.</p>
+      <p>Zijn waarschuwing in de medische afdeling gaat over etiketten en over kinderen die bij de kast kunnen. Ze gaat niet over wat de middelen doen. Veel preparaten van die jaren bevatten opium, alcohol, kwik of antimoon, en het boek biedt geen enkele ingang om na te gaan wat een voorschrift bevat en wat dat betekent. Er is een korte verklarende woordenlijst en verder geen doseringsleer.</p>
+      <p>De getuigenissenafdeling is precies de techniek van de patentmedicijnhandel waartegen Chase zich afzet. Zijn bezwaar tegen de kwakzalvers is dat zij te veel vragen voor één voorschrift, niet dat zij niets bewijzen.</p>
+      <p>Wat er ten gunste van het boek te zeggen valt, is dat het goedkoop was, dat een aanzienlijk deel ervan uit gewone ambachtskennis bestond, en dat het gemiddelde alternatief in 1864, een arts op uren rijden die aderliet of kalomel gaf, niet aantoonbaar beter was. Chase raadt bovendien af om de sterke drank van de handel als geneesmiddel te gebruiken, en dat was verstandig advies.</p>
+      <p>De uitgeversgeschiedenis is een waarschuwing bij elke aanhaling. Vanaf 1869 is Dr. Chase een handelsnaam en geen auteur. De bundel verdrievoudigde onder anderen in omvang, en een bladzijde uit een druk van na 1869 kan niet zonder meer aan Chase worden toegeschreven. Bij dit boek is de eerste vraag altijd welk jaar en welke uitgever.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Controleer bij een negentiende-eeuws boek met Dr. Chase op de rug eerst jaar en uitgever: vanaf 1869 is de naam een handelsmerk.</li>
+        <li>Lees het voorwoord van 1864 als bron over colportage: prijs, verkoopkanaal en de reden waarom het boek de boekhandel meed.</li>
+        <li>Gebruik de indeling naar beroep als voorbeeld van kennisordening naar gebruiker in plaats van naar onderwerp.</li>
+        <li>Leg de afdeling References naast moderne klantbeoordelingen en kijk welk argument in beide gevallen wordt gemaakt.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Dr. Chase's Recipes; or, Information for Everybody: An Invaluable Collection of about Eight Hundred Practical Recipes</i> (uitgegeven door de auteur, Ann Arbor, Michigan, 1864, 384 blz.). Deze samenvatting volgt die druk, op het titelblad aangeduid als tiende editie en zesendertigste duizendtal, met copyrightinschrijving uit 1863; de bundel groeide daarna nog tientallen drukken door, vanaf de verkoop aan Rice A. Beal onder andere eigenaars, en telde rond 1900 ongeveer 1300 bladzijden. Er bestaat geen Nederlandse vertaling.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Chase begon in 1856 met een pamflet van zestien bladzijden en bouwde dat druk na druk uit tot een huisboek met ongeveer achthonderd recepten over vierhonderd onderwerpen, geordend naar beroep: kruidenier, kroegbaas, arts, looier, schilder, smid, hoefsmid, barbier, bakker, verver en het gezin. Naast een hoestdrank staat een voorschrift voor inkt, azijn zonder appels en het berekenen van rente.</p><p>Het boek werd uitsluitend huis aan huis door reizende verkopers gesleten en verkocht in tientallen jaren miljoenen exemplaren. Op zijn tweeënvijftigste verkocht Chase zijn drukkerij, zijn platen en het recht op zijn eigen naam, waarna latere drukken door anderen werden bewerkt en uitgebreid.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>naslagwerk</li><li>gezondheid</li><li>geneesmiddelen</li><li>negentiende eeuw</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1127"><a href="1127.html">Gunn's Domestic Medicine</a>. Gunn schreef het bekendste Amerikaanse huisdokterboek van de generatie voor Chase, met dezelfde belofte dat de leek zichzelf kan behelpen.</li>
+          <li value="1129"><a href="1129.html">The Hydropathic Encyclopedia</a>. Trall bracht de tegenovergestelde aanpak: één samenhangend stelsel op basis van water, in plaats van een verzameling losse voorschriften.</li>
+          <li value="1132"><a href="1132.html">Over ziekenverpleging</a>. Nightingale bestrijdt precies het amateurdokteren dat Chase per colporteur aan de deur bracht.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

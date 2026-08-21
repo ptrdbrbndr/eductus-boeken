@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tokology &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Stockham betoogt dat de zware bevalling in het beschaafde Westen geen vloek en geen natuurwet is, maar de optelsom van vermijdbare oorzaken: knellende…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1136">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1136 &middot; Naslag en praktijk</p>
+    <h1>Tokology</h1>
+    <p class="lede">Alice Bunker Stockham, 1883</p>
+    <p class="stats">
+      <span><b>1751</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1136"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Stockham betoogt dat de zware bevalling in het beschaafde Westen geen vloek en geen natuurwet is, maar de optelsom van vermijdbare oorzaken: knellende kleding, verkeerd eten, gebrek aan beweging, bedompte slaapkamers en seksuele onmatigheid binnen het huwelijk. Wie die oorzaken wegneemt, kan volgens haar vrijwel zonder pijn baren en zonder ingrijpen van instrumenten herstellen. Daarachter ligt een tweede stelling die het boek zijn karakter geeft: de kennis over het eigen lichaam hoort bij de vrouw zelf te liggen en niet bij de dokter, en zolang die kennis wordt achtergehouden blijft zij het slachtoffer van gewoonte en gezag.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Boek, verkoopkanaal en editie</h3>
+      <p><i>Tokology</i> verscheen in 1883 in Chicago in eigen beheer en werd niet via de boekhandel verspreid maar van deur tot deur, door vrouwelijke colporteurs die er zelf een inkomen mee verdienden. Het boek toont dat kanaal ook in zichzelf: onder de aangehaalde brieven zit er een van een lezeres die tot in haar laatste zwangerschapsweek voor <i>Tokology</i> bleef colporteren en twee weken na de bevalling weer op pad ging. In het eerste decennium gingen er minstens honderdvijftigduizend exemplaren uit; een advertentie in <i>The Woman's Tribune</i> uit 1892 claimde er tweehonderdduizend.</p>
+      <p>De hier samengevatte herziene editie telt drieëntwintig hoofdstukken, gevolgd door bijna tweehonderd recepten, een woordenlijst en drie registers. Achterin staat bovendien een toegevoegd stuk, <i>A Familiar Letter to the Reader from the Author</i>, waarin Stockham vragen beantwoordt die de eerste druk had opgeroepen. Dat is het meest omstreden deel van het boek.</p>
+      <h3>De belofte van de pijnloze bevalling</h3>
+      <p>Het eerste hoofdstuk opent met de uitspraak van een reiziger dat hij geen land, stam of stand kent waar de bevalling zoveel pijn en moeite geeft als in de Verenigde Staten. Stockham bouwt daarop haar hele redenering: als vrouwen elders minder lijden, is het lijden hier aangeleerd en dus af te leren. Zij bestrijdt daarmee uitdrukkelijk de lezing van de vloek over Eva als een medisch gegeven.</p>
+      <p>De rest van het boek is de uitwerking van die stelling in leefregels. Wie zich eraan houdt, krijgt volgens haar een lichte bevalling; wie het resultaat niet haalt, heeft naar haar oordeel bij navraag altijd een van de voorschriften laten liggen.</p>
+      <h3>Het regime: kleding, bad, voeding, beweging</h3>
+      <p>De hygiënehoofdstukken vormen de kern. Kleedhervorming krijgt de meeste ruimte: korsetten, banden en zware rokken moeten weg, en zij beschrijft alternatieven bij naam, van de chemiloon en het prinsessengewaad tot de gedeelde rok. Haar vergelijking is die van de veehouder, die een drachtige merrie ook geen band om het middel zou doen.</p>
+      <p>Bij het baden staat het zitbad centraal, dat zij het beste bad voor een zwangere noemt, naast omslagen, warme kompressen en de thermale kuur thuis. Bij de voeding luidt de regel: geen vet, geen suiker, geen kruiderij, weinig zout, niet drinken tijdens het eten en zoveel mogelijk uit granen, groenten en fruit. Vlees kan volgens haar door sommigen worden verdragen, maar ouders die het beste van zichzelf willen doorgeven kunnen het beter laten.</p>
+      <p>Het diethoofdstuk voert de theorie van de Londense chemicus Rowbotham op, die in 1841 in een pamflet beschreef hoe zijn vrouw op een dieet van appels, sinaasappels en citroensap in de laatste zwangerschapsmaanden vrijwel pijnloos beviel. De gedachte was dat vruchtenzuur de kalkvorming in het skelet van het kind zou remmen. Stockham neemt dat verslag vrijwel integraal over, inclusief de opmerking dat de botten van het kind op kraakbeen leken.</p>
+      <h3>Onthouding in het huwelijk</h3>
+      <p>Hoofdstuk elf gaat over wat zij kuisheid binnen het huwelijk noemt. Zij zet drie opvattingen naast elkaar: dat geslachtsgemeenschap voor de man een lichamelijke noodzaak is en voor de vrouw niet, dat het een wederzijdse liefdesdaad is met meer doelen dan voortplanting, en dat het uitsluitend voor voortplanting dient. Zij bestrijdt de eerste met het argument dat niemand weet wat voor vrouwen natuurlijk is zolang zij worden opgevoed in onderdrukking en angst voor zwangerschap.</p>
+      <p>Haar eigen positie neigt naar onthouding, met het belang van het toekomstige kind als grond. Vijftien jaar later maakte zij daarvan een aparte leer in <i>Karezza</i> (1896): gemeenschap zonder zaadlozing, als geestelijke oefening. Dat woord komt in <i>Tokology</i> nog niet voor.</p>
+      <h3>Bevalling, kraambed en zuigeling</h3>
+      <p>De praktische hoofdstukken beschrijven de stadia van de baring, de inrichting van het bed en het beleid tijdens de eerste fase, met als leidende gedachte dat de verloskundige zo min mogelijk moet doen. Zij waarschuwt tegen moederkoren en zilverkaars als weeënmiddel vanwege hun giftigheid, tegen het routineus aanleggen van instrumenten en tegen het wassen van het kind vlak na de geboorte.</p>
+      <p>Bij de zuigeling is moedermelk de norm; kunstvoeding krijgt een analyse en een reeks waarschuwingen over de fles. Bij de kinderziekten keert zij zich tegen de gangbare kalmerende siropen, die opium bevatten, en tegen het insnijden van het tandvlees bij het doorkomen van tanden.</p>
+      <h3>Vrouwenziekten, abortus en overgang</h3>
+      <p>Het hoofdstuk over vrouwenziekten opent met de bewering dat negen tienden van de Amerikaanse vrouwen aan baarmoederklachten lijdt. Zij wijt dat aan kleding, voeding, gebrek aan beweging en misbruik van de huwelijksrelatie, en zij keert zich fel tegen de behandeling met bijtmiddelen en sondes die destijds in de gynaecologie gangbaar was. Voor de behandeling grijpt zij naar warmte, zitbaden en oefeningen, en op enkele plaatsen naar homeopathische verdunningen zoals aconiet en secale.</p>
+      <p>In het hoofdstuk over abortus onderscheidt zij miskraam van opgewekte vruchtafdrijving. Zij stelt dat het leven bij de bevruchting begint en verwerpt het onderscheid tussen voor en na het voelen van leven. Tegelijk legt zij de oorzaak van de meeste vruchtafdrijvingen bij ongewenste zwangerschap en bij aandrang van de man, en zij tekent aan dat vrouwen in haar praktijk vaker om hulp bij onvruchtbaarheid vroegen dan om beperking van het gezin.</p>
+      <h3>De brief achterin</h3>
+      <p>In <i>A Familiar Letter</i> loopt zij de theorieën langs waarmee tijdgenoten het geslacht van het kind meenden te kunnen sturen, van Sixt en Thury tot Girou en Terry, en verwerpt ze alle als onbewezen. Vervolgens behandelt zij de beperking van het kindertal. Onthouding blijft haar eerste raad; voor wie dat niet kan opbrengen beschrijft zij een vruchtbare periode van twee tot veertien dagen na de eisprong, met de rest van de maand als veilig.</p>
+      <p>Haar principiële uitspraak staat er onomwonden: geen kennis mag worden achtergehouden die de voorwaarden voor goed ouderschap veiligstelt. Precies dat standpunt bracht haar later in aanvaring met de zedenwetgeving.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">tokologie</td><td>Verouderde term voor verloskunde, van het Griekse tokos, geboorte; Stockham koos hem om het boek buiten de dokterspraktijk te plaatsen.</td></tr>
+          <tr><td class="term">painless childbirth</td><td>De centrale belofte van het boek: een bevalling zonder pijn als beloning voor een goed gevoerd leefregime.</td></tr>
+          <tr><td class="term">continence</td><td>Onthouding binnen het huwelijk, door haar verdedigd op grond van het belang van het kind en van de gezondheid van de vrouw.</td></tr>
+          <tr><td class="term">fruit diet</td><td>Het dieet van appels, sinaasappels en citroenzuur dat de botvorming van het kind zou remmen en de baring zou verlichten.</td></tr>
+          <tr><td class="term">zitbad</td><td>Bad waarin alleen het bekken in het water zit; bij Stockham het voornaamste middel tegen zowat elke klacht in de zwangerschap.</td></tr>
+          <tr><td class="term">meddlesome midwifery</td><td>Haar aanduiding voor onnodig ingrijpen tijdens de baring, waartegen zij het hele verloskundige hoofdstuk richt.</td></tr>
+          <tr><td class="term">feticide</td><td>Haar term voor opgewekte vruchtafdrijving, die zij scherp onderscheidt van de spontane miskraam.</td></tr>
+          <tr><td class="term">kleedhervorming</td><td>De beweging tegen korset en zware rokken, waarvan zij de kledingstukken bij naam noemt en aanbeveelt.</td></tr>
+          <tr><td class="term">Karezza</td><td>Haar latere leer van gemeenschap zonder zaadlozing, uitgewerkt in het boek van die naam uit 1896 en nog niet aanwezig in <i>Tokology</i>.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek steunt op drie soorten materiaal: haar eigen praktijk van ongeveer dertig jaar, brieven van lezeressen die het regime volgden, en overgenomen verslagen van anderen. Van die drie is alleen het eerste medisch van betekenis, en zij geeft er geen aantallen bij. De brieven zijn geselecteerd, door de betrokkenen zelf opgeschreven en door haar eigen uitgeverij gepubliceerd; ze bewijzen dat er tevreden lezeressen waren, meer niet. Het pamflet van Rowbotham uit 1841, dat de kern van het diethoofdstuk vormt, is de beschrijving van één bevalling door de echtgenoot van de patiënte.</p>
+      <p>Op de punten waar zij tegen de heersende praktijk inging, had zij gelijk, en dat is aanwijsbaar. Korsetten beperkten inderdaad ademhaling en bloedsomloop; moederkoren als weeënmiddel was gevaarlijk; instrumentele verlossingen waren te talrijk en te ruw; kalmerende zuigelingensiropen bevatten opium; hygiëne op de kraamafdeling deed er, zoals zij bij Playfair leest, wel degelijk toe. Voor de kernbelofte, dat voeding de pijn van de bevalling bepaalt, geeft zij geen onderbouwing die die naam verdient.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De opzet maakt de these onweerlegbaar. Waar lezeressen melden dat het niet werkte, stelt Stockham vast dat bij navraag altijd blijkt dat een deel van de voorschriften niet is opgevolgd. Dat schrijft zij zelf op, zonder er de gevolgtrekking bij te maken: een leer die elke uitzondering verklaart uit ongehoorzaamheid, kan niet meer aan de werkelijkheid worden getoetst.</p>
+      <p>De vergelijking met vrouwen buiten Europa en Amerika berust op reisanekdotes en op een romantisch beeld van de natuurlijke bevalling. De moedersterfte in de aangehaalde streken lag hoger, niet lager; dat gegeven ontbreekt in het boek volledig.</p>
+      <p>De vruchtzuurtheorie is niet alleen ongefundeerd maar mogelijk schadelijk. Een pasgeborene met botten die op kraakbeen lijken, is naar hedendaags inzicht een teken van een tekort en geen bewijs van een geslaagd experiment. De homeopathische verdunningen die zij hier en daar voorschrijft, hebben geen werking boven placebo.</p>
+      <p>De keerzijde van haar boodschap dat de vrouw zelf verantwoordelijk is voor de uitkomst, is dat zij ook de schuld krijgt als het misgaat. En de anticonceptieregel achterin, met veertien dagen vruchtbaarheid na de eisprong en de rest van de maand veilig, is qua tijdrekening onjuist en heeft ongewenste zwangerschappen gekost.</p>
+      <p>Wat er van de zedenwetgeving over te zeggen valt, hoort er feitelijk bij: niet <i>Tokology</i> maar haar pamflet <i>The Wedding Night</i> bracht haar in 1905 op tweeënzeventigjarige leeftijd in botsing met de Comstock-wet, nadat een postinspecteur een exemplaar had besteld. Zij werd veroordeeld, kreeg een boete van tweehonderdvijftig dollar, werd verdedigd door Clarence Darrow en zag haar uitgeverij sluiten.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het als bron over de gezondheidshervorming en over vrouwelijk auteurschap in de negentiende eeuw, niet als medisch advies.</li>
+        <li>Scheid de hoofdstukken over kleding, hygiëne en ingrijpen tijdens de baring, die grotendeels standhielden, van de hoofdstukken over dieet en botvorming, die dat niet deden.</li>
+        <li>Let bij de brieven van lezeressen op wie ze schreef en wie ze uitgaf; het zijn verkoopdocumenten zowel als getuigenissen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Tokology: A Book for Every Woman</i> (Sanitary Publishing Company, Chicago, 1883; talloze latere drukken tot in de jaren tien, ruim 370 blz.). Deze samenvatting volgt de herziene editie van R. F. Fenno &amp; Company, New York, met inschrijving uit 1893, die integraal bij Project Gutenberg staat. Er bestaat geen Nederlandse vertaling; het boek verscheen wel in het Duits, Frans, Fins, Zweeds, Japans en Russisch, waarbij Tolstoj de Russische vertaling liet maken.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Handboek over zwangerschap, bevalling en vrouwenziekten van een van de vroege vrouwelijke artsen in de Verenigde Staten. Stockham studeerde in 1854 af aan het Eclectic Medical College in Cincinnati en schreef dit boek uit een praktijk van dertig jaar. De belofte staat in het eerste hoofdstuk: bevallen hoeft geen pijn te doen, mits de vrouw haar kleding, voeding, beweging en huwelijksleven zelf op orde brengt.</p><p>Het boek werd in eigen beheer uitgegeven en van deur tot deur verkocht door vrouwelijke colporteurs; in het eerste decennium gingen er minstens honderdvijftigduizend exemplaren uit. De medische inhoud is wisselend van kwaliteit: de waarschuwingen tegen korsetten, moederkoren en verdovende zuigelingensiropen waren terecht, de leer dat vruchtenzuur de botten van het kind zacht houdt was dat niet.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>geneeskunde</li><li>zwangerschap</li><li>voeding</li><li>negentiende eeuw</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1128"><a href="1128.html">Lectures to Ladies on Anatomy and Physiology</a>. Mary Gove Nichols deed dertig jaar eerder hetzelfde: anatomie uitleggen aan vrouwen die het niet mochten weten.</li>
+          <li value="1130"><a href="1130.html">The Laws of Life</a>. Elizabeth Blackwell schrijft over hetzelfde onderwerp vanuit een reguliere medische opleiding.</li>
+          <li value="1132"><a href="1132.html">Over ziekenverpleging</a>. Nightingale werkt de ziekenkamer uit die Stockham alleen aanstipt.</li>
+          <li value="1134"><a href="1134.html">Plain Facts for Old and Young</a>. Kellogg behandelt seksualiteit en onthouding vanuit dezelfde beweging, maar met een tegenovergesteld oordeel over de vrouw.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

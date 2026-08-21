@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De lans van het lot &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Ravenscroft beweert dat de Heilige Lans in de Weltliche Schatzkammer van de Weense Hofburg, de speer waarmee volgens het Johannesevangelie de zijde van…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1140">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1140 &middot; Filosofie en mystiek</p>
+    <h1>De lans van het lot</h1>
+    <p class="lede">Trevor Ravenscroft, 1972</p>
+    <p class="stats">
+      <span><b>1888</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1140"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Ravenscroft beweert dat de Heilige Lans in de Weltliche Schatzkammer van de Weense Hofburg, de speer waarmee volgens het Johannesevangelie de zijde van Christus werd doorstoken, al bijna tweeduizend jaar een talisman is die zijn bezitter het lot van de wereld in handen geeft, ten goede of ten kwade. Hitler zou als jonge man in het Weense schathuis voor die speerpunt een visioen hebben gehad, zich vervolgens langs occulte weg hebben laten inwijden en de lans bij de Anschluss van 1938 als persoonlijk bezit hebben opgeeist. Op 30 april 1945 openden Amerikaanse militairen in Neurenberg de kluis waarin de lans lag; diezelfde dag pleegde Hitler in Berlijn zelfmoord. Het boek brengt dit niet als roman maar als geschiedenis, gebaseerd op wat de antroposoof Walter Johannes Stein de auteur zou hebben verteld.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De legende van Longinus</h3>
+      <p>De proloog geeft de speer een voorgeschiedenis die veel verder terugreikt dan de evangeliën. De lans zou door de profeet Pinehas zijn gesmeed, door Jozua zijn geheven bij de val van Jericho, door Saul naar David zijn geworpen en door Herodes zijn gedragen bij de kindermoord. Op Golgotha stak de Romeinse centurio Gaius Cassius er de zijde van Christus mee door en genas van zijn staar; sindsdien heet hij Longinus. Bronnen voor deze reeks voert Ravenscroft niet aan, hij vertelt haar als vaststaand. Daarna volgt de doorgifte via Constantijn, Karel de Grote en de Duitse keizers naar de Habsburgers.</p>
+      <h3>Walter Johannes Stein als bron</h3>
+      <p>De inleiding stelt Stein voor: in Wenen geboren doctor in de wijsbegeerte, leerling van Rudolf Steiner, leraar geschiedenis aan de eerste vrije school in Stuttgart en schrijver van <i>Weltgeschichte im Lichte des heiligen Gral: Das neunte Jahrhundert</i> uit 1928. Volgens Ravenscroft zocht hij Stein na lezing van dat boek onaangekondigd op in diens huis in Kensington en ontving tien jaar lang wat Stein zelf had willen publiceren. Stein zou tijdens de oorlog vertrouwelijk adviseur van Churchill zijn geweest over de drijfveren van de nazitop, en zou in de zomer van 1957 zijn gestorven drie dagen nadat hij besloot het boek te gaan schrijven. Zo krijgt het werk het karakter van een overgedragen nalatenschap.</p>
+      <h3>Het schathuis van de Hofburg</h3>
+      <p>Het derde hoofdstuk beschrijft de scène waar alles op rust. De werkloze Hitler bezoekt in Wenen herhaaldelijk de Schatzkammer, staat voor de ijzeren speerpunt en voelt daar een aanwezigheid. Ravenscroft laat hem in de eerste persoon spreken over een venster op de toekomst dat zich in één flits opende en over de zekerheid dat zijn bloed ooit het vat van de volksgeest zou worden. Volgens het boek zag Stein hem daar staan en herkende hem als de eigenaar van een zwaar beschreven exemplaar van Wolfram von Eschenbachs <i>Parzival</i> dat hij in een Weens antiquariaat had gekocht.</p>
+      <h3>Inwijding, Klingsor en de Thule-kring</h3>
+      <p>Het middendeel bouwt daaruit een leer op. Hitler zou zijn helderziendheid met peyote hebben verkregen, onder leiding van de boekhandelaar Ernst Pretzsche uit wiens winkel het Parzival-exemplaar kwam, en de moderne belichaming zijn van Klingsor, de zwarte tovenaar uit <i>Parzival</i>, die Stein op zijn beurt met de historische Landulf II van Capua vereenzelvigde. Verder passeren Dietrich Eckart, Guido von List, Lanz von Liebenfels, de Thule-Gesellschaft en vooral Karl Haushofer, in het boek de geestelijke architect van de veroveringsplannen. Himmler krijgt een occult bureau binnen de SS toegeschreven, met een astrologische ongediertebestrijding waarbij de as van kampslachtoffers over Duits grondgebied zou zijn uitgestrooid.</p>
+      <h3>Een nieuwe techniek van historisch onderzoek</h3>
+      <p>Hoofdstuk vijftien legt uit hoe de kennis in het boek verkregen is. Stein zou zich een vorig leven hebben herinnerd als graaf Hugo van Tours, vertrouweling van Karel de Grote, en gebeurtenissen uit de negende eeuw rechtstreeks hebben waargenomen, waaronder de kroning in Rome met Kerstmis 800; pas achteraf zocht hij in archieven bevestiging. Ravenscroft noemt dit een nieuwe techniek van historisch onderzoek en past haar ook op zijn eigen materiaal toe. Hij beroept zich daarbij op Wolfram von Eschenbach, die schreef dat zijn verhaal niet uit boeken kwam, en op diens kroniek van Anschau, voor Ravenscroft geen plaatsnaam maar een toestand van verhoogd bewustzijn.</p>
+      <h3>Neurenberg en 30 april 1945</h3>
+      <p>De epiloog volgt de lans na de Anschluss. Op 13 oktober 1938 gaat zij met de rest van de rijkskleinodiën per pantsertrein naar Neurenberg, naar de Katharinenkirche, de zaal van de meistersingers. Bombardementen dwingen tot verhuizing naar een kluis in een tunnel onder de burcht. Bij het zoeken naar een nog veiliger plek verwisselen de Neurenbergse ambtenaren het Mauritiuszwaard met de Mauritiuslans, zodat de speer achterblijft terwijl kroon, scepter en rijksappel elders worden ingemetseld. Amerikaanse militairen stuiten op 30 april 1945 op de kluis, volgens Ravenscroft om tien over twee in de middag, ruim een uur voor Hitlers zelfmoord in Berlijn.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Heilige Lans</td><td>De speerpunt in de Weense Hofburg die volgens de overlevering de zijde van Christus doorstak, in dit boek de spil van de wereldgeschiedenis.</td></tr>
+          <tr><td class="term">Longinus</td><td>De naam die de overlevering geeft aan de soldaat die stak; Ravenscroft vult hem in als de centurio Gaius Cassius.</td></tr>
+          <tr><td class="term">Reichskleinodiën</td><td>De rijksinsignia van het Heilige Roomse Rijk waarmee de lans in Wenen bewaard werd: kroon, scepter, rijksappel en zwaarden.</td></tr>
+          <tr><td class="term">Klingsor</td><td>De zwarte tovenaar uit Wolfram von Eschenbachs <i>Parzival</i>, door Stein met Landulf II van Capua en door Ravenscroft met Hitler vereenzelvigd.</td></tr>
+          <tr><td class="term">Anschau</td><td>Bij Wolfram een plaatsnaam; bij Stein en Ravenscroft een bewustzijnstoestand waarin het verleden rechtstreeks waarneembaar zou zijn.</td></tr>
+          <tr><td class="term">Nieuwe techniek van historisch onderzoek</td><td>Ravenscrofts aanduiding voor het langs helderziende weg achterhalen van feiten, met archiefcontrole pas achteraf.</td></tr>
+          <tr><td class="term">Antroposofie</td><td>De door Rudolf Steiner gestichte geesteswetenschap waarin Stein was opgeleid en waaraan het boek zijn begrippen ontleent.</td></tr>
+          <tr><td class="term">Occult bureau</td><td>De door Ravenscroft aan Himmler toegeschreven dienst voor occulte zaken binnen de SS, waarvan in de archieven geen spoor bestaat.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert zijn gezag terug op één persoon. Vrijwel alles wat het over Hitler in Wenen, over de speer en over de occulte kern van de partij beweert, staat er op gezag van Stein. Stein stierf in 1957 en publiceerde van dit materiaal zelf niets: geen artikel, geen lezing, geen brief die als bron wordt aangewezen. Geen enkele bewering die op hem teruggaat valt dus bij hem na te trekken.</p>
+      <p>Dat probleem wordt scherper door wat de auteur er zelf over zei. In het geding met James Herbert verklaarde Ravenscroft dat het boek tot stand was gekomen met een combinatie van gewone methoden en het gebruik van een medium. Zijn eigen inleiding beschrijft de werkwijze van Stein als het aflezen van een bovenzinnelijke kroniek, met archiefonderzoek als naderhand gezochte bevestiging. Wie die methode aanvaardt, aanvaardt daarmee dat de kern van het boek niet toetsbaar is; wie haar afwijst, houdt geen bron over.</p>
+      <p>De best onderbouwde laag is die welke niets bovennatuurlijks nodig heeft. De overbrenging van de rijkskleinodiën naar Neurenberg in 1938, de verstopping onder de burcht en de vondst in 1945 leunen op een Amerikaans militair rapport dat in het boek geciteerd wordt, met namen van Neurenbergse ambtenaren als burgemeester Willi Liebel en Heinz Schmeissner. Dat deel is in de archieven terug te vinden; de duiding die Ravenscroft eraan geeft komt er niet uit voort.</p>
+      <p>Wat ontbreekt is even veelzeggend. Er is geen uitspraak van Hitler, geen getuigenis van een medewerker en geen partijstuk waarin de Weense lans voorkomt. Er is geen bron voor de peyotesessies, geen bron voor het occulte bureau en geen bron voor Steins adviseurschap bij Churchill. Waar het boek voetnoten heeft, verwijzen die grotendeels naar de mondelinge overlevering van Stein of naar antroposofische literatuur.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Historici van het nationaalsocialisme wijzen het boek af. Nicholas Goodrick-Clarke, die in <i>The Occult Roots of Nazism</i> uit 1985 de werkelijke esoterische voorlopers van de nazi-ideologie in kaart bracht, rekent Ravenscroft tot wat hij crypto-geschiedenis noemt: populair werk over nazi-occultisme uit de jaren zestig en zeventig dat primaire bronnen negeert en elkaars onjuistheden overneemt. Hij noemt het tegelijk het invloedrijkste Engelstalige boek over nazi-mystiek, wat bij hem geen aanbeveling is maar een vaststelling over de schade. Esoteriehistoricus Joscelyn Godwin noemde het een bloedstollend werk van historische herschepping.</p>
+      <p>De concrete correcties zijn talrijk. Karl Haushofer was geen lid van de Thule-Gesellschaft en geen inwijder van Hitler; die voorstelling stamt uit <i>Le matin des magiciens</i> van Pauwels en Bergier uit 1960 en is door Ravenscroft in aangedikte vorm overgenomen. Van een occult bureau onder Himmler bestaat geen archiefspoor, en van belangstelling van Hitler voor de Hofburglans buiten dit boek geen enkele aanwijzing. Ken Anderson liep in <i>Hitler and the Occult</i> uit 1995 de achtergrondgeschiedenis na en noemde haar onbetrouwbaar.</p>
+      <p>Steins eigen nalatenschap spreekt het boek tegen. <i>Das neunte Jahrhundert</i> behandelt de lans binnen de middeleeuwse graalliteratuur en zwijgt over de twintigste eeuw. In zijn andere geschriften en in de biografie die Johannes Tautz in 1990 over hem schreef komen Hitler, de speer en het adviseurschap bij Churchill niet voor. Onduidelijk is zelfs of Ravenscroft Stein bij leven sprak: later zei hij dat het contact via een medium liep, terwijl de inleiding een vriendschap van tien jaar beschrijft.</p>
+      <p>Ook over zichzelf klopt het verhaal niet. Ravenscroft schreef zijn inzicht toe aan ervaringen in Duitse krijgsgevangenschap na een commando-operatie tegen Rommel; de militair historicus Michael Asher stelde vast dat hij ten tijde van die operatie al gevangen zat. Los daarvan is de kern van de legende ondergraven: een metallurgisch onderzoek van de Weense lans door Robert Feather in 2003 dateerde het lemmet in de zevende eeuw, ruim zes eeuwen na de kruisiging.</p>
+      <p>De rechtszaak die vaak bij dit boek genoemd wordt is te verifiëren en pakte in het voordeel van Ravenscroft uit. In Ravenscroft tegen Herbert, gepubliceerd als [1980] RPC 193, oordeelde het High Court dat James Herbert met zijn roman <i>The Spear</i> uit 1978 inbreuk had gemaakt op het auteursrecht: hij had voor zijn achtergrond vrijwel uitsluitend Ravenscrofts boek gebruikt en er waren ongeveer vijftig gevallen van rechtstreekse overname van tekst. De uitspraak zegt iets over de omvang van het overschrijven en niets over de waarheid van het overgeschrevene.</p>
+      <p>Blijft de werking van het boek zelf. Het is in vele talen vertaald, nooit uit de handel geweest, en heeft het beeld van Hitler als zwarte magiër in romans, films en spellen gevestigd. Daar zit een bezwaar van eigen aard aan: wie de misdaden van het naziregime aan bovennatuurlijke machten toeschrijft, verlegt de verantwoordelijkheid weg van mensen, instellingen en beslissingen. Als bron voor de Duitse geschiedenis is het boek onbruikbaar; als document van naoorlogse mythevorming heeft het betekenis.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij een boek dat zich als geschiedschrijving aandient naar de bron van de bron. Verwijst alles naar één overleden verteller, dan valt er niets na te trekken.</li>
+        <li>Scheid de goed gedocumenteerde laag van de onnavolgbare. Hier loopt die grens tussen de archiefstukken over de rijkskleinodiën en alles wat aan Stein wordt toegeschreven.</li>
+        <li>Leg een populair boek over nazi-occultisme naast een vakhistorische studie zoals die van Goodrick-Clarke en kijk welke namen in beide voorkomen.</li>
+        <li>Let op verklaringen die menselijke daden aan bovenmenselijke machten toeschrijven. Zij verklaren minder dan zij lijken te doen en verplaatsen de verantwoordelijkheid.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Spear of Destiny: The Occult Power Behind the Spear Which Pierced the Side of Christ</i> (Neville Spearman, Londen, 1972; Amerikaanse editie G.P. Putnam's Sons, New York, 1973; herdruk Samuel Weiser, York Beach, 1982, xxii en 362 blz., ISBN 0877285470). Nederlandse uitgave: <i>De lans van het lot</i> (Ankh-Hermes, Deventer, 1974); de latere uitgave bij Aspekt in Soesterberg, tweede druk 2021, 399 blz., ISBN 9789464241068, is vertaald door Bob Snoijink.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Ravenscroft beschrijft de Heilige Lans in de schatkamer van de Weense Hofburg als een talisman die zijn bezitter de wereldheerschappij geeft, en Hitler als de man die dat vermogen ten kwade aanwendde. Het boek presenteert zich als geschiedschrijving en voert als bron de antroposoof Walter Johannes Stein op, die volgens Ravenscroft de jonge Hitler in Wenen kende en later Churchill adviseerde. Stein overleed in 1957 en heeft over dit alles zelf niets gepubliceerd.</p><p>Historici van het nationaalsocialisme wijzen het werk af; Nicholas Goodrick-Clarke rekent het tot de crypto-geschiedenis, boeken over nazi-occultisme die primaire bronnen negeren en elkaars fouten overnemen. Het effect van het boek is er niet minder om: het vestigde het beeld van Hitler als zwarte magiër in de populaire cultuur.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>occultisme</li><li>tweede-wereldoorlog</li><li>mythevorming</li><li>esoterie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1139"><a href="1139.html">Het Orion mysterie</a>. Bauval en Gilbert doen met Gizeh iets vergelijkbaars, met dit verschil dat daar wel na te rekenen valt wat er beweerd wordt.</li>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. Sagan behandelt precies de vraag hoe om te gaan met een bewering waarvan de bron zich aan controle onttrekt.</li>
+          <li value="606"><a href="606.html">Esoteric Christianity</a>. Besant geeft de theosofische leer waaruit Steiners antroposofie voortkwam, het begrippenkader waarin Ravenscroft schrijft.</li>
+          <li value="683"><a href="683.html">Wall Street and the Rise of Hitler</a>. Sutton legt een andere alomvattende verklaring van Hitlers opkomst aan, ditmaal economisch, met dezelfde neiging alles op één oorzaak te herleiden.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

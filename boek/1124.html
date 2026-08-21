@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Women of Wisdom &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Allione stelt dat de Tibetaans-boeddhistische overlevering vrouwen wel degelijk als volwaardige beoefenaars kent en hun levens heeft opgeschreven, terwijl…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1124">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1124 &middot; Filosofie en mystiek</p>
+    <h1>Women of Wisdom</h1>
+    <p class="lede">Tsultrim Allione, 1984</p>
+    <p class="stats">
+      <span><b>1650</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1124"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Allione stelt dat de Tibetaans-boeddhistische overlevering vrouwen wel degelijk als volwaardige beoefenaars kent en hun levens heeft opgeschreven, terwijl de instellingen van diezelfde traditie hun tegelijk een ondergeschikte plaats gaven. Zij vertaalt zes van die levensverhalen en leest ze zo dat de hindernissen die in elk verhaal terugkeren, uithuwelijking, moederschap, armoede en geringschatting, niet de omweg naar de beoefening zijn maar het materiaal ervan. Haar eigen levensverhaal staat er als zevende naast, om te laten zien welke vraag westerse vrouwen naar deze teksten toe drijft.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een westerse non en wat zij miste</h3>
+      <p>Het boek opent met haar eigen weg. Geboren in 1947 in Maine, reisde zij op haar negentiende naar India en Nepal en liet zich op haar tweeëntwintigste door de zestiende Karmapa in Bodhgaya tot non wijden. Ongeveer vier jaar later gaf zij haar geloften terug, trouwde en kreeg vier kinderen, van wie er een aan wiegendood stierf.</p>
+      <p>Uit die jaren komt de vraag die het boek draagt. In de kloosterlijke wereld waarin zij werd opgeleid, waren de voorbeelden mannen; nonnen bogen voor iedere monnik, ongeacht hun eigen verwerkelijking, en de volledige wijding voor vrouwen bestaat in de Tibetaanse traditie niet. Wat zij zocht waren vrouwen die de weg hadden afgelegd zonder het gewone leven te hoeven ontkennen.</p>
+      <h3>Wat een namtar is</h3>
+      <p>Allione legt het genre uit voordat zij aan het vertalen gaat. Een namtar, letterlijk een verhaal van volledige bevrijding, is een stichtelijke levensbeschrijving die in Tibet werd voorgelezen, gezongen en soms als toneel opgevoerd. Het doel is de lezer of toehoorder tot beoefening te bewegen, niet om vast te leggen wat er precies is gebeurd.</p>
+      <p>Dat maakt de zes teksten tot een bijzonder soort bron. Zij vertellen wat een traditie de moeite van het onthouden waard vond aan het leven van een vrouw, en welke moeilijkheden zij als herkenbaar veronderstelde bij het publiek dat ernaar luisterde.</p>
+      <h3>Nangsa Obum en Machig Ongjo</h3>
+      <p>Nangsa Obum is de bekendste van de zes en hoort bij de delog-verhalen, over iemand die na de dood terugkeert met een boodschap. Zij wordt tegen haar zin uitgehuwelijkt, in het huis van haar man mishandeld en gaat eraan ten onder; na haar terugkeer verlaat zij dat leven voor de beoefening. Het verhaal wordt in Tibet ook als volksopera gespeeld.</p>
+      <p>Machig Ongjo leefde in de twaalfde eeuw en was een schakel in de overdracht van de Rechung-fluisterlijn: zij ontving die van Khyungtsang Repa en gaf haar door aan Zhang Lotsawa. Zij staat te boek als zowel diens partner in beoefening als volledig gewijde non, een combinatie die laat zien dat de latere regels niet altijd zo strak lagen.</p>
+      <h3>Machig Labdrön en de chöd</h3>
+      <p>Machig Labdrön (1055-1149) is de zwaarste naam in het boek. Aan haar wordt de chöd toegeschreven, een beoefening waarin de beoefenaar het eigen lichaam in de verbeelding wegschenkt aan alles wat angst aanjaagt; chöd betekent afsnijden, en wat wordt afgesneden is de hechting aan een ik. Het is een van de weinige stromingen in het Tibetaanse boeddhisme die aan een vrouw wordt teruggevoerd en die vanuit Tibet naar India werd uitgevoerd in plaats van andersom.</p>
+      <p>Allione beoefent chöd sinds 1973 en dat kleurt haar behandeling. Zij leest de beoefening als een omgangswijze met angst en met wat een mens in zichzelf afwijst, en legt de nadruk op de plaats die het lichaam erin heeft.</p>
+      <h3>Jomo Memo, Drenchen Rema en A-Yu Khadro</h3>
+      <p>Jomo Memo (1248-1283) was tertön: iemand die verborgen teksten terugvindt. Zij zou als tiener zulke terma hebben gevonden, gold als partner van Guru Chöwang en werd in de overlevering als een verschijningsvorm van Yeshe Tsogyal gezien. Drenchen Rema is van de zes de minst gedocumenteerde.</p>
+      <p>A-Yu Khadro (1839-1953) is de enige die tot in de twintigste eeuw leefde en daarmee de best na te gaan figuur. Haar levensverhaal is opgetekend door Namkhai Norbu, die in 1951 als jongen van veertien naar haar werd gestuurd voor een inwijding en haar vertelling opschreef; Allione vertaalde die tekst. De keten loopt dus van haar mondelinge verslag via een Tibetaanse schrijver naar een Engelse vertaalster.</p>
+      <h3>De dakini als lezing</h3>
+      <p>Over de zes verhalen heen legt Allione een uitleg. Zij onderscheidt de absolute kant, waarin geest geen geslacht heeft, van de betrekkelijke kant, waarin een weg wel bij een bepaald mens moet passen; met dat onderscheid kan zij over verschillen tussen mannen en vrouwen spreken zonder de leer tegen te spreken.</p>
+      <p>Het begrip dat zij daarvoor gebruikt is de dakini, Tibetaans khandroma. In haar lezing staat die voor een beweeglijke, ongebonden werkzaamheid die de beoefenaar tegenkomt en waarmee hij of zij moet leren omgaan. Elk van de zes levens leest zij als een vorm waarin die werkzaamheid zich toont.</p>
+      <h3>De editie van 2000</h3>
+      <p>In de herziene uitgave bij Snow Lion is haar eigen verhaal uitgegroeid tot ongeveer tachtig bladzijden, met een nieuw voorwoord. Daarmee verschuift het zwaartepunt van de vertalingen naar de vertaalster. In 1993 stichtte zij een retraitecentrum in Colorado; in 2007 werd zij door twee lama's erkend als een verschijningsvorm van Machig Labdrön.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">namtar</td><td>Tibetaans rnam thar, verhaal van volledige bevrijding: een stichtelijk levensverhaal dat de lezer tot beoefening moet bewegen.</td></tr>
+          <tr><td class="term">dakini</td><td>Tibetaans khandroma, letterlijk zij die door de ruimte gaat; in de traditie zowel een verlichte vrouwelijke godheid als een menselijke leermeesteres of partner in beoefening.</td></tr>
+          <tr><td class="term">chöd</td><td>Afsnijden; een beoefening waarin het eigen lichaam in de verbeelding wordt weggegeven, toegeschreven aan Machig Labdrön.</td></tr>
+          <tr><td class="term">terma</td><td>Een tekst of voorwerp dat volgens de Nyingma-overlevering is verborgen om later te worden teruggevonden.</td></tr>
+          <tr><td class="term">tertön</td><td>Degene die zo'n verborgen tekst terugvindt; Jomo Memo geldt als een van de eerste vrouwen in die rol.</td></tr>
+          <tr><td class="term">delog</td><td>Iemand die na een schijnbare dood terugkeert en verslag doet van wat er aan gene zijde te zien was; het genre waartoe het verhaal van Nangsa Obum behoort.</td></tr>
+          <tr><td class="term">yogini</td><td>Een vrouwelijke beoefenaar buiten het klooster om, die in grotten en op begraafplaatsen oefent.</td></tr>
+          <tr><td class="term">Vajrayana</td><td>De tantrische vorm van het boeddhisme waarin deze levensverhalen thuishoren en waarin lichaam en verlangen tot de weg behoren.</td></tr>
+          <tr><td class="term">twee waarheden</td><td>Het onderscheid tussen de absolute en de betrekkelijke kant van de werkelijkheid, dat Allione gebruikt om over sekseverschil te kunnen spreken.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het materiaal bestaat uit zes Tibetaanse teksten die Allione zelf vertaalde, met hulp van Tibetaanse leraren in Nepal en India. De herkomst verschilt per tekst. Het verhaal van A-Yu Khadro is het jongst en het best na te gaan: het gaat terug op een mondeling verslag dat Namkhai Norbu in 1951 optekende. De andere vijf komen uit oudere Tibetaanse handschriften en drukken, waarvan de ouderdom en het auteurschap doorgaans niet vaststaan.</p>
+      <p>Voor de autobiografische helft is er maar één bron, haar eigen herinnering. Dat is geen verzwegen zwakte: zij zet het deel er juist bij om duidelijk te maken vanuit welke vraag zij de zes verhalen leest.</p>
+      <p>Wat de zes teksten kunnen dragen, is beperkt maar niet gering. Zij tonen dat de Tibetaanse overlevering vrouwenlevens de moeite van het opschrijven waard vond, dat die levens als voorbeeld werden voorgelezen, en dat de traditie de belemmeringen voor vrouwen zelf benoemt. Voor jaartallen, gebeurtenissen en uitspraken van de betrokken vrouwen zijn het geen betrouwbare bronnen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De kern van het bezwaar zit in het genre. Een namtar volgt vaste bouwstenen: een voorteken bij de geboorte, tegenwerking door familie, de ontmoeting met de leraar, jaren in afzondering, wonderen en tekenen bij het sterven. Wie zulke teksten als levensbeschrijvingen leest, haalt uit de herhaalde bouwstenen een geschiedenis die er niet in zit. Allione legt het genre uit, maar presenteert de teksten in de rest van het boek toch als levensverhalen en gebruikt ze als zodanig.</p>
+      <p>Daar komt het bronprobleem bij. Van Machig Labdrön stammen de bewaarde levensbeschrijvingen uit eeuwen na haar dood, en zij lopen onderling uiteen. Van Drenchen Rema is buiten deze tekst nauwelijks iets bekend. De historische figuur is in de meeste gevallen niet te bereiken; wat te bereiken is, is de voorstelling die latere generaties van haar hadden.</p>
+      <p>Het begrip dakini krijgt in het boek een invulling die in Tibet niet zo bestaat. Khandroma dekt in het Tibetaans een reeks van betekenissen: een verlichte godheid, een menselijke vrouw die met een beoefenaar samenwerkt, en een klasse geesten die ook gevaarlijk kan zijn. De lezing als een innerlijk vrouwelijk beginsel komt uit de westerse, deels jungiaanse ontvangst van de jaren zeventig en tachtig; Judith Simmer-Brown werkte die lijn later uit in <i>Dakini's Warm Breath</i> (2001). Als uitleg is het bruikbaar, als weergave van een Tibetaanse categorie is het onjuist.</p>
+      <p>Het bredere bezwaar betreft de toe-eigening. Donald Lopez liet in <i>Prisoners of Shangri-La</i> (1998) zien hoe westerse lezers Tibet tot een geestelijke voorraadkamer maakten en er vooral in vonden wat zij zelf misten. Een boek dat Tibetaanse yogini's als voorbeeld aan westerse vrouwen aanbiedt, staat in die traditie, en Alliones latere erkenning als verschijningsvorm van Machig Labdrön is zowel binnen de traditie als van buitenaf verschillend uitgelegd. Daartegenover staat dat het boek een onderwerp opende: het bronkritische onderzoek naar Tibetaanse vrouwenlevens door Janet Gyatso, Kurtis Schaeffer, Hildegard Diemberger en Holly Gayley kwam pas daarna op gang.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de zes teksten als getuigenissen van wat een traditie over vrouwen wilde vertellen, en niet als verslag van wat er gebeurde.</li>
+        <li>Houd de vertaalde tekst en Alliones inleiding uit elkaar; de uitleg over de dakini komt van haar en niet uit de namtar.</li>
+        <li>Begin bij A-Yu Khadro wie wil weten hoe zo'n leven eruitzag toen er nog getuigen waren.</li>
+        <li>Zoek voor de historische kant bij Gyatso, Schaeffer of Diemberger; die werken met dezelfde soort teksten en met bronkritiek.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Women of Wisdom</i> (Routledge &amp; Kegan Paul, Londen en Boston, 1984, ISBN 0-7102-0240-7), met een voorwoord van Chögyam Trungpa. Herziene en uitgebreide editie: Snow Lion, Ithaca NY, 2000, ISBN 1-55939-141-3, met een sterk uitgebreide autobiografische inleiding en een literatuurlijst op blz. 315-320. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Tsultrim Allione, geboren als Joan Rousmanière Ewing, vertaalde zes Tibetaanse levensverhalen van vrouwelijke beoefenaars en zette daar haar eigen verhaal naast. Zij was op haar tweeëntwintigste een van de eerste Amerikaanse vrouwen die in de Tibetaans-boeddhistische traditie tot non werd gewijd, en gaf haar geloften na ongeveer vier jaar terug.</p><p>De vertaalde teksten heten in het Tibetaans namtar, verhalen van volledige bevrijding: een stichtelijk genre en geen geschiedschrijving. Het boek valt daarmee in twee lagen uiteen, de vertalingen en haar eigen lezing ervan, en die lagen doen verschillende dingen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>boeddhisme</li><li>biografie</li><li>mystiek</li><li>feminisme</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1125"><a href="1125.html">Passionate Enlightenment</a>. Miranda Shaw stelt in <i>Passionate Enlightenment</i> dezelfde vraag voor het Indiase tantrisch boeddhisme, met een academisch apparaat en dezelfde bronproblemen.</li>
+          <li value="758"><a href="758.html">Shamanic Voices</a>. Joan Halifax verzamelt in <i>Shamanic Voices</i> op een vergelijkbare manier verhalen van beoefenaars, met dezelfde spanning tussen getuigenis en duiding.</li>
+          <li value="754"><a href="754.html">Mystiek</a>. Evelyn Underhill deed in <i>Mystiek</i> hetzelfde voor de christelijke traditie: levens van mystici gelezen als stadia van een weg.</li>
+          <li value="1117"><a href="1117.html">The Great Cosmic Mother</a>. Sjoo en Mor zoeken in <i>The Great Cosmic Mother</i> vrouwelijke religieuze macht in de voorgeschiedenis, met veel losser bronmateriaal.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

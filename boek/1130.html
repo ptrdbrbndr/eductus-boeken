@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Laws of Life &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Blackwell stelt dat er een vaste ordening in de menselijke groei zit waarin het lichaam voorgaat: de stoffelijke ontwikkeling moet af zijn voordat het…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1130">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1130 &middot; Brein en lichaam</p>
+    <h1>The Laws of Life</h1>
+    <p class="lede">Elizabeth Blackwell, 1852</p>
+    <p class="stats">
+      <span><b>1831</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1130"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Blackwell stelt dat er een vaste ordening in de menselijke groei zit waarin het lichaam voorgaat: de stoffelijke ontwikkeling moet af zijn voordat het verstand zwaar belast kan worden, en tot dat moment hoort de vorming van de geest ondergeschikt te blijven aan de vorming van het lichaam. Het onderwijs voor meisjes draait die volgorde precies om, en doet dat juist in de jaren waarin het lichaam zijn zwaarste werk verricht. De zwakte die haar tijdgenoten aan de vrouwelijke natuur toeschreven is volgens haar daarom geen natuur maar uitkomst: het gevolg van negen jaar stilzitten in bedorven lucht, met een verstand dat wordt overvraagd terwijl het lichaam wordt genegeerd.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Zes lezingen aan een klas dames</h3>
+      <p>De opdracht aan de Amerikaanse vrouwen legt het karakter van het boek vast. Blackwell publiceert de lezingen op verzoek van haar klas en om aandacht te vragen voor een verwaarloosd deel van de opvoeding. Zij noemt ze uitdrukkelijk schetsen van de waarheid en aanwijzingen voor de juiste methode, niet een volledige behandeling van het onderwerp.</p>
+      <p>De zes lezingen heten Introductory, General Laws, The Organic Life, The Related Life, Criticism en Reform. De eerste vier bouwen het kader op, de laatste twee passen het toe.</p>
+      <h3>Het kader: beweging en ordening</h3>
+      <p>De inleidende lezing begint bij het scheppingsverhaal en het beeld van de eerste mens, en zet daarmee de toon: de gezondheid die de mens hoort te bereiken is een goddelijk bedoelde toestand, en wie de wetten van het leven overtreedt vervalt daarvan. Dat theologische raamwerk verdwijnt in het hele boek niet uit beeld.</p>
+      <p>In de tweede lezing werkt zij twee wetten uit. De eerste is de wet van de oefening: beweging is de grondvorm van alle bestaan, ook waar zij niet zichtbaar is. Zij laat dat zien aan een slapende zuigeling, in wie elk orgaan bezig is materiaal te verzamelen en door dat werk te groeien. De tweede is de wet van de ordening: groei verloopt in een vaste volgorde en laat zich niet vervroegen. Zij haalt daarvoor de sterrenkunde en de aardlagen aan, van een nevel die zich tot ster verdicht tot de geologische lagen waarin het leven pas laat verschijnt.</p>
+      <p>Daaraan koppelt zij het begrip periodiciteit: vermogens van lichaam en geest verschijnen niet tegelijk maar na elkaar, elk op hun tijd.</p>
+      <h3>Het organische en het gerelateerde leven</h3>
+      <p>De derde lezing voert het onderscheid in dat de rest van het boek draagt. Het organische leven is het deel van het lichaam dat blijft werken zonder wil: hart, longen, maag, huid. Dat deel heeft een vast type, laat zich niet opvoeden, en elke inmenging is bemoeizucht. Het gerelateerde leven is het deel dat de wil bedient: hersenen, zintuigen, spierstelsel. Dat deel is wel te vormen, en juist daar ligt de taak.</p>
+      <p>Voor het organische leven formuleert zij twee plichten die zij tot in de laatste lezing herhaalt: vrijheid om te werken, en materiaal om mee te werken. Vrijheid betekent geen samendrukking en geen belemmering; materiaal betekent verse lucht, water, voedsel en licht. Wie die twee levert, doet voor dit deel van het lichaam alles wat gedaan kan worden.</p>
+      <h3>Kritiek op de school</h3>
+      <p>De vijfde lezing legt de maatstaf naast de praktijk. Kinderen gaan rond hun zevende naar school en blijven er tot hun zestiende, precies de jaren van het wisselen van het gebit tot de puberteit, waarin het lichaam onophoudelijk beslag legt op de levenskracht. In die jaren wordt volgens Blackwell het lichaam eenvoudig genegeerd.</p>
+      <p>Zij noemt de bezwaren stuk voor stuk. Het beste deel van de dag, doorgaans van negen tot drie, gaat op aan verstandelijk werk. De lokalen zijn slecht te luchten: in de zomer met open ramen nog moeilijk, in de winter met gesloten ramen en gloeiend hete kachels onmogelijk, zodat de lucht met menselijke uitwaseming verzadigd raakt en volgens haar als een traag werkend gif inwerkt. Er is zelden een speelplaats; de pauze is te kort en de kinderen zijn te uitgeput om te bewegen. De houding aan de lessenaar drukt de borst in, trekt de schouders naar voren en de rechterschouder omhoog, waardoor de smalle borstkas en de scheve schouders ontstaan die zij bij schoolmeisjes overal ziet. Over kostscholen is zij het scherpst.</p>
+      <p>Ook het onderwijs zelf bekritiseert zij: het spreekt vrijwel alleen het verstand aan, oefent de zintuigen nauwelijks, illustreert de natuurwetenschappen met slechte prenten, en dwingt kinderen tot uit het hoofd leren wat zij niet begrijpen.</p>
+      <h3>Hervorming</h3>
+      <p>De zesde lezing begint met de vaststelling dat gewoonten waarin men is opgevoed als natuur aanvoelen, en dat men daarom naar andere tijden en volken moet kijken om te zien wat toevallig is. Zij vertelt hoe zij in Londen dagelijks de veemarkt van Smithfield moest oversteken en te horen kreeg dat die er altijd zou blijven omdat er geld mee gemoeid was; datzelfde jaar nam het parlement een wet aan om hem te verplaatsen.</p>
+      <p>Haar voorbeeld is Griekenland. Zij beschrijft de gymnasia, de driedeling van de opvoeding in grammatica, muziek en lichaamsoefening, en het gegeven dat de lichaamsoefening evenveel tijd kreeg als de andere twee samen en levenslang werd voortgezet. Zij beschrijft ook de inrichting van de gebouwen en het toezicht van de gymnasiarch.</p>
+      <p>De praktische voorstellen aan het slot zijn bescheiden en concreet: hoge, goed geluchte lokalen, een ruim en deels beschaduwd terrein bij elke school, en korte perioden van verstandelijk werk die telkens door beweging worden afgesloten. Zij richt zich daarbij tot moeders, omdat de verandering volgens haar van de publieke opinie moet komen. Het boek eindigt met een oproep aan hen om die plicht als heilig te beschouwen. Wat na de schooltijd komt, laat zij uitdrukkelijk liggen: daarvoor was de reeks te kort.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">de wetten van het leven</td><td>De natuurlijke regels waaraan groei en gezondheid volgens Blackwell gebonden zijn en die men kan kennen, volgen of overtreden.</td></tr>
+          <tr><td class="term">goddelijke ordening van de groei</td><td>Het uitgangspunt dat de ontwikkeling in een vastgestelde volgorde verloopt waarin het lichaam voorgaat op de geest.</td></tr>
+          <tr><td class="term">de wet van de oefening</td><td>De stelling dat beweging de grondvorm van alle bestaan is, ook in organen die zonder zichtbare inspanning hun werk doen.</td></tr>
+          <tr><td class="term">organisch leven</td><td>Het deel van het lichaam dat buiten de wil om functioneert, zoals hart, longen, maag en huid, en dat zich niet laat opvoeden.</td></tr>
+          <tr><td class="term">gerelateerd leven</td><td>Het deel van het lichaam dat de wil dient, zoals hersenen, zintuigen en spieren, en dat wel gevormd kan en moet worden.</td></tr>
+          <tr><td class="term">vrijheid om te werken en materiaal om mee te werken</td><td>Blackwells twee plichten tegenover het organische leven: geen belemmering, en aanvoer van lucht, water, voedsel en licht.</td></tr>
+          <tr><td class="term">periodiciteit</td><td>Het beginsel dat vermogens van lichaam en geest elk op hun eigen tijd verschijnen en niet vervroegd kunnen worden.</td></tr>
+          <tr><td class="term">lichamelijke opvoeding</td><td>Bij Blackwell niet een vak naast de andere, maar de grondslag waarop het overige leren hoort te rusten.</td></tr>
+          <tr><td class="term">tweede dentitie</td><td>Het wisselen van het melkgebit, door haar aangehaald als teken dat het lichaam in deze jaren zwaardere voeding en meer ruimte vraagt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De grondslag van het betoog is deels theologisch en deels fysiologisch. Het onderscheid tussen organisch en gerelateerd leven komt uit de Franse fysiologie van het begin van de eeuw, waar Xavier Bichat het leven in een organisch en een animaal deel had gesplitst; Blackwell neemt die tweedeling over, hernoemt het tweede tot het gerelateerde leven en geeft haar een opvoedkundige wending.</p>
+      <p>Voor de schadelijke werking van bedorven lucht, van gebogen houding en van gebrek aan beweging beroept zij zich op wat iedereen kan waarnemen: de smalle borstkas en de scheve schouders van schoolmeisjes, het benauwde gevoel in een volle collegezaal. Zij voert geen metingen aan, geen vergelijking tussen scholen, geen aantallen. Zij verwijst wel naar haar klinische werk in Londen, Parijs en New York, maar zonder gevallen te beschrijven.</p>
+      <p>Het argument uit de geschiedenis, de Griekse gymnasia, is beschrijvend en idealiserend. Zij ontleent de gegevens aan de klassieke handboeken van haar tijd en trekt uit de plaats die de lichaamsoefening in Athene innam de conclusie dat de uitkomst navolging verdient, zonder die uitkomst zelf te onderzoeken.</p>
+      <p>Blackwell zelf is over de status van haar betoog eerlijk. Zij noemt de lezingen omtrekken en aanwijzingen en biedt ze aan als voorschot op later werk, niet als afgerond onderzoek.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar betreft de premisse. Uit de stelling dat het lichaam eerst af moet zijn en dat verstandelijke inspanning in de puberteit ten koste gaat van de lichamelijke groei, volgt evengoed het tegendeel van wat Blackwell wil. Twintig jaar later gebruikte de Bostonse arts Edward H. Clarke in <i>Sex in Education</i> (1873) precies deze redenering om te betogen dat meisjes geen middelbaar en hoger onderwijs zouden moeten volgen, omdat de studie hun voortplantingsvermogen zou beschadigen. Blackwell trekt de omgekeerde conclusie, een sterker lichaam zodat meisjes méér kunnen, maar haar redenering biedt tegen Clarke's gebruik geen weerstand.</p>
+      <p>Het godsdienstige raamwerk draagt meer gewicht dan de fysiologie. Waar de vraag is wat een kind aankan, luidt het antwoord dat er een goddelijke ordening bestaat die men niet mag schenden. Dat is een stelling die geen tegenspraak toelaat, en zij vervangt op de plaatsen waar het aankomt de waarneming.</p>
+      <p>Het boek noemt de oorzaken van ziekte en sterfte die in 1852 het zwaarst wogen nauwelijks. Over besmetting, drinkwater, kraamvrouwenkoorts, armoede en fabrieksarbeid staat vrijwel niets. Het publiek is dan ook duidelijk afgebakend: het gaat om de dochters van gezinnen die schoolgeld en lezinggeld konden betalen.</p>
+      <p>Wat het onderwijs betreft was Blackwell in richting raak. Slechte ventilatie, langdurig stilzitten in een gebogen houding, het ontbreken van beweging en het uit het hoofd leren zonder begrip zijn later door schoolartsen en onderwijskundigen bevestigd als schadelijk, en veel van wat zij voorstelde, speelplaatsen, luchten, beweging tussen de lessen, is gewoon geworden. De verklaring die zij eraan gaf, verlies van levenskracht doordat de geest de voorrang neemt, hield niet stand.</p>
+      <p>Ten slotte weegt haar latere loopbaan mee bij de vraag hoeveel gezag men aan haar oordeel toekent. Blackwell verzette zich in de decennia daarna tegen dierproeven en tegen de verplichte pokkeninenting en stond daarmee buiten de ontwikkeling die de geneeskunde in haar leven doormaakte. Haar plaats in de geschiedenis berust op wat zij afdwong en op wat zij voor andere vrouwen mogelijk maakte, niet op haar bijdrage aan de kennis.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de vijfde lezing apart als bron over het Amerikaanse schoollokaal rond 1850; de beschrijving van kachels, ramen, lessenaars en pauzes is nauwkeurig.</li>
+        <li>Houd de premisse en de gevolgtrekking uit elkaar; dezelfde fysiologische aanname bediende korte tijd later het tegenovergestelde politieke doel.</li>
+        <li>Vergelijk de twee plichten tegenover het organische leven, vrijheid en materiaal, met wat andere hervormers van deze jaren over kleding en lucht schreven; de overlap is groot.</li>
+        <li>Neem de opdracht en het slot mee bij de vraag tot wie het boek zich richt: het spreekt moeders aan als de partij die de verandering kan afdwingen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Laws of Life, with Special Reference to the Physical Education of Girls</i> (George P. Putnam, 10 Park Place, New York, 1852, 180 blz.). Het boek bevat zes lezingen die Blackwell in het voorjaar van 1852 in New York voor een klas dames hield; de opdracht "To American Women" is gedagtekend 44 University Place, juni 1852. Zij noemt het werk daar de eerste vrucht van haar medische studie. Blackwell was in januari 1849 aan Geneva Medical College in de staat New York gepromoveerd en was daarmee de eerste vrouw met een Amerikaanse artsentitel. Van het boek verschenen herdrukken, waaronder een uitgave uit 1859. Er bestaat geen Nederlandse vertaling; de samenvatting is op de eerste druk van 1852 gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Blackwell hield deze zes lezingen drie jaar na haar promotie, voor een betalend publiek van vrouwen in New York. Zij behandelt eerst wat zij de wetten van het leven noemt, beweging en ordening in de groei, dan het onderscheid tussen het onwillekeurige en het willekeurige deel van het lichaam, en pas daarna het onderwijs.</p><p>De laatste twee lezingen vormen de kern: een aanklacht tegen scholen waarin meisjes tussen hun zevende en zestiende jaar dagelijks zes uur in slecht geventileerde lokalen over een lessenaar gebogen zitten, en een voorstel tot hervorming waarin lichamelijke vorming de grondslag van het leerplan wordt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>onderwijs</li><li>fysiologie</li><li>lichaam</li><li>negentiende eeuw</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1128"><a href="1128.html">Lectures to Ladies on Anatomy and Physiology</a>. Gove hield tien jaar eerder vergelijkbare lezingen voor vrouwen, zonder opleiding en met een fellere toon.</li>
+          <li value="1129"><a href="1129.html">The Hydropathic Encyclopedia</a>. Trall bouwt in dezelfde jaren op vergelijkbare hygiënische uitgangspunten een compleet behandelstelsel.</li>
+          <li value="1131"><a href="1131.html">Letters to the People on Health and Happiness</a>. Beecher brengt kort hierna de gezondheid van Amerikaanse vrouwen in kaart en komt met eigen cijfers waar Blackwell er geen geeft.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

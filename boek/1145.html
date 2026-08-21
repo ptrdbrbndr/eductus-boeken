@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rule by Secrecy &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Marrs stelt dat er achter de zichtbare politiek een doorlopende keten van besloten genootschappen loopt die oorlogen begint en beëindigt, geldstelsels en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1145">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1145 &middot; Geschiedenis en samenleving</p>
+    <h1>Rule by Secrecy</h1>
+    <p class="lede">Jim Marrs, 2000</p>
+    <p class="stats">
+      <span><b>1694</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1145"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Marrs stelt dat er achter de zichtbare politiek een doorlopende keten van besloten genootschappen loopt die oorlogen begint en beëindigt, geldstelsels en rentestanden stuurt en bepaalt wat er in het nieuws komt, en dat die keten niet bij de negentiende-eeuwse bankiers begint maar teruggaat tot de mysteriescholen van de oudheid en uiteindelijk tot Soemerië. Zijn methode is die van de aaneenschakeling: wie de Trilaterale Commissie natrekt komt bij de Round Table-groepen, wie die natrekt bij de vrijmetselarij, wie die natrekt bij de Tempeliers, en zo door tot bij de Anunnaki. Het boek staat of valt daarmee bij de vraag of elke schakel in die ketting even sterk is als de vorige, en dat is zij niet.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Deel I: de instellingen van nu</h3>
+      <p>Het eerste deel behandelt achtereenvolgens de Trilaterale Commissie, de Council on Foreign Relations, de Bilderbergconferentie, de families Rockefeller, Morgan en Rothschild, het Federal Reserve-stelsel, de Round Table-groepen en het Royal Institute of International Affairs, Cecil Rhodes en zijn leermeester John Ruskin, het Yale-genootschap Skull and Bones en de grote belastingvrije stichtingen. Marrs beschrijft per groep wie erin zit, wanneer zij is opgericht en hoe de lidmaatschappen elkaar overlappen.</p>
+      <p>Dit deel is het best gedocumenteerde van het boek, omdat het over organisaties gaat die bestaan en waarover archiefmateriaal beschikbaar is. Marrs sluit het af met een hoofdstuk over de pers, waarin hij betoogt dat de aanwezigheid van hoofdredacteuren bij deze bijeenkomsten verklaart waarom erover niet wordt bericht.</p>
+      <h3>Deel II: de vingerafdrukken van samenzwering</h3>
+      <p>Het tweede deel loopt de twintigste eeuw langs: het Report from Iron Mountain, de Golfoorlog, Vietnam, de moord op Kennedy, de zaken van Amerikaanse bedrijven die tijdens de oorlog met de vijand handelden, Korea, de opkomst van de nazipartij met haar theosofische en Thule-achtergrond, beide wereldoorlogen en de Russische Revolutie. Steeds is de vraag dezelfde: wie verdiende eraan en wie zat in welk bestuur.</p>
+      <p>Hier verschuift de bewijsvoering. Waar deel I namen en data geeft, geeft deel II vooral gelijktijdigheid: iemand die bij een conflict betrokken was, blijkt lid van de Council on Foreign Relations, en dat lidmaatschap wordt behandeld als verklaring.</p>
+      <h3>Deel III: opstand en revolutie</h3>
+      <p>Het derde deel gaat over de Amerikaanse Burgeroorlog, de Franse Revolutie, de Amerikaanse Revolutie, de antivrijmetselaarsbeweging van de jaren dertig van de negentiende eeuw, Francis Bacon en zijn <i>New Atlantis</i>, de Beierse Illuminati van Adam Weishaupt (opgericht in 1776 in Ingolstadt en tien jaar later door de keurvorst verboden), de vrijmetselarij zelf en de rozenkruisers. Marrs behandelt de Illuminati als een orde die het verbod overleefde en zich in andere genootschappen voortzette.</p>
+      <h3>Deel IV: de oudere genootschappen</h3>
+      <p>Het vierde deel behandelt de Tempeliers, de middeleeuwse sekte van de Assassijnen, de Katharen en de Albigenzenkruistocht, de ondergang van de Tempelorde in 1307 en verder, en vervolgens de Priorij van Sion en de Merovingische koningen. Marrs neemt hier het verhaal over dat via het boek <i>The Holy Blood and the Holy Grail</i> bekend werd: een geheime orde die een bloedlijn bewaakt.</p>
+      <h3>Deel V: van Rome naar Soemerië</h3>
+      <p>Het laatste deel gaat over de Romeinse mysteriegodsdiensten, de kabbala, de Egyptische inwijdingen, de vraag of Mozes een Egyptische priester was, en komt dan bij Soemerië uit. Marrs volgt Sitchin: ongeveer 450.000 jaar geleden zouden de Anunnaki van de planeet Nibiru naar de aarde zijn gekomen om goud te delven, zouden zij de mens door ingrijpen in het erfelijk materiaal als arbeidskracht hebben gemaakt, en zou hun onderlinge oorlog geëindigd zijn in kernexplosies op de Sinaï en bij Sodom en Gomorra, waarvan een radioactieve storm de Soemerische beschaving vernietigde.</p>
+      <p>Marrs schrijft in het slotwoord dat er drie mogelijkheden overblijven: de kleine binnenkring vergaart macht in de hoop contact te krijgen met onze niet-menselijke makers, of zij heeft dat contact al, of zij is die makers zelf. Hij besluit met de mededeling dat het merendeel van wat in dit boek staat waar is.</p>
+      <h3>Wat vaststaat en wat gevolgtrekking is</h3>
+      <p>Een deel van het feitenmateriaal is niet omstreden. De Council on Foreign Relations bestaat sinds 1921 en geeft het tijdschrift <i>Foreign Affairs</i> uit. De Bilderbergconferentie kwam in mei 1954 voor het eerst bijeen in Hotel de Bilderberg in Oosterbeek, vergadert sindsdien jaarlijks zonder notulen en zonder pers, en publiceert wel een deelnemerslijst. De Trilaterale Commissie werd in 1973 opgericht op initiatief van David Rockefeller met Zbigniew Brzezinski als eerste directeur, en publiceert ledenlijsten en rapporten. Dat bestuurders, bankiers en hoofdredacteuren elkaar daar buiten de openbaarheid spreken, is geen theorie maar de opzet.</p>
+      <p>De gevolgtrekking is een andere zaak. Uit het feit dat een gezelschap besloten vergadert volgt niet dat het besluiten neemt die regeringen uitvoeren, en al helemaal niet dat het oorlogen begint. Die stap vraagt om bewijs van een andere soort: een besluit, een opdracht, een uitvoering. Marrs levert dat nergens en vervangt het door het aantal verbanden. Het boek is daardoor bruikbaar als naslag over wie waar zat, en onbruikbaar als bewijsvoering over wat daar besloten werd.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Trilaterale Commissie</td><td>In 1973 opgericht overlegorgaan van bestuurders uit Noord-Amerika, Europa en Japan, bij Marrs het zichtbare topje van de keten.</td></tr>
+          <tr><td class="term">Bilderbergconferentie</td><td>Jaarlijkse besloten bijeenkomst van politici, bankiers en industriëlen, sinds 1954, waarvan geen verslag naar buiten komt.</td></tr>
+          <tr><td class="term">Council on Foreign Relations</td><td>Amerikaans genootschap voor buitenlandse politiek uit 1921, door Marrs behandeld als de Amerikaanse tak van de Britse Round Table-groepen.</td></tr>
+          <tr><td class="term">Round Table-groepen</td><td>De kring rond Cecil Rhodes en Alfred Milner, door de historicus Carroll Quigley beschreven en door Marrs als de spil van het hele netwerk genomen.</td></tr>
+          <tr><td class="term">Report from Iron Mountain</td><td>In 1967 verschenen tekst die zich voordoet als geheim regeringsrapport over de noodzaak van oorlog, door Marrs als vermoedelijk echt behandeld.</td></tr>
+          <tr><td class="term">Priorij van Sion</td><td>Genootschap dat volgens Marrs sinds de middeleeuwen een koninklijke bloedlijn bewaakt.</td></tr>
+          <tr><td class="term">Anunnaki</td><td>In Sitchins lezing van de Soemerische teksten de buitenaardse wezens die de mens zouden hebben gemaakt; in de teksten zelf een aanduiding voor goden van vorstelijke afkomst.</td></tr>
+          <tr><td class="term">Nibiru</td><td>De planeet met een baan van 3600 jaar waar de Anunnaki volgens Sitchin vandaan zouden komen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Marrs geeft veertig bladzijden bronvermeldingen, geordend per bladzijde van de hoofdtekst, met auteur, uitgave en paginanummer. Dat is meer dan de meeste boeken in dit genre bieden en het maakt narekenen mogelijk. Voor de hoofdstukken over de Round Table-groepen leunt hij op Carroll Quigley, hoogleraar in Georgetown, die in <i>Tragedy and Hope</i> (1966) schreef dat hij het netwerk van binnenuit had bestudeerd. Dat is een controleerbare bron van academische herkomst, en de gegevens die Marrs eruit haalt kloppen doorgaans met wat Quigley schreef.</p>
+      <p>Het probleem zit in de vermenging. Dezelfde notenlijst leidt bij het hoofdstuk over de Bilderbergconferentie naar David Icke, die in eigen werk betoogt dat de wereld door van gedaante wisselende reptielen wordt bestuurd, en in het laatste deel naar Sitchin, Laurence Gardner, Lloyd Pye en Alan Alford. In de opmaak van het boek ziet een noot naar een hoogleraar er precies hetzelfde uit als een noot naar een auteur zonder enige toetsing. De lezer die niet elke noot naslaat, krijgt geen onderscheid aangeboden.</p>
+      <p>De opbouw van het argument is dezelfde als in <i>Crossfire</i>: geen enkel verband draagt de stelling, samen moeten zij dat wel doen. Die redenering werkt alleen als de losse verbanden onafhankelijk van elkaar zijn vastgesteld. Bij Marrs zijn zij dat vaak niet, omdat het ene verband bij het volgende als vaststaand wordt aangenomen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het duidelijkste bezwaar is te dateren. Marrs behandelt het Report from Iron Mountain als vermoedelijk authentiek en schrijft dat de ernstige toon en het notenapparaat de beschuldiging van verzinsel weerspreken. Leonard C. Lewin had in de <i>New York Times Book Review</i> van 19 maart 1972 al bekend dat hij de tekst zelf had geschreven, op een idee van Victor Navasky van het satirische blad <i>Monocle</i> en met medeweten van onder anderen E.L. Doctorow. Die bekentenis was in 2000 al achtentwintig jaar oud. Marrs kent haar, noemt haar terzijde en gaat verder alsof zij het gewicht van het stuk niet raakt.</p>
+      <p>Hetzelfde geldt voor de Priorij van Sion. Die is in 1956 in Annemasse als kleine Franse vereniging ingeschreven door Pierre Plantard; de middeleeuwse stamreeksen waarop het verhaal rust, zijn in de jaren zestig door zijn kring in de Bibliothèque nationale gedeponeerd, en Plantard heeft de vervalsing in 1993 onder ede tegenover een Franse rechter erkend. Marrs behandelt de orde als oud en werkelijk.</p>
+      <p>Het laatste deel heeft geen steun in het vak. Sitchin was geen assyrioloog; geen enkele vakbeoefenaar van het Soemerisch of Akkadisch onderschrijft zijn vertalingen, en de sleutelvertaling waarop alles rust, anunnaki als zij die uit de hemel kwamen, is onjuist: het woord duidt goden van vorstelijke afkomst aan. Daarmee rust het slot van het boek, en daarmee de hele afloop van de ketting, op materiaal dat op geen enkel punt de toets van het vakgebied doorstaat.</p>
+      <p>Het grondprobleem is dat geheimhouding als bewijs wordt gebruikt. Dat de Bilderbergconferentie geen notulen bijhoudt, is een feit. Dat zij daarom oorlogen uitlokt, volgt daar niet uit, en het volgt evenmin uit honderd andere zulke feiten naast elkaar. Marrs erkent die stap nergens en zet haar daarom ook nergens onder druk. Wie het boek leest voor wat het aan verifieerbare gegevens over instellingen en lidmaatschappen bevat, houdt iets over; wie het leest als bewijs van een plan, leest iets wat er niet in staat.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees deel I met de bronnenlijst ernaast en kijk per bewering of de noot naar een archiefstuk, een jaarverslag of een historicus wijst, of naar een andere auteur uit hetzelfde genre.</li>
+        <li>Schrijf bij elke passage twee zinnen op: wat er is vastgesteld, en wat eruit is afgeleid. Bij Marrs staan die twee vrijwel altijd in dezelfde alinea.</li>
+        <li>Ga voor de Round Table-groepen terug naar Quigley zelf, die hetzelfde netwerk beschreef en er andere gevolgtrekkingen aan verbond.</li>
+        <li>Behandel deel V los van de rest. Het rust op één auteur wiens vertaalwerk door het vakgebied wordt verworpen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Rule by Secrecy: The Hidden History That Connects the Trilateral Commission, the Freemasons, and the Great Pyramids</i> (HarperCollins, New York, 2000, 467 blz., ISBN 9780060193683; pocketuitgave Perennial, 2001, ISBN 9780060931841). Nederlandse uitgave: <i>Regeren vanuit het duister</i> (Ankh-Hermes, Deventer, 464 blz., ISBN 9789043907347).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De Texaanse journalist Jim Marrs, bekend van zijn boek over de moord op Kennedy, trekt hier in vijf delen één lijn van de Trilaterale Commissie en de Bilderbergconferentie terug via de vrijmetselarij, de Illuminati en de Tempeliers naar de mysteriescholen van de oudheid. Elk deel gaat verder terug in de tijd dan het vorige.</p><p>De eerste helft steunt op instellingen die werkelijk bestaan, ledenlijsten publiceren en achter gesloten deuren vergaderen. Het slot neemt de vertalingen van Zecharia Sitchin over en eindigt bij de Anunnaki, buitenaardse bezoekers van een planeet Nibiru die de mens zouden hebben gemaakt. Wie het boek gebruikt, moet die twee helften uit elkaar houden.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>complotdenken</li><li>elites</li><li>geschiedenis</li><li>macht</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="690"><a href="690.html">Crossfire</a>. Marrs' eerdere boek over de moord op Kennedy, met dezelfde werkwijze van opstapelen; deel II van <i>Rule by Secrecy</i> is er een verkorte weergave van.</li>
+          <li value="682"><a href="682.html">Tragedy and Hope</a>. De historicus op wie Marrs zich het vaakst beroept. Quigley beschrijft hetzelfde netwerk en trekt er andere conclusies uit.</li>
+          <li value="680"><a href="680.html">None Dare Call It Conspiracy</a>. De pamflettaire voorganger uit 1971, die Quigley op dezelfde selectieve manier gebruikt.</li>
+          <li value="1146"><a href="1146.html">Conspirators' Hierarchy: The Story of the Committee of 300</a>. Hetzelfde onderwerp zonder enige bronvermelding; het verschil in verantwoording tussen beide boeken is het leerzaamste eraan.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

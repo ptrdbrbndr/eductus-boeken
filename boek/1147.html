@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sinister Forces &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Levenda stelt dat de Amerikaanse naoorlogse geschiedenis niet te verklaren is met politiek en geweld alleen, en dat er een derde dimensie bij hoort die…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1147">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1147 &middot; Filosofie en mystiek</p>
+    <h1>Sinister Forces</h1>
+    <p class="lede">Peter Levenda, 2005-2006</p>
+    <p class="stats">
+      <span><b>1616</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1147"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Levenda stelt dat de Amerikaanse naoorlogse geschiedenis niet te verklaren is met politiek en geweld alleen, en dat er een derde dimensie bij hoort die hij het occulte noemt: alles wat geheim, verborgen of onbekend is gehouden, van geheime programma's tot inwijdingsgenootschappen en spiritistische kringen. In dezelfde jaren waarin de CIA met BLUEBIRD, ARTICHOKE en MK-ULTRA zocht naar de geprogrammeerde moordenaar, ontstonden volgens hem de Manson-groep, de Process Church en de kring rond de mediumieke entiteiten die de Negen worden genoemd, en die gelijktijdigheid is naar zijn oordeel zelf een gegeven waarmee een historicus moet werken. Hij noemt zijn boek daarom een grimoire en niet een geschiedwerk, en dat is meer dan een pose: het is de aankondiging dat toeval hier als aanwijzing telt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat de ondertitel aankondigt</h3>
+      <p>Een grimoire is een handboek met formules om geesten op te roepen. Jim Hougan noemt het werk in zijn voorwoord dan ook een handleiding voor het aanroepen van demonen, en somt de demonen op: Charles Manson en CIA-directeur Richard Helms, Aleister Crowley en David Ferrie, Jack Parsons en de Son of Sam.</p>
+      <p>Levenda zegt in zijn inleiding dat hij het onderwerp niet met afstandelijke objectiviteit kan behandelen, dat de academische geschiedschrijving betrokkenheid van de onderzoeker afkeurt, en dat hij tot die betrokkenheid veroordeeld is omdat hij de jaren in kwestie zelf heeft meegemaakt. Hij vermeldt ook waar het idee vandaan komt: een tweedelig stuk van Craig Karpel in de <i>Village Voice</i> tijdens Watergate, getiteld Patriotic Witchcraft.</p>
+      <h3>Deel één: The Nine</h3>
+      <p>Het eerste deel valt uiteen in drie afdelingen. Deep Background behandelt een occulte voorgeschiedenis van Amerika: de grafheuvels van de moundbuilders, de heksenprocessen van Salem, het ontstaan van de mormoonse kerk, en vervolgens Ashland in Kentucky, waar Manson opgroeide en waar in 1969 een familielid van hem, Darwin Scott, met een keukenmes werd doodgestoken in een zaak die nooit is opgelost. Levenda reed er heen en beschrijft wat hij aantrof.</p>
+      <p>Agents of the Devil gaat over Operatie Paperclip, over naziwetenschap en psychologische oorlogvoering, en over BLUEBIRD, ARTICHOKE en MK-ULTRA. Crossfire behandelt de moord op Kennedy en de Hollywoodwereld rond de film <i>Rosemary's Baby</i>. De Negen uit de titel zijn de entiteiten die de kring rond arts en parapsycholoog Andrija Puharich vanaf de jaren vijftig meende te ontvangen, en het gezelschap dat zich daaromheen vormde.</p>
+      <h3>Deel twee: A Warm Gun</h3>
+      <p>Het tweede deel gaat over de politieke moorden. Levenda werkt de vraag uit of Sirhan Sirhan onder hypnose handelde toen hij Robert Kennedy doodschoot, behandelt Nixon en wat hij de Dark Tower noemt, legt de middeleeuwse sekte van de Assassijnen naast latere vormen van terrorisme, en zet ondervragingstechnieken van de inlichtingendiensten naast sjamanistische en rituele praktijken.</p>
+      <p>De redenering is hier het meest zichtbaar. Waar hij zich op de vrijgegeven stukken over mindcontrol baseert, staat hij op vaste grond. Waar hij van de ene naam naar de andere loopt, moet de lezer zelf beslissen of hij het spoor volgt.</p>
+      <h3>Deel drie: The Manson Secret</h3>
+      <p>Het derde deel behandelt de methode van Stanislavski, waarmee acteurs zich een ander karakter eigen maken, als tegenhanger van inwijding en van bewuste persoonlijkheidsverandering. Daaromheen komen filmmaker Kenneth Anger en zijn belangstelling voor Crowley, regisseur Donald Cammell en diens vader C.J. Cammell die de eerste levensbeschrijving van Crowley schreef, de kring rond de Rolling Stones, Jim Morrison, David Lynch, de dood van Marilyn Monroe en de vraag hoe een moordenaar wordt gemaakt.</p>
+      <h3>Toeval als werkwijze</h3>
+      <p>Levenda vertelt dat hij tijdens zijn onderzoek ontdekte dat hij via een vroegere werkgever twee handdrukken verwijderd was van de moorden op Sharon Tate en het echtpaar LaBianca, en dat hij daarna nog zulke gevallen tegenkwam. Zijn gevolgtrekking is dat toeval zelf een verwaarloosde factor in de geschiedenis is, en hij beroept zich daarbij op Jungs begrip synchroniciteit.</p>
+      <p>Dat is het scharnier van het hele werk. Een voorbeeld staat in het hoofdstuk over BLUEBIRD: Levenda leidt de naam van dat CIA-project terug naar het toneelstuk <i>L'Oiseau bleu</i> van Maurice Maeterlinck uit 1908, wijst op overeenkomsten tussen de zoektocht in dat stuk en de zoektocht van de CIA, en komt tot de opvatting dat de bedenker van de projectnaam meer op het oog had dan een waarheidsserum. Wie de premisse deelt, ziet daar een aanwijzing. Wie haar niet deelt, ziet een naam die iemand mooi vond.</p>
+      <h3>Wat de uitgever ervan zegt</h3>
+      <p>Op de achterflap van deel twee staat dat dit geen speculatieve geschiedschrijving is maar berust op primaire bronnen en historische documenten. Dat staat op gespannen voet met de ondertitel die de auteur zelf koos. Beide beweringen zijn ten dele waar: de documenten zijn echt en worden met paginanummer en uitgave aangehaald, en het verband ertussen is het werk van de schrijver.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">grimoire</td><td>Handboek met formules voor het oproepen van geesten; Levenda gebruikt het woord als aanduiding van zijn eigen genre.</td></tr>
+          <tr><td class="term">de Negen</td><td>De groep entiteiten die de kring rond Andrija Puharich vanaf de jaren vijftig meende te ontvangen, en die de titel van deel één levert.</td></tr>
+          <tr><td class="term">MK-ULTRA</td><td>Het CIA-programma voor gedragsbeïnvloeding waarvan de administratie in 1973 op last van directeur Richard Helms werd vernietigd.</td></tr>
+          <tr><td class="term">BLUEBIRD en ARTICHOKE</td><td>De voorlopers van MK-ULTRA uit de jaren vijftig, gericht op hypnose, ondervraging en bescherming tegen vijandelijke beïnvloeding.</td></tr>
+          <tr><td class="term">Weltanschauungskrieg</td><td>Het Duitse woord voor oorlogvoering om het wereldbeeld, waaruit volgens Levenda de Amerikaanse term psychologische oorlogvoering is vertaald.</td></tr>
+          <tr><td class="term">synchroniciteit</td><td>Jungs term voor betekenisvol toeval, door Levenda gebruikt om samenvallende gebeurtenissen als gegeven te behandelen.</td></tr>
+          <tr><td class="term">Process Church of the Final Judgment</td><td>In 1966 in Londen ontstane groepering die in dit genre steeds met de Manson-kring in verband wordt gebracht.</td></tr>
+          <tr><td class="term">parapolitiek</td><td>Aanduiding voor het onderzoek naar het gebied waar inlichtingenwerk, misdaad en politiek in elkaar overlopen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Levenda werkt met een notenapparaat. Hij geeft auteur, uitgever, jaar, ISBN en paginanummer, en hij vermeldt uitdrukkelijk waar hij een bron alleen voor feitelijke gegevens gebruikt. Bij zijn hoofdstukken over Manson schrijft hij in de noten dat hij de levensloopgegevens ontleent aan Vincent Bugliosi, Ed Sanders, John Gilmore en Nikolas Schreck, en dat hij hun theorieën niet onderschrijft maar hun ruwe gegevens gebruikt. Dat is een verantwoording die in dit genre zelden voorkomt.</p>
+      <p>De harde kern van het materiaal is echt en openbaar. Wat de CIA aan mindcontrolonderzoek deed, is bekend uit de senaatsonderzoeken van de jaren zeventig en uit de financiële stukken die aan de vernietigingsopdracht van 1973 ontsnapten en later zijn vrijgegeven. Levenda leunt daarvoor grotendeels op het werk van John Marks, dat hij bij naam en pagina aanhaalt. Zijn eerdere boek over nazi-occultisme berustte op eigen onderzoek in het Amerikaanse nationaal archief en de Library of Congress, en dat materiaal keert hier terug.</p>
+      <p>De zwakte zit tussen de documenten. De losse feiten zijn per stuk vaak juist; wat ze aan elkaar bindt is de nabijheid in tijd, plaats of naam. Levenda verhult dat niet, hij benoemt het als methode. Het gevolg is dat de lezer die de premisse over betekenisvol toeval niet aanvaardt, met een reeks juiste gegevens overblijft waaruit geen conclusie volgt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het sterkste bezwaar is dat de werkwijze niet te weerleggen is. Wanneer twee zaken dicht bij elkaar liggen in tijd of plaats, telt dat als vondst; ligt er niets dichtbij, dan wordt er verder gezocht. Er is geen waarneming denkbaar die het betoog tegenspreekt. Een geschiedwerk dat zo is opgezet kan wel materiaal aandragen, maar het kan geen stelling toetsen, en dus ook niet vaststellen dat een verband ontbreekt.</p>
+      <p>Op detailniveau glijdt het soms uit. In de passage over Maeterlinck schrijft Levenda dat in <i>Het leven der bijen</i> uit 1901 het begrip meme wordt geïntroduceerd, bedacht door een Duitse psycholoog die hij Richard Sauder noemt en die ook het begrip engram zou hebben gemunt. Het begrip engram komt van de Duitse zoöloog Richard Semon, in 1904; het woord meme komt van Richard Dawkins, in 1976. Zulke fouten zijn klein, maar zij zitten precies op de plaatsen waar de verbanden worden gelegd.</p>
+      <p>De uitgeversclaim dat het geen speculatieve geschiedschrijving is, houdt geen stand tegenover de eigen ondertitel van de auteur. Wie deel twee koopt op grond van die flaptekst, krijgt iets anders dan wordt aangekondigd. De drie delen tellen samen ruim dertienhonderd bladzijden en er zit veel herhaling in.</p>
+      <p>Het meest gevoelige punt is de verbinding tussen Manson en de Process Church, die in dit hele genre terugkeert. Die verbinding komt oorspronkelijk uit het boek van Ed Sanders uit 1971, en juist dat hoofdstuk is na juridische stappen uit de Amerikaanse edities verwijderd. Wie er nu over leest, leest over een claim die de oorspronkelijke uitgever heeft ingetrokken. Levenda gebruikt Sanders voor gegevens en niet voor die theorie, maar de sfeer van het verband blijft in het boek aanwezig zonder dat de herkomst ervan wordt gewogen.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees per hoofdstuk eerst de noten. Daar staat welk deel op vrijgegeven stukken berust en welk deel op andere auteurs uit hetzelfde genre.</li>
+        <li>Markeer elke overgang tussen twee onderwerpen en schrijf op waarom die overgang wordt gemaakt: een document, een getuigenis of een gelijkenis.</li>
+        <li>Gebruik het als bronnenoverzicht en niet als betoog. De verwijzingen naar het MK-ULTRA-materiaal zijn bruikbaar los van de stelling van het boek.</li>
+        <li>Leg het naast een gedocumenteerde behandeling van hetzelfde onderwerp, om te zien welk deel van het verhaal zonder de derde dimensie overeind blijft.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Sinister Forces: A Grimoire of American Political Witchcraft</i>, drie delen bij TrineDay, Walterville (Oregon): Book One <i>The Nine</i> (2005, 397 blz., ISBN 9780975290620, met een voorwoord van Jim Hougan), Book Two <i>A Warm Gun</i> (2005, 480 blz., ISBN 9780975290637, met een inleiding van Dick Russell), Book Three <i>The Manson Secret</i> (2006, 432 blz., ISBN 9780975290644, met een inleiding van Paul Krassner). Paperbackuitgaven in 2011. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Levenda betoogt in drie delen dat het Amerikaanse politieke geweld van de twintigste eeuw pas begrijpelijk wordt wanneer naast politiek en geweld een derde grootheid wordt meegenomen: het occulte, waarmee hij alles bedoelt wat verborgen is gehouden. Hij verbindt de mindcontrolprogramma's van de CIA met naziwetenschappers, mediums, de Manson-groep en een reeks moorden.</p><p>Hij noemt zijn werk zelf een grimoire, een handboek voor het oproepen van geesten, en werkt associatief: gelijktijdigheid en toeval behandelt hij als aanwijzing in plaats van als ruis. De documenten waarop hij steunt zijn vaak echt; de verbindingen ertussen zijn dat meestal niet.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>occultisme</li><li>complotdenken</li><li>geheime diensten</li><li>amerikaanse geschiedenis</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="665"><a href="665.html">The Search for the "Manchurian Candidate"</a>. De gedocumenteerde tegenhanger over MK-ULTRA, geschreven op de financiële stukken die aan de vernietiging van 1973 ontkwamen; Levenda haalt dit boek herhaaldelijk bij naam en pagina aan.</li>
+          <li value="750"><a href="750.html">Acid Dreams</a>. Over LSD, de CIA en de tegencultuur van de jaren zestig, hetzelfde terrein met journalistieke in plaats van associatieve methode.</li>
+          <li value="1148"><a href="1148.html">The Family</a>. Het boek waaruit de verbinding tussen de Manson-groep en het occulte milieu oorspronkelijk stamt, inclusief het hoofdstuk dat er later uit is gehaald.</li>
+          <li value="925"><a href="925.html">Cosmic Trigger I: Final Secret of the Illuminati</a>. Een memoir uit hetzelfde milieu waarin betekenisvol toeval eveneens als leidraad wordt genomen, maar dan met openlijke twijfel aan de eigen waarneming.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

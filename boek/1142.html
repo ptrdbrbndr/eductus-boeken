@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Day After Roswell &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Corso beweert dat de Amerikaanse landmacht na de bergingen bij Roswell in juli 1947 een verzameling wrakstukken van niet-menselijke herkomst apart heeft…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1142">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1142 &middot; Filosofie en mystiek</p>
+    <h1>The Day After Roswell</h1>
+    <p class="lede">Philip J. Corso met William J. Birnes, 1997</p>
+    <p class="stats">
+      <span><b>1746</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1142"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Corso beweert dat de Amerikaanse landmacht na de bergingen bij Roswell in juli 1947 een verzameling wrakstukken van niet-menselijke herkomst apart heeft gehouden, en dat hij die verzameling veertien jaar later als hoofd van de afdeling buitenlandse technologie in het Pentagon onder zijn hoede kreeg. Zijn opdracht zou zijn geweest de stukken zonder vermelding van hun herkomst uit te zetten bij defensiebedrijven, die ze als eigen vondst mochten octrooieren. Daarmee zou de naoorlogse elektronica en materiaalkunde niet uit menselijk vernuft zijn voortgekomen maar uit nagemaakte techniek, en zou het ruimtewapenprogramma van president Reagan in werkelijkheid een verdedigingswapen tegen buitenaardse bezoekers zijn geweest. Alles in het boek rust op zijn geheugen; documenten legt hij niet over.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De woestijn bij Roswell en de kist in Fort Riley</h3>
+      <p>Het boek opent bij de bergingsoperatie van juli 1947, die Corso beschrijft alsof hij erbij was, terwijl hij er niet was. Wat hij als eigen ervaring aandraagt speelt in dezelfde zomer in Fort Riley in Kansas, waar hij wachtdienst had toen een konvooi met kisten passeerde. Hij zou een dekzeil hebben opgelicht en in een met vloeistof gevulde kist een klein lichaam hebben gezien met een grote schedel en vier vingers.</p>
+      <p>Deze scène is de spil van het hele boek. Er is geen tweede getuige, geen vrachtbrief en geen dienststuk dat het konvooi of de kist noemt; het verhaal bestaat uit zijn herinnering, vijftig jaar later opgetekend.</p>
+      <h3>Het nut file op het Pentagon</h3>
+      <p>In 1961 wordt Corso naar eigen zeggen aangesteld bij de onderzoeksafdeling van de landmacht, onder luitenant-generaal Arthur Trudeau. Bij zijn bureau hoorde een archiefkast met materiaal dat niemand wilde hebben en die hij tegenover Trudeau het nut file noemde. Daarin zaten volgens hem dunne buigzame glasdraden die licht geleidden, grijze schijfjes ter grootte van een muntstuk met ingeetste schakelingen, een sterk lichtgevoelig oogstuk, een flinterdunne folie die niet te scheuren was en een onbekend metaalachtig weefsel.</p>
+      <p>Corso beschrijft hoe hij deze voorwerpen zelf uitzocht, er adviesnota's over schreef en met Trudeau een plan maakte om ze bij bevriende wetenschappers en bedrijven te plaatsen. Genoemd worden Bell Labs, IBM, Monsanto, Dow, General Electric en Hughes.</p>
+      <h3>De doofpot en de strategie</h3>
+      <p>Twee hoofdstukken gaan over de vraag waarom het geheim werd gehouden. Corso schetst een besluitvorming die in 1947 begon bij generaal Nathan Twining en die uitliep op de keuze het onderwerp bij het publiek belachelijk te maken en de kennis tot een kleine kring te beperken. In zijn voorstelling ontstond een werkgroep buiten de gewone bevelslijn, deels binnen de CIA, die de Amerikaanse regering op dit dossier feitelijk overvleugelde.</p>
+      <p>Het motief dat hij aandraagt is tweeledig: de Sovjet-Unie mocht niet weten wat er lag, en het Amerikaanse publiek zou de waarheid niet verdragen. Voor beide beweringen levert hij geen bron aan buiten zijn eigen ambtsherinnering.</p>
+      <h3>De EBE als biologisch werktuig</h3>
+      <p>Een apart hoofdstuk gaat over de wezens, die hij aanduidt met de afkorting EBE. Op grond van sectierapporten die hij zegt te hebben gelezen, opgesteld in het militair hospitaal Walter Reed, beschrijft hij ze niet als een bezoekend volk maar als gekweekte, genetisch bewerkte werktuigen zonder eigen spijsvertering, gebouwd om ruimtevluchten te doorstaan.</p>
+      <p>Die duiding heeft gevolgen voor de rest van het boek: de bezoekers zijn bij Corso geen leraren of gasten maar een dreiging die biologisch materiaal van de aarde haalt, tot en met veemutilaties en ontvoeringen.</p>
+      <h3>Het uitzaaien bij de industrie</h3>
+      <p>De middenhoofdstukken behandelen elk voorwerp uit de kast. Het lichtgevoelige oogstuk wordt bij Corso de beeldversterker voor nachtzicht, de gegraveerde schijfjes worden de geïntegreerde schakeling en daarmee de halfgeleiderindustrie, een lichtbundelend onderdeel wordt de laser, de glasdraden worden glasvezel, het onscheurbare weefsel wordt de vezel die later als kogelwerend materiaal bekend werd, en een verder onbegrepen stuk wordt het deeltjesbundelwapen.</p>
+      <p>De werkwijze die hij beschrijft is telkens dezelfde: hij legt het voorwerp bij een onderzoeker neer als buitgemaakt buitenlands materiaal, laat de vraag stellen of zoiets te maken valt, en houdt de herkomst achter. In zijn voorstelling weten de uitvinders zelf niet dat zij natekenen. Opvallend is dat hij in datzelfde hoofdstuk noteert dat de landmacht toen al tien jaar aan nachtzicht werkte en Duits oorlogsmateriaal in handen had.</p>
+      <h3>Star Wars en het einde van de oorlog met de EBE's</h3>
+      <p>Het slot springt naar de jaren tachtig. Het ruimteschild dat president Reagan in 1983 aankondigde was volgens Corso nooit tegen Sovjetraketten gericht maar tegen buitenaardse vaartuigen, en het werkte: toen de wapens eenmaal in een baan om de aarde waren beproefd, wisten de bezoekers dat de aarde verdedigd was. Ook de toenadering tussen Reagan en Gorbatsjov verklaart hij uit een gedeelde tegenstander.</p>
+      <p>De laatste bladzijden trekken de lijn door naar de computer en de moderne wapenindustrie: alles zou terug te voeren zijn op wat er in juli 1947 in de woestijn van New Mexico werd geraapt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">nut file</td><td>Corso's eigen benaming voor de archiefkast met wrakstukken die hij op het Pentagon zou hebben beheerd.</td></tr>
+          <tr><td class="term">Foreign Technology desk</td><td>De functie binnen de onderzoeksafdeling van de landmacht waarin hij buitenlandse wapentechniek beoordeelde en waaronder het geheime werk zou hebben gevallen.</td></tr>
+          <tr><td class="term">EBE</td><td>Afkorting voor extraterrestrial biological entity, bij Corso geen bezoekend wezen maar een gekweekt biologisch werktuig.</td></tr>
+          <tr><td class="term">uitzaaien</td><td>Zijn woord voor het bij bedrijven onderbrengen van een voorwerp zonder de herkomst te noemen, zodat het bedrijf de vinding als eigen werk octrooieert.</td></tr>
+          <tr><td class="term">supertenacity</td><td>De term waarmee hij het onscheurbare vezelmateriaal uit de kast aanduidt, in het boek verbonden met later kogelwerend textiel.</td></tr>
+          <tr><td class="term">Project Corona</td><td>Het Amerikaanse spionagesatellietprogramma, waarvan hij de opzet aan zichzelf en generaal Trudeau toeschrijft.</td></tr>
+          <tr><td class="term">Strategic Defense Initiative</td><td>Het ruimteschildprogramma van 1983, in dit boek gepresenteerd als verdedigingswapen tegen buitenaardse vaartuigen.</td></tr>
+          <tr><td class="term">de werkgroep</td><td>De naamloze kring buiten de gewone bevelslijn die volgens Corso het dossier beheerde en waaraan hij een eigen wil toeschrijft.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek voert geen enkel document aan. Er is geen dienstopdracht, geen memo, geen ontvangstbewijs, geen inventaris van de kast en geen naam van een ingenieur die een voorwerp aannam. Wat er is, is de herinnering van één man, opgeschreven door een ghostwriter, vijftig jaar na de gebeurtenissen en een jaar voor Corso's dood in 1998. De enige steun in het boek komt van derden die niet meer konden bevestigen of ontkennen: de sleutelpassage over de schijfjes uit het wrak stamt uit een gesprek dat Corso met Hermann Oberth zou hebben gehad, waarin Oberth vertelt wat Wernher von Braun hem zei over wat generaal Twining hem toonde. Alle drie waren dood toen het boek verscheen.</p>
+      <p>Ook binnen het boek zelf staat het bewijs onder druk. Corso had geen opleiding in natuurkunde of techniek, en beschrijft hoe hij zonder die achtergrond kon vaststellen wat een onbekend voorwerp was en waartoe het diende. Bij het nachtzicht noteert hij zelf dat het leger al een decennium aan beeldversterkers werkte en Duitse apparatuur uit de oorlog bezat, wat de veronderstelde herkomst overbodig maakt. Het patroon is telkens dat de gedocumenteerde geschiedenis van een uitvinding gewoon doorloopt en dat zijn verhaal er los overheen ligt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar komt uit de techniekgeschiedenis, die op elk punt is na te lopen en nergens uitkomt waar Corso haar plaatst. De geïntegreerde schakeling werd in september 1958 gedemonstreerd door Jack Kilby bij Texas Instruments, gevolgd door Robert Noyce bij Fairchild in 1959, dus jaren voordat Corso naar eigen zeggen in 1961 de kast kreeg. De eerste werkende laser bouwde Theodore Maiman in mei 1960 bij Hughes, voortbouwend op de maser van Charles Townes uit 1954 en op het artikel van Townes en Arthur Schawlow uit 1958. Glasvezel als drager van signalen werd in 1966 voorgesteld door Charles Kao, die er in 2009 de Nobelprijs voor kreeg, en werd bruikbaar toen Corning in 1970 het lichtverlies onder de vereiste drempel bracht. De vezel die als kogelwerend materiaal bekend werd, ontdekte Stephanie Kwolek in 1965 bij DuPont, een bedrijf dat in het boek niet eens voorkomt. Nachtzicht is nog ouder: Amerikaanse infraroodkijkers werden in 1945 op Okinawa ingezet en de Duitse tegenhanger draaide al eerder, allemaal voor juli 1947.</p>
+      <p>Daarnaast zijn er de aantoonbare fouten in zijn eigen loopbaan en tijdlijn. Hij plaatst een ontmoeting op het hoofdkantoor van de CIA in Langley voordat dat gebouw in gebruik was, met een functionaris die toen in Londen zat en van wie hij de naam verkeerd spelt. De eerste lanceringen van het Corona-satellietprogramma, dat hij mede aan zichzelf toeschrijft, gingen twee jaar aan zijn Pentagon-aanstelling vooraf. Een luchtdoelraket beschrijft hij als warmtezoekend terwijl die radargestuurd is, en de datum van het Roswell-persbericht klopt niet. Corso bleef tien jaar luitenant-kolonel zonder bevordering en nam in 1963 ontslag; voor de posten en de invloed die hij zichzelf toekent is buiten zijn eigen woord geen spoor gevonden. Al in 1966 verschenen er in de Amerikaanse pers beschuldigingen aan zijn adres over onbetrouwbaarheid, en een in 2011 vrijgegeven Brits defensiememo wijst zijn beweringen af onder verwijzing naar een eerdere staat van dienst van ongeloofwaardige verklaringen.</p>
+      <p>Het derde punt betreft de steunbetuiging die het boek de meeste schijn van gezag gaf. Senator Strom Thurmond schreef het voorwoord in de veronderstelling dat het om Corso's militaire memoires ging. Na verschijning liet hij weten van geen doofpot te weten en er ook niet in te geloven, en de uitgever haalde de tekst uit volgende drukken. Wie het boek nu leest zonder dat te weten, ziet een aanbeveling die er in werkelijkheid niet is. Het geheel werd in 2001 door een Britse krant in een lijst van literaire vervalsingen opgenomen. Dat is geen bewijs dat Corso alles verzon; het is wel de vaststelling dat een bewering van deze omvang uitsluitend op zijn woord rust en dat elk punt dat wel te controleren valt, tegen hem uitvalt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Zoek bij een bewering over verzwegen techniek eerst de gewone uitvindingsgeschiedenis op: naam, jaar, laboratorium en octrooi zijn bij dit soort vindingen doorgaans goed vastgelegd.</li>
+        <li>Controleer wat een aanbeveling voorin een boek werkelijk aanbeveelt, en of degene die haar schreef de inhoud kende.</li>
+        <li>Let op de keten van getuigen: een verhaal dat via twee overleden tussenpersonen bij de auteur komt, is niet natrekbaar en telt niet als bevestiging.</li>
+        <li>Neem de details die wel te toetsen zijn, zoals data, plaatsen en typeaanduidingen, als steekproef voor de betrouwbaarheid van het geheel.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Day After Roswell</i> (Pocket Books, New York, 1997, 341 blz., ISBN 0671004611), geschreven met journalist en ghostwriter William J. Birnes. De eerste oplage bevatte een voorwoord van senator Strom Thurmond, dat op diens verzoek uit latere drukken is gehaald. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Memoires van Philip Corso, luitenant-kolonel buiten dienst, die beweert dat hij in 1961 en 1962 op het Pentagon een archiefkast beheerde met wrakstukken van het toestel dat in 1947 bij Roswell zou zijn neergestort, en dat hij die stukken zonder vermelding van hun herkomst doorsluisde naar Amerikaanse bedrijven. Geïntegreerde schakelingen, lasers, glasvezel, nachtzichtapparatuur en supersterke vezels zouden zo hun weg naar de industrie hebben gevonden.</p><p>Het boek haalde de Amerikaanse bestsellerlijst en is ook binnen de ufologie omstreden gebleven. De uitvindingsgeschiedenis van elk van die technieken is gedocumenteerd en wijst elders heen, het voorwoord van senator Thurmond bleek voor een ander boek geschreven, en op talrijke natrekbare punten klopt het verhaal niet.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>ufo's</li><li>complotdenken</li><li>technologiegeschiedenis</li><li>memoir</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1141"><a href="1141.html">UFOs and the National Security State</a>. UFOs and the National Security State laat zien hoe hetzelfde onderwerp eruitziet wanneer een auteur zich wel aan vrijgegeven stukken houdt.</li>
+          <li value="1143"><a href="1143.html">Witness to Roswell</a>. Witness to Roswell behandelt dezelfde gebeurtenis van juli 1947, met getuigenverklaringen in plaats van met Corso's technologieverhaal.</li>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. The Demon-Haunted World bespreekt precies dit soort claims en waarom de omvang van een bewering bepaalt hoeveel bewijs ervoor nodig is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

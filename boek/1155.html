@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De kelk en het zwaard &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Eisler leest de geschiedenis van de mensheid als een strijd tussen twee inrichtingen van de samenleving, en niet als een oplopende reeks beschavingen. In…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1155">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1155 &middot; Geschiedenis en samenleving</p>
+    <h1>De kelk en het zwaard</h1>
+    <p class="lede">Riane Eisler, 1987</p>
+    <p class="stats">
+      <span><b>1900</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1155"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Eisler leest de geschiedenis van de mensheid als een strijd tussen twee inrichtingen van de samenleving, en niet als een oplopende reeks beschavingen. In de ene brengt verschil geen rangorde met zich mee; in de andere heerst de ene helft van de mensheid over de andere met geweld of met de dreiging daarvan. Haar bewering is dat de eerste inrichting in het neolithische Oud-Europa en op Kreta werkelijk heeft bestaan, dat zij tussen ruwweg 4300 en 1500 voor onze jaartelling door binnenvallende groepen is verdrongen, en dat die omslag dus een gebeurtenis in de tijd is en geen eigenschap van de menselijke natuur.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Twee modellen en een theorie</h3>
+      <p>In de inleiding zet Eisler haar begrippenpaar neer. Het overheersende model, dat in de omgangstaal patriarchaat of matriarchaat heet, rangschikt de ene helft van de mensheid boven de andere. Het verbindende model ordent verhoudingen door koppeling in plaats van rangschikking; verschil betekent daar geen minderwaardigheid.</p>
+      <p>Die tweedeling vat zij samen als Cultural Transformation theory. De richting van de culturele ontwikkeling liep oorspronkelijk naar het verbindende model, tot een periode van ontwrichting een omslag bracht. De titel verwijst naar dat keerpunt: de kelk staat voor de levengevende krachten, het zwaard voor de macht om leven te nemen. De uitdrukking over de dodelijke macht van het zwaard ontleent zij aan de archeologe Marija Gimbutas.</p>
+      <h3>Het paleolithicum, het neolithicum en Oud-Europa</h3>
+      <p>De eerste twee hoofdstukken behandelen de grotkunst van West-Europa, de vrouwenbeeldjes uit Willendorf en elders, en de neolithische nederzettingen. Eisler steunt op het werk van de Britse archeoloog James Mellaart in Çatalhöyük en Hacilar in Anatolië en op Gimbutas' Oud-Europa, het gebied in Zuidoost-Europa waar tussen ongeveer 6500 en 3500 voor onze jaartelling een ontwikkelde landbouwcultuur bloeide.</p>
+      <p>Haar lezing is dat de beeldjes en wandschilderingen één godin verbeelden die de vruchtbaarheid van mens, dier en akker omvatte, en dat de bijbehorende samenleving geen wapenopslag, geen versterkingen en geen standenverschil in graven kende. Het hoofdstuk sluit met de vaststelling dat dit geen matriarchaat was: als het geen patriarchaat is hoeft het niet het spiegelbeeld daarvan te zijn.</p>
+      <h3>Kreta als proefgeval</h3>
+      <p>Het derde hoofdstuk noemt de opgravingen op Kreta een archeologische bom. Eisler beschrijft de minoïsche cultuur, ruwweg tussen 2000 en 1450 voor onze jaartelling, als een samenleving zonder muren om haar paleizen, met vrouwen op prominente plaatsen in de fresco's, met een kunst vol zee, bloemen en dieren, en met een welvaart die breed verspreid was. Zij leunt daarbij op de Griekse archeoloog Nicolas Platon, die het boek ook aanprees.</p>
+      <p>Kreta is in haar betoog het beslissende geval: als één ontwikkelde bronstijdcultuur zonder oorlogsverheerlijking heeft bestaan, dan is overheersing geen noodzaak. Het hoofdstuk eindigt met de gedachte dat de vakwereld dit over het hoofd zag omdat het buiten haar verwachtingen viel.</p>
+      <h3>De omslag: metaal, ruiters en oorlog</h3>
+      <p>Hoofdstuk vier beschrijft de invallen. Eisler neemt Gimbutas' Koergan-hypothese over: in golven trokken herdersvolken uit de Pontische steppe Europa binnen, met paard, wapen en een hemelgod. Metaalbewerking werd daarbij vooral wapenbewerking, en dat viel volgens haar samen met mannelijke overmacht. Oorlog, slavernij en mensenoffers verschijnen in het beeld dat zij van de eeuwen daarna geeft.</p>
+      <p>De ondergang van Kreta plaatst zij aan het einde van die reeks; wat volgt is een beschaving die zij als afgeknot beschouwt.</p>
+      <h3>Sporen in mythe en geloof</h3>
+      <p>De hoofdstukken vijf tot en met negen zoeken resten van de oude inrichting in latere overlevering. Het gouden geslacht bij Hesiodus, de sage van Atlantis, de tuin van Eden en de Soemerische kleitabletten leest Eisler als herinneringen aan een verloren tijd. In de twee hoofdstukken met de titel over de omgekeerde werkelijkheid behandelt zij Griekse mythen waarin het doden van de moeder geen misdaad heet, als teken van een omgekeerde waardering.</p>
+      <p>Daarna volgt haar lezing van het vroege christendom. Jezus plaatst zij aan de verbindende kant, evenals de geschriften die buiten de bijbelse canon vielen en de latere ketterse bewegingen. Dat zijn voor haar de gylanische onderstromen die telkens werden onderdrukt.</p>
+      <p>In hoofdstuk tien voert zij twee nieuwe termen in als scherpere vervangers van haar beginwoorden: androcratie voor een stelsel dat door mannen met geweld wordt bestuurd, en gylanie voor het verbindende alternatief. Zij onderscheidt daarbij hiërarchieën van overheersing van wat zij verwezenlijkingshiërarchieën noemt, de opbouw van molecuul naar cel naar orgaan, die geen rangorde van mensen inhoudt.</p>
+      <h3>De onvoltooide omslag en de toekomst</h3>
+      <p>De laatste drie hoofdstukken en de epiloog gaan over het heden. Eisler leest de moderne geschiedenis als een onvoltooide poging om uit het overheersende model te komen, waarbij de wereldlijke ideologieën van de negentiende en twintigste eeuw de androcratische uitgangspunten volgens haar niet raakten.</p>
+      <p>Het slot zet twee toekomsten tegenover elkaar: een waarin het overheersende model met kernwapens en milieuschade doorloopt, en een waarin wetenschap, politiek en economie zich rond verbinding vormen. Aan de toon van deze hoofdstukken is de kernwapenvrees van 1987 te merken.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">verbindend model</td><td>Eislers term voor een samenleving die verhoudingen op koppeling ordent, waarin verschil tussen mensen geen rangorde meebrengt.</td></tr>
+          <tr><td class="term">overheersend model</td><td>Een samenleving waarin de ene helft van de mensheid over de andere is gerangschikt en die rangorde met geweld of dreiging wordt gehandhaafd.</td></tr>
+          <tr><td class="term">gylanie</td><td>Eislers eigen woord voor het verbindende model, uit het Griekse gyne (vrouw) en andros (man), met een l die verbinding en ontknoping aanduidt.</td></tr>
+          <tr><td class="term">androcratie</td><td>Haar term voor bestuur door mannen op grond van geweld, bedoeld als preciezere vervanger van het woord patriarchaat.</td></tr>
+          <tr><td class="term">Cultural Transformation theory</td><td>De aanname dat achter alle verscheidenheid van culturen twee grondmodellen liggen en dat de geschiedenis van het ene naar het andere is omgeslagen.</td></tr>
+          <tr><td class="term">Oud-Europa</td><td>Gimbutas' naam voor de neolithische landbouwculturen op de Balkan en in Zuidoost-Europa van vóór de instroom uit de steppe.</td></tr>
+          <tr><td class="term">Koergan-golven</td><td>Gimbutas' reconstructie van opeenvolgende bewegingen van steppevolken naar Europa, genoemd naar hun grafheuvels.</td></tr>
+          <tr><td class="term">verwezenlijkingshiërarchie</td><td>Eislers naam voor de opbouw van eenvoudige naar samengestelde niveaus, die zij onderscheidt van hiërarchieën die mensen boven mensen plaatsen.</td></tr>
+          <tr><td class="term">kelk en zwaard</td><td>De twee zinnebeelden uit de titel: de kelk voor de macht om leven te geven, het zwaard voor de macht om het te nemen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Eisler heeft zelf niet opgegraven. Haar bewijsvoering bestaat uit het samenbrengen van andermans werk, en dat werk is voor het grootste deel afkomstig van twee mensen: Marija Gimbutas voor Oud-Europa en de Koergan-golven, en James Mellaart voor Çatalhöyük en Hacilar. Voor Kreta steunt zij vooral op Nicolas Platon. De elf figuren achter in het boek zijn chronologieën en kaarten die rechtstreeks aan Gimbutas en Mellaart zijn ontleend.</p>
+      <p>De redenering is grotendeels een redenering uit afwezigheid: geen versterkingen, geen wapens in graven, geen afbeeldingen van veldslagen, dus geen oorlog en dus geen overheersing. Zulk bewijs is zwakker dan het lijkt, omdat het even goed kan betekenen dat het materiaal nog niet gevonden of niet herkend is.</p>
+      <p>De sprong van voorwerp naar samenlevingsvorm doet het meeste werk en wordt het minst verantwoord. Van vrouwenbeeldje naar godinnenverering, en van godinnenverering naar gelijkwaardigheid, zijn twee gevolgtrekkingen die elk apart onderbouwd zouden moeten worden.</p>
+      <p>Het deel over mythe en geloof werkt anders: daar leest Eisler teksten als herinneringen aan een verloren toestand, wat een uitleg is en geen vondst.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De godinnenlezing waarop het boek staat, was al vóór 1987 aangevochten en is daarna verder afgebrokkeld. Peter Ucko liet in 1968 in zijn studie van neolithische beeldjes uit Egypte en Kreta zien dat die beeldjes uiteenlopende functies kunnen hebben gehad en niet tot één moedergodin zijn terug te brengen. Brian Hayden betoogde in 1986 dat de vondsten in Oud-Europa eerder op aanvullende rollen dan op een heilig matriarchaat wijzen. Lynn Meskell zette de bezwaren tegen Gimbutas' methode in 1995 op een rij in het tijdschrift <i>Antiquity</i>, onder de titel Goddesses, Gimbutas and New Age archaeology.</p>
+      <p>Van de twee steunpilaren is Mellaart de zwakste geworden. Na zijn dood in 2012 stelde de geoarcheoloog Eberhard Zangger in 2018 na onderzoek van zijn nagelaten papieren vast dat Mellaart wandschilderingen had nagemaakt en tekeningen van niet-bestaande inscripties had geproduceerd; de zogeheten Beyköy-inscriptie werd door specialisten in het Luwisch als vervalsing afgewezen. Dat maakt niet alles ongeldig wat hij ooit publiceerde, maar het betekent wel dat de afbeeldingen waarop Eislers Çatalhöyük-hoofdstuk rust apart moeten worden nagelopen.</p>
+      <p>Ian Hodder groef Çatalhöyük vanaf 1993 opnieuw op, met veel fijnere methoden. Zijn ploeg vond ook mannelijke en dierlijke beeldjes, deels in Mellaarts afvalhopen, en concludeerde dat er voor een moedergodinreligie of een matriarchaat geen aanwijzing is. Twee bevindingen wijzen wel Eislers kant op: over meer dan duizend jaar zijn er geen sporen van verwoesting door oorlog, en voeding en positie van mannen en vrouwen verschilden er nauwelijks. Het beeld dat daaruit ontstaat is gelijkwaardigheid zonder godin.</p>
+      <p>De vreedzaamheid van Kreta houdt in deze vorm geen stand. De bekende slangengodin uit Knossos is voor een aanzienlijk deel een aanvulling van opgraver Arthur Evans: hoofd, een arm en het katachtige dier op de hoofdtooi zijn toegevoegd. Bij Anemospilia bij Archanes vonden Yannis en Efi Sakellarakis in 1979 een heiligdom met vier skeletten, waaronder een jonge man op een verhoging met een bronzen kling, wat zij als een door een aardbeving onderbroken mensenoffer lazen; die uitleg is zelf betwist, onder anderen door Dennis Hughes. In het Noordhuis bij Knossos kwamen in hetzelfde jaar kinderbotten met snijsporen tevoorschijn, ook omstreden. Barry Molloy bracht in 2012 in het jaarboek van de Britse School in Athene de wapens, de graven en de beeldtaal bij elkaar en betoogde dat oorlogvoering in het bronstijdse Kreta veel dieper in de samenleving zat dan de oude voorstelling toeliet.</p>
+      <p>Ook binnen het feminisme is het boek bestreden. Cynthia Eller betoogde in <i>The Myth of Matriarchal Prehistory</i> (2000) dat er voor een algemene vroege fase van vrouwelijk gezag geen bewijs is en dat een verzonnen verleden een slechte grondslag is voor een politieke zaak, omdat het dezelfde beelden van vrouwelijkheid bevestigt die het wil bestrijden.</p>
+      <p>Eén deel van Gimbutas' werk heeft het beter gedaan dan de rest. Onderzoek naar oud dna uit 2015, van de groepen rond Wolfgang Haak en Morten Allentoft, liet een omvangrijke trek vanuit de Pontische steppe naar Midden-Europa rond 3000 voor onze jaartelling zien. Dat bevestigt de migratie die Gimbutas veronderstelde. Het zegt niets over godinnen, en het zegt evenmin dat wat verdrongen werd vreedzaam was.</p>
+      <p>Als denkraamwerk heeft het boek wel gewerkt. Eisler gaf een woordenschat waarmee de vraag te stellen valt of ongelijkheid een vaste eigenschap van samenlevingen is; die is in vredesonderzoek en onderwijs opgepakt en zij bouwde er haar latere werk over zorg en economie op voort. Als beschrijving van het neolithicum is het achterhaald. De zwakte van het schema blijft dat elk tegenvoorbeeld als invloed van het overheersende model kan worden weggeschreven.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Behandel het boek als ideeëngeschiedenis uit de jaren tachtig en controleer elke archeologische bewering bij recenter vakwerk.</li>
+        <li>Scheid de twee lagen: het onderscheid tussen verbinden en overheersen is een denkmiddel, de bewering over het neolithicum is een historische claim die apart moet worden getoetst.</li>
+        <li>Ga bij redeneringen uit afwezigheid na wat er nog niet gevonden kan zijn: geen wapens in de grond is iets anders dan geen geweld.</li>
+        <li>Let bij een beroemd voorwerp op welke delen door de opgraver zijn aangevuld.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Chalice and the Blade: Our History, Our Future</i> (Harper &amp; Row, San Francisco, 1987, xxiii + 261 blz.; paperback HarperCollins 1988, ISBN 978-0-06-250289-6). Nederlandse uitgave: <i>De kelk en het zwaard: onze geschiedenis, onze toekomst</i>, vertaald door Marleen Close (Entheon, Nijmegen, 1997, 315 blz., ISBN 90-7614-901-1).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Eisler, jurist en socioloog, in 1931 in Wenen geboren en in 1939 met haar ouders voor de nazi's naar Cuba gevlucht, stelt in dit boek twee grondvormen van samenleven tegenover elkaar: een verbindend model en een overheersend model. Het neolithische Oud-Europa en het minoïsche Kreta gelden bij haar als voorbeelden van het eerste, tot ruiterlijke volken van de steppe het tweede opdrongen.</p><p>Het boek werd in ruim vijfentwintig talen vertaald en gaf een generatie lezers een woordenschat voor de vraag of overheersing onvermijdelijk is. De archeologische onderbouwing is intussen op vrijwel alle punten aangevochten, deels omdat de bronnen waarop Eisler steunt zelf omstreden zijn geraakt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>archeologie</li><li>feminisme</li><li>geschiedschrijving</li><li>patriarchaat</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="56"><a href="56.html">Sapiens</a>. Een ander groot verhaal over de landbouwrevolutie, met dezelfde neiging tot brede greep en dezelfde kwetsbaarheid daarvoor.</li>
+          <li value="611"><a href="611.html">The White Goddess</a>. Graves' godinnenmythologie, een oudere en even omstreden poging om één vrouwelijke godheid achter de Europese overlevering te zien.</li>
+          <li value="939"><a href="939.html">Het civilisatieproces</a>. Elias over de lange lijn van geweldsbeheersing, een tegenmodel dat de omslag anders dateert en anders verklaart.</li>
+          <li value="3"><a href="03.html">The Will to Change</a>. Het patriarchaat als leefbare vraag in het heden, zonder beroep op een verloren voortijd.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

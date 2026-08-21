@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Hydropathic Encyclopedia &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Trall stelt dat ziekte geen ding is dat het lichaam binnendringt en dat bestreden moet worden, maar de afwezigheid van gezondheid: een verstoorde balans…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1129">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1129 &middot; Naslag en praktijk</p>
+    <h1>The Hydropathic Encyclopedia</h1>
+    <p class="lede">Russell Thacher Trall, 1851</p>
+    <p class="stats">
+      <span><b>1874</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1129"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Trall stelt dat ziekte geen ding is dat het lichaam binnendringt en dat bestreden moet worden, maar de afwezigheid van gezondheid: een verstoorde balans die ontstaat door verkeerd gebruik van lucht, licht, water, voedsel, beweging, slaap en gemoed. Daaruit volgt voor hem dat elke stof die het lichaam als vreemd behandelt, van kwik tot opium, per definitie geen geneesmiddel is maar een tweede aanslag, en dat de enige verdedigbare geneeskunde bestaat uit het wegnemen van de oorzaken en het bijstaan van het herstelvermogen dat in het organisme zelf zit. Water is daarbij het middel dat alles kan wat de aanwijzingen vragen, omdat het oplost, uitspoelt, verwarmt, afkoelt en prikkelt zonder zelf te beschadigen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat het boek wil zijn</h3>
+      <p>Het voorwoord stelt vast dat de bestaande literatuur over de waterkuur onsamenhangend is: geen enkel werk brengt de vakken bij elkaar die voor een volledig stelsel nodig zijn. Trall wil dat gat vullen met een boek dat tegelijk gids voor gezinnen, leerboek voor studenten en handboek voor artsen is. Hij verontschuldigt zich voor de beknoptheid: het aantal onderwerpen dwong hem tot uiterste kortheid, juist waar hij nieuwe stellingen poneert en bestaande bestrijdt.</p>
+      <p>De inleiding maakt de inzet duidelijk. Wie de heersende praktijk wil omkeren en een stelsel wil invoeren dat botst met gewoonte, opleiding en beroepsbelang, moet volgens hem rekenen op de zwaarst mogelijke bewijslast.</p>
+      <h3>Een strijdbare geschiedenis vooraf</h3>
+      <p>De inleiding opent met een geschiedenis van de geneeskunde van de oudheid tot zijn eigen tijd, langs Hippocrates, de Alexandrijnse school, Galenus, de Arabische school, de alchemisten, Paracelsus, Boerhaave, Haller, Cullen en het brunoniaanse stelsel. De lijn die hij trekt is dat de leerstellingen elkaar steeds hebben afgelost terwijl de behandeling gelijk bleef: wie het over de oorzaak oneens was, liet toch aderlaten, blaren trekken, zweten, braken en purgeren. Uit die tegenstrijdigheid leidt hij af dat de theorieën er nooit toe deden.</p>
+      <p>Daarna volgt een geschiedenis van het baden, van de oudheid via de middeleeuwen tot de badgewoonten van uiteenlopende volken, met verzamelde uitspraken van artsen ten gunste van water als geneesmiddel.</p>
+      <h3>Anatomie en fysiologie</h3>
+      <p>De eerste twee delen zijn een gewoon anatomisch en fysiologisch leerboek met platen: botten, banden, spieren, bindweefsel, slagaders, aders, lymfevaten, zenuwen, zintuigen en ingewanden, gevolgd door weefselleer, zintuiglijke waarneming, stem en spraak, de afzonderlijke functies, de temperamenten en een hoofdstuk over menselijke rassen.</p>
+      <p>Hier volgt Trall grotendeels de gangbare wetenschap, met enkele uitstapjes die dat niet zijn: hij behandelt mesmerische verschijnselen als onderdeel van de zenuwleer, houdt de indeling in vier temperamenten aan, en neemt de raciale indeling van zijn tijd over als natuurlijke ordening. Dat laatste hoofdstuk is naar huidige maatstaven zonder waarde en verdient alleen aandacht als tijdsbeeld.</p>
+      <h3>Hygiëne en voeding</h3>
+      <p>Deel III behandelt wat hij de hygiënische middelen noemt: lucht, licht, drank, voedsel, temperatuur, beweging, slaap, kleding, baden, uitscheiding, de hartstochten en de levensduur. Het is de kern van zijn positieve leer, want al deze middelen zijn volgens hem samen zowel de oorzaak van ziekte als het instrument van genezing.</p>
+      <p>Deel IV gaat over voeding en opent met de vraag welk voedsel bij de mens hoort. Trall voert vijf soorten bewijs aan: bijbels, anatomisch, fysiologisch, medisch, scheikundig en proefondervindelijk. Het anatomische deel bestaat uit citaten van vergelijkend anatomen, onder wie Cuvier, William Lawrence, Thomas Bell en Linnaeus, die de mens naar gebit en spijsverteringskanaal bij de vruchtenetende dieren plaatsen. Daarna volgen hoofdstukken over hydropathische keuken, met bereidingen zonder vet, zout en kruiden, en over dieetschema's voor inrichtingen en zieken.</p>
+      <h3>De leer en de handgrepen</h3>
+      <p>Deel V bevat de kern. Trall zet de verhouding van water tot het gezonde lichaam in zeven stellingen: water vormt het grootste deel van het lichaam, ruim driekwart van het bloed, meer dan zeven achtste van de hersenstof; het is het enige voertuig voor voedingsstoffen, het enige middel om afvalstoffen af te voeren, het enige oplosmiddel dat in alle weefsels kan doordringen zonder ze te beschadigen. Alleen verkeerde temperatuur en te grote hoeveelheid kunnen kwaad.</p>
+      <p>Daarna volgt de omschrijving van ziekte als negatieve grootheid en de uitspraak dat de natuur de ware arts is: het herstellend vermogen zit in het levende organisme, en de geneeskunst kan niet meer doen dan gunstige omstandigheden leveren. Trall verklaart hier ook waarom hij patiënten tijdens de waterbehandeling ziet kwijlen als bij een kwikkuur: het lichaam zou het eerder toegediende kwik door osmose uitdrijven.</p>
+      <p>Het praktische hoofdstuk beschrijft ruim veertig verrichtingen: de natte laken-inpakking, de halve pak, de douche, het wrijflaken, het zitbad, het stortbad, het zweetbad, het dampbad, het rivierbad, de voet-, hoofd-, oog-, oor-, neus- en mondbaden, kompressen, buik- en borstwikkels, wrijving, drinkwater en klysma's. Bij de inpakking geeft hij tijden van vijftien minuten tot twee uur, materialen, de volgorde van dekens en lakens, en de nabehandeling. Een apart hoofdstuk behandelt de crisis: de verergering in de vorm van diarree, steenpuisten of koortsigheid die tijdens de kuur optreedt en die hij als teken van herstel leest.</p>
+      <h3>Ziekteleer, heelkunde en verloskunde</h3>
+      <p>Deel VI loopt van koortsen en ontstekingen via spijsverteringsziekten, huidziekten en geestesziekten tot vergiftigingen, telkens met de waterbehandeling als antwoord. Deel VII behandelt heelkunde: verband, wonden, gezwellen, zweren, breuken, ontwrichtingen, misvormingen en operaties, met verdoving genoemd als beschikbaar hulpmiddel.</p>
+      <p>Deel VIII gaat over verloskunde en de kinderkamer. Trall wil de gewone bevalling terug in handen van geschoolde vrouwen, met de chirurg alleen voor ongevallen en complicaties, en wijt het uitblijven van die scholing aan het belang van het beroep dat zich ertegen keert. Hij verzet zich tegen het geven van moederkoren en andere middelen tijdens de bevalling, en behandelt in het laatste hoofdstuk kleding, bad, voedsel, slaap en beweging van zuigelingen, met een aparte paragraaf tegen het toedienen van geneesmiddelen aan kinderen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">hydropathie</td><td>De behandeling van ziekte met water in uiteenlopende toepassingen, bij Trall uitgebreid tot een volledig medisch stelsel.</td></tr>
+          <tr><td class="term">hygiënische middelen</td><td>Lucht, licht, water, voedsel, temperatuur, beweging, slaap, kleding, uitscheiding en gemoed, bij Trall tegelijk de oorzaken van ziekte en de instrumenten van genezing.</td></tr>
+          <tr><td class="term">ziekte als negatieve grootheid</td><td>Trall's grondstelling dat ziekte geen zelfstandig bestaand iets is maar de afwezigheid van het evenwicht dat gezondheid heet.</td></tr>
+          <tr><td class="term">de natuur als ware arts</td><td>Het uitgangspunt dat het herstellend vermogen in het organisme zelf zit en dat de behandelaar alleen voorwaarden kan scheppen.</td></tr>
+          <tr><td class="term">natte laken-inpakking</td><td>Het inwikkelen van de patiënt in een uitgewrongen nat laken met dekens erover, door Trall gepresenteerd als vervanging van aderlaten, antimoon, calomel en opium.</td></tr>
+          <tr><td class="term">crisis</td><td>De verergering tijdens de kuur, in de vorm van diarree, steenpuisten of koorts, die binnen het stelsel als teken van genezing geldt.</td></tr>
+          <tr><td class="term">zitbad</td><td>Het bad waarin alleen het bekken en de bovenbenen in het water zitten, in dit boek een van de meest voorgeschreven verrichtingen.</td></tr>
+          <tr><td class="term">allopathie</td><td>Trall's aanduiding voor de heersende geneeskunde die met tegengestelde prikkels werkt, gebruikt als afgrenzing tegenover zijn eigen stelsel.</td></tr>
+          <tr><td class="term">endosmose en exosmose</td><td>De uitwisseling van vloeistoffen door een vlies tot beide zijden gelijk zijn, door Trall gebruikt om te verklaren hoe water kwik uit het lichaam zou verwijderen.</td></tr>
+          <tr><td class="term">vruchtenetend</td><td>De indeling waarin de mens naar gebit en darmkanaal bij de vruchten- en plantenetende dieren wordt geplaatst, de grond van Trall's vegetarisme.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek bevat geen enkel gecontroleerd onderzoek en telt geen uitkomsten. De onderbouwing bestaat uit drie lagen. De eerste is gezag: uitgebreide citaten van James Manby Gully, Joel Shew, Edward Johnson en anderen uit de waterkuurliteratuur, en van vergelijkend anatomen voor het voedingsvraagstuk. De tweede is fysiologische redenering: uit de zeven stellingen over water leidt hij af wat water moet kunnen doen. De derde is eigen praktijkervaring uit twee inrichtingen, in de vorm van gevallen zonder aantallen.</p>
+      <p>Waar hij naar aanschouwelijk bewijs grijpt, is dat zwak. De osmoseproef met een reageerbuis, pekel en een blaas, overgenomen uit Edward Johnson, toont een verschijnsel in glaswerk en wordt vervolgens zonder tussenstap op het levende lichaam toegepast. Als proef voor de reinigende werking van de inpakking stelt hij voor een goed doorvoede stedeling een uur in te pakken en op de stank af te gaan.</p>
+      <p>Het sterkste deel van zijn bewijsvoering is negatief en historisch: de vaststelling dat de leerstellingen over de oorzaak van ziekte elkaar eeuwenlang tegenspraken terwijl de behandeling dezelfde bleef. Dat argument raakt een echt zwak punt van de geneeskunde van zijn tijd, ook al onderbouwt het zijn eigen alternatief niet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Trall had gelijk op het punt waar het meeste op het spel stond. Aderlaten, herhaalde grote doses calomel, antimoon, blaartrekkers en opium waren gemiddeld schadelijk, en de sterfte die eraan is toe te schrijven was reëel. Zijn oordeel dat drieduizend jaar geneeskunde meer mensen heeft gedood dan gered is retorisch, maar de richting ervan wordt door de latere geschiedschrijving over de zogeheten heroïsche geneeskunde bevestigd. Ook zijn verzet tegen het routinematig medicineren van bevalling en zuigeling, en zijn pleidooi voor scholing van vrouwen als verloskundige, hielden beter stand dan het stelsel eromheen.</p>
+      <p>Zijn eigen leer rustte echter op even weinig bewijs. De omschrijving van ziekte als afwezigheid van gezondheid is niet te weerleggen en daarmee ook niet te toetsen. De crisisleer maakt elke verslechtering tijdens de behandeling tot bewijs van vooruitgang, wat de kuur immuun maakt voor tegenspraak; Trall ziet dat probleem half in wanneer hij waarschuwt dat sommige artsen de crisis kunstmatig opdrijven, maar hij trekt er geen conclusie uit.</p>
+      <p>De verklaring dat water eerder toegediend kwik door osmose uitdrijft, is fysiologisch onjuist. Het verschijnsel dat hij beschreef, kwijlen en metaalsmaak bij patiënten die jaren geen kwik hadden gehad, had andere oorzaken, waaronder mondontsteking en de suggestie die van de kuur zelf uitging.</p>
+      <p>De algemene stelling dat geen enkel medicijn ooit geneest, was ook naar de kennis van 1851 te breed. Kinine bij malaria en de koepokinenting waren toen al bekend als werkzaam; Trall behandelt de koepokken in zijn hoofdstuk over koortsen zonder de inenting als uitzondering op zijn regel te erkennen.</p>
+      <p>Historici van de watergeneeskunde, onder wie Susan Cayleff en Jane Donegan, wijzen erop dat het gunstige effect van de inrichtingen vooral kwam van wat er níet gebeurde: geen aderlating, geen kwik, wel rust, regelmaat, eenvoudig eten, beweging en het wegvallen van de omstandigheden die de patiënt ziek maakten. Water was daarbij aanleiding en ritueel, niet werkzame stof. Dezelfde historici merken op dat het stelsel vrouwen toegang gaf tot medisch gezag die de reguliere opleidingen hun weigerden, wat een deel van de aantrekkingskracht verklaart.</p>
+      <p>Het advies dat de meeste vrouwen zich de verloskunde zonder leraar eigen kunnen maken, is binnen dit boek de gevaarlijkste zin. Trall zwakt hem af met de chirurg voor complicaties, maar de onderschatting van wat er bij een bevalling mis kan gaan blijft staan.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees deel V vóór de rest; daar staat de leer, en de overige zeven delen zijn er de uitwerking van.</li>
+        <li>Scheid de kritiek op de reguliere praktijk van het voorgestelde alternatief; het eerste houdt stand, het tweede niet.</li>
+        <li>Let bij de crisisleer op de vorm van het argument: een leer die elke uitkomst als bevestiging leest, is niet te toetsen, ook niet met welwillendheid.</li>
+        <li>Gebruik het werk als naslag over wat een negentiende-eeuwse waterkuurinrichting feitelijk deed; de beschrijvingen van de verrichtingen zijn nauwkeurig genoeg om het dagprogramma te reconstrueren.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Hydropathic Encyclopedia: A System of Hydropathy and Hygiene, in Eight Parts</i> (Fowlers and Wells, New York, 1851, twee delen; deel I telt 460 blz. en behandelt anatomie, fysiologie, hygiëne en diëtetiek, deel II telt 494 blz. en behandelt theorie en praktijk, pathologie, chirurgie en verloskunde). Het copyright staat op naam van Fowlers and Wells, 1851; het voorwoord is gedagtekend New York, 15 Laight Street. Deze samenvatting volgt de eerste uitgave; van het werk verschenen tot in de jaren zeventig herdrukken, waaronder die van 1853, 1855 en 1857. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Trall was arts, redacteur van de <i>Water-Cure Journal</i> en leidde twee waterkuurinrichtingen in New York. Met dit werk in twee delen wilde hij de watergeneeskunde uit de sfeer van losse handleidingen halen en haar neerzetten als een volledig stelsel: anatomie, fysiologie, hygiëne, voeding, behandelleer, ziekteleer, heelkunde en verloskunde in acht delen achter elkaar.</p><p>De inzet is polemisch. Tegenover aderlaten, calomel, braakmiddelen en blaartrekkers zet hij water, lucht, licht, voedsel, warmte, beweging en rust, met als grondstelling dat het lichaam zelf geneest en de behandelaar alleen omstandigheden levert. Het boek diende ook als leerboek voor de opleiding die hij twee jaar later in New York begon.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>geneeskunde</li><li>gezondheid</li><li>voeding</li><li>naslagwerk</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1127"><a href="1127.html">Gunn's Domestic Medicine</a>. Gunn schrijft twintig jaar eerder het huisboek waarin precies de middelen staan die Trall wil afschaffen.</li>
+          <li value="1128"><a href="1128.html">Lectures to Ladies on Anatomy and Physiology</a>. Gove komt uit dezelfde hervormingsbeweging en gaat later zelf met de watergeneeskunde werken.</li>
+          <li value="1137"><a href="1137.html">Health in the Household</a>. Dodds brengt het hygiënische stelsel terug tot een huishoudboek, met dezelfde uitgangspunten en minder polemiek.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plain Facts for Old and Young &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De voortplantingsfunctie heeft één doel, voortplanting, en dat leidt Kellogg af uit het seizoensgebonden paren van dieren; elke andere aanwending is een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1134">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1134 &middot; Brein en lichaam</p>
+    <h1>Plain Facts for Old and Young</h1>
+    <p class="lede">John Harvey Kellogg, 1877</p>
+    <p class="stats">
+      <span><b>1898</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1134"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De voortplantingsfunctie heeft één doel, voortplanting, en dat leidt Kellogg af uit het seizoensgebonden paren van dieren; elke andere aanwending is een overtreding van een natuurwet en wordt met ziekte bestraft. Daaruit volgt zijn hele boek: onthouding buiten en grote matiging binnen het huwelijk, geen anticonceptie, en vooral een levenslange strijd tegen zelfbevrediging, die hij aanwijst als oorzaak van spijsverteringsklachten, tering, hartziekte, epilepsie, ruggenmergprikkeling, krankzinnigheid, baarmoederkanker en onvruchtbaarheid. De sleutel tot beheersing ligt volgens hem in het bord: prikkelend voedsel maakt kuisheid onmogelijk, flauwe granen en fruit maken haar bereikbaar.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waarom het boek er is</h3>
+      <p>In de inleiding zet Kellogg zich af tegen de bestaande lectuur over seksualiteit, die naar zijn oordeel uit overdrijving bestaat en dient als reclame voor kwakzalvers en middeltjes. Hij behandelt drie bezwaren tegen voorlichting: dat het onderwerp te kies is voor jongeren, dat kennis gevaarlijk is, en dat jonge mensen het zelf wel ontdekken. Zijn antwoord luidt telkens dat gedeeltelijke kennis gevaarlijker is dan volledige, en dat kinderen die het thuis niet horen het elders horen, en dan slechter.</p>
+      <p>Zijn stijlmiddel is bewust gekozen. Hij springt voortdurend over naar planten en lagere dieren, zodat de menselijke voortplanting volgens hem van zinnelijkheid wordt ontdaan en als een gegeven uit de natuurlijke historie kan worden bekeken.</p>
+      <h3>De opbouw in tien delen</h3>
+      <p>Na de inleiding volgen: geslacht in levende vormen, de seksuele betrekkingen, kuisheid, onthouding, echtelijke overdaad, het voorkomen van bevruchting, kindermoord en abortus, het sociale kwaad, de heimelijke ondeugd, en een hoofdstuk voor jongens en een voor meisjes.</p>
+      <p>Het eerste deel is een handboek voortplantingsleer: van bevruchting bij bloemen tot zwangerschap, geboorte, anatomie, puberteit, menstruatie en haar stoornissen, tweelingen, erfelijkheid en invloeden voor de geboorte. Daartussen staan uitspraken die de toon zetten, zoals dat brunettes van nature vroegrijp zijn en dat vroege rijping vroeg verval betekent. Het deel eindigt met besnijdenis en castratie.</p>
+      <p>Het deel over de seksuele betrekkingen behandelt vroegrijpheid, het juiste moment om te trouwen, leeftijdsverschil, verkering, veelwijverij, echtscheiding en wie niet met wie mag trouwen.</p>
+      <h3>Het bord en de kuisheid</h3>
+      <p>Het hoofdstuk over kuisheid draagt de kern van zijn leer. Vlees, specerijen, eieren, thee, koffie, chocolade en alle prikkelende stoffen werken volgens Kellogg rechtstreeks op de voortplantingsorganen: ze vermeerderen de plaatselijke bloedtoevoer en wekken langs de zenuwen de hartstochten. Een man die op varkensvlees, wittebrood, taart en kruiden leeft en daarbij thee en koffie drinkt en tabak gebruikt, schrijft hij, kan net zo goed proberen te vliegen als kuis te denken.</p>
+      <p>Hij trekt die redenering door tot in het onwaarschijnlijke. Als predikanten zedelijk struikelen, komt dat mede doordat gastvrouwen hun de rijkste cake en de scherpste sauzen voorzetten. Verder wijst hij op slechte boeken, ledigheid, kleding, rondedansen, verstopping, darmwormen en plaatselijke onzindelijkheid.</p>
+      <p>Het hoofdstuk over onthouding stelt dat onthouding niet schadelijk is en geen impotentie veroorzaakt, en noemt vijf hulpmiddelen: de wil, het dieet, lichaamsbeweging, baden en godsdienst. In het hoofdstuk over echtelijke overdaad staat dat overmaat bij vrouwen de grootste oorzaak van baarmoederziekte is; anticonceptie noemt hij echtelijke onanie, en abortus en kindermoord veroordeelt hij in de scherpste termen.</p>
+      <h3>De heimelijke ondeugd</h3>
+      <p>Het langste hoofdstuk gaat over zelfbevrediging. Kellogg geeft negenendertig genummerde verdachte tekenen waaraan ouders en verzorgers de gewoonte zouden kunnen herkennen. Daarbij staan algemene zwakte, vroege verschijnselen van tering, ronde schouders, zwakke rug, stijve gewrichten, bleekheid, acne, nagelbijten, hartkloppingen, bedwateren, klei eten, tabaksgebruik, wisselvalligheid, onbetrouwbaarheid, voorliefde voor eenzaamheid, verlegenheid, onnatuurlijke vrijpostigheid, gemaakte vroomheid en verwarde gedachten.</p>
+      <p>Bij het eerste teken schrijft hij dat algemene zwakte bij een eerder gezond kind, als er geen andere oorzaak is aan te wijzen, veilig aan de heimelijke ondeugd kan worden toegeschreven, hoe onverdacht het kind ook lijkt, en dat vergissingen dan zeldzaam zullen zijn. Daarna volgt de lijst gevolgen: bij jongens en mannen prostaatvergroting, vernauwing, verlamming, epilepsie, ruggenmergprikkeling en krankzinnigheid; bij meisjes en vrouwen witte vloed, baarmoederziekte, baarmoederkanker, onvruchtbaarheid en het slinken van de borsten.</p>
+      <h3>Wat hij voorschrijft</h3>
+      <p>Bij jonge kinderen, bij wie zedelijke overwegingen volgens hem niet aanslaan, noemt hij het inbinden van de delen, het vastbinden van de handen, het bedekken van de organen met een kooi, en dag-en-nachttoezicht door een oudere persoon. Dan volgt de passage die het boek zijn reputatie heeft bezorgd: een middel dat bij kleine jongens bijna altijd werkt is besnijdenis, uit te voeren door een chirurg zonder verdoving, omdat de korte pijn een heilzame werking op de geest heeft, vooral wanneer die met het denkbeeld van straf wordt verbonden. In het anatomische hoofdstuk noemt hij ook een overeenkomstige ingreep bij meisjes.</p>
+      <p>Bij ouderen komt het aan op zedelijke overreding, beheersing van de gedachten en godsdienst, aangevuld met vier tot vijf mijl lopen per dag, koude zitbaden, opstijgende douches, buikbandages en elektriciteit. Uitdrukkelijk verwerpt hij drie destijds gangbare raadgevingen: prostitutiebezoek, het huwelijk als geneesmiddel, en werktuigen als ringen en pessaria. Het huwelijk als middel noemt hij het gebruiken van een vrouw als medicijnflesje, en hij haalt Acton aan met de vraag wat het jonge meisje heeft misdaan dat zij aan zo'n berekening wordt opgeofferd. Drogisten en kwakzalvers die op de angst van jonge mannen teren, valt hij fel aan.</p>
+      <p>Zijn dieetregels voor de aangedane patiënt zijn precies: nooit te veel eten; twee maaltijden per dag, niets binnen vier of vijf uur voor het slapen; geen specerijen, peper, gember, mosterd, kaneel, kruidnagel, zout of zuur; geen dierlijk voedsel, ook geen vis, gevogelte, oesters, eieren of melk; geen wijn, bier, thee, koffie of chocolade en geen warme dranken; geen tabak. Wat overblijft zijn fruit, granen en groenten, met grahammeel, havermout en rijp fruit als hoofdbestanddelen.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Solitary vice</td><td>Kelloggs aanduiding voor zelfbevrediging, ook heimelijke ondeugd of zelfmisbruik genoemd, in zijn boek de ernstigste van alle overtredingen.</td></tr>
+          <tr><td class="term">Continence</td><td>Volledige onthouding, die volgens hem geen enkele schade doet en zowel buiten als grotendeels binnen het huwelijk geboden is.</td></tr>
+          <tr><td class="term">Marital excess</td><td>Elke echtelijke gemeenschap die niet op voortplanting is gericht, door hem als hoofdoorzaak van vrouwenziekten aangewezen.</td></tr>
+          <tr><td class="term">Conjugal onanism</td><td>Zijn term voor anticonceptie binnen het huwelijk, die hij op één lijn stelt met het vernietigen van leven.</td></tr>
+          <tr><td class="term">The social evil</td><td>Prostitutie, met als oorzaken die hij noemt overdaad in eten, mode, armoede, onwetendheid en sentimentele lectuur.</td></tr>
+          <tr><td class="term">Stimulating food</td><td>Vlees, vis, eieren, melk, specerijen, zout, thee, koffie en chocolade, die volgens hem de bloedtoevoer naar de geslachtsorganen vergroten.</td></tr>
+          <tr><td class="term">Signs of self-abuse</td><td>De negenendertig genummerde verdachte tekenen waarmee ouders de gewoonte bij een kind zouden kunnen vaststellen.</td></tr>
+          <tr><td class="term">Ante-natal influences</td><td>De invloeden tijdens de zwangerschap waaraan hij blijvende gevolgen voor het karakter van het kind toeschrijft.</td></tr>
+          <tr><td class="term">Sexual precocity</td><td>Vroege ontwikkeling van de geslachtsdrift, die hij toeschrijft aan voeding, erfelijkheid en omgeving en als voorbode van vroeg verval ziet.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Kellogg voert zichzelf op met zijn titels: lid van de American Public Health Association en van de Michigan State Board of Health, medisch directeur van het sanatorium in Battle Creek. Zijn artsentitel behaalde hij in 1875 aan het Bellevue Hospital Medical College in New York. Die geloofsbrieven zijn echt, en ze dragen in dit boek het gewicht dat elders door onderzoek zou moeten worden gedragen.</p>
+      <p>Het materiaal bestaat uit drie soorten. Aanhalingen uit tijdgenoten van dezelfde school, met name Acton, Milton en Copland. Eigen ziektegeschiedenissen uit het sanatorium, verteld zonder namen, aantallen of afloop. En redeneringen naar analogie: omdat lagere dieren seizoensgebonden paren, zou voortplanting het enige doel van de menselijke functie zijn. Die laatste redenering zet hij zelf als methode uiteen.</p>
+      <p>Er is geen enkel onderzoek. Kellogg telt niet hoeveel van zijn patiënten de negenendertig tekenen vertoonden zonder de gewoonte te hebben, of omgekeerd, en hij meldt geen enkel geval waarin zijn behandeling faalde. Zijn lijst is zo opgesteld dat ze niet kan worden weerlegd: als geen andere oorzaak is aan te wijzen, luidt het oordeel schuldig.</p>
+      <p>De voedingsleer rust op niets. Dat vlees, eieren, specerijen, thee en chocolade het bloed naar de geslachtsorganen zouden drijven, wordt beweerd en herhaald, en op geen bladzijde gemeten.</p>
+      <p>Wat hij niet uit de lucht greep is de stand van de medische opvatting in zijn tijd. Krankzinnigheid door zelfbevrediging was in de jaren zeventig een gangbare diagnose in Europa en Amerika; bijzonder aan Kellogg is de gestrengheid van wat hij eruit afleidde, niet het uitgangspunt.</p>
+      <p>Zijn praktische adviezen over slaap, wandelen, matiging en baden waren op zichzelf ongevaarlijk, en het sanatorium in Battle Creek trok er decennialang een welgestelde clientèle mee. Dat is een handelsresultaat.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De centrale beweringen zijn onjuist. Zelfbevrediging veroorzaakt geen tering, geen epilepsie, geen krankzinnigheid, geen baarmoederkanker en geen onvruchtbaarheid. De negenendertig tekenen hebben geen diagnostische waarde; ronde schouders, bleekheid, verlegenheid, nagelbijten en bedwateren komen bij talloze kinderen voor die niets van de gewoonte weten. De lijst functioneert als een toets die alleen schuldig kan luiden.</p>
+      <p>De ingrepen die hij aanbeveelt, zijn schadelijk. Besnijdenis bij kleine jongens, uitgevoerd zonder verdoving met de bedoeling dat het kind de pijn als straf ervaart, is een aanbeveling om een kind te laten lijden voor een aandoening die niet bestaat. Voor meisjes noemt hij een overeenkomstige ingreep. Latere drukken gaan verder en beschrijven zilverdraad door de voorhuid en onverdund carbolzuur op de clitoris. Deze voorschriften zijn in de praktijk gebracht, en dat hoort bij het boek te worden vermeld.</p>
+      <p>Kellogg deed naar geen van deze beweringen onderzoek. Hij toetste niets, telde niets en publiceerde geen enkel geval dat zijn leer weersprak. Wat hij had was een sanatorium, een uitgeverij en een artsendiploma.</p>
+      <p>Het kader is eerder godsdienstig dan medisch. Kellogg groeide op in de zevendedagsadventistische kerk, werd beschermeling van Ellen G. White en haar man James, en nam in oktober 1876 de leiding over van het Western Health Reform Institute in Battle Creek, dat hij het jaar daarop tot sanatorium omdoopte. De gedachte dat flauw graanvoedsel de hartstochten bedaart, was er al bij Sylvester Graham en bij White; Kellogg leverde er een fysiologisch klinkende verpakking bij. In 1907 werd hij na een leerstellig conflict uit de kerk gezet en hield hij het sanatorium.</p>
+      <p>Het bekende verhaal dat hij cornflakes bedacht om zelfbevrediging tegen te gaan, drukt dit alles samen tot één anekdote. Het boek betoogt inderdaad, met zoveel woorden, dat flauwe granen de kuisheid dienen. Het schrijft nergens dat een bepaald product daarvoor is gemaakt.</p>
+      <p>De latere Kellogg is erger dan deze. Hij richtte in 1906 de Race Betterment Foundation mee op en besteedde zijn laatste decennia aan eugenetica en rassenscheiding. De hoofdstukken over erfelijkheid en over invloeden voor de geboorte in dit boek zijn daarvan de aanzet.</p>
+      <p>Wat het boek wel doet en wat een eerlijke lezing moet noemen: Kellogg keert zich tegen het onwetend houden van kinderen, verwerpt prostitutie en het huwelijk als geneesmiddel, verwerpt de handel in middeltjes en werktuigen, en gaat de kwakzalvers te lijf die van de angst van jonge mannen leven. Wat hij ervoor in de plaats stelt is toezicht, schaamte en pijn.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga bij elke aangehaalde Kellogg-passage na uit welke druk zij komt; de bekendste citaten staan in drukken van na 1881.</li>
+        <li>Lees de lijst met negenendertig tekenen als voorbeeld van een toets die niet kan falen, en zoek de zin waarin dat wordt vastgelegd.</li>
+        <li>Leg zijn afleiding uit dierlijk gedrag naast een moderne redenering van dieronderzoek naar de mens en benoem waar de stap wordt overgeslagen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Plain Facts for Old and Young</i> (Segner &amp; Condit, Burlington, Iowa, 1881, 512 blz.). Deze samenvatting volgt die druk, met copyrightinschrijving uit 1879 en een voorwoord van oktober 1879, waarin Kellogg meldt dat er twee hoofdstukken zijn bijgekomen, één voor jongens en één voor meisjes. Het boek verscheen in 1877 voor het eerst, onder de titel <i>Plain Facts about Sexual Life</i>. Latere drukken heten <i>Plain Facts for Old and Young: Embracing the Natural History and Hygiene of Organic Life</i> (onder meer 1888, 1891 en 1903) en zijn opnieuw sterk uitgebreid; de passages die tegenwoordig het meest worden aangehaald, over zilverdraad door de voorhuid en over onverdund carbolzuur op de clitoris, staan in die latere drukken en niet in de druk van 1881. Er bestaat geen Nederlandse vertaling.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Kellogg, arts en directeur van het sanatorium in Battle Creek, betoogt dat de voortplantingsfunctie uitsluitend voor voortplanting dient en dat elke andere aanwending het lichaam sloopt. Zelfbevrediging is in zijn voorstelling de zwaarste vorm daarvan, met tering, epilepsie en krankzinnigheid als gevolg, herkenbaar aan negenendertig verdachte tekenen.</p><p>Prikkelend voedsel is voor hem de voornaamste oorzaak: vlees, specerijen, eieren, thee, koffie en chocolade drijven het bloed naar de geslachtsorganen. Bij kleine jongens beveelt hij besnijdenis aan zonder verdoving, opdat de pijn als straf wordt ervaren. Onderzoek naar een van deze beweringen heeft hij nooit gedaan.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>seksualiteit</li><li>gezondheid</li><li>voeding</li><li>negentiende eeuw</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1138"><a href="1138.html">De weg tot gezondheid</a>. Ellen G. White schreef de adventistische gezondheidsleer waaruit Kellogg zijn uitgangspunten haalde en waaraan hij een artsentitel toevoegde.</li>
+          <li value="1135"><a href="1135.html">The Perfect Way in Diet</a>. Anna Kingsford verdedigde in dezelfde jaren een vleesloos dieet met een geheel andere onderbouwing en een geheel ander motief.</li>
+          <li value="1136"><a href="1136.html">Tokology</a>. Stockham schreef kort na deze druk over seksualiteit en bevalling vanuit het gezichtspunt van de vrouw, en kwam tot tegenovergestelde adviezen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

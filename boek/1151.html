@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De mysterieuze Jezus &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Het verhaal over Jezus is volgens Freke en Gandy geen verslag van een leven maar een joodse bewerking van een veel oudere mythe: die van de stervende en…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1151">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1151 &middot; Filosofie en mystiek</p>
+    <h1>De mysterieuze Jezus</h1>
+    <p class="lede">Timothy Freke en Peter Gandy, 1999</p>
+    <p class="stats">
+      <span><b>1627</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1151"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Het verhaal over Jezus is volgens Freke en Gandy geen verslag van een leven maar een joodse bewerking van een veel oudere mythe: die van de stervende en herrijzende godmens die in de mysteriecultussen van de Middellandse Zee onder namen als Osiris, Dionysos, Attis, Adonis en Mithras werd vereerd. De gnostici die deze mythe als inwijdingsverhaal lazen waren de eerste christenen; de bisschoppen die haar tot geschiedenis verklaarden kwamen later, en zij hebben de sporen van de herkomst opgeruimd.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>De onaanvaardbare gedachte</h3>
+      <p>Het eerste hoofdstuk zet de vraag op tafel en beschrijft hoe de auteurs erop kwamen. Zij vertrekken bij een klein voorwerp: een gesneden steen met een gekruisigde figuur en het opschrift Orpheos Bakkikos, die op het omslag staat afgebeeld en die volgens hen aantoont dat een heidense god vóór het christendom aan het kruis werd verbeeld.</p>
+      <p>Daarna volgt het programma: als de gelijkenissen tussen Jezus en de mysteriegoden zo talrijk zijn, en als de vroegste christelijke schrijvers die gelijkenissen zelf al signaleerden, dan is afhankelijkheid de eenvoudigste verklaring.</p>
+      <h3>Osiris-Dionysus als één figuur</h3>
+      <p>Het tweede hoofdstuk beschrijft de antieke mysteriën en voert de samengestelde godheid in die het hele boek draagt. Freke en Gandy behandelen Osiris, Dionysos, Attis, Adonis, Bacchus en Mithras als plaatselijke namen voor dezelfde godmens, en stellen de biografie daarvan samen uit trekken die bij verschillende cultussen zijn opgetekend.</p>
+      <p>In een lijst zetten zij die biografie naast die van Jezus. Genoemd worden onder meer geboorte uit een sterfelijke maagd op 25 december, herders bij de geboorte, water in wijn veranderd op een bruiloft, een intocht op een ezel, een dood rond het paasfeest als verzoening, een afdaling naar de onderwereld, een opstanding op de derde dag, een hemelvaart en een maaltijd van brood en wijn.</p>
+      <h3>Duivelse nabootsing</h3>
+      <p>Het derde hoofdstuk voert het argument aan waar de auteurs het meeste gewicht aan hechten. Justinus de Martelaar en Tertullianus, beiden uit de tweede en derde eeuw, erkennen dat er heidense riten bestaan die op de christelijke lijken, en verklaren dat door te stellen dat demonen de christelijke mysteriën vooruit hebben nagebootst.</p>
+      <p>Freke en Gandy lezen dat als een bekentenis. De gelijkenis werd door de kerkvaders zelf gezien en moest worden weggeredeneerd; de verklaring die zij gaven is voor een moderne lezer onbruikbaar, en wat overblijft is de gelijkenis.</p>
+      <h3>Van Plato naar de gnostici</h3>
+      <p>De hoofdstukken vier tot en met zes verbinden de mysteriën met het platonisme en behandelen daarna de gnostische geschriften. De auteurs onderscheiden buitenmysteriën, bedoeld voor de menigte en verteld als verhaal, en binnenmysteriën, waarin de ingewijde het verhaal op zichzelf betrekt en zelf de rol van de stervende god vervult.</p>
+      <p>In die opzet zijn de gnostici geen afsplitsing maar de bewaarders van de binnenkant. Het hoofdstuk over de Jezus-code leest de evangeliën als een inwijdingstekst met een dubbele bodem, met de doop, de zalving, het laatste avondmaal en de opstanding als opeenvolgende graden.</p>
+      <h3>De ontbrekende man en de joodse mysteriën</h3>
+      <p>Hoofdstuk zeven bespreekt het bewijs voor een historische Jezus: de passages bij Flavius Josephus en Tacitus, het zwijgen van tijdgenoten als Philo, de late datering van de evangeliën en de bewerkingen die daarin zijn aan te wijzen. De auteurs concluderen dat er van de man zelf geen spoor overblijft.</p>
+      <p>Hoofdstuk acht en negen zoeken de brug. Paulus wordt gelezen als gnosticus die over een hemelse Christus schrijft en niet over een leraar die hij gekend heeft. Voor de joodse kant wijzen zij op Philo van Alexandrië, die de Thora allegorisch las, en op de Therapeuten die hij beschrijft, als bewijs dat een joodse mysteriegemeenschap denkbaar was.</p>
+      <h3>De nabootsende kerk</h3>
+      <p>De laatste hoofdstukken beschrijven hoe volgens de auteurs de letterlijke lezing won. Een kerk van bisschoppen kreeg de overhand op de vrijere gnostische kringen, het Nieuwe Testament werd samengesteld en gesloten, en de martelaarsverhalen leverden een geschiedenis van vervolging op die de eigen macht rechtvaardigde. Na Constantijn werd die lezing staatsleer en verdwenen de tegenteksten.</p>
+      <p>Het slothoofdstuk keert de conclusie om: wie het verhaal als mythe leest verliest niets, omdat de mythe over de lezer zelf gaat. De schrijvers presenteren hun boek daarmee ook als een geestelijk voorstel en niet alleen als een historische stelling.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Osiris-Dionysus</td><td>De samengestelde godheid die de auteurs invoeren als gemeenschappelijke noemer voor de mysteriegoden van de Middellandse Zee.</td></tr>
+          <tr><td class="term">mysteriegodsdienst</td><td>Antieke cultus met een inwijdingsrite en een geheim gedeelte dat alleen aan ingewijden werd verteld.</td></tr>
+          <tr><td class="term">buitenmysteriën</td><td>De openbare, verhalende laag van zo'n cultus, bedoeld voor wie nog niet is ingewijd.</td></tr>
+          <tr><td class="term">binnenmysteriën</td><td>De inwijdingslaag waarin de deelnemer het verhaal op zichzelf toepast en zelf de dood en terugkeer van de god doorleeft.</td></tr>
+          <tr><td class="term">literalisten</td><td>De aanduiding die het boek gebruikt voor christenen die het evangelieverhaal als gebeurde geschiedenis lezen.</td></tr>
+          <tr><td class="term">gnosis</td><td>Kennis die uit eigen ervaring komt in plaats van uit geloof aan overgeleverde feiten, in het boek het merk van het oorspronkelijke christendom.</td></tr>
+          <tr><td class="term">duivelse nabootsing</td><td>De verklaring van kerkvaders dat demonen de christelijke riten vooraf hadden nagedaan, door de auteurs gelezen als erkenning van de gelijkenis.</td></tr>
+          <tr><td class="term">Orpheos Bakkikos</td><td>Een gesneden steen met een gekruisigde figuur en dat opschrift, door de auteurs opgevoerd als voorchristelijke kruisiging van een heidense god.</td></tr>
+          <tr><td class="term">Therapeuten</td><td>Joodse contemplatieve gemeenschap bij Alexandrië die Philo beschrijft, bij Freke en Gandy het bewijs dat een joodse mysteriecultus mogelijk was.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Een deel van het materiaal is onbetwist. De mysteriecultussen bestonden, kenden inwijdingsgraden en werkten met verhalen over dood en terugkeer. Justinus en Tertullianus schrijven werkelijk dat demonen de christelijke mysteriën hebben nagebootst; die teksten zijn te lezen en de auteurs geven ze correct weer. Dat de evangeliën decennia na de gebeurtenissen zijn geschreven, dat zij theologisch zijn vormgegeven en dat de Testimonium Flavianum bij Josephus christelijke bewerking bevat, is in de vakliteratuur gangbaar goed.</p>
+      <p>De verbindende stappen zijn zwakker. De biografie van Osiris-Dionysus is door de auteurs zelf samengesteld: geen antieke bron kent die figuur, en de tien punten zijn stuk voor stuk aan een andere cultus, streek en eeuw ontleend. Een deel van die punten is bovendien later dan het christendom. De datum 25 december komt voor Jezus voor het eerst voor in de Chronograaf van 354, in hetzelfde stuk waarin ook het feest van Sol Invictus op die dag staat; voor Osiris of Dionysos is die geboortedatum in antieke bronnen niet te vinden.</p>
+      <p>De vraag of Jezus heeft bestaan wordt in de vakwereld wel degelijk gesteld. Richard Carrier verdedigde in <i>On the Historicity of Jesus</i> (Sheffield Phoenix Press, 2014) een mythische lezing in een boek dat een academische beoordelingsprocedure heeft doorlopen. Dat is een minderheidspositie en zij wordt door de grote meerderheid van vakhistorici verworpen, maar zij bestaat als beargumenteerde stelling. Freke en Gandy hebben daar naar het oordeel van Carrier zelf niet aan bijgedragen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De zwaarste inhoudelijke tegenwerping raakt de categorie zelf. Jonathan Z. Smith liet in zijn artikel over stervende en herrijzende goden in de <i>Encyclopedia of Religion</i> uit 1987 zien dat die groep grotendeels een negentiende-eeuwse constructie is, gebouwd door James Frazer op losse en soms verkeerd gelezen bronnen. Osiris keert in de Egyptische teksten terug als heerser over de doden en niet als levende onder de levenden; over Mithras is geen dood of opstanding overgeleverd. Tryggve Mettinger bracht in 2001 tegen Smith in dat er voor Dumuzi, Baäl en Melqart wel voorchristelijke voorbeelden zijn, maar hij concludeerde daaruit geen afhankelijkheid van het christelijke opstandingsgeloof. De categorie is dus omstreden, en zij vormt bij Freke en Gandy de dragende balk.</p>
+      <p>De methode is een tweede bezwaar. Door alle mysteriegoden tot één figuur samen te voegen ontstaat een verzameling waaruit voor bijna elk evangelisch motief wel ergens een parallel te trekken is. Gelijkenis is daarmee gegarandeerd en zegt niets meer over ontlening. Voor afhankelijkheid zou nodig zijn dat de parallel ouder is dan het christendom, dat hij binnen bereik lag van de schrijvers en dat hij op die plek zo niet ergens anders vandaan kon komen. Het boek toetst geen van die drie voorwaarden.</p>
+      <p>Het oordeel van vakgenoten is scherp en breed. De oudheidkundige Chris Forbes van Macquarie University noemt de auteurs popularisatoren en hun betoog verward; nieuwtestamenticus Paul Barnett wijst op verouderde literatuurverwijzingen; N.T. Wright vergeleek een debat erover met een sterrenkundige die moet aantreden tegen het idee dat de maan van kaas is. Bart Ehrman, zelf ongelovig en geen verdediger van de kerk, oordeelde in <i>Did Jesus Exist?</i> (2012) dat het boek onjuiste gegevens bevat en geen wetenschappelijk werk is. Ook Carrier, die de historiciteit van Jezus betwijfelt, noemde de behandeling van de antieke wereld in dit boek zonder waarde en waarschuwde lezers ervoor.</p>
+      <p>Ook het omslagbeeld is een probleem. De steen met de gekruisigde Orpheos Bakkikos is in de Tweede Wereldoorlog verdwenen, zodat authenticiteit noch vervalsing nog te bewijzen valt; er is serieus voor gepleit dat het om een negentiende-eeuwse vervalsing gaat. Bovendien komt de figuur volgens de lezing van vakgenoten uit de Orfische en bakchische sfeer en niet uit die van Osiris. Een voorwerp dat het hele betoog moet openen, kan geen bewijslast dragen die er niet is.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij elke parallel naar de datering van de bron, niet naar de datering van de god.</li>
+        <li>Let op samengestelde figuren. Wie meerdere cultussen tot één godheid samenvoegt, bouwt de gelijkenis die hij wil aantonen zelf.</li>
+        <li>Scheid de vraag of iets historisch is van de vraag of het waar of waardevol is; het boek verwart die twee bewust.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>De mysterieuze Jezus: was Jezus oorspronkelijk een heidense god?</i> (vertaald door Manda Plettenburg en Bram Moerland, Synthese, Den Haag, 2005, 439 blz., ISBN 978 90 6271 937 2). Oorspronkelijke titel: <i>The Jesus Mysteries: Was the "Original Jesus" a Pagan God?</i> (Thorsons, Londen, 1999).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Freke en Gandy stellen dat het christendom is begonnen als een joodse variant van de antieke mysteriegodsdiensten, en dat Jezus oorspronkelijk een mythische figuur was in de trant van de god die zij Osiris-Dionysus noemen. De gnostici zijn in hun lezing de oorspronkelijke christenen; de kerk die de evangeliën als geschiedenis ging lezen kwam later en drukte hen weg.</p><p>Het boek loopt in twaalf hoofdstukken van de heidense mysteriën via de kerkvaders naar de vorming van het Nieuwe Testament. Het is populariserend geschreven, met noten en een register, en het is buiten de vakwereld veel gelezen en binnen die vakwereld vrijwel unaniem afgewezen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>vroeg christendom</li><li>gnostiek</li><li>godsdienstwetenschap</li><li>mythevorming</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="940"><a href="940.html">The Gnostic Religion</a>. Jonas behandelt de gnostiek als eigen godsdienstige beweging met eigen bronnen, en laat zien hoeveel er over te zeggen is zonder een mythische Jezus.</li>
+          <li value="614"><a href="614.html">The Gospel of Mary Magdalene</a>. Leloup geeft een gnostisch evangelie met vertaling en toelichting, zodat de teksten waar Freke en Gandy naar wijzen zelf te lezen zijn.</li>
+          <li value="608"><a href="608.html">Het gewijde en het profane</a>. Eliade werkt met dezelfde vergelijkende methode en toont daarmee ook de grens ervan: overeenkomst in vorm bewijst geen ontlening.</li>
+          <li value="765"><a href="765.html">The Road to Eleusis: Unveiling the Secret of the Mysteries</a>. Wasson, Hofmann en Ruck onderzoeken één mysteriecultus in detail, wat een maatstaf geeft voor wat er over zulke riten werkelijk bekend is.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

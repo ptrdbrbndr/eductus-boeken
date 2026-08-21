@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De weg tot gezondheid &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Voor White is er geen scheiding tussen de wetten van het lichaam en de wetten van God: elke ziekte gaat terug op overtreding, en genezing bestaat eruit…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1138">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1138 &middot; Brein en lichaam</p>
+    <h1>De weg tot gezondheid</h1>
+    <p class="lede">Ellen G. White, 1905</p>
+    <p class="stats">
+      <span><b>1718</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1138"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Voor White is er geen scheiding tussen de wetten van het lichaam en de wetten van God: elke ziekte gaat terug op overtreding, en genezing bestaat eruit die overtreding te staken en de natuur haar herstelwerk te laten doen. Geneesmiddelen zijn in dit boek geen hulp maar vergif dat de kwaal verplaatst; wat wel helpt is frisse lucht, zonlicht, matigheid, rust, beweging, goede voeding, water en vertrouwen op God. Daarmee is de arts geen technicus maar een leraar en een medewerker van Christus, en zijn voeding, huwelijk, opvoeding en zielszorg onderdelen van één en dezelfde leer.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wat voor boek het is</h3>
+      <p><i>The Ministry of Healing</i> verscheen op 12 september 1905 bij de Pacific Press in Mountain View, telt 541 bladzijden en meer dan honderd illustraties. Het is opgedragen aan artsen en verpleegkundigen in alle landen. White stond de opbrengst af om schulden van adventistische sanatoria af te lossen; het voorwoord van de uitgever vermeldt dat de uitgevers er geen winst op maken.</p>
+      <p>White schreef het boek niet hoofdstuk voor hoofdstuk. Haar literaire assistente Marian Davis stelde het samen uit eerder geschreven materiaal over gezondheid en bracht dat in hoofdstukken onder. Dat is aan de tekst te merken: het boek herhaalt zichzelf en de zeven afdelingen verschillen sterk van toon.</p>
+      <p>De opbouw loopt van het leven van Christus als genezer, via het werk van de arts en het medische zendingswerk, naar de verzorging van de zieke, de gezondheidsbeginselen, het gezin, de kennis van God en ten slotte de noden van de werker. De laatste twee afdelingen zijn stichtelijk en niet medisch.</p>
+      <h3>De geneeskunde: natuur in plaats van middelen</h3>
+      <p>De medische kern staat in de hoofdstukken over de arts als opvoeder en over het gebruik van geneesmiddelen. Geneesmiddelen zijn volgens White vergiften; als een patiënt na inname herstelt, komt dat doordat de natuur genoeg levenskracht had om het gif uit te drijven. In de meeste gevallen verandert het middel volgens haar alleen de vorm en de plaats van de ziekte, en gepatenteerde huismiddelen legden naar haar oordeel de grondslag voor drank-, opium- en morfineverslaving.</p>
+      <p>Daartegenover staat de zin die het bekendst is geworden: frisse lucht, zonlicht, matigheid, rust, beweging, goede voeding, het gebruik van water en vertrouwen op goddelijke kracht zijn de ware geneesmiddelen. Ziekte noemt zij een poging van de natuur om het lichaam te bevrijden van de gevolgen van wetsovertreding. De uitwerking is praktisch: vasten van een of twee maaltijden, enkele dagen vruchtendieet, koude en warme baden, buitenwerk, wandelen, en voor overspannen hoofdarbeiders een verblijf op het land.</p>
+      <p>Het gebed voor de zieke krijgt een apart hoofdstuk, en het is opvallend voorzichtig. White schrijft dat wij niet weten wat wij bidden moeten, dat de bede altijd de onderwerping aan Gods wil moet bevatten, en dat wie niet geneest daarom niet als ongelovig mag worden weggezet. Genezing door goddelijke tussenkomst bestaat volgens haar, maar niet alle zieken worden genezen.</p>
+      <h3>De afwijzing van de gedachtegenezing</h3>
+      <p>Het hoofdstuk <i>Mind-Cure</i> keert zich tegen de gedachtegenezing en het hypnotisme die rond 1900 opkwamen, met de Christian Science op de achtergrond. Whites bezwaar is niet dat het niet werkt maar dat het van de verkeerde bron komt: de leer dat de ene geest de andere beheerst noemt zij een vinding van Satan, en van alle dwalingen onder christenen de gevaarlijkste.</p>
+      <p>In hetzelfde hoofdstuk verdedigt zij wel de invloed van de geest op het lichaam. Meeleven, tact en het winnen van vertrouwen zijn volgens haar vaak van meer nut dan de vakkundigste behandeling die koel wordt gegeven, en een arts die onverschillig aan het ziekbed verschijnt doet zijn patiënt schade. De grens tussen het toegelaten en het verboden gebruik van de geest trekt zij op theologische en niet op waarneembare gronden.</p>
+      <h3>Voeding</h3>
+      <p>De afdeling over gezondheidsbeginselen bevat de hoofdstukken over algemene hygiëne, de hygiëne van Israël, kleding, voeding, vlees als voedsel, uitersten in het dieet, genotmiddelen en drankbestrijding. De redenering over vlees is heilshistorisch: het dieet van Eden bevatte geen dierlijk voedsel, pas na de zondvloed kwam de toestemming, en Israël kreeg manna en geen vlees. Daarnaast geeft zij twee praktische gronden: wie vlees eet, eet granen en groenten uit de tweede hand, en dierziekten namen zo toe dat vlees tuberculose en kanker zou overbrengen. Varkensvlees wijst zij onvoorwaardelijk af.</p>
+      <p>Het hoofdstuk over uitersten in het dieet is de tegenhanger. Wie in armoede leeft of in streken zonder fruit en noten, moet melk en eieren niet worden ontzegd; niet iedereen verdraagt hetzelfde; niemand mag zichzelf tot maatstaf voor anderen maken; en de hervorming moet geleidelijk zijn. Twee maaltijden per dag noemt zij doorgaans gunstig, met uitzonderingen. Deze bladzijden staan haaks op het beeld van een strakke leefregel en zijn binnen de beweging vaak aangehaald.</p>
+      <h3>Gezin, opvoeding en de werker</h3>
+      <p>Bijna de helft van het boek is niet medisch. De afdeling over het gezin behandelt de keuze van een huwelijkspartner, de inrichting en ligging van het huis, de taak van de moeder, de opvoeding van het kind en de invloed van het gezinsleven, waarbij opvoeding als voorbereiding op zendingswerk wordt opgevat.</p>
+      <p>De laatste twee afdelingen gaan over de kennis van God, het gevaar van speculatief denken, het valse en het ware in de opvoeding, en over wat de werker in het dagelijks leven nodig heeft. Hier is het boek stichtelijk proza; de gezondheidsleer is dan al afgerond.</p>
+      <h3>Gezag en herkomst</h3>
+      <p>White ontleende haar gezag aan visioenen. Voor de gezondheidsleer geldt het visioen van 6 juni 1863 in Otsego in Michigan als beginpunt; kort daarna verschenen haar eerste geschriften over het onderwerp. In 1864 verbleef zij in de watergeneesinrichting van James Caleb Jackson in Dansville.</p>
+      <p>Ronald Numbers stelde in <i>Prophetess of Health</i> (1976) vast dat de inhoud van die gezondheidsboodschap grotendeels aansluit bij wat hervormers als Jackson, Trall en Larkin Coles al hadden geschreven, en dat het verblijf in Dansville haar leer heeft gevormd. Het boek veroorzaakte grote onrust in de kerk en kostte Numbers zijn aanstelling in Loma Linda.</p>
+      <p>Van 1980 tot 1988 onderzocht Fred Veltman in opdracht van de kerk zelf het gebruik van bronnen in <i>The Desire of Ages</i>. Zijn rapport van meer dan tweeduizendvijfhonderd bladzijden kwam uit op gemiddeld 31,4 procent van de tekst die in enige mate op schriftelijke bronnen teruggaat, met de aantekening dat de werkelijke afhankelijkheid groter is dan de woordelijke overeenkomsten laten zien, omdat ook de opbouw van de hoofdstukken die van de bronnen volgt. Hij concludeerde dat White zelf, en niet haar assistenten, de formuleringen zonder bronvermelding overnam.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">gezondheidshervorming</td><td>De adventistische leer dat gezond leven een geloofsplicht is, ingezet met het visioen van 1863 en in dit boek tot een geheel gemaakt.</td></tr>
+          <tr><td class="term">de acht natuurlijke geneesmiddelen</td><td>Frisse lucht, zonlicht, matigheid, rust, beweging, goede voeding, water en vertrouwen op goddelijke kracht: de opsomming die het hele medische deel draagt.</td></tr>
+          <tr><td class="term">medisch zendingswerk</td><td>De opvatting dat verpleging en genezing bij de verkondiging horen en dat de arts als medewerker van Christus optreedt.</td></tr>
+          <tr><td class="term">mind-cure</td><td>De gedachtegenezing van rond 1900, die zij afwijst als beheersing van de ene geest door de andere en toeschrijft aan Satan.</td></tr>
+          <tr><td class="term">wetsovertreding</td><td>Haar verklaring voor ziekte: lichamelijke en zedelijke wetten zijn van dezelfde orde, en lijden volgt op het overtreden ervan.</td></tr>
+          <tr><td class="term">Eden-dieet</td><td>Het oorspronkelijke vleesloze voedsel uit het scheppingsverhaal, dat zij als de door God bedoelde norm neemt.</td></tr>
+          <tr><td class="term">extremes in diet</td><td>Het hoofdstuk waarin zij haar eigen voedingsleer inbindt: geen vaste regel voor iedereen, melk en eieren niet ontzeggen waar niets anders is.</td></tr>
+          <tr><td class="term">sanatorium</td><td>De adventistische geneesinrichting waar het boek voor bestemd is en waarvan de schulden met de opbrengst werden afbetaald.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>In het boek zelf staat geen onderzoek. Er is geen enkele patiëntenreeks, geen meting en geen verwijzing buiten de Schrift; de vorm is die van stellige uitspraak, geïllustreerd met bijbelplaatsen. Wie de vraag stelt waarop de bewering rust dat geneesmiddelen vergif zijn, vindt in de tekst geen antwoord dat verder gaat dan de bewering zelf.</p>
+      <p>Daar staat tegenover dat de leefregels op een aantal punten overeenkomen met wat later houdbaar bleek: niet roken, geen alcohol, meer groente en fruit, buiten bewegen, wassen, en afblijven van de patentmiddelen die destijds opium bevatten. Loma Linda University voert sinds 1958 cohortonderzoek onder adventisten uit, en die studies vinden bij vegetarische adventisten lagere sterfte aan hart- en vaatziekten en aan enkele kankers. Dat is bewijs voor de leefwijze, niet voor de manier waarop White eraan kwam.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De herkomstvraag is het zwaarste bezwaar en komt uit het onderzoek zelf. Numbers liet in 1976 zien dat passages die als bij visioen gegeven werden gepresenteerd, aanwijsbare voorgangers hebben in de gezondheidsliteratuur die White aantoonbaar kende; Walter Rea breidde dat in 1982 uit naar haar overige werk. Veltman, aangesteld door de kerk, kwam in 1988 op gemiddeld 31,4 procent letterlijke afhankelijkheid in <i>The Desire of Ages</i>, en oordeelde dat de werkelijke afhankelijkheid groter is.</p>
+      <p>Het antwoord van het White Estate is historisch verdedigbaar: overnemen zonder bronvermelding was in de negentiende eeuw gebruikelijker, het auteursrecht werkte anders, en inspiratie sluit het gebruik van bronnen niet uit. Het verschuift wel de grond onder de aanspraak. Wie zegt dat hem iets is getoond, doet een andere bewering dan wie zegt dat hij goed heeft gelezen.</p>
+      <p>Medisch was de afwijzing van geneesmiddelen in 1905 al achterhaald. De ziektekiemleer was gevestigd, difterie-antiserum was sinds 1894 in gebruik en aspirine sinds 1899. Een leer die alle middelen vergif noemt, kost levens in de gevallen waarin behandeling bestond; het boek maakt daarvoor nergens een uitzondering.</p>
+      <p>De grondgedachte dat alle lijden voortkomt uit overtreden wetten, zoals het voorwoord onomwonden stelt, legt de verantwoordelijkheid bij de zieke. Het boek zwakt dat op enkele plaatsen af, maar het maakt de gedachte niet ongedaan. Ten slotte trekt het hoofdstuk over gedachtegenezing zijn grens met een theologisch argument terwijl het even verderop zelf vertrouwen, meeleven en verwachting als heilzaam aanbeveelt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Houd de drie lagen uit elkaar: de leefregels, de theologische onderbouwing en de aanspraak op visioenen.</li>
+        <li>Zoek bij elke gezondheidsuitspraak op wat de hervormers voor 1863 al schreven; dat is de manier om vast te stellen wat hier nieuw is.</li>
+        <li>Lees het hoofdstuk over uitersten in het dieet naast dat over vlees als voedsel; ze corrigeren elkaar.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Ministry of Healing</i> (Pacific Press Publishing Association, Mountain View, Californië, 12 september 1905, 541 blz., ruim honderd illustraties). Nederlandse uitgave: <i>De weg tot gezondheid</i> (E.G. White Stichting, 1998, ISBN 9789080129825). Deze samenvatting berust op de Engelse tekst in de druk van 1909.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Het voornaamste gezondheidsboek van de medeoprichtster van het zevendedagsadventisme. Geneeskunde, voeding, opvoeding, huwelijk en geloof lopen erin in elkaar over: ziekte is het gevolg van overtreden wetten, genezing komt door de natuur ruimte te geven, en de arts werkt als medewerker van Christus. De acht middelen die het boek noemt zijn frisse lucht, zonlicht, matigheid, rust, beweging, goede voeding, water en vertrouwen op God.</p><p>White ontleende haar gezag aan visioenen, waarvan dat van 6 juni 1863 in Otsego de gezondheidsleer inluidde. Sinds Ronald Numbers' <i>Prophetess of Health</i> (1976) is aangetoond dat de inhoud grotendeels teruggaat op hervormers als Jackson, Trall en Coles; het achtjarige onderzoek van Fred Veltman stelde voor een ander boek van haar hand een aanzienlijke letterlijke afhankelijkheid van bronnen zonder bronvermelding vast.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>religie</li><li>gezondheid</li><li>voeding</li><li>adventisme</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1134"><a href="1134.html">Plain Facts for Old and Young</a>. Kellogg leidde het adventistische sanatorium in Battle Creek en bouwde dezelfde leer uit tot een eigen stelsel.</li>
+          <li value="1129"><a href="1129.html">The Hydropathic Encyclopedia</a>. Trall levert het handboek van de watergeneeskunde waaruit een groot deel van de adventistische gezondheidsleer stamt.</li>
+          <li value="1137"><a href="1137.html">Health in the Household</a>. Dodds toont hoe dezelfde beginselen zonder religieus gezag werden verdedigd, in de vorm van een kookboek.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

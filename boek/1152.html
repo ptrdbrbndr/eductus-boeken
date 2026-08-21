@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lost Science &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="De wereld loopt volgens Vassilatos eeuwen achter op waar zij had kunnen staan, omdat een reeks uitvinders die energie, geneeskunde en voortstuwing hadden…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1152">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1152 &middot; Filosofie en mystiek</p>
+    <h1>Lost Science</h1>
+    <p class="lede">Gerry Vassilatos, 1999</p>
+    <p class="stats">
+      <span><b>1754</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1152"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>De wereld loopt volgens Vassilatos eeuwen achter op waar zij had kunnen staan, omdat een reeks uitvinders die energie, geneeskunde en voortstuwing hadden kunnen omvormen stelselmatig is tegengewerkt door overheden, bedrijven en beroepsverenigingen. Het patroon is in zijn weergave overal hetzelfde: een werkend apparaat, een demonstratie die overtuigt, en daarna geldschieters die zich terugtrekken, apparatuur die verdwijnt en een naam die uit de vakliteratuur wordt geschrapt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Reichenbach en de od-kracht</h3>
+      <p>Het eerste hoofdstuk behandelt Karl von Reichenbach, een Duitse chemicus en industrieel die paraffine en creosoot uit teer isoleerde en daarmee een vermogen verdiende. Vanaf het midden van de negentiende eeuw wijdde hij zich aan wat hij od noemde: een uitstraling die volgens hem uit magneten, kristallen, planten en mensen komt en die alleen door gevoelige proefpersonen in het donker wordt waargenomen.</p>
+      <p>Vassilatos beschrijft de proeven uitvoerig en leest de afwijzing door de Duitse academische wereld als angst. Dat Reichenbachs waarnemers wisten wat er voor hen stond en dat er geen blindering was, komt in het hoofdstuk niet aan de orde.</p>
+      <h3>Meucci, Stubblefield en Tesla</h3>
+      <p>De hoofdstukken twee tot en met vier gaan over telefonie, draadloze overdracht en energieoverdracht. Antonio Meucci ontwikkelde in New York vanaf de jaren vijftig van de negentiende eeuw een spreekverbinding en legde in 1871 een voorlopige octrooiverklaring vast die hij door geldgebrek niet kon verlengen. Nathan Stubblefield demonstreerde in 1902 in Philadelphia en Washington een draadloze telefoon die met inductie en aardgeleiding werkte en kreeg daar in 1908 octrooi op.</p>
+      <p>Bij Tesla concentreert Vassilatos zich op Wardenclyffe, de toren op Long Island waarmee Tesla energie zonder draad wilde verspreiden. Het project liep vast toen J.P. Morgan de financiering staakte, en de toren werd in 1917 gesloopt. In dit boek is dat afbreken een besluit van belanghebbenden bij een brandstofeconomie.</p>
+      <h3>Rife en de straalbuis</h3>
+      <p>Het vijfde hoofdstuk is het langste en het meest stellige. Royal Rife bouwde in de jaren dertig lichtmicroscopen met bijzondere belichting en meende daarmee levende ziekteverwekkers te zien die hij vervolgens met afgestemde straling kapot kon maken. Vassilatos beschrijft een kliniek die Milbank Johnson in 1934 in San Diego opzette, waar volgens hem vijftien uitbehandelde kankerpatiënten binnen zestig dagen genezen werden verklaard, gevolgd door meer klinieken tussen 1934 en 1938.</p>
+      <p>Daarna volgt de ondergang. Vassilatos schrijft dat de American Medical Association onder leiding van Morris Fishbein de apparaten liet terugroepen en vernietigen, dat artsen die ermee doorgingen hun praktijk zouden verliezen, en dat Rife tijdens een rechtszaak psychisch is gebroken. Het hoofdstuk eindigt met de stelling dat genezing minder oplevert dan langdurige behandeling.</p>
+      <h3>Moray, Brown en Gavreau</h3>
+      <p>De hoofdstukken zes tot en met acht behandelen drie apparaten. Thomas Henry Moray demonstreerde in de jaren twintig en dertig een kastje dat volgens hem tientallen kilowatts uit de ruimte betrok, met als hart een halfgeleidend mineraal dat hij de Zweedse steen noemde en dat hij nooit heeft laten onderzoeken. Thomas Townsend Brown zag geladen condensatoren in de richting van hun positieve pool bewegen en las dat als een verband tussen elektriciteit en zwaartekracht.</p>
+      <p>Vladimir Gavreau werkte bij het Franse onderzoeksinstituut CNRS in Marseille en stuitte in de jaren zestig op infrageluid toen zijn medewerkers pijn kregen zonder dat de microfoons iets registreerden. Vassilatos maakt daar een wapenverhaal van. Hij had die geschiedenis al eerder gepubliceerd in het tijdschrift van de Borderland Sciences Research Foundation, de stichting die ook een deel van zijn bronnen uitgeeft.</p>
+      <h3>Farnsworth en de fusor</h3>
+      <p>Het negende hoofdstuk gaat over Philo Farnsworth, die de elektronische televisie mede uitvond en later met multipactorbuizen werkte. Daarin zag hij kleine, stabiele lichtpunten hangen die hij als opgesloten heet gas herkende. Uit dat idee ontstond de fusor, een buis waarin deuteriumionen naar een middelpunt worden gestuurd.</p>
+      <p>Volgens Vassilatos bereikte het apparaat in 1967 het punt waarop opbrengst en invoer gelijk waren, waarna ITT het project stopzette. De fusor bestaat werkelijk, produceert werkelijk fusiereacties en wordt tot op heden door amateurs gebouwd.</p>
+      <h3>Geest, vuur en thermodynamica</h3>
+      <p>Het slothoofdstuk verlaat de biografieën. Vassilatos betoogt dat de natuurwetenschap sinds de negentiende eeuw gevangen zit in wat hij het vuurparadigma noemt: alles wordt gemeten in warmte, arbeid en rendement, en wat zich daar niet in laat uitdrukken telt niet mee.</p>
+      <p>Daartegenover stelt hij een oudere natuurfilosofie waarin bewustzijn zelf een vorm van straling is en waarin dromen en symbolen kenbronnen zijn. Alchemie en geomantie worden genoemd als de kunsten die uit dat inzicht voortkwamen. Het hoofdstuk maakt duidelijk dat het boek uiteindelijk een esoterisch en geen technisch betoog is.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">od</td><td>Reichenbachs naam voor de uitstraling die volgens hem uit magneten, kristallen en levende wezens komt en alleen door gevoelige waarnemers wordt gezien.</td></tr>
+          <tr><td class="term">aetherische energie</td><td>De verzamelnaam die Vassilatos gebruikt voor een energiebron die overal aanwezig zou zijn en waar de behandelde apparaten uit zouden putten.</td></tr>
+          <tr><td class="term">Zweedse steen</td><td>Het halfgeleidende mineraal dat Moray als hart van zijn ontvanger opvoerde en dat nooit door anderen is onderzocht of nagemaakt.</td></tr>
+          <tr><td class="term">straalbuis</td><td>Rife's gasgevulde buis die straling van een gekozen frequentie afgeeft, bedoeld om ziekteverwekkers te vernietigen.</td></tr>
+          <tr><td class="term">BX</td><td>Rife's aanduiding voor het door hem veronderstelde kankerverwekkende micro-organisme dat hij in zijn microscoop meende te zien.</td></tr>
+          <tr><td class="term">elektrogravitatie</td><td>Browns verklaring dat de beweging van geladen condensatoren op een verband tussen elektrische lading en zwaartekracht wijst.</td></tr>
+          <tr><td class="term">infrageluid</td><td>Geluid onder de gehoorgrens van ongeveer twintig hertz, waar Gavreau lichamelijke werking aan toeschreef.</td></tr>
+          <tr><td class="term">fusor</td><td>Farnsworths buis waarin ionen naar een middelpunt worden versneld om daar kernfusie op gang te brengen.</td></tr>
+          <tr><td class="term">vuurparadigma</td><td>Vassilatos' term voor een natuurwetenschap die alleen erkent wat zich in warmte en arbeid laat meten.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Een deel van de levens is goed gedocumenteerd en wordt correct weergegeven. Reichenbach isoleerde werkelijk paraffine en creosoot. Meucci werkte aan een spreekverbinding voordat Bell octrooi kreeg; het Amerikaanse Huis van Afgevaardigden erkende in 2002 zijn aandeel in de ontwikkeling van de telefoon. Stubblefield gaf in 1902 openbare demonstraties. Tesla bouwde Wardenclyffe en verloor de financiering van Morgan. Farnsworth vond de fusor uit en die buis doet wat hij belooft. Voor deze feiten heeft de lezer het boek niet nodig, maar het geeft ze goed weer.</p>
+      <p>Voor de dragende bewering, dat er is weggedrukt, ontbreekt de onderbouwing. Het boek heeft geen noten. Achterin staat een bibliografie van enkele tientallen boeken en tijdschriften, waarvan een groot deel is uitgegeven of herdrukt door de Borderland Sciences Research Foundation en Rex Research, twee kleine uitgevers die zich op grensgebied richten. In de dankbetuiging staan namen uit dezelfde kring, onder wie Preston Nichols, bekend van het Montauk-verhaal. Archiefstukken, rechtbankdossiers of bedrijfsarchieven worden niet aangehaald.</p>
+      <p>Waar de geschiedenis wel op stukken te controleren is, wijkt het boek af. De rechtszaak rond Rife in 1939 was een burgerlijk geschil binnen het bedrijf Beam Ray: technicus Philip Hoyland klaagde de vennootschap en haar bestuurders aan om zeggenschap over de apparatuur, en hij verloor. Er was geen strafvervolging en geen gerechtelijk bevel tot vernietiging van apparaten. Fishbein was hoofdredacteur van het blad van de American Medical Association; die vereniging heeft geen aandeelhouders, zodat de bewering dat hij daar grootaandeelhouder was niet kan kloppen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Per hoofdstuk valt aan te wijzen waar de bronnen worden losgelaten. Reichenbachs od is nooit onder blindering aangetoond en zijn proefopstellingen sloten suggestie niet uit. Morays apparaat is nooit door een buitenstaander onderzocht: hij weigerde het te laten openen, de Zweedse steen is nooit geanalyseerd en het geheel is met de uitvinder verdwenen. Het effect waar Brown zijn zwaartekrachtsverklaring op bouwde is opgehelderd: bij metingen in vacuüm van R.L. Talley bij het Amerikaanse luchtmachtlaboratorium in 1988 en bij de proeven van Martin Tajmar in 2004, waarbij de luchtstroom rond de elektroden werd afgeschermd, bleef de stuwkracht weg. Het gaat om ionenwind, een verschijnsel dat sinds lang bekend is. Bij Gavreau is het onderzoek naar infrageluid echt, maar het wapen bestaat vooral in navertellingen; van de beschreven opstelling met gesynchroniseerde zuigers in lange buizen is geen bouw of beproeving gedocumenteerd.</p>
+      <p>Het hoofdstuk over Rife is het meest problematisch, omdat er gezondheidsclaims in staan. Een lichtmicroscoop kan virussen niet zichtbaar maken: de golflengte van zichtbaar licht stelt een grens rond tweehonderd nanometer, en daaronder valt wat Rife meende te zien. De kliniek van 1934 is bekend uit een enkele typoscriptrapportage die nooit in universiteitsarchieven is teruggevonden en die geen patiëntendossiers, geen controlegroep en geen onafhankelijke bevestiging kent. De American Cancer Society en Cancer Research UK stellen vast dat er geen betrouwbaar bewijs is dat zulke apparaten kanker genezen. Wie het hoofdstuk als geschiedenis leest, leest het als een medische belofte.</p>
+      <p>Ook bij Farnsworth klopt de duiding niet. Dat de fusor geen netto energie levert komt door de natuurkunde van het apparaat: de ionen verliezen door onderlinge botsingen en remstraling meer energie dan de fusiereacties opleveren, en dat is onafhankelijk van wie het project financiert. Het staken door ITT wordt in het boek als bewijs van tegenwerking gebruikt; het past even goed bij een bedrijf dat besluit dat een moeilijk pad te duur is.</p>
+      <p>Achter de losse gevallen ligt het probleem van de vorm. Het weggedrukte-uitvindersverhaal is bijna niet te weerleggen, omdat het ontbreken van bewijs er als bewijs in wordt opgenomen: de apparatuur is immers verdwenen, de publicaties zijn geschrapt, de getuigen zijn tot zwijgen gebracht. Om zo'n claim wel toetsbaar te maken zijn drie dingen nodig. Ten eerste een werkende opstelling of een volledige beschrijving die door onafhankelijke partijen kan worden nagebouwd en gemeten. Ten tweede documenten die het onderdrukken zelf vastleggen: correspondentie, besluiten, rechtbankdossiers, bedrijfsarchieven, met vindplaats. Ten derde een verklaring waarom concurrenten, buitenlandse overheden en beroepsgenoten die niets met de belanghebbende partij te maken hebben, de vondst niet hebben opgepakt. Vassilatos levert geen van drieën, en waar hij aan het eerste toekomt, bij Brown en bij de fusor, is het antwoord ongunstig voor zijn stelling.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij een onderdrukt apparaat naar de beschrijving die nabouw toelaat, en niet naar de getuigenverhalen erover.</li>
+        <li>Zoek de papieren van het onderdrukken zelf op: een rechtszaak heeft een dossier en een vonnis, en die zijn opvraagbaar.</li>
+        <li>Ga na of het apparaat elders ter wereld is opgepakt. Een vinding die overal wordt genegeerd, vraagt om een verklaring die verder reikt dan één land of één bedrijf.</li>
+        <li>Scheid de biografie van de claim: dat iemand slecht is behandeld, zegt niets over de vraag of zijn apparaat werkte.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Lost Science</i> (Adventures Unlimited Press, Kempton, Illinois, 1999, 347 blz., ISBN 978 0 932813 75 6). Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Vassilatos brengt negen uitvinders bijeen van wie het werk volgens hem is weggedrukt door bedrijven, overheden of beroepsverenigingen. Karl von Reichenbach, Antonio Meucci, Nathan Stubblefield, Nikola Tesla, Royal Rife, Thomas Henry Moray, Thomas Townsend Brown, Vladimir Gavreau en Philo Farnsworth krijgen elk een hoofdstuk.</p><p>Het boek is verhalend geschreven, zonder noten, met achterin een bibliografie van enkele tientallen titels waarvan een groot deel van esoterische kleine uitgeverijen komt. Het tiende hoofdstuk verlaat de biografieën en betoogt dat de moderne natuurkunde het verkeerde uitgangspunt heeft gekozen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>uitvinding</li><li>techniekgeschiedenis</li><li>pseudowetenschap</li><li>complotdenken</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="267"><a href="267.html">Tesla: Inventor of the Electrical Age</a>. Carlson beschrijft Tesla met archiefmateriaal, waarmee te zien is hoeveel van het Wardenclyffe-verhaal met financiering en techniek te verklaren is.</li>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. Sagan behandelt precies deze klasse beweringen en geeft de vragen waarmee ze zijn te wegen.</li>
+          <li value="1149"><a href="1149.html">Before the Pharaohs</a>. Malkowski gebruikt dezelfde vorm op de oudheid: verloren kennis, weggedrukt door een vakwereld die haar niet wil zien.</li>
+          <li value="1156"><a href="1156.html">The Source Field Investigations</a>. Wilcock bouwt op ditzelfde repertoire van onderdrukte apparaten en veldenergie voort, met nog minder terughoudendheid.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

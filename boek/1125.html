@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Passionate Enlightenment &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Shaw stelt dat het beeld van het Indiase tantrisch boeddhisme als een mannenzaak waarin vrouwen als hulpmiddel dienden, niet uit de bronnen komt maar uit…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1125">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1125 &middot; Filosofie en mystiek</p>
+    <h1>Passionate Enlightenment</h1>
+    <p class="lede">Miranda Shaw, 1994</p>
+    <p class="stats">
+      <span><b>1491</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1125"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Shaw stelt dat het beeld van het Indiase tantrisch boeddhisme als een mannenzaak waarin vrouwen als hulpmiddel dienden, niet uit de bronnen komt maar uit de aannames waarmee negentiende- en twintigste-eeuwse onderzoekers die bronnen lazen. Zij voert daartegen aan dat de teksten uit de Pala-periode mannen opdragen vrouwen te eren, dat er meer dan veertig werken in de canon staan waarvan het colofon een vrouwennaam draagt, en dat de vereniging van man en vrouw in die teksten wederkerig is bedoeld. Wie haar volgt, moet aannemen dat vrouwen medegrondlegger waren van een van de invloedrijkste religieuze bewegingen van middeleeuws India.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Sporen van hemeldanseressen</h3>
+      <p>Het openingshoofdstuk gaat over de geschiedschrijving zelf. Shaw laat zien hoe het beeld ontstond: vroege westerse studies lazen de tantrische teksten door een victoriaanse bril, vonden er losbandigheid in en namen aan dat de vrouwen die erin voorkomen werktuig waren. Latere onderzoekers namen dat beeld over zonder het aan de teksten te toetsen.</p>
+      <p>Daartegenover zet zij haar eigen werkwijze: twee jaar veldwerk in India en Nepal, lezing van Sanskriet- en Tibetaanse teksten, en een zoektocht in de Tibetaanse canon naar werken die op naam van vrouwen staan. Meer dan veertig zulke werken kwamen daaruit naar voren, waarvan een deel niet eerder was opgemerkt.</p>
+      <h3>Het tantrisch boeddhisme in India</h3>
+      <p>Het tweede hoofdstuk schetst het toneel. Onder de Pala-dynastie in Oost-India ontstaat een beweging die zich deels buiten de kloosters afspeelt, rond rondtrekkende beoefenaars, de siddha's, en rond bijeenkomsten op begraafplaatsen en in bosjes. De teksten die daarbij horen, de zogenoemde yogini-tantra's, geven vrouwelijke figuren een opvallende plaats.</p>
+      <p>Shaw benadrukt dat die beweging niet aan de kloosterorde onderworpen was. Juist daar zoekt zij de ruimte waarin vrouwen konden optreden zonder de kloosterregels die hun elders de weg versperden.</p>
+      <h3>Wat de teksten over vrouwen voorschrijven</h3>
+      <p>Het derde hoofdstuk verzamelt de passages die het gangbare beeld tegenspreken. In de tantrische geloften staat het verbod om vrouwen te kleineren; er zijn voorschriften om vrouwen te eren, hun onderricht aan te nemen en een vrouwelijke leraar dezelfde eerbied te betuigen als een mannelijke. Sommige teksten dragen de beoefenaar op iedere vrouw als een verschijningsvorm van de godin te behandelen.</p>
+      <p>Deze passages zijn er werkelijk en waren tot dan toe grotendeels genegeerd. Dat is de sterkste kant van het boek: het maakt zichtbaar wat de literatuur wel degelijk bevat.</p>
+      <h3>Kringen en namen</h3>
+      <p>De hoofdstukken vier en vijf brengen de bijeenkomsten en de personen in beeld. De ganacakra, de rituele kring waarin werd gegeten, gezongen en gedanst, beschrijft Shaw als een plaats waar rang en kaste werden losgelaten en waar vrouwen konden voorgaan.</p>
+      <p>Daarnaast reconstrueert zij levens van met name genoemde vrouwen. Lakshminkara, in de overlevering een prinses die haar hof verliet, is de bekendste. Van anderen is nauwelijks meer bekend dan de naam en de tekst die eraan hangt, en Shaw vult die leemtes in met wat de latere Tibetaanse overlevering erover zegt.</p>
+      <h3>De verhouding tussen partners</h3>
+      <p>Het zesde hoofdstuk bevat haar meest omstreden herlezing. Waar de gangbare uitleg de vrouwelijke partner als middel ziet, leest Shaw de teksten zo dat de vereniging voor beiden werkt en dat de vrouw doorgaans de kennis inbrengt. Zij wijst op voorschriften waarin de man de vrouw dient, op de eed van geheimhouding die beiden bindt, en op passages waarin het verbreken van de verhouding voor de man de zwaarste overtreding is.</p>
+      <p>Ook keert zij zich tegen de westerse fixatie op het seksuele. In haar lezing gaat het om de juiste verhouding tussen twee mensen, waarvan de lichamelijke kant één aspect is.</p>
+      <h3>Één schrijfster in het bijzonder</h3>
+      <p>Het zevende hoofdstuk is aan Sahajayoginicinta gewijd, wier naam Shaw weergeeft als de spontane, juweelachtige yogini. Van haar hand is een verhandeling overgeleverd over de verhouding tussen hartstocht en verlichting. Shaw geeft die tekst in vertaling en gebruikt hem als proefstuk: hier zou een vrouw in eigen woorden de leer uiteenzetten in plaats van erin voor te komen. Het achtste hoofdstuk trekt de balans.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">tantra</td><td>De stroming binnen het boeddhisme die rituelen, verbeelding, lichaam en verlangen tot de weg naar verlichting rekent.</td></tr>
+          <tr><td class="term">yogini</td><td>Een vrouwelijke beoefenaar; in de yogini-tantra's ook de aanduiding voor de vrouwelijke godheden die daarin het middelpunt vormen.</td></tr>
+          <tr><td class="term">dakini</td><td>Sanskriet voor een vrouwelijke geestesverschijning; Shaw vertaalt de Tibetaanse weergave als hemeldanseres en gebruikt die in haar titelbeeld.</td></tr>
+          <tr><td class="term">siddha</td><td>Een verwerkelijkte beoefenaar buiten het klooster om; de traditie kent lijsten van vierentachtig van hen, waaronder enkele vrouwen.</td></tr>
+          <tr><td class="term">mudra</td><td>Letterlijk zegel; in deze teksten ook de aanduiding voor de partner in de beoefening, en juist daarom een woord waarover de uitleg uiteenloopt.</td></tr>
+          <tr><td class="term">maithuna</td><td>De rituele vereniging van twee beoefenaars, in Shaws lezing bedoeld als wederzijdse weg en niet als dienst van de een aan de ander.</td></tr>
+          <tr><td class="term">sahaja</td><td>Het aangeborene of vanzelf ontstane; de aanduiding voor de ongekunstelde staat die deze stroming nastreeft.</td></tr>
+          <tr><td class="term">ganacakra</td><td>De rituele kring met eten, zang en dans waarin de beoefenaars samenkwamen.</td></tr>
+          <tr><td class="term">Pala-periode</td><td>De tijd van de Pala-dynastie in Oost-India, achtste tot twaalfde eeuw, waarin het tantrisch boeddhisme zijn vorm kreeg.</td></tr>
+          <tr><td class="term">colofon</td><td>De slotaantekening van een handschrift of canonieke vertaling waarin auteur, vertaler en herkomst staan; de plaats waar Shaw haar vrouwelijke auteurs vindt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Shaws grondslag is tekstueel. Zij werkt met Sanskriet en Tibetaans, met nadruk op de Tengyur, het deel van de Tibetaanse canon met commentaren en verhandelingen, omdat van veel Indiase werken alleen de Tibetaanse vertaling over is. Daarnaast gebruikt zij beeldmateriaal en levensbeschrijvingen van de siddha's, en twee jaar veldwerk in India en Nepal.</p>
+      <p>Het sterkst staat zij waar zij citeert. Dat de tantrische geloften het kleineren van vrouwen verbieden en dat er voorschriften bestaan om vrouwen te eren, is met de teksten in de hand vast te stellen en was in de vakliteratuur overgeslagen. Dat is een controleerbare correctie op wat daarvoor werd geschreven.</p>
+      <p>Zwakker staat zij waar zij van voorschrift naar werkelijkheid overstapt. Een verbod is een aanwijzing dat het verboden gedrag voorkwam, en zegt op zichzelf weinig over de feitelijke positie van vrouwen. Hetzelfde geldt voor de levensbeschrijvingen van de siddha's: dat zijn stichtelijke verhalen met vaste motieven, geen archiefstukken.</p>
+      <p>De ontvangst was niet mals maar ook niet eenstemmig. Het boek kreeg de James Henry Breasted Prize van de American Historical Association, de Tricycle-prijs en in 1995 de Critics' Choice-onderscheiding; Liz Wilson noemde het in <i>History of Religions</i> een boek dat een terrein opende. Andere vakgenoten oordeelden aanmerkelijk terughoudender.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar betreft de toeschrijving. Een colofon van een Tibetaanse vertaling is een laat en bewerkt document; een vrouwelijk klinkende naam erin bewijst niet dat een vrouw het Sanskriete origineel schreef. In deze literatuur zijn schuilnamen, eretitels en toeschrijvingen aan een lijnstichter gewoon, en van verschillende namen die Shaw als auteur opvoert is de identiteit onder vakgenoten niet vast te stellen. Wie het aantal van veertig werken door vrouwen als vaststaand aanneemt, neemt daarmee de zwakste schakel van het betoog over.</p>
+      <p>Ronald Davidson bracht in <i>Indian Esoteric Buddhism</i> (2002) in dat de Pala-bronnen vrouwen overwegend in de rol van partner en van zinnebeeld tonen, en dat Shaw een moderne opvatting van gelijkwaardigheid in middeleeuwse teksten terugleest. Zijn bezwaar richt zich zowel op haar vertaalkeuzes als op de stap van tekst naar samenleving.</p>
+      <p>Een derde punt betreft de talen. Waar de Indiase werken alleen in Tibetaanse vertaling bestaan, leunt het betoog op die vertaling en op secundaire literatuur; recensenten hebben betwijfeld of het Sanskriete materiaal overal met dezelfde grondigheid is behandeld als het Tibetaanse. Voor een stelling die op de precieze bewoording van colofons rust, is dat een reëel bezwaar.</p>
+      <p>Daar staat iets tegenover dat in de kritiek weleens wegvalt. De lezing die Shaw bestreed, berustte zelf niet op onderzoek maar op de aanname dat vrouwen in deze teksten geen zelfstandige plaats konden hebben. Zij liet zien dat er materiaal ligt waar niemand naar had gekeken, en het onderzoek dat daarna kwam, met meer bronkritiek en minder stelligheid, is zonder haar boek moeilijk denkbaar. Haar latere <i>Buddhist Goddesses of India</i> (2006) werd op dat punt beheerster ontvangen.</p>
+      <p>Wat het boek niet doet, is de eigen zekerheid inperken. De toon is die van een zaak die rond is; de plaatsen waar de bron dun is, worden niet als zodanig gemarkeerd. Een lezer die het apparaat niet naslaat, kan het onderscheid tussen een geciteerd voorschrift en een gereconstrueerd leven niet maken.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees de geciteerde tekstplaatsen en de gevolgtrekkingen apart; het eerste is controleerbaar, het tweede is duiding.</li>
+        <li>Neem het aantal van veertig vrouwelijke auteurs niet over zonder erbij te zetten waar die toeschrijving op berust.</li>
+        <li>Zet er de kritiek van Davidson naast; de twee boeken lezen dezelfde bronnen met tegengestelde uitkomst.</li>
+        <li>Gebruik het als voorbeeld van hoe een vakgebied een aanname eeuwenlang kan doorgeven zonder haar te toetsen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Passionate Enlightenment: Women in Tantric Buddhism</i> (Princeton University Press, Princeton, 1994, xv + 291 blz., 18 zwart-witillustraties, ISBN 0-691-03380-3 gebonden, 0-691-01090-0 ingenaaid). Heruitgave in de reeks Princeton Classics, 2022, met een nieuw voorwoord van de auteur. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Miranda Shaw bestrijdt de gangbare lezing waarin vrouwen in het Indiase tantrisch boeddhisme vooral middel waren tot de verlichting van een man. Zij voert aan dat vrouwen in de Pala-periode, ruwweg de achtste tot de twaalfde eeuw, mee aan de wieg van de stroming stonden: als lerares, als inwijdster en als schrijfster.</p><p>Het boek won drie prijzen en kreeg tegelijk stevige methodische kritiek, vooral op de vraag of een vrouwennaam in het colofon van een Tibetaanse vertaling volstaat om vrouwelijk auteurschap aan te nemen. Beide kanten van die discussie zijn in dit geval de moeite waard.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>boeddhisme</li><li>feminisme</li><li>godsdienstwetenschap</li><li>seksualiteit</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1124"><a href="1124.html">Women of Wisdom</a>. Tsultrim Allione stelt in <i>Women of Wisdom</i> dezelfde vraag voor Tibet, met vertaalde levensverhalen in plaats van een academisch betoog.</li>
+          <li value="1117"><a href="1117.html">The Great Cosmic Mother</a>. Sjoo en Mor zoeken in <i>The Great Cosmic Mother</i> naar vrouwelijke religieuze macht in de voorgeschiedenis; het verschil in bronbehandeling met Shaw is leerzaam.</li>
+          <li value="640"><a href="640.html">Kabbalah</a>. Gershom Scholem laat in <i>Kabbalah</i> zien wat filologische bronkritiek met een mystieke overlevering doet.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

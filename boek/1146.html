@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conspirators' Hierarchy: The Story of the Committee of 300 &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Coleman stelt dat boven alle regeringen een comité van driehonderd personen staat dat voortkomt uit de Britse Oost-Indische Compagnie en in stand wordt…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1146">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1146 &middot; Geschiedenis en samenleving</p>
+    <h1>Conspirators' Hierarchy: The Story of the Committee of 300</h1>
+    <p class="lede">John Coleman, 1991</p>
+    <p class="stats">
+      <span><b>1850</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1146"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Coleman stelt dat boven alle regeringen een comité van driehonderd personen staat dat voortkomt uit de Britse Oost-Indische Compagnie en in stand wordt gehouden door de Britse aristocratie en wat hij de Zwarte Adel noemt, en dat dit comité de wereld volgens een uitgeschreven plan bestuurt: deïndustrialisatie, nulgroei, bevolkingsvermindering, opzettelijke verspreiding van verdovende middelen en het kweken van een jeugdcultuur die verzet onmogelijk maakt. Alles wat er in de wereld misgaat is in dat verhaal gewild en uitgevoerd, van de moord op de Italiaanse premier Aldo Moro tot het bestaan van de Beatles. Het boek levert bij die stelling geen enkele noot. Daarmee verschuift de vraag: niet of zij waar is, maar of er iets is waaraan zij te toetsen valt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Het voorwoord en de aangevoerde loopbaan</h3>
+      <p>Coleman opent met de mededeling dat hij in zijn loopbaan als beroepsofficier van de inlichtingendienst herhaaldelijk toegang had tot streng geheime stukken, en dat hij tijdens veldwerk als politiek officier in Angola een reeks documenten onder ogen kreeg waaruit het bestaan van het comité bleek. Er staan geen jaartallen bij, geen dienstonderdeel, geen namen, geen documentnummers.</p>
+      <p>Het grootste deel van het voorwoord bestaat uit aanvallen op andere auteurs binnen hetzelfde genre, die hij aanduidt als door de overheid betaalde verklikkers, aangestuurd door een groep homoseksuelen die bij conservatieve kringen in aanzien staat. Die toon keert door het hele boek terug en bepaalt mede hoe de rest gelezen moet worden.</p>
+      <h3>De gevalsbeschrijvingen aan het begin</h3>
+      <p>Het eerste hoofdstuk begint bij het naamloze zij dat volgens Coleman de dienst uitmaakt, en werkt dat uit aan de hand van de moord op Aldo Moro. Moro werd in maart 1978 door de Rode Brigades ontvoerd en in mei van dat jaar dood teruggevonden. Coleman verwijst naar een verklaring die een medewerker van Moro, Corrado Guerzoni, op 10 november 1982 in een Romeinse rechtszaal aflegde over een dreigement aan Moro's adres, en concludeert daaruit dat Henry Kissinger namens het comité dreigde en dat de moord vervolgens door de vrijmetselaarsloge P2 werd uitgevoerd, om Italië te deïndustrialiseren en de bevolking te verkleinen.</p>
+      <p>De structuur van dit voorbeeld herhaalt zich door het boek: een gebeurtenis die werkelijk plaatsvond, een getuigenis die werkelijk werd afgelegd, en daaraan vastgeknoopt een opdrachtgever en een motief waarvoor geen enkele bron wordt aangevoerd.</p>
+      <h3>De instellingen: Tavistock, de Club van Rome, de RIIA</h3>
+      <p>Coleman tekent een bevelsketen die loopt van de Club van Rome via de NAVO en het Royal Institute of International Affairs naar het comité. De spil is het Tavistock Institute of Human Relations in Londen, een bestaand instituut voor groepspsychologie en organisatieonderzoek dat in 1947 werd verzelfstandigd. In Colemans boek is Tavistock de motor van de massaconditionering en de opdrachtgever van vrijwel elke culturele verandering sinds de oorlog. De term Tavistock keert meer dan honderd keer terug.</p>
+      <h3>De Beatles als proefneming</h3>
+      <p>Het bekendste hoofdstuk stelt dat de Beatles door het Tavistock Institute zijn samengesteld en dat Theodor Adorno hun teksten schreef en hun muziek componeerde, samen met die van de latere Britse groepen. Tavistock en het Stanford Research Institute zouden signaalwoorden hebben bedacht waarmee een nieuwe jeugdgroep werd afgesplitst en aan verdovende middelen gewend.</p>
+      <p>In deze passages laat Coleman zijn stijl volledig los. Popmuziek noemt hij hier de duivelse muziek van Adorno, en hij zet het woord liefde neer met een vergelijking waarin hij homoseksualiteit met vuil gelijkstelt. Dat is geen terzijde: het is de plek waar duidelijk wordt dat de cultuurdiagnose van het boek een morele afkeer is die achteraf een bestuurlijke oorzaak krijgt toegewezen.</p>
+      <h3>Nulgroei en bevolkingsvermindering</h3>
+      <p>Het rapport <i>De grenzen aan de groei</i>, dat de Club van Rome in 1972 liet verschijnen, leest Coleman niet als waarschuwing maar als werkplan. Oorlogen, hongersnoden en ziekten zijn in zijn lezing de middelen waarmee de wereldbevolking wordt teruggebracht, en hij hanteert daarbij de term nutteloze eters voor wie geschrapt zou zijn. De deïndustrialisatie van westerse landen en het opzettelijk in stand houden van de handel in verdovende middelen horen bij hetzelfde plan; de handel zelf voert hij terug op de opiumhandel van de Britse Oost-Indische Compagnie in China.</p>
+      <h3>De lijsten achterin</h3>
+      <p>Ongeveer een kwart van het boek bestaat uit lijsten: instellingen die onder invloed staan van het comité, van de Wereldraad van Kerken en de Warren-commissie tot de Trilaterale Commissie en de vrijmetselarij; banken; advocatenkantoren; accountantskantoren; Tavistock-instellingen in de Verenigde Staten. Daarna volgt de lijst van vroegere en huidige leden, ruim driehonderd namen op alfabet.</p>
+      <p>Die lijst is het punt waarop het boek zichzelf tegenspreekt. Er staan levende bestuurders in, zoals George Bush, Henry Kissinger en David Rockefeller, maar ook mensen die al lang dood waren toen het boek verscheen, zoals Chaim Weizmann (overleden in 1952), opperrechter Earl Warren en de Fabian-socialist Sidney Webb. Bij verschillende namen staat de toevoeging of een door de familie aan te wijzen plaatsvervanger. Een gezelschap dat vergadert en besluit kan zulke leden niet hebben. Wat er staat is geen ledenlijst maar een register van mensen die Coleman van invloed verdenkt.</p>
+      <h3>De bibliografie</h3>
+      <p>Achterin staat een alfabetische lijst van titels, geordend op titel en niet op auteur, zonder paginaverwijzingen. Bij sommige titels staat een alinea eigen toelichting. Bij het Watergate-boek van Fred Thompson vertelt Coleman bijvoorbeeld dat hij Thompson opzocht nadat inbreker Bernard Barker hem bij een supermarkt in Coral Gables had verteld waar die te vinden was. Zulke passages vervangen de verantwoording: de lezer krijgt een anekdote over hoe de auteur ergens kwam, in plaats van een verwijzing naar een stuk dat hij kan nalezen. In de lopende tekst staat geen enkel notencijfer.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Comité van 300</td><td>Het orgaan van driehonderd personen dat volgens Coleman boven alle regeringen staat en de wereldpolitiek bepaalt.</td></tr>
+          <tr><td class="term">de Olympiërs</td><td>Colemans naam voor de binnenkring van dat comité, die zich naar zijn zeggen aan goden gelijk acht.</td></tr>
+          <tr><td class="term">Zwarte Adel</td><td>Aanduiding voor Venetiaanse en andere Europese adellijke families die in het boek de oudste laag van het comité vormen.</td></tr>
+          <tr><td class="term">Tavistock</td><td>Bij Coleman de Londense instelling die alle massapsychologische bewerking van het Westen ontwerpt en uitvoert.</td></tr>
+          <tr><td class="term">Club van Rome</td><td>In Colemans lezing het uitvoerend orgaan dat de nulgroei en de bevolkingsvermindering in praktijk brengt.</td></tr>
+          <tr><td class="term">nulgroei</td><td>De opzettelijke afbraak van industrie en bevolkingsomvang die het comité volgens Coleman nastreeft.</td></tr>
+          <tr><td class="term">nutteloze eters</td><td>Colemans weergave van de term waarmee het comité zou aanduiden welke bevolkingsgroepen geschrapt kunnen worden.</td></tr>
+          <tr><td class="term">signaalwoorden</td><td>Woorden die volgens Coleman door Tavistock rond popmuziek zijn bedacht om een afgezonderde jeugdgroep te sturen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op het woord van de auteur. De documenten uit Angola waarop de kernbewering steunt, worden niet weergegeven, niet gedateerd, niet genummerd en zijn nergens gedeponeerd. Van Colemans loopbaan bij de Britse inlichtingendienst bestaat geen onafhankelijke bevestiging: de bewering komt uit het voorwoord en is daarna overgenomen door uitgevers en op flapteksten herhaald. Wie haar wil narekenen, komt telkens weer bij dezelfde bron uit, namelijk Coleman zelf.</p>
+      <p>De bibliografie telt ongeveer honderdvijftig titels maar is niet gekoppeld aan de tekst. Er is dus geen bewering in het boek waarvan een lezer kan vaststellen op welke bladzijde van welk werk zij berust. Waar controleerbare zaken voorkomen, zoals de verklaring van Guerzoni in november 1982, gaat het om gebeurtenissen die inderdaad hebben plaatsgevonden; de stap van zo'n gebeurtenis naar het comité is telkens Colemans eigen toevoeging.</p>
+      <p>Op de plaatsen waar het boek wel te toetsen is, houdt het geen stand. De Britse Oost-Indische Compagnie, die Coleman als oorsprong en voortbestaande kern van het comité behandelt, werd in 1874 opgeheven op grond van de East India Stock Dividend Redemption Act. Theodor Adorno, die de teksten en de muziek van de Beatles zou hebben geschreven, stierf in augustus 1969, verachtte populaire muziek en schreef daar in zijn eigen werk met minachting over; de wording van de band in Liverpool vanaf 1960, de rol van manager Brian Epstein en producer George Martin zijn tot in de agenda's gedocumenteerd.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De vorm van dit boek, een genummerde groep verborgen bestuurders met een ledenlijst en een uitgeschreven plan, is in de literatuur over samenzweringsdenken beschreven als een terugkerend model. Michael Barkun noemt dit type de superconspiracy: een verhaal waarin alle afzonderlijke complotten aan één bovenliggende hand worden opgehangen, zodat er geen gebeurtenis meer overblijft die zonder opdracht plaatsvindt. Het model is historisch te dateren. Het ontstaat in 1797 en 1798, wanneer Augustin Barruel en John Robison de Franse Revolutie verklaren uit de Beierse Illuminati, en het krijgt zijn definitieve vorm in de <i>Protocollen van de wijzen van Sion</i> van 1903, waarvan <i>The Times</i> in augustus 1921 aantoonde dat zij zijn overgeschreven uit een Franse satire van Maurice Joly uit 1864.</p>
+      <p>Die herkomst is bij Coleman niet toevallig. De naam van zijn comité komt van een zin die Rathenau in december 1909 in de Weense <i>Neue Freie Presse</i> schreef, waarin hij als kritiek vaststelde dat driehonderd mannen die elkaar allen kennen de economie van Europa leiden. Rathenau bedoelde daarmee de oligarchische ontwikkeling van het bedrijfsleven en verklaarde in 1921 uitdrukkelijk dat het niet om joden ging. Vanaf 1912 werd de zin door Theodor Fritsch juist als bekentenis van joodse overheersing gepresenteerd. Coleman laat Rathenau weg, houdt het getal aan, en vult zijn ketting met de Zwarte Adel en het universeel zionisme. De antisemitische lijn in het boek is daarmee geen bijverschijnsel van de vorm; zij zit in de herkomst van de vorm zelf.</p>
+      <p>Het uitgeversverband zegt iets over het bedoelde publiek. America West Publishers, dat de handelsuitgave verzorgde, gaf in dezelfde jaren en met aansluitende nummers de Phoenix Journals uit, teksten die zouden zijn doorgegeven door een buitenaardse commandant met de naam Gyeorgos Ceres Hatonn. Dat bewijst niets over Colemans beweringen, maar het plaatst het boek in de markt waarvoor het geschreven is.</p>
+      <p>De invloed staat in geen verhouding tot de onderbouwing. Colemans indeling en woordkeus zijn overgenomen door latere auteurs en circuleren zelfstandig verder, los van het boek. Een exemplaar behoorde tot de Engelstalige boeken die in 2011 in het complex van Osama bin Laden in Abbottabad werden aangetroffen en die de CIA later openbaar heeft gemaakt. Een boek zonder één noot heeft dus wel degelijk gevolgen gehad; dat is een reden om te weten wat erin staat, en geen reden om aan te nemen dat het klopt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Zoek bij elke bewering die het boek doet, de vindplaats op. Waar die er niet is, en dat is vrijwel overal, noteer dat als eigenschap van het boek en niet als tijdgebrek van de lezer.</li>
+        <li>Vergelijk de ledenlijst achterin met sterfjaren. Dat is de snelste toets op de vraag of het om een vergaderend orgaan gaat.</li>
+        <li>Lees de zin van Rathenau uit 1909 in zijn geheel na en leg die naast Colemans gebruik van het getal driehonderd.</li>
+        <li>Gebruik het boek om de vorm te leren herkennen: één noemer, een naamlijst, een plan, en geen enkele gebeurtenis die zonder opdracht mag gebeuren.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Conspirators' Hierarchy: The Story of the Committee of 300</i> (in eigen beheer uitgebracht, voorwoord gedateerd november 1991; handelsuitgave America West Publishers, 1992, 343 blz., ISBN 9780922356577). Herziene en uitgebreide vierde druk bij Joseph Holding Corporation en Global Insights Publications, 1994 en 1997, 487 blz., ISBN 9780963401946; latere herdrukken bij Omnia Veritas. Nederlandse uitgave: <i>De hiërarchie van de samenzweerders: Geschiedenis van het comité van 300</i> (Omnia Veritas, ISBN 9781805401193).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Coleman, die zichzelf voorstelt als voormalig officier van de Britse inlichtingendienst, beweert dat een orgaan van driehonderd personen, door hem de Olympiërs genoemd, boven alle regeringen staat en oorlogen, drugshandel, popmuziek en bevolkingsomvang bestuurt. Het boek verscheen in november 1991 en groeide in latere drukken van 343 naar bijna vijfhonderd bladzijden.</p><p>De naam gaat terug op een zin van de Duitse industrieel Walther Rathenau uit december 1909 over driehonderd mannen die de economie van Europa leiden. Coleman noemt Rathenau nergens. Het boek bevat geen enkele noot die een bewering aan een vindplaats koppelt.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>complotdenken</li><li>elites</li><li>macht</li><li>bronnenkritiek</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1145"><a href="1145.html">Rule by Secrecy</a>. Hetzelfde onderwerp met veertig bladzijden bronvermeldingen; het verschil in verantwoording laat zien wat een notenapparaat wel en niet oplevert.</li>
+          <li value="682"><a href="682.html">Tragedy and Hope</a>. De historicus die het netwerk van Round Table-groepen werkelijk uit archieven beschreef, en die door dit genre selectief wordt aangehaald.</li>
+          <li value="680"><a href="680.html">None Dare Call It Conspiracy</a>. De Amerikaanse voorloper uit 1971, met dezelfde ketting van instellingen maar zonder de ledenlijst.</li>
+          <li value="915"><a href="915.html">The Eye in the Pyramid</a>. De romancyclus die dit soort ledenlijsten en hiërarchieën uitvergroot tot satire, en die daarmee de vorm blootlegt.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

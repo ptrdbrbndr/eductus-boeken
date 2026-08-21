@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Als je wereld instort &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Chödrön behandelt het uiteenvallen van een leven niet als een storing die verholpen moet worden. Haar stelling is dat de zekerheid waarnaar mensen bij…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1168">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1168 &middot; Levenskunst</p>
+    <h1>Als je wereld instort</h1>
+    <p class="lede">Pema Chödrön, 1997</p>
+    <p class="stats">
+      <span><b>1607</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1168"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Chödrön behandelt het uiteenvallen van een leven niet als een storing die verholpen moet worden. Haar stelling is dat de zekerheid waarnaar mensen bij tegenslag terugverlangen er nooit geweest is, en dat het wegvallen ervan de enige opening geeft naar een bestaan dat niet op ontwijking rust. Zij belooft geen herstel van de oude toestand en geen goede afloop. Zij vraagt om bij het gevoel te blijven dat je liever kwijt was, lang genoeg om te merken dat het uit zichzelf van vorm verandert.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waar de tekst vandaan komt</h3>
+      <p>Het boek bestaat uit tweeëntwintig korte hoofdstukken, bewerkt uit lezingen die Chödrön tussen 1987 en 1994 hield in Gampo Abbey. Zij werd in 1936 in New York geboren als Deirdre Blomfield-Brown, werkte jaren als onderwijzeres en werd in 1974 in Londen tot novice gewijd bij Chime Rinpoche. In 1972 had zij de Tibetaanse leraar Chögyam Trungpa ontmoet, die haar hoofdleraar werd; in 1981 ontving zij in Hongkong de volledige wijding.</p>
+      <p>De hoofdstukken staan los van elkaar, dragen titels als <i>Intimacy with Fear</i> en <i>Six Kinds of Loneliness</i>, en lopen niet van eenvoudig naar ingewikkeld. Wie het boek achter elkaar leest, komt dezelfde handvol aanwijzingen telkens in een ander voorbeeld tegen.</p>
+      <h3>Maitri: vriendelijkheid zonder voorwaarde</h3>
+      <p>Maitri is het Sanskriet voor welwillendheid. Chödrön gebruikt het woord voor de houding tegenover de eigen ervaring: opmerken wat er is, ook wanneer dat jaloezie, wrok of paniek is, zonder er een oordeel of een verbeterplan aan vast te knopen. Werken aan jezelf gaat volgens haar uit van de aanname dat er iets mis is dat weg moet, en die aanname is zelf de vorm van vijandigheid waar het om gaat.</p>
+      <p>Meditatie is in dit boek dan ook geen techniek om rustig te worden. Zitten dient om te zien welke gedachten en stemmingen zich aandienen, ze te benoemen en terug te keren naar de adem. Wat er tijdens het zitten gebeurt, is in haar behandeling nooit een fout.</p>
+      <h3>Het ogenblik waarop iets je te pakken krijgt</h3>
+      <p>Een groot deel van het boek gaat over de beweging waarmee iemand vastraakt: er is een prikkel, er volgt een onaangename spanning, en daarna komt vrijwel meteen het bekende gedrag dat die spanning moet wegnemen. Chödrön beschrijft dat in de hoofdstukken over de vier mara's, vier gedaanten van de verleiding, en over de acht wereldse dharma's, vier tegengestelde paren die het oordeel sturen: genot en pijn, winst en verlies, roem en schande, lof en blaam. Zolang die paren onopgemerkt blijven, bepalen zij wat iemand als goed of slecht nieuws ervaart.</p>
+      <p>De Tibetaanse term shenpa is de naam die Chödrön later aan dat vastklitten heeft gegeven, in <i>Getting Unstuck</i> (2005) en <i>Taking the Leap</i> (2009), naar onderricht van Dzigar Kongtrül. Shenpa duidt op het haakje waaraan de reactie vastzit, het trekje vlak voordat er woorden of redenen bij komen. Het verschijnsel wordt in dit boek beschreven; de term zelf staat in dat latere werk uitgelegd.</p>
+      <h3>Tonglen: de omgekeerde ademhaling</h3>
+      <p>Tonglen betekent geven en nemen. Bij het inademen richt de mediterende zich op de pijn van iemand die het zwaar heeft; bij het uitademen stuurt hij daar ruimte of opluchting naartoe. De volgorde is omgekeerd aan wat iemand uit zichzelf zou doen. De praktijk komt uit de Tibetaanse lojong-traditie, de reeks spreuken voor geestesoefening die in de elfde eeuw met Atisha in Tibet werd ingevoerd.</p>
+      <p>Chödrön beschrijft tonglen in vier stappen: een korte stilte, dan het werken met de ademhaling zonder inhoud, dan een concrete situatie, en ten slotte het uitbreiden naar iedereen die in hetzelfde zit. Wat er volgens haar gebeurt, is dat de gewoonte om ongemak weg te duwen losser komt te zitten.</p>
+      <h3>Eenzaamheid, hopeloosheid en de dood</h3>
+      <p>Het hoofdstuk over de zes soorten eenzaamheid keert de gebruikelijke waardering om. Eenzaamheid vraagt in Chödröns behandeling niet om gezelschap, want het zoeken van gezelschap is juist de manier waarop iemand aan zichzelf ontsnapt. Zij noemt zes kanten van een eenzaamheid die uit te houden valt, waaronder minder verlangen, tevredenheid, het nalaten van overbodige bedrijvigheid, en geen zekerheid zoeken bij de eigen gedachten.</p>
+      <p>Het hoofdstuk over hopeloosheid gaat verder. Hoop en angst horen volgens haar bij elkaar: hopen op een betere toestand houdt de afkeer van de huidige in stand. Wat zij hopeloosheid noemt, is het opgeven van de gedachte dat er ooit een plek komt waar het klaar is. Zij verbindt dat met de dood, die zij behandelt als de dagelijkse ervaring dat elke toestand ophoudt.</p>
+      <h3>Drie manieren om met chaos om te gaan</h3>
+      <p>In een van de latere hoofdstukken zet Chödrön drie werkwijzen naast elkaar. De eerste is de strijd staken: gaan zitten en gedachten en stemmingen laten passeren zonder er iets van te vinden. De tweede is het gif als medicijn gebruiken: woede, jaloezie of angst op het moment zelf inademen namens iedereen die hetzelfde voelt, wat neerkomt op tonglen midden in het dagelijks leven. De derde is elke opkomende toestand behandelen als wijsheid die zich al heeft aangediend; die is de moeilijkste en krijgt de minste woorden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">maitri</td><td>Sanskriet voor welwillendheid; bij Chödrön de houding waarin iemand de eigen ervaring toelaat zonder er verbetering aan te verbinden.</td></tr>
+          <tr><td class="term">tonglen</td><td>Tibetaanse ademoefening waarbij de pijn van een ander wordt ingeademd en opluchting wordt uitgeademd.</td></tr>
+          <tr><td class="term">bodhicitta</td><td>het open, kwetsbare hart dat volgens de Tibetaanse leer onder de afweer ligt en waar de oefening zich op richt.</td></tr>
+          <tr><td class="term">de vier mara's</td><td>vier gedaanten van verleiding: hechten aan genot, terugdeinzen voor lichamelijk ongemak, dichtklappen bij hevige emoties, en doodsangst.</td></tr>
+          <tr><td class="term">de acht wereldse dharma's</td><td>vier tegengestelde paren, genot en pijn, winst en verlies, roem en schande, lof en blaam, die ongemerkt bepalen wat iemand als goed nieuws ervaart.</td></tr>
+          <tr><td class="term">shenpa</td><td>Tibetaans voor het haakje waaraan een reactie vastzit, het vastklitten vlak voordat er woorden bij komen; door Chödrön vooral in haar latere boeken uitgewerkt.</td></tr>
+          <tr><td class="term">lojong</td><td>Tibetaanse geestesoefening met korte spreuken, de traditie waaruit tonglen afkomstig is.</td></tr>
+          <tr><td class="term">samsara</td><td>de kringloop van steeds hetzelfde reageren die volgens de boeddhistische leer het lijden in stand houdt.</td></tr>
+          <tr><td class="term">geen vaste grond</td><td>Chödröns aanduiding voor de ervaring dat er geen toestand bestaat waarop iemand blijvend kan steunen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek doet geen beroep op onderzoek. Het gezag ervan berust op overlevering: Chödrön geeft door wat zij van Chögyam Trungpa en uit de lojong-traditie ontving, en zij verwijst naar leraren en klassieke bronnen. Voor wie de leer aanvaardt is dat een grond; voor wie dat niet doet, blijft er geen argument over dat los van de traditie staat.</p>
+      <p>De voorbeelden zijn kort, persoonlijk en anekdotisch; ze komen uit het kloosterleven in Nova Scotia en uit haar eigen ervaring. Herkenbaarheid is de enige toets die het boek aanbiedt. Meditatie op aandacht en op mededogen wordt sinds de jaren negentig ook in laboratoria bestudeerd, met bescheiden en lang niet altijd herhaalbare uitkomsten, maar Chödrön beroept zich daar nergens op.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Wat het boek niet is, is een behandeling. Het gaat over gewoon verdriet, gewone angst en gewone tegenslag. De aanwijzing om bij een pijnlijk gevoel te blijven en er verder niets aan te doen, is bij een depressie, een posttraumatische stoornis of een acute crisis niet zonder risico, en dat onderscheid wordt nergens gemaakt. Er staat niets in over wanneer iemand beter hulp kan zoeken.</p>
+      <p>Een tweede bezwaar betreft de reikwijdte. Het lijden dat Chödrön behandelt, is telkens het lijden van de enkeling aan zijn eigen reacties. Over lijden dat uit armoede, geweld of uitsluiting voortkomt zegt het boek niets, en de aansporing om te stoppen met hopen op verandering laat zich in zo'n geval ook lezen als berusting.</p>
+      <p>Het derde punt raakt de herkomst. Het boek verscheen bij Shambhala Publications en staat in de traditie die Chögyam Trungpa in het Westen vestigde. Trungpa dronk zwaar, had seksuele verhoudingen met leerlingen en gaf in 1975 tijdens een seminarie in Snowmass opdracht de dichter W.S. Merwin en zijn partner Dana Naone tegen hun wil te ontkleden; hij stierf in 1987, met een gezondheid die door jarenlang drinken was ondermijnd. Zijn opvolger Ösel Tendzin bleek in december 1988 al bijna drie jaar te weten dat hij besmet was met hiv, terwijl hij onbeschermde seks met leerlingen bleef hebben zonder hun dat te vertellen; ten minste één van hen overleed aan aids.</p>
+      <p>Chödrön was Trungpa's leerling en is hem als leraar blijven verdedigen. Toen in 2018 via de rapporten van Buddhist Project Sunshine beschuldigingen van seksueel wangedrag tegen zijn zoon en opvolger Sakyong Mipham naar buiten kwamen en het bestuur hem in januari 2020 opnieuw wilde laten onderwijzen, trad zij terug als acharya van Shambhala. Dat zegt op zichzelf niets over de juistheid van de leer in dit boek. Het legt er wel een vraag naast: wat een onderricht over onvoorwaardelijke vriendelijkheid waard is in een gemeenschap waarin de overgave aan de leraar stelselmatig is misbruikt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees één hoofdstuk per keer en laat het staan; het boek is niet op doorlezen gebouwd.</li>
+        <li>Merk bij ergernis het ogenblik op tussen de prikkel en de reactie, en houd dat drie ademhalingen lang vast voordat je iets zegt.</li>
+        <li>Probeer tonglen eerst op een klein ongemak van iemand die je goed kent.</li>
+        <li>Zoek bij aanhoudende somberheid of angstklachten hulp die dit boek niet levert.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>When Things Fall Apart: Heart Advice for Difficult Times</i> (Shambhala, Boston, 1997, 148 blz., ISBN 978-1-57062-160-4). Nederlandse uitgave: <i>Als je wereld instort: adviezen voor moeilijke tijden</i>, vertaald door Arya Kiekens, verschenen bij Servire in Utrecht in 1998 en sindsdien herdrukt bij Ten Have (ISBN 978-90-259-1374-8).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Chödrön bundelt tweeëntwintig korte lezingen die zij tussen 1987 en 1994 hield in Gampo Abbey, het klooster in Nova Scotia dat zij vanaf 1984 opzette en leidde. De draad erdoorheen is dat pijn, angst en verlies geen storing zijn in een verder werkbaar leven, maar de plaats waar het oefenen begint.</p><p>Zij werkt met een handvol praktijken uit het Tibetaans boeddhisme: maitri, vriendelijkheid tegenover jezelf zonder voorwaarden; tonglen, het inademen van wat pijn doet en het uitademen van opluchting; en het herkennen van het ogenblik waarop een gemoedstoestand je te pakken krijgt. Het boek geeft geen stappenplan en belooft geen uitkomst.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>boeddhisme</li><li>meditatie</li><li>angst</li><li>tegenslag</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="341"><a href="341.html">The Wisdom of Insecurity</a>. Alan Watts stelt in <i>The Wisdom of Insecurity</i> uit 1951 dezelfde diagnose in westerse bewoordingen: het zoeken naar zekerheid is zelf de bron van de onrust.</li>
+          <li value="149"><a href="149.html">The Power of Now</a>. <i>The Power of Now</i> van Eckhart Tolle gaat eveneens over het loslaten van de greep op de toekomst, zonder traditie of leraar erachter en met een veel stelliger belofte.</li>
+          <li value="377"><a href="377.html">The Untethered Soul</a>. Michael Singer beschrijft in <i>The Untethered Soul</i> een verwante oefening in overgave, in een taal die uit de yoga komt.</li>
+          <li value="333"><a href="333.html">Altered Traits</a>. Goleman en Davidson zetten in <i>Altered Traits</i> op een rij wat het laboratoriumonderzoek naar meditatie heeft opgeleverd, inclusief de studies die niet standhielden.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

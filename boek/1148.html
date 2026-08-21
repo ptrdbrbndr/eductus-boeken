@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Family &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Sanders betoogt dat de moorden van augustus 1969 geen plotselinge uitbarsting waren maar het sluitstuk van twee jaar waarin een groep jonge mensen onder…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1148">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1148 &middot; Geschiedenis en samenleving</p>
+    <h1>The Family</h1>
+    <p class="lede">Ed Sanders, 1971</p>
+    <p class="stats">
+      <span><b>1600</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1148"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Sanders betoogt dat de moorden van augustus 1969 geen plotselinge uitbarsting waren maar het sluitstuk van twee jaar waarin een groep jonge mensen onder Manson leefde van diefstal, verdovende middelen, dwang en een zelfgemaakte godsdienst, en dat het spoor van die groep doorloopt in een breder milieu van Californische occulte genootschappen. Het eerste deel van die stelling draagt hij met eigen veldwerk en processtukken. Het tweede deel is de plek waar het boek verder gaat dan zijn materiaal, en het is ook precies het deel dat na juridische stappen uit latere edities is verdwenen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Wie het schreef en hoe</h3>
+      <p>Ed Sanders was dichter, medeoprichter van de rockgroep The Fugs, uitgever van een eigen tijdschrift en houder van een boekwinkel in New York. Hij had geen journalistieke opleiding en werd door de zaak zelf tot onderzoeker gemaakt. Hij nam het volledige procesverslag door, ongeveer vijfentwintigduizend bladzijden, plus enkele duizenden bladzijden knipsels en de sectierapporten, en bracht dat onder in onderwerps- en tijdmappen.</p>
+      <p>Voor het veldwerk schakelde hij hulponderzoekers in en gebruikte hij vermommingen, omdat een deel van Mansons omgeving gewelddadig was. Robert Christgau, die het boek in de <i>New York Times</i> besprak, meldde de regel die Sanders zichzelf oplegde: niets gebruiken wat niet van minstens twee afzonderlijke personen afkomstig was.</p>
+      <h3>De vorm: een dossier in tijdsvolgorde</h3>
+      <p>Het boek volgt de chronologie, van Mansons jeugd en gevangenisjaren via zijn vrijlating in maart 1967, de tijd in Haight-Ashbury in San Francisco, de intrek op het Spahn Movie Ranch bij Los Angeles, de moord op muziekleraar Gary Hinman, de moorden bij het huis van Sharon Tate en bij het echtpaar LaBianca op 8, 9 en 10 augustus 1969, de vlucht naar het Barker-ranch in Death Valley, de arrestaties en het proces.</p>
+      <p>Sanders schrijft kort en droog, verzint eigen samenstellingen, weigert te psychologiseren en spreekt geen oordeel uit over de daders. Christgau noemde die gegevensdrift een bewuste keuze van een dichter en vond het boek er waarachtiger door. Andere lezers hebben het om dezelfde reden een vierhonderd bladzijden dik politiedossier genoemd.</p>
+      <h3>Het aanvalsbataljon uit de ondertitel</h3>
+      <p>De ondertitel is letterlijk bedoeld. De groep bouwde uit gesloopte auto-onderdelen duinbuggy's om zich in de woestijn te kunnen verplaatsen, en Manson sprak over een bodemloze put in Death Valley waarin de zijnen de komende ondergang zouden overleven. Sanders neemt de woorden van de groep zelf serieus als beschrijving van wat zij geloofde, en niet als achteraf bedachte verklaring. Dat is de sterkste keuze in het boek: het laat zien dat de leer waaronder gemoord werd, in de groep dagelijks werd gesproken.</p>
+      <h3>Het bredere netwerk</h3>
+      <p>Sanders plaatst de groep in een Californisch landschap van kleine genootschappen: de Process Church of the Final Judgment, de Solar Lodge, een afsplitsing rond de Ordo Templi Orientis, en de Church of Satan van Anton LaVey. Hij suggereert verkeer en overlap tussen die groepen en de Manson-kring.</p>
+      <p>Voor dat deel had hij aanmerkelijk minder materiaal dan voor de rest. Zijn beeld van de Solar Lodge kwam grotendeels van Grady McMurtry, destijds hoofd van de Ordo Templi Orientis, die in het boek zelf niet bij naam wordt genoemd. Latere beschrijvingen door mensen die bij die loge betrokken waren, geven een aanzienlijk minder dramatisch beeld dan Sanders.</p>
+      <h3>Het hoofdstuk dat verdween</h3>
+      <p>De Process Church spande een smaadprocedure aan tegen de Amerikaanse uitgever wegens het hoofdstuk waarin zij met Manson in verband werd gebracht. De uitgever schikte en haalde het hoofdstuk uit alle volgende drukken; in nog niet verkochte exemplaren werd een blad geplakt met de mededeling dat wat in het boek over de Process stond, ongegrond was. Daarna klaagde de Process de Britse uitgever aan, verloor die zaak en moest de proceskosten dragen.</p>
+      <p>In de herziene edities van 1990 en 2002 zijn niet alleen dat hoofdstuk maar ook de overige verwijzingen naar de Process en naar de Solar Lodge weg. De editie van 2002 bevat een nawoord waarin Sanders de juridische geschiedenis beschrijft. Wie het boek nu koopt, leest dus een andere versie dan die van 1971, en de sterkste bewering eruit is voor de hedendaagse lezer niet meer te controleren.</p>
+      <h3>Wat het boek de taal in bracht</h3>
+      <p>In dit boek staat de eerste bekende vindplaats van het woord snuff film. Sanders geeft een gesprek weer met een anonieme voormalige omgangsgenoot van de groep, die vertelt dat er een moord op film is vastgelegd tijdens een ritueel. Er is bij de inval op het Spahn-ranch filmapparatuur aangetroffen, maar er is nooit zulke film opgedoken, niet daar en nergens anders. Het woord is blijven bestaan en heeft een hardnekkige mythe gevoed, die in de jaren zeventig en tachtig zelfstandig verder is gegroeid. Het is het duidelijkste voorbeeld van wat er gebeurt wanneer één anonieme bron zonder voorbehoud wordt afgedrukt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">de Family</td><td>De naam waaronder de groep rond Manson zichzelf en elkaar aanduidde.</td></tr>
+          <tr><td class="term">duinbuggy-aanvalsbataljon</td><td>Sanders' aanduiding voor de gemotoriseerde woestijnopzet waarmee de groep zich op de verwachte ondergang voorbereidde.</td></tr>
+          <tr><td class="term">Spahn Movie Ranch</td><td>Het vervallen filmdecor bij Los Angeles waar de groep in 1968 en 1969 woonde en werkte.</td></tr>
+          <tr><td class="term">bodemloze put</td><td>De schuilplaats in Death Valley waarover Manson sprak, ontleend aan het bijbelboek Openbaring.</td></tr>
+          <tr><td class="term">Helter Skelter</td><td>Mansons naam voor de rassenoorlog die hij verwachtte en waaruit hij als heerser zou opstaan, ontleend aan een liedtitel van de Beatles.</td></tr>
+          <tr><td class="term">Process Church of the Final Judgment</td><td>De in 1966 in Londen ontstane groepering waarover het hoofdstuk ging dat na de schikking uit het boek verdween.</td></tr>
+          <tr><td class="term">Solar Lodge</td><td>Californische afsplitsing rond de Ordo Templi Orientis, door Sanders in verband gebracht met het milieu rond Manson.</td></tr>
+          <tr><td class="term">snuff film</td><td>Een op film vastgelegde echte moord; het begrip is voor het eerst in dit boek te vinden en berust daar op één anonieme zegsman.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De onderbouwing van het feitelijke deel is voor dit onderwerp uitzonderlijk stevig. Sanders werkte met het volledige procesverslag, met sectierapporten en met eigen gesprekken op de plaatsen zelf, en hield zich aan de regel dat een gegeven van twee onafhankelijke personen moest komen. Hij deed dat in een periode waarin de zaak nog niet was afgerond en getuigen bereikbaar waren. Daarom wordt het boek nog steeds aangehaald als de volste beschrijving van het dagelijks bestaan van de groep, ook door auteurs die zijn conclusies niet delen.</p>
+      <p>Zijn stijl draagt aan die stevigheid bij. Doordat hij niet duidt en niet verklaart, blijft zichtbaar wat er is waargenomen en door wie. Wie de bronvermeldingen naloopt, kan bij veel passages nagaan waar het vandaan komt.</p>
+      <p>Waar hij zijn materiaal verlaat, is dat aan de tekst niet te zien, en dat is het echte gebrek. De hoofdstukken over de occulte genootschappen zijn in dezelfde toon geschreven als de hoofdstukken over het procesdossier, terwijl zij op één zegsman berusten of op wat er in het milieu rondging. Voor de Solar Lodge kwam dat materiaal van de toenmalige leider van een concurrerende orde, die zelf buiten schot bleef. De sfeer van betrouwbaarheid die de rest van het boek verdient, komt zo terecht op passages die haar niet verdienen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het scherpste bezwaar is de aanname van een samenhangend occult netwerk. Sanders neemt aan dat de Manson-groep geen op zichzelf staand verschijnsel was maar een uitloper van een breder milieu dat elkaar kende en beïnvloedde. Voor die aanname bestond in 1971 aanzienlijk minder grond dan voor de rest van het boek, en de uitgever heeft dat na de schikking feitelijk erkend door het hoofdstuk terug te trekken. Dat de Britse rechter de Process in het ongelijk stelde, zegt iets over het Britse smaadrecht en niet over de juistheid van de bewering.</p>
+      <p>De naast liggende vergelijking is <i>Helter Skelter</i> van openbaar aanklager Vincent Bugliosi en Curt Gentry uit 1974, dat later veel meer lezers kreeg. Beide auteurs hadden een belang: Bugliosi moest één motief overeind houden dat een jury overtuigde, Sanders had een opvatting over een tegencultuur die van binnenuit was aangetast. Bugliosi is de betere bron voor de zaak zoals die is bewezen, Sanders voor hoe de groep leefde. Geen van beide boeken is een onafhankelijke beschrijving.</p>
+      <p>De vorm heeft een prijs. Doordat Sanders niet weegt en niet ordent naar zekerheid, krijgt de lezer het bevestigde en het gehoorde in dezelfde stem aangeboden. Christgau, die het boek gunstig besprak, wees er bovendien op dat Sanders zijn stelling over de kwetsbaarheid van de bloemenbeweging één keer noemt en er daarna nooit meer op terugkomt, zodat de lezer de gevolgtrekking zelf moet maken.</p>
+      <p>Het duurzaamste gevolg van het boek is een woord dat een mythe werd. Uit één anonieme verklaring over een gefilmde moord is het begrip snuff film ontstaan, dat sindsdien in politieonderzoeken, kranten en films een eigen leven leidt zonder dat er ooit een geval is aangetoond. Dat is de duidelijkste illustratie van wat er misgaat wanneer een journalist die verder streng is, één keer een onbevestigde bewering zonder voorbehoud opneemt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Ga na welke editie voorhanden is. De tekst van 1971 en die van 2002 verschillen op het punt waar de meeste discussie over gaat.</li>
+        <li>Lees het nawoord van de editie van 2002 eerst; daarin staat welke passages zijn verdwenen en waarom.</li>
+        <li>Scheid bij het lezen de passages die op processtukken teruggaan van de passages die op één zegsman rusten. De stijl maakt dat onderscheid niet voor de lezer.</li>
+        <li>Leg het naast het verslag van de aanklager om te zien hoe hetzelfde feitenmateriaal twee verschillende verhalen kan dragen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Family: The Story of Charles Manson's Dune Buggy Attack Battalion</i> (E.P. Dutton, New York, 1971, 412 blz., ISBN 0525103007; Britse uitgave Rupert Hart-Davis, Londen, 1972). Herziene edities in 1990 en in 2002 bij Thunder's Mouth Press onder de kortere titel <i>The Family</i>, 560 blz., ISBN 9781560253969, met een nawoord over de rechtszaken; heruitgave Hachette, 2023. Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse edities gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Dichter en Fugs-oprichter Ed Sanders verhuisde in 1970 naar Los Angeles, volgde het proces tegen Charles Manson en zijn volgelingen en werkte anderhalf jaar aan een reconstructie van de groep: het procesdossier van vijfentwintigduizend bladzijden, sectierapporten, knipsels en eigen gesprekken op het Spahn-filmranch en in Death Valley.</p><p>Het resultaat is een chronologisch dossier in korte, harde zinnen, zonder psychologische duiding. Waar Sanders bij zijn materiaal blijft, is het boek nog altijd de volste beschrijving van hoe die groep leefde. Waar hij een breder occult netwerk aanneemt, loopt hij op zijn bewijs vooruit, met gevolgen die tot een rechtszaak en tot een geschrapt hoofdstuk hebben geleid.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>misdaad</li><li>sekten</li><li>onderzoeksjournalistiek</li><li>jaren zestig</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1147"><a href="1147.html">Sinister Forces</a>. Bouwt op Sanders' gegevens voort en trekt de lijn naar mindcontrol en occultisme door; Levenda gebruikt dit boek uitdrukkelijk voor feiten en niet voor de theorie.</li>
+          <li value="750"><a href="750.html">Acid Dreams</a>. Over LSD, de inlichtingendiensten en de tegencultuur waarin de Manson-groep ontstond, geschreven met dezelfde journalistieke inslag.</li>
+          <li value="665"><a href="665.html">The Search for the "Manchurian Candidate"</a>. De gedocumenteerde behandeling van de vraag of iemand tot moordenaar te programmeren valt, waar dit boek alleen naar suggereert.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

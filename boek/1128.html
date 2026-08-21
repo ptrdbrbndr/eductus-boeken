@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lectures to Ladies on Anatomy and Physiology &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Gove stelt dat het grootste deel van de ziekten waaraan vrouwen in haar tijd lijden voortkomt uit onwetendheid over het eigen lichaam, en dat die…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1128">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1128 &middot; Brein en lichaam</p>
+    <h1>Lectures to Ladies on Anatomy and Physiology</h1>
+    <p class="lede">Mary S. Gove, 1842</p>
+    <p class="stats">
+      <span><b>1731</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1128"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Gove stelt dat het grootste deel van de ziekten waaraan vrouwen in haar tijd lijden voortkomt uit onwetendheid over het eigen lichaam, en dat die onwetendheid geen natuurlijke toestand is maar in stand gehouden wordt door het idee dat kennis van anatomie voor vrouwen ongepast zou zijn. Wie weet hoe de ribben, de longen en de lever liggen, zal het rijgkorset niet meer dragen; wie weet hoe de maag werkt, begrijpt waarom prikkelend voedsel en gebrek aan lucht schaden. Kennis is bij haar dus geen wetenschappelijke luxe maar de eerste voorwaarde voor gezondheid, en zij moet aan vrouwen worden overgedragen door een vrouw die openlijk voor een klas staat.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Hoe de lezingen ontstonden</h3>
+      <p>Het voorwoord beantwoordt de vraag waarom een vrouw zich met deze stof bemoeit. Gove schrijft dat zij vanaf haar kinderjaren nooit gezond is geweest en dat de grond voor haar longziekte op haar veertiende gelegd is door nauwe kleding. Vanaf haar achttiende las zij medische en pathologische werken, maar verborg dat, omdat zij niet bespot wilde worden om lectuur die vrouwen zelden lazen.</p>
+      <p>In 1837 hoorde zij in Lynn, Massachusetts, de lezingen van Sylvester Graham. Die kennis maakte volgens haar pas bruikbaar wat zij al wist: zij kende de bouw van de maag, maar niet de oorzaken die haar werking ontregelen. Zij noemt Graham een van de grootste weldoeners die de wereld ooit heeft gehad en schrijft het meeste van wat in haar boek praktisch bruikbaar is aan zijn onderricht toe. Ook bedankt zij artsen die haar boeken leenden, hun verzamelingen openstelden en haar bij ontledingen toelieten.</p>
+      <h3>Veertien lezingen, van bot tot opvoeding</h3>
+      <p>De inhoudsopgave laat de opbouw zien. Lezing I verdedigt het nut van de studie zelf; II en III behandelen de vorming, het aantal en de ligging van de botten; IV de spieren en het oog, oor en de neus; V bloedsomloop, ademhaling en ventilatie; VI de maag; VII tot IX de diëtetiek; X de lichaamsvochten; XI en XII het zenuwstelsel; XIII ziekten van de ruggengraat; XIV opvoeding.</p>
+      <p>Het is een leergang, geen betoog: eerst de bouw, dan de werking, dan de leefregels die daaruit volgen. De anatomie is die van de leerboeken van haar tijd en bevat weinig eigens. Het eigene zit in wat zij eraan vastknoopt.</p>
+      <h3>Het korset</h3>
+      <p>De felste bladzijden gaan over het rijgen. Gove beschrijft hoe samendrukking de spieren van borst en rug hun werk ontneemt, waardoor die verslappen en de drager het gevoel krijgt dat zij zonder korset in elkaar zakt. Dat gevoel is voor haar het bewijs van de schade, niet het argument ervoor. Zij noemt de gevolgen die zij ziet: verkleuring van de lippen, een vale huid, benauwdheid, bloedingen uit de longen, verkromming van de ruggengraat.</p>
+      <p>Zij voert zichzelf op als geval. Op haar veertiende bijna vernietigd door samendrukking, vijftien jaar zo krom dat zij een blijvende afwijking vermoedde, en hersteld door oefeningen die zij later in haar lessen gaf. Zij noemt zich een wrak dat weet dat het kort zal leven, en zegt dat zij liever mishandeld en verkeerd voorgesteld wordt dan te zwijgen. Van de aandoening waaraan haar tijdgenoten dachten, longtering, is zij overigens niet gestorven; zij werd vierenzeventig.</p>
+      <h3>Diëtetiek, met afstand tot de eigen partij</h3>
+      <p>Drie lezingen gaan over voeding. Gove eet zelf geen vlees en gelooft dat vleeseters minder gezond zijn en korter leven, maar zij weigert daar een stelsel van te maken. Wie zegt matig te leven omdat hij geen vlees eet en vervolgens buitensporig veel plantaardig voedsel naar binnen werkt, doet zichzelf volgens haar meer kwaad dan wie matig vlees eet. Zij citeert William Cullen dat plantaardig voedsel de bloedvaten niet overvult en de geest vrij laat, en dat vlees aanzet tot volbloedigheid.</p>
+      <p>Zij verbindt voedsel ook aan zedelijkheid: prikkelend eten wekt volgens haar de dierlijke neigingen. Dat is de kern van het grahamisme, en zij weet dat het als overdreven geldt. Zij verdedigt het met verwijzing naar gezaghebbende medische schrijvers, niet met eigen waarnemingen.</p>
+      <h3>Zenuwstelsel, ruggengraat en de geheime ondeugd</h3>
+      <p>In de lezingen over het zenuwstelsel en de ruggengraat komt zij op zelfbevrediging, die zij als oorzaak van een lange rij ziekten opvoert: dyspepsie, ziekten van de ruggengraat, hoofdpijn, epilepsie, verzwakt gezichtsvermogen, hartkloppingen, bloeden uit de longen, diabetes, witte vloed, en soms plotselinge dood. Haar bronnen zijn Léopold Deslandes en Samuel-Auguste Tissot, plus jaarverslagen van gestichten; zij citeert het vijfde jaarverslag van het State Lunatic Hospital in Worcester, Massachusetts, over het aantal opnamen dat aan deze oorzaak werd toegeschreven.</p>
+      <p>Zij vertelt dat zij pas rond 1834 uit een medisch werk vernam dat de gewoonte ook bij vrouwen voorkwam, en verzet zich tegen de opvatting dat zwijgen veiliger is. Dit is het onderdeel van haar programma dat het slechtst is verouderd, en tegelijk het onderdeel dat het duidelijkst laat zien hoe medische autoriteit destijds werkte: een keten van citaten zonder tegenspraak.</p>
+      <h3>Opvoeding als sluitstuk</h3>
+      <p>De laatste lezing gaat over opvoeding. Gove noemt haar tijd de eeuw van de ontdekking en klaagt dat mensen hun denken uitbesteden en kant-en-klare leerstellingen aannemen. Zij weigert lichamelijke en verstandelijke vorming te scheiden en illustreert dat met een ijsplant die zij zo goed verzorgde dat hij het meeste blad en de meeste bloemen gaf en daaraan doodging: zo hebben wij onze kinderen doodgekweekt.</p>
+      <p>Zij leunt hier zwaar op geciteerd materiaal, onder meer uit de <i>Common School Journal</i>, het blad van de Massachusettse schoolhervorming. Haar eigen bijdrage is de eis dat lichamelijke opvoeding niet naast maar onder het leren komt te staan.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">fysiologie</td><td>De leer van de werking van het levende lichaam, bij Gove niet als vak gepresenteerd maar als kennis waarop men zijn dagelijkse gewoonten hoort te baseren.</td></tr>
+          <tr><td class="term">de wetten van leven en gezondheid</td><td>De vaste uitdrukking waarmee de Amerikaanse gezondheidshervorming aangaf dat gezondheid door natuurlijke regels wordt beheerst die men kan kennen en dus kan overtreden.</td></tr>
+          <tr><td class="term">tight lacing</td><td>Het strak rijgen van het korset, in dit boek de voornaamste enkelvoudige ziekteoorzaak bij vrouwen.</td></tr>
+          <tr><td class="term">close dressing</td><td>Gove's woord voor nauwsluitende kleding in het algemeen, waaraan zij haar eigen longziekte toeschrijft.</td></tr>
+          <tr><td class="term">het grahamstelsel</td><td>De leefwijze van Sylvester Graham: grof volkorenbrood, geen vlees, geen prikkelende kruiden, geen alcohol, koud water, en seksuele matiging als onderdeel van hetzelfde geheel.</td></tr>
+          <tr><td class="term">ventilatie</td><td>De aanvoer van verse lucht in woon- en slaapvertrekken, bij Gove een terugkerend punt tot in het bezwaar tegen wiegen met een kap.</td></tr>
+          <tr><td class="term">consumptie</td><td>De negentiende-eeuwse naam voor longtering, door Gove aan samendrukking van de borst en aan leefwijze toegeschreven in plaats van aan besmetting.</td></tr>
+          <tr><td class="term">frenologie</td><td>De leer dat karaktereigenschappen aan afzonderlijke hersendelen en aan de schedelvorm af te lezen zijn; Gove haalt George Combe instemmend aan en noemt de leer aantrekkelijk.</td></tr>
+          <tr><td class="term">de geheime ondeugd</td><td>De omschrijving waarmee zelfbevrediging werd aangeduid, in dit boek behandeld als oorzaak van zenuw-, rug- en geestesziekten.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Gove was geen arts en had geen opleiding. Haar kennis kwam uit medische boeken die zij zelfstandig las, uit anatomische verzamelingen en ontledingen waartoe artsen haar toelieten, en uit Grahams lezingen. Zij zegt dat in het voorwoord zonder omhaal.</p>
+      <p>Het bewijs in het boek bestaat uit drie soorten. Ten eerste anatomische feiten uit de leerboeken van haar tijd, die zij correct en toegankelijk weergeeft. Ten tweede gezagsargumenten: Cullen, Bell, Combe, Deslandes, Tissot, en jaarverslagen van gestichten. Ten derde gevallen die zij zelf zag of was, zoals de dame die na anatomieles het korset aflegde en binnen korte tijd haar kleur terugkreeg.</p>
+      <p>Wat ontbreekt is elke vorm van telling of vergelijking. Waar zij een oorzaak aanwijst, gebeurt dat op grond van samenvallen: deze vrouw reeg en werd ziek, dus het rijgen deed het. Bij het korset was die redenering deels raak, omdat de mechanische werking direct waarneembaar is. Bij het zenuwstelsel leverde dezelfde redenering onhoudbare uitkomsten op.</p>
+      <p>Het sterkste bewijsstuk in het boek is de klas zelf. Dat honderden vrouwen betaalden om deze stof te horen, en dat zij de reeks jaar na jaar herhaalde, laat zien hoe groot de behoefte was aan kennis die hun elders onthouden werd.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De leer over zelfbevrediging is onjuist en heeft schade aangericht. Zij is niet van Gove afkomstig, zij nam haar over van Tissot en Deslandes en gaf haar door, maar zij versterkte die door haar aan een vrouwelijk publiek te presenteren als medisch vaststaand. Latere schrijvers, onder wie John Harvey Kellogg, bouwden op dezelfde bronnen door.</p>
+      <p>De kritiek op het korset was in richting terecht en in omvang overdreven. Dat strak rijgen de ademhaling beperkt, de romp vervormt en de rugspieren verzwakt, is aannemelijk en deels aangetoond; dat het de voornaamste oorzaak was van tering, onvruchtbaarheid en vroege dood, en dat de schade erfelijk aan kinderen werd doorgegeven, is dat niet. Haar eigen levensloop spreekt de doodsvoorspelling tegen die zij in het boek over zichzelf uitspreekt.</p>
+      <p>Het grahamisme dat zij verdedigt rust op een fysiologie van prikkeling die geen stand hield: het idee dat vlees, kruiden en alcohol dezelfde soort overprikkeling veroorzaken die uiteindelijk de zenuwen uitput. Historici van de Amerikaanse gezondheidshervorming, onder meer James Whorton en Stephen Nissenbaum, hebben laten zien hoe nauw die leer verweven was met opvattingen over seksuele beheersing, wat verklaart waarom voeding en zedelijkheid bij Gove in één betoog zitten.</p>
+      <p>Het boek gaat bovendien voorbij aan de oorzaken die het meeste gewicht hadden. Over besmetting, drinkwater, kraamvrouwenkoorts en armoede staat vrijwel niets, terwijl juist die de sterfte bepaalden. De verklaring wordt consequent bij het gedrag van de vrouw gelegd, wat de schuld dicht bij het slachtoffer brengt.</p>
+      <p>Wat overeind blijft is niet de leer maar de handeling. Het boek is een van de eerste gevallen waarin een vrouw in het openbaar de bouw van het menselijk lichaam aan vrouwen uitlegde, en het staat er zelf bij stil wat dat kostte.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het voorwoord eerst: daar staat waar de kennis vandaan komt en welke autoriteit de auteur wel en niet claimt.</li>
+        <li>Scheid de anatomische lezingen van de leefregels; het eerste deel is een getrouwe weergave van de kennis van 1842, het tweede is hervormingsleer.</li>
+        <li>Volg de verwijzingen naar Tissot en Deslandes door als men wil zien hoe een medische dwaling zich in de negentiende eeuw via citaten voortplantte.</li>
+        <li>Gebruik het boek naast bronnen over de gezondheidshervorming zelf; los gelezen lijkt het persoonlijker en oorspronkelijker dan het is.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Lectures to Ladies on Anatomy and Physiology</i> (Saxton &amp; Peirce, Boston, 1842, 300 blz.). Het boek verscheen onder de naam Mrs. Mary S. Gove; de auteur heette bij haar geboorte Mary Sargeant Neal, trouwde in 1831 met Hiram Gove, verliet hem in 1842 en publiceerde na haar huwelijk met Thomas Low Nichols in 1848 als Mary Gove Nichols, de naam waaronder bibliotheken het werk nu vaak catalogiseren. De lezingen gaan terug op de reeks die zij vanaf 1838 in Boston hield. Een uitgebreide versie verscheen later als <i>Lectures to Women on Anatomy and Physiology, with an Appendix on Water Cure</i>. Er bestaat geen Nederlandse vertaling; de samenvatting is op de eerste Bostonse druk van 1842 gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Gove hield vanaf 1838 in Boston openbare lessen anatomie en fysiologie voor vrouwen, op verzoek van een damesgezelschap dat de stof te delicaat vond voor een gemengd publiek. Dat een vrouw over het lichaam sprak was omstreden genoeg om haar uit de quakergemeenschap te doen zetten. Dit boek bundelt veertien van die lezingen.</p><p>De inhoud loopt van botten, spieren en zintuigen via bloedsomloop, ademhaling en maag naar diëtetiek, vochten, zenuwstelsel, ruggengraatziekten en opvoeding. De rode draad is dat vrouwen ziek worden van gewoonten die zij niet doorzien: het rijgkorset, kamers zonder verse lucht, prikkelend voedsel en scholing zonder beweging.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>anatomie</li><li>fysiologie</li><li>gezondheid</li><li>negentiende eeuw</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1129"><a href="1129.html">The Hydropathic Encyclopedia</a>. Trall werkt dezelfde hervormingsleer uit tot een volledig medisch stelsel, met de watergeneeskunde als middel.</li>
+          <li value="1130"><a href="1130.html">The Laws of Life</a>. Blackwell behandelt tien jaar later hetzelfde onderwerp met een medische titel op zak, en met een strengere opbouw.</li>
+          <li value="1134"><a href="1134.html">Plain Facts for Old and Young</a>. Kellogg zet de leer over zelfbevrediging voort die Gove hier van Tissot en Deslandes overneemt, met verstrekkender gevolgen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

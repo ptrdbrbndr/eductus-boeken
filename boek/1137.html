@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Health in the Household &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Dodds stelt dat een huishouden zonder zout, vet, kruiderij, gist en vlees kan koken en dat het resultaat voedzamer is dan de gangbare tafel en even…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1137">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1137 &middot; Naslag en praktijk</p>
+    <h1>Health in the Household</h1>
+    <p class="lede">Susanna W. Dodds, 1885</p>
+    <p class="stats">
+      <span><b>1590</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1137"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Dodds stelt dat een huishouden zonder zout, vet, kruiderij, gist en vlees kan koken en dat het resultaat voedzamer is dan de gangbare tafel en even smakelijk, zodra de tong aan de verandering gewend is. De redenering loopt van de samenstelling van de voedingsmiddelen naar de keuken: wat het lichaam opbouwt zit al in graan, groente en fruit, en alles wat daaraan wordt toegevoegd om de smaak te prikkelen kost het lichaam werk zonder iets te leveren. Het bijzondere aan het boek is dat het zijn eigen stelling meteen weer relativeert door er een derde deel met vleesrecepten aan vast te binden, dat zij zonder verdediging het wereldse hoofdstuk noemt.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Drie delen in één band</h3>
+      <p>Deel I heet <i>The Reason Why</i> en beslaat ongeveer honderd bladzijden theorie. Deel II, <i>The Hygienic Dietary</i>, geeft de recepten die strikt volgens die theorie zijn opgezet en loopt van bladzijde 101 tot 258. Deel III, <i>The Compromise</i>, beslaat de resterende ruim driehonderd bladzijden en bevat alles wat in het stelsel niet thuishoort. Het geheel telt 602 bladzijden.</p>
+      <p>Het voorwoord is gedateerd St. Louis, 21 september 1883, en de inschrijving bij het copyright dateert uit datzelfde jaar. Dodds legt daar de reden voor de driedeling uit: er kwam dringend vraag naar een boek voor mensen wier familie en kennissen nog niet overtuigd waren, en men besloot dat werk met het hygiënische kookboek in één band te binden.</p>
+      <h3>De school waaruit het komt</h3>
+      <p>Dodds studeerde in 1864 af aan het New York Hygeio-Therapeutic College van Russell Thacher Trall en opende in 1878 met haar zuster Mary het sanatorium Dodds' Hygeian Home in St. Louis; in 1887 richtten zij daar een eigen hygiënische medische opleiding op. Zij was ondervoorzitter van de Vegetarian Society of America.</p>
+      <p>Dat verband staat ook in het boek zelf. Voor deel II noemt zij als geraadpleegde en soms letterlijk overgenomen werken het <i>Hygeian Home Cook-Book</i> van Trall, het <i>Health Reformer's Cook-Book</i> uit Battle Creek en <i>How to Prepare Food</i> van Lucretia Jackson. Voor deel III noemt zij Catharine Beecher, Marion Harland, Emma P. Ewing en de <i>Buckeye Cookery</i>. Het motto op de titelpagina komt van Felix Oswald: geen kruid dan honger, geen prikkel dan beweging.</p>
+      <h3>De leer in deel I</h3>
+      <p>Elk hoofdstuk begint met tabellen over de samenstelling van voedingsmiddelen, ontleend aan de fysioloog Pavy. Daarop bouwt zij haar rangorde: granen boven vlees, volkoren boven witte bloem. Haar telling is dat de volle tarwekorrel vijftien bouwstoffen bevat en het zetmeel waaruit witte bloem bestaat drie, en dat wit brood daarmee de dunste steun is waarop een mens kan leunen.</p>
+      <p>Bij vlees voert zij aan dat Liebigs stikstofleer inmiddels is verlaten, met Frankland en Traube als weerleggers en Trall als kroongetuige, en zij haalt landbouwstatistieken aan over ziekten onder vee: in 1879 zou de Verenigde Staten meer dan zestien miljoen dollar aan gestorven landbouwdieren hebben verloren, waarvan twee derde varkens. Het hoofdstuk over varkensvlees is een regelrechte aanklacht, waarin het sanitaire en het bijbelse argument door elkaar lopen.</p>
+      <p>Het langste polemische hoofdstuk gaat over zout. Dat keukenzout in bloed, zweet en tranen wordt aangetroffen, bewijst volgens haar niets: whisky, jodium en strychnine zijn er ook in terug te vinden na inname. Wie het zout laat staan, merkt naar haar zeggen binnen weken dat zweet en speeksel hun zoute smaak verliezen. Verder verwerpt zij peper en specerijen, drinken tijdens de maaltijd, thee en koffie, en zij bespreekt of twee maaltijden per dag niet beter zijn dan drie.</p>
+      <h3>De keuken in deel II</h3>
+      <p>Deel II opent niet met een recept maar met vier voorwaarden voor goed brood: goed graan, goed gereinigd en gemalen, goed gemengd en goed gebakken. Daarna volgen de ongegiste broden, de gerezen broden, eenvoudige vruchtencakes, gestoomde granen, pappen, gebak, groenten, soepen, vruchten en vruchtensappen, drank en voedsel voor zieken en zuigelingen, en het inmaken en wecken.</p>
+      <p>De recepten zijn met opzet uitvoerig. Dodds schrijft in het voorwoord dat kookboeken juist datgene weglaten wat de lezer het hardst nodig heeft, de hoeveelheden en verhoudingen, en dat zij liever langdradig is dan onvolledig. Wat in de recepten ontbreekt, is even veelzeggend als wat erin staat: geen zout, geen bakpoeder, geen reuzel. Ook noemt zij een merk bij naam, de Grahambloem van Ferdinand Schumacher uit Akron in Ohio, met de aanbeveling zijn fijnste maalsel te bestellen.</p>
+      <h3>Het compromis in deel III</h3>
+      <p>Deel III noemt zij zelf het wereldse deel. Hier komen gestoomde broden met soda en karnemelk, maiskoeken, griddle-cakes, taarten, puddingen, vlaas, geleien en dan de vleeshoofdstukken: rund, schaap en lam, varken, hert, gevogelte, wild, vis, oesters, vleespasteien, stoofschotels, hachee en eieren. De omvang is aanzienlijk: de vleesrecepten alleen al beslaan ruim honderd bladzijden.</p>
+      <p>Dodds verdedigt dit deel niet inhoudelijk. Zij verklaart alleen dat de veertig broodsoorten uit deel II onvoldoende waren voor de vraag, en dat deze gerechten in het hygiënische stelsel niet thuishoren. Wie deel I heeft gelezen weet dat zij hier tegen haar eigen leer in kookt; het boek laat die spanning onopgelost staan.</p>
+      <h3>Hoe theorie en recept zich verhouden</h3>
+      <p>In deel II is de band tussen leer en keuken strak. De weigering van zout, gist, soda en vet is geen smaakkwestie maar rechtstreeks gevolg van de hoofdstukken ervoor: gisting zou de voedingswaarde van meel aantasten, zout zou het lichaam werk kosten, vet en suiker zouden de spijsvertering belasten. Het advies over Grahambloem komt letterlijk uit het theoriehoofdstuk over tarwe.</p>
+      <p>In deel III is die band doorgesneden. Daar wordt gekookt volgens de gewoonte van de tijd, met bronnen uit de gangbare kookliteratuur. Het boek is daarmee tegelijk een leerstellig traktaat en een algemeen huishoudboek, en de lezer moet zelf besluiten welke helft hij gebruikt.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">hygiënisch stelsel</td><td>De negentiende-eeuwse Amerikaanse school die geneesmiddelen afwees en genezing zocht in voeding, water, lucht, licht en beweging.</td></tr>
+          <tr><td class="term">hygeio-therapie</td><td>Tralls naam voor die behandelwijze, en de opleiding waaraan Dodds in 1864 haar titel haalde.</td></tr>
+          <tr><td class="term">Grahambloem</td><td>Ongebuilde volkoren tarwebloem, genoemd naar Sylvester Graham; de basis van vrijwel al het brood in deel II.</td></tr>
+          <tr><td class="term">ongegist brood</td><td>Brood zonder gist of soda; meer dan de helft van de veertig broodsoorten in deel II hoort tot deze categorie.</td></tr>
+          <tr><td class="term">the compromise</td><td>Haar eigen naam voor deel III, het wereldse deel met puddingen en vleesgerechten voor niet-overtuigde huisgenoten.</td></tr>
+          <tr><td class="term">proximate principles</td><td>De destijds gangbare term voor de scheikundige bestanddelen die uit lichaamsweefsel te winnen zijn; haar zoutbetoog draait om de vraag wat hun aanwezigheid bewijst.</td></tr>
+          <tr><td class="term">condiment</td><td>Verzamelnaam voor zout, peper en specerijen, in dit boek als prikkelmiddel afgewezen en niet als smaakmaker.</td></tr>
+          <tr><td class="term">tabellen van Pavy</td><td>De voedingswaardetabellen van de Britse fysioloog Frederick Pavy, waarmee elk theoriehoofdstuk opent en waarop de hele rangorde van voedingsmiddelen rust.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het feitelijke fundament is smal en van één soort: samenstellingstabellen. Dat granen meer droge stof bevatten dan vlees is juist, maar het argument dat volkoren daarom vijf keer zo voedzaam is als witte bloem berust op het tellen van chemische elementen, en dat is geen maat voor voedingswaarde. Er staat in het hele boek geen voedingsproef, geen patiëntenreeks en geen meting uit haar eigen sanatorium.</p>
+      <p>Waar zij de stand van de wetenschap weergeeft, doet zij dat correct. Haar mededeling dat Liebigs leer over stikstof en spierkracht was verlaten, klopt met wat rond 1880 gangbaar was, en de landbouwstatistieken over veeziekten haalt zij uit de rapporten van het ministerie in Washington. Haar zoutbetoog is redenering en waarneming zonder meting: dat wie zout laat staan binnen weken minder zout zweet, geeft zij als ervaringsfeit zonder bron. Voor deel II en III geeft zij haar bronnen wel netjes op, inclusief de toegeving dat zij op plaatsen letterlijk heeft overgenomen.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zoutbetoog is het zwakste punt en tegelijk het meest herhaalde. Natrium is een gereguleerd verlies en geen verontreiniging, en de vergelijking met strychnine gaat mank; langdurig strikt zoutloos eten is bij hitte en zware arbeid gevaarlijk. Ook de afwijzing van gist en soda rust op de aanname dat gisting voedingswaarde vernietigt, waarvoor zij geen enkele meting geeft.</p>
+      <p>Deel III ondermijnt de rest van het boek. Als de leer uit deel I zo stevig staat als daar wordt beweerd, horen honderd bladzijden vleesrecepten er niet in. Dodds lost dat niet met een argument op maar met een woord: werelds. Wie het boek als betoog leest, houdt daarmee een onopgeloste tegenstrijdigheid over.</p>
+      <p>Het varkenshoofdstuk mengt sanitaire cijfers met een religieus reinheidsargument, en gebruikt de tweede lijn waar de eerste tekortschiet. Het aanbevelen van één fabrikant bij naam past slecht bij een werk dat zich als wetenschappelijk aandient; de uitgever, Fowler &amp; Wells, was een frenologisch huis dat ook waren verkocht.</p>
+      <p>Het boek is bovendien een samenvoeging en geen nieuw werk: deel I verscheen los als <i>The Diet Question</i>, deel II leunt op de kookboeken van Trall en van Battle Creek. De datering is navenant rommelig, met drukken van 1883 tot 1901. Ten slotte wordt Dodds in naslagwerken de vierde vrouwelijke arts van Amerika genoemd; die telling houdt geen stand, want het Female Medical College of Pennsylvania leverde al vanaf 1851 vrouwelijke afgestudeerden af.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees deel I als leerstellige tekst en deel II als bron voor de keukenpraktijk van de hygiënische beweging.</li>
+        <li>Vergelijk de recepten in deel II met die in deel III om te zien wat de leer feitelijk verbood.</li>
+        <li>Neem de voedingsclaims niet over: de rangorde in dit boek berust op tabellen met droge stof en niet op voedingsonderzoek.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Health in the Household, or Hygienic Cookery</i> (Fowler &amp; Wells, New York; inschrijving 1883, druk van 1885, 602 blz.). Van dit boek bestaan drukken van 1883 tot 1901; deze samenvatting volgt de tweede editie van Fowler &amp; Wells Co. uit 1891, waarvan het gedigitaliseerde exemplaar van de universiteit van Leeds integraal raadpleegbaar is. Deel I verscheen in 1884 ook afzonderlijk als <i>The Diet Question</i>. Er bestaat geen Nederlandse vertaling.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Kookboek en leerboek in één band, uit de Amerikaanse hygiënische school. Susanna Dodds studeerde in 1864 af aan het Hygeio-Therapeutic College van Russell Trall en dreef met haar zuster een sanatorium in St. Louis. Haar keuken kent geen zout, geen kruiderij, geen bakvet en grotendeels geen gist: van de veertig broodsoorten in het middendeel gaat meer dan de helft zonder gist of soda.</p><p>De opbouw verraadt de spanning waarin het boek staat. Deel I geeft de theorie, deel II de recepten die daaruit volgen, en deel III, ruim driehonderd bladzijden lang, bevat wat zij zelf het compromis noemt: puddingen, taarten en vervolgens rundvlees, varken, wild, gevogelte en vis, voor huishoudens die de leer niet aankunnen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>voeding</li><li>vegetarisme</li><li>kookboek</li><li>negentiende eeuw</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1129"><a href="1129.html">The Hydropathic Encyclopedia</a>. Trall is haar leermeester; zijn handboek levert de leer waarvan dit de keukenuitwerking is.</li>
+          <li value="1135"><a href="1135.html">The Perfect Way in Diet</a>. Kingsford voert dezelfde zaak als medisch betoog, zonder recepten.</li>
+          <li value="1131"><a href="1131.html">Letters to the People on Health and Happiness</a>. Catharine Beecher, die zij in deel III als bron noemt, staat voor het huishoudboek dat zij wilde vervangen.</li>
+          <li value="1133"><a href="1133.html">Dr. Chase's Recipes; or, Information for Everybody</a>. Chase laat zien hoe hetzelfde publiek werd bediend met recepten zonder enige leer erachter.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

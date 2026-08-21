@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Aryan Christ &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Jung presenteerde zichzelf als arts en wetenschapper, en die presentatie is volgens Noll een bewust aangebrachte laag over iets anders: een heidense…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1153">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1153 &middot; Brein en lichaam</p>
+    <h1>The Aryan Christ</h1>
+    <p class="lede">Richard Noll, 1997</p>
+    <p class="stats">
+      <span><b>1889</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1153"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Jung presenteerde zichzelf als arts en wetenschapper, en die presentatie is volgens Noll een bewust aangebrachte laag over iets anders: een heidense verlossingsleer met Jung als profeet en met de analyse als inwijding. Noll wil aantonen dat het middelpunt van Jungs leven een visioen uit december 1913 was waarin Jung zichzelf tot god verklaard zag, dat de kring in Zürich zich vanaf 1916 rond die ervaring vormde, en dat de begrippen collectief onbewuste en archetype pas te begrijpen zijn tegen de achtergrond van de Duitse volkse cultuur waarin Jung opgroeide.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Waarom het boek geen biografie heet</h3>
+      <p>Noll opent met de mededeling dat dit geen biografie is en dat een volledige biografie voorlopig niet te schrijven valt. Daarvoor zou de nalatenschap alles moeten openstellen: Jungs privédagboeken, de volledige correspondentie, het Rode Boek, en de papieren van Emma Jung, van Toni Wolff en van Jungs vroege medewerker J.J. Honegger. Over Emma Jung, schrijft hij, weten we nauwelijks drie bladzijden aan feiten.</p>
+      <p>In hetzelfde voorwoord zet hij <i>Herinneringen, dromen, gedachten</i> uit 1962 opzij als bron. Dat boek is volgens hem geen autobiografie maar een montage: Aniela Jaffé zette gesprekken, oude lezingen en enkele door Jung zelf geschreven hoofdstukken in de ik-vorm bij elkaar, en de familie liet passages schrappen of afzwakken. Noll verwijst naar het onderzoek van Alan Elms en naar de klacht van R.F.C. Hull, de vertaler van Jungs verzameld werk, dat juist de uitspraken over de christelijke theologie waren gladgestreken.</p>
+      <p>Over zijn methode is hij open: geschiedschrijving noemt hij construeren en geen reconstrueren, en het boek is geschreven als verhalende geschiedenis, in scènes.</p>
+      <h3>Deel een: de innerlijke vaderlanden</h3>
+      <p>Het eerste deel plaatst Jung in zijn Duitstalige omgeving. Noll begint bij de toren in Bollingen, die Jung vanaf 1923 bouwde, bij de muurschildering van de geestgids Philemon en bij de stenen in de tuin waarin Jung de namen van zijn vaderlijke voorouders hakte. Daaruit haalt hij het begrip Ahnenerbe, de voorouderlijke erfenis die volgens Jung in ieder mens meeklinkt, en verbindt hij Jung met de negentiende-eeuwse cultus van Volk, bloed en landschap. Als beginpunt neemt hij het studentenfeest op de Wartburg in oktober 1817, met fakkeloptocht, oud-Duitse kledij en vuren.</p>
+      <p>Vervolgens komen Jungs seances met zijn nicht Helene Preiswerk vanaf 1895 aan bod, zijn lezingen voor het studentengenootschap Zofingia en zijn bezoek aan München in december 1900. Noll leunt hier op de psychiatriehistoricus Henri Ellenberger, die de kiemcel van Jungs psychologie in juist die lezingen en seances zag.</p>
+      <p>Het scherpste hoofdstuk gaat over verborgen herinneringen. Jung bouwde <i>Wandlungen und Symbole der Libido</i> (1911-1912) op rond de fantasieën van de Amerikaanse Miss Frank Miller, die haar visioenen zelf had gepubliceerd om te laten zien dat ze uit vergeten lectuur voortkwamen; Jung keerde die uitleg om. Bij de patiënt Emile Schwyzer, die een uit de zon hangende buis zag, stelt Noll vast dat het materiaal in 1909 door Honegger was verzameld, dat Jung de zaak later aan zichzelf toeschreef en de datum naar 1906 verschoof, en dat hij vanaf de jaren dertig beweerde dat de Mithrasliturgie pas in 1910 was gedrukt, terwijl hij in 1911 zelf het boek van G.R.S. Mead uit 1907 als bron noemde.</p>
+      <h3>Deel twee: de mysteriën</h3>
+      <p>Het middendeel bevat de kern van het betoog. Een hoofdstuk over veelwijverij behandelt de invloed van Otto Gross en de verhouding met Sabina Spielrein en Toni Wolff, en Nolls stelling dat Jung meervoudige verhoudingen als geestelijke weg verdedigde. Een hoofdstuk over zonneverering laat zien hoe Jung de libido opvatte als algemene levenskracht en aansloot bij de zonnemythologie van taalgeleerden als Friedrich Max Müller, die het oude Arische geloof als zonnecultus beschreef.</p>
+      <p>Dan komt het hoofdstuk over de deificatie. In december 1913 bracht Jung zichzelf herhaaldelijk in trance met technieken uit het spiritisme, later actieve verbeelding genoemd. In een van die toestanden veranderde zijn hoofd in dat van een leeuw en werd hij naar eigen zeggen een god: de Deus Leontocephalus uit de Mithrasheiligdommen, de god die Jung in 1951 de titel van zijn boek <i>Aion</i> gaf, met een foto van diezelfde leeuwkoppige figuur voorin. Noll baseert zich op de notities van het seminar dat Jung tussen maart en juli 1925 gaf, opgetekend door Cary de Angulo, door Jung nagekeken en in november 1925 onder de deelnemers verspreid. Die tekst was tot de uitgave van 1989 alleen te lezen met toestemming van de eigen analyticus en na ongeveer honderd uur goedgekeurde analyse. Uit die passage, die Jaffé buiten het autobiografische boek hield, leidt Noll af dat de deificatie de sleutelgebeurtenis is die daarna is weggeredigeerd.</p>
+      <p>Het deel sluit met Zürich 1916, toen ruim veertig mensen zich rond Jung verzamelden, de Psychologische Club werd opgericht en Jung de <i>Septem Sermones ad Mortuos</i> schreef, de zeven preken aan de doden, ondertekend met de naam van een gnosticus en handelend over de godheid Abraxas.</p>
+      <h3>Deel drie: de apostelen</h3>
+      <p>Het derde deel bestaat uit drie levensbeschrijvingen van vrouwen uit Jungs eerste kring: Fanny Bowditch Katz, Edith Rockefeller McCormick en Constance Long. Noll noemt hen de eerste groep apostelen. Hij put hier uit de handschriftenafdeling van de Countway Library of Medicine van Harvard Medical School, waaronder de papieren van Fanny Bowditch Katz en het biografisch archief over Jung.</p>
+      <p>Dit is het documentair sterkste deel, omdat brieven en dagboeken van patiënten laten zien hoe de analyse in Zürich door de deelnemers zelf werd ervaren. De uitspraak dat analyse religie is komt uit dat materiaal en niet uit Jungs eigen pen.</p>
+      <h3>Deel vier: van volkse profeet tot wijze oude man</h3>
+      <p>Het slotdeel beschrijft hoe Jung na de Eerste Wereldoorlog Angelsaksische leerlingen aantrok die het Duitse cultuurgoed achter zijn taal niet herkenden en zijn ideeën als algemeen menselijk overnamen. Noll citeert de brief aan Oskar Schmitz van 26 mei 1923, waarin Jung het christendom een vreemde ent op de gevelde eiken van Wotan noemt en schrijft dat de Germaanse mens nog altijd aan die verminking lijdt.</p>
+      <p>Noll stelt verder dat Jung joodse patiënten jarenlang uit zijn binnenste kring hield en doorverwees. Het boek eindigt bij de jaren dertig, wanneer de volkse profeet in de openbaarheid plaatsmaakt voor de figuur van de wijze oude man.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Volk</td><td>Duits begrip voor een volk dat door bloed, taal en landschap samenhangt, veel zwaarder geladen dan het Nederlandse woord.</td></tr>
+          <tr><td class="term">Ahnenerbe</td><td>Voorouderlijke erfenis: het idee dat de ervaringen van voorgeslachten in het gemoed van de nakomeling doorwerken.</td></tr>
+          <tr><td class="term">volkse beweging</td><td>De Duitstalige stroming van rond 1900 die nationale wedergeboorte zocht in natuur, oud-Germaanse religie en lichaamscultuur.</td></tr>
+          <tr><td class="term">deificatie</td><td>Vergoddelijking: het punt in de antieke mysteriecultus waarop de ingewijde zichzelf als god ervaart, door Noll gebruikt voor Jungs visioen van december 1913.</td></tr>
+          <tr><td class="term">Deus Leontocephalus</td><td>De leeuwkoppige god uit de Mithrasheiligdommen, in Nolls lezing de gedaante die Jung in zijn visioen aannam en die hij later Aion noemde.</td></tr>
+          <tr><td class="term">cryptomnesie</td><td>Verborgen herinnering: het opduiken van eerder gelezen of gehoord materiaal dat de betrokkene niet meer als herinnering herkent.</td></tr>
+          <tr><td class="term">actieve verbeelding</td><td>Jungs methode om in een half wakende toestand innerlijke beelden te laten optreden en er een gesprek mee aan te gaan.</td></tr>
+          <tr><td class="term">Abraxas</td><td>Gnostische godheid die goed en kwaad in zich verenigt, hoofdfiguur in de zeven preken aan de doden uit 1916.</td></tr>
+          <tr><td class="term">charismatische beweging</td><td>Godsdienstsociologisch begrip voor een groep die haar gezag ontleent aan de persoon van een stichter, door Noll op de Zürichse kring toegepast.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek rust op archiefwerk. De sterkste onderdelen zijn de brieven en dagboeken van Fanny Bowditch Katz in de Countway Library, de seminarnotities van 1925 die pas in 1989 algemeen toegankelijk werden, en de brief aan Oskar Schmitz. Waar Noll uit deze stukken citeert, is na te gaan wat er staat.</p>
+      <p>Eén punt is documentair hard en wordt ook door Jung-gezinde lezers erkend: de verschuiving van data en toeschrijving rond Emile Schwyzer. Wat daaruit volgt is minder vast, want het gaat om één casus en de theorie van het collectief onbewuste staat of valt er niet mee.</p>
+      <p>De grote conclusie steunt op dunner materiaal. Dat Jung zichzelf voor een verlosser hield en zijn kring als mysteriecultus inrichtte, leidt Noll af uit visioenverslagen, uit de indruk die volgelingen van hem hadden en uit één tekst uit 1916. De verhalende vorm maakt bovendien lastig te zien waar het document ophoudt en de reconstructie begint.</p>
+      <p>Noll had bij het schrijven geen toegang tot het Rode Boek, de zwarte notitieboeken en de protocollen van Jaffé.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De uitvoerigste weerlegging staat in <i>Cult Fictions</i> van Sonu Shamdasani (Routledge, 1998), een boekje van ruim honderd bladzijden tegenover de bijna zevenhonderdvijftig bladzijden van Nolls twee delen. Shamdasani laat zien dat de tekst die Noll presenteert als Jungs openingsrede bij de stichting van de club in 1916 door hem alleen met de eerste zin wordt geciteerd, en drukt de betrokken stukken alsnog volledig af. Zijn oordeel is hard: verzinsels, verkeerde voorstellingen en fouten. Wie de cultusthese wil aanhouden, moet eerst dit boek beantwoorden.</p>
+      <p>Jungiaanse recensenten voeren aan dat Noll symbolische taal letterlijk leest. Jung waarschuwde herhaaldelijk tegen inflatie, de vereenzelviging met een archetypisch beeld, en beschreef die als een fase die overwonnen moet worden. Wie het visioen van 1913 als geloofsbelijdenis opvat in plaats van als beschreven ervaring, verandert de betekenis van de bron.</p>
+      <p>Het woord Arisch in de titel doet werk dat het bewijsmateriaal niet doet. Noll vraagt zijn lezer uitdrukkelijk zich een wereld voor te stellen waarin Hitler en de Holocaust nog niet bestaan, en gebruikt tegelijk een titel die precies die associatie oproept. Dat de zonnemythologie van rond 1900 met het woord Arisch werkte, staat vast; dat Jung daarmee een voorloper van het nationaalsocialisme was, volgt er niet uit.</p>
+      <p>Er is ook een belangenvraag. Princeton University Press annuleerde Nolls bundel <i>Mysteria: Jung and the Ancient Mysteries</i> toen die al in drukproef was, nadat de nalatenschap haar goedkeuring van hem als bezorger introk; de uitgeverij had zich contractueel verplicht die goedkeuring te vragen. De ruzie over toegang tot de bronnen loopt dus door het boek heen, aan beide kanten.</p>
+      <p>Wat Noll over de bronnen zelf zegt, is minder omstreden dan zijn conclusie. De Engelse uitgave van <i>Herinneringen, dromen, gedachten</i> mist passages die in de Duitse wel staan, uitspraken over Toni Wolff en over de dood van Emma Jung vielen weg en opmerkingen over de christelijke leer werden verzacht. Die redactie is inmiddels ook van jungiaanse zijde beschreven.</p>
+      <p>Sinds 1997 is het beeld veranderd. Het Rode Boek verscheen in 2009 in een uitgave die Shamdasani zelf bezorgde, de zwarte notitieboeken volgden in 2020 en de protocollen van Jaffé zijn uitgegeven. Veel van wat Noll gesloten noemde ligt nu open, en dat pleit hem noch vrij noch schuldig: het maakt zijn stellingen voor het eerst controleerbaar.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het boek naast <i>Cult Fictions</i>, niet in plaats daarvan. Wie alleen Noll leest, houdt een verhaal over dat op één omstreden document rust.</li>
+        <li>Scheid bij het lezen de vaststelbare feiten van de gevolgtrekking. Data, brieven en archiefstukken zijn na te gaan; het woord cultus is een oordeel.</li>
+        <li>Ga na welke uitgave van een bron voorligt. Bij Jung verschilt de Engelse tekst van de Duitse, en wie de toegang tot een archief beheert, beïnvloedt welk beeld er ontstaat.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Aryan Christ: The Secret Life of Carl Jung</i> (Random House, New York, 1997, xvi + 334 blz., ISBN 0-679-44945-0). Er bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Noll, klinisch psycholoog en destijds docent wetenschapsgeschiedenis in Harvard, reconstrueert de eerste zestig jaar van Jungs leven uit brieven, dagboeken en seminarnotities in Amerikaanse en Europese archieven. Zijn stelling is dat Jung een religieuze beweging stichtte en die in psychologische taal verpakte, met wortels in de Duitse volkse cultuur van rond 1900 en in de zonnecultus die classici van die tijd aan de Ariërs toeschreven.</p><p>Het boek verscheen na <i>The Jung Cult</i> (1994) en kreeg zowel bijval als grondige weerlegging. Sonu Shamdasani liet in <i>Cult Fictions</i> (1998) zien dat het document waarop de cultusthese steunt niet is wat Noll ervan maakt. Wat overeind bleef, is Nolls beschrijving van hoe streng de nalatenschap van Jung het bronnenmateriaal beheerde.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>jung</li><li>wetenschapsgeschiedenis</li><li>religieuze beweging</li><li>biografie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="358"><a href="358.html">Herinneringen, dromen, gedachten</a>. Het boek dat Noll als beheerd zelfportret behandelt, met alle vragen over wie het geschreven heeft.</li>
+          <li value="359"><a href="359.html">Het Rode Boek</a>. De visioenen uit de jaren waarover Noll schrijft, in 2009 alsnog uitgegeven en te vergelijken met zijn lezing.</li>
+          <li value="360"><a href="360.html">Archetypen</a>. De begrippen archetype en collectief onbewuste in Jungs eigen formulering, waar Nolls kritiek zich op richt.</li>
+          <li value="937"><a href="937.html">Eranos: An Alternative Intellectual History of the Twentieth Century</a>. De Eranos-kring als milieu waarin Jungs ideeën en de westerse esoterie elkaar raakten.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

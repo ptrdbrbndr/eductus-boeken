@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Het Orion mysterie &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Bauval en Gilbert stellen dat de drie piramiden van Gizeh samen één plan uitvoeren in plaats van los van elkaar te staan: op de grond geven zij de drie…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-1139">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">1139 &middot; Filosofie en mystiek</p>
+    <h1>Het Orion mysterie</h1>
+    <p class="lede">Robert Bauval en Adrian Gilbert, 1994</p>
+    <p class="stats">
+      <span><b>1896</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="1139"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Bauval en Gilbert stellen dat de drie piramiden van Gizeh samen één plan uitvoeren in plaats van los van elkaar te staan: op de grond geven zij de drie sterren van de gordel van Orion weer, waarbij de kleinste piramide van Menkaure op dezelfde manier uit de lijn is geschoven als de zwakste gordelster Mintaka. Dat plan reikt volgens hen verder dan Gizeh. Het piramideveld tussen Aboe Roasj en Dasjoer beeldt het hele sterrengebied rond Orion af, met de Nijl als Melkweg, zodat de necropool van Memphis een kopie is van de Doeat, het sterrenrijk waarheen de dode koning volgens de piramideteksten opsteeg. De schachten in de Grote Piramide wijzen die reis aan, en de stand van de gordel voert terug naar de oertijd die de Egyptenaren de Eerste Keer noemden.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Vragen die de handboeken laten liggen</h3>
+      <p>Het boek opent met een reeks anomalieën. Waarom bouwde Snofroe binnen één regering twee reusachtige piramiden bij Dasjoer, samen bijna negen miljoen ton steen tegen 850.000 ton voor de trappenpiramide van Djoser? Waarom draagt geen enkele piramide van de vierde dynastie een inscriptie van de bouwheer, terwijl vanaf Oenas de wanden vol tekst staan? En na de vierde dynastie volgt een scherpe terugval in bouwkundig kunnen. Bauval, ingenieur van beroep, leest die reeks als aanwijzing dat er een ontwerp achter zat dat met het grafmodel alleen niet te verklaren is.</p>
+      <h3>De piramideteksten en de sterrenbestemming</h3>
+      <p>Een lang deel gaat over de piramideteksten: de duizenden regels hiërogliefen die Gaston Maspero op 28 februari 1881 aantrof in de piramide van Oenas, laatste koning van de vijfde dynastie, en daarna in vier piramiden van de zesde dynastie. Het boek volgt de vertaalgeschiedenis van Maspero via Kurt Sethe en Samuel Mercer naar de vertaling van Raymond Faulkner uit 1969, die als de gezaghebbende geldt.</p>
+      <p>De inzet is dat in deze teksten een sterrenleer schuilgaat en geen los samenraapsel van spreuken. De dode koning heet Osiris, Osiris valt samen met Sahoe, de Egyptische naam voor Orion, en zijn bestemming ligt in de Doeat, die Faulkner tot deel van de zichtbare hemel rekende en niet tot een onderwereld onder de grond. Bauval betoogt dat de teksten ouder materiaal bewaren dan de dynastie waarin ze gehouwen werden en dus ook over de bouwers van Gizeh iets zeggen. Egyptologen erkennen die ouderdom op taalkundige gronden maar missen hard bewijs.</p>
+      <h3>De schachten van de Grote Piramide</h3>
+      <p>De tweede pijler zijn de vier smalle schachten die uit de koningskamer en de koninginnekamer omhoog lopen. Alexander Badawy, egyptoloog en kenner van de Egyptische bouwkunst, opperde dat het geen luchtkanalen waren maar symbolische wegen voor de ziel, en vroeg in 1964 de sterrenkundige Virginia Trimble om berekeningen. Zij kwamen uit op doelen rond 2500 v.Chr.: de zuidelijke koningsschacht op Alnitak in de gordel van Orion, de noordelijke op Thuban in de Draak. Trimble stelde vast dat in die periode geen andere ster van vergelijkbare helderheid binnen anderhalve graad van de betrokken declinatie stond. Bauval vulde het stel aan met Sirius en Kochab voor de twee schachten van de koninginnekamer, die zijn voorgangers hadden laten liggen omdat ze voor onafgemaakt doorgingen.</p>
+      <p>Aan dit deel is de actualiteit van 1993 verweven. De Duitse ingenieur Rudolf Gantenbrink liet in maart van dat jaar zijn robot Upuaut 2 de zuidelijke schacht van de koninginnekamer in rijden en stuitte na ongeveer vijfenzestig meter op een blokkade met twee koperen pennen, in de pers meteen tot deur gedoopt. Het boek gebruikt die vondst als aanleiding.</p>
+      <h3>De correlatie</h3>
+      <p>De kern is het naast elkaar leggen van een luchtfoto van Gizeh en een opname van de gordel van Orion. De afwijking van Menkaure uit de lijn van Khufu en Khafre beantwoordt volgens de auteurs aan die van Mintaka, en ook de onderlinge grootte van de piramiden zou de helderheid van de sterren volgen. Vervolgens rekt Bauval het beeld op: Aboe Roasj krijgt de plaats van Saiph, Zawyat al-Aryan die van Bellatrix, en de twee piramiden van Dasjoer die van Aldebaran en Epsilon Tauri in de Hyaden, de V-vormige sterrenhoop die hij met Seth verbindt. De Nijl staat voor de Melkweg.</p>
+      <h3>De Eerste Keer en de datering</h3>
+      <p>Uit de precessie, de tolbeweging van de aardas met een omlooptijd van ongeveer 26.000 jaar, leidt Bauval een tijdsaanwijzing af. De gordel van Orion beweegt in die cyclus langzaam op en neer ten opzichte van de horizon; het laagste punt valt volgens zijn berekening omstreeks 10450 v.Chr. Dat jaartal koppelt hij aan Tep Zepi, de Eerste Keer, de oertijd waarin volgens Egyptische teksten Osiris over Egypte heerste. Gizeh zou zo een sterrenklok zijn die naar die oertijd wijst. De auteurs houden vast aan de vierde dynastie als bouwtijd en zien in het jaartal alleen een verwijzing van de bouwers naar hun mythische begin. In het latere werk van Bauval met Graham Hancock werd het cijfer afgerond op 10.500 v.Chr. en kreeg het een veel zwaardere lading.</p>
+      <h3>De verwachting waarmee het boek sluit</h3>
+      <p>Het slot formuleert een voorspelling: als Gizeh naar de Eerste Keer verwijst, moeten er nog onontdekte ruimten bij horen. Een bijlage haalt de passage uit de Papyrus Westcar aan waarin Khufu zoekt naar het getal van de geheime kamers van het heiligdom van Thoth, en leest de blokkade in de schacht in dat licht. Zeven bijlagen dragen de onderbouwing, waaronder een herdruk van Trimbles artikel uit 1964.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Sahoe</td><td>De Egyptische naam voor het sterrenbeeld dat wij Orion noemen, in de piramideteksten gelijkgesteld aan de god Osiris.</td></tr>
+          <tr><td class="term">Doeat</td><td>Het rijk waar de dode koning heen gaat; Faulkner las het als deel van de zichtbare sterrenhemel en niet als onderwereld onder de grond.</td></tr>
+          <tr><td class="term">Rostau</td><td>Oude naam voor het necropoolgebied bij Gizeh, door Bauval opgevat als aardse tegenhanger van de hemelstreek rond de gordel.</td></tr>
+          <tr><td class="term">Tep Zepi of de Eerste Keer</td><td>De gouden oertijd waarin volgens Egyptische teksten eerst de goden en daarna Osiris over Egypte heersten.</td></tr>
+          <tr><td class="term">Precessie</td><td>De tolbeweging van de aardas waardoor de hele sterrenhemel in ongeveer 26.000 jaar één ronde langs de horizon opschuift.</td></tr>
+          <tr><td class="term">Piramideteksten</td><td>De oudste bekende religieuze teksten ter wereld, vanaf omstreeks 2300 v.Chr. gehouwen in de wanden van vijf piramiden bij Saqqara.</td></tr>
+          <tr><td class="term">Correlatietheorie</td><td>Bauvals stelling dat de ligging van bouwwerken op de grond de onderlinge stand van sterren aan de hemel weergeeft.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De stevigste steun komt van buiten het boek. Dat de schachten van de Grote Piramide op sterren gericht zijn en een symbolische functie hadden is geen vondst van Bauval maar van Badawy en Trimble, in 1964 gepubliceerd in twee vakbladen. Dat de dodenreligie van het Oude Rijk sterk op sterren is gericht en dat Osiris met Orion samenvalt is evenmin omstreden; het staat in Faulkners vertaling zelf te lezen.</p>
+      <p>Bauval bracht zijn these voor het boek naar buiten in <i>Discussions in Egyptology</i>, vanaf deel 13 uit 1989. Dat blad kent geen strenge collegiale toetsing, maar de stukken zijn openbaar en na te rekenen, en John Legon leverde er in 1995 een weerwoord. Het boek citeert daarnaast brieven van egyptologen als I.E.S. Edwards en Jaromir Malek, met hun vraag om onafhankelijke bevestiging erin.</p>
+      <p>Zwakker is de kern. De correlatie berust op een visuele indruk, een foto naast een foto. Het boek geeft geen maat waarmee de gelijkenis te toetsen valt, geen berekening van de kans dat drie punten toevallig zo liggen, en geen vergelijking met andere drietallen. De uitbreiding naar Dasjoer, Zawyat al-Aryan en Aboe Roasj betrekt monumenten van uiteenlopende ouderdom bij één ontwerp zonder aan te tonen dat de bouwers ze als één geheel zagen.</p>
+      <p>Ook de datering op 10450 v.Chr. volgt uit een keuze. Dat de gordel toen zijn laagste stand bereikte is na te rekenen; dat de Egyptenaren dat konden berekenen en er betekenis aan hechtten is een aanname, waarvoor geen Egyptische tekst wordt aangevoerd.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het zwaarste bezwaar geldt de kaart zelf. Ed Krupp, directeur van het Griffith Observatory in Los Angeles, wees erop dat de knik in de piramidelijn naar het noorden uitwijkt en die in de gordel van Orion naar het zuiden. De twee vallen alleen samen als er één wordt omgekeerd, en dat is in het boek gebeurd: de kaarten van Gizeh staan met het zuiden boven, zonder dat dit bij de afbeeldingen wordt vermeld. Krupp achtte dat des te bezwaarlijker omdat de auteurs bij de schachten het verschil tussen noord en zuid juist zwaar laten wegen.</p>
+      <p>Anthony Fairall, sterrenkundige aan de universiteit van Kaapstad, rekende de hoeken na met planetariumapparatuur. De gordel van Orion maakte in de betrokken periode een hoek van ongeveer 47 tot 50 graden met het noorden, terwijl de piramidelijn er 38 maakt. Krupp stelde daarnaast vast dat de verhouding tussen helderheid en piramidegrootte niet uitkomt, omdat de helderste gordelster niet bij de grootste piramide hoort, en dat bij de uitbreiding naar de Hyaden de oriëntatie ongeveer 45 graden uit de pas loopt.</p>
+      <p>Een deel van de bekendste kritiek treft strikt genomen het vervolg. De Sfinx als sterrenbeeld Leeuw en het jaartal 10.500 v.Chr. komen uit <i>Keeper of Genesis</i>, dat Bauval in 1996 met Graham Hancock schreef; in dit boek komt de Sfinx nauwelijks voor. Krupp en Fairall brachten daartegen in dat de dierenriem uit Mesopotamië komt en in Egypte pas in de Grieks-Romeinse tijd opduikt, en dat het lentepunt omstreeks 10.500 v.Chr. in de Maagd stond. De bezwaren tegen de oriëntatie en de hoeken raken dit boek wel rechtstreeks.</p>
+      <p>Op de omkering antwoordde Bauval met een beroep op artistieke vrijheid van de bouwers en op de zuidelijke oriëntatie van het Egyptische wereldbeeld. Krupp hield daartegen dat de these zo haar toetsbaarheid verliest: wie noord naar believen zuid mag laten betekenen, kan elke figuur op elke andere leggen. De BBC-uitzending <i>Atlantis Reborn</i> uit november 1999 legde de bezwaren voor; Hancock en Bauval klaagden bij de Broadcasting Standards Commission, die in november 2000 negen van de tien klachtpunten afwees.</p>
+      <p>Wat de egyptologie wél aanvaardt is beperkter. Dat de piramiden met behulp van sterren op het ware noorden zijn gericht is onomstreden; Kate Spence stelde in 2000 in <i>Nature</i> voor dat dit gebeurde met de gelijktijdige meridiaandoorgang van Kochab en Mizar, wat de kleine afwijkingen verklaart die van piramide tot piramide meeschuiven met de tijd. De sterrenbetekenis van de schachten wordt breed maar niet algemeen gedeeld; Gantenbrink zelf verwierp zowel de luchtkanaal- als de sterrenpoortverklaring, en tegenwerpingen wijzen erop dat de hellingen ook uit de meetkunde van het bouwwerk volgen. De stap naar één sterrenkaart over veertig kilometer woestijn zet vrijwel niemand in het vak.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Vraag bij elke gestelde overeenkomst tussen bouwwerk en hemel welke meting haar had kunnen weerleggen. Ontbreekt die, dan is de overeenkomst getoond en niet getoetst.</li>
+        <li>Controleer bij kaarten en sterrenbeelden waar het noorden ligt. Een omgekeerde kaart is de goedkoopste manier om twee figuren op elkaar te laten lijken.</li>
+        <li>Scheid wat al vakliteratuur was van wat de auteur toevoegt: hier ligt die grens bij Badawy en Trimble uit 1964 tegenover de correlatietheorie uit 1989.</li>
+        <li>Zoek bij een omstreden jaartal uit welke publicatie het bevat: 10450 en 10.500 v.Chr. horen bij verschillende boeken en verschillende beweringen.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>The Orion Mystery: Unlocking the Secrets of the Pyramids</i> (Heinemann, Londen, 1994, 325 blz. plus 16 blz. platen, ISBN 0434000744). Nederlandse uitgave: <i>Het Orion mysterie: het raadsel van de piramiden onthuld</i>, vertaald door Peter Bosma en anderen (Fibula, Houten, 1994, 272 blz., ISBN 9026961308), later herdrukt bij Het Spectrum.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De in Alexandrië geboren Belgische bouwkundig ingenieur Robert Bauval betoogt samen met de Britse schrijver Adrian Gilbert dat de drie piramiden van Gizeh op de grond de drie sterren van de gordel van Orion weergeven, en dat het hele piramideveld van Aboe Roasj tot Dasjoer een kaart is van het sterrengebied rond Orion, met de Nijl als Melkweg. Hun onderbouwing bestaat uit de schachten in de Grote Piramide, die Alexander Badawy en Virginia Trimble in 1964 op sterren betrokken, en uit de sterrenpassages in de piramideteksten.</p><p>Sterrenkundigen en egyptologen wijzen de correlatie af: de kaart van Gizeh staat in het boek op zijn kop en de hoeken lopen tientallen graden uit de pas. Wat overeind blijft is het deel dat al vóór Bauval bestond, het sterrenkarakter van de dodenreligie van het Oude Rijk en de gerichtheid van de schachten.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>egypte</li><li>archeologie</li><li>sterrenkunde</li><li>pseudowetenschap</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="1140"><a href="1140.html">De lans van het lot</a>. Ravenscroft over de Heilige Lans: een verhaal dat zich als geschiedschrijving aandient en op onnavolgbare bronnen rust.</li>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. Sagans gereedschapskist tegen onzin bevat de vragen die bij een correlatie als deze horen.</li>
+          <li value="647"><a href="647.html">The Forbidden Universe</a>. Picknett en Prince doen met de wetenschapsgeschiedenis wat Bauval met de egyptologie doet: een echt vakdebat oprekken tot voorbij de bronnen.</li>
+          <li value="591"><a href="591.html">Nile Valley Contributions to Civilization</a>. Browder bepleit een heel andere herwaardering van het oude Egypte, vanuit de Afrocentrische geschiedschrijving; ook daar loopt de grens tussen aanvaard en betwist materiaal door het boek heen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
