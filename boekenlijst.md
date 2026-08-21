@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 21
-augustus 2026: 631 titels in 20 rubrieken.
+augustus 2026: 636 titels in 20 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -27,7 +27,7 @@ bij de volgende build verloren.
 | Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140, 174, 189, 194, 229, 247, 248, 286, 289, 323, 324, 372, 373, 374, 375, 389, 457, 460, 467, 470, 513, 545 |
 | Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49, 285, 447 |
 | Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537, 568, 588, 589, 591, 592, 593, 594, 595, 597, 598, 599, 600, 601, 602 |
-| Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347, 383, 413, 539, 555, 649, 650, 651, 653, 659, 660, 661, 662 |
+| Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347, 383, 413, 539, 555, 649, 650, 651, 653, 654, 655, 656, 657, 658, 659, 660, 661, 662 |
 | Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102, 108, 117, 127, 128, 129, 130, 131, 132, 136, 139, 179, 184, 188, 190, 196, 259, 340, 362, 378, 380, 403, 433, 543, 548, 549, 559, 560 |
 | Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122, 327, 421, 437, 456, 477, 478, 493, 495, 497, 498, 500, 504, 506, 507 |
 | Filosofie en mystiek | wijsgerige hoofdwerken en mystieke teksten over wat werkelijk is en hoe te leven | 572, 573, 574, 576, 577, 578, 580, 581, 582, 584, 587, 590, 596, 603, 604, 605, 606, 608, 609, 610, 611, 612, 613, 614, 615, 630, 631, 632, 633, 634, 635, 636, 637, 638, 639, 652 |
@@ -124852,6 +124852,916 @@ Bell zich toe verhield.
 op de vraag wat er werkelijk is als golffuncties en velden de beschrijving
 overnemen.
 
+## 654. Against Method
+
+Paul Feyerabend, 1975. *Against Method: Outline of an Anarchistic Theory of
+Knowledge* (New Left Books, 1975, 340 blz., ISBN 9780902308916; vierde editie
+Verso, 2010, ISBN 9781844674428). Nederlandse vertaling: *Tegen de methode*
+(Lemniscaat, 2008, 384 blz.). Rubriek: natuur en wetenschap.
+Tags: `wetenschapsfilosofie`, `kennistheorie`, `wetenschapsgeschiedenis`,
+`filosofie`
+
+Klassieker uit de wetenschapsfilosofie waarin de Oostenrijks-Amerikaanse
+filosoof Paul Feyerabend betoogt dat er geen vaste wetenschappelijke methode
+bestaat. Elke methodische regel is in de geschiedenis met succes geschonden,
+en doorbraken kwamen vaak juist tot stand door die schendingen. Het boek
+draait om een uitvoerige studie van Galilei, die volgens Feyerabend de
+Copernicaanse leer verdedigde met retoriek, hulphypothesen en waarnemingen die
+naar de maatstaven van zijn tijd zwak stonden. Wie per se één altijd geldige
+regel wil, houdt volgens Feyerabend alleen de lege formule anything goes over.
+
+Het boek was bedoeld als de ene helft van een tweegesprek met Imre Lakatos,
+die voor de voltooiing overleed, en is aan hem opgedragen. Het geldt naast het
+werk van Popper en Kuhn als vaste kost in de wetenschapsfilosofie, en tegelijk
+als het meest omstreden boek van dat rijtje.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Er bestaat geen wetenschappelijke methode: geen verzameling
+regels die de successen van de wetenschap verklaart en die onderzoekers onder
+alle omstandigheden zouden moeten volgen. Elke methodische regel, hoe redelijk
+hij ook klinkt, is in de geschiedenis van de wetenschap met vrucht geschonden,
+en belangrijke doorbraken kwamen tot stand doordat iemand de regels van zijn
+tijd brak. Wie toch één beginsel eist dat in alle omstandigheden overeind
+blijft, houdt volgens Feyerabend één kandidaat over: anything goes, alles is
+geoorloofd. Hij noemt zijn positie epistemologisch anarchisme en verbindt er
+een politieke conclusie aan: in een vrije samenleving verdient wetenschap geen
+bevoorrechte plaats boven andere tradities, en hoort de staat zich tegenover
+de wetenschap even terughoudend op te stellen als tegenover de kerk.
+
+#### De gang van het boek
+
+**Een anarchistische kennisleer**
+
+Het boek opent met de vaststelling dat wetenschapsgeschiedenis rijker en
+rommeliger is dan elke methodeleer verdraagt. Anarchisme vindt Feyerabend als
+politieke filosofie weinig aantrekkelijk, als medicijn voor de kennisleer acht
+hij het onontbeerlijk. Het werk was opgezet als de ene helft van een
+tweegesprek onder de titel *For and Against Method*; de wederhelft, van zijn
+vriend en tegenstander Imre Lakatos, kwam er nooit omdat Lakatos in 1974
+overleed. Het boek is aan hem opgedragen en houdt de toon van een uitdaging
+aan een afwezige sparringpartner.
+
+**Contra-inductie**
+
+De eerste stap van het betoog is een pleidooi voor contra-inductie: het
+opzettelijk ontwikkelen van hypothesen die ingaan tegen goed bevestigde
+theorieën en zelfs tegen de feiten. Feiten zijn volgens Feyerabend doortrokken
+van oude theorie; wat als directe waarneming voelt, bevat aannames die alleen
+zichtbaar worden wanneer er een tegendraads alternatief naast staat. Daarom
+hoort een onderzoeker zoveel mogelijk onderling strijdige theorieën tegelijk
+te ontwikkelen. Toetsing vereist een extern gezichtspunt, en dat gezichtspunt
+moet ergens vandaan komen.
+
+**Galilei als kroongetuige**
+
+Het hart van het boek is een lange reconstructie van Galilei's verdediging van
+het wereldbeeld van Copernicus. Het klassieke torenargument stelde dat een
+steen die van een toren valt recht onder het loslaatpunt neerkomt, wat bij een
+draaiende aarde onmogelijk leek. Galilei ontkrachtte dat niet met nieuwe
+waarnemingen; hij verving de onderliggende natuurlijke interpretatie, de
+aanname dat beweging absoluut is, door het beginsel dat gedeelde beweging
+onwaarneembaar is. Datzelfde deed hij met de telescoop: er bestond nog geen
+optische theorie die de betrouwbaarheid van het instrument voor
+hemelwaarnemingen kon onderbouwen, en sommige telescoopbeelden spraken elkaar
+tegen.
+
+Galilei won volgens Feyerabend het pleit met stijl, retoriek en volharding:
+hij schreef in het Italiaans in plaats van het geleerde Latijn, richtte zich
+op een nieuw publiek en schoof problemen die hij niet kon oplossen behendig
+terzijde. De les die Feyerabend hieruit trekt: gemeten naar de methodologische
+maatstaven van zowel zijn eigen tijd als de onze handelde Galilei
+onwetenschappelijk, en juist daardoor kwam de wetenschap vooruit.
+
+**Incommensurabiliteit**
+
+In de latere hoofdstukken werkt Feyerabend het begrip incommensurabiliteit
+uit: omvattende theorieën kunnen begrippenkaders hebben die zich niet in
+elkaars termen laten vertalen, zodat een puntsgewijze vergelijking van hun
+uitspraken niet mogelijk is. Als voorbeeld dient onder meer het archaïsche
+Griekse wereldbeeld uit de tijd van Homerus, dat volgens hem geen primitieve
+versie van het latere was; het ordende de werkelijkheid met andere
+grondbegrippen. Voor de methodeleer betekent dit dat een eenvoudig schema van
+weerlegging en bevestiging tekortschiet zodra het om botsingen tussen zulke
+kaders gaat.
+
+**Tegen Popper en Lakatos**
+
+Feyerabend rekent af met de twee methodologieën die in zijn tijd het meeste
+gezag hadden. Poppers falsificationisme zou, consequent toegepast, de
+wetenschap hebben leeggeruimd: vrijwel elke grote theorie werd geboren te
+midden van weerleggende feiten en overleefde alleen doordat aanhangers die
+feiten tijdelijk negeerden of met hulphypothesen wegwerkten. Lakatos'
+methodologie van onderzoeksprogramma's, die degenererende programma's
+onderscheidt van vooruitgaande, noemt hij een verkapte vorm van anarchisme:
+zij geeft geen termijn waarop een kwakkelend programma moet worden opgegeven,
+en verbiedt dus in de praktijk niets.
+
+**Wetenschap als traditie tussen tradities**
+
+Het slot trekt de politieke consequentie. Als wetenschap geen methode bezit
+die haar boven andere tradities plaatst, dan is haar bevoorrechte positie in
+onderwijs en staat een historisch gegroeide machtspositie en geen epistemisch
+recht. Feyerabend bepleit een scheiding van wetenschap en staat naar het
+voorbeeld van de scheiding van kerk en staat, met ruimte voor gemeenschappen
+om andere tradities te volgen. In de herziene edities van 1988 en 1993 zwakte
+hij formuleringen af en verzette hij zich tegen lezers die van anything goes
+een leuze hadden gemaakt; de kern van het betoog liet hij staan.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| epistemologisch anarchisme | De opvatting dat kennisverwerving niet gebonden is aan vaste methodische regels en daar ook niet bij gebaat is. |
+| anything goes | Het enige beginsel dat alle historische episoden overleeft; door Feyerabend bedoeld als de conclusie die een rationalist zelf moet trekken wanneer hij per se één universele regel wil. |
+| contra-inductie | Het opzettelijk ontwikkelen van hypothesen die ingaan tegen gevestigde theorieën of tegen de feiten, om verborgen aannames zichtbaar te maken. |
+| proliferatiebeginsel | Het voorschrift om zoveel mogelijk onderling strijdige theorieën naast elkaar te ontwikkelen, omdat toetsing een extern gezichtspunt vereist. |
+| natuurlijke interpretaties | Waarnemingsbegrippen die zo vanzelfsprekend zijn geworden dat ze voor directe waarneming doorgaan, zoals de aanname dat beweging absoluut is. |
+| incommensurabiliteit | De verhouding tussen omvattende theorieën waarvan de grondbegrippen zich niet in elkaars termen laten vertalen, zodat puntsgewijze vergelijking onmogelijk is. |
+| ad-hochypothese | Hulpaanname zonder onafhankelijke steun die een theorie tijdelijk tegen weerlegging beschermt en die volgens Feyerabend vaak een legitiem instrument is. |
+| torenargument | Het klassieke bezwaar tegen een draaiende aarde, gebaseerd op de steen die recht onder het loslaatpunt neerkomt, door Galilei ontkracht met de relativiteit van beweging. |
+
+#### Waar het argument op rust
+
+Het betoog rust vrijwel geheel op historische reconstructie, met de
+Galilei-casus als dragend stuk, gedocumenteerd met lange citaten uit onder
+meer de *Dialogo* en een zwaar voetnotenapparaat. Voor het negatieve deel van
+de stelling is dat sterk materiaal: om aan te tonen dat een concrete
+methodeleer de feitelijke wetenschapsgeschiedenis niet beschrijft, volstaan
+goed gedocumenteerde tegenvoorbeelden, en die levert het boek.
+
+De positieve, universele conclusie dat er geen enkele methode bestaat, volgt
+logisch niet uit een handvol episoden. Feyerabend deed bovendien geen eigen
+archiefonderzoek; hij leunt op bestaande Galilei-literatuur, en historici
+hebben zijn lezing op onderdelen bestreden, onder meer waar hij Galilei's
+waarnemingen zwakker voorstelt dan tijdgenoten ze beoordeelden. Het boek is
+dus het sterkst als sloopwerk aan andermans methodeleer en het zwakst waar het
+zelf een algemene uitspraak doet.
+
+#### Wat er tegen in te brengen valt
+
+Het gangbaarste bezwaar luidt dat uit het falen van specifieke methodologieën
+geen anarchisme volgt. Wetenschap kent wel degelijk normen, zoals
+controleerbaarheid, herhaalbaarheid en collegiale toetsing; die normen zijn
+lokaal en herzienbaar, en dat is iets anders dan afwezig. Critici wijzen er
+ook op dat Feyerabends eigen betoog argumentatieve maatstaven hanteert die hij
+de wetenschap ontzegt.
+
+De leuze anything goes ging een eigen leven leiden. Feyerabend kreeg het
+verwijt wetenschap gelijk te stellen aan astrologie en gebedsgenezing, werd in
+een bespreking in *Nature* de ergste vijand van de wetenschap genoemd, en zijn
+werk werd later ingezet in de wetenschapsoorlogen aan beide kanten. Zelf hield
+hij vol dat de formule een reductio was, gericht aan de rationalist, en geen
+eigen methodevoorschrift; in latere edities en in *Science in a Free Society*
+nam hij afstand van de simpelste lezingen. De invloed staat buiten kijf: het
+boek dwong de wetenschapsfilosofie om de feitelijke geschiedenis serieus te
+nemen, en het effende mede de weg voor de latere wetenschapssociologie.
+
+#### Wat er concreet mee te doen is
+
+- Toets methodische voorschriften aan de geschiedenis van het eigen vak
+voordat ze als wet gaan gelden.
+- Houd bij onderzoek en beoordeling ruimte voor hypothesen die tegen de
+heersende theorie ingaan; verborgen aannames worden alleen daar zichtbaar.
+- Lees de Galilei-hoofdstukken als les in wetenschappelijke retoriek: ook
+houdbare inzichten worden met overtuigingsmiddelen verkocht.
+- Wees terughoudend met het gezagsargument dat de wetenschap iets zegt; vraag
+welke methode en welke aannames er achter een claim zitten.
+
+#### Wat je hierna leest
+
+- 62. What Do You Care What Other People Think?. What Do You Care What Other
+People Think? toont eenzelfde afkeer van autoriteit binnen de wetenschap,
+vanuit de praktijk van een natuurkundige.
+- 63. The Demon-Haunted World. The Demon-Haunted World verdedigt de positie
+die Feyerabend aanvalt: wetenschap als best beschikbare gereedschap tegen
+onzin.
+- 269. The Story of Philosophy. The Story of Philosophy plaatst de kennisleer
+waar Feyerabend tegen vecht in haar langere geschiedenis.
+
+## 655. The End of Time
+
+Julian Barbour, 1999. *The End of Time: The Next Revolution in Physics*
+(Oxford University Press, 1999, 371 blz., ISBN 9780195117295; Britse editie
+als *The End of Time: The Next Revolution in Our Understanding of the
+Universe*, Weidenfeld & Nicolson, 1999). Geen Nederlandse vertaling gevonden
+in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie
+gebaseerd. Rubriek: natuur en wetenschap.
+Tags: `natuurkunde`, `tijd`, `kosmologie`, `kwantummechanica`
+
+De Britse natuurkundige Julian Barbour, die zijn onderzoek dertig jaar buiten
+de universiteit om financierde en publiceerde, verdedigt in dit boek een
+radicale gedachte: tijd bestaat niet als fundamentele eigenschap van de
+werkelijkheid. Het heelal is een verzameling stilstaande configuraties, door
+hem Nu's genoemd, in een tijdloos landschap dat hij Platonia doopt. De
+ervaring van beweging en geschiedenis ontstaat binnen afzonderlijke Nu's,
+doordat sommige configuraties sporen van een schijnbaar verleden bevatten.
+
+Barbour bouwt het betoog op uit de mechanica van Newton en Mach, de
+kwantumtheorie en de Wheeler-DeWitt-vergelijking uit de kwantumkosmologie, die
+geen tijdsvariabele bevat. Het boek geldt als de toegankelijkste uitwerking
+van de tijdloze visie op de natuurkunde, en tegelijk als een speculatief
+programma: een toetsbare voorspelling die het onderscheidt van de gangbare
+opvatting ontbreekt vooralsnog.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Tijd bestaat niet als fundamentele grootheid. Wat bestaat is
+een reusachtige verzameling stilstaande configuraties van het heelal, Nu's,
+die samen een tijdloos landschap vormen dat Barbour Platonia noemt. De
+kwantumtheorie van het heelal kent geen tijdsvariabele; zij legt een statische
+waarschijnlijkheidsverdeling over al die configuraties. Beweging, geschiedenis
+en de stroom van de tijd zijn verschijnselen binnen afzonderlijke Nu's:
+sommige configuraties bevatten structuren, tijdcapsules, die eruitzien als
+sporen van een verleden, en juist zulke configuraties krijgen in de
+kwantumkosmologie een hoge waarschijnlijkheid. De eerstvolgende grote
+omwenteling in de natuurkunde bestaat er volgens Barbour in dat tijd uit de
+grondslagen verdwijnt, zoals eerder de absolute ruimte van Newton verdween.
+
+#### De gang van het boek
+
+**Het raadsel van de twee theorieën**
+
+Het boek vertrekt bij het grootste open probleem van de natuurkunde: de
+algemene relativiteitstheorie en de kwantummechanica verdragen elkaar niet, en
+nergens wringt het meer dan bij de tijd. In de relativiteitstheorie is tijd
+rekbaar en verweven met ruimte; in de kwantummechanica is tijd een externe
+klok die zelf buiten de theorie staat. Wie beide theorieën op het heelal als
+geheel toepast, stuit op de Wheeler-DeWitt-vergelijking uit 1967, en die
+vergelijking bevat geen tijdsvariabele. De meeste natuurkundigen behandelen
+dat als een technisch probleem dat nog opgelost moet worden. Barbour neemt de
+vergelijking letterlijk: zij beschrijft een statisch heelal, en dat is geen
+gebrek van de vergelijking.
+
+**Nu's en Platonia**
+
+Een Nu is bij Barbour één complete configuratie van alles wat er is: elke
+relatieve stand van elk deeltje, elk brein inbegrepen. De verzameling van alle
+mogelijke configuraties noemt hij Platonia, naar Plato's rijk van
+onveranderlijke vormen. Als speelgoedmodel dient een heelal van drie deeltjes,
+waarvan alle mogelijke onderlinge afstanden samen Driehoekenland vormen. Het
+heelal beweegt niet door Platonia zoals een punt langs een baan; alle Nu's
+zijn er eenvoudigweg, zoals alle punten van een landschap er zijn. Ruimte en
+tijd zitten binnen de configuraties, de configuraties staan niet in ruimte en
+tijd.
+
+**Mechanica zonder klok**
+
+Het klassieke deel van het betoog steunt op een oude discussie. Newton had
+absolute ruimte en absolute tijd nodig; Leibniz en later Ernst Mach hielden
+vol dat alleen relatieve afstanden tussen dingen betekenis hebben. Barbour
+heeft die relationele lijn zelf wiskundig uitgewerkt: met Bruno Bertotti
+publiceerde hij in 1982 een mechanica die zonder achtergrondruimte en
+achtergrondtijd hetzelfde presteert als die van Newton. Kernstuk is best
+matching, een procedure die twee configuraties zo over elkaar legt dat hun
+verschil minimaal is, waarmee een afstandsbegrip op Platonia ontstaat.
+
+Tijd is in dit beeld afgeleide boekhouding: duur is een maat voor verandering,
+geen zelfstandige stroom. Barbour wijst op de praktijk van sterrenkundigen,
+die hun efemeridentijd ook niet van één klok aflezen; zij kiezen de tijdschaal
+waarbij de bewegingen in het zonnestelsel als geheel het eenvoudigst
+beschreven worden. De klok is het heelal zelf.
+
+**Kwantummechanica zonder tijd**
+
+In het kwantumdeel verschuift de golffunctie van deeltjes naar hele
+configuraties: over Platonia ligt een waarschijnlijkheidsmist die aan elk Nu
+een intensiteit toekent. Er is geen evolutie van die mist in de tijd, want er
+is niets buiten Platonia dat als klok kan dienen. De vraag wat er zal gebeuren
+verdwijnt; ervoor in de plaats komt de vraag welke configuraties
+waarschijnlijk zijn. Barbour leest de kwantumkosmologie dus als een
+selectiemechanisme dat bepaalde soorten Nu's bevoorrecht.
+
+**Tijdcapsules**
+
+Waarom lijkt er dan een verleden te zijn? Barbours antwoord is de tijdcapsule:
+een configuratie die in zichzelf consistente sporen van een schijnbare
+geschiedenis draagt, zoals geologische lagen, fossielen en herinneringen in
+hersenen. Hij leunt op een analyse van Nevill Mott uit 1929, die liet zien dat
+de rechte sporen van een alfadeeltje in een nevelkamer volgen uit een tijdloze
+vergelijking. Als de waarschijnlijkheidsmist zich concentreert op
+tijdcapsules, dan ervaren de structuren binnen zulke Nu's zichzelf als wezens
+met een verleden, ook al is er nergens een film die afspeelt. De beleefde
+stroom van de tijd is dan een eigenschap van de inhoud van één Nu.
+
+**Status van het programma**
+
+Barbour presenteert dit uitdrukkelijk als een programma en niet als voldongen
+wetenschap. Hij markeert waar de gevestigde natuurkunde ophoudt en zijn
+interpretatie begint, en erkent dat de concentratie van de mist op
+tijdcapsules een aanname is die nog bewezen moet worden. Opmerkelijk is de
+positie van de auteur zelf: hij verliet na zijn promotie de academische
+wereld, vertaalde Russische vakliteratuur voor de kost en werkte tientallen
+jaren vanaf een boerderij bij Oxford aan de grondslagen van de mechanica, met
+publicaties in reguliere vaktijdschriften.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Nu | Eén complete momentane configuratie van het hele heelal, bij Barbour de werkelijke bouwsteen van de werkelijkheid. |
+| Platonia | De verzameling van alle mogelijke configuraties van het heelal, het tijdloze landschap waarover de kwantumtheorie een waarschijnlijkheidsverdeling legt. |
+| tijdcapsule | Een configuratie die in zichzelf consistente sporen van een schijnbare geschiedenis bevat, zoals fossielen of herinneringen, en zo de ervaring van een verleden verklaart. |
+| best matching | Procedure die twee configuraties zo over elkaar legt dat hun verschil minimaal is, waarmee zonder achtergrondruimte een afstandsbegrip tussen Nu's ontstaat. |
+| Wheeler-DeWitt-vergelijking | De vergelijking van de kwantumkosmologie uit 1967 die geen tijdsvariabele bevat en die Barbour letterlijk neemt als beschrijving van een statisch heelal. |
+| beginsel van Mach | De eis dat de mechanica alleen op waarneembare, relatieve grootheden berust en niet op een absolute ruimte of tijd. |
+| configuratieruimte | De wiskundige ruimte waarvan elk punt één volledige stand van alle deeltjes voorstelt; Platonia is de configuratieruimte van het heelal. |
+| efemeridentijd | De tijdschaal die sterrenkundigen uit de bewegingen van het zonnestelsel zelf distilleren, voor Barbour het bewijs dat duur uit verandering wordt afgeleid. |
+
+#### Waar het argument op rust
+
+Het fundament is gevestigde natuurkunde: de relationele mechanica van Barbour
+en Bertotti verscheen in de *Proceedings of the Royal Society*, en dat de
+Wheeler-DeWitt-vergelijking geen tijdsvariabele bevat is geen mening van
+Barbour; het staat bekend als het tijdprobleem van de kwantumgravitatie. Ook
+de Mott-analyse van deeltjessporen is regulier vakwerk. Tot daar loopt het
+betoog over stevige grond.
+
+De stap van die vergelijking naar de stelling dat tijd niet bestaat is een
+interpretatie, en de dragende aanname, dat de waarschijnlijkheidsmist zich
+concentreert op tijdcapsules, wordt aannemelijk gemaakt met analogieën en niet
+bewezen. Het boek levert geen voorspelling die de tijdloze lezing onderscheidt
+van de gangbare, zodat het geheel zich vooralsnog niet laat toetsen. Barbour
+is over die status zelf openhartig.
+
+#### Wat er tegen in te brengen valt
+
+Het voornaamste bezwaar is de speculatieve status. De kwantumgravitatie is
+onopgelost en de Wheeler-DeWitt-vergelijking zelf kampt met wiskundige
+problemen, zodat het wankel is om er een wereldbeeld op te bouwen. Er bestaan
+bovendien concurrerende oplossingen van het tijdprobleem waarin tijd wel
+degelijk voortbestaat, en een deel van de vakwereld verdedigt het tegendeel;
+Lee Smolin schreef er met *Time Reborn* in 2013 een boeklang antwoord op.
+Filosofen voegen toe dat tijdcapsules hooguit verklaren waarom er sporen en
+herinneringen zijn, en niet waarom er beleefde duur is; op dat punt schuift de
+verklaring het probleem door.
+
+Daar staat tegenover dat het boek in de vakwereld serieus is ontvangen en dat
+Barbours relationele programma doorwerkt in later onderzoek naar zogeheten
+shape dynamics. Als populair-wetenschappelijk werk is het veeleisend: de
+tweede helft vraagt volharding van een lezer zonder natuurkundige achtergrond,
+al vangt Barbour de wiskunde grotendeels in figuren en beelden.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik de eerste delen als heldere opfrisser van de mechanica van Newton,
+het debat met Leibniz en Mach, en de basis van de kwantumtheorie.
+- Onderscheid bij elke populair-wetenschappelijke claim wat gevestigde theorie
+is en wat interpretatie; Barbour doet het voor door zijn eigen aannames te
+markeren.
+- Leg het boek naast een tegenstem over de aard van tijd om te zien waar de
+vakdiscussie werkelijk om draait.
+
+#### Wat je hierna leest
+
+- 281. Reality Is Not What It Seems. Reality Is Not What It Seems komt vanuit
+de luskwantumzwaartekracht tot de verwante conclusie dat tijd niet
+fundamenteel is.
+- 262. A Brief History of Time. A Brief History of Time behandelt het begin en
+de aard van de tijd binnen de gangbare kosmologie.
+- 94. Het tijdperk van onzekerheid. Het tijdperk van onzekerheid vertelt de
+geschiedenis van de natuurkundigen wier vergelijkingen Barbour tijdloos leest.
+
+## 656. Metamagical Themas
+
+Douglas Hofstadter, 1985. *Metamagical Themas: Questing for the Essence of
+Mind and Pattern* (Basic Books, 1985, 852 blz., ISBN 9780465045662; paperback
+Penguin, 1986). Nederlandse vertaling: *Metamagische thema's: op zoek naar de
+essentie van geest en patroon* (Contact, 1988). Rubriek: natuur en wetenschap.
+Tags: `zelfreferentie`, `speltheorie`, `cognitie`, `wiskunde`, `essays`
+
+Bundel van de columns die Douglas Hofstadter, bekend van *Gödel, Escher,
+Bach*, tussen 1981 en 1983 schreef voor *Scientific American* als opvolger van
+Martin Gardner; de titel is een anagram van diens rubriek Mathematical Games.
+De 33 stukken, elk aangevuld met een uitvoerig naschrift, bestrijken
+zelfreferentiële zinnen, memen, de vraag wat alle letters A gemeen hebben, de
+programmeertaal Lisp, Rubiks kubus, seksisme in taal, het onvermogen om grote
+getallen te voelen, en het Prisoner's Dilemma.
+
+De rode draad is Hofstadters overtuiging dat denken neerkomt op
+patroonherkenning, analogie en het glijden tussen begrippen, en dat die
+verschijnselen zich in klein formaat laten bestuderen. Beroemd werd zijn
+voorstel van superrationaliteit: de gedachte dat spelers die elkaars
+rationaliteit kennen voor samenwerking kiezen. Zijn eigen proefneming met de
+lezers, de Luring Lottery, liep uit op het tegendeel.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Denken is patroonherkenning, en de kern daarvan is het maken
+van analogieën en het glijden van begrippen: het vermogen om in elke situatie
+te zien wat er ook had kunnen zijn. Hofstadter betoogt dat zelfreferentie en
+analogie de bouwstenen van geest vormen en dat die verschijnselen zich in
+klein formaat laten bestuderen: in zinnen die over zichzelf gaan, in de vraag
+wat alle hoofdletters A gemeen hebben, in programma's die zichzelf kopiëren en
+in spelers die beseffen dat alle anderen redeneren zoals zij. Wie deze kleine
+systemen doorgrondt, komt volgens hem dichter bij een verklaring van
+creativiteit en bewustzijn dan wie meteen over de hele geest theoretiseert.
+
+#### De gang van het boek
+
+**Herkomst van de bundel**
+
+Van januari 1981 tot juli 1983 schreef Hofstadter in *Scientific American* de
+rubriek Metamagical Themas, als opvolger van Martin Gardners Mathematical
+Games; de nieuwe titel is een anagram van de oude. De bundel bevat 33
+hoofdstukken, gegroepeerd in zeven afdelingen, elk gevolgd door een naschrift
+waarin Hofstadter op lezersreacties ingaat en zijn standpunt bijstelt of
+verscherpt. Die naschriften zijn soms langer dan de oorspronkelijke column en
+maken het boek tot meer dan een verzameling; ze maken het ook dik: 852
+bladzijden.
+
+**Zinnen die over zichzelf gaan**
+
+De openingsafdeling behandelt zelfreferentie: zinnen die zichzelf beschrijven,
+ontkennen of voorspellen, grotendeels ingezonden door lezers. Daarachter ligt
+een serieus thema, want zelfverwijzing is het mechanisme achter de
+onvolledigheidsstelling van Gödel en achter zelfreproductie, van quines,
+programma's die hun eigen code afdrukken, tot DNA. In de column over virale
+zinnen introduceert Hofstadter een groot publiek in het toen jonge begrip meem
+van Richard Dawkins: een idee als zichzelf verspreidende eenheid, met zinnen
+die tot doorvertellen aanzetten als kleinste voorbeeld.
+
+**De essentie van een letter**
+
+Een tweede lijn gaat over vorm en patroon. Wat maakt elke denkbare hoofdletter
+A tot een A? Hofstadter laat met lettertypen zien dat achter die vraag het
+hele probleem van categorieën en herkenning schuilgaat, en presenteert haar
+als kernvraag voor de kunstmatige intelligentie, de kiem van zijn latere
+Letter Spirit-project. In dezelfde geest analyseert hij de patronen in Chopins
+muziek en de wiskunde achter Rubiks kubus, die in die jaren de wereld
+veroverde.
+
+**Variaties op een thema**
+
+In de column Variations on a Theme as the Crux of Creativity formuleert
+Hofstadter de kerngedachte van de bundel het meest direct: creativiteit
+bestaat uit het stelselmatig variëren van iets dat er al is, waarbij begrippen
+onder lichte druk in buurbegrippen overgaan. Dat glijden gebeurt volgens hem
+voortdurend en onbewust, in versprekingen, in vergissingen en in de vraag wat
+iemand had gedaan als de omstandigheden net anders waren geweest. Wie wil
+begrijpen hoe nieuwe ideeën ontstaan, vindt volgens Hofstadter meer in die
+gewone machinerie van het bijna-hetzelfde dan in de studie van het genie.
+
+**Taal en vooroordeel**
+
+Het meest besproken stuk is A Person Paper on Purity in Language, een satire
+waarin de geslachtsgebonden trekken van het Engels zijn vervangen door
+rasgebonden equivalenten: wie de vertrouwde constructies dan opeens stuitend
+vindt, ziet zijn eigen gewenning onder ogen. Het naschrift beschrijft de boze
+reacties. Het stuk laat de methode van de bundel op haar scherpst zien: een
+vertrouwd patroon in een andere gedaante gieten om te tonen wat er werkelijk
+staat.
+
+**Machines en gedachteloosheid**
+
+Drie columns leggen de programmeertaal Lisp uit, destijds het werkpaard van de
+kunstmatige intelligentie, en een dialoog over de Turing-test onderzoekt wat
+er nodig is om een machine denkend te noemen. Daartegenover staat het begrip
+sphexishness, genoemd naar de graafwesp Sphex, wier ogenschijnlijk
+doelgerichte gedrag eindeloos mechanisch herhaalbaar blijkt: Hofstadter
+gebruikt het als maat voor de gradaties tussen mechanisch en werkelijk
+flexibel gedrag, bij machines en bij mensen.
+
+**Getallen en de bom**
+
+In de column over number numbness, getalsverdoving, laat Hofstadter zien hoe
+slecht mensen grote getallen aanvoelen en hoe dat onvermogen het oordeel over
+begrotingen en kernwapenarsenalen aantast. De slotafdeling, geschreven midden
+in de Koude Oorlog, trekt die lijn door naar de wapenwedloop en de vraag hoe
+een beschaving bij zinnen blijft; het zijn de meest persoonlijke en meest
+gedateerde stukken van de bundel.
+
+**Superrationaliteit en de Luring Lottery**
+
+De afdeling over het Prisoner's Dilemma bespreekt de computertoernooien van
+Robert Axelrod, waarin de eenvoudige strategie tit for tat won, en voegt er
+een eigen voorstel aan toe: superrationaliteit. Wie weet dat alle spelers even
+rationeel zijn als hijzelf, moet volgens Hofstadter beseffen dat allen tot
+dezelfde keuze komen, en dus samenwerken. Hij toetste het idee met de Luring
+Lottery, een loterij in *Scientific American* waarbij de prijs kromp naarmate
+lezers meer loten instuurden. Terughoudendheid was collectief rationeel; de
+lezers stuurden reusachtige, deels verzonnen getallen in en de prijs
+verdampte. De proef weerlegde het eigen optimisme, en Hofstadter beschrijft
+dat eerlijk.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| zelfreferentie | Het verschijnsel dat een zin, programma of systeem naar zichzelf verwijst, bij Hofstadter de sleutel tot Gödel, zelfreproductie en bewustzijn. |
+| quine | Een programma of zin die exact de eigen beschrijving voortbrengt, als kleinste model van zelfreproductie. |
+| meem | Een idee als zichzelf verspreidende eenheid, door Dawkins gemunt en door Hofstadter uitgewerkt aan de hand van virale zinnen. |
+| glijden | Het gedachte-experiment waarin één element van een situatie wordt gevarieerd, volgens Hofstadter de kernbewerking van analogie en creativiteit. |
+| sphexishness | Mechanisch gedrag dat doelgericht oogt maar eindeloos herhaalbaar blijkt, genoemd naar de graafwesp Sphex. |
+| getalsverdoving | Het onvermogen om grote getallen aan te voelen, waardoor oordelen over miljoenen en miljarden stuurloos worden. |
+| superrationaliteit | Hofstadters voorstel dat spelers die elkaars gelijke rationaliteit kennen tot dezelfde keuze komen en daarom samenwerken in het Prisoner's Dilemma. |
+| tit for tat | De strategie die begint met samenwerken en daarna de vorige zet van de ander spiegelt, winnaar van Axelrods toernooien. |
+
+#### Waar het argument op rust
+
+Dit zijn essays, geen onderzoeksverslagen. Waar de bundel op vaste grond
+staat, is dat ontleende grond: de onvolledigheidsstelling van Gödel, de
+gepubliceerde toernooien van Axelrod, de wiskunde van kubus en lettervorm.
+Hofstadters eigen bijdragen zijn begripsvorming en gedachte-experiment, met
+als opvallende uitzondering de Luring Lottery, een echte proefneming met
+duizenden deelnemers en een ondubbelzinnige uitkomst: de superrationele
+terughoudendheid waar hij op hoopte bleef uit.
+
+De centrale these, dat analogie en glijden de kern van denken vormen, wordt
+aannemelijk gemaakt met voorbeelden en nergens empirisch getoetst. Het is een
+programma, dat Hofstadter in later werk met computermodellen heeft uitgewerkt;
+als bewijs telt hier vooral de vruchtbaarheid van de vraagstelling.
+
+#### Wat er tegen in te brengen valt
+
+De bundel is ongelijk en op onderdelen sterk verouderd: Lisp is allang niet
+meer de taal van de kunstmatige intelligentie, de kubusrage is geschiedenis en
+de kernwapenstukken ademen de vroege jaren tachtig. Speltheoretici hebben
+superrationaliteit afgewezen omdat het de definitie van rationaliteit oprekt:
+zonder bindende afspraak blijft afwijken de dominante keuze, en de eigen
+loterij van de auteur bevestigde dat. Ook vonden recensenten de naschriften
+wijdlopig en de politieke slotstukken prekerig; wie het boek als doorlopend
+betoog leest, raakt de draad kwijt.
+
+Daar staat de blijvende waarde tegenover: dit was voor een groot publiek de
+eerste grondige kennismaking met memen, zelfreferentie en de Turing-test, en
+de vragen over lettervormen en analogie groeiden uit tot Hofstadters latere
+onderzoeksprogramma. Als staalkaart van hoe een geest over geesten nadenkt is
+de bundel nog steeds leesbaar, mits per hoofdstuk genomen.
+
+#### Wat er concreet mee te doen is
+
+- Oefen het glijden: varieer bij een probleem of ontwerp telkens één element
+en kijk welke aannames daardoor zichtbaar worden.
+- Reken grote getallen om naar voorstelbare eenheden voordat er over
+begrotingen of risico's wordt geoordeeld.
+- Spoor sphexish gedrag op in eigen routines en procedures: wat doelgericht
+oogt, kan blinde herhaling zijn.
+- Gebruik de afdeling over het Prisoner's Dilemma als toegankelijke inleiding
+in de speltheorie van samenwerking.
+
+#### Wat je hierna leest
+
+- 453. The Evolution of Cooperation. The Evolution of Cooperation beschrijft
+de toernooien van Axelrod die Hofstadter hier verslaat en van commentaar
+voorziet.
+- 454. Prisoner's Dilemma. Prisoner's Dilemma van Poundstone geeft de
+geschiedenis van het dilemma en van von Neumann erbij.
+- 55. Thinking, Fast and Slow. Thinking, Fast and Slow onderzoekt met
+empirisch materiaal hoe denken op patronen en vuistregels draait.
+
+## 657. Zero: The Biography of a Dangerous Idea
+
+Charles Seife, 2000. *Zero: The Biography of a Dangerous Idea* (Viking, 2000,
+248 blz., ISBN 9780670884575; paperback Penguin, 2000). Geen Nederlandse
+vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op
+de Engelse editie gebaseerd. Rubriek: natuur en wetenschap.
+Tags: `wiskunde`, `wetenschapsgeschiedenis`, `getallen`, `natuurkunde`
+
+De Amerikaanse wetenschapsjournalist Charles Seife vertelt de geschiedenis van
+het getal nul: als leesteken bij de Babyloniërs, geweerd door de Grieken omdat
+leegte en oneindigheid niet pasten in de kosmos van Aristoteles, als
+volwaardig getal omarmd in India, via de islamitische wiskunde en Fibonacci
+alsnog Europa binnengedrongen. Daarna volgt hij nul de moderne wetenschap in:
+het limietbegrip dat de calculus redde, het absolute nulpunt, de energie van
+het lege vacuüm, en de singulariteiten van zwarte gaten en oerknal waar de
+natuurkunde op vastloopt.
+
+De these luidt dat nul en oneindig een tweeling vormen en dat elke
+wetenschappelijke omwenteling ontstond waar iemand ze serieus nam. Het boek
+won de PEN/Martha Albrand Award voor het beste non-fictiedebuut. Historici
+vinden de grote boog te strak getrokken, maar de uitleg van limieten en
+calculus geldt als voorbeeldig helder.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Nul is meer dan een cijfer: het is een idee dat samen met
+zijn spiegelbeeld oneindig telkens de fundamenten van het heersende
+wereldbeeld heeft aangetast. De Griekse filosofie weerde nul omdat leegte en
+het oneindige niet pasten in een kosmos die eindig en gevuld hoorde te zijn,
+en het christelijke Europa nam die weerstand over; India aanvaardde de leegte
+en gaf nul zijn plaats als getal. Seife betoogt dat er nieuwe wetenschap
+ontstond telkens wanneer nul serieus werd genomen, van de calculus tot de
+thermodynamica, en dat de plekken waar de hedendaagse natuurkunde vastloopt,
+de zwarte gaten en de oerknal, precies de plekken zijn waar nul en oneindig
+elkaar raken.
+
+#### De gang van het boek
+
+**Plaatshouder in Babylon**
+
+Nul is geen vanzelfsprekendheid; tellen begon overal bij één. De Babyloniërs,
+rekenend in een zestigtallig stelsel, hadden als eersten een teken nodig om
+een lege positie aan te geven, een leesteken en nog geen getal. De Maya's
+vonden onafhankelijk een eigen nul uit voor hun kalender. De Egyptenaren en
+Grieken deden het zonder, en juist bij de Grieken, de wiskundigen bij uitstek
+van de oudheid, was dat een keuze met een filosofische lading.
+
+**De Griekse weigering**
+
+Voor de school van Pythagoras was getal verhouding, en een verhouding met nul
+bestaat niet: nul maal welk getal ook blijft nul, en delen door nul sloopt de
+rekenkunde. De paradoxen van Zeno, zoals Achilles die de schildpad nooit
+inhaalt, lieten zien welke problemen het oneindig kleine oplevert. Aristoteles
+bezegelde de afwijzing: een leegte kan niet bestaan, de kosmos is eindig en
+gevuld. Omdat de middeleeuwse kerk haar wereldbeeld en haar godsbewijzen op
+Aristoteles bouwde, bleef nul in Europa eeuwenlang verdacht. Dit is de lijn
+waaraan het boek zijn ondertitel ontleent: nul als idee dat gevestigde
+stelsels bedreigt.
+
+**Sunya en sifr**
+
+In India lag dat anders: de leegte, sunya, was er een aanvaardbaar filosofisch
+begrip. Brahmagupta formuleerde in de zevende eeuw rekenregels voor nul en
+voor negatieve getallen, en behandelde nul daarmee als volwaardig getal. De
+islamitische wiskunde nam het stelsel over, met al-Chwarizmi als doorgeefluik
+en het Arabische sifr als woord waaruit zowel cijfer als zero voortkomt.
+Fibonacci maakte de Indisch-Arabische cijfers met zijn *Liber Abaci* uit 1202
+bruikbaar voor Europese kooplieden. Er kwam verzet, tot verboden op de nieuwe
+cijfers in Florence aan toe, en het pleit werd beslecht waar het geld werd
+verdiend: boekhouden ging met nul zoveel beter dat de praktijk de filosofie
+inhaalde.
+
+**Nul en oneindig in de calculus**
+
+Newton en Leibniz bouwden de calculus, het rekenen met veranderingen, op
+grootheden die naar nul krimpen. Hun berekeningen klopten, hun onderbouwing
+niet: bisschop Berkeley spotte in 1734 dat de verdwenen grootheden geesten van
+gestorven grootheden waren, nu eens nul en dan weer net niet. Pas het
+limietbegrip, uitgewerkt door d'Alembert, Cauchy en Weierstrass, maakte de
+calculus zindelijk: er wordt nergens door nul gedeeld, er wordt onderzocht
+waar een uitkomst naartoe kruipt. Seife laat langs deze weg zien hoe de
+wiskunde leerde om nul en oneindig te temmen in plaats van te vermijden, en de
+bijbehorende appendix, een pseudobewijs dat uit delen door nul elke onzin
+volgt, is een kleine les in wiskundige hygiëne.
+
+**Nul in de natuurkunde**
+
+In de natuurkunde duikt nul op als grens en als valkuil. Het absolute nulpunt
+van de thermodynamica is een temperatuur die wel te naderen valt en nooit te
+bereiken. Het vacuüm bleek geen echte leegte: de kwantumtheorie kent het lege
+veld een nulpuntsenergie toe, en het Casimir-effect, in 1948 voorspeld door de
+Nederlandse natuurkundige Hendrik Casimir en in de jaren negentig gemeten,
+laat twee platen in het luchtledige naar elkaar toe trekken door niets dan die
+leegte. Waar de theorie oneindigheden produceert, worden ze met kunstgrepen
+weggewerkt; het ongemak met nul is nooit helemaal verdwenen.
+
+**Waar de theorie breekt**
+
+Het slot voert naar de randen van de ruimtetijd. In het middelpunt van een
+zwart gat en aan het begin van de oerknal voorspelt de relativiteitstheorie
+een singulariteit, een punt van nul omvang en oneindige dichtheid waar de
+vergelijkingen ophouden iets te betekenen: de deling door nul keert terug op
+kosmische schaal. Pogingen om die punten weg te werken, zoals de snaartheorie
+die deeltjes tot uitgestrekte snaren uitsmeert, leest Seife als de nieuwste
+ronde in een oud gevecht. De wetenschap die met het weren van nul begon,
+eindigt bij vragen die uit nul voortkomen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| plaatswaardestelsel | Getalnotatie waarin de positie van een cijfer zijn waarde bepaalt, wat een teken voor een lege positie noodzakelijk maakt. |
+| horror vacui | De aristotelische leer dat een leegte niet kan bestaan, eeuwenlang het filosofische bolwerk tegen nul. |
+| sunya | Het Indiase begrip leegte waaruit het getal nul voortkwam en dat via het Arabische sifr de woorden cijfer en zero opleverde. |
+| limiet | De waarde waar een uitkomst willekeurig dicht naartoe kruipt, het begrip dat de calculus bevrijdde van het rekenen met verdwijnende grootheden. |
+| absolute nulpunt | De laagst mogelijke temperatuur, die volgens de thermodynamica wel te naderen valt en nooit te bereiken. |
+| nulpuntsenergie | De energie die de kwantumtheorie aan het lege vacuüm toekent, waardoor leegte geen echte leegte is. |
+| Casimir-effect | De meetbare aantrekking tussen twee platen in het luchtledige, veroorzaakt door de nulpuntsenergie van het vacuüm. |
+| singulariteit | Punt van nul omvang en oneindige dichtheid, zoals in een zwart gat, waar de vergelijkingen van de natuurkunde hun betekenis verliezen. |
+
+#### Waar het argument op rust
+
+Het boek is een populariserende synthese op basis van secundaire literatuur,
+met een bibliografie en wiskundige appendices maar zonder notenapparaat. De
+wiskundige uitleg, van de paradoxen van Zeno tot het limietbegrip, is
+controleerbaar en degelijk; daar is het boek op zijn sterkst. Het won in 2000
+de PEN/Martha Albrand Award voor het beste Amerikaanse non-fictiedebuut.
+
+De historische duiding draagt meer gewicht dan de bronnen kunnen dragen. Dat
+de verspreiding van nul traag verliep staat vast; dat die traagheid één
+doorlopend filosofisch gevecht tegen een gevaarlijk idee was, is de vertelling
+van Seife en geen vakhistorische consensus. De lezer krijgt de these
+gedemonstreerd aan gekozen episoden en niet getoetst aan tegenvoorbeelden.
+
+#### Wat er tegen in te brengen valt
+
+Wetenschapshistorici vinden de grote boog te strak getrokken. Het beeld van
+een Grieks-christelijk verbond tegen nul dikt aan wat grotendeels trage
+verspreiding van notatie en handelsgewoonten was, en Aristoteles krijgt meer
+schuld dan een enkele denker kan dragen. Ook de sprong waarmee moderne
+kosmologie als voortzetting van hetzelfde gevecht wordt opgevoerd, is
+retorisch aantrekkelijk en historisch los; de natuurkundige slothoofdstukken
+presenteren bovendien speculatief terrein, zoals de kosmologische rol van
+vacuümenergie en de snaartheorie, dichter tegen gevestigde kennis aan dan
+verantwoord is.
+
+Binnen die beperkingen is het boek een geslaagde eerste kennismaking met de
+geschiedenis van het getalbegrip. De uitleg van de calculus en het
+limietbegrip wordt breed geprezen, de toon blijft licht zonder slordig te
+worden, en wie de dramatisering verdisconteert, houdt een betrouwbaar geraamte
+van jaartallen, namen en wiskundige ideeën over.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik de hoofdstukken over Zeno, Berkeley en het limietbegrip als
+opfrisser voor wie calculus ooit leerde en de logica erachter kwijt is.
+- Zet de historische episoden in om abstracte wiskunde te introduceren in
+onderwijs of presentaties.
+- Lees het slot als oefening in kritisch lezen: markeer waar de gevestigde
+natuurkunde ophoudt en de speculatie begint.
+
+#### Wat je hierna leest
+
+- 239. A Short History of Nearly Everything. A Short History of Nearly
+Everything bestrijkt met dezelfde lichte toon de volle breedte van de
+wetenschapsgeschiedenis.
+- 262. A Brief History of Time. A Brief History of Time behandelt de zwarte
+gaten en de oerknal waar Seife zijn verhaal eindigt.
+- 321. Longitude: The True Story of a Lone Genius Who Solved the Greatest
+Scientific Problem of His Time. Longitude laat op vergelijkbare wijze één
+technisch probleem een heel tijdperk van wetenschap dragen.
+
+## 658. Fermat's Last Theorem
+
+Simon Singh, 1997. *Fermat's Last Theorem: The Story of a Riddle That
+Confounded the World's Greatest Minds for 358 Years* (Fourth Estate, 1997, 362
+blz., ISBN 9781857025217; Amerikaanse editie als *Fermat's Enigma*, Walker,
+1997). Nederlandse vertaling: *Het laatste raadsel van Fermat* (in de
+catalogus van bibliotheek.nl aanwezig als uitgave van Rainbow, Amsterdam,
+2018, 367 blz.). Rubriek: natuur en wetenschap.
+Tags: `wiskunde`, `wetenschapsgeschiedenis`, `bewijs`, `biografie`
+
+Het verhaal van de beroemdste openstaande som uit de wiskunde. Pierre de
+Fermat noteerde rond 1637 in de marge van een boek dat de vergelijking van
+Pythagoras geen oplossingen in gehele getallen meer heeft zodra de exponent
+groter is dan twee, en dat hij daarvoor een wonderbaarlijk bewijs bezat dat
+niet in de marge paste. Het duurde 358 jaar voordat Andrew Wiles, na zeven
+jaar werken in het geheim, een openbaar gemaakt gat en een reparatie met
+Richard Taylor, het bewijs in 1995 publiceerde.
+
+Simon Singh, die eerder met John Lynch de BBC-documentaire *The Proof* over
+Wiles maakte, vertelt de voorgeschiedenis erbij: Euler, Sophie Germain,
+Kummer, de Wolfskehlprijs, en het Japanse vermoeden van Taniyama en Shimura
+dat de brug naar Fermat bleek. Het werd het eerste wiskundeboek bovenaan de
+Britse bestsellerlijst. Er bestaat een gelijknamig, korter boek van Amir Aczel
+uit 1996; Singhs versie geldt als de standaard.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Een wiskundig raadsel dat een schoolkind kan begrijpen hield
+het vak 358 jaar bezig, en de weg naar de oplossing laat zien hoe wiskunde
+werkelijk vooruitgaat. Fermats bewering uit omstreeks 1637, dat de
+vergelijking van Pythagoras geen oplossingen in gehele getallen meer heeft
+zodra de exponent groter is dan twee, werd pas in 1994 bewezen. Singh betoogt
+dat het bewijs van Andrew Wiles rustte op drie eeuwen deelresultaten en op een
+naoorlogs Japans vermoeden dat twee ver uiteenliggende gebieden, elliptische
+krommen en modulaire vormen, aan elkaar knoopte. Daaronder ligt een tweede
+these: zuivere wiskunde die nergens toe lijkt te dienen, blijkt geregeld later
+de dragende constructie van iets veel groters.
+
+#### De gang van het boek
+
+**Een aantekening in de marge**
+
+Het verhaal begint bij Pythagoras en de drietallen gehele getallen die zijn
+stelling vervullen, en bij de *Arithmetica* van Diophantus, het antieke boek
+waarin Pierre de Fermat, jurist in Toulouse en wiskundige in de avonduren,
+rond 1637 zijn beruchte kanttekening schreef: voor exponenten boven de twee
+bestaan zulke drietallen niet, en voor die bewering bezat hij een
+wonderbaarlijk bewijs dat niet in de marge paste. Zijn zoon Samuel publiceerde
+de aantekeningen na Fermats dood. Alle andere beweringen uit de marges werden
+in de anderhalve eeuw daarna bewezen of weerlegd; deze ene bleef staan en
+kreeg zo de naam Laatste Stelling.
+
+**Twee eeuwen deelresultaten**
+
+Euler bewees in de achttiende eeuw het geval van exponent drie, met een leemte
+die later te dichten bleek. Sophie Germain, die als vrouw alleen onder de
+mansnaam Monsieur Le Blanc met Gauss kon corresponderen, ontwikkelde de eerste
+aanpak die een hele klasse exponenten tegelijk aanpakte. Dirichlet en Legendre
+namen exponent vijf, Lamé exponent zeven. In 1847 kondigden Lamé en Cauchy in
+Parijs beiden een volledig bewijs aan; Kummer liet zien dat hun weg doodliep
+omdat de eenduidige ontbinding in priemfactoren in de gebruikte getalsystemen
+sneuvelt, en redde met zijn ideale getallen niettemin een groot deel van de
+gevallen. In 1908 verbond de Wolfskehlprijs honderdduizend mark aan de
+oplossing, met een stroom amateurbewijzen als voornaamste resultaat.
+
+**Een vermoeden uit Tokio**
+
+In de jaren vijftig opperden de Japanse wiskundigen Yutaka Taniyama en Goro
+Shimura een verband dat aanvankelijk niemand geloofde: elke elliptische
+kromme, een vergelijkingstype uit de getaltheorie, zou horen bij een modulaire
+vorm, een object uit een heel andere hoek van de wiskunde met uitzonderlijk
+veel symmetrie. Taniyama maakte in 1958 een einde aan zijn leven; Shimura
+werkte het vermoeden verder uit, en in de decennia daarna groeide het uit tot
+een spil van de getaltheorie. Singh gebruikt dit deel ook om te tonen hoe de
+naoorlogse Japanse wiskunde zich aan de armoede en isolatie van die jaren
+ontworstelde.
+
+**De brug naar Fermat**
+
+In 1984 zag de Duitse wiskundige Gerhard Frey de verbinding: als Fermat
+ongelijk had en er wel een oplossing bestond, dan zou daaruit een elliptische
+kromme te bouwen zijn met zulke vreemde eigenschappen dat zij onmogelijk
+modulair kon zijn. Ken Ribet bewees in 1986 dat die kromme inderdaad niet
+modulair kan zijn, het zogeheten epsilon-vermoeden. Daarmee stond er opeens
+een brug: wie het vermoeden van Taniyama en Shimura voor de relevante klasse
+krommen zou bewijzen, bewees daarmee de Laatste Stelling van Fermat.
+
+**Zeven jaar op zolder**
+
+Andrew Wiles, als tienjarige door een bibliotheekboek aan het raadsel
+verslingerd geraakt, besloot na Ribets resultaat om er in het geheim aan te
+werken, zeven jaar lang, op de zolderkamer van zijn huis in Princeton. Hij
+combineerde Iwasawa-theorie met de methode van Kolyvagin en Flach en maakte
+het resultaat in juni 1993 bekend in drie lezingen in Cambridge, met
+wereldpers als gevolg. Bij de controle vond Nick Katz een gat in het bewijs.
+Na veertien maanden ploeteren, en op het punt van opgeven, zag Wiles in
+september 1994 samen met zijn oud-leerling Richard Taylor hoe de gestrande
+methode en de eerder verlaten Iwasawa-theorie elkaar precies aanvulden. Het
+bewijs verscheen in mei 1995 in *Annals of Mathematics*, ruim honderd
+bladzijden vaktechniek.
+
+**Wat het verhaal zegt**
+
+Singh sluit af met de betekenis van dit bewijs: het kwam zonder computer tot
+stand, anders dan het bewijs van de vierkleurenstelling uit 1976, en het loste
+veel meer op dan één oude som, omdat de bewezen schakel tussen elliptische
+krommen en modulaire vormen hele gebieden verbond. Het boek kwam voort uit de
+BBC-documentaire *The Proof* die Singh met John Lynch maakte en waarvoor de
+hoofdrolspelers uitvoerig zijn geïnterviewd; de beroemde openingsscène, waarin
+Wiles bij de herinnering aan het slotinzicht in tranen schiet, zette de toon
+voor het boek. Het werd het eerste wiskundeboek op de eerste plaats van de
+Britse bestsellerlijst.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Laatste Stelling van Fermat | De bewering dat de vergelijking van Pythagoras geen oplossingen in gehele getallen heeft zodra de exponent groter is dan twee. |
+| elliptische kromme | Vergelijkingstype uit de getaltheorie waarvan de gehele en rationale oplossingen worden bestudeerd, de ene pijler van het bewijs. |
+| modulaire vorm | Wiskundig object met uitzonderlijk veel symmetrie uit een schijnbaar los staand deel van de wiskunde, de andere pijler van het bewijs. |
+| vermoeden van Taniyama en Shimura | Het vermoeden dat elke elliptische kromme bij een modulaire vorm hoort, waarvan een deelgeval door Wiles is bewezen. |
+| epsilon-vermoeden | De door Ribet bewezen stelling dat de kromme van Frey niet modulair kan zijn, waardoor Fermat uit Taniyama-Shimura volgt. |
+| bewijs uit het ongerijmde | Bewijsvorm die het tegendeel aanneemt en daaruit een tegenspraak afleidt, de logische motor achter de brug van Frey. |
+| volledige inductie | Bewijsvorm die een uitspraak voor alle getallen vestigt door haar van elk getal naar het volgende door te geven, door Singh uitgelegd als het domino-principe. |
+| Wolfskehlprijs | De in 1908 ingestelde prijs van honderdduizend mark voor een bewijs van de stelling, in 1997 aan Wiles uitgekeerd. |
+
+#### Waar het argument op rust
+
+Het boek leunt op interviews met vrijwel alle hoofdrolspelers, onder wie
+Wiles, Shimura, Ribet, Frey en Katz, afgenomen voor de documentaire, en op de
+gepubliceerde wiskundegeschiedenis. Het feitenrelaas van jaartallen, personen
+en resultaten is controleerbaar en is sinds verschijnen niet ernstig
+bestreden. De appendices bevatten kleine volledige bewijzen, zoals dat van de
+stelling van Pythagoras, zodat de lezer tenminste één keer meemaakt wat een
+wiskundig bewijs is.
+
+Van het eigenlijke bewijs van Wiles krijgt de lezer alleen de architectuur:
+welke gebieden verbonden werden en waarom dat volstond. Dat is onvermijdelijk,
+want de techniek was bij publicatie voor hooguit enkele tientallen
+specialisten te volgen, maar het betekent dat het boek op zijn eigen
+hoogtepunt noodgedwongen op metaforen overschakelt.
+
+#### Wat er tegen in te brengen valt
+
+Vakmensen merken op dat de wiskunde in de kern versimpeld wordt: het vermoeden
+van Taniyama en Shimura wordt zonder de nodige mitsen en maren geformuleerd,
+en de gebruikte technieken blijven namen zonder inhoud. Het boek volgt
+bovendien het sjabloon van het eenzame genie, terwijl de eigen stof laat zien
+hoeveel schouders het bewijs droegen; die spanning benoemt Singh wel en lost
+hij niet op. Het lot van Taniyama en het levensverhaal van Sophie Germain zijn
+merkbaar dramatisch aangezet.
+
+Een tweede kanttekening betreft Fermat zelf: onder wiskundigen is de gangbare
+opvatting dat zijn wonderbaarlijke bewijs een vergissing moet zijn geweest,
+omdat de uiteindelijk gebruikte wiskunde in de zeventiende eeuw niet bestond.
+Singh vermeldt dat, maar de romantiek van het verloren bewijs blijft de
+vertelling kleuren. Binnen het genre geldt het boek niettemin als voorbeeld
+van hoe wiskunde voor een groot publiek verteld kan worden, en het is
+duidelijk vollediger gedocumenteerd dan het gelijknamige, kortere boek van
+Amir Aczel uit 1996 over dezelfde geschiedenis.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik de appendices en het domino-beeld van volledige inductie als eerste
+kennismaking met wiskundig bewijzen in onderwijs of zelfstudie.
+- Zet het verhaal in als casus over de waarde van zuiver onderzoek zonder
+zichtbaar nut: de omweg van decennia bleek de dragende constructie.
+- Bekijk de documentaire The Proof naast het boek; de interviews daarin zijn
+het bronmateriaal van de sterkste passages.
+
+#### Wat je hierna leest
+
+- 321. Longitude: The True Story of a Lone Genius Who Solved the Greatest
+Scientific Problem of His Time. Longitude vertelt in hetzelfde genre hoe één
+hardnekkig probleem generaties onderzoekers bezighield.
+- 240. Einstein: His Life and Universe. Einstein: His Life and Universe
+portretteert eenzelfde jarenlang volgehouden zoektocht naar één inzicht.
+- 454. Prisoner's Dilemma. Prisoner's Dilemma van Poundstone koppelt op
+vergelijkbare wijze wiskundegeschiedenis aan de levens van de makers.
+
 ## 659. The Equation That Couldn't Be Solved
 
 Mario Livio, 2005. *The Equation That Couldn't Be Solved: How Mathematical
@@ -125667,13 +126577,13 @@ verzekeraars` 497 · `barok` 216 · `basisbehoeften` 107 · `bbc` 82 ·
 170, 174, 209, 270, 282, 283, 293, 299, 364, 396, 423, 424, 426, 450, 451,
 468, 475, 510 · `bestseller` 8, 37, 250 · `betekenis` 143 · `bethel` 559 ·
 `betrokkenheid` 472 · `beurs` 80, 488 · `beurshandel` 487 · `beursrendement`
-353 · `beweging` 77, 84 · `bewijs` 63, 660 · `bewustwording` 103 ·
+353 · `beweging` 77, 84 · `bewijs` 63, 658, 660 · `bewustwording` 103 ·
 `bewustzijn` 148, 169, 200, 275, 340, 377, 518, 580, 585, 652 ·
 `bewustzijnsniveaus` 449 · `bezit` 37 · `bhagavad gita` 569 · `bias` 209 ·
 `bijeenkomsten` 304 · `bijgeloof` 63 · `bijna-doodervaring` 585 · `biografie`
 31, 46, 189, 231, 240, 241, 243, 247, 266, 267, 269, 320, 328, 402, 454, 514,
-537, 558, 649, 659 · `biohacking` 316 · `biologie` 66, 88, 89, 90, 91, 322 ·
-`biologie van gedrag` 273 · `biologische klok` 326, 329, 552 ·
+537, 558, 649, 658, 659 · `biohacking` 316 · `biologie` 66, 88, 89, 90, 91,
+322 · `biologie van gedrag` 273 · `biologische klok` 326, 329, 552 ·
 `biotechnologie` 236, 413 · `blackjack` 505 · `bloedvaten` 86 · `bloedwaarden`
 313 · `blokkade` 14 · `boeddhisme` 111, 287, 333, 341, 401, 528 ·
 `bootstrapping` 369 · `brainstormen` 33 · `branding` 443 · `brein` 414 ·
@@ -125686,15 +126596,15 @@ hulp` 221 · `burgerlijk verzet` 617 · `burgerschap` 243 · `burn-out` 135, 207
 348 · `Chinese filosofie` 389, 394 · `Chinese geschiedenis` 219 ·
 `chiropractie` 432 · `christendom` 162, 201, 391, 603, 606, 612 ·
 `chronobiologie` 326, 329 · `cijfers` 39, 65 · `civilisatiekritiek` 298 ·
-`coaching` 161, 291, 441 · `cognitieve gedragstherapie` 147, 153, 373 ·
-`cognitieve herstructurering` 177 · `cognitieve vertekening` 234 · `cognitieve
-wetenschap` 467 · `cognitieve-bias` 59 · `collectief bewustzijn` 435 ·
-`collectief onbewuste` 357, 360, 362 · `columns` 89, 90 · `comfortzone` 187 ·
-`commando` 97 · `communicatie` 34, 35, 122, 145, 152, 156, 162, 164, 183, 186,
-193, 213, 305, 338, 356, 398, 399, 444, 466, 475, 539, 555 · `communisme` 625
-· `complexiteit` 170, 268, 300, 347, 423 · `complimenten geven` 356 ·
-`concentratie` 70, 441 · `concurrentie` 293 · `conditionering` 61, 519 ·
-`conflict` 35, 42, 43, 212, 305 · `conflictbemiddeling` 304 ·
+`coaching` 161, 291, 441 · `cognitie` 656 · `cognitieve gedragstherapie` 147,
+153, 373 · `cognitieve herstructurering` 177 · `cognitieve vertekening` 234 ·
+`cognitieve wetenschap` 467 · `cognitieve-bias` 59 · `collectief bewustzijn`
+435 · `collectief onbewuste` 357, 360, 362 · `columns` 89, 90 · `comfortzone`
+187 · `commando` 97 · `communicatie` 34, 35, 122, 145, 152, 156, 162, 164,
+183, 186, 193, 213, 305, 338, 356, 398, 399, 444, 466, 475, 539, 555 ·
+`communisme` 625 · `complexiteit` 170, 268, 300, 347, 423 · `complimenten
+geven` 356 · `concentratie` 70, 441 · `concurrentie` 293 · `conditionering`
+61, 519 · `conflict` 35, 42, 43, 212, 305 · `conflictbemiddeling` 304 ·
 `conflicthantering` 271 · `conformisme` 211 · `consistentie` 553 ·
 `consumptie` 463 · `consumptiekeuzes` 299 · `consumptiemaatschappij` 564 ·
 `content` 308 · `content creatie` 365 · `content marketing` 369 · `corruptie`
@@ -125739,8 +126649,8 @@ zelf` 409 · `ego-depletie` 382 · `egypte` 591, 594, 595, 596, 597, 599, 602 ·
 `epigenetica` 208, 415 · `epos` 5, 530, 531, 532 · `erfelijkheid` 419 ·
 `erfenis` 39 · `erkenningszucht` 406 · `erotiek` 113, 164 · `esoterie` 378,
 590, 603, 605, 606, 613, 630, 631, 632, 633, 634, 635 · `essay` 3, 9, 21, 57,
-59, 63, 64, 68, 96, 197, 232 · `essaybundel` 390, 425, 620 · `essays` 523 ·
-`eten` 103 · `ethiek` 282, 299, 413, 574, 612 · `evangelisatie` 201 ·
+59, 63, 64, 68, 96, 197, 232 · `essaybundel` 390, 425, 620 · `essays` 523, 656
+· `eten` 103 · `ethiek` 282, 299, 413, 574, 612 · `evangelisatie` 201 ·
 `evolutie` 56, 66, 89, 90, 91, 239, 318, 322, 323, 332, 339, 347, 383, 518,
 609 · `evolutiebiologie` 452, 453 · `evolutionaire-psychologie` 67 ·
 `excellentie` 553 · `executives` 344 · `existentialisme` 405 · `expeditie` 36
@@ -125752,7 +126662,7 @@ zelf` 409 · `ego-depletie` 382 · `egypte` 591, 594, 595, 596, 597, 599, 602 ·
 · `feedback` 41, 296, 541, 542 · `feiten` 43 · `feminisme` 3, 620, 624 ·
 `fenomenologie` 574, 577, 582 · `fictie` 100, 115 · `film` 41 · `filosofie` 1,
 6, 71, 93, 199, 211, 216, 224, 247, 255, 263, 292, 299, 383, 390, 391, 392,
-393, 421, 436, 442, 521, 588, 592, 594, 597, 604, 610, 652 ·
+393, 421, 436, 442, 521, 588, 592, 594, 597, 604, 610, 652, 654 ·
 `filosofiegeschiedenis` 269, 639 · `filosofische antropologie` 584 ·
 `financiële geletterdheid` 163 · `financiële markten` 268, 351, 480, 481, 483,
 499, 501 · `financiële onafhankelijkheid` 264 · `financiele vrijheid` 277 ·
@@ -125782,62 +126692,62 @@ zelf` 409 · `ego-depletie` 382 · `egypte` 591, 594, 595, 596, 597, 599, 602 ·
 258, 298, 328, 381, 425, 440, 588, 589, 591, 593, 595, 597, 598, 600, 619, 634
 · `geschiedenis van de geneeskunde` 412 · `geschiedfilosofie` 235 ·
 `geschiedschrijving` 601, 602 · `gesprek` 43, 95, 302, 444 ·
-`gesprekstechniek` 182, 186, 438 · `gevangenendilemma` 453 · `gevolgen` 67 ·
-`gewaarzijn` 519 · `geweld` 45, 90, 214 · `geweldloosheid` 612 · `gewicht` 138
-· `gewoontelus` 238 · `gewoonten` 187, 373 · `gewoontes` 7, 11, 13, 22, 25,
-58, 70, 76, 77, 79, 88, 97, 103, 133, 134, 135, 138, 147, 157, 158, 181, 207,
-208, 224, 230, 290, 334, 382, 439, 442, 445, 513, 557 · `gewoontevorming` 146,
-161, 168, 188, 244, 291, 294, 396, 397, 411, 540 · `gezag` 62 · `gezin` 547 ·
-`gezinnen` 327 · `gezondheid` 52, 88, 171, 181, 318, 323, 329, 332, 412, 414,
-415 · `gezondheidspsychologie` 458 · `gezondheidszorg` 313, 317, 422 · `ggz`
-104 · `giftige relaties` 429 · `gijzelingsonderhandelaar` 271 · `gnostiek` 614
-· `godin` 611 · `godsdienstkritiek` 341 · `godsdienstwetenschap` 578, 608 ·
-`goeroe` 242 · `Google` 512 · `Graallegende` 408 · `grandiositeit` 404 ·
-`gratie` 374 · `grenswetenschap` 615 · `grenzen` 72, 105, 109, 120, 122, 187,
-466 · `grenzen stellen` 151, 204, 406, 429 · `Griekenland` 537 · `Griekse
-literatuur` 536 · `griekse mythologie` 261 · `Griekse oudheid` 530, 531 ·
-`groei` 222 · `groeiaandelen` 474 · `groeimentaliteit` 116 · `groepsdenken`
-339 · `groepsgedrag` 303 · `grondstoffen` 92 · `grondwet` 616, 619 ·
-`groot-verhaal` 56 · `grootouders` 91 · `handboek` 493, 495 · `handel` 80, 251
-· `handelen` 30, 476, 477, 478, 479, 501 · `handelspsychologie` 488, 489 ·
-`handelssysteem` 489, 491 · `handelssystemen` 484, 486, 500, 502 ·
-`handleiding` 112 · `hart` 86, 128 · `Harvard` 457 · `Hay House` 380 ·
-`hechting` 145, 152, 317, 386 · `hedendaags India` 202 · `hedgefondsen` 505 ·
-`heelal` 99, 262 · `heldendom` 532 · `heldenreis` 410 · `helderheid` 82, 436 ·
-`herhaling` 125, 134 · `herkomst` 127 · `hermetische filosofie` 378 ·
-`hermetisme` 613, 631, 632, 633, 638, 639 · `heroverwegen` 28 · `hersenen` 51,
-84, 85, 86, 327 · `hersenonderzoek` 330, 333 · `hersenspoeling` 384 ·
-`herstel` 87, 552, 583 · `het gesprek` 416 · `Himalaya` 191 · `hindoeïsme`
-169, 199, 527, 569 · `Hindoeïstische mythologie` 192, 202 · `hindoemythologie`
-203 · `Hinge` 166 · `hiphop` 440 · `historische portretten` 248 · `historische
-roman` 529 · `hofcultuur` 216 · `hollywood` 555 · `Hollywood` 178 ·
-`Holocaust` 48 · `holografie` 340 · `homoseksualiteit` 325 · `hoop` 255, 319 ·
-`hormonen` 80, 339 · `hospice` 416 · `houding` 117 · `huisvesting` 65 ·
-`humanisme` 236 · `humor` 16, 19, 26, 105, 227, 561 · `husserl` 577 ·
-`huwelijk` 9, 34, 165 · `Huxley` 54 · `hybride werken` 512 · `hyperrealiteit`
-565 · `hypnose` 123, 124, 125 · `Idaho` 45 · `ideeën` 206 ·
-`ideeëngeschiedenis` 269 · `identiteit` 22, 115, 192, 261, 374, 375, 467, 559
-· `identiteitskapitaal` 51 · `ideologie` 628 · `ierland` 110 · `IJsland` 185,
-533 · `ik-vorm` 113 · `illustraties` 109, 327 · `imitatie` 11 ·
-`imperfectionisme` 442 · `import` 20 · `india` 649 · `India` 163, 171, 172,
-180, 189, 191, 196, 199, 203, 226, 242, 365, 370, 518, 520, 527 ·
-`individualisme` 9, 96, 624 · `individualiteit` 263 · `individuatie` 359, 360,
-408, 409 · `individuele-verantwoordelijkheid` 299 · `industrie` 348 · `inheems
-denken` 521 · `initiatie` 407, 408, 522 · `inleiding` 452, 456 ·
-`innerlijk-kind` 109 · `innerlijk-werkleven` 472 · `innerlijke stem` 377 ·
-`innerlijke vrede` 548 · `innovatie` 206, 251, 293, 306, 471 · `instagram` 129
-· `instemming` 616 · `instituties` 392 · `integraal bewustzijn` 580 ·
-`integriteit` 547 · `intelligentie` 383 · `internationale betrekkingen` 455 ·
-`internet` 60, 198 · `interviews` 58, 277, 289 · `intimiteit` 122, 145, 164,
-165 · `introspectie` 579 · `introversie` 33, 361 · `intuitie` 128 · `intuïtie`
-214, 283, 320 · `investeren` 270, 348 · `invloed` 11 · `invoeling` 577 ·
-`inwijding` 636 · `inzicht` 587 · `irrationaliteit` 424 · `islam` 526 ·
-`islamitische filosofie` 525 · `Israël` 514 · `Italiaanse non-fictie` 211 ·
-`Italië` 155 · `jaloezie` 19 · `Japan` 77, 205, 261, 335, 346, 379, 462, 517,
-528, 535 · `japanse filosofie` 576 · `jaren negentig` 348 · `jaren-tachtig`
-139 · `jaren-twintig` 94 · `jazztijdperk` 284 · `jeff bezos` 257 · `jeugd` 53,
-104, 115 · `jodendom` 630 · `John Harrison` 321 · `joint ventures` 348 ·
-`jonge liefde` 180 · `jongeren` 25 · `jongvolwassenen` 569 ·
+`gesprekstechniek` 182, 186, 438 · `getallen` 657 · `gevangenendilemma` 453 ·
+`gevolgen` 67 · `gewaarzijn` 519 · `geweld` 45, 90, 214 · `geweldloosheid` 612
+· `gewicht` 138 · `gewoontelus` 238 · `gewoonten` 187, 373 · `gewoontes` 7,
+11, 13, 22, 25, 58, 70, 76, 77, 79, 88, 97, 103, 133, 134, 135, 138, 147, 157,
+158, 181, 207, 208, 224, 230, 290, 334, 382, 439, 442, 445, 513, 557 ·
+`gewoontevorming` 146, 161, 168, 188, 244, 291, 294, 396, 397, 411, 540 ·
+`gezag` 62 · `gezin` 547 · `gezinnen` 327 · `gezondheid` 52, 88, 171, 181,
+318, 323, 329, 332, 412, 414, 415 · `gezondheidspsychologie` 458 ·
+`gezondheidszorg` 313, 317, 422 · `ggz` 104 · `giftige relaties` 429 ·
+`gijzelingsonderhandelaar` 271 · `gnostiek` 614 · `godin` 611 ·
+`godsdienstkritiek` 341 · `godsdienstwetenschap` 578, 608 · `goeroe` 242 ·
+`Google` 512 · `Graallegende` 408 · `grandiositeit` 404 · `gratie` 374 ·
+`grenswetenschap` 615 · `grenzen` 72, 105, 109, 120, 122, 187, 466 · `grenzen
+stellen` 151, 204, 406, 429 · `Griekenland` 537 · `Griekse literatuur` 536 ·
+`griekse mythologie` 261 · `Griekse oudheid` 530, 531 · `groei` 222 ·
+`groeiaandelen` 474 · `groeimentaliteit` 116 · `groepsdenken` 339 ·
+`groepsgedrag` 303 · `grondstoffen` 92 · `grondwet` 616, 619 · `groot-verhaal`
+56 · `grootouders` 91 · `handboek` 493, 495 · `handel` 80, 251 · `handelen`
+30, 476, 477, 478, 479, 501 · `handelspsychologie` 488, 489 · `handelssysteem`
+489, 491 · `handelssystemen` 484, 486, 500, 502 · `handleiding` 112 · `hart`
+86, 128 · `Harvard` 457 · `Hay House` 380 · `hechting` 145, 152, 317, 386 ·
+`hedendaags India` 202 · `hedgefondsen` 505 · `heelal` 99, 262 · `heldendom`
+532 · `heldenreis` 410 · `helderheid` 82, 436 · `herhaling` 125, 134 ·
+`herkomst` 127 · `hermetische filosofie` 378 · `hermetisme` 613, 631, 632,
+633, 638, 639 · `heroverwegen` 28 · `hersenen` 51, 84, 85, 86, 327 ·
+`hersenonderzoek` 330, 333 · `hersenspoeling` 384 · `herstel` 87, 552, 583 ·
+`het gesprek` 416 · `Himalaya` 191 · `hindoeïsme` 169, 199, 527, 569 ·
+`Hindoeïstische mythologie` 192, 202 · `hindoemythologie` 203 · `Hinge` 166 ·
+`hiphop` 440 · `historische portretten` 248 · `historische roman` 529 ·
+`hofcultuur` 216 · `hollywood` 555 · `Hollywood` 178 · `Holocaust` 48 ·
+`holografie` 340 · `homoseksualiteit` 325 · `hoop` 255, 319 · `hormonen` 80,
+339 · `hospice` 416 · `houding` 117 · `huisvesting` 65 · `humanisme` 236 ·
+`humor` 16, 19, 26, 105, 227, 561 · `husserl` 577 · `huwelijk` 9, 34, 165 ·
+`Huxley` 54 · `hybride werken` 512 · `hyperrealiteit` 565 · `hypnose` 123,
+124, 125 · `Idaho` 45 · `ideeën` 206 · `ideeëngeschiedenis` 269 · `identiteit`
+22, 115, 192, 261, 374, 375, 467, 559 · `identiteitskapitaal` 51 · `ideologie`
+628 · `ierland` 110 · `IJsland` 185, 533 · `ik-vorm` 113 · `illustraties` 109,
+327 · `imitatie` 11 · `imperfectionisme` 442 · `import` 20 · `india` 649 ·
+`India` 163, 171, 172, 180, 189, 191, 196, 199, 203, 226, 242, 365, 370, 518,
+520, 527 · `individualisme` 9, 96, 624 · `individualiteit` 263 ·
+`individuatie` 359, 360, 408, 409 · `individuele-verantwoordelijkheid` 299 ·
+`industrie` 348 · `inheems denken` 521 · `initiatie` 407, 408, 522 ·
+`inleiding` 452, 456 · `innerlijk-kind` 109 · `innerlijk-werkleven` 472 ·
+`innerlijke stem` 377 · `innerlijke vrede` 548 · `innovatie` 206, 251, 293,
+306, 471 · `instagram` 129 · `instemming` 616 · `instituties` 392 · `integraal
+bewustzijn` 580 · `integriteit` 547 · `intelligentie` 383 · `internationale
+betrekkingen` 455 · `internet` 60, 198 · `interviews` 58, 277, 289 ·
+`intimiteit` 122, 145, 164, 165 · `introspectie` 579 · `introversie` 33, 361 ·
+`intuitie` 128 · `intuïtie` 214, 283, 320 · `investeren` 270, 348 · `invloed`
+11 · `invoeling` 577 · `inwijding` 636 · `inzicht` 587 · `irrationaliteit` 424
+· `islam` 526 · `islamitische filosofie` 525 · `Israël` 514 · `Italiaanse
+non-fictie` 211 · `Italië` 155 · `jaloezie` 19 · `Japan` 77, 205, 261, 335,
+346, 379, 462, 517, 528, 535 · `japanse filosofie` 576 · `jaren negentig` 348
+· `jaren-tachtig` 139 · `jaren-twintig` 94 · `jazztijdperk` 284 · `jeff bezos`
+257 · `jeugd` 53, 104, 115 · `jodendom` 630 · `John Harrison` 321 · `joint
+ventures` 348 · `jonge liefde` 180 · `jongeren` 25 · `jongvolwassenen` 569 ·
 `jongvolwassenenroman` 295 · `joodse filosofie` 572, 574 · `journaling` 147 ·
 `journalistiek` 4, 7, 46, 82, 238, 257, 285, 401, 499, 566 · `Jung` 143, 358,
 359 · `Jungiaanse psychologie` 404, 407, 408, 409, 410 · `kaakontwikkeling`
@@ -125846,28 +126756,29 @@ denken` 521 · `initiatie` 407, 408, 522 · `inleiding` 452, 456 ·
 137 · `kansrekening` 282, 456, 484, 490, 496, 504, 505 · `kapitalisme` 298 ·
 `karakter` 97, 537 · `Karel de Grote` 534 · `karma` 184 · `karmel` 573 ·
 `Kasjmir` 180 · `keegan` 110 · `Kelly-criterium` 504 · `keltische traditie`
-611 · `kennis` 81, 508 · `kennisleer` 525, 587 · `kenniswerk` 6, 50, 400, 472
-· `kernwaarden` 245 · `kernwapens` 454 · `keuzes` 51, 71, 72, 510 ·
-`Kierkegaard` 405 · `kinderboek` 167 · `kinderjaren` 152 · `kinesiologie` 449
-· `klantcontact` 182, 186 · `klantpsychologie` 367 · `klantrelaties` 246 ·
-`klantvalidatie` 265 · `klantwaarde` 309 · `klassenverschil` 284 · `klassieke
-bronnen` 286 · `klassieke tekst` 219, 394 · `klassieker` 10, 24, 38, 48, 61,
-83, 127, 135, 144, 173, 213, 254, 351, 420, 520, 537, 616, 617, 618, 619, 620,
-626 · `klein-beginnen` 40 · `kleine-bedrijven` 172 · `kleine-stappen` 22, 133
-· `kleurboek` 327 · `klimaatfictie` 203 · `klimaatverandering` 299 ·
-`klinische psychologie` 460 · `klokkenmakerij` 321 · `kolonialisme` 298, 592 ·
-`korea` 111 · `kort` 59, 99, 100, 101, 110, 140 · `kort-boek` 11, 13, 16, 27,
-38, 57, 445 · `kort-stuk` 19, 30 · `korte-teksten` 111 · `korte-vorm` 473 ·
-`kosmologie` 239, 262, 281, 651 · `koude oorlog` 217, 220, 384, 454, 456 ·
-`krijgsgevangenschap` 31 · `krijgskunde` 212, 218, 219, 272 · `krijgskunst`
-346 · `kritiek` 24, 41, 50 · `kritiek geven` 356 · `kritisch denken` 420, 421
-· `kroeg` 4 · `kruistochtgeest` 534 · `kunst` 11, 445 · `kunstenaars` 312 ·
+611 · `kennis` 81, 508 · `kennisleer` 525, 587 · `kennistheorie` 654 ·
+`kenniswerk` 6, 50, 400, 472 · `kernwaarden` 245 · `kernwapens` 454 · `keuzes`
+51, 71, 72, 510 · `Kierkegaard` 405 · `kinderboek` 167 · `kinderjaren` 152 ·
+`kinesiologie` 449 · `klantcontact` 182, 186 · `klantpsychologie` 367 ·
+`klantrelaties` 246 · `klantvalidatie` 265 · `klantwaarde` 309 ·
+`klassenverschil` 284 · `klassieke bronnen` 286 · `klassieke tekst` 219, 394 ·
+`klassieker` 10, 24, 38, 48, 61, 83, 127, 135, 144, 173, 213, 254, 351, 420,
+520, 537, 616, 617, 618, 619, 620, 626 · `klein-beginnen` 40 ·
+`kleine-bedrijven` 172 · `kleine-stappen` 22, 133 · `kleurboek` 327 ·
+`klimaatfictie` 203 · `klimaatverandering` 299 · `klinische psychologie` 460 ·
+`klokkenmakerij` 321 · `kolonialisme` 298, 592 · `korea` 111 · `kort` 59, 99,
+100, 101, 110, 140 · `kort-boek` 11, 13, 16, 27, 38, 57, 445 · `kort-stuk` 19,
+30 · `korte-teksten` 111 · `korte-vorm` 473 · `kosmologie` 239, 262, 281, 651,
+655 · `koude oorlog` 217, 220, 384, 454, 456 · `krijgsgevangenschap` 31 ·
+`krijgskunde` 212, 218, 219, 272 · `krijgskunst` 346 · `kritiek` 24, 41, 50 ·
+`kritiek geven` 356 · `kritisch denken` 420, 421 · `kroeg` 4 ·
+`kruistochtgeest` 534 · `kunst` 11, 445 · `kunstenaars` 312 ·
 `kunstgeschiedenis` 241, 312 · `kunstmatig leven` 347 · `kunstmatige
 intelligentie` 236, 237, 297, 652 · `kwaad` 404 · `kwaliteit` 1, 400 ·
 `kwantificering` 392 · `kwantitatief handelen` 506 · `kwantitatieve analyse`
 498 · `kwantitatieve financiën` 485, 503 · `kwantumfysica` 208, 340, 432, 433
-· `kwantummechanica` 362 · `kwantumzwaartekracht` 281 · `kwetsbaarheid` 32,
-44, 470 · `kyotoschool` 576 · `landbouw` 56, 98 · `landmark forum` 344 ·
+· `kwantummechanica` 362, 655 · `kwantumzwaartekracht` 281 · `kwetsbaarheid`
+32, 44, 470 · `kyotoschool` 576 · `landbouw` 56, 98 · `landmark forum` 344 ·
 `leadgeneratie` 308 · `lean manufacturing` 265 · `leefstijl` 86, 103, 138, 171
 · `leertijd` 320 · `leger` 106, 180, 222 · `leiderschap` 36, 41, 44, 46, 97,
 106, 157, 170, 183, 218, 222, 231, 260, 273, 344, 353, 364, 370, 389, 434,
@@ -125921,17 +126832,17 @@ Fool` 474 · `motoren` 6 · `motorfietsen` 325 · `muziek` 17, 85 · `mystiek`
 `nalatenschap` 178 · `napoleontische oorlogen` 235 · `narcisme` 258, 404 ·
 `naslag` 99, 112 · `naslagwerk` 59, 225, 426, 477, 478, 486, 491, 500, 504,
 661, 662 · `nationalisme` 237 · `natuur` 191, 323, 609 · `natuurkunde` 62, 94,
-240, 262, 281, 300, 326, 650, 651, 653 · `navigatie` 321 · `navy seals` 229,
-364 · `nazisme` 223 · `necrofilie` 223 · `nederland` 96 · `nederlands` 93, 97,
-100, 101, 102, 103, 104, 105, 106, 107, 108, 128, 130, 131, 141 ·
-`nederlands-auteur` 140 · `nederlandstalig` 113 · `negatieve emoties` 176 ·
-`negentig dagen` 188 · `neopaganisme` 611, 637 · `nepnieuws` 237 · `netwerken`
-24, 246, 300, 388, 508 · `neurobiologie` 119 · `neurochirurgie` 49, 414 ·
-`neurologie` 325 · `neuroplasticiteit` 175, 208, 414 · `neurose` 575 ·
-`neurowetenschap` 52, 208, 238, 275, 314, 326, 330, 331, 333, 339, 340, 386,
-418, 513, 585 · `neurowetenschap-voor-kinderen` 327 · `neusademing` 318 · `new
-age` 149, 435, 449, 549 · `new thought` 259, 380, 555 · `NeXT` 46 ·
-`Nietzsche` 391 · `nieuwe gedachte` 127, 378 · `nieuws` 60, 90 ·
+240, 262, 281, 300, 326, 650, 651, 653, 655, 657 · `navigatie` 321 · `navy
+seals` 229, 364 · `nazisme` 223 · `necrofilie` 223 · `nederland` 96 ·
+`nederlands` 93, 97, 100, 101, 102, 103, 104, 105, 106, 107, 108, 128, 130,
+131, 141 · `nederlands-auteur` 140 · `nederlandstalig` 113 · `negatieve
+emoties` 176 · `negentig dagen` 188 · `neopaganisme` 611, 637 · `nepnieuws`
+237 · `netwerken` 24, 246, 300, 388, 508 · `neurobiologie` 119 ·
+`neurochirurgie` 49, 414 · `neurologie` 325 · `neuroplasticiteit` 175, 208,
+414 · `neurose` 575 · `neurowetenschap` 52, 208, 238, 275, 314, 326, 330, 331,
+333, 339, 340, 386, 418, 513, 585 · `neurowetenschap-voor-kinderen` 327 ·
+`neusademing` 318 · `new age` 149, 435, 449, 549 · `new thought` 259, 380, 555
+· `NeXT` 46 · `Nietzsche` 391 · `nieuwe gedachte` 127, 378 · `nieuws` 60, 90 ·
 `nieuwsgierigheid` 15, 28, 62, 241, 550 · `Nike` 20 · `nlp` 123, 125, 139 ·
 `Nobelprijs` 55 · `non-dualiteit` 520 · `non-fictie` 420 · `non-verbaal` 399 ·
 `non-verbale communicatie` 154 · `noodlot` 533 · `Noordse mythologie` 533 ·
@@ -126043,7 +126954,7 @@ media` 53, 70, 194, 198, 204, 288, 365 · `sociale psychologie` 215, 280, 302,
 `soefisme` 524, 526 · `software` 276, 484 · `somberheid` 119 · `spanning` 101
 · `sparen` 21, 38, 159, 233, 464 · `Sparta` 529 · `specialisatie` 349 ·
 `speedreading` 175 · `spel` 550 · `spelen` 32 · `spellen` 392 · `speltheorie`
-217, 221, 450, 451, 452, 453, 454, 455, 456 · `spiegelneuronen` 303 ·
+217, 221, 450, 451, 452, 453, 454, 455, 456, 656 · `spiegelneuronen` 303 ·
 `spiegeloefening` 380 · `spiegelogie` 108 · `spieropbouw` 316 · `spijt` 447 ·
 `spiritualiteit` 8, 14, 27, 102, 108, 141, 149, 160, 169, 184, 190, 195, 196,
 199, 242, 310, 358, 377, 431, 435, 449, 519, 526, 556, 583, 590, 596, 603,
@@ -126079,11 +126990,11 @@ media` 53, 70, 194, 198, 204, 288, 365 · `sociale psychologie` 215, 280, 302,
 385 · `The Secret` 433 · `theeceremonie` 379 · `theologie` 578, 587 ·
 `theosofie` 605, 606 · `therapie` 51, 107, 118, 119, 120, 121, 122, 145, 466 ·
 `Thermopylae` 529 · `thriller` 101, 202 · `thuiskomst` 531 · `thuiszorg` 225 ·
-`tieners` 193 · `tijd` 71, 232, 262, 292, 334, 442 · `tijdmanagement` 434 ·
-`tijdsbeleving` 326 · `timemanagement` 311, 448 · `tirannie` 617 · `toekomst`
-236 · `toeval` 21, 64, 93, 137, 274, 362, 483 · `Tolteeks` 27 · `toon` 72,
-118, 119, 121, 132, 145 · `topprestatie` 374 · `topsport` 422, 460, 545 ·
-`totalitarisme` 384 · `trading` 492, 493, 495 · `training` 376 ·
+`tieners` 193 · `tijd` 71, 232, 262, 292, 334, 442, 655 · `tijdmanagement` 434
+· `tijdsbeleving` 326 · `timemanagement` 311, 448 · `tirannie` 617 ·
+`toekomst` 236 · `toeval` 21, 64, 93, 137, 274, 362, 483 · `Tolteeks` 27 ·
+`toon` 72, 118, 119, 121, 132, 145 · `topprestatie` 374 · `topsport` 422, 460,
+545 · `totalitarisme` 384 · `trading` 492, 493, 495 · `training` 376 ·
 `transpersoonlijke psychologie` 583 · `trauma` 104, 119, 195, 229, 317, 386 ·
 `trendvolgen` 480, 501 · `trilling` 127 · `trilogie` 202, 203, 248 · `TRIZ`
 471 · `Troje` 530 · `tuinontwerp` 205 · `tumoronderdrukker` 419 ·
@@ -126138,41 +127049,42 @@ wil` 10, 236, 339 · `vrijheid` 61, 546, 620, 621, 626 · `vrijmetselarij` 605,
 `werkwijze` 16 · `West-Afrika` 522 · `West-Point` 29 · `westen` 67 · `western`
 5 · `westerse filosofie` 269, 341 · `wet van aantrekking` 127, 190, 433, 543 ·
 `wetenschap` 63, 66, 93, 94, 328, 485 · `wetenschap en religie` 609 ·
-`wetenschappers` 239 · `wetenschapsfilosofie` 483, 650, 653 ·
-`wetenschapsgeschiedenis` 239, 240, 321, 347, 413, 419, 633, 649, 651, 659,
-660, 661, 662 · `wetenschapsjournalistiek` 387, 412 · `wijn` 112 · `wijsheid`
-596 · `wilskracht` 238 · `Wired` 473 · `wiskunde` 116, 454, 456, 490, 505,
-509, 649, 659, 660, 661, 662 · `wisselstroom` 267 · `woede` 119, 120 ·
-`woestijn` 8 · `Wolfgang Pauli` 362 · `wraak` 101, 533 · `WRAP` 510 · `wrok`
-530 · `wu wei` 394 · `Yale` 215 · `yin-yang` 394 · `yoga` 195, 242, 518 ·
-`young adult` 192 · `youtube` 245 · `zakelijk` 307 · `zakelijke communicatie`
-182 · `zakendoen` 348, 367, 465, 508 · `zeereis` 36 · `zeevaart` 321 ·
-`zeldzaam` 144 · `zelfacceptatie` 176, 335, 561 · `zelfbedrog` 66 ·
-`zelfbeeld` 25, 27, 105, 107, 108, 129, 138, 197, 367, 372, 411, 439, 538,
-540, 559, 575 · `zelfbeheersing` 75, 148, 212, 248, 286, 314, 382, 389, 396 ·
-`zelfbescherming` 214 · `zelfcompassie` 32, 551 · `zelfdiscipline` 2, 158,
-229, 244, 311, 544 · `zelfevaluatie` 270 · `zelfexperiment` 316, 318, 417 ·
-`zelfhaat` 575 · `zelfhulp` 15, 22, 25, 34, 58, 72, 76, 79, 83, 117, 134, 135,
-136, 146, 147, 148, 149, 150, 151, 152, 153, 156, 157, 158, 161, 162, 166,
-168, 174, 175, 176, 177, 179, 181, 184, 187, 188, 190, 193, 194, 195, 196,
-199, 204, 207, 208, 209, 210, 211, 213, 222, 224, 230, 255, 259, 291, 310,
-334, 338, 356, 373, 380, 389, 395, 398, 401, 403, 406, 411, 427, 429, 432,
-435, 439, 449, 459, 465, 513, 540, 543, 546, 548, 556, 557, 561, 569, 570 ·
-`zelfkennis` 258, 260, 361, 519, 526 · `zelfliefde` 190, 195, 204, 380, 403,
-549 · `zelfonderzoek` 315, 470, 520, 527, 579 · `zelfontplooiing` 393 ·
-`zelfontwikkeling` 179 · `zelfpraat` 161 · `zelfpromotie` 388 ·
-`zelfpublicatie` 174 · `zelfregulatie` 153, 165, 177, 541, 542 ·
-`zelfsabotage` 161, 344 · `zelfspot` 19 · `zelfspraak` 439 · `zelfstandig` 40,
-515 · `zelfstandig denken` 211 · `zelfstandig ondernemen` 198 · `zelfstandig
-starten` 210 · `zelfsturing` 142, 168 · `zelfuitgegeven` 123, 124, 125, 126 ·
-`zelfverbetering` 243 · `zelfvertrouwen` 157, 187, 312, 365, 440, 441 ·
-`zelfwaarde` 168 · `zelfwaardering` 121 · `zelfzorg` 109, 225, 466 · `zen`
-141, 346, 441, 517, 528, 576 · `zenboeddhisme` 205, 379 · `zenuwstelsel` 87 ·
-`zestiende eeuw` 573 · `zeven-stappen` 129 · `ziekte` 74, 180, 295 ·
-`zingeving` 9, 48, 77, 91, 160, 183, 200, 201, 237, 245, 255, 515, 547 ·
-`zintuigen` 582 · `zitten` 84 · `zorg` 96 · `Zuid-Afrika` 26, 266, 523 ·
-`zuinigheid` 39 · `zuivere ervaring` 576 · `zwaar` 143 · `zwaardvechten` 346,
-517 · `zwart bewustzijn` 523 · `zwarte gaten` 99, 262, 651
+`wetenschappers` 239 · `wetenschapsfilosofie` 483, 650, 653, 654 ·
+`wetenschapsgeschiedenis` 239, 240, 321, 347, 413, 419, 633, 649, 651, 654,
+657, 658, 659, 660, 661, 662 · `wetenschapsjournalistiek` 387, 412 · `wijn`
+112 · `wijsheid` 596 · `wilskracht` 238 · `Wired` 473 · `wiskunde` 116, 454,
+456, 490, 505, 509, 649, 656, 657, 658, 659, 660, 661, 662 · `wisselstroom`
+267 · `woede` 119, 120 · `woestijn` 8 · `Wolfgang Pauli` 362 · `wraak` 101,
+533 · `WRAP` 510 · `wrok` 530 · `wu wei` 394 · `Yale` 215 · `yin-yang` 394 ·
+`yoga` 195, 242, 518 · `young adult` 192 · `youtube` 245 · `zakelijk` 307 ·
+`zakelijke communicatie` 182 · `zakendoen` 348, 367, 465, 508 · `zeereis` 36 ·
+`zeevaart` 321 · `zeldzaam` 144 · `zelfacceptatie` 176, 335, 561 ·
+`zelfbedrog` 66 · `zelfbeeld` 25, 27, 105, 107, 108, 129, 138, 197, 367, 372,
+411, 439, 538, 540, 559, 575 · `zelfbeheersing` 75, 148, 212, 248, 286, 314,
+382, 389, 396 · `zelfbescherming` 214 · `zelfcompassie` 32, 551 ·
+`zelfdiscipline` 2, 158, 229, 244, 311, 544 · `zelfevaluatie` 270 ·
+`zelfexperiment` 316, 318, 417 · `zelfhaat` 575 · `zelfhulp` 15, 22, 25, 34,
+58, 72, 76, 79, 83, 117, 134, 135, 136, 146, 147, 148, 149, 150, 151, 152,
+153, 156, 157, 158, 161, 162, 166, 168, 174, 175, 176, 177, 179, 181, 184,
+187, 188, 190, 193, 194, 195, 196, 199, 204, 207, 208, 209, 210, 211, 213,
+222, 224, 230, 255, 259, 291, 310, 334, 338, 356, 373, 380, 389, 395, 398,
+401, 403, 406, 411, 427, 429, 432, 435, 439, 449, 459, 465, 513, 540, 543,
+546, 548, 556, 557, 561, 569, 570 · `zelfkennis` 258, 260, 361, 519, 526 ·
+`zelfliefde` 190, 195, 204, 380, 403, 549 · `zelfonderzoek` 315, 470, 520,
+527, 579 · `zelfontplooiing` 393 · `zelfontwikkeling` 179 · `zelfpraat` 161 ·
+`zelfpromotie` 388 · `zelfpublicatie` 174 · `zelfreferentie` 656 ·
+`zelfregulatie` 153, 165, 177, 541, 542 · `zelfsabotage` 161, 344 · `zelfspot`
+19 · `zelfspraak` 439 · `zelfstandig` 40, 515 · `zelfstandig denken` 211 ·
+`zelfstandig ondernemen` 198 · `zelfstandig starten` 210 · `zelfsturing` 142,
+168 · `zelfuitgegeven` 123, 124, 125, 126 · `zelfverbetering` 243 ·
+`zelfvertrouwen` 157, 187, 312, 365, 440, 441 · `zelfwaarde` 168 ·
+`zelfwaardering` 121 · `zelfzorg` 109, 225, 466 · `zen` 141, 346, 441, 517,
+528, 576 · `zenboeddhisme` 205, 379 · `zenuwstelsel` 87 · `zestiende eeuw` 573
+· `zeven-stappen` 129 · `ziekte` 74, 180, 295 · `zingeving` 9, 48, 77, 91,
+160, 183, 200, 201, 237, 245, 255, 515, 547 · `zintuigen` 582 · `zitten` 84 ·
+`zorg` 96 · `Zuid-Afrika` 26, 266, 523 · `zuinigheid` 39 · `zuivere ervaring`
+576 · `zwaar` 143 · `zwaardvechten` 346, 517 · `zwart bewustzijn` 523 ·
+`zwarte gaten` 99, 262, 651
 
 ## Leesroutes
 

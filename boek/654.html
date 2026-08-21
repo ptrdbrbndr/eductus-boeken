@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Against Method &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Er bestaat geen wetenschappelijke methode: geen verzameling regels die de successen van de wetenschap verklaart en die onderzoekers onder alle…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-654">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">654 &middot; Natuur en wetenschap</p>
+    <h1>Against Method</h1>
+    <p class="lede">Paul Feyerabend, 1975</p>
+    <p class="stats">
+      <span><b>1322</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="654"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Er bestaat geen wetenschappelijke methode: geen verzameling regels die de successen van de wetenschap verklaart en die onderzoekers onder alle omstandigheden zouden moeten volgen. Elke methodische regel, hoe redelijk hij ook klinkt, is in de geschiedenis van de wetenschap met vrucht geschonden, en belangrijke doorbraken kwamen tot stand doordat iemand de regels van zijn tijd brak. Wie toch één beginsel eist dat in alle omstandigheden overeind blijft, houdt volgens Feyerabend één kandidaat over: anything goes, alles is geoorloofd. Hij noemt zijn positie epistemologisch anarchisme en verbindt er een politieke conclusie aan: in een vrije samenleving verdient wetenschap geen bevoorrechte plaats boven andere tradities, en hoort de staat zich tegenover de wetenschap even terughoudend op te stellen als tegenover de kerk.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een anarchistische kennisleer</h3>
+      <p>Het boek opent met de vaststelling dat wetenschapsgeschiedenis rijker en rommeliger is dan elke methodeleer verdraagt. Anarchisme vindt Feyerabend als politieke filosofie weinig aantrekkelijk, als medicijn voor de kennisleer acht hij het onontbeerlijk. Het werk was opgezet als de ene helft van een tweegesprek onder de titel <i>For and Against Method</i>; de wederhelft, van zijn vriend en tegenstander Imre Lakatos, kwam er nooit omdat Lakatos in 1974 overleed. Het boek is aan hem opgedragen en houdt de toon van een uitdaging aan een afwezige sparringpartner.</p>
+      <h3>Contra-inductie</h3>
+      <p>De eerste stap van het betoog is een pleidooi voor contra-inductie: het opzettelijk ontwikkelen van hypothesen die ingaan tegen goed bevestigde theorieën en zelfs tegen de feiten. Feiten zijn volgens Feyerabend doortrokken van oude theorie; wat als directe waarneming voelt, bevat aannames die alleen zichtbaar worden wanneer er een tegendraads alternatief naast staat. Daarom hoort een onderzoeker zoveel mogelijk onderling strijdige theorieën tegelijk te ontwikkelen. Toetsing vereist een extern gezichtspunt, en dat gezichtspunt moet ergens vandaan komen.</p>
+      <h3>Galilei als kroongetuige</h3>
+      <p>Het hart van het boek is een lange reconstructie van Galilei's verdediging van het wereldbeeld van Copernicus. Het klassieke torenargument stelde dat een steen die van een toren valt recht onder het loslaatpunt neerkomt, wat bij een draaiende aarde onmogelijk leek. Galilei ontkrachtte dat niet met nieuwe waarnemingen; hij verving de onderliggende natuurlijke interpretatie, de aanname dat beweging absoluut is, door het beginsel dat gedeelde beweging onwaarneembaar is. Datzelfde deed hij met de telescoop: er bestond nog geen optische theorie die de betrouwbaarheid van het instrument voor hemelwaarnemingen kon onderbouwen, en sommige telescoopbeelden spraken elkaar tegen.</p>
+      <p>Galilei won volgens Feyerabend het pleit met stijl, retoriek en volharding: hij schreef in het Italiaans in plaats van het geleerde Latijn, richtte zich op een nieuw publiek en schoof problemen die hij niet kon oplossen behendig terzijde. De les die Feyerabend hieruit trekt: gemeten naar de methodologische maatstaven van zowel zijn eigen tijd als de onze handelde Galilei onwetenschappelijk, en juist daardoor kwam de wetenschap vooruit.</p>
+      <h3>Incommensurabiliteit</h3>
+      <p>In de latere hoofdstukken werkt Feyerabend het begrip incommensurabiliteit uit: omvattende theorieën kunnen begrippenkaders hebben die zich niet in elkaars termen laten vertalen, zodat een puntsgewijze vergelijking van hun uitspraken niet mogelijk is. Als voorbeeld dient onder meer het archaïsche Griekse wereldbeeld uit de tijd van Homerus, dat volgens hem geen primitieve versie van het latere was; het ordende de werkelijkheid met andere grondbegrippen. Voor de methodeleer betekent dit dat een eenvoudig schema van weerlegging en bevestiging tekortschiet zodra het om botsingen tussen zulke kaders gaat.</p>
+      <h3>Tegen Popper en Lakatos</h3>
+      <p>Feyerabend rekent af met de twee methodologieën die in zijn tijd het meeste gezag hadden. Poppers falsificationisme zou, consequent toegepast, de wetenschap hebben leeggeruimd: vrijwel elke grote theorie werd geboren te midden van weerleggende feiten en overleefde alleen doordat aanhangers die feiten tijdelijk negeerden of met hulphypothesen wegwerkten. Lakatos' methodologie van onderzoeksprogramma's, die degenererende programma's onderscheidt van vooruitgaande, noemt hij een verkapte vorm van anarchisme: zij geeft geen termijn waarop een kwakkelend programma moet worden opgegeven, en verbiedt dus in de praktijk niets.</p>
+      <h3>Wetenschap als traditie tussen tradities</h3>
+      <p>Het slot trekt de politieke consequentie. Als wetenschap geen methode bezit die haar boven andere tradities plaatst, dan is haar bevoorrechte positie in onderwijs en staat een historisch gegroeide machtspositie en geen epistemisch recht. Feyerabend bepleit een scheiding van wetenschap en staat naar het voorbeeld van de scheiding van kerk en staat, met ruimte voor gemeenschappen om andere tradities te volgen. In de herziene edities van 1988 en 1993 zwakte hij formuleringen af en verzette hij zich tegen lezers die van anything goes een leuze hadden gemaakt; de kern van het betoog liet hij staan.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">epistemologisch anarchisme</td><td>De opvatting dat kennisverwerving niet gebonden is aan vaste methodische regels en daar ook niet bij gebaat is.</td></tr>
+          <tr><td class="term">anything goes</td><td>Het enige beginsel dat alle historische episoden overleeft; door Feyerabend bedoeld als de conclusie die een rationalist zelf moet trekken wanneer hij per se één universele regel wil.</td></tr>
+          <tr><td class="term">contra-inductie</td><td>Het opzettelijk ontwikkelen van hypothesen die ingaan tegen gevestigde theorieën of tegen de feiten, om verborgen aannames zichtbaar te maken.</td></tr>
+          <tr><td class="term">proliferatiebeginsel</td><td>Het voorschrift om zoveel mogelijk onderling strijdige theorieën naast elkaar te ontwikkelen, omdat toetsing een extern gezichtspunt vereist.</td></tr>
+          <tr><td class="term">natuurlijke interpretaties</td><td>Waarnemingsbegrippen die zo vanzelfsprekend zijn geworden dat ze voor directe waarneming doorgaan, zoals de aanname dat beweging absoluut is.</td></tr>
+          <tr><td class="term">incommensurabiliteit</td><td>De verhouding tussen omvattende theorieën waarvan de grondbegrippen zich niet in elkaars termen laten vertalen, zodat puntsgewijze vergelijking onmogelijk is.</td></tr>
+          <tr><td class="term">ad-hochypothese</td><td>Hulpaanname zonder onafhankelijke steun die een theorie tijdelijk tegen weerlegging beschermt en die volgens Feyerabend vaak een legitiem instrument is.</td></tr>
+          <tr><td class="term">torenargument</td><td>Het klassieke bezwaar tegen een draaiende aarde, gebaseerd op de steen die recht onder het loslaatpunt neerkomt, door Galilei ontkracht met de relativiteit van beweging.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het betoog rust vrijwel geheel op historische reconstructie, met de Galilei-casus als dragend stuk, gedocumenteerd met lange citaten uit onder meer de <i>Dialogo</i> en een zwaar voetnotenapparaat. Voor het negatieve deel van de stelling is dat sterk materiaal: om aan te tonen dat een concrete methodeleer de feitelijke wetenschapsgeschiedenis niet beschrijft, volstaan goed gedocumenteerde tegenvoorbeelden, en die levert het boek.</p>
+      <p>De positieve, universele conclusie dat er geen enkele methode bestaat, volgt logisch niet uit een handvol episoden. Feyerabend deed bovendien geen eigen archiefonderzoek; hij leunt op bestaande Galilei-literatuur, en historici hebben zijn lezing op onderdelen bestreden, onder meer waar hij Galilei's waarnemingen zwakker voorstelt dan tijdgenoten ze beoordeelden. Het boek is dus het sterkst als sloopwerk aan andermans methodeleer en het zwakst waar het zelf een algemene uitspraak doet.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Het gangbaarste bezwaar luidt dat uit het falen van specifieke methodologieën geen anarchisme volgt. Wetenschap kent wel degelijk normen, zoals controleerbaarheid, herhaalbaarheid en collegiale toetsing; die normen zijn lokaal en herzienbaar, en dat is iets anders dan afwezig. Critici wijzen er ook op dat Feyerabends eigen betoog argumentatieve maatstaven hanteert die hij de wetenschap ontzegt.</p>
+      <p>De leuze anything goes ging een eigen leven leiden. Feyerabend kreeg het verwijt wetenschap gelijk te stellen aan astrologie en gebedsgenezing, werd in een bespreking in <i>Nature</i> de ergste vijand van de wetenschap genoemd, en zijn werk werd later ingezet in de wetenschapsoorlogen aan beide kanten. Zelf hield hij vol dat de formule een reductio was, gericht aan de rationalist, en geen eigen methodevoorschrift; in latere edities en in <i>Science in a Free Society</i> nam hij afstand van de simpelste lezingen. De invloed staat buiten kijf: het boek dwong de wetenschapsfilosofie om de feitelijke geschiedenis serieus te nemen, en het effende mede de weg voor de latere wetenschapssociologie.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Toets methodische voorschriften aan de geschiedenis van het eigen vak voordat ze als wet gaan gelden.</li>
+        <li>Houd bij onderzoek en beoordeling ruimte voor hypothesen die tegen de heersende theorie ingaan; verborgen aannames worden alleen daar zichtbaar.</li>
+        <li>Lees de Galilei-hoofdstukken als les in wetenschappelijke retoriek: ook houdbare inzichten worden met overtuigingsmiddelen verkocht.</li>
+        <li>Wees terughoudend met het gezagsargument dat de wetenschap iets zegt; vraag welke methode en welke aannames er achter een claim zitten.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Against Method: Outline of an Anarchistic Theory of Knowledge</i> (New Left Books, 1975, 340 blz., ISBN 9780902308916; vierde editie Verso, 2010, ISBN 9781844674428). Nederlandse vertaling: <i>Tegen de methode</i> (Lemniscaat, 2008, 384 blz.).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Klassieker uit de wetenschapsfilosofie waarin de Oostenrijks-Amerikaanse filosoof Paul Feyerabend betoogt dat er geen vaste wetenschappelijke methode bestaat. Elke methodische regel is in de geschiedenis met succes geschonden, en doorbraken kwamen vaak juist tot stand door die schendingen. Het boek draait om een uitvoerige studie van Galilei, die volgens Feyerabend de Copernicaanse leer verdedigde met retoriek, hulphypothesen en waarnemingen die naar de maatstaven van zijn tijd zwak stonden. Wie per se één altijd geldige regel wil, houdt volgens Feyerabend alleen de lege formule anything goes over.</p><p>Het boek was bedoeld als de ene helft van een tweegesprek met Imre Lakatos, die voor de voltooiing overleed, en is aan hem opgedragen. Het geldt naast het werk van Popper en Kuhn als vaste kost in de wetenschapsfilosofie, en tegelijk als het meest omstreden boek van dat rijtje.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>wetenschapsfilosofie</li><li>kennistheorie</li><li>wetenschapsgeschiedenis</li><li>filosofie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="62"><a href="62.html">What Do You Care What Other People Think?</a>. What Do You Care What Other People Think? toont eenzelfde afkeer van autoriteit binnen de wetenschap, vanuit de praktijk van een natuurkundige.</li>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. The Demon-Haunted World verdedigt de positie die Feyerabend aanvalt: wetenschap als best beschikbare gereedschap tegen onzin.</li>
+          <li value="269"><a href="269.html">The Story of Philosophy</a>. The Story of Philosophy plaatst de kennisleer waar Feyerabend tegen vecht in haar langere geschiedenis.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

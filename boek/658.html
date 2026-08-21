@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fermat's Last Theorem &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Een wiskundig raadsel dat een schoolkind kan begrijpen hield het vak 358 jaar bezig, en de weg naar de oplossing laat zien hoe wiskunde werkelijk…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-658">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">658 &middot; Natuur en wetenschap</p>
+    <h1>Fermat's Last Theorem</h1>
+    <p class="lede">Simon Singh, 1997</p>
+    <p class="stats">
+      <span><b>1311</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="658"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Een wiskundig raadsel dat een schoolkind kan begrijpen hield het vak 358 jaar bezig, en de weg naar de oplossing laat zien hoe wiskunde werkelijk vooruitgaat. Fermats bewering uit omstreeks 1637, dat de vergelijking van Pythagoras geen oplossingen in gehele getallen meer heeft zodra de exponent groter is dan twee, werd pas in 1994 bewezen. Singh betoogt dat het bewijs van Andrew Wiles rustte op drie eeuwen deelresultaten en op een naoorlogs Japans vermoeden dat twee ver uiteenliggende gebieden, elliptische krommen en modulaire vormen, aan elkaar knoopte. Daaronder ligt een tweede these: zuivere wiskunde die nergens toe lijkt te dienen, blijkt geregeld later de dragende constructie van iets veel groters.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een aantekening in de marge</h3>
+      <p>Het verhaal begint bij Pythagoras en de drietallen gehele getallen die zijn stelling vervullen, en bij de <i>Arithmetica</i> van Diophantus, het antieke boek waarin Pierre de Fermat, jurist in Toulouse en wiskundige in de avonduren, rond 1637 zijn beruchte kanttekening schreef: voor exponenten boven de twee bestaan zulke drietallen niet, en voor die bewering bezat hij een wonderbaarlijk bewijs dat niet in de marge paste. Zijn zoon Samuel publiceerde de aantekeningen na Fermats dood. Alle andere beweringen uit de marges werden in de anderhalve eeuw daarna bewezen of weerlegd; deze ene bleef staan en kreeg zo de naam Laatste Stelling.</p>
+      <h3>Twee eeuwen deelresultaten</h3>
+      <p>Euler bewees in de achttiende eeuw het geval van exponent drie, met een leemte die later te dichten bleek. Sophie Germain, die als vrouw alleen onder de mansnaam Monsieur Le Blanc met Gauss kon corresponderen, ontwikkelde de eerste aanpak die een hele klasse exponenten tegelijk aanpakte. Dirichlet en Legendre namen exponent vijf, Lamé exponent zeven. In 1847 kondigden Lamé en Cauchy in Parijs beiden een volledig bewijs aan; Kummer liet zien dat hun weg doodliep omdat de eenduidige ontbinding in priemfactoren in de gebruikte getalsystemen sneuvelt, en redde met zijn ideale getallen niettemin een groot deel van de gevallen. In 1908 verbond de Wolfskehlprijs honderdduizend mark aan de oplossing, met een stroom amateurbewijzen als voornaamste resultaat.</p>
+      <h3>Een vermoeden uit Tokio</h3>
+      <p>In de jaren vijftig opperden de Japanse wiskundigen Yutaka Taniyama en Goro Shimura een verband dat aanvankelijk niemand geloofde: elke elliptische kromme, een vergelijkingstype uit de getaltheorie, zou horen bij een modulaire vorm, een object uit een heel andere hoek van de wiskunde met uitzonderlijk veel symmetrie. Taniyama maakte in 1958 een einde aan zijn leven; Shimura werkte het vermoeden verder uit, en in de decennia daarna groeide het uit tot een spil van de getaltheorie. Singh gebruikt dit deel ook om te tonen hoe de naoorlogse Japanse wiskunde zich aan de armoede en isolatie van die jaren ontworstelde.</p>
+      <h3>De brug naar Fermat</h3>
+      <p>In 1984 zag de Duitse wiskundige Gerhard Frey de verbinding: als Fermat ongelijk had en er wel een oplossing bestond, dan zou daaruit een elliptische kromme te bouwen zijn met zulke vreemde eigenschappen dat zij onmogelijk modulair kon zijn. Ken Ribet bewees in 1986 dat die kromme inderdaad niet modulair kan zijn, het zogeheten epsilon-vermoeden. Daarmee stond er opeens een brug: wie het vermoeden van Taniyama en Shimura voor de relevante klasse krommen zou bewijzen, bewees daarmee de Laatste Stelling van Fermat.</p>
+      <h3>Zeven jaar op zolder</h3>
+      <p>Andrew Wiles, als tienjarige door een bibliotheekboek aan het raadsel verslingerd geraakt, besloot na Ribets resultaat om er in het geheim aan te werken, zeven jaar lang, op de zolderkamer van zijn huis in Princeton. Hij combineerde Iwasawa-theorie met de methode van Kolyvagin en Flach en maakte het resultaat in juni 1993 bekend in drie lezingen in Cambridge, met wereldpers als gevolg. Bij de controle vond Nick Katz een gat in het bewijs. Na veertien maanden ploeteren, en op het punt van opgeven, zag Wiles in september 1994 samen met zijn oud-leerling Richard Taylor hoe de gestrande methode en de eerder verlaten Iwasawa-theorie elkaar precies aanvulden. Het bewijs verscheen in mei 1995 in <i>Annals of Mathematics</i>, ruim honderd bladzijden vaktechniek.</p>
+      <h3>Wat het verhaal zegt</h3>
+      <p>Singh sluit af met de betekenis van dit bewijs: het kwam zonder computer tot stand, anders dan het bewijs van de vierkleurenstelling uit 1976, en het loste veel meer op dan één oude som, omdat de bewezen schakel tussen elliptische krommen en modulaire vormen hele gebieden verbond. Het boek kwam voort uit de BBC-documentaire <i>The Proof</i> die Singh met John Lynch maakte en waarvoor de hoofdrolspelers uitvoerig zijn geïnterviewd; de beroemde openingsscène, waarin Wiles bij de herinnering aan het slotinzicht in tranen schiet, zette de toon voor het boek. Het werd het eerste wiskundeboek op de eerste plaats van de Britse bestsellerlijst.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Laatste Stelling van Fermat</td><td>De bewering dat de vergelijking van Pythagoras geen oplossingen in gehele getallen heeft zodra de exponent groter is dan twee.</td></tr>
+          <tr><td class="term">elliptische kromme</td><td>Vergelijkingstype uit de getaltheorie waarvan de gehele en rationale oplossingen worden bestudeerd, de ene pijler van het bewijs.</td></tr>
+          <tr><td class="term">modulaire vorm</td><td>Wiskundig object met uitzonderlijk veel symmetrie uit een schijnbaar los staand deel van de wiskunde, de andere pijler van het bewijs.</td></tr>
+          <tr><td class="term">vermoeden van Taniyama en Shimura</td><td>Het vermoeden dat elke elliptische kromme bij een modulaire vorm hoort, waarvan een deelgeval door Wiles is bewezen.</td></tr>
+          <tr><td class="term">epsilon-vermoeden</td><td>De door Ribet bewezen stelling dat de kromme van Frey niet modulair kan zijn, waardoor Fermat uit Taniyama-Shimura volgt.</td></tr>
+          <tr><td class="term">bewijs uit het ongerijmde</td><td>Bewijsvorm die het tegendeel aanneemt en daaruit een tegenspraak afleidt, de logische motor achter de brug van Frey.</td></tr>
+          <tr><td class="term">volledige inductie</td><td>Bewijsvorm die een uitspraak voor alle getallen vestigt door haar van elk getal naar het volgende door te geven, door Singh uitgelegd als het domino-principe.</td></tr>
+          <tr><td class="term">Wolfskehlprijs</td><td>De in 1908 ingestelde prijs van honderdduizend mark voor een bewijs van de stelling, in 1997 aan Wiles uitgekeerd.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het boek leunt op interviews met vrijwel alle hoofdrolspelers, onder wie Wiles, Shimura, Ribet, Frey en Katz, afgenomen voor de documentaire, en op de gepubliceerde wiskundegeschiedenis. Het feitenrelaas van jaartallen, personen en resultaten is controleerbaar en is sinds verschijnen niet ernstig bestreden. De appendices bevatten kleine volledige bewijzen, zoals dat van de stelling van Pythagoras, zodat de lezer tenminste één keer meemaakt wat een wiskundig bewijs is.</p>
+      <p>Van het eigenlijke bewijs van Wiles krijgt de lezer alleen de architectuur: welke gebieden verbonden werden en waarom dat volstond. Dat is onvermijdelijk, want de techniek was bij publicatie voor hooguit enkele tientallen specialisten te volgen, maar het betekent dat het boek op zijn eigen hoogtepunt noodgedwongen op metaforen overschakelt.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Vakmensen merken op dat de wiskunde in de kern versimpeld wordt: het vermoeden van Taniyama en Shimura wordt zonder de nodige mitsen en maren geformuleerd, en de gebruikte technieken blijven namen zonder inhoud. Het boek volgt bovendien het sjabloon van het eenzame genie, terwijl de eigen stof laat zien hoeveel schouders het bewijs droegen; die spanning benoemt Singh wel en lost hij niet op. Het lot van Taniyama en het levensverhaal van Sophie Germain zijn merkbaar dramatisch aangezet.</p>
+      <p>Een tweede kanttekening betreft Fermat zelf: onder wiskundigen is de gangbare opvatting dat zijn wonderbaarlijke bewijs een vergissing moet zijn geweest, omdat de uiteindelijk gebruikte wiskunde in de zeventiende eeuw niet bestond. Singh vermeldt dat, maar de romantiek van het verloren bewijs blijft de vertelling kleuren. Binnen het genre geldt het boek niettemin als voorbeeld van hoe wiskunde voor een groot publiek verteld kan worden, en het is duidelijk vollediger gedocumenteerd dan het gelijknamige, kortere boek van Amir Aczel uit 1996 over dezelfde geschiedenis.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik de appendices en het domino-beeld van volledige inductie als eerste kennismaking met wiskundig bewijzen in onderwijs of zelfstudie.</li>
+        <li>Zet het verhaal in als casus over de waarde van zuiver onderzoek zonder zichtbaar nut: de omweg van decennia bleek de dragende constructie.</li>
+        <li>Bekijk de documentaire The Proof naast het boek; de interviews daarin zijn het bronmateriaal van de sterkste passages.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Fermat's Last Theorem: The Story of a Riddle That Confounded the World's Greatest Minds for 358 Years</i> (Fourth Estate, 1997, 362 blz., ISBN 9781857025217; Amerikaanse editie als <i>Fermat's Enigma</i>, Walker, 1997). Nederlandse vertaling: <i>Het laatste raadsel van Fermat</i> (in de catalogus van bibliotheek.nl aanwezig als uitgave van Rainbow, Amsterdam, 2018, 367 blz.).</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Het verhaal van de beroemdste openstaande som uit de wiskunde. Pierre de Fermat noteerde rond 1637 in de marge van een boek dat de vergelijking van Pythagoras geen oplossingen in gehele getallen meer heeft zodra de exponent groter is dan twee, en dat hij daarvoor een wonderbaarlijk bewijs bezat dat niet in de marge paste. Het duurde 358 jaar voordat Andrew Wiles, na zeven jaar werken in het geheim, een openbaar gemaakt gat en een reparatie met Richard Taylor, het bewijs in 1995 publiceerde.</p><p>Simon Singh, die eerder met John Lynch de BBC-documentaire <i>The Proof</i> over Wiles maakte, vertelt de voorgeschiedenis erbij: Euler, Sophie Germain, Kummer, de Wolfskehlprijs, en het Japanse vermoeden van Taniyama en Shimura dat de brug naar Fermat bleek. Het werd het eerste wiskundeboek bovenaan de Britse bestsellerlijst. Er bestaat een gelijknamig, korter boek van Amir Aczel uit 1996; Singhs versie geldt als de standaard.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>wiskunde</li><li>wetenschapsgeschiedenis</li><li>bewijs</li><li>biografie</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="321"><a href="321.html">Longitude: The True Story of a Lone Genius Who Solved the Greatest Scientific Problem of His Time</a>. Longitude vertelt in hetzelfde genre hoe één hardnekkig probleem generaties onderzoekers bezighield.</li>
+          <li value="240"><a href="240.html">Einstein: His Life and Universe</a>. Einstein: His Life and Universe portretteert eenzelfde jarenlang volgehouden zoektocht naar één inzicht.</li>
+          <li value="454"><a href="454.html">Prisoner's Dilemma</a>. Prisoner's Dilemma van Poundstone koppelt op vergelijkbare wijze wiskundegeschiedenis aan de levens van de makers.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
