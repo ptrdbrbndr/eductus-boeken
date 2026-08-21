@@ -168961,7 +168961,7 @@ vier stellen dezelfde vraag: welke uitkomst zou hierbij horen, en is die
 uitkomst er ook. Saad is de meest polemische van de vier en het beste te lezen
 met tegenspraak ernaast.
 
-**Talent bestaat niet zoals je denkt** (22, 23, 29, 50, 376, 349). 
+**Talent bestaat niet zoals je denkt** (22, 23, 29, 50, 376, 349, 803). 
 Dweck begint bij de overtuiging over eigen vermogen, Duckworth meet wie
 volhoudt, Clear bouwt het systeem eronder, en Newport draait de loopbaanvraag
 om: eerst goed worden, dan gaan houden van het werk. Colvin voegt de
@@ -168972,8 +168972,10 @@ aan talent toeschrijven. Epstein (349) zet daar met Range de tegenstem
 tegenover: hij vergelijkt Tiger Woods, vroeg gespecialiseerd, met Roger
 Federer, die pas als tiener bij tennis bleef hangen, en concludeert dat brede,
 late ontwikkeling in de meeste complexe vakgebieden beter uitpakt dan de
-tienduizend-uurregel van Ericsson doet vermoeden. Wie er één kiest, neemt 22
-voor de praktijk, 23 voor de reden, en 349 voor de tegenwerping.
+tienduizend-uurregel van Ericsson doet vermoeden. Ahmed (803) trekt die lijn
+door tot het uiterste en bepleit de veelzijdige mens, met de specialisatie
+zelf als een historisch gegroeide vergissing. Wie er één kiest, neemt 22 voor
+de praktijk, 23 voor de reden, en 349 voor de tegenwerping.
 
 **Jung in zijn eigen woorden** (357, 358, 359, 360, 361, 362). 
 Het Rode Boek (359) is het onbewerkte materiaal uit de jaren na de breuk met
@@ -169046,14 +169048,17 @@ bewustzijnsschaal van 1 tot 1000 die verder nergens op steunt. Zeven boeken,
 één claim: het probleem zit niet in de omstandigheden maar in de stem die
 erover commentaar geeft.
 
-**Vooruitgang: twee lezingen van dezelfde geschiedenis** (251, 298). 
+**Vooruitgang: drie lezingen van dezelfde geschiedenis** (251, 298, 823). 
 Ridley leest in 251 dezelfde vijfduizend jaar geschiedenis als McDonald in
 298, en komt tot het tegenovergestelde oordeel. Voor Ridley is welvaart een
 gestage opbrengst van ruilhandel en specialisatie sinds de prehistorie. Voor
 McDonald is vooruitgang een verhaal waarmee samenlevingen al net zo lang
 rechtvaardigen dat ze meer aan de aarde en aan andere mensen onttrekken dan ze
-teruggeven. Beide boeken gebruiken dezelfde feiten, alleen de maatstaf
-verschilt.
+teruggeven. Dubos (823) beperkt de vraag tot één gebied, de gezondheid, en
+wijst erop dat de sterfte aan tuberculose al tientallen jaren daalde voordat
+de geneeskunde de verwekker kende. Zijn punt is dat volmaakte gezondheid een
+luchtspiegeling blijft, omdat ziektepatronen meebewegen met de manier waarop
+mensen leven. De drie gebruiken dezelfde feiten, alleen de maatstaf verschilt.
 
 **Speltheorie: van inleiding tot toepassing** (217, 450, 451, 452, 453, 454, 455, 456). 
 Acht boeken over hetzelfde vak, met een natuurlijke leesvolgorde: 452 is de
@@ -169755,15 +169760,18 @@ History (57) uit 1968 is het dunne slotessay waarin het echtpaar opschrijft
 wat al die arbeid aan bruikbare lessen heeft opgeleverd. Beginpunt en eindpunt
 van hetzelfde schrijversleven.
 
-**Hoe een vaardigheid erin komt** (376, 296, 397, 175). 
+**Hoe een vaardigheid erin komt** (376, 296, 397, 175, 800). 
 Colvin (376) bracht het onderzoek naar deliberate practice naar het grote
 publiek: de kwaliteit van de oefening bepaalt wie de top haalt, aanleg veel
-minder. Drie latere boeken werken datzelfde terrein elk anders uit. Young
+minder. Vier latere boeken werken datzelfde terrein elk anders uit. Young
 (296) herleidt vooruitgang tot drie voorwaarden: een goed voorbeeld, oefening
 van het juiste soort en feedback die klopt. Velasquez (397) beschrijft het
 biologische proces onder het leren en welke eisen oefening moet vervullen om
-het in gang te zetten. Kwik (175) is de populairste en lichtste van de vier,
-met zijn eigen geschiedenis van hersenletsel als voornaamste bewijs.
+het in gang te zetten. Sterner (800) haalt de aandacht juist weg bij het doel
+en legt haar bij de handeling zelf, met het aanleren van een instrument als
+voorbeeld: wie tijdens het oefenen aan het resultaat denkt, oefent slechter.
+Kwik (175) is de populairste en lichtste van de vijf, met zijn eigen
+geschiedenis van hersenletsel als voornaamste bewijs.
 
 **Twee oprichters over de vraag of het vak te noteren valt** (270, 47). 
 Dalio (270) en Horowitz (47) leidden allebei een bedrijf door zware jaren en
@@ -170443,15 +170451,17 @@ lat met methoden tegen zelfbedrog in de validatie, en Jansen (486) is het
 codeboek om het zelf na te bouwen. Lees 483 eerst; daarna is de rest
 gereedschap.
 
-**De handelaar tegenover zichzelf** (487, 488, 80, 137). 
-Vier boeken over de handelaar als eigen grootste risico. Douglas (487) leert
+**De handelaar tegenover zichzelf** (487, 488, 80, 137, 817). 
+Vijf boeken over de handelaar als eigen grootste risico. Douglas (487) leert
 probabilistisch denken: één transactie zegt niets, pas de reeks telt. Tendler
 (488), afkomstig uit de pokercoaching, bouwt een systeem om terugkerende
 fouten als tilt en verliezersangst stap voor stap af te leren, en sluit
 daarmee direct aan op The Poker Mindset (137). Coates (80) levert de
 fysiologie eronder: testosteron en cortisol veranderen de risicobereidheid
-zelf, buiten het bewustzijn om. Wie 80 leest, begrijpt waarom 487 en 488 nodig
-zijn.
+zelf, buiten het bewustzijn om. Montier (817) brengt hetzelfde terug tot de
+beleggingspraktijk en zet er de onderzoeksliteratuur onder, met een reeks
+vertekeningen die hij stuk voor stuk langsloopt. Wie 80 leest, begrijpt waarom
+487 en 488 nodig zijn.
 
 **Hoeveel per keer: de wiskunde van de inzet** (489, 490, 491, 492, 493). 
 Vijf boeken over de vraag die belangrijker blijkt dan de instap: hoeveel zet
@@ -170498,14 +170508,16 @@ aanhanger van de methode, wiens selectie de mislukte volgers weglaat. Systeem,
 naslagwerk en pleidooi; wie alle drie leest, kan het pleidooi op waarde
 schatten.
 
-**Edward Thorp, van blackjack naar de Kelly-formule** (505, 504, 490). 
+**Edward Thorp, van blackjack naar de Kelly-formule** (505, 504, 490, 812). 
 Thorp (505) vertelt zelf hoe hij eerst het casino en daarna de markt versloeg
-met dezelfde wiskunde: inzetten naar de grootte van je voorsprong. Het
-verzamelwerk dat hij mee redigeerde (504) bundelt de theorie daarachter, van
-Kelly's oorspronkelijke artikel uit 1956 tot Samuelsons bezwaren. Vince (490)
-bouwde er zijn eigen variant op, Optimal f, die het wiskundige maximum opzoekt
-en daarmee laat zien waarom de praktijk vrijwel altijd voor een fractie van
-Kelly kiest. Het leven, de theorie en de grens.
+met dezelfde wiskunde: inzetten naar de grootte van je voorsprong. Poundstone
+(812) schreef de geschiedenis eromheen, met Claude Shannon en John Kelly bij
+Bell Labs als beginpunt en het meningsverschil met Paul Samuelson over de
+vraag of de formule wel deugt. Het verzamelwerk dat Thorp mee redigeerde (504)
+bundelt die theorie, van Kelly's oorspronkelijke artikel uit 1956 tot
+Samuelsons bezwaren. Vince (490) bouwde er zijn eigen variant op, Optimal f,
+die het wiskundige maximum opzoekt en daarmee laat zien waarom de praktijk
+vrijwel altijd voor een fractie van Kelly kiest.
 
 **Marcos López de Prado, het handboek en het college** (485, 503). 
 Twee boeken van dezelfde hoogleraar en vermogensbeheerder. Advances in
@@ -170613,3 +170625,178 @@ Clear (22) sluit af als de populaire erfgenaam, die en passant de
 hardnekkigste misvatting uit het boek rechtzette: de regel van 21 dagen was
 bij Maltz een minimum voor gewenning na een operatie, geen wet voor
 gewoontevorming.
+
+**Zeepbellen: de lange lijn, het model en twee ijkpunten** (808, 807, 809, 814). 
+Chancellor (808) loopt de speculatie door van de Romeinse republiek tot de
+Japanse zeepbel van de jaren tachtig, en laat zien hoe weinig de vorm
+verandert. Kindleberger (807) levert het raamwerk waarin die episoden op
+elkaar lijken: het model van Hyman Minsky, waarin een verschuiving in de
+vooruitzichten, goedkoop krediet, euforie en paniek elkaar in vaste volgorde
+opvolgen. De term Minsky-moment kwam er pas later bij, van Paul McCulley in
+1998. Galbraith (809) neemt één episode en houdt die tegen het licht: 1929,
+beschreven in 1955 en sindsdien niet uit de handel geweest. Napier (814) keert
+de blik om en onderzoekt de bodems in plaats van de toppen, 1921, 1932, 1949
+en 1982, gelezen in de krantenberichten van die dagen zelf.
+
+**Wat rendement en rente over de lange termijn deden** (804, 806, 815, 813). 
+Dimson, Marsh en Staunton (804) legden honderd jaar beursrendement van zestien
+landen naast elkaar en haalden daarmee de lucht uit cijfers die alleen op de
+Amerikaanse markt berustten: markten die slecht afliepen verdwijnen uit
+reeksen die dat verzuim niet corrigeren. Homer en Sylla (806) gaan verder
+terug dan enige beurs bestaat en brengen vierduizend jaar rentetarieven
+bijeen, van Babylonische leningen tot de twintigste eeuw. Ilmanen (815) maakt
+daar de moderne som van en bekijkt hetzelfde rendement vanuit activaklasse,
+risicofactor en strategiestijl tegelijk. Swensen (813) is de praktijkkant van
+diezelfde horizon, het model waarmee hij het vermogen van Yale beheerde.
+
+**De markt past niet in de klok** (811, 810, 816, 268). 
+Mandelbrot (811) verwerpt de normale verdeling, de klokvorm die de financiële
+theorie aan koersbewegingen toeschrijft. Koersen springen, de sprongen komen
+in trossen, en machtswetten beschrijven dat beter dan de klok. Dunbar (810)
+beschrijft wat er gebeurt wanneer een fonds op die klokvorm vertrouwt:
+Long-Term Capital Management, met twee Nobelprijswinnaars aan boord, verloor
+in 1998 4,6 miljard dollar en moest door veertien instellingen worden
+opgevangen. Patterson (816) doet hetzelfde voor de generatie daarna, met de
+quant-crisis van augustus 2007 als ijkpunt. Taleb (268) trok er de bekendste
+algemene les uit.
+
+**Hoe het toeval berekenbaar werd** (805, 812, 454). 
+Hacking (805) beschrijft hoe de negentiende eeuw statistische wetmatigheid
+ging zien waar eerder noodzaak of willekeur stond. De lawine van gedrukte
+cijfers, van volkstellingen tot het opmeten van 5738 Schotse borstkassen,
+maakte het toeval zelf tot iets waarover wetten te formuleren vielen.
+Poundstone schreef twee boeken over wat wiskundigen daarna met onzekerheid
+deden: in 454 over von Neumann en de speltheorie, in 812 over Claude Shannon,
+John Kelly en Ed Thorp, die van een berekende voorsprong een inzetregel
+maakten. Van de vraag hoe het toeval denkbaar werd naar de vraag hoeveel je
+erop zet.
+
+**Natuurkundigen die buiten hun vak traden** (818, 820, 819). 
+Schrödinger (818) hield in 1943 in Dublin lezingen over de vraag wat leven is
+en bracht een natuurkundige redenering aan op de erfelijkheid: er moet een
+aperiodiek kristal zijn dat het codeschrift draagt. Watson en Crick hebben het
+gelezen. Bronowski (820) gebruikte de televisie om de geschiedenis van de mens
+langs zijn gereedschappen en denkbeelden te vertellen, en zette in het elfde
+van dertien hoofdstukken de vraag naar zekere kennis neer in Auschwitz. Dyson
+(819) schreef de memoir van hetzelfde geweten, van zijn werk bij Bomber
+Command tot het ruimteschip op kernexplosies dat nooit vloog.
+
+**Hoe een kunstvorm werkt, uitgelegd door een meester** (828, 824, 832). 
+Gombrich (828) over kijken: er bestaat geen onschuldig oog, een schilder
+begint bij een schema dat hij aan de waarneming bijstelt, en de kijker vult
+zijn eigen deel in. Bernstein (824) over horen: hij leent de driedeling van de
+taalkunde en zoekt de grammatica van de muziek, met de boventoonreeks als
+natuurlijke grond van de tonaliteit. Bresson (832) over maken: aforismen van
+een filmer die acteurs verving door modellen en het weglaten tot methode
+maakte. Drie vakken, en in alle drie dezelfde vraag naar wat er precies
+gebeurt tussen het werk en degene die het ondergaat.
+
+**Stijl als tekensysteem** (834, 833, 564). 
+Hebdige (834) leest de punkbeweging als een tekensysteem: betekenis wordt uit
+alledaagse voorwerpen losgewrikt en opnieuw samengesteld, met een vaste afloop
+waarin de markt de stijl inlijft en als koopwaar terugverkoopt. Debord (564)
+leverde het begrip waarop die inlijving rust. Flügel (833) deed een halve eeuw
+eerder hetzelfde voor kleding zelf en muntte de Grote Mannelijke Verzaking,
+het idee dat mannen rond 1800 de opsmuk lieten varen. Hebdige heeft het
+sterkste materiaal, Flügel de oudste vraag, en bij beiden klinkt de verklaring
+steviger dan zij is.
+
+**Techniek als een macht met eigen wetten** (826, 539, 674, 54). 
+Ellul (826) betoogt dat la technique, het zoeken naar de doelmatigste methode
+in elk domein, een eigen logica krijgt die zich aan menselijke sturing
+onttrekt. Zijn betoog is gesloten van bouw en daardoor moeilijk te weerleggen,
+wat zijn critici hem terecht verwijten. Wiener (539) schreef vanuit de
+cybernetica een waarschuwing van dezelfde jaren, maar dan met een uitweg erin.
+Mander (674) en Postman (54) brengen de vraag terug tot één techniek, de
+televisie, en komen daarmee verder in het aanwijzen van gevolgen die te meten
+zijn.
+
+**Onthouden: het brein, de kunst en het systeem** (801, 766, 81). 
+Ranganath (801) legt uit wat het geheugen werkelijk doet: het bewaart geen
+opnamen maar bouwt bij elke oproep opnieuw, en vergeten hoort daarbij. Yates
+(766) beschrijft de klassieke geheugenkunst die daar eeuwenlang omheen is
+gebouwd, met het geheugenpaleis als bekendste techniek. Forte (81) verplaatst
+de last naar buiten en maakt er een aantekeningenstelsel van. De drie
+beschrijven hetzelfde vermogen achtereenvolgens als natuurverschijnsel, als
+ambacht en als gereedschap.
+
+**Sleutelen aan de eigen aandacht, en wat dat waard is** (802, 175, 119). 
+Honos-Webb (802) richt zich op de uitvoerende functies, het vermogen om te
+plannen, te beginnen en een impuls te onderdrukken, en biedt daar oefeningen
+voor. Kwik (175) belooft meer en onderbouwt minder, met zijn eigen
+geschiedenis van hersenletsel als voornaamste bewijs. Harper (119) schrijft
+over hetzelfde terrein vanuit de traumahoek en is het eerlijkst over wat een
+oefening niet oplost. Alle drie zijn zelfhulp, en bij alle drie is het
+onderzoek eronder dunner dan de stelligheid van de tekst doet vermoeden.
+
+**Waarnemen van de plaats waar je bent** (825, 830, 322). 
+Tuan (825) gaf de band tussen mens en plaats een naam, topofilie, en
+onderzocht hoe landschap, klimaat en opvoeding bepalen wat iemand mooi of
+veilig vindt. Dillard (830) doet het omgekeerde en blijft een jaar lang bij
+één kreek in Virginia, waar het kijken zelf de oefening is en de wreedheid in
+de natuur niet wordt weggeschreven. Yong (322) haalt de menselijke maatstaf er
+helemaal uit en beschrijft de zintuigwerelden van andere dieren. Van de
+gehechtheid aan een plek, via het geoefende oog, naar de vaststelling dat de
+mens één waarnemer onder vele is.
+
+**Een vak verteld als een reeks levens** (821, 269). 
+Heilbroner (821) vertelt de economie als de geschiedenis van de mensen die
+haar bedachten, van Adam Smith tot Schumpeter, en werd daarmee voor generaties
+studenten de eerste kennismaking. Durant (269) deed hetzelfde voor de
+filosofie, een kwart eeuw eerder en met dezelfde greep: het denkbeeld wordt
+begrijpelijk gemaakt via het leven van de denker. Beide boeken zijn erop
+aangevallen dat zij hun vak te toegankelijk maken, en beide hebben er meer
+lezers naartoe gebracht dan hun critici.
+
+**De middeleeuwen van binnenuit** (822, 534). 
+Huizinga (822) leest de veertiende en vijftiende eeuw als een cultuur die op
+haar eind loopt in plaats van als aanloop naar de Renaissance, met het
+ridderideaal als versleten vorm waar men zich toch aan vasthoudt. Het
+Roelantslied (534) is diezelfde vorm in jonge staat, ruim drie eeuwen eerder,
+toen het ideaal nog geen pose was. De twee samen laten zien wat er met een
+ideaal gebeurt wanneer het zijn aanleiding overleeft.
+
+**Hoe taal en brein elkaar vormden** (829, 762, 664). 
+Deacon (829) verwerpt de aangeboren universele grammatica en zet er
+co-evolutie voor in de plaats: taal en brein hebben elkaar over
+honderdduizenden jaren gevormd, en de sprong die de mens maakte is de stap
+naar het symbool. Mithen (762) legt de nadruk elders en zoekt de oorsprong in
+muziek en zang. Korzybski (664) is de oudste en eigenzinnigste stem: hij
+stelde dat de bouw van onze taal ons denken vastzet, en dat de kaart nooit het
+gebied is.
+
+**Getallen als betekenisdrager** (835, 630, 657). 
+Schimmel (835) brengt bijeen wat culturen en godsdiensten aan getallen hebben
+opgehangen, van de drie tot de tienduizend, als cultuurgeschiedenis en niet
+als bewijs dat er iets in zit. Het Sefer Yetzirah (630) is daarvan een bron in
+plaats van een beschrijving: daar zijn de getallen zelf de bouwstenen van de
+schepping. Seife (657) zet er de wiskundige geschiedenis tegenover van één
+getal, de nul, en laat zien hoeveel weerstand een leeg teken opriep voordat
+het gereedschap werd.
+
+**Het systeem van een meester, opgeschreven als leer** (831, 346). 
+Nimzowitsch (831) schreef zijn schaakleer als een stelsel met eigen begrippen:
+het centrum op afstand beheersen, de vrijpion blokkeren voordat je hem
+aanvalt, overbescherming van de eigen sterke punten. Musashi (346) deed
+hetzelfde voor het zwaardvechten, drie eeuwen eerder en in veel kortere vorm.
+Beide zijn geschreven door een beoefenaar op leeftijd die zijn vak in regels
+wil vastleggen, en bij beide is een deel van die regels inmiddels achterhaald
+zonder dat de manier van denken dat is.
+
+**Het recht als gegroeide praktijk tegenover het recht als stelsel** (827, 623). 
+Holmes (827) opent met de zin dat het leven van het recht geen logica is
+geweest maar ervaring, en werkt dat uit tot een geschiedenis waarin regels hun
+oorspronkelijke aanleiding overleven en achteraf een nieuwe rechtvaardiging
+krijgen. Nozick (623) redeneert de andere kant op en leidt uit een klein
+aantal uitgangspunten af welke staat te rechtvaardigen valt. Naast elkaar
+gelegd tonen zij twee onverenigbare opvattingen over waar gezag vandaan komt:
+uit wat is gegroeid, of uit wat is af te leiden.
+
+**Handleidingen voor innerlijke scholing** (836, 645, 638). 
+Alder (836), Heindel (645) en Bardon (638) schreven alle drie een leergang:
+een reeks oefeningen die de lezer stap voor stap naar helderziendheid,
+inwijding of magische bekwaamheid zou brengen. Alder werkt met kleurstralen en
+een zevendeling, Heindel met de rozenkruiserskosmologie, Bardon met een
+strenge opbouw van lichaam, ziel en geest. Geen van de drie levert toetsbaar
+bewijs voor wat het belooft, en dat is bij dit genre de eerste vraag; als
+document van een traditie zijn zij wel te lezen.
