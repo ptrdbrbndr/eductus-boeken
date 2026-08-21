@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stolen Legacy &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="James stelt dat de Grieken de filosofie die op hun naam staat niet zelf hebben voortgebracht. De leerstellingen van Thales tot Aristoteles komen volgens…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-588">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">588 &middot; Geschiedenis en samenleving</p>
+    <h1>Stolen Legacy</h1>
+    <p class="lede">George G.M. James, 1954</p>
+    <p class="stats">
+      <span><b>1348</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="588"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>James stelt dat de Grieken de filosofie die op hun naam staat niet zelf hebben voortgebracht. De leerstellingen van Thales tot Aristoteles komen volgens hem uit het Egyptische mysteriesysteem, het eeuwenoude tempelonderwijs van Egypte, en zijn via studiereizen van Griekse leerlingen en via de plundering van Egyptische bibliotheken na de verovering door Alexander de Grote in Griekse handen gekomen. Aristoteles en zijn school zouden dit materiaal vervolgens als Grieks gedachtegoed hebben geboekstaafd. Die toe-eigening noemt James diefstal, en de rechtzetting ervan moet volgens hem leiden tot herwaardering van Afrika als bakermat van wetenschap en filosofie en tot een nieuw zelfbeeld voor zwarte mensen wereldwijd.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Een aanklacht in twee delen</h3>
+      <p>Het boek verscheen in 1954 bij Philosophical Library in New York, twee jaar voor James' dood. Het is opgezet als een pleidooi: deel een (acht hoofdstukken) levert de bewijsvoering, deel twee (een enkel hoofdstuk) trekt de maatschappelijke conclusies. De inleiding kondigt beide doelen aan: aantonen dat de zogenoemde Griekse filosofie gestolen Egyptische filosofie is, en de valse traditie ontmantelen die Afrika buiten de beschavingsgeschiedenis plaatst.</p>
+      <h3>Waarom de Grieken het volgens James niet geweest kunnen zijn</h3>
+      <p>De eerste twee hoofdstukken betogen dat het gangbare verhaal intern rammelt. De chronologie van de vroege Griekse filosofen noemt James speculatie, het auteurschap van de afzonderlijke leerstellingen twijfelachtig, en de geschiedenis van de Griekse filosofie een constructie die de school van Aristoteles achteraf heeft samengesteld. Bovendien was de periode van 640 tot 322 v.Chr. een tijd van aanhoudende interne en externe oorlogen, in zijn ogen ongeschikt om filosofen voort te brengen. Athene vervolgde zijn denkers ook nog: Anaxagoras werd verbannen, Socrates ter dood gebracht. Een samenleving die filosofie strafbaar stelt, kan haar volgens James niet zelf hebben ontwikkeld.</p>
+      <h3>Het mysteriesysteem als bron</h3>
+      <p>Hoofdstuk drie en vier voeren de werkelijke bron op: het Egyptische mysteriesysteem, een tempelonderwijs met graden van inwijding en een heilsleer waarin de ziel zich door studie en zuivering van het lichamelijke bevrijdt. De Perzische verovering van Egypte in 525 v.Chr. opende het land voor buitenlanders; Griekse leerlingen als Thales, Pythagoras en later Plato zouden er zijn onderwezen. Na de verovering door Alexander de Grote in 332 v.Chr., met diens bezoek aan het orakel van Ammon in de oase Siwa, lag de Egyptische kennis voor het grijpen. Zo gaf het Afrikaanse continent volgens James zijn cultuur aan de westerse wereld.</p>
+      <h3>Van Thales tot Democritus</h3>
+      <p>Hoofdstuk vijf loopt de voorsocratici langs. De oerstofleer van de Ioniërs, de harmonie- en getallenleer van Pythagoras, de leer van de vier kwaliteiten en vier elementen en de atoomleer van Democritus worden stuk voor stuk tot Egyptische voorlopers herleid. James' refrein luidt dat geen van deze denkers iets nieuws leerde, en dat de Grieken onderling ook nog van elkaar overschreven, vooral van Pythagoras, die zijn kennis weer uit Egypte had.</p>
+      <h3>Socrates, Plato en Aristoteles</h3>
+      <p>In het langste hoofdstuk krijgen de drie Atheners dezelfde behandeling. De leer van de Nous, het hoogste goed, de onsterfelijkheid van de ziel, de ideeenleer en de kardinale deugden worden alle als Egyptisch erfgoed aangemerkt; van Plato betwist James bovendien het auteurschap van de <i>Republiek</i> en de <i>Timaeus</i>. Bij Aristoteles voert hij de bibliotheek van Alexandrië op als werkelijke bron van diens omvangrijke oeuvre; de onderling afwijkende boekenlijsten zouden op twijfelachtig auteurschap wijzen. Hoofdstuk zeven vergelijkt het curriculum van het mysteriesysteem, waaronder de zeven vrije kunsten en de priesteropleiding per orde, met de onderwerpen van Aristoteles' boeken.</p>
+      <h3>De Memphitische theologie</h3>
+      <p>Hoofdstuk acht presenteert de volledige tekst van de Memphitische theologie, het scheppingsverhaal op de Shabaka-steen waarin de god Ptah de wereld door hart en tong, dus door gedachte en woord, voortbrengt. James leest er de grondslag van vrijwel elke Griekse leerstelling in en trekt de lijn door naar de moderne wetenschap: de zonnegod Atum zou het atoombegrip voorafschaduwen en de schepping van de negen goden van de Enneade de nevelhypothese van het zonnestelsel.</p>
+      <h3>Het program van Afrikaanse verlossing</h3>
+      <p>Deel twee vertaalt de bewijsvoering in een maatschappelijk program. James wijst drie partijen aan die de valse traditie over Afrika hebben gevestigd: Alexander de Grote, de school van Aristoteles en het oude Rome. Herstel vraagt heropvoeding van wit en zwart: wereldwijde verspreiding van de kennis dat Afrika de kunsten, wetenschappen en filosofie voortbracht, het opgeven van de verering van het Griekse intellect, en herziening van het missiebeleid. Het boek besluit met de nieuwe filosofie van Afrikaanse verlossing: zwart zelfrespect, gegrond op een hersteld verleden.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">mysteriesysteem</td><td>Het door James beschreven Egyptische tempelonderwijs met graden van inwijding, dat hij aanwijst als bron van alle filosofie.</td></tr>
+          <tr><td class="term">heilsleer</td><td>De kern van dat onderwijs: de ziel bevrijdt zich van het lichamelijke en wordt gelijkvormig aan het goddelijke.</td></tr>
+          <tr><td class="term">gestolen erfenis</td><td>James' aanduiding voor het Egyptische gedachtegoed dat onder Griekse namen de geschiedenis is ingegaan.</td></tr>
+          <tr><td class="term">Memphitische theologie</td><td>Scheppingstekst op de Shabaka-steen waarin Ptah de wereld door hart en tong voortbrengt, voor James de moeder van de Griekse leerstellingen.</td></tr>
+          <tr><td class="term">vier kwaliteiten en vier elementen</td><td>De leer van warm, koud, droog en vochtig en van vuur, lucht, water en aarde, die James tot Egypte herleidt.</td></tr>
+          <tr><td class="term">zeven vrije kunsten</td><td>Grammatica, retorica, logica, rekenkunde, meetkunde, astronomie en muziek, volgens James onderdeel van het Egyptische priestercurriculum.</td></tr>
+          <tr><td class="term">bibliotheek van Alexandrië</td><td>De boekerij die volgens James uit geroofde Egyptische geschriften bestond en het oeuvre van Aristoteles voedde.</td></tr>
+          <tr><td class="term">Afrikaanse verlossing</td><td>James' program van heropvoeding dat het herstelde verleden tot bron van zwart zelfrespect maakt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het betoog rust vrijwel geheel op secundaire bronnen: vertaalde klassieke auteurs (Herodotus, Diogenes Laertius, Plutarchus) over studiereizen van Griekse denkers naar Egypte, en negentiende- en vroegtwintigste-eeuwse vrijmetselaarsliteratuur over de Egyptische mysteriën. Eigen onderzoek in Egyptische teksten of archeologisch materiaal bevat het boek niet. De vermeldingen van studiereizen zijn echt: antieke schrijvers voeren Thales, Pythagoras en Plato inderdaad als bezoekers van Egypte op, en Egyptische invloed op vroege Griekse wiskunde, geneeskunde en wijsheidsliteratuur is in de vakliteratuur erkend.</p>
+      <p>De sprong van invloed naar diefstal draagt het bewijs echter niet. Voor de kernclaim, een samenhangend geheim onderwijsstelsel waaruit de complete filosofie is overgenomen, bestaat geen Egyptische bron. Lefkowitz toonde dat James' beeld van het mysteriesysteem teruggaat op vrijmetselaarsteksten die hun Egyptebeeld ontleenden aan <i>Séthos</i> (1731), een Franse fantasieroman van abbé Terrasson. Het sterkste materiële stuk, de Memphitische theologie, is een echte tekst, maar de parallellen met atoomtheorie en nevelhypothese zijn vrije associatie op basis van woordklank en oppervlakkige gelijkenis.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De vakwereld verwierp de centrale stelling. De bibliotheek van Alexandrië werd pas onder de Ptolemaeën gesticht, na de dood van zowel Alexander als Aristoteles, en kan dus onmogelijk de bron van Aristoteles' werk zijn geweest; er is ook geen aanwijzing dat Aristoteles ooit in Egypte was. De Griekse filosofie is bovendien overgeleverd in een doorlopende Griekse teksttraditie waarvan de onderlinge samenhang goed gedocumenteerd is. Mary Lefkowitz (<i>Not Out of Africa</i>, 1996) en anderen, onder wie Levinson, Howe en Fritze, rekenen het boek daarom tot de pseudogeschiedenis; Howe merkte op dat het zelfs de uiterlijke vormen van wetenschappelijke werkwijze mist.</p>
+      <p>Daar staat tegenover dat het boek een begrijpelijke reactie was op een geschiedschrijving die Afrika elke bijdrage ontzegde, geschreven in het Amerika van de rassenscheiding. De Griekse schatplichtigheid aan Egypte werd door de Grieken zelf ruimhartig erkend, en de herinnering dat Egypte een Afrikaanse beschaving is, was een terecht punt. Wie het boek nu leest, leest vooral een invloedrijk emancipatiedocument: het voedde het afrocentrisme van Ben-Jochannan, Asante en Hilliard en speelde een hoofdrol in de Amerikaanse curriculumdebatten van de jaren tachtig en negentig.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees het boek als bron over de geschiedenis van het afrocentrisme, en leg er <i>Not Out of Africa</i> van Lefkowitz naast voor de wetenschappelijke toetsing.</li>
+        <li>Gebruik de casus als oefening in brononderzoek: ga bij elke claim na waarop die rust en of de aangehaalde bron zelf deugt.</li>
+        <li>Houd twee vragen uit elkaar die hier door elkaar lopen: of Egypte de Griekse cultuur heeft beïnvloed (aantoonbaar ja) en of de Griekse filosofie gestolen Egyptisch bezit is (daarvoor ontbreekt bewijs).</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Stolen Legacy: The Greeks Were Not the Authors of Greek Philosophy, But the People of North Africa, Commonly Called the Egyptians</i> (Philosophical Library, New York, 1954, 190 blz.; veel herdrukt, o.a. bij Africa World Press, ISBN 9780865433618, en African American Images, ISBN 9780913543788). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Betoog uit 1954 van de Guyaans-Amerikaanse historicus George G.M. James (1893-1956), docent aan zwarte colleges in de Verenigde Staten. James stelt dat de Griekse filosofie is voortgekomen uit het Egyptische mysteriesysteem, het opleidingsstelsel van de Egyptische tempels. Griekse denkers als Thales, Pythagoras en Plato zouden in Egypte hebben gestudeerd, en na de verovering door Alexander de Grote zouden Aristoteles en zijn school de Egyptische tempelbibliotheken hebben leeggehaald en de inhoud als Grieks werk hebben gepresenteerd. Het slothoofdstuk trekt de politieke conclusie: erkenning van Afrika als bron van wetenschap en filosofie moet de mentale bevrijding van zwarte mensen dienen.</p><p>Het boek werd een grondtekst van het afrocentrisme, maar de vakwereld verwierp de centrale claims. Mary Lefkowitz liet in <i>Not Out of Africa</i> (1996) zien dat de chronologie niet klopt en dat James' mysteriesysteem teruggaat op vrijmetselaarsliteratuur die op haar beurt op een achttiende-eeuwse fantasieroman berust. Als historisch document over ras en geschiedschrijving blijft het leerzaam.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>geschiedenis</li><li>filosofie</li><li>oudheid</li><li>afrocentrisme</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="269"><a href="269.html">The Story of Philosophy</a>. The Story of Philosophy vertelt het gangbare verhaal van de Griekse filosofie dat James hier bestrijdt.</li>
+          <li value="523"><a href="523.html">I Write What I Like</a>. I Write What I Like van Steve Biko werkt hetzelfde motief, zwarte bewustwording tegenover een opgelegd zelfbeeld, politiek uit.</li>
+          <li value="63"><a href="63.html">The Demon-Haunted World</a>. The Demon-Haunted World levert het gereedschap om claims als deze op hun bewijs te toetsen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

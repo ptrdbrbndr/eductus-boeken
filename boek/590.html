@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Metu Neter Vol. 1 &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Amen stelt dat het oude Egypte, door hem Kamit genoemd, een volledig stelsel van geestelijke ontwikkeling bezat en dat dit stelsel opnieuw bruikbaar is.…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-590">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">590 &middot; Filosofie en mystiek</p>
+    <h1>Metu Neter Vol. 1</h1>
+    <p class="lede">Ra Un Nefer Amen, 1990</p>
+    <p class="stats">
+      <span><b>1260</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="590"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Amen stelt dat het oude Egypte, door hem Kamit genoemd, een volledig stelsel van geestelijke ontwikkeling bezat en dat dit stelsel opnieuw bruikbaar is. De kern: de mens is in wezen goddelijk (Ausar), maar leeft vanuit de lagere delen van zijn geest; wie via inwijding, meditatie en woorden van kracht de sferen van de levensboom leert beheersen, realiseert die goddelijke kern en krijgt daarmee greep op gezondheid, relaties en levensloop. Het orakel van Tehuti, dat Amen naar eigen zeggen in 1985 door openbaring ontving, wijst daarbij per levenssituatie aan welk geestelijk vermogen aan zet is.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Uitgangspunten</h3>
+      <p>De eerste drie hoofdstukken leggen het fundament. Religie is bij Amen in oorsprong een techniek: via trance krijgt de mens toegang tot diepere lagen van de geest, en de leer van de hersenhelften moet dat aannemelijk maken. Daarnaast plaatst hij het systeem historisch: zwarte volkeren gelden als grondleggers van de beschaving en Kamit als bron van dit weten. Deze geschiedschets volgt de afrocentrische lijn en dient als legitimatie van wat volgt.</p>
+      <h3>Kosmologie en levensboom</h3>
+      <p>Hoofdstuk vier tot en met zeven bouwen de kosmologie op. De werkelijkheid valt uiteen in een subjectief en een objectief rijk, en de schepping verloopt in trappen die worden samengevat in de Paut Neteru, de levensboom: elf sferen, van Amen (het verborgene, sfeer nul) via Ausar, Tehuti, Seker, Maat, Herukhuti, Heru, Het-Heru, Sebek en Auset tot Geb, de aarde. Elke godheid staat voor een vermogen van de menselijke geest: goddelijke wil, wijsheid, ordening, levenskracht, verbeelding, verstand, geheugen. De boom is daarmee tegelijk scheppingsverhaal en zielkundige kaart: de geestelijke anatomie van de mens.</p>
+      <h3>Drie typen mensen en de Ausarische weg</h3>
+      <p>Hoofdstuk acht deelt de mensheid in naar drie ontwikkelingsstadia, elk met een eigen soort religie, economie, bestuur en onderwijs, oplopend van leven uit emotie naar leven uit het goddelijke. Hoofdstuk negen introduceert het model voor de weg omhoog: de mythe van Ausar, de gestorven en weer opgestane god. Zijn dood en opstanding staan voor het afsterven van de identificatie met persoon en lichaam en het opstaan van de goddelijke kern in de mens.</p>
+      <h3>Initiatie in tien stadia</h3>
+      <p>Hoofdstuk tien en elf werken de inwijdingsweg uit: tien stadia die de sferen van de boom van onderaf volgen, met per stadium eigen opgaven, deugden en valkuilen. De weg begint bij het ordenen van het gewone leven, voeding en gewoonten (de sfeer van Geb en Auset), loopt via het scholen van verbeelding, verstand en wil naar de hogere sferen van rechtvaardigheid en wijsheid, en eindigt in de vereniging met Ausar. Inwijding is bij Amen dan ook geen ceremonie; het is een langjarig programma van levensdiscipline, studie en oefening, met voorwaarden vooraf en toetsen onderweg.</p>
+      <h3>De meditatieleer</h3>
+      <p>Hoofdstuk twaalf tot en met vijftien vormen het praktische hart. Meditatie verloopt in niveaus en stadia: ontspanning en ademhaling, verdieping tot trance, sturing van de verbeelding, en ten slotte het werken met hekau, woorden van kracht die als klankformules de geestelijke vermogens moeten wekken. Amen beschrijft de bestanddelen van de menselijke geest en koppelt elk meditatieniveau aan een deel daarvan, met concrete aanwijzingen voor houding, adem en aandacht.</p>
+      <h3>Het orakel van Tehuti</h3>
+      <p>Hoofdstuk zestien tot en met tweeëntwintig beschrijven het orakel. Eerst plaatst Amen orakels historisch als raadgevers van personen en staten in oude beschavingen. Daarna behandelt hij de godheden van de Metu Neter stuk voor stuk (Amen, Ausar, Tehuti, Seker, Maat, Herukhuti, Heru, Het-Heru, Sebek, Auset), gevolgd door de metutu, de tekens waarmee een levenssituatie wordt geduid, en hun combinaties. De slothoofdstukken van dit deel geven de procedure van raadpleging en interpretatie: de juiste gemoedstoestand en motieven, geschikte vragen, betekenislagen en de koppeling aan de eigen inwijdingsfase. Het orakel dient als diagnose-instrument: het wijst aan welke sfeer in een situatie versterking vraagt en welke hekau en meditaties daarbij horen.</p>
+      <h3>De praktijk</h3>
+      <p>De slothoofdstukken en de appendix bundelen het geheel tot dagelijkse praktijk: hoe een meditatie en een ritueel worden opgezet, ademtechnieken, het beheer van de aandacht, mediteren op orakellezingen en de hekau per godheid. Daarmee is het boek nadrukkelijk een werkboek: het wil dagelijks gebruikt worden, als eerste deel van een reeks die tussen 1990 en 2011 tot vijf delen uitgroeide. De schrijver, in Panama geboren als Rogelio Alcides Straughn en opgeleid als concertpianist, verruilde in de jaren zeventig de muziekwereld voor dit spirituele werk.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">Metu Neter</td><td>Letterlijk woorden van de godheid: de naam van het hiërogliefenschrift en van Amens orakelsysteem.</td></tr>
+          <tr><td class="term">Kamit</td><td>Amens naam voor het oude Egypte, het zwarte land, bron van het hele stelsel.</td></tr>
+          <tr><td class="term">Paut Neteru</td><td>De levensboom: een schema van elf sferen dat de opbouw van kosmos en menselijke geest weergeeft.</td></tr>
+          <tr><td class="term">Ausar</td><td>De gestorven en opgestane god uit de Egyptische mythe, bij Amen de goddelijke kern van ieder mens.</td></tr>
+          <tr><td class="term">Tehuti</td><td>De sfeer van goddelijke wijsheid en naamgever van het orakel dat die wijsheid raadpleegbaar moet maken.</td></tr>
+          <tr><td class="term">hekau</td><td>Woorden van kracht: mantra-achtige klankformules die in meditatie de geestelijke vermogens moeten wekken.</td></tr>
+          <tr><td class="term">metutu</td><td>De tekens van het orakel waarmee een levenssituatie wordt geduid, los en in combinatie gelezen.</td></tr>
+          <tr><td class="term">trance</td><td>De verdiepte, ontvankelijke toestand van de geest die volgens Amen het werkzame hart van alle religie is.</td></tr>
+          <tr><td class="term">Maat</td><td>De sfeer van waarheid, orde en rechtvaardigheid, in het stelsel de maatstaf waaraan leven en handelen worden getoetst.</td></tr>
+          <tr><td class="term">Ausar Auset Society</td><td>De pan-Afrikaanse spirituele organisatie die Amen in 1973 in Brooklyn stichtte en waarin dit stelsel wordt onderwezen.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>Het stelsel berust op openbaring en op Amens eigen lezing van Egyptische mythen; toetsbaar onderzoek komt er niet aan te pas. Egyptologisch is de basis dun: de godennamen, de Ausar-mythe en het begrip hekau zijn echt Egyptisch, maar een levensboom met elf sferen kent de Egyptische overlevering niet. Die structuur volgt de kabbalistische levensboom, en de meditatie- en energieleer leunt zwaar op de Indiase yogatraditie. Het geheel is daarmee een twintigste-eeuws syncretisch bouwwerk met Egyptische namen, geen gereconstrueerd Egyptisch systeem.</p>
+      <p>Voor onderdelen bestaat los steunbewijs: meditatie- en ademhalingsoefeningen hebben gedocumenteerde effecten op stress en aandacht, en dat een vaste levensdiscipline gedrag verandert, is onomstreden. Dat bewijs draagt de metafysica echter niet: voor sferen, orakelwerking of de kracht van hekau bestaat geen empirische steun, en het hersenhelftenkader uit het openingshoofdstuk is achterhaalde populaire neurowetenschap.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>Wie het boek als geschiedenis leest, leest het verkeerd. De claim dat hier hét Egyptische inwijdingssysteem wordt doorgegeven, wordt door de egyptologie niet gedragen, en de raciale beschavingsgeschiedenis uit hoofdstuk twee volgt afrocentrische literatuur die in de vakwereld weersproken is. Het orakel deelt daarnaast de zwakte van elke divinatie: de duiding is zo rekbaar dat vrijwel elke uitkomst passend te maken valt, waardoor het systeem zichzelf altijd bevestigt.</p>
+      <p>Binnen het eigen genre is het werk serieus en veeleisend: het belooft geen snel resultaat en vraagt een jarenlang programma van discipline, meditatie en zelfonderzoek, uitgewerkt tot op houding, ademhaling en dagindeling. Sinds 1990 geldt het als standaardwerk in Afro-Amerikaanse spirituele kringen. Wel verdient vermelding dat de auteur ook de leider is van de organisatie die de bijbehorende opleiding aanbiedt; het boek is daarmee tegelijk leerboek en wervingstekst, en een onafhankelijke beoordeling van de leer ontbreekt.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Gebruik de meditatie-instructies (houding, ademhaling, aandachtsbeheer) desgewenst los van de metafysica; dat deel staat op zichzelf.</li>
+        <li>Behandel het orakel als reflectie-instrument: formuleer de vraag scherp en lees de duiding als aanleiding tot zelfonderzoek in plaats van als voorspelling.</li>
+        <li>Neem kennis van de egyptologische stand van zaken voordat de historische claims worden doorverteld.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Metu Neter, Vol. 1: The Great Oracle of Tehuti and the Egyptian System of Spiritual Cultivation</i> (Khamit Corp, Bronx, New York, 1990, 439 blz., ISBN 9781877662034). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>Esoterisch handboek van Ra Un Nefer Amen (geboren Rogelio Alcides Straughn, Panama, 1944), oprichter van de Ausar Auset Society in Brooklyn (1973). Het boek presenteert een op het oude Egypte (Kamit) geënt stelsel van geestelijke ontwikkeling: de levensboom Paut Neteru met elf sferen als kaart van de geest, tien stadia van inwijding, een uitgewerkte meditatieleer met ademhaling, trance en woorden van kracht (hekau), en het orakel van Tehuti, dat Amen naar eigen zeggen in 1985 door openbaring ontving. Egyptische goden als Ausar, Tehuti, Maat en Het-Heru staan er voor vermogens van de menselijke geest; doel is het realiseren van de goddelijke kern, Ausar.</p><p>Sinds 1990 is het een standaardwerk in Afro-Amerikaanse spirituele kringen. Egyptologisch is de basis dun: de sferenboom volgt de kabbala, de energieleer de Indiase yoga, en voor orakel en hekau bestaat geen empirisch bewijs. Als doordacht en veeleisend oefensysteem op eigen esoterische termen is het wel serieus te nemen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>spiritualiteit</li><li>meditatie</li><li>esoterie</li><li>ritueel</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="378"><a href="378.html">The Kybalion</a>. The Kybalion is een vergelijkbaar geval: een modern occult stelsel dat zich als oud-Egyptische wijsheid presenteert.</li>
+          <li value="242"><a href="242.html">Autobiography of a Yogi</a>. Autobiography of a Yogi beschrijft de Indiase traditie waaruit veel van de meditatie- en energieleer hier afkomstig is.</li>
+          <li value="259"><a href="259.html">The Power of Your Subconscious Mind</a>. The Power of Your Subconscious Mind brengt hetzelfde grondidee, de geest vormt de omstandigheden, zonder het Egyptische decor.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>

@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 21
-augustus 2026: 571 titels in 19 rubrieken.
+augustus 2026: 574 titels in 19 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -26,11 +26,11 @@ bij de volgende build verloren.
 | Samenwerken en gesprek | het gesprek dat moeilijk is, en teams die het moeten hebben | 24, 34, 35, 42, 43, 82, 154, 156, 162, 182, 186, 253, 271, 273, 302, 304, 305, 338, 356, 364, 367, 398, 399, 438, 444, 466, 468, 508, 511, 551 |
 | Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140, 174, 189, 194, 229, 247, 248, 286, 289, 323, 324, 372, 373, 374, 375, 389, 457, 460, 467, 470, 513, 545 |
 | Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49, 285, 447 |
-| Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537, 568 |
+| Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537, 568, 588, 589 |
 | Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347, 383, 413, 539, 555 |
 | Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102, 108, 117, 127, 128, 129, 130, 131, 132, 136, 139, 179, 184, 188, 190, 196, 259, 340, 362, 378, 380, 403, 433, 543, 548, 549, 559, 560 |
 | Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122, 327, 421, 437, 456, 477, 478, 493, 495, 497, 498, 500, 504, 506, 507 |
-| Filosofie en mystiek | wijsgerige hoofdwerken en mystieke teksten over wat werkelijk is en hoe te leven | 572, 573, 574, 576, 577, 578, 580, 581, 582, 584, 587 |
+| Filosofie en mystiek | wijsgerige hoofdwerken en mystieke teksten over wat werkelijk is en hoe te leven | 572, 573, 574, 576, 577, 578, 580, 581, 582, 584, 587, 590 |
 
 Een titel kan in één rubriek staan en toch tags uit een andere dragen. De tags
 zijn het fijnmazige zoekmiddel, de rubriek is de plek in de kast.
@@ -114496,6 +114496,568 @@ wil beginnen.
 uitlokken van inzicht een leermethode; de didactische kleine broer van
 Lonergans grote analyse.
 
+## 588. Stolen Legacy
+
+George G.M. James, 1954. *Stolen Legacy: The Greeks Were Not the Authors of
+Greek Philosophy, But the People of North Africa, Commonly Called the
+Egyptians* (Philosophical Library, New York, 1954, 190 blz.; veel herdrukt,
+o.a. bij Africa World Press, ISBN 9780865433618, en African American Images,
+ISBN 9780913543788). Geen Nederlandse vertaling gevonden in de catalogus van
+bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd. Rubriek:
+geschiedenis en samenleving.
+Tags: `geschiedenis`, `filosofie`, `oudheid`, `afrocentrisme`
+
+Betoog uit 1954 van de Guyaans-Amerikaanse historicus George G.M. James
+(1893-1956), docent aan zwarte colleges in de Verenigde Staten. James stelt
+dat de Griekse filosofie is voortgekomen uit het Egyptische mysteriesysteem,
+het opleidingsstelsel van de Egyptische tempels. Griekse denkers als Thales,
+Pythagoras en Plato zouden in Egypte hebben gestudeerd, en na de verovering
+door Alexander de Grote zouden Aristoteles en zijn school de Egyptische
+tempelbibliotheken hebben leeggehaald en de inhoud als Grieks werk hebben
+gepresenteerd. Het slothoofdstuk trekt de politieke conclusie: erkenning van
+Afrika als bron van wetenschap en filosofie moet de mentale bevrijding van
+zwarte mensen dienen.
+
+Het boek werd een grondtekst van het afrocentrisme, maar de vakwereld verwierp
+de centrale claims. Mary Lefkowitz liet in *Not Out of Africa* (1996) zien dat
+de chronologie niet klopt en dat James' mysteriesysteem teruggaat op
+vrijmetselaarsliteratuur die op haar beurt op een achttiende-eeuwse
+fantasieroman berust. Als historisch document over ras en geschiedschrijving
+blijft het leerzaam.
+
+### Uitgebreide samenvatting
+
+**De stelling.** James stelt dat de Grieken de filosofie die op hun naam staat
+niet zelf hebben voortgebracht. De leerstellingen van Thales tot Aristoteles
+komen volgens hem uit het Egyptische mysteriesysteem, het eeuwenoude
+tempelonderwijs van Egypte, en zijn via studiereizen van Griekse leerlingen en
+via de plundering van Egyptische bibliotheken na de verovering door Alexander
+de Grote in Griekse handen gekomen. Aristoteles en zijn school zouden dit
+materiaal vervolgens als Grieks gedachtegoed hebben geboekstaafd. Die
+toe-eigening noemt James diefstal, en de rechtzetting ervan moet volgens hem
+leiden tot herwaardering van Afrika als bakermat van wetenschap en filosofie
+en tot een nieuw zelfbeeld voor zwarte mensen wereldwijd.
+
+#### De gang van het boek
+
+**Een aanklacht in twee delen**
+
+Het boek verscheen in 1954 bij Philosophical Library in New York, twee jaar
+voor James' dood. Het is opgezet als een pleidooi: deel een (acht
+hoofdstukken) levert de bewijsvoering, deel twee (een enkel hoofdstuk) trekt
+de maatschappelijke conclusies. De inleiding kondigt beide doelen aan:
+aantonen dat de zogenoemde Griekse filosofie gestolen Egyptische filosofie is,
+en de valse traditie ontmantelen die Afrika buiten de beschavingsgeschiedenis
+plaatst.
+
+**Waarom de Grieken het volgens James niet geweest kunnen zijn**
+
+De eerste twee hoofdstukken betogen dat het gangbare verhaal intern rammelt.
+De chronologie van de vroege Griekse filosofen noemt James speculatie, het
+auteurschap van de afzonderlijke leerstellingen twijfelachtig, en de
+geschiedenis van de Griekse filosofie een constructie die de school van
+Aristoteles achteraf heeft samengesteld. Bovendien was de periode van 640 tot
+322 v.Chr. een tijd van aanhoudende interne en externe oorlogen, in zijn ogen
+ongeschikt om filosofen voort te brengen. Athene vervolgde zijn denkers ook
+nog: Anaxagoras werd verbannen, Socrates ter dood gebracht. Een samenleving
+die filosofie strafbaar stelt, kan haar volgens James niet zelf hebben
+ontwikkeld.
+
+**Het mysteriesysteem als bron**
+
+Hoofdstuk drie en vier voeren de werkelijke bron op: het Egyptische
+mysteriesysteem, een tempelonderwijs met graden van inwijding en een heilsleer
+waarin de ziel zich door studie en zuivering van het lichamelijke bevrijdt. De
+Perzische verovering van Egypte in 525 v.Chr. opende het land voor
+buitenlanders; Griekse leerlingen als Thales, Pythagoras en later Plato zouden
+er zijn onderwezen. Na de verovering door Alexander de Grote in 332 v.Chr.,
+met diens bezoek aan het orakel van Ammon in de oase Siwa, lag de Egyptische
+kennis voor het grijpen. Zo gaf het Afrikaanse continent volgens James zijn
+cultuur aan de westerse wereld.
+
+**Van Thales tot Democritus**
+
+Hoofdstuk vijf loopt de voorsocratici langs. De oerstofleer van de Ioniërs, de
+harmonie- en getallenleer van Pythagoras, de leer van de vier kwaliteiten en
+vier elementen en de atoomleer van Democritus worden stuk voor stuk tot
+Egyptische voorlopers herleid. James' refrein luidt dat geen van deze denkers
+iets nieuws leerde, en dat de Grieken onderling ook nog van elkaar
+overschreven, vooral van Pythagoras, die zijn kennis weer uit Egypte had.
+
+**Socrates, Plato en Aristoteles**
+
+In het langste hoofdstuk krijgen de drie Atheners dezelfde behandeling. De
+leer van de Nous, het hoogste goed, de onsterfelijkheid van de ziel, de
+ideeenleer en de kardinale deugden worden alle als Egyptisch erfgoed
+aangemerkt; van Plato betwist James bovendien het auteurschap van de
+*Republiek* en de *Timaeus*. Bij Aristoteles voert hij de bibliotheek van
+Alexandrië op als werkelijke bron van diens omvangrijke oeuvre; de onderling
+afwijkende boekenlijsten zouden op twijfelachtig auteurschap wijzen. Hoofdstuk
+zeven vergelijkt het curriculum van het mysteriesysteem, waaronder de zeven
+vrije kunsten en de priesteropleiding per orde, met de onderwerpen van
+Aristoteles' boeken.
+
+**De Memphitische theologie**
+
+Hoofdstuk acht presenteert de volledige tekst van de Memphitische theologie,
+het scheppingsverhaal op de Shabaka-steen waarin de god Ptah de wereld door
+hart en tong, dus door gedachte en woord, voortbrengt. James leest er de
+grondslag van vrijwel elke Griekse leerstelling in en trekt de lijn door naar
+de moderne wetenschap: de zonnegod Atum zou het atoombegrip voorafschaduwen en
+de schepping van de negen goden van de Enneade de nevelhypothese van het
+zonnestelsel.
+
+**Het program van Afrikaanse verlossing**
+
+Deel twee vertaalt de bewijsvoering in een maatschappelijk program. James
+wijst drie partijen aan die de valse traditie over Afrika hebben gevestigd:
+Alexander de Grote, de school van Aristoteles en het oude Rome. Herstel vraagt
+heropvoeding van wit en zwart: wereldwijde verspreiding van de kennis dat
+Afrika de kunsten, wetenschappen en filosofie voortbracht, het opgeven van de
+verering van het Griekse intellect, en herziening van het missiebeleid. Het
+boek besluit met de nieuwe filosofie van Afrikaanse verlossing: zwart
+zelfrespect, gegrond op een hersteld verleden.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| mysteriesysteem | Het door James beschreven Egyptische tempelonderwijs met graden van inwijding, dat hij aanwijst als bron van alle filosofie. |
+| heilsleer | De kern van dat onderwijs: de ziel bevrijdt zich van het lichamelijke en wordt gelijkvormig aan het goddelijke. |
+| gestolen erfenis | James' aanduiding voor het Egyptische gedachtegoed dat onder Griekse namen de geschiedenis is ingegaan. |
+| Memphitische theologie | Scheppingstekst op de Shabaka-steen waarin Ptah de wereld door hart en tong voortbrengt, voor James de moeder van de Griekse leerstellingen. |
+| vier kwaliteiten en vier elementen | De leer van warm, koud, droog en vochtig en van vuur, lucht, water en aarde, die James tot Egypte herleidt. |
+| zeven vrije kunsten | Grammatica, retorica, logica, rekenkunde, meetkunde, astronomie en muziek, volgens James onderdeel van het Egyptische priestercurriculum. |
+| bibliotheek van Alexandrië | De boekerij die volgens James uit geroofde Egyptische geschriften bestond en het oeuvre van Aristoteles voedde. |
+| Afrikaanse verlossing | James' program van heropvoeding dat het herstelde verleden tot bron van zwart zelfrespect maakt. |
+
+#### Waar het argument op rust
+
+Het betoog rust vrijwel geheel op secundaire bronnen: vertaalde klassieke
+auteurs (Herodotus, Diogenes Laertius, Plutarchus) over studiereizen van
+Griekse denkers naar Egypte, en negentiende- en vroegtwintigste-eeuwse
+vrijmetselaarsliteratuur over de Egyptische mysteriën. Eigen onderzoek in
+Egyptische teksten of archeologisch materiaal bevat het boek niet. De
+vermeldingen van studiereizen zijn echt: antieke schrijvers voeren Thales,
+Pythagoras en Plato inderdaad als bezoekers van Egypte op, en Egyptische
+invloed op vroege Griekse wiskunde, geneeskunde en wijsheidsliteratuur is in
+de vakliteratuur erkend.
+
+De sprong van invloed naar diefstal draagt het bewijs echter niet. Voor de
+kernclaim, een samenhangend geheim onderwijsstelsel waaruit de complete
+filosofie is overgenomen, bestaat geen Egyptische bron. Lefkowitz toonde dat
+James' beeld van het mysteriesysteem teruggaat op vrijmetselaarsteksten die
+hun Egyptebeeld ontleenden aan *Séthos* (1731), een Franse fantasieroman van
+abbé Terrasson. Het sterkste materiële stuk, de Memphitische theologie, is een
+echte tekst, maar de parallellen met atoomtheorie en nevelhypothese zijn vrije
+associatie op basis van woordklank en oppervlakkige gelijkenis.
+
+#### Wat er tegen in te brengen valt
+
+De vakwereld verwierp de centrale stelling. De bibliotheek van Alexandrië werd
+pas onder de Ptolemaeën gesticht, na de dood van zowel Alexander als
+Aristoteles, en kan dus onmogelijk de bron van Aristoteles' werk zijn geweest;
+er is ook geen aanwijzing dat Aristoteles ooit in Egypte was. De Griekse
+filosofie is bovendien overgeleverd in een doorlopende Griekse teksttraditie
+waarvan de onderlinge samenhang goed gedocumenteerd is. Mary Lefkowitz (*Not
+Out of Africa*, 1996) en anderen, onder wie Levinson, Howe en Fritze, rekenen
+het boek daarom tot de pseudogeschiedenis; Howe merkte op dat het zelfs de
+uiterlijke vormen van wetenschappelijke werkwijze mist.
+
+Daar staat tegenover dat het boek een begrijpelijke reactie was op een
+geschiedschrijving die Afrika elke bijdrage ontzegde, geschreven in het
+Amerika van de rassenscheiding. De Griekse schatplichtigheid aan Egypte werd
+door de Grieken zelf ruimhartig erkend, en de herinnering dat Egypte een
+Afrikaanse beschaving is, was een terecht punt. Wie het boek nu leest, leest
+vooral een invloedrijk emancipatiedocument: het voedde het afrocentrisme van
+Ben-Jochannan, Asante en Hilliard en speelde een hoofdrol in de Amerikaanse
+curriculumdebatten van de jaren tachtig en negentig.
+
+#### Wat er concreet mee te doen is
+
+- Lees het boek als bron over de geschiedenis van het afrocentrisme, en leg er
+*Not Out of Africa* van Lefkowitz naast voor de wetenschappelijke toetsing.
+- Gebruik de casus als oefening in brononderzoek: ga bij elke claim na waarop
+die rust en of de aangehaalde bron zelf deugt.
+- Houd twee vragen uit elkaar die hier door elkaar lopen: of Egypte de Griekse
+cultuur heeft beïnvloed (aantoonbaar ja) en of de Griekse filosofie gestolen
+Egyptisch bezit is (daarvoor ontbreekt bewijs).
+
+#### Wat je hierna leest
+
+- 269. The Story of Philosophy. The Story of Philosophy vertelt het gangbare
+verhaal van de Griekse filosofie dat James hier bestrijdt.
+- 523. I Write What I Like. I Write What I Like van Steve Biko werkt hetzelfde
+motief, zwarte bewustwording tegenover een opgelegd zelfbeeld, politiek uit.
+- 63. The Demon-Haunted World. The Demon-Haunted World levert het gereedschap
+om claims als deze op hun bewijs te toetsen.
+
+## 589. Wonderful Ethiopians of the Ancient Cushite Empire
+
+Drusilla Dunjee Houston, 1926. *Wonderful Ethiopians of the Ancient Cushite
+Empire* (The Universal Publishing Company, Oklahoma City, 1926, ca. 280 blz.;
+herdruk als Book 1 bij Black Classic Press, Baltimore, 1985, ISBN
+9780933121010). Geen Nederlandse vertaling gevonden in de catalogus van
+bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd. Rubriek:
+geschiedenis en samenleving.
+Tags: `geschiedenis`, `afrika`, `oudheid`, `afrocentrisme`
+
+Geschiedwerk uit 1926 van Drusilla Dunjee Houston (1876-1941), onderwijzeres
+en columniste bij *The Black Dispatch* in Oklahoma City en autodidact.
+Geïnspireerd door *The Negro* van W.E.B. Du Bois betoogt ze dat de oudste
+beschaving ter wereld het werk was van de Cushieten, het zwarte volk dat
+klassieke schrijvers Ethiopiërs noemden. Vanuit Afrika zouden zij een rijk
+hebben opgebouwd dat drie continenten omspande: Egypte, Arabië, Chaldea en
+Babylonië, India en Perzië worden alle als Cushitische kolonies of erfgenamen
+opgevoerd. Het was het eerste deel van een geplande trilogie; de
+vervolgmanuscripten raakten zoek.
+
+Houston schreef zonder toegang tot universiteitsbibliotheken of opgravingen en
+leunde op de Bijbel, vertaalde klassieken en verouderde negentiende-eeuwse
+compilaties. De hoofdclaim vindt in de oudheidkunde geen steun, maar haar
+kernpunt, dat Afrika een eigen beschavingsgeschiedenis heeft, kreeg met het
+latere Nubië-onderzoek deels gelijk. Het boek geldt nu als pionierswerk van de
+eerste Afro-Amerikaanse vrouw die zo'n geschiedenis schreef.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Houston stelt dat de oudste beschaving ter wereld het werk
+was van de Cushieten, het zwarte volk dat door klassieke schrijvers Ethiopiërs
+werd genoemd. Vanuit Afrika zouden zij een rijk hebben opgebouwd dat drie
+continenten omspande en duizenden jaren standhield, met Egypte, Arabië,
+Chaldea en Babylonië, India en Perzië als kolonies of erfgenamen. De verachte
+positie van zwarte mensen in het Amerika van haar tijd berust volgens haar op
+geschiedvervalsing: wie de oude bronnen onbevangen leest, vindt overal sporen
+van dit vergeten moederrijk, en herstel van die kennis geeft de nakomelingen
+van de Cushieten hun geschiedenis en waardigheid terug.
+
+#### De gang van het boek
+
+**Een journaliste schrijft wereldgeschiedenis**
+
+Houston was onderwijzeres, schoolstichter en columniste bij *The Black
+Dispatch*, de krant van haar broer Roscoe Dunjee in Oklahoma City. Geraakt
+door *The Negro* (1915) van W.E.B. Du Bois werkte ze jarenlang naast haar werk
+aan een geschiedenis van de Cushieten. In 1926 verscheen het eerste deel van
+een geplande trilogie bij The Universal Publishing Company in Oklahoma City.
+De vervolgdelen raakten in manuscript zoek; een tweede deel werd pas in 2007
+teruggevonden en uitgegeven. Het boek opent met een voorwoord over de
+oorsprong van de beschaving en telt daarna zeventien hoofdstukken die van
+Afrika via Arabië en Mesopotamië naar India en Perzië trekken.
+
+**Het rijk van de Ethiopiërs**
+
+De eerste vier hoofdstukken schetsen het oude Cushitische rijk: het land en
+het volk van oud-Ethiopië en wat Houston de verbazingwekkende beschaving van
+Ethiopië noemt. Ze steunt op de klassieke literatuur: Homerus laat de goden
+feesten bij de onberispelijke Ethiopiërs, Herodotus onderscheidt oostelijke en
+westelijke Ethiopiërs, en latere schrijvers roemen de vroomheid en
+rechtvaardigheid van het volk aan de Boven-Nijl. Die verspreiding van donkere
+volkeren van de Nijl tot de Indus leest Houston als bewijs van een politieke
+eenheid: een moederrijk met kolonies, met steden als Meroë als brandpunt van
+handel, godsdienst en geleerdheid. De ouderdom van het rijk stelt ze op
+duizenden jaren voor de bekende geschiedenis van Egypte en Mesopotamië.
+
+**Egypte als dochter van Ethiopië**
+
+Drie hoofdstukken behandelen Egypte: het prehistorische land van wonderen, de
+gouden eeuw en de machtige farao's. Houston haalt onder meer Petrie's vondsten
+van een ouder volk met een eigen cultuur aan en betoogt dat de beschaving van
+zuid naar noord stroomde, de Nijl af vanuit Nubië. De klassieke overlevering
+dat Egypte een kolonie van Ethiopië was en de Nubische 25e dynastie die Egypte
+daadwerkelijk regeerde, dienen als steunpilaren.
+
+**Arabië, Chaldea en Babylonië**
+
+Drie hoofdstukken gaan over Arabië: de oude rassen, de beschaving van het
+gelukkige Arabië en de rijke Arabische literatuur, alles met een Cushitisch
+fundament. Daarna volgen de vreemde rassen van Chaldea en het land van
+wonderen Babylonië. De Sumeriërs voert Houston op als Cushieten, en de
+bijbelse stamboom helpt mee: Nimrod, de stichter van Babel, is in Genesis een
+zoon van Cush. De Mesopotamische beschaving wordt zo een voortzetting van de
+Afrikaanse.
+
+**India, Media en Perzië**
+
+De laatste vier hoofdstukken trekken de lijn door naar het oosten: het
+geheimzinnige oude India met zijn donkere oerbevolking, de beschaving van
+India, de hindoeïstische godsdienst en literatuur, en ten slotte Media en
+Perzië, die eveneens Cushitisch heten. Daarmee is de cirkel rond: van de
+Atlantische kust van Afrika tot de Ganges zou één volk de grondslag van de
+beschaving hebben gelegd.
+
+**Werkwijze en toon**
+
+Het boek is een compilatie: Houston rijgt citaten en parafrasen aaneen uit de
+Bijbel (de volkerentafel van Genesis), vertaalde klassieke auteurs en
+negentiende-eeuwse geschiedwerken zoals *Pre-Historic Nations* van John D.
+Baldwin. Naamsovereenkomsten en etymologie doen veel werk: waar een
+plaatsnaam, godennaam of volksnaam op Cush lijkt, geldt dat als spoor van het
+rijk. Eigen voetnoten of een kritisch apparaat ontbreken grotendeels; de
+bewijslast ligt in de opeenstapeling. De toon is verheven en strijdbaar; het
+boek is uitdrukkelijk bedoeld om zwarte lezers een verleden terug te geven dat
+de schoolboeken van haar tijd hun onthielden, en om witte lezers te tonen dat
+de minachting voor Afrika op onwetendheid berust.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Cushieten | Het zwarte volk dat volgens Houston de eerste wereldbeschaving stichtte, genoemd naar Cush uit Genesis. |
+| Ethiopiërs | Klassieke verzamelnaam (letterlijk verbrande gezichten) voor donkere volkeren van Nubië tot India, door Houston als één volk gelezen. |
+| het oude Cushitische rijk | Het veronderstelde moederrijk over drie continenten dat duizenden jaren zou hebben standgehouden. |
+| de Old Race | Petrie's aanduiding voor een ouder volk met eigen cultuur in het vroegste Egypte, voor Houston bewijs van de zuidelijke oorsprong. |
+| Meroë | Nubische hoofdstad aan de Boven-Nijl, in het boek een brandpunt van de Cushitische beschaving. |
+| volkerentafel | De stamboom in Genesis 10 waarin Cush en zijn zoon Nimrod voorkomen, door Houston als historische bron gebruikt. |
+| oostelijke en westelijke Ethiopiërs | Herodotus' onderscheid tussen donkere volkeren in Afrika en in Azië, voor Houston het spoor van één verspreid rijk. |
+| 25e dynastie | De Nubische farao's die in de achtste en zevende eeuw v.Chr. over Egypte regeerden, in het boek een late bevestiging van de oude verhouding tussen Ethiopië en Egypte. |
+
+#### Waar het argument op rust
+
+Houston was autodidact en schreef zonder toegang tot wetenschappelijke
+bibliotheken, opgravingsverslagen of bronteksten in de oorspronkelijke talen;
+als zwarte vrouw in het gesegregeerde Amerika stonden archieven en
+universiteiten niet voor haar open. Haar materiaal bestaat uit de Bijbel,
+vertaalde klassieke auteurs en negentiende-eeuwse compilaties die in 1926 al
+achterhaald waren. Het bewijs is optellend en associatief:
+naamsovereenkomsten, verspreide vermeldingen van donkere volkeren en de
+bijbelse stamboom moeten samen één wereldrijk aantonen.
+
+Wat werkelijk vaststaat is smaller en tegelijk niet niets: klassieke auteurs
+noemden inderdaad uiteenlopende donkere volkeren Ethiopiërs, Nubië bracht
+grote koninkrijken voort en de 25e dynastie van Nubische farao's regeerde
+Egypte. Uit die feiten volgt echter geen politieke eenheid over drie
+continenten; de klassieke term dekte allerlei volkeren zonder onderling
+verband. De feitelijke basis van deze samenvatting: de volledige tekst met
+inhoudsopgave is vrij raadpleegbaar, en over Houstons leven en werk bestaat
+gedocumenteerd onderzoek, onder meer van Peggy Brooks-Bertram.
+
+#### Wat er tegen in te brengen valt
+
+De hoofdclaim vindt in de hedendaagse oudheidkunde geen steun. Het Sumerisch
+is een taalisolaat zonder aantoonbare Afrikaanse verwantschap, de
+Indusbeschaving is niet Afrikaans, en het rasbegrip waarmee Houston werkt is
+een negentiende-eeuwse constructie die de oudheid vreemd was. Haar
+belangrijkste steunen, zoals Baldwin, golden bij verschijnen al niet meer als
+betrouwbaar. Ze idealiseert bovendien: oorlogen, onderdrukking en slavernij
+binnen de door haar bewonderde rijken blijven buiten beeld.
+
+Tegelijk was haar kernintuïtie juist dat Afrika een eigen
+beschavingsgeschiedenis heeft die de wetenschap van haar tijd ontkende: de
+latere archeologie van Kerma, Napata en Meroë heeft Nubië als grote Afrikaanse
+beschaving in ere hersteld. Het boek werd door de witte academische wereld
+genegeerd en in de zwarte pers geprezen, en geldt nu als pionierswerk: de
+eerste meerdelig opgezette geschiedenis van Afrika en zijn uitstraling van de
+hand van een Afro-Amerikaanse vrouw. Peggy Brooks-Bertram vond het verloren
+gewaande tweede deel terug en gaf het in 2007 uit, waarmee Houston opnieuw
+onder de aandacht kwam.
+
+#### Wat er concreet mee te doen is
+
+- Lees het als document uit de zwarte geschiedschrijving van de jaren twintig,
+naast het moderne onderzoek naar Nubië en Kush.
+- Ga bij oudere geschiedwerken na op welke bronnen de schrijver kón steunen;
+uitsluiting van archieven laat sporen na in het werk zelf.
+- Gebruik de klassieke citaten als startpunt en controleer ze in moderne
+edities voordat er conclusies op worden gebouwd.
+
+#### Wat je hierna leest
+
+- 523. I Write What I Like. I Write What I Like van Steve Biko heeft dezelfde
+inzet, herstel van zwart zelfbewustzijn, een halve eeuw later en politiek
+gescherpt.
+- 522. Kaïdara. Kaïdara laat de Afrikaanse overlevering zelf aan het woord:
+een Fulani-wijsheidsverhaal, opgetekend door Amadou Hampâté Bâ.
+- 57. The Lessons of History. The Lessons of History toont hoe voorzichtig
+grote lijnen door de wereldgeschiedenis getrokken moeten worden.
+
+## 590. Metu Neter Vol. 1
+
+Ra Un Nefer Amen, 1990. *Metu Neter, Vol. 1: The Great Oracle of Tehuti and
+the Egyptian System of Spiritual Cultivation* (Khamit Corp, Bronx, New York,
+1990, 439 blz., ISBN 9781877662034). Geen Nederlandse vertaling gevonden in de
+catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie
+gebaseerd. Rubriek: filosofie en mystiek.
+Tags: `spiritualiteit`, `meditatie`, `esoterie`, `ritueel`
+
+Esoterisch handboek van Ra Un Nefer Amen (geboren Rogelio Alcides Straughn,
+Panama, 1944), oprichter van de Ausar Auset Society in Brooklyn (1973). Het
+boek presenteert een op het oude Egypte (Kamit) geënt stelsel van geestelijke
+ontwikkeling: de levensboom Paut Neteru met elf sferen als kaart van de geest,
+tien stadia van inwijding, een uitgewerkte meditatieleer met ademhaling,
+trance en woorden van kracht (hekau), en het orakel van Tehuti, dat Amen naar
+eigen zeggen in 1985 door openbaring ontving. Egyptische goden als Ausar,
+Tehuti, Maat en Het-Heru staan er voor vermogens van de menselijke geest; doel
+is het realiseren van de goddelijke kern, Ausar.
+
+Sinds 1990 is het een standaardwerk in Afro-Amerikaanse spirituele kringen.
+Egyptologisch is de basis dun: de sferenboom volgt de kabbala, de energieleer
+de Indiase yoga, en voor orakel en hekau bestaat geen empirisch bewijs. Als
+doordacht en veeleisend oefensysteem op eigen esoterische termen is het wel
+serieus te nemen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Amen stelt dat het oude Egypte, door hem Kamit genoemd, een
+volledig stelsel van geestelijke ontwikkeling bezat en dat dit stelsel opnieuw
+bruikbaar is. De kern: de mens is in wezen goddelijk (Ausar), maar leeft
+vanuit de lagere delen van zijn geest; wie via inwijding, meditatie en woorden
+van kracht de sferen van de levensboom leert beheersen, realiseert die
+goddelijke kern en krijgt daarmee greep op gezondheid, relaties en levensloop.
+Het orakel van Tehuti, dat Amen naar eigen zeggen in 1985 door openbaring
+ontving, wijst daarbij per levenssituatie aan welk geestelijk vermogen aan zet
+is.
+
+#### De gang van het boek
+
+**Uitgangspunten**
+
+De eerste drie hoofdstukken leggen het fundament. Religie is bij Amen in
+oorsprong een techniek: via trance krijgt de mens toegang tot diepere lagen
+van de geest, en de leer van de hersenhelften moet dat aannemelijk maken.
+Daarnaast plaatst hij het systeem historisch: zwarte volkeren gelden als
+grondleggers van de beschaving en Kamit als bron van dit weten. Deze
+geschiedschets volgt de afrocentrische lijn en dient als legitimatie van wat
+volgt.
+
+**Kosmologie en levensboom**
+
+Hoofdstuk vier tot en met zeven bouwen de kosmologie op. De werkelijkheid valt
+uiteen in een subjectief en een objectief rijk, en de schepping verloopt in
+trappen die worden samengevat in de Paut Neteru, de levensboom: elf sferen,
+van Amen (het verborgene, sfeer nul) via Ausar, Tehuti, Seker, Maat,
+Herukhuti, Heru, Het-Heru, Sebek en Auset tot Geb, de aarde. Elke godheid
+staat voor een vermogen van de menselijke geest: goddelijke wil, wijsheid,
+ordening, levenskracht, verbeelding, verstand, geheugen. De boom is daarmee
+tegelijk scheppingsverhaal en zielkundige kaart: de geestelijke anatomie van
+de mens.
+
+**Drie typen mensen en de Ausarische weg**
+
+Hoofdstuk acht deelt de mensheid in naar drie ontwikkelingsstadia, elk met een
+eigen soort religie, economie, bestuur en onderwijs, oplopend van leven uit
+emotie naar leven uit het goddelijke. Hoofdstuk negen introduceert het model
+voor de weg omhoog: de mythe van Ausar, de gestorven en weer opgestane god.
+Zijn dood en opstanding staan voor het afsterven van de identificatie met
+persoon en lichaam en het opstaan van de goddelijke kern in de mens.
+
+**Initiatie in tien stadia**
+
+Hoofdstuk tien en elf werken de inwijdingsweg uit: tien stadia die de sferen
+van de boom van onderaf volgen, met per stadium eigen opgaven, deugden en
+valkuilen. De weg begint bij het ordenen van het gewone leven, voeding en
+gewoonten (de sfeer van Geb en Auset), loopt via het scholen van verbeelding,
+verstand en wil naar de hogere sferen van rechtvaardigheid en wijsheid, en
+eindigt in de vereniging met Ausar. Inwijding is bij Amen dan ook geen
+ceremonie; het is een langjarig programma van levensdiscipline, studie en
+oefening, met voorwaarden vooraf en toetsen onderweg.
+
+**De meditatieleer**
+
+Hoofdstuk twaalf tot en met vijftien vormen het praktische hart. Meditatie
+verloopt in niveaus en stadia: ontspanning en ademhaling, verdieping tot
+trance, sturing van de verbeelding, en ten slotte het werken met hekau,
+woorden van kracht die als klankformules de geestelijke vermogens moeten
+wekken. Amen beschrijft de bestanddelen van de menselijke geest en koppelt elk
+meditatieniveau aan een deel daarvan, met concrete aanwijzingen voor houding,
+adem en aandacht.
+
+**Het orakel van Tehuti**
+
+Hoofdstuk zestien tot en met tweeëntwintig beschrijven het orakel. Eerst
+plaatst Amen orakels historisch als raadgevers van personen en staten in oude
+beschavingen. Daarna behandelt hij de godheden van de Metu Neter stuk voor
+stuk (Amen, Ausar, Tehuti, Seker, Maat, Herukhuti, Heru, Het-Heru, Sebek,
+Auset), gevolgd door de metutu, de tekens waarmee een levenssituatie wordt
+geduid, en hun combinaties. De slothoofdstukken van dit deel geven de
+procedure van raadpleging en interpretatie: de juiste gemoedstoestand en
+motieven, geschikte vragen, betekenislagen en de koppeling aan de eigen
+inwijdingsfase. Het orakel dient als diagnose-instrument: het wijst aan welke
+sfeer in een situatie versterking vraagt en welke hekau en meditaties daarbij
+horen.
+
+**De praktijk**
+
+De slothoofdstukken en de appendix bundelen het geheel tot dagelijkse
+praktijk: hoe een meditatie en een ritueel worden opgezet, ademtechnieken, het
+beheer van de aandacht, mediteren op orakellezingen en de hekau per godheid.
+Daarmee is het boek nadrukkelijk een werkboek: het wil dagelijks gebruikt
+worden, als eerste deel van een reeks die tussen 1990 en 2011 tot vijf delen
+uitgroeide. De schrijver, in Panama geboren als Rogelio Alcides Straughn en
+opgeleid als concertpianist, verruilde in de jaren zeventig de muziekwereld
+voor dit spirituele werk.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| Metu Neter | Letterlijk woorden van de godheid: de naam van het hiërogliefenschrift en van Amens orakelsysteem. |
+| Kamit | Amens naam voor het oude Egypte, het zwarte land, bron van het hele stelsel. |
+| Paut Neteru | De levensboom: een schema van elf sferen dat de opbouw van kosmos en menselijke geest weergeeft. |
+| Ausar | De gestorven en opgestane god uit de Egyptische mythe, bij Amen de goddelijke kern van ieder mens. |
+| Tehuti | De sfeer van goddelijke wijsheid en naamgever van het orakel dat die wijsheid raadpleegbaar moet maken. |
+| hekau | Woorden van kracht: mantra-achtige klankformules die in meditatie de geestelijke vermogens moeten wekken. |
+| metutu | De tekens van het orakel waarmee een levenssituatie wordt geduid, los en in combinatie gelezen. |
+| trance | De verdiepte, ontvankelijke toestand van de geest die volgens Amen het werkzame hart van alle religie is. |
+| Maat | De sfeer van waarheid, orde en rechtvaardigheid, in het stelsel de maatstaf waaraan leven en handelen worden getoetst. |
+| Ausar Auset Society | De pan-Afrikaanse spirituele organisatie die Amen in 1973 in Brooklyn stichtte en waarin dit stelsel wordt onderwezen. |
+
+#### Waar het argument op rust
+
+Het stelsel berust op openbaring en op Amens eigen lezing van Egyptische
+mythen; toetsbaar onderzoek komt er niet aan te pas. Egyptologisch is de basis
+dun: de godennamen, de Ausar-mythe en het begrip hekau zijn echt Egyptisch,
+maar een levensboom met elf sferen kent de Egyptische overlevering niet. Die
+structuur volgt de kabbalistische levensboom, en de meditatie- en energieleer
+leunt zwaar op de Indiase yogatraditie. Het geheel is daarmee een
+twintigste-eeuws syncretisch bouwwerk met Egyptische namen, geen
+gereconstrueerd Egyptisch systeem.
+
+Voor onderdelen bestaat los steunbewijs: meditatie- en ademhalingsoefeningen
+hebben gedocumenteerde effecten op stress en aandacht, en dat een vaste
+levensdiscipline gedrag verandert, is onomstreden. Dat bewijs draagt de
+metafysica echter niet: voor sferen, orakelwerking of de kracht van hekau
+bestaat geen empirische steun, en het hersenhelftenkader uit het
+openingshoofdstuk is achterhaalde populaire neurowetenschap.
+
+#### Wat er tegen in te brengen valt
+
+Wie het boek als geschiedenis leest, leest het verkeerd. De claim dat hier hét
+Egyptische inwijdingssysteem wordt doorgegeven, wordt door de egyptologie niet
+gedragen, en de raciale beschavingsgeschiedenis uit hoofdstuk twee volgt
+afrocentrische literatuur die in de vakwereld weersproken is. Het orakel deelt
+daarnaast de zwakte van elke divinatie: de duiding is zo rekbaar dat vrijwel
+elke uitkomst passend te maken valt, waardoor het systeem zichzelf altijd
+bevestigt.
+
+Binnen het eigen genre is het werk serieus en veeleisend: het belooft geen
+snel resultaat en vraagt een jarenlang programma van discipline, meditatie en
+zelfonderzoek, uitgewerkt tot op houding, ademhaling en dagindeling. Sinds
+1990 geldt het als standaardwerk in Afro-Amerikaanse spirituele kringen. Wel
+verdient vermelding dat de auteur ook de leider is van de organisatie die de
+bijbehorende opleiding aanbiedt; het boek is daarmee tegelijk leerboek en
+wervingstekst, en een onafhankelijke beoordeling van de leer ontbreekt.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik de meditatie-instructies (houding, ademhaling, aandachtsbeheer)
+desgewenst los van de metafysica; dat deel staat op zichzelf.
+- Behandel het orakel als reflectie-instrument: formuleer de vraag scherp en
+lees de duiding als aanleiding tot zelfonderzoek in plaats van als
+voorspelling.
+- Neem kennis van de egyptologische stand van zaken voordat de historische
+claims worden doorverteld.
+
+#### Wat je hierna leest
+
+- 378. The Kybalion. The Kybalion is een vergelijkbaar geval: een modern
+occult stelsel dat zich als oud-Egyptische wijsheid presenteert.
+- 242. Autobiography of a Yogi. Autobiography of a Yogi beschrijft de Indiase
+traditie waaruit veel van de meditatie- en energieleer hier afkomstig is.
+- 259. The Power of Your Subconscious Mind. The Power of Your Subconscious
+Mind brengt hetzelfde grondidee, de geest vormt de omstandigheden, zonder het
+Egyptische decor.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
@@ -114513,18 +115075,18 @@ Alfabetisch, met de nummers van de titels die de tag dragen.
 `adverteren` 308 · `advies` 473 · `adviespraktijk` 151 · `adviseren` 511 ·
 `affirmaties` 117, 184, 188, 190, 380, 403, 439, 560 · `afhankelijkheid` 167 ·
 `afleiding` 290 · `aforismen` 2, 17, 179, 216, 218, 228, 391, 394, 462, 473,
-535 · `afscheid nemen` 285 · `afschrikking` 217 · `afvallen` 557 ·
-`afwezige-vader` 4 · `agenda` 512 · `agressie` 223, 339 · `alcohol` 4 ·
-`algoritmen` 476, 477, 479 · `alledaags` 89 · `allegorie` 222, 524 ·
-`allocatie` 507 · `amazon` 257 · `ambacht` 6, 12, 13, 17, 18 · `ambitie` 75 ·
-`Amerika` 114, 431 · `amerikaans` 117, 118, 120, 132, 133, 134, 136, 158 ·
-`amerikaanse droom` 284 · `Amerikaanse geschiedenis` 402 · `amerikaanse
-revolutie` 243 · `Amsterdam` 295 · `anatomie` 241, 412 · `Andalusië` 8 ·
-`Andes` 521 · `angst` 53, 58, 107, 119, 131, 136, 140, 181, 214, 252, 341,
-401, 440, 548 · `angst voor de dood` 377 · `animatie` 41 · `Antarctica` 36 ·
-`anthologie` 189 · `antieke filosofie` 586 · `antropologie` 223, 410 ·
-`antwerpen` 113 · `apartheid` 26, 523 · `Apple` 46, 231 · `apps` 294 ·
-`arbeid` 6, 173, 297, 390 · `arbeidsethos` 266 · `archetype` 360 ·
+535 · `afrika` 589 · `afrocentrisme` 588, 589 · `afscheid nemen` 285 ·
+`afschrikking` 217 · `afvallen` 557 · `afwezige-vader` 4 · `agenda` 512 ·
+`agressie` 223, 339 · `alcohol` 4 · `algoritmen` 476, 477, 479 · `alledaags`
+89 · `allegorie` 222, 524 · `allocatie` 507 · `amazon` 257 · `ambacht` 6, 12,
+13, 17, 18 · `ambitie` 75 · `Amerika` 114, 431 · `amerikaans` 117, 118, 120,
+132, 133, 134, 136, 158 · `amerikaanse droom` 284 · `Amerikaanse geschiedenis`
+402 · `amerikaanse revolutie` 243 · `Amsterdam` 295 · `anatomie` 241, 412 ·
+`Andalusië` 8 · `Andes` 521 · `angst` 53, 58, 107, 119, 131, 136, 140, 181,
+214, 252, 341, 401, 440, 548 · `angst voor de dood` 377 · `animatie` 41 ·
+`Antarctica` 36 · `anthologie` 189 · `antieke filosofie` 586 · `antropologie`
+223, 410 · `antwerpen` 113 · `apartheid` 26, 523 · `Apple` 46, 231 · `apps`
+294 · `arbeid` 6, 173, 297, 390 · `arbeidsethos` 266 · `archetype` 360 ·
 `archetypen` 357, 404, 407, 409, 410 · `Argentinië` 521 · `argumentatie` 421,
 437, 511 · `argumenten` 63 · `argumenteren` 438 · `Aristoteles` 438 ·
 `armoede` 26, 234, 254 · `Arthashastra` 370 · `assertiviteit` 162 ·
@@ -114612,36 +115174,37 @@ geschiedenis` 155 · `educatief` 327 · `eenvoud` 170, 205, 379 · `eenzaamheid`
 449, 457, 470, 488, 542 · `empathie` 35, 67, 303, 577 · `energetisch werk` 560
 · `energie` 92, 195, 291, 377 · `energiewerk` 432 · `entropie` 539 ·
 `epigenetica` 208, 415 · `epos` 5, 530, 531, 532 · `erfelijkheid` 419 ·
-`erfenis` 39 · `erkenningszucht` 406 · `erotiek` 113, 164 · `esoterie` 378 ·
-`essay` 3, 9, 21, 57, 59, 63, 64, 68, 96, 197, 232 · `essaybundel` 390, 425 ·
-`essays` 523 · `eten` 103 · `ethiek` 282, 299, 413, 574 · `evangelisatie` 201
-· `evolutie` 56, 66, 89, 90, 91, 239, 318, 322, 323, 332, 339, 347, 383, 518 ·
-`evolutiebiologie` 452, 453 · `evolutionaire-psychologie` 67 · `excellentie`
-553 · `executives` 344 · `existentialisme` 405 · `expeditie` 36 · `experiment`
-79, 215 · `experimenten` 280, 424 · `experimenteren` 265 · `expertise` 283,
-320, 376 · `extraversie` 361 · `fabel` 8, 42, 135, 167, 252 · `facilitatie`
-304 · `falen` 23, 72, 75, 312, 422 · `familie` 45, 325, 466 ·
-`familieconflict` 178 · `familiegeschiedenis` 114, 235 · `familieroman` 10 ·
-`fantasy` 192, 203 · `FBI` 154, 271 · `FBI-onderzoek` 431 · `feedback` 41,
-296, 541, 542 · `feiten` 43 · `feminisme` 3 · `fenomenologie` 574, 577, 582 ·
-`fictie` 100, 115 · `film` 41 · `filosofie` 1, 6, 71, 93, 199, 211, 216, 224,
-247, 255, 263, 292, 299, 383, 390, 391, 392, 393, 421, 436, 442, 521 ·
-`filosofiegeschiedenis` 269 · `filosofische antropologie` 584 · `financiële
-geletterdheid` 163 · `financiële markten` 268, 351, 480, 481, 483, 499, 501 ·
-`financiële onafhankelijkheid` 264 · `financiele vrijheid` 277 · `financiële
-wiskunde` 497, 507 · `financiële-discipline` 464 · `financiën` 334, 395, 425 ·
-`financiering` 172 · `fitnessbranche` 307, 544 · `flitshandel` 499 · `flow`
-78, 187, 200 · `focus` 175, 197, 448, 513 · `fotoboek` 189 · `foutcultuur` 422
-· `fouten maken` 509 · `franchise` 544 · `frankrijk` 115 · `Franse-Weerstand`
-390 · `freelance` 515 · `Fulani` 522 · `fysieke uitdaging` 323 · `fysiologie`
-318, 412, 458 · `Galenus` 328 · `gaslighting` 123 · `gastheerschap` 304 ·
-`gastvrijheid` 531 · `gebed` 83, 259, 573 · `gebruikersgedrag` 294 ·
-`gedachten` 148, 177 · `gedachtenjournal` 176 · `gedrag` 21, 22, 89, 90, 138,
-154, 280, 330, 383, 425 · `gedragsbiologie` 322, 339 · `gedragseconomie` 424,
-426, 514 · `gedragsonderzoek` 302, 382 · `gedragspatronen` 161 ·
-`gedragspsychologie` 294 · `gedragstypen` 156 · `gedragsverandering` 238, 290,
-457, 469 · `gedragswetenschap` 166, 209, 305, 468, 469, 510 · `geduld` 21, 351
-· `geest` 584 · `geestelijke gezondheid` 193 · `geestelijke oefeningen` 586 ·
+`erfenis` 39 · `erkenningszucht` 406 · `erotiek` 113, 164 · `esoterie` 378,
+590 · `essay` 3, 9, 21, 57, 59, 63, 64, 68, 96, 197, 232 · `essaybundel` 390,
+425 · `essays` 523 · `eten` 103 · `ethiek` 282, 299, 413, 574 ·
+`evangelisatie` 201 · `evolutie` 56, 66, 89, 90, 91, 239, 318, 322, 323, 332,
+339, 347, 383, 518 · `evolutiebiologie` 452, 453 · `evolutionaire-psychologie`
+67 · `excellentie` 553 · `executives` 344 · `existentialisme` 405 ·
+`expeditie` 36 · `experiment` 79, 215 · `experimenten` 280, 424 ·
+`experimenteren` 265 · `expertise` 283, 320, 376 · `extraversie` 361 · `fabel`
+8, 42, 135, 167, 252 · `facilitatie` 304 · `falen` 23, 72, 75, 312, 422 ·
+`familie` 45, 325, 466 · `familieconflict` 178 · `familiegeschiedenis` 114,
+235 · `familieroman` 10 · `fantasy` 192, 203 · `FBI` 154, 271 ·
+`FBI-onderzoek` 431 · `feedback` 41, 296, 541, 542 · `feiten` 43 · `feminisme`
+3 · `fenomenologie` 574, 577, 582 · `fictie` 100, 115 · `film` 41 ·
+`filosofie` 1, 6, 71, 93, 199, 211, 216, 224, 247, 255, 263, 292, 299, 383,
+390, 391, 392, 393, 421, 436, 442, 521, 588 · `filosofiegeschiedenis` 269 ·
+`filosofische antropologie` 584 · `financiële geletterdheid` 163 · `financiële
+markten` 268, 351, 480, 481, 483, 499, 501 · `financiële onafhankelijkheid`
+264 · `financiele vrijheid` 277 · `financiële wiskunde` 497, 507 ·
+`financiële-discipline` 464 · `financiën` 334, 395, 425 · `financiering` 172 ·
+`fitnessbranche` 307, 544 · `flitshandel` 499 · `flow` 78, 187, 200 · `focus`
+175, 197, 448, 513 · `fotoboek` 189 · `foutcultuur` 422 · `fouten maken` 509 ·
+`franchise` 544 · `frankrijk` 115 · `Franse-Weerstand` 390 · `freelance` 515 ·
+`Fulani` 522 · `fysieke uitdaging` 323 · `fysiologie` 318, 412, 458 ·
+`Galenus` 328 · `gaslighting` 123 · `gastheerschap` 304 · `gastvrijheid` 531 ·
+`gebed` 83, 259, 573 · `gebruikersgedrag` 294 · `gedachten` 148, 177 ·
+`gedachtenjournal` 176 · `gedrag` 21, 22, 89, 90, 138, 154, 280, 330, 383, 425
+· `gedragsbiologie` 322, 339 · `gedragseconomie` 424, 426, 514 ·
+`gedragsonderzoek` 302, 382 · `gedragspatronen` 161 · `gedragspsychologie` 294
+· `gedragstypen` 156 · `gedragsverandering` 238, 290, 457, 469 ·
+`gedragswetenschap` 166, 209, 305, 468, 469, 510 · `geduld` 21, 351 · `geest`
+584 · `geestelijke gezondheid` 193 · `geestelijke oefeningen` 586 ·
 `gegevensanalyse` 486 · `gehechtheid` 166 · `geheim genootschap` 202 ·
 `geheugen` 66, 85, 175, 414 · `gehoorzaamheid` 215 · `geïllustreerd boek` 176
 · `geld` 21, 37, 38, 56, 76, 121, 132, 133, 158, 159, 433, 463, 464 ·
@@ -114651,16 +115214,16 @@ wiskunde` 497, 507 · `financiële-discipline` 464 · `financiën` 334, 395, 425
 `generatieve drift` 315 · `genetica` 413, 419 · `genezing` 340 · `genot en
 pijn` 314 · `gentechnologie` 413 · `geologie` 239 · `geopolitiek` 220 ·
 `geschiedenis` 30, 36, 56, 57, 68, 93, 94, 212, 218, 250, 258, 298, 328, 381,
-425, 440 · `geschiedenis van de geneeskunde` 412 · `geschiedfilosofie` 235 ·
-`gesprek` 43, 95, 302, 444 · `gesprekstechniek` 182, 186, 438 ·
-`gevangenendilemma` 453 · `gevolgen` 67 · `gewaarzijn` 519 · `geweld` 45, 90,
-214 · `gewicht` 138 · `gewoontelus` 238 · `gewoonten` 187, 373 · `gewoontes`
-7, 11, 13, 22, 25, 58, 70, 76, 77, 79, 88, 97, 103, 133, 134, 135, 138, 147,
-157, 158, 181, 207, 208, 224, 230, 290, 334, 382, 439, 442, 445, 513, 557 ·
-`gewoontevorming` 146, 161, 168, 188, 244, 291, 294, 396, 397, 411, 540 ·
-`gezag` 62 · `gezin` 547 · `gezinnen` 327 · `gezondheid` 52, 88, 171, 181,
-318, 323, 329, 332, 412, 414, 415 · `gezondheidspsychologie` 458 ·
-`gezondheidszorg` 313, 317, 422 · `ggz` 104 · `giftige relaties` 429 ·
+425, 440, 588, 589 · `geschiedenis van de geneeskunde` 412 ·
+`geschiedfilosofie` 235 · `gesprek` 43, 95, 302, 444 · `gesprekstechniek` 182,
+186, 438 · `gevangenendilemma` 453 · `gevolgen` 67 · `gewaarzijn` 519 ·
+`geweld` 45, 90, 214 · `gewicht` 138 · `gewoontelus` 238 · `gewoonten` 187,
+373 · `gewoontes` 7, 11, 13, 22, 25, 58, 70, 76, 77, 79, 88, 97, 103, 133,
+134, 135, 138, 147, 157, 158, 181, 207, 208, 224, 230, 290, 334, 382, 439,
+442, 445, 513, 557 · `gewoontevorming` 146, 161, 168, 188, 244, 291, 294, 396,
+397, 411, 540 · `gezag` 62 · `gezin` 547 · `gezinnen` 327 · `gezondheid` 52,
+88, 171, 181, 318, 323, 329, 332, 412, 414, 415 · `gezondheidspsychologie` 458
+· `gezondheidszorg` 313, 317, 422 · `ggz` 104 · `giftige relaties` 429 ·
 `gijzelingsonderhandelaar` 271 · `godsdienstkritiek` 341 ·
 `godsdienstwetenschap` 578 · `goeroe` 242 · `Google` 512 · `Graallegende` 408
 · `grandiositeit` 404 · `gratie` 374 · `grenzen` 72, 105, 109, 120, 122, 187,
@@ -114760,10 +115323,10 @@ manufacturing` 265 · `leefstijl` 86, 103, 138, 171 · `leertijd` 320 · `leger`
 172, 183, 279, 280, 307, 308, 309, 350, 443, 446 · `marktmicrostructuur` 477,
 478 · `marxisme` 564 · `McKinsey` 511 · `media` 54, 60, 100, 562, 563, 564,
 565, 566 · `medische ethiek` 416 · `meditatie` 111, 141, 149, 169, 205, 208,
-228, 230, 237, 242, 333, 377, 401, 431, 527, 528 · `meesterschap` 296, 320,
-553 · `meetsystemen` 392 · `memento mori` 286 · `memoir` 4, 7, 18, 20, 26, 45,
-49, 62, 95, 106, 178, 185, 191, 226, 229, 242, 289, 324, 325, 348, 385, 402,
-403, 431, 447, 505 · `mens en dier` 584 · `menselijk gedrag` 155 ·
+228, 230, 237, 242, 333, 377, 401, 431, 527, 528, 590 · `meesterschap` 296,
+320, 553 · `meetsystemen` 392 · `memento mori` 286 · `memoir` 4, 7, 18, 20,
+26, 45, 49, 62, 95, 106, 178, 185, 191, 226, 229, 242, 289, 324, 325, 348,
+385, 402, 403, 431, 447, 505 · `mens en dier` 584 · `menselijk gedrag` 155 ·
 `mensenkennis` 126, 356 · `mentale gezondheid` 315 · `mentale helderheid` 148
 · `mentale weerbaarheid` 229, 323, 372, 373, 374, 545 · `mentalisme` 378, 399
 · `mentorschap` 4, 285, 289, 320, 402 · `merken` 279 · `metabolisme` 313 ·
@@ -114826,8 +115389,8 @@ age` 149, 435, 449, 549 · `new thought` 259, 380, 555 · `NeXT` 46 ·
 `organisatie` 28, 41, 69, 238, 388, 422, 468 · `organisatiecultuur` 183, 273,
 353 · `orthodontie` 332 · `Orwell` 54 · `Otto Rank` 405 · `oud china` 272 ·
 `Oude Rome` 328 · `Oudengels` 532 · `ouder-worden` 5 · `ouderdom` 77, 84, 91,
-95, 191, 402, 416 · `oudheid` 2, 247, 292, 536, 537 · `outsourcen` 278 ·
-`overdenken` 148 · `overfitting` 484, 485, 502, 503 · `overgave` 431 ·
+95, 191, 402, 416 · `oudheid` 2, 247, 292, 536, 537, 588, 589 · `outsourcen`
+278 · `overdenken` 148 · `overfitting` 484, 485, 502, 503 · `overgave` 431 ·
 `overleven` 31, 36 · `overlevingsvertekening` 64 · `overtuigen` 24, 182, 253,
 356, 367, 438 · `overtuiging` 280 · `overtuigingen` 28, 132, 139, 143, 469,
 487 · `overvloed` 17 · `oxytocine` 458 · `Pacific` 31 · `pacifisme` 240 ·
@@ -114880,7 +115443,7 @@ symboliek` 409 · `REM` 52 · `remarkable` 446 · `Renaissance` 15, 241 · `rent
 38 · `replicatie` 79 · `reputatie` 388 · `retorica` 253, 438 · `revisie` 18 ·
 `ridderepos` 534 · `rijkdom` 57, 228 · `risico` 64, 80, 144, 268, 282, 351,
 423, 425, 480, 481, 482, 487, 496, 500, 501 · `risicobeheer` 479, 489, 490,
-491, 492, 493, 494, 497, 498, 504, 506 · `ritueel` 404 · `rituelen` 304 ·
+491, 492, 493, 494, 497, 498, 504, 506 · `ritueel` 404, 590 · `rituelen` 304 ·
 `rivier als symbool` 287 · `roem-en-eenzaamheid` 178 · `roeping` 8, 9, 12, 160
 · `roman` 61, 113, 114, 115, 254, 554 · `Rome` 537 · `romeinse oudheid` 232 ·
 `rouw` 95, 467 · `rouwverwerking` 204 · `ruimte en tijd` 281 · `ruimtevaart`
@@ -114905,7 +115468,7 @@ psychologie` 215, 280, 302, 319 · `sociale-vaardigheden` 398 · `sociologie`
 `spiegelneuronen` 303 · `spiegeloefening` 380 · `spiegelogie` 108 ·
 `spieropbouw` 316 · `spijt` 447 · `spiritualiteit` 8, 14, 27, 102, 108, 141,
 149, 160, 169, 184, 190, 195, 196, 199, 242, 310, 358, 377, 431, 435, 449,
-519, 526, 556, 583 · `spirituele zoektocht` 287, 524 · `sport` 20, 349 ·
+519, 526, 556, 583, 590 · `spirituele zoektocht` 287, 524 · `sport` 20, 349 ·
 `sportpsychologie` 372, 374, 441 · `sportwetenschap` 461 · `spreekangst` 253 ·
 `spreker` 117, 134 · `staartrisico` 494, 496 · `staatsgreep` 220 · `stalking`
 214 · `standaarden` 396 · `Stanford` 150, 388, 458 · `start-ups` 306 ·
