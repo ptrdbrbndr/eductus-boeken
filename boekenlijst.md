@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 21
-augustus 2026: 878 titels in 21 rubrieken.
+augustus 2026: 882 titels in 21 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -20,7 +20,7 @@ bij de volgende build verloren.
 | Werk en aandacht | concentratie, aantekeningen en het inrichten van je eigen werk | 70, 78, 81, 151, 170, 197, 200, 207, 249, 256, 276, 278, 288, 290, 311, 400, 420, 448, 472, 512, 552 |
 | Schrijfambacht | schrijven als vak, door schrijvers zelf uitgelegd | 18, 19 |
 | Gewoontes en denken | hoe gedrag en oordeel werken, en wat eraan te sturen valt | 22, 23, 28, 29, 33, 50, 51, 52, 55, 59, 64, 66, 69, 79, 88, 89, 90, 93, 133, 137, 142, 143, 146, 148, 153, 157, 158, 161, 168, 176, 177, 181, 193, 209, 211, 224, 238, 244, 252, 268, 274, 282, 283, 291, 296, 310, 349, 382, 392, 396, 397, 411, 422, 423, 424, 425, 426, 436, 439, 450, 451, 452, 469, 475, 487, 488, 509, 510, 514, 538, 540, 542, 803 |
-| Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275, 303, 313, 314, 315, 316, 317, 318, 326, 329, 330, 331, 332, 333, 339, 357, 359, 360, 361, 386, 387, 401, 404, 409, 410, 412, 414, 415, 417, 418, 419, 432, 441, 458, 541, 557, 575, 583, 585, 671, 755, 759, 763, 767, 801, 802, 829, 943, 1121, 1128, 1130, 1131, 1134, 1135, 1138, 1153, 1159, 1160, 1162 |
+| Brein en lichaam | wat er in hoofd en lichaam gebeurt, en wat daaraan te doen valt | 84, 85, 86, 87, 103, 104, 118, 119, 120, 138, 147, 152, 164, 165, 166, 171, 175, 195, 208, 214, 225, 275, 303, 313, 314, 315, 316, 317, 318, 326, 329, 330, 331, 332, 333, 339, 357, 359, 360, 361, 386, 387, 401, 404, 409, 410, 412, 414, 415, 417, 418, 419, 432, 441, 458, 541, 557, 575, 583, 585, 671, 755, 759, 763, 767, 801, 802, 829, 943, 1121, 1128, 1130, 1131, 1134, 1135, 1138, 1153, 1159, 1160, 1162, 1171, 1172, 1173, 1174 |
 | Vrij denken en manipulatie | hoe overtuigingen worden gemaakt, en wat een eigen oordeel beschermt | 58, 60, 62, 63, 123, 124, 125, 126, 212, 213, 215, 250, 258, 280, 381, 384, 388, 429, 440, 562, 563, 564, 565, 566, 664, 667, 668, 672, 673, 674, 686, 925, 926, 927, 928, 929, 930, 931 |
 | Reclame en overtuiging | hoe reclame verkoopt en wat het vak over zijn eigen werking beweert | 443, 695, 696, 697, 698, 699, 700, 701, 702, 703, 704, 705 |
 | Geld en ondernemen | verdienen, sparen, bouwen en de bedrijven eromheen | 20, 21, 37, 38, 39, 40, 46, 47, 80, 121, 144, 159, 163, 172, 183, 185, 198, 210, 222, 231, 233, 243, 245, 246, 257, 260, 264, 265, 266, 270, 277, 279, 293, 294, 306, 307, 308, 309, 344, 348, 350, 351, 353, 365, 369, 370, 395, 427, 434, 446, 463, 464, 465, 474, 476, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490, 491, 492, 494, 496, 499, 501, 502, 503, 544, 567, 570, 804, 807, 808, 809, 810, 811, 812, 814, 816, 900, 901, 902, 903, 904, 905, 906, 907, 908, 909, 911, 912, 913 |
@@ -179425,6 +179425,970 @@ uit, met veldwerk als grondslag in plaats van cultuurkritiek.
 Philosophy* uit 1945 al de kern van meerdere tradities samen; dezelfde vraag
 naar wat er bij zo'n samenvoeging verdwijnt geldt daar.
 
+## 1171. Languages of the Brain
+
+Karl H. Pribram, 1971. *Languages of the Brain: Experimental Paradoxes and
+Principles in Neuropsychology* (Prentice-Hall, Englewood Cliffs, 1971, xiv +
+432 blz., ISBN 978-0-13-522730-5). De rechten gingen in 1977 over naar
+Brooks/Cole, dat een paperback uitbracht met een tweede voorwoord van Pribram
+uit mei 1977. Er bestaat geen Nederlandse vertaling; de samenvatting is op de
+Engelse editie gebaseerd. Rubriek: brein en lichaam.
+Tags: `neurowetenschap`, `geheugen`, `waarneming`, `bewustzijn`
+
+Karl Pribram, neurochirurg en hersenonderzoeker in Stanford, vat in dit boek
+uit 1971 twintig jaar laboratoriumwerk samen rond één vraag: in welke codes
+werken de hersenen, en hoe wordt de ene code in de andere omgezet. Het
+bekendst is zijn voorstel dat het geheugen zich gedraagt als een hologram,
+waarin informatie over een heel gebied verdeeld ligt in interferentiepatronen
+van trage elektrische spanningen.
+
+Het is vakliteratuur, geschreven voor collega's en gevorderde lezers, met de
+zwaarste bewijsvoering uit de visuele neurofysiologie. Pribram houdt het model
+zelf beperkt tot beeldvorming en verspreide opslag. In de populaire literatuur
+is het daarna opgerekt tot uitspraken over het heelal en over paranormale
+verschijnselen die hij hier niet doet.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Pribram betoogt dat de hersenen niet in één code werken maar
+in een reeks codes, en dat elke stap in het verwerken van waarneming, beweging
+en herinnering neerkomt op het omzetten van de ene code in de andere. De
+belangrijkste van die omzettingen beschrijft hij met de wiskunde van de
+holografie: informatie uit een beeld wordt over een heel gebied uitgesmeerd in
+interferentiepatronen van trage elektrische spanningen tussen zenuwcellen,
+zodat een herinnering geen adres heeft maar een verdeling is. Daaruit volgt
+zijn zwaarste stelling: de drager van het patroon is niet de impuls in de
+zenuwvezel maar het geleidelijke spanningsverloop rond de vertakkingen, en dat
+verschuift het zwaartepunt van de zenuwcel naar de verbinding.
+
+#### De gang van het boek
+
+**Vier delen die los van elkaar te lezen zijn**
+
+Het boek telt twintig hoofdstukken in vier delen, gevolgd door een epiloog.
+Pribram schrijft in zijn voorwoord dat elk deel voldoende op zichzelf staat om
+als ingang te dienen, en dat de volgorde van lezen mag afhangen van waar de
+belangstelling ligt. Deel één gaat over de werking van hersenweefsel zelf,
+deel twee over waarneming, gevoel en drijfveer, deel drie over de sturing van
+gedrag, deel vier over tekens, symbolen en taal.
+
+De opzet is uitdrukkelijk niet die van een leerboek. Pribram zegt dat hij
+schrijft vanuit paradoxen: uitkomsten uit zijn eigen laboratorium die niet
+pasten in het theoretische kader waar de meeste onderzoekers destijds mee
+werkten. Elk hoofdstuk sluit af met een synopsis van een halve tot een hele
+bladzijde, wat het boek doorzoekbaar maakt voor wie niet alles leest.
+
+**Toestanden en operatoren**
+
+Deel één zet het grondmodel neer. Pribram onderscheidt twee soorten
+gebeurtenissen in het zenuwstelsel: ruimtelijk geordende toestanden, die hij
+zoekt in de trage en geleidelijke spanningsverschillen rond synapsen en
+dendrieten, en bewerkingen op die toestanden, uitgevoerd door zenuwimpulsen.
+Die trage laag noemt hij de junctionele microstructuur. Hij erkent in het
+voorwoord bij de paperback dat collega's hem in 1971 verweten daar te veel
+gewicht aan te geven.
+
+Hoofdstuk twee gaat over de zoektocht naar het engram, het lichamelijke spoor
+van een herinnering. Pribram citeert de slotzin van Lashleys beroemde opstel
+uit 1950, waarin Lashley vaststelt dat het bewijsmateriaal over de lokalisatie
+van het geheugenspoor tot de conclusie dwingt dat leren helemaal niet mogelijk
+is, terwijl leren toch gebeurt. Die paradox is het vertrekpunt van het hele
+boek.
+
+De hoofdstukken drie tot en met vijf behandelen gewenning en aanpassing,
+laterale remming en contrastversterking, wat een neurale code is, en tot slot
+de logica van het zenuwstelsel. Daar vervangt Pribram de klassieke reflexboog
+door de TOTE-lus, het test-bewerk-test-verlaat-schema dat hij in 1960 met
+George Miller en Eugene Galanter had voorgesteld. Een zenuwstelsel dat zijn
+eigen ontvangst kan bijsturen moet toetsen of een verandering van buiten komt
+of van binnen.
+
+**Het hoofdstuk over hologrammen**
+
+Hoofdstuk acht is het bekendste van het boek. Pribram vertrekt bij de vorm van
+een receptief veld, het gebied van het gezichtsveld waarop één zenuwcel
+reageert. Uit het rekenwerk van Rodieck uit 1965 leidt hij af dat die vorm de
+convolutie is van de eerste afgeleide van de prikkel: een wiskundige bewerking
+die de wisselwerking tussen naburige punten beschrijft. Dezelfde soort
+bewerking beschrijft superpositie van golven in de optica, en superpositie van
+golven is precies wat een hologram vastlegt.
+
+Daaruit volgt zijn voorstel. Waar een fotografische plaat punt voor punt een
+afbeelding bewaart, legt een hologram het interferentiepatroon vast, zodat elk
+stuk van de drager iets van het hele beeld bevat en beschadiging het beeld
+vager maakt in plaats van stukjes weg te nemen. Dat is precies het gedrag dat
+het geheugen vertoont bij weefselverlies. Pribram stelt dat de trage
+spanningsstructuren rond de zenuwverbindingen zich naar dezelfde wiskunde
+gedragen.
+
+**Beelden, gevoelens en drijfveren**
+
+Deel twee past het model toe op psychologische verschijnselen. Hoofdstuk zes
+gaat over beelden en over bewustzijn als hypothese, hoofdstuk zeven over
+kenmerkdetectoren en hun grenzen. Pribram accepteert dat er cellen bestaan die
+op lijnen en hoeken reageren, maar betoogt dat kenmerkanalyse alleen niet
+toereikend is om te verklaren wat waarneming doet.
+
+De hoofdstukken negen tot en met elf verschuiven naar de binnenkant. Gevoelens
+beschrijft hij als beelden die de toestand van het lichaam volgen, met
+receptoren in de kernhersenen en met een instelbaar evenwicht dat hij
+homeostaat noemt. Honger en dorst krijgen een stop-en-gaan-mechanisme, en
+opwinding beschrijft hij als een maat voor onzekerheid: hoe minder het
+binnenkomende past bij het verwachte, hoe hoger de opwinding.
+
+**Bewegen, handelen en versterken**
+
+Deel drie gaat over de sturing van gedrag. Pribram beschrijft spiersturing als
+een terugkoppelend regelsysteem en betoogt dat de motorische schors geen
+spiercommando's verstuurt maar een voorgesteld eindresultaat aanhoudt,
+waarvoor hij de term image-of-achievement gebruikt. Welke spieren de beweging
+uitvoeren mag daarbij variëren, zolang het resultaat klopt.
+
+In de hoofdstukken veertien tot en met zestien rekent hij af met de
+behavioristische begrippen prikkel, reactie en beloning. Beloning beschrijft
+hij als inductie: zij verandert de context waarin volgende gebeurtenissen
+worden verwerkt. Het hoofdstuk over prestatie eindigt bij de paradox van
+middel en doel.
+
+**Tekens, symbolen en de talen van het brein**
+
+Deel vier gaat over verkeer tussen hersenen onderling. Hoofdstuk zeventien
+behandelt tekens, discriminatieleren en aandacht als sturing van de eigen
+ontvangst. Hoofdstuk achttien behandelt het uitgestelde-reactie-experiment en
+het kortetermijngeheugen als contextgevoelige codering. Hoofdstuk negentien
+gaat over spraak en denken, met wat Pribram de paradox van de afasie van Broca
+noemt, en met een argument tegen de gedachte dat taal berust op verbindingen
+tussen schorsgebieden onderling.
+
+Het laatste hoofdstuk verlaat het laboratorium. Pribram zet de
+identiteitstheorie en het dualisme naast elkaar, verklaart beide onvoldoende,
+en stelt daar wat hij de biologenpositie noemt tegenover. Zijn argument is dat
+elke beschrijving een taal is, dat talen onderling maar ten dele vertaalbaar
+zijn, en dat de identiteitstheoreticus daarom nooit bij het veronderstelde
+identieke kan komen zonder er weer een taal bij te halen. De titel van het
+boek slaat dus zowel op de codes in het zenuwstelsel als op de vakgebieden die
+erover spreken.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| talen van het brein | De verschillende codes waarin het zenuwstelsel informatie draagt, met het omzetten van de ene code in de andere als de eigenlijke hersenwerking. |
+| toestand en operator | Het tweeslagmodel waarin ruimtelijk geordende spanningspatronen de toestand vormen en zenuwimpulsen de bewerkingen daarop uitvoeren. |
+| junctionele microstructuur | Het geheel van trage, geleidelijke spanningsverschillen rond synapsen en dendrieten, dat volgens Pribram de drager van het patroon is en niet de impuls in de zenuwvezel. |
+| engram | Het gezochte lichamelijke spoor van een herinnering in weefsel; dat Lashley het niet kon lokaliseren is Pribrams vertrekpunt. |
+| receptief veld | Het gebied van het gezichtsveld waarop één zenuwcel reageert, waarvan Pribram de vorm beschrijft als een convolutie van de prikkel. |
+| convolutie-integraal | De wiskundige bewerking die de wisselwerking tussen naburige punten beschrijft, en die zowel superpositie in de optica als laterale remming in het netvlies dekt. |
+| ruimtelijke frequentie | Het aantal helderheidswisselingen per hoekgraad in een beeld; cellen in de visuele schors blijken op een smalle band daarvan te reageren. |
+| hologram | Opslagvorm waarin niet punt voor punt een afbeelding wordt vastgelegd maar het interferentiepatroon van golven, zodat elk deel van de drager iets van het geheel bevat. |
+| TOTE | De lus test, bewerk, test, verlaat, waarmee Pribram de reflexboog vervangt door een teruggekoppeld proces dat zijn eigen ontvangst toetst. |
+| image-of-achievement | Het voorgestelde eindresultaat van een handeling dat de motorische schors aanhoudt, in plaats van een vaste reeks spiercommando's. |
+
+#### Waar het argument op rust
+
+Het boek steunt niet op één beslissend experiment maar op een reeks
+bevindingen die Pribram naar elkaar toe rekent. Het rekenwerk van Rodieck uit
+1965 liet zien dat de reactie op twee tegelijk aangeboden lichtvlekken goed
+overeenkomt met de optelsom van de reacties op elk afzonderlijk, wat
+superpositie in de wiskundige zin is. Blakemore en Campbell rapporteerden in
+1969 dat langdurig kijken naar een streeppatroon met hoog contrast de
+gevoeligheid verlaagt binnen een smalle band van naburige ruimtelijke
+frequenties, ongeveer een octaaf breed, en dat past bij kanalen die op
+ruimtelijke frequentie zijn afgestemd in plaats van bij lijndetectoren. Von
+Békésy toonde Mach-banden aan bij aanraking van de huid, wat het model buiten
+het zien trekt. Bower vond in 1966 dat zes weken oude zuigelingen al grootte-
+en grotendeels vormconstantie vertonen zodra bewegings- of dubbeloogparallax
+beschikbaar is, waaruit Pribram afleidt dat het onderliggende mechanisme zelf
+op parallax werkt.
+
+Pribram is over de grenzen van zijn eigen voorstel ongewoon openhartig. Hij
+schrijft dat gegevens ontbreken om de informatiecapaciteit van het
+veronderstelde neurale holografische proces te berekenen, dat hij betwijfelt
+of de hersengolven zoals die toen werden gemeten de drager van zo'n
+interferentiepatroon kunnen zijn, dat er niet uit volgt dat het geheugen
+kriskras over het hele brein verspreid ligt, en dat niet alle hersenwerking
+tot een holografisch proces te herleiden valt. Het hologram dient bij hem om
+beeldvorming en verspreide opslag te verklaren, en meer niet. In het voorwoord
+bij de paperback van 1977 noemt hij het boek een voortgangsverslag.
+
+De zwakste schakel is de stap van beschrijving naar mechanisme. Dat receptieve
+velden zich goed in het frequentiedomein laten beschrijven, betekent nog niet
+dat de hersenen in dat domein opslaan. Pribram geeft dat zelf toe wanneer hij
+schrijft dat de keuze tussen een statistische en een golfmechanische taal een
+keuze van beschrijving is, en dat de microstructuren niet van karakter
+veranderen doordat er een andere beschrijving op wordt losgelaten. Wie die zin
+serieus neemt, houdt een aantrekkelijke analogie over waar het boek een
+theorie belooft.
+
+#### Wat er tegen in te brengen valt
+
+Van het model is in de hersenwetenschap het algemene deel overgebleven en het
+specifieke deel niet. Dat waarneming, geheugen en denken over verdeelde
+netwerken lopen in plaats van over enkele plekken, is sinds de opkomst van
+beeldvormend onderzoek gemeengoed. Maar het aanvaarde mechanisme is een ander:
+geheugensporen zitten in veranderde sterkte van synapsen binnen samenwerkende
+celgroepen, en sinds ongeveer 2012 zijn afzonderlijke geheugencellen in muizen
+te markeren en opnieuw te activeren. Dat lost Lashleys raadsel op zonder
+interferentiepatronen nodig te hebben.
+
+De holonomische theorie zelf heeft nooit een onderzoeksprogramma opgeleverd.
+Zij deed weinig voorspellingen die zich onderscheidden van die van de gangbare
+verklaringen, en de latere uitbreiding samen met de natuurkundige David Bohm
+bracht haar verder weg van wat te meten valt in plaats van dichterbij. Het
+onderdeel dat wél standhield, de afstemming van cellen in de visuele schors op
+ruimtelijke frequentie, wordt tegenwoordig verklaard zonder een beroep op
+holografie.
+
+De grootste schade is aangericht door de navertelling. Michael Talbot bouwt in
+*The Holographic Universe* uit 1991 op Pribram en Bohm een wereldbeeld waarin
+telepathie, stigmata en voorkennis passen, en David Wilcock en anderen hebben
+die lijn verder doorgetrokken. Pribram beweert dat in dit boek nergens, en
+zegt op het beslissende punt het tegenovergestelde. Wie de populaire versie
+kent en daarna dit boek opslaat, treft een voorzichtige vakmonografie vol
+metingen aan.
+
+Als leeservaring is het boek zwaar. Vierhonderddertig bladzijden, veel
+anatomie die als bekend wordt verondersteld, en een stijl die tussen college
+en essay heen en weer schiet. Het naslagwerk is bovendien vijfenvijftig jaar
+oud: elke bewering over meetgegevens vraagt om controle bij recenter werk, ook
+al blijft de vraagstelling overeind.
+
+#### Wat er concreet mee te doen is
+
+- Lees deel één en hoofdstuk acht als de kern; Pribram schrijft zelf dat de
+delen los van elkaar te nemen zijn.
+- Neem de paperback van 1977 voor het tweede voorwoord, waarin Pribram de
+balans opmaakt van wat er zes jaar later van zijn voorstel over is.
+- Houd het onderscheid vast tussen verspreide opslag, wat gangbaar is, en
+opslag door interferentiepatronen, wat dat niet is.
+- Controleer bij elke populaire verwijzing naar het holografische brein of de
+bron Pribram zelf is of een navertelling ervan.
+
+#### Wat je hierna leest
+
+- 340. The Holographic Universe. Talbot bouwt zijn wereldbeeld op Pribram en
+Bohm en trekt er beweringen uit die in dit boek niet staan; het verschil
+tussen beide boeken is het duidelijkste voorbeeld van hoe een vakmodel in de
+populaire literatuur wordt opgerekt.
+- 1172. A Cognitive Theory of Consciousness. Baars stuit zeventien jaar later
+op hetzelfde raadsel van verdeelde verwerking, maar zoekt de oplossing in een
+gedeelde werkruimte in plaats van in interferentie.
+- 763. Consciousness and the Brain: Deciphering How the Brain Codes Our
+Thoughts. Dehaene geeft de stand van zaken over bewuste toegang met de
+meetmethoden die in 1971 nog niet bestonden.
+- 541. Behavior: The Control of Perception. Powers publiceerde in 1973 een
+model waarin gedrag het regelen van waarneming is; ook daar staat de
+teruggekoppelde lus centraal, uitgewerkt zonder holografie.
+
+## 1172. A Cognitive Theory of Consciousness
+
+Bernard J. Baars, 1988. *A Cognitive Theory of Consciousness* (Cambridge
+University Press, Cambridge en New York, 1988, xxiii + 424 blz., ISBN
+978-0-521-30133-6). Later herdrukt in paperback; Baars stelde in 1998 een
+elektronische versie van voorwoord en eerste hoofdstuk vrij beschikbaar. Er
+bestaat geen Nederlandse vertaling; de samenvatting is op de Engelse editie
+gebaseerd. Rubriek: brein en lichaam.
+Tags: `bewustzijn`, `cognitiewetenschap`, `aandacht`, `neurowetenschap`
+
+Bernard Baars stelt in dit boek uit 1988 voor om bewustzijn te onderzoeken
+door telkens twee bijna gelijke gebeurtenissen naast elkaar te leggen waarvan
+er één bewust is en de andere niet: een geluid voor en na gewenning, een beeld
+met en zonder maskering, een handeling voor en na inslijping. Uit die stapel
+vergelijkingen leidt hij één bouwtekening af, de global workspace: een
+verzameling gespecialiseerde onbewuste verwerkers die om toegang dingen tot
+een gedeelde werkruimte, van waaruit de inhoud naar het hele stelsel wordt
+uitgezonden.
+
+Naar vorm is het cognitieve psychologie en geen hersenonderzoek; de neurale
+kant beslaat één hoofdstuk. De theorie is daarna de meest onderzochte van het
+vakgebied geworden, in de neurale uitwerking van Stanislas Dehaene en
+Jean-Pierre Changeux, en tegelijk het doelwit van het bezwaar dat zij
+verklaart hoe informatie beschikbaar komt en niet waarom er iets te ervaren
+valt.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Baars stelt dat bewustzijn geen plaats en geen stof is maar
+een functie in de bouw van het stelsel. Het zenuwstelsel bestaat volgens hem
+uit een groot aantal gespecialiseerde verwerkers die elk hun eigen werk
+onbewust en zelfstandig doen, en bewustzijn is de beperkte gedeelde werkruimte
+waarin één inhoud tegelijk komt te staan en van daaruit naar alle andere
+verwerkers wordt uitgezonden. Wat bewust is, is dus wat globaal beschikbaar is
+gemaakt. De geringe omvang van dat kanaal is in die opvatting geen
+tekortkoming maar de voorwaarde voor samenhang: een bericht dat naar het hele
+stelsel gaat moet innerlijk consistent zijn, anders valt het uiteen onder de
+onderlinge concurrentie van zijn eigen onderdelen.
+
+#### De gang van het boek
+
+**De methode van de kleinst mogelijke verschillen**
+
+Het eerste hoofdstuk zet de werkwijze neer die de rest van het boek draagt.
+Baars noemt haar contrastieve analyse, een term die hij aan de taalkunde
+ontleent, waar hij dient om klankklassen te vergelijken. Hij zoekt paren van
+gebeurtenissen die in alles op elkaar lijken behalve in dat de ene bewust is
+en de andere niet, en houdt vervolgens elke voorgestelde verklaring tegen de
+hele stapel paren aan. Een theorie die één contrast verklaart maar de andere
+niet, valt af.
+
+Als werkdefinitie van bewuste ervaring hanteert hij de betrouwbare
+verslaggeving van de proefpersoon zelf, met de gebruikelijke controles op
+consistentie. Zijn tabellen zetten aan de ene kant waargenomen prikkels en aan
+de andere kant hun onbewuste tegenhangers: prikkels die te zwak of te kort
+zijn, verwerking voorafgaand aan de waarneming, ingesleten of gewende
+verwerking, de niet gekozen betekenis van een dubbelzinnig woord, de context
+die de uitleg van een beeld stuurt, en de niet gevolgde stroom in een
+tweeorenexperiment.
+
+Eén onderzoek gebruikt hij als voorbeeld bij uitstek. Pani liet in 1982
+proefpersonen vormen onthouden en daarna telkens kiezen welke van twee figuren
+het dichtst bij de onthouden vorm lag. Naarmate de oefening vorderde daalde de
+gerapporteerde bewustheid van het innerlijke beeld sterk, over achttien
+beurten, terwijl de nauwkeurigheid van de keuze niet daalde. Werd de taak weer
+moeilijker, dan kwam het beeld terug in het bewustzijn. Dezelfde voorstelling
+blijft dus in gebruik terwijl de toegang ertoe verdwijnt.
+
+**Model 1: de werkruimte**
+
+Deel twee bouwt het grondmodel. Baars noemt het een publiciteitsmetafoor: het
+stelsel lijkt op een gemeenschap van vaklieden met daarbij één
+televisiezender. Routinezaken regelen de vaklieden onderling, maar wat nieuw
+is en de medewerking van velen vraagt moet worden omgeroepen. De omroep is de
+werkruimte, en wat er wordt uitgezonden is wat bewust is.
+
+Hoofdstuk drie geeft de neurale vertaling die in 1988 het meest voor de hand
+lag: het uitgebreide reticulair-thalamische activeringsstelsel, afgekort
+ERTAS, met delen van de frontale en pariëtale schors die de toegang ertoe
+regelen. Baars markeert deze en andere keuzes uitdrukkelijk als theoretische
+kruispunten, punten waar hij tussen even aannemelijke mogelijkheden moest
+kiezen en waar verder bewijs nodig is.
+
+**Modellen 2 en 3: context en nieuwswaarde**
+
+Deel drie voegt het begrip context toe, en dat is de zwaarste uitbreiding van
+het model. Contexten zijn betrekkelijk stabiele structuren die zelf nooit
+bewust worden, maar die bepalen wat er bewust kan worden en hoe het wordt
+uitgelegd. Zij roepen bewuste inhouden op en worden er zelf door opgeroepen.
+
+Model drie voegt daar een voorwaarde aan toe: bewuste ervaring is altijd
+informatief. Wat zich herhaalt verdwijnt uit het bewustzijn terwijl het
+onbewust verwerkt blijft worden, zoals bij gewenning. Om bewust te worden moet
+een gebeurtenis nieuw of van belang zijn en aanpassing in het stelsel
+afdwingen. Leren beschrijft Baars vervolgens als een verandering in de
+context, waardoor het geleerde daarna anders wordt ervaren.
+
+**Modellen 4 en 5: doelen en wil**
+
+Deel vier trekt de bouwtekening door naar handelen. Voornemens behandelt Baars
+als grotendeels onbewuste doelstructuren die zich van bewuste doelbeelden
+bedienen om uitvoerders en deeldoelen te werven. Zo ontstaat volgens hem ook
+de stroom van het bewustzijn: contexten en inhouden vlechten zich in elkaar,
+en het onbewuste deel doet het routinewerk terwijl het bewuste deel nieuwe
+informatie binnenhaalt.
+
+Voor de wil grijpt hij terug op de ideomotorische theorie van William James.
+Een handeling komt tot stand doordat een bewust doelbeeld blijft staan zonder
+dat een van de onbewuste toetsers er bezwaar tegen maakt. Wat wij ervaren als
+een wilsbesluit is in dat model het uitblijven van tegenspraak, niet een
+aparte kracht.
+
+**Modellen 6 en 7: aandacht en zelf**
+
+Deel vijf scheidt twee zaken die in het dagelijks spraakgebruik door elkaar
+lopen. Bewuste ervaring is in Baars' model de betrekkelijk lijdelijke toestand
+van wat er in de werkruimte staat; aandacht is de sturing van de toegang
+daartoe. Dat onderscheid laat zich in de architectuur zonder moeite plaatsen.
+
+Model zeven doet hetzelfde met het zelf. Baars past er de contrastmethode op
+toe en komt uit bij het zelf als de blijvende, overheersende context van
+ervaring en handeling: de structuur die ervaringen over veel verschillende
+plaatselijke contexten heen ordent en stabiel houdt. Het zelfbeeld is
+daarbovenop een regelsysteem dat het bewustzijn gebruikt om dat zelf te
+bewaken en bij te sturen.
+
+**Waar bewustzijn voor dient**
+
+Deel zes keert zich tegen de opvatting dat bewustzijn een bijverschijnsel
+zonder werking is. Baars somt de taken op die in zijn model alleen door
+globale uitzending te vervullen zijn: het aan elkaar knopen van kenmerken tot
+één voorwerp, het opsporen en herstellen van fouten, het inschakelen van hulp
+bij een probleem dat de gespecialiseerde verwerker niet aankan, en leren.
+
+Het slothoofdstuk vat de redenering samen en probeert de noodzakelijke
+voorwaarden voor bewuste ervaring te destilleren. Het boek sluit met een
+verklarende woordenlijst en een gids langs de theoretische claims, zodat elk
+begrip formeel na te slaan is. Baars biedt de lezer twee manieren van lezen
+aan: als toetsbare theorie, of als ordenend kader waarmee de bestaande
+vakliteratuur te overzien valt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| global workspace | De gedeelde werkruimte met beperkte capaciteit waarin één inhoud tegelijk staat en van waaruit die naar het hele stelsel wordt uitgezonden. |
+| gespecialiseerde verwerker | Een deelsysteem dat zijn eigen taak zelfstandig en onbewust uitvoert, met eigen criteria, en dat om toegang tot de werkruimte moet dingen. |
+| uitzending | Het beschikbaar stellen van een inhoud aan alle verwerkers tegelijk, wat in dit model precies is wat bewustzijn doet. |
+| context | Een blijvende onbewuste structuur die bepaalt wat er bewust kan worden en hoe het wordt uitgelegd, zonder zelf ooit bewust te worden. |
+| doelcontext | Een grotendeels onbewuste doelstructuur die bewuste doelbeelden inzet om uitvoerders en deeldoelen te werven. |
+| contrastieve analyse | Het vergelijken van paren gebeurtenissen die alleen verschillen in dat de ene bewust is en de andere niet, om elke verklaring aan de hele reeks paren te toetsen. |
+| publiciteitsmetafoor | Baars' beeld van het stelsel als een gemeenschap van vaklieden met één televisiezender, waarop alleen omgeroepen wordt wat de medewerking van velen vraagt. |
+| ERTAS | Het uitgebreide reticulair-thalamische activeringsstelsel, dat Baars in 1988 aanwees als de meest waarschijnlijke neurale plek van de werkruimte. |
+| zelf als context | De opvatting van het zelf als de overheersende, blijvende context die ervaringen over veel plaatselijke contexten heen ordent. |
+| ideomotorische theorie | De opvatting van James dat een handeling volgt op een bewust doelbeeld waar geen onbewuste toetser bezwaar tegen maakt. |
+
+#### Waar het argument op rust
+
+Het argument steunt niet op één proef maar op een geordende verzameling
+gevestigde bevindingen, per domein in tabellen gezet. Baars noemt onder meer
+gewenning zoals Sokolov die in 1963 beschreef, inslijping door oefening uit
+het werk van Shiffrin en Schneider uit 1977, selectieve aandacht bij MacKay,
+de vertraging tussen prikkel en bewustwording die Libet mat, maskering in het
+werk van Marcel uit 1983, en aan de neurale kant coma en blindzien. De kracht
+van de opzet zit in de omvang van de verzameling: één contrast is met veel
+verklaringen te verzoenen, tientallen contrasten tegelijk zijn dat niet.
+
+Baars is over de status van zijn theorie duidelijk. Hij biedt haar
+uitdrukkelijk aan als een kwalitatief kader dat ook als werkhypothese te lezen
+valt, citeert Broadbent over theorieën die grofmazig beginnen en gaandeweg
+preciezer worden, en markeert de plekken waar hij tussen even aannemelijke
+mogelijkheden moest kiezen. Hij vermeldt zelf dat het bewijs uit
+maskeringsonderzoek omstreden is en verwijst daarbij naar het bezwaar van
+Holender uit 1986. Dat is meer voorbehoud dan gebruikelijk in een boek dat een
+algemene theorie voorstelt.
+
+De zwakste schakel in 1988 was de neurale vertaling. ERTAS was een
+beredeneerde gok op basis van wat toen bekend was over de formatio reticularis
+en de thalamus, en dat is niet het onderdeel dat is blijven staan. In de
+latere neurale uitwerking verschoof het zwaartepunt naar wijdvertakte
+verbindingen tussen frontale en pariëtale schorsgebieden. Het architectuurdeel
+van het boek heeft de tijd doorstaan, het plaatsingsdeel niet.
+
+#### Wat er tegen in te brengen valt
+
+Het zwaarste bezwaar is dat van Ned Block: de theorie verklaart toegang en
+geen ervaring. Uitzending maakt begrijpelijk waarom een inhoud te melden, te
+beredeneren en te gebruiken valt, maar zegt niets over waarom het van binnen
+ergens op lijkt. Block voert daarbij zijn overloopargument aan, gebouwd op de
+deelrapportagetaak van Sperling: mensen lijken meer te zien dan zij kunnen
+melden. Als dat klopt, meet globale beschikbaarheid systematisch het
+verkeerde.
+
+De neurale handtekening is in de loop der jaren zwakker geworden. In de
+uitwerking van Dehaene en Changeux gold late frontopariëtale activiteit met
+een golf rond driehonderd milliseconden als het moment van ontbranding. Die
+golf blijkt echter minstens zozeer de taakrelevantie van een prikkel te volgen
+als de bewustwording ervan, en in proeven met onoplettendheidsblindheid
+verdwijnt zij terwijl de proefpersoon het beeld wel bewust ziet.
+
+In 2025 verscheen in *Nature* de uitkomst van COGITATE, een vooraf vastgelegde
+tegensprekende samenwerking waarin de aanhangers van deze theorie en van de
+rivaliserende theorie van geïntegreerde informatie samen het onderzoek
+ontwierpen. Bij 256 deelnemers, gemeten met fMRI, MEG en elektroden in de
+hersenen, gingen twee vooraf opgeschreven voorspellingen van de
+werkruimtetheorie niet op: de bewuste inhoud viel goed af te lezen uit
+achterste schorsgebieden en vaak niet uit de prefrontale schors, en de
+verwachte ontbranding op het moment dat de prikkel verdween bleef uit. De
+aanhangers bestrijden de uitleg van die uitkomst, en één proef beslecht geen
+debat, maar dit is de scherpste tegenslag tot nu toe.
+
+Er is ook een bezwaar dat losstaat van de metingen. Een architectuur
+beschrijven is betrekkelijk goedkoop: er zijn meer bouwtekeningen die dezelfde
+gegevens ordenen. Susan Blackmore heeft betoogd dat een werkruimte hooguit
+verklaart waarom het lijkt alsof er een stroom van bewustzijn is, en dat de
+theorie het verschijnsel zelf ongemoeid laat. Het boek is bovendien bijna
+veertig jaar oud en gebruikt vakliteratuur die inmiddels deels is achterhaald;
+wie de theorie in haar huidige vorm wil, moet doorlezen naar het latere werk.
+
+#### Wat er concreet mee te doen is
+
+- Lees hoofdstuk één apart wie alleen de methode wil; daar staan de tabellen
+met bewuste en onbewuste tegenhangers.
+- Toets bij elk bericht over de neurale correlaten van bewustzijn of het over
+toegang gaat of over ervaring; dat onderscheid bepaalt wat het bericht waard
+is.
+- Pas de contrastmethode zelf toe: zoek bij een verschijnsel eerst de bijna
+gelijke onbewuste tegenhanger voordat er een verklaring bij komt.
+- Neem het latere werk van Dehaene erbij voor de meetgegevens; dit boek levert
+de bouwtekening en niet de hersendata.
+
+#### Wat je hierna leest
+
+- 763. Consciousness and the Brain: Deciphering How the Brain Codes Our
+Thoughts. Dehaene werkte de werkruimte uit tot een neurale theorie en
+beschrijft de metingen die Baars in 1988 nog niet kon doen.
+- 1171. Languages of the Brain. Pribram stuitte zeventien jaar eerder op
+hetzelfde raadsel van verdeelde verwerking en koos een andere oplossing, die
+van het interferentiepatroon.
+- 652. The Rediscovery of the Mind. Searle formuleert het filosofische bezwaar
+tegen elke functionele verklaring van bewustzijn, waar de werkruimtetheorie er
+één van is.
+- 1160. The Psychology of Consciousness. Ornstein publiceerde in 1972 een
+populaire voorloper over bewustzijn en hersenen, geschreven voordat de
+contrastmethode bestond.
+
+## 1173. The Spiritual Brain
+
+Mario Beauregard en Denyse O'Leary, 2007. *The Spiritual Brain: A
+Neuroscientist's Case for the Existence of the Soul* (HarperOne, New York,
+2007, 368 blz., ISBN 978-0-06-085883-4). Er bestaat geen Nederlandse
+vertaling; de samenvatting is op de Engelse editie gebaseerd. Rubriek: brein
+en lichaam.
+Tags: `neurowetenschap`, `religie`, `bewustzijn`, `wetenschapsfilosofie`
+
+Mario Beauregard, destijds hersenonderzoeker aan de Universiteit van Montreal,
+en de Canadese journaliste Denyse O'Leary betogen in dit boek uit 2007 dat de
+hersenwetenschap ten onrechte uitgaat van materialisme, en dat de geest niet
+samenvalt met het brein. Het middelpunt is Beauregards eigen scanonderzoek
+onder vijftien karmelietessen, die in de scanner hun sterkste mystieke
+ervaring opnieuw opriepen.
+
+Dat onderzoek bestaat werkelijk en verscheen in 2006 in Neuroscience Letters.
+De uitkomst was dat mystieke ervaring niet in één hersengebied zit maar over
+meerdere netwerken verdeeld is. De stap die de auteurs daarna zetten, van die
+verdeling naar het bestaan van een niet-materiële ziel, volgt niet uit de
+meting.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Beauregard en O'Leary stellen dat het materialisme in de
+hersenwetenschap geen uitkomst van onderzoek is maar een vooronderstelling die
+eraan voorafgaat, en dat de gegevens die er gewoonlijk voor worden aangevoerd
+bij nadere beschouwing de andere kant op wijzen. Religieuze, spirituele en
+mystieke ervaringen laten zich volgens hen niet terugbrengen tot een godsplek
+in de hersenen, tot een aanval in de slaapkwab of tot een elektromagnetisch
+veld rond het hoofd. Verschijnselen als het placebo-effect, het zelf
+veranderen van hersenweefsel door aandacht te sturen, en bijna-doodervaringen
+tijdens een hartstilstand wijzen volgens hen op een geest die op het brein
+inwerkt in plaats van eruit voort te komen. De ondertitel maakt daar de
+sterkste versie van: dit zou het bestaan van de ziel aannemelijk maken.
+
+#### De gang van het boek
+
+**De inzet**
+
+Het openingshoofdstuk zet uiteen wat de auteurs onder materialisme verstaan en
+waar volgens hen het publiek en de vakwereld uiteenlopen. De stelling die zij
+in het voorwoord innemen is dat de geest werkelijk bestaat en meer is dan het
+brein, en dat het brein zich verhoudt tot de geest als een orgaan dat de geest
+met de rest van de wereld verbindt.
+
+De toon is polemisch. Het materialisme wordt behandeld als een
+wereldbeschouwing met aanhangers, niet als een werkwijze, en de auteurs voeren
+aan dat het in de vakwereld eerder wordt aangenomen dan onderzocht.
+
+**Afbraak van de godsplek**
+
+De hoofdstukken twee tot en met vier lopen de bestaande neurowetenschappelijke
+verklaringen van religieuze ervaring langs en verwerpen ze stuk voor stuk. Aan
+bod komen de gedachte dat religiositeit samenhangt met epilepsie in de
+slaapkwab, de zoektocht naar een godsplek of godsmodule, en het scanwerk van
+Andrew Newberg en Eugene d'Aquili aan mediterende boeddhisten en biddende
+franciscanessen.
+
+Het vierde hoofdstuk richt zich op de God-helm van Michael Persinger, het
+hoofddeksel dat zwakke magneetvelden op de slaapkwabben zou richten en zo een
+gevoel van aanwezigheid zou opwekken. De auteurs hekelen niet alleen het
+onderzoek maar ook de berichtgeving erover, die de helm tot bewijs maakte dat
+godservaring een bijproduct van de slaapkwab is.
+
+**Het filosofische bezwaar**
+
+Hoofdstuk vijf verlaat het laboratorium en betoogt dat een zuiver
+materialistische verklaring vastloopt op bewustzijn, op vrije wil en op
+persoonlijke identiteit. Hoofdstuk zes stelt de vraag om die de hele opzet
+draait: verklaart een niet-materialistische natuurwetenschap méér van de
+bekende feiten dan een materialistische?
+
+Hier ligt de zwakke plek van de opbouw. De auteurs gebruiken ziel en geest als
+wisselbegrippen zonder het onderscheid uit te werken, waardoor de ondertitel
+meer belooft dan de tekst inlost. Recensenten hebben daar van uiteenlopende
+kanten op gewezen, ook welwillende.
+
+**Het aangevoerde tegenbewijs**
+
+De hoofdstukken zeven en acht dragen aan wat volgens de auteurs zonder een
+werkzame geest onverklaarbaar blijft. Genoemd worden het werk van de
+psychiater Jeffrey Schwartz, die patiënten met een dwangstoornis hun aandacht
+liet sturen en daarbij veranderingen in hersenactiviteit mat, het
+placebo-effect, bijna-doodervaringen tijdens een hartstilstand, en onderzoek
+naar buitenzintuiglijke waarneming.
+
+In deze hoofdstukken loopt de kwaliteit van het bewijsmateriaal sterk uiteen.
+Het werk over aandacht en dwangstoornis en dat over placebo zijn gangbare
+psychologie; het parapsychologische deel staat er duidelijk zwakker voor, wat
+ook geestverwante recensenten hebben opgemerkt.
+
+**De karmelietessen**
+
+De slothoofdstukken behandelen Beauregards eigen onderzoek. Vijftien
+karmelietessen lieten zich scannen; omdat zij aangaven de eenwording met God
+niet op afroep te kunnen oproepen, kregen zij de opdracht hun sterkste
+mystieke ervaring zo volledig mogelijk te herbeleven. Als vergelijking diende
+het herbeleven van de sterkste ervaring van nabijheid tot een mens.
+
+De uitkomst was verspreide activering over een groot aantal gebieden: onder
+meer de rechter mediale orbitofrontale schors, de rechter middelste
+slaapkwabschors, pariëtale gebieden aan beide zijden, de nucleus caudatus, de
+linker mediale prefrontale schors, de voorste gordelwinding, de insula en de
+hersenstam. De auteurs trekken daaruit twee gevolgtrekkingen: er is geen
+godsplek, en de slaapkwab brengt de ervaring niet voort. De tweede is de stap
+waar het boek op staat of valt.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| materialisme | In hun omschrijving de leerstelling dat alleen stof bestaat en dat geest daarom niets anders kan zijn dan hersenwerking, door hen behandeld als vooronderstelling en niet als bevinding. |
+| niet-materialistische neurowetenschap | Hun voorgestelde alternatief, waarin de geest als werkzame oorzaak wordt toegelaten in de verklaring van hersenverschijnselen. |
+| RSME | Hun verzamelterm voor religieuze, spirituele en mystieke ervaringen, gebruikt om de gehele klasse in één keer te kunnen bespreken. |
+| godsplek | De gedachte dat er één hersengebied of hersenmodule bestaat waar godsgeloof en godservaring vandaan komen; door de auteurs verworpen. |
+| God-helm | Persingers hoofddeksel dat met zwakke magneetvelden op de slaapkwabben een gevoel van aanwezigheid zou opwekken. |
+| unio mystica | De ervaring van eenwording met God die de karmelietessen in het onderzoek moesten herbeleven, in hun eigen kloostertraditie zo genoemd. |
+| zelfgestuurde neuroplasticiteit | De opvatting van Jeffrey Schwartz dat een patiënt door aandacht bewust te richten meetbare veranderingen in de hersenen teweegbrengt, door de auteurs aangevoerd als geest die op stof inwerkt. |
+| herbeleven | De opzet van het scanonderzoek, waarin de deelneemsters een eerdere ervaring in de herinnering opriepen omdat de ervaring zelf niet op afroep beschikbaar was. |
+| epifenomenalisme | De opvatting dat bewuste ervaring een bijverschijnsel zonder eigen werking is, die de auteurs aanwijzen als het punt waarop het materialisme volgens hen breekt. |
+
+#### Waar het argument op rust
+
+Het scanonderzoek waar het boek op leunt bestaat en is te controleren:
+Beauregard en Vincent Paquette, Neuroscience Letters, jaargang 405 uit 2006,
+bladzijden 186 tot 190. Vijftien karmelietessen, functionele MRI, drie
+condities, en een uitkomst van verspreide activering over frontale, temporale,
+pariëtale en dieper gelegen gebieden. De conclusie die de auteurs daaruit
+trekken over de afwezigheid van een godsplek volgt inderdaad uit de gegevens
+en staat ook los van hun bredere stelling overeind.
+
+Ook hun kritiek op Persinger staat op vaste grond. Pehr Granqvist en collega's
+in Uppsala herhaalden het helmexperiment in 2005 dubbelblind en vonden geen
+enkel verband tussen de aan- of afwezigheid van het magneetveld en de gemelde
+ervaringen; wat de meldingen wel voorspelde waren beïnvloedbaarheid en
+persoonlijkheidskenmerken. Persinger bestreed de herhaling met het argument
+dat de blootstelling te kort was; Granqvist antwoordde dat Persinger de opzet
+vooraf had goedgekeurd. Dat de God-helm in de pers een zwaarder gewicht kreeg
+dan het onderzoek droeg, is een terecht verwijt.
+
+Wat het bewijsmateriaal niet draagt, is de gevolgtrekking. Dat mystieke
+ervaring meerdere stelsels tegelijk gebruikt, weerlegt de lokalisatiegedachte
+en niet het materialisme. Er is bovendien geen patroon in een scan dat
+onderscheid maakt tussen hersenen die een ervaring voortbrengen en hersenen
+die haar zouden ontvangen: beide veronderstellingen voorspellen dezelfde
+plaatjes, zodat de meting tussen beide niets beslist. Daar komt bij dat de
+nonnen een herinnering opriepen, zoals de onderzoekers zelf vermelden, zodat
+het onderzoek de neurale correlaten meet van het terughalen van een mystieke
+ervaring en niet van die ervaring zelf.
+
+De methodologische maat is die van 2006 en niet die van vandaag: vijftien
+deelneemsters, geen blindering, geen voorregistratie, en een binnenwerkelijke
+toestand die alleen via zelfrapportage vaststaat. Voor zover de auteurs
+Newberg onder de lokaliseerders scharen, treffen zij een positie die hij zelf
+niet inneemt; Newberg heeft herhaaldelijk gezegd dat zijn werk een netwerk
+laat zien en geen godsplek. Zijn scanwerk verdient wel kritiek, om andere
+redenen: acht Tibetaanse mediteerders en drie franciscanessen zijn te weinig
+om iets algemeens op te bouwen. Die kritiek levert het boek niet.
+
+#### Wat er tegen in te brengen valt
+
+De kern van het bezwaar is logisch en niet levensbeschouwelijk. Uit het
+ontbreken van een sluitende materialistische verklaring van bewustzijn volgt
+niet dat er een niet-materiële ziel bestaat; dat is een beroep op wat nog niet
+verklaard is. Recensenten hebben er bovendien op gewezen dat de redenering
+rondloopt: de hersenen brengen de ervaring niet voort omdat het materialisme
+onjuist is, en het materialisme is onjuist omdat de hersenen de ervaring niet
+voortbrengen.
+
+De tegenstander wordt daarbij karikaturaal getekend. Vrijwel geen werkend
+hersenonderzoeker verdedigt de leerstelling die het boek bestrijdt;
+methodologisch naturalisme, het uitgangspunt dat men in het laboratorium bij
+natuurlijke oorzaken blijft omdat men alleen die kan meten, is iets anders dan
+de metafysische bewering dat er niets anders bestaat. Door beide op één hoop
+te gooien wint het boek een gevecht dat het zelf heeft opgezet.
+
+De ondertitel wordt niet ingelost. Ziel en geest worden als hetzelfde
+behandeld, terwijl het theologische zielsbegrip aanzienlijk meer inhoudt dan
+een werkzame geest. Ook recensenten uit christelijke hoek, in het Denver
+Journal en in de Christian Scholar's Review, stellen vast dat de belofte van
+de titel niet wordt waargemaakt en dat het parapsychologische bewijsmateriaal
+zwakker is dan het psychologische waar het naast staat.
+
+Het boek staat niet op zichzelf. Denyse O'Leary is publiciste voor de zaak van
+intelligent design en schrijft voor de websites van het Discovery Institute;
+Beauregard vervolgde deze lijn in *Brain Wars* uit 2012 en stelde in 2014
+samen met Gary Schwartz en Lisa Miller een manifest voor een
+postmaterialistische wetenschap op. Dat maakt de argumenten niet onjuist, maar
+het verklaart wel waarom het boek nergens de vraag stelt wat er tegen de eigen
+stelling zou pleiten. Een boek dat zoveel gewicht legt op het onderscheid
+tussen bevinding en vooronderstelling zou die vraag aan zichzelf moeten
+stellen.
+
+Er blijft iets van waarde over. De hoofdstukken over de godsplek en de
+God-helm zijn goed ouder geworden: de berichtgeving was inderdaad overspannen,
+Persingers uitkomst hield geen stand bij herhaling, en het idee van één plek
+voor godsgeloof is verlaten. Wie die hoofdstukken leest zonder de conclusie
+van het boek over te nemen, houdt een bruikbare opruiming over.
+
+#### Wat er concreet mee te doen is
+
+- Scheid bij elk hoofdstuk de meting van de gevolgtrekking; het boek zet ze
+doorgaans in dezelfde alinea.
+- Vraag bij elke scanbevinding welk beeld de tegenovergestelde stelling zou
+voorspellen; is dat hetzelfde beeld, dan beslist de scan niets.
+- Neem de hoofdstukken over de God-helm en over de berichtgeving daarover
+apart; die staan op zichzelf en houden stand.
+- Ga voor het karmelietessenonderzoek naar het oorspronkelijke artikel in
+Neuroscience Letters; dat is vier bladzijden en veel voorzichtiger van toon
+dan het boek.
+
+#### Wat je hierna leest
+
+- 1174. The Spiritual Doorway in the Brain. Nelson behandelt hetzelfde
+onderwerp vanuit de neurologie en houdt uitdrukkelijk uit elkaar wat zijn
+gegevens wel en niet beslissen; het contrast in redeneertrant is leerzaam.
+- 936. The Varieties of Religious Experience. James scheidt de vraag naar de
+oorsprong van een religieuze ervaring van de vraag naar haar waarde, een
+onderscheid dat dit boek nodig heeft maar niet gebruikt.
+- 1167. The Idea of the World: A Multi-Disciplinary Argument for the Mental
+Nature of Reality. Kastrup werkt filosofisch uit wat hier alleen wordt
+beweerd, namelijk dat geest voorafgaat aan stof, en doet dat met een
+sluitender argument.
+- 585. Dying to Live. Blackmore geeft de sceptische behandeling van
+bijna-doodervaringen waar dit boek zich tegen afzet.
+
+## 1174. The Spiritual Doorway in the Brain
+
+Kevin Nelson, 2011. *The Spiritual Doorway in the Brain: A Neurologist's
+Search for the God Experience* (Dutton, New York, 2011, 326 blz., ISBN
+978-0-525-95188-9); paperback bij Plume in 2012, 336 blz., ISBN
+978-0-452-29758-6. In het Verenigd Koninkrijk verscheen het boek onder de
+titel *The God Impulse*. Er bestaat geen Nederlandse vertaling; de
+samenvatting is op de Amerikaanse editie gebaseerd. Rubriek: brein en lichaam.
+Tags: `bijna-doodervaring`, `bewustzijn`, `neurowetenschap`, `slaap`
+
+Kevin Nelson, neuroloog aan de universiteit van Kentucky, verklaart in dit
+boek uit 2011 bijna-doodervaringen, uittredingen en religieuze vervoering
+vanuit de hersenmechanismen die waken, dromen en droomloze slaap uit elkaar
+houden. Zijn kernbegrip is REM-inmenging: bij sommige mensen dringen kenmerken
+van de droomslaap door in de waaktoestand, en dat gebeurt vaker bij wie een
+bijna-doodervaring meldt.
+
+Nelson bouwt op zijn eigen publicaties in Neurology uit 2006 en 2007. Hij is
+niet uit op een weerlegging van religie: het slotdeel behandelt de vraag of
+een biologische verklaring de ervaring van haar waarde berooft, en zijn
+antwoord is ontkennend. Onderzoekers uit de bijna-doodhoek hebben zijn
+steekproef en zijn oorzakelijke stap bestreden.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Nelson stelt dat de meest ingrijpende geestelijke ervaringen
+die mensen kennen, het uittreden uit het lichaam, de tunnel, het licht, de
+ontmoeting met gestalten en het gevoel van eenwording, geen eigen verklaring
+nodig hebben omdat zij voortkomen uit het grensland tussen waken en dromen.
+Het opwindingsstelsel in de hersenstam dat de drie bewustzijnstoestanden uit
+elkaar houdt kan die toestanden vermengen, en wanneer bloeddruk en
+zuurstoftoevoer wegvallen levert die vermenging samen met het limbisch stelsel
+precies het rijtje verschijnselen op dat mensen na een bijna-doodervaring
+beschrijven. Zijn tweede stelling is dat deze verklaring de ervaring niet
+ontwaardt en niets zegt over de vraag of God bestaat.
+
+#### De gang van het boek
+
+**De proloog aan het voeteneind**
+
+Het boek opent met een proloog aan het bed van een patiënt, en die opzet keert
+door het hele boek terug: Nelson begint telkens bij een geval uit zijn eigen
+spreekkamer of van de afdeling, en werkt van daaruit naar het mechanisme. Hij
+schrijft vanuit ruim drie decennia klinische neurologie, met flauwtes,
+epilepsie en slaapstoornissen als dagelijks werk.
+
+Die achtergrond bepaalt de invalshoek. Waar veel schrijvers over
+bijna-doodervaringen bij de ervaring beginnen en daarna een verklaring zoeken,
+begint Nelson bij de aandoeningen die dezelfde verschijnselen los van elk
+levensgevaar voortbrengen.
+
+**Deel één: de bouw**
+
+Het eerste deel legt de grondslag. Nelson behandelt eerst wat een geestelijke
+ervaring is en langs welke wegen zij ontstaat, van angst tot vervoering.
+Daarna volgt het hoofdstuk waar de rest op steunt: de drie toestanden van
+bewustzijn, waken, droomslaap en droomloze slaap, en de vraag waar in die
+driedeling geestelijke opwinding thuishoort.
+
+Het derde hoofdstuk gaat over het uiteenvallende zelf, en over hoe iemand de
+eigen valse getuige wordt. Nelson laat zien dat de hersenen bij het
+samenstellen van een ervaring gaten opvullen en de volgorde van gebeurtenissen
+herschikken, zodat een verslag achteraf oprecht kan zijn en toch niet
+weergeeft wat er gebeurde.
+
+**Deel twee: aan de drempel**
+
+Het middendeel bevat de eigenlijke stelling. Nelson beschrijft eerst de
+verscheidenheid aan bijna-doodervaringen, daarna wat er met de hersenen
+gebeurt aan de poort van de dood, dan wat hij de oude metronoom noemt, het
+tempo waarin een lichaam van doodsangst naar rust en vervoering kan omslaan,
+en tenslotte het grensland tussen droom en dood.
+
+REM-inmenging is het scharnier. Bij droomslaap is de skeletspier verlamd,
+staat de geest wijd open voor beelden en klanken zonder prikkel van buiten, en
+zijn de gebieden actief die aan emotie en betekenis werken. Dringt die
+toestand door in het waken, dan ontstaan slaapverlamming, hallucinaties bij
+het inslapen of ontwaken, en het gevoel buiten het lichaam te zijn. Nelson
+betoogt dat een lichaam in doodsnood dezelfde vermenging vertoont.
+
+**De verschijnselen stuk voor stuk**
+
+Nelson pluist de klassieke bijna-doodervaring uiteen en wijst per onderdeel
+een mechanisme aan. De tunnel en het licht brengt hij terug op het wegvallen
+van de bloedtoevoer naar het netvlies, dat van de rand naar het midden
+dichttrekt en zo een vernauwend gezichtsveld met een helder centrum oplevert.
+De uittreding legt hij bij verstoring op de overgang van slaapkwab en
+pariëtale kwab, waar het lichaamsbeeld wordt samengesteld.
+
+Het gevoel van aanwezigheid, van betekenis en van onbeschrijfelijkheid legt
+hij bij het limbisch stelsel, dat bij REM sterk actief is. De diepe rust en
+het verdwijnen van de angst schrijft hij toe aan de omslag in het
+opwindingsstelsel: een lichaam dat op de vlucht niet meer verder kan schakelt
+over naar stilliggen, en dat is een oude reactie die door de dierenwereld heen
+te volgen valt.
+
+**Deel drie: de andere kant**
+
+Het slotdeel behandelt de vraag die het boek van de meeste sceptische
+literatuur onderscheidt: berooft een biologische verklaring de ervaring van
+haar waarde? Nelson antwoordt van niet. Dat de hersenen een doorgang bieden,
+zegt volgens hem niets over wat er aan de andere kant van die doorgang zou
+zijn; de neurologie kan meten hoe een ervaring tot stand komt en niet of
+datgene waarnaar zij verwijst bestaat.
+
+Die terughoudendheid is bij hem geen bijzin. Hij benadrukt herhaaldelijk dat
+zijn verklaring de vraag naar God niet aanraakt, en hij schrijft de ervaring
+geen bedrog of stoornis toe. Oliver Sacks noemde het boek in een aanbeveling
+een uiteenzetting van hoe evolutionair ontstane mechanismen religieuze taken
+kunnen vervullen, zonder de ervaring te verkleinen.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| REM-inmenging | Het doordringen van kenmerken van de droomslaap in de waaktoestand, zoals verlamming, beelden zonder prikkel en sterke emotie. |
+| opwindingsstelsel | Het netwerk in de hersenstam dat waken, droomslaap en droomloze slaap uit elkaar houdt en dat volgens Nelson bij een bijna-doodervaring de toestanden vermengt. |
+| grensland | Nelsons term voor de overgangszone tussen de bewustzijnstoestanden, waar de meeste van de door hem behandelde ervaringen ontstaan. |
+| slaapverlamming | Het wakker worden terwijl de spierverlamming van de droomslaap nog aanhoudt, vaak samen met een gevoel van aanwezigheid en met beelden. |
+| kataplexie | Het plotseling wegvallen van spierspanning bij hevige emotie, dat samen met slaapverlamming en hallucinaties in zijn vragenlijst als aanwijzing voor REM-inmenging telt. |
+| vasovagale flauwte | De kortdurende bewusteloosheid door een val in bloeddruk en hartslag, die volgens Nelson de meest voorkomende toegang tot het grensland vormt. |
+| limbisch stelsel | De diep gelegen structuren voor emotie en betekenistoekenning, die bij droomslaap sterk actief zijn en die het gevoel van gewicht en waarheid aan de ervaring geven. |
+| temporopariëtale overgang | Het gebied waar slaapkwab en pariëtale kwab samenkomen en waar het lichaamsbeeld wordt samengesteld; verstoring daar levert het gevoel buiten het lichaam te zijn. |
+| uittreding | De ervaring het eigen lichaam van buitenaf te zien, die volgens zijn gegevens even waarschijnlijk is tijdens de overgang van waken naar slapen als tijdens een bijna-doodervaring. |
+| retinale ischemie | Het bloedtekort in het netvlies dat het gezichtsveld van buiten naar binnen laat dichtvallen en zo het tunnelbeeld met het licht in het midden oplevert. |
+
+#### Waar het argument op rust
+
+De belangrijkste steun is Nelsons eigen onderzoek in Neurology uit 2006, samen
+met Michelle Mattingly, Sherman Lee en Frederick Schmitt. Vijfenvijftig mensen
+die een bijna-doodervaring hadden gemeld werden vergeleken met vijfenvijftig
+naar leeftijd en geslacht gelijkgestelde controlepersonen. Zestig procent van
+de eerste groep rapporteerde ten minste één aanwijzing voor REM-inmenging,
+tegen vierentwintig procent van de tweede. In 2007 volgde in hetzelfde
+tijdschrift het gegeven dat een uittreding ongeveer even waarschijnlijk is
+tijdens een bijna-doodervaring als tijdens de overgang tussen waken en slapen.
+
+Daarnaast leunt hij op onderzoek dat de hele reeks verschijnselen zonder
+doodsgevaar opwekt. Thomas Lempert en collega's brachten bij gezonde
+vrijwilligers een flauwte teweeg door hyperventilatie, rechtop komen en persen
+te combineren; van de tweeënveertig deelnemers die werkelijk buiten bewustzijn
+raakten, gedurende gemiddeld twaalf seconden, meldden er vijfentwintig beelden
+en klanken, waaronder het gevoel buiten het lichaam te zijn en ontmoetingen
+met gestalten. Enkelen gaven aan met tegenzin te zijn teruggekeerd. Dat maakt
+aannemelijk dat het verschijnsel niet aan de nabijheid van de dood gebonden
+is.
+
+De zwakke plek van de opzet is dat het om een samenhang gaat in een steekproef
+die zichzelf heeft aangemeld. Een verband tussen REM-inmenging en het melden
+van een bijna-doodervaring legt de richting van het verband niet vast, en
+Nelson erkent dat zijn benadering retrospectief moet zijn omdat de
+aanleidingen tot een bijna-doodervaring divers zijn en zich meestal buiten het
+ziekenhuis voordoen.
+
+#### Wat er tegen in te brengen valt
+
+Bruce Greyson en Jeffrey Long dienden in 2006 in Neurology een reactie in met
+vier bezwaren. De groep met bijna-doodervaringen bestond uit mensen die hun
+verhaal al op internet hadden gedeeld, en die zijn eerder bereid ongewone
+ervaringen toe te geven. De vragen over slaapverlamming stonden voor die groep
+ingebed in een internetenquête over ongewone ervaringen, terwijl de
+controlegroep dezelfde vragen in een gesprek kreeg voorgelegd. De
+controlegroep bestond uit medewerkers van een ziekenhuis en hun kennissen, die
+er belang bij hebben verschijnselen die zij als ziekelijk herkennen niet te
+bevestigen; dat zeven procent van hen hallucinaties bij het inslapen meldde,
+tegen ongeveer een kwart in de algemene bevolking, wijst daar volgens hen op.
+
+Inhoudelijk voerden zij aan dat angst kenmerkend is voor slaapverlamming en
+juist zeldzaam bij een bijna-doodervaring, dat zulke ervaringen ook optreden
+onder algehele verdoving en onder middelen die de droomslaap onderdrukken, en
+dat de samenhang net zo goed andersom kan lopen: een bijna-doodervaring zou de
+kans op latere REM-inmenging kunnen vergroten, zoals dat bij posttraumatische
+stress gebeurt. Hun slotsom was dat de oorzaak vermoedelijk uit meerdere
+factoren bestaat en dat het onverstandig is één mechanisme als verklaring te
+nemen.
+
+Nelson antwoordde in hetzelfde nummer. Hij erkende de punten, wees erop dat
+ook prospectief onderzoek onder overlevenden van een hartstilstand slechts een
+smalle deelgroep vangt, namelijk wie voldoende geheugen en taal overhoudt om
+te vertellen, en dat cijfers over REM-inmenging sterk van de methode afhangen,
+wat de reden was om naar leeftijd en geslacht gelijkgestelde controles te
+gebruiken. Elders stelde hij dat REM-inmenging niet alles verklaart en dat er
+meerdere factoren samenkomen. Dat is een ruimhartiger stellingname dan het
+boek op de omslag suggereert.
+
+Sindsdien is de balans iets opgeschoven. Daniel Kondziella en collega's legden
+de vraag in 2019 voor aan 1034 volwassenen uit vijfendertig landen, geworven
+zonder voorselectie op belangstelling voor het onderwerp, wat een groot deel
+van het selectiebezwaar wegneemt. Tien procent meldde een bijna-doodervaring,
+en aanwijzingen voor REM-inmenging kwamen daar vaker voor, zevenenveertig
+procent, dan bij mensen met een zwakkere ervaring, zesentwintig procent, of
+zonder, veertien procent. De samenhang bleef ook na correctie overeind. Over
+de richting van de oorzaak zegt ook dit onderzoek niets.
+
+Het bredere vakgebied is inmiddels verder. Charlotte Martial en collega's
+stelden in 2025 in Nature Reviews Neurology een overkoepelend model voor
+waarin REM-inmenging één factor is naast zuurstoftekort, oplopend
+koolzuurgehalte en de gemeenschappelijke werking van psychedelica, met een
+sleutelrol voor de overgang van slaapkwab, pariëtale en achterhoofdskwab. Ook
+dat model verklaart niet alles: het levensoverzicht en het gevoel bij een punt
+van geen terugkeer te staan blijven onverklaard. Er verscheen prompt een
+tegenartikel over de grenzen van neurocentrische modellen. Het boek van Nelson
+is dus een tussenstand uit 2011, geen eindpunt.
+
+Wat het boek niet doet, en niet pretendeert te doen, is de vraag beslechten of
+iemand tijdens een hartstilstand iets waarneemt dat achteraf niet te
+reconstrueren valt. Nelson claimt dat nergens, maar lezers aan beide zijden
+van het debat gebruiken zijn boek alsof hij dat wel deed.
+
+#### Wat er concreet mee te doen is
+
+- Lees deel twee voor het mechanisme; deel één geeft de grondslag en deel drie
+de duiding.
+- Let per verschijnsel op of Nelson een eigen meting aanhaalt of een
+verklaring voorstelt; hij wisselt daar zonder aankondiging tussen.
+- Leg zijn onderzoek uit 2006 naast de reactie van Greyson en Long in
+hetzelfde tijdschrift; die is kort en benoemt precies waar de opzet wringt.
+- Neem het onderzoek van Kondziella uit 2019 erbij voor een steekproef die het
+selectiebezwaar grotendeels ondervangt.
+
+#### Wat je hierna leest
+
+- 585. Dying to Live. Blackmore gaf achttien jaar eerder een verwante
+verklaring, met het uiteenvallen van het lichaamsmodel als kern in plaats van
+de droomslaap; samen dekken beide boeken de sceptische kant van het debat.
+- 1173. The Spiritual Brain. Beauregard en O'Leary behandelen hetzelfde
+materiaal en komen tot de tegenovergestelde slotsom; het verschil zit vooral
+in wat beide boeken als bewijs laten gelden.
+- 936. The Varieties of Religious Experience. James liet al in 1902 zien dat
+een natuurlijke verklaring van een religieuze ervaring en het serieus nemen
+van die ervaring elkaar niet uitsluiten, precies de houding die Nelson
+inneemt.
+- 1159. Altered States of Consciousness. Tart bracht in 1969 de bundel bijeen
+die het vocabulaire voor veranderde bewustzijnstoestanden vastlegde waarin
+Nelson nog steeds werkt.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
@@ -179432,73 +180396,74 @@ Alfabetisch, met de nummers van de titels die de tag dragen.
 `1906` 127 · `1908` 378 · `1937` 76 · `1938` 58 · `1952` 83 ·
 `19e-eeuws-Duitsland` 391 · `aanbod` 307 · `aandacht` 17, 34, 54, 70, 71, 78,
 141, 205, 209, 248, 288, 326, 333, 341, 390, 441, 461, 517, 579, 581, 700,
-800, 802 · `aandeelhouders` 567 · `aandelen` 474, 481, 804 · `aannames` 27 ·
-`aanpassingsvermogen` 157, 252 · `aansprakelijkheid` 827 · `aantekeningen` 81
-· `aantekeningen maken` 420 · `aanwezigheid` 149, 435 · `aarde` 92 ·
-`abonnees` 369 · `absurdisme` 173 · `academisch` 143 · `acausaliteit` 362 ·
-`acceptance and commitment therapy` 457, 460 · `achttiende eeuw` 321 ·
-`acteren` 385 · `actie` 427 · `actualiteit` 237 · `actueel` 67 · `adel` 235 ·
-`ademhaling` 87, 118, 318, 332, 432 · `adleriaanse-psychologie` 335 ·
-`advaita` 527, 1101 · `advaita vedanta` 520, 1102 · `adventisme` 1138 ·
-`adverteren` 308 · `advies` 473 · `adviespraktijk` 151 · `adviseren` 511 ·
-`affirmaties` 117, 184, 188, 190, 380, 403, 439, 560 · `afhankelijkheid` 167 ·
-`afleiding` 290 · `aforismen` 2, 17, 179, 216, 218, 228, 391, 394, 462, 473,
-535, 832 · `afrika` 589, 591, 593, 594, 595, 596, 597, 599, 600, 602, 1111,
-1112, 1113 · `afrikaanse diaspora` 601 · `afrocentrisme` 588, 589, 591, 592,
-593, 595, 597 · `afscheid nemen` 285 · `afschrikking` 217 · `afvallen` 557 ·
-`afwezige-vader` 4 · `agenda` 512 · `agressie` 223, 339 · `alchemie` 631, 633,
-642, 646, 1104, 1154 · `alcohol` 4 · `algoritmen` 476, 477, 479 · `alledaags`
-89 · `alledaagse werkelijkheid` 721 · `allegorie` 222, 524, 631, 1107 ·
-`allocatie` 507, 813 · `amazon` 257 · `ambacht` 6, 12, 13, 17, 18, 832 ·
-`ambitie` 75 · `amerika` 600 · `Amerika` 114, 431 · `amerikaans` 117, 118,
-120, 132, 133, 134, 136, 158 · `amerikaanse buitenlandpolitiek` 693, 694 ·
-`amerikaanse droom` 284 · `amerikaanse geschiedenis` 621, 691, 827, 1147 ·
-`Amerikaanse geschiedenis` 402 · `amerikaanse revolutie` 243, 924 ·
-`Amsterdam` 295 · `anarchisme` 616, 620, 621, 624, 625, 626, 916, 917, 926 ·
-`anarchokapitalisme` 627, 629 · `anatomie` 241, 412, 1128 · `Andalusië` 8 ·
-`Andes` 521 · `angst` 53, 58, 107, 119, 131, 136, 140, 181, 214, 252, 341,
-401, 440, 548, 1168 · `angst voor de dood` 377 · `animatie` 41 · `anomie` 715
-· `Antarctica` 36 · `anthologie` 189 · `antieke filosofie` 586 ·
-`antropologie` 223, 410, 602, 716, 717, 718, 719, 722, 723, 758, 764, 1115,
-1169 · `antwerpen` 113 · `apartheid` 26, 523 · `Apple` 46, 231 · `apps` 294 ·
-`arbeid` 6, 173, 297, 390, 905 · `arbeidsethos` 266 · `archeologie` 600, 762,
-1117, 1139, 1149, 1155 · `archetype` 360 · `archetypen` 357, 404, 407, 409,
-410, 1123 · `Argentinië` 521 · `argumentatie` 421, 437, 511 · `argumenten` 63
-· `argumenteren` 438 · `Aristoteles` 438 · `armoede` 26, 234, 254 ·
-`Arthashastra` 370 · `assertiviteit` 162 · `astrologie` 632, 836, 1118, 1119,
-1123 · `asymmetrie` 282 · `atletiek` 31 · `atomisme` 281 · `Auschwitz` 48 ·
-`Australië` 447 · `autobiografie` 358, 440, 1108 · `automatisering` 297, 539 ·
-`autonomie` 6, 50 · `autoriteit` 215 · `autotelie` 200 · `ayahuasca` 759 ·
-`backtesten` 482, 502 · `banken en verzekeraars` 497 · `barok` 216 ·
-`basisbehoeften` 107 · `bbc` 82 · `bedrijfsbestuur` 567 · `bedrijfscultuur`
-170, 257, 270 · `bedrijfsgroei` 350 · `bedrijfsleven` 209, 293, 903 ·
-`bedrijfsonderzoek` 353 · `bedrijfssystemen` 264 · `beeldcultuur` 563, 828 ·
-`beeldverhaal` 561 · `beginners` 112 · `behoeften` 35 · `beinvloeding` 123,
-126 · `beïnvloeding` 399 · `bekentenis` 60 · `belangenverstrengeling` 138, 752
-· `beleggen` 21, 64, 144, 233, 277, 351, 474, 476, 477, 478, 479, 480, 481,
-482, 483, 484, 485, 486, 489, 490, 492, 496, 498, 499, 500, 501, 502, 503,
-504, 505, 804, 807, 808, 810, 811, 812, 813, 814, 815, 816, 817 · `beleid` 65
-· `belichaamde cognitie` 755 · `beloningssysteem` 418 · `bemiddeling` 35 ·
-`beroemdheden` 128 · `beroemdheid` 563 · `beschadigd-bestand` 115, 130 ·
-`beschaving` 57, 593, 820, 939 · `beslissen` 55 · `beslissingen` 197 ·
-`besluiten` 47, 59, 69, 137 · `besluitvorming` 151, 166, 170, 174, 209, 270,
-282, 283, 293, 299, 364, 396, 423, 424, 426, 450, 451, 468, 475, 510, 906,
-908, 909 · `bestseller` 8, 37, 250 · `betekenis` 143 · `bethel` 559 ·
-`betrokkenheid` 472 · `beurs` 80, 488, 814 · `beurshandel` 487 · `beurskrach`
-809 · `beursrendement` 353 · `beweging` 77, 84, 1131 · `bewijs` 63, 658, 660 ·
-`bewustwording` 103 · `bewustzijn` 148, 169, 200, 275, 340, 377, 518, 580,
-585, 652, 663, 759, 760, 761, 763, 767, 918, 927, 928, 1156, 1158, 1159, 1160,
-1161, 1162, 1163, 1164, 1165, 1166, 1167 · `bewustzijnsniveaus` 449 · `bezit`
-37 · `bhagavad gita` 569 · `bias` 209 · `bijeenkomsten` 304 · `bijgeloof` 63 ·
-`bijna-doodervaring` 585 · `biografie` 31, 46, 189, 231, 240, 241, 243, 247,
-266, 267, 269, 320, 328, 402, 454, 514, 537, 558, 649, 658, 659, 689, 821,
-905, 1124, 1153 · `biohacking` 316 · `biologie` 66, 88, 89, 90, 91, 322, 663,
-818, 823, 941, 949, 950, 1120 · `biologie van gedrag` 273 · `biologische klok`
-326, 329, 552 · `biotechnologie` 236, 413 · `blackjack` 505 · `bloedvaten` 86
-· `bloedwaarden` 313 · `bloemlezing` 758 · `blokkade` 14 · `boeddhisme` 111,
-287, 333, 341, 401, 528, 755, 1106, 1109, 1110, 1124, 1125, 1168 ·
-`bootstrapping` 369 · `brainstormen` 33 · `branding` 443 · `brein` 414 ·
-`brieven` 292, 517 · `broers` 10 · `bronnenkritiek` 691, 1143, 1146 ·
+800, 802, 1172 · `aandeelhouders` 567 · `aandelen` 474, 481, 804 · `aannames`
+27 · `aanpassingsvermogen` 157, 252 · `aansprakelijkheid` 827 ·
+`aantekeningen` 81 · `aantekeningen maken` 420 · `aanwezigheid` 149, 435 ·
+`aarde` 92 · `abonnees` 369 · `absurdisme` 173 · `academisch` 143 ·
+`acausaliteit` 362 · `acceptance and commitment therapy` 457, 460 ·
+`achttiende eeuw` 321 · `acteren` 385 · `actie` 427 · `actualiteit` 237 ·
+`actueel` 67 · `adel` 235 · `ademhaling` 87, 118, 318, 332, 432 ·
+`adleriaanse-psychologie` 335 · `advaita` 527, 1101 · `advaita vedanta` 520,
+1102 · `adventisme` 1138 · `adverteren` 308 · `advies` 473 · `adviespraktijk`
+151 · `adviseren` 511 · `affirmaties` 117, 184, 188, 190, 380, 403, 439, 560 ·
+`afhankelijkheid` 167 · `afleiding` 290 · `aforismen` 2, 17, 179, 216, 218,
+228, 391, 394, 462, 473, 535, 832 · `afrika` 589, 591, 593, 594, 595, 596,
+597, 599, 600, 602, 1111, 1112, 1113 · `afrikaanse diaspora` 601 ·
+`afrocentrisme` 588, 589, 591, 592, 593, 595, 597 · `afscheid nemen` 285 ·
+`afschrikking` 217 · `afvallen` 557 · `afwezige-vader` 4 · `agenda` 512 ·
+`agressie` 223, 339 · `alchemie` 631, 633, 642, 646, 1104, 1154 · `alcohol` 4
+· `algoritmen` 476, 477, 479 · `alledaags` 89 · `alledaagse werkelijkheid` 721
+· `allegorie` 222, 524, 631, 1107 · `allocatie` 507, 813 · `amazon` 257 ·
+`ambacht` 6, 12, 13, 17, 18, 832 · `ambitie` 75 · `amerika` 600 · `Amerika`
+114, 431 · `amerikaans` 117, 118, 120, 132, 133, 134, 136, 158 · `amerikaanse
+buitenlandpolitiek` 693, 694 · `amerikaanse droom` 284 · `amerikaanse
+geschiedenis` 621, 691, 827, 1147 · `Amerikaanse geschiedenis` 402 ·
+`amerikaanse revolutie` 243, 924 · `Amsterdam` 295 · `anarchisme` 616, 620,
+621, 624, 625, 626, 916, 917, 926 · `anarchokapitalisme` 627, 629 · `anatomie`
+241, 412, 1128 · `Andalusië` 8 · `Andes` 521 · `angst` 53, 58, 107, 119, 131,
+136, 140, 181, 214, 252, 341, 401, 440, 548, 1168 · `angst voor de dood` 377 ·
+`animatie` 41 · `anomie` 715 · `Antarctica` 36 · `anthologie` 189 · `antieke
+filosofie` 586 · `antropologie` 223, 410, 602, 716, 717, 718, 719, 722, 723,
+758, 764, 1115, 1169 · `antwerpen` 113 · `apartheid` 26, 523 · `Apple` 46, 231
+· `apps` 294 · `arbeid` 6, 173, 297, 390, 905 · `arbeidsethos` 266 ·
+`archeologie` 600, 762, 1117, 1139, 1149, 1155 · `archetype` 360 ·
+`archetypen` 357, 404, 407, 409, 410, 1123 · `Argentinië` 521 · `argumentatie`
+421, 437, 511 · `argumenten` 63 · `argumenteren` 438 · `Aristoteles` 438 ·
+`armoede` 26, 234, 254 · `Arthashastra` 370 · `assertiviteit` 162 ·
+`astrologie` 632, 836, 1118, 1119, 1123 · `asymmetrie` 282 · `atletiek` 31 ·
+`atomisme` 281 · `Auschwitz` 48 · `Australië` 447 · `autobiografie` 358, 440,
+1108 · `automatisering` 297, 539 · `autonomie` 6, 50 · `autoriteit` 215 ·
+`autotelie` 200 · `ayahuasca` 759 · `backtesten` 482, 502 · `banken en
+verzekeraars` 497 · `barok` 216 · `basisbehoeften` 107 · `bbc` 82 ·
+`bedrijfsbestuur` 567 · `bedrijfscultuur` 170, 257, 270 · `bedrijfsgroei` 350
+· `bedrijfsleven` 209, 293, 903 · `bedrijfsonderzoek` 353 · `bedrijfssystemen`
+264 · `beeldcultuur` 563, 828 · `beeldverhaal` 561 · `beginners` 112 ·
+`behoeften` 35 · `beinvloeding` 123, 126 · `beïnvloeding` 399 · `bekentenis`
+60 · `belangenverstrengeling` 138, 752 · `beleggen` 21, 64, 144, 233, 277,
+351, 474, 476, 477, 478, 479, 480, 481, 482, 483, 484, 485, 486, 489, 490,
+492, 496, 498, 499, 500, 501, 502, 503, 504, 505, 804, 807, 808, 810, 811,
+812, 813, 814, 815, 816, 817 · `beleid` 65 · `belichaamde cognitie` 755 ·
+`beloningssysteem` 418 · `bemiddeling` 35 · `beroemdheden` 128 · `beroemdheid`
+563 · `beschadigd-bestand` 115, 130 · `beschaving` 57, 593, 820, 939 ·
+`beslissen` 55 · `beslissingen` 197 · `besluiten` 47, 59, 69, 137 ·
+`besluitvorming` 151, 166, 170, 174, 209, 270, 282, 283, 293, 299, 364, 396,
+423, 424, 426, 450, 451, 468, 475, 510, 906, 908, 909 · `bestseller` 8, 37,
+250 · `betekenis` 143 · `bethel` 559 · `betrokkenheid` 472 · `beurs` 80, 488,
+814 · `beurshandel` 487 · `beurskrach` 809 · `beursrendement` 353 · `beweging`
+77, 84, 1131 · `bewijs` 63, 658, 660 · `bewustwording` 103 · `bewustzijn` 148,
+169, 200, 275, 340, 377, 518, 580, 585, 652, 663, 759, 760, 761, 763, 767,
+918, 927, 928, 1156, 1158, 1159, 1160, 1161, 1162, 1163, 1164, 1165, 1166,
+1167, 1171, 1172, 1173, 1174 · `bewustzijnsniveaus` 449 · `bezit` 37 ·
+`bhagavad gita` 569 · `bias` 209 · `bijeenkomsten` 304 · `bijgeloof` 63 ·
+`bijna-doodervaring` 585, 1174 · `biografie` 31, 46, 189, 231, 240, 241, 243,
+247, 266, 267, 269, 320, 328, 402, 454, 514, 537, 558, 649, 658, 659, 689,
+821, 905, 1124, 1153 · `biohacking` 316 · `biologie` 66, 88, 89, 90, 91, 322,
+663, 818, 823, 941, 949, 950, 1120 · `biologie van gedrag` 273 · `biologische
+klok` 326, 329, 552 · `biotechnologie` 236, 413 · `blackjack` 505 ·
+`bloedvaten` 86 · `bloedwaarden` 313 · `bloemlezing` 758 · `blokkade` 14 ·
+`boeddhisme` 111, 287, 333, 341, 401, 528, 755, 1106, 1109, 1110, 1124, 1125,
+1168 · `bootstrapping` 369 · `brainstormen` 33 · `branding` 443 · `brein` 414
+· `brieven` 292, 517 · `broers` 10 · `bronnenkritiek` 691, 1143, 1146 ·
 `bronnenuitgave` 641 · `budgetteren` 159, 233, 464 · `buitenlandse hulp` 221 ·
 `burgerlijk verzet` 617 · `burgerschap` 243 · `burn-out` 135, 207, 400, 551,
 552 · `bushido` 535 · `cafeïne` 52 · `Californië` 10 · `carl jung` 258 ·
@@ -179513,15 +180478,15 @@ Alfabetisch, met de nummers van de titels die de tag dragen.
 147, 153, 373 · `cognitieve herstructurering` 177 · `cognitieve
 neurowetenschap` 763 · `cognitieve psychologie` 759 · `cognitieve vertekening`
 234 · `cognitieve wetenschap` 467 · `cognitieve-bias` 59 ·
-`cognitiewetenschap` 755, 767 · `collectief bewustzijn` 435 · `collectief
-onbewuste` 357, 360, 362 · `columns` 89, 90 · `coma` 763 · `comfortzone` 187 ·
-`commando` 97 · `communicatie` 34, 35, 122, 145, 152, 156, 162, 164, 183, 186,
-193, 213, 305, 338, 356, 398, 399, 444, 466, 475, 539, 555 · `communisme` 625
-· `complexiteit` 170, 268, 300, 347, 423 · `complimenten geven` 356 ·
-`complotdenken` 667, 668, 672, 676, 683, 684, 688, 690, 914, 915, 916, 917,
-920, 921, 923, 925, 926, 931, 1142, 1143, 1145, 1146, 1147, 1150, 1152 ·
-`complottheorie` 680 · `concentratie` 70, 441, 802 · `concurrentie` 293, 902 ·
-`conditionering` 61, 519 · `conflict` 35, 42, 43, 212, 305 ·
+`cognitiewetenschap` 755, 767, 1172 · `collectief bewustzijn` 435 ·
+`collectief onbewuste` 357, 360, 362 · `columns` 89, 90 · `coma` 763 ·
+`comfortzone` 187 · `commando` 97 · `communicatie` 34, 35, 122, 145, 152, 156,
+162, 164, 183, 186, 193, 213, 305, 338, 356, 398, 399, 444, 466, 475, 539, 555
+· `communisme` 625 · `complexiteit` 170, 268, 300, 347, 423 · `complimenten
+geven` 356 · `complotdenken` 667, 668, 672, 676, 683, 684, 688, 690, 914, 915,
+916, 917, 920, 921, 923, 925, 926, 931, 1142, 1143, 1145, 1146, 1147, 1150,
+1152 · `complottheorie` 680 · `concentratie` 70, 441, 802 · `concurrentie`
+293, 902 · `conditionering` 61, 519 · `conflict` 35, 42, 43, 212, 305 ·
 `conflictbemiddeling` 304 · `conflicthantering` 271 · `conformisme` 211 ·
 `consistentie` 553 · `consument` 703, 704 · `consumptie` 463 ·
 `consumptiekeuzes` 299 · `consumptiemaatschappij` 564 · `content` 308 ·
@@ -179615,105 +180580,106 @@ vrijheid` 277 · `financiële wiskunde` 497, 507, 810 · `financiële-discipline
 `geestelijke oefeningen` 586 · `gegevensanalyse` 486 · `gehechtheid` 166 ·
 `geheim genootschap` 202 · `geheime diensten` 665, 668, 684, 685, 750, 1141,
 1147 · `geheime genootschappen` 751 · `geheugen` 66, 85, 175, 414, 766, 801,
-1143, 1144 · `gehoorzaamheid` 215, 617 · `geïllustreerd boek` 176 · `geld` 21,
-37, 38, 56, 76, 121, 132, 133, 158, 159, 433, 463, 464 · `geldmanagement` 492,
-493 · `geldmindset` 395 · `geldpsychologie` 233, 264 · `geldstelsel` 680 ·
-`geloof` 45, 83, 201, 554 · `geluk` 79, 93, 160, 228, 335, 516, 526, 579 ·
-`gemeenschap` 9, 96, 304, 461 · `genealogie` 601 · `geneeskunde` 49, 328, 823,
-1127, 1129, 1135, 1136 · `geneesmiddelen` 752, 1133 · `generaties` 114 ·
-`generatieve drift` 315 · `genetica` 413, 419, 818, 941, 1157 · `genezing` 340
-· `genot en pijn` 314 · `gentechnologie` 413 · `geografie` 825 · `geologie`
-239 · `geopolitiek` 220, 692, 694 · `geschiedenis` 30, 36, 56, 57, 68, 93, 94,
-212, 218, 250, 258, 298, 328, 381, 425, 440, 588, 589, 591, 593, 595, 597,
-598, 600, 619, 634, 665, 667, 681, 682, 683, 684, 685, 687, 689, 690, 693,
-806, 807, 821, 833, 931, 935, 939, 944, 1141, 1145, 1150 · `geschiedenis van
-de geneeskunde` 412, 1132 · `geschiedfilosofie` 235 · `geschiedschrijving`
-601, 602, 1155 · `gesprek` 43, 95, 302, 444 · `gesprekstechniek` 182, 186, 438
-· `getallen` 657, 835 · `gevangenendilemma` 453 · `gevolgen` 67 · `gewaarzijn`
-519 · `geweld` 45, 90, 214 · `geweldloosheid` 612 · `gewicht` 138 ·
-`gewoontelus` 238 · `gewoonten` 187, 373 · `gewoontes` 7, 11, 13, 22, 25, 58,
-70, 76, 77, 79, 88, 97, 103, 133, 134, 135, 138, 147, 157, 158, 181, 207, 208,
-224, 230, 290, 334, 382, 439, 442, 445, 513, 557 · `gewoontevorming` 146, 161,
-168, 188, 244, 291, 294, 396, 397, 411, 540 · `gezag` 62 · `gezin` 547 ·
-`gezinnen` 327 · `gezondheid` 52, 88, 171, 181, 318, 323, 329, 332, 412, 414,
-415, 823, 1128, 1129, 1131, 1133, 1134, 1138 · `gezondheidspsychologie` 458 ·
-`gezondheidszorg` 313, 317, 422, 1132 · `ggz` 104 · `giftige relaties` 429 ·
-`gijzelingsonderhandelaar` 271 · `globale werkruimte` 763 · `gnostiek` 614,
-666, 940, 1151 · `godin` 611, 1117, 1119 · `godsdienstkritiek` 341 ·
-`godsdienstpsychologie` 754 · `godsdienstwetenschap` 578, 608, 640, 641, 835,
-940, 1125, 1151 · `goeroe` 242 · `Google` 512 · `Graallegende` 408 ·
-`grandiositeit` 404 · `gratie` 374 · `grenswetenschap` 615, 1149, 1156 ·
-`grenzen` 72, 105, 109, 120, 122, 187, 466 · `grenzen stellen` 151, 204, 406,
-429 · `Griekenland` 537 · `Griekse literatuur` 536 · `griekse mythologie` 261
-· `Griekse oudheid` 530, 531 · `groei` 222 · `groeiaandelen` 474 ·
-`groeimentaliteit` 116 · `groepsdenken` 339 · `groepsgedrag` 303 ·
-`grondstoffen` 92 · `grondwet` 616, 619 · `groot-verhaal` 56 · `grootouders`
-91 · `habitus` 723 · `handboek` 493, 495 · `handel` 80, 251 · `handelen` 30,
-476, 477, 478, 479, 501 · `handelspsychologie` 488, 489 · `handelssysteem`
-489, 491 · `handelssystemen` 484, 486, 500, 502 · `handleiding` 112, 699 ·
-`hart` 86, 128 · `Harvard` 457 · `Hay House` 380 · `hechting` 145, 152, 317,
-386 · `hedendaags India` 202 · `hedgefondsen` 505, 810 · `heelal` 99, 262 ·
-`heldendom` 532 · `heldenreis` 410 · `helderheid` 82, 436 · `herhaling` 125,
-134 · `herkomst` 127 · `hermetische filosofie` 378 · `hermetisme` 613, 631,
-632, 633, 638, 639, 642, 647, 766 · `heroverwegen` 28 · `hersenen` 51, 84, 85,
-86, 327, 801, 829, 1160 · `hersenonderzoek` 330, 333, 763 · `hersenspoeling`
-384, 668 · `herstel` 87, 552, 583 · `het gesprek` 416 · `Himalaya` 191 ·
-`hindoeïsme` 169, 199, 527, 569, 1102 · `Hindoeïstische mythologie` 192, 202 ·
-`hindoemythologie` 203 · `Hinge` 166 · `hiphop` 440 · `historische portretten`
-248 · `historische roman` 529, 922, 923, 924 · `hofcultuur` 216 · `hollywood`
-555 · `Hollywood` 178 · `Holocaust` 48 · `holografie` 340 · `homoseksualiteit`
-325 · `hoop` 255, 319 · `hormonen` 80, 339 · `hospice` 416 · `houding` 117 ·
-`huisvesting` 65 · `humanisme` 236, 643 · `humor` 16, 19, 26, 105, 227, 561 ·
-`husserl` 577 · `huwelijk` 9, 34, 165 · `Huxley` 54 · `hybride werken` 512 ·
-`hypermoderne school` 831 · `hyperrealiteit` 565 · `hypnose` 123, 124, 125,
-668, 1144, 1159 · `Idaho` 45 · `ideeen` 702 · `ideeën` 206 ·
-`ideeëngeschiedenis` 269, 751, 766, 932 · `identiteit` 22, 115, 192, 261, 374,
-375, 467, 559, 1116 · `identiteitskapitaal` 51 · `ideologie` 628 · `ierland`
-110 · `IJsland` 185, 533 · `ik-vorm` 113 · `illustraties` 109, 327 ·
-`imitatie` 11 · `imperfectionisme` 442 · `import` 20 · `india` 649 · `India`
-163, 171, 172, 180, 189, 191, 196, 199, 203, 226, 242, 365, 370, 518, 520,
-527, 1101 · `individualisme` 9, 96, 624 · `individualiteit` 263 ·
-`individuatie` 359, 360, 408, 409, 646 · `individuele-verantwoordelijkheid`
-299 · `indonesië` 692 · `industrie` 348, 905 · `inheems denken` 521 ·
-`initiatie` 407, 408, 522, 921, 922, 1114 · `inleiding` 452, 456 ·
-`inlichtingendiensten` 687, 688, 689 · `innerlijk-kind` 109 ·
-`innerlijk-werkleven` 472 · `innerlijke stem` 377 · `innerlijke vrede` 548 ·
-`innovatie` 206, 251, 293, 306, 471, 901 · `instagram` 129 · `instemming` 616
-· `instituties` 392 · `integraal bewustzijn` 580 · `integriteit` 547 ·
-`intelligentie` 383, 943 · `internationale betrekkingen` 455 · `internet` 60,
-198 · `internetcultuur` 666 · `interpretatie` 764 · `interviews` 58, 277, 289
-· `intimiteit` 122, 145, 164, 165 · `introspectie` 579 · `introversie` 33, 361
-· `intuitie` 128 · `intuïtie` 214, 283, 320 · `investeren` 270, 348 ·
-`invloed` 11 · `invoeling` 577 · `inwijding` 636 · `inzicht` 587 ·
-`irrationaliteit` 424 · `islam` 526, 1108 · `islamitische filosofie` 525, 1107
-· `Israël` 514 · `Italiaanse non-fictie` 211 · `Italië` 155 · `jaloezie` 19 ·
-`japan` 902 · `Japan` 77, 205, 261, 335, 346, 379, 462, 517, 528, 535 ·
-`japanse filosofie` 576, 1106 · `jaren negentig` 348 · `jaren zestig` 750,
-1148 · `jaren-tachtig` 139 · `jaren-twintig` 94 · `jaren-vijftig` 704 ·
-`jazztijdperk` 284 · `jeff bezos` 257 · `jeugd` 53, 104, 115, 834 · `jodendom`
-630, 640, 942 · `John Harrison` 321 · `joint ventures` 348 · `jonge liefde`
-180 · `jongeren` 25 · `jongvolwassenen` 569 · `jongvolwassenenroman` 295 ·
-`joodse filosofie` 572, 574 · `journaling` 147 · `journalistiek` 4, 7, 46, 82,
-238, 257, 285, 401, 499, 566, 669, 690, 816, 903, 950 · `jung` 646, 937, 1118,
-1123, 1153, 1154 · `Jung` 143, 358, 359 · `Jungiaanse psychologie` 404, 407,
-408, 409, 410, 1121 · `kaakontwikkeling` 332 · `kabbala` 630, 634, 640, 643,
-644 · `Kabul` 184 · `Kaïn-en-Abel` 10 · `kalmte` 248, 389 · `kameraadschap`
-529 · `kanker` 419 · `kans` 64, 805 · `kansdenken` 487 · `kansen` 137 ·
-`kansrekening` 282, 456, 484, 490, 496, 504, 505, 812, 946 · `kapitalisme`
-298, 682, 821, 910, 933 · `karakter` 97, 537 · `Karel de Grote` 534 · `karma`
-184 · `karmel` 573 · `kashmir-shaivisme` 1100, 1103 · `Kasjmir` 180 ·
-`katholicisme` 672 · `keegan` 110 · `Kelly-criterium` 504, 812 · `keltische
-traditie` 611 · `kennedy` 690 · `kennedy-moord` 691 · `kennis` 81, 508 ·
-`kennis en macht` 720 · `kennisleer` 525, 587, 929, 1107, 1111, 1112 ·
-`kennissociologie` 721 · `kennistheorie` 654, 820 · `kenniswerk` 6, 50, 400,
-472 · `kernwaarden` 245 · `kernwapens` 454, 944 · `keuzes` 51, 71, 72, 510 ·
-`Kierkegaard` 405 · `kinderboek` 167 · `kinderjaren` 152 · `kinesiologie` 449
-· `klantcontact` 182, 186 · `klantpsychologie` 367 · `klantrelaties` 246 ·
-`klantvalidatie` 265 · `klantwaarde` 309 · `klassenverschil` 284 · `klassieke
-bronnen` 286, 1105 · `klassieke tekst` 219, 394 · `klassieker` 10, 24, 38, 48,
-61, 83, 127, 135, 144, 173, 213, 254, 351, 420, 520, 537, 616, 617, 618, 619,
-620, 626, 695, 696, 701, 702, 715, 716, 717, 718, 719, 754, 757, 910, 936,
-938, 948 · `kleding` 833 · `klein-beginnen` 40 · `kleine-bedrijven` 172 ·
+1143, 1144, 1171 · `gehoorzaamheid` 215, 617 · `geïllustreerd boek` 176 ·
+`geld` 21, 37, 38, 56, 76, 121, 132, 133, 158, 159, 433, 463, 464 ·
+`geldmanagement` 492, 493 · `geldmindset` 395 · `geldpsychologie` 233, 264 ·
+`geldstelsel` 680 · `geloof` 45, 83, 201, 554 · `geluk` 79, 93, 160, 228, 335,
+516, 526, 579 · `gemeenschap` 9, 96, 304, 461 · `genealogie` 601 ·
+`geneeskunde` 49, 328, 823, 1127, 1129, 1135, 1136 · `geneesmiddelen` 752,
+1133 · `generaties` 114 · `generatieve drift` 315 · `genetica` 413, 419, 818,
+941, 1157 · `genezing` 340 · `genot en pijn` 314 · `gentechnologie` 413 ·
+`geografie` 825 · `geologie` 239 · `geopolitiek` 220, 692, 694 ·
+`geschiedenis` 30, 36, 56, 57, 68, 93, 94, 212, 218, 250, 258, 298, 328, 381,
+425, 440, 588, 589, 591, 593, 595, 597, 598, 600, 619, 634, 665, 667, 681,
+682, 683, 684, 685, 687, 689, 690, 693, 806, 807, 821, 833, 931, 935, 939,
+944, 1141, 1145, 1150 · `geschiedenis van de geneeskunde` 412, 1132 ·
+`geschiedfilosofie` 235 · `geschiedschrijving` 601, 602, 1155 · `gesprek` 43,
+95, 302, 444 · `gesprekstechniek` 182, 186, 438 · `getallen` 657, 835 ·
+`gevangenendilemma` 453 · `gevolgen` 67 · `gewaarzijn` 519 · `geweld` 45, 90,
+214 · `geweldloosheid` 612 · `gewicht` 138 · `gewoontelus` 238 · `gewoonten`
+187, 373 · `gewoontes` 7, 11, 13, 22, 25, 58, 70, 76, 77, 79, 88, 97, 103,
+133, 134, 135, 138, 147, 157, 158, 181, 207, 208, 224, 230, 290, 334, 382,
+439, 442, 445, 513, 557 · `gewoontevorming` 146, 161, 168, 188, 244, 291, 294,
+396, 397, 411, 540 · `gezag` 62 · `gezin` 547 · `gezinnen` 327 · `gezondheid`
+52, 88, 171, 181, 318, 323, 329, 332, 412, 414, 415, 823, 1128, 1129, 1131,
+1133, 1134, 1138 · `gezondheidspsychologie` 458 · `gezondheidszorg` 313, 317,
+422, 1132 · `ggz` 104 · `giftige relaties` 429 · `gijzelingsonderhandelaar`
+271 · `globale werkruimte` 763 · `gnostiek` 614, 666, 940, 1151 · `godin` 611,
+1117, 1119 · `godsdienstkritiek` 341 · `godsdienstpsychologie` 754 ·
+`godsdienstwetenschap` 578, 608, 640, 641, 835, 940, 1125, 1151 · `goeroe` 242
+· `Google` 512 · `Graallegende` 408 · `grandiositeit` 404 · `gratie` 374 ·
+`grenswetenschap` 615, 1149, 1156 · `grenzen` 72, 105, 109, 120, 122, 187, 466
+· `grenzen stellen` 151, 204, 406, 429 · `Griekenland` 537 · `Griekse
+literatuur` 536 · `griekse mythologie` 261 · `Griekse oudheid` 530, 531 ·
+`groei` 222 · `groeiaandelen` 474 · `groeimentaliteit` 116 · `groepsdenken`
+339 · `groepsgedrag` 303 · `grondstoffen` 92 · `grondwet` 616, 619 ·
+`groot-verhaal` 56 · `grootouders` 91 · `habitus` 723 · `handboek` 493, 495 ·
+`handel` 80, 251 · `handelen` 30, 476, 477, 478, 479, 501 ·
+`handelspsychologie` 488, 489 · `handelssysteem` 489, 491 · `handelssystemen`
+484, 486, 500, 502 · `handleiding` 112, 699 · `hart` 86, 128 · `Harvard` 457 ·
+`Hay House` 380 · `hechting` 145, 152, 317, 386 · `hedendaags India` 202 ·
+`hedgefondsen` 505, 810 · `heelal` 99, 262 · `heldendom` 532 · `heldenreis`
+410 · `helderheid` 82, 436 · `herhaling` 125, 134 · `herkomst` 127 ·
+`hermetische filosofie` 378 · `hermetisme` 613, 631, 632, 633, 638, 639, 642,
+647, 766 · `heroverwegen` 28 · `hersenen` 51, 84, 85, 86, 327, 801, 829, 1160
+· `hersenonderzoek` 330, 333, 763 · `hersenspoeling` 384, 668 · `herstel` 87,
+552, 583 · `het gesprek` 416 · `Himalaya` 191 · `hindoeïsme` 169, 199, 527,
+569, 1102 · `Hindoeïstische mythologie` 192, 202 · `hindoemythologie` 203 ·
+`Hinge` 166 · `hiphop` 440 · `historische portretten` 248 · `historische
+roman` 529, 922, 923, 924 · `hofcultuur` 216 · `hollywood` 555 · `Hollywood`
+178 · `Holocaust` 48 · `holografie` 340 · `homoseksualiteit` 325 · `hoop` 255,
+319 · `hormonen` 80, 339 · `hospice` 416 · `houding` 117 · `huisvesting` 65 ·
+`humanisme` 236, 643 · `humor` 16, 19, 26, 105, 227, 561 · `husserl` 577 ·
+`huwelijk` 9, 34, 165 · `Huxley` 54 · `hybride werken` 512 · `hypermoderne
+school` 831 · `hyperrealiteit` 565 · `hypnose` 123, 124, 125, 668, 1144, 1159
+· `Idaho` 45 · `ideeen` 702 · `ideeën` 206 · `ideeëngeschiedenis` 269, 751,
+766, 932 · `identiteit` 22, 115, 192, 261, 374, 375, 467, 559, 1116 ·
+`identiteitskapitaal` 51 · `ideologie` 628 · `ierland` 110 · `IJsland` 185,
+533 · `ik-vorm` 113 · `illustraties` 109, 327 · `imitatie` 11 ·
+`imperfectionisme` 442 · `import` 20 · `india` 649 · `India` 163, 171, 172,
+180, 189, 191, 196, 199, 203, 226, 242, 365, 370, 518, 520, 527, 1101 ·
+`individualisme` 9, 96, 624 · `individualiteit` 263 · `individuatie` 359, 360,
+408, 409, 646 · `individuele-verantwoordelijkheid` 299 · `indonesië` 692 ·
+`industrie` 348, 905 · `inheems denken` 521 · `initiatie` 407, 408, 522, 921,
+922, 1114 · `inleiding` 452, 456 · `inlichtingendiensten` 687, 688, 689 ·
+`innerlijk-kind` 109 · `innerlijk-werkleven` 472 · `innerlijke stem` 377 ·
+`innerlijke vrede` 548 · `innovatie` 206, 251, 293, 306, 471, 901 ·
+`instagram` 129 · `instemming` 616 · `instituties` 392 · `integraal
+bewustzijn` 580 · `integriteit` 547 · `intelligentie` 383, 943 ·
+`internationale betrekkingen` 455 · `internet` 60, 198 · `internetcultuur` 666
+· `interpretatie` 764 · `interviews` 58, 277, 289 · `intimiteit` 122, 145,
+164, 165 · `introspectie` 579 · `introversie` 33, 361 · `intuitie` 128 ·
+`intuïtie` 214, 283, 320 · `investeren` 270, 348 · `invloed` 11 · `invoeling`
+577 · `inwijding` 636 · `inzicht` 587 · `irrationaliteit` 424 · `islam` 526,
+1108 · `islamitische filosofie` 525, 1107 · `Israël` 514 · `Italiaanse
+non-fictie` 211 · `Italië` 155 · `jaloezie` 19 · `japan` 902 · `Japan` 77,
+205, 261, 335, 346, 379, 462, 517, 528, 535 · `japanse filosofie` 576, 1106 ·
+`jaren negentig` 348 · `jaren zestig` 750, 1148 · `jaren-tachtig` 139 ·
+`jaren-twintig` 94 · `jaren-vijftig` 704 · `jazztijdperk` 284 · `jeff bezos`
+257 · `jeugd` 53, 104, 115, 834 · `jodendom` 630, 640, 942 · `John Harrison`
+321 · `joint ventures` 348 · `jonge liefde` 180 · `jongeren` 25 ·
+`jongvolwassenen` 569 · `jongvolwassenenroman` 295 · `joodse filosofie` 572,
+574 · `journaling` 147 · `journalistiek` 4, 7, 46, 82, 238, 257, 285, 401,
+499, 566, 669, 690, 816, 903, 950 · `jung` 646, 937, 1118, 1123, 1153, 1154 ·
+`Jung` 143, 358, 359 · `Jungiaanse psychologie` 404, 407, 408, 409, 410, 1121
+· `kaakontwikkeling` 332 · `kabbala` 630, 634, 640, 643, 644 · `Kabul` 184 ·
+`Kaïn-en-Abel` 10 · `kalmte` 248, 389 · `kameraadschap` 529 · `kanker` 419 ·
+`kans` 64, 805 · `kansdenken` 487 · `kansen` 137 · `kansrekening` 282, 456,
+484, 490, 496, 504, 505, 812, 946 · `kapitalisme` 298, 682, 821, 910, 933 ·
+`karakter` 97, 537 · `Karel de Grote` 534 · `karma` 184 · `karmel` 573 ·
+`kashmir-shaivisme` 1100, 1103 · `Kasjmir` 180 · `katholicisme` 672 · `keegan`
+110 · `Kelly-criterium` 504, 812 · `keltische traditie` 611 · `kennedy` 690 ·
+`kennedy-moord` 691 · `kennis` 81, 508 · `kennis en macht` 720 · `kennisleer`
+525, 587, 929, 1107, 1111, 1112 · `kennissociologie` 721 · `kennistheorie`
+654, 820 · `kenniswerk` 6, 50, 400, 472 · `kernwaarden` 245 · `kernwapens`
+454, 944 · `keuzes` 51, 71, 72, 510 · `Kierkegaard` 405 · `kinderboek` 167 ·
+`kinderjaren` 152 · `kinesiologie` 449 · `klantcontact` 182, 186 ·
+`klantpsychologie` 367 · `klantrelaties` 246 · `klantvalidatie` 265 ·
+`klantwaarde` 309 · `klassenverschil` 284 · `klassieke bronnen` 286, 1105 ·
+`klassieke tekst` 219, 394 · `klassieker` 10, 24, 38, 48, 61, 83, 127, 135,
+144, 173, 213, 254, 351, 420, 520, 537, 616, 617, 618, 619, 620, 626, 695,
+696, 701, 702, 715, 716, 717, 718, 719, 754, 757, 910, 936, 938, 948 ·
+`kleding` 833 · `klein-beginnen` 40 · `kleine-bedrijven` 172 ·
 `kleine-stappen` 22, 133 · `kleurboek` 327 · `klimaatfictie` 203 ·
 `klimaatverandering` 299 · `klinische psychologie` 460 · `klokkenluider` 752 ·
 `klokkenmakerij` 321 · `kolonialisme` 298, 592, 1111, 1112, 1113, 1116 ·
@@ -179807,54 +180773,54 @@ intelligentie` 236, 237, 297, 652 · `kwaad` 404 · `kwaliteit` 1, 400, 912 ·
 `neurobiologie` 119 · `neurochirurgie` 49, 414 · `neurologie` 325 ·
 `neuroplasticiteit` 175, 208, 414 · `neurose` 575 · `neurowetenschap` 52, 208,
 238, 275, 314, 326, 330, 331, 333, 339, 340, 386, 418, 513, 585, 801, 829,
-943, 1160 · `neurowetenschap-voor-kinderen` 327 · `neusademing` 318 · `new
-age` 149, 435, 449, 549, 670, 678, 679, 768, 1122, 1156 · `new thought` 259,
-380, 555 · `NeXT` 46 · `Nietzsche` 391 · `nieuwe gedachte` 127, 378 · `nieuws`
-60, 90 · `nieuwsgierigheid` 15, 28, 62, 241, 550, 803 · `Nike` 20 · `nlp` 123,
-125, 139 · `Nobelprijs` 55 · `non-dualiteit` 520, 1100, 1102 · `non-fictie`
-420 · `non-verbaal` 399 · `non-verbale communicatie` 154 · `noodlot` 533 ·
-`Noordse mythologie` 533 · `notitieboeken` 241 · `novelle` 173 · `numineus`
-578 · `obesitas` 417 · `observeren` 15 · `obsessieve liefde` 284 ·
-`occultisme` 378, 613, 634, 637, 638, 644, 676, 914, 915, 921, 924, 925, 1140,
-1147 · `ochtendroutine` 14, 134, 244 · `octopus` 760 · `oefenen` 29, 397, 800
-· `oefening` 141, 296 · `oefeningen` 15, 35, 87, 103, 109, 118, 120, 122, 130,
-549 · `okinawa` 77 · `okr` 256 · `oligarchie` 618 · `omgangsvormen` 24, 398,
-939 · `omkering` 105 · `omstreden` 37, 73, 76, 83 · `onbegrepen-klachten` 104
-· `onbetrouwbaar` 123, 124, 125, 126 · `onbetrouwbare verteller` 284 ·
-`onbewezen` 127, 128, 129, 130, 131, 132, 139 · `onbewuste` 16, 283, 358, 359
-· `onderbewuste` 124 · `onderbewustzijn` 259 · `onderbouwing` 87, 108, 117,
-134, 135, 136 · `onderhandelen` 159, 186, 217, 260, 271, 272, 305, 444, 450,
-455 · `ondernemen` 20, 39, 40, 47, 172, 446, 476 · `ondernemers` 174 ·
-`ondernemerschap` 157, 163, 185, 197, 198, 210, 222, 228, 231, 245, 249, 276,
-278, 289, 306, 307, 308, 312, 350, 365, 369, 370, 395, 403, 427, 431, 434,
-465, 544, 567, 570, 901, 905, 906, 908, 911, 913 · `onderwijs` 6, 23, 33, 45,
-63, 65, 68, 116, 237, 349, 509, 598, 667, 803, 943, 1130 · `onderwijskritiek`
-37 · `onderzoek` 23, 28, 29, 32, 33, 39, 44, 55, 62, 78, 79, 80, 84, 85, 86,
-88, 152, 305, 691, 705, 906, 909, 946, 949, 950, 951 · `onderzoeksdebat` 53 ·
-`onderzoeksethiek` 215 · `onderzoeksjournalistiek` 665, 687, 688, 692, 1148 ·
-`onderzoekskritiek` 52, 415 · `ongemak` 323 · `ongeneeslijke ziekte` 285 ·
-`online ondernemen` 309 · `onsterfelijkheid` 236, 405 · `onthechting` 462 ·
-`ontmoeten` 304 · `ontmoeting` 572 · `ontologie` 344 · `ontslagen` 47 ·
-`ontwerp` 550 · `ontwikkeling` 46, 85 · `ontwikkelingslanden` 234 ·
-`onvolmaaktheid` 379 · `onzekerheid` 268, 341, 375, 423, 515, 516 · `oordeel`
-59, 69 · `oorlog` 31, 57, 66, 364, 568 · `oorlogvoering` 218 · `oorsprong` 599
-· `opdrachten` 116 · `opgetekend` 97 · `opgeven` 249 · `opgroeien` 4, 295 ·
-`opoffering` 554 · `opties` 494, 495, 506 · `optimisme` 251 · `optogenetica`
-331 · `opvoeding` 3, 23, 29, 44, 53, 73, 162, 193, 290, 1131 · `opwekking` 558
-· `orale traditie` 522 · `orde` 73, 74 · `organisatie` 28, 41, 69, 238, 388,
-422, 468, 900, 904, 906, 911 · `organisatiecultuur` 183, 273, 353 ·
-`oriëntalisme` 720 · `orthodontie` 332 · `Orwell` 54 · `Otto Rank` 405 · `oud
-china` 272 · `Oude Rome` 328 · `Oudengels` 532 · `ouder-worden` 5 · `ouderdom`
-77, 84, 91, 95, 191, 402, 416 · `oudheid` 2, 247, 292, 536, 537, 588, 589,
-641, 765, 940, 947 · `outsourcen` 278 · `overdenken` 148 · `overfitting` 484,
-485, 502, 503 · `overgave` 431 · `overleven` 31, 36 · `overlevingsvertekening`
-64 · `overtuigen` 24, 182, 253, 356, 367, 438 · `overtuiging` 280 ·
-`overtuigingen` 28, 132, 139, 143, 469, 487, 768 · `overvloed` 17 ·
-`oxytocine` 458 · `Pacific` 31 · `pacifisme` 240, 612 · `Padma-onderscheiding`
-189 · `palliatieve zorg` 416, 447 · `para` 81 · `parabel` 38, 244, 246 ·
-`paradigma` 543 · `paranormaal` 340, 362, 669, 677, 929, 1144 ·
-`parapsychologie` 637, 1161 · `parawetenschap` 663 · `passie` 50, 198 ·
-`pastoraat` 34 · `patiëntenverhalen` 331 · `patiëntverhalen` 414 ·
+943, 1160, 1171, 1172, 1173, 1174 · `neurowetenschap-voor-kinderen` 327 ·
+`neusademing` 318 · `new age` 149, 435, 449, 549, 670, 678, 679, 768, 1122,
+1156 · `new thought` 259, 380, 555 · `NeXT` 46 · `Nietzsche` 391 · `nieuwe
+gedachte` 127, 378 · `nieuws` 60, 90 · `nieuwsgierigheid` 15, 28, 62, 241,
+550, 803 · `Nike` 20 · `nlp` 123, 125, 139 · `Nobelprijs` 55 · `non-dualiteit`
+520, 1100, 1102 · `non-fictie` 420 · `non-verbaal` 399 · `non-verbale
+communicatie` 154 · `noodlot` 533 · `Noordse mythologie` 533 · `notitieboeken`
+241 · `novelle` 173 · `numineus` 578 · `obesitas` 417 · `observeren` 15 ·
+`obsessieve liefde` 284 · `occultisme` 378, 613, 634, 637, 638, 644, 676, 914,
+915, 921, 924, 925, 1140, 1147 · `ochtendroutine` 14, 134, 244 · `octopus` 760
+· `oefenen` 29, 397, 800 · `oefening` 141, 296 · `oefeningen` 15, 35, 87, 103,
+109, 118, 120, 122, 130, 549 · `okinawa` 77 · `okr` 256 · `oligarchie` 618 ·
+`omgangsvormen` 24, 398, 939 · `omkering` 105 · `omstreden` 37, 73, 76, 83 ·
+`onbegrepen-klachten` 104 · `onbetrouwbaar` 123, 124, 125, 126 ·
+`onbetrouwbare verteller` 284 · `onbewezen` 127, 128, 129, 130, 131, 132, 139
+· `onbewuste` 16, 283, 358, 359 · `onderbewuste` 124 · `onderbewustzijn` 259 ·
+`onderbouwing` 87, 108, 117, 134, 135, 136 · `onderhandelen` 159, 186, 217,
+260, 271, 272, 305, 444, 450, 455 · `ondernemen` 20, 39, 40, 47, 172, 446, 476
+· `ondernemers` 174 · `ondernemerschap` 157, 163, 185, 197, 198, 210, 222,
+228, 231, 245, 249, 276, 278, 289, 306, 307, 308, 312, 350, 365, 369, 370,
+395, 403, 427, 431, 434, 465, 544, 567, 570, 901, 905, 906, 908, 911, 913 ·
+`onderwijs` 6, 23, 33, 45, 63, 65, 68, 116, 237, 349, 509, 598, 667, 803, 943,
+1130 · `onderwijskritiek` 37 · `onderzoek` 23, 28, 29, 32, 33, 39, 44, 55, 62,
+78, 79, 80, 84, 85, 86, 88, 152, 305, 691, 705, 906, 909, 946, 949, 950, 951 ·
+`onderzoeksdebat` 53 · `onderzoeksethiek` 215 · `onderzoeksjournalistiek` 665,
+687, 688, 692, 1148 · `onderzoekskritiek` 52, 415 · `ongemak` 323 ·
+`ongeneeslijke ziekte` 285 · `online ondernemen` 309 · `onsterfelijkheid` 236,
+405 · `onthechting` 462 · `ontmoeten` 304 · `ontmoeting` 572 · `ontologie` 344
+· `ontslagen` 47 · `ontwerp` 550 · `ontwikkeling` 46, 85 ·
+`ontwikkelingslanden` 234 · `onvolmaaktheid` 379 · `onzekerheid` 268, 341,
+375, 423, 515, 516 · `oordeel` 59, 69 · `oorlog` 31, 57, 66, 364, 568 ·
+`oorlogvoering` 218 · `oorsprong` 599 · `opdrachten` 116 · `opgetekend` 97 ·
+`opgeven` 249 · `opgroeien` 4, 295 · `opoffering` 554 · `opties` 494, 495, 506
+· `optimisme` 251 · `optogenetica` 331 · `opvoeding` 3, 23, 29, 44, 53, 73,
+162, 193, 290, 1131 · `opwekking` 558 · `orale traditie` 522 · `orde` 73, 74 ·
+`organisatie` 28, 41, 69, 238, 388, 422, 468, 900, 904, 906, 911 ·
+`organisatiecultuur` 183, 273, 353 · `oriëntalisme` 720 · `orthodontie` 332 ·
+`Orwell` 54 · `Otto Rank` 405 · `oud china` 272 · `Oude Rome` 328 ·
+`Oudengels` 532 · `ouder-worden` 5 · `ouderdom` 77, 84, 91, 95, 191, 402, 416
+· `oudheid` 2, 247, 292, 536, 537, 588, 589, 641, 765, 940, 947 · `outsourcen`
+278 · `overdenken` 148 · `overfitting` 484, 485, 502, 503 · `overgave` 431 ·
+`overleven` 31, 36 · `overlevingsvertekening` 64 · `overtuigen` 24, 182, 253,
+356, 367, 438 · `overtuiging` 280 · `overtuigingen` 28, 132, 139, 143, 469,
+487, 768 · `overvloed` 17 · `oxytocine` 458 · `Pacific` 31 · `pacifisme` 240,
+612 · `Padma-onderscheiding` 189 · `palliatieve zorg` 416, 447 · `para` 81 ·
+`parabel` 38, 244, 246 · `paradigma` 543 · `paranormaal` 340, 362, 669, 677,
+929, 1144 · `parapsychologie` 637, 1161 · `parawetenschap` 663 · `passie` 50,
+198 · `pastoraat` 34 · `patiëntenverhalen` 331 · `patiëntverhalen` 414 ·
 `patriarchaat` 3, 1155 · `pelgrimage` 8 · `pensioen` 277 · `perceptie` 30 ·
 `perfectionisme` 19, 32, 44, 575 · `persoonlijk merk` 198, 365 · `persoonlijke
 financiën` 163, 233, 395 · `persoonlijke ontwikkeling` 161, 465, 467 ·
@@ -179907,26 +180873,26 @@ studies` 720 · `postmarxisme` 628 · `postmodernisme` 565, 1170 · `postuum` 49
 `reïncarnatie` 202, 645 · `reïnventie` 344 · `reisverhaal` 1 · `reizen` 278 ·
 `relaties` 34, 51, 101, 120, 122, 145, 152, 162, 164, 166, 167, 195, 213, 334,
 335, 381, 398, 406, 466 · `relatietherapie` 165 · `relativiteitstheorie` 240,
-281, 945 · `religie` 56, 572, 596, 599, 626, 936, 937, 1138, 1170 · `religieus
-naturalisme` 609 · `religieuze beweging` 670, 1153 · `religieuze symboliek`
-409 · `religiewetenschap` 758 · `REM` 52 · `remarkable` 446 · `renaissance`
-639, 643, 766 · `Renaissance` 15, 241 · `rente` 38, 806 · `replicatie` 79 ·
-`reputatie` 388 · `retorica` 253, 438, 766 · `revisie` 18 · `revolutie` 625 ·
-`ridderepos` 534 · `ridderideaal` 822 · `rijkdom` 57, 228 · `risico` 64, 80,
-144, 268, 282, 351, 423, 425, 480, 481, 482, 487, 496, 500, 501, 804, 811,
-815, 816 · `risicobeheer` 479, 489, 490, 491, 492, 493, 494, 497, 498, 504,
-506, 810 · `ritueel` 404, 590, 608, 719, 1103, 1114, 1126, 1169 · `rituelen`
-304 · `rivier als symbool` 287 · `roem-en-eenzaamheid` 178 · `roeping` 8, 9,
-12, 160 · `roman` 61, 113, 114, 115, 254, 554, 904, 915, 916, 917, 918, 919,
-920, 921 · `Rome` 537 · `romeinse oudheid` 232 · `rouw` 95, 467 ·
-`rouwverwerking` 204 · `rozenkruisers` 631, 645 · `ruil` 717, 718 · `ruimte en
-tijd` 281 · `ruimtevaart` 266, 819 · `russische literatuur` 235 · `rust` 32 ·
-`SaaS` 434 · `sadisme` 223 · `saga` 533 · `Salinas` 10 · `samenleving` 90, 98,
-319 · `samenwerken` 25 · `samenwerking` 453 · `samoerai` 346, 462, 517, 535 ·
-`Sanskriet` 520, 1100, 1102 · `Santa Fe Institute` 347 · `satire` 155, 914,
-915, 916, 918, 919, 920, 923 · `satori` 528, 769 · `scepsis` 63, 585, 675,
-927, 929, 1108 · `schaalgroei` 434 · `schaalvergroting` 350 · `schaamte` 32,
-44, 317, 470 · `schaarste` 92, 249 · `schaduw` 404 · `schaken` 831 ·
+281, 945 · `religie` 56, 572, 596, 599, 626, 936, 937, 1138, 1170, 1173 ·
+`religieus naturalisme` 609 · `religieuze beweging` 670, 1153 · `religieuze
+symboliek` 409 · `religiewetenschap` 758 · `REM` 52 · `remarkable` 446 ·
+`renaissance` 639, 643, 766 · `Renaissance` 15, 241 · `rente` 38, 806 ·
+`replicatie` 79 · `reputatie` 388 · `retorica` 253, 438, 766 · `revisie` 18 ·
+`revolutie` 625 · `ridderepos` 534 · `ridderideaal` 822 · `rijkdom` 57, 228 ·
+`risico` 64, 80, 144, 268, 282, 351, 423, 425, 480, 481, 482, 487, 496, 500,
+501, 804, 811, 815, 816 · `risicobeheer` 479, 489, 490, 491, 492, 493, 494,
+497, 498, 504, 506, 810 · `ritueel` 404, 590, 608, 719, 1103, 1114, 1126, 1169
+· `rituelen` 304 · `rivier als symbool` 287 · `roem-en-eenzaamheid` 178 ·
+`roeping` 8, 9, 12, 160 · `roman` 61, 113, 114, 115, 254, 554, 904, 915, 916,
+917, 918, 919, 920, 921 · `Rome` 537 · `romeinse oudheid` 232 · `rouw` 95, 467
+· `rouwverwerking` 204 · `rozenkruisers` 631, 645 · `ruil` 717, 718 · `ruimte
+en tijd` 281 · `ruimtevaart` 266, 819 · `russische literatuur` 235 · `rust` 32
+· `SaaS` 434 · `sadisme` 223 · `saga` 533 · `Salinas` 10 · `samenleving` 90,
+98, 319 · `samenwerken` 25 · `samenwerking` 453 · `samoerai` 346, 462, 517,
+535 · `Sanskriet` 520, 1100, 1102 · `Santa Fe Institute` 347 · `satire` 155,
+914, 915, 916, 918, 919, 920, 923 · `satori` 528, 769 · `scepsis` 63, 585,
+675, 927, 929, 1108 · `schaalgroei` 434 · `schaalvergroting` 350 · `schaamte`
+32, 44, 317, 470 · `schaarste` 92, 249 · `schaduw` 404 · `schaken` 831 ·
 `scheiding` 556 · `scheikunde` 92, 942 · `schizofrenie` 671 · `school` 53, 84
 · `schrijven` 11, 12, 14, 18, 19, 81, 436, 511 · `schrijverschap` 191, 325,
 934 · `schuld` 254 · `schulden` 20, 38, 121, 159, 464 · `seksualiteit` 100,
@@ -179934,9 +180900,9 @@ tijd` 281 · `ruimtevaart` 266, 819 · `russische literatuur` 235 · `rust` 32 �
 `selectoraattheorie` 221 · `semantiek` 664, 930 · `seminar` 139, 543 ·
 `semiotiek` 834 · `Shaolin` 389 · `Silicon Valley` 306 · `simulatie` 565 ·
 `sirtuïnen` 415 · `situationisme` 564 · `sjamanisme` 758, 1166, 1169 · `slaap`
-52, 87, 88, 171, 181, 316, 329, 414 · `slaapapneu` 332 · `slavernij` 68 ·
-`smartphone` 53, 288 · `sociale besmetting` 303 · `sociale media` 53, 70, 194,
-198, 204, 288, 365 · `sociale psychologie` 215, 280, 302, 319 ·
+52, 87, 88, 171, 181, 316, 329, 414, 1174 · `slaapapneu` 332 · `slavernij` 68
+· `smartphone` 53, 288 · `sociale besmetting` 303 · `sociale media` 53, 70,
+194, 198, 204, 288, 365 · `sociale psychologie` 215, 280, 302, 319 ·
 `sociale-vaardigheden` 398 · `socialisme` 618 · `sociobiologie` 722 ·
 `sociologie` 300, 622, 715, 721, 723, 805, 826, 834, 939 · `soedan` 716 ·
 `soefisme` 524, 526, 1108 · `software` 276, 484 · `somberheid` 119 ·
@@ -180041,8 +181007,8 @@ opbouwen` 395 · `vermogensbeheer` 498, 813, 815 · `vermogensopbouw` 163, 264,
 1151 · `vroeg pensioen` 264 · `vrouwenhaat` 110 · `waardebeleggen` 144, 351,
 817 · `waardecreatie` 246, 508 · `waarden` 72, 142, 392, 457, 461, 553 ·
 `waardering` 24, 34, 814, 815 · `waarheid` 263 · `waarneming` 154, 283, 322,
-541, 582, 757, 767, 825, 828, 830, 930 · `wabi-sabi` 379 · `wales` 558 · `Wall
-Street` 144, 351, 499 · `wederkerigheid` 718 · `weerbaarheid` 194 ·
+541, 582, 757, 767, 825, 828, 830, 930, 1171 · `wabi-sabi` 379 · `wales` 558 ·
+`Wall Street` 144, 351, 499 · `wederkerigheid` 718 · `weerbaarheid` 194 ·
 `weerstand` 12, 538 · `welvaart` 251, 334 · `welvaartsbewustzijn` 433 ·
 `wereldbeeld` 234, 932 · `wereldbouw` 192 · `wereldorde` 681 · `werk` 70, 78,
 151, 252, 466 · `werk en rust` 512 · `werkboek` 14, 122, 150 · `werkcultuur`
@@ -180051,7 +181017,7 @@ Street` 144, 351, 499 · `wederkerigheid` 718 · `weerbaarheid` 194 ·
 `westerse filosofie` 269, 341 · `westerse psychologie` 769 · `wet van
 aantrekking` 127, 190, 433, 543 · `wetenschap` 63, 66, 93, 94, 328, 485 ·
 `wetenschap en religie` 609 · `wetenschappers` 239 · `wetenschapsfilosofie`
-483, 650, 653, 654, 664, 761, 767, 805, 929, 938, 1165, 1167 ·
+483, 650, 653, 654, 664, 761, 767, 805, 929, 938, 1165, 1167, 1173 ·
 `wetenschapsgeschiedenis` 239, 240, 321, 347, 413, 419, 633, 642, 647, 649,
 651, 654, 657, 658, 659, 660, 661, 662, 663, 805, 818, 819, 820, 823, 932,
 937, 938, 941, 944, 945, 946, 947, 948, 949, 951, 1149, 1153, 1163, 1164 ·
