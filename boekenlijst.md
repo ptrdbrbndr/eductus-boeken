@@ -2,7 +2,7 @@
 
 Leeslijst met samenvatting, rubriek en tags per titel. Engelse titels staan
 met hun Nederlandse uitgave erbij waar die is nagekeken. Status per 21
-augustus 2026: 612 titels in 20 rubrieken.
+augustus 2026: 616 titels in 20 rubrieken.
 
 Dit bestand wordt gegenereerd. Bewerk `data/boeken-*.json` en draai
 `node scripts/build.mjs`; wijzigingen die hier direct worden gemaakt gaan
@@ -27,7 +27,7 @@ bij de volgende build verloren.
 | Moed en karakter | wat iemand tegenover angst, schaamte en tegenslag zet | 25, 27, 30, 32, 44, 73, 74, 75, 97, 106, 140, 174, 189, 194, 229, 247, 248, 286, 289, 323, 324, 372, 373, 374, 375, 389, 457, 460, 467, 470, 513, 545 |
 | Overleven en getuigen | levens die op de proef werden gesteld, door de betrokkenen verteld | 26, 31, 36, 45, 48, 49, 285, 447 |
 | Geschiedenis en samenleving | de lange lijn en de tijd waarin we nu zitten | 53, 54, 56, 57, 65, 67, 68, 96, 98, 155, 217, 218, 219, 220, 221, 223, 234, 236, 237, 251, 269, 272, 297, 298, 319, 328, 393, 453, 454, 455, 521, 523, 536, 537, 568, 588, 589, 591, 592, 593, 594, 595, 597, 598, 599, 600, 601, 602 |
-| Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347, 383, 413, 539, 555 |
+| Natuur en wetenschap | de wereld zelf: stoffen, natuurkunde en wie haar uitzocht | 92, 94, 99, 239, 240, 262, 267, 281, 300, 321, 322, 347, 383, 413, 539, 555, 659, 660, 661, 662 |
 | Positief denken en manifesteren | de belofte dat gedachten de werkelijkheid maken, en wat daarvan waar is | 76, 83, 102, 108, 117, 127, 128, 129, 130, 131, 132, 136, 139, 179, 184, 188, 190, 196, 259, 340, 362, 378, 380, 403, 433, 543, 548, 549, 559, 560 |
 | Naslag en praktijk | handleidingen en lesmateriaal, geordend naar het onderwerp zelf | 112, 116, 122, 327, 421, 437, 456, 477, 478, 493, 495, 497, 498, 500, 504, 506, 507 |
 | Filosofie en mystiek | wijsgerige hoofdwerken en mystieke teksten over wat werkelijk is en hoe te leven | 572, 573, 574, 576, 577, 578, 580, 581, 582, 584, 587, 590, 596, 603, 604, 605, 606, 608, 609, 610, 611, 612, 613, 614, 615 |
@@ -122073,6 +122073,768 @@ onderzoek.
 oorlogspropaganda en medevolgzame media vanuit de tegenovergestelde politieke
 hoek.
 
+## 659. The Equation That Couldn't Be Solved
+
+Mario Livio, 2005. *The Equation That Couldn't Be Solved: How Mathematical
+Genius Discovered the Language of Symmetry* (Simon & Schuster, 2005, 353 blz.,
+ISBN 9780743258203; paperback 2006, ISBN 9780743258210). Geen Nederlandse
+vertaling gevonden in de catalogus van bibliotheek.nl, die wel vertalingen van
+andere Livio-titels vermeldt; de samenvatting is op de Engelse editie
+gebaseerd. Rubriek: natuur en wetenschap.
+Tags: `wiskunde`, `symmetrie`, `wetenschapsgeschiedenis`, `biografie`
+
+De astrofysicus Mario Livio, jarenlang verbonden aan het instituut dat de
+Hubble-ruimtetelescoop beheert, vertelt de geschiedenis van de
+vijfdegraadsvergelijking. Voor vergelijkingen tot en met de vierde graad
+bestond sinds de zestiende eeuw een oplossingsformule; voor de vijfde graad
+zocht men er bijna driehonderd jaar vergeefs naar. De Noor Niels Henrik Abel
+bewees in 1824 dat zo'n formule niet bestaat, en de Fransman Évariste Galois
+ontwikkelde het gereedschap waarmee precies te bepalen valt welke vergelijking
+wel en welke niet met wortels oplosbaar is: de groepentheorie.
+
+Beide hoofdpersonen stierven jong, Abel op zijn 26e aan tuberculose, Galois op
+zijn 20e in een duel. Livio verweeft hun levens met een rondgang langs
+symmetrie in muziek, waarneming en natuurkunde, want de groepentheorie bleek
+later de taal waarin natuurwetten worden geformuleerd. Toegankelijk
+geschreven; de wiskunde zelf blijft op afstand.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Livio stelt dat een van de vruchtbaarste ontdekkingen uit de
+wiskunde een onmogelijkheidsbewijs was. Het antwoord op de vraag waarom de
+vijfdegraadsvergelijking geen algemene oplossingsformule heeft, gevonden door
+twee twintigers die allebei jong en miskend stierven, leverde de
+groepentheorie op: het wiskundige begrippenapparaat waarmee symmetrie exact te
+beschrijven valt. Die taal bleek later de grammatica van de natuurwetten zelf,
+van de relativiteitstheorie tot de deeltjesfysica. De geschiedenis van Abel en
+Galois laat volgens Livio bovendien zien dat genialiteit geen enkele garantie
+biedt op erkenning tijdens het leven.
+
+#### De gang van het boek
+
+**Symmetrie als rode draad**
+
+De eerste hoofdstukken gaan nog niet over vergelijkingen maar over symmetrie
+in brede zin: de spiegelsymmetrie van gezichten en dieren, herhalingspatronen
+in muziek van Bach, de rol van symmetrie in waarneming en aantrekkelijkheid.
+Livio introduceert het wiskundige gezichtspunt: symmetrie is geen eigenschap
+van een vorm op zichzelf, maar van de bewerkingen die een object onveranderd
+laten, zoals spiegelen, draaien en verschuiven. Wie alle bewerkingen verzamelt
+die iets intact laten, heeft daarmee de symmetrie van dat object volledig in
+kaart gebracht.
+
+Deze invalshoek bepaalt de opzet van het boek: het historische verhaal over de
+vijfdegraadsvergelijking wordt omlijst door hoofdstukken over symmetrie in
+kunst, biologie en natuurkunde, om te tonen waar het gereedschap van Galois
+uiteindelijk terechtkwam.
+
+**Drie eeuwen vergelijkingen**
+
+Babylonische rekenaars losten rond 2000 v.Chr. al opgaven op die neerkomen op
+tweedegraadsvergelijkingen. De doorbraak bij de derde graad kwam in het Italië
+van de zestiende eeuw: Scipione del Ferro vond een oplossingsmethode, Niccolò
+Tartaglia vond haar opnieuw, en Girolamo Cardano publiceerde haar in 1545 in
+zijn *Ars Magna*, samen met de oplossing van de vierdegraadsvergelijking door
+zijn leerling Ludovico Ferrari. Daarna stokte het. Bijna driehonderd jaar
+zocht men naar een wortelformule voor de vijfde graad, de kwintiek.
+
+Joseph-Louis Lagrange analyseerde in 1770 waarom de bestaande methoden werkten
+en zag dat alles draaide om het verwisselen van de wortels van een
+vergelijking, een vooruitwijzing naar de latere groepentheorie. De Italiaan
+Paolo Ruffini publiceerde in 1799 een onvolledig bewijs dat de gezochte
+formule niet bestaat; vrijwel niemand nam er kennis van.
+
+**Abel, de straatarme Noor**
+
+Niels Henrik Abel groeide op in armoede in Noorwegen en bewees in 1824
+sluitend dat een algemene wortelformule voor de vijfdegraadsvergelijking
+onmogelijk is. Hij liet het bewijs op eigen kosten drukken, geperst op zes
+bladzijden om papier te sparen, en vond in de Europese wiskundige wereld
+nauwelijks gehoor. Een reisbeurs bracht hem naar Berlijn en Parijs, maar een
+vaste aanstelling bleef uit.
+
+Abel stierf in april 1829 op zijn 26e aan tuberculose. Twee dagen na zijn dood
+arriveerde de brief met het bericht dat Berlijn hem een professoraat aanbood.
+Livio gebruikt dit levensverhaal om te laten zien hoe weinig het
+wetenschappelijk bedrijf van de vroege negentiende eeuw was ingericht op
+talent zonder positie of beschermheer.
+
+**Galois, de romantische Fransman**
+
+Évariste Galois, geboren in 1811 bij Parijs, zakte tweemaal voor het
+toelatingsexamen van de École Polytechnique en zag zijn ingediende
+verhandelingen zoekraken of afgewezen worden, onder meer door Poisson, die het
+werk onbegrijpelijk vond. Als vurig republikein belandde hij in de gevangenis.
+In de nacht voor een duel, op twintigjarige leeftijd, schreef hij een brief
+aan zijn vriend Auguste Chevalier waarin hij zijn wiskundige ideeën
+samenvatte. De volgende ochtend, 30 mei 1832, werd hij neergeschoten; een dag
+later stierf hij.
+
+Livio doet eigen speurwerk naar de toedracht van het duel en weegt de
+theorieën: een complot van de geheime politie, een afrekening onder
+republikeinen, of een erekwestie rond Stéphanie du Motel, de jonge vrouw die
+in Galois' laatste brieven opduikt. Hij concludeert dat een duel onder
+bekenden om die kwestie de meest waarschijnlijke lezing is, en ontdoet daarmee
+de legende van veel aangekoekte romantiek.
+
+**Groepen en oplosbaarheid**
+
+Het middendeel legt uit wat een groep is: een verzameling elementen met een
+bewerking die aan een paar eenvoudige eisen voldoet, zoals de aanwezigheid van
+een neutraal element en van een omkering bij elk element. De verwisselingen
+van een aantal voorwerpen vormen zo'n groep, en Livio maakt dat concreet met
+de vijftien-puzzel en de kubus van Rubik.
+
+Galois' inzicht was dat bij elke vergelijking een groep hoort die vastlegt hoe
+de wortels onderling verwisseld kunnen worden, en dat aan de structuur van die
+groep valt af te lezen of de vergelijking met wortels oplosbaar is. Voor de
+algemene vijfdegraadsvergelijking heeft die groep een eigenschap die oplossing
+met wortels uitsluit. Daarmee was de eeuwenoude vraag beantwoord en tegelijk
+een nieuw vakgebied geboren dat niet meer over vergelijkingen ging, maar over
+structuur.
+
+**De taal van de natuur**
+
+De slothoofdstukken volgen de groepentheorie de natuurwetenschap in. Einstein
+bouwde de relativiteitstheorie op symmetrie-eisen, Emmy Noether bewees dat
+elke symmetrie van de natuurwetten een behoudswet oplevert, en het
+standaardmodel van de deeltjesfysica is rond symmetriegroepen geconstrueerd.
+Livio bespreekt ook supersymmetrie en snaartheorie, met de kanttekening dat
+experimentele bevestiging daar ontbreekt.
+
+Het laatste hoofdstuk vergelijkt de denkstijl van Abel en Galois met die van
+andere uitzonderlijke wetenschappers en vraagt wat creativiteit van deze orde
+kenmerkt. Dat deel blijft beschouwend; een theorie over genialiteit levert het
+niet op.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| kwintiek | Vergelijking van de vijfde graad, waarin de onbekende tot de vijfde macht voorkomt; het hoofdonderwerp van het boek. |
+| oplossing in radicalen | Een oplossingsformule die alleen de vier rekenbewerkingen en worteltrekkingen gebruikt, zoals de abc-formule bij de tweede graad. |
+| groep | Verzameling met een bewerking die aan enkele vaste eisen voldoet, het wiskundige gereedschap om symmetrie te beschrijven. |
+| permutatie | Een verwisseling van de volgorde van een aantal objecten, bijvoorbeeld van de wortels van een vergelijking. |
+| symmetrie-operatie | Bewerking die een object onveranderd laat, zoals draaien of spiegelen; alle operaties samen vormen de symmetriegroep van het object. |
+| oplosbare groep | Groep met een gelaagde opbouw die precies aangeeft dat de bijbehorende vergelijking met wortels op te lossen is. |
+| galoistheorie | De theorie die aan elke vergelijking een groep koppelt en uit die groep afleest wat er met de vergelijking mogelijk is. |
+| stelling van Noether | Resultaat van Emmy Noether dat elke symmetrie van de natuurwetten verbindt met een behouden grootheid, zoals energie of impuls. |
+
+#### Waar het argument op rust
+
+Het wiskundige en historische geraamte van het boek is onomstreden: de
+onoplosbaarheid van de kwintiek in radicalen en de rol van Abel, Ruffini en
+Galois daarin behoren tot de vaste kern van de wiskundegeschiedenis. Livio
+steunt op de gangbare biografische bronnen en deed voor de doodsoorzaak van
+Galois eigen archiefwerk, waarbij hij aansluit bij het ontnuchterende
+onderzoek van de natuurkundige Tony Rothman naar de duel-legende. Zijn
+afwegingen daar zijn navolgbaar en hij geeft aan wat speculatie blijft.
+
+Zwakker onderbouwd zijn de zijpaden over symmetrievoorkeur in de
+evolutiepsychologie, zoals de vraag of symmetrische gezichten aantrekkelijker
+worden gevonden; Livio geeft de studies weer maar het onderzoek op dat terrein
+is omstreden en deels niet herhaald. De natuurkundige slothoofdstukken
+beschrijven gevestigde theorie, met de eerlijke vermelding dat supersymmetrie
+bij verschijnen van het boek onbevestigd was, wat twintig jaar later nog
+altijd zo is.
+
+#### Wat er tegen in te brengen valt
+
+Het boek bestaat in feite uit twee lagen die losjes aan elkaar zijn genaaid:
+een sterk verteld dubbelportret van Abel en Galois en een reeks essayistische
+hoofdstukken over symmetrie in kunst, biologie en fysica. Recensenten vonden
+de samenhang tussen die lagen dun, en de hoofdstukken over waarneming en
+aantrekkelijkheid missen de scherpte van het historische deel.
+
+De wiskunde zelf blijft bewust op afstand. Wat een groep is wordt uitgelegd,
+maar hoe het bewijs van Abel of het criterium van Galois werkelijk in elkaar
+zit, komt de lezer niet te weten; wie dat zoekt heeft een studieboek nodig.
+Het slothoofdstuk over de aard van genialiteit blijft steken in beschouwing.
+Binnen die grenzen is het boek goed ontvangen als een van de betere populaire
+boeken over dit onderwerp.
+
+#### Wat er concreet mee te doen is
+
+- Bekijk symmetrie als verzameling bewerkingen die iets onveranderd laten; dat
+gezichtspunt maakt het begrip bruikbaar buiten de meetkunde, bijvoorbeeld voor
+structuren in muziek of software.
+- Gebruik het verhaal van Abel en Galois als waarschuwing bij het beoordelen
+van werk dat onbegrijpelijk lijkt: afwijzing door gezaghebbende beoordelaars
+zegt niet alles.
+- Lees dit boek als kennismaking en pak voor de wiskunde zelf een inleiding in
+de groepentheorie erbij.
+
+#### Wat je hierna leest
+
+- 262. A Brief History of Time. A Brief History of Time doet voor de
+kosmologie wat Livio voor de algebra doet: een groot wetenschappelijk idee
+toegankelijk maken zonder formules.
+- 240. Einstein: His Life and Universe. Einstein: His Life and Universe
+portretteert de fysicus die symmetrie tot bouwprincipe van de natuurkunde
+maakte.
+- 94. Het tijdperk van onzekerheid. Het tijdperk van onzekerheid beschrijft de
+generatie natuurkundigen die met de wiskundige taal uit dit boek de
+kwantummechanica bouwde.
+- 509. The 5 Elements of Effective Thinking. The 5 Elements of Effective
+Thinking destilleert uit de wiskundige denkpraktijk lessen voor gewone
+stervelingen.
+
+## 660. Journey through Genius
+
+William Dunham, 1990. *Journey through Genius: The Great Theorems of
+Mathematics* (John Wiley & Sons, 1990, 300 blz., ISBN 9780471500308; paperback
+bij Penguin, 1991, ISBN 9780140147391). Geen Nederlandse vertaling gevonden in
+de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie
+gebaseerd. Rubriek: natuur en wetenschap.
+Tags: `wiskunde`, `wetenschapsgeschiedenis`, `bewijs`
+
+De Amerikaanse wiskundige William Dunham behandelt twaalf grote stellingen uit
+de wiskundegeschiedenis zoals een kunsthistoricus meesterwerken behandelt: met
+de maker, de tijd en het werk zelf. Elk hoofdstuk schetst eerst de historische
+context, geeft dan het volledige bewijs van de stelling in moderne notatie, en
+sluit af met een epiloog over de doorwerking. De reis loopt van Hippocrates
+van Chios rond 440 v.Chr. via Euclides, Archimedes, Heron, Cardano, Newton, de
+Bernoulli's en Euler naar Cantor aan het eind van de negentiende eeuw.
+
+Het boek onderscheidt zich van de meeste populaire wiskundeboeken doordat de
+bewijzen er echt in staan; middelbareschoolwiskunde volstaat, maar meelezen
+met pen en papier is nodig. Sinds verschijnen geldt het als een van de
+geslaagdste pogingen om wiskunde als scheppend werk te tonen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Dunham stelt dat grote wiskundige stellingen dezelfde
+behandeling verdienen als grote schilderijen en symfonieën: ze zijn
+scheppingen van personen in een tijd en een cultuur, en hun schoonheid is
+alleen te ervaren door het werk zelf te bekijken, dat wil zeggen door het
+bewijs stap voor stap te volgen. Een geschiedenis van de wiskunde die de
+bewijzen overslaat, blijft volgens hem steken in anekdotes; wie de redenering
+van Euclides of Euler zelf doorloopt, ziet waarom deze resultaten al eeuwen
+overeind staan en waarom vakgenoten er esthetische oordelen over vellen.
+
+#### De gang van het boek
+
+**Twaalf meesterwerken als museumzalen**
+
+Het boek is opgezet als een galerij met twaalf zalen, elk gewijd aan één groot
+theorema. Dunham kiest resultaten die het vak een nieuwe richting gaven én
+waarvan het bewijs binnen één hoofdstuk met schoolwiskunde te volgen is. Elk
+hoofdstuk heeft dezelfde driedeling: een historische inleiding over persoon en
+tijdperk, het bewijs zelf onder de kop Great Theorem, en een epiloog die
+vertelt wat er daarna met het resultaat gebeurde. Die vaste vorm maakt het
+boek ook geschikt om per hoofdstuk te lezen.
+
+**De Grieken: Hippocrates en Euclides**
+
+De reis begint rond 440 v.Chr. bij Hippocrates van Chios, die als eerste de
+oppervlakte van een kromlijnige figuur exact bepaalde: zijn kwadratuur van
+maantjes, sikkelvormige figuren tussen cirkelbogen, voedde eeuwenlang de hoop
+dat ook de cirkel zelf te kwadrateren was. Pas in 1882 werd bewezen dat dat
+onmogelijk is.
+
+Twee hoofdstukken behandelen Euclides, wiens *Elementen* rond 300 v.Chr. de
+axiomatische methode vestigde: uit een handvol aannamen wordt de hele
+meetkunde stap voor stap opgebouwd. Dunham volgt de opbouw van boek I tot aan
+het sluitstuk, het bewijs van de stelling van Pythagoras, en behandelt daarna
+Euclides' getaltheorie met het bewijs dat er oneindig veel priemgetallen
+bestaan, nog altijd een schoolvoorbeeld van elegantie.
+
+**Archimedes en Heron**
+
+Archimedes bepaalde rond 225 v.Chr. de oppervlakte van de cirkel door haar in
+te klemmen tussen veelhoeken en aan te tonen dat elke andere uitkomst dan die
+van een bepaalde rechthoekige driehoek tot een tegenspraak leidt; onderweg
+benaderde hij pi tussen 3 10/71 en 3 1/7. Dunham presenteert hem als de
+grootste wiskundige van de oudheid en vertelt ook over diens dood bij de val
+van Syracuse.
+
+Het hoofdstuk over Heron van Alexandrië, rond 75 n.Chr., draait om diens
+formule voor de oppervlakte van een driehoek uit alleen de drie zijden, met
+het oorspronkelijke, verrassend kronkelige bewijs uit de *Metrica*.
+
+**Cardano en het duel om de derdegraadsvergelijking**
+
+Het hoofdstuk over de Italiaanse Renaissance is het meest verhalende. Girolamo
+Cardano, arts, gokker en veelschrijver, publiceerde in 1545 in zijn *Ars
+Magna* de oplossing van de derdegraadsvergelijking, tot woede van Niccolò
+Tartaglia, die hem de methode onder belofte van geheimhouding had
+toevertrouwd. Dunham geeft het bewijs van de oplossingsformule en beschrijft
+de openbare rekenwedstrijden waarmee wiskundigen destijds hun brood en
+reputatie verdienden. De epiloog wijst vooruit naar Abel en Galois, die eeuwen
+later aantoonden dat het feest bij de vijfde graad ophoudt.
+
+**Newton, de Bernoulli's en Euler**
+
+Bij Isaac Newton kiest Dunham geen stelling uit de mechanica maar de
+veralgemeende binomiaalformule uit de late jaren 1660, waarmee Newton
+machtreeksen kon opstellen en onder meer pi tot vele decimalen benaderde. Het
+hoofdstuk over de gebroeders Bernoulli behandelt het bewijs uit 1689 dat de
+harmonische reeks, de som 1 + 1/2 + 1/3 + enzovoort, boven elke grens
+uitgroeit, hoe traag ook.
+
+Leonhard Euler krijgt twee hoofdstukken. Het eerste draait om het
+Bazel-probleem: Euler bepaalde in 1734 de exacte som van de omgekeerde
+kwadraten, pi kwadraat gedeeld door zes, een uitkomst die niemand had zien
+aankomen. Het tweede is een staalkaart van zijn getaltheorie, waaronder de
+ontmaskering van Fermats vermoeden dat alle getallen van een bepaalde vorm
+priem zijn: Euler vond de deler 641 in het vijfde geval.
+
+**Cantor en het oneindige**
+
+De laatste twee hoofdstukken behandelen Georg Cantor, die vanaf 1874 het
+actueel oneindige tot wiskundig object maakte. Dunham bewijst dat de reële
+getallen niet aftelbaar zijn, dus wezenlijk talrijker dan de natuurlijke
+getallen, en laat in het slothoofdstuk met het diagonaalargument uit 1891 zien
+dat er een hele hiërarchie van steeds grotere oneindigheden bestaat.
+
+De epiloog beschrijft de weerstand die Cantor ondervond, onder meer van zijn
+oud-leraar Kronecker, zijn depressies, en de latere erkenning. Daarmee eindigt
+het boek waar de moderne wiskunde begint: bij vragen over haar eigen
+fundamenten.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| groot theorema | Dunhams aanduiding voor een stelling die het vak van richting deed veranderen en waarvan het bewijs esthetische kwaliteit heeft. |
+| kwadratuur | Het exact bepalen van een oppervlakte door er een vierkant of andere rechtlijnige figuur van gelijke grootte bij te construeren. |
+| axiomatische methode | De werkwijze van Euclides: uit expliciet genoemde aannamen wordt al het overige met logische stappen afgeleid. |
+| bewijs uit het ongerijmde | Bewijsvorm die het tegendeel aanneemt en tot een tegenspraak voert, zoals bij de oneindigheid van de priemgetallen. |
+| harmonische reeks | De som van de omgekeerde natuurlijke getallen, die ondanks steeds kleinere termen boven elke grens uitkomt. |
+| Bazel-probleem | De vraag naar de exacte som van de omgekeerde kwadraten, in 1734 door Euler beantwoord met pi kwadraat gedeeld door zes. |
+| aftelbaarheid | Eigenschap van een verzameling waarvan de elementen één voor één genummerd kunnen worden; de reële getallen missen haar. |
+| diagonaalargument | Cantors methode uit 1891 die uit elke vermeende volledige lijst een element construeert dat er niet op staat. |
+| epiloog | Het vaste slotdeel van elk hoofdstuk, dat de doorwerking van de stelling tot in de moderne tijd volgt. |
+
+#### Waar het argument op rust
+
+De kracht van het boek zit in de controleerbaarheid: de twaalf bewijzen staan
+er volledig in, in moderne notatie maar trouw aan de oorspronkelijke
+gedachtegang, en de lezer kan elke stap zelf narekenen. De historische
+omlijsting steunt op de gangbare vakliteratuur en Dunham geeft aan waar een
+overlevering onzeker is, zoals bij de anekdotes rond Archimedes' dood en de
+eed van Tartaglia.
+
+Het boek kwam voort uit Dunhams eigen onderwijs over grote stellingen en werd
+na verschijnen breed geprezen in vakbladen als geslaagde combinatie van
+geschiedenis en echte wiskunde. Het wordt sindsdien veel gebruikt als
+nevenlectuur bij colleges wiskundegeschiedenis, wat voor een populair boek een
+ongebruikelijke toets is.
+
+#### Wat er tegen in te brengen valt
+
+De selectie is beperkt tot wat binnen één hoofdstuk met schoolwiskunde te
+bewijzen valt. Daardoor ontbreken figuren als Gauss, Galois en Riemann vrijwel
+geheel, en blijft de negentiende eeuw op Cantor na buiten beeld; Dunham erkent
+dit in zijn voorwoord, maar de titel belooft meer dan de twaalf zalen bieden.
+De galerij bevat bovendien uitsluitend westerse mannen, en de niet-westerse
+wiskunde komt alleen zijdelings ter sprake.
+
+Voor lezers zonder wiskundige achtergrond zijn vooral de hoofdstukken over
+Newton en Euler stevig; wie de formules overslaat houdt een dunner boek over,
+want de historische delen zijn bondig. Vakhistorici merken op dat de epilogen
+de geschiedenis soms glad strijken tot een opeenvolging van hoogtepunten, een
+vertelvorm die weinig ruimte laat voor doodlopende wegen en tijdgebonden
+context.
+
+#### Wat er concreet mee te doen is
+
+- Lees elk hoofdstuk met pen en papier en reken de bewijsstappen na; het boek
+is daarvoor gemaakt en levert dan het meest op.
+- Gebruik de driedeling context, kernresultaat, doorwerking als model om zelf
+een technisch onderwerp aan anderen uit te leggen.
+- Begin bij de hoofdstukken over Euclides en de priemgetallen als toets: wie
+die met plezier doorwerkt, kan de rest aan.
+
+#### Wat je hierna leest
+
+- 509. The 5 Elements of Effective Thinking. The 5 Elements of Effective
+Thinking vertaalt de wiskundige denkhouding die Dunham toont naar algemene
+lessen in helder denken.
+- 269. The Story of Philosophy. The Story of Philosophy doet met filosofen wat
+Dunham met stellingen doet: een canon toegankelijk maken via de makers.
+- 321. Longitude: The True Story of a Lone Genius Who Solved the Greatest
+Scientific Problem of His Time. Longitude laat zien hoe één exact probleem, de
+lengtegraad op zee, een heel tijdperk aan vernuft losmaakte.
+- 262. A Brief History of Time. A Brief History of Time biedt eenzelfde soort
+rondgang langs grote resultaten, maar dan in de natuurkunde en zonder
+bewijzen.
+
+## 661. A History of Mathematics
+
+Carl B. Boyer, 1968. *A History of Mathematics* (John Wiley & Sons, 1968;
+tweede editie, herzien door Uta C. Merzbach, 1991, 762 blz., ISBN
+9780471543978; derde editie 2011, 688 blz., ISBN 9780470525487). Geen
+Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl, die de
+Engelse Wiley-editie vermeldt; de samenvatting is op de Engelse editie
+gebaseerd. Rubriek: natuur en wetenschap.
+Tags: `wiskunde`, `wetenschapsgeschiedenis`, `naslagwerk`
+
+Standaardwerk over de geschiedenis van de wiskunde, in 1968 geschreven door
+Carl B. Boyer, hoogleraar aan Brooklyn College, en na diens dood in 1976
+tweemaal herzien door Uta Merzbach, voormalig conservator wiskunde van het
+Smithsonian. Het boek volgt het vak chronologisch van kerfstokken en
+Egyptische papyri via Babylon, Griekenland, India, China en de islamitische
+wereld naar Europa, en vandaar langs Descartes, Newton, Euler en Gauss tot in
+de twintigste eeuw.
+
+Boyer schreef het als studieboek, met nadruk op de ontwikkeling van begrippen:
+hoe getal, bewijs, functie en limiet hun huidige betekenis kregen. Het is
+dicht bedrukt met namen, jaartallen en resultaten en leest eerder als
+naslagwerk dan als verhaal. Ruim een halve eeuw na verschijnen geldt het nog
+steeds als eerste referentie, al is de behandeling van niet-westerse wiskunde
+door later onderzoek ingehaald.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Boyer stelt dat de wiskunde één doorlopende
+begripsontwikkeling is: wat op school als tijdloos en vanzelfsprekend wordt
+gepresenteerd, van het positiestelsel tot de limiet, is in werkelijkheid in
+tientallen eeuwen en meerdere culturen bevochten, met omwegen, weerstanden en
+heroverwegingen. Wie de wiskunde wil begrijpen in plaats van alleen toepassen,
+moet volgens Boyer die wordingsgeschiedenis kennen, want de moeilijkheden die
+leerlingen nu ondervinden met negatieve getallen, irrationale getallen of het
+oneindige zijn dezelfde die het vak zelf eeuwen hebben gekost.
+
+#### De gang van het boek
+
+**Oorsprongen: tellen voor het schrift**
+
+Het boek opent voor de geschreven bronnen, bij telbotten en kerfstokken, en
+betoogt dat tellen ouder is dan schrijven. Daarna volgen de twee oudste
+gedocumenteerde tradities. De Egyptische wiskunde, bekend uit papyri zoals die
+van Rhind, blonk uit in praktisch rekenen met breuken. De Babylonische ging
+verder: kleitabletten tonen een zestigtallig positiestelsel, worteltrekkingen
+en opgaven die neerkomen op tweedegraadsvergelijkingen. Boyer benadrukt dat
+hier al echte wiskunde werd bedreven, maar zonder bewijs: recepten, geen
+redeneringen.
+
+**Griekenland: het bewijs als uitvinding**
+
+Ruwweg een derde van het boek is gewijd aan de Griekse wereld, voor Boyer het
+scharnierpunt: daar werd de eis geboren dat een wiskundige uitspraak bewezen
+moet worden. Hij volgt de lijn van Thales en Pythagoras via de crisis rond de
+incommensurabele grootheden, lengtes die zich niet als verhouding van gehele
+getallen laten schrijven, naar de grote systeembouwers: Euclides met de
+*Elementen*, Archimedes met zijn uitputtingsmethode voor oppervlakten en
+inhouden, en Apollonius met de kegelsneden.
+
+De latere oudheid krijgt eigen hoofdstukken: de sterrenkundige trigonometrie
+van Ptolemaeus, de vergelijkingenkunst van Diophantus en het nawerk van
+Pappus. Boyer laat zien dat de Griekse meetkundige stijl zowel de kracht als
+de begrenzing van deze traditie was: het getalbegrip bleef er ondergeschikt
+aan de figuur.
+
+**China, India en de islamitische wereld**
+
+Drie hoofdstukken behandelen de wiskunde buiten Europa. China leverde onder
+meer stelselmatig oplossen van vergelijkingenstelsels en restproblemen; India
+het tientallige positiestelsel met de nul, negatieve getallen en
+trigonometrische tabellen; de islamitische wereld bewaarde en verbond het
+Griekse en Indiase erfgoed, met al-Khwarizmi's leerboek waaraan het woord
+algebra is ontleend. Boyer beschrijft hoe dit materiaal via Spanje en Sicilië
+Europa binnenkwam.
+
+Deze hoofdstukken zijn in latere edities uitgebreid, maar blijven naar
+verhouding kort; het perspectief van het boek is en blijft de lijn die naar de
+Europese wiskunde voert.
+
+**Van Fibonacci tot de analytische meetkunde**
+
+Het Europese verhaal begint met Fibonacci, die in 1202 het Indiaas-Arabische
+rekenen introduceerde, en versnelt in de zestiende eeuw: de Italiaanse
+oplossing van de derde- en vierdegraadsvergelijking, de symboolschrijfwijze
+van Viète, het rekenwerk van Stevin en de logaritmen van Napier. Descartes en
+Fermat verbonden vervolgens algebra en meetkunde tot de analytische meetkunde,
+waardoor krommen vergelijkingen werden en omgekeerd. Boyer, die over dit
+onderwerp een afzonderlijk boek schreef, behandelt deze overgang als de opmaat
+naar de calculus.
+
+**Calculus en de eeuw van Euler**
+
+Newton en Leibniz ontwikkelden onafhankelijk van elkaar de
+infinitesimaalrekening, het rekenen met veranderingen en oppervlakten via
+oneindig kleine stappen; Boyer behandelt zowel de wiskunde als de bittere
+prioriteitsstrijd. De achttiende eeuw wordt gedomineerd door Euler, de
+productiefste wiskundige ooit, die de analyse haar huidige notatie en een
+groot deel van haar inhoud gaf, en door de Bernoulli's, Lagrange en Laplace.
+De grondslagen bleven intussen wankel: met het oneindig kleine werd gerekend
+zonder dat iemand kon zeggen wat het was.
+
+**De negentiende eeuw: strengheid en abstractie**
+
+De hoofdstukken over de negentiende eeuw beschrijven twee bewegingen. De
+aritmetisering van de analyse: Cauchy, Weierstrass en Dedekind vervingen het
+vage oneindig kleine door het exacte limietbegrip en bouwden het reële getal
+op uit de gehele getallen, waarna Cantor het oneindige zelf tot rekenobject
+maakte. En de bevrijding van de meetkunde en de algebra: Gauss, Bolyai en
+Lobatsjevski toonden dat er meetkunden bestaan waarin het parallellenpostulaat
+niet geldt, terwijl Abel en Galois met de groepentheorie de algebra van het
+vergelijkingen oplossen naar het bestuderen van structuren voerden.
+
+**De twintigste eeuw en het slot**
+
+De slothoofdstukken lopen van Poincaré en Hilbert, met diens beroemde lijst
+van 23 problemen uit 1900, via de grondslagencrisis en Gödel naar
+verzamelingenleer, topologie en de opkomst van de computer. In de derde editie
+voerde Merzbach het verhaal door tot recente resultaten zoals het bewijs van
+de laatste stelling van Fermat door Andrew Wiles in 1995. Naarmate het heden
+nadert wordt de behandeling schetsmatiger, een beperking die de bewerkster
+zelf aangeeft: voor de wiskunde van na 1950 is dit boek geen gids.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| positiestelsel | Getalnotatie waarin de waarde van een cijfer van zijn plaats afhangt, zoals het Babylonische zestigtallige en ons tientallige stelsel. |
+| incommensurabiliteit | Het verschijnsel dat twee lengtes geen gemeenschappelijke maat hebben, de Griekse ontdekking dat er irrationale verhoudingen bestaan. |
+| uitputtingsmethode | Griekse techniek om oppervlakten en inhouden te bepalen door ze steeds nauwer in te sluiten, de voorloper van de integraalrekening. |
+| analytische meetkunde | De koppeling van algebra en meetkunde door Descartes en Fermat, waarbij krommen door vergelijkingen worden beschreven. |
+| infinitesimaalrekening | De calculus van Newton en Leibniz: rekenen met veranderingen en oppervlakten via oneindig kleine grootheden. |
+| aritmetisering van de analyse | Het negentiende-eeuwse programma om de calculus te funderen op het getalbegrip en het exacte limietbegrip in plaats van op vage infinitesimalen. |
+| niet-euclidische meetkunde | Meetkunde waarin het parallellenpostulaat van Euclides niet geldt, ontwikkeld door Gauss, Bolyai en Lobatsjevski. |
+| axiomatiek | Het opbouwen van een theorie uit expliciete grondaannamen, door Hilbert rond 1900 tot norm voor de hele wiskunde verheven. |
+
+#### Waar het argument op rust
+
+Boyer was beroepshistoricus van de wiskunde, met eerdere standaardwerken over
+de geschiedenis van de calculus en van de analytische meetkunde, en het boek
+steunt op de primaire en secundaire literatuur van zijn tijd; elk hoofdstuk
+sluit af met bronverwijzingen. De status van het werk blijkt uit het gebruik:
+het dient al meer dan een halve eeuw als leerboek en eerste referentie, en de
+herzieningen van Merzbach in 1991 en 2011 hielden het bij zonder de opzet aan
+te tasten.
+
+Daar staat tegenover dat het vakgebied sinds 1968 is doorontwikkeld. Vooral
+over Babylonische, Chinese, Indiase en islamitische wiskunde is nadien veel
+nieuw onderzoek verschenen, en wie op die terreinen de huidige stand zoekt,
+moet bij recentere literatuur zijn, zoals het gelijknamige handboek van Victor
+Katz uit 1993. Voor de hoofdlijn van het Europese verhaal blijft Boyer
+betrouwbaar.
+
+#### Wat er tegen in te brengen valt
+
+Dit is een handboek, en zo leest het ook: dicht bedrukt met namen, jaartallen
+en resultaten, zonder de verhalende trek van populaire
+wiskundegeschiedenissen. De schrijver David Foster Wallace noemde Boyer de
+Gibbon van de wiskundegeschiedenis, en dat is zowel lof als waarschuwing: het
+werk heeft gezag en omvang, maar wie een leesboek verwacht, krijgt een
+naslagwerk. De eerste editie bevatte vraagstukken per hoofdstuk; latere
+edities schrapten die, waarmee het karakter definitief verschoof van
+studieboek naar referentie.
+
+Inhoudelijk is het voornaamste bezwaar het perspectief: de niet-westerse
+tradities dienen vooral als voorgeschiedenis van de Europese lijn, en de
+behandeling ervan is door een halve eeuw nieuw onderzoek gedateerd. Het boek
+bedrijft bovendien interne wetenschapsgeschiedenis: ideeën volgen op ideeën,
+terwijl de maatschappelijke context, het onderwijs en de instituties op de
+achtergrond blijven. De twintigste eeuw komt er in alle edities bekaaid af, en
+recensenten van de derde editie merkten op dat juist daar veel toonaangevende
+wiskundigen ongenoemd blijven.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik het boek als naslagwerk naast ander leeswerk: wie ergens een naam of
+resultaat tegenkomt, vindt hier de context en de bronnen.
+- Zet de wordingsgeschiedenis in bij het uitleggen van wiskunde: de
+historische moeilijkheden met negatieve getallen of limieten voorspellen waar
+leerlingen nu struikelen.
+- Raadpleeg voor Babylonische, Indiase, Chinese en islamitische wiskunde
+aanvullend recentere literatuur; op die terreinen is het boek ingehaald.
+
+#### Wat je hierna leest
+
+- 269. The Story of Philosophy. The Story of Philosophy is de tegenhanger voor
+de filosofie: één band die een hele traditie chronologisch ontsluit.
+- 239. A Short History of Nearly Everything. A Short History of Nearly
+Everything doet hetzelfde werk voor de natuurwetenschappen, maar dan verhalend
+en zonder naslagpretentie.
+- 321. Longitude: The True Story of a Lone Genius Who Solved the Greatest
+Scientific Problem of His Time. Longitude zoomt in op één episode uit deze
+geschiedenis en toont wat het handboekformaat noodgedwongen overslaat: de mens
+achter het meetprobleem.
+
+## 662. Mathematics: From the Birth of Numbers
+
+Jan Gullberg, 1997. *Mathematics: From the Birth of Numbers* (W.W. Norton &
+Company, 1997, 1093 blz., ISBN 9780393040029, met een voorwoord van Peter
+Hilton). Geen Nederlandse vertaling gevonden in de catalogus van
+bibliotheek.nl, die de Engelse editie vermeldt; de samenvatting is op de
+Engelse editie gebaseerd. Rubriek: natuur en wetenschap.
+Tags: `wiskunde`, `naslagwerk`, `wetenschapsgeschiedenis`
+
+Encyclopedisch overzicht van de hele schoolse en toegepaste wiskunde,
+geschreven door de Zweedse chirurg en anesthesist Jan Gullberg, die er ruim
+tien jaar van zijn vrije tijd aan besteedde nadat zijn zoon Pär een
+ingenieursstudie begon. Diezelfde zoon maakte de ruim duizend tekeningen. Het
+boek voert in ruim duizend bladzijden van het ontstaan van tellen en
+getalnotatie via rekenkunde, algebra, meetkunde en goniometrie naar
+matrixrekening, kansrekening, differentiaal- en integraalrekening en
+differentiaalvergelijkingen, met uitstapjes naar logica, verzamelingenleer,
+topologie en fractals.
+
+De marges staan vol geschiedenis, woordherkomsten, anekdotes en verzen,
+waardoor het naslagwerk ook bladerboek is. De wiskundige Peter Hilton schreef
+het voorwoord. Het werd bij verschijnen een onverwacht verkoopsucces; Gullberg
+overleed een jaar later. Liefdewerk van een buitenstaander, met de rijkdom en
+de onevenwichtigheden die daarbij horen.
+
+### Uitgebreide samenvatting
+
+**De stelling.** Gullberg stelt met dit boek dat de hele wiskunde tot en met
+het niveau van een beginnend ingenieur voor een algemeen publiek toegankelijk
+te maken is in één band, mits techniek en geschiedenis samen worden
+aangeboden: elke formule krijgt haar herkomstverhaal, elk vakgebied zijn
+ontstaansgeschiedenis. Het boek belichaamt daarnaast een stellingname over wie
+er over wiskunde mag schrijven: een arts zonder wiskundige vakopleiding kan
+met volharding en liefde voor het onderwerp een overzicht maken dat vakmensen
+serieus nemen, juist doordat hij zich de stof als buitenstaander eigen moest
+maken.
+
+#### De gang van het boek
+
+**Het ontstaan van getallen en talstelsels**
+
+De openingshoofdstukken behandelen tellen als menselijke basisvaardigheid,
+verwant aan taal, en de manieren waarop culturen getallen hebben genoteerd:
+Egyptische, Babylonische, Griekse, Romeinse en Maya-cijfers, tot en met het
+Indiaas-Arabische positiestelsel met de nul dat alles verdrong. Daarna volgen
+de soorten getallen zelf, van natuurlijke en gebroken getallen tot irrationale
+en complexe, steeds met de historische weerstand die elke uitbreiding opriep.
+Deze eerste honderden bladzijden zijn het meest verhalend en lezen als een
+cultuurgeschiedenis van het rekenen.
+
+**Rekenkunde, logica en verzamelingen**
+
+Het tweede blok behandelt het handwerk: rekenen met breuken, machten en
+wortels, priemgetallen en deelbaarheid, en praktisch cijferwerk zoals dat
+eeuwenlang met tabellen en rekenlinialen werd gedaan. Daarnaast staan
+hoofdstukken over symbolische logica en verzamelingenleer, de begrippen
+waarmee de moderne wiskunde haar eigen taal ordent, en over combinatoriek, de
+kunst van het tellen van mogelijkheden. Gullberg presenteert dit als
+gereedschapskist, met uitgewerkte voorbeelden en in de marge de herkomst van
+tekens en termen.
+
+**Algebra, meetkunde en goniometrie**
+
+De kern van het boek volgt grofweg het schoolcurriculum op uitgebreide schaal:
+vergelijkingen van de eerste tot en met de vierde graad, met het verhaal van
+de Italiaanse zestiende-eeuwse oplossers erbij, stelsels, rijen en reeksen,
+vlakke en ruimtelijke meetkunde, goniometrie en de analytische meetkunde die
+algebra en meetkunde verbindt. Ook matrixrekening en complexe getallen krijgen
+eigen hoofdstukken. De behandeling is die van een formularium met toelichting:
+definities, regels en doorgerekende voorbeelden, eerder naslag dan opbouwende
+leergang.
+
+**Kansrekening en de calculus**
+
+Het slotdeel beslaat de wiskunde die aan de universiteit begint: kansrekening
+en het begin van de statistiek, differentiaalrekening, integraalrekening en
+ten slotte differentiaalvergelijkingen, het gereedschap waarmee natuurkunde en
+techniek veranderingsprocessen beschrijven. Kortere uitstapjes gaan naar
+topologie en fractals. Ook hier gaat de geschiedenis mee: Newton en Leibniz,
+de Bernoulli's en Euler passeren met anekdotes en portretten in de marge. De
+laatste hoofdstukken zijn merkbaar compacter dan de eerste; de adem van de
+schrijver is dan bijna op. Voor een lezer met alleen middelbareschoolwiskunde
+blijft dit deel te volgen zolang de voorbeelden worden meegerekend, al ligt
+het tempo hier hoger dan in de rest van het boek.
+
+**De marges: geschiedenis als bijvangst**
+
+Wat het boek van een gewoon formularium onderscheidt, is de tweede laag die er
+dwars doorheen loopt. In de marges en tussenstukken staan de herkomst van
+woorden en tekens, korte levens van wiskundigen, anekdotes, citaten en zelfs
+verzen; de ruim duizend tekeningen van zoon Pär illustreren beide lagen. Zo
+valt bij het hoofdstuk over vergelijkingen het verhaal van Cardano en
+Tartaglia te lezen, en bij de calculus de strijd tussen Newton en Leibniz.
+
+Deze opzet maakt het boek geschikt voor twee soorten gebruik: gericht opzoeken
+en doelloos bladeren. Het project begon toen zoon Pär aan een ingenieursstudie
+begon en groeide uit tot een overzicht voor iedereen die de stof ooit leerde
+of nog moet leren; de marge-laag houdt daarbij de aandacht vast waar de
+hoofdtekst tabellenwerk wordt.
+
+**Het boek als voorwerp en als levenswerk**
+
+Een deel van de betekenis van dit boek zit in zijn ontstaan. Gullberg, chirurg
+en anesthesist, schreef het in zijn avonduren in het Engels, zijn derde taal,
+over een periode van ruim tien jaar, en zijn zoon Pär verzorgde de circa
+duizend lijntekeningen. Norton bracht het in 1997 op de markt; de eerste
+oplage van zeventienduizend exemplaren was binnen een half jaar vrijwel
+uitverkocht. De Britse wiskundige Peter Hilton gaf het met zijn voorwoord het
+zegel van de beroepsgroep. Gullberg overleed in mei 1998, een jaar na
+verschijnen, zodat dit zijn enige grote boek bleef.
+
+#### Kernbegrippen
+
+| Begrip | Wat de auteur ermee bedoelt |
+| --- | --- |
+| positiestelsel | Getalnotatie waarin de plaats van een cijfer zijn waarde bepaalt, de uitvinding die al het moderne rekenen mogelijk maakte. |
+| combinatoriek | Het deelgebied dat telt hoeveel manieren er zijn om objecten te kiezen of te ordenen. |
+| symbolische logica | Het weergeven van redeneringen in formele tekens, zodat geldigheid mechanisch te controleren valt. |
+| verzamelingenleer | De taal van collecties en hun onderlinge relaties, waarin de moderne wiskunde haar begrippen definieert. |
+| matrix | Rechthoekig getallenschema waarmee stelsels vergelijkingen en transformaties compact te behandelen zijn. |
+| differentiaalvergelijking | Vergelijking waarin een onbekende functie en haar veranderingssnelheid samen voorkomen, het standaardgereedschap voor natuurlijke processen. |
+| topologie | De studie van eigenschappen van vormen die bij vervormen zonder scheuren behouden blijven. |
+| fractal | Figuur die op elke schaal soortgelijke details toont, in het boek behandeld als jong voorbeeld van meetkunde buiten de klassieke lijn. |
+
+#### Waar het argument op rust
+
+De wiskundige inhoud betreft vrijwel uitsluitend gevestigde stof op school- en
+propedeuseniveau, en die staat er volgens recensenten grotendeels correct en
+helder in; het voorwoord van Peter Hilton, een wiskundige van naam, en de
+brede waardering in besprekingen bij verschijnen ondersteunen dat oordeel. Het
+verkoopsucces, ongewoon voor een wiskundeboek van duizend bladzijden en
+vijftig dollar, zegt vooral iets over de behoefte aan zo'n overzicht.
+
+De historische omlijsting is van andere makelij: Gullberg compileerde haar uit
+secundaire literatuur, en het boek geeft geen verantwoording per bewering. De
+marge-anekdotes zijn onderhoudend maar wisselen in betrouwbaarheid, zoals bij
+vrijwel alle overgeleverde verhalen over wiskundigen. Wie het boek als
+geschiedwerk wil gebruiken, moet beweringen elders verifiëren; als overzicht
+van de wiskunde zelf staat het steviger dan als geschiedenis ervan.
+
+#### Wat er tegen in te brengen valt
+
+Dit is het werk van één liefhebber, en dat is zowel de charme als de
+beperking. Er spreekt één stem en één smaak uit ruim duizend bladzijden, met
+eigenzinnige keuzes, verzen in de marge en een aanstekelijk plezier in het
+onderwerp; maar een redactie van vakmensen had onevenwichtigheden
+gladgestreken, want de diepgang wisselt sterk per hoofdstuk en de latere delen
+zijn schraler dan de eerste. Recensenten noteerden naast veel lof ook fouten
+en slordigheden in vooral de historische randnotities, het bekende risico van
+compilatie uit tweede hand.
+
+Daarnaast moet de verwachting kloppen: dit is een naslag- en bladerboek, geen
+leergang. Er zijn geen opgaven, geen opbouwende leerlijn en weinig bewijzen;
+wie wiskunde wil leren beheersen, heeft er een studieboek naast nodig, en wie
+conceptuele verdieping zoekt, vindt hier vooral breedte. Binnen dat genre
+heeft het boek zijn plaats behouden; een tweede editie is er nooit gekomen,
+zodat de kleine fouten van 1997 er nog altijd in staan.
+
+#### Wat er concreet mee te doen is
+
+- Gebruik het boek als eerste vraagbaak bij een vergeten begrip of formule uit
+school- of studietijd; daarvoor is het ingericht.
+- Lees de historische openingshoofdstukken zelfstandig als cultuurgeschiedenis
+van het rekenen; dat deel draagt het verst.
+- Controleer historische anekdotes uit de marges voordat ze worden
+doorverteld; de wiskunde is betrouwbaarder dan de geschiedschrijving.
+- Leg het naast een echt studieboek wie de stof actief wil leren; dit boek
+toont en herinnert, het oefent niet.
+
+#### Wat je hierna leest
+
+- 239. A Short History of Nearly Everything. A Short History of Nearly
+Everything is de journalistieke tegenhanger: één band over alle
+natuurwetenschap, door een schrijvende buitenstaander.
+- 509. The 5 Elements of Effective Thinking. The 5 Elements of Effective
+Thinking gaat over de denkgewoonten achter de stof die Gullberg uitstalt.
+- 421. The Power of Logic. The Power of Logic werkt het hoofdstuk symbolische
+logica uit tot een volwaardige leergang.
+- 437. A Concise Introduction to Logic. A Concise Introduction to Logic biedt
+dezelfde stof als studieboek met opgaven, wat Gullberg bewust niet is.
+
 ## Tag-register
 
 Alfabetisch, met de nummers van de titels die de tag dragen.
@@ -122125,32 +122887,32 @@ droom` 284 · `amerikaanse geschiedenis` 621 · `Amerikaanse geschiedenis` 402 �
 `besluitvorming` 151, 166, 170, 174, 209, 270, 282, 283, 293, 299, 364, 396,
 423, 424, 426, 450, 451, 468, 475, 510 · `bestseller` 8, 37, 250 · `betekenis`
 143 · `bethel` 559 · `betrokkenheid` 472 · `beurs` 80, 488 · `beurshandel` 487
-· `beursrendement` 353 · `beweging` 77, 84 · `bewijs` 63 · `bewustwording` 103
-· `bewustzijn` 148, 169, 200, 275, 340, 377, 518, 580, 585 ·
-`bewustzijnsniveaus` 449 · `bezit` 37 · `bhagavad gita` 569 · `bias` 209 ·
+· `beursrendement` 353 · `beweging` 77, 84 · `bewijs` 63, 660 ·
+`bewustwording` 103 · `bewustzijn` 148, 169, 200, 275, 340, 377, 518, 580, 585
+· `bewustzijnsniveaus` 449 · `bezit` 37 · `bhagavad gita` 569 · `bias` 209 ·
 `bijeenkomsten` 304 · `bijgeloof` 63 · `bijna-doodervaring` 585 · `biografie`
 31, 46, 189, 231, 240, 241, 243, 247, 266, 267, 269, 320, 328, 402, 454, 514,
-537, 558 · `biohacking` 316 · `biologie` 66, 88, 89, 90, 91, 322 · `biologie
-van gedrag` 273 · `biologische klok` 326, 329, 552 · `biotechnologie` 236, 413
-· `blackjack` 505 · `bloedvaten` 86 · `bloedwaarden` 313 · `blokkade` 14 ·
-`boeddhisme` 111, 287, 333, 341, 401, 528 · `bootstrapping` 369 ·
-`brainstormen` 33 · `branding` 443 · `brein` 414 · `brieven` 292, 517 ·
-`broers` 10 · `budgetteren` 159, 233, 464 · `buitenlandse hulp` 221 ·
-`burgerlijk verzet` 617 · `burgerschap` 243 · `burn-out` 135, 207, 400, 551,
-552 · `bushido` 535 · `cafeïne` 52 · `Californië` 10 · `carl jung` 258 ·
-`carrière` 146, 158, 388 · `cases` 40 · `cashflow` 37 · `celbiologie` 419 ·
-`chakra's` 432 · `challenger` 62 · `Chanakya` 370 · `channeling` 549 · `chaos`
-74, 347 · `chapbook` 100 · `charismatisch christendom` 559 · `China` 348 ·
-`Chinese filosofie` 389, 394 · `Chinese geschiedenis` 219 · `chiropractie` 432
-· `christendom` 162, 201, 391, 603, 606, 612 · `chronobiologie` 326, 329 ·
-`cijfers` 39, 65 · `civilisatiekritiek` 298 · `coaching` 161, 291, 441 ·
-`cognitieve gedragstherapie` 147, 153, 373 · `cognitieve herstructurering` 177
-· `cognitieve vertekening` 234 · `cognitieve wetenschap` 467 ·
-`cognitieve-bias` 59 · `collectief bewustzijn` 435 · `collectief onbewuste`
-357, 360, 362 · `columns` 89, 90 · `comfortzone` 187 · `commando` 97 ·
-`communicatie` 34, 35, 122, 145, 152, 156, 162, 164, 183, 186, 193, 213, 305,
-338, 356, 398, 399, 444, 466, 475, 539, 555 · `communisme` 625 ·
-`complexiteit` 170, 268, 300, 347, 423 · `complimenten geven` 356 ·
+537, 558, 659 · `biohacking` 316 · `biologie` 66, 88, 89, 90, 91, 322 ·
+`biologie van gedrag` 273 · `biologische klok` 326, 329, 552 ·
+`biotechnologie` 236, 413 · `blackjack` 505 · `bloedvaten` 86 · `bloedwaarden`
+313 · `blokkade` 14 · `boeddhisme` 111, 287, 333, 341, 401, 528 ·
+`bootstrapping` 369 · `brainstormen` 33 · `branding` 443 · `brein` 414 ·
+`brieven` 292, 517 · `broers` 10 · `budgetteren` 159, 233, 464 · `buitenlandse
+hulp` 221 · `burgerlijk verzet` 617 · `burgerschap` 243 · `burn-out` 135, 207,
+400, 551, 552 · `bushido` 535 · `cafeïne` 52 · `Californië` 10 · `carl jung`
+258 · `carrière` 146, 158, 388 · `cases` 40 · `cashflow` 37 · `celbiologie`
+419 · `chakra's` 432 · `challenger` 62 · `Chanakya` 370 · `channeling` 549 ·
+`chaos` 74, 347 · `chapbook` 100 · `charismatisch christendom` 559 · `China`
+348 · `Chinese filosofie` 389, 394 · `Chinese geschiedenis` 219 ·
+`chiropractie` 432 · `christendom` 162, 201, 391, 603, 606, 612 ·
+`chronobiologie` 326, 329 · `cijfers` 39, 65 · `civilisatiekritiek` 298 ·
+`coaching` 161, 291, 441 · `cognitieve gedragstherapie` 147, 153, 373 ·
+`cognitieve herstructurering` 177 · `cognitieve vertekening` 234 · `cognitieve
+wetenschap` 467 · `cognitieve-bias` 59 · `collectief bewustzijn` 435 ·
+`collectief onbewuste` 357, 360, 362 · `columns` 89, 90 · `comfortzone` 187 ·
+`commando` 97 · `communicatie` 34, 35, 122, 145, 152, 156, 162, 164, 183, 186,
+193, 213, 305, 338, 356, 398, 399, 444, 466, 475, 539, 555 · `communisme` 625
+· `complexiteit` 170, 268, 300, 347, 423 · `complimenten geven` 356 ·
 `concentratie` 70, 441 · `concurrentie` 293 · `conditionering` 61, 519 ·
 `conflict` 35, 42, 43, 212, 305 · `conflictbemiddeling` 304 ·
 `conflicthantering` 271 · `conformisme` 211 · `consistentie` 553 ·
@@ -122374,11 +123136,11 @@ strategie` 220 · `millennials` 159 · `minderheden` 68 · `mindful` 103 ·
 143, 357, 360, 407, 408, 409, 599, 611 · `mythologische fantasy` 202 ·
 `mythologische fictie` 203 · `NAD+` 415 · `nalatenschap` 178 · `napoleontische
 oorlogen` 235 · `narcisme` 258, 404 · `naslag` 99, 112 · `naslagwerk` 59, 225,
-426, 477, 478, 486, 491, 500, 504 · `nationalisme` 237 · `natuur` 191, 323,
-609 · `natuurkunde` 62, 94, 240, 262, 281, 300, 326 · `navigatie` 321 · `navy
-seals` 229, 364 · `nazisme` 223 · `necrofilie` 223 · `nederland` 96 ·
-`nederlands` 93, 97, 100, 101, 102, 103, 104, 105, 106, 107, 108, 128, 130,
-131, 141 · `nederlands-auteur` 140 · `nederlandstalig` 113 · `negatieve
+426, 477, 478, 486, 491, 500, 504, 661, 662 · `nationalisme` 237 · `natuur`
+191, 323, 609 · `natuurkunde` 62, 94, 240, 262, 281, 300, 326 · `navigatie`
+321 · `navy seals` 229, 364 · `nazisme` 223 · `necrofilie` 223 · `nederland`
+96 · `nederlands` 93, 97, 100, 101, 102, 103, 104, 105, 106, 107, 108, 128,
+130, 131, 141 · `nederlands-auteur` 140 · `nederlandstalig` 113 · `negatieve
 emoties` 176 · `negentig dagen` 188 · `neopaganisme` 611 · `nepnieuws` 237 ·
 `netwerken` 24, 246, 300, 388, 508 · `neurobiologie` 119 · `neurochirurgie`
 49, 414 · `neurologie` 325 · `neuroplasticiteit` 175, 208, 414 · `neurose` 575
@@ -122518,13 +123280,13 @@ media` 53, 70, 194, 198, 204, 288, 365 · `sociale psychologie` 215, 280, 302,
 `structuur` 82, 511 · `studieboek` 421, 437, 497, 498, 507 · `studietechniek`
 420 · `succes` 75, 76, 274 · `superkrachten` 203 · `supplementen` 171, 316 ·
 `surveillance` 393 · `syllogismen` 437 · `symboliek` 357, 360, 522, 605, 608,
-610 · `synchroniciteit` 362 · `synchronisatie` 303 · `systeem` 22, 142 ·
-`systeemtheorie` 165 · `systematisch handelen` 482, 502 · `taal` 26, 27, 436,
-594 · `taal en macht` 344 · `tactische empathie` 271 · `talent` 23, 29, 274 ·
-`taoïsme` 341, 394 · `tarieven` 121 · `teams` 42, 273, 364, 468 ·
-`teamvorming` 260 · `teamwork` 156, 256 · `techniek` 1, 6, 43, 61, 92 ·
-`technische analyse` 483, 500 · `technologie` 160, 288, 294, 306, 393, 499 ·
-`technologiebedrijven` 293 · `technologiegeschiedenis` 231, 267 ·
+610 · `symmetrie` 659 · `synchroniciteit` 362 · `synchronisatie` 303 ·
+`systeem` 22, 142 · `systeemtheorie` 165 · `systematisch handelen` 482, 502 ·
+`taal` 26, 27, 436, 594 · `taal en macht` 344 · `tactische empathie` 271 ·
+`talent` 23, 29, 274 · `taoïsme` 341, 394 · `tarieven` 121 · `teams` 42, 273,
+364, 468 · `teamvorming` 260 · `teamwork` 156, 256 · `techniek` 1, 6, 43, 61,
+92 · `technische analyse` 483, 500 · `technologie` 160, 288, 294, 306, 393,
+499 · `technologiebedrijven` 293 · `technologiegeschiedenis` 231, 267 ·
 `technologiekritiek` 297, 539 · `tegen-productiviteit` 71 · `tegenslag` 30,
 111, 174, 570 · `tekenen` 15 · `tekstkwaliteit` 124 · `televisie` 54 ·
 `temperament` 33 · `tempo` 552 · `termijnmarkten` 480, 482 · `testament` 462 ·
@@ -122591,36 +123353,37 @@ rust` 512 · `werkboek` 14, 122, 150 · `werkcultuur` 551 · `werkdruk` 400 ·
 `wet van aantrekking` 127, 190, 433, 543 · `wetenschap` 63, 66, 93, 94, 328,
 485 · `wetenschap en religie` 609 · `wetenschappers` 239 ·
 `wetenschapsfilosofie` 483 · `wetenschapsgeschiedenis` 239, 240, 321, 347,
-413, 419 · `wetenschapsjournalistiek` 387, 412 · `wijn` 112 · `wijsheid` 596 ·
-`wilskracht` 238 · `Wired` 473 · `wiskunde` 116, 454, 456, 490, 505, 509 ·
-`wisselstroom` 267 · `woede` 119, 120 · `woestijn` 8 · `Wolfgang Pauli` 362 ·
-`wraak` 101, 533 · `WRAP` 510 · `wrok` 530 · `wu wei` 394 · `Yale` 215 ·
-`yin-yang` 394 · `yoga` 195, 242, 518 · `young adult` 192 · `youtube` 245 ·
-`zakelijk` 307 · `zakelijke communicatie` 182 · `zakendoen` 348, 367, 465, 508
-· `zeereis` 36 · `zeevaart` 321 · `zeldzaam` 144 · `zelfacceptatie` 176, 335,
-561 · `zelfbedrog` 66 · `zelfbeeld` 25, 27, 105, 107, 108, 129, 138, 197, 367,
-372, 411, 439, 538, 540, 559, 575 · `zelfbeheersing` 75, 148, 212, 248, 286,
-314, 382, 389, 396 · `zelfbescherming` 214 · `zelfcompassie` 32, 551 ·
-`zelfdiscipline` 2, 158, 229, 244, 311, 544 · `zelfevaluatie` 270 ·
-`zelfexperiment` 316, 318, 417 · `zelfhaat` 575 · `zelfhulp` 15, 22, 25, 34,
-58, 72, 76, 79, 83, 117, 134, 135, 136, 146, 147, 148, 149, 150, 151, 152,
-153, 156, 157, 158, 161, 162, 166, 168, 174, 175, 176, 177, 179, 181, 184,
-187, 188, 190, 193, 194, 195, 196, 199, 204, 207, 208, 209, 210, 211, 213,
-222, 224, 230, 255, 259, 291, 310, 334, 338, 356, 373, 380, 389, 395, 398,
-401, 403, 406, 411, 427, 429, 432, 435, 439, 449, 459, 465, 513, 540, 543,
-546, 548, 556, 557, 561, 569, 570 · `zelfkennis` 258, 260, 361, 519, 526 ·
-`zelfliefde` 190, 195, 204, 380, 403, 549 · `zelfonderzoek` 315, 470, 520,
-527, 579 · `zelfontplooiing` 393 · `zelfontwikkeling` 179 · `zelfpraat` 161 ·
-`zelfpromotie` 388 · `zelfpublicatie` 174 · `zelfregulatie` 153, 165, 177,
-541, 542 · `zelfsabotage` 161, 344 · `zelfspot` 19 · `zelfspraak` 439 ·
-`zelfstandig` 40, 515 · `zelfstandig denken` 211 · `zelfstandig ondernemen`
-198 · `zelfstandig starten` 210 · `zelfsturing` 142, 168 · `zelfuitgegeven`
-123, 124, 125, 126 · `zelfverbetering` 243 · `zelfvertrouwen` 157, 187, 312,
-365, 440, 441 · `zelfwaarde` 168 · `zelfwaardering` 121 · `zelfzorg` 109, 225,
-466 · `zen` 141, 346, 441, 517, 528, 576 · `zenboeddhisme` 205, 379 ·
-`zenuwstelsel` 87 · `zestiende eeuw` 573 · `zeven-stappen` 129 · `ziekte` 74,
-180, 295 · `zingeving` 9, 48, 77, 91, 160, 183, 200, 201, 237, 245, 255, 515,
-547 · `zintuigen` 582 · `zitten` 84 · `zorg` 96 · `Zuid-Afrika` 26, 266, 523 ·
+413, 419, 659, 660, 661, 662 · `wetenschapsjournalistiek` 387, 412 · `wijn`
+112 · `wijsheid` 596 · `wilskracht` 238 · `Wired` 473 · `wiskunde` 116, 454,
+456, 490, 505, 509, 659, 660, 661, 662 · `wisselstroom` 267 · `woede` 119, 120
+· `woestijn` 8 · `Wolfgang Pauli` 362 · `wraak` 101, 533 · `WRAP` 510 · `wrok`
+530 · `wu wei` 394 · `Yale` 215 · `yin-yang` 394 · `yoga` 195, 242, 518 ·
+`young adult` 192 · `youtube` 245 · `zakelijk` 307 · `zakelijke communicatie`
+182 · `zakendoen` 348, 367, 465, 508 · `zeereis` 36 · `zeevaart` 321 ·
+`zeldzaam` 144 · `zelfacceptatie` 176, 335, 561 · `zelfbedrog` 66 ·
+`zelfbeeld` 25, 27, 105, 107, 108, 129, 138, 197, 367, 372, 411, 439, 538,
+540, 559, 575 · `zelfbeheersing` 75, 148, 212, 248, 286, 314, 382, 389, 396 ·
+`zelfbescherming` 214 · `zelfcompassie` 32, 551 · `zelfdiscipline` 2, 158,
+229, 244, 311, 544 · `zelfevaluatie` 270 · `zelfexperiment` 316, 318, 417 ·
+`zelfhaat` 575 · `zelfhulp` 15, 22, 25, 34, 58, 72, 76, 79, 83, 117, 134, 135,
+136, 146, 147, 148, 149, 150, 151, 152, 153, 156, 157, 158, 161, 162, 166,
+168, 174, 175, 176, 177, 179, 181, 184, 187, 188, 190, 193, 194, 195, 196,
+199, 204, 207, 208, 209, 210, 211, 213, 222, 224, 230, 255, 259, 291, 310,
+334, 338, 356, 373, 380, 389, 395, 398, 401, 403, 406, 411, 427, 429, 432,
+435, 439, 449, 459, 465, 513, 540, 543, 546, 548, 556, 557, 561, 569, 570 ·
+`zelfkennis` 258, 260, 361, 519, 526 · `zelfliefde` 190, 195, 204, 380, 403,
+549 · `zelfonderzoek` 315, 470, 520, 527, 579 · `zelfontplooiing` 393 ·
+`zelfontwikkeling` 179 · `zelfpraat` 161 · `zelfpromotie` 388 ·
+`zelfpublicatie` 174 · `zelfregulatie` 153, 165, 177, 541, 542 ·
+`zelfsabotage` 161, 344 · `zelfspot` 19 · `zelfspraak` 439 · `zelfstandig` 40,
+515 · `zelfstandig denken` 211 · `zelfstandig ondernemen` 198 · `zelfstandig
+starten` 210 · `zelfsturing` 142, 168 · `zelfuitgegeven` 123, 124, 125, 126 ·
+`zelfverbetering` 243 · `zelfvertrouwen` 157, 187, 312, 365, 440, 441 ·
+`zelfwaarde` 168 · `zelfwaardering` 121 · `zelfzorg` 109, 225, 466 · `zen`
+141, 346, 441, 517, 528, 576 · `zenboeddhisme` 205, 379 · `zenuwstelsel` 87 ·
+`zestiende eeuw` 573 · `zeven-stappen` 129 · `ziekte` 74, 180, 295 ·
+`zingeving` 9, 48, 77, 91, 160, 183, 200, 201, 237, 245, 255, 515, 547 ·
+`zintuigen` 582 · `zitten` 84 · `zorg` 96 · `Zuid-Afrika` 26, 266, 523 ·
 `zuinigheid` 39 · `zuivere ervaring` 576 · `zwaar` 143 · `zwaardvechten` 346,
 517 · `zwart bewustzijn` 523 · `zwarte gaten` 99, 262
 

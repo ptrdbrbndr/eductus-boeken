@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Journey through Genius &middot; Boekenlijst &middot; Eductus</title>
+<meta name="description" content="Dunham stelt dat grote wiskundige stellingen dezelfde behandeling verdienen als grote schilderijen en symfonieën: ze zijn scheppingen van personen in een…">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Gedeelde stijl van de boekenlijst en de boekpagina's.
+   Wordt door scripts/build.mjs op de plek van {{STIJL}} ingevoegd. */
+:root{
+  --parchment:#f4efe2; --parchment-deep:#ebe3d1; --card:#fbf8f0;
+  --ink:#2b2620; --muted:#6b6156;
+  --teal:#1f6f6b; --teal-deep:#14504d; --ochre:#a8761c; --ochre-soft:#e8d9b8;
+  --line:#d9cfb8; --radius:10px;
+  /* leesvoortgang: samenvatting gelezen = blauw, boek gelezen = groen */
+  --sam:#1668dc; --sam-diep:#0f4899; --sam-zacht:#dde9fb;
+  --klaar:#17913f; --klaar-diep:#0f6b2c; --klaar-zacht:#dcf1e2;
+  --display:'Fraunces',Georgia,serif; --body:'Spectral',Georgia,serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--parchment); color:var(--ink);
+  font-family:var(--body); font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--teal-deep)}
+
+/* sitebrede navigatie: gelijk in leren, boeken en kennis */
+nav.sitenav{background:var(--parchment-deep); border-bottom:1px solid var(--line); padding:12px 24px}
+nav.sitenav .navrow{display:flex; align-items:center; flex-wrap:wrap; gap:10px 22px}
+nav.sitenav .navbrand{
+  font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:.3px;
+  text-decoration:none; color:var(--ink); margin-right:6px;
+}
+nav.sitenav .navbrand span{color:var(--ochre)}
+nav.sitenav a.navlink{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:.08em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); padding:5px 11px; border-radius:999px;
+  border:1px solid transparent;
+}
+nav.sitenav a.navlink:hover{color:var(--teal-deep); border-color:var(--line); background:var(--card)}
+nav.sitenav a.navlink[aria-current="page"]{color:#fdfaf2; background:var(--teal); border-color:var(--teal)}
+nav.sitenav .terug{margin-left:auto; font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none}
+nav.sitenav .terug:hover{color:var(--teal-deep)}
+
+header.top{
+  background:linear-gradient(180deg,var(--parchment-deep),var(--parchment));
+  border-bottom:1px solid var(--line); padding:56px 24px 34px;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ochre); margin:0 0 10px;
+}
+h1{
+  font-family:var(--display); font-weight:600; font-size:clamp(34px,5.2vw,52px);
+  line-height:1.06; margin:0 0 14px; letter-spacing:-.01em;
+}
+.lede{max-width:64ch; margin:0; color:var(--muted); font-size:18px}
+.stats{
+  display:flex; flex-wrap:wrap; gap:8px 26px; margin:24px 0 0;
+  font-family:var(--mono); font-size:12.5px; color:var(--muted);
+}
+.stats b{color:var(--teal-deep); font-weight:500}
+
+/* leesvoortgang: knoppenpaar per titel */
+.voortgang{display:flex; flex-wrap:wrap; gap:8px; margin:13px 0 0}
+button.vg{
+  font-family:var(--mono); font-size:11.5px; line-height:1.4; cursor:pointer;
+  padding:4px 11px; border-radius:999px; border:1px solid var(--line);
+  background:var(--card); color:var(--muted); transition:.15s;
+}
+button.vg::before{content:"\25CB\00a0"}
+button.vg[aria-pressed="true"]::before{content:"\25CF\00a0"}
+button.vg:hover{border-color:var(--muted); color:var(--ink)}
+button.vg[data-veld="samenvatting"][aria-pressed="true"]{
+  background:var(--sam-zacht); border-color:var(--sam); color:var(--sam-diep);
+}
+button.vg[data-veld="boek"][aria-pressed="true"]{
+  background:var(--klaar-zacht); border-color:var(--klaar); color:var(--klaar-diep);
+}
+button.vg:focus-visible{outline:2px solid var(--ochre); outline-offset:1px}
+
+/* nummers in de leesroutes */
+b.stap{
+  font-weight:400; color:var(--ochre); padding:0 4px; border-radius:4px;
+  border:1px solid transparent;
+}
+b.stap.sam{
+  color:var(--sam); background:var(--sam-zacht); border-color:var(--sam); font-weight:500;
+}
+b.stap.klaar{
+  color:var(--klaar-diep); background:var(--klaar-zacht); border-color:var(--klaar); font-weight:500;
+}
+
+footer{
+  max-width:1080px; margin:56px auto 0; padding:22px 26px 0;
+  border-top:1px solid var(--line); font-size:14px; color:var(--muted);
+}
+footer p{margin:0 0 9px}
+footer code{font-family:var(--mono); font-size:12.5px}
+
+@media (max-width:560px){
+  header.top{padding:38px 18px 26px}
+  body{font-size:16px}
+}
+
+  main{padding:34px 24px 80px}
+  .kolom{max-width:none}
+  article.lang{
+    max-width:1080px; margin:0 auto; display:grid; gap:34px;
+    grid-template-columns:minmax(0,1fr) 300px; align-items:start;
+  }
+  .hoofd{min-width:0}
+  .hoofd h2{
+    font-family:var(--display); font-size:15px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ochre);
+    margin:38px 0 12px; padding-bottom:7px; border-bottom:1px solid var(--line);
+  }
+  .hoofd h2:first-child{margin-top:0}
+  .hoofd h3{font-family:var(--display); font-size:19px; font-weight:600; margin:26px 0 7px}
+  .hoofd p{margin:0 0 14px; max-width:70ch}
+  .hoofd li{margin:0 0 9px; max-width:70ch}
+  .stelling{
+    background:var(--card); border:1px solid var(--line); border-left:3px solid var(--teal);
+    border-radius:var(--radius); padding:20px 24px; font-size:18.5px;
+  }
+  .stelling p{margin:0; max-width:64ch}
+  table.begrippen{border-collapse:collapse; width:100%; font-size:16px}
+  table.begrippen th, table.begrippen td{
+    text-align:left; vertical-align:top; padding:9px 12px 9px 0;
+    border-bottom:1px solid var(--line);
+  }
+  table.begrippen th{
+    font-family:var(--mono); font-size:12px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--muted); font-weight:500;
+  }
+  table.begrippen td.term{font-weight:600; white-space:normal; padding-right:22px; width:32%}
+  aside.zij{
+    position:sticky; top:22px; background:var(--card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:20px 22px; font-size:15px;
+  }
+  aside.zij h2{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); font-weight:500; margin:0 0 10px;
+  }
+  aside.zij h2 + *{margin-top:0}
+  aside.zij .blok{margin:0 0 22px}
+  aside.zij .blok:last-child{margin-bottom:0}
+  aside.zij p{margin:0 0 8px}
+  aside.zij ol{margin:0; padding-left:20px}
+  aside.zij ol a{text-decoration:none; border-bottom:1px dotted var(--teal)}
+  aside.zij li{margin:0 0 7px}
+  .zij-uitgave{color:var(--muted); font-size:14px}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+  .tags li{
+    font-family:var(--mono); font-size:11px; padding:3px 8px;
+    background:var(--parchment-deep); border-radius:4px; color:var(--muted);
+  }
+  .kort{font-style:italic; color:var(--muted)}
+  .kort p{margin:0 0 10px}
+  @media (max-width:900px){
+    article.lang{grid-template-columns:minmax(0,1fr)}
+    /* op een smal scherm eerst lezen, dan de bijzaken: geen sticky kolom */
+    aside.zij{position:static}
+  }
+  @media (max-width:560px){
+    main{padding:24px 18px 60px}
+    table.begrippen td.term{width:auto}
+  }
+</style>
+</head>
+<body>
+
+<nav class="sitenav">
+  <div class="wrap navrow">
+    <a class="navbrand" href="https://leren.eductus.nl">Eductus<span>.</span></a>
+    <a class="navlink" href="https://leren.eductus.nl">Leerreeks</a>
+    <a class="navlink" href="https://boeken.eductus.nl" aria-current="page">Boeken</a>
+    <a class="navlink" href="https://kennis.eductus.nl">Kennis</a>
+    <a class="terug" href="../index.html#boek-660">&larr; terug naar de boekenlijst</a>
+  </div>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">660 &middot; Natuur en wetenschap</p>
+    <h1>Journey through Genius</h1>
+    <p class="lede">William Dunham, 1990</p>
+    <p class="stats">
+      <span><b>1259</b> woorden</span>
+      <span>uitgebreide samenvatting</span>
+      <span>bijgewerkt <b>21 augustus 2026</b></span>
+    </p>
+    <div id="vg-hier" data-nr="660"></div>
+  </div>
+</header>
+
+<main>
+  <article class="lang">
+    <div class="hoofd">
+      <h2>De stelling</h2>
+      <div class="stelling">
+        <p>Dunham stelt dat grote wiskundige stellingen dezelfde behandeling verdienen als grote schilderijen en symfonieën: ze zijn scheppingen van personen in een tijd en een cultuur, en hun schoonheid is alleen te ervaren door het werk zelf te bekijken, dat wil zeggen door het bewijs stap voor stap te volgen. Een geschiedenis van de wiskunde die de bewijzen overslaat, blijft volgens hem steken in anekdotes; wie de redenering van Euclides of Euler zelf doorloopt, ziet waarom deze resultaten al eeuwen overeind staan en waarom vakgenoten er esthetische oordelen over vellen.</p>
+      </div>
+
+      <h2>De gang van het boek</h2>
+      <h3>Twaalf meesterwerken als museumzalen</h3>
+      <p>Het boek is opgezet als een galerij met twaalf zalen, elk gewijd aan één groot theorema. Dunham kiest resultaten die het vak een nieuwe richting gaven én waarvan het bewijs binnen één hoofdstuk met schoolwiskunde te volgen is. Elk hoofdstuk heeft dezelfde driedeling: een historische inleiding over persoon en tijdperk, het bewijs zelf onder de kop Great Theorem, en een epiloog die vertelt wat er daarna met het resultaat gebeurde. Die vaste vorm maakt het boek ook geschikt om per hoofdstuk te lezen.</p>
+      <h3>De Grieken: Hippocrates en Euclides</h3>
+      <p>De reis begint rond 440 v.Chr. bij Hippocrates van Chios, die als eerste de oppervlakte van een kromlijnige figuur exact bepaalde: zijn kwadratuur van maantjes, sikkelvormige figuren tussen cirkelbogen, voedde eeuwenlang de hoop dat ook de cirkel zelf te kwadrateren was. Pas in 1882 werd bewezen dat dat onmogelijk is.</p>
+      <p>Twee hoofdstukken behandelen Euclides, wiens <i>Elementen</i> rond 300 v.Chr. de axiomatische methode vestigde: uit een handvol aannamen wordt de hele meetkunde stap voor stap opgebouwd. Dunham volgt de opbouw van boek I tot aan het sluitstuk, het bewijs van de stelling van Pythagoras, en behandelt daarna Euclides' getaltheorie met het bewijs dat er oneindig veel priemgetallen bestaan, nog altijd een schoolvoorbeeld van elegantie.</p>
+      <h3>Archimedes en Heron</h3>
+      <p>Archimedes bepaalde rond 225 v.Chr. de oppervlakte van de cirkel door haar in te klemmen tussen veelhoeken en aan te tonen dat elke andere uitkomst dan die van een bepaalde rechthoekige driehoek tot een tegenspraak leidt; onderweg benaderde hij pi tussen 3 10/71 en 3 1/7. Dunham presenteert hem als de grootste wiskundige van de oudheid en vertelt ook over diens dood bij de val van Syracuse.</p>
+      <p>Het hoofdstuk over Heron van Alexandrië, rond 75 n.Chr., draait om diens formule voor de oppervlakte van een driehoek uit alleen de drie zijden, met het oorspronkelijke, verrassend kronkelige bewijs uit de <i>Metrica</i>.</p>
+      <h3>Cardano en het duel om de derdegraadsvergelijking</h3>
+      <p>Het hoofdstuk over de Italiaanse Renaissance is het meest verhalende. Girolamo Cardano, arts, gokker en veelschrijver, publiceerde in 1545 in zijn <i>Ars Magna</i> de oplossing van de derdegraadsvergelijking, tot woede van Niccolò Tartaglia, die hem de methode onder belofte van geheimhouding had toevertrouwd. Dunham geeft het bewijs van de oplossingsformule en beschrijft de openbare rekenwedstrijden waarmee wiskundigen destijds hun brood en reputatie verdienden. De epiloog wijst vooruit naar Abel en Galois, die eeuwen later aantoonden dat het feest bij de vijfde graad ophoudt.</p>
+      <h3>Newton, de Bernoulli's en Euler</h3>
+      <p>Bij Isaac Newton kiest Dunham geen stelling uit de mechanica maar de veralgemeende binomiaalformule uit de late jaren 1660, waarmee Newton machtreeksen kon opstellen en onder meer pi tot vele decimalen benaderde. Het hoofdstuk over de gebroeders Bernoulli behandelt het bewijs uit 1689 dat de harmonische reeks, de som 1 + 1/2 + 1/3 + enzovoort, boven elke grens uitgroeit, hoe traag ook.</p>
+      <p>Leonhard Euler krijgt twee hoofdstukken. Het eerste draait om het Bazel-probleem: Euler bepaalde in 1734 de exacte som van de omgekeerde kwadraten, pi kwadraat gedeeld door zes, een uitkomst die niemand had zien aankomen. Het tweede is een staalkaart van zijn getaltheorie, waaronder de ontmaskering van Fermats vermoeden dat alle getallen van een bepaalde vorm priem zijn: Euler vond de deler 641 in het vijfde geval.</p>
+      <h3>Cantor en het oneindige</h3>
+      <p>De laatste twee hoofdstukken behandelen Georg Cantor, die vanaf 1874 het actueel oneindige tot wiskundig object maakte. Dunham bewijst dat de reële getallen niet aftelbaar zijn, dus wezenlijk talrijker dan de natuurlijke getallen, en laat in het slothoofdstuk met het diagonaalargument uit 1891 zien dat er een hele hiërarchie van steeds grotere oneindigheden bestaat.</p>
+      <p>De epiloog beschrijft de weerstand die Cantor ondervond, onder meer van zijn oud-leraar Kronecker, zijn depressies, en de latere erkenning. Daarmee eindigt het boek waar de moderne wiskunde begint: bij vragen over haar eigen fundamenten.</p>
+
+      <h2>Kernbegrippen</h2>
+      <table class="begrippen">
+        <thead><tr><th>Begrip</th><th>Wat de auteur ermee bedoelt</th></tr></thead>
+        <tbody>
+          <tr><td class="term">groot theorema</td><td>Dunhams aanduiding voor een stelling die het vak van richting deed veranderen en waarvan het bewijs esthetische kwaliteit heeft.</td></tr>
+          <tr><td class="term">kwadratuur</td><td>Het exact bepalen van een oppervlakte door er een vierkant of andere rechtlijnige figuur van gelijke grootte bij te construeren.</td></tr>
+          <tr><td class="term">axiomatische methode</td><td>De werkwijze van Euclides: uit expliciet genoemde aannamen wordt al het overige met logische stappen afgeleid.</td></tr>
+          <tr><td class="term">bewijs uit het ongerijmde</td><td>Bewijsvorm die het tegendeel aanneemt en tot een tegenspraak voert, zoals bij de oneindigheid van de priemgetallen.</td></tr>
+          <tr><td class="term">harmonische reeks</td><td>De som van de omgekeerde natuurlijke getallen, die ondanks steeds kleinere termen boven elke grens uitkomt.</td></tr>
+          <tr><td class="term">Bazel-probleem</td><td>De vraag naar de exacte som van de omgekeerde kwadraten, in 1734 door Euler beantwoord met pi kwadraat gedeeld door zes.</td></tr>
+          <tr><td class="term">aftelbaarheid</td><td>Eigenschap van een verzameling waarvan de elementen één voor één genummerd kunnen worden; de reële getallen missen haar.</td></tr>
+          <tr><td class="term">diagonaalargument</td><td>Cantors methode uit 1891 die uit elke vermeende volledige lijst een element construeert dat er niet op staat.</td></tr>
+          <tr><td class="term">epiloog</td><td>Het vaste slotdeel van elk hoofdstuk, dat de doorwerking van de stelling tot in de moderne tijd volgt.</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Waar het argument op rust</h2>
+      <p>De kracht van het boek zit in de controleerbaarheid: de twaalf bewijzen staan er volledig in, in moderne notatie maar trouw aan de oorspronkelijke gedachtegang, en de lezer kan elke stap zelf narekenen. De historische omlijsting steunt op de gangbare vakliteratuur en Dunham geeft aan waar een overlevering onzeker is, zoals bij de anekdotes rond Archimedes' dood en de eed van Tartaglia.</p>
+      <p>Het boek kwam voort uit Dunhams eigen onderwijs over grote stellingen en werd na verschijnen breed geprezen in vakbladen als geslaagde combinatie van geschiedenis en echte wiskunde. Het wordt sindsdien veel gebruikt als nevenlectuur bij colleges wiskundegeschiedenis, wat voor een populair boek een ongebruikelijke toets is.</p>
+
+      <h2>Wat er tegen in te brengen valt</h2>
+      <p>De selectie is beperkt tot wat binnen één hoofdstuk met schoolwiskunde te bewijzen valt. Daardoor ontbreken figuren als Gauss, Galois en Riemann vrijwel geheel, en blijft de negentiende eeuw op Cantor na buiten beeld; Dunham erkent dit in zijn voorwoord, maar de titel belooft meer dan de twaalf zalen bieden. De galerij bevat bovendien uitsluitend westerse mannen, en de niet-westerse wiskunde komt alleen zijdelings ter sprake.</p>
+      <p>Voor lezers zonder wiskundige achtergrond zijn vooral de hoofdstukken over Newton en Euler stevig; wie de formules overslaat houdt een dunner boek over, want de historische delen zijn bondig. Vakhistorici merken op dat de epilogen de geschiedenis soms glad strijken tot een opeenvolging van hoogtepunten, een vertelvorm die weinig ruimte laat voor doodlopende wegen en tijdgebonden context.</p>
+
+      <h2>Wat er concreet mee te doen is</h2>
+      <ul>
+        <li>Lees elk hoofdstuk met pen en papier en reken de bewijsstappen na; het boek is daarvoor gemaakt en levert dan het meest op.</li>
+        <li>Gebruik de driedeling context, kernresultaat, doorwerking als model om zelf een technisch onderwerp aan anderen uit te leggen.</li>
+        <li>Begin bij de hoofdstukken over Euclides en de priemgetallen als toets: wie die met plezier doorwerkt, kan de rest aan.</li>
+      </ul>
+    </div>
+    <aside class="zij">
+      <div class="blok">
+        <h2>Uitgave</h2>
+        <p class="zij-uitgave"><i>Journey through Genius: The Great Theorems of Mathematics</i> (John Wiley &amp; Sons, 1990, 300 blz., ISBN 9780471500308; paperback bij Penguin, 1991, ISBN 9780140147391). Geen Nederlandse vertaling gevonden in de catalogus van bibliotheek.nl; de samenvatting is op de Engelse editie gebaseerd.</p>
+      </div>
+      <div class="blok">
+        <h2>Kort gezegd</h2>
+        <div class="kort"><p>De Amerikaanse wiskundige William Dunham behandelt twaalf grote stellingen uit de wiskundegeschiedenis zoals een kunsthistoricus meesterwerken behandelt: met de maker, de tijd en het werk zelf. Elk hoofdstuk schetst eerst de historische context, geeft dan het volledige bewijs van de stelling in moderne notatie, en sluit af met een epiloog over de doorwerking. De reis loopt van Hippocrates van Chios rond 440 v.Chr. via Euclides, Archimedes, Heron, Cardano, Newton, de Bernoulli's en Euler naar Cantor aan het eind van de negentiende eeuw.</p><p>Het boek onderscheidt zich van de meeste populaire wiskundeboeken doordat de bewijzen er echt in staan; middelbareschoolwiskunde volstaat, maar meelezen met pen en papier is nodig. Sinds verschijnen geldt het als een van de geslaagdste pogingen om wiskunde als scheppend werk te tonen.</p></div>
+      </div>
+      <div class="blok">
+        <h2>Tags</h2>
+        <ul class="tags"><li>wiskunde</li><li>wetenschapsgeschiedenis</li><li>bewijs</li></ul>
+      </div>
+      <div class="blok">
+        <h2>Wat je hierna leest</h2>
+        <ol>
+          <li value="509"><a href="509.html">The 5 Elements of Effective Thinking</a>. The 5 Elements of Effective Thinking vertaalt de wiskundige denkhouding die Dunham toont naar algemene lessen in helder denken.</li>
+          <li value="269"><a href="269.html">The Story of Philosophy</a>. The Story of Philosophy doet met filosofen wat Dunham met stellingen doet: een canon toegankelijk maken via de makers.</li>
+          <li value="321"><a href="321.html">Longitude: The True Story of a Lone Genius Who Solved the Greatest Scientific Problem of His Time</a>. Longitude laat zien hoe één exact probleem, de lengtegraad op zee, een heel tijdperk aan vernuft losmaakte.</li>
+          <li value="262"><a href="262.html">A Brief History of Time</a>. A Brief History of Time biedt eenzelfde soort rondgang langs grote resultaten, maar dan in de natuurkunde en zonder bewijzen.</li>
+        </ol>
+      </div>
+    </aside>
+  </article>
+
+  <footer>
+    <p>Deze pagina wordt gegenereerd uit <code>data/boeken-*.json</code> met
+    <code>node scripts/build.mjs</code>. Bewerk de JSON, niet deze HTML.</p>
+    <p>De samenvatting is geen vervanging van het boek en geen citaat eruit; zij
+    is bedoeld om te kunnen kiezen of het boek zelf de moeite waard is.</p>
+    <p><a href="../index.html">Boekenlijst</a> &middot;
+       <a href="https://leren.eductus.nl">Hoofdpagina</a> &middot;
+       <a href="https://kennis.eductus.nl">Kennisbank</a></p>
+  </footer>
+</main>
+
+<script>
+/* Leesvoortgang: per titel of de samenvatting en of het boek zelf is gelezen.
+   Opslag in localStorage van deze browser; er is geen server die dit bewaart.
+   Wordt door scripts/build.mjs op de plek van {{VOORTGANG}} ingevoegd in
+   src/template.html en src/boek.html. */
+var VG_SLEUTEL = "eductus-boeken-voortgang-v1";
+var VOORTGANG = vgLees();
+
+function vgLees(){
+  try { return JSON.parse(localStorage.getItem(VG_SLEUTEL)) || {}; }
+  catch (e) { return {}; }
+}
+function vgBewaar(){
+  try { localStorage.setItem(VG_SLEUTEL, JSON.stringify(VOORTGANG)); }
+  catch (e) { /* privémodus of volle opslag: de knoppen blijven wel werken */ }
+}
+function vgVan(nr){ return VOORTGANG[String(nr)] || {}; }
+
+/** "geen" | "samenvatting" | "boek"; boek gelezen wint van samenvatting. */
+function vgStand(nr){
+  var s = vgVan(nr);
+  return s.boek ? "boek" : (s.samenvatting ? "samenvatting" : "geen");
+}
+
+function vgZet(nr, veld, aan){
+  var k = String(nr);
+  var s = VOORTGANG[k] || (VOORTGANG[k] = {});
+  if (aan) s[veld] = true; else delete s[veld];
+  if (!Object.keys(s).length) delete VOORTGANG[k];
+  vgBewaar();
+  vgMeld();
+}
+function vgMeld(){ document.dispatchEvent(new CustomEvent("voortgang")); }
+
+/* Een tweede tabblad van dezelfde site houdt de stand gelijk. */
+window.addEventListener("storage", function(e){
+  if (e.key === VG_SLEUTEL){ VOORTGANG = vgLees(); vgMeld(); }
+});
+
+/** Het knoppenpaar voor één titel. Houdt zichzelf bij op het voortgang-signaal. */
+function vgKnoppen(nr, signal){
+  var wrap = document.createElement("div");
+  wrap.className = "voortgang";
+  wrap.dataset.nr = nr;
+  wrap.innerHTML =
+    '<button type="button" class="vg" data-veld="samenvatting" aria-pressed="false">samenvatting gelezen</button>' +
+    '<button type="button" class="vg" data-veld="boek" aria-pressed="false">boek gelezen</button>';
+  var knoppen = wrap.querySelectorAll("button.vg");
+  function sync(){
+    var s = vgVan(nr);
+    knoppen.forEach(function(k){
+      k.setAttribute("aria-pressed", String(!!s[k.dataset.veld]));
+    });
+  }
+  wrap.addEventListener("click", function(e){
+    var k = e.target.closest("button.vg");
+    if (!k) return;
+    vgZet(nr, k.dataset.veld, k.getAttribute("aria-pressed") !== "true");
+  });
+  document.addEventListener("voortgang", sync, signal ? { signal: signal } : false);
+  sync();
+  return wrap;
+}
+
+/** Kleurt de nummers in de leesroutes: blauw bij samenvatting, groen bij boek. */
+function vgKleurRoutes(){
+  document.querySelectorAll(".route .nrs b.stap").forEach(function(el){
+    var stand = vgStand(el.dataset.nr);
+    el.classList.toggle("sam", stand === "samenvatting");
+    el.classList.toggle("klaar", stand === "boek");
+    el.title = stand === "boek" ? "boek gelezen"
+      : stand === "samenvatting" ? "samenvatting gelezen" : "nog niet gelezen";
+  });
+}
+
+var vgHier = document.getElementById("vg-hier");
+vgHier.appendChild(vgKnoppen(Number(vgHier.dataset.nr)));
+</script>
+
+</body>
+</html>
